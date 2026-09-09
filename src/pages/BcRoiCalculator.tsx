@@ -141,7 +141,7 @@ export default function BcRoiCalculator() {
     const licenseMonthly = fullCost + teamCost + deviceCost;
     const licenseYearly = licenseMonthly * 12;
 
-    const complexityImpl: Record<Complexity, number> = { Låg: 250_000, Medel: 500_000, Hög: 1_000_000 };
+    const complexityImpl: Record<Complexity, number> = { Låg: 100_000, Medel: 250_000, Hög: 800_000 };
     // Branschfaktor på basimplementation: tillverkning/distribution drar tyngre projekt,
     // tjänster lättare, handel/annan i mitten.
     const industryImplFactor: Record<Industry, number> = {
@@ -607,7 +607,7 @@ export default function BcRoiCalculator() {
 
                     assumptions: [
                       { title: "Licens", body: `Priser hämtas från d365.se centrala prisregister (Microsofts listpriser, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Device-licens använder fallback ${fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas i prisregistret.` },
-                      { title: "Implementation", body: "Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25) och med en branschfaktor som speglar typisk projekttyngd: Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×. Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område), + 200 000 kr om Premium krävs." },
+                      { title: "Implementation", body: "Bas: Låg 100 000 kr, Medel 250 000 kr, Hög 800 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25) och med en branschfaktor som speglar typisk projekttyngd: Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×. Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område), + 200 000 kr om Premium krävs." },
                       { title: "Förvaltning", body: "År 1 antas löpande förvaltning vara cirka 8 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 och framåt antas normal förvaltningsnivå om cirka 18 % per år." },
                       { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare har en grundnivå (fast belopp eller andel av omsättning, taklagd) som skalas med antal användare – baseline 25 användare = 1,0×, sublinjärt så att 10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks." },
                       { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning). 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
@@ -710,7 +710,7 @@ export default function BcRoiCalculator() {
                   Device-licens använder fallback {fmtSek(DEVICE_FALLBACK)}/mån om SKU saknas.
                 </Assumption>
                 <Assumption title="Implementation">
-                  Bas: Låg 250 000 kr, Medel 500 000 kr, Hög 1 000 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25)
+                  Bas: Låg 100 000 kr, Medel 250 000 kr, Hög 800 000 kr. Skalas mjukt med antal användare (+1,2 % per användare över 25)
                   och med en <strong>branschfaktor</strong> som speglar typisk projekttyngd:
                   Tillverkning 1,4× · Distribution 1,2× · Handel 1,0× · Annan 1,0× · Tjänster 0,8×.
                   Därtill + 30 000 kr per integration, + en engångskostnad per vald effektiviseringsdrivare (50–200 000 kr beroende på område),
