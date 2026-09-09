@@ -201,7 +201,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 10–30 säljare",
         scope: "Standard sales­process, 1–2 integrationer, mall-baserad migrering från befintligt CRM.",
-        oneTime: "125 000 – 300 000 kr",
+        oneTime: "100 000 – 300 000 kr",
         weeks: "6–12 veckor",
       },
       {
@@ -502,7 +502,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 1–2 marknader, enkla utskick",
         scope: "Standard e-postutskick, enkla segment, integration mot CRM, enkel landnings­sida.",
-        oneTime: "125 000 – 300 000 kr",
+        oneTime: "100 000 – 300 000 kr",
         weeks: "6–12 veckor",
       },
       {
