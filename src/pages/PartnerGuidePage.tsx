@@ -175,6 +175,8 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <GuideSeriesNavigation current={guide.key} className="mb-6" />
 
+          <GuideSearch className="mb-6 max-w-xl" />
+
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
             {content.h1}
           </h1>
