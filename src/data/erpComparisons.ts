@@ -245,7 +245,7 @@ const FSCM_ROWS = (c: FscmRowInput): ComparisonRow[] => [
   {
     area: "Typisk implementationskostnad",
     product:
-      "5–50 MSEK beroende på antal länder, bolag, integrationer och branschanpassningar.",
+      "5–25 MSEK beroende på antal länder, bolag, integrationer och branschanpassningar.",
     competitor: c.implKostnad,
   },
   {
