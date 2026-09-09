@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 
 const Navbar = () => {
   const erpItems = [
@@ -188,13 +189,21 @@ const Navbar = () => {
                   <p className="text-xs text-foreground font-bold uppercase tracking-wide">Guider</p>
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
-                    Upphandlingsresan
+                  <Link to="/guider/" className="cursor-pointer font-medium text-primary">
+                    Översikt – alla guider
                   </Link>
                 </DropdownMenuItem>
+                {PARTNER_GUIDES.map((guide) => (
+                  <DropdownMenuItem key={guide.slug} asChild>
+                    <Link to={guidePath(guide)} className="cursor-pointer">
+                      {guide.shortLabel}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/valjdynamics365partner/?ai=1" className="cursor-pointer">
-                    Så väljer du rätt Dynamics&nbsp;365-partner
+                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
+                    Upphandlingsresan
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -329,11 +338,20 @@ const Navbar = () => {
                     Pris- och omfattningskalkylator
                   </Link>
                   <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
+                  <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    Översikt – alla guider
+                  </Link>
+                  {PARTNER_GUIDES.map((guide) => (
+                    <Link
+                      key={guide.slug}
+                      to={guidePath(guide)}
+                      className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                    >
+                      {guide.shortLabel}
+                    </Link>
+                  ))}
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Upphandlingsresan
-                  </Link>
-                  <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
