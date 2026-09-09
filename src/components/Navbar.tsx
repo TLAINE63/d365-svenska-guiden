@@ -15,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 
 const Navbar = () => {
   const erpItems = [
