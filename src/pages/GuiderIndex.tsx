@@ -32,6 +32,8 @@ const GuiderIndex = () => (
           djupare in på det som skiljer respektive upphandling åt.
         </p>
 
+        <GuideSearch className="mb-8 max-w-xl" />
+
         <div className="grid gap-4 sm:grid-cols-2">
           {PARTNER_GUIDES.map((g) => (
             <Link
