@@ -222,7 +222,16 @@ const ValjPartner = () => {
  }
  }
  }, [aiParam]);
- const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
+ // Guider och andra ingångar kan förvälja produktområde via ?apps=Business Central
+ const appsParam = searchParams.get("apps");
+ const [selectedApplications, setSelectedApplications] = useState<string[]>(() =>
+  appsParam ? appsParam.split(",").map((a) => a.trim()).filter(Boolean) : []
+ );
+
+ useEffect(() => {
+  if (!appsParam) return;
+  setSelectedApplications(appsParam.split(",").map((a) => a.trim()).filter(Boolean));
+ }, [appsParam]);
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
