@@ -215,6 +215,8 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             source={`${path}#cta-final`}
           />
 
+          <GuidePartnerSpotlight guide={guide} className="mb-10" />
+
           <NextGuideRecommendation current={guide.key} />
 
           <RelatedGuides current={guide.key} className="mt-10" />
