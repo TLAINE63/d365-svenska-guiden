@@ -69,7 +69,7 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
     seoTitle: "Välja partner för Finance & Supply Chain Management – guide",
     seoDescription:
       "Så väljer du partner för Dynamics 365 Finance & Supply Chain Management: lösningsarkitekt, leveransmodell mellan länder, migrering och förvaltning.",
-    apps: ["Finance & SCM"],
+    apps: ["Finance", "Supply Chain Management", "F&SCM"],
     midCtaLabel: "Visa F&SCM-partners",
   },
   {
