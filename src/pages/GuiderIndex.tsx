@@ -22,8 +22,8 @@ const GuiderIndex = () => (
       breadcrumbs={breadcrumbs}
     />
     <Navbar />
-    <main className="min-h-screen pt-24 pb-16">
-      <div className="container mx-auto max-w-3xl px-4 sm:px-6">
+    <main className="min-h-screen pt-28 lg:pt-32 pb-16">
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
         <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
           Guider: välja Dynamics 365-partner
