@@ -23,8 +23,10 @@ export interface PartnerGuide {
   cardDescription: string;
   seoTitle: string;
   seoDescription: string;
-  /** Applikationsnamn som ska förväljas i partnerlistan. */
+  /** Applikationsnamn som används för att matcha partners (som i partnerdata). */
   apps: string[];
+  /** Kanoniska filternamn i partnerlistan, om de skiljer sig från apps. */
+  filterApps?: string[];
   /** Etikett på CTA mitt i guiden. */
   midCtaLabel: string;
   faq?: { q: string; a: string }[];
@@ -69,7 +71,8 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
     seoTitle: "Välja partner för Finance & Supply Chain Management – guide",
     seoDescription:
       "Så väljer du partner för Dynamics 365 Finance & Supply Chain Management: lösningsarkitekt, leveransmodell mellan länder, migrering och förvaltning.",
-    apps: ["Finance", "Supply Chain Management", "F&SCM"],
+    apps: ["Finance", "Supply Chain Management", "F&SCM", "Finance & SCM"],
+    filterApps: ["Finance & SCM"],
     midCtaLabel: "Visa F&SCM-partners",
   },
   {
@@ -108,8 +111,9 @@ export const guidePath = (guide: PartnerGuide) =>
 
 /** Partnerlistan med rätt produktfilter förvalt. */
 export const guidePartnerListUrl = (guide: PartnerGuide) => {
-  if (guide.apps.length === 0) return "/valjdynamics365partner/#hitta-partners";
-  const qs = new URLSearchParams({ apps: guide.apps.join(",") });
+  const filterApps = guide.filterApps ?? guide.apps;
+  if (filterApps.length === 0) return "/valjdynamics365partner/#hitta-partners";
+  const qs = new URLSearchParams({ apps: filterApps.join(",") });
   return `/valjdynamics365partner/?${qs.toString()}#hitta-partners`;
 };
 
