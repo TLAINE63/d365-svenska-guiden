@@ -706,27 +706,36 @@ const Kunskapscenter = () => {
  })),
  ];
 
- // Apply filters
- const activeTrackDef = activeTrack ? TRACKS.find((t) => t.value === activeTrack) ?? null : null;
- const filteredItems = allItems.filter((item) => {
-  // Innehållsspår (kuraterad delmängd)
-  if (activeTrackDef && !activeTrackDef.match(item)) return false;
-  // Category pill filter (guide items grouped under behovsanalys)
-  if (activeCategory !== "alla") {
-   const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
-   if (itemCategory !== activeCategory) return false;
-  }
-  // Format multi-select (guide items grouped under behovsanalys)
-  if (selectedFormats.length > 0) {
-   const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
-   if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
-  }
-  // Product filter
-  if (selectedProducts.length > 0 && item.products.length > 0) {
-   if (!selectedProducts.some((p) => item.products.includes(p))) return false;
-  }
-  return true;
- });
+  // Apply filters
+  const activeTrackDef = activeTrack ? TRACKS.find((t) => t.value === activeTrack) ?? null : null;
+
+  const getSortDate = (date: string | null): number => {
+    if (!date) return Number.NEGATIVE_INFINITY;
+    const t = new Date(date).getTime();
+    return Number.isNaN(t) ? Number.NEGATIVE_INFINITY : t;
+  };
+
+  const filteredItems = allItems
+   .filter((item) => {
+    // Innehållsspår (kuraterad delmängd)
+    if (activeTrackDef && !activeTrackDef.match(item)) return false;
+    // Category pill filter (guide items grouped under behovsanalys)
+    if (activeCategory !== "alla") {
+     const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
+     if (itemCategory !== activeCategory) return false;
+    }
+    // Format multi-select (guide items grouped under behovsanalys)
+    if (selectedFormats.length > 0) {
+     const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
+     if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
+    }
+    // Product filter
+    if (selectedProducts.length > 0 && item.products.length > 0) {
+     if (!selectedProducts.some((p) => item.products.includes(p))) return false;
+    }
+    return true;
+   })
+   .sort((a, b) => getSortDate(b.date) - getSortDate(a.date));
 
  const trackCounts: Record<TrackValue, number> = TRACKS.reduce(
   (acc, t) => {
