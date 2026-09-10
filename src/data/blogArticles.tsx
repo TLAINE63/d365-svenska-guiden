@@ -4,6 +4,7 @@ import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import aiSokPartnersHero from "@/assets/articles/ai-sok-dynamics-365-partners-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 import partnervaletAvgorResultatetHero from "@/assets/articles/partnervalet-avgor-resultatet-hero.jpg";
+import valjaAffarssystemOchPartnerHero from "@/assets/articles/valja-affarssystem-och-partner-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
