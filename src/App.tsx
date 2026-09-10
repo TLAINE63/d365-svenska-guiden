@@ -92,6 +92,7 @@ const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
 const CeIsvCategoryPage = lazy(() => import("./pages/CeIsvCategoryPage"));
 const BcIsvCategoryPage = lazy(() => import("./pages/BcIsvCategoryPage"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
+const KunskapscenterFaq = lazy(() => import("./pages/KunskapscenterFaq"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const PartnerGuidePage = lazy(() => import("./pages/PartnerGuidePage"));
 const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
@@ -296,6 +297,7 @@ const AppShell = () => {
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
+          <Route path="/kunskapscenter/fragor-och-svar" element={<KunskapscenterFaq />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
