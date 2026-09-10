@@ -23,8 +23,10 @@ export interface PartnerGuide {
   cardDescription: string;
   seoTitle: string;
   seoDescription: string;
-  /** Applikationsnamn som ska förväljas i partnerlistan. */
+  /** Applikationsnamn som används för att matcha partners (som i partnerdata). */
   apps: string[];
+  /** Kanoniska filternamn i partnerlistan, om de skiljer sig från apps. */
+  filterApps?: string[];
   /** Etikett på CTA mitt i guiden. */
   midCtaLabel: string;
   faq?: { q: string; a: string }[];
