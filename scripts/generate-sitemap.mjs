@@ -76,6 +76,7 @@ const STATIC_ROUTES = [
   { path: "/kunskapscenter/upphandling/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/partners/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/upphandlingsresan/", changefreq: "monthly", priority: "0.7" },
+  { path: "/kunskapscenter/fragor-och-svar/", changefreq: "monthly", priority: "0.8" },
   { path: "/kunskapscenter/business-central-tillagg/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/dynamics-365-tillagg/", changefreq: "weekly", priority: "0.7" },
   { path: "/customer-engagement/tillagg/cpq/", changefreq: "monthly", priority: "0.6" },

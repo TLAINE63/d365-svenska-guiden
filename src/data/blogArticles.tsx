@@ -279,6 +279,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           organisationen redan använder Microsoft 365, Power Platform eller Azure. Valet bör alltid
           utgå från verksamhetens behov, branschkrav och partnerns förmåga att genomföra projektet.
         </p>
+
+        <div className="not-prose my-8 rounded-lg border border-border bg-muted/40 p-6">
+          <h2 className="text-lg font-bold mb-2">Fler frågor och svar</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+            Vi har samlat de vanligaste frågorna om affärssystem, ERP och CRM, partnerval,
+            kostnader, licenser, tidplan och förvaltning på en egen sida i Kunskapscentret.
+          </p>
+          <a
+            href="/kunskapscenter/fragor-och-svar/"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
+            Läs vanliga frågor om affärssystem och partnerval →
+          </a>
+        </div>
       </>
     ),
     bigFiveFaq: [

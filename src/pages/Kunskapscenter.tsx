@@ -255,6 +255,16 @@ const STATIC_TOOLS: Array<{
  products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
  },
  {
+ id: "tool-faq-affarssystem-partnerval",
+ title: "Vanliga frågor om affärssystem och partnerval",
+ description: "Samlade svar på de vanligaste frågorna om ERP, CRM, partnerval, kostnader, tidplan och förvaltning.",
+ type: "guide",
+ url: "/kunskapscenter/fragor-och-svar",
+ image_url: guideValjPartnerImage,
+ icon: BookOpen,
+ products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],
+ },
+ {
  id: "tool-upphandlingsresan",
  title: "Den typiska upphandlingsresan – 7 stadier",
  description: "Var i systemlivscykeln står du? Upptäck de sju stadierna i en typisk upphandlingsresa för ERP och CRM.",
