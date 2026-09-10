@@ -3,6 +3,7 @@ import IndustryPartnerListInline from "@/components/IndustryPartnerListInline";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import aiSokPartnersHero from "@/assets/articles/ai-sok-dynamics-365-partners-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
+import partnervaletAvgorResultatetHero from "@/assets/articles/partnervalet-avgor-resultatet-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
@@ -2618,6 +2619,277 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           varför partnervalet är en del av affärscaset och varför ”vi väntar”
           kan bli en dyrare position än den låter.
         </p>
+      </>
+    ),
+  },
+  {
+    slug: "partnervalet-avgor-resultatet",
+    title: "När flera ERP- och CRM-system klarar kraven avgör partnern resultatet",
+    metaTitle: "När systemen klarar kraven avgör partnern resultatet",
+    metaDescription:
+      "När flera affärssystem klarar kraven blir valet av partner ofta avgörande. Läs hur du jämför Dynamics 365-partners utifrån team, metod, branschkunskap och genomförandeförmåga.",
+    summary:
+      "När flera ERP- och CRM-system klarar verksamhetens viktigaste krav är det inte alltid ytterligare en funktion som avgör utfallet. Ofta är det partnerns erfarenhet, projektmetod, team och förmåga att utmana onödig komplexitet som avgör om projektet blir lyckat.",
+    category: "Partnerval",
+    tags: [
+      "partnerval",
+      "dynamics 365-partner",
+      "erp",
+      "crm",
+      "implementation",
+      "projektmetod",
+      "branschkunskap",
+      "copilot",
+      "ai-agenter",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Insights",
+      "Customer Service",
+      "Field Service",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-09-10",
+    author: THOMAS_LAINE,
+    heroImage: partnervaletAvgorResultatetHero,
+    readingTimeMinutes: 8,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] !text-foreground/85 !mb-8 !font-medium">
+          När flera system klarar verksamhetens viktigaste krav är det sällan
+          ytterligare en funktion som avgör utfallet. Då blir partnerns
+          människor, metod, branscherfarenhet och förmåga att genomföra
+          förändringen viktigare.
+        </p>
+
+        <h2>Samma system kan ge helt olika resultat</h2>
+        <p>
+          Två företag kan välja samma plattform och ändå få helt olika resultat.
+          I ett väl genomfört projekt hålls anpassningarna nere, användarna tar
+          till sig de nya arbetssätten och lösningen går att förvalta vidare. I
+          ett sämre genomfört projekt försenas datamigreringen, integrationerna
+          blir fler än planerat och specialanpassningar skapar ett växande
+          förvaltningsbehov.
+        </p>
+        <p>
+          Ett typiskt exempel från verkliga projekt: två tillverkande bolag,
+          ungefär lika stora, väljer samma plattform ungefär samtidigt. Det ena
+          går i drift inom ett år med få anpassningar och kan successivt ta över
+          mer av förvaltningen själv. Det andra drar ut på tiden, bygger många
+          speciallösningar och får en integrationskarta som blir svår att äga
+          internt. Samma licenser. Samma produkt. Olika partner, olika beslut.
+        </p>
+        <p>
+          Skillnaden ligger ofta i besluten längs vägen: vilka krav som
+          utmanas, vilka anpassningar som stoppas, hur data förbereds och hur
+          verksamheten involveras. Kunden äger besluten, men partnerns erfarenhet
+          påverkar kvaliteten i underlaget och vilka alternativ som blir synliga.
+        </p>
+        <p>
+          Efter snart 40 år i den här branschen, varav nästan 30 med det vi i dag
+          kallar Dynamics 365, är det här det mönster jag ser tydligast. Jag har
+          mycket sällan sett ett projekt misslyckas för att plattformen inte
+          klarade uppgiften. Jag har desto oftare sett projekt gå fel för att
+          ingen vågade säga nej i rätt vecka.
+        </p>
+
+        <h2>När systemvalet väger tyngst</h2>
+        <p>
+          Systemvalet är fortfarande avgörande i verksamheter med avancerad
+          produktion, specialiserade branschprocesser, omfattande regulatoriska
+          krav, stora transaktionsvolymer eller komplex internationell struktur.
+          Där kan ett felaktigt plattformsval skapa begränsningar som inte går
+          att lösa enbart genom en bättre implementation.
+        </p>
+        <p>
+          För många medelstora och större företag klarar däremot flera etablerade
+          plattformar grundbehoven. Ett vanligt misstag är då att låta en enskild
+          funktion i en demonstration väga tyngre än hur lösningen ska utformas,
+          införas och förvaltas.
+        </p>
+
+        <h2>Dynamics 365-plattformen är densamma, men lösningen blir det inte</h2>
+        <p>
+          Microsoft äger och utvecklar Dynamics 365. Grundplattformen är densamma
+          oavsett partner, men den slutliga lösningen kan skilja sig avsevärt
+          beroende på partnerns designval, metod, branschlösningar och
+          tilläggsprodukter.
+        </p>
+        <p>
+          Fråga därför tidigt vilka ISV-lösningar och egna tillägg partnern
+          brukar använda, vem som äger dem och vad som händer om du senare vill
+          byta partner.
+        </p>
+
+        <h2>Du köper ett genomförande, inte bara ett system</h2>
+        <p>
+          I praktiken köper organisationen ett konsultteam, en projektmetod och
+          kompetenser inom processer, lösningsarkitektur, data, integrationer,
+          utbildning och förändringsledning. Därtill kommer support och
+          vidareutveckling under många år efter driftstart.
+        </p>
+        <p>
+          Därför bör system och partner utvärderas parallellt. Om partnervalet
+          kommer sist har organisationen redan låst sig vid förutsättningar som
+          den valda partnern måste arbeta utifrån.
+        </p>
+
+        <h2>Fem områden där partnern påverkar utfallet</h2>
+        <p>
+          Det är i de här fem områdena skillnaden mellan två partners blir
+          mätbar. Ingen av dem syns i en demonstration.
+        </p>
+
+        <h3>1. Krav, processer och anpassningar</h3>
+        <p>
+          En bra partner implementerar inte dagens arbetssätt rakt av. Den
+          skiljer mellan verkliga affärskrav, historiska vanor och önskemål som
+          kan lösas med standardfunktionalitet. Ibland är den mest värdefulla
+          rådgivningen i hela projektet: det där bör du inte bygga.
+        </p>
+
+        <h3>2. Projektstyrning och kommersiell modell</h3>
+        <p>
+          Partnerns sätt att planera, prioritera och eskalera påverkar tidplan
+          och budget. Granska också hur uppskattningar tas fram, hur ändringar
+          hanteras och vilket ansvar som ingår i priset.
+        </p>
+
+        <h3>3. Data, integrationer och arkitektur</h3>
+        <p>
+          Många problem som uppfattas som systemproblem är egentligen data- eller
+          integrationsproblem. Lösningen behöver vara dokumenterad, begriplig
+          och möjlig att förvalta utan att bli beroende av en enskild konsult.
+        </p>
+
+        <h3>4. Förändring och användning</h3>
+        <p>
+          Utbildning före driftstart räcker inte. Partnern behöver bidra till
+          verksamhetsförankring, processägarskap och en plan för hur de nya
+          arbetssätten faktiskt ska börja användas.
+        </p>
+
+        <h3>5. Tiden efter driftstart</h3>
+        <p>
+          Förvaltningsrelationen blir ofta längre än implementationen. Bedöm
+          därför support, vidareutveckling, dokumentation och hur enkelt det
+          skulle vara att byta förvaltningspartner.
+        </p>
+
+        <h2>Möt teamet, inte bara säljaren</h2>
+        <p>
+          Träffa projektledaren, lösningsarkitekten och de konsulter som föreslås
+          för data, integrationer och verksamhetsprocesser. Bedöm deras
+          erfarenhet av liknande projekt och säkerställ att de verkligen är
+          tillgängliga när projektet startar.
+        </p>
+        <p>
+          Om vissa personer är viktiga för ditt val bör deras roller,
+          tillgänglighet och villkoren för ett eventuellt byte framgå av avtalet.
+        </p>
+
+        <h2>Branschkunskap och rätt storlek spelar roll</h2>
+        <p>
+          Produktkunskap är en grundförutsättning. Branschkunskap gör att
+          partnern snabbare kan förstå processerna, identifiera riskerna och
+          skilja verkliga behov från gamla arbetssätt.
+        </p>
+        <p>
+          Även storleksmatchningen är viktig. En stor partner erbjuder bredd och
+          uthållighet, medan en mindre partner kan ge större uppmärksamhet och
+          närhet. Bedöm kapacitet, kontinuitet, ekonomi och beroendet av enskilda
+          nyckelpersoner utifrån just ditt projekt.
+        </p>
+
+        <h2>AI breddar kraven på partnern</h2>
+        <p>
+          När Copilot, AI-agenter och automatiserade flöden blir en del av ERP-
+          och CRM-miljön behöver partnern även kunna hantera datakvalitet,
+          behörigheter, säkerhet och kontroll över automatiserade åtgärder.
+        </p>
+        <p>
+          Det räcker därför inte att veta vem som kan konfigurera
+          affärssystemet. Du behöver förstå var partnerns kompetens inom Power
+          Platform, data, integrationer och AI tar slut, och hur övrig
+          specialistkompetens säkras.
+        </p>
+        <p>
+          Det är också här skillnaden mellan partners växer snabbt. Fråga vem
+          som sätter behörighetsmodellen när en agent agerar i systemet, hur du
+          säkerställer datakvalitet och spårbarhet, vad som händer när en
+          automatiserad åtgärd blir fel och vem som äger de agenter och flöden
+          som byggs.
+        </p>
+        <p>
+          AI gör dålig datakvalitet dyrare, inte mindre synlig. En partner som
+          inte kan beskriva sin styrmodell för agenter, dataägarskap och
+          automatiserade flöden är inte redo att bygga dem åt dig.
+        </p>
+
+        <h2>Så prövar du partnern i praktiken</h2>
+        <p>Ställ fem frågor. Lyssna lika mycket på hur svaret ges som på vad som sägs.</p>
+        <ul>
+          <li>
+            <strong>”Vilka tre referenskunder liknar oss mest i bransch, storlek
+            och komplexitet – och får vi tala med dem utan att ni är med?”</strong>{" "}
+            Bra svar: namn direkt. Svagt svar: referenser i andra branscher,
+            eller alltid med säljaren närvarande.
+          </li>
+          <li>
+            <strong>”Beskriv ett projekt som gick fel. Vad gjorde ni åt det?”</strong>{" "}
+            Bra svar: ett konkret misstag och en konkret åtgärd. Svagt svar:
+            ”kunden var inte redo”.
+          </li>
+          <li>
+            <strong>”Vilka personer får vi, hur mycket av deras tid, och står det
+            i avtalet?”</strong>{" "}
+            Bra svar: namn, procentsatser och vilja att skriva in det. Svagt
+            svar: ”vi tillsätter rätt kompetens”.
+          </li>
+          <li>
+            <strong>”Ge exempel på krav ni har avrått en kund från att bygga.”</strong>{" "}
+            Bra svar: flera exempel, med motivering. Svagt svar: partnern bygger
+            allt kunden ber om.
+          </li>
+          <li>
+            <strong>”Hur ser förvaltningen ut år tre, och vad krävs för att vi
+            ska kunna byta partner?”</strong>{" "}
+            Bra svar: dokumentation, ägarskap och en tydlig exitväg. Svagt svar:
+            undvikande, eller beroende av en enskild konsult.
+          </li>
+        </ul>
+
+        <h2>Slutsats: när systemen är likvärdiga blir partnern det verkliga valet</h2>
+        <p>
+          Ett väl valt system är en förutsättning, men plattformen skapar inte
+          affärsvärde på egen hand. Resultatet formas av människorna som utmanar
+          kraven, fattar designbesluten tillsammans med verksamheten, genomför
+          förändringen och utvecklar lösningen efter driftstart.
+        </p>
+        <p>
+          När flera system klarar dina viktigaste krav bör du därför lägga minst
+          lika stor vikt vid partnerns team, erfarenhet, metod, åtagande och
+          förmåga att säga nej till onödig komplexitet.
+        </p>
+
+        <aside className="my-10 rounded border border-primary/30 bg-primary/5 px-6 py-6 md:px-8">
+          <h2 className="!mt-0">Jämför Dynamics 365-partners</h2>
+          <p>
+            På d365.se kan du jämföra svenska Dynamics 365-partners utifrån
+            produktområde, bransch, företagsstorlek och geografisk närvaro.
+            Syftet är att snabbt ta dig från en lång lista till tre kandidater
+            som faktiskt passar din verksamhet, din bransch och det projekt du
+            står inför.
+          </p>
+          <p className="!mb-0">
+            <a href="/alla-d365-partners/">
+              <strong>Jämför partners och skapa en första kortlista inför partnervalet →</strong>
+            </a>
+          </p>
+        </aside>
       </>
     ),
   },
