@@ -111,8 +111,9 @@ export const guidePath = (guide: PartnerGuide) =>
 
 /** Partnerlistan med rätt produktfilter förvalt. */
 export const guidePartnerListUrl = (guide: PartnerGuide) => {
-  if (guide.apps.length === 0) return "/valjdynamics365partner/#hitta-partners";
-  const qs = new URLSearchParams({ apps: guide.apps.join(",") });
+  const filterApps = guide.filterApps ?? guide.apps;
+  if (filterApps.length === 0) return "/valjdynamics365partner/#hitta-partners";
+  const qs = new URLSearchParams({ apps: filterApps.join(",") });
   return `/valjdynamics365partner/?${qs.toString()}#hitta-partners`;
 };
 
