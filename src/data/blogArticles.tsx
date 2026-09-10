@@ -90,6 +90,225 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "valja-affarssystem-och-partner",
+    title: "Hur väljer du rätt affärssystem och rätt partner?",
+    metaTitle: "Välja affärssystem och partner – praktisk guide | d365.se",
+    metaDescription:
+      "Ska du välja nytt affärssystem, ERP eller CRM? Här är en praktisk guide till varför systemval och partnerval bör göras tillsammans – och vilka frågor du bör ställa.",
+    summary:
+      "Det finns inget facit för hur ett system- och partnerval ska genomföras. Men min rekommendation är att inte välja affärssystem först och partner sedan – utvärdera kombinationen från början.",
+    category: "Partnerval",
+    tags: [
+      "välja affärssystem",
+      "välja erp-system",
+      "välja crm-system",
+      "dynamics 365-partner",
+      "implementeringspartner",
+      "upphandling affärssystem",
+      "kravställning",
+      "partnerval",
+    ],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+    ],
+    publishedAt: "2026-09-10",
+    author: THOMAS_LAINE,
+    heroImage: valjaAffarssystemOchPartnerHero,
+    readingTimeMinutes: 7,
+    content: (
+      <>
+        <p className="lead">
+          Det finns inget facit för hur ett system- och partnerval ska genomföras. Men min
+          rekommendation är att inte välja affärssystem först och partner sedan.{" "}
+          <strong>Utvärdera kombinationen från början.</strong>
+        </p>
+
+        <p>
+          Alla företag har olika förutsättningar. Verksamhetens storlek, bransch, komplexitet,
+          organisation och interna kompetens påverkar hur urvalet bör läggas upp.
+        </p>
+        <p>
+          Min erfarenhet är ändå att företag ofta lägger mycket tid på att jämföra produkter,
+          funktioner och licenser, men betydligt mindre tid på att bedöma vem som faktiskt ska
+          genomföra förändringen.
+        </p>
+        <p>
+          Partnern ska förstå verksamheten, utforma lösningen, leda projektet, hantera
+          integrationer och datamigrering samt ofta ansvara för support och vidareutveckling under
+          många år.
+        </p>
+        <p>
+          Därför är min rekommenderade ansats att utgå från verksamhetens behov och därefter jämföra{" "}
+          <strong>kombinationer av system och partner</strong>. Det ger en mer realistisk bild av
+          vad du faktiskt väljer: inte bara en produkt, utan också ett konsultteam, ett arbetssätt
+          och en långsiktig partnerrelation.
+        </p>
+
+        <div className="not-prose my-8 rounded-lg border border-border bg-muted/40 p-6">
+          <h2 className="text-lg font-bold mb-2">Kort sagt</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Välj inte affärssystem isolerat från partnern som ska genomföra projektet. Börja med
+            verksamhetens viktigaste behov, jämför hur olika system och partners löser dina
+            faktiska utmaningar och bedöm hela leveransförmågan – inte bara funktioner, licenser
+            och produktnamn.
+          </p>
+        </div>
+
+        <h2>Varför partnern ofta blir viktigare än systemet</h2>
+        <p>
+          De flesta moderna affärssystem kan hantera grundläggande processer för ekonomi, inköp,
+          lager, försäljning och rapportering. Skillnaden ligger sällan enbart i om systemet har en
+          viss funktion, utan i hur lösningen sätts upp, anpassas och införs i verksamheten.
+        </p>
+        <p>
+          Ett nytt affärssystem är därför inte bara ett teknikval. Det är ett förändringsprojekt där
+          processer, arbetssätt, data, ansvar och beslutsvägar påverkas. Där spelar partnerns
+          erfarenhet, metodik och förmåga att förstå verksamheten en avgörande roll.
+        </p>
+
+        <h2>Börja med verksamhetens behov</h2>
+        <p>
+          Innan du jämför produkter bör du tydliggöra vad verksamheten faktiskt behöver uppnå. Det
+          handlar inte bara om att lista funktioner, utan om att förstå vilka problem som ska lösas
+          och vilka effekter du vill se efter införandet.
+        </p>
+        <ul>
+          <li>Vilka processer är mest kritiska att förbättra?</li>
+          <li>
+            Var finns dagens största manuella arbete, dubbelarbete eller brist på kontroll?
+          </li>
+          <li>Vilken rapportering och uppföljning behöver bli bättre?</li>
+          <li>Vilka integrationer, datakällor och beroenden måste fungera?</li>
+          <li>Vilka delar av verksamheten kräver branschspecifik förståelse?</li>
+        </ul>
+        <p>
+          När behoven är tydliga blir det lättare att avgöra vilka system som passar, men också
+          vilka partners som har rätt erfarenhet för just din typ av verksamhet.
+        </p>
+
+        <h2>Utvärdera system och partner tillsammans</h2>
+        <p>
+          Ett vanligt misstag är att först välja system och sedan leta efter en implementeringspartner.
+          Risken är att urvalet blir för snävt, att rätt kompetens saknas eller att partnerns
+          arbetssätt inte passar organisationen.
+        </p>
+        <p>
+          Ett bättre angreppssätt är att bedöma system och partner som en helhet. En lösning kan vara
+          stark på papperet, men svag om partnern saknar relevant erfarenhet. På samma sätt kan ett
+          system som inte är förstavalet i en teoretisk jämförelse bli det bästa valet om partnern
+          har djup branschkunskap och en beprövad leveransmodell.
+        </p>
+
+        <h2>Frågor att ställa till en potentiell partner</h2>
+        <ul>
+          <li>
+            Har ni genomfört liknande projekt i vår bransch eller med liknande komplexitet?
+          </li>
+          <li>Vilka personer kommer faktiskt att ingå i projektteamet?</li>
+          <li>
+            Hur ser er projektmetodik ut och hur hanterar ni förändringar under projektet?
+          </li>
+          <li>Hur arbetar ni med standardprocesser jämfört med anpassningar?</li>
+          <li>Hur säkerställer ni datamigrering, integrationer och testning?</li>
+          <li>Hur ser support, vidareutveckling och förvaltning ut efter driftstart?</li>
+        </ul>
+        <p>
+          Svaren på dessa frågor säger ofta mer om den framtida leveransen än en funktionsmatris
+          gör. Det handlar om att förstå hur partnern tänker, prioriterar och tar ansvar när
+          projektet blir konkret.
+        </p>
+
+        <h2>Undvik att göra valet för teoretiskt</h2>
+        <p>
+          Många urvalsprocesser blir för omfattande och för detaljerade. Långa kravlistor kan skapa
+          en känsla av kontroll, men de visar inte alltid hur väl lösningen fungerar i praktiken.
+          Det är ofta mer värdefullt att diskutera verkliga scenarier, typiska avvikelser och
+          konkreta arbetsflöden.
+        </p>
+        <p>
+          Be därför leverantörer och partners visa hur de skulle lösa dina viktigaste processer,
+          inte bara om systemet har stöd för dem. Det gör skillnaderna tydligare och ger bättre
+          underlag för beslut.
+        </p>
+
+        <h2>Min rekommenderade ansats</h2>
+        <p>
+          Min rekommendation är att se systemvalet och partnervalet som ett gemensamt beslut. Börja
+          med verksamhetens viktigaste behov, välj ut ett mindre antal realistiska alternativ och
+          låt partners visa hur de skulle lösa dina faktiska utmaningar.
+        </p>
+        <p>
+          Det behöver inte vara det enda rätta sättet att genomföra ett urval. Men för många företag
+          ger det en mer praktisk, affärsnära och genomförbar väg till rätt beslut.
+        </p>
+
+        <h2>Vanliga frågor</h2>
+        <h3>Vad är viktigast när man väljer affärssystem?</h3>
+        <p>
+          Det viktigaste är att börja med verksamhetens faktiska behov, inte med en jämförelse av
+          produktnamn eller funktionslistor. Systemets funktioner, partnerns erfarenhet och
+          projektets genomförbarhet behöver bedömas tillsammans.
+        </p>
+        <h3>Ska man välja affärssystem eller partner först?</h3>
+        <p>
+          Min rekommendation är att inte välja system och partner som två separata beslut. Ett
+          system som ser starkt ut på papperet kan bli fel om partnern saknar rätt erfarenhet,
+          medan ett annat alternativ kan vara mer relevant om partnern har djup branschkunskap och
+          en tydlig leveransmodell.
+        </p>
+        <h3>Hur vet man vilken implementeringspartner som är rätt?</h3>
+        <p>
+          En relevant partner bör kunna visa erfarenhet från liknande verksamheter, beskriva vilka
+          personer som ingår i projektteamet och förklara hur de arbetar med standardprocesser,
+          anpassningar, integrationer, datamigrering och support efter driftstart.
+        </p>
+        <h3>Vad är skillnaden mellan ERP och CRM?</h3>
+        <p>
+          ERP-system används framför allt för interna affärsprocesser som ekonomi, inköp, lager,
+          produktion och leveranskedja. CRM-system används främst för kundrelaterade processer som
+          försäljning, marknadsföring, kundservice och uppföljning av kundrelationer.
+        </p>
+        <h3>När passar Microsoft Dynamics 365?</h3>
+        <p>
+          Dynamics 365 kan vara relevant för företag som vill samla ekonomi, försäljning,
+          kundservice, drift, lager eller projekt i en modern molnbaserad plattform – särskilt när
+          organisationen redan använder Microsoft 365, Power Platform eller Azure. Valet bör alltid
+          utgå från verksamhetens behov, branschkrav och partnerns förmåga att genomföra projektet.
+        </p>
+      </>
+    ),
+    bigFiveFaq: [
+      {
+        question: "Ska man välja affärssystem eller partner först?",
+        answer:
+          "Utvärdera kombinationen från början. Ett system som ser starkt ut på papperet kan bli fel om partnern saknar rätt erfarenhet för din bransch och komplexitet.",
+      },
+      {
+        question: "Vad är viktigast när man väljer affärssystem?",
+        answer:
+          "Att utgå från verksamhetens faktiska behov och kritiska processer, inte från funktionslistor och produktnamn.",
+      },
+      {
+        question: "Hur vet man vilken implementeringspartner som är rätt?",
+        answer:
+          "Be partnern visa liknande projekt, namnge projektteamet och beskriva metodik, datamigrering, integrationer, testning samt support efter driftstart.",
+      },
+      {
+        question: "Hur undviker man vanliga misstag vid val av affärssystem?",
+        answer:
+          "Undvik att göra valet för teoretiskt. Komplettera kravlistor med verkliga scenarier och låt partners visa hur de skulle lösa dina viktigaste processer.",
+      },
+      {
+        question: "Vad är skillnaden mellan ERP och CRM?",
+        answer:
+          "ERP hanterar interna processer som ekonomi, inköp, lager och produktion. CRM hanterar kundrelaterade processer som försäljning, marknadsföring och kundservice.",
+      },
+    ],
+  },
+  {
     slug: "ai-sok-dynamics-365-partners",
     title: "Fem sekunder till svaret, ett år till beslutet",
     metaTitle: "AI-sök förändrar valet av Dynamics 365-partner",
