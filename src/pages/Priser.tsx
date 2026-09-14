@@ -79,7 +79,7 @@ export default function Priser() {
               <tr key={p.product_name + i} className="border-t border-border">
                 <td className="px-4 py-3 text-foreground">{p.product_name}</td>
                 <td className="px-4 py-3 whitespace-nowrap font-medium">{formatPrice(p)}</td>
-                <td className="px-4 py-3 text-muted-foreground">{p.price_note || "—"}</td>
+                <td className="px-4 py-3 text-muted-foreground">{p.price_note || "–"}</td>
               </tr>
             ))}
           </tbody>

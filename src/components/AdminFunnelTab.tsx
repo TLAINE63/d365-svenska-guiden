@@ -144,7 +144,7 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
                       </div>
                     </div>
                     <div className={`w-24 text-right text-xs font-medium ${dropColor}`}>
-                      {idx === 0 ? "—" : (
+                      {idx === 0 ? "–" : (
                         <span className="flex items-center justify-end gap-1">
                           <TrendingDown className="h-3 w-3" />
                           {dropPct}% bortfall

@@ -8,16 +8,10 @@ import {
 } from "@/components/PartnerNewsCard";
 import type { PartnerNewsItem, PartnerNewsProductArea } from "@/hooks/usePartnerNews";
 import { trackPartnerNewsClick } from "@/utils/trackPartnerNewsClick";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
-function formatDate(iso: string) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-}
+const formatDate = formatDateYYYYMMDD;
+
 
 function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number }) {
   const productAreas = item.product_areas?.length

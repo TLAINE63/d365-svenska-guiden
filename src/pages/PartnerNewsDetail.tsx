@@ -15,16 +15,10 @@ import {
 import { ArrowLeft, ExternalLink, Calendar, Building2 } from "lucide-react";
 import { setNewsAttribution } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
-function formatDate(iso: string) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-}
+const formatDate = formatDateYYYYMMDD;
+
 
 export default function PartnerNewsDetail() {
   const { id } = useParams<{ id: string }>();

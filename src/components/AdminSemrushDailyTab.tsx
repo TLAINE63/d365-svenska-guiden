@@ -31,12 +31,12 @@ interface Row {
   series: { d: string; p: number | null; t: number | null }[];
 }
 
-const fmtPos = (n: number | null) => n == null ? "—" : n.toFixed(1).replace(/\.0$/, "");
-const fmtNum = (n: number | null) => n == null ? "—" : new Intl.NumberFormat("sv-SE").format(Math.round(n));
-const fmtKr = (n: number | null) => n == null ? "—" : `${n.toFixed(2).replace(".", ",")} kr`;
+const fmtPos = (n: number | null) => n == null ? "–" : n.toFixed(1).replace(/\.0$/, "");
+const fmtNum = (n: number | null) => n == null ? "–" : new Intl.NumberFormat("sv-SE").format(Math.round(n));
+const fmtKr = (n: number | null) => n == null ? "–" : `${n.toFixed(2).replace(".", ",")} kr`;
 
 function DeltaBadge({ delta }: { delta: number | null }) {
-  if (delta == null) return <span className="text-muted-foreground text-xs">—</span>;
+  if (delta == null) return <span className="text-muted-foreground text-xs">–</span>;
   if (Math.abs(delta) < 0.5) {
     return <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><Minus className="h-3 w-3" /> 0</span>;
   }
@@ -95,7 +95,7 @@ export default function AdminSemrushDailyTab({ token, onSessionExpired }: Props)
       if (!res.ok) throw new Error(data?.error || "Kunde inte hämta data");
       setRows(data.rows || []);
       if (data.totalSnapshots === 0) {
-        setLastInfo("Inga snapshots ännu — klicka \"Hämta nu\" för att skapa dagens.");
+        setLastInfo("Inga snapshots ännu, klicka \"Hämta nu\" för att skapa dagens.");
       } else {
         const latest = (data.rows || []).map((r: Row) => r.last_snapshot).filter(Boolean).sort().pop();
         setLastInfo(latest ? `Senaste snapshot: ${latest}` : "");
@@ -138,7 +138,7 @@ export default function AdminSemrushDailyTab({ token, onSessionExpired }: Props)
       <Card>
         <CardContent className="pt-6 flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[200px]">
-            <h2 className="text-lg font-semibold flex items-center gap-2"><TrendingUp className="h-5 w-5" /> Semrush — daglig rankning</h2>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><TrendingUp className="h-5 w-5" /> Semrush, daglig rankning</h2>
             <p className="text-sm text-muted-foreground">Position, estimerad trafik & trend för dina målsökord (SE-databasen, domain_organic på d365.se). {lastInfo}</p>
           </div>
           <div>
@@ -223,7 +223,7 @@ export default function AdminSemrushDailyTab({ token, onSessionExpired }: Props)
                         <a href={r.current_url.startsWith("http") ? r.current_url : `https://${r.current_url}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
                           öppna <ExternalLink className="h-3 w-3" />
                         </a>
-                      ) : <span className="text-xs text-muted-foreground">—</span>}
+                      ) : <span className="text-xs text-muted-foreground">–</span>}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -231,7 +231,7 @@ export default function AdminSemrushDailyTab({ token, onSessionExpired }: Props)
             </Table>
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            Källa: Semrush <code>domains/domain_organic</code> (SE, top 500). Estimerad trafik är Semrush prognos, inte faktiska klick — för riktiga klick, se Search Console-fliken.
+            Källa: Semrush <code>domains/domain_organic</code> (SE, top 500). Estimerad trafik är Semrush prognos, inte faktiska klick, för riktiga klick, se Search Console-fliken.
             Position lägre = bättre (1 = topplacering). Snapshot körs dagligen via cron och kan triggas manuellt med "Hämta nu".
           </p>
         </CardContent>

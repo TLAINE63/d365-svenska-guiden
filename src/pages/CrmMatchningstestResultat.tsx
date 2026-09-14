@@ -387,7 +387,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 ]}
                 underlagSummary={`Behovsanalys – ${config.productName}\n\n${level.headline} (matchningsgrad ${score.total}/100)\n\n${level.body}\n\nStarkaste behovsområden: ${tops
                   .map((t) => t.key)
-                  .join(", ") || "—"}`}
+                  .join(", ") || "–"}`}
                 resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
               />
 

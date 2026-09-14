@@ -84,7 +84,7 @@ const PriceListSection = ({ product }: PriceListSectionProps) => {
                     <td className="px-4 py-3 text-primary whitespace-nowrap font-semibold">
                       {formatPrice(p)}
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{p.price_note ?? "—"}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{p.price_note ?? "–"}</td>
                   </tr>
                 ))}
               </tbody>

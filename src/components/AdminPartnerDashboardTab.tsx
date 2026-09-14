@@ -33,6 +33,7 @@ import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 import PartnerSalesSummaryCard from "./PartnerSalesSummaryCard";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Props {
   token: string | null;
@@ -377,7 +378,7 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
                         <a href={a.url} target="_blank" rel="noreferrer" className="font-medium hover:underline">
                           {a.title}
                         </a>
-                        <div className="text-xs text-muted-foreground">{a.type}{a.date ? ` · ${a.date.replace(/-/g, "/")}` : ""}</div>
+                        <div className="text-xs text-muted-foreground">{a.type}{a.date ? ` · ${formatDateYYYYMMDD(a.date)}` : ""}</div>
                       </div>
                     </li>
                   ))}

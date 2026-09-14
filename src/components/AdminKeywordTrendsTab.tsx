@@ -50,11 +50,11 @@ interface KeywordTrend extends Keyword {
 }
 
 const fmtInt = (n: unknown) =>
-  n == null || n === "" ? "—" : new Intl.NumberFormat("sv-SE").format(Math.round(Number(n)));
+  n == null || n === "" ? "–" : new Intl.NumberFormat("sv-SE").format(Math.round(Number(n)));
 const fmtPct = (n: unknown) =>
-  n == null || n === "" ? "—" : `${(Number(n) * 100).toFixed(1)}%`;
+  n == null || n === "" ? "–" : `${(Number(n) * 100).toFixed(1)}%`;
 const fmtPos = (n: unknown) =>
-  n == null || n === "" ? "—" : Number(n).toFixed(1);
+  n == null || n === "" ? "–" : Number(n).toFixed(1);
 const fmtWeek = (s: string) => {
   const d = new Date(s + "T00:00:00Z");
   const y = d.getUTCFullYear().toString().slice(2);
@@ -70,7 +70,7 @@ function DeltaCell({
   delta: { current: number; previous: number; change: number } | null;
   isPosition?: boolean;
 }) {
-  if (!delta) return <span className="text-muted-foreground">—</span>;
+  if (!delta) return <span className="text-muted-foreground">–</span>;
   const change = delta.change;
   // För position: lägre = bättre (negativ change = bra → grön)
   const isGood = isPosition ? change < 0 : change > 0;
@@ -192,7 +192,7 @@ export default function AdminKeywordTrendsTab({ token, onSessionExpired }: Props
             <div>
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
-                Spårning av nyckelord — vecka för vecka
+                Spårning av nyckelord, vecka för vecka
               </h3>
               <p className="text-sm text-muted-foreground mt-1">
                 Position, klick, visningar och CTR per vecka från Google Search Console.

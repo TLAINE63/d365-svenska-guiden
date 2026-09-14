@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const PrivacyPolicy = () => {
   const openCookieSettings = () => {
@@ -28,7 +29,7 @@ const PrivacyPolicy = () => {
           <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none space-y-6 sm:space-y-8 text-muted-foreground">
             <section>
               <p className="text-sm text-muted-foreground mb-8">
-                Senast uppdaterad: {new Date().toLocaleDateString("sv-SE")}
+                Senast uppdaterad: {formatDateYYYYMMDD(new Date())}
               </p>
 
               <p className="text-lg leading-relaxed">

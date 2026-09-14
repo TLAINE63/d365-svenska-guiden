@@ -28,8 +28,8 @@ herbertnathan.com
 microsoft.com
 marketplace.microsoft.com`;
 
-const fmt = (n: unknown) =>
-  n == null || n === "" ? "—" : new Intl.NumberFormat("sv-SE").format(Number(n));
+const fmt = (n: number | null | undefined) =>
+  n == null ? "-" : new Intl.NumberFormat("sv-SE").format(n);
 
 const pathOf = (u: string) => {
   try { const x = new URL(u); return (x.pathname || "/") + (x.search || ""); } catch { return u; }
@@ -85,7 +85,7 @@ export default function AdminCompetitorInsightsTab({ token, onSessionExpired }: 
           <div>
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              Konkurrentinsikter — vad gör de som inte vi gör?
+              Konkurrentinsikter, vad gör de som inte vi gör?
             </h3>
             <p className="text-sm text-muted-foreground mt-1">
               Live-data från Semrush (databas SE). Visar topp 25 sökord, mest trafik­drivande sidor och

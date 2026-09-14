@@ -16,7 +16,7 @@ function toParagraphs(text?: string | null): string[] {
   if (!raw) return [];
   return raw
     .split(/\r?\n+/)
-    .map((p) => p.replace(/^\s*(?:[-–—•✅]+\s*|\d+[.)]\s+)/, "").trim())
+    .map((p) => p.replace(/^\s*(?:[-––•✅]+\s*|\d+[.)]\s+)/, "").trim())
     .filter(Boolean);
 }
 

@@ -181,7 +181,7 @@ const formatBcCost = (dp?: DeliveryProfile | null): string => {
   return COST_BAND_LABELS[band] || band;
 };
 
-const EMPTY = <span className="text-slate-600 italic">—</span>;
+const EMPTY = <span className="text-slate-600 italic">–</span>;
 
 /** Basic-profiler saknar partnerbekräftade uppgifter – visas neutralt, aldrig som brist. */
 const BASIC_MISSING_LABEL = "Uppgift saknas";
@@ -484,7 +484,7 @@ const renderValue = (v: string | null | undefined) =>
 const renderEmptyLabel = (label: string) => (
   <span className="inline-flex items-center gap-2 text-xs text-slate-600 italic">
     <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 text-slate-700">
-      —
+     ,
     </span>
     {label}
   </span>
@@ -1594,7 +1594,7 @@ const ComparePartners = () => {
         `Produktportfölj (Dynamics 365): ` +
           portfolio
             .map((p) =>
-              `${p.name} ${p.keys.length} områden (${p.keys.map((k) => shortLabel[k]).join(", ") || "—"})`,
+              `${p.name} ${p.keys.length} områden (${p.keys.map((k) => shortLabel[k]).join(", ") || "–"})`,
             )
             .join("; ") + ".",
       );

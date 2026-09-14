@@ -26,6 +26,7 @@ import { RefreshCw, Mail, CheckCircle2, XCircle, ChevronDown, Inbox } from "luci
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface RequestLog {
   id: string;
@@ -217,7 +218,7 @@ const AdminPartnerRequestsTab = ({ token, onSessionExpired }: Props) => {
                         <>
                           <TableRow>
                             <TableCell className="whitespace-nowrap text-sm">
-                              {format(new Date(log.created_at), "d MMM HH:mm", { locale: sv })}
+                              {formatDateYYYYMMDD(new Date(log.created_at))}
                             </TableCell>
                             <TableCell className="text-sm">
                               <Badge variant="secondary">{labelFor(sourceType)}</Badge>

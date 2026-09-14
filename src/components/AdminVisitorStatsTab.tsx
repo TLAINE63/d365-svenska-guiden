@@ -33,6 +33,7 @@ import {
 import { Area, AreaChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import { format, subDays, startOfDay, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface VisitorStats {
   totalVisitors: number;
@@ -305,7 +306,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
                   dataKey="date"
                   tickFormatter={(val) => {
                     try {
-                      return format(parseISO(val), "d MMM", { locale: sv });
+                      return formatDateYYYYMMDD(parseISO(val));
                     } catch { return val; }
                   }}
                   className="text-xs"

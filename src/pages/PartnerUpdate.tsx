@@ -36,6 +36,7 @@ import { companySizes, revenueOptions } from "@/data/partners";
 import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
 
 import { toggleContiguousRange } from "@/lib/segmentRange";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 
 // Product sections matching admin structure
@@ -2640,7 +2641,7 @@ const PartnerUpdate = () => {
  <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
  <span className="flex items-center gap-1">
  <CalendarDays className="w-3.5 h-3.5" />
- {new Date(event.event_date).toLocaleDateString("sv-SE")}
+ {formatDateYYYYMMDD(new Date(event.event_date))}
  </span>
  {event.event_time && (
  <span className="flex items-center gap-1">
@@ -3035,7 +3036,7 @@ const PartnerUpdate = () => {
                      value={pp.cost_band}
                      onChange={(e) => updateProductProfile(app, { cost_band: e.target.value })}
                    >
-                     <option value="">— Välj kostnadsband —</option>
+                     <option value="">– Välj kostnadsband –</option>
                      <option value="<250k">Mindre än 250 000 kr</option>
                      <option value="250k–500k">250 000 – 500 000 kr</option>
                      <option value="500k–1M">500 000 kr – 1 MSEK</option>

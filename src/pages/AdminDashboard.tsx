@@ -273,6 +273,7 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
 
 // ==================== TAB GROUPS ====================
 import type { LucideIcon } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }[] = [
  {
@@ -1302,7 +1303,7 @@ Thomas`,
 
  const formatMonth = (monthStr: string): string => {
  const date = new Date(monthStr);
- return format(date, "MMMM yyyy", { locale: sv });
+ return formatDateYYYYMMDD(date);
  };
 
  const handleLogin = async (e: React.FormEvent) => {
@@ -2157,7 +2158,7 @@ Thomas`,
  const newLeadsCount = leads.filter(l => l.status === "new").length;
  const forwardedLeadsCount = leads.filter(l => l.status === "forwarded").length;
  
- const currentMonthName = new Date().toLocaleDateString("sv-SE", { month: "long", year: "numeric" });
+ const currentMonthName = formatDateYYYYMMDD(new Date());
 
  return (
  <div className="min-h-screen flex flex-col bg-slate-50">
@@ -2634,7 +2635,7 @@ Thomas`,
  leads.map((lead) => (
  <TableRow key={lead.id}>
  <TableCell className="whitespace-nowrap">
- {format(new Date(lead.created_at), "d MMM yyyy", { locale: sv })}
+ {formatDateYYYYMMDD(new Date(lead.created_at))}
  </TableCell>
  <TableCell className="font-medium">{lead.company_name}</TableCell>
  <TableCell>
@@ -3147,7 +3148,7 @@ Thomas`,
                     ✓ Publicerad
                     {partner.updated_at && (
                       <span className="ml-1 font-normal opacity-90">
-                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                        • {formatDateYYYYMMDD(new Date(partner.updated_at)).replace(/-/g, '/')}
                       </span>
                     )}
                   </Badge>
@@ -3161,7 +3162,7 @@ Thomas`,
                     Avtal tecknat
                     {partner.updated_at && (
                       <span className="ml-1 font-normal opacity-90">
-                        • {new Date(partner.updated_at).toLocaleDateString('sv-SE').replace(/-/g, '/')}
+                        • {formatDateYYYYMMDD(new Date(partner.updated_at)).replace(/-/g, '/')}
                       </span>
                     )}
                   </Badge>
@@ -3252,7 +3253,7 @@ Thomas`,
  return (
  <span className={`flex items-center gap-1 ${isOld ? 'text-destructive font-medium' : isStale ? 'text-amber-600 dark:text-amber-400' : ''}`}>
  <Clock className="h-3 w-3" />
- Uppdaterad: {format(new Date(partner.updated_at), "d MMM yyyy", { locale: sv })}
+ Uppdaterad: {formatDateYYYYMMDD(new Date(partner.updated_at))}
  {isOld && <span className="ml-1">({daysSinceUpdate} dagar sedan)</span>}
  {isStale && !isOld && <span className="ml-1">({daysSinceUpdate} d)</span>}
  </span>
@@ -3290,7 +3291,7 @@ Thomas`,
  {partner.cancellation_date && (
  <span className="flex items-center gap-1 text-destructive">
  <CalendarX className="h-3 w-3" />
- Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
+ Uppsägning: {formatDateYYYYMMDD(new Date(partner.cancellation_date))}
  </span>
  )}
  </div>
@@ -3863,7 +3864,7 @@ Thomas`,
  <div>
  <Label className="text-muted-foreground">Inkom</Label>
  <p className="font-medium">
- {format(new Date(selectedLead.created_at), "d MMMM yyyy HH:mm", { locale: sv })}
+ {formatDateYYYYMMDD(new Date(selectedLead.created_at))}
  </p>
  </div>
  </div>
@@ -4043,7 +4044,7 @@ Thomas`,
  <h4 className="text-sm font-semibold">Permanent profileringslänk</h4>
  </div>
  <p className="text-xs text-muted-foreground">
- Partnern kan när som helst använda denna länk för att uppdatera sin profil — utan utgångsdatum.
+ Partnern kan när som helst använda denna länk för att uppdatera sin profil, utan utgångsdatum.
  </p>
  </div>
  <Button
@@ -5550,7 +5551,7 @@ Thomas`,
  </ul>
  </li>
  <li>
- Spara partnern. Kontrollera att rutan här ovanför försvinner — då
+ Spara partnern. Kontrollera att rutan här ovanför försvinner, då
  matchar lagrad <code>product</code> i <code>industry_pitches</code>{" "}
  den publika renderarens uppslagning.
  </li>

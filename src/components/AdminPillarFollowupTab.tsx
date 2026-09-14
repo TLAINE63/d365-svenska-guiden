@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { RefreshCw, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from "recharts";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Week { start: string; end: string; label: string; clicks: number; impressions: number; ctr: number; position: number }
 interface PillarRow { label: string; path: string; intent: string; weeks: Week[] }
@@ -162,7 +163,7 @@ export default function AdminPillarFollowupTab({ token, onSessionExpired }: Prop
                           <TableRow key={w.start} className="text-xs">
                             <TableCell className="py-1">
                               <Badge variant="outline" className="font-mono text-[10px]">{w.label}</Badge>
-                              <span className="ml-2 text-muted-foreground">{w.start.replace(/-/g, "/")}</span>
+                              <span className="ml-2 text-muted-foreground">{formatDateYYYYMMDD(w.start)}</span>
                             </TableCell>
                             <TableCell className="py-1 text-right tabular-nums">{fmtPos(w.position)}</TableCell>
                             <TableCell className="py-1 text-right tabular-nums">{fmtPct(w.ctr)}</TableCell>

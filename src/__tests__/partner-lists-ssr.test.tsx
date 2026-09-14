@@ -14,7 +14,7 @@ import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 
 /**
  * SEO regression: the partner list routes must server-render real partner
- * names, /partner/<slug> links, and bransch group headers — without relying
+ * names, /partner/<slug> links, and bransch group headers, without relying
  * on client-side JS. Without this, crawlers and AI-sökmotorer see an empty
  * shell.
  */

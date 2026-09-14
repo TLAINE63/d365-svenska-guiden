@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Globe, Building2, ExternalLink, Download } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Company {
   organisation_uuid: string;
@@ -250,7 +251,7 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
                           <Building2 className="h-5 w-5 text-muted-foreground" />
                         )}
                         <div>
-                          <div className="font-medium">{c.company_name || "—"}</div>
+                          <div className="font-medium">{c.company_name || "–"}</div>
                           {c.company_domain && (
                             <a href={c.company_domain.startsWith("http") ? c.company_domain : `https://${c.company_domain}`}
                                target="_blank" rel="noreferrer"
@@ -261,11 +262,11 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
                         </div>
                       </div>
                     </td>
-                    <td className="p-2 text-muted-foreground">{c.company_industry || "—"}</td>
-                    <td className="p-2 text-muted-foreground">{c.company_size || "—"}</td>
+                    <td className="p-2 text-muted-foreground">{c.company_industry || "–"}</td>
+                    <td className="p-2 text-muted-foreground">{c.company_size || "–"}</td>
                     <td className="p-2 text-muted-foreground">
                       <div className="flex items-center gap-1.5">
-                        <span>{c.company_country || "—"}</span>
+                        <span>{c.company_country || "–"}</span>
                         {nordicSignal(c) === "domain" && (
                           <Badge variant="outline" className="text-[10px]" title="Landet anges utanför Norden men domänen är nordisk – troligen ett nordiskt besök.">
                             Nordisk domän
@@ -282,10 +283,10 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
                           ))}
                           {c.partner_slugs.length > 3 && <span className="text-xs text-muted-foreground">+{c.partner_slugs.length - 3}</span>}
                         </div>
-                      ) : <span className="text-xs text-muted-foreground">—</span>}
+                      ) : <span className="text-xs text-muted-foreground">–</span>}
                     </td>
                     <td className="p-2 text-xs text-muted-foreground whitespace-nowrap">
-                      {c.last_seen ? new Date(c.last_seen).toLocaleDateString("sv-SE") : "—"}
+                      {c.last_seen ? formatDateYYYYMMDD(new Date(c.last_seen)) : "–"}
                     </td>
                   </tr>
                 ))}

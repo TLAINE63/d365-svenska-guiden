@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Sparkles, Save, Smartphone, Tablet, Monitor } from "lucide-react";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 import FeaturedArticleBannerView from "@/components/FeaturedArticleBannerView";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const SETTING_KEY = "featured_article_slug";
 
@@ -15,7 +16,8 @@ interface Props {
   onSessionExpired: () => void;
 }
 
-const formatDate = (iso: string) => iso.replace(/-/g, "/");
+const formatDate = formatDateYYYYMMDD;
+
 
 export default function AdminFeaturedArticleTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();

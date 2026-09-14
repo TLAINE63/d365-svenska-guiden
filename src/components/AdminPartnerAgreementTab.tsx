@@ -301,7 +301,7 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
-              Filen lagras i bucket <code>partner-documents</code>. URL:en fylls i automatiskt — glöm inte att klicka Spara.
+              Filen lagras i bucket <code>partner-documents</code>. URL:en fylls i automatiskt, glöm inte att klicka Spara.
             </p>
           </div>
 

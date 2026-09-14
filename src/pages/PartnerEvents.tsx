@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Partner {
   id: string;
@@ -324,7 +325,7 @@ const PartnerEvents = () => {
                         <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground mb-2">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
-                            {new Date(event.event_date).toLocaleDateString("sv-SE")}
+                            {formatDateYYYYMMDD(new Date(event.event_date))}
                           </span>
                           {event.event_link && (
                             <a href={event.event_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline">

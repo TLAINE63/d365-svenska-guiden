@@ -3181,14 +3181,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Två organisationer kan välja exakt samma plattform och ändå få helt
           olika utfall. Skillnaden ligger i genomförandet: vem som ställer rätt
-          frågor tidigt, vem som vågar säga ifrån när scope växer av fel skäl —
+          frågor tidigt, vem som vågar säga ifrån när scope växer av fel skäl,
           och vem som faktiskt har gjort den här typen av projekt i den här
           typen av verksamhet förut.
         </p>
         <p>
           Partnerjämförelse görs förstås. Men ofta för sent. Och ofta för grunt.
           När produkten väl är vald jämförs ofta två eller tre partners, främst
-          på pris, säljpresentation och känslan i rummet. Det är en jämförelse —
+          på pris, säljpresentation och känslan i rummet. Det är en jämförelse,
           men inte alltid en utvärdering som gör partners verkligt jämförbara.
         </p>
         <p>Och det är där risken börjar.</p>
@@ -3434,7 +3434,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Microsoft Dynamics 365 används av svenska retail- och
-          e-handelsföretag som vill samla ERP och CRM i en gemensam plattform —
+          e-handelsföretag som vill samla ERP och CRM i en gemensam plattform,
           från inköp och lager till försäljning, kundservice och marknadsföring.
           Systemet är modulärt, vilket innebär att organisationen kan börja med
           det mest akuta behovet och bygga ut successivt.
@@ -3541,7 +3541,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           adbriq är en nischad partner med djup förståelse för handelsföretag
           inom mode, sport och textil. Deras styrka är att kombinera
           branschspecifik proceskunskap med Business Central-implementationer
-          som faktiskt matchar hur handelsföretag inom dessa segment arbetar —
+          som faktiskt matchar hur handelsföretag inom dessa segment arbetar,
           sortimentslogik, säsongsvariationer och leverantörsrelationer
           inkluderade.
         </p>
@@ -3586,7 +3586,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Fellowmind är en av de större europeiska Microsoft-partnerna och en
           av få i listan som täcker hela spektret från ERP till CRM. För
           retail-organisationer som vill ha en enda partner med kapacitet att
-          hantera hela plattformen – inklusive marknadsföring och försäljning —
+          hantera hela plattformen – inklusive marknadsföring och försäljning,
           är Fellowmind ett relevant alternativ. Styrkan ligger i bredd och
           geografisk täckning.
         </p>
@@ -3602,7 +3602,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Nexer har den bredaste kompetensportföljen av de listade partners och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För retail-organisationer som planerar en mer ambitiös
-          plattformssatsning – där ERP, CRM och kontaktcenter ska hänga samman —
+          plattformssatsning – där ERP, CRM och kontaktcenter ska hänga samman,
           erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. Som AI
           Integration Partner har de även ett tydligt fokus på nästa generations
           systemleveranser.
@@ -3717,7 +3717,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           snabbare beslut och bättre prognoser.
         </p>
         <p>
-          Microsoft Dynamics 365 används av tillverkande företag i hela spannet —
+          Microsoft Dynamics 365 används av tillverkande företag i hela spannet,
           från medelstora verkstadsföretag på Business Central till stora
           internationella koncerner på Finance &amp; Supply Chain Management.
           Plattformen täcker hela värdekedjan från inköp och produktionsplanering
@@ -3851,7 +3851,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Nexer har en av de bredaste kompetensportföljerna i listan och
           täcker samtliga relevanta Dynamics 365-applikationer för branschen.
           För tillverkande organisationer som planerar en ambitiös
-          plattformssatsning – där ERP, eftermarknad och CRM ska hänga samman —
+          plattformssatsning – där ERP, eftermarknad och CRM ska hänga samman,
           erbjuder Nexer kapacitet att hålla ihop hela arkitekturen. AI
           Integration Partner-certifieringen indikerar ett aktivt fokus på
           nästa generations systemleveranser.
@@ -5295,7 +5295,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Sales: Pipeline, offerter och överlämning till leverans</h3>
         <p>
-          Dynamics 365 Sales hanterar hela säljcykeln för konsultföretag —
+          Dynamics 365 Sales hanterar hela säljcykeln för konsultföretag,
           från lead och offert till vunnet uppdrag och överlämning till
           leveransorganisationen. En sömlös integration mellan sälj och projekt
           minskar informationsglapp och säkerställer att rätt resurser är
@@ -5492,7 +5492,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Finans- och försäkringsbranschen är hårt reglerad, dataintensiv och
           under konstant transformationstryck. FinTech-utmanare, nya
           kundförväntningar på digital service och ett regulatoriskt landskap
-          som kontinuerligt förändras – IFRS 17, Solvens II, MiFID II, AML —
+          som kontinuerligt förändras – IFRS 17, Solvens II, MiFID II, AML,
           ställer höga krav på systemstödets flexibilitet och spårbarhet.
           Äldre, isolerade kärnsystem är en av de största bromsklossarna: de är
           kostsamma att underhålla, svåra att integrera och producerar inte den
@@ -5882,7 +5882,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Det begränsade antalet listade partners speglar att offentlig sektor
           är ett specialiserat segment där relativt få Dynamics 365-partners
           aktivt profilerar sig. Det är ett argument för att bredda
-          urvalsprocessen och titta på referenskunder hos respektive partner —
+          urvalsprocessen och titta på referenskunder hos respektive partner,
           konkret: vilka kommuner eller myndigheter har de implementerat hos,
           och med vilket resultat?
         </p>
@@ -6010,7 +6010,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Business Central passar små till medelstora Life Science-företag och
           Medtech-bolag som behöver ett sammanhållet system för ekonomi, lager
           och logistik utan F&amp;SCM:s komplexitet. Med rätt branschspecifika
-          tillägg – exempelvis för batchhantering, kvalitetssäkring och UDI —
+          tillägg – exempelvis för batchhantering, kvalitetssäkring och UDI,
           kan BC möta branschkraven för de flesta SMB-aktörer i sektorn.
         </p>
         <ul>
@@ -6212,7 +6212,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           system, med korrekt intäktsperiodisering och automatiserad
           fakturering, är en utmaning som de flesta generella affärssystem inte
           löser utan konfiguration. Lägg därtill behovet av en enhetlig
-          kundbild som kopplar samman sälj, leverans, support och fakturering —
+          kundbild som kopplar samman sälj, leverans, support och fakturering,
           och man förstår varför fragmenterade system är branschens vanligaste
           systemsmärta.
         </p>
@@ -6233,7 +6233,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           F&amp;SCM är relevant för telekom- och IT-tjänsteföretag med komplexa
           krav på automatiserad prenumerationsfakturering, intäktsperiodisering
           och finansiell rapportering. Systemet hanterar blandade
-          intäktsströmmar och säkerställer korrekt redovisning enligt IFRS 15 —
+          intäktsströmmar och säkerställer korrekt redovisning enligt IFRS 15,
           en central utmaning för bolag med fleråriga servicekontrakt och
           paketerade erbjudanden.
         </p>
@@ -6346,7 +6346,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           prenumerationsfakturering och intäktsredovisning är F&amp;SCM-kompetensen
           central. Om det handlar om att koppla samman sälj, projektleverans
           och kundservice i ett sammanhållet flöde är CRM och Project
-          Operations lika viktiga. De flesta IT-bolag behöver egentligen båda —
+          Operations lika viktiga. De flesta IT-bolag behöver egentligen båda,
           och en partner som förstår hur de hänger samman.
         </p>
         <p>
@@ -6446,7 +6446,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Microsoft Dynamics 365 används av uthyrningsföretag som plattform för
           att samla tillgångshantering, kundrelationer, service och ekonomi.
           Standardfunktionaliteten i Business Central täcker grundläggande
-          ekonomi och lagerstyrning, men den specifika uthyrningslogiken —
+          ekonomi och lagerstyrning, men den specifika uthyrningslogiken,
           bokningskalendrar, periodisk fakturering, tillgänglighetsstyrning och
           returinspektion – kräver vanligen ett branschspecifikt tillägg för
           att systemet ska fungera optimalt.
@@ -7304,8 +7304,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h3>Customer Insights: Segmentering och personaliserad kommunikation</h3>
         <p>
-          Customer Insights aggregerar data från alla kontaktpunkter —
-          e-postöppningar, evenemangsnärvaro, ärendehistorik, avgiftsstatus —
+          Customer Insights aggregerar data från alla kontaktpunkter,
+          e-postöppningar, evenemangsnärvaro, ärendehistorik, avgiftsstatus,
           till enhetliga medlemsprofiler. Det möjliggör avancerad segmentering
           för riktad kommunikation och datadrivet arbete med att bevisa och
           kommunicera medlemsnyttan.

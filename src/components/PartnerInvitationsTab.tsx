@@ -31,6 +31,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const DEFAULT_PROFILE_REFRESH_SUBJECT = "VIKTIGT! Uppdatera din partnerprofil på d365.se";
 
@@ -615,7 +616,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
 
 
   const copyInvitationLink = (invToken: string) => {
-    // Använd alltid publik produktionsdomän — preview-domänen bryter POST/upload för partners
+    // Använd alltid publik produktionsdomän, preview-domänen bryter POST/upload för partners
     const link = `${getPublicBaseUrl()}/partner-update/${invToken}`;
     navigator.clipboard.writeText(link);
     toast.success("Länk kopierad (publik domän)!");
@@ -1172,19 +1173,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         {partner.contact_person && (
                           <span className="text-xs text-muted-foreground">{partner.contact_person}</span>
                         )}
-                        <span>{contactEmail || <span className="text-muted-foreground">—</span>}</span>
+                        <span>{contactEmail || <span className="text-muted-foreground">–</span>}</span>
                       </div>
                     </TableCell>
                     <TableCell>
                       {invitation
-                        ? format(new Date(invitation.created_at), "d MMM yyyy HH:mm", { locale: sv })
-                        : <span className="text-muted-foreground">—</span>
+                        ? formatDateYYYYMMDD(new Date(invitation.created_at))
+                        : <span className="text-muted-foreground">–</span>
                       }
                     </TableCell>
                     <TableCell>
                       {invitation?.submitted_at
-                        ? format(new Date(invitation.submitted_at), "d MMM yyyy HH:mm", { locale: sv })
-                        : <span className="text-muted-foreground">—</span>
+                        ? formatDateYYYYMMDD(new Date(invitation.submitted_at))
+                        : <span className="text-muted-foreground">–</span>
                       }
                     </TableCell>
                     <TableCell className="text-right">

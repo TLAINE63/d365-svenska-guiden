@@ -397,7 +397,7 @@ export default function ProductRoiAnalysis({
                     label="Payback"
                     value={
                       calc.paybackMonths == null
-                        ? "—"
+                        ? "–"
                         : `${Math.round(calc.paybackMonths)} mån`
                     }
                     sub={
@@ -468,7 +468,7 @@ export default function ProductRoiAnalysis({
                   label: "Payback",
                   value:
                     calc.paybackMonths == null
-                      ? "—"
+                      ? "–"
                       : `${Math.round(calc.paybackMonths)} mån`,
                   sub:
                     calc.paybackMonths == null

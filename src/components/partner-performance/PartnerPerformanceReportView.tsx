@@ -16,6 +16,7 @@ import {
   TrendingUp,
   UserCheck,
 } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 export interface PerformanceMetrics {
   impressions: number;
@@ -169,7 +170,7 @@ export default function PartnerPerformanceReportView({
   const hasData = m.impressions + m.profileViews + m.websiteClicks + m.leads > 0;
 
   const dataStartLabel = data.data_start
-    ? new Date(data.data_start).toLocaleDateString("sv-SE").replace(/-/g, "/")
+    ? formatDateYYYYMMDD(new Date(data.data_start))
     : null;
 
   return (

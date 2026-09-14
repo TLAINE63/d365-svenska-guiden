@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Video, MapPin, ExternalLink, Building2, ArrowRight } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface EventPartner {
   id: string;
@@ -27,13 +28,8 @@ interface PartnerEvent {
   partners: EventPartner | null;
 }
 
-const formatDate = (dateStr: string) => {
-  const d = new Date(dateStr);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-};
+const formatDate = formatDateYYYYMMDD;
+
 
 function EventCard({ event, past }: { event: PartnerEvent; past?: boolean }) {
   const href = past

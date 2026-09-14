@@ -21,6 +21,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
 import upphandlingsresanImage from "@/assets/upphandlingsresan-card.jpg";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
@@ -638,13 +639,7 @@ const Kunskapscenter = () => {
  fetchData();
  }, []);
 
- const formatDate = (dateStr: string) => {
- const d = new Date(dateStr);
- const y = d.getFullYear();
- const m = String(d.getMonth() + 1).padStart(2, "0");
- const day = String(d.getDate()).padStart(2, "0");
- return `${y}/${m}/${day}`;
- };
+ const formatDate = formatDateYYYYMMDD;
 
  // Build unified items list
  const allItems: UnifiedItem[] = [

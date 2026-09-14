@@ -23,7 +23,7 @@ const d = distExists ? describe : describe.skip;
 
 d("Prerendered SEO tags (dist/)", () => {
   if (!distExists) {
-    it.skip("requires dist/ — run `bun run build` first", () => {});
+    it.skip("requires dist/, run `bun run build` first", () => {});
     return;
   }
 

@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles, ShieldCheck } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Draft {
   id: string;
@@ -195,7 +196,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const sendSelectedForApproval = async () => {
     if (selected.size === 0) return;
     const to = "thomas.laine@dynamicfactory.se";
-    if (!confirm(`Skicka ${selected.size} rapport(er) till ${to} för godkännande?\n\nDrafts förblir orörda — du kan skicka skarpt efter granskning.`)) return;
+    if (!confirm(`Skicka ${selected.size} rapport(er) till ${to} för godkännande?\n\nDrafts förblir orörda, du kan skicka skarpt efter granskning.`)) return;
     setBusy("approval");
     const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
       body: { action: "send-test-batch", token, ids: Array.from(selected), test_email: to },
@@ -260,7 +261,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
             <p>Möjliga orsaker:</p>
             <ul className="text-left max-w-md mx-auto list-disc pl-5 space-y-1">
               <li>Inga identifierade företagsbesök på partnerprofiler under perioden.</li>
-              <li>Snitcher-synken har inte körts ännu — klicka <strong>Synka Snitcher</strong> i sektionen nedan.</li>
+              <li>Snitcher-synken har inte körts ännu, klicka <strong>Synka Snitcher</strong> i sektionen nedan.</li>
               <li>Slutdatumet ligger före senaste synkade session.</li>
             </ul>
             <p className="pt-2">Tips: prova en <strong>längre period</strong> (t.ex. senaste 6 månaderna) eller flytta fram slutdatumet till idag.</p>
@@ -306,7 +307,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
                               </div>
                             </div>
                             <div className="text-xs text-muted-foreground text-right">
-                              {c.last_seen && <div>Senast: {new Date(c.last_seen).toLocaleDateString("sv-SE")}</div>}
+                              {c.last_seen && <div>Senast: {formatDateYYYYMMDD(new Date(c.last_seen))}</div>}
                               <div>{c.profile_urls.length} profilbesök • {c.other_urls.length} andra</div>
                             </div>
                           </div>
@@ -496,7 +497,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{viewing?.partner_name} — {viewing?.period_start} → {viewing?.period_end}</DialogTitle>
+            <DialogTitle>{viewing?.partner_name} – {viewing?.period_start} → {viewing?.period_end}</DialogTitle>
           </DialogHeader>
           {viewing && (
             <div className="grid lg:grid-cols-2 gap-6">

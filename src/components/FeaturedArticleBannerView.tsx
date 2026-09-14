@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import type { BlogArticle } from "@/data/blogArticles";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
-const formatDate = (iso: string) => iso.replace(/-/g, "/");
+const formatDate = formatDateYYYYMMDD;
+
 
 interface Props {
   article: BlogArticle;

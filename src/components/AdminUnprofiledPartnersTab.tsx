@@ -142,7 +142,7 @@ export default function AdminUnprofiledPartnersTab({ token, onSessionExpired }: 
               {partners.map((p) => (
                 <TableRow key={p.id}>
                   <TableCell className="font-medium">{p.name}</TableCell>
-                  <TableCell className="text-muted-foreground text-sm max-w-xs truncate">{p.note || "—"}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm max-w-xs truncate">{p.note || "–"}</TableCell>
                   <TableCell>{p.display_order}</TableCell>
                   <TableCell>{p.is_visible ? "Ja" : "Nej"}</TableCell>
                   <TableCell className="text-right">

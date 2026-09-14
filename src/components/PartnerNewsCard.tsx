@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import type { PartnerNewsItem, PartnerNewsProductArea, PartnerNewsSourceType, PartnerNewsType } from "@/hooks/usePartnerNews";
 import { trackPartnerNewsClick, type PartnerNewsClickSource } from "@/utils/trackPartnerNewsClick";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<PartnerNewsProductArea, string> = {
   "business-central": "Business Central",
@@ -39,15 +40,8 @@ const SOURCE_LABELS: Record<PartnerNewsSourceType, string> = {
   other: "Källa",
 };
 
-function formatDate(iso: string) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-}
+const formatDate = formatDateYYYYMMDD;
+
 
 export function partnerNewsProductLabel(area: PartnerNewsProductArea) {
   return PRODUCT_LABELS[area];

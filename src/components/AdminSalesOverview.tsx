@@ -28,6 +28,7 @@ import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Bar, BarChart, Cell } fro
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { format, subDays, startOfDay, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface AdminSalesOverviewProps {
   token: string;
@@ -110,7 +111,7 @@ function buildCopyText(stats: any, dateRange: string, excludePartners: boolean) 
     : dateRange === "7" ? "senaste 7 dagarna"
     : dateRange === "30" ? "senaste 30 dagarna"
     : "senaste 90 dagarna";
-  const today = format(new Date(), "d MMMM yyyy", { locale: sv });
+  const today = formatDateYYYYMMDD(new Date());
   const lines: string[] = [];
   const suffix = excludePartners ? " (exkl. partnertrafik)" : "";
 
@@ -255,7 +256,7 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
                 <XAxis
                   dataKey="date"
                   tickFormatter={(val) => {
-                    try { return format(parseISO(val), "d MMM", { locale: sv }); }
+                    try { return formatDateYYYYMMDD(parseISO(val)); }
                     catch { return val; }
                   }}
                   tick={{ fontSize: 11 }}

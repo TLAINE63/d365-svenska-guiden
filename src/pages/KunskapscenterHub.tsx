@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, 
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import type { ProductKey } from "@/data/erpComparisons";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const HUB_COMPARISON_KEYS: Record<string, ProductKey[]> = {
   "business-central": ["bc"],
@@ -65,13 +66,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
     { type: "video", heading: "Videor" },
   ];
 
-  const formatDate = (iso: string) => {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return iso;
-    return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(
-      d.getDate()
-    ).padStart(2, "0")}`;
-  };
+  const formatDate = formatDateYYYYMMDD;
 
   return (
     <>

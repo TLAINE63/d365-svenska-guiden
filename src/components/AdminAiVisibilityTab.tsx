@@ -17,6 +17,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Bot, Loader2, Plus, RefreshCw, Sparkles, Trash2 } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface AiVisibilityData {
   totals: {
@@ -286,7 +287,7 @@ export default function AdminAiVisibilityTab({ token, onSessionExpired }: Props)
                     <TableCell className="text-right">{b.hits30}</TableCell>
                     <TableCell className="text-right">{b.hits90}</TableCell>
                     <TableCell className="text-right text-xs text-muted-foreground">
-                      {b.lastSeen ? b.lastSeen.slice(0, 10).replace(/-/g, "/") : "–"}
+                      {b.lastSeen ? formatDateYYYYMMDD(b.lastSeen) : "–"}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -448,7 +449,7 @@ export default function AdminAiVisibilityTab({ token, onSessionExpired }: Props)
                   <TableRow key={c.id}>
                     <TableCell>{c.label}</TableCell>
                     <TableCell className="text-right font-medium">{c.hits}</TableCell>
-                    <TableCell>{c.lastSeen.slice(0, 10).replace(/-/g, "/")}</TableCell>
+                    <TableCell>{formatDateYYYYMMDD(c.lastSeen)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

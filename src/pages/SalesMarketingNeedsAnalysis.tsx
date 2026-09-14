@@ -29,6 +29,7 @@ import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
@@ -900,7 +901,7 @@ const SalesMarketingNeedsAnalysis = () => {
  let yPos = margin;
 
  // ─── COVER PAGE ─────────────────────────────────────────────────────────────
- const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+ const analysisDate = formatDateYYYYMMDD(new Date());
  const pageHeight = pdf.internal.pageSize.getHeight();
 
  pdf.setFillColor(30, 58, 138);
@@ -965,7 +966,7 @@ const SalesMarketingNeedsAnalysis = () => {
  pdf.text("RESULTAT & REKOMMENDATIONER", margin, 22);
  pdf.setFontSize(11);
  pdf.setFont("helvetica", "normal");
- pdf.text(`${data.companyName} – ${new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" })}`, margin, 33);
+ pdf.text(`${data.companyName} – ${formatDateYYYYMMDD(new Date())}`, margin, 33);
 
  yPos = 50;
 

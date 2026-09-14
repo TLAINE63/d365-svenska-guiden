@@ -4,6 +4,7 @@
 import { PDF_BRAND } from "./pdfBrand";
 import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "./pdfLayout";
 import type { EstimateResult } from "@/lib/implementationEstimate";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const fmtSek = (n: number) =>
   new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
@@ -58,7 +59,7 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
     }
   };
 
-  const dateStr = new Intl.DateTimeFormat("sv-SE").format(new Date()).replace(/-/g, "/");
+  const dateStr = formatDateYYYYMMDD(new Date());
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9.5);
