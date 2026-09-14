@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, Wrench, FileText, Play, 
 import { HUB_BY_SLUG, type HubResourceCard } from "@/data/knowledgeHubs";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import type { ProductKey } from "@/data/erpComparisons";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const HUB_COMPARISON_KEYS: Record<string, ProductKey[]> = {
   "business-central": ["bc"],
