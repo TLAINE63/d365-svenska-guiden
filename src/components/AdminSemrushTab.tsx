@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, ExternalLink, TrendingUp, Eye } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface SemrushStat {
   id: string;
@@ -59,12 +60,10 @@ const fmtMonth = (iso: string) => {
   const d = new Date(iso);
   return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}`;
 };
-const fmtDate = (iso: string) => {
-  const d = new Date(iso);
-  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
-};
+const fmtDate = formatDateYYYYMMDD;
+
 const fmtNum = (n: number | null | undefined) =>
-  n == null ? "—" : new Intl.NumberFormat("sv-SE").format(n);
+  n == null ? "–" : new Intl.NumberFormat("sv-SE").format(n);
 
 export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();
@@ -179,7 +178,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
             <div>
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-sky-500" />
-                Semrush — månadsvis dom&auml;n-statistik
+                Semrush, månadsvis dom&auml;n-statistik
               </h3>
               <p className="text-sm text-muted-foreground">
                 Manuell uppföljning av d365.se totalt: organisk trafik, sökord, authority score, backlinks och topplistor.
@@ -193,10 +192,10 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
           {latest && (
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               <KpiCard label="Organisk trafik" value={fmtNum(latest.organic_traffic)} sub={
-                trafficDelta ? `${trafficDelta.diff >= 0 ? "+" : ""}${fmtNum(trafficDelta.diff)} (${trafficDelta.pct.toFixed(1)}%)` : "—"
+                trafficDelta ? `${trafficDelta.diff >= 0 ? "+" : ""}${fmtNum(trafficDelta.diff)} (${trafficDelta.pct.toFixed(1)}%)` : "–"
               } subColor={trafficDelta ? (trafficDelta.diff >= 0 ? "text-emerald-600" : "text-red-600") : ""} />
               <KpiCard label="Sökord" value={fmtNum(latest.organic_keywords)} />
-              <KpiCard label="Authority Score" value={latest.authority_score != null ? `${latest.authority_score}` : "—"} />
+              <KpiCard label="Authority Score" value={latest.authority_score != null ? `${latest.authority_score}` : "–"} />
               <KpiCard label="Backlinks" value={fmtNum(latest.backlinks)} />
               <KpiCard label="Refererande dom&auml;ner" value={fmtNum(latest.referring_domains)} />
             </div>
@@ -206,7 +205,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
             <p className="text-sm text-muted-foreground py-8 text-center">Laddar…</p>
           ) : stats.length === 0 ? (
             <p className="text-sm text-muted-foreground py-8 text-center">
-              Ingen Semrush-data ännu. Lägg till din första månad — du hittar siffrorna i Semrush "Domain Overview" för d365.se.
+              Ingen Semrush-data ännu. Lägg till din första månad, du hittar siffrorna i Semrush "Domain Overview" för d365.se.
             </p>
           ) : (
             <div className="border border-border rounded-lg overflow-hidden">
@@ -229,7 +228,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
                       <TableCell className="whitespace-nowrap font-medium">{fmtMonth(s.month)}</TableCell>
                       <TableCell className="text-right tabular-nums">{fmtNum(s.organic_traffic)}</TableCell>
                       <TableCell className="text-right tabular-nums">{fmtNum(s.organic_keywords)}</TableCell>
-                      <TableCell className="text-right tabular-nums">{s.authority_score ?? "—"}</TableCell>
+                      <TableCell className="text-right tabular-nums">{s.authority_score ?? "–"}</TableCell>
                       <TableCell className="text-right tabular-nums">{fmtNum(s.backlinks)}</TableCell>
                       <TableCell className="text-right tabular-nums">{fmtNum(s.referring_domains)}</TableCell>
                       <TableCell className="text-right text-sm text-muted-foreground whitespace-nowrap">
@@ -294,7 +293,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
             <div>
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <Eye className="h-5 w-5 text-emerald-500" />
-                Partner-profilsidor — bes&ouml;k
+                Partner-profilsidor, bes&ouml;k
               </h3>
               <p className="text-sm text-muted-foreground">
                 Vilka partnerprofiler bes&ouml;ks p&aring; d365.se och hur ofta. Sorterad fr&aring;n mest bes&ouml;kt.

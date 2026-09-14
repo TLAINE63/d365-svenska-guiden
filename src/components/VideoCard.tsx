@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Play } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface VideoCardProps {
   title: string;
@@ -11,14 +12,7 @@ interface VideoCardProps {
   uploadDate?: string;
 }
 
-const formatDateSv = (iso: string): string => {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-};
+const formatDateSv = formatDateYYYYMMDD;
 
 const VideoCard = ({ title, description, videoId, uploadDate }: VideoCardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);

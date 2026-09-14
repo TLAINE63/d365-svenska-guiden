@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { useToast } from "@/hooks/use-toast";
 import { Copy, Mail, Send, Trash2, Check, X } from "lucide-react";
 import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Props {
   token: string | null;
@@ -51,7 +52,8 @@ interface Submission {
 }
 
 const PUBLIC_BASE = "https://www.d365.se";
-const fmt = (d?: string | null) => (d ? new Date(d).toISOString().slice(0, 10).replace(/-/g, "/") : "–");
+const fmt = formatDateYYYYMMDD;
+
 
 export default function AdminIsvInvitationsTab({ token, onSessionExpired, onApproved, contacts }: Props) {
   const { toast } = useToast();

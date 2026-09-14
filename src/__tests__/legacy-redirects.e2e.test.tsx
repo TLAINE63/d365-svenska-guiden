@@ -13,7 +13,7 @@ import { MemoryRouter, Routes, Route, Navigate, useLocation } from "react-router
  *      src/entry-server.tsx (SSG prerender). Without this, a deep link to
  *      the old URL would 404 on first paint.
  *
- *   2. The destination Route also exists in both files — i.e. the new URL
+ *   2. The destination Route also exists in both files, i.e. the new URL
  *      is a real page, not just another redirect or a dead link.
  *
  *   3. When mounted in a real React Router, navigating to the old URL ends
@@ -101,7 +101,7 @@ function escape(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-describe("Legacy URL redirects — E2E", () => {
+describe("Legacy URL redirects. E2E", () => {
   describe.each(ROUTER_FILES)("%s declares all redirect routes", (file) => {
     const source = loadRouter(file);
 

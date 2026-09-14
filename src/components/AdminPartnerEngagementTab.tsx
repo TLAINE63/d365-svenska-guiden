@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, ExternalLink, GitCompareArrows, ListFilter, MousePointerClick } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface CompareRow {
   slug: string;
@@ -46,11 +47,8 @@ interface EngagementResponse {
   card_clicks: { total_partners: number; total_clicks: number; partners: CardRow[] };
 }
 
-const fmtDate = (iso: string | null) => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
-};
+const fmtDate = formatDateYYYYMMDD;
+
 
 function StatusBadges({ featured, signed }: { featured: boolean; signed: boolean }) {
   return (

@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { RotateCw, Send, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface UpdateRound {
   date: string;
@@ -265,7 +266,7 @@ const UpdateRoundSection = ({ token, partners, invitations, onSessionExpired, on
             {/* Round info */}
             <div className="flex items-center gap-4 text-sm">
               <Badge variant="outline">
-                Startad: {format(new Date(round.date), "d MMM yyyy HH:mm", { locale: sv })}
+                Startad: {formatDateYYYYMMDD(new Date(round.date))}
               </Badge>
               {round.label && <Badge variant="secondary">{round.label}</Badge>}
               <span className="text-muted-foreground">

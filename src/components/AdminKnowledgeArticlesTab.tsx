@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, ExternalLink, FileText } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface KnowledgeArticle {
   id: string;
@@ -49,11 +50,8 @@ const empty = (): Partial<KnowledgeArticle> => ({
   is_published: false,
 });
 
-const formatDate = (iso: string | null) => {
-  if (!iso) return "-";
-  const d = new Date(iso);
-  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
-};
+const formatDate = formatDateYYYYMMDD;
+
 
 export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();

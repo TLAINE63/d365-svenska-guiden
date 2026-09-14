@@ -27,6 +27,7 @@ import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const customerServiceBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
@@ -949,7 +950,7 @@ const CustomerServiceNeedsAnalysis = () => {
  };
 
  // ── COVER PAGE ──────────────────────────────────────────────────────────────
- const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+ const analysisDate = formatDateYYYYMMDD(new Date());
  pdf.setFillColor(30, 58, 138);
  pdf.rect(0, 0, pageWidth, pageHeight, 'F');
  pdf.setFillColor(56, 100, 220);

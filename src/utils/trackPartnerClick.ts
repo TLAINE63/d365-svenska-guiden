@@ -21,7 +21,7 @@ export const buildPartnerUrl = (
   try {
     const url = new URL(partnerWebsite);
 
-    // Rensa partnerns egna UTM-parametrar innan vi lägger på våra —
+    // Rensa partnerns egna UTM-parametrar innan vi lägger på våra,
     // partners länkar in med utm_source=start etc, vilket förvränger
     // deras egen analytics när d365.se skickar trafik.
     for (const key of Array.from(url.searchParams.keys())) {

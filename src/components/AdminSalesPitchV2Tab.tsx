@@ -992,10 +992,10 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                               variant="outline"
                               className={`text-[10px] ${ss.source === "server-fallback" ? "border-amber-400 text-amber-700" : "border-emerald-400 text-emerald-700"}`}
                             >
-                              {ss.source || "—"}
+                              {ss.source || "–"}
                             </Badge>
                             <div className="text-[10px] text-muted-foreground">
-                              placeholder: {String(ss.placeholder_in_body ?? "—")}
+                              placeholder: {String(ss.placeholder_in_body ?? "–")}
                             </div>
                             {ss.img_url && (
                               <a href={ss.img_url} target="_blank" rel="noopener noreferrer" className="text-[10px] text-blue-600 underline break-all">
@@ -1008,10 +1008,10 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                               variant="outline"
                               className={`text-[10px] ${sn.source === "server-fallback" ? "border-amber-400 text-amber-700" : "border-emerald-400 text-emerald-700"}`}
                             >
-                              {sn.source || "—"}
+                              {sn.source || "–"}
                             </Badge>
                             <div className="text-[10px] text-muted-foreground">
-                              placeholder: {String(sn.placeholder_in_body ?? "—")}
+                              placeholder: {String(sn.placeholder_in_body ?? "–")}
                             </div>
                             {sn.img_url && (
                               <a href={sn.img_url} target="_blank" rel="noopener noreferrer" className="text-[10px] text-blue-600 underline break-all">
@@ -1055,7 +1055,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Mail className="h-4 w-4" /> Mall — {DEFAULT_TEMPLATES[k].label}
+                  <Mail className="h-4 w-4" /> Mall – {DEFAULT_TEMPLATES[k].label}
                 </CardTitle>
                 <CardDescription>{DEFAULT_TEMPLATES[k].description}</CardDescription>
               </CardHeader>
@@ -1298,7 +1298,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <DialogTitle>Exakt utskicks-payload</DialogTitle>
             <DialogDescription>
               Detta är de exakta URL:er och HTML-block som skickas med varje införsäljnings-mail just nu.
-              Ankare-partner för site-stats: <code>{payloadData?.anchorSlug ?? "—"}</code>
+              Ankare-partner för site-stats: <code>{payloadData?.anchorSlug ?? "–"}</code>
             </DialogDescription>
           </DialogHeader>
           {payloadData && (

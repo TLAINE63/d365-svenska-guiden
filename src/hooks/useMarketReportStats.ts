@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 import {
   REPORT_STATS,
   REPORT_UPDATED,
   type ReportStat,
 } from "@/data/partnerMarketReport2026";
 
-const formatDate = (iso: string) => {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return REPORT_UPDATED;
-  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(
-    d.getDate()
-  ).padStart(2, "0")}`;
-};
+const formatDate = formatDateYYYYMMDD;
+
 
 /**
  * Läser rapportens nyckeltal från databasen (redigerbara i admin).

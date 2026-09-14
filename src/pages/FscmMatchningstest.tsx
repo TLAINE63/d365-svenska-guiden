@@ -478,7 +478,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
    sourcePage="/fscm-matchningstest"
    assessmentType="fscm_matching"
    products={["fsc"]}
-   underlagSummary={`F&SCM matchningstest – ${level.headline}\n\nSammanvägd matchning: ${score.total}/100.\n\n${level.body}\n\nStarkaste områden: ${tops.map((t) => PROFILE_STRONG_COPY[t.key]).join("; ") || "—"}`}
+   underlagSummary={`F&SCM matchningstest – ${level.headline}\n\nSammanvägd matchning: ${score.total}/100.\n\n${level.body}\n\nStarkaste områden: ${tops.map((t) => PROFILE_STRONG_COPY[t.key]).join("; ") || "–"}`}
    resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
  />
 

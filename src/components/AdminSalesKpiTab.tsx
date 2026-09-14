@@ -247,7 +247,7 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
       <Card className="border-warning/30 bg-warning/5">
         <CardContent className="pt-4 pb-4 text-sm text-muted-foreground">
           <strong className="text-foreground">Datakällor:</strong> Leads (alla CTA-formulär), partnerklick och tilldelningar. 
-          Mötesbokningar och demo-förfrågningar är inte separata fält i databasen — för att spåra dessa krävs utökad lead-status. 
+          Mötesbokningar och demo-förfrågningar är inte separata fält i databasen, för att spåra dessa krävs utökad lead-status. 
           <span className="text-foreground"> Konvertering = vidarebefordrade leads / totala leads.</span>
         </CardContent>
       </Card>
@@ -445,7 +445,7 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
                           {p.conversion}%
                         </Badge>
                       ) : (
-                        <span className="text-muted-foreground text-xs">—</span>
+                        <span className="text-muted-foreground text-xs">–</span>
                       )}
                     </TableCell>
                   </TableRow>

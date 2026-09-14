@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, RefreshCw, ExternalLink, Newspaper } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Row {
   news_id: string;
@@ -41,15 +42,8 @@ const RANGE_OPTIONS: { value: string; label: string }[] = [
   { value: "all", label: "All tid" },
 ];
 
-function fmtDate(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "—";
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
-}
+const fmtDate = formatDateYYYYMMDD;
+
 
 function newsTypeLabel(t: string | null): string {
   switch (t) {
@@ -66,7 +60,7 @@ function newsTypeLabel(t: string | null): string {
     case "blog":
       return "Blogg";
     default:
-      return t ?? "—";
+      return t ?? "–";
   }
 }
 
@@ -200,7 +194,7 @@ export default function AdminPartnerNewsPerformanceTab({ token, onSessionExpired
                           {r.partner_name ?? r.partner_slug}
                         </Link>
                       ) : (
-                        <span className="text-muted-foreground">—</span>
+                        <span className="text-muted-foreground">–</span>
                       )}
                     </td>
                     <td className="py-2 px-2">

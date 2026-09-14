@@ -417,7 +417,7 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
         industry={result.segmentLabel}
         underlagSummary={`BC-matchningstest – ${result.headline}\n\n${result.body}\n\n${CLASS_ORDER.map(
           (c) =>
-            `${bcClassificationLabel(c)}: ${result.byClassification[c].map((s) => s.area).join(", ") || "—"}`,
+            `${bcClassificationLabel(c)}: ${result.byClassification[c].map((s) => s.area).join(", ") || "–"}`,
         ).join("\n")}`}
         resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
       />

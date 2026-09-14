@@ -52,6 +52,7 @@ import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 // ─── TYPES ───────────────────────────────────────────────
 
@@ -1206,7 +1207,7 @@ const AIReadiness = () => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);
-    doc.text(`Datum: ${new Date().toLocaleDateString("sv-SE")}`, lm, ph - 50);
+    doc.text(`Datum: ${formatDateYYYYMMDD(new Date())}`, lm, ph - 50);
     if (reportForm.company) {
       doc.text(`Foretag: ${reportForm.company}`, lm, ph - 42);
     }

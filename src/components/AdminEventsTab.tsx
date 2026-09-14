@@ -41,7 +41,7 @@ import { sv } from "date-fns/locale";
 import {
   Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2, Mail, FileEdit, Save, RotateCcw
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+ import { cn, formatDateYYYYMMDD } from "@/lib/utils";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
 
 interface Partner {
@@ -291,7 +291,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
 
   const formatDate = (dateStr: string) => {
     try {
-      return format(new Date(dateStr), "d MMM yyyy", { locale: sv });
+      return formatDateYYYYMMDD(new Date(dateStr));
     } catch {
       return dateStr;
     }
@@ -556,7 +556,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                       {!selectedPartner && (
                         <TableCell>
                           <span className="font-medium text-sm">
-                            {event.partners?.name || "—"}
+                            {event.partners?.name || "–"}
                           </span>
                         </TableCell>
                       )}
@@ -579,7 +579,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                             <span className="truncate">{event.event_link}</span>
                           </a>
                         ) : (
-                          <span className="text-muted-foreground">—</span>
+                          <span className="text-muted-foreground">–</span>
                         )}
                       </TableCell>
                       <TableCell>

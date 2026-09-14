@@ -27,6 +27,7 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Partner {
   id: string;
@@ -103,12 +104,7 @@ const EventDetail = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString("sv-SE", { 
-      weekday: "long",
-      day: "numeric", 
-      month: "long",
-      year: "numeric"
-    });
+    return formatDateYYYYMMDD(date);
   };
 
   const formatTime = (timeStr: string | null) => {

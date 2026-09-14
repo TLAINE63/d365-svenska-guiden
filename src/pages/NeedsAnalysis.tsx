@@ -32,6 +32,7 @@ import IsvAddonSuggestions, { type SelectedIsvAddon } from "@/components/IsvAddo
 import { deriveAreasFromText } from "@/lib/isvSuggestions";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
@@ -2099,7 +2100,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     };
 
     // ── COVER PAGE ─────────────────────────────────────────────────────────────
-    const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+    const analysisDate = formatDateYYYYMMDD(new Date());
     pdf.setFillColor(0, 120, 108);
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
     pdf.setFillColor(0, 180, 160);

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { BLOG_ARTICLES, type BlogArticle } from "@/data/blogArticles";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
-const formatDate = (iso: string) => iso.replace(/-/g, "/");
+const formatDate = formatDateYYYYMMDD;
+
 
 interface Props {
   /** Slug to exclude (e.g. the featured one shown above). */

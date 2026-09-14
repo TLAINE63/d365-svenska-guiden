@@ -189,7 +189,7 @@ export default function AdminProductPricesTab({ token, onSessionExpired }: Props
                       )}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{p.price_unit}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{p.price_note || "—"}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{p.price_note || "–"}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
                         <Button variant="ghost" size="icon" onClick={() => setEditing(p)} title="Redigera">
@@ -308,7 +308,7 @@ export default function AdminProductPricesTab({ token, onSessionExpired }: Props
                   )}
                 </span>
                 {editing.price_note ? (
-                  <span className="text-muted-foreground italic"> — {editing.price_note}</span>
+                  <span className="text-muted-foreground italic"> – {editing.price_note}</span>
                 ) : null}
               </div>
             </div>

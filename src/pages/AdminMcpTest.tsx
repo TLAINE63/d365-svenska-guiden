@@ -58,7 +58,7 @@ async function fetchToolList(): Promise<McpTool[]> {
   });
   if (!rpc.ok) throw new Error(`list-tools failed (${rpc.status})`);
   const text = await rpc.text();
-  // May be SSE — grab the last data line
+  // May be SSE, grab the last data line
   const dataLine = text.split("\n").reverse().find((l) => l.startsWith("data:"));
   const json = JSON.parse(dataLine ? dataLine.slice(5).trim() : text);
   return (json?.result?.tools ?? []) as McpTool[];

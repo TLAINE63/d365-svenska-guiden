@@ -1,5 +1,6 @@
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const getBase64FromUrl = async (url: string): Promise<string> => {
   const response = await fetch(url);
@@ -263,7 +264,7 @@ export const generateRequirementsSpec = async (
   y += 7;
   doc.text(`Företagsstorlek: ${data.companySize || "Ej angiven"}`, margin, y);
   y += 7;
-  doc.text(`Genererad: ${new Date().toLocaleDateString("sv-SE")}`, margin, y);
+  doc.text(`Genererad: ${formatDateYYYYMMDD(new Date())}`, margin, y);
   y += 20;
 
   // Disclaimer

@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -70,4 +71,20 @@ export function formatSwedishPhone(raw: string): string {
     return `${prefix}${digits.slice(0, 3)}-${digits.slice(3, 6)} ${digits.slice(6, 9)}`;
   }
   return prefix ? `${prefix}${digits}` : trimmed;
+}
+
+/**
+ * Returnerar ett datum i formatet ÅÅÅÅ-MM-DD från ett Date- eller ISO-liknande värde.
+ * Om indata är ogiltig returneras den ursprungliga strängen oförändrad.
+ */
+export function formatDateYYYYMMDD(
+  iso: string | Date | null | undefined
+): string {
+  if (!iso) return "";
+  const d = iso instanceof Date ? iso : new Date(iso);
+  if (Number.isNaN(d.getTime())) return typeof iso === "string" ? iso : "";
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }

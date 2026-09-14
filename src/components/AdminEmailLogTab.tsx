@@ -21,6 +21,7 @@ import { RefreshCw, CheckCircle2, XCircle, Mail, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface EmailLog {
   id: string;
@@ -231,7 +232,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
                 {filteredLogs.map((log) => (
                   <TableRow key={log.id}>
                     <TableCell className="whitespace-nowrap text-sm">
-                      {format(new Date(log.created_at), "d MMM HH:mm", { locale: sv })}
+                      {formatDateYYYYMMDD(new Date(log.created_at))}
                     </TableCell>
                     <TableCell className="text-sm">
                       {TEMPLATE_LABELS[log.template_name] || log.template_name}

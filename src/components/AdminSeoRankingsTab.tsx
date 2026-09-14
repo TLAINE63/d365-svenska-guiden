@@ -152,7 +152,7 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
           <div>
             <h3 className="text-lg font-semibold">Rankningspanel</h3>
             <p className="text-sm text-muted-foreground">
-              Manuell uppföljning av prioriterade sökord — position, CTR och indexering månad för månad.
+              Manuell uppföljning av prioriterade sökord, position, CTR och indexering månad för månad.
             </p>
           </div>
           <Button onClick={() => setEditing(empty())}>
@@ -217,17 +217,17 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
                       {[...list].reverse().map((r) => (
                         <TableRow key={r.id}>
                           <TableCell className="whitespace-nowrap">{fmtMonth(r.month)}</TableCell>
-                          <TableCell className="text-right tabular-nums">{r.position ?? "—"}</TableCell>
-                          <TableCell className="text-right tabular-nums">{r.ctr ?? "—"}</TableCell>
-                          <TableCell className="text-right tabular-nums">{r.impressions ?? "—"}</TableCell>
-                          <TableCell className="text-right tabular-nums">{r.clicks ?? "—"}</TableCell>
+                          <TableCell className="text-right tabular-nums">{r.position ?? "–"}</TableCell>
+                          <TableCell className="text-right tabular-nums">{r.ctr ?? "–"}</TableCell>
+                          <TableCell className="text-right tabular-nums">{r.impressions ?? "–"}</TableCell>
+                          <TableCell className="text-right tabular-nums">{r.clicks ?? "–"}</TableCell>
                           <TableCell>
                             <Badge variant="outline" className={statusLabel[r.index_status].cls}>
                               {statusLabel[r.index_status].text}
                             </Badge>
                           </TableCell>
                           <TableCell className="max-w-[180px] truncate text-sm text-muted-foreground">
-                            {r.target_url || "—"}
+                            {r.target_url || "–"}
                           </TableCell>
                           <TableCell className="text-right whitespace-nowrap">
                             <Button variant="ghost" size="icon" onClick={() => setEditing({ ...r, month: r.month.slice(0, 7) })}>

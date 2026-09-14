@@ -14,6 +14,7 @@ import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { Copy, FileText, RefreshCw } from "lucide-react";
 import { format, subDays, startOfDay } from "date-fns";
 import { sv } from "date-fns/locale";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface AdminStatsSummaryProps {
   token: string;
@@ -147,7 +148,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       const clickStats = clickData?.stats || [];
 
       // Build text
-      const today = format(new Date(), "d MMMM yyyy", { locale: sv });
+      const today = formatDateYYYYMMDD(new Date());
       const lines: string[] = [];
 
       lines.push(`📊 Statistiksammanfattning för D365.se`);

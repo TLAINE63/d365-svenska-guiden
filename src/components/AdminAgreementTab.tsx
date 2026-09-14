@@ -748,7 +748,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
             <div className="text-sm">
               {templateKind === "cold-pitch" ? (
                 <>
-                  <span className="font-medium">{coldEmail.trim() || "—"}</span> ·{" "}
+                  <span className="font-medium">{coldEmail.trim() || "–"}</span> ·{" "}
                   <span className="font-medium">Införsäljningsmail</span>
                 </>
               ) : (

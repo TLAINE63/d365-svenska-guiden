@@ -51,8 +51,8 @@ const fmtMonth = (ym: string) => {
   return `${y.slice(2)}/${m}`;
 };
 const fmtNum = (n: unknown) =>
-  n == null || n === "" ? "—" : new Intl.NumberFormat("sv-SE").format(Number(n));
-const fmtScore = (n: unknown) => (n == null || n === "" ? "—" : Number(n).toFixed(0));
+  n == null || n === "" ? "–" : new Intl.NumberFormat("sv-SE").format(Number(n));
+const fmtScore = (n: unknown) => (n == null || n === "" ? "–" : Number(n).toFixed(0));
 
 const empty = (domain: string) => ({
   domain,
@@ -223,7 +223,7 @@ export default function AdminCompetitorTab({ token, onSessionExpired }: Props) {
             <div>
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <Swords className="h-5 w-5 text-primary" />
-                Konkurrentjämförelse — d365.se vs konkurrent
+                Konkurrentjämförelse, d365.se vs konkurrent
               </h3>
               <p className="text-sm text-muted-foreground">
                 Manuell Semrush-data per månad och domän. Källa: Semrush (databas SE). Authority Score och backlinks fylls i manuellt.

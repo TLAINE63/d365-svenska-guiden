@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { RefreshCw, AlertTriangle, CheckCircle2, FileSearch, TrendingUp } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 import {
   Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend,
 } from "recharts";
@@ -37,10 +38,8 @@ interface Props {
   onSessionExpired: () => void;
 }
 
-const fmtDate = (iso: string) => {
-  if (!iso) return "—";
-  return new Date(iso).toISOString().slice(0, 10).replace(/-/g, "/");
-};
+const fmtDate = formatDateYYYYMMDD;
+
 const fmtNum = (n: number) => new Intl.NumberFormat("sv-SE").format(Math.round(n));
 
 export default function AdminGscTab({ token, onSessionExpired }: Props) {
@@ -150,12 +149,12 @@ export default function AdminGscTab({ token, onSessionExpired }: Props) {
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <KPI label={`Klick (${days}d)`} value={totals ? fmtNum(totals.clicks) : "—"} />
-        <KPI label={`Visningar (${days}d)`} value={totals ? fmtNum(totals.impressions) : "—"} />
-        <KPI label="CTR" value={totals ? `${totals.ctr.toFixed(2)} %` : "—"} />
-        <KPI label="Snittposition" value={totals ? totals.position.toFixed(1) : "—"} />
-        <KPI label={`Unika besökare (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.unique) : "—"} />
-        <KPI label={`Sidvisningar (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.pageviews) : "—"} />
+        <KPI label={`Klick (${days}d)`} value={totals ? fmtNum(totals.clicks) : "–"} />
+        <KPI label={`Visningar (${days}d)`} value={totals ? fmtNum(totals.impressions) : "–"} />
+        <KPI label="CTR" value={totals ? `${totals.ctr.toFixed(2)} %` : "–"} />
+        <KPI label="Snittposition" value={totals ? totals.position.toFixed(1) : "–"} />
+        <KPI label={`Unika besökare (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.unique) : "–"} />
+        <KPI label={`Sidvisningar (${days}d)`} value={data?.visitors ? fmtNum(data.visitors.pageviews) : "–"} />
       </div>
       <p className="text-xs text-muted-foreground -mt-2">
         Unika besökare kommer från sajtens egen mätning (unik anonymiserad besökare per dag), exklusive interna besök.

@@ -78,7 +78,7 @@ function normalizeFactor(raw: string): string | null {
   let t = raw.replace(/\s+/g, " ").trim();
   if (!t) return null;
   // Behåll bara första ledet i längre meningar
-  t = t.split(/[.;–—]|\s+samt\s+/)[0].trim();
+  t = t.split(/[.;––]|\s+samt\s+/)[0].trim();
   t = t.replace(/^(bolag|företag|kunder|verksamheter)\s+(som|med|inom)\s+/i, "");
   t = t.replace(/^dynamics 365\s+/i, "").replace(/^d365\s+/i, "");
   t = shortenIndustry(t);

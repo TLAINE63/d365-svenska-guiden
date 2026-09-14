@@ -604,7 +604,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                         <Badge variant="outline" className="text-[11px]">Automatiskt inhämtad</Badge>
                       )}
                       <span className="text-xs text-muted-foreground">
-                        {item.partner?.name ?? "—"} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
+                        {item.partner?.name ?? "–"} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
                       </span>
                     </div>
 

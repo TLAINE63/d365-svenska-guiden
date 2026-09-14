@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Partner {
  id: string;
@@ -149,12 +150,7 @@ const Events = () => {
 
  const formatDate = (dateStr: string) => {
  const date = new Date(dateStr);
- return date.toLocaleDateString("sv-SE", { 
- weekday: "long",
- day: "numeric", 
- month: "long",
- year: "numeric"
- });
+ return formatDateYYYYMMDD(date);
  };
 
  const formatTime = (timeStr: string | null) => {

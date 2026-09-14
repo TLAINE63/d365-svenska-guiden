@@ -493,7 +493,7 @@ export default function SalesRoiCalculator() {
                       <Kpi
                         icon={<Clock className="w-4 h-4" />}
                         label="Payback"
-                        value={calc.paybackMonths == null ? "—" : `${Math.round(calc.paybackMonths)} mån`}
+                        value={calc.paybackMonths == null ? "–" : `${Math.round(calc.paybackMonths)} mån`}
                         sub={calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined}
                       />
                       <Kpi
@@ -554,7 +554,7 @@ export default function SalesRoiCalculator() {
                     fileName: `d365sales-roi-tco-${v.companyName ? v.companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" : ""}${new Date().toISOString().slice(0, 10)}.pdf`,
                     kpis: [
                       { label: "5-årig ROI", value: `${Math.round(calc.roiPct)}%` },
-                      { label: "Payback", value: calc.paybackMonths == null ? "—" : `${Math.round(calc.paybackMonths)} mån`, sub: calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined },
+                      { label: "Payback", value: calc.paybackMonths == null ? "–" : `${Math.round(calc.paybackMonths)} mån`, sub: calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined },
                       { label: "5-årig TCO", value: fmtSek(calc.tco5) },
                       { label: "Nettonytta år 1", value: fmtSek(calc.netAnnual) },
                     ],

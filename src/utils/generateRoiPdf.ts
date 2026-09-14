@@ -3,6 +3,7 @@
 
 import { PDF_BRAND } from "./pdfBrand";
 import { finalizePdfWithFooter, drawSectionHeading } from "./pdfLayout";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
 const MUTED: [number, number, number] = [110, 110, 110];
@@ -127,7 +128,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
 
   doc.setFontSize(9);
   doc.setTextColor(200, 200, 200);
-  const dateStr = new Date().toLocaleDateString("sv-SE");
+  const dateStr = formatDateYYYYMMDD(new Date());
   doc.text(`Genererad ${dateStr}`, margin, 60);
 
   let y = 86;

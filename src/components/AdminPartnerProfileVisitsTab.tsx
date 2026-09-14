@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, ExternalLink, Users, Eye } from "lucide-react";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface PartnerRow {
   slug: string;
@@ -24,11 +25,8 @@ interface Response {
   partners: PartnerRow[];
 }
 
-const fmtDate = (iso: string | null) => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getDate()).padStart(2, "0")}`;
-};
+const fmtDate = formatDateYYYYMMDD;
+
 
 export default function AdminPartnerProfileVisitsTab({ token }: { token: string | null }) {
   const { toast } = useToast();
@@ -139,7 +137,7 @@ export default function AdminPartnerProfileVisitsTab({ token }: { token: string 
                     </td>
                     <td className="px-3 py-2 text-muted-foreground">{fmtDate(p.last_seen)}</td>
                     <td className="px-3 py-2 text-muted-foreground max-w-md truncate" title={p.companies.join(", ")}>
-                      {p.companies.length ? p.companies.join(", ") : "—"}
+                      {p.companies.length ? p.companies.join(", ") : "–"}
                     </td>
                     <td className="px-3 py-2">
                       <a
