@@ -98,7 +98,7 @@ const getLatestArticles = (count: number) =>
 export default function HomePartnerNewsSection() {
   const { data, isLoading } = usePublishedPartnerNews({ showOnHome: true, limit: 6 });
 
-  const articles = getLatestArticles(3);
+  const articles = getLatestArticles(2);
   const hasNews = !isLoading && !!data && data.length > 0;
 
   if (!hasNews && articles.length === 0) return null;
