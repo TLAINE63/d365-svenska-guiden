@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
+import { BLOG_ARTICLES } from "@/data/blogArticles";
 import { usePublishedPartnerNews } from "@/hooks/usePartnerNews";
 import {
   partnerNewsProductLabel,
