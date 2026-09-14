@@ -21,6 +21,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
 import upphandlingsresanImage from "@/assets/upphandlingsresan-card.jpg";
+import { formatDateYYYYMMDD } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
