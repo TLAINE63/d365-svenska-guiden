@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
+import { BLOG_ARTICLES } from "@/data/blogArticles";
 import { usePublishedPartnerNews } from "@/hooks/usePartnerNews";
 import {
   partnerNewsProductLabel,
@@ -88,32 +90,104 @@ function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number })
   );
 }
 
+const getLatestArticles = (count: number) =>
+  [...BLOG_ARTICLES]
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, count);
+
 export default function HomePartnerNewsSection() {
   const { data, isLoading } = usePublishedPartnerNews({ showOnHome: true, limit: 6 });
 
-  if (isLoading || !data || data.length === 0) return null;
+  const articles = getLatestArticles(3);
+  const hasNews = !isLoading && !!data && data.length > 0;
+
+  if (!hasNews && articles.length === 0) return null;
 
   return (
     <section className="py-14 sm:py-16 bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-            Aktuellt från Dynamics 365-partners
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Redaktionellt utvalda nyheter, kundcase och event från publicerade partners på d365.se.
-          </p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-          {data.map((item, index) => (
-            <HomeNewsCard key={item.id} item={item} index={index} />
-          ))}
-        </div>
-        <div className="mt-10 flex justify-center">
-          <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-            <Link to="/partnernytt/">Visa allt partnernytt</Link>
-          </Button>
-        </div>
+        {hasNews && (
+          <>
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                Aktuellt från Dynamics 365-partners
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Redaktionellt utvalda nyheter, kundcase och event från publicerade partners på d365.se.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+              {data.map((item, index) => (
+                <HomeNewsCard key={item.id} item={item} index={index} />
+              ))}
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                <Link to="/partnernytt/">Visa allt partnernytt</Link>
+              </Button>
+            </div>
+          </>
+        )}
+
+        {articles.length > 0 && (
+          <div className={hasNews ? "mt-16 pt-12 border-t border-border" : ""}>
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                Senaste artiklarna från d365.se
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Analyser, guider och råd om affärssystem, AI och partnerval i Dynamics 365.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+              {articles.map((a, index) => (
+                <Link
+                  key={a.slug}
+                  to={`/artiklar/${a.slug}/`}
+                  className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all cursor-pointer hover:border-[hsl(var(--accent))] hover:bg-secondary/30 hover:shadow-xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  {a.heroImage ? (
+                    <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
+                      <img
+                        src={a.heroImage}
+                        alt={a.title}
+                        width={640}
+                        height={360}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        decoding={index === 0 ? "sync" : "async"}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="flex flex-1 flex-col gap-3 p-5">
+                    <Badge variant="secondary" className="w-fit text-[11px] tracking-wide">
+                      {a.category}
+                    </Badge>
+                    <h3 className="text-lg font-semibold text-foreground leading-snug group-hover:text-[hsl(var(--accent))] transition-colors">
+                      {a.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                      {a.summary}
+                    </p>
+                    <div className="mt-auto pt-3 border-t border-border flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      <span className="font-medium text-foreground">{a.author.name}</span>
+                      <span aria-hidden>·</span>
+                      <span>{formatDate(a.publishedAt)}</span>
+                      <ArrowRight className="ml-auto w-4 h-4 text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Button asChild variant="outline">
+                <Link to="/kunskapscenter/" className="inline-flex items-center gap-1">
+                  Alla artiklar i Kunskapscentret <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
