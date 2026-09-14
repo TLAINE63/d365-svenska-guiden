@@ -638,13 +638,7 @@ const Kunskapscenter = () => {
  fetchData();
  }, []);
 
- const formatDate = (dateStr: string) => {
- const d = new Date(dateStr);
- const y = d.getFullYear();
- const m = String(d.getMonth() + 1).padStart(2, "0");
- const day = String(d.getDate()).padStart(2, "0");
- return `${y}/${m}/${day}`;
- };
+ const formatDate = formatDateYYYYMMDD;
 
  // Build unified items list
  const allItems: UnifiedItem[] = [
