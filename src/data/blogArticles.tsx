@@ -12,6 +12,7 @@ import aiSkiftetBuild2026Hero from "@/assets/articles/ai-skiftet-build-2026-hero
 import frontierFirmHero from "@/assets/articles/frontier-firm-hero.jpg";
 import copilotCoworkHero from "@/assets/articles/copilot-cowork-hero.jpg";
 import workIqApisHero from "@/assets/articles/work-iq-apis-hero.jpg";
+import branschkunskapHero from "@/assets/articles/branschkunskap-konkurrensfordelen-hero.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelImg from "@/assets/industries/livsmedel.webp";
@@ -90,6 +91,212 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: "branschkunskap-konkurrensfordelen",
+    title: "När alla får samma AI blir branschkunskap konkurrensfördelen",
+    metaTitle: "Branschkunskap blir konkurrensfördelen när AI jämnar ut tekniken",
+    metaDescription:
+      "AI gör teknisk kompetens mer tillgänglig. För Dynamics 365-köpare betyder det att branschförståelse, erfarenhet och processkunskap väger tyngre i partnervalet.",
+    summary:
+      "AI gör teknisk kompetens mer tillgänglig. Men det betyder inte att partnervalet blir enklare, snarare att branschförståelse och erfarenhet blir viktigare.",
+    category: "Partnerval",
+    tags: [
+      "branschkunskap",
+      "partnerval",
+      "ai i konsultbranschen",
+      "dynamics 365-partner",
+      "upphandling affärssystem",
+      "copilot",
+    ],
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    publishedAt: "2026-09-14",
+    author: THOMAS_LAINE,
+    heroImage: branschkunskapHero,
+    readingTimeMinutes: 6,
+    content: (
+      <>
+        <p className="lead">
+          AI gör teknisk kompetens mer tillgänglig. Men det betyder inte att partnervalet blir
+          enklare. Det betyder snarare att andra saker blir viktigare: branschförståelse,
+          erfarenhet och förmågan att se vad som faktiskt spelar roll i kundens verksamhet.
+        </p>
+        <p>
+          För den som står inför ett Dynamics 365-val blir frågan därför inte bara vilken partner
+          som kan mest teknik. Den viktigare frågan är vilken partner som bäst förstår den
+          verksamhet systemet ska stödja.
+        </p>
+        <p>
+          Under många år har konkurrensen mellan konsultbolag till stor del handlat om teknisk
+          kompetens. Vem kan Dynamics 365 bäst? Vem har flest certifieringar? Vem har flest
+          utvecklare, arkitekter och konsulter?
+        </p>
+        <p>
+          När AI gör tekniskt arbete snabbare flyttas konkurrensfördelen uppåt i värdekedjan. Det
+          blir fortfarande viktigt att kunna Dynamics 365, men det blir svårare att särskilja sig
+          enbart på tekniken. Den verkliga skillnaden uppstår när partnern förstår kundens
+          processer, risker och vägval.
+        </p>
+
+        <div className="not-prose my-8 rounded-lg border border-border bg-muted/40 p-6">
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Då blir frågan mindre: vem kan systemet? Och mer: vem förstår vår verksamhet?
+          </p>
+        </div>
+
+        <h2>AI ökar värdet av verksamhetskunskap</h2>
+        <p>
+          AI kan redan hjälpa konsulter att skriva kod, analysera dokumentation, ta fram testfall,
+          bygga agenter och föreslå processlösningar. Det gör mycket av det tekniska arbetet
+          snabbare och mer tillgängligt.
+        </p>
+        <p>
+          Men AI vet inte automatiskt vad som är viktigt i en viss verksamhet. Den kan ge förslag,
+          sammanfatta dokumentation och peka på mönster. Men någon måste fortfarande avgöra vad som
+          faktiskt spelar roll, vilka avvikelser som är kritiska och var ett till synes litet
+          beslut kan skapa affärsrisk.
+        </p>
+        <p>
+          För en Dynamics 365-köpare handlar det därför om att hitta rätt kombination:
+          plattformskompetens, processförståelse och branschkunskap. Tekniken är viktig, men den
+          måste kopplas till hur verksamheten faktiskt fungerar.
+        </p>
+
+        <h2>Vad branschkompetens betyder i praktiken</h2>
+        <p>
+          Det räcker inte att en partner säger sig vara stark på Dynamics 365 Finance &amp; Supply
+          Chain Management, Business Central eller Customer Engagement. Det är ofta sant. Men den
+          mer intressanta frågan är hur mycket erfarenhet partnern har av verksamheter som liknar
+          er egen.
+        </p>
+        <p>
+          En partner med djup branschförståelse känner igen processmönster, integrationer,
+          regulatoriska krav och vanliga fallgropar. Det gör skillnad tidigt i projektet: vad bör
+          följa standard, vad behöver anpassas och vilka frågor har kunden ännu inte själv ställt?
+        </p>
+        <p>
+          Det är också en förklaring till att paketerade branschlösningar fått en stark position i
+          delar av Dynamics-ekosystemet. Värdet ligger inte bara i färdig kod. Det ligger lika
+          mycket i att processer, datamodeller och integrationer redan har prövats i liknande
+          verksamheter.
+        </p>
+
+        <h2>Tre branscher där skillnaden blir tydlig</h2>
+        <p>
+          Det blir tydligt när samma plattform används i verksamheter med helt olika logik.
+          Särskilt tydligt blir det där processerna är komplexa, affärsrisken hög eller regelverken
+          omfattande.
+        </p>
+
+        <h3>Tillverkningsindustrin</h3>
+        <p>
+          I tillverkande företag ligger ERP nära kärnverksamheten. Produktion, materialförsörjning,
+          lager, kvalitet, planering och ekonomi hänger ihop. Små designbeslut kan få stora
+          operativa konsekvenser. Samtidigt finns stora möjligheter för AI inom exempelvis
+          prognoser, planeringsavvikelser, inköp, kvalitet och orderhantering. Då blir det
+          avgörande att partnern inte bara förstår tekniken, utan också produktionslogiken.
+        </p>
+
+        <h3>Retail</h3>
+        <p>
+          Retail har en annan typ av komplexitet. Priser, kampanjer, sortiment, lager, e-handel,
+          butiker och kunddata måste fungera tillsammans.
+        </p>
+        <p>
+          AI kan skapa värde inom prognoser, lageroptimering, prissättning och operativa beslut.
+          Men i retail hänger allt ihop. En prisrekommendation kan höja marginalen på en artikel,
+          men samtidigt försvaga kampanjeffekten eller skapa ett lager som senare måste
+          prisnedsättas.
+        </p>
+
+        <h3>Life Sciences</h3>
+        <p>
+          Inom Life Sciences blir branschkompetensen extra viktig eftersom kvalitet, spårbarhet,
+          validering, dokumentation och regulatoriska krav påverkar både lösningsdesign och
+          arbetssätt. Här räcker generell ERP-kompetens ofta inte hela vägen. Partnern behöver
+          förstå vilka krav som är verksamhetskritiska och hur förändringar kan genomföras utan att
+          bygga in nya risker.
+        </p>
+
+        <h2>Vad betyder det för partnervalet?</h2>
+        <p>
+          När teknisk kompetens blir lättare att få tillgång till behöver köparen lägga större vikt
+          vid bevisad branschförståelse. Den ska inte bara finnas i säljpresentationen eller på en
+          referenslista. Den ska märkas i samtalet med partnern.
+        </p>
+        <ul>
+          <li>Vilka projekt har ni genomfört i verksamheter som liknar vår?</li>
+          <li>Vilka branschspecifika risker ser ni i vårt projekt redan nu?</li>
+          <li>
+            Vilka delar bör följa standard, och var brukar standarden inte räcka i vår typ av
+            verksamhet?
+          </li>
+          <li>
+            Vilka processer i vår bransch ser ni störst potential att förbättra med Copilot och
+            agenter?
+          </li>
+        </ul>
+        <p>
+          Svaren säger ofta mer än antalet certifieringar. En partner som förstår verksamheten
+          pratar konkret om processer, risker och kompromisser, inte bara om funktioner.
+        </p>
+
+        <h2>Branschkunskap blir en tydligare differentiator</h2>
+        <p>
+          AI kommer inte att göra produktkompetens oviktig. Den kommer däremot att göra generell
+          teknisk kompetens mer tillgänglig och svårare att använda som enda konkurrensfördel. För
+          Dynamics 365-köpare innebär det att branschförståelse behöver väga tyngre i
+          partnerutvärderingen. Den partner som redan har sett liknande processer, risker och
+          vägval har bättre förutsättningar att hjälpa kunden fatta rätt beslut tidigt.
+        </p>
+        <p>
+          I en upphandling bör branschförståelse därför testas lika systematiskt som teknisk
+          kompetens. Lägg mindre tid på att jämföra certifieringar och funktionslistor. Lägg mer
+          tid på att låta kandidaterna resonera om era faktiska processer, risker och vägval.
+        </p>
+
+        <div className="not-prose my-8 rounded-lg border border-border bg-muted/40 p-6">
+          <h2 className="text-lg font-bold mb-2">Står ni inför ett Dynamics 365-val?</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+            På d365.se kan ni jämföra partners utifrån applikationsområde, branschfokus och
+            verksamhetens behov, och hitta kandidater som passar ert projekt.
+          </p>
+          <a
+            href="/partners/"
+            className="text-sm font-semibold text-primary hover:underline"
+          >
+            Jämför Dynamics 365-partners →
+          </a>
+        </div>
+      </>
+    ),
+    bigFiveFaq: [
+      {
+        question: "Varför blir branschkunskap viktigare när AI används i projekten?",
+        answer:
+          "AI gör tekniskt arbete snabbare och mer tillgängligt. Skillnaden mellan partners uppstår i stället i förmågan att förstå processer, risker och vägval i er verksamhet.",
+      },
+      {
+        question: "Hur testar man en partners branschförståelse?",
+        answer:
+          "Låt partnern resonera kring era faktiska processer, beskriva branschspecifika risker och förklara vad som bör följa standard och var standarden brukar brista.",
+      },
+      {
+        question: "Är certifieringar fortfarande relevanta?",
+        answer:
+          "Ja, men de räcker inte som urvalsgrund. Certifieringar visar plattformskompetens, inte hur väl partnern förstår er bransch och era processer.",
+      },
+      {
+        question: "Varför är paketerade branschlösningar intressanta?",
+        answer:
+          "Värdet ligger inte bara i färdig kod, utan i att processer, datamodeller och integrationer redan har prövats i liknande verksamheter.",
+      },
+      {
+        question: "Vilka branscher märks skillnaden tydligast i?",
+        answer:
+          "Där processerna är komplexa, affärsrisken hög eller regelverken omfattande, till exempel tillverkning, retail och Life Sciences.",
+      },
+    ],
+  },
   {
     slug: "valja-affarssystem-och-partner",
     title: "Hur väljer du rätt affärssystem och rätt partner?",
