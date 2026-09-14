@@ -24,7 +24,7 @@ const formatDateSv = (iso: string) => {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
-  return `${y}/${m}/${day}`;
+  return `${y}-${m}-${day}`;
 };
 
 const BlogArticle = () => {
@@ -221,7 +221,7 @@ const BlogArticle = () => {
                 >
                   {article.author.name}
                 </Link>
-                <span className="text-muted-foreground">— {article.author.role}</span>
+                <span className="text-muted-foreground">, {article.author.role}</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
