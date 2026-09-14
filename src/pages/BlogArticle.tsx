@@ -219,8 +219,9 @@ const BlogArticle = () => {
                   to="/om-thomas-laine/"
                   className="text-foreground font-medium hover:text-primary transition-colors"
                 >
-                  {article.author.name}
-                </Link><span className="text-muted-foreground">, {article.author.role}</span>
+                  {article.author.name},{" "}
+                </Link>
+                <span className="text-muted-foreground">{article.author.role}</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
