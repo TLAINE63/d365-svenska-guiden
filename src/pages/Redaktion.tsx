@@ -130,6 +130,44 @@ export default function Redaktion() {
                 Glömt lösenord?
               </button>
             </form>
+
+            <div className="mt-6 pt-4 border-t">
+              {!showSetup ? (
+                <button
+                  type="button"
+                  onClick={() => setShowSetup(true)}
+                  className="text-sm text-muted-foreground hover:underline"
+                >
+                  Första gången? Skapa ditt konto
+                </button>
+              ) : (
+                <div className="space-y-3">
+                  <p className="text-sm text-muted-foreground">
+                    Fyll i e-post och lösenord ovan, och ange adminlösenordet här för att skapa
+                    kontot.
+                  </p>
+                  <div className="space-y-2">
+                    <Label htmlFor="setup-admin">Adminlösenord</Label>
+                    <Input
+                      id="setup-admin"
+                      type="password"
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="w-full"
+                    disabled={creating}
+                    onClick={handleCreateAccount}
+                  >
+                    {creating && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                    Skapa konto
+                  </Button>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>
