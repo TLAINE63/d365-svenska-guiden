@@ -19,6 +19,24 @@ export default function Redaktion() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [showSetup, setShowSetup] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
+  const [creating, setCreating] = useState(false);
+
+  async function handleCreateAccount() {
+    setCreating(true);
+    const { data, error } = await supabase.functions.invoke("editor-bootstrap", {
+      body: { adminPassword, email: form.email, password: form.password },
+    });
+    setCreating(false);
+    if (error || (data as { error?: string } | null)?.error) {
+      toast.error((data as { error?: string } | null)?.error ?? "Kunde inte skapa kontot");
+      return;
+    }
+    toast.success("Kontot är klart, logga in med din e-post och ditt lösenord");
+    setShowSetup(false);
+    setAdminPassword("");
+  }
 
   const { data: partners = [] } = useAdminPartners(isAuthenticated ? token : null);
 
