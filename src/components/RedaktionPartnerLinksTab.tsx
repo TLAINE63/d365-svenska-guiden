@@ -1,0 +1,210 @@
+import { useMemo, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Copy, ExternalLink, Loader2, PenLine } from "lucide-react";
+import { toast } from "sonner";
+import { getPublicBaseUrl } from "@/lib/publicUrl";
+
+interface PartnerRow {
+  id: string;
+  name: string;
+  slug: string;
+  is_featured: boolean;
+}
+
+type Filter = "all" | "published" | "unpublished";
+
+interface Props {
+  token: string | null;
+  partners: PartnerRow[];
+  isLoading?: boolean;
+  onSessionExpired: () => void;
+}
+
+export default function RedaktionPartnerLinksTab({
+  token,
+  partners,
+  isLoading,
+  onSessionExpired,
+}: Props) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<Filter>("all");
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const rows = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return partners
+      .filter((p) => (filter === "published" ? p.is_featured : filter === "unpublished" ? !p.is_featured : true))
+      .filter((p) => !q || p.name.toLowerCase().includes(q) || (p.slug || "").toLowerCase().includes(q))
+      .sort((a, b) => a.name.localeCompare(b.name, "sv"));
+  }, [partners, search, filter]);
+
+  async function getLink(partnerId: string): Promise<string | null> {
+    if (!token) return null;
+    const res = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-permanent-link`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+        body: JSON.stringify({ partner_id: partnerId }),
+      },
+    );
+    if (res.status === 401) {
+      toast.error("Sessionen har gått ut, logga in igen");
+      onSessionExpired();
+      return null;
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data?.token) {
+      toast.error(data?.error || "Kunde inte hämta profileringslänken");
+      return null;
+    }
+    return `${getPublicBaseUrl()}/partner-update/${data.token}`;
+  }
+
+  async function handleCopy(partnerId: string) {
+    setBusyId(partnerId);
+    const link = await getLink(partnerId);
+    setBusyId(null);
+    if (!link) return;
+    try {
+      await navigator.clipboard.writeText(link);
+      toast.success("Profileringslänk kopierad");
+    } catch {
+      toast.message("Kopiera länken manuellt", { description: link });
+    }
+  }
+
+  async function handleOpen(partnerId: string) {
+    setBusyId(partnerId);
+    const link = await getLink(partnerId);
+    setBusyId(null);
+    if (link) window.open(link, "_blank", "noopener");
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Partnerprofiler</CardTitle>
+        <CardDescription>
+          Kopiera profileringslänken för valfri partner, publicerad eller ej. Länken är unik per
+          partner och kan skickas direkt till partnern, eller öppnas här för att redigera profilen.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Sök partner"
+            className="max-w-xs"
+          />
+          {([
+            ["all", "Alla"],
+            ["published", "Publicerade"],
+            ["unpublished", "Ej publicerade"],
+          ] as const).map(([value, label]) => (
+            <Button
+              key={value}
+              size="sm"
+              variant={filter === value ? "default" : "outline"}
+              onClick={() => setFilter(value)}
+            >
+              {label}
+            </Button>
+          ))}
+          <span className="text-sm text-muted-foreground ml-auto">{rows.length} partners</span>
+        </div>
+
+        {isLoading ? (
+          <div className="py-10 flex justify-center">
+            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+          </div>
+        ) : rows.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-6">Inga partners matchar sökningen.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Partner</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Profileringslänk</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rows.map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell className="font-medium">{p.name}</TableCell>
+                    <TableCell>
+                      {p.is_featured ? (
+                        <Badge className="bg-emerald-600">Publicerad</Badge>
+                      ) : (
+                        <Badge variant="outline">Ej publicerad</Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={busyId === p.id}
+                          onClick={() => handleCopy(p.id)}
+                          className="gap-1"
+                        >
+                          {busyId === p.id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Copy className="h-3.5 w-3.5" />
+                          )}
+                          Kopiera länk
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          disabled={busyId === p.id}
+                          onClick={() => handleOpen(p.id)}
+                          className="gap-1"
+                        >
+                          <PenLine className="h-3.5 w-3.5" />
+                          Redigera profil
+                        </Button>
+                        {p.is_featured && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() =>
+                              window.open(`${getPublicBaseUrl()}/partners/${p.slug}/`, "_blank", "noopener")
+                            }
+                            className="gap-1"
+                          >
+                            <ExternalLink className="h-3.5 w-3.5" />
+                            Visa
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
