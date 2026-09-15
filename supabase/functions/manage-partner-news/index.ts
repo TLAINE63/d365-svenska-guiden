@@ -152,6 +152,151 @@ serve(async (req) => {
     const body = await req.json();
     const { action, token } = body ?? {};
 
+    // ---- Partneråtgärder via profileringslänk (inbjudningstoken, ej admin-JWT) ----
+    if (typeof action === "string" && action.startsWith("invitation-")) {
+      const svc = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+      const invToken = typeof body?.inviteToken === "string" ? body.inviteToken : "";
+      if (!invToken) {
+        return new Response(JSON.stringify({ error: "Token krävs" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+      }
+      const { data: invitation, error: invError } = await svc
+        .from("partner_invitations")
+        .select("partner_id, expires_at")
+        .eq("token", invToken)
+        .maybeSingle();
+
+      if (invError || !invitation || !invitation.partner_id) {
+        return new Response(JSON.stringify({ error: "Ogiltig länk eller partner ej kopplad" }), { status: 403, headers: { "Content-Type": "application/json", ...cors } });
+      }
+      if (new Date(invitation.expires_at) < new Date()) {
+        return new Response(JSON.stringify({ error: "Inbjudan har gått ut" }), { status: 403, headers: { "Content-Type": "application/json", ...cors } });
+      }
+      const partnerId = invitation.partner_id as string;
+
+      if (action === "invitation-list-news") {
+        const { data, error } = await svc
+          .from("partner_news")
+          .select("id, editorial_title, summary, source_url, source_type, news_type, product_areas, industry, image_url, news_date, event_date, status, created_at")
+          .eq("partner_id", partnerId)
+          .order("news_date", { ascending: false })
+          .limit(50);
+        if (error) throw error;
+        return new Response(JSON.stringify({ news: data || [] }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
+
+      if (action === "invitation-save-news") {
+        const InvNewsSchema = z.object({
+          id: z.string().uuid().optional(),
+          editorial_title: z.string().trim().min(3).max(200),
+          summary: z.string().trim().min(10).max(600),
+          source_url: z.string().trim().url().max(1000),
+          source_type: z.enum(["linkedin", "partner_web", "blog", "press", "webinar", "event", "other"]).default("partner_web"),
+          product_areas: z.array(PRODUCT_AREA_ENUM).min(1).max(8),
+          news_type: z.enum(["kundcase", "event", "webinar", "erbjudande", "artikel", "rapport", "branschlosning", "produktnyhet", "partnernyhet", "analys"]),
+          industry: z.string().trim().max(120).optional().nullable(),
+          image_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
+          news_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+          event_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().nullable(),
+        });
+        const parsed = InvNewsSchema.safeParse(body?.news ?? {});
+        if (!parsed.success) {
+          return new Response(JSON.stringify({ error: "Kontrollera fälten", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const n = parsed.data;
+        const payload = {
+          partner_id: partnerId,
+          editorial_title: n.editorial_title,
+          summary: n.summary,
+          source_url: n.source_url,
+          source_type: n.source_type,
+          product_area: n.product_areas[0],
+          product_areas: Array.from(new Set(n.product_areas)),
+          news_type: n.news_type,
+          industry: n.industry || null,
+          image_url: n.image_url || null,
+          news_date: n.news_date,
+          event_date: n.event_date || null,
+          status: "review",
+          ingest_method: "manual",
+          show_on_partner_profile: true,
+          updated_at: new Date().toISOString(),
+        };
+
+        if (n.id) {
+          // Partnern får bara ändra egna, ännu ej publicerade inlägg
+          const { data: existing } = await svc
+            .from("partner_news")
+            .select("id, status, partner_id")
+            .eq("id", n.id)
+            .maybeSingle();
+          if (!existing || existing.partner_id !== partnerId) {
+            return new Response(JSON.stringify({ error: "Inlägget hittades inte" }), { status: 404, headers: { "Content-Type": "application/json", ...cors } });
+          }
+          if (existing.status === "published") {
+            return new Response(JSON.stringify({ error: "Publicerade inlägg ändras av redaktionen" }), { status: 403, headers: { "Content-Type": "application/json", ...cors } });
+          }
+          const { error } = await svc.from("partner_news").update(payload).eq("id", n.id);
+          if (error) throw error;
+          return new Response(JSON.stringify({ success: true, id: n.id }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+        }
+
+        const { data, error } = await svc.from("partner_news").insert(payload).select("id").single();
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true, id: data?.id }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
+
+      if (action === "invitation-delete-news") {
+        const id = z.string().uuid().parse(body?.id);
+        const { data: existing } = await svc
+          .from("partner_news")
+          .select("id, status, partner_id")
+          .eq("id", id)
+          .maybeSingle();
+        if (!existing || existing.partner_id !== partnerId) {
+          return new Response(JSON.stringify({ error: "Inlägget hittades inte" }), { status: 404, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        if (existing.status === "published") {
+          return new Response(JSON.stringify({ error: "Publicerade inlägg tas bort av redaktionen" }), { status: 403, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const { error } = await svc.from("partner_news").delete().eq("id", id);
+        if (error) throw error;
+        return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
+
+      if (action === "invitation-upload-image") {
+        const UploadSchema = z.object({
+          file_base64: z.string().min(10),
+          content_type: z.enum(["image/jpeg", "image/png", "image/webp", "image/gif"]),
+        });
+        const parsed = UploadSchema.safeParse(body);
+        if (!parsed.success) {
+          return new Response(JSON.stringify({ error: "Ogiltig bild" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const b64 = parsed.data.file_base64.replace(/^data:[^;]+;base64,/, "");
+        const bin = atob(b64);
+        if (bin.length > 5 * 1024 * 1024) {
+          return new Response(JSON.stringify({ error: "Bilden är för stor (max 5 MB)" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const ext = parsed.data.content_type === "image/jpeg" ? "jpg"
+          : parsed.data.content_type === "image/png" ? "png"
+          : parsed.data.content_type === "image/webp" ? "webp"
+          : "gif";
+        const key = `news/${crypto.randomUUID()}.${ext}`;
+        const { error: upErr } = await svc.storage.from("partner-news-images").upload(key, bytes, {
+          contentType: parsed.data.content_type,
+          upsert: false,
+        });
+        if (upErr) throw upErr;
+        const { data: signed, error: signErr } = await svc.storage.from("partner-news-images").createSignedUrl(key, 60 * 60 * 24 * 365 * 10);
+        if (signErr) throw signErr;
+        return new Response(JSON.stringify({ success: true, image_url: signed.signedUrl }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
+
+      return new Response(JSON.stringify({ error: "Okänd åtgärd" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+    }
+
     const jwtSecret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!jwtSecret) {
       return new Response(JSON.stringify({ error: "Serverfel: autentisering ej konfigurerad" }), { status: 500, headers: { "Content-Type": "application/json", ...cors } });
