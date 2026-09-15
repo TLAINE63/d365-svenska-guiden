@@ -1925,12 +1925,19 @@
     "product_filters": {
       "fsc": {
         "ranking": 2,
+        "revenue": [
+          "100-499 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
         "geography": [
           "Norden",
           "Europa",
           "Globalt",
           "Sverige"
         ],
+        "keyPoints": "Standardnära införande med Implema Way\nKompetens inom ekonomi, produktion och logistik\nErfarenhet av regulatoriska verksamheter\nStöd från strategi till drift och förvaltning",
+        "whyChoose": "Kunder väljer Implema för erfarenhet av Dynamics 365 Finance & Supply Chain Management inom tillverkning, handel och life science/medtech. Arbetssättet bygger på Implema Way och standard-close, med begränsade anpassningar för att minska projektrisk och förenkla framtida uppgraderingar.",
         "industries": [
           "Grossist & Distribution",
           "Tillverkningsindustri",
@@ -1941,6 +1948,9 @@
           "250-999",
           "1.000-4.999"
         ],
+        "contactName": "",
+        "contactEmail": "",
+        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -1950,13 +1960,32 @@
           "Mellansverige",
           "Norr"
         ],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Implema använder Power Platform, AI, Microsoft Fabric och Azure för automation, analys och integrationer kring Dynamics 365 Finance & Supply Chain Management. Arbetet kan omfatta automatisering av återkommande moment, förbättrat beslutsstöd och aktivering av Copilot-funktioner där de passar verksamhetens processer och krav.",
+          "deliveryModel": "Leveranserna utgår från Implema Way och ett standard-close-arbetssätt där lösningen hålls nära plattformens standardfunktioner. Arbetet kan omfatta strategi, processkartläggning, konfiguration, integration, test, utbildning och driftsättning. Team sätts samman utifrån verksamhetsområde och projektets omfattning.",
+          "managedServices": "Efter driftsättning kan Implema ta ansvar för löpande drift, support och förvaltning av lösningen. Arbetet kan omfatta incidenthantering, uppföljning, versionshantering och planering av förbättringar. Förvaltningsupplägget inriktas på stabilitet, regelefterlevnad och att lösningen kan uppgraderas över tid.",
+          "typicalProjects": "Typiska projekt omfattar införande eller utrullning av Dynamics 365 Finance & Supply Chain Management, ofta med harmonisering av ekonomi-, produktions- och logistikprocesser. Uppdragen kan även innehålla migration från äldre affärssystem, integrationer, dataarbete och stöd för validering eller regelefterlevnad.",
+          "typicalCustomers": "Typiska kunder är medelstora och större verksamheter inom tillverkningsindustri, grossist och distribution samt life science/medtech. Det kan vara svenska eller nordiska företag med internationell verksamhet, komplexa flöden och behov av gemensamma processer för ekonomi, inköp, lager, produktion och leveranskedja.",
+          "furtherDevelopment": "Vidareutveckling sker utifrån förändrade processer, nya verksamhetskrav och Microsofts löpande plattformsuppdateringar. Det kan omfatta utökad funktionalitet, nya integrationer, rapportering och automation. Det standardnära arbetssättet ger en grund för att införa förbättringar utan att bygga upp onödigt komplexa anpassningar."
+        },
+        "aiBusinessImpact": "",
         "customerExamples": [
           "Vi berättar gärna mer om våra implementationer",
           "hör av er till oss"
         ],
+        "aiCaseDescription": "",
         "customerCaseLinks": [],
         "productDescription": "Implema AB levererar Dynamics 365 Finance & Supply Chain Management med fokus på att accelerera sina kunders affär med snabba och säkra implementeringar. Partnern erbjuder lösningar för företag inom Grossist & Distribution, Tillverkningsindustri samt Life Science / Medtech. Implema AB stöder implementering av både Finance och Supply Chain Management-modulerna, och anpassar dessa efter varje kunds unika behov för att säkerställa framtidssäkra system. Deras metodik fokuserar på att leverera en affärsnytta genom att optimera ekonomistyrning och logistikprocesser med Dynamics 365.",
+        "aiPredictiveDetails": [],
         "secondaryIndustries": [],
+        "aiSegmentationDetails": [],
         "productDescriptionAiGenerated": true,
         "productDescriptionGeneratedAt": "2026-06-16T00:00:00Z"
       }
@@ -1972,7 +2001,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-15T17:01:28.765423+00:00",
+    "updated_at": "2026-09-15T17:29:38.476243+00:00",
     "industry_pitches": [
       {
         "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för företag inom grossist- och distributionsbranschen. De har kompetens inom applikationer som Dynamics 365 Finance och Supply Chain Management, vilket stöder processer för ekonomistyrning, logistik och lagerhantering. Detta inkluderar funktionalitet för att optimera orderhantering, inköp, samt lager- och transportflöden, vilket är relevant för att möta efterfrågan på effektiva leveranskedjor och spårbarhet. \n\nFör att hantera kundinteraktioner och e-handel kan Commerce-funktionalitet implementeras. Implema kan även bistå med Dynamics 365 Project Operations för projektrelaterade processer och Human Resources för personalhantering. Deras angreppssätt fokuserar på att leverera lösningar som stödjer snabba och säkra affärsprocesser, anpassade för att möta de utmaningar som präglar den konkurrensutsatta grossist- och distributionsmarknaden. Implema har erfarenhet av att implementera affärssystem som främjar effektivitet och digitalisering.",
@@ -2006,7 +2035,7 @@
     ],
     "agreement_signed": false,
     "related_party": false,
-    "positioning_statement": null,
+    "positioning_statement": "Passar särskilt företag som söker stöd för Dynamics 365 Finance & Supply Chain Management med fokus på standardnära införande, regelefterlevnad och långsiktig förvaltning.",
     "delivery_profile": {
       "methodology": "",
       "typical_length": "",
@@ -2042,8 +2071,14 @@
     "ai_tags": [],
     "extended_competencies": {},
     "team_size_per_app": {},
-    "key_differentiators": [],
-    "key_differentiators_source": "d365"
+    "key_differentiators": [
+      "Standardnära införanden genom metodiken Implema Way",
+      "Kompetens inom tillverkning, handel och life science/medtech",
+      "Helhetsansvar från strategi och implementation till drift",
+      "Kontor i Stockholm, Göteborg, Malmö och Umeå",
+      "Stöd för automation, analys och integration med Microsofts plattformar"
+    ],
+    "key_differentiators_source": "partner"
   },
   {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",

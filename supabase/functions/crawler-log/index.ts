@@ -70,6 +70,12 @@ function sitemapIndexXml(): string {
 Deno.serve(async (req) => {
   const url = new URL(req.url);
   const resource = (url.searchParams.get("r") || "sitemap").toLowerCase();
+  // Valfri sidmätning: ?p=/partner/<slug> loggar hämtningar av en enskild sida
+  // och svarar med en genomskinlig 1x1-bild (pixelmätning i sidans HTML).
+  const rawPagePath = url.searchParams.get("p") || "";
+  const pagePath = /^\/[a-z0-9\-\/]{1,120}$/.test(rawPagePath.toLowerCase())
+    ? rawPagePath.toLowerCase().replace(/\/+$/, "")
+    : "";
   const ua = req.headers.get("user-agent") || "";
   const bot = classifyBot(ua);
 
@@ -87,12 +93,26 @@ Deno.serve(async (req) => {
       bot_id: bot.id,
       bot_label: bot.label,
       user_agent: ua.slice(0, 500),
-      path: `/${resource}`,
+      path: pagePath || `/${resource}`,
       referrer: (req.headers.get("referer") || "").slice(0, 300) || null,
       ip_prefix: anonymizeIp(ip),
     });
   } catch (e) {
     console.error("crawler-log insert failed", e);
+  }
+
+  if (pagePath) {
+    const gif = Uint8Array.from(
+      atob("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"),
+      (c) => c.charCodeAt(0),
+    );
+    return new Response(gif, {
+      headers: {
+        "Content-Type": "image/gif",
+        "Cache-Control": "no-store, max-age=0",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
   }
 
   if (resource === "llms") {

@@ -37,6 +37,7 @@ import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerAiInsights from "@/components/partner/PartnerAiInsights";
+import PartnerAiVisibilityCard from "@/components/PartnerAiVisibilityCard";
 import PartnerDecisionOverview from "@/components/partner/PartnerDecisionOverview";
 import ExtendedCompetenciesSection from "@/components/partner/ExtendedCompetenciesSection";
 import PartnerProductTabs, { resolveInitialTab } from "@/components/partner/PartnerProductTabs";
@@ -706,6 +707,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  <PartnerDecisionOverview partner={partner as any} />
 
  <PartnerAiInsights partner={partner as any} />
+
+ {slug && <PartnerAiVisibilityCard slug={slug} partnerName={partner.name} />}
 
  <section className="py-6">
   <div
