@@ -1,0 +1,1 @@
+UPDATE public.isv_solutions SET is_published = true, publication_wave = 'now', updated_at = now() WHERE is_published = false AND lifecycle_status = 'active';
