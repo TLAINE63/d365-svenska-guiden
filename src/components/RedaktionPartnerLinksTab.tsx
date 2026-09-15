@@ -129,6 +129,7 @@ export default function RedaktionPartnerLinksTab({
         <CardDescription>
           Kopiera profileringslänken för valfri partner, publicerad eller ej. Länken är unik per
           partner och kan skickas direkt till partnern, eller öppnas här för att redigera profilen.
+          Du kan också publicera eller avpublicera en partner direkt i listan.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
