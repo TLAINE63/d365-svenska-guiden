@@ -12,6 +12,8 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
+import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
+import AdminStatsSummary from "@/components/AdminStatsSummary";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
