@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from "@/integrations/supabase/client";
 import { useEditorAuth } from "@/hooks/useEditorAuth";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import AdminEventsTab from "@/components/AdminEventsTab";
