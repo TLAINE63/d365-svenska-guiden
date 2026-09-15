@@ -1206,10 +1206,10 @@ const PartnerUpdate = () => {
     </a>
  )}
 
- <div className="container mx-auto px-4 pt-16 pb-8">
- <div className="max-w-4xl mx-auto">
+  <div className="container mx-auto px-4 pt-28 pb-8 lg:pt-32">
+  <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
+          <Building2 className="w-12 h-12 text-primary mx-auto mb-4 mt-8" />
           <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
           <p className="text-muted-foreground">
             Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
