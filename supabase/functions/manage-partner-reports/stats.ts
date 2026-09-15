@@ -108,6 +108,7 @@ export interface DraftStats {
   peers?: PeerMedians;
   history?: MonthlyHistoryRow[];
   demand?: DemandStats;
+  ai?: AiVisibilityStats;
   companyBlock?: CompanyBlockRow[];
   companyBlockSuppressed?: number;
   profileCompletion?: ProfileCompletionItem[];
@@ -746,7 +747,7 @@ export async function buildDraftStats(
 
   const historyAnchor = `${start.slice(0, 7)}-01`;
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand] =
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand, ai] =
     await Promise.all([
       fetchPeriod(supabase, partner, currentStart, currentEnd),
       fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
@@ -758,6 +759,7 @@ export async function buildDraftStats(
       fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
       fetchHistory(supabase, partner.slug, historyAnchor),
       fetchDemand(supabase, currentStart, currentEnd),
+      fetchAiVisibility(supabase, currentStart, currentEnd),
     ]);
 
   const block = buildCompanyBlock(companies);
@@ -770,6 +772,8 @@ export async function buildDraftStats(
     peers,
     history,
     demand,
+    ai,
+
 
     companyBlock: block.rows,
     companyBlockSuppressed: block.suppressed,
