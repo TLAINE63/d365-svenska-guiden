@@ -14,6 +14,7 @@ import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
+import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -204,11 +205,16 @@ export default function Redaktion() {
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
+            <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
           </TabsList>
 
           <TabsContent value="stats" className="space-y-6">
             <SiteTrafficStatsCard token={token} variant="full" />
             <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="ai">
+            <AdminAiVisibilityTab token={token} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="partners">

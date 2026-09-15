@@ -108,6 +108,7 @@ export interface DraftStats {
   peers?: PeerMedians;
   history?: MonthlyHistoryRow[];
   demand?: DemandStats;
+  ai?: AiVisibilityStats;
   companyBlock?: CompanyBlockRow[];
   companyBlockSuppressed?: number;
   profileCompletion?: ProfileCompletionItem[];
@@ -576,6 +577,117 @@ export async function fetchDemand(
   };
 }
 
+/** AI-synlighet: robotbesök från AI-modeller, hänvisningar från AI-tjänster och citeringskontroller. */
+export interface AiVisibilityStats {
+  /** Robotbesök (crawler_hits) från AI-bottar under perioden. */
+  aiBotHits: number;
+  /** Robotbesök rullande 365 dagar. */
+  aiBotHits365: number;
+  /** Antal olika AI-bottar som hämtat innehåll under perioden. */
+  aiBots: number;
+  /** Topplista över AI-bottar under perioden. */
+  topBots: { label: string; hits: number }[];
+  /** Besök på sajten med AI-tjänst som hänvisande källa. */
+  aiReferralVisits: number;
+  /** Manuella citeringskontroller: antal kontroller och hur många som gav omnämnande. */
+  citationChecks: number;
+  citationMentions: number;
+}
+
+const AI_BOT_MATCH = ["gptbot", "openai", "claude", "anthropic", "perplexity", "gemini", "google-extended", "meta ai", "bytespider", "copilot", "applebot", "amazonbot", "you.com", "cohere", "mistral"];
+const AI_REFERRER_MATCH = ["chatgpt", "openai", "perplexity", "copilot.microsoft", "gemini.google", "bard.google", "claude.ai", "you.com", "phind"];
+
+export async function fetchAiVisibility(
+  supabase: any,
+  startIso: string,
+  endIso: string,
+): Promise<AiVisibilityStats | undefined> {
+  const year = new Date(Date.parse(endIso) - 364 * 24 * 3600 * 1000).toISOString();
+
+  const [hitsRes, yearRes, refRes, citeRes] = await Promise.all([
+    supabase.from("crawler_hits").select("bot_label").gte("hit_at", startIso).lte("hit_at", endIso).limit(100000),
+    supabase.from("crawler_hits").select("bot_label").gte("hit_at", year).lte("hit_at", endIso).limit(200000),
+    supabase.from("visitor_analytics").select("referrer").gte("visited_at", startIso).lte("visited_at", endIso).not("referrer", "is", null).limit(100000),
+    supabase.from("ai_citation_checks").select("mentioned, check_month")
+      .gte("check_month", startIso.slice(0, 10)).lte("check_month", endIso.slice(0, 10)).limit(5000),
+  ]);
+
+  const isAiBot = (label: string) => {
+    const l = label.toLowerCase();
+    return AI_BOT_MATCH.some((m) => l.includes(m));
+  };
+
+  const tally = new Map<string, number>();
+  let aiBotHits = 0;
+  for (const r of hitsRes.data || []) {
+    const label = String(r.bot_label || "");
+    if (!isAiBot(label)) continue;
+    aiBotHits++;
+    tally.set(label, (tally.get(label) || 0) + 1);
+  }
+
+  let aiBotHits365 = 0;
+  for (const r of yearRes.data || []) {
+    if (isAiBot(String(r.bot_label || ""))) aiBotHits365++;
+  }
+
+  let aiReferralVisits = 0;
+  for (const r of refRes.data || []) {
+    const ref = String(r.referrer || "").toLowerCase();
+    if (AI_REFERRER_MATCH.some((m) => ref.includes(m))) aiReferralVisits++;
+  }
+
+  const citations = citeRes.data || [];
+  const stats: AiVisibilityStats = {
+    aiBotHits,
+    aiBotHits365,
+    aiBots: tally.size,
+    topBots: [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([label, hits]) => ({ label, hits })),
+    aiReferralVisits,
+    citationChecks: citations.length,
+    citationMentions: citations.filter((c: any) => c.mentioned).length,
+  };
+
+  if (!stats.aiBotHits && !stats.aiBotHits365 && !stats.aiReferralVisits && !stats.citationChecks) return undefined;
+  return stats;
+}
+
+/** AI-synlighetsavsnitt för månadsrapporten (både verifierad rapport och teaser). */
+export function renderAiVisibilityHtml(ai: AiVisibilityStats | undefined | null): string {
+  if (!ai) return "";
+  const rows: string[] = [];
+  const row = (label: string, value: string | number, hint?: string) => `
+      <tr>
+        <td style="padding:9px 12px;border-bottom:1px solid #eef2f7;font-size:13px;color:#334155">${esc(label)}${hint ? `<div style="font-size:12px;color:#94a3b8;margin-top:2px">${esc(hint)}</div>` : ""}</td>
+        <td style="padding:9px 12px;border-bottom:1px solid #eef2f7;font-size:15px;font-weight:700;color:#0f172a;text-align:right;white-space:nowrap">${esc(value)}</td>
+      </tr>`;
+
+  if (ai.aiBotHits) rows.push(row("AI-robotar som hämtat innehåll", ai.aiBotHits, `${ai.aiBots} olika AI-modeller under perioden`));
+  if (ai.aiBotHits365) rows.push(row("AI-hämtningar senaste 12 månaderna", ai.aiBotHits365));
+  if (ai.aiReferralVisits) rows.push(row("Besökare som kommit via AI-tjänster", ai.aiReferralVisits, "ChatGPT, Copilot, Perplexity och liknande"));
+  if (ai.citationChecks) {
+    const pct = Math.round((ai.citationMentions / ai.citationChecks) * 100);
+    rows.push(row("Testfrågor där d365.se nämns i AI-svaret", `${ai.citationMentions} av ${ai.citationChecks} (${pct} %)`));
+  }
+  if (!rows.length) return "";
+
+  const bots = ai.topBots.length
+    ? `<p style="margin:8px 0 0;font-size:12px;color:#64748b;line-height:1.6">Mest aktiva AI-modeller: ${ai.topBots.map((b) => `${esc(b.label)} (${b.hits})`).join(", ")}.</p>`
+    : "";
+
+  return `
+      <h3 style="margin:22px 0 6px;font-size:15px;color:#0f172a">Synlighet i AI-svar</h3>
+      <p style="margin:0 0 8px;font-size:13px;color:#334155;line-height:1.6">
+        Allt fler köpare frågar en AI-modell innan de kontaktar en leverantör. Här är hur ofta AI-modellerna hämtar
+        innehåll från d365.se och hur ofta sajten används som källa.
+      </p>
+      <table width="100%" style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">${rows.join("")}</table>
+      ${bots}
+      <p style="margin:8px 0 18px;font-size:12px;color:#94a3b8;line-height:1.6">
+        Siffrorna gäller hela d365.se. Innehållet på er profil ingår i det som AI-modellerna hämtar.
+      </p>`;
+}
+
 /** Tabellbaserat efterfrågeavsnitt. Renderas bara när aggregat finns. */
 export function renderDemandHtml(stats: DraftStats | null): string {
   const d = stats?.demand;
@@ -635,7 +747,7 @@ export async function buildDraftStats(
 
   const historyAnchor = `${start.slice(0, 7)}-01`;
 
-  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand] =
+  const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand, ai] =
     await Promise.all([
       fetchPeriod(supabase, partner, currentStart, currentEnd),
       fetchAllPartnersPeriod(supabase, currentStart, currentEnd),
@@ -647,6 +759,7 @@ export async function buildDraftStats(
       fetchPeerMedians(supabase, partner.slug, currentStart, currentEnd),
       fetchHistory(supabase, partner.slug, historyAnchor),
       fetchDemand(supabase, currentStart, currentEnd),
+      fetchAiVisibility(supabase, currentStart, currentEnd),
     ]);
 
   const block = buildCompanyBlock(companies);
@@ -659,6 +772,8 @@ export async function buildDraftStats(
     peers,
     history,
     demand,
+    ai,
+
 
     companyBlock: block.rows,
     companyBlockSuppressed: block.suppressed,
@@ -743,6 +858,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
       ${renderExposureChart(stats)}
       ${renderHistoryHtml(stats)}
       ${renderDemandHtml(stats)}
+      ${renderAiVisibilityHtml(stats?.ai)}
       ${renderInsightsHtml(stats)}`;
 }
 
