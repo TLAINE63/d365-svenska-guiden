@@ -11,6 +11,7 @@ import { useAdminPartners } from "@/hooks/useAdminPartners";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -39,7 +40,9 @@ export default function Redaktion() {
     setAdminPassword("");
   }
 
-  const { data: partners = [] } = useAdminPartners(isAuthenticated ? token : null);
+  const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
+    isAuthenticated ? token : null,
+  );
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -197,7 +200,22 @@ export default function Redaktion() {
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
+            <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="partners">
+            <RedaktionPartnerLinksTab
+              token={token}
+              isLoading={partnersLoading}
+              partners={partners.map((p) => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                is_featured: p.is_featured ?? false,
+              }))}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
 
           <TabsContent value="events">
             <AdminEventsTab
