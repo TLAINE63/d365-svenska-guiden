@@ -10,8 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, ExternalLink, FileText } from "lucide-react";
+import { Plus, Pencil, Trash2, ExternalLink, FileText, Code2 } from "lucide-react";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { BLOG_ARTICLES } from "@/data/blogArticles";
 
 interface KnowledgeArticle {
   id: string;
