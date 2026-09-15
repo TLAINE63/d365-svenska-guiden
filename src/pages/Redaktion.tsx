@@ -11,6 +11,7 @@ import { useAdminPartners } from "@/hooks/useAdminPartners";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
