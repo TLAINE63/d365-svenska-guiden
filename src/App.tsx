@@ -260,6 +260,9 @@ const AppShell = () => {
           <Route path="/basic/:slug" element={<PartnerBasicProfile />} />
           <Route path="/basic/:slug/" element={<PartnerBasicProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/redaktion" element={<Redaktion />} />
+          <Route path="/redaktion/" element={<Redaktion />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/admin/mcp-test" element={<AdminMcpTest />} />
           <Route path="/admin/relevans-test" element={<AdminRelevanceTest />} />
           <Route path="/partner-admin" element={<RedirectTo to="/admin" />} />
