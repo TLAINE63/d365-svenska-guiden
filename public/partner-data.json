@@ -6,7 +6,7 @@
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
   "updated": "2026-09-15",
-  "count": 17,
+  "count": 18,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -176,6 +176,24 @@
         "Europa",
         "Globalt"
       ],
+      "related_party": false
+    },
+    {
+      "name": "Implema AB",
+      "slug": "implema",
+      "url": "https://d365.se/partner/implema/",
+      "website": "https://implema.se/microsoft-dynamics/",
+      "description": "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. Affärsnyttan börjar med rätt partner.",
+      "products": [
+        "F&SCM",
+        "Human Resources",
+        "Commerce",
+        "Project Operations"
+      ],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [],
       "related_party": false
     },
     {
