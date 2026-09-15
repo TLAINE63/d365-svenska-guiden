@@ -1902,6 +1902,150 @@
     "key_differentiators_source": "d365"
   },
   {
+    "id": "fde2bcab-b069-4c99-80b6-ec2aeaab5765",
+    "slug": "implema",
+    "name": "Implema AB",
+    "description": "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. Affärsnyttan börjar med rätt partner.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/implema.svg",
+    "logo_dark_bg": false,
+    "website": "https://implema.se/microsoft-dynamics/",
+    "email": "thomas.olofsson@implema.se",
+    "contact_person": "Thomas Olofsson",
+    "contact_photo_url": "",
+    "phone": "+46767699936",
+    "applications": [
+      "F&SCM",
+      "Human Resources",
+      "Commerce",
+      "Project Operations"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 2,
+        "geography": [
+          "Norden",
+          "Europa",
+          "Globalt",
+          "Sverige"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri",
+          "Life Science / Medtech"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [
+          "Vi berättar gärna mer om våra implementationer",
+          "hör av er till oss"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "Implema AB levererar Dynamics 365 Finance & Supply Chain Management med fokus på att accelerera sina kunders affär med snabba och säkra implementeringar. Partnern erbjuder lösningar för företag inom Grossist & Distribution, Tillverkningsindustri samt Life Science / Medtech. Implema AB stöder implementering av både Finance och Supply Chain Management-modulerna, och anpassar dessa efter varje kunds unika behov för att säkerställa framtidssäkra system. Deras metodik fokuserar på att leverera en affärsnytta genom att optimera ekonomistyrning och logistikprocesser med Dynamics 365.",
+        "secondaryIndustries": [],
+        "productDescriptionAiGenerated": true,
+        "productDescriptionGeneratedAt": "2026-06-16T00:00:00Z"
+      }
+    },
+    "industry_apps": [],
+    "is_featured": true,
+    "customer_examples": [],
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö"
+    ],
+    "map_url": null,
+    "youtube_video_id": null,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-09-15T17:01:28.765423+00:00",
+    "industry_pitches": [
+      {
+        "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för företag inom grossist- och distributionsbranschen. De har kompetens inom applikationer som Dynamics 365 Finance och Supply Chain Management, vilket stöder processer för ekonomistyrning, logistik och lagerhantering. Detta inkluderar funktionalitet för att optimera orderhantering, inköp, samt lager- och transportflöden, vilket är relevant för att möta efterfrågan på effektiva leveranskedjor och spårbarhet. \n\nFör att hantera kundinteraktioner och e-handel kan Commerce-funktionalitet implementeras. Implema kan även bistå med Dynamics 365 Project Operations för projektrelaterade processer och Human Resources för personalhantering. Deras angreppssätt fokuserar på att leverera lösningar som stödjer snabba och säkra affärsprocesser, anpassade för att möta de utmaningar som präglar den konkurrensutsatta grossist- och distributionsmarknaden. Implema har erfarenhet av att implementera affärssystem som främjar effektivitet och digitalisering.",
+        "product": null,
+        "industry": "Grossist & Distribution",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:34:22Z"
+      },
+      {
+        "text": "Implema AB erbjuder kunskap inom implementering och förvaltning av Microsoft Dynamics 365, vilket kan stödja företag inom Life Science och Medtech. Deras tjänster omfattar affärssystemslösningar som hanterar ekonomi (Finance), försörjningskedjor (Supply Chain Management), projektstyrning (Project Operations), samt system för handel (Commerce) och personalhantering (Human Resources).\n\nPartnern fokuserar på att hjälpa företag att digitalisera och effektivisera sina processer. Inom Life Science- och Medtech-sektorn kan detta innebära support för att hantera komplexa logistikkedjor för medicintekniska produkter, säkra ekonomiska transaktioner i en reglerad miljö, samt optimering av forsknings- och utvecklingsprojekt. Genom att implementera skalbara Dynamics 365-lösningar arbetar Implema för att företag ska kunna accelerera sin affärsutveckling och möta framtida krav och regelverk inom branschen.",
+        "product": null,
+        "industry": "Life Science / Medtech",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:34:25Z"
+      },
+      {
+        "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja tillverkningsindustrins behov av digitalisering och effektivisering. De fokuserar på att leverera standardnära implementationer som hanterar komplexa processer inom bland annat produktionsplanering, lagerhantering och logistik. Med kunskap om tillverkningssektorns utmaningar hjälper Implema företag att optimera sin försörjningskedja genom Dynamics 365 Supply Chain Management. \n\nFör den finansiella styrningen kan Dynamics 365 Finance integreras för att ge översikt och kontroll över ekonomiska flöden, medan Project Operations stödjer projekthantering från start till leverans. Implema arbetar även med att integrera e-handelslösningar via Dynamics 365 Commerce för företag som vill expandera sina försäljningskanaler. De har erfarenhet av att implementera Dynamics 365 Human Resources för att hantera personalprocesser inom tillverkningsindustrin. Målet är att leverera affärssystemsstöd som bidrar till att öka transparensen och effektiviteten i kundernas verksamheter.",
+        "product": null,
+        "industry": "Tillverkningsindustri",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:34:28Z"
+      },
+      {
+        "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för att stödja företag inom livsmedels- och processindustrin. De arbetar med applikationer som Dynamics 365 Finance och Supply Chain Management, vilket kan bidra till effektivisering av finansiella processer och logistikkedjor. Kompetens inom Project Operations syftar till att hantera komplexa projekt, medan Dynamics 365 Commerce kan användas för att optimera försäljningsprocesser. Dessutom med Human Resources-funktionalitet för personalhantering. Implema AB fokuserar på att leverera affärssystem som kan anpassas till branschens specifika krav på spårbarhet, kvalitetskontroll och produktionsoptimering. Deras målsättning är att hjälpa företag att öka sin effektivitet och flexibilitet i en konkurrensutsatt marknad.",
+        "product": null,
+        "industry": "Livsmedel & Processindustri",
+        "edited_by": "ai",
+        "updated_at": "2026-06-16T08:13:17.887Z",
+        "generated_at": "2026-06-16T08:13:17.887Z"
+      }
+    ],
+    "agreement_signed": false,
+    "related_party": false,
+    "positioning_statement": null,
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": "26–50",
+    "implementations_done": null,
+    "not_a_fit": [],
+    "implementations_per_app": {},
+    "ai_summary": "Implema AB specialiserar sig på Microsoft Dynamics 365-applikationer som Finance, Supply Chain Management, Project Operations, Commerce och Human Resources. De har en stark geografisk närvaro i Sverige med kontor i bland annat Stockholm, Göteborg och Malmö. Företaget fokuserar på att accelerera sina kunders affärer genom effektiv implementering av D365-lösningar.",
+    "ai_summary_generated_at": "2026-05-07T14:44:09.058+00:00",
+    "ai_profile": {
+      "use_cases": [],
+      "description": null,
+      "migrated_at": "2026-06-30T09:25:49.082462+00:00",
+      "capabilities": [],
+      "delivery_model": null,
+      "evidence_level": [
+        "self-declared"
+      ],
+      "relevant_areas": [],
+      "experience_level": null,
+      "project_count_range": null
+    },
+    "extended_content": "Implema AB är en svensk affärssystemspartner med huvudkontor i Stockholm och kontor i Göteborg, Malmö och Umeå. Bolaget grundades 2005 och har cirka 160 anställda med omsättning omkring 250 MSEK. Implema arbetar med både SAP och Microsoft Dynamics 365 och positionerar sig som en pragmatisk ERP-partner som tar helhetsansvar från strategi till drift.\n\nAktiva produktområden: Microsoft Dynamics 365 Finance & Supply Chain Management är den primära Microsoft-plattformen, med starka kompetenser inom tillverkande industri, life science/medtech och handel/logistik. Bolaget erbjuder även Dynamics 365 Project Operations och Field Service. Power Platform, AI (inklusive Copilot-aktivering) och Microsoft Fabric/Azure används för automation, analys och integrationer. Implema har Microsoft Solution Partner-status inom Security (uppnått 2026), vilket speglar ökande fokus på compliance och regelefterlevnad.\n\nTydliga styrkor: Kombinationen SAP + Microsoft D365 gör Implema till en av få svenska partners som kan stödja kunder med båda plattformarna, vilket är värdefullt vid migrationer eller i koncerner med blandade landskap. \"Implema Way\"-metodik med fokus på standard-close (minimal anpassning) ger kortare projekt, lägre risk och bättre uppgraderingsbarhet. Stark position inom life science med dokumenterad track record (Atlas Antibodies, FUJIFILM, Calliditas Therapeutics, Novavax). Microsoft Partner of the Year inom Dynamics 365 Finance (2023) bekräftar hög kvalitet. ISO-certifieringar (9001, 27001, 14001, 27701) möter höga compliance-krav.\n\nRäckvidd och segment: Nordiskt fokus med internationell projektförmåga. Kundsegment: medelstora till större verksamheter (100–5 000 anställda) inom tillverkning, handel, life science och professionella tjänster. Implema har flera globala utrullningar i portföljen.\n\nPassar bäst: Medelstora till större svenska verksamheter som söker en erfaren F&SCM-partner med pragmatisk implementationsmetodik, life science/medtech-företag med regulatoriska krav och valideringsbehov, organisationer som har eller överväger både SAP och Microsoft och vill ha en partner som förstår båda världarna, samt företag som prioriterar förutsägbarhet, compliance och långsiktigt förvaltningspartnerskap. Mindre lämplig för små företag som enbart behöver BC, kunder som söker ren CRM/CE-implementering utan ERP-koppling, samt organisationer som vill ha maximal anpassning snarare än standard-close-approach.\n\nRätt jämförelsegrupp: Andra svenska F&SCM-fokuserade partners (HSO, Columbus, KPMG), med BC-generalister och CRM-specialister som lägre jämförelserelevans.",
+    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "partner_size_tier": 2,
+    "partner_size_tier_needs_review": false,
+    "ai_summary_full": null,
+    "best_fit_for": [],
+    "ai_tags": [],
+    "extended_competencies": {},
+    "team_size_per_app": {},
+    "key_differentiators": [],
+    "key_differentiators_source": "d365"
+  },
+  {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
     "slug": "inbiz",
     "name": "InBiz",
