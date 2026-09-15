@@ -200,7 +200,22 @@ export default function Redaktion() {
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
+            <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="partners">
+            <RedaktionPartnerLinksTab
+              token={token}
+              isLoading={partnersLoading}
+              partners={partners.map((p) => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                is_featured: p.is_featured ?? false,
+              }))}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
 
           <TabsContent value="events">
             <AdminEventsTab
