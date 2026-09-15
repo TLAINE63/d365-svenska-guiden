@@ -43,6 +43,29 @@ export default function RedaktionPartnerLinksTab({
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+
+  async function handleTogglePublished(partner: PartnerRow, next: boolean) {
+    if (!token) return;
+    setTogglingId(partner.id);
+    const { data, error } = await supabase.functions.invoke("manage-partners", {
+      body: { action: "update", id: partner.id, partner: { is_featured: next }, token },
+    });
+    setTogglingId(null);
+    if (error || (data as { error?: string } | null)?.error) {
+      const msg = (data as { error?: string } | null)?.error || error?.message || "";
+      if (msg.toLowerCase().includes("session")) {
+        toast.error("Sessionen har gått ut, logga in igen");
+        onSessionExpired();
+        return;
+      }
+      toast.error(msg || "Kunde inte ändra publiceringen");
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+    toast.success(next ? `${partner.name} är publicerad` : `${partner.name} är avpublicerad`);
+  }
 
   const rows = useMemo(() => {
     const q = search.trim().toLowerCase();
