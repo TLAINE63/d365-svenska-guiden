@@ -141,6 +141,42 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
     }
   };
 
+  const normalize = (u: string) => u.replace(/\/+$/, "");
+  const dbUrls = new Set(articles.map((a) => normalize(a.url || "")));
+
+  type Row = {
+    key: string;
+    title: string;
+    category: string;
+    date: string | null;
+    url: string | null;
+    published: boolean;
+    source: "redaktion" | "kod";
+    article?: KnowledgeArticle;
+  };
+
+  const rows: Row[] = [
+    ...articles.map((a) => ({
+      key: a.id,
+      title: a.title,
+      category: a.category,
+      date: a.published_at || a.created_at,
+      url: a.url,
+      published: a.is_published,
+      source: "redaktion" as const,
+      article: a,
+    })),
+    ...BLOG_ARTICLES.filter((b) => !dbUrls.has(`/artiklar/${b.slug}`)).map((b) => ({
+      key: `blog-${b.slug}`,
+      title: b.title,
+      category: b.category,
+      date: b.publishedAt,
+      url: `/artiklar/${b.slug}`,
+      published: true,
+      source: "kod" as const,
+    })),
+  ].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
   return (
     <Card>
       <CardHeader>
@@ -148,11 +184,12 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
           <div>
             <CardTitle className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-primary" />
-              Kunskapsartiklar
+              Artiklar
             </CardTitle>
             <CardDescription>
-              Skapa, redigera och publicera artiklar i Kunskapscentret. Publicerade artiklar
-              visas på /kunskapscenter och inkluderas i sitemap.xml för Google-indexering.
+              Alla artiklar på ett ställe: både de du skapar här och de som ligger som färdiga
+              sidor på d365.se. Publicerade artiklar visas på /kunskapscenter och ingår i
+              sitemap.xml för Google.
             </CardDescription>
           </div>
           <Button onClick={() => setEditing(empty())} className="gap-2">
@@ -163,7 +200,7 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
       <CardContent>
         {loading ? (
           <p className="text-sm text-muted-foreground">Laddar…</p>
-        ) : articles.length === 0 ? (
+        ) : rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">Inga artiklar än. Skapa en med "Ny artikel".</p>
         ) : (
           <Table>
@@ -171,40 +208,58 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
               <TableRow>
                 <TableHead>Titel</TableHead>
                 <TableHead>Kategori</TableHead>
+                <TableHead>Typ</TableHead>
                 <TableHead>Publicerad</TableHead>
                 <TableHead>Url</TableHead>
                 <TableHead className="text-right">Åtgärder</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {articles.map((a) => (
-                <TableRow key={a.id}>
+              {rows.map((r) => (
+                <TableRow key={r.key}>
                   <TableCell className="font-medium max-w-[320px]">
-                    <div className="truncate">{a.title}</div>
-                    <div className="text-xs text-muted-foreground">{formatDate(a.published_at || a.created_at)}</div>
+                    <div className="truncate">{r.title}</div>
+                    <div className="text-xs text-muted-foreground">{formatDate(r.date)}</div>
                   </TableCell>
-                  <TableCell><Badge variant="secondary">{a.category}</Badge></TableCell>
+                  <TableCell><Badge variant="secondary">{r.category}</Badge></TableCell>
                   <TableCell>
-                    <Switch checked={a.is_published} onCheckedChange={() => togglePublish(a)} />
+                    {r.source === "kod" ? (
+                      <Badge variant="outline" className="gap-1">
+                        <Code2 className="w-3 h-3" /> Publicerad sida
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline">Redaktion</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {r.source === "kod" ? (
+                      <span className="text-xs text-muted-foreground">Live</span>
+                    ) : (
+                      <Switch checked={r.published} onCheckedChange={() => togglePublish(r.article!)} />
+                    )}
                   </TableCell>
                   <TableCell className="max-w-[200px]">
-                    {a.url ? (
-                      <a href={a.url} target="_blank" rel="noreferrer"
+                    {r.url ? (
+                      <a href={r.url} target="_blank" rel="noreferrer"
                          className="text-primary inline-flex items-center gap-1 truncate">
                         <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-                        <span className="truncate">{a.url}</span>
+                        <span className="truncate">{r.url}</span>
                       </a>
                     ) : <span className="text-muted-foreground text-xs">saknas</span>}
                   </TableCell>
                   <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button size="sm" variant="outline" onClick={() => setEditing(a)}>
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={() => remove(a.id)}>
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    {r.source === "kod" ? (
+                      <span className="text-xs text-muted-foreground">Redigeras av utvecklare</span>
+                    ) : (
+                      <div className="flex justify-end gap-1">
+                        <Button size="sm" variant="outline" onClick={() => setEditing(r.article!)}>
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => remove(r.key)}>
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -212,6 +267,7 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
           </Table>
         )}
       </CardContent>
+
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent className="max-w-2xl">
