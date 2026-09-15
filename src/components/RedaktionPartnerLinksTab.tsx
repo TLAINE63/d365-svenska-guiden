@@ -184,6 +184,17 @@ export default function RedaktionPartnerLinksTab({
                         <Badge variant="outline">Ej publicerad</Badge>
                       )}
                     </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Switch
+                          checked={p.is_featured}
+                          disabled={togglingId === p.id}
+                          onCheckedChange={(v) => handleTogglePublished(p, v)}
+                          aria-label={`Publicera ${p.name}`}
+                        />
+                        {togglingId === p.id && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                      </div>
+                    </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Button
