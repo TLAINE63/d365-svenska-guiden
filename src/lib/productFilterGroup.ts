@@ -8,7 +8,7 @@ export const PRODUCT_FILTER_GROUP = {
   },
   fsc: {
     label: "Finance & Supply Chain Management",
-    apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management"],
+    apps: ["Finance", "Supply Chain Management", "Finance & Supply Chain Management", "F&SCM"],
   },
   sales: {
     label: "Sales & Customer Insights",

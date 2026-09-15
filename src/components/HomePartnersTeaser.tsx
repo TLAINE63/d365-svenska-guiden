@@ -27,7 +27,7 @@ type RawPartner = {
 
 const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
 
-const FSCM_APPS = new Set(["Finance", "Supply Chain Management"]);
+const FSCM_APPS = new Set(["Finance", "Supply Chain Management", "F&SCM"]);
 const CRM_APPS = new Set([
   "Sales",
   "Customer Service",

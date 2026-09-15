@@ -73,6 +73,7 @@ const appIconSrc: Record<string, string> = {
   "Supply Chain Management": FinanceIcon,
   "Finance & SCM": FinanceIcon,
   "Finance & Supply Chain": FinanceIcon,
+  "F&SCM": FinanceIcon,
   "Sales": SalesIcon,
   "Customer Service": CustomerServiceIcon,
   "Field Service": FieldServiceIcon,
@@ -287,7 +288,7 @@ function buildTabData(partner: DatabasePartner, tab: TabKey): TabData {
   // Apps for this tab
   const appCategoryMap: Record<TabKey, string[]> = {
     bc: ["Business Central"],
-    fsc: ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"],
+    fsc: ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain", "F&SCM"],
     crm: [
       "Sales",
       "Customer Insights",
