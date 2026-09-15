@@ -76,6 +76,8 @@ const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const PartnerBasicProfile = lazy(() => import("./pages/PartnerBasicProfile"));
 const PartnerExtendedContent = lazy(() => import("./pages/PartnerExtendedContent"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const Redaktion = lazy(() => import("./pages/Redaktion"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminMcpTest = lazy(() => import("./pages/AdminMcpTest"));
 const AdminRelevanceTest = lazy(() => import("./pages/AdminRelevanceTest"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
@@ -258,6 +260,9 @@ const AppShell = () => {
           <Route path="/basic/:slug" element={<PartnerBasicProfile />} />
           <Route path="/basic/:slug/" element={<PartnerBasicProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/redaktion" element={<Redaktion />} />
+          <Route path="/redaktion/" element={<Redaktion />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/admin/mcp-test" element={<AdminMcpTest />} />
           <Route path="/admin/relevans-test" element={<AdminRelevanceTest />} />
           <Route path="/partner-admin" element={<RedirectTo to="/admin" />} />
