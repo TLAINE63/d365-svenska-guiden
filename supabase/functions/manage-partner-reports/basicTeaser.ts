@@ -18,7 +18,7 @@
 // Alla besökare räknas, inklusive intern trafik och partners egen trafik.
 // ────────────────────────────────────────────────────────────────────────────
 
-import { fetchDemand, renderDemandHtml, type DemandStats } from "./stats.ts";
+import { fetchAiVisibility, fetchDemand, renderAiVisibilityHtml, renderDemandHtml, type AiVisibilityStats, type DemandStats } from "./stats.ts";
 
 /** Minsta underlag per period för att våga visa en tillväxtsiffra. */
 const GROWTH_MIN_VISITORS = 50;
@@ -52,6 +52,7 @@ export interface BasicTeaserStats {
     partners: number;
   };
   demand?: DemandStats;
+  ai?: AiVisibilityStats;
 }
 
 
@@ -103,7 +104,7 @@ export async function buildBasicTeaserStats(
   const prev30 = new Date(startDate.getTime() - 30 * 24 * 3600 * 1000);
   const prev30Iso = `${prev30.toISOString().slice(0, 10)}T00:00:00Z`;
 
-  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified, demand] = await Promise.all([
+  const [engagement, exposures, marketStatsRes, engagementStatsRes, partnersCountRes, resourcesRes, verified, demand, ai] = await Promise.all([
     supabase.from("partner_engagement_events")
       .select("page_path, event_level")
       .eq("partner_slug", partnerSlug)
@@ -132,6 +133,7 @@ export async function buildBasicTeaserStats(
     ]),
     buildVerifiedMedian(supabase, startIso, endIso),
     fetchDemand(supabase, startIso, endIso),
+    fetchAiVisibility(supabase, startIso, endIso),
   ]);
   const marketStats = (marketStatsRes.data || [])[0] || {};
   const engagementStats = (engagementStatsRes.data || [])[0] || {};
@@ -184,6 +186,7 @@ export async function buildBasicTeaserStats(
     },
     verifiedMedian: verified,
     demand,
+    ai,
   };
 }
 
@@ -337,6 +340,8 @@ export function renderBasicTeaserHtml(opts: {
       </p>
 
       ${renderDemandHtml({ demand: s.demand } as any)}
+
+      ${renderAiVisibilityHtml(s.ai)}
 
       ${sectionTitle("Det här missar ni i dag")}
       <div style="background:#F4FAF8;border:1px solid #BFE0D8;border-radius:10px;padding:16px 18px">

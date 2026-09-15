@@ -858,6 +858,7 @@ export function renderStatsHtml(stats: DraftStats | null): string {
       ${renderExposureChart(stats)}
       ${renderHistoryHtml(stats)}
       ${renderDemandHtml(stats)}
+      ${renderAiVisibilityHtml(stats?.ai)}
       ${renderInsightsHtml(stats)}`;
 }
 
