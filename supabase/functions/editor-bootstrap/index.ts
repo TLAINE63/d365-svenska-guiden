@@ -51,18 +51,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     const body = await req.json().catch(() => ({}));
-    const adminPassword = typeof body.adminPassword === "string" ? body.adminPassword : "";
+    const adminPassword = typeof body.adminPassword === "string" ? body.adminPassword.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
     const password = typeof body.password === "string" ? body.password : "";
 
     if (!email.includes("@") || password.length < 10) {
-      return json({ error: "Ange en giltig e-post och ett lösenord på minst 10 tecken" }, 400);
+      return json({ error: "Ange en giltig e-post och ett lösenord på minst 10 tecken" }, 200);
     }
 
-    const ADMIN_PASSWORD = Deno.env.get("PARTNER_ADMIN_PASSWORD");
+    const ADMIN_PASSWORD = (Deno.env.get("PARTNER_ADMIN_PASSWORD") || "").trim();
     if (!ADMIN_PASSWORD || adminPassword !== ADMIN_PASSWORD) {
       console.log(`editor-bootstrap: invalid admin password from ${ip}`);
-      return json({ error: "Ogiltigt adminlösenord" }, 401);
+      return json({ error: "Ogiltigt adminlösenord" }, 200);
     }
 
     const admin = createClient(
