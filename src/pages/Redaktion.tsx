@@ -12,6 +12,8 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
+import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
+import AdminStatsSummary from "@/components/AdminStatsSummary";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -201,7 +203,13 @@ export default function Redaktion() {
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
+            <TabsTrigger value="stats">Statistik</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="stats" className="space-y-6">
+            <SiteTrafficStatsCard token={token} variant="full" />
+            <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
+          </TabsContent>
 
           <TabsContent value="partners">
             <RedaktionPartnerLinksTab

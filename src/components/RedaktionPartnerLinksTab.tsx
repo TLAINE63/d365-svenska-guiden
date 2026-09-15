@@ -11,8 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Switch } from "@/components/ui/switch";
 import { Copy, ExternalLink, Loader2, PenLine } from "lucide-react";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
 
 interface PartnerRow {
@@ -40,6 +43,29 @@ export default function RedaktionPartnerLinksTab({
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+
+  async function handleTogglePublished(partner: PartnerRow, next: boolean) {
+    if (!token) return;
+    setTogglingId(partner.id);
+    const { data, error } = await supabase.functions.invoke("manage-partners", {
+      body: { action: "update", id: partner.id, partner: { is_featured: next }, token },
+    });
+    setTogglingId(null);
+    if (error || (data as { error?: string } | null)?.error) {
+      const msg = (data as { error?: string } | null)?.error || error?.message || "";
+      if (msg.toLowerCase().includes("session")) {
+        toast.error("Sessionen har gått ut, logga in igen");
+        onSessionExpired();
+        return;
+      }
+      toast.error(msg || "Kunde inte ändra publiceringen");
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+    toast.success(next ? `${partner.name} är publicerad` : `${partner.name} är avpublicerad`);
+  }
 
   const rows = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -103,6 +129,7 @@ export default function RedaktionPartnerLinksTab({
         <CardDescription>
           Kopiera profileringslänken för valfri partner, publicerad eller ej. Länken är unik per
           partner och kan skickas direkt till partnern, eller öppnas här för att redigera profilen.
+          Du kan också publicera eller avpublicera en partner direkt i listan.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -143,6 +170,7 @@ export default function RedaktionPartnerLinksTab({
                 <TableRow>
                   <TableHead>Partner</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead>Publicerad</TableHead>
                   <TableHead className="text-right">Profileringslänk</TableHead>
                 </TableRow>
               </TableHeader>
@@ -156,6 +184,17 @@ export default function RedaktionPartnerLinksTab({
                       ) : (
                         <Badge variant="outline">Ej publicerad</Badge>
                       )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Switch
+                          checked={p.is_featured}
+                          disabled={togglingId === p.id}
+                          onCheckedChange={(v) => handleTogglePublished(p, v)}
+                          aria-label={`Publicera ${p.name}`}
+                        />
+                        {togglingId === p.id && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                      </div>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
