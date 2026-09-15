@@ -203,7 +203,13 @@ export default function Redaktion() {
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
+            <TabsTrigger value="stats">Statistik</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="stats" className="space-y-6">
+            <SiteTrafficStatsCard token={token} variant="full" />
+            <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
+          </TabsContent>
 
           <TabsContent value="partners">
             <RedaktionPartnerLinksTab
