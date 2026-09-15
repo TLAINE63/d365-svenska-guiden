@@ -65,7 +65,7 @@ import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 // Map application names to product categories
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
  if (app === "Business Central") return 'bc';
- if (["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"].includes(app)) return 'fsc';
+ if (["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain", "F&SCM"].includes(app)) return 'fsc';
  if (["Sales", "Customer Insights", "Customer Insights (Marketing)", "Marketing"].includes(app)) return 'sales';
  if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
  return null;

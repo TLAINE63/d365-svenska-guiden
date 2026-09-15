@@ -38,7 +38,7 @@ const CRM_APPS = new Set([
 
 const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Business Central"), label: "BC" },
-  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management"), label: "F&SCM" },
+  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management") || a.includes("F&SCM"), label: "F&SCM" },
   { match: (a) => a.includes("Sales"), label: "Sales" },
   { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
   { match: (a) => a.includes("Field Service"), label: "Field Service" },

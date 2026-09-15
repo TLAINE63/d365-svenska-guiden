@@ -28,7 +28,7 @@ type RawPartner = {
 
 const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Business Central"), label: "Business Central" },
-  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management"), label: "Finance & SCM" },
+  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management") || a.includes("F&SCM"), label: "Finance & SCM" },
   { match: (a) => a.includes("Sales"), label: "Sales" },
   { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
   { match: (a) => a.includes("Field Service"), label: "Field Service" },
@@ -69,7 +69,7 @@ const PRODUCT_FILTERS: Array<{ id: ProductId; label: string }> = [
 const matchesProduct = (apps: string[] = [], id: ProductId) => {
   if (id === "all") return true;
   if (id === "bc") return apps.includes("Business Central");
-  if (id === "fscm") return apps.includes("Finance") || apps.includes("Supply Chain Management");
+  if (id === "fscm") return apps.includes("Finance") || apps.includes("Supply Chain Management") || apps.includes("F&SCM");
   if (id === "sales") return apps.includes("Sales");
   if (id === "customer-service") return apps.includes("Customer Service");
   if (id === "field-service") return apps.includes("Field Service");

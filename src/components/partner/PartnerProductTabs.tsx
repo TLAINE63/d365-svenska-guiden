@@ -175,7 +175,7 @@ function getAvailableTabs(partner: DatabasePartner): TabKey[] {
   if (
     pf.fsc ||
     apps.some((a) =>
-      ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"].includes(a),
+      ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain", "F&SCM"].includes(a),
     )
   )
     tabs.push("fsc");
