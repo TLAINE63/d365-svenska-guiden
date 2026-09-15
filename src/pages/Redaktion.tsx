@@ -40,7 +40,9 @@ export default function Redaktion() {
     setAdminPassword("");
   }
 
-  const { data: partners = [] } = useAdminPartners(isAuthenticated ? token : null);
+  const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
+    isAuthenticated ? token : null,
+  );
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
