@@ -288,10 +288,62 @@ serve(async (req: Request): Promise<Response> => {
     const { error: upErr } = await supabase.from("partners").update(payload).eq("id", partnerId);
     if (upErr) throw upErr;
 
+    // Separat informationslager: räknas fram ur identifierat publikt material.
+    const isType = (n: NewsRow, types: string[]) => types.includes((n.news_type || "").toLowerCase());
+    const articles = news.filter((n) => isType(n, ["artikel", "analys", "rapport", "produktnyhet"]));
+    const webinars = news.filter((n) => isType(n, ["webinar", "webinarium", "event"]));
+    const cases = news.filter((n) => isType(n, ["kundcase", "case"]));
+
+    const latestOf = (rows: NewsRow[], kind: string) =>
+      rows.slice(0, 5).map((n) => ({
+        kind,
+        title: n.editorial_title,
+        date: n.news_date,
+        url: n.source_url || null,
+      }));
+
+    const latestContent = [
+      ...latestOf(articles, "artikel"),
+      ...latestOf(webinars, "webinarium"),
+      ...latestOf(cases, "kundcase"),
+      ...events.slice(0, 5).map((e) => ({
+        kind: "webinarium",
+        title: e.title,
+        date: e.event_date,
+        url: null as string | null,
+      })),
+    ];
+
+    const observedProducts = Array.from(
+      new Set(news.flatMap((n) => n.product_areas || []).filter(Boolean)),
+    ).slice(0, 12);
+    const observedIndustries = Array.from(
+      new Set(news.map((n) => n.industry).filter(Boolean) as string[]),
+    ).slice(0, 12);
+
+    const insightsRow = {
+      partner_id: partnerId,
+      generated_market_profile: result.public_profile_summary,
+      observed_topics: result.public_topics_12m,
+      observed_products: observedProducts,
+      observed_industries: observedIndustries,
+      articles_count: articles.length,
+      webinars_count: webinars.length + events.length,
+      case_studies_count: cases.length,
+      latest_content: latestContent,
+      last_updated: new Date().toISOString(),
+    };
+
+    const { error: insErr } = await supabase
+      .from("partner_public_insights")
+      .upsert(insightsRow, { onConflict: "partner_id" });
+    if (insErr) throw insErr;
+
     return new Response(
       JSON.stringify({
         ok: true,
         insights: payload,
+        publicInsights: insightsRow,
         counts: { news: news.length, events: events.length },
       }),
       { headers: { "Content-Type": "application/json", ...corsHeaders } },
