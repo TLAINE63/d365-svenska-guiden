@@ -44,7 +44,50 @@ export default function RedaktionPartnerLinksTab({
   const [filter, setFilter] = useState<Filter>("all");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [scanId, setScanId] = useState<string | null>(null);
+  const [bulk, setBulk] = useState<{ done: number; total: number; current: string } | null>(null);
+  const [cancelBulk, setCancelBulk] = useState(false);
   const queryClient = useQueryClient();
+
+  async function scanPartner(partner: PartnerRow): Promise<boolean> {
+    if (!token) return false;
+    const { data, error } = await supabase.functions.invoke("generate-partner-public-profile", {
+      body: { token, partnerId: partner.id },
+    });
+    const msg = (data as { error?: string } | null)?.error || error?.message || "";
+    if (msg) {
+      if (msg.toLowerCase().includes("session") || msg.toLowerCase().includes("401")) {
+        onSessionExpired();
+      }
+      return false;
+    }
+    return true;
+  }
+
+  async function handleScanOne(partner: PartnerRow) {
+    setScanId(partner.id);
+    const ok = await scanPartner(partner);
+    setScanId(null);
+    if (ok) toast.success(`Publika källor uppdaterade för ${partner.name}`);
+    else toast.error(`Kunde inte söka publika källor för ${partner.name}`);
+  }
+
+  async function handleScanAll() {
+    const list = rows;
+    setCancelBulk(false);
+    setBulk({ done: 0, total: list.length, current: "" });
+    let failed = 0;
+    for (let i = 0; i < list.length; i++) {
+      if (cancelBulkRef.current) break;
+      setBulk({ done: i, total: list.length, current: list[i].name });
+      const ok = await scanPartner(list[i]);
+      if (!ok) failed++;
+    }
+    setBulk(null);
+    toast.success(
+      failed ? `Klart, ${failed} partners kunde inte uppdateras` : "Publika källor uppdaterade",
+    );
+  }
 
   async function handleTogglePublished(partner: PartnerRow, next: boolean) {
     if (!token) return;
