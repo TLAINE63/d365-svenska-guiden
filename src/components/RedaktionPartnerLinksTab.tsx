@@ -317,6 +317,7 @@ export default function RedaktionPartnerLinksTab({
                   <TableHead>Partner</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Publicerad</TableHead>
+                  <TableHead>Publika källor</TableHead>
                   <TableHead className="text-right">Profileringslänk</TableHead>
                 </TableRow>
               </TableHeader>
