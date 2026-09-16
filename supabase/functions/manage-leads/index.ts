@@ -82,8 +82,8 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
       return { valid: false, error: "Token expired" };
     }
 
-    // Check role
-    if (payload.role !== "admin") {
+    // Check role (editors get read-only stats access, enforced per action below)
+    if (payload.role !== "admin" && payload.role !== "editor") {
       return { valid: false, error: "Insufficient permissions" };
     }
 
