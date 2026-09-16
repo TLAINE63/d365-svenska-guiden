@@ -514,6 +514,24 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.observed_updated_at !== undefined) updateData.observed_updated_at = partner.observed_updated_at;
         if ((partner as any)?.hide_basic_card !== undefined) updateData.hide_basic_card = (partner as any).hide_basic_card === true;
 
+        // Kompletterande information baserad på publika källor (redaktionellt lager,
+        // rör aldrig partnerns egna profilfält).
+        if ((partner as any)?.public_profile_summary !== undefined) {
+          updateData.public_profile_summary = (partner as any).public_profile_summary?.trim() || null;
+        }
+        if ((partner as any)?.public_focus_tags !== undefined) {
+          updateData.public_focus_tags = ((partner as any).public_focus_tags || [])
+            .map((t: string) => String(t).trim())
+            .filter(Boolean)
+            .slice(0, 20);
+        }
+        if ((partner as any)?.public_topics_12m !== undefined) {
+          updateData.public_topics_12m = ((partner as any).public_topics_12m || [])
+            .map((t: string) => String(t).trim())
+            .filter(Boolean)
+            .slice(0, 20);
+        }
+
 
         const { data, error } = await supabase
           .from("partners")
