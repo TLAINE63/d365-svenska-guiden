@@ -141,6 +141,20 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // Editors may only read aggregated statistics, never lead data
+    const EDITOR_ALLOWED_ACTIONS = new Set([
+      "visitor-stats",
+      "click-stats",
+      "partner-view-stats",
+      "funnel-stats",
+    ]);
+    if (verification.payload?.role === "editor" && !EDITOR_ALLOWED_ACTIONS.has(action)) {
+      return new Response(
+        JSON.stringify({ error: "Behörighet saknas" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
