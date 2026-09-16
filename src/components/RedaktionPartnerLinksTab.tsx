@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,7 @@ export default function RedaktionPartnerLinksTab({
   const [togglingId, setTogglingId] = useState<string | null>(null);
   const [scanId, setScanId] = useState<string | null>(null);
   const [bulk, setBulk] = useState<{ done: number; total: number; current: string } | null>(null);
-  const [cancelBulk, setCancelBulk] = useState(false);
+  const cancelBulkRef = useRef(false);
   const queryClient = useQueryClient();
 
   async function scanPartner(partner: PartnerRow): Promise<boolean> {
@@ -74,7 +74,7 @@ export default function RedaktionPartnerLinksTab({
 
   async function handleScanAll() {
     const list = rows;
-    setCancelBulk(false);
+    cancelBulkRef.current = false;
     setBulk({ done: 0, total: list.length, current: "" });
     let failed = 0;
     for (let i = 0; i < list.length; i++) {
