@@ -667,6 +667,45 @@ const AdminDashboard = () => {
     }
   };
 
+  const [generatingPublicProfile, setGeneratingPublicProfile] = useState(false);
+
+  const handleGeneratePublicProfile = async () => {
+    if (!editingPartner) {
+      toast({ title: "Spara partnern först", description: "Sammanställningen kan bara göras för en sparad partner.", variant: "destructive" });
+      return;
+    }
+    setGeneratingPublicProfile(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-public-profile", {
+        token,
+        partnerId: editingPartner.id,
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const insights = (data as any)?.insights || {};
+      setPartnerFormData((prev) => ({
+        ...prev,
+        public_profile_summary: insights.public_profile_summary || "",
+        public_focus_tags: insights.public_focus_tags || [],
+        public_topics_12m: insights.public_topics_12m || [],
+        public_profile_updated_at: insights.public_profile_updated_at || null,
+      }));
+      toast({ title: "Sammanställningen är klar", description: "Granska texten och spara partnern." });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte sammanställa",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad, försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingPublicProfile(false);
+    }
+  };
+
   const handleGenerateAllMissingSummaries = async () => {
     setGeneratingAllSummaries(true);
     try {
@@ -764,6 +803,10 @@ const AdminDashboard = () => {
     ai_summary_full?: string;
     best_fit_for?: string[];
     ai_tags?: string[];
+    public_profile_summary?: string;
+    public_focus_tags?: string[];
+    public_topics_12m?: string[];
+    public_profile_updated_at?: string | null;
     not_a_fit?: string[];
     extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies;
     extended_competency_evidence?: Record<string, string>;
@@ -811,6 +854,9 @@ const AdminDashboard = () => {
     ai_summary_full: "",
     best_fit_for: [],
     ai_tags: [],
+    public_profile_summary: "",
+    public_focus_tags: [],
+    public_topics_12m: [],
     not_a_fit: [],
     extended_competencies: {},
     extended_competency_evidence: {},
@@ -1486,6 +1532,9 @@ Thomas`,
   ai_summary_full: "",
   best_fit_for: [],
   ai_tags: [],
+  public_profile_summary: "",
+  public_focus_tags: [],
+  public_topics_12m: [],
   not_a_fit: [],
   extended_competencies: {},
   extended_competency_evidence: {},
@@ -1580,6 +1629,10 @@ Thomas`,
     ai_summary_full: (partner as any).ai_summary_full || "",
     best_fit_for: (partner as any).best_fit_for || [],
     ai_tags: (partner as any).ai_tags || [],
+    public_profile_summary: (partner as any).public_profile_summary || "",
+    public_focus_tags: (partner as any).public_focus_tags || [],
+    public_topics_12m: (partner as any).public_topics_12m || [],
+    public_profile_updated_at: (partner as any).public_profile_updated_at || null,
     not_a_fit: (partner as any).not_a_fit || [],
     extended_competencies: (partner as any).extended_competencies || {},
     extended_competency_evidence: (partner as any).extended_competency_evidence || {},
@@ -5848,6 +5901,93 @@ Thomas`,
  }
  placeholder="Business Central, Tillverkning, AI och Copilot"
  />
+ </div>
+
+ <div className="space-y-4 rounded-lg border border-border bg-muted/20 p-4">
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+ <div>
+ <Label className="font-semibold text-sm">Kompletterande information baserad på publika källor</Label>
+ <p className="text-xs text-muted-foreground">
+ Sammanställs av AI från partnerns publicerade material, nyheter, event och kundcase. Skriver aldrig över partnerns egna fält.
+ {partnerFormData.public_profile_updated_at
+ ? ` Senast sammanställt ${new Date(partnerFormData.public_profile_updated_at).toISOString().slice(0, 10)}.`
+ : ""}
+ </p>
+ </div>
+ <div className="flex flex-wrap gap-2">
+ <Button
+ type="button"
+ variant="outline"
+ size="sm"
+ disabled={generatingPublicProfile || !editingPartner}
+ onClick={handleGeneratePublicProfile}
+ >
+ {generatingPublicProfile ? (
+ <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />Sammanställer...</>
+ ) : (
+ <><Sparkles className="w-4 h-4 mr-2" />Sammanställ publika källor</>
+ )}
+ </Button>
+ <Button
+ type="button"
+ variant="ghost"
+ size="sm"
+ onClick={() =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_profile_summary: "",
+ public_focus_tags: [],
+ public_topics_12m: [],
+ })
+ }
+ >
+ Rensa
+ </Button>
+ </div>
+ </div>
+
+ <div className="space-y-1.5">
+ <Label htmlFor="public_profile_summary" className="text-sm">Marknadsprofil (ett stycke per rad)</Label>
+ <Textarea
+ id="public_profile_summary"
+ value={partnerFormData.public_profile_summary || ""}
+ onChange={(e) => setPartnerFormData({ ...partnerFormData, public_profile_summary: e.target.value })}
+ rows={6}
+ maxLength={4000}
+ placeholder="Analys av publika källor visar att partnern ofta kommunicerar kring ..."
+ />
+ </div>
+
+ <div className="grid gap-4 md:grid-cols-2">
+ <div className="space-y-1.5">
+ <Label htmlFor="public_focus_tags" className="text-sm">Observerade fokusområden (kommaseparerade)</Label>
+ <Input
+ id="public_focus_tags"
+ value={(partnerFormData.public_focus_tags || []).join(", ")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_focus_tags: e.target.value.split(",").map((s) => s.trim()),
+ })
+ }
+ placeholder="Business Central, Power Platform, Copilot, Tillverkning"
+ />
+ </div>
+ <div className="space-y-1.5">
+ <Label htmlFor="public_topics_12m" className="text-sm">Observerade ämnen senaste 12 månaderna (kommaseparerade)</Label>
+ <Input
+ id="public_topics_12m"
+ value={(partnerFormData.public_topics_12m || []).join(", ")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_topics_12m: e.target.value.split(",").map((s) => s.trim()),
+ })
+ }
+ placeholder="Copilot, Supply Chain, AI Agents, Automation"
+ />
+ </div>
+ </div>
  </div>
 
  <div className="space-y-3 rounded-lg border border-border bg-muted/20 p-4">

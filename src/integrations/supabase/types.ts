@@ -2206,6 +2206,11 @@ export type Database = {
           product_filters: Json | null
           product_profiles: Json
           profile_level: string
+          public_focus_tags: string[]
+          public_profile_sources: string[]
+          public_profile_summary: string | null
+          public_profile_updated_at: string | null
+          public_topics_12m: string[]
           published_at: string | null
           related_party: boolean
           secondary_industries: string[] | null
@@ -2290,6 +2295,11 @@ export type Database = {
           product_filters?: Json | null
           product_profiles?: Json
           profile_level?: string
+          public_focus_tags?: string[]
+          public_profile_sources?: string[]
+          public_profile_summary?: string | null
+          public_profile_updated_at?: string | null
+          public_topics_12m?: string[]
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
@@ -2374,6 +2384,11 @@ export type Database = {
           product_filters?: Json | null
           product_profiles?: Json
           profile_level?: string
+          public_focus_tags?: string[]
+          public_profile_sources?: string[]
+          public_profile_summary?: string | null
+          public_profile_updated_at?: string | null
+          public_topics_12m?: string[]
           published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
@@ -3267,6 +3282,11 @@ export type Database = {
           phone: string | null
           positioning_statement: string | null
           product_filters: Json | null
+          public_focus_tags: string[] | null
+          public_profile_sources: string[] | null
+          public_profile_summary: string | null
+          public_profile_updated_at: string | null
+          public_topics_12m: string[] | null
           related_party: boolean | null
           secondary_industries: string[] | null
           slug: string | null
@@ -3316,6 +3336,11 @@ export type Database = {
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          public_focus_tags?: string[] | null
+          public_profile_sources?: string[] | null
+          public_profile_summary?: string | null
+          public_profile_updated_at?: string | null
+          public_topics_12m?: string[] | null
           related_party?: boolean | null
           secondary_industries?: string[] | null
           slug?: string | null
@@ -3365,6 +3390,11 @@ export type Database = {
           phone?: string | null
           positioning_statement?: string | null
           product_filters?: Json | null
+          public_focus_tags?: string[] | null
+          public_profile_sources?: string[] | null
+          public_profile_summary?: string | null
+          public_profile_updated_at?: string | null
+          public_topics_12m?: string[] | null
           related_party?: boolean | null
           secondary_industries?: string[] | null
           slug?: string | null

@@ -138,6 +138,12 @@ export interface DatabasePartner {
   best_fit_for?: string[] | null;
   /** Fria kompetens-/AI-taggar. */
   ai_tags?: string[] | null;
+  /** Kompletterande, AI-sammanställd marknadsprofil från publika källor. */
+  public_profile_summary?: string | null;
+  public_focus_tags?: string[] | null;
+  public_topics_12m?: string[] | null;
+  public_profile_sources?: string[] | null;
+  public_profile_updated_at?: string | null;
   extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies | null;
   extended_competency_evidence?: Record<string, string> | null;
   ai_profile?: AiProfile | null;
@@ -242,6 +248,11 @@ export function usePartners() {
               ai_summary_full: (p as any).ai_summary_full ?? null,
               best_fit_for: ((p as any).best_fit_for ?? []) as string[],
               ai_tags: ((p as any).ai_tags ?? []) as string[],
+              public_profile_summary: (p as any).public_profile_summary ?? null,
+              public_focus_tags: ((p as any).public_focus_tags ?? []) as string[],
+              public_topics_12m: ((p as any).public_topics_12m ?? []) as string[],
+              public_profile_sources: ((p as any).public_profile_sources ?? []) as string[],
+              public_profile_updated_at: (p as any).public_profile_updated_at ?? null,
               extended_competencies: ((p as any).extended_competencies ?? {}) as DatabasePartner["extended_competencies"],
               ai_profile: ((p as any).ai_profile ?? null) as AiProfile | null,
               partner_size_tier: (p as any).partner_size_tier ?? null,
@@ -311,6 +322,11 @@ export function usePartner(slug: string | undefined) {
         ai_summary_full: (data as any).ai_summary_full ?? null,
         best_fit_for: ((data as any).best_fit_for ?? []) as string[],
         ai_tags: ((data as any).ai_tags ?? []) as string[],
+        public_profile_summary: (data as any).public_profile_summary ?? null,
+        public_focus_tags: ((data as any).public_focus_tags ?? []) as string[],
+        public_topics_12m: ((data as any).public_topics_12m ?? []) as string[],
+        public_profile_sources: ((data as any).public_profile_sources ?? []) as string[],
+        public_profile_updated_at: (data as any).public_profile_updated_at ?? null,
         extended_competencies: ((data as any).extended_competencies ?? {}) as DatabasePartner["extended_competencies"],
         ai_profile: ((data as any).ai_profile ?? null) as AiProfile | null,
         partner_size_tier: (data as any).partner_size_tier ?? null,
