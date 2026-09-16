@@ -321,7 +321,7 @@ async function generate(
           content:
             "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
         },
-        { role: "user", content: buildPrompt(p, news, events) },
+        { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
       ],
     }),
   });
