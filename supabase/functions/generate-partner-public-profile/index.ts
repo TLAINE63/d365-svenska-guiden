@@ -463,7 +463,7 @@ serve(async (req: Request): Promise<Response> => {
         url: n.source_url || null,
       }));
 
-    const latestContent = [
+    const internalContent = [
       ...latestOf(articles, "artikel"),
       ...latestOf(webinars, "webinarium"),
       ...latestOf(cases, "kundcase"),
@@ -474,6 +474,32 @@ serve(async (req: Request): Promise<Response> => {
         url: null as string | null,
       })),
     ];
+
+    // Externa träffar + internt material, deduplicerat på URL.
+    const seenUrls = new Set<string>(
+      internalContent.map((c) => (c.url || "").replace(/\/$/, "")).filter(Boolean),
+    );
+    const externalByKind: Record<string, { kind: string; title: string; date: string | null; url: string }[]> = {
+      artikel: [],
+      webinarium: [],
+      kundcase: [],
+    };
+    for (const d of discovered) {
+      if (seenUrls.has(d.url)) continue;
+      seenUrls.add(d.url);
+      externalByKind[d.kind].push({ kind: d.kind, title: d.title, date: d.date, url: d.url });
+    }
+
+    const latestContent = [
+      ...internalContent,
+      ...externalByKind.artikel.slice(0, 5),
+      ...externalByKind.webinarium.slice(0, 5),
+      ...externalByKind.kundcase.slice(0, 5),
+    ];
+
+    const articlesCount = articles.length + externalByKind.artikel.length;
+    const webinarsCount = webinars.length + events.length + externalByKind.webinarium.length;
+    const casesCount = cases.length + externalByKind.kundcase.length;
 
     const observedProducts = Array.from(
       new Set(news.flatMap((n) => n.product_areas || []).filter(Boolean)),
