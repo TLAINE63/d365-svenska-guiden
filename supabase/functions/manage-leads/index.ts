@@ -82,8 +82,8 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
       return { valid: false, error: "Token expired" };
     }
 
-    // Check role
-    if (payload.role !== "admin") {
+    // Check role (editors get read-only stats access, enforced per action below)
+    if (payload.role !== "admin" && payload.role !== "editor") {
       return { valid: false, error: "Insufficient permissions" };
     }
 
@@ -138,6 +138,20 @@ const handler = async (req: Request): Promise<Response> => {
       return new Response(
         JSON.stringify({ error: verification.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Editors may only read aggregated statistics, never lead data
+    const EDITOR_ALLOWED_ACTIONS = new Set([
+      "visitor-stats",
+      "click-stats",
+      "partner-view-stats",
+      "funnel-stats",
+    ]);
+    if (verification.payload?.role === "editor" && !EDITOR_ALLOWED_ACTIONS.has(action)) {
+      return new Response(
+        JSON.stringify({ error: "Behörighet saknas" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
