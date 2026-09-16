@@ -55,7 +55,7 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     const payload = JSON.parse(atob(base64UrlToBase64(encodedPayload)));
     const now = Math.floor(Date.now() / 1000);
     if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired" };
-    if (payload.role !== "admin") return { valid: false, error: "Insufficient permissions" };
+    if (payload.role !== "admin" && payload.role !== "editor") return { valid: false, error: "Insufficient permissions" };
 
     return { valid: true };
   } catch (error) {

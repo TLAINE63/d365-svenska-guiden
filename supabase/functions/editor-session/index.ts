@@ -95,8 +95,12 @@ Deno.serve(async (req: Request): Promise<Response> => {
       return json({ error: "Kontot saknar redaktörsbehörighet" }, 403);
     }
 
+    // Full admins keep role "admin"; editors get a strictly lower-privileged
+    // role that only the editorial endpoints accept.
+    const tokenRole = roleNames.includes("admin") ? "admin" : "editor";
+
     const token = await createHmacToken(
-      { role: "admin", scope: "editor", sub: userId },
+      { role: tokenRole, scope: "editor", sub: userId },
       SERVICE_ROLE_KEY,
       EXPIRES_IN_MS,
     );
