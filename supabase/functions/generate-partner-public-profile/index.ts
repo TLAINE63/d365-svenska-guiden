@@ -288,10 +288,28 @@ PUBLICERADE INLÄGG OCH NYHETER SENASTE 12 MÅNADERNA:
 ${newsLines || "(inget material)"}
 
 EVENT OCH WEBBINARIER SENASTE 12 MÅNADERNA:
-${eventLines || "(inget material)"}`;
+${eventLines || "(inget material)"}
+
+IDENTIFIERAT PUBLIKT INNEHÅLL PÅ WEBBEN (partnerns webbplats och öppna källor):
+${
+    discovered
+      .slice(0, 60)
+      .map((d) => `- (${d.kind}) ${d.title} | ${d.url}${d.snippet ? ` | ${d.snippet}` : ""}`)
+      .join("\n") || "(inget material)"
+  }
+
+UTDRAG UR NÅGRA AV SIDORNA:
+${samples.join("\n") || "(inga utdrag)"}`;
 }
 
-async function generate(p: any, news: NewsRow[], events: EventRow[], apiKey: string) {
+async function generate(
+  p: any,
+  news: NewsRow[],
+  events: EventRow[],
+  discovered: DiscoveredItem[],
+  samples: string[],
+  apiKey: string,
+) {
   const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
