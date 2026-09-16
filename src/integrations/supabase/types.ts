@@ -1884,6 +1884,76 @@ export type Database = {
           },
         ]
       }
+      partner_public_insights: {
+        Row: {
+          articles_count: number
+          case_studies_count: number
+          created_at: string
+          generated_market_profile: string | null
+          id: string
+          last_updated: string
+          latest_content: Json
+          observed_industries: string[]
+          observed_products: string[]
+          observed_topics: string[]
+          partner_id: string
+          updated_at: string
+          webinars_count: number
+        }
+        Insert: {
+          articles_count?: number
+          case_studies_count?: number
+          created_at?: string
+          generated_market_profile?: string | null
+          id?: string
+          last_updated?: string
+          latest_content?: Json
+          observed_industries?: string[]
+          observed_products?: string[]
+          observed_topics?: string[]
+          partner_id: string
+          updated_at?: string
+          webinars_count?: number
+        }
+        Update: {
+          articles_count?: number
+          case_studies_count?: number
+          created_at?: string
+          generated_market_profile?: string | null
+          id?: string
+          last_updated?: string
+          latest_content?: Json
+          observed_industries?: string[]
+          observed_products?: string[]
+          observed_topics?: string[]
+          partner_id?: string
+          updated_at?: string
+          webinars_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_public_insights_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_public_insights_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_public_insights_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_report_drafts: {
         Row: {
           companies: Json
