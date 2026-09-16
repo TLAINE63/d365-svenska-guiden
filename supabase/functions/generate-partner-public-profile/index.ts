@@ -531,7 +531,14 @@ serve(async (req: Request): Promise<Response> => {
         ok: true,
         insights: payload,
         publicInsights: insightsRow,
-        counts: { news: news.length, events: events.length },
+        counts: {
+          news: news.length,
+          events: events.length,
+          discovered: discovered.length,
+          articles: articlesCount,
+          webinars: webinarsCount,
+          cases: casesCount,
+        },
       }),
       { headers: { "Content-Type": "application/json", ...corsHeaders } },
     );
