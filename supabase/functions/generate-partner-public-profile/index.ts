@@ -514,9 +514,9 @@ serve(async (req: Request): Promise<Response> => {
       observed_topics: result.public_topics_12m,
       observed_products: observedProducts,
       observed_industries: observedIndustries,
-      articles_count: articles.length,
-      webinars_count: webinars.length + events.length,
-      case_studies_count: cases.length,
+      articles_count: articlesCount,
+      webinars_count: webinarsCount,
+      case_studies_count: casesCount,
       latest_content: latestContent,
       last_updated: new Date().toISOString(),
     };
