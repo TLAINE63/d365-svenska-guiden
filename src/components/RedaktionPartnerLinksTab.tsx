@@ -62,6 +62,81 @@ export default function RedaktionPartnerLinksTab({
   const cancelBulkRef = useRef(false);
   const queryClient = useQueryClient();
 
+  // Redigering av det kompletterande lagret baserat på publika källor
+  const [editing, setEditing] = useState<PartnerRow | null>(null);
+  const [editSummary, setEditSummary] = useState("");
+  const [editTags, setEditTags] = useState("");
+  const [editTopics, setEditTopics] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [dirty, setDirty] = useState(false);
+
+  function openEdit(p: PartnerRow) {
+    setEditing(p);
+    setEditSummary(p.public_profile_summary || "");
+    setEditTags((p.public_focus_tags || []).join(", "));
+    setEditTopics((p.public_topics_12m || []).join(", "));
+    setDirty(false);
+  }
+
+  // Synka formuläret med färsk data efter en ny källsökning, så länge användaren
+  // inte själv hunnit redigera fälten.
+  useEffect(() => {
+    if (!editing || dirty) return;
+    const fresh = partners.find((p) => p.id === editing.id);
+    if (!fresh) return;
+    setEditSummary(fresh.public_profile_summary || "");
+    setEditTags((fresh.public_focus_tags || []).join(", "));
+    setEditTopics((fresh.public_topics_12m || []).join(", "));
+  }, [partners, editing, dirty]);
+
+  async function handleSavePublicProfile() {
+    if (!token || !editing) return;
+    setSaving(true);
+    const { data, error } = await supabase.functions.invoke("manage-partners", {
+      body: {
+        action: "update",
+        id: editing.id,
+        token,
+        partner: {
+          public_profile_summary: editSummary,
+          public_focus_tags: editTags.split(",").map((t) => t.trim()).filter(Boolean),
+          public_topics_12m: editTopics.split(",").map((t) => t.trim()).filter(Boolean),
+        },
+      },
+    });
+    setSaving(false);
+    if (error || (data as { error?: string } | null)?.error) {
+      const msg = (data as { error?: string } | null)?.error || error?.message || "";
+      if (msg.toLowerCase().includes("session")) onSessionExpired();
+      toast.error(msg || "Kunde inte spara");
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+    toast.success("Kompletterande information sparad");
+    setEditing(null);
+  }
+
+  async function handleClearPublicProfile() {
+    if (!token || !editing) return;
+    setSaving(true);
+    const { error } = await supabase.functions.invoke("manage-partners", {
+      body: {
+        action: "update",
+        id: editing.id,
+        token,
+        partner: { public_profile_summary: "", public_focus_tags: [], public_topics_12m: [] },
+      },
+    });
+    setSaving(false);
+    if (error) {
+      toast.error("Kunde inte rensa");
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+    toast.success("Kompletterande information rensad");
+    setEditing(null);
+  }
+
   async function scanPartner(partner: PartnerRow): Promise<boolean> {
     if (!token) return false;
     const { data, error } = await supabase.functions.invoke("generate-partner-public-profile", {
