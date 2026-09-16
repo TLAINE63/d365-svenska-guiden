@@ -409,7 +409,11 @@ export default function RedaktionPartnerLinksTab({
                             size="sm"
                             variant="ghost"
                             onClick={() =>
-                              window.open(`${getPublicBaseUrl()}/partner/${p.slug}/`, "_blank", "noopener")
+                              window.open(
+                                `${getPublicBaseUrl()}/partner/${p.slug}/?insyn=1`,
+                                "_blank",
+                                "noopener",
+                              )
                             }
                             className="gap-1"
                           >

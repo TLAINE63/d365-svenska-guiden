@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
+import PartnerAiVisibilityCard from "@/components/PartnerAiVisibilityCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1194,7 +1195,7 @@ const PartnerUpdate = () => {
  {/* Sticky live-preview button (desktop) */}
  {(formData.name || invitation?.partner_name) && (
    <a
-     href={`/partner/${existingSlug || generateSlug(formData.name || invitation?.partner_name || "partner")}/`}
+     href={`/partner/${existingSlug || generateSlug(formData.name || invitation?.partner_name || "partner")}/?insyn=1`}
      target="_blank"
      rel="noopener noreferrer"
      className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-1 px-3 py-4 rounded-l-xl border border-r-0 border-cta-orange/40 bg-cta-orange text-white shadow-lg hover:bg-cta-orange/90 transition-all"
@@ -2817,6 +2818,14 @@ const PartnerUpdate = () => {
     <PartnerNewsSubmissionSection token={token} partnerId={invitation.partner_id} />
   )}
 
+  {/* Synlighet i AI-svar, endast för partnern själv i den här vyn */}
+  {(existingSlug || invitation?.partner_name) && (
+    <PartnerAiVisibilityCard
+      slug={existingSlug || generateSlug(formData.name || invitation?.partner_name || "partner")}
+      partnerName={formData.name || invitation?.partner_name || "Er profil"}
+      forceVisible
+    />
+  )}
 
  {/* Decision profile */}
  <PremiumCollapsibleSection

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Bot, Sparkles, Search, Quote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { isInternalViewer } from "@/lib/internalView";
 
 interface SiteStats {
   botHits90: number;
@@ -20,13 +21,20 @@ interface PartnerStats {
 interface Props {
   slug: string;
   partnerName: string;
+  /** Visa alltid, t.ex. i partnerns egen vy via profileringslänken. */
+  forceVisible?: boolean;
 }
 
 const FN_BASE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
 
-export default function PartnerAiVisibilityCard({ slug, partnerName }: Props) {
+export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisible }: Props) {
   const [site, setSite] = useState<SiteStats | null>(null);
   const [partner, setPartner] = useState<PartnerStats | null>(null);
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    setAllowed(Boolean(forceVisible) || isInternalViewer());
+  }, [forceVisible]);
 
   // Mätpixel: loggar hämtningar av just den här profilsidan, inklusive
   // AI-robotar som hämtar sidans innehåll.
@@ -37,6 +45,7 @@ export default function PartnerAiVisibilityCard({ slug, partnerName }: Props) {
   }, [slug]);
 
   useEffect(() => {
+    if (!allowed) return;
     let cancelled = false;
     (async () => {
       const { data, error } = await supabase.functions.invoke("partner-ai-visibility", {
@@ -49,9 +58,9 @@ export default function PartnerAiVisibilityCard({ slug, partnerName }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, allowed]);
 
-  if (!site) return null;
+  if (!allowed || !site) return null;
 
   const citationPct =
     site.citationChecks > 0
