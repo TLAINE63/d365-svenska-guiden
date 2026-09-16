@@ -156,8 +156,13 @@ export default function RedaktionPartnerLinksTab({
     setScanId(partner.id);
     const ok = await scanPartner(partner);
     setScanId(null);
-    if (ok) toast.success(`Publika källor uppdaterade för ${partner.name}`);
-    else toast.error(`Kunde inte söka publika källor för ${partner.name}`);
+    if (ok) {
+      await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
+      setDirty(false);
+      toast.success(`Publika källor uppdaterade för ${partner.name}`);
+    } else {
+      toast.error(`Kunde inte söka publika källor för ${partner.name}`);
+    }
   }
 
   async function handleScanAll() {
@@ -420,6 +425,92 @@ export default function RedaktionPartnerLinksTab({
           </div>
         )}
       </CardContent>
+
+      <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Publika källor, {editing?.name}</DialogTitle>
+            <DialogDescription>
+              Kompletterande information som d365.se sammanställt från publika källor. Den visas på
+              partnerprofilen men skriver aldrig över partnerns egna uppgifter.
+              {editing?.public_profile_updated_at && (
+                <> Senast sammanställd {editing.public_profile_updated_at.slice(0, 10)}.</>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+
+          {editing && (
+            <div className="space-y-5">
+              <Button
+                variant="secondary"
+                disabled={scanId === editing.id}
+                onClick={() => handleScanOne(editing)}
+                className="gap-2"
+              >
+                {scanId === editing.id ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Search className="h-4 w-4" />
+                )}
+                Sök publika källor
+              </Button>
+
+              <div className="space-y-2">
+                <Label htmlFor="pub-summary">Marknadsprofil (ett stycke per rad)</Label>
+                <Textarea
+                  id="pub-summary"
+                  rows={6}
+                  value={editSummary}
+                  onChange={(e) => {
+                    setEditSummary(e.target.value);
+                    setDirty(true);
+                  }}
+                  placeholder="Analys av publika källor visar att..."
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="pub-tags">Observerade fokusområden (kommaseparerade)</Label>
+                <Input
+                  id="pub-tags"
+                  value={editTags}
+                  onChange={(e) => {
+                    setEditTags(e.target.value);
+                    setDirty(true);
+                  }}
+                  placeholder="Business Central, Copilot, Tillverkning"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="pub-topics">Observerade ämnen senaste 12 månaderna (kommaseparerade)</Label>
+                <Input
+                  id="pub-topics"
+                  value={editTopics}
+                  onChange={(e) => {
+                    setEditTopics(e.target.value);
+                    setDirty(true);
+                  }}
+                  placeholder="AI Agents, Automation, Dataplattform"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-2 border-t">
+                <Button onClick={handleSavePublicProfile} disabled={saving} className="gap-2">
+                  {saving && <Loader2 className="h-4 w-4 animate-spin" />}
+                  Spara
+                </Button>
+                <Button variant="outline" onClick={handleClearPublicProfile} disabled={saving}>
+                  Rensa
+                </Button>
+                <Button variant="ghost" onClick={() => setEditing(null)}>
+                  Stäng
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }
