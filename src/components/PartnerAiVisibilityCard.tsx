@@ -45,6 +45,7 @@ export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisibl
   }, [slug]);
 
   useEffect(() => {
+    if (!allowed) return;
     let cancelled = false;
     (async () => {
       const { data, error } = await supabase.functions.invoke("partner-ai-visibility", {
