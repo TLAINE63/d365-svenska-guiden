@@ -119,6 +119,11 @@ export default function PartnerBasicProfile({
             )}
           </div>
         </section>
+        {partner && (
+          <div className="-mt-4">
+            <PartnerPublicSourcesSection partner={partner} />
+          </div>
+        )}
       </main>
       <Footer />
     </div>
