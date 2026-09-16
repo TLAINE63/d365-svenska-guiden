@@ -280,6 +280,20 @@ export default function RedaktionPartnerLinksTab({
                           <PenLine className="h-3.5 w-3.5" />
                           Redigera profil
                         </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={scanId === p.id || !!bulk}
+                          onClick={() => handleScanOne(p)}
+                          className="gap-1"
+                        >
+                          {scanId === p.id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Search className="h-3.5 w-3.5" />
+                          )}
+                          Sök källor
+                        </Button>
                         {p.is_featured && (
                           <Button
                             size="sm"
