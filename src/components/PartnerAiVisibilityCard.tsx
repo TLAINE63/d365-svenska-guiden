@@ -149,8 +149,8 @@ export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisibl
           )}
           <p className="text-xs text-muted-foreground mt-2">
             Siffrorna avser d365.se som helhet om inget annat anges. Profilmaterialet på den här
-            sidan ingår i det innehåll AI-modellerna hämtar. Mätningen per profilsida startade
-            2026-09-15.
+            sidan ingår i det innehåll AI-modellerna hämtar. Statistiken började mätas fr.o.m.
+            2026-09-16.
           </p>
         </div>
       </div>
