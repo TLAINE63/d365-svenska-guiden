@@ -371,6 +371,7 @@ const AppShell = () => {
         <Suspense fallback={null}>
           <CookieBanner />
           <SnitcherTracking />
+          <PostHogTracking />
           <VisitorTracking />
           <AiChatBubble />
           <ExitIntentOffer />
