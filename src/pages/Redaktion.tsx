@@ -15,6 +15,7 @@ import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
+import PostHogStatsCard from "@/components/PostHogStatsCard";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -209,6 +210,7 @@ export default function Redaktion() {
           </TabsList>
 
           <TabsContent value="stats" className="space-y-6">
+            <PostHogStatsCard token={token} onSessionExpired={logout} />
             <SiteTrafficStatsCard token={token} variant="full" />
             <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
           </TabsContent>
