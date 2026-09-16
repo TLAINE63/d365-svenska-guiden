@@ -3842,7 +3842,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Nexer+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:07:18.224383+00:00",
     "industry_pitches": [
       {
         "text": "Nexer levererar affärssystemslösningar baserade på Microsoft Dynamics 365 till företag inom grossist- och distributionsbranschen. Med fokus på applikationer som Business Central, Finance och Supply Chain Management stödjer de kunder i att optimera processer som orderhantering, lagerstyrning och logistik. Deras erbjudande omfattar även stöd för kundrelationer genom Dynamics 365 Sales och Customer Service, vilket kan bidra till förbättrad kundkommunikation och service. Nexer har erfarenhet av att implementera system för hantering av globala leveranskedjor och kan bistå med integrationer för att möta krav på spårbarhet och effektivitet i en konkurrensutsatt marknad. De arbetar för att hjälpa företag att hantera marginalpress och möta höga förväntningar på leveransprecision.",
@@ -3960,11 +3960,35 @@
       "Sex kontorsorter och över 50 medarbetare i Sverige"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Nexer är ett globalt teknik- och konsultbolag med svenskt ursprung. Företaget är en del av Danir-koncernen och har cirka 2 800 anställda fördelade på 15 länder, vilket positionerar dem som en större aktör, även erkänd som Microsoft Country Partner of the Year i Sverige och Brasilien.\n\nInnehållet indikerar en bred kompetens inom hela Microsoft Dynamics 365-portföljen, inklusive Business Central, Finance, Supply Chain Management, Commerce, Customer Service, Sales, Marketing och Field Service. Komplement som Power Platform, Azure, Copilot, Fabric och Security nämns också, vilket understryker en integrerad Microsoft-stack. Företaget har nyligen stärkt sin Business Central-praktik genom förvärv.\n\nFöretagets räckvidd är nordiskt med internationell närvaro, och de riktar sig mot medelstora till stora företag (200–10 000+ anställda) med komplexa behov. Styrkor som nämns inkluderar kapacitet för stora, komplexa projekt, multi-country-rollouts, långsiktiga managed services och en ”Solution First”-metodik som fokuserar på standardisering och best practice för att minska anpassningar. Branschexpertis anges inom tillverkning, retail, energi och offentlig sektor, med referenser som Holmen, Øresundsbron och Sysav.",
+    "public_focus_tags": [
+      "Dynamics 365",
+      "Business Central",
+      "ERP",
+      "CRM",
+      "Power Platform",
+      "Azure",
+      "Digital transformation",
+      "Tillverkningsindustri",
+      "Retail",
+      "Grossist & Distribution"
+    ],
+    "public_topics_12m": [
+      "AI",
+      "CRM",
+      "Dynamics 365",
+      "SharePoint Online"
+    ],
+    "public_profile_sources": [
+      "https://nexergroup.com/sv/tjanster/erp/affarssystem/",
+      "https://nexergroup.com/sv/nyheter/mynewsdesk/nexer-vald-som-partner-naer-nornorm-implementerar-dynamics-365-3164062",
+      "https://nexergroup.com/us/tag/event",
+      "https://se.linkedin.com/posts/nexerenterpriseapplication_uppt%C3%A4ck-nyheterna-i-dynamics-365-h%C3%A4ng-med-activity-7338456212721606658-jhFI",
+      "https://se.linkedin.com/posts/nexerenterpriseapplication_nexer-microsoft-webinar-25-maj-activity-7059068522118680576-UFEB?trk=public_profile_like_view",
+      "https://www.mynewsdesk.com/se/nexer/latest_news",
+      "https://www.linkedin.com/posts/nexer-group_ai-should-not-feel-this-complicated-activity-7490663192193515520-xfu4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:07:18.168+00:00"
   },
   {
     "id": "5faf2ae1-e0a4-4481-a209-6e75e82c7efa",
@@ -4111,7 +4135,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Point+Taken+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:09:02.604785+00:00",
     "industry_pitches": [
       {
         "text": "Point Taken hjälper konsultföretag att effektivisera sin verksamhet med Microsoft Dynamics 365, särskilt genom fokus på projekt- och resurshantering. De adresserar problem som ineffektiva resursallokeringar och bristande överblick över projektlönsamhet. Point Taken implementerar lösningar som samlar kundrelationer, projektplanering och ekonomiska flöden för att skapa en enhetlig plattform.\n\nDe arbetar med att automatisera tidrapportering och fakturering, vilket reducerar administrativ börda och förbättrar kassaflödet. Genom att optimera användningen av Dynamics 365 for Project Operations och Sales, kan Point Taken underlätta för konsultbolag att fatta datadrivna beslut. Detta förbättrar i sin tur resursutnyttjande och bidrar till ökad lönsamhet per projekt.",
@@ -4216,11 +4240,43 @@
       "Mindre team i Stockholm, 1–10 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
+    "public_profile_summary": "Analys av publika källor visar att Point Taken positionerar sig som en nordisk specialist inom Microsoft Dynamics 365 Customer Engagement (CRM), Power Platform, Microsoft 365, AI, Copilot och Azure. Företaget fokuserar på sälj- och kundserviceprojekt, samt kundinsikter och fältservice, och avgränsar sig tydligt från ERP-system som Business Central och Finance & Supply Chain Management.\n\nInnehållet indikerar att företaget arbetar med medelstora och större organisationer, samt offentlig sektor, med en stark betoning på digitalt samarbete, datasäkerhet och molntjänster. Genom sammanslagningen med Infunnel 2026 har företaget en utökad närvaro i Sverige utöver sin norska bas, och ingår i NOVA Consulting Group.\n\nMaterialet visar en aktivitet inom att bygga upp processfunktionalitet i Microsoft 365, integrationslösningar, säkerhetstjänster för molnmiljöer samt stöd för Copilot-implementering. Power BI, Power Apps, Microsoft Teams, SharePoint och Azure behandlas i webinarier som indikerar en bredd inom \"modern work\" och molnadoption.",
+    "public_focus_tags": [
+      "Dynamics 365 Customer Engagement",
+      "Power Platform",
+      "Microsoft 365",
+      "AI",
+      "Copilot",
+      "Molntjänster",
+      "Azure",
+      "Datasäkerhet",
+      "Digitalt samarbete",
+      "CRM"
+    ],
     "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_sources": [
+      "https://pointtaken.se",
+      "https://pointtaken.se/on-demand-webinar/skap-verdi-av-dine-data-med-power-bi",
+      "https://pointtaken.se/on-demand-webinar/laer-om-mulighetene-i-microsoft-power-platform",
+      "https://pointtaken.se/on-demand-webinar/bruk-av-apper-i-microsoft-teams",
+      "https://pointtaken.se/on-demand-webinar/teams-som-prosjektverktoy",
+      "https://pointtaken.se/on-demand-webinar/hvordan-samarbeide-effektivt-i-microsoft-teams",
+      "https://pointtaken.se/on-demand-webinar/webinar-ta-datasikkerhet-pa-alvor-na",
+      "https://pointtaken.se/on-demand-webinar/hvordan-bruke-azure-og-skylosninger-pa-en-strukturert-og-sikker-mate",
+      "https://pointtaken.se/on-demand-webinar/ai-og-copilot-i-microsoft-losninger",
+      "https://pointtaken.se/on-demand-webinar/bli-copilot-ready",
+      "https://pointtaken.se/on-demand-webinar/hvordan-bruke-microsoft-viva-til-a-fremme-produktivitet-og-trivsel-internt",
+      "https://pointtaken.se/webinars/hvordan-bruke-cloud-adoption-framework-til-a-lykkes-med-azure",
+      "https://pointtaken.se/webinars/workinar-hvordan-jobbe-sikkert-og-smart-i-azure",
+      "https://pointtaken.se/webinars/webinar-what-is-microsoft-viva-and-why-should-you-get-it",
+      "https://pointtaken.se/webinars/seminar-laer-om-rammeverk-for-a-ta-i-bruk-skytjenester",
+      "https://pointtaken.se/webinars/webinar-automatiser-jobbprosesser-med-nintex-promapp",
+      "https://pointtaken.se/webinars/webinar-hvordan-holde-engasjerende-moter-i-teams",
+      "https://pointtaken.se/webinars/laer-om-mulighetene-i-microsoft-power-bi",
+      "https://pointtaken.se/webinars/laer-om-mulighetene-i-microsoft-powerapps",
+      "https://pointtaken.se/webinars/bli-kjent-med-azure-landing-zones-og-hvordan-sikre-microsoft-sin-beste-praksis-for-struktur-i-azure"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:09:02.524+00:00"
   },
   {
     "id": "f1947f70-3320-43b0-af09-8387d7546fa3",
@@ -4393,7 +4449,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Sherpas+Group+AB+Skellefteå",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:10:43.820181+00:00",
     "industry_pitches": [
       {
         "text": "Sherpas Group AB levererar lösningar baserade på Microsoft Dynamics 365, särskilt Business Central, Finance och Supply Chain Management, till företag inom bygg-, entreprenad- och installationbranschen. De bistår med system som kan hantera projektstyrning, resursallokering, ekonomiuppföljning och logistikflöden specifika för branschens behov. Fokus ligger på att optimera processer för tidrapportering, materialhantering och fakturering för att möta krav på effektivitet och lönsamhet.\n\nGenom att integrera funktioner för budgetering, prognostisering och avvikelseanalys i Dynamics 365 Finance kan Sherpas Group AB hjälpa byggföretag att få bättre kontroll över projektkostnader och intäkter. Dessutom kan Supply Chain Management användas för att effektivisera inköpsprocesser och lagerhantering av byggmaterial. Detta bidrar till ökad transparens och bättre beslutsunderlag i komplexa projekt.",
@@ -4493,11 +4549,43 @@
       "Kontor i Skellefteå och Stockholm, över 50 medarbetare"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
+    "public_profile_summary": "Analys av publika källor visar att Sherpas Group AB är en svensk ERP- och Microsoft-plattformspartner med en tydlig bredd inom Microsoft Dynamics 365 Business Central, Finance & Supply Chain Management samt Pyramid Business Studio.\nInnehållet indikerar att företaget erbjuder implementering, rådgivning och förvaltning av affärssystemslösningar. De har kontor i flera städer, vilket ger en geografisk närvaro över delar av Sverige, och arbetar med att konfigurera och anpassa applikationer efter kundernas specifika behov.\nObservationer visar även att Sherpas Group AB utvecklar egna IP-lösningar som Sherpas VLS, Provisioning Tool, Project Portal och TnT, samt har partnerskap med Dynaway för asset management. Företaget har en stark profil inom Microsoft 365 och SharePoint, och en rapporterad omsättning om cirka 89,5 MSEK med omkring 53 anställda. Från 2026 ingår Sherpas i Serpentin-satsningen.",
+    "public_focus_tags": [
+      "ERP-system",
+      "Dynamics 365 Business Central",
+      "Dynamics 365 Finance & Supply Chain Management",
+      "Pyramid Business Studio",
+      "Microsoft 365",
+      "SharePoint",
+      "Power BI",
+      "Asset Management",
+      "Logistik",
+      "Tillverkningsindustri"
+    ],
     "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_sources": [
+      "https://sherpas.se",
+      "https://www.sherpas.se/nyheter",
+      "https://sherpas.se/nyheter/mlmsc",
+      "https://www.sherpas.se/nyheter/renholmen",
+      "https://www.sherpas.se/nyheter/dynaway",
+      "https://www.sherpas.se/nyheter/renova",
+      "https://www.sherpas.se/nyheter/strangbetong",
+      "https://www.sherpas.se/nyheter/pinchos",
+      "https://www.sherpas.se/nyheter/johnper",
+      "https://www.sherpas.se/nyheter/fumex",
+      "https://www.sherpas.se/nyheter/lkf",
+      "https://www.sherpas.se/nyheter/skoogs",
+      "https://www.sherpas.se/nyheter/tunnelgruppen",
+      "https://www.sherpas.se/nyheter/jamtkraft",
+      "https://www.sherpas.se/en/news",
+      "https://www.sherpas.se/nyheter/havochgrav",
+      "https://www.sherpas.se/nyheter/svevia",
+      "https://www.sherpas.se/nyheter/alvsbyhus",
+      "https://www.sherpas.se/nyheter/smurfitkappa",
+      "https://www.sherpas.se/nyheter/pricer"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:10:43.761+00:00"
   },
   {
     "id": "14adea7a-3dcb-403e-8d8e-0d8481e0fec4",
@@ -4655,7 +4743,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Sirocco+Group+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:11:35.547778+00:00",
     "industry_pitches": [
       {
         "text": "Sirocco Group bistår företag inom livsmedels- och processindustrin med att utveckla och implementera digitala lösningar som möter branschens specifika krav. Med fokus på CRM och digital transformation, använder de Microsoft Dynamics 365 Sales, Customer Insights, Customer Service, Field Service och Project Operations för att optimera processer. Detta inkluderar hantering av kundrelationer, personal på fältet samt service, vilket kan vara relevant för företag med komplexa distributionskedjor eller servicebehov. Partnern har erfarenhet av att anpassa dessa applikationer för att stödja effektivare interaktioner med kunder och partners, samt för att strömlinjeforma interna arbetsflöden. Målet är att bidra till ökad effektivitet och förbättrad service inom en konkurrensutsatt bransch.",
@@ -4765,11 +4853,33 @@
       "Verksamhet från Stockholm"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Sirocco Group är en internationell konsult- och utvecklingsbyrå med fokus på Microsoft Dynamics 365 Customer Engagement-applikationer. Företaget etablerades 2008 i Sverige och har närvaro i flera regioner utanför Norden, med cirka 100 medarbetare globalt.\n\nInnehållet indikerar en specialisering inom CRM och kunddata, med omfattande erfarenhet från över 300 kundprojekt och en stark certifieringsgrad bland medarbetarna. Sirocco Group profilerar sig tydligt som en CRM-specialist snarare än en ERP-partner.\n\nFöretaget erbjuder implementering och utveckling av CRM-lösningar, inklusive Power Platform, med en agil metodik och fokus på AI-mognad inom automation och Azure AI. De riktar sig mot medelstora till större företag inom branscher som livsmedels- och tillverkningsindustrin och kan stödja internationella utrullningar.",
+    "public_focus_tags": [
+      "Dynamics 365 Customer Engagement",
+      "CRM",
+      "Kunddata",
+      "Sales",
+      "Customer Insights",
+      "Customer Service",
+      "Marketing",
+      "Power Platform",
+      "AI",
+      "Digital transformation"
+    ],
+    "public_topics_12m": [
+      "Customer Service",
+      "Microsoft AI",
+      "Contact Center",
+      "Workforce engagement management"
+    ],
+    "public_profile_sources": [
+      "https://www.siroccogroup.com/microsoft-dynamics-365/",
+      "https://www.siroccogroup.com/microsoft-dynamics-365-customer-insights",
+      "https://www.siroccogroup.com/webinars-for-b2b-lead-generation-what-works-and-what-doesnt",
+      "https://www.siroccogroup.com/welcome-to-a-livestream-with-all-the-latest-news-on-dynamics-365-april-26th-at-0900-cet",
+      "https://www.linkedin.com/posts/sirocco-ab_one-forecast-for-people-and-ai-agents-activity-7496112190534508545-djVe?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:11:35.506+00:00"
   },
   {
     "id": "cfe135f8-b2bf-4740-9f26-389bca040715",
@@ -5160,7 +5270,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Vivicta+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:20:38.261745+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
@@ -5286,11 +5396,46 @@
       "Åtta kontorsorter i Sverige"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Vivicta, tidigare TietoEvry Tech Services, är en stor nordisk digital transformationspartner med omfattande Microsoft Dynamics 365-kapacitet. Bolaget har över 3 500 Microsoft-experter och har uppnått samtliga möjliga Microsoft Solutions Partner-beteckningar, Inner Circle-status samt Microsoft Frontier Firms-status. Verksamheten har en nordisk räckvidd med svenska kontor och globala leveranscentra.\n\nInnehållet indikerar ett helhetsåtagande inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på standardnära, skalbara ERP- och CRM-lösningar. Erbjudandet omfattar Dynamics 365 Finance, Supply Chain Management, Customer Engagement och Business Central, samt Power Platform och Azure-integrationer. Specifika branschlösningar finns för transport, tillverkning, skog/process, energi och offentlig sektor.\n\nPublikt material framhäver partnerns AI-first approach, med en etablerad AI-mognad och Copilot Ready Tier. Detta inkluderar integration av Microsoft 365 Copilot, intelligenta agenter och AI-drivna arbetssätt, både internt och som tjänsteerbjudande för att automatisera processer och förbättra affärsvärde, bland annat inom kundservice och med Annata A365-lösningar för fordons- och maskinindustrin.",
+    "public_focus_tags": [
+      "Dynamics 365 Business Central",
+      "Dynamics 365 Finance & Supply Chain Management",
+      "Dynamics 365 Customer Engagement",
+      "AI",
+      "Power Platform",
+      "Azure",
+      "Tillverkningsindustri",
+      "Transport & Logistik",
+      "Offentlig sektor",
+      "Kundservice"
+    ],
+    "public_topics_12m": [
+      "AI-implementering",
+      "Microsoft Copilot",
+      "AI-styrning och efterlevnad",
+      "AI-drivna kundservicelösningar",
+      "Annata A365"
+    ],
+    "public_profile_sources": [
+      "https://www.vivicta.com/en/services/enterprise-applications/microsoft-dynamics-365/",
+      "https://www.vivicta.com/se/nyhetsrum/alla-nyheter-och-pressmeddelanden/pressmeddelande/26/vivicta-och-microsoft-satter-en-ny-standard-for-en-kundservice",
+      "https://www.vivicta.com/se/kundcase/2024/atta45-tar-nasta-steg-med-tietoevry-och-dynamics-365-business-central",
+      "https://www.vivicta.com/se/kundcase",
+      "https://www.vivicta.com/se/blogg/25/utnyttja-affarsmojligheterna-med-dynamics-365-och-annata-a365",
+      "https://nabsolutions.com/se/alla-kundcase",
+      "https://navet.se/kundcase",
+      "https://www.vivicta.com/en/events",
+      "https://www.youtube.com/watch?v=xRRWBo4WDOY",
+      "https://www.gestisoft.com/en/webinars",
+      "https://www.mavim.com/dynamics-business-talks-microsoft",
+      "https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2026/hesselberg-selects-vivicta-for-endtoend-digital-transformation-with-microsoft-dynamics-365-and-annata-a365",
+      "https://www.linkedin.com/posts/vivictatech_microsoftai-frontierfirm-aitransformation-activity-7493616346589687808-W5RQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w",
+      "https://www.linkedin.com/posts/vivictatech_ai-aitransformation-activity-7490662988878647296-KbAw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w",
+      "https://www.linkedin.com/posts/vivictatech_nordic-ai-navigator-global-ai-models-activity-7485635016400564226-0qSO?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w",
+      "https://www.linkedin.com/posts/vivictatech_vad-%C3%A4r-det-egentligen-som-skiljer-nordiska-activity-7484849628836859905-WDYC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w",
+      "https://www.linkedin.com/posts/vivictatech_aiappreciationday-ai-digitaltransformation-activity-7483429222846222336-ASt8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:19:43.102+00:00"
   },
   {
     "id": "d863d43e-f5a7-461a-a289-ba285b905d9e",
@@ -5393,7 +5538,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Yellow+Solution+AB+Jönköping",
     "youtube_video_id": null,
     "created_at": "2026-03-25T10:51:24.706444+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:15:58.87024+00:00",
     "industry_pitches": [
       {
         "text": "Yellow Solution AB erbjuder lösningar baserade på Microsoft Dynamics 365 Business Central till företag inom bygg-, entreprenad- och installationbranschen. Partnern fokuserar på att optimera affärsprocesser för ökad effektivitet och tillväxt. De har erfarenhet av att anpassa Business Central för att möta branschens specifika krav, vilket inkluderar hantering av projekt, ekonomi och resursplanering. Genom sitt engagemang syftar Yellow Solution AB till att hjälpa företag att utnyttja affärssystemets fulla potential för bättre beslutsfattande och hållbar utveckling. Deras tjänster bidrar till att säkerställa att investeringar i affärssystemet ger konkret nytta i en komplex bransch.",
@@ -5493,10 +5638,42 @@
       "Verksamhet från Jönköping, team om 1–10 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
+    "public_profile_summary": "Analys av publika källor visar att Yellow Solution AB är en Dynamics 365 Business Central-specialist som fokuserar på verksamhetsprocesser som ekonomi, lager/logistik, produktion, försäljning/order, service och rapportering. Företaget, grundat 2015 med huvudkontor i Jönköping, uppges ha 10 anställda och en omsättning på drygt 21 MSEK 2024, vilket indikerar en profil som en lokal specialist snarare än en större systemintegratör.\n\nFöretaget positionerar sig mot SMB- och midmarket-kunder och har en egen lager-/WMS-lösning, Yellow WMS, som en utmärkande kompetens. Observationer av underlaget indikerar även erfarenhet av integrationer och närliggande ISV-lösningar som Continia, SignUp ExFlow och Aritma.\n\nPublikt kommuniceras utmärkelser som Microsoft Solutions Partner Business Applications / SMB Management-specialisering och omnämnande som Gasellföretag. Referenskunder som Sekelskifte, HangOn, GLS Industries och Bondtech nämns i samband med implementeringar av Business Central, med fokus på effektivisering och molnlösningar.",
+    "public_focus_tags": [
+      "Business Central",
+      "Ekonomiprocesser",
+      "Lagerhantering",
+      "Logistik",
+      "Produktion",
+      "Rapportering",
+      "Power BI",
+      "SMB",
+      "Tillverkningsindustri",
+      "Grossist & Distribution"
+    ],
     "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_sources": [
+      "https://yellowsolution.se/",
+      "https://yellowsolution.se/blogg",
+      "https://yellowsolution.se/dynamics-365-business-central/rapportering-analys",
+      "https://yellowsolution.se/referenser",
+      "https://yellowsolution.se/blogg/gasellforetag",
+      "https://yellowsolution.se/blogg/utvecklare-med-erfarenhet-forma-framtiden-med-oss",
+      "https://yellowsolution.se/blogg/dynamics-365-business-central-2025-release-wave-1",
+      "https://yellowsolution.se/blogg/valkommen-emil",
+      "https://yellowsolution.se/blogg/valkommen-christin",
+      "https://yellowsolution.se/blogg/valkommen-pal",
+      "https://yellowsolution.se/blogg/valkommen-martin",
+      "https://yellowsolution.se/blogg/valkommen-jessica",
+      "https://yellowsolution.se/blogg/directions-emea-2024",
+      "https://yellowsolution.se/blogg/valkommen-hanna",
+      "https://yellowsolution.se/blogg/microsoft-solutions-partner-business-applications",
+      "https://yellowsolution.se/referenser/bondtech",
+      "https://yellowsolution.se/referenser/sekelskifte",
+      "https://yellowsolution.se/blogg/business-central-wave-1-2023",
+      "https://yellowsolution.se/referenser/hangon",
+      "https://yellowsolution.se/referenser/gls-industries"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:10:23.854+00:00"
   }
 ]

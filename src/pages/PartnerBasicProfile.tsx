@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useBasicPartner, useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER, type BasicPartner } from "@/hooks/useBasicPartners";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import PartnerPublicSourcesSection from "@/components/partner/PartnerPublicSourcesSection";
 
 function excerpt(text: string | null | undefined, max = 155): string {
   if (!text) return "";
@@ -118,6 +119,11 @@ export default function PartnerBasicProfile({
             )}
           </div>
         </section>
+        {partner && (
+          <div className="-mt-4">
+            <PartnerPublicSourcesSection partner={partner} />
+          </div>
+        )}
       </main>
       <Footer />
     </div>

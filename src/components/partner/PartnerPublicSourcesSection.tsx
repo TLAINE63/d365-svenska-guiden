@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { DatabasePartner } from "@/hooks/usePartners";
 import {
   usePartnerPublicInsights,
   type PublicContentItem,
 } from "@/hooks/usePartnerPublicInsights";
 
 interface Props {
-  partner: DatabasePartner & {
+  partner: {
+    id: string;
     public_profile_summary?: string | null;
     public_focus_tags?: string[] | null;
     public_topics_12m?: string[] | null;
