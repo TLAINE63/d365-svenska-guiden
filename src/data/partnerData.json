@@ -122,7 +122,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:33:19.272192+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -225,11 +225,52 @@
       "Kontor i Norrköping och Göteborg"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att 4PS Construction Software AB är en vertikal ISV-partner som specialiserar sig på branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning, 4PS Construct, är baserad på Microsoft Dynamics 365 Business Central och fokuserar på end-to-end-funktionalitet för projektledning, ekonomi och service.\n\nFöretaget ägs av Hilti Group, vilket indikerar en stark internationell koppling och produktutveckling, även om den svenska enheten är mindre. De framhäver sin expertis inom branschen, realtidsvisibilitet i projekt, samt sin förmåga att integrera processer för ökad effektivitet och datadrivet beslutsfattande.\n\nInnehållet indikerar att de adresserar behov hos medelstora till större företag inom bygg, entreprenad och installation, där kontroll över projektlönsamhet, marginaler och resursplanering är avgörande. Företaget lyfter även fram sin Microsoft Inner Circle-status och kapacitet inom Power Platform-teknologier som Power BI och Copilot.",
+    "public_focus_tags": [
+      "Construction ERP",
+      "Business Central",
+      "Byggbranschen",
+      "Installationsföretag",
+      "Power BI",
+      "Projektledning",
+      "Realtidsdata",
+      "Molnbaserade system",
+      "Digital transformation",
+      "Affärssystem"
+    ],
+    "public_topics_12m": [
+      "Fragmenterade IT-system och ineffektivitet",
+      "Behov av integrerade ERP-system i byggbranschen",
+      "Realtidsdata och beslutsfattande",
+      "Projektöversikt och kontroll",
+      "Implementering av ERP-system",
+      "Motståndskraft och digitalisering",
+      "Kostnadsberäkningar och budgetar",
+      "Artikel- och lagerhantering"
+    ],
+    "public_profile_sources": [
+      "https://www.4ps.se/",
+      "https://www.4ps.se/losningar/rapporter",
+      "https://www.4ps.se/losningar/artikel-och-lagerhantering",
+      "https://www.4ps.se/kundberattelser",
+      "https://www.4ps.se/kundberattelser/altrad",
+      "https://www.4ps.se/aktuellt",
+      "https://www.4ps.se/aktuellt/release-ny-version-av-4ps-construct",
+      "https://www.4ps.se/aktuellt/4ps-aterigen-en-del-av-microsoft-inner-circle",
+      "https://www.4ps.se/aktuellt/hallbarhet-som-drivkraft-i-byggbranschen",
+      "https://www.4ps.se/aktuellt/digitalisering-i-byggbranschen",
+      "https://www.4ps.se/aktuellt/kpmg-om-digitaliseringen-i-byggbranschen-utvecklingen-tar-fart",
+      "https://www.4ps.se/aktuellt/oka-lonsamheten-och-forbli-framtidssakrad-digitalisera",
+      "https://www.4ps.se/aktuellt/byggbranschens-digitala-omstallning",
+      "https://www.4ps.se/aktuellt/byggbranschen-i-forandring",
+      "https://www.4ps.se/aktuellt/ny-version-av-4ps-construct-tillganglig",
+      "https://www.4ps.se/aktuellt/siers-framtidssakrar-verksamheten-med-4ps-construct",
+      "https://www.4ps.se/aktuellt/4ps-forstarker-ledningen-infor-fortsatt-expansion-tillsatter-niels-goos-som-managing-director",
+      "https://www.4ps.se/aktuellt/lagarbete-bakom-byggbranschens-digitalisering",
+      "https://www.4ps.se/aktuellt/remondis-effektiv-samordning-och-storre-oversikt-med-4ps-construct",
+      "https://www.4ps.se/aktuellt/power-bi-analys-och-datavisualisering-pa-ett-enkelt-satt"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:33:19.181+00:00"
   },
   {
     "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
@@ -363,7 +404,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=adbriq+Borås",
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:34:49.148591+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -458,11 +499,30 @@
       "Verksamhet från Borås"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att adbriq positionerar sig som en specialist inom Microsoft Dynamics 365 Business Central, med en tydlig vertikal nisch mot mode-, sport- och textilbranscherna samt e-handel och lager. Företaget kombinerar branschspecifik kunskap med erfarenhet av IT-verktyg för att stödja digitalisering av affärsprocesser och informationsflöden, inklusive implementering och vidareutveckling av affärssystem.\n\nInnehållet indikerar att adbriq använder sig av TRIMIT Fashion och den egna plattformen bisting som centrala komponenter i sina lösningar. Deras kundbas inkluderar varumärken som Oscar Jacobson, Filippa K och Galvin Green. Geografiskt är företaget baserat i Borås.\n\nPublika källor nämner att adbriq erbjuder löpande support, rådgivning och paketerade lösningar, med en tydlig styrka inom förvaltning av sin egen BC/TRIMIT/bisting-miljö. Observerade integrationer inkluderar Ongoing WMS och Madden Analytics.",
+    "public_focus_tags": [
+      "Business Central",
+      "TRIMIT Fashion",
+      "Mode",
+      "Sport",
+      "Textil",
+      "E-handel",
+      "Lager",
+      "bisting",
+      "Power BI",
+      "Integrationer"
+    ],
+    "public_topics_12m": [
+      "Affärssystem för tillväxt",
+      "Global försäljning",
+      "Molnbaserade affärssystem"
+    ],
+    "public_profile_sources": [
+      "https://www.adbriq.com/",
+      "https://cepheo.se/vaara-kunder",
+      "https://www.linkedin.com/posts/adbriq-ab_n%C3%A4r-ett-f%C3%B6retag-v%C3%A4xer-beh%C3%B6ver-aff%C3%A4rssystemet-activity-7480561385635246080-wNFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:34:49.094+00:00"
   },
   {
     "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
@@ -579,7 +639,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=B3+Elevate+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:36:54.399179+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -683,11 +743,31 @@
       "Del av B3 Consulting Group, team i Stockholm om 11–25 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analyser av publika källor indikerar att B3 Elevate är ett specialistföretag inom B3 Consulting Group med fokus på Dynamics 365 CE/CRM och Power Platform. De positionerar sig som en partner som lyfter kundupplevelser med AI-baserade molnlösningar. Företaget levererar lösningar från strategi till förvaltade tjänster och understryker sin roll som en långvarig Microsoftpartner som förstärker organisationers förmåga att hantera digital transformation.\n\nFöretagets tyngdpunkt ligger på medlemsorganisationer, men erfarenhet nämns även inom branscher som bank/finans/försäkring, försvar/energi, handel/industri samt myndigheter, statliga bolag, regioner och kommuner. De erbjuder kompetens inom Dynamics 365 Sales, Customer Insights, Customer Service, Field Service, Contact Center-nära scenarier samt Copilot Studio och Power Platform, inklusive Power Apps, Power BI, Power Automate, Power Pages, Microsoft Fabric och Azure.\n\nB3 Elevate lyfter fram en tydlig specialisering inom CRM/CE med en stark AI- och Copilot Studio-profil, kopplad till Power Platform och Power BI/Fabric. Förändringsledning och testautomatisering (Playwright) beskrivs som integrerade delar av leveransen. Företaget framhåller även en hög förvaltningskapacitet och möjlighet att skala leveranser genom tillgång till B3-gruppens bredare kompetens.",
+    "public_focus_tags": [
+      "Dynamics 365 CRM",
+      "Dynamics 365 Sales",
+      "Dynamics 365 Customer Service",
+      "Dynamics 365 Customer Insights",
+      "Power Platform",
+      "AI",
+      "Copilot Studio",
+      "Power BI",
+      "Medlemsorganisationer",
+      "Molnlösningar"
+    ],
+    "public_topics_12m": [
+      "AI i försäkringsbranschen"
+    ],
+    "public_profile_sources": [
+      "https://b3.se/elevate",
+      "https://b3.se/nyheter/nyheter/2024-04-23-b3-starker-positionen-som-digital-partner-genom-etableringen-av-b3-elevate",
+      "https://www.youtube.com/watch?v=xRRWBo4WDOY",
+      "https://xplusglobal.com/resources/events",
+      "https://allaaktier.se/b3-consulting-group/nyheter/b3-starker-positionen-som-digital-partner-genom-etableringen-av-b3-elevate/1473",
+      "https://www.linkedin.com/posts/b3it_ai-skapar-v%C3%A4rde-skrivs-n%C3%A4stan-%C3%B6verallt-activity-7494982521999437824-LlNE?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:36:54.335+00:00"
   },
   {
     "id": "e97862ae-7d14-44da-9ea3-7e2de1140a10",
@@ -803,7 +883,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=BE-terna+Halmstad",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:37:43.974054+00:00",
     "industry_pitches": [
       {
         "text": "BE-terna har erfarenhet av leveranser av Microsoft Dynamics 365 till grossist- och distributionsbranschen. Med Dynamics 365 Finance och Supply Chain Management stödjer de företag i att hantera komplexa leveranskedjor och optimera sin distribution. Deras arbete omfattar implementering och förvaltning av dessa system, med fokus på att förbättra finansiell överblick och operativ effektivitet. De har även kompetens inom Dynamics 365 Commerce för företag som vill integrera sina säljkanaler. BE-terna tillämpar en strukturerad metodik för sitt arbete, med syftet att leverera långsiktig affärsnytta. De kombinerar lokal närvaro i tio europeiska länder med global leveransförmåga.",
@@ -937,11 +1017,41 @@
       "Kontor i Halmstad och Helsingborg"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor indikerar att BE-terna erbjuder implementering och förvaltning av Microsoft Dynamics 365, med en uttalad tyngdpunkt på Finance & Supply Chain Management, samt Commerce. Företaget vänder sig till medelstora och större bolag, särskilt de med komplexa processer, internationella flöden eller behov inom flera bolag. Kompetens omfattar även Power Platform, Power BI, dataanalys och AI/automation.\n\nFöretaget positionerar sig med hög internationell leveransförmåga och en modell för global utrullning. Utöver kärnkompetenserna finns egna branschlösningar, bland annat inom fashion och process manufacturing. Den svenska närvaron har en historik genom förvärvet av Tydab.\n\nInnehållet visar en inriktning mot branscher som retail, tillverkningsindustri, wholesale/distribution och professional services. Partnerskapet strävar efter att understödja transformationer, processstandardisering och governance för långsiktig affärsnytta.",
+    "public_focus_tags": [
+      "Dynamics 365 Finance",
+      "Dynamics 365 Supply Chain Management",
+      "Dynamics 365 Commerce",
+      "Power Platform",
+      "Artificiell Intelligens",
+      "Retail",
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "Data & Analytics",
+      "Processoptimering"
+    ],
+    "public_topics_12m": [
+      "Agentic AI",
+      "AI-agenter",
+      "EUDR-krav",
+      "B2B-försäljning med AI",
+      "Contact Center med AI"
+    ],
+    "public_profile_sources": [
+      "https://www.be-terna.com/sv",
+      "https://www.be-terna.com/sv/nyhetsbrev",
+      "https://www.be-terna.com/sv/insikter",
+      "https://www.be-terna.com/sv/om-oss/news",
+      "https://www.be-terna.com/sv/careers/blog",
+      "https://www.be-terna.com/sv/events",
+      "https://www.be-terna.com/sv/om-oss-old/news",
+      "https://www.be-terna.com/sv/insikter?c=Case-Study",
+      "https://www.pwc.se/sv/juridik/foretagsoverlatelser/kundcase/tydab.html",
+      "https://www.be-terna.com/sv/insikter/kostnadsfritt-1-1-webinar-sa-moter-ditt-foretag-eudr-kraven-med-dynamics-365-f-and-scm",
+      "https://www.be-terna.com/insights/webinar-customer-service-microsoft-contact-center",
+      "https://www.linkedin.com/posts/be-terna-sweden_hur-agentic-ai-minskar-manuellt-arbete-i-activity-7480893811859275776-R4Be?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:37:43.891+00:00"
   },
   {
     "id": "d51765db-7ab6-4cb6-8c53-384f1ffee552",
@@ -1044,7 +1154,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Bisqo+AB+Malmö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:39:04.596731+00:00",
     "industry_pitches": [
       {
         "text": "Bisqo AB erbjuder molnbaserade lösningar för grossist- och distributionsbranschen med fokus på Microsoft Dynamics 365 Business Central. Partnern har kompetens inom att effektivisera affärsprocesser som är centrala för branschen, inklusive lagerhantering, orderhantering och logistik. De arbetar med att implementera och optimera dessa system för att möta krav på snabba och precisa leveranser. Bisqo AB levererar även lösningar för kundrelationshantering (CRM) baserade på Power Platform samt analysverktyg med Power BI, vilka bidrar till förbättrad överblick och beslutsfattande i komplexa logistikkedjor. Deras arbetssätt syftar till att leverera snabba och förutsägbara implementationer som ger affärsvärde för distributionsföretag som strävar efter digitalisering och effektivisering av sina processer.",
@@ -1150,11 +1260,52 @@
       "Kontor i Malmö och Helsingborg, team om 11–25 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Bisqo AB positionerar sig som en nischad Microsoft-partner med huvudfokus på Dynamics 365 Business Central och CRM på Power Platform. Verksamheten riktar sig primärt till små och medelstora bolag i Sverige, med en stark närvaro i södra Sverige, och har kontor i Helsingborg och Malmö.\n\nInnehållet indikerar en inriktning mot standardiserade, paketerade lösningar för snabb och förutsägbar implementering, ofta till fast pris. Exempel på lösningar inkluderar Managed Services och koncept som 'FastTrack' och 'Elevate' för Business Central. Partnern lyfter fram kombinationen av Business Central och CRM på Power Platform som en särskiljande faktor.\n\nFöretaget arbetar med att effektivisera affärsprocesser, inklusive ERP-system, CRM-lösningar och förändringsarbete. Kundreferenser visar implementationer av Business Central för företag inom exempelvis hjälpmedel och belysning. Återkommande ämnen är nyheter och förbättringar i Business Central, samt hur CRM-lösningar kan skapa 360-vyer av kunder.",
+    "public_focus_tags": [
+      "Business Central",
+      "CRM",
+      "Power Platform",
+      "Standardiserade lösningar",
+      "Paketerade tjänster",
+      "Grossist & Distribution",
+      "Retail & E-handel",
+      "Tillverkningsindustri",
+      "SMB",
+      "Södra Sverige"
+    ],
+    "public_topics_12m": [
+      "Webinar om Business Central",
+      "Webinar om CRM på Power Platform",
+      "Nyheter och förbättringar i Business Central",
+      "Automatisering i Business Central",
+      "Kundresor med Customer Insights - Journeys",
+      "Personliga vyer i Dynamics 365 CRM",
+      "Projektledning för ERP och CRM",
+      "Utveckling av AGR Inventory"
+    ],
+    "public_profile_sources": [
+      "https://www.bisqo.se/",
+      "https://www.bisqo.se/tack-for-din-anmalan-till-vart-webinar",
+      "https://www.bisqo.se/nyheter-event",
+      "https://www.bisqo.se/nyheter-event/genomforda-event",
+      "https://www.bisqo.se/crm-on-power-platform/dynamics-365-customer-insights-journeys",
+      "https://www.bisqo.se/event-anmalan-stangd",
+      "https://www.bisqo.se/om-oss/kundreferenser",
+      "https://www.bisqo.se/om-oss/kundreferenser/svancare",
+      "https://www.bisqo.se/nyheter-event/nyheter",
+      "https://www.bisqo.se/nyheter-event/event/event-kommande",
+      "https://www.bisqo.se/nyheter-event/anmal-dig-till-vart-webinar",
+      "https://www.bisqo.se/om-oss/kundreferenser/dc-light-och-unic-light",
+      "https://www.bisqo.se/om-oss/kundreferenser/strands-group-ab",
+      "https://www.bisqo.se/business-central-2026-release-wave-1-nyheter-och-forbattringar-i-bc28",
+      "https://www.bisqo.se/2024/01/11/webinar-automatisera-business-central",
+      "https://www.bisqo.se/2023/11/16/bisqo-pa-companial-event-hos-microsoft-i-kopenham",
+      "https://www.bisqo.se/2024/02/15/webinar-rapidstart-crm-pa-power-platform",
+      "https://www.bisqo.se/2024/03/06/steve-mordue-berattar-om-rapidstart-crm-pa-ett-bisqo-webinar",
+      "https://www.bisqo.se/2024/05/23/webinar-fasttrack-med-enkel-onboarding-till-microsoft-business-central-2",
+      "https://www.bisqo.se/2024/02/22/webinar-fasttrack-med-enkel-onboarding-till-microsoft-business-central"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:39:04.539+00:00"
   },
   {
     "id": "f89e80b2-a124-4768-8eaf-2b185b5bf093",
@@ -1331,7 +1482,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=CRMK+(CRM-Konsulterna)+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:42:56.151374+00:00",
     "industry_pitches": [
       {
         "text": "CRM Konsulterna bistår konsultbolag med att optimera sin kundresa och interna processer med Dynamics 365. De adresserar typiska utmaningar som fragmenterad kundkommunikation och ineffektiv projektförsäljning. Genom att implementera Dynamics 365 Sales förbättrar de säljprocesser från prospektering till affärsavslut, vilket möjliggör bättre uppföljning och pipelinesynlighet. Med Dynamics 365 Customer Insights (Marketing) kan konsultbolag segmentera kunder och leverera relevanta budskap, vilket stärker varumärket och genererar nya affärsmöjligheter. De hjälper också med Dynamics 365 Customer Service för att hantera kundförfrågningar effektivt och säkerställa hög kundnöjdhet. Fokus ligger på att skapa en enhetlig kundbild och förbättra samarbetet internt, vilket frigör tid för konsultens kärnverksamhet.",
@@ -1482,11 +1633,47 @@
       "Kontor i Stockholm och Kalmar, team om 11–25 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att CRMK (CRM-Konsulterna) fokuserar uteslutande på Microsoft Dynamics 365 Customer Engagement och Power Platform. Innehållet indikerar en specialistkompetens inom bland annat Sales, Customer Insights (Marketing), Customer Service och Field Service, samt plattformskompetenser som Fabric, Power BI, Copilot och Agents. Detta positionerar dem som en renodlad CRM-partner.\n\nFöretaget erbjuder tjänster från strategi och implementation till vidareutveckling, support och kompetensutveckling. Observationer visar att kundexempel inkluderar aktörer som Apollo, Bixia, Chefakademin, Svenska Röda Korset, Triolab och Växa. Deras expertis sträcker sig över flera branscher som finans & försäkring, medlemsorganisationer, life science / medtech samt non-profit / organisationer, ofta med fokus på B2B-företag som prioriterar försäljning och service.\n\nMaterialet framhäver en stark inriktning mot AI och automation, särskilt kopplat till Microsoft Copilot och intelligenta agenter, samt en kombination av implementering, förvaltning och utbildning. Ett återkommande tema i deras publika kommunikation är värdet av kundrelationer och kundcentrerad digitalisering.",
+    "public_focus_tags": [
+      "Dynamics 365 Customer Engagement",
+      "Power Platform",
+      "AI",
+      "Copilot",
+      "Customer Insights",
+      "Customer Service",
+      "Försäljning",
+      "Marknadsföring",
+      "Kundupplevelse",
+      "Dataanalys"
+    ],
+    "public_topics_12m": [
+      "AI",
+      "Power Platform",
+      "Agent-assisterad utveckling"
+    ],
+    "public_profile_sources": [
+      "https://www.crmk.se",
+      "https://crmk.se/losningar/salj-och-marknad/microsoft-dynamics-365-customer-insights",
+      "https://crmk.se/kundcase",
+      "https://crmk.se/insikt/seminarium-och-webbinarium",
+      "https://crmk.se/insikt/guider",
+      "https://crmk.se/kundcase/vaxa",
+      "https://crmk.se/kundcase/svenska-roda-korset",
+      "https://crmk.se/insikt/seminarium-och-webbinarium/upptack-kraften-i-microsoft-dynamics-365-customer-service-och-contact-center",
+      "https://crmk.se/insikt/aktivt-mata-kundnojdhet--en-guide-till-effektiva-kundundersokningar",
+      "https://crmk.se/kundcase/bixia",
+      "https://crmk.se/kundcase/chefakademin",
+      "https://crmk.se/insikt/seminarium-och-webbinarium/ai-hur-du-lar-dig-att-prata-med-din-data-i-dynamics-365-sales-och-marketing",
+      "https://crmk.se/insikt/seminarium-och-webbinarium/fran-strategi-till-resultat",
+      "https://crmk.se/kundcase/hultafors-group",
+      "https://crmk.se/kundcase/triolab",
+      "https://crmk.se/kundcase/roswi",
+      "https://crmk.se/insikt/experterna/kunskapsdelning-framjar-framgang",
+      "https://crmk.se/insikt/seminarium-och-webbinarium/ai-for-dig-som-chef",
+      "https://crmk.se/insikt/dynamics-365-community-event",
+      "https://crmk.se/insikt/seminarium-och-webbinarium/fran-marknad-till-salj-med-hjalp-av-copilot"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:42:55.754+00:00"
   },
   {
     "id": "42f8b63b-a4c9-480d-81e5-a322652b3af4",
@@ -1786,7 +1973,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Fellowmind+Malmö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T20:38:52.813808+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:54:38.764587+00:00",
     "industry_pitches": [
       {
         "text": "Fellowmind erbjuder lösningar baserade på Microsoft Dynamics 365 för grossist- och distributionsbranschen. Med inriktning på att optimera leveranskedjor och finansiella processer, implementerar Fellowmind Dynamics 365 Finance och Supply Chain Management. Deras expertis omfattar att stödja företag i att hantera komplexa logistikflöden, förbättra lagereffektiviteten och säkerställa transparenta ekonomiska transaktioner. Fellowmind arbetar med att anpassa Microsoft-plattformen för att möta specifika krav gällande priskonfigurationer, integration med tredjepartslogistik (3PL) och optimering av order-till-leveransprocesser. De strävar efter att leverera hållbara lösningar som bidrar till ökad operativ effektivitet och datadrivna beslutsunderlag.",
@@ -1930,11 +2117,51 @@
       "Över 50 medarbetare i Sverige"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Fellowmind framträder som en paneuropeisk Microsoft-partner, med rötter i Sverige från Orango. Företaget ingår i Microsoft Inner Circle, vilket indikerar en framstående position bland Microsofts partners globalt, och de har en bred verksamhet som sträcker sig över sex länder med cirka 2 000 anställda.\n\nFöretagets erbjudande omfattar hela Microsoft-plattformen, med särskild betoning på Dynamics 365-applikationer som Business Central, Finance, Supply Chain Management, Sales och Customer Engagement. De tillhandahåller även kompetens inom Power Platform, Microsoft 365, Copilot och Data & AI. Verksamheten riktar sig primärt till mellanstora och stora företag, inklusive internationella aktörer, och har dokumenterad erfarenhet av komplexa, internationella utrullningar.\n\nFellowmind erbjuder en helhetslösning som sträcker sig från licensrådgivning till förvaltning och har en stark närvaro inom branscher som tillverkning, distribution, retail och professionella tjänster. Offentliga källor indikerar att de fokuserar på att kombinera djup branschkunskap med molnbaserad teknologi och AI-lösningar, samt betonar vikten av långsiktiga partnerskap.",
+    "public_focus_tags": [
+      "Dynamics 365 Business Central",
+      "Dynamics 365 Finance",
+      "Dynamics 365 Supply Chain Management",
+      "Dynamics 365 Sales",
+      "Microsoft Power Platform",
+      "AI",
+      "Molntjänster",
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "Retail"
+    ],
+    "public_topics_12m": [
+      "Lager och inköp i Business Central",
+      "Effektivare lagerflöden",
+      "Hantering av leverantörsfakturor och utlägg",
+      "Ekonomiprocesser i Business Central",
+      "Nyheter i Dynamics 365 Customer Engagement",
+      "Nyheter i Dynamics 365 Business Central",
+      "AI-driven analys i Dynamics 365 Finance"
+    ],
+    "public_profile_sources": [
+      "https://fellowmind.se",
+      "https://www.fellowmind.com/da-dk/nyheder-og-events",
+      "https://www.fellowmind.com/sv-se/cases",
+      "https://www.fellowmind.com/sv-se/events-webinars/webinar-260526-bpa--mcp",
+      "https://www.fellowmind.com/sv-se/inspiration-och-nyheter/framtidens-arbetsplats",
+      "https://www.fellowmind.com/da-dk/nyheder-og-events/transforming-the-way-we-work-with-open-ai",
+      "https://www.fellowmind.com/sv-se/inspiration-och-nyheter/marketing-automation-kittet-mellan-marknad-och-salj",
+      "https://www.fellowmind.com/sv-se/inspiration-och-nyheter/5-tecken-pa-att-din-koncern-vuxit-ur-sina-processer",
+      "https://www.fellowmind.com/en/newsletter",
+      "https://www.fellowmind.com/en/insights-and-news/four-key-trends-in-manufacturing-and-how-to-deal-with-them",
+      "https://www.fellowmind.com/en/insights-and-news/fellowmind-invited-to-microsoft-inner-circle",
+      "https://www.fellowmind.com/en/insights-and-news/fellowmind-achieves-the-2023-2024-microsoft-business-applications-inner-circle-award",
+      "https://www.fellowmind.com/en/solutions/customer-engagement-crm/customer-engagement-success-stories",
+      "https://www.fellowmind.com/en/insights-and-news/how-ai-is-shaping-the-future-of-customer-engagement",
+      "https://www.fellowmind.com/en/insights-and-news/unlock-the-power-of-ai-to-transform-customer-engagement",
+      "https://www.fellowmind.com/en/insights-and-news",
+      "https://www.fellowmind.com/en/insights-and-news/ville-hemmila-appointed-as-new-ceo-for-fellowmind",
+      "https://www.fellowmind.com/en/insights-and-news/balancing-data-security-and-productivity-key-considerations-for-c-level-executives",
+      "https://www.fellowmind.com/en/insights-and-news/thats-why-a-unified-platform-is-the-driving-force-for-the-mobility-industry",
+      "https://www.fellowmind.com/en/solutions/customer-engagement-crm/dynamics-365-customer-insights"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:54:38.702+00:00"
   },
   {
     "id": "fde2bcab-b069-4c99-80b6-ec2aeaab5765",
@@ -2036,7 +2263,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-16T10:12:31.552286+00:00",
+    "updated_at": "2026-09-16T15:58:27.488036+00:00",
     "industry_pitches": [
       {
         "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för företag inom grossist- och distributionsbranschen. De har kompetens inom applikationer som Dynamics 365 Finance och Supply Chain Management, vilket stöder processer för ekonomistyrning, logistik och lagerhantering. Detta inkluderar funktionalitet för att optimera orderhantering, inköp, samt lager- och transportflöden, vilket är relevant för att möta efterfrågan på effektiva leveranskedjor och spårbarhet. \n\nFör att hantera kundinteraktioner och e-handel kan Commerce-funktionalitet implementeras. Implema kan även bistå med Dynamics 365 Project Operations för projektrelaterade processer och Human Resources för personalhantering. Deras angreppssätt fokuserar på att leverera lösningar som stödjer snabba och säkra affärsprocesser, anpassade för att möta de utmaningar som präglar den konkurrensutsatta grossist- och distributionsmarknaden. Implema har erfarenhet av att implementera affärssystem som främjar effektivitet och digitalisering.",
@@ -2114,11 +2341,42 @@
       "Stöd för automation, analys och integration med Microsofts plattformar"
     ],
     "key_differentiators_source": "partner",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Implema AB framstår som en affärssystemspartner med starkt fokus på Microsoft Dynamics 365 Finance & Supply Chain Management. Bolaget har sitt huvudsäte i Stockholm med ytterligare kontor i Sverige och hanterar kunder i segmentet medelstora till större verksamheter, ofta med internationell räckvidd.\n\nInnehållet indikerar en specialisering inom tillverkande industri, life science/medtech och handel/logistik, samt en pragmatisk implementationsmetodik. Observationer pekar på att Implema även erbjuder lösningar inom Dynamics 365 Project Operations och Field Service, samt plattformskompetens inom Power Platform, AI och Microsoft Fabric/Azure.\n\nPublika källor lyfter fram bolagets kapacitet att hantera kombinerade SAP- och Microsoft D365-landskap, starka referenser inom life science-sektorn och en tydlig inriktning mot standardlösningar. Materialet visar också att Implema arbetar med frågor som D365-licensvalidering och systemintegrationer.",
+    "public_focus_tags": [
+      "Dynamics 365 Finance & Supply Chain Management",
+      "Life Science",
+      "Tillverkande industri",
+      "Handel och logistik",
+      "Power Platform",
+      "AI",
+      "Microsoft Fabric",
+      "Integrationer",
+      "SAP",
+      "Standardlösningar"
+    ],
+    "public_topics_12m": [
+      "AI och Copilot",
+      "Microsoft Fabric",
+      "Licensvalidering D365",
+      "Supply Chain Management",
+      "Bankintegrationer",
+      "Power BI",
+      "Implementering av affärssystem"
+    ],
+    "public_profile_sources": [
+      "https://implema.se/microsoft-dynamics/",
+      "https://implema.se/microsoft-dynamics/microsoft-dynamics-365/d365-license-insight-workshop",
+      "https://implema.se/kundreferenser",
+      "https://m.youtube.com/playlist?list=PLAW8x3euLj82n1YIAkjSYlamnyX2Tc5td",
+      "https://implema.se/kundreferenser/hur-bidrar-dynamics-365-i-camfils-digitaliseringsresa",
+      "https://implema.se/tag/webinar",
+      "https://implema.se/event/implema-pa-microsoft-dynamic-365-anvandartraff-i-stockholm-19-november-2025",
+      "https://www.youtube.com/watch?v=05WgzVKro-I",
+      "https://implema.se/seminarier/snabbaste-vagen-till-microsoft-dynamics-365",
+      "https://implema.se/aktuellt/betydande-fordelar-med-d365-fo-integrationer",
+      "https://implema.se/aktuellt/nexus-tar-nasta-steg-rullar-ut-dynamics-365-i-europa-tillsammans-med-implema"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:58:27.407+00:00"
   },
   {
     "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
@@ -2220,7 +2478,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=InBiz+Uppsala",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T15:58:44.48598+00:00",
     "industry_pitches": [
       {
         "text": "InBiz har sedan 2005 erfarenhet av att implementera Microsoft Dynamics 365 Business Central för företag inom olika branscher, inklusive grossist- och distributionssektorn. De erbjuder lösningar som stödjer optimering av bland annat lagerhantering, logistik, inköpsprocesser och försäljning, vilket är centralt för grossisters operativa effektivitet. Genom att anpassa Business Central kan InBiz bidra till förbättrad spårbarhet och precision i leveranskedjan. Fokus ligger på att leverera stabila systemlösningar som möter de krav på snabba och precisa flöden som kännetecknar distributionsbranschen. InBiz strävar efter att underlätta för företag att hantera sina verksamhetsprocesser mer effektivt.",
@@ -2333,11 +2591,34 @@
       "Verksamhet från Uppsala, team om 1–10 personer"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
+    "public_profile_summary": "Analys av publika källor visar att InBiz är en Microsoft Dynamics 365 Business Central-specialist baserad i Uppsala, med leveransförmåga digitalt till kunder över hela Norden. Företaget har varit Microsoft-partner sedan 2005 och har en etablerad erfarenhet inom systemimplementering och förvaltning av Business Central.\n\nInnehållet indikerar en fokus på små till medelstora företag inom specifika branscher som tillverkningsindustrin, grossist- och distributionsbranschen samt livsmedels- och processindustrin. Partnern uppges även samarbeta med konsultbolag och IT-företag. En styrka som framhålls är lång erfarenhet, personlig service samt egen utvecklingskompetens för kundspecifika tilläggslösningar.\n\nFöretaget erbjuder egenutvecklade tillägg som eCom Avtal och använder Power BI för analys. De samarbetar även med flera etablerade ISV-partners för att komplettera funktionaliteten, bland annat inom fakturaattest, rapportverktyg, distribution, e-handel och transport.",
+    "public_focus_tags": [
+      "Dynamics 365 Business Central",
+      "Affärssystem",
+      "Grossist & Distribution",
+      "Livsmedel & Processindustri",
+      "Tillverkningsindustri",
+      "Power BI",
+      "Avtalshantering",
+      "Molnbaserade ERP-system",
+      "Systemförvaltning",
+      "IT-tjänster"
+    ],
     "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_sources": [
+      "https://www.inbiz.se/microsoft-partner/",
+      "https://navet.se/kundcase",
+      "https://accigo.se/kundcase",
+      "https://www.bearingpoint.com/en-se/insights-events/events/webinar-what-is-microsoft-dynamics-365-business-central",
+      "https://invid.se/sv/nyheter/webinar-om-dynamics-365-business-central-affarssystemet-som-vaxer-med-ditt-foretag",
+      "https://dmsiworks.com/category/events",
+      "https://www.gestisoft.com/en/webinars",
+      "https://www.mavim.com/dynamics-business-talks-microsoft",
+      "https://www.netronic.com/microsoft-dynamics-365-business-central/visual-scheduling-events-webinars",
+      "https://companial.com/webinars/microsoft-dynamics-365-business-central-2025-release-wave-1",
+      "https://www.cgi.com/se/sv/article/affarssystem/microsoft-dynamics-365-erp-crm-och-mycket-mer"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:58:44.448+00:00"
   },
   {
     "id": "fe117b80-6acd-49c0-bab0-6fda75f25894",
@@ -2459,7 +2740,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Knowit+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:03:42.581397+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -2575,11 +2856,37 @@
       "Kontor i Stockholm, Göteborg och Malmö"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Knowit är en omfattande nordisk konsultgrupp med en uttalad satsning på Dynamics 365 Finance & Supply Chain Management i Sverige. Partnern kombinerar ERP-strategi, implementering och förvaltning med expertis inom Data & AI, Power Platform, cybersäkerhet och management consulting. Detta positionerar Knowit som en partner för medelstora och större organisationer som ser ERP som en del av en bredare verksamhets- och ledningstransformation.\nInnehållet indikerar att Knowit har uppnått Microsoft Cloud Partner-status i alla sex designated areas och har nyligen utsetts till Microsoft Partner of the Year inom AI Business Solutions – Process. Partnerns erbjudande lämpar sig särskilt för tillverkningsindustrin samt grossist- och distributionsbranschen. En tydlig styrka är förmågan att integrera ERP med intelligenta arbetssätt, vilket inkluderar AI, för att stödja effektivare processer och beslutsfattande.\nPublikt material framhåller också att Knowit fokuserar på att modernisera affärssystem med ERP som ett nav för processer, data, AI och automatisering på Microsofts plattform. Exempel visar på arbete med kunder inom olika branscher, inklusive offentlig sektor, och att de bygger lösningar som skapar värde genom digital innovation.",
+    "public_focus_tags": [
+      "Dynamics 365 Finance",
+      "Dynamics 365 Supply Chain Management",
+      "Data & AI",
+      "Power Platform",
+      "Cybersäkerhet",
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "ERP-strategi",
+      "Molntjänster",
+      "Förändringsledning"
+    ],
+    "public_topics_12m": [
+      "AI och hållbarhet",
+      "AI och affärsprocesser",
+      "ERP-systemets utveckling",
+      "Microsoft AI"
+    ],
+    "public_profile_sources": [
+      "https://www.knowit.se/vart-erbjudande/solutions/",
+      "https://www.knowit.se/nyheter-press/knowit-utsedd-till-arets-microsoft-partner-inom-ai-business-solutions--process",
+      "https://www.knowit.se/kunder",
+      "https://accigo.se/kundcase",
+      "https://blogg.knowit.se/tag/microsoft-dynamics-365",
+      "https://d365.se/events/66dec967-d6e7-4560-93fc-24715a5e170e",
+      "https://www.bearingpoint.com/en-se/insights-events/events/webinar-what-is-microsoft-dynamics-365-business-central",
+      "https://www.knowit.eu/news-press/knowit-further-strengthens-the-partnership-with-microsoft",
+      "https://www.linkedin.com/posts/knowit-insight_frukostseminarium-trov%C3%A4rdig-ai-i-praktiken-activity-7500879328222666752-1NSi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAlw-wBw2KJxoUgpG8Irj7iRL3jBCr538w"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:03:42.539+00:00"
   },
   {
     "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
@@ -2679,7 +2986,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Modia+Göteborg",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:04:53.374877+00:00",
     "industry_pitches": [
       {
         "text": "Modia hjälper tillverkningsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur produktionen faktiskt fungerar i vardagen.\nMed erfarenhet från verksamheter med krav på planering, kapacitetsutnyttjande och komplexa materialflöden skapar vi struktur i processerna från inköp och produktion till lager, leverans och efterkalkyl. Fokus ligger på att få produktion, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att säkerställa att systemet stödjer rätt arbetssätt redan från start. Oavsett om det handlar om produktionsplanering, stycklistor, spårbarhet eller hantering av förändringar i produktionen, ser vi till att lösningen används på ett sätt som ger effekt i praktiken.\n\nFör många av våra kunder är insyn i produktionen avgörande. Därför lägger vi stor vikt vid att skapa transparens i orderstatus, materialbehov och kostnadsuppföljning i realtid. Det ger bättre kontroll, minskar avvikelser och stärker beslutsfattandet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar produktionen, utan skapar struktur och effektivitet genom hela värdekedjan, från planering till leverans.",
@@ -2794,11 +3101,47 @@
       "Verksamhet från Göteborg"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att Modia positionerar sig som en svensk Business Central-partner med tydlig inriktning mot små och medelstora företag. Innehållet indikerar en fokus på att erbjuda full kontroll och trygg leverans av affärssystem, med en betoning på en nära projektmodell där samma konsulter följer kunden från förstudie till förvaltning.\n\nFöretaget lyfter fram sin erfarenhet från branscher som handel, produktion, distribution och konsulttjänster, och erbjuder lösningar som knyter ihop ekonomi, order, lager, logistik, e-handel och rapportering. Partnern nämner även kompletterande lösningar för lager, frakt, WMS, EDI, leverantörsreskontra, e-handel samt projekt- och resurshantering genom specifika tillägg.\n\nModia anses vara relevant för kunder som söker en Business Central-partner för SMB/midmarket, med en tydlig förvaltnings- och integrationsprofil. Partnerskapet med lösningar som Golden EDI, ExFlow, LogTrade, Tasklet Factory, EazyStock och Progressus indikerar en bredd i förmågan att integrera med olika affärsflöden.",
+    "public_focus_tags": [
+      "Business Central",
+      "Affärssystem",
+      "Små och medelstora företag",
+      "Grossist & Distribution",
+      "Retail & E-handel",
+      "Lager & Logistik",
+      "Konsulttjänster",
+      "Power BI",
+      "Copilot",
+      "Integrationer"
+    ],
+    "public_topics_12m": [
+      "Företagsnamnbyte",
+      "Webbplatslansering",
+      "Identitetsförändring"
+    ],
+    "public_profile_sources": [
+      "https://modia.se",
+      "https://modia.se/case",
+      "https://modia.se/kunskapsbank",
+      "https://modia.se/nyheter",
+      "https://modia.se/case/humphree",
+      "https://modia.se/case/ebeco",
+      "https://modia.se/kunskapsbank/affarssystem-for-tillverkande-foretag",
+      "https://modia.se/kunskapsbank/affarssystem-for-lager-och-logistik",
+      "https://modia.se/kunskapsbank/affarssystem-for-konsultforetag",
+      "https://modia.se/kunskapsbank/affarssystem-for-e-handel",
+      "https://modia.se/kunskapsbank/vad-ar-microsoft-dynamics-365-business-central",
+      "https://modia.se/kunskapsbank/hur-valjer-du-ratt-business-central-partner",
+      "https://modia.se/kunskapsbank/ai-i-affarssystem-business-central",
+      "https://modia.se/kunskapsbank/vanliga-misstag-erp-implementering",
+      "https://modia.se/kunskapsbank/dags-att-uppgradera-affarssystem",
+      "https://modia.se/kunskapsbank/cfo-guide-affarssystem",
+      "https://modia.se/kunskapsbank/sa-vet-du-om-det-ar-dags-att-byta-affarssystem",
+      "https://modia.se/kunskapsbank/affarssystem-2026-vad-foretag-behover",
+      "https://modia.se/kunskapsbank/business-central-vs-andra-affarssystem",
+      "https://modia.se/kunskapsbank/molnbaserat-affarssystem-guide"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:04:53.319+00:00"
   },
   {
     "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
@@ -3028,7 +3371,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=NAB+Solutions+Växjö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-08T22:48:50.506681+00:00",
+    "updated_at": "2026-09-16T16:05:35.085351+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -3163,11 +3506,52 @@
       "Fem kontorsorter och över 50 medarbetare i Sverige"
     ],
     "key_differentiators_source": "d365",
-    "public_profile_summary": null,
-    "public_focus_tags": [],
-    "public_topics_12m": [],
-    "public_profile_sources": [],
-    "public_profile_updated_at": null
+    "public_profile_summary": "Analys av publika källor visar att NAB Solutions är en svensk partner med lång specialisering inom Business Central, med rötter i Navision/NAV sedan 2001. Företaget har en tydlig inriktning mot SMB- och midmarket-segmentet och erbjuder en bred tilläggsportfölj.\n\nInnehållet indikerar att NAB Solutions har kontor på flera orter i Sverige, inklusive Växjö, Stockholm, Göteborg, Malmö och Umeå. Partnern uppvisar kompetens inom Microsoft Dynamics 365, inklusive Business Central samt delar av Customer Engagement-sviten som Sales, Customer Service och Customer Insights. Även Power Platform, Power BI, Microsoft 365 samt AI- och Copilot-lösningar framhålls.\n\nFöretaget arbetar bland annat med branscher som grossist och distribution, tillverkningsindustri, finans och försäkring. En växande position inom AI/Copilot och stark kompetens inom NAV-till-Business Central-migreringar samt förvaltning framgår av observationsunderlaget.",
+    "public_focus_tags": [
+      "Business Central",
+      "CRM",
+      "AI",
+      "Copilot",
+      "Power BI",
+      "Tillverkningsindustri",
+      "Grossist & Distribution",
+      "Finans & Försäkring",
+      "SMB",
+      "ERP"
+    ],
+    "public_topics_12m": [
+      "CRM",
+      "Business Central",
+      "AI",
+      "Finansbranschen",
+      "Tillverkningsindustri",
+      "Sälj",
+      "Kundservice",
+      "Marknadsföring"
+    ],
+    "public_profile_sources": [
+      "https://nabsolutions.com/",
+      "https://nabsolutions.com/se/crm/webinar-vad-ar-nytt-i-crm-wave-1",
+      "https://nabsolutions.com/us/resources/webinars-events",
+      "https://nabsolutions.com/se/alla-kundcase",
+      "https://nabsolutions.com/blog/2025/09/19/hej-varlden",
+      "https://nabsolutions.com/se/nyheter/hostspaning-med-johan-adenmark",
+      "https://nabsolutions.com/se/nyheter/en-ny-logga-samma-drivkraft-framat",
+      "https://nabsolutions.com/se/nyheter/folj-med-jens-pa-resan-till-directions-emea-2025",
+      "https://nabsolutions.com/se/nyheter/nab-solutions-lanserar-nytt-bolag-i-usa",
+      "https://nabsolutions.com/se/nyheter/vad-innebar-ai",
+      "https://nabsolutions.com/se/nyheter/darfor-ska-ditt-foretag-arbeta-med-microsoft",
+      "https://nabsolutions.com/se/nyheter/microsofts-stora-ai-satsning-i-sverige",
+      "https://nabsolutions.com/se/nyheter/upptack-fordelarna-med-fardiga-agenter",
+      "https://nabsolutions.com/se/nyheter/digitalisera-produktionen-med-smarta-integrationer-och-ai",
+      "https://nabsolutions.com/se/crm/bygg-starkare-relationer-med-customer-insights",
+      "https://nabsolutions.com/se/crm/sa-loser-customer-insights-dina-problem",
+      "https://nabsolutions.com/se/erp/smartare-saas-rapportering-med-business-central",
+      "https://nabsolutions.com/se/nyheter/komplett-bokslutsstod-direkt-i-business-central",
+      "https://nabsolutions.com/se/erp/business-central/nyhet-ladda-upp-momsdeklarationen-direkt-till-skatteverket",
+      "https://nabsolutions.com/se/nyheter/digital-teknik-som-julens-hjalte-sa-kan-foretag-hantera-hektiska-tider-med-smarta-losningar"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:05:34.811+00:00"
   },
   {
     "id": "674e19f3-b48c-4bf1-86ea-81c2170b178b",
