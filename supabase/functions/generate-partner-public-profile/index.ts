@@ -163,12 +163,22 @@ async function discoverPublicContent(name: string, website: string | null): Prom
     });
   };
 
+  const asArray = (x: unknown): any[] => (Array.isArray(x) ? x : []);
+
   if (website) {
-    const mapped = await firecrawl("/map", { url: website, limit: 400, includeSubdomains: false });
-    const links = mapped?.links || mapped?.data?.links || [];
-    for (const l of links) {
-      if (typeof l === "string") add(l, "", null);
-      else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+    try {
+      const mapped = await firecrawl("/map", { url: website, limit: 400, includeSubdomains: false });
+      const links = [
+        ...asArray(mapped?.links),
+        ...asArray(mapped?.data?.links),
+        ...asArray(mapped?.data),
+      ];
+      for (const l of links) {
+        if (typeof l === "string") add(l, "", null);
+        else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+      }
+    } catch (e) {
+      console.error("map failed:", e instanceof Error ? e.message : e);
     }
   }
 
@@ -178,11 +188,20 @@ async function discoverPublicContent(name: string, website: string | null): Prom
     `${name} Dynamics 365 artikel`,
   ];
   for (const q of queries) {
-    const res = await firecrawl("/search", { query: q, limit: 8, lang: "sv", country: "se" });
-    const rows = res?.data || res?.web || [];
-    for (const r of rows) {
-      if (!r?.url) continue;
-      add(r.url, r.title || "", null, r.description || "");
+    try {
+      const res = await firecrawl("/search", { query: q, limit: 8, lang: "sv", country: "se" });
+      const rows = [
+        ...asArray(res?.data?.web),
+        ...asArray(res?.web),
+        ...asArray(res?.data),
+        ...asArray(res?.results),
+      ];
+      for (const r of rows) {
+        if (!r?.url) continue;
+        add(r.url, r.title || "", null, r.description || r.snippet || "");
+      }
+    } catch (e) {
+      console.error("search failed:", e instanceof Error ? e.message : e);
     }
   }
 
