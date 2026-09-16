@@ -138,6 +138,12 @@ export interface DatabasePartner {
   best_fit_for?: string[] | null;
   /** Fria kompetens-/AI-taggar. */
   ai_tags?: string[] | null;
+  /** Kompletterande, AI-sammanställd marknadsprofil från publika källor. */
+  public_profile_summary?: string | null;
+  public_focus_tags?: string[] | null;
+  public_topics_12m?: string[] | null;
+  public_profile_sources?: string[] | null;
+  public_profile_updated_at?: string | null;
   extended_competencies?: import("@/lib/extendedCompetencies").ExtendedCompetencies | null;
   extended_competency_evidence?: Record<string, string> | null;
   ai_profile?: AiProfile | null;
