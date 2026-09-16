@@ -48,7 +48,7 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     if (!ok) return { valid: false, error: "Invalid signature" };
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return { valid: false, error: "Token expired" };
-    if (payload.role !== "admin") return { valid: false, error: "Insufficient permissions" };
+    if (payload.role !== "admin" && payload.role !== "editor") return { valid: false, error: "Insufficient permissions" };
     return { valid: true };
   } catch (e) {
     console.error("JWT verify failed", e);

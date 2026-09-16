@@ -81,7 +81,7 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     }
 
     // Check role
-    if (payload.role !== "admin") {
+    if (payload.role !== "admin" && payload.role !== "editor") {
       return { valid: false, error: "Insufficient permissions" };
     }
 

@@ -45,7 +45,7 @@ async function verifyJWT(token: string, secret: string) {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    if (payload.role !== "admin") return false;
+    if (payload.role !== "admin" && payload.role !== "editor") return false;
     return true;
   } catch { return false; }
 }
