@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Bot, Sparkles, Search, Quote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { isInternalViewer } from "@/lib/internalView";
 
 interface SiteStats {
   botHits90: number;
