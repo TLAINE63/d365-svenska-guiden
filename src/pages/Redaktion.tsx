@@ -228,6 +228,10 @@ export default function Redaktion() {
                 name: p.name,
                 slug: p.slug,
                 is_featured: p.is_featured ?? false,
+                public_profile_summary: p.public_profile_summary ?? null,
+                public_focus_tags: p.public_focus_tags ?? [],
+                public_topics_12m: p.public_topics_12m ?? [],
+                public_profile_updated_at: p.public_profile_updated_at ?? null,
               }))}
               onSessionExpired={logout}
             />
