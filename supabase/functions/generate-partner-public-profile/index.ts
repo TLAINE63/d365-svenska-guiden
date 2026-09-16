@@ -424,13 +424,20 @@ serve(async (req: Request): Promise<Response> => {
     const news = (newsRes.data || []) as NewsRow[];
     const events = (eventsRes.data || []) as EventRow[];
 
-    const result = await generate(partner, news, events, LOVABLE_API_KEY);
+    const discovered = await discoverPublicContent(partner.name, partner.website || null);
+    const samples = discovered.length ? await scrapeSamples(discovered) : [];
+
+    const result = await generate(partner, news, events, discovered, samples, LOVABLE_API_KEY);
 
     const sources: string[] = [];
     if (partner.website) sources.push(partner.website);
-    for (const n of news) {
-      if (n.source_url && !sources.includes(n.source_url)) sources.push(n.source_url);
+    for (const d of discovered) {
+      if (!sources.includes(d.url)) sources.push(d.url);
       if (sources.length >= 20) break;
+    }
+    for (const n of news) {
+      if (sources.length >= 20) break;
+      if (n.source_url && !sources.includes(n.source_url)) sources.push(n.source_url);
     }
 
     const payload = {
