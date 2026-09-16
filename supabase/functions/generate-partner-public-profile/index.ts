@@ -123,11 +123,11 @@ async function firecrawl(path: string, body: Record<string, unknown>): Promise<a
 
 function classifyUrl(url: string, title: string): DiscoveredItem["kind"] | null {
   const s = `${url} ${title}`.toLowerCase();
-  if (/kundcase|customer-?case|case-?stud|case-?study|referens|success-?stor|kundberattelse|kundberättelse/.test(s)) {
+  if (/kundcase|kundreferens|customer-?case|case-?stud|case-?study|referens|success-?stor|kundberattelse|kundberättelse/.test(s)) {
     return "kundcase";
   }
   if (/webinar|webbinar|seminar|event|evenemang|fruktost|frukostmote|on-?demand/.test(s)) return "webinarium";
-  if (/blogg|\/blog|artikel|article|nyhet|news|insight|kunskap|guide|whitepaper|rapport/.test(s)) return "artikel";
+  if (/blogg|\/blog|artikel|article|nyhet|news|aktuellt|press|insight|kunskap|guide|whitepaper|rapport/.test(s)) return "artikel";
   return null;
 }
 
