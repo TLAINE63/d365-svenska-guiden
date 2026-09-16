@@ -5903,6 +5903,93 @@ Thomas`,
  />
  </div>
 
+ <div className="space-y-4 rounded-lg border border-border bg-muted/20 p-4">
+ <div className="flex items-center justify-between gap-2 flex-wrap">
+ <div>
+ <Label className="font-semibold text-sm">Kompletterande information baserad på publika källor</Label>
+ <p className="text-xs text-muted-foreground">
+ Sammanställs av AI från partnerns publicerade material, nyheter, event och kundcase. Skriver aldrig över partnerns egna fält.
+ {partnerFormData.public_profile_updated_at
+ ? ` Senast sammanställt ${new Date(partnerFormData.public_profile_updated_at).toISOString().slice(0, 10)}.`
+ : ""}
+ </p>
+ </div>
+ <div className="flex flex-wrap gap-2">
+ <Button
+ type="button"
+ variant="outline"
+ size="sm"
+ disabled={generatingPublicProfile || !editingPartner}
+ onClick={handleGeneratePublicProfile}
+ >
+ {generatingPublicProfile ? (
+ <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />Sammanställer...</>
+ ) : (
+ <><Sparkles className="w-4 h-4 mr-2" />Sammanställ publika källor</>
+ )}
+ </Button>
+ <Button
+ type="button"
+ variant="ghost"
+ size="sm"
+ onClick={() =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_profile_summary: "",
+ public_focus_tags: [],
+ public_topics_12m: [],
+ })
+ }
+ >
+ Rensa
+ </Button>
+ </div>
+ </div>
+
+ <div className="space-y-1.5">
+ <Label htmlFor="public_profile_summary" className="text-sm">Marknadsprofil (ett stycke per rad)</Label>
+ <Textarea
+ id="public_profile_summary"
+ value={partnerFormData.public_profile_summary || ""}
+ onChange={(e) => setPartnerFormData({ ...partnerFormData, public_profile_summary: e.target.value })}
+ rows={6}
+ maxLength={4000}
+ placeholder="Analys av publika källor visar att partnern ofta kommunicerar kring ..."
+ />
+ </div>
+
+ <div className="grid gap-4 md:grid-cols-2">
+ <div className="space-y-1.5">
+ <Label htmlFor="public_focus_tags" className="text-sm">Observerade fokusområden (kommaseparerade)</Label>
+ <Input
+ id="public_focus_tags"
+ value={(partnerFormData.public_focus_tags || []).join(", ")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_focus_tags: e.target.value.split(",").map((s) => s.trim()),
+ })
+ }
+ placeholder="Business Central, Power Platform, Copilot, Tillverkning"
+ />
+ </div>
+ <div className="space-y-1.5">
+ <Label htmlFor="public_topics_12m" className="text-sm">Observerade ämnen senaste 12 månaderna (kommaseparerade)</Label>
+ <Input
+ id="public_topics_12m"
+ value={(partnerFormData.public_topics_12m || []).join(", ")}
+ onChange={(e) =>
+ setPartnerFormData({
+ ...partnerFormData,
+ public_topics_12m: e.target.value.split(",").map((s) => s.trim()),
+ })
+ }
+ placeholder="Copilot, Supply Chain, AI Agents, Automation"
+ />
+ </div>
+ </div>
+ </div>
+
  <div className="space-y-3 rounded-lg border border-border bg-muted/20 p-4">
  <div>
  <div className="flex items-center justify-between gap-2 flex-wrap">
