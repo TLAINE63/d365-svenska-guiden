@@ -343,6 +343,26 @@ export default function RedaktionPartnerLinksTab({
                         {togglingId === p.id && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                       </div>
                     </TableCell>
+                    <TableCell>
+                      <button
+                        type="button"
+                        onClick={() => openEdit(p)}
+                        className="flex items-center gap-1.5 text-sm hover:underline"
+                      >
+                        {p.public_profile_summary ? (
+                          <>
+                            <Badge variant="secondary" className="gap-1">
+                              <FileText className="h-3 w-3" />
+                              {p.public_profile_updated_at
+                                ? p.public_profile_updated_at.slice(0, 10)
+                                : "Finns"}
+                            </Badge>
+                          </>
+                        ) : (
+                          <span className="text-muted-foreground">Saknas</span>
+                        )}
+                      </button>
+                    </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Button
@@ -358,6 +378,15 @@ export default function RedaktionPartnerLinksTab({
                             <Copy className="h-3.5 w-3.5" />
                           )}
                           Kopiera länk
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => openEdit(p)}
+                          className="gap-1"
+                        >
+                          <Sparkles className="h-3.5 w-3.5" />
+                          Publika källor
                         </Button>
                         <Button
                           size="sm"
