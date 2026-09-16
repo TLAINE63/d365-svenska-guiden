@@ -58,9 +58,9 @@ export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisibl
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, allowed]);
 
-  if (!site) return null;
+  if (!allowed || !site) return null;
 
   const citationPct =
     site.citationChecks > 0
