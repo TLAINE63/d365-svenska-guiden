@@ -198,6 +198,21 @@ export default function RedaktionPartnerLinksTab({
             </Button>
           ))}
           <span className="text-sm text-muted-foreground ml-auto">{rows.length} partners</span>
+          {bulk ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                Söker {bulk.done + 1} av {bulk.total}: {bulk.current}
+              </span>
+              <Button size="sm" variant="outline" onClick={() => (cancelBulkRef.current = true)}>
+                Avbryt
+              </Button>
+            </div>
+          ) : (
+            <Button size="sm" variant="secondary" onClick={handleScanAll} className="gap-1">
+              <Search className="h-3.5 w-3.5" />
+              Uppdatera publika källor för alla
+            </Button>
+          )}
         </div>
 
         {isLoading ? (
