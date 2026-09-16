@@ -126,37 +126,21 @@ Deno.serve(async (req) => {
     const since = `now() - INTERVAL ${days} DAY`;
     const base = `FROM events WHERE event = '$pageview' AND timestamp >= ${since}`;
 
+    const safe = (q: string) => hogql(q, apiKey, projectId).catch(() => [] as any[][]);
+
     const [totals, pages, referrers, channels, countries, daily] = await Promise.all([
-      hogql(
-        `SELECT count() AS views, count(DISTINCT person_id) AS visitors, count(DISTINCT $session_id) AS sessions ${base}`,
-        apiKey,
-        projectId,
-      ),
-      hogql(
-        `SELECT properties.$pathname AS path, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY path ORDER BY views DESC LIMIT 25`,
-        apiKey,
-        projectId,
-      ),
-      hogql(
-        `SELECT coalesce(nullIf(properties.$referring_domain, ''), 'direkt') AS source, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY source ORDER BY views DESC LIMIT 15`,
-        apiKey,
-        projectId,
-      ),
-      hogql(
-        `SELECT coalesce(nullIf($channel_type, ''), 'okänd') AS channel, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY channel ORDER BY views DESC LIMIT 12`,
-        apiKey,
-        projectId,
-      ),
-      hogql(
-        `SELECT coalesce(nullIf(properties.$geoip_country_name, ''), 'Okänt') AS country, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY country ORDER BY views DESC LIMIT 12`,
-        apiKey,
-        projectId,
-      ),
-      hogql(
-        `SELECT toDate(timestamp) AS day, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY day ORDER BY day ASC`,
-        apiKey,
-        projectId,
-      ),
+      safe(
+        `SELECT count() AS views, count(DISTINCT person_id) AS visitors, count(DISTINCT $session_id) AS sessions ${base}`),
+      safe(
+        `SELECT properties.$pathname AS path, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY path ORDER BY views DESC LIMIT 25`),
+      safe(
+        `SELECT coalesce(nullIf(properties.$referring_domain, ''), 'direkt') AS source, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY source ORDER BY views DESC LIMIT 15`),
+      safe(
+        `SELECT coalesce(nullIf($channel_type, ''), 'okänd') AS channel, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY channel ORDER BY views DESC LIMIT 12`),
+      safe(
+        `SELECT coalesce(nullIf(properties.$geoip_country_name, ''), 'Okänt') AS country, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY country ORDER BY views DESC LIMIT 12`),
+      safe(
+        `SELECT toDate(timestamp) AS day, count() AS views, count(DISTINCT person_id) AS visitors ${base} GROUP BY day ORDER BY day ASC`),
     ]);
 
     const t = totals[0] ?? [0, 0, 0];
