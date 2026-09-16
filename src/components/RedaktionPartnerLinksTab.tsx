@@ -1,8 +1,17 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -12,7 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
-import { Copy, ExternalLink, Loader2, PenLine, Search } from "lucide-react";
+import { Copy, ExternalLink, FileText, Loader2, PenLine, Search, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,6 +32,10 @@ interface PartnerRow {
   name: string;
   slug: string;
   is_featured: boolean;
+  public_profile_summary?: string | null;
+  public_focus_tags?: string[];
+  public_topics_12m?: string[];
+  public_profile_updated_at?: string | null;
 }
 
 type Filter = "all" | "published" | "unpublished";
