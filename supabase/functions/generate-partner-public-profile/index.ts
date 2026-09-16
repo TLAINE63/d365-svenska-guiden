@@ -86,6 +86,136 @@ interface EventRow {
   event_date: string;
 }
 
+interface DiscoveredItem {
+  kind: "artikel" | "webinarium" | "kundcase";
+  title: string;
+  url: string;
+  date: string | null;
+  snippet?: string;
+}
+
+const GATEWAY = "https://connector-gateway.lovable.dev/firecrawl/v2";
+
+async function firecrawl(path: string, body: Record<string, unknown>): Promise<any | null> {
+  const lovableKey = Deno.env.get("LOVABLE_API_KEY");
+  const connKey = Deno.env.get("FIRECRAWL_API_KEY");
+  if (!lovableKey || !connKey) return null;
+  try {
+    const resp = await fetch(`${GATEWAY}${path}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${lovableKey}`,
+        "X-Connection-Api-Key": connKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    if (!resp.ok) {
+      console.error(`Firecrawl ${path} failed [${resp.status}]: ${await resp.text()}`);
+      return null;
+    }
+    return await resp.json();
+  } catch (e) {
+    console.error(`Firecrawl ${path} error:`, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+function classifyUrl(url: string, title: string): DiscoveredItem["kind"] | null {
+  const s = `${url} ${title}`.toLowerCase();
+  if (/kundcase|customer-?case|case-?stud|case-?study|referens|success-?stor|kundberattelse|kundberättelse/.test(s)) {
+    return "kundcase";
+  }
+  if (/webinar|webbinar|seminar|event|evenemang|fruktost|frukostmote|on-?demand/.test(s)) return "webinarium";
+  if (/blogg|\/blog|artikel|article|nyhet|news|insight|kunskap|guide|whitepaper|rapport/.test(s)) return "artikel";
+  return null;
+}
+
+function cleanTitle(raw: string, url: string): string {
+  const t = (raw || "").replace(/\s+/g, " ").replace(/—/g, ",").trim();
+  if (t) return t.slice(0, 200);
+  const last = url.split("?")[0].split("#")[0].split("/").filter(Boolean).pop() || url;
+  return decodeURIComponent(last).replace(/[-_]+/g, " ").slice(0, 200);
+}
+
+function dateFromText(text: string): string | null {
+  const iso = text.match(/(20\d{2})-(\d{2})-(\d{2})/);
+  if (iso) return iso[0];
+  return null;
+}
+
+/** Kartlägger partnerns webbplats och söker öppna källor. Returnerar identifierat innehåll. */
+async function discoverPublicContent(name: string, website: string | null): Promise<DiscoveredItem[]> {
+  const items = new Map<string, DiscoveredItem>();
+
+  const add = (url: string, title: string, kind: DiscoveredItem["kind"] | null, snippet?: string) => {
+    if (!url || !/^https?:\/\//i.test(url)) return;
+    const key = url.split("#")[0].replace(/\/$/, "");
+    if (items.has(key)) return;
+    const k = kind || classifyUrl(url, title);
+    if (!k) return;
+    items.set(key, {
+      kind: k,
+      title: cleanTitle(title, url),
+      url: key,
+      date: dateFromText(`${url} ${snippet || ""}`),
+      snippet: snippet ? snippet.replace(/\s+/g, " ").slice(0, 300) : undefined,
+    });
+  };
+
+  if (website) {
+    const mapped = await firecrawl("/map", { url: website, limit: 400, includeSubdomains: false });
+    const links = mapped?.links || mapped?.data?.links || [];
+    for (const l of links) {
+      if (typeof l === "string") add(l, "", null);
+      else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+    }
+  }
+
+  const queries = [
+    `${name} Dynamics 365 kundcase`,
+    `${name} Dynamics 365 webinar`,
+    `${name} Dynamics 365 artikel`,
+  ];
+  for (const q of queries) {
+    const res = await firecrawl("/search", { query: q, limit: 8, lang: "sv", country: "se" });
+    const rows = res?.data || res?.web || [];
+    for (const r of rows) {
+      if (!r?.url) continue;
+      add(r.url, r.title || "", null, r.description || "");
+    }
+  }
+
+  return Array.from(items.values());
+}
+
+/** Hämtar innehåll från ett fåtal sidor för att ge AI-analysen substans. */
+async function scrapeSamples(items: DiscoveredItem[], max = 6): Promise<string[]> {
+  const perKind: Record<string, number> = {};
+  const picked: DiscoveredItem[] = [];
+  for (const it of items) {
+    const n = perKind[it.kind] || 0;
+    if (n >= 2) continue;
+    perKind[it.kind] = n + 1;
+    picked.push(it);
+    if (picked.length >= max) break;
+  }
+
+  const results = await Promise.all(
+    picked.map(async (it) => {
+      const res = await firecrawl("/scrape", {
+        url: it.url,
+        formats: ["markdown"],
+        onlyMainContent: true,
+      });
+      const md = res?.markdown || res?.data?.markdown;
+      if (!md) return null;
+      return `- [${it.kind}] ${it.title} (${it.url}):\n${String(md).replace(/\s+/g, " ").slice(0, 1200)}`;
+    }),
+  );
+  return results.filter(Boolean) as string[];
+}
+
 function parseJsonLoose(text: string): any {
   const cleaned = text.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
   try {
