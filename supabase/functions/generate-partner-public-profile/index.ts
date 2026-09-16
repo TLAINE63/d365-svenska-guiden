@@ -443,8 +443,16 @@ serve(async (req: Request): Promise<Response> => {
     const news = (newsRes.data || []) as NewsRow[];
     const events = (eventsRes.data || []) as EventRow[];
 
-    const discovered = await discoverPublicContent(partner.name, partner.website || null);
-    const samples = discovered.length ? await scrapeSamples(discovered) : [];
+    let discovered: DiscoveredItem[] = [];
+    let samples: string[] = [];
+    try {
+      discovered = await discoverPublicContent(partner.name, partner.website || null);
+      samples = discovered.length ? await scrapeSamples(discovered) : [];
+    } catch (e) {
+      console.error("discovery failed, fortsätter med interna källor:", e instanceof Error ? e.message : e);
+      discovered = [];
+      samples = [];
+    }
 
     const result = await generate(partner, news, events, discovered, samples, LOVABLE_API_KEY);
 
