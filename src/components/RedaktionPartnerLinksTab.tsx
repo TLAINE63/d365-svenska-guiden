@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
-import { Copy, ExternalLink, Loader2, PenLine } from "lucide-react";
+import { Copy, ExternalLink, Loader2, PenLine, Search } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,7 +44,50 @@ export default function RedaktionPartnerLinksTab({
   const [filter, setFilter] = useState<Filter>("all");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [scanId, setScanId] = useState<string | null>(null);
+  const [bulk, setBulk] = useState<{ done: number; total: number; current: string } | null>(null);
+  const cancelBulkRef = useRef(false);
   const queryClient = useQueryClient();
+
+  async function scanPartner(partner: PartnerRow): Promise<boolean> {
+    if (!token) return false;
+    const { data, error } = await supabase.functions.invoke("generate-partner-public-profile", {
+      body: { token, partnerId: partner.id },
+    });
+    const msg = (data as { error?: string } | null)?.error || error?.message || "";
+    if (msg) {
+      if (msg.toLowerCase().includes("session") || msg.toLowerCase().includes("401")) {
+        onSessionExpired();
+      }
+      return false;
+    }
+    return true;
+  }
+
+  async function handleScanOne(partner: PartnerRow) {
+    setScanId(partner.id);
+    const ok = await scanPartner(partner);
+    setScanId(null);
+    if (ok) toast.success(`Publika källor uppdaterade för ${partner.name}`);
+    else toast.error(`Kunde inte söka publika källor för ${partner.name}`);
+  }
+
+  async function handleScanAll() {
+    const list = rows;
+    cancelBulkRef.current = false;
+    setBulk({ done: 0, total: list.length, current: "" });
+    let failed = 0;
+    for (let i = 0; i < list.length; i++) {
+      if (cancelBulkRef.current) break;
+      setBulk({ done: i, total: list.length, current: list[i].name });
+      const ok = await scanPartner(list[i]);
+      if (!ok) failed++;
+    }
+    setBulk(null);
+    toast.success(
+      failed ? `Klart, ${failed} partners kunde inte uppdateras` : "Publika källor uppdaterade",
+    );
+  }
 
   async function handleTogglePublished(partner: PartnerRow, next: boolean) {
     if (!token) return;
@@ -155,6 +198,21 @@ export default function RedaktionPartnerLinksTab({
             </Button>
           ))}
           <span className="text-sm text-muted-foreground ml-auto">{rows.length} partners</span>
+          {bulk ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                Söker {bulk.done + 1} av {bulk.total}: {bulk.current}
+              </span>
+              <Button size="sm" variant="outline" onClick={() => (cancelBulkRef.current = true)}>
+                Avbryt
+              </Button>
+            </div>
+          ) : (
+            <Button size="sm" variant="secondary" onClick={handleScanAll} className="gap-1">
+              <Search className="h-3.5 w-3.5" />
+              Uppdatera publika källor för alla
+            </Button>
+          )}
         </div>
 
         {isLoading ? (
@@ -221,6 +279,20 @@ export default function RedaktionPartnerLinksTab({
                         >
                           <PenLine className="h-3.5 w-3.5" />
                           Redigera profil
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={scanId === p.id || !!bulk}
+                          onClick={() => handleScanOne(p)}
+                          className="gap-1"
+                        >
+                          {scanId === p.id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Search className="h-3.5 w-3.5" />
+                          )}
+                          Sök källor
                         </Button>
                         {p.is_featured && (
                           <Button

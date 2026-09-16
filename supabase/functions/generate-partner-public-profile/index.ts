@@ -86,6 +86,136 @@ interface EventRow {
   event_date: string;
 }
 
+interface DiscoveredItem {
+  kind: "artikel" | "webinarium" | "kundcase";
+  title: string;
+  url: string;
+  date: string | null;
+  snippet?: string;
+}
+
+const GATEWAY = "https://connector-gateway.lovable.dev/firecrawl/v2";
+
+async function firecrawl(path: string, body: Record<string, unknown>): Promise<any | null> {
+  const lovableKey = Deno.env.get("LOVABLE_API_KEY");
+  const connKey = Deno.env.get("FIRECRAWL_API_KEY");
+  if (!lovableKey || !connKey) return null;
+  try {
+    const resp = await fetch(`${GATEWAY}${path}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${lovableKey}`,
+        "X-Connection-Api-Key": connKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    if (!resp.ok) {
+      console.error(`Firecrawl ${path} failed [${resp.status}]: ${await resp.text()}`);
+      return null;
+    }
+    return await resp.json();
+  } catch (e) {
+    console.error(`Firecrawl ${path} error:`, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+function classifyUrl(url: string, title: string): DiscoveredItem["kind"] | null {
+  const s = `${url} ${title}`.toLowerCase();
+  if (/kundcase|customer-?case|case-?stud|case-?study|referens|success-?stor|kundberattelse|kundberättelse/.test(s)) {
+    return "kundcase";
+  }
+  if (/webinar|webbinar|seminar|event|evenemang|fruktost|frukostmote|on-?demand/.test(s)) return "webinarium";
+  if (/blogg|\/blog|artikel|article|nyhet|news|insight|kunskap|guide|whitepaper|rapport/.test(s)) return "artikel";
+  return null;
+}
+
+function cleanTitle(raw: string, url: string): string {
+  const t = (raw || "").replace(/\s+/g, " ").replace(/—/g, ",").trim();
+  if (t) return t.slice(0, 200);
+  const last = url.split("?")[0].split("#")[0].split("/").filter(Boolean).pop() || url;
+  return decodeURIComponent(last).replace(/[-_]+/g, " ").slice(0, 200);
+}
+
+function dateFromText(text: string): string | null {
+  const iso = text.match(/(20\d{2})-(\d{2})-(\d{2})/);
+  if (iso) return iso[0];
+  return null;
+}
+
+/** Kartlägger partnerns webbplats och söker öppna källor. Returnerar identifierat innehåll. */
+async function discoverPublicContent(name: string, website: string | null): Promise<DiscoveredItem[]> {
+  const items = new Map<string, DiscoveredItem>();
+
+  const add = (url: string, title: string, kind: DiscoveredItem["kind"] | null, snippet?: string) => {
+    if (!url || !/^https?:\/\//i.test(url)) return;
+    const key = url.split("#")[0].replace(/\/$/, "");
+    if (items.has(key)) return;
+    const k = kind || classifyUrl(url, title);
+    if (!k) return;
+    items.set(key, {
+      kind: k,
+      title: cleanTitle(title, url),
+      url: key,
+      date: dateFromText(`${url} ${snippet || ""}`),
+      snippet: snippet ? snippet.replace(/\s+/g, " ").slice(0, 300) : undefined,
+    });
+  };
+
+  if (website) {
+    const mapped = await firecrawl("/map", { url: website, limit: 400, includeSubdomains: false });
+    const links = mapped?.links || mapped?.data?.links || [];
+    for (const l of links) {
+      if (typeof l === "string") add(l, "", null);
+      else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+    }
+  }
+
+  const queries = [
+    `${name} Dynamics 365 kundcase`,
+    `${name} Dynamics 365 webinar`,
+    `${name} Dynamics 365 artikel`,
+  ];
+  for (const q of queries) {
+    const res = await firecrawl("/search", { query: q, limit: 8, lang: "sv", country: "se" });
+    const rows = res?.data || res?.web || [];
+    for (const r of rows) {
+      if (!r?.url) continue;
+      add(r.url, r.title || "", null, r.description || "");
+    }
+  }
+
+  return Array.from(items.values());
+}
+
+/** Hämtar innehåll från ett fåtal sidor för att ge AI-analysen substans. */
+async function scrapeSamples(items: DiscoveredItem[], max = 6): Promise<string[]> {
+  const perKind: Record<string, number> = {};
+  const picked: DiscoveredItem[] = [];
+  for (const it of items) {
+    const n = perKind[it.kind] || 0;
+    if (n >= 2) continue;
+    perKind[it.kind] = n + 1;
+    picked.push(it);
+    if (picked.length >= max) break;
+  }
+
+  const results = await Promise.all(
+    picked.map(async (it) => {
+      const res = await firecrawl("/scrape", {
+        url: it.url,
+        formats: ["markdown"],
+        onlyMainContent: true,
+      });
+      const md = res?.markdown || res?.data?.markdown;
+      if (!md) return null;
+      return `- [${it.kind}] ${it.title} (${it.url}):\n${String(md).replace(/\s+/g, " ").slice(0, 1200)}`;
+    }),
+  );
+  return results.filter(Boolean) as string[];
+}
+
 function parseJsonLoose(text: string): any {
   const cleaned = text.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
   try {
@@ -98,7 +228,13 @@ function parseJsonLoose(text: string): any {
   }
 }
 
-function buildPrompt(p: any, news: NewsRow[], events: EventRow[]): string {
+function buildPrompt(
+  p: any,
+  news: NewsRow[],
+  events: EventRow[],
+  discovered: DiscoveredItem[],
+  samples: string[],
+): string {
   const apps = (p.applications || []).map((a: string) => APP_LABELS[a] || a).join(", ") || "okänt";
   const industries = [...(p.industries || []), ...(p.secondary_industries || [])].join(", ") || "ej specificerat";
   const platforms = (p.platform_capabilities || []).join(", ") || "ej angett";
@@ -152,10 +288,28 @@ PUBLICERADE INLÄGG OCH NYHETER SENASTE 12 MÅNADERNA:
 ${newsLines || "(inget material)"}
 
 EVENT OCH WEBBINARIER SENASTE 12 MÅNADERNA:
-${eventLines || "(inget material)"}`;
+${eventLines || "(inget material)"}
+
+IDENTIFIERAT PUBLIKT INNEHÅLL PÅ WEBBEN (partnerns webbplats och öppna källor):
+${
+    discovered
+      .slice(0, 60)
+      .map((d) => `- (${d.kind}) ${d.title} | ${d.url}${d.snippet ? ` | ${d.snippet}` : ""}`)
+      .join("\n") || "(inget material)"
+  }
+
+UTDRAG UR NÅGRA AV SIDORNA:
+${samples.join("\n") || "(inga utdrag)"}`;
 }
 
-async function generate(p: any, news: NewsRow[], events: EventRow[], apiKey: string) {
+async function generate(
+  p: any,
+  news: NewsRow[],
+  events: EventRow[],
+  discovered: DiscoveredItem[],
+  samples: string[],
+  apiKey: string,
+) {
   const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
@@ -167,7 +321,7 @@ async function generate(p: any, news: NewsRow[], events: EventRow[], apiKey: str
           content:
             "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
         },
-        { role: "user", content: buildPrompt(p, news, events) },
+        { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
       ],
     }),
   });
@@ -270,13 +424,20 @@ serve(async (req: Request): Promise<Response> => {
     const news = (newsRes.data || []) as NewsRow[];
     const events = (eventsRes.data || []) as EventRow[];
 
-    const result = await generate(partner, news, events, LOVABLE_API_KEY);
+    const discovered = await discoverPublicContent(partner.name, partner.website || null);
+    const samples = discovered.length ? await scrapeSamples(discovered) : [];
+
+    const result = await generate(partner, news, events, discovered, samples, LOVABLE_API_KEY);
 
     const sources: string[] = [];
     if (partner.website) sources.push(partner.website);
-    for (const n of news) {
-      if (n.source_url && !sources.includes(n.source_url)) sources.push(n.source_url);
+    for (const d of discovered) {
+      if (!sources.includes(d.url)) sources.push(d.url);
       if (sources.length >= 20) break;
+    }
+    for (const n of news) {
+      if (sources.length >= 20) break;
+      if (n.source_url && !sources.includes(n.source_url)) sources.push(n.source_url);
     }
 
     const payload = {
@@ -302,7 +463,7 @@ serve(async (req: Request): Promise<Response> => {
         url: n.source_url || null,
       }));
 
-    const latestContent = [
+    const internalContent = [
       ...latestOf(articles, "artikel"),
       ...latestOf(webinars, "webinarium"),
       ...latestOf(cases, "kundcase"),
@@ -313,6 +474,32 @@ serve(async (req: Request): Promise<Response> => {
         url: null as string | null,
       })),
     ];
+
+    // Externa träffar + internt material, deduplicerat på URL.
+    const seenUrls = new Set<string>(
+      internalContent.map((c) => (c.url || "").replace(/\/$/, "")).filter(Boolean),
+    );
+    const externalByKind: Record<string, { kind: string; title: string; date: string | null; url: string }[]> = {
+      artikel: [],
+      webinarium: [],
+      kundcase: [],
+    };
+    for (const d of discovered) {
+      if (seenUrls.has(d.url)) continue;
+      seenUrls.add(d.url);
+      externalByKind[d.kind].push({ kind: d.kind, title: d.title, date: d.date, url: d.url });
+    }
+
+    const latestContent = [
+      ...internalContent,
+      ...externalByKind.artikel.slice(0, 5),
+      ...externalByKind.webinarium.slice(0, 5),
+      ...externalByKind.kundcase.slice(0, 5),
+    ];
+
+    const articlesCount = articles.length + externalByKind.artikel.length;
+    const webinarsCount = webinars.length + events.length + externalByKind.webinarium.length;
+    const casesCount = cases.length + externalByKind.kundcase.length;
 
     const observedProducts = Array.from(
       new Set(news.flatMap((n) => n.product_areas || []).filter(Boolean)),
@@ -327,9 +514,9 @@ serve(async (req: Request): Promise<Response> => {
       observed_topics: result.public_topics_12m,
       observed_products: observedProducts,
       observed_industries: observedIndustries,
-      articles_count: articles.length,
-      webinars_count: webinars.length + events.length,
-      case_studies_count: cases.length,
+      articles_count: articlesCount,
+      webinars_count: webinarsCount,
+      case_studies_count: casesCount,
       latest_content: latestContent,
       last_updated: new Date().toISOString(),
     };
@@ -344,7 +531,14 @@ serve(async (req: Request): Promise<Response> => {
         ok: true,
         insights: payload,
         publicInsights: insightsRow,
-        counts: { news: news.length, events: events.length },
+        counts: {
+          news: news.length,
+          events: events.length,
+          discovered: discovered.length,
+          articles: articlesCount,
+          webinars: webinarsCount,
+          cases: casesCount,
+        },
       }),
       { headers: { "Content-Type": "application/json", ...corsHeaders } },
     );
