@@ -20,13 +20,20 @@ interface PartnerStats {
 interface Props {
   slug: string;
   partnerName: string;
+  /** Visa alltid, t.ex. i partnerns egen vy via profileringslänken. */
+  forceVisible?: boolean;
 }
 
 const FN_BASE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
 
-export default function PartnerAiVisibilityCard({ slug, partnerName }: Props) {
+export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisible }: Props) {
   const [site, setSite] = useState<SiteStats | null>(null);
   const [partner, setPartner] = useState<PartnerStats | null>(null);
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    setAllowed(Boolean(forceVisible) || isInternalViewer());
+  }, [forceVisible]);
 
   // Mätpixel: loggar hämtningar av just den här profilsidan, inklusive
   // AI-robotar som hämtar sidans innehåll.
