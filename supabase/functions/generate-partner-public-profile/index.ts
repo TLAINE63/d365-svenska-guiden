@@ -228,7 +228,13 @@ function parseJsonLoose(text: string): any {
   }
 }
 
-function buildPrompt(p: any, news: NewsRow[], events: EventRow[]): string {
+function buildPrompt(
+  p: any,
+  news: NewsRow[],
+  events: EventRow[],
+  discovered: DiscoveredItem[],
+  samples: string[],
+): string {
   const apps = (p.applications || []).map((a: string) => APP_LABELS[a] || a).join(", ") || "okänt";
   const industries = [...(p.industries || []), ...(p.secondary_industries || [])].join(", ") || "ej specificerat";
   const platforms = (p.platform_capabilities || []).join(", ") || "ej angett";
