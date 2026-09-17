@@ -237,6 +237,34 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
             </Card>
           )}
 
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {([
+                ["all", `Alla (${allDomains.length})`],
+                ["visible", `Visas publikt (${visibleCount})`],
+                ["hidden", `Dolda (${hiddenCount})`],
+                ["suspected", `Misstänkt skräp (${suspected.size})`],
+              ] as const).map(([key, label]) => (
+                <Button
+                  key={key}
+                  size="sm"
+                  variant={filter === key ? "default" : "outline"}
+                  onClick={() => setFilter(key)}
+                >
+                  {label}
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button size="sm" variant="outline" disabled={savingHidden || suspected.size === 0} onClick={hideAllSuspected}>
+                Dölj alla misstänkta
+              </Button>
+              <Button size="sm" variant="ghost" disabled={savingHidden || hiddenCount === 0} onClick={showAll}>
+                Återställ alla
+              </Button>
+            </div>
+          </div>
+
           <Card>
             <CardContent className="p-0">
               <Table>
@@ -249,11 +277,19 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {(latest.top_domains || []).map((d) => {
+                  {rows.map((d) => {
                     const isHidden = hidden.has(d.domain.toLowerCase());
+                    const isSuspected = suspected.has(d.domain.toLowerCase());
                     return (
                       <TableRow key={d.domain}>
-                        <TableCell className="font-medium">{d.domain}</TableCell>
+                        <TableCell className="font-medium">
+                          <span className="mr-2">{d.domain}</span>
+                          {isSuspected && (
+                            <Badge variant="destructive" className="align-middle">
+                              Misstänkt skräp
+                            </Badge>
+                          )}
+                        </TableCell>
                         <TableCell className="text-right tabular-nums">
                           {d.authority === null ? "–" : Math.round(d.authority)}
                         </TableCell>
