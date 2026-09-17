@@ -607,8 +607,13 @@ serve(async (req: Request): Promise<Response> => {
       { headers: { "Content-Type": "application/json", ...corsHeaders } },
     );
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    console.error("generate-partner-public-profile error:", msg);
+    const msg =
+      e instanceof Error
+        ? e.message
+        : e && typeof e === "object" && "message" in e
+        ? String((e as { message: unknown }).message)
+        : "Unknown error";
+    console.error("generate-partner-public-profile error:", msg, e);
     const status = msg === "RATE_LIMIT" ? 429 : msg === "PAYMENT_REQUIRED" ? 402 : 500;
     return new Response(JSON.stringify({ error: msg }), {
       status,
