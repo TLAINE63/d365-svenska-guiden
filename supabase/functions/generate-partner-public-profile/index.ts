@@ -192,8 +192,10 @@ async function discoverPublicContent(name: string, website: string | null): Prom
         ...asArray(mapped?.data),
       ];
       for (const l of links) {
+        const url = typeof l === "string" ? l : l && typeof l === "object" ? l.url : null;
+        if (!url || !isSameSite(url, siteRoot)) continue;
         if (typeof l === "string") add(l, "", null);
-        else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+        else add(l.url, l.title || l.description || "", null, l.description);
       }
     } catch (e) {
       console.error("map failed:", e instanceof Error ? e.message : e);
