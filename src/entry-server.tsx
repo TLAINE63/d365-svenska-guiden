@@ -605,6 +605,7 @@ export function render(url: string) {
               <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
+              <Route path="/lankar-till-d365" element={<Backlankar />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />
               <Route path="/jamfor" element={<ErpComparisonsHub />} />
               <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
