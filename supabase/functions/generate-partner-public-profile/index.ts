@@ -216,6 +216,9 @@ async function discoverPublicContent(name: string, website: string | null): Prom
       ];
       for (const r of rows) {
         if (!r?.url) continue;
+        // Endast träffar på partnerns egen domän får tas med, annars kan
+        // konkurrenters sidor visas som partnerns eget innehåll.
+        if (!isSameSite(r.url, siteRoot)) continue;
         add(r.url, r.title || "", null, r.description || r.snippet || "");
       }
     } catch (e) {
