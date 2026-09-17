@@ -10,7 +10,7 @@ export default function Backlankar() {
       <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Länkar till d365.se", url: "/lankar-till-d365/" }]}
         title="Länkar till d365.se | d365.se"
-        description="Så många webbplatser länkar till d365.se. Siffrorna hämtas från Semrush och visar antal refererande domäner, antal länkar och auktoritetspoäng."
+        description="Så många webbplatser länkar till d365.se. Siffrorna hämtas från Semrush och visar antal refererande domäner och antal länkar."
         canonicalPath="/lankar-till-d365"
       />
       <Navbar />
@@ -33,8 +33,7 @@ export default function Backlankar() {
           <h2 className="text-xl font-semibold text-foreground">Vad siffrorna betyder</h2>
           <p>
             Antalet webbplatser som länkar hit säger mer än antalet länkar. Många länkar från en och samma
-            webbplats väger lättare än enstaka länkar från många olika håll. Auktoritetspoängen är Semrush
-            egen skala från 0 till 100 och bygger på länkprofilens omfattning och kvalitet.
+            webbplats väger lättare än enstaka länkar från många olika håll.
           </p>
           <p>
             Siffrorna är uppskattningar från Semrush och uppdateras manuellt. De speglar inte antal besökare,

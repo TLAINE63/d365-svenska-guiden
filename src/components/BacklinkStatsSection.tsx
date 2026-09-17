@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link2, Globe, Gauge } from "lucide-react";
+import { Link2, Globe } from "lucide-react";
 
 export interface BacklinkSnapshot {
   domain: string;
@@ -86,14 +86,9 @@ export default function BacklinkStatsSection({ variant = "full" }: Props) {
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         <Kpi icon={<Globe className="h-4 w-4" />} label="Webbplatser som länkar hit" value={fmt(snapshot.referring_domains)} />
         <Kpi icon={<Link2 className="h-4 w-4" />} label="Länkar totalt" value={fmt(snapshot.backlinks)} />
-        <Kpi
-          icon={<Gauge className="h-4 w-4" />}
-          label="Auktoritetspoäng"
-          value={snapshot.authority_score === null ? "–" : String(Math.round(snapshot.authority_score))}
-        />
       </div>
 
       <p className="text-sm text-muted-foreground">
@@ -109,7 +104,6 @@ export default function BacklinkStatsSection({ variant = "full" }: Props) {
                 <span className="text-foreground truncate">{d.domain}</span>
                 <span className="text-muted-foreground tabular-nums shrink-0">
                   {fmt(d.backlinks)} {d.backlinks === 1 ? "länk" : "länkar"}
-                  {d.authority !== null && d.authority !== undefined ? `, auktoritet ${Math.round(d.authority)}` : ""}
                 </span>
               </div>
             ))}
