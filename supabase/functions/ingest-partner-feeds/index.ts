@@ -8,7 +8,8 @@ const corsHeaders = {
 
 interface FeedRow {
   id: string;
-  partner_id: string;
+  partner_id: string | null;
+  source_org?: string;
   feed_url: string;
   source_type: string;
   default_news_type: string;
@@ -105,18 +106,20 @@ async function processFeed(supabase: ReturnType<typeof createClient>, feed: Feed
     for (const it of items) {
       const guid = it.guid.slice(0, 500);
       // Skip if already ingested for this partner
-      const { data: existing } = await supabase
+      const isMicrosoft = (feed.source_org ?? "partner") === "microsoft";
+      let dedupe = supabase
         .from("partner_news")
         .select("id")
-        .eq("partner_id", feed.partner_id)
-        .eq("source_guid", guid)
-        .maybeSingle();
+        .eq("source_guid", guid);
+      dedupe = isMicrosoft ? dedupe.is("partner_id", null) : dedupe.eq("partner_id", feed.partner_id);
+      const { data: existing } = await dedupe.maybeSingle();
       if (existing) { skipped++; continue; }
 
       const editorial_title = it.title.slice(0, 200);
       const summary = (it.summary || it.title).slice(0, 600) || "Automatiskt inhämtat inlägg – redigera sammanfattning.";
       const payload = {
-        partner_id: feed.partner_id,
+        partner_id: isMicrosoft ? null : feed.partner_id,
+        source_org: isMicrosoft ? "microsoft" : "partner",
         editorial_title,
         summary,
         source_url: it.link || feed.feed_url,
@@ -128,7 +131,7 @@ async function processFeed(supabase: ReturnType<typeof createClient>, feed: Feed
         news_date: toISODate(it.date),
         is_featured: false,
         show_on_home: false,
-        show_on_partner_profile: true,
+        show_on_partner_profile: !isMicrosoft,
         show_on_product_page: false,
         status: "draft",
         source_feed_id: feed.id,
@@ -199,7 +202,9 @@ serve(async (req) => {
   }
 
   // Endast partnerverifierade profiler (profileringsavtal) får automatiskt inhämtat innehåll.
-  const partnerIds = Array.from(new Set(((feeds ?? []) as FeedRow[]).map((f) => f.partner_id)));
+  const partnerIds = Array.from(
+    new Set(((feeds ?? []) as FeedRow[]).map((f) => f.partner_id).filter((id): id is string => !!id)),
+  );
   const verifiedIds = new Set<string>();
   if (partnerIds.length > 0) {
     const { data: partnerRows } = await supabase
@@ -211,9 +216,10 @@ serve(async (req) => {
     }
   }
 
-  const results: Array<{ feed_id: string; partner_id: string; imported: number; skipped: number; error?: string }> = [];
+  const results: Array<{ feed_id: string; partner_id: string | null; imported: number; skipped: number; error?: string }> = [];
   for (const f of (feeds ?? []) as FeedRow[]) {
-    if (!verifiedIds.has(f.partner_id)) {
+    const isMicrosoftFeed = (f.source_org ?? "partner") === "microsoft";
+    if (!isMicrosoftFeed && (!f.partner_id || !verifiedIds.has(f.partner_id))) {
       results.push({ feed_id: f.id, partner_id: f.partner_id, imported: 0, skipped: 0, error: "Partnern är inte partnerverifierad – flödet hoppas över." });
       continue;
     }
