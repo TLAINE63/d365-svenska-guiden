@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, Tooltip, YAxis, XAxis } from "recharts";
+import { isLikelySpamDomain } from "@/lib/backlinkSpam";
 
 interface TopDomain {
   domain: string;
@@ -40,6 +41,7 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [savingHidden, setSavingHidden] = useState(false);
+  const [filter, setFilter] = useState<"all" | "visible" | "hidden" | "suspected">("all");
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-backlink-stats`;
   const headers = () => ({
@@ -146,6 +148,22 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   );
 
   const hidden = new Set((latest?.hidden_domains || []).map((d) => d.toLowerCase()));
+  const allDomains = latest?.top_domains || [];
+  const suspected = new Set(
+    allDomains.filter((d) => isLikelySpamDomain(d.domain, d.authority, d.backlinks)).map((d) => d.domain.toLowerCase()),
+  );
+  const visibleCount = allDomains.filter((d) => !hidden.has(d.domain.toLowerCase())).length;
+  const hiddenCount = allDomains.length - visibleCount;
+  const rows = allDomains.filter((d) => {
+    const key = d.domain.toLowerCase();
+    if (filter === "visible") return !hidden.has(key);
+    if (filter === "hidden") return hidden.has(key);
+    if (filter === "suspected") return suspected.has(key);
+    return true;
+  });
+
+  const hideAllSuspected = () => saveHidden(Array.from(new Set([...hidden, ...suspected])));
+  const showAll = () => saveHidden([]);
 
   return (
     <div className="space-y-6">
