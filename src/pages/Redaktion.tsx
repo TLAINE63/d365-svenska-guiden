@@ -207,7 +207,12 @@ export default function Redaktion() {
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
+            <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="backlinks">
+            <RedaktionBacklinksTab token={token} onSessionExpired={logout} />
+          </TabsContent>
 
           <TabsContent value="stats" className="space-y-6">
             <PostHogStatsCard token={token} onSessionExpired={logout} />
