@@ -352,34 +352,48 @@ async function generate(
   samples: string[],
   apiKey: string,
 ) {
-  const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
-        },
-        { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
-      ],
-    }),
-  });
+  const callOnce = async (): Promise<string> => {
+    const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash",
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "system",
+            content:
+              "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
+          },
+          { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
+        ],
+      }),
+    });
 
-  if (resp.status === 429) throw new Error("RATE_LIMIT");
-  if (resp.status === 402) throw new Error("PAYMENT_REQUIRED");
-  if (!resp.ok) {
-    console.error("AI gateway error:", resp.status, await resp.text());
-    throw new Error("AI_GATEWAY_ERROR");
+    if (resp.status === 429) throw new Error("RATE_LIMIT");
+    if (resp.status === 402) throw new Error("PAYMENT_REQUIRED");
+    if (!resp.ok) {
+      const body = await resp.text();
+      console.error("AI gateway error:", resp.status, body);
+      throw new Error(`AI_GATEWAY_ERROR: ${resp.status} ${body.slice(0, 300)}`);
+    }
+
+    const data = await resp.json();
+    const text = data?.choices?.[0]?.message?.content?.trim();
+    if (!text) throw new Error("EMPTY_RESPONSE");
+    return text;
+  };
+
+  let parsed: any;
+  try {
+    parsed = parseJsonLoose(await callOnce());
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    if (msg === "RATE_LIMIT" || msg === "PAYMENT_REQUIRED") throw e;
+    console.error("Första AI-försöket misslyckades, gör ett nytt försök:", msg);
+    parsed = parseJsonLoose(await callOnce());
   }
 
-  const data = await resp.json();
-  const text = data?.choices?.[0]?.message?.content?.trim();
-  if (!text) throw new Error("EMPTY_RESPONSE");
-
-  const parsed = parseJsonLoose(text);
   const toArray = (v: unknown, max: number): string[] =>
     Array.isArray(v)
       ? Array.from(new Set(v.map((x) => String(x).replace(/—/g, ",").trim()).filter(Boolean))).slice(0, max)
