@@ -138,6 +138,47 @@ const pick = (row: Record<string, string>, keys: string[]): string => {
   return "";
 };
 
+const SPAM_HOST_PATTERNS = [
+  "blogspot.",
+  "wordpress.com",
+  "weebly.com",
+  "wixsite.com",
+  "tumblr.com",
+  "medium.com/@",
+  "over-blog",
+  "livejournal.com",
+  "webnode.",
+  "jimdosite.com",
+];
+const SPAM_TLDS = [
+  ".sbs",
+  ".xyz",
+  ".top",
+  ".buzz",
+  ".icu",
+  ".cyou",
+  ".click",
+  ".rest",
+  ".monster",
+  ".quest",
+  ".shop",
+  ".bond",
+  ".cfd",
+  ".lol",
+];
+
+function isLikelySpam(domain: string, authority: number | null, backlinks: number | null): boolean {
+  const d = String(domain || "").toLowerCase().trim();
+  if (!d) return false;
+  const a = typeof authority === "number" ? authority : null;
+  const b = typeof backlinks === "number" ? backlinks : 0;
+  if (SPAM_HOST_PATTERNS.some((p) => d.includes(p))) return true;
+  if (SPAM_TLDS.some((t) => d.endsWith(t))) return true;
+  if (a !== null && a < 5) return true;
+  if (a !== null && a < 10 && b > 20) return true;
+  return false;
+}
+
 serve(async (req: Request): Promise<Response> => {
   const cors = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
@@ -246,7 +287,7 @@ serve(async (req: Request): Promise<Response> => {
       // Behåll dolda domäner från den föregående ögonblicksbilden.
       const { data: prev } = await supabase
         .from("site_backlink_snapshots")
-        .select("hidden_domains")
+        .select("hidden_domains, top_domains")
         .eq("domain", domain)
         .order("captured_at", { ascending: false })
         .limit(1)
@@ -261,7 +302,22 @@ serve(async (req: Request): Promise<Response> => {
         follows: num(pick(o, ["follows_num"])),
         nofollows: num(pick(o, ["nofollows_num"])),
         top_domains: topDomains,
-        hidden_domains: prev?.hidden_domains || [],
+        hidden_domains: (() => {
+          const keep = new Set(
+            (prev?.hidden_domains || []).map((d: string) => String(d).toLowerCase().trim()).filter(Boolean),
+          );
+          // Auto-dölj bara nya domäner, så manuella val från förra gången respekteras.
+          const seen = new Set(
+            (Array.isArray(prev?.top_domains) ? prev!.top_domains : []).map((d: { domain?: string }) =>
+              String(d?.domain || "").toLowerCase(),
+            ),
+          );
+          for (const d of topDomains) {
+            const key = String(d.domain).toLowerCase();
+            if (!seen.has(key) && isLikelySpam(d.domain, d.authority, d.backlinks)) keep.add(key);
+          }
+          return Array.from(keep).slice(0, 200);
+        })(),
       };
 
       const { data: inserted, error: insErr } = await supabase

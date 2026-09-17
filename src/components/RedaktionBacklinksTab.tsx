@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, Tooltip, YAxis, XAxis } from "recharts";
+import { isLikelySpamDomain } from "@/lib/backlinkSpam";
 
 interface TopDomain {
   domain: string;
@@ -40,6 +41,7 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [savingHidden, setSavingHidden] = useState(false);
+  const [filter, setFilter] = useState<"all" | "visible" | "hidden" | "suspected">("all");
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-backlink-stats`;
   const headers = () => ({
@@ -101,25 +103,27 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   };
 
   const toggleHidden = async (domain: string) => {
-    if (!token || !latest) return;
+    if (!latest) return;
     const current = new Set((latest.hidden_domains || []).map((d) => d.toLowerCase()));
     const key = domain.toLowerCase();
     if (current.has(key)) current.delete(key);
     else current.add(key);
+    await saveHidden(Array.from(current));
+  };
 
+  const saveHidden = async (next: string[]) => {
+    if (!token || !latest) return;
     setSavingHidden(true);
     try {
       const res = await fetch(`${baseUrl}?action=hide`, {
         method: "POST",
         headers: headers(),
-        body: JSON.stringify({ id: latest.id, hidden_domains: Array.from(current) }),
+        body: JSON.stringify({ id: latest.id, hidden_domains: next }),
       });
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Kunde inte spara");
-      setSnapshots((prev) =>
-        prev.map((s) => (s.id === latest.id ? { ...s, hidden_domains: Array.from(current) } : s)),
-      );
+      setSnapshots((prev) => prev.map((s) => (s.id === latest.id ? { ...s, hidden_domains: next } : s)));
     } catch (e) {
       toast({
         title: "Kunde inte spara",
@@ -144,6 +148,22 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   );
 
   const hidden = new Set((latest?.hidden_domains || []).map((d) => d.toLowerCase()));
+  const allDomains = latest?.top_domains || [];
+  const suspected = new Set(
+    allDomains.filter((d) => isLikelySpamDomain(d.domain, d.authority, d.backlinks)).map((d) => d.domain.toLowerCase()),
+  );
+  const visibleCount = allDomains.filter((d) => !hidden.has(d.domain.toLowerCase())).length;
+  const hiddenCount = allDomains.length - visibleCount;
+  const rows = allDomains.filter((d) => {
+    const key = d.domain.toLowerCase();
+    if (filter === "visible") return !hidden.has(key);
+    if (filter === "hidden") return hidden.has(key);
+    if (filter === "suspected") return suspected.has(key);
+    return true;
+  });
+
+  const hideAllSuspected = () => saveHidden(Array.from(new Set([...hidden, ...suspected])));
+  const showAll = () => saveHidden([]);
 
   return (
     <div className="space-y-6">
@@ -217,6 +237,34 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
             </Card>
           )}
 
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {([
+                ["all", `Alla (${allDomains.length})`],
+                ["visible", `Visas publikt (${visibleCount})`],
+                ["hidden", `Dolda (${hiddenCount})`],
+                ["suspected", `Misstänkt skräp (${suspected.size})`],
+              ] as const).map(([key, label]) => (
+                <Button
+                  key={key}
+                  size="sm"
+                  variant={filter === key ? "default" : "outline"}
+                  onClick={() => setFilter(key)}
+                >
+                  {label}
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button size="sm" variant="outline" disabled={savingHidden || suspected.size === 0} onClick={hideAllSuspected}>
+                Dölj alla misstänkta
+              </Button>
+              <Button size="sm" variant="ghost" disabled={savingHidden || hiddenCount === 0} onClick={showAll}>
+                Återställ alla
+              </Button>
+            </div>
+          </div>
+
           <Card>
             <CardContent className="p-0">
               <Table>
@@ -229,11 +277,19 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {(latest.top_domains || []).map((d) => {
+                  {rows.map((d) => {
                     const isHidden = hidden.has(d.domain.toLowerCase());
+                    const isSuspected = suspected.has(d.domain.toLowerCase());
                     return (
                       <TableRow key={d.domain}>
-                        <TableCell className="font-medium">{d.domain}</TableCell>
+                        <TableCell className="font-medium">
+                          <span className="mr-2">{d.domain}</span>
+                          {isSuspected && (
+                            <Badge variant="destructive" className="align-middle">
+                              Misstänkt skräp
+                            </Badge>
+                          )}
+                        </TableCell>
                         <TableCell className="text-right tabular-nums">
                           {d.authority === null ? "–" : Math.round(d.authority)}
                         </TableCell>
