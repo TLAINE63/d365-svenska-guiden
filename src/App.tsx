@@ -119,6 +119,7 @@ const TackNedladdning = lazy(() => import("./pages/TackNedladdning"));
 const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Friskrivning = lazy(() => import("./pages/Friskrivning"));
+const Backlankar = lazy(() => import("./pages/Backlankar"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalculator"));
