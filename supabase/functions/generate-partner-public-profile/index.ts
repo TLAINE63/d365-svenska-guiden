@@ -138,6 +138,23 @@ function cleanTitle(raw: string, url: string): string {
   return decodeURIComponent(last).replace(/[-_]+/g, " ").slice(0, 200);
 }
 
+/** Registrerbar domän utan www, för att avgöra om en träff hör till partnern. */
+function rootDomain(input: string): string | null {
+  try {
+    const host = new URL(/^https?:\/\//i.test(input) ? input : `https://${input}`).hostname.toLowerCase();
+    return host.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+}
+
+function isSameSite(url: string, siteRoot: string | null): boolean {
+  if (!siteRoot) return false;
+  const host = rootDomain(url);
+  if (!host) return false;
+  return host === siteRoot || host.endsWith(`.${siteRoot}`);
+}
+
 function dateFromText(text: string): string | null {
   const iso = text.match(/(20\d{2})-(\d{2})-(\d{2})/);
   if (iso) return iso[0];
@@ -164,6 +181,7 @@ async function discoverPublicContent(name: string, website: string | null): Prom
   };
 
   const asArray = (x: unknown): any[] => (Array.isArray(x) ? x : []);
+  const siteRoot = website ? rootDomain(website) : null;
 
   if (website) {
     try {
@@ -174,8 +192,10 @@ async function discoverPublicContent(name: string, website: string | null): Prom
         ...asArray(mapped?.data),
       ];
       for (const l of links) {
+        const url = typeof l === "string" ? l : l && typeof l === "object" ? l.url : null;
+        if (!url || !isSameSite(url, siteRoot)) continue;
         if (typeof l === "string") add(l, "", null);
-        else if (l && typeof l === "object") add(l.url, l.title || l.description || "", null, l.description);
+        else add(l.url, l.title || l.description || "", null, l.description);
       }
     } catch (e) {
       console.error("map failed:", e instanceof Error ? e.message : e);
@@ -198,6 +218,9 @@ async function discoverPublicContent(name: string, website: string | null): Prom
       ];
       for (const r of rows) {
         if (!r?.url) continue;
+        // Endast träffar på partnerns egen domän får tas med, annars kan
+        // konkurrenters sidor visas som partnerns eget innehåll.
+        if (!isSameSite(r.url, siteRoot)) continue;
         add(r.url, r.title || "", null, r.description || r.snippet || "");
       }
     } catch (e) {
@@ -329,34 +352,48 @@ async function generate(
   samples: string[],
   apiKey: string,
 ) {
-  const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
-        },
-        { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
-      ],
-    }),
-  });
+  const callOnce = async (): Promise<string> => {
+    const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash",
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "system",
+            content:
+              "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
+          },
+          { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
+        ],
+      }),
+    });
 
-  if (resp.status === 429) throw new Error("RATE_LIMIT");
-  if (resp.status === 402) throw new Error("PAYMENT_REQUIRED");
-  if (!resp.ok) {
-    console.error("AI gateway error:", resp.status, await resp.text());
-    throw new Error("AI_GATEWAY_ERROR");
+    if (resp.status === 429) throw new Error("RATE_LIMIT");
+    if (resp.status === 402) throw new Error("PAYMENT_REQUIRED");
+    if (!resp.ok) {
+      const body = await resp.text();
+      console.error("AI gateway error:", resp.status, body);
+      throw new Error(`AI_GATEWAY_ERROR: ${resp.status} ${body.slice(0, 300)}`);
+    }
+
+    const data = await resp.json();
+    const text = data?.choices?.[0]?.message?.content?.trim();
+    if (!text) throw new Error("EMPTY_RESPONSE");
+    return text;
+  };
+
+  let parsed: any;
+  try {
+    parsed = parseJsonLoose(await callOnce());
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    if (msg === "RATE_LIMIT" || msg === "PAYMENT_REQUIRED") throw e;
+    console.error("Första AI-försöket misslyckades, gör ett nytt försök:", msg);
+    parsed = parseJsonLoose(await callOnce());
   }
 
-  const data = await resp.json();
-  const text = data?.choices?.[0]?.message?.content?.trim();
-  if (!text) throw new Error("EMPTY_RESPONSE");
-
-  const parsed = parseJsonLoose(text);
   const toArray = (v: unknown, max: number): string[] =>
     Array.isArray(v)
       ? Array.from(new Set(v.map((x) => String(x).replace(/—/g, ",").trim()).filter(Boolean))).slice(0, max)
@@ -570,8 +607,13 @@ serve(async (req: Request): Promise<Response> => {
       { headers: { "Content-Type": "application/json", ...corsHeaders } },
     );
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    console.error("generate-partner-public-profile error:", msg);
+    const msg =
+      e instanceof Error
+        ? e.message
+        : e && typeof e === "object" && "message" in e
+        ? String((e as { message: unknown }).message)
+        : "Unknown error";
+    console.error("generate-partner-public-profile error:", msg, e);
     const status = msg === "RATE_LIMIT" ? 429 : msg === "PAYMENT_REQUIRED" ? 402 : 500;
     return new Response(JSON.stringify({ error: msg }), {
       status,
