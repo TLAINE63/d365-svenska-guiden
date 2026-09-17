@@ -131,6 +131,30 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
     }
   };
 
+  const saveHidden = async (next: string[]) => {
+    if (!token || !latest) return;
+    setSavingHidden(true);
+    try {
+      const res = await fetch(`${baseUrl}?action=hide`, {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({ id: latest.id, hidden_domains: next }),
+      });
+      if (res.status === 401) return onSessionExpired();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Kunde inte spara");
+      setSnapshots((prev) => prev.map((s) => (s.id === latest.id ? { ...s, hidden_domains: next } : s)));
+    } catch (e) {
+      toast({
+        title: "Kunde inte spara",
+        description: e instanceof Error ? e.message : "Okänt fel",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingHidden(false);
+    }
+  };
+
   const series = useMemo(
     () =>
       [...snapshots]
