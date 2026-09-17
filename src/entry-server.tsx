@@ -303,6 +303,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365contactcenter/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/partnernytt', priority: '0.7', changefreq: 'weekly' },
   { path: '/friskrivning', priority: '0.3', changefreq: 'yearly' },
+  { path: '/lankar-till-d365', priority: '0.4', changefreq: 'monthly' },
   { path: '/jamfor-partners', priority: '0.7', changefreq: 'weekly' },
   { path: '/jamfor', priority: '0.7', changefreq: 'monthly' },
   ...PRODUCT_COMPARISONS.map((c) => ({
