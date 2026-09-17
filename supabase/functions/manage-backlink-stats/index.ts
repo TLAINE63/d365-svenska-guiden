@@ -302,7 +302,15 @@ serve(async (req: Request): Promise<Response> => {
         follows: num(pick(o, ["follows_num"])),
         nofollows: num(pick(o, ["nofollows_num"])),
         top_domains: topDomains,
-        hidden_domains: prev?.hidden_domains || [],
+        hidden_domains: (() => {
+          const keep = new Set(
+            (prev?.hidden_domains || []).map((d: string) => String(d).toLowerCase().trim()).filter(Boolean),
+          );
+          for (const d of topDomains) {
+            if (isLikelySpam(d.domain, d.authority, d.backlinks)) keep.add(String(d.domain).toLowerCase());
+          }
+          return Array.from(keep).slice(0, 200);
+        })(),
       };
 
       const { data: inserted, error: insErr } = await supabase
