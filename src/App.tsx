@@ -357,6 +357,7 @@ const AppShell = () => {
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           <Route path="/friskrivning" element={<Friskrivning />} />
+          <Route path="/lankar-till-d365" element={<Backlankar />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
           <Route path="/isv-profil/:token" element={<IsvProfile />} />
