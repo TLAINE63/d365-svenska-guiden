@@ -38,20 +38,24 @@ async function verifyJWT(token: string, secret: string): Promise<boolean> {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    return payload.role === "admin" || payload.role === "editor";
   } catch { return false; }
 }
 
 const PRODUCT_AREA = z.enum(["business-central","finance-scm","crm-sales","crm-service","crm","power-platform","microsoft-ai","ovrigt"]);
 const FeedSchema = z.object({
   id: z.string().uuid().optional(),
-  partner_id: z.string().uuid(),
+  partner_id: z.string().uuid().nullable().optional(),
+  source_org: z.enum(["partner", "microsoft"]).default("partner"),
   feed_url: z.string().trim().url().max(1000),
   feed_type: z.enum(["rss","atom"]).default("rss"),
   source_type: z.enum(["linkedin","webinar","blog","press","partner_web","event","other"]).default("linkedin"),
   default_news_type: z.enum(["kundcase","event","webinar","erbjudande","artikel","rapport","branschlosning","produktnyhet","partnernyhet","analys"]).default("partnernyhet"),
   default_product_areas: z.array(PRODUCT_AREA).min(1).max(8).default(["ovrigt"]),
   is_active: z.boolean().default(true),
+}).refine((v) => v.source_org === "microsoft" || !!v.partner_id, {
+  message: "Partner krävs för partnerflöden",
+  path: ["partner_id"],
 });
 
 serve(async (req) => {
