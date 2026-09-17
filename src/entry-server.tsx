@@ -90,6 +90,7 @@ import BcIsvCategoryPage from './pages/BcIsvCategoryPage';
 import { BC_CATEGORY_PAGES } from './data/bcIsvCategoryPages';
 import Partnernytt from './pages/Partnernytt';
 import Friskrivning from './pages/Friskrivning';
+import Backlankar from './pages/Backlankar';
 import ComparePartners from './pages/ComparePartners';
 import ErpComparisonsHub from './pages/ErpComparisonsHub';
 import ErpComparisonPage from './pages/ErpComparisonPage';
