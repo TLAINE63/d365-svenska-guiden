@@ -138,6 +138,23 @@ function cleanTitle(raw: string, url: string): string {
   return decodeURIComponent(last).replace(/[-_]+/g, " ").slice(0, 200);
 }
 
+/** Registrerbar domän utan www, för att avgöra om en träff hör till partnern. */
+function rootDomain(input: string): string | null {
+  try {
+    const host = new URL(/^https?:\/\//i.test(input) ? input : `https://${input}`).hostname.toLowerCase();
+    return host.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+}
+
+function isSameSite(url: string, siteRoot: string | null): boolean {
+  if (!siteRoot) return false;
+  const host = rootDomain(url);
+  if (!host) return false;
+  return host === siteRoot || host.endsWith(`.${siteRoot}`);
+}
+
 function dateFromText(text: string): string | null {
   const iso = text.match(/(20\d{2})-(\d{2})-(\d{2})/);
   if (iso) return iso[0];
