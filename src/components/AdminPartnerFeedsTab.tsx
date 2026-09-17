@@ -13,7 +13,8 @@ import { Loader2, Play, Plus, Rss, Trash2 } from "lucide-react";
 type PartnerLite = { id: string; name: string; slug: string };
 type Feed = {
   id: string;
-  partner_id: string;
+  partner_id: string | null;
+  source_org?: "partner" | "microsoft";
   feed_url: string;
   feed_type: string;
   source_type: string;
@@ -81,7 +82,8 @@ export default function AdminPartnerFeedsTab({ token, partners, onSessionExpired
     try {
       await call("create", {
         feed: {
-          partner_id: form.partner_id,
+          source_org: form.partner_id === "microsoft" ? "microsoft" : "partner",
+          partner_id: form.partner_id === "microsoft" ? null : form.partner_id,
           feed_url: form.feed_url,
           feed_type: "rss",
           source_type: form.source_type,
@@ -140,10 +142,13 @@ export default function AdminPartnerFeedsTab({ token, partners, onSessionExpired
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
             <div>
-              <Label>Partner</Label>
+              <Label>Avsändare</Label>
               <Select value={form.partner_id} onValueChange={(v) => setForm({ ...form, partner_id: v })}>
-                <SelectTrigger><SelectValue placeholder="Välj partner" /></SelectTrigger>
-                <SelectContent>{sortedPartners.map((p) => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}</SelectContent>
+                <SelectTrigger><SelectValue placeholder="Välj avsändare" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="microsoft">Microsoft (ingen partner)</SelectItem>
+                  {sortedPartners.map((p) => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                </SelectContent>
               </Select>
             </div>
             <div>
@@ -192,7 +197,9 @@ export default function AdminPartnerFeedsTab({ token, partners, onSessionExpired
                 <div key={f.id} className="border rounded-lg p-3 flex flex-col md:flex-row md:items-center gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-medium">{f.partners?.name ?? "Okänd partner"}</span>
+                      <span className="font-medium">
+                        {f.source_org === "microsoft" ? "Microsoft" : (f.partners?.name ?? "Okänd partner")}
+                      </span>
                       <Badge variant="outline">{f.source_type}</Badge>
                       <Badge variant="outline">{f.default_news_type}</Badge>
                       <Badge variant="outline">{f.default_product_areas.join(", ")}</Badge>

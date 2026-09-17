@@ -56,6 +56,7 @@ const STATUS_STYLE: Record<PartnerNewsStatus, string> = {
 
 type FormState = {
   id?: string;
+  source_org: "partner" | "microsoft";
   partner_id: string;
   editorial_title: string;
   summary: string;
@@ -77,6 +78,7 @@ type FormState = {
 };
 
 const emptyForm = (partnerId: string): FormState => ({
+  source_org: "partner",
   partner_id: partnerId,
   editorial_title: "",
   summary: "",
@@ -175,7 +177,9 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       if (statusFilter === "queue") {
         if (i.status !== "draft" && i.status !== "review") return false;
       } else if (statusFilter !== "all" && i.status !== statusFilter) return false;
-      if (partnerFilter !== "all" && i.partner_id !== partnerFilter) return false;
+      if (partnerFilter === "microsoft") {
+        if (i.source_org !== "microsoft") return false;
+      } else if (partnerFilter !== "all" && i.partner_id !== partnerFilter) return false;
       return true;
     });
   }, [items, statusFilter, partnerFilter]);
@@ -187,7 +191,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
 
   const setType = async (item: PartnerNewsItem, news_type: PartnerNewsType) => {
     try {
-      await invoke("update", { news: { id: item.id, partner_id: item.partner_id, editorial_title: item.editorial_title, summary: item.summary, source_url: item.source_url, source_type: item.source_type, product_area: item.product_area, news_type, industry: item.industry ?? undefined, image_url: item.image_url ?? undefined, news_date: item.news_date, is_featured: item.is_featured, show_on_home: item.show_on_home, show_on_partner_profile: item.show_on_partner_profile, show_on_product_page: item.show_on_product_page, status: item.status } });
+      await invoke("update", { news: { id: item.id, source_org: item.source_org ?? "partner", partner_id: item.partner_id, editorial_title: item.editorial_title, summary: item.summary, source_url: item.source_url, source_type: item.source_type, product_area: item.product_area, news_type, industry: item.industry ?? undefined, image_url: item.image_url ?? undefined, news_date: item.news_date, is_featured: item.is_featured, show_on_home: item.show_on_home, show_on_partner_profile: item.show_on_partner_profile, show_on_product_page: item.show_on_product_page, status: item.status } });
       toast({ title: "Typ uppdaterad", description: partnerNewsTypeLabel(news_type) });
       await refresh();
     } catch (err) {
@@ -302,7 +306,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   const openEdit = (item: PartnerNewsItem) => {
     setForm({
       id: item.id,
-      partner_id: item.partner_id,
+      source_org: item.source_org ?? "partner",
+      partner_id: item.partner_id ?? "",
       editorial_title: item.editorial_title,
       summary: item.summary,
       source_url: item.source_url,
@@ -323,7 +328,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
   };
 
   const save = async (statusOverride?: PartnerNewsStatus) => {
-    if (!form.partner_id) {
+    if (form.source_org === "partner" && !form.partner_id) {
       toast({ title: "Välj partner först", variant: "destructive" });
       return;
     }
@@ -331,6 +336,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     try {
       const payload = {
         ...form,
+        partner_id: form.source_org === "microsoft" ? null : form.partner_id,
         product_area: form.product_areas[0],
         status: statusOverride ?? form.status,
         industry: form.industry.trim() || undefined,
@@ -459,7 +465,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     const partner = publishedPartners.find((p) => p.id === form.partner_id);
     return {
       id: form.id ?? "preview",
-      partner_id: form.partner_id,
+      source_org: form.source_org,
+      partner_id: form.source_org === "microsoft" ? null : form.partner_id,
       editorial_title: form.editorial_title || "Redaktionell rubrik",
       summary: form.summary || "Kort sammanfattning kommer att visas här.",
       source_url: form.source_url || "https://example.com",
@@ -479,7 +486,9 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       published_at: null,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      partner: partner ? { id: partner.id, name: partner.name, slug: partner.slug, logo_url: partner.logo_url ?? null } : null,
+      partner: form.source_org === "microsoft" || !partner
+        ? null
+        : { id: partner.id, name: partner.name, slug: partner.slug, logo_url: partner.logo_url ?? null },
     };
   }, [form, publishedPartners]);
 
@@ -556,7 +565,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <Select value={partnerFilter} onValueChange={setPartnerFilter}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Alla partners</SelectItem>
+                  <SelectItem value="all">Alla avsändare</SelectItem>
+                  <SelectItem value="microsoft">Microsoft</SelectItem>
                   {publishedPartners.map((p) => (
                     <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
                   ))}
@@ -604,7 +614,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
                         <Badge variant="outline" className="text-[11px]">Automatiskt inhämtad</Badge>
                       )}
                       <span className="text-xs text-muted-foreground">
-                        {item.partner?.name ?? "–"} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
+                        {item.source_org === "microsoft" ? "Microsoft" : (item.partner?.name ?? "–")} · {item.news_date} · {partnerNewsTypeLabel(item.news_type)} · {partnerNewsProductLabel(item.product_area)} · {partnerNewsSourceLabel(item.source_type)}
                       </span>
                     </div>
 
@@ -681,16 +691,31 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label>Partner</Label>
-              <Select value={form.partner_id} onValueChange={(v) => setForm({ ...form, partner_id: v })}>
-                <SelectTrigger><SelectValue placeholder="Välj partner" /></SelectTrigger>
+              <Label>Avsändare</Label>
+              <Select
+                value={form.source_org}
+                onValueChange={(v) => setForm({ ...form, source_org: v as "partner" | "microsoft" })}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  {publishedPartners.map((p) => (
-                    <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
-                  ))}
+                  <SelectItem value="partner">Partner</SelectItem>
+                  <SelectItem value="microsoft">Microsoft</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+            {form.source_org === "partner" && (
+              <div>
+                <Label>Partner</Label>
+                <Select value={form.partner_id} onValueChange={(v) => setForm({ ...form, partner_id: v })}>
+                  <SelectTrigger><SelectValue placeholder="Välj partner" /></SelectTrigger>
+                  <SelectContent>
+                    {publishedPartners.map((p) => (
+                      <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
             <div>
               <Label>Publiceringsdatum</Label>
               <Input type="date" value={form.news_date} onChange={(e) => setForm({ ...form, news_date: e.target.value })} />

@@ -8,7 +8,8 @@ export type PartnerNewsType = "kundcase" | "event" | "webinar" | "erbjudande" | 
 
 export interface PartnerNewsItem {
   id: string;
-  partner_id: string;
+  partner_id: string | null;
+  source_org: "partner" | "microsoft";
   editorial_title: string;
   summary: string;
   source_url: string;
@@ -33,6 +34,7 @@ export interface PartnerNewsItem {
 
 interface UsePublishedPartnerNewsOpts {
   partnerId?: string;
+  sourceOrg?: "partner" | "microsoft";
   productArea?: PartnerNewsProductArea;
   showOnHome?: boolean;
   showOnPartnerProfile?: boolean;
@@ -70,6 +72,7 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
         .select("*")
         .eq("status", "published");
       if (opts.partnerId) query = query.eq("partner_id", opts.partnerId);
+      if (opts.sourceOrg) query = query.eq("source_org", opts.sourceOrg);
       if (opts.productArea) query = query.contains("product_areas", [opts.productArea]);
       // Placeringsflaggorna (show_on_home / show_on_partner_profile / show_on_product_page)
       // sparas fortfarande men filtrerar inte längre – allt publicerat visas överallt.
@@ -88,7 +91,7 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
       // (partners that are not is_featured). Uses SECURITY DEFINER RPC that exposes
       // only safe fields (id, name, slug), so the "Läs mer om ..." CTA always renders.
       const missingIds = Array.from(
-        new Set(rows.filter((r) => !r.partner?.slug && r.partner_id).map((r) => r.partner_id)),
+        new Set(rows.filter((r) => !r.partner?.slug && r.partner_id).map((r) => r.partner_id as string)),
       );
       if (missingIds.length > 0) {
         try {
@@ -108,10 +111,10 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
       }
 
       const logos = await fetchPartnerLogos(
-        Array.from(new Set(rows.map((r) => r.partner_id).filter(Boolean))),
+        Array.from(new Set(rows.map((r) => r.partner_id).filter((id): id is string => !!id))),
       );
       for (const r of rows) {
-        const logo = logos.get(r.partner_id) ?? null;
+        const logo = (r.partner_id ? logos.get(r.partner_id) : null) ?? null;
         if (logo && r.partner) r.partner = { ...r.partner, logo_url: logo };
       }
       return rows;

@@ -60,7 +60,8 @@ const PRODUCT_AREA_ENUM = z.enum(["business-central", "finance-scm", "crm-sales"
 
 const NewsSchema = z.object({
   id: z.string().uuid().optional(),
-  partner_id: z.string().uuid(),
+  partner_id: z.string().uuid().nullable().optional(),
+  source_org: z.enum(["partner", "microsoft"]).default("partner"),
   editorial_title: z.string().trim().min(3).max(200),
   summary: z.string().trim().min(10).max(600),
   source_url: z.string().trim().url().max(1000).optional().nullable().or(z.literal("")),
@@ -83,6 +84,9 @@ const NewsSchema = z.object({
 }).refine((v) => (v.product_areas && v.product_areas.length > 0) || !!v.product_area, {
   message: "Minst ett produktområde krävs",
   path: ["product_areas"],
+}).refine((v) => v.source_org === "microsoft" || !!v.partner_id, {
+  message: "Partner krävs för partnernyheter",
+  path: ["partner_id"],
 });
 
 function normalizeAreas<T extends { product_area?: string; product_areas?: string[] }>(data: T): T & { product_area: string; product_areas: string[] } {
@@ -322,7 +326,7 @@ serve(async (req) => {
         const parsed = NewsSchema.safeParse(body.news);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
-        const item = { ...norm, source_url: norm.source_url || null, image_url: norm.image_url || null, industry: norm.industry || null };
+        const item = { ...norm, partner_id: norm.source_org === "microsoft" ? null : norm.partner_id, source_url: norm.source_url || null, image_url: norm.image_url || null, industry: norm.industry || null };
         if (item.status === "published" && !("published_at" in item)) {
           (item as Record<string, unknown>).published_at = new Date().toISOString();
         }
@@ -336,7 +340,7 @@ serve(async (req) => {
         if (!parsed.success || !parsed.data.id) return new Response(JSON.stringify({ error: "Valideringsfel", details: parsed.error?.flatten().fieldErrors }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         const norm = normalizeAreas(parsed.data);
         const { id, ...rest } = norm;
-        const patch: Record<string, unknown> = { ...rest, source_url: rest.source_url || null, image_url: rest.image_url || null, industry: rest.industry || null };
+        const patch: Record<string, unknown> = { ...rest, partner_id: rest.source_org === "microsoft" ? null : rest.partner_id, source_url: rest.source_url || null, image_url: rest.image_url || null, industry: rest.industry || null };
         if (rest.status === "published") {
           const { data: existing } = await supabase.from("partner_news").select("published_at").eq("id", id).maybeSingle();
           if (!existing?.published_at) patch.published_at = new Date().toISOString();

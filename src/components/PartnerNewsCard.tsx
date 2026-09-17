@@ -64,8 +64,9 @@ interface Props {
 }
 
 export default function PartnerNewsCard({ item, partnerName, partnerSlug, partnerLogoUrl, hidePartnerLink, layout = "vertical", clickSource = "other" }: Props) {
-  const name = partnerName ?? item.partner?.name ?? "";
-  const slug = partnerSlug ?? item.partner?.slug ?? "";
+  const isMicrosoft = item.source_org === "microsoft";
+  const name = isMicrosoft ? "Microsoft" : (partnerName ?? item.partner?.name ?? "");
+  const slug = isMicrosoft ? "" : (partnerSlug ?? item.partner?.slug ?? "");
   const logo = partnerLogoUrl ?? item.partner?.logo_url ?? null;
 
   const productAreasForTracking = (item.product_areas && item.product_areas.length > 0
@@ -99,6 +100,11 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
           ) : null}
           <CardContent className="flex flex-1 flex-col gap-2 p-4">
             <div className="flex flex-wrap items-center gap-1.5">
+              {isMicrosoft && (
+                <Badge variant="secondary" className="bg-[#0078D4]/10 text-[#0058a3] hover:bg-[#0078D4]/10">
+                  Microsoft
+                </Badge>
+              )}
               <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-100">
                 {TYPE_LABELS[item.news_type]}
               </Badge>
@@ -172,6 +178,11 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
       ) : null}
       <CardContent className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap items-center gap-1.5">
+          {isMicrosoft && (
+            <Badge variant="secondary" className="bg-[#0078D4]/10 text-[#0058a3] hover:bg-[#0078D4]/10">
+              Microsoft
+            </Badge>
+          )}
           <Badge variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-100">
             {TYPE_LABELS[item.news_type]}
           </Badge>
