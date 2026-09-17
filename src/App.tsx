@@ -119,6 +119,7 @@ const TackNedladdning = lazy(() => import("./pages/TackNedladdning"));
 const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const Friskrivning = lazy(() => import("./pages/Friskrivning"));
+const Backlankar = lazy(() => import("./pages/Backlankar"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
 const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalculator"));
@@ -356,6 +357,7 @@ const AppShell = () => {
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           <Route path="/friskrivning" element={<Friskrivning />} />
+          <Route path="/lankar-till-d365" element={<Backlankar />} />
           <Route path="/jamfor-partners" element={<ComparePartners />} />
           <Route path="/compare/:slug" element={<IsvCompare />} />
           <Route path="/isv-profil/:token" element={<IsvProfile />} />

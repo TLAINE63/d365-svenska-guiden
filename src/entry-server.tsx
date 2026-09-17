@@ -90,6 +90,7 @@ import BcIsvCategoryPage from './pages/BcIsvCategoryPage';
 import { BC_CATEGORY_PAGES } from './data/bcIsvCategoryPages';
 import Partnernytt from './pages/Partnernytt';
 import Friskrivning from './pages/Friskrivning';
+import Backlankar from './pages/Backlankar';
 import ComparePartners from './pages/ComparePartners';
 import ErpComparisonsHub from './pages/ErpComparisonsHub';
 import ErpComparisonPage from './pages/ErpComparisonPage';
@@ -302,6 +303,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365contactcenter/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/partnernytt', priority: '0.7', changefreq: 'weekly' },
   { path: '/friskrivning', priority: '0.3', changefreq: 'yearly' },
+  { path: '/lankar-till-d365', priority: '0.4', changefreq: 'monthly' },
   { path: '/jamfor-partners', priority: '0.7', changefreq: 'weekly' },
   { path: '/jamfor', priority: '0.7', changefreq: 'monthly' },
   ...PRODUCT_COMPARISONS.map((c) => ({
@@ -603,6 +605,7 @@ export function render(url: string) {
               <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
+              <Route path="/lankar-till-d365" element={<Backlankar />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />
               <Route path="/jamfor" element={<ErpComparisonsHub />} />
               <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />

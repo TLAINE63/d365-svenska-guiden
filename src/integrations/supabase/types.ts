@@ -2786,6 +2786,51 @@ export type Database = {
         }
         Relationships: []
       }
+      site_backlink_snapshots: {
+        Row: {
+          authority_score: number | null
+          backlinks: number | null
+          captured_at: string
+          created_at: string
+          domain: string
+          follows: number | null
+          hidden_domains: string[]
+          id: string
+          nofollows: number | null
+          referring_domains: number | null
+          top_domains: Json
+          updated_at: string
+        }
+        Insert: {
+          authority_score?: number | null
+          backlinks?: number | null
+          captured_at?: string
+          created_at?: string
+          domain?: string
+          follows?: number | null
+          hidden_domains?: string[]
+          id?: string
+          nofollows?: number | null
+          referring_domains?: number | null
+          top_domains?: Json
+          updated_at?: string
+        }
+        Update: {
+          authority_score?: number | null
+          backlinks?: number | null
+          captured_at?: string
+          created_at?: string
+          domain?: string
+          follows?: number | null
+          hidden_domains?: string[]
+          id?: string
+          nofollows?: number | null
+          referring_domains?: number | null
+          top_domains?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string

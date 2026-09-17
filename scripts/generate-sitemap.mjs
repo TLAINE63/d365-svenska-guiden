@@ -117,6 +117,7 @@ const STATIC_ROUTES = [
   { path: "/jamfor/", changefreq: "monthly", priority: "0.7" },
   { path: "/dataskydd/", changefreq: "yearly", priority: "0.5" },
   { path: "/friskrivning/", changefreq: "yearly", priority: "0.5" },
+  { path: "/lankar-till-d365/", changefreq: "monthly", priority: "0.4" },
 ];
 
 function readText(p) {
