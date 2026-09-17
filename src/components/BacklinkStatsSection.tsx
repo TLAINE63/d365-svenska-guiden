@@ -26,11 +26,12 @@ export function useBacklinkSnapshot() {
     let active = true;
     (async () => {
       try {
-        const { data, error } = await supabase.functions.invoke("manage-backlink-stats?action=public", {
-          method: "GET",
-        });
-        if (error) throw error;
-        if (active) setSnapshot((data as { snapshot: BacklinkSnapshot | null })?.snapshot ?? null);
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-backlink-stats?action=public`,
+          { headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY } },
+        );
+        const data = (await res.json()) as { snapshot: BacklinkSnapshot | null };
+        if (active) setSnapshot(data?.snapshot ?? null);
       } catch {
         if (active) setSnapshot(null);
       } finally {
