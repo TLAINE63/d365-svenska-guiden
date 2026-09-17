@@ -114,6 +114,9 @@ export default function BacklinkStatsSection({ variant = "full" }: Props) {
               </div>
             ))}
           </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Listan visar utvalda länkande webbplatser. Domäner som bedöms vara skräp eller länknätverk visas inte.
+          </p>
         </div>
       )}
     </div>
