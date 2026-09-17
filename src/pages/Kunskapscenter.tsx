@@ -29,6 +29,7 @@ import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 import PriceListSection from "@/components/PriceListSection";
+import MicrosoftNewsSection from "@/components/MicrosoftNewsSection";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { Card, CardContent } from "@/components/ui/card";
