@@ -287,7 +287,7 @@ serve(async (req: Request): Promise<Response> => {
       // Behåll dolda domäner från den föregående ögonblicksbilden.
       const { data: prev } = await supabase
         .from("site_backlink_snapshots")
-        .select("hidden_domains")
+        .select("hidden_domains, top_domains")
         .eq("domain", domain)
         .order("captured_at", { ascending: false })
         .limit(1)
@@ -306,8 +306,15 @@ serve(async (req: Request): Promise<Response> => {
           const keep = new Set(
             (prev?.hidden_domains || []).map((d: string) => String(d).toLowerCase().trim()).filter(Boolean),
           );
+          // Auto-dölj bara nya domäner, så manuella val från förra gången respekteras.
+          const seen = new Set(
+            (Array.isArray(prev?.top_domains) ? prev!.top_domains : []).map((d: { domain?: string }) =>
+              String(d?.domain || "").toLowerCase(),
+            ),
+          );
           for (const d of topDomains) {
-            if (isLikelySpam(d.domain, d.authority, d.backlinks)) keep.add(String(d.domain).toLowerCase());
+            const key = String(d.domain).toLowerCase();
+            if (!seen.has(key) && isLikelySpam(d.domain, d.authority, d.backlinks)) keep.add(key);
           }
           return Array.from(keep).slice(0, 200);
         })(),
