@@ -101,34 +101,12 @@ export default function RedaktionBacklinksTab({ token, onSessionExpired }: Props
   };
 
   const toggleHidden = async (domain: string) => {
-    if (!token || !latest) return;
+    if (!latest) return;
     const current = new Set((latest.hidden_domains || []).map((d) => d.toLowerCase()));
     const key = domain.toLowerCase();
     if (current.has(key)) current.delete(key);
     else current.add(key);
-
-    setSavingHidden(true);
-    try {
-      const res = await fetch(`${baseUrl}?action=hide`, {
-        method: "POST",
-        headers: headers(),
-        body: JSON.stringify({ id: latest.id, hidden_domains: Array.from(current) }),
-      });
-      if (res.status === 401) return onSessionExpired();
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Kunde inte spara");
-      setSnapshots((prev) =>
-        prev.map((s) => (s.id === latest.id ? { ...s, hidden_domains: Array.from(current) } : s)),
-      );
-    } catch (e) {
-      toast({
-        title: "Kunde inte spara",
-        description: e instanceof Error ? e.message : "Okänt fel",
-        variant: "destructive",
-      });
-    } finally {
-      setSavingHidden(false);
-    }
+    await saveHidden(Array.from(current));
   };
 
   const saveHidden = async (next: string[]) => {
