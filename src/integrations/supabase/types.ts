@@ -1480,7 +1480,8 @@ export type Database = {
           last_error: string | null
           last_fetched_at: string | null
           last_success_at: string | null
-          partner_id: string
+          partner_id: string | null
+          source_org: string
           source_type: string
           updated_at: string
         }
@@ -1496,7 +1497,8 @@ export type Database = {
           last_error?: string | null
           last_fetched_at?: string | null
           last_success_at?: string | null
-          partner_id: string
+          partner_id?: string | null
+          source_org?: string
           source_type?: string
           updated_at?: string
         }
@@ -1512,7 +1514,8 @@ export type Database = {
           last_error?: string | null
           last_fetched_at?: string | null
           last_success_at?: string | null
-          partner_id?: string
+          partner_id?: string | null
+          source_org?: string
           source_type?: string
           updated_at?: string
         }
@@ -1652,7 +1655,7 @@ export type Database = {
           is_featured: boolean
           news_date: string
           news_type: string
-          partner_id: string
+          partner_id: string | null
           product_area: string
           product_areas: string[]
           published_at: string | null
@@ -1661,6 +1664,7 @@ export type Database = {
           show_on_product_page: boolean
           source_feed_id: string | null
           source_guid: string | null
+          source_org: string
           source_type: string
           source_url: string
           status: string
@@ -1679,7 +1683,7 @@ export type Database = {
           is_featured?: boolean
           news_date?: string
           news_type?: string
-          partner_id: string
+          partner_id?: string | null
           product_area?: string
           product_areas?: string[]
           published_at?: string | null
@@ -1688,6 +1692,7 @@ export type Database = {
           show_on_product_page?: boolean
           source_feed_id?: string | null
           source_guid?: string | null
+          source_org?: string
           source_type?: string
           source_url: string
           status?: string
@@ -1706,7 +1711,7 @@ export type Database = {
           is_featured?: boolean
           news_date?: string
           news_type?: string
-          partner_id?: string
+          partner_id?: string | null
           product_area?: string
           product_areas?: string[]
           published_at?: string | null
@@ -1715,6 +1720,7 @@ export type Database = {
           show_on_product_page?: boolean
           source_feed_id?: string | null
           source_guid?: string | null
+          source_org?: string
           source_type?: string
           source_url?: string
           status?: string
