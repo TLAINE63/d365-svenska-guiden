@@ -42,6 +42,16 @@ function decodeEntities(s: string): string {
 function stripHtml(s: string): string {
   return decodeEntities(s.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
 }
+/** Städar bort WordPress-svans ("The post ... appeared first on ...") och CDATA-rester,
+ *  samt långa tankstreck som inte används i redaktionell text på d365.se. */
+function cleanText(s: string): string {
+  return s
+    .replace(/\]\]>/g, " ")
+    .replace(/The post[\s\S]*?appeared first on[^.]*\.?/gi, " ")
+    .replace(/[—–]/g, ",")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 function tag(block: string, name: string): string | null {
   const re = new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`, "i");
   const m = block.match(re);
@@ -115,8 +125,8 @@ async function processFeed(supabase: ReturnType<typeof createClient>, feed: Feed
       const { data: existing } = await dedupe.maybeSingle();
       if (existing) { skipped++; continue; }
 
-      const editorial_title = it.title.slice(0, 200);
-      const summary = (it.summary || it.title).slice(0, 600) || "Automatiskt inhämtat inlägg – redigera sammanfattning.";
+      const editorial_title = cleanText(it.title).slice(0, 200);
+      const summary = cleanText(it.summary || it.title).slice(0, 600) || "Automatiskt inhämtat inlägg – redigera sammanfattning.";
       const payload = {
         partner_id: isMicrosoft ? null : feed.partner_id,
         source_org: isMicrosoft ? "microsoft" : "partner",
