@@ -871,6 +871,9 @@ const Kunskapscenter = () => {
  </div>
  </section>
 
+ <MicrosoftNewsSection />
+
+
  {/* Innehållsspår – kuraterade tracks genom kunskapscentret */}
  <section className="border-b border-border bg-[hsl(var(--bg-card))]">
   <div className="container mx-auto px-4 py-8">
