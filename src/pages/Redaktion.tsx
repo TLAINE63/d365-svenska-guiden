@@ -12,6 +12,7 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
+import RedaktionBacklinksTab from "@/components/RedaktionBacklinksTab";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
