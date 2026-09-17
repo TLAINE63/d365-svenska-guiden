@@ -79,10 +79,12 @@ function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number })
           {item.editorial_title}
         </h3>
         <div className="mt-auto pt-3 border-t border-border flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          {partner?.name && (
+          {item.source_org === "microsoft" ? (
+            <span className="font-medium text-[#0058a3]">Microsoft</span>
+          ) : partner?.name ? (
             <span className="font-medium text-foreground">{partner.name}</span>
-          )}
-          {partner?.name && <span aria-hidden>·</span>}
+          ) : null}
+          {(item.source_org === "microsoft" || partner?.name) && <span aria-hidden>·</span>}
           <span>{formatDate(item.news_date)}</span>
         </div>
       </div>
@@ -114,7 +116,7 @@ export default function HomePartnerNewsSection() {
                 Aktuellt från Dynamics 365-partners
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Redaktionellt utvalda nyheter, kundcase och event från publicerade partners på d365.se.
+                Redaktionellt utvalda nyheter, kundcase och event från publicerade partners, samt produktnyheter från Microsoft.
               </p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">

@@ -91,7 +91,7 @@ export function usePublishedPartnerNews(opts: UsePublishedPartnerNewsOpts = {}) 
       // (partners that are not is_featured). Uses SECURITY DEFINER RPC that exposes
       // only safe fields (id, name, slug), so the "Läs mer om ..." CTA always renders.
       const missingIds = Array.from(
-        new Set(rows.filter((r) => !r.partner?.slug && r.partner_id).map((r) => r.partner_id)),
+        new Set(rows.filter((r) => !r.partner?.slug && r.partner_id).map((r) => r.partner_id as string)),
       );
       if (missingIds.length > 0) {
         try {
