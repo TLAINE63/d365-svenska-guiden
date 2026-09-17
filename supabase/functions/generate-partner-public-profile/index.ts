@@ -181,6 +181,7 @@ async function discoverPublicContent(name: string, website: string | null): Prom
   };
 
   const asArray = (x: unknown): any[] => (Array.isArray(x) ? x : []);
+  const siteRoot = website ? rootDomain(website) : null;
 
   if (website) {
     try {
