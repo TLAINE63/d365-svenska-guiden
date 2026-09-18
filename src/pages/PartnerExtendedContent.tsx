@@ -30,7 +30,6 @@ const PartnerExtendedContent = () => {
   }
 
   const extended = ((partner as any).extended_content as string | null) || "";
-  const updatedAt = (partner as any).extended_content_updated_at as string | null;
 
   // No content yet → send crawlers/users back to the main profile
   if (!extended.trim()) {
@@ -48,31 +47,6 @@ const PartnerExtendedContent = () => {
     `Fördjupning om ${partner.name} som Microsoft Dynamics 365-partner: bakgrund, styrkor, arbetssätt och referenser.`,
   ]);
 
-  const canonicalUrl = `https://d365.se/partner/${partner.slug}/fordjupning/`;
-  const publishedIso = updatedAt || new Date().toISOString();
-  const partnerWebsite = (partner as any).website as string | undefined;
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Hem", item: "https://d365.se/" },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Alla D365-partners",
-        item: "https://d365.se/alla-d365-partners/",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: partner.name,
-        item: `https://d365.se/partner/${partner.slug}/`,
-      },
-      { "@type": "ListItem", position: 4, name: "Fördjupning", item: canonicalUrl },
-    ],
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -89,8 +63,6 @@ const PartnerExtendedContent = () => {
         ogImage={partner.logo_url || undefined}
         ogImageAlt={`${partner.name} – fördjupning om Microsoft Dynamics 365-partner`}
         ogType="article"
-        articlePublishedTime={publishedIso}
-        articleModifiedTime={publishedIso}
         articleAuthor="d365.se"
         articleSection="Partnerfördjupning"
         articleTags={[
