@@ -1,21 +1,16 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { usePartner } from "@/hooks/usePartners";
 import { buildMetaTitle } from "@/lib/metaTitle";
-import { buildMetaDescription } from "@/lib/metaDescription";
 
 /**
  * Per-partner deep-dive page.
  *
- * The `extended_content` text is an AI-aggregated research summary from
- * public sources. It is used internally by the on-site AI matching and
- * is exposed to search engines / AI crawlers via JSON-LD structured
- * data (articleBody) for SEO/AIO purposes only – it is NOT rendered
- * as visible body text to users.
+ * `extended_content` är ett internt researchunderlag. Det får inte exponeras
+ * för besökare eller sökmotorer innan innehållet har granskats redaktionellt.
  */
 const PartnerExtendedContent = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -34,85 +29,18 @@ const PartnerExtendedContent = () => {
   }
 
   const extended = ((partner as any).extended_content as string | null) || "";
-  const updatedAt = (partner as any).extended_content_updated_at as string | null;
 
   // No content yet → send crawlers/users back to the main profile
   if (!extended.trim()) {
     return <Navigate to={`/partner/${partner.slug}/`} replace />;
   }
 
-  const paragraphs = extended
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-
   const seoTitle = buildMetaTitle({
     baseTitle: `${partner.name} – fördjupning & bakgrund`,
     primaryKeyword: "Dynamics 365 partner",
   }).value;
 
-  const firstSentence = extended.split(/(?<=[.!?])\s/)[0] || extended.slice(0, 160);
-  const seoDescription = buildMetaDescription([
-    firstSentence,
-    `Fördjupning om ${partner.name} som Microsoft Dynamics 365-partner: bakgrund, styrkor, arbetssätt och referenser.`,
-  ]);
-
-  const canonicalUrl = `https://d365.se/partner/${partner.slug}/fordjupning/`;
-  const publishedIso = updatedAt || new Date().toISOString();
-  const partnerWebsite = (partner as any).website as string | undefined;
-
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: `${partner.name} – fördjupning & bakgrund`,
-    description: seoDescription,
-    articleBody: extended,
-    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
-    url: canonicalUrl,
-    inLanguage: "sv-SE",
-    datePublished: publishedIso,
-    dateModified: publishedIso,
-    image: partner.logo_url || "https://d365.se/og-erp.png",
-    author: { "@type": "Organization", name: "d365.se" },
-    publisher: {
-      "@type": "Organization",
-      name: "d365.se",
-      logo: { "@type": "ImageObject", url: "https://d365.se/d365-logo.svg" },
-    },
-    about: {
-      "@type": "Organization",
-      name: partner.name,
-      ...(partner.logo_url ? { logo: partner.logo_url } : {}),
-      ...(partnerWebsite ? { url: partnerWebsite } : {}),
-    },
-    keywords: [
-      partner.name,
-      "Dynamics 365 partner",
-      "Microsoft Dynamics 365",
-      ...(partner.applications || []),
-    ].join(", "),
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Hem", item: "https://d365.se/" },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Alla D365-partners",
-        item: "https://d365.se/alla-d365-partners/",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: partner.name,
-        item: `https://d365.se/partner/${partner.slug}/`,
-      },
-      { "@type": "ListItem", position: 4, name: "Fördjupning", item: canonicalUrl },
-    ],
-  };
+  const seoDescription = `Läs den publicerade profilen för ${partner.name} och se uppgifter om kompetenser, branscher, referenser och kontaktvägar.`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -130,8 +58,6 @@ const PartnerExtendedContent = () => {
         ogImage={partner.logo_url || undefined}
         ogImageAlt={`${partner.name} – fördjupning om Microsoft Dynamics 365-partner`}
         ogType="article"
-        articlePublishedTime={publishedIso}
-        articleModifiedTime={publishedIso}
         articleAuthor="d365.se"
         articleSection="Partnerfördjupning"
         articleTags={[
@@ -140,15 +66,6 @@ const PartnerExtendedContent = () => {
           ...(partner.applications || []),
         ]}
       />
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(articleSchema)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
-      </Helmet>
-
       <Navbar />
 
       <main className="container mx-auto px-4 sm:px-6 pt-24 pb-16 max-w-3xl">

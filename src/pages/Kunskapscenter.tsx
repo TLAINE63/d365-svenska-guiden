@@ -139,7 +139,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-behovsanalys-erp",
  title: "Behovsanalys ERP (Affärssystem)",
- description: "Kartlägg dina behov för ett nytt affärssystem och få en AI-driven analys med rekommendationer.",
+ description: "Besvara frågor om verksamheten och få ett underlag med möjliga lösningsinriktningar.",
  type: "behovsanalys",
  url: "/ERPbehovsanalys",
  image_url: behovsErpImage,
@@ -159,7 +159,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-behovsanalys-kundservice",
  title: "Behovsanalys Kundservice & Field Service",
- description: "Utvärdera dina servicebehov och få matchning mot rätt Dynamics 365-lösning.",
+ description: "Beskriv era servicebehov och se vilka Dynamics\u00a0365-lösningar som kan vara relevanta.",
  type: "behovsanalys",
  url: "/kundservice-behovsanalys",
  image_url: behovsKundserviceImage,
@@ -169,7 +169,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-ai-readiness",
  title: "AI Readiness Assessment",
- description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
+ description: "Bedöm organisationens förutsättningar för AI och Copilot och se vilka områden som behöver mer arbete.",
  type: "behovsanalys",
  url: "/ai-readiness",
  image_url: behovsAiImage,
@@ -199,7 +199,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-kravspec-erp",
  title: "Kravspecifikation ERP",
- description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
+ description: "Skapa ett första kravunderlag för ert ERP-projekt.",
  type: "kravspecifikation",
  url: "/kravspecifikation",
  image_url: kravspecErpImage,
@@ -209,7 +209,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-kravspec-sales",
  title: "Kravspecifikation Sälj",
- description: "Generera en kravspecifikation anpassad för din säljavdelning.",
+ description: "Skapa ett första kravunderlag för säljavdelningen.",
  type: "kravspecifikation",
  url: "/kravspecifikation-sales",
  image_url: kravspecSalesImage,
@@ -229,7 +229,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-kravspec-kundservice",
  title: "Kravspecifikation Kundservice",
- description: "Generera en detaljerad kravspecifikation för kundserviceavdelningen.",
+ description: "Skapa ett första kravunderlag för kundservice.",
  type: "kravspecifikation",
  url: "/kravspecifikation-kundservice",
  image_url: kravspecKundserviceImage,
@@ -239,7 +239,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "tool-guide-valj-partner",
  title: "Så väljer du rätt Dynamics 365-partner",
- description: "En komplett guide med checklistor och tips för att utvärdera och välja rätt implementeringspartner.",
+ description: "Frågor och checklistor som hjälper er att jämföra implementeringspartner.",
  type: "guide",
  url: "/valjdynamics365partner/#guide",
  image_url: guideValjPartnerImage,
@@ -309,7 +309,7 @@ const STATIC_TOOLS: Array<{
  {
  id: "video-partners-skillnader",
  title: "Alla Dynamics 365-partners är inte likadana och skillnaderna är större än man tror",
- description: "Kort film om vikten av att förstå att alla Dynamics 365-partners skiljer sig åt – och varför rätt val av partner är avgörande.",
+ description: "Kort film om skillnader mellan Dynamics\u00a0365-partners och vad ni kan jämföra inför ett val.",
  type: "video",
  url: "/kunskapscenter/video/partners-skillnader",
  image_url: "https://i.ytimg.com/vi/71hzvTRWF_0/hqdefault.jpg",

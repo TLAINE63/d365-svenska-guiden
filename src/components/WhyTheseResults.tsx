@@ -21,7 +21,7 @@ export default function WhyTheseResults({ className = "" }: Props) {
       </div>
       <div className="text-[13px] leading-relaxed text-foreground/85 italic">
         <p>
-          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.
+          d365.se kartlägger <span className="whitespace-nowrap">Dynamics&nbsp;365-partners</span> på den svenska marknaden. Grundprofiler bygger på publika källor. Partners med profileringsavtal kan själva granska och komplettera sina uppgifter. Listan sorteras utifrån de val du gör i filtren.
           {" "}
           <Link to="/agande-och-intressen/" className="text-[hsl(var(--cta-orange))] hover:underline font-semibold not-italic">
             Läs mer om metodiken

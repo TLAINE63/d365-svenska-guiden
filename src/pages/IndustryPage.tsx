@@ -645,11 +645,16 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
               {(partner.ai_summary || partner.short_description) && (
                 <div className="mt-3 rounded-lg bg-muted/50 p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    d365.se:s bedömning
+                    {partner.ai_summary ? "d365.se:s AI-sammanfattning" : "Kort beskrivning"}
                   </p>
                   <p className="text-xs leading-relaxed text-foreground/90 line-clamp-4">
                     {partner.ai_summary || partner.short_description}
                   </p>
+                  {partner.ai_summary && (
+                    <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
+                      Kan innehålla fel och är inte granskad av partnern.
+                    </p>
+                  )}
                 </div>
               )}
 

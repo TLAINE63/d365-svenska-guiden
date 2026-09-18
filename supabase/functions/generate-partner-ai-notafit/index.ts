@@ -187,7 +187,7 @@ ${AI_RELEVANT_AREAS.map(v => `- "${v}"`).join("\n")}
 use_cases (0–6 st):
 ${AI_USE_CASES.map(v => `- "${v}"`).join("\n")}
 
-experience_level (välj EN eller null; standard om osäkert: "advisory" eller "pilot"):
+experience_level (välj EN eller null; standard om osäkert: null):
 ${AI_EXPERIENCE_LEVELS.map(v => `- "${v}"`).join("\n")}
 
 project_count_range (välj EN eller null; standard om osäkert: null):
@@ -201,7 +201,7 @@ REGLER för description (ai_profile.description):
 - Beskriv HUR partnern jobbar med AI/Copilot/automation inom D365.
 - Ingen säljjargong ("bäst", "ledande", "experter"), inga superlativ, inte ordet "oberoende".
 - Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
-- Om underlag saknas: skriv en kort, generell beskrivning utifrån deras D365-appar och rådgivningsprofil.
+- Om underlag saknas: lämna beskrivningen tom. Dra inga slutsatser enbart från partnerns valda D365-appar.
 
 REGLER för not_a_fit:
 - 3–5 punkter, en mening per punkt, svenska.
