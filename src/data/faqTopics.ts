@@ -50,7 +50,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Kan vi behålla våra särlösningar i ett nytt system?",
         answer:
-          "Ofta går det, men frågan bör vändas: vilka särlösningar skapar verkligt affärsvärde och vilka finns bara för att det gamla systemet krävde dem? En vanlig rekommendation är att utgå från standard, täcka avvikelser med etablerade tillägg där det går och begränsa egen utveckling till det som är affärskritiskt och unikt.",
+          "Ofta går det. Börja med att skilja på lösningar som behövs för verksamheten och sådant som byggts för att hantera begränsningar i det gamla systemet. Utgå gärna från standardfunktioner, använd etablerade tillägg när de passar och begränsa egen utveckling till tydligt motiverade behov.",
       },
     ],
   },
@@ -63,7 +63,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Ska vi välja affärssystem eller partner först?",
         answer:
-          "Rekommendationen är att inte behandla dem som två separata beslut. Ett system som ser starkt ut på papperet kan bli fel om partnern saknar relevant erfarenhet, medan ett annat alternativ kan bli rätt när partnern har djup branschkunskap och en tydlig leveransmodell. Utvärdera därför kombinationer av system och partner utifrån verksamhetens behov.",
+          "System och partner bör bedömas tillsammans. En lösning kan uppfylla funktionskraven men ändå vara svår att införa om partnern saknar erfarenhet av liknande verksamheter. Jämför därför både systemets stöd och partnerns föreslagna team, arbetssätt och referenser.",
       },
       {
         question: "Hur många partners bör vi jämföra?",
@@ -78,7 +78,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Spelar partnerns storlek roll?",
         answer:
-          "Storlek säger något om uthållighet och bredd, men sällan något om leveranskvaliteten i just ert projekt. Det som avgör är branscherfarenhet, relevant produktkompetens, tillgänglig kapacitet under er tidsplan och hur väl arbetssättet matchar er organisation. En mindre specialist kan vara ett bättre val än en stor generalist, och tvärtom.",
+          "Storleken kan säga något om kapacitet och bredd, men inte hur ett visst projekt kommer att genomföras. Titta också på branscherfarenhet, produktkompetens, tillgängliga konsulter och arbetssätt. Både mindre specialister och större leverantörer kan passa, beroende på projektets behov.",
       },
       {
         question: "Vad betyder partnerverifierad profil på d365.se?",
@@ -101,17 +101,17 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Vad kostar ett Business Central-projekt?",
         answer:
-          "Ett Business Central-projekt landar oftast på 100 000–800 000 kr i implementationskostnad. Mindre projekt med standardprocesser hamnar typiskt på 100 000–250 000 kr, medan normalstora projekt med integrationer, datamigrering och flera avdelningar ofta ligger på 250 000–800 000 kr. Licenser tillkommer per användare och månad.",
+          "Som grov uppskattning ligger ett Business Central-projekt på 100 000–800 000 kr i implementationskostnad. Ett mindre upplägg med standardprocesser kan ligga på 100 000–250 000 kr. Projekt med integrationer, datamigrering och flera avdelningar kan ligga på 250 000–800 000 kr. Licenser tillkommer per användare och månad.",
       },
       {
         question: "Vad kostar ett Finance & Supply Chain Management-projekt?",
         answer:
-          "Finance & Supply Chain Management används i större och mer komplexa verksamheter, och implementationer ligger normalt på 1,5–10 Mkr. Kostnaden styrs av antal legala enheter, länder, produktions- och logistikflöden, integrationer samt hur mycket som kan köras på standard.",
+          "En grov uppskattning för Finance & Supply Chain Management är 1,5–10 Mkr. Kostnaden påverkas bland annat av antal bolag och länder, produktions- och logistikflöden, integrationer och behovet av anpassningar.",
       },
       {
         question: "Vad kostar ett CRM-projekt i Dynamics 365?",
         answer:
-          "Dynamics 365 Sales och Customer Insights ligger normalt på 100 000–1 200 000 kr, Customer Service på 150 000–1 200 000 kr, Field Service på 200 000–1 800 000 kr och Contact Center på 250 000–2 000 000 kr. Spannen speglar skillnaden mellan ett avgränsat införande för ett team och en bred lösning med integrationer och automatisering.",
+          "Våra uppskattade intervall är 100 000–1 200 000 kr för Dynamics\u00a0365 Sales och Customer Insights, 150 000–1 200 000 kr för Customer Service, 200 000–1 800 000 kr för Field Service och 250 000–2 000 000 kr för Contact Center. Skillnaden mellan projekten beror bland annat på omfattning, integrationer och automatisering.",
       },
       {
         question: "Vad styr priset mest i ett implementationsprojekt?",

@@ -117,12 +117,11 @@ const PartnerPublicSourcesSection = ({ partner }: Props) => {
           <div className="rounded-xl border border-border bg-card p-5 sm:p-6 space-y-6">
             <div className="space-y-2">
               <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                Publikt innehåll identifierat
+                Innehåll från publika källor
               </h2>
               <p className="rounded-md border border-border bg-muted/60 p-3 text-xs leading-relaxed text-muted-foreground">
-                Informationen nedan har sammanställts av d365.se baserat på publikt tillgängliga
-                källor såsom partnerns webbplats, artiklar, webinarier, kundcase och övrigt publikt
-                innehåll. Informationen är ett komplement till partnerns egen profil.
+                d365.se har sammanställt uppgifterna från innehåll på partnerns webbplats. De är
+                inte bekräftade av partnern och ska läsas som ett komplement till partnerns egen profil.
               </p>
             </div>
 
@@ -167,7 +166,7 @@ const PartnerPublicSourcesSection = ({ partner }: Props) => {
 
             {profile.length > 0 && (
               <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-foreground">AI-genererad marknadsprofil</h3>
+                <h3 className="text-sm font-semibold text-foreground">Sammanfattning av innehållet</h3>
                 {profile.map((p, i) => (
                   <p
                     key={i}
@@ -182,7 +181,7 @@ const PartnerPublicSourcesSection = ({ partner }: Props) => {
             {topics.length > 0 && (
               <div className="space-y-2">
                 <h3 className="text-sm font-semibold text-foreground">
-                  Vanligast förekommande ämnen
+                  Ämnen som återkommer i materialet
                 </h3>
                 <ol className="space-y-1 text-sm text-foreground/90">
                   {topics.slice(0, 10).map((t, i) => (
@@ -200,7 +199,7 @@ const PartnerPublicSourcesSection = ({ partner }: Props) => {
             {latest.length > 0 && (
               <div className="space-y-2">
                 <h3 className="text-sm font-semibold text-foreground">
-                  Senaste identifierade innehåll
+                  Senast hittade innehåll
                 </h3>
                 <ul className="space-y-2">
                   {latest.slice(0, 15).map((item, i) => (

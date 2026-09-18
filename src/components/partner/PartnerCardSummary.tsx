@@ -46,7 +46,7 @@ export function PartnerCardSummary({ partner, highlightedIndustry }: PartnerCard
         <div className="mt-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
           <p className="text-[12px] font-semibold text-primary uppercase tracking-wide mb-1 flex items-center gap-1.5">
             <BrainCircuit className="w-3.5 h-3.5" />
-            AI-sammanfattning
+            d365.se:s sammanfattning
           </p>
           <p className="text-[13px] font-medium text-foreground leading-snug">
             {data.aiSummary}

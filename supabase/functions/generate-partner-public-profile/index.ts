@@ -299,18 +299,22 @@ function buildPrompt(
     .map((e) => `- [${e.event_date}] ${e.title}: ${(e.description || "").slice(0, 200)}`)
     .join("\n");
 
-  return `Du sammanställer sektionen "Kompletterande information baserad på publika källor" om en Microsoft Dynamics 365-partner på svenska för d365.se. Sektionen är ett komplement till partnerns egen profiltext och bygger enbart på observationer i underlaget nedan.
+  return `Du sammanställer en kort redaktionell text om publikt innehåll från en Microsoft Dynamics 365-partner. Texten visas på d365.se och ska bygga enbart på innehåll som faktiskt återges i underlaget nedan.
 
 Svara ENDAST med giltig JSON i exakt detta format:
 {
-  "public_profile_summary": "2 till 3 korta stycken, separerade med radbrytning (\\n).",
+  "public_profile_summary": "1 till 2 korta stycken, totalt 80 till 160 ord, separerade med radbrytning (\\n).",
   "public_focus_tags": ["6 till 10 taggar, 1 till 3 ord vardera"],
   "public_topics_12m": ["0 till 8 ämnen som återkommer i materialet från senaste 12 månaderna, vanligast först"]
 }
 
 REGLER:
-- Skriv i tredje person, observerande och faktabaserat. Formulera som "Analys av publika källor visar att ...", "Innehållet indikerar ...".
-- Inga superlativ, ingen säljjargong, inga omdömen om kvalitet.
+- Skriv enkel, rak svenska i tredje person. Undvik formella inledningar som "Analys av publika källor visar" och "Innehållet indikerar".
+- Beskriv bara ämnen som uttryckligen förekommer i nyheter, event, upptäckta sidor eller sidutdrag.
+- Partnerns egna profilfält nedan är endast bakgrund för namn och avgränsning. Använd dem inte som bevis för observerade fokusområden.
+- Om underlaget är tunt, skriv kort och försiktigt. Om inget publikt innehåll kan beläggas, returnera null och tomma listor.
+- Inga superlativ, ingen säljjargong och inga omdömen om kvalitet. Orden ledande, marknadsledande, bäst, unik och världsklass är förbjudna.
+- Påstå aldrig att partnern är specialist, har djup kompetens, levererar resultat eller fokuserar på ett område om detta inte uttryckligen framgår av minst en angiven källa.
 - Nämn aldrig andra partners eller konkurrenter vid namn, inga priser, inga certifieringsnivåer som inte framgår av underlaget.
 - Använd aldrig långa tankstreck. Använd komma, punkt eller parentes.
 - Taggar ska vara produktområden, teknikområden och branscher som faktiskt syns i underlaget.
@@ -363,7 +367,7 @@ async function generate(
           {
             role: "system",
             content:
-              "Du är en neutral redaktör som sammanställer observationer från publika källor om Dynamics 365-partners. Du hittar aldrig på uppgifter som inte finns i underlaget. Svara endast med JSON.",
+              "Du är en noggrann svensk redaktör. Skriv kort och vardagligt, skilj observation från slutsats och utelämna allt som inte uttryckligen stöds av underlaget. Svara endast med JSON.",
           },
           { role: "user", content: buildPrompt(p, news, events, discovered, samples) },
         ],

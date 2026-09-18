@@ -51,7 +51,7 @@ function sizeSummary(sizes: string[]): string | null {
   return `${first}–${last} anställda`;
 }
 
-/** Centrala matchningsfakta – kort, faktabaserat, utan värderande språk. */
+/** Centrala matchningsfakta, kort och utan värderande språk. */
 function buildMatchFacts(partner: DatabasePartner): string[] {
   const facts: string[] = [];
   const pf = (partner.product_filters || {}) as Record<
@@ -130,9 +130,8 @@ const PartnerAiInsights = ({ partner }: Props) => {
             )}
 
             <p className="text-[11px] leading-snug text-muted-foreground">
-              d365.se:s egen, AI-assisterade bedömning baserad på partnerdata, publika källor och
-              dokumenterade referenser. Det är en bedömning – inte verifierade fakta – och den är
-              inte granskad eller godkänd av partnern.
+              Texten är framtagen med AI utifrån uppgifter på d365.se och publika källor. Den kan
+              innehålla fel och är inte granskad eller godkänd av partnern.
             </p>
 
             {hasDeepDive && (
