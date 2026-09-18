@@ -288,7 +288,7 @@ const Index = () => {
                 Upphandlingsguiden för Microsoft Dynamics 365
               </div>
               <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-                Jämför Dynamics\u00a0365-partners utifrån era behov
+                Jämför <span className="whitespace-nowrap">Dynamics&nbsp;365-partners</span> utifrån era behov
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
                 Jämför svenska Dynamics 365-partners utifrån bransch, lösning, erfarenhet och
