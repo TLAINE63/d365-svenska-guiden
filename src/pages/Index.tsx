@@ -765,10 +765,10 @@ const Index = () => {
                     <AccordionContent className="pb-6">
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
-                          <p>Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM). Det är inte ett enda system, utan en familj av specialiserade affärsapplikationer som alla delar samma dataplattform och kan integreras sömlöst med varandra.</p>
+                          <p>Microsoft Dynamics 365 är en familj av appar för affärssystem (ERP) och kundhantering (CRM). Flera av apparna använder Dataverse och kan kopplas till varandra, men vilka integrationer som behövs beror på lösning och upplägg.</p>
                           <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain – med <em>Business Central</em> (för SMB) och <em>Finance & Supply Chain Management</em> (för större koncerner).</p>
                           <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
-                          <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot.</p>
+                          <p>• <strong>AI-stöd</strong> finns i flera appar via Microsoft Copilot. Funktioner och licenskrav varierar.</p>
                         </div>
                         <VideoComingSoon />
 

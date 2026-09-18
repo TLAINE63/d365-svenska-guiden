@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { usePartner } from "@/hooks/usePartners";
 import { buildMetaTitle } from "@/lib/metaTitle";
-import { buildMetaDescription } from "@/lib/metaDescription";
 
 /**
  * Per-partner deep-dive page.
@@ -41,11 +40,7 @@ const PartnerExtendedContent = () => {
     primaryKeyword: "Dynamics 365 partner",
   }).value;
 
-  const firstSentence = extended.split(/(?<=[.!?])\s/)[0] || extended.slice(0, 160);
-  const seoDescription = buildMetaDescription([
-    firstSentence,
-    `Fördjupning om ${partner.name} som Microsoft Dynamics 365-partner: bakgrund, styrkor, arbetssätt och referenser.`,
-  ]);
+  const seoDescription = `Läs den publicerade profilen för ${partner.name} och se uppgifter om kompetenser, branscher, referenser och kontaktvägar.`;
 
   return (
     <div className="min-h-screen bg-background">

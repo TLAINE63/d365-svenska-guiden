@@ -120,8 +120,9 @@ const PartnerPublicSourcesSection = ({ partner }: Props) => {
                 Innehåll från publika källor
               </h2>
               <p className="rounded-md border border-border bg-muted/60 p-3 text-xs leading-relaxed text-muted-foreground">
-                d365.se har sammanställt uppgifterna från innehåll på partnerns webbplats. De är
-                inte bekräftade av partnern och ska läsas som ett komplement till partnerns egen profil.
+                d365.se har sammanställt uppgifterna med AI utifrån innehåll på partnerns webbplats.
+                Sammanfattningen kan innehålla fel, är inte bekräftad av partnern och ska läsas som
+                ett komplement till partnerns egen profil.
               </p>
             </div>
 
