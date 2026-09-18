@@ -480,10 +480,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   {/* Main content - centered layout */}
   <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
   {/* Partner identity - logo OR name, not both; logo routes to partner landing page */}
-  <div className="flex items-center justify-center mb-2">
+  <div className="flex flex-col items-center justify-center mb-2">
   {partner.logo_url ? (
   <>
-    <h1 className="sr-only">{partner.name}</h1>
     {partner.website ? (
     <a
       href={partner.website}
@@ -517,6 +516,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       />
     </div>
     )}
+    <h1 className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+      {partner.name}
+    </h1>
   </>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
