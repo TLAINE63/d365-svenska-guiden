@@ -83,11 +83,9 @@ export function PartnerBasicCard({
     },
   ];
 
-  const publicInfo =
-    partner.extended_summary?.trim() ||
-    (partner.extended_content
-      ? partner.extended_content.split(/\n\s*\n/)[0].replace(/\n+/g, " ").trim()
-      : "");
+  // Visa bara den särskilt granskade sammanfattningen. extended_content är
+  // researchunderlag och kan innehålla interna redaktionsanteckningar.
+  const publicInfo = partner.extended_summary?.trim() || "";
 
   if (!isStandalone) {
     return (
