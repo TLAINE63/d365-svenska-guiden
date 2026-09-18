@@ -516,6 +516,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       />
     </div>
     )}
+    <h1 className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+      {partner.name}
+    </h1>
   </>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
