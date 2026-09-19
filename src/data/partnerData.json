@@ -3,7 +3,7 @@
     "id": "87f98585-f1f6-48ed-bfab-34f8b7eb3bf8",
     "slug": "4ps-sweden",
     "name": "4PS Construction Software AB",
-    "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
+    "description": "4PS levererar branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Lösningen 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och täcker processer från kalkyl och projektstyrning till service och eftermarknad.",
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/4ps-construction-software-ab.png",
     "logo_dark_bg": false,
     "website": "https://www.4ps.se/",
@@ -122,7 +122,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-19T19:13:26.157221+00:00",
+    "updated_at": "2026-09-19T19:14:00.08916+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
