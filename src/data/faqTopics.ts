@@ -121,12 +121,12 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Hur lång tid tar en implementation?",
         answer:
-          "Ett avgränsat Business Central- eller CRM-projekt genomförs ofta på tre till sex månader. Bredare ERP-projekt tar vanligen sex till tolv månader, och stora Finance & Supply Chain Management-program kan löpa över ett till två år med flera driftsättningar. Tidplanen påverkas minst lika mycket av er egen tillgänglighet som av partnerns.",
+          "Tiderna nedan är grova riktvärden och varierar kraftigt med omfattning, antal integrationer och hur snabbt er egen organisation kan fatta beslut. Ett avgränsat Business Central- eller CRM-projekt landar ofta på tre till sex månader. Bredare ERP-projekt tar vanligen sex till tolv månader, och stora Finance & Supply Chain Management-program kan löpa över ett till två år med flera driftsättningar. Avvikelserna åt båda håll är stora, så be alltid partnern tidsätta just ert upplägg.",
       },
       {
         question: "Vad kostar licenserna?",
         answer:
-          "Licenser prissätts per användare och månad och skiljer sig mellan appar och användartyper. De utgör en löpande kostnad som ska budgeteras vid sidan av implementation, förvaltning och vidareutveckling. Aktuella nivåer finns samlade i pris- och kostnadsguiden på d365.se.",
+          "Licenser prissätts per användare och månad och skiljer sig mellan appar och användartyper. De är en löpande kostnad som ska budgeteras vid sidan av implementation, förvaltning och vidareutveckling. Nivåerna på d365.se uppdateras löpande, men listpriser och kampanjer ändras, så stäm alltid av aktuell prislista hos Microsoft eller er partner innan ni räknar på en budget.",
       },
     ],
   },
@@ -144,7 +144,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Hur mycket egen tid krävs av oss?",
         answer:
-          "Räkna med att nyckelpersoner behöver avsätta betydande tid för workshops, beslut, testning och utbildning. En vanlig orsak till försening är inte partnerns kapacitet, utan att den egna organisationen inte hunnit fatta beslut eller testa i tid. Bemanna projektet internt innan det startar.",
+          "Räkna med en intern projektledare på minst halvtid under projektet och nyckelpersoner per område, till exempel ekonomi, inköp, lager, sälj och IT, som kan lägga ungefär en dag i veckan på workshops, beslut, testning och utbildning. Behovet ökar kraftigt inför test och driftstart. En vanlig orsak till försening är inte partnerns kapacitet, utan att den egna organisationen inte hunnit fatta beslut eller testa i tid.",
       },
       {
         question: "Vad händer efter driftstart?",
