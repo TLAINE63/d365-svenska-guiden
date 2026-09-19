@@ -838,7 +838,7 @@ const Index = () => {
                     <AccordionContent className="pb-6">
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
-                          <p>Att välja rätt partner är minst lika viktigt som att välja rätt system.</p>
+                          <p>Valet av partner påverkar ofta resultatet lika mycket som valet av system.</p>
                           <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i din bransch.</p>
                           <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
                           <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
@@ -864,7 +864,7 @@ const Index = () => {
                     <AccordionContent className="pb-6">
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
-                          <p>Microsoft Copilot är inbyggt i samtliga Dynamics 365-appar och används i dag främst för att <strong>korta ledtider</strong> i vardagsarbetet – inte för att ersätta människor.</p>
+                          <p>Microsoft Copilot finns i flera <span className="whitespace-nowrap">Dynamics&nbsp;365-appar</span>, men funktioner och licenskrav varierar. I dag används det främst för att <strong>korta ledtider</strong> i vardagsarbetet, inte för att ersätta människor.</p>
                           <p>• <strong>Sales:</strong> Sammanfattar möten, skriver mailutkast och pekar ut affärer att prioritera.</p>
                           <p>• <strong>Customer Service:</strong> Föreslår svar och hämtar kunskapsartiklar under pågående ärende.</p>
                           <p>• <strong>Business Central & F&SCM:</strong> Automatiserar bokföring, prognoser och inköpsförslag.</p>
