@@ -537,7 +537,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     metaDescription:
       "AI-sök förändrar hur köpare hittar och jämför Dynamics 365-partners. Därför blir tydlig nisch, tredjepartsbeskrivningar och konkreta kundbevis viktigare.",
     summary:
-      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, oberoende tredjepartsbeskrivningar och konkret Copilot-erfarenhet får ökad tyngd – utan att grunden i SEO försvinner.",
+      "AI-sök gör att köpare formar sin bild av Dynamics 365-partners långt innan första mötet. Här är varför nischad positionering, beskrivningar från tredje part och konkret Copilot-erfarenhet får ökad tyngd – utan att grunden i SEO försvinner.",
     category: "Partnerurval / AI och Dynamics 365",
     tags: [
       "ai-sök",
@@ -684,7 +684,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           betraktar inte AIO eller GEO som en ersättning för SEO. Den tekniska
           och innehållsmässiga grunden är densamma: innehållet ska vara
           indexerbart, värdefullt, trovärdigt och expertlett. Skillnaden är att
-          oberoende tredjepartsbeskrivningar kan ge AI-tjänster mer underlag
+          beskrivningar från tredje part kan ge AI-tjänster mer underlag
           för att förstå, särskilja och jämföra en partner.
         </p>
         <p>
