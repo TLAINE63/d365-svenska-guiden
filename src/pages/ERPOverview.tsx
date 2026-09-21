@@ -1,4 +1,5 @@
 import ProductHero from "@/components/ProductHero";
+import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
 import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
