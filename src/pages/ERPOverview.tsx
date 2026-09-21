@@ -122,10 +122,7 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 const ERPOverview = () => {
  useEffect(() => {
  if (window.location.hash) {
- setTimeout(() => {
- const el = document.querySelector(window.location.hash);
- if (el) el.scrollIntoView({ behavior: "smooth" });
- }, 100);
+ return scrollToAnchorWhenReady(decodeURIComponent(window.location.hash.replace("#", "")));
  } else {
  window.scrollTo(0, 0);
  }
