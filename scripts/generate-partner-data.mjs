@@ -83,7 +83,7 @@ try {
     name: "Verifierade Microsoft Dynamics 365-partners i Sverige",
     description:
       "Öppet, maskinläsbart dataset över de Dynamics 365-partners som är verifierade och publicerade på d365.se. Endast publika uppgifter ingår.",
-    publisher: "d365.se (Dynamic Factory AB)",
+    publisher: "d365.se (Dynamic Factory)",
     url: "https://d365.se/partner-data.json",
     license: "https://d365.se/friskrivning",
     citation:

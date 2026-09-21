@@ -14,7 +14,7 @@
 - [x] Microsoft-disclaimer bevarad/förstärkt
 - [x] Global sökning efter gamla formuleringar
 
-Öppet: org.nr, momsreg.nr och postadress för Dynamic Factory AB saknas i koden – behöver fyllas i.
+Öppet: org.nr, momsreg.nr och postadress för Dynamic Factory saknas i koden – behöver fyllas i.
 
 ## Uppdatering 2026-09-03 (transparenspaket)
 - [x] Basic-CTA/body till "Granska, korrigera och komplettera profilen ..."
@@ -24,7 +24,7 @@
 - [x] Rankinglogik: agreement_signed-bonus borttagen i suggestPartners.ts och crmMatchingPartners.ts
 - [x] Dataskyddspolicy: nytt avsnitt om kontaktpersoner/experter
 - [x] Footer: Företagsinformation (org.nr/VAT/postadress renderas när värden fylls i organization.ts)
-- [ ] Saknas: faktiskt organisationsnummer, momsregistreringsnummer och postadress för Dynamic Factory AB
+- [ ] Saknas: faktiskt organisationsnummer, momsregistreringsnummer och postadress för Dynamic Factory
 
 ## Månadsrapport v2 (partner) – 2026-09-03
 - [ ] Steg 0: inventering av rapportkod (redovisad, inväntar godkännande)
