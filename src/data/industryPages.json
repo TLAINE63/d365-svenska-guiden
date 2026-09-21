@@ -2516,7 +2516,7 @@
       },
       {
         "title": "D365 saknar djup billing för usage/XaaS",
-        "description": "Standard Sales/CS hanterar abonnemang men inte avancerad mätning, ratering och dispute management — många bolag kompletterar med en specialiserad billing-motor (Zuora, BillingPlatform, Stripe Billing) som integreras mot ekonomin i BC/F&SCM."
+        "description": "Standard Sales/CS hanterar abonnemang men inte avancerad mätning, ratering och dispute management, så många bolag kompletterar med en specialiserad billing-motor (Zuora, BillingPlatform, Stripe Billing) som integreras mot ekonomin i BC/F&SCM."
       },
       {
         "title": "ITSM kontra CRM-överlapp",
