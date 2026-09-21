@@ -586,14 +586,14 @@ const SalesMarketingNeedsAnalysis = () => {
  if (currentStep < totalSteps) {
  setCurrentStep(currentStep + 1);
  }
- window.scrollTo({ top: 0, behavior: 'smooth' });
+ window.scrollTo(0, 0);
  };
 
  const handleBack = () => {
  if (currentStep > 1) {
  setCurrentStep(currentStep - 1);
  }
- window.scrollTo({ top: 0, behavior: 'smooth' });
+ window.scrollTo(0, 0);
  };
 
  const handleCheckboxChange = (field: keyof SalesMarketingAnalysisData, value: string) => {

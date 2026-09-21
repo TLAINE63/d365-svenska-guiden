@@ -289,7 +289,7 @@ const Branschlosningar = () => {
  description: "Klicka på en eller flera Dynamics 365-lösningar ovan för att se partners med rätt kompetens inom din bransch.",
  duration: 5000,
  });
- window.scrollTo({ top: 0, behavior: 'smooth' });
+ window.scrollTo(0, 0);
  return;
  }
  const industryName = industry.partnerIndustries[0];
