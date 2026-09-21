@@ -43,7 +43,7 @@ function FlagOrGlobe({
   return (
     <img
       src={`https://flagcdn.com/${cc}.svg`}
-      alt=""
+      alt="Flagga"
       aria-hidden="true"
       width="20"
       height="14"

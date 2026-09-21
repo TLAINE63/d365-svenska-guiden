@@ -92,7 +92,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
             <div className="sm:w-56 sm:flex-shrink-0 aspect-[16/9] bg-muted overflow-hidden">
               <img
                 src={item.image_url}
-                alt={item.title}
+                alt={item.editorial_title}
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -170,7 +170,7 @@ export default function PartnerNewsCard({ item, partnerName, partnerSlug, partne
         <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
           <img
             src={item.image_url}
-            alt={item.title}
+            alt={item.editorial_title}
             loading="lazy"
             className="h-full w-full object-cover"
           />
