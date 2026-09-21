@@ -388,7 +388,7 @@ export default function PartnerMarketReport2026() {
               <dl className="space-y-3 text-sm">
                 <div>
                   <dt className="font-semibold text-foreground">Utgivare</dt>
-                  <dd className="text-muted-foreground">d365.se (Dynamic Factory AB), Sverige</dd>
+                  <dd className="text-muted-foreground">d365.se (Dynamic Factory), Sverige</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-foreground">Publicerad</dt>

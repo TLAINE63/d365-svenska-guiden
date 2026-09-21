@@ -11,7 +11,7 @@ export const ORGANIZATION = {
   /** Varumärkes-/sajtnamn – används som primärt namn överallt. */
   name: "d365.se",
   /** Juridisk person som driver sajten. */
-  legalName: "Dynamic Factory AB",
+  legalName: "Dynamic Factory",
   /** Moderbolag/ägare. Redovisas öppet på /agande-och-intressen. */
   parentName: "Moveahead AB",
   url: "https://d365.se",
@@ -50,5 +50,5 @@ export const ORGANIZATION = {
   ],
 } as const;
 
-/** "d365.se (Dynamic Factory AB)" – för copyright- och utgivarrader. */
+/** "d365.se (Dynamic Factory)" – för copyright- och utgivarrader. */
 export const ORGANIZATION_ATTRIBUTION = `${ORGANIZATION.name} (${ORGANIZATION.legalName})`;
