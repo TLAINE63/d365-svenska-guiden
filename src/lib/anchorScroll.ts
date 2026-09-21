@@ -35,7 +35,10 @@ export function scrollToAnchorWhenReady(id: string): () => void {
   let stable = 0;
 
   const settle = (el: HTMLElement) => {
-    scrollElementIntoView(el);
+    // Vid färsk sidladdning står vi högst upp – hoppa direkt dit utan
+    // mjukscroll, annars "fladdrar" sidan genom alla sektioner.
+    const initial = window.scrollY < 4;
+    scrollElementIntoView(el, initial ? "auto" : "smooth");
     timeoutId = window.setTimeout(() => {
       if (cancelled) return;
       const again = document.getElementById(id);
