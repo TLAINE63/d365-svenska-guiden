@@ -171,6 +171,9 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  ? " Filtrera på din storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
  : " Filtrera på bransch, storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."}
  </p>
+ <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
+ Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
+ </p>
  </div>
 
  {/* Industry Filter – döljs när filterMode = companySize */}
