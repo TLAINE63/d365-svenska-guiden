@@ -83,9 +83,12 @@ export function PartnerBasicCard({
     },
   ];
 
-  // Visa bara den särskilt granskade sammanfattningen. extended_content är
-  // researchunderlag och kan innehålla interna redaktionsanteckningar.
-  const publicInfo = partner.extended_summary?.trim() || "";
+  // Visa den särskilt granskade sammanfattningen först. Saknas den, fall
+  // tillbaka på första stycket i researchunderlaget så sidan inte blir tom.
+  const publicInfo =
+    partner.extended_summary?.trim() ||
+    partner.extended_content?.split(/\n\s*\n/)[0]?.trim() ||
+    "";
 
   if (!isStandalone) {
     return (
