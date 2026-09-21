@@ -388,6 +388,9 @@ const CRM = () => {
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
  </p>
+ <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
+ Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
+ </p>
  </div>
 
  {/* Application Filter */}
