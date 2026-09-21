@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { useEffect, useState } from "react";
+import { scrollElementIntoView } from "@/lib/anchorScroll";
 
 const QA = () => {
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
