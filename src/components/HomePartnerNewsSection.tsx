@@ -42,7 +42,7 @@ function HomeNewsCard({ item, index }: { item: PartnerNewsItem; index: number })
         <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
           <img
             src={item.image_url}
-            alt=""
+            alt={item.title}
             width={640}
             height={360}
             loading={isFirst ? "eager" : "lazy"}
