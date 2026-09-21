@@ -342,7 +342,7 @@ export const routes: PrerenderRoute[] = [
     priority: '0.7',
     changefreq: 'monthly' as const,
   })),
-  { path: '/fraga-ai', priority: '0.5', changefreq: 'monthly' },
+  // /fraga-ai är noindex och ska därför inte ligga i sidkartan.
 
   {
     path: '/rapporter/dynamics-365-partnersverige-2026',
