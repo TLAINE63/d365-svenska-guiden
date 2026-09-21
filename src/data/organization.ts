@@ -13,7 +13,7 @@ export const ORGANIZATION = {
   /** Juridisk person som driver sajten. */
   legalName: "Dynamic Factory AB",
   /** Moderbolag/ägare. Redovisas öppet på /agande-och-intressen. */
-  parentName: "Cloud Ahead AB",
+  parentName: "Moveahead AB",
   url: "https://d365.se",
   logoUrl: "https://d365.se/d365guide-logo.png",
   description:
