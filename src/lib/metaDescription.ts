@@ -101,3 +101,33 @@ export const buildMetaDescription = (
   candidates: Array<string | undefined | null>,
   fallback?: string,
 ): string => buildMetaDescriptionDetailed(candidates, fallback).value;
+
+/**
+ * Meta description för kunskapsartiklar. Många artikelingresser är korta
+ * (40-100 tecken), vilket sökmotorerna flaggar. Vi fyller på med en kort,
+ * faktabaserad kontextmening utan att ändra artikelns egen ingress.
+ */
+export const buildArticleMetaDescription = (article: {
+  description: string;
+  product: string;
+  seoDescription?: string;
+}): string => {
+  if (article.seoDescription) {
+    return buildMetaDescription([article.seoDescription]);
+  }
+
+  const base = clean(article.description).replace(/[.\s]+$/, "");
+  const product = clean(article.product);
+  const suffixes = [
+    ` Så fungerar det i ${product}, vad det kostar och vad du bör kräva av partnern. Köparsidig guide från d365.se.`,
+    ` Så fungerar det i ${product} och vad du bör kräva av partnern.`,
+    ` Köparsidig genomgång av ${product} från d365.se.`,
+    " Köparsidig guide från d365.se.",
+  ];
+
+  const fits = suffixes.find(
+    (s) => `${base}.${s}`.length <= META_DESCRIPTION_MAX,
+  );
+
+  return buildMetaDescription([fits ? `${base}.${fits}` : `${base}.`]);
+};
