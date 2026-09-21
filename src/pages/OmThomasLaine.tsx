@@ -24,7 +24,7 @@ const personSchema = {
   name: "Thomas Laine",
   jobTitle: "Grundare, d365.se",
   description:
-    "Snart 40 år i ERP- och CRM-marknaden och nästan 30 år i Microsoft Dynamics-ekosystemet. Tidigare affärsområdeschef för Business Solutions och partneransvarig för Dynamics 365 på Microsoft Sverige. Idag rådgivare genom Cloud Ahead AB och medgrundare av d365.se.",
+    "Snart 40 år i ERP- och CRM-marknaden och nästan 30 år i Microsoft Dynamics-ekosystemet. Tidigare affärsområdeschef för Business Solutions och partneransvarig för Dynamics 365 på Microsoft Sverige. Idag rådgivare genom Moveahead AB och medgrundare av d365.se.",
   url: "https://d365.se/om-thomas-laine",
   image: "https://d365.se/og-kontakt.png",
   sameAs: [LINKEDIN_URL],
@@ -42,7 +42,7 @@ const OmThomasLaine = () => {
         title="Om Thomas Laine – grundare av d365.se"
         description="Thomas Laine har arbetat i ERP- och CRM-marknaden i snart 40 år, varav nästan 30 år i det ekosystem som idag är Microsoft Dynamics 365. Grundare av d365.se."
         canonicalPath="/om-thomas-laine/"
-        keywords="Thomas Laine, d365.se, Cloud Ahead, Dynamics 365, ERP, CRM, Microsoft"
+        keywords="Thomas Laine, d365.se, Moveahead AB, Dynamics 365, ERP, CRM, Microsoft"
         ogImage="https://d365.se/og-kontakt.png"
       />
       <Helmet>
@@ -97,7 +97,7 @@ const OmThomasLaine = () => {
                 företag idag ska navigera.
               </p>
               <p>
-                Sedan 2015 driver Thomas eget genom Cloud Ahead AB, med fokus på
+                Sedan 2015 driver Thomas eget genom Moveahead AB, med fokus på
                 go-to-market-strategi och partnerstrategi i Dynamics-ekosystemet.
               </p>
             </div>
