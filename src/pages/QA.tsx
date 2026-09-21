@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { useEffect, useState } from "react";
+import { scrollElementIntoView } from "@/lib/anchorScroll";
 
 const QA = () => {
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
@@ -29,7 +30,8 @@ const QA = () => {
       requestAnimationFrame(() => {
         setTimeout(() => {
           const el = document.getElementById(hash);
-          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+          // Vid färsk sidladdning: hoppa direkt, annars fladdrar sidan förbi alla frågor.
+          if (el) scrollElementIntoView(el, window.scrollY < 4 ? "auto" : "smooth");
         }, 120);
       });
     };

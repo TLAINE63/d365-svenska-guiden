@@ -563,14 +563,14 @@ const CustomerServiceNeedsAnalysis = () => {
  let next = currentStep + 1;
  if (next === 4 && !needsFieldServiceStep) next = 5; // Hoppa över fältservice-steget
  if (next <= totalSteps) setCurrentStep(next);
- window.scrollTo({ top: 0, behavior: 'smooth' });
+ window.scrollTo(0, 0);
  };
 
  const handleBack = () => {
  let prev = currentStep - 1;
  if (prev === 4 && !needsFieldServiceStep) prev = 3; // Hoppa över fältservice-steget
  if (prev >= 1) setCurrentStep(prev);
- window.scrollTo({ top: 0, behavior: 'smooth' });
+ window.scrollTo(0, 0);
  };
 
  const handlePrint = () => window.print();

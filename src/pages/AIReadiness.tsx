@@ -848,7 +848,7 @@ const AIReadiness = () => {
 
   // Scroll to top whenever the visible question/step changes so the question is always in view
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   }, [step, foundationStep, roleQuestionIdx]);
 
   const foundationCount = foundationQuestions.length;

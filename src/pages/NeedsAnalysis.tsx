@@ -1093,14 +1093,14 @@ const NeedsAnalysis = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
   const handleCheckboxChange = (field: keyof AnalysisData, value: string) => {
@@ -4583,7 +4583,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   setData(initialData);
                   setCurrentStep(1);
                   setIsComplete(false);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  window.scrollTo(0, 0);
                 }}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
