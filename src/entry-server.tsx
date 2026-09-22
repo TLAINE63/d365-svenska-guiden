@@ -181,6 +181,14 @@ export const routes: PrerenderRoute[] = [
   { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
   { path: '/guider', priority: '0.7', changefreq: 'monthly' },
+  { path: '/kompetens', priority: '0.8', changefreq: 'monthly' },
+  // Kompetensguider: utkast prerenderas (noindex) men hamnar inte i sitemap.
+  ...COMPETENCE_GUIDES.map((g) => ({
+    path: `/kompetens/${g.slug}`,
+    priority: '0.7',
+    changefreq: 'monthly' as const,
+    sitemap: g.status === 'published',
+  })),
   { path: '/guider/valja-dynamics-365-partner', priority: '0.9', changefreq: 'monthly' },
   { path: '/guider/valja-business-central-partner', priority: '0.9', changefreq: 'monthly' },
   { path: '/guider/valja-finance-supply-chain-partner', priority: '0.9', changefreq: 'monthly' },
@@ -506,6 +514,8 @@ export function render(url: string) {
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
               <Route path="/guider" element={<GuiderIndex />} />
+              <Route path="/kompetens" element={<KompetensOversikt />} />
+              <Route path="/kompetens/:slug" element={<CompetenceGuidePage />} />
               <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />
               <Route path="/guider/valja-business-central-partner" element={<PartnerGuidePage guideKey="bc" />} />
               <Route path="/guider/valja-finance-supply-chain-partner" element={<PartnerGuidePage guideKey="fscm" />} />
