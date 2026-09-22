@@ -201,6 +201,8 @@ const AppShell = () => {
           
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
           <Route path="/guider" element={<GuiderIndex />} />
+          <Route path="/kompetens" element={<KompetensOversikt />} />
+          <Route path="/kompetens/:slug" element={<CompetenceGuidePage />} />
           <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />
           <Route path="/guider/valja-business-central-partner" element={<PartnerGuidePage guideKey="bc" />} />
           <Route path="/guider/valja-finance-supply-chain-partner" element={<PartnerGuidePage guideKey="fscm" />} />

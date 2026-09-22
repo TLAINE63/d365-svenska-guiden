@@ -29,6 +29,9 @@ import ValjPartner from './pages/ValjPartner';
 import BuyerGuide2026 from './pages/BuyerGuide2026';
 import PartnerGuidePage from './pages/PartnerGuidePage';
 import GuiderIndex from './pages/GuiderIndex';
+import KompetensOversikt from './pages/KompetensOversikt';
+import CompetenceGuidePage from './pages/CompetenceGuidePage';
+import { COMPETENCE_GUIDES } from './data/competenceGuides';
 
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import NeedsAnalysis from './pages/NeedsAnalysis';
