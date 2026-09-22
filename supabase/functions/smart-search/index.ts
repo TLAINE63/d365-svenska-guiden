@@ -95,6 +95,7 @@ Deno.serve(async (req) => {
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
     const isvBlock = await buildIsvContextBlock();
+    const competenceBlock = await buildCompetenceContextBlock();
 
     const systemPrompt = `Du är en sökassistent för d365.se, en köparsidig guide till Microsoft Dynamics 365 i Sverige.
 Användaren ställer en fri fråga – din uppgift är att föreslå den BÄSTA sidan att skicka dem till, plus 2-3 alternativa förslag.
