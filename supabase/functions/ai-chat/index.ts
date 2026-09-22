@@ -30,6 +30,7 @@ VIKTIGA SIDOR du kan länka till:
 - Behovsanalys Kundservice: [/kundservice-behovsanalys](/kundservice-behovsanalys)
 - AI Readiness: [/ai-readiness](/ai-readiness)
 - Kunskapscenter: [/kunskapscenter](/kunskapscenter)
+- Hitta rätt kompetens / expertkonsulter (roller som applikationskonsult, projektledare, testledare, solution architect, förvaltningsledare, utvecklare, support): [/kompetens](/kompetens)
 - ISV-/tilläggskatalog (appar som kompletterar Dynamics 365): [/kunskapscenter/dynamics-365-tillagg](/kunskapscenter/dynamics-365-tillagg)
 - Kontakt: [/kontakt](/kontakt)
 - Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365sales, /d365marketing, /d365customerservice, /d365fieldservice, /d365contactcenter, /aioversikt
