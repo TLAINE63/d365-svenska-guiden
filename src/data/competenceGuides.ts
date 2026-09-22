@@ -766,21 +766,21 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-utvecklare",
-    title: "Dynamics 365-utvecklare",
-    shortTitle: "Utvecklare",
+    slug: "finance-supply-chain-utvecklare",
+    title: "Finance & Supply Chain-utvecklare",
+    shortTitle: "F&SCM-utvecklare",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365-utvecklare: kompetens och krav",
+    seoTitle: "Finance & Supply Chain-utvecklare: kompetens och krav",
     seoDescription:
-      "Vad en Dynamics 365-utvecklare arbetar med, när kompetensen behövs och vad ni bör kontrollera innan uppstart.",
+      "Vad en Finance & Supply Chain-utvecklare arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera innan uppstart.",
     cardDescription:
-      "Integrationer, anpassningar och tillägg i Dynamics 365, från AL och X++ till Dataverse.",
+      "X++-, integrations- och lösningsutveckling i Dynamics 365 Finance och Supply Chain Management.",
     intro:
-      "En utvecklare bygger det som standardfunktionerna inte täcker: integrationer, anpassningar och tillägg. Behovet beror på vilken applikation ni använder och hur mycket som ska avvika från standard.",
+      "En Finance & Supply Chain-utvecklare bygger det som standardfunktionerna i Dynamics 365 Finance och Supply Chain Management inte täcker: integrationer, anpassningar, rapporter och tillägg. Behovet beror på hur mycket er verksamhet avviker från standard och hur komplex ert systemlandskap är.",
     whatTheRoleDoes: [
       "Bygger integrationer mot andra system och datakällor.",
-      "Utvecklar anpassningar och tillägg i respektive applikation.",
+      "Utvecklar anpassningar och tillägg i X++.",
       "Tar fram rapporter och vyer utöver standard.",
       "Deltar i kodgranskning och versionshantering.",
     ],
@@ -791,14 +791,14 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "När befintliga anpassningar ska förvaltas eller byggas om.",
     ],
     responsibilities: [
-      "Teknisk design och utveckling av anpassningar.",
+      "Teknisk design och utveckling av anpassningar i X++.",
       "Integrationer, API:er och datautbyten.",
       "Enhetstester och stöd vid acceptanstester.",
       "Teknisk dokumentation och överlämning.",
       "Uppgraderingsanpassning av egen kod.",
     ],
     buyerChecklist: [
-      "Finns erfarenhet av just er applikation (Business Central, Finance eller Supply Chain)?",
+      "Finns erfarenhet av just Finance eller Supply Chain Management?",
       "Hur arbetar man med versionshantering och kodgranskning?",
       "Vem äger koden, och hur säkerställs att ni kan byta partner?",
       "Hur hanteras Microsofts uppdateringar och uppgraderingar?",
