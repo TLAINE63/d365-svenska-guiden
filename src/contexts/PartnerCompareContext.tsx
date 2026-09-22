@@ -35,28 +35,44 @@ const MAX = 3;
 
 const PartnerCompareContext = createContext<PartnerCompareContextValue | null>(null);
 
-export const PartnerCompareProvider = ({ children }: { children: ReactNode }) => {
-  const [selected, setSelected] = useState<CompareEntry[]>([]);
+const readStoredSelection = (): CompareEntry[] => {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw =
+      window.localStorage.getItem(STORAGE_KEY) ??
+      window.sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((e) => e && typeof e.slug === "string")
+      .slice(0, MAX) as CompareEntry[];
+  } catch {
+    return [];
+  }
+};
 
-  // Load from sessionStorage on mount
+export const PartnerCompareProvider = ({ children }: { children: ReactNode }) => {
+  // Lazy init so a page load never overwrites the stored selection with [].
+  const [selected, setSelected] = useState<CompareEntry[]>(() => readStoredSelection());
+  const [hydrated, setHydrated] = useState(false);
+
+  // Hydration-safe restore: SSR/prerender starts empty, client fills in after mount.
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) setSelected(parsed.slice(0, MAX));
-      }
-    } catch {}
+    const stored = readStoredSelection();
+    setSelected((prev) => (prev.length === 0 && stored.length > 0 ? stored : prev));
+    setHydrated(true);
   }, []);
 
-  // Persist
+  // Persist (only after restore, so we never clobber the stored list)
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !hydrated) return;
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+      const payload = JSON.stringify(selected);
+      window.localStorage.setItem(STORAGE_KEY, payload);
+      window.sessionStorage.setItem(STORAGE_KEY, payload);
     } catch {}
-  }, [selected]);
+  }, [selected, hydrated]);
 
   const isSelected = useCallback(
     (slug: string) => selected.some((s) => s.slug === slug),
