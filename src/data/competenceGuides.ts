@@ -350,17 +350,17 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-utvecklare",
-    title: "Utvecklare inom Dynamics 365",
-    shortTitle: "Utvecklare",
+    title: "Dynamics\u00A0365 - Utvecklare/Developer",
+    shortTitle: "Utvecklare/Developer",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365-utvecklare: kompetens och krav",
+    seoTitle: "Dynamics\u00A0365 - Utvecklare/Developer: kompetens och krav",
     seoDescription:
-      "Vad en utvecklare inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för AL eller X++.",
+      "Vad en Dynamics 365-utvecklare/Developer arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för AL eller X++.",
     cardDescription:
       "Tillägg, anpassningar och integrationer. Välj produkt i filtret, AL för Business Central eller X++ för Finance och Supply Chain.",
     intro:
-      "En utvecklare bygger det som standard inte täcker: tillägg, integrationer, rapporter och anpassningar. Tekniken skiljer sig mellan produkterna, AL i Business Central och X++ i Finance och Supply Chain Management, så välj produkt i filtret för att se partners med rätt erfarenhet.",
+      "En utvecklare/Developer bygger det som standard inte täcker: tillägg, integrationer, rapporter och anpassningar. Tekniken skiljer sig mellan produkterna, AL i Business Central och X++ i Finance och Supply Chain Management, så välj produkt i filtret för att se partners med rätt erfarenhet.",
     whatTheRoleDoes: [
       "Utvecklar tillägg och anpassningar i AL eller X++.",
       "Bygger integrationer via API:er och tjänster.",
