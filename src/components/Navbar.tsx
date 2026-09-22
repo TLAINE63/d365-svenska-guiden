@@ -193,6 +193,11 @@ const Navbar = () => {
                     Översikt – alla guider
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/kompetens/" className="cursor-pointer">
+                    Hitta rätt kompetens
+                  </Link>
+                </DropdownMenuItem>
                 {PARTNER_GUIDES.map((guide) => (
                   <DropdownMenuItem key={guide.slug} asChild>
                     <Link to={guidePath(guide)} className="cursor-pointer">
@@ -340,6 +345,9 @@ const Navbar = () => {
                   <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
                   <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Översikt – alla guider
+                  </Link>
+                  <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    Hitta rätt kompetens
                   </Link>
                   {PARTNER_GUIDES.map((guide) => (
                     <Link

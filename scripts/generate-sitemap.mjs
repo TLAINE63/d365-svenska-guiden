@@ -37,6 +37,8 @@ const STATIC_ROUTES = [
   { path: "/kontakt/", changefreq: "monthly", priority: "0.7" },
   { path: "/valjdynamics365partner/", changefreq: "weekly", priority: "0.9" },
   { path: "/guider/", changefreq: "monthly", priority: "0.7" },
+  // Kompetensguider läggs till här först när de är publicerade (status published).
+  { path: "/kompetens/", changefreq: "monthly", priority: "0.8" },
   { path: "/guider/valja-dynamics-365-partner/", changefreq: "monthly", priority: "0.9" },
   { path: "/guider/valja-business-central-partner/", changefreq: "monthly", priority: "0.9" },
   { path: "/guider/valja-finance-supply-chain-partner/", changefreq: "monthly", priority: "0.9" },
