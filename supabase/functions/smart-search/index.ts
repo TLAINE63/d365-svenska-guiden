@@ -142,6 +142,8 @@ ${partnerList}
 
 ${isvBlock}
 
+${competenceBlock}
+
 Returnera JSON:
 {
   "primary": { "path": "/...", "label": "...", "reason": "kort förklaring max 20 ord" },
