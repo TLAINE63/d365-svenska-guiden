@@ -371,13 +371,13 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  {page.intro}
  </p>
  )}
- <p className="mt-3 text-xs md:text-sm text-muted-foreground max-w-3xl leading-relaxed">
- Många bolag inom {industryName.toLowerCase()} landar i{" "}
- <Link to="/businesscentral/" className="text-primary hover:underline font-medium">
- Business Central som ERP-system
- </Link>{" "}
- – läs om pris, funktioner och implementationstid innan du jämför partners nedan.
- </p>
+          <p className="mt-3 text-xs md:text-sm text-muted-foreground max-w-3xl leading-relaxed">
+            Välj applikation och partner utifrån branschens processer, inte bara efter produktnamn. Läs mer om{" "}
+            <Link to="/erp/" className="text-primary hover:underline font-medium">
+              pris, funktioner och implementationstid
+            </Link>{" "}
+            innan du jämför partners nedan.
+          </p>
  <a
  href="#partners"
  className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
