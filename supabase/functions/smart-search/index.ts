@@ -38,6 +38,7 @@ const ROUTES = [
   { path: '/qa', label: 'Frågor & svar (FAQ)' },
   { path: '/kunskapscenter/dynamics-365-tillagg', label: 'ISV- och tilläggskatalog – appar som kompletterar Dynamics 365 (fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ m.m.)' },
   { path: '/kontakt', label: 'Kontakta oss / rådgivare' },
+  ...COMPETENCE_ROUTES,
 ];
 
 Deno.serve(async (req) => {
