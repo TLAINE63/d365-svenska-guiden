@@ -155,7 +155,48 @@ const ERPOverview = () => {
  subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain", href: "#comparison" }}
- />
+  />
+
+  {/* Introduction Section */}
+  <section id="comparison-intro" className="py-8 sm:py-12 md:py-16 bg-background scroll-mt-24">
+  <div className="container mx-auto px-4 sm:px-6">
+  <div className="max-w-4xl mx-auto text-center">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
+  Vilket ERP passar er verksamhet?
+  </h2>
+  <p className="text-lg text-muted-foreground mb-8">
+  Båda systemen tillhör Dynamics 365-familjen, men de är konstruerade för olika typer av komplexitet. Nedanstående jämförelse visar var skillnaderna faktiskt får praktisk betydelse – i ekonomihantering, supply chain, internationell drift och i hur stor del av lösningen som behöver konfigureras kontra utvecklas.
+  </p>
+
+  {/* Industry Comparison Widget */}
+  <div id="branschjamforelse" className="bg-card rounded p-6 sm:p-8 border border-border mb-8 scroll-mt-24">
+  <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
+  <p className="text-sm text-muted-foreground text-center mb-4">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
+  <p className="text-xs text-muted-foreground leading-relaxed mb-6 max-w-3xl mx-auto">
+  <strong className="text-foreground">En viktig reservation:</strong> Det är svårt att ge en helt rättvisande bild enbart utifrån dessa parametrar. Verkligheten är mer nyanserad – processernas komplexitet, befintliga systemlandskap, interna resurser och långsiktig tillväxtstrategi spelar alla in. Dessutom finns det ett brett ekosystem av tilläggsapplikationer till båda produkterna som tillför significant funktionalitet. Det gäller i synnerhet Business Central, där Microsofts Marketplace-marknadsplats innehåller hundratals etablerade tilläggsappar som täcker branschspecifika behov, avancerad WMS, APS, BI och mycket mer. Aktivera "Inkludera etablerade tilläggsappar till BC" nedan för att se hur BC:s ekosystem täpper igen gapen mot F&SCM i det valda segmentet – och få en mer rättvisande helhetsbild.
+  </p>
+  <IndustryComparisonWidget />
+  </div>
+
+  <div className="bg-primary/10 rounded p-6 sm:p-8 border border-primary/20">
+  <div className="flex items-center justify-center gap-2 mb-4">
+  <ClipboardList className="h-6 w-6 text-primary" />
+  <h3 className="text-xl font-semibold text-foreground">Osäker på valet?</h3>
+  </div>
+  <p className="text-muted-foreground mb-4">
+  Gör vår kostnadsfria ERP-behovsanalys för att få en personlig rekommendation
+  baserad på er verksamhet, storlek och specifika behov.
+  </p>
+  <Link to="/ERPbehovsanalys/">
+  <Button className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+  Skapa en behovsanalys
+  <ArrowRight className="ml-2 h-4 w-4" />
+  </Button>
+  </Link>
+  </div>
+  </div>
+  </div>
+  </section>
 
  {/* TAYA: Vad är ett affärssystem */}
  <section className="py-8 sm:py-12 bg-background">
@@ -214,46 +255,6 @@ const ERPOverview = () => {
  </div>
  </section>
 
- {/* Introduction Section */}
- <section id="comparison-intro" className="py-8 sm:py-12 md:py-16 bg-background scroll-mt-24">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-4xl mx-auto text-center">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
- Vilket ERP passar er verksamhet?
- </h2>
- <p className="text-lg text-muted-foreground mb-8">
- Båda systemen tillhör Dynamics 365-familjen, men de är konstruerade för olika typer av komplexitet. Nedanstående jämförelse visar var skillnaderna faktiskt får praktisk betydelse – i ekonomihantering, supply chain, internationell drift och i hur stor del av lösningen som behöver konfigureras kontra utvecklas.
- </p>
- 
- {/* Industry Comparison Widget */}
- <div id="branschjamforelse" className="bg-card rounded p-6 sm:p-8 border border-border mb-8 scroll-mt-24">
- <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
- <p className="text-sm text-muted-foreground text-center mb-4">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
- <p className="text-xs text-muted-foreground leading-relaxed mb-6 max-w-3xl mx-auto">
- <strong className="text-foreground">En viktig reservation:</strong> Det är svårt att ge en helt rättvisande bild enbart utifrån dessa parametrar. Verkligheten är mer nyanserad – processernas komplexitet, befintliga systemlandskap, interna resurser och långsiktig tillväxtstrategi spelar alla in. Dessutom finns det ett brett ekosystem av tilläggsapplikationer till båda produkterna som tillför significant funktionalitet. Det gäller i synnerhet Business Central, där Microsofts Marketplace-marknadsplats innehåller hundratals etablerade tilläggsappar som täcker branschspecifika behov, avancerad WMS, APS, BI och mycket mer. Aktivera "Inkludera etablerade tilläggsappar till BC" nedan för att se hur BC:s ekosystem täpper igen gapen mot F&SCM i det valda segmentet – och få en mer rättvisande helhetsbild.
- </p>
- <IndustryComparisonWidget />
- </div>
-
- <div className="bg-primary/10 rounded p-6 sm:p-8 border border-primary/20">
- <div className="flex items-center justify-center gap-2 mb-4">
- <ClipboardList className="h-6 w-6 text-primary" />
- <h3 className="text-xl font-semibold text-foreground">Osäker på valet?</h3>
- </div>
- <p className="text-muted-foreground mb-4">
- Gör vår kostnadsfria ERP-behovsanalys för att få en personlig rekommendation 
- baserad på er verksamhet, storlek och specifika behov.
- </p>
- <Link to="/ERPbehovsanalys/">
- <Button className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
- Skapa en behovsanalys
- <ArrowRight className="ml-2 h-4 w-4" />
- </Button>
- </Link>
- </div>
- </div>
- </div>
- </section>
 
  {/* Comparison Section */}
  <section id="comparison" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
