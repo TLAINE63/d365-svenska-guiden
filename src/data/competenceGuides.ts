@@ -83,7 +83,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     shortTitle: "Projektledare",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365-projektledare: vad rollen gör och vad du bör kontrollera",
+    seoTitle: "Dynamics 365-projektledare: roll och kontroll",
     seoDescription:
       "Vad en Dynamics 365-projektledare ansvarar för, när rollen behövs och vad ni bör kontrollera vid utvärdering. Hitta profilerade partners med relevant erfarenhet.",
     cardDescription:
@@ -138,7 +138,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     shortTitle: "Testledare",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365-testledare: ansvar, leveranser och kontrollpunkter",
+    seoTitle: "Dynamics 365-testledare: ansvar och kontroll",
     seoDescription:
       "Vad en testledare gör i ett Dynamics 365-projekt, vilka leveranser rollen ansvarar för och vad ni bör kontrollera. Hitta profilerade partners med relevant erfarenhet.",
     cardDescription:
@@ -192,7 +192,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     shortTitle: "Solution Architect",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365 Solution Architect: ansvar och kontrollpunkter",
+    seoTitle: "Dynamics 365 Solution Architect: roll och ansvar",
     seoDescription:
       "Vad en Solution Architect ansvarar för i ett Dynamics 365-införande, när rollen behövs och vad ni bör kontrollera vid utvärdering.",
     cardDescription:
@@ -246,7 +246,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     shortTitle: "Förvaltningsledare",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365-förvaltningsledare: ansvar efter driftsättning",
+    seoTitle: "Dynamics 365-förvaltningsledare: ansvar i drift",
     seoDescription:
       "Vad en förvaltningsledare ansvarar för efter driftsättning av Dynamics 365, när rollen behövs och vad ni bör kontrollera i förvaltningsavtalet.",
     cardDescription:
@@ -301,7 +301,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     type: "product",
     productArea: "Finance",
     status: "draft",
-    seoTitle: "Dynamics 365 Finance-konsult: kompetens och kontrollpunkter",
+    seoTitle: "Dynamics 365 Finance-konsult: kompetens och krav",
     seoDescription:
       "Vad en Dynamics 365 Finance-konsult arbetar med, när kompetensen behövs och vad ni bör kontrollera. Hitta profilerade partners med relevant erfarenhet.",
     cardDescription:
@@ -356,7 +356,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     type: "product",
     productArea: "Supply Chain Management",
     status: "draft",
-    seoTitle: "Dynamics 365 Supply Chain-konsult: kompetens och kontrollpunkter",
+    seoTitle: "Supply Chain-konsult i Dynamics 365: kompetens",
     seoDescription:
       "Vad en Supply Chain-konsult arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
     cardDescription:
@@ -411,7 +411,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     type: "product",
     productArea: "Business Central",
     status: "draft",
-    seoTitle: "Business Central-konsult: kompetens och kontrollpunkter",
+    seoTitle: "Business Central-konsult: kompetens och krav",
     seoDescription:
       "Vad en Business Central-konsult arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering av partner.",
     cardDescription:
@@ -466,7 +466,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     type: "product",
     productArea: "Sales",
     status: "draft",
-    seoTitle: "Dynamics 365 CRM-konsult: kompetens och kontrollpunkter",
+    seoTitle: "Dynamics 365 CRM-konsult: kompetens och krav",
     seoDescription:
       "Vad en CRM-konsult arbetar med i Dynamics 365 Sales och Customer Insights, när kompetensen behövs och vad ni bör kontrollera.",
     cardDescription:
@@ -521,7 +521,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     type: "product",
     productArea: "Customer Service",
     status: "draft",
-    seoTitle: "Dynamics 365 Customer Service-konsult: kompetens och kontrollpunkter",
+    seoTitle: "Customer Service-konsult: kompetens och krav",
     seoDescription:
       "Vad en kundservice- och Contact Center-konsult arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera.",
     cardDescription:
