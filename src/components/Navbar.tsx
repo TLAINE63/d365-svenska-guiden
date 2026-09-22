@@ -346,6 +346,9 @@ const Navbar = () => {
                   <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Översikt – alla guider
                   </Link>
+                  <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    Hitta rätt kompetens
+                  </Link>
                   {PARTNER_GUIDES.map((guide) => (
                     <Link
                       key={guide.slug}
