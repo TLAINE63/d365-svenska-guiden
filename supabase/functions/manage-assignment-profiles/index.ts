@@ -109,15 +109,124 @@ serve(async (req) => {
     const body = await req.json();
     const { action, token } = body ?? {};
 
-    const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-    if (typeof token !== "string" || !(await verifyJWT(token, secret))) {
-      return json({ error: "Behörighet saknas" }, 401);
-    }
-
     const svc = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
+
+    // ---- Partnerns egen profileringslänk (invite-token) ----
+    if (typeof action === "string" && action.startsWith("invitation-")) {
+      const invToken = typeof body?.inviteToken === "string" ? body.inviteToken : "";
+      if (!invToken) return json({ error: "Token krävs" }, 400);
+
+      const { data: invitation, error: invError } = await svc
+        .from("partner_invitations")
+        .select("partner_id, expires_at")
+        .eq("token", invToken)
+        .maybeSingle();
+
+      if (invError || !invitation || !invitation.partner_id) {
+        return json({ error: "Ogiltig länk eller partner ej kopplad" }, 403);
+      }
+      if (new Date(invitation.expires_at) < new Date()) {
+        return json({ error: "Inbjudan har gått ut" }, 403);
+      }
+      const partnerId = invitation.partner_id as string;
+
+      if (action === "invitation-list-profiles") {
+        const { data, error } = await svc
+          .from("partner_assignment_profiles")
+          .select(
+            "id, guide_slug, heading, experience_summary, typical_assignments, products, industries, regions, delivery_modes, status, updated_at"
+          )
+          .eq("partner_id", partnerId)
+          .order("updated_at", { ascending: false });
+        if (error) throw error;
+        return json({ profiles: data || [] });
+      }
+
+      if (action === "invitation-save-profile") {
+        const PartnerProfileSchema = ProfileSchema.omit({
+          partner_id: true,
+          status: true,
+          last_reviewed_at: true,
+          internal_notes: true,
+          evidence: true,
+        });
+        const parsed = PartnerProfileSchema.safeParse(body?.profile);
+        if (!parsed.success) {
+          return json(
+            { error: "Kontrollera fälten", details: parsed.error.flatten().fieldErrors },
+            400
+          );
+        }
+        const { id, ...p } = parsed.data;
+
+        // Partnerinskickat innehåll publiceras aldrig automatiskt.
+        const payload = { ...p, partner_id: partnerId, status: "draft" };
+
+        if (id) {
+          const { data: existing } = await svc
+            .from("partner_assignment_profiles")
+            .select("id")
+            .eq("id", id)
+            .eq("partner_id", partnerId)
+            .maybeSingle();
+          if (!existing) return json({ error: "Profilen hittades inte" }, 403);
+          const { error } = await svc
+            .from("partner_assignment_profiles")
+            .update(payload)
+            .eq("id", id)
+            .eq("partner_id", partnerId);
+          if (error) return json({ error: error.message }, 400);
+          return json({ id });
+        }
+
+        const { count } = await svc
+          .from("partner_assignment_profiles")
+          .select("id", { count: "exact", head: true })
+          .eq("partner_id", partnerId);
+        if ((count ?? 0) >= 6) {
+          return json({ error: "Max sex kompetensprofiler per partner" }, 400);
+        }
+
+        const { data, error } = await svc
+          .from("partner_assignment_profiles")
+          .insert(payload)
+          .select("id")
+          .single();
+        if (error) {
+          return json(
+            {
+              error: error.message.includes("duplicate")
+                ? "Ni har redan en profil för den här kompetensen"
+                : error.message,
+            },
+            400
+          );
+        }
+        return json({ id: data.id });
+      }
+
+      if (action === "invitation-delete-profile") {
+        const id = body?.id;
+        if (typeof id !== "string") return json({ error: "id krävs" }, 400);
+        const { error } = await svc
+          .from("partner_assignment_profiles")
+          .delete()
+          .eq("id", id)
+          .eq("partner_id", partnerId);
+        if (error) throw error;
+        return json({ ok: true });
+      }
+
+      return json({ error: "Okänd åtgärd" }, 400);
+    }
+
+    const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+    if (typeof token !== "string" || !(await verifyJWT(token, secret))) {
+      return json({ error: "Behörighet saknas" }, 401);
+    }
 
     if (action === "list") {
       const { data, error } = await svc
