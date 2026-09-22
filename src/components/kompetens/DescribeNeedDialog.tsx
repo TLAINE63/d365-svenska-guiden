@@ -60,9 +60,9 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
       toast({ title: "Fyll i företag, namn och e-post", variant: "destructive" });
       return;
     }
-    const emailCheck = validateBusinessEmail(form.email);
-    if (!emailCheck.valid) {
-      toast({ title: "Kontrollera e-postadressen", description: emailCheck.error, variant: "destructive" });
+    const emailError = validateBusinessEmail(form.email);
+    if (emailError) {
+      toast({ title: "Kontrollera e-postadressen", description: emailError, variant: "destructive" });
       return;
     }
     if (form.description.trim().length < MIN_DESCRIPTION) {
