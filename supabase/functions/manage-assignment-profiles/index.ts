@@ -141,6 +141,7 @@ serve(async (req) => {
     if (action === "save") {
       const parsed = ProfileSchema.safeParse(body?.profile);
       if (!parsed.success) {
+        console.error("save validation failed", JSON.stringify(parsed.error.flatten().fieldErrors));
         return json({ error: "Ogiltiga fält", details: parsed.error.flatten().fieldErrors }, 400);
       }
       const { evidence, id, ...profile } = parsed.data;

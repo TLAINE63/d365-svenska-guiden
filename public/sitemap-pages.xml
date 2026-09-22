@@ -193,6 +193,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://d365.se/kompetens/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://d365.se/guider/valja-dynamics-365-partner/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
