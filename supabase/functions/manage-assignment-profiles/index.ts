@@ -109,7 +109,7 @@ serve(async (req) => {
     const body = await req.json();
     const { action, token } = body ?? {};
 
-    const secret = Deno.env.get("PARTNER_ADMIN_PASSWORD") || "";
+    const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     if (typeof token !== "string" || !(await verifyJWT(token, secret))) {
       return json({ error: "Behörighet saknas" }, 401);
     }
