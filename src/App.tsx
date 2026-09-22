@@ -214,6 +214,12 @@ const AppShell = () => {
           <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
 
           <Route path="/valj-partner/*" element={<RedirectTo to="/valjdynamics365partner" />} />
+          <Route path="/valjpartner" element={<RedirectTo to="/valjdynamics365partner" />} />
+          <Route path="/partners" element={<RedirectTo to="/alla-d365-partners" />} />
+          <Route path="/partners/:slug" element={<RedirectTo to="/alla-d365-partners" />} />
+          <Route path="/partner-news" element={<RedirectTo to="/partnernytt" />} />
+          <Route path="/knowledge" element={<RedirectTo to="/kunskapscenter" />} />
+          <Route path="/kravspecifikation-erp" element={<RedirectTo to="/kravspecifikation" />} />
           <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/partners-per-bransch" element={<PartnersPerBransch />} />
           <Route path="/partners-sitemap" element={<PartnersSitemap />} />
