@@ -3,6 +3,7 @@ import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { getCorsHeaders } from '../_shared/cors.ts';
 import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
 import { buildIsvContextBlock, ISV_CATALOG_PATH } from '../_shared/isv-context.ts';
+import { buildCompetenceContextBlock, COMPETENCE_ROUTES } from '../_shared/competence-context.ts';
 import { PROMPT_CONFIDENTIALITY_SV } from '../_shared/prompt-guard.ts';
 
 const DAILY_LIMIT = 30;
@@ -37,6 +38,7 @@ const ROUTES = [
   { path: '/qa', label: 'Frågor & svar (FAQ)' },
   { path: '/kunskapscenter/dynamics-365-tillagg', label: 'ISV- och tilläggskatalog – appar som kompletterar Dynamics 365 (fakturahantering, WMS, EDI, lokalisering, e-handel, CPQ m.m.)' },
   { path: '/kontakt', label: 'Kontakta oss / rådgivare' },
+  ...COMPETENCE_ROUTES,
 ];
 
 Deno.serve(async (req) => {
@@ -93,6 +95,7 @@ Deno.serve(async (req) => {
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
     const isvBlock = await buildIsvContextBlock();
+    const competenceBlock = await buildCompetenceContextBlock();
 
     const systemPrompt = `Du är en sökassistent för d365.se, en köparsidig guide till Microsoft Dynamics 365 i Sverige.
 Användaren ställer en fri fråga – din uppgift är att föreslå den BÄSTA sidan att skicka dem till, plus 2-3 alternativa förslag.
@@ -109,6 +112,11 @@ VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
 - Om EN specifik lösning i listan tydligt matchar frågan: sätt primary.path till ${ISV_CATALOG_PATH}?losning=<id> där <id> är lösningens id exakt som det står i listan (fältet id:). Då öppnas lösningen direkt i katalogen.
 - Om ingen enskild lösning matchar: sätt primary.path till ${ISV_CATALOG_PATH}.
 - Hitta ALDRIG på ISV-lösningar som inte finns i listan.
+
+VIKTIGA REGLER OM KOMPETENS OCH EXPERTKONSULTER:
+- Om frågan handlar om roller, expertkonsulter, konsultprofiler, resursförstärkning, interim, "hitta rätt kompetens", projektledare, testledare, solution architect, förvaltningsledare, utvecklare, applikationskonsult eller support – använd avsnittet KOMPETENS nedan.
+- Sätt primary.path till rätt rollguide (/kompetens/<slug>/) när en roll tydligt matchar, annars /kompetens.
+- Beskriv aldrig namngivna konsulter eller personer – profilerna avser roller och funktioner hos en partner.
 
 KÄLLPRIORITERING (viktigt):
 - Prioritera i denna ordning: 1) redaktionellt granskade guider, produktsidor och frågor/svar, 2) strukturerad partnerdata (produkter, branscher, storlek, geografi, kompetens), 3) partnerverifierade profiler, 4) d365.se:s AI-assisterade partnerbedömningar (märk dem alltid som bedömning), 5) artiklar, partnernytt, events och videor när aktualitet är relevant.
@@ -133,6 +141,8 @@ PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupni
 ${partnerList}
 
 ${isvBlock}
+
+${competenceBlock}
 
 Returnera JSON:
 {
