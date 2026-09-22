@@ -99,6 +99,8 @@ const KunskapscenterFaq = lazy(() => import("./pages/KunskapscenterFaq"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const PartnerGuidePage = lazy(() => import("./pages/PartnerGuidePage"));
 const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
+const KompetensOversikt = lazy(() => import("./pages/KompetensOversikt"));
+const CompetenceGuidePage = lazy(() => import("./pages/CompetenceGuidePage"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
 const VideoIndex = lazy(() => import("./pages/VideoIndex"));
 const Branscher = lazy(() => import("./pages/Branscher"));
