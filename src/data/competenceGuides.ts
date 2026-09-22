@@ -79,7 +79,7 @@ export const DISCLAIMER_TEXT =
 export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   {
     slug: "dynamics-365-projektledare",
-    title: "Dynamics 365-projektledare",
+    title: "Projektledare",
     shortTitle: "Projektledare",
     type: "role",
     status: "draft",
@@ -134,7 +134,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-testledare",
-    title: "Dynamics 365-testledare",
+    title: "Testledare",
     shortTitle: "Testledare",
     type: "role",
     status: "draft",
@@ -188,7 +188,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-solution-architect",
-    title: "Dynamics 365 Solution Architect",
+    title: "Solution Architect",
     shortTitle: "Solution Architect",
     type: "role",
     status: "draft",
@@ -242,7 +242,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-forvaltningsledare",
-    title: "Dynamics 365-förvaltningsledare",
+    title: "Förvaltningsledare",
     shortTitle: "Förvaltningsledare",
     type: "role",
     status: "draft",
@@ -350,7 +350,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-utvecklare",
-    title: "Dynamics\u00A0365 - Utvecklare/Developer",
+    title: "Utvecklare/Developer",
     shortTitle: "Utvecklare/Developer",
     type: "role",
     status: "draft",
@@ -404,7 +404,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-support-och-servicedesk",
-    title: "Dynamics 365-support och servicedesk",
+    title: "Support & servicedesk",
     shortTitle: "Support & servicedesk",
     type: "role",
     status: "draft",
