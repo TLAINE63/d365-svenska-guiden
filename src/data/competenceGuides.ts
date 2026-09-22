@@ -601,29 +601,29 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-crm-konsult",
-    title: "Dynamics 365 CRM-konsult",
-    shortTitle: "CRM-konsult",
+    slug: "dynamics-365-sales-konsult",
+    title: "Dynamics\u00a0365 Sales-konsult",
+    shortTitle: "Sales-konsult",
     type: "product",
     productArea: "Sales",
     status: "draft",
-    seoTitle: "Dynamics 365 CRM-konsult: kompetens och krav",
+    seoTitle: "Dynamics 365 Sales-konsult: kompetens och krav",
     seoDescription:
-      "Vad en CRM-konsult arbetar med i Dynamics 365 Sales och Customer Insights, när kompetensen behövs och vad ni bör kontrollera.",
+      "Vad en Dynamics\u00a0365 Sales-konsult arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
     cardDescription:
-      "Säljprocess, kunddata och marknadsföring i Dynamics 365 Sales och Customer Insights.",
+      "Säljprocess, pipeline och uppföljning i Dynamics\u00a0365 Sales.",
     intro:
-      "En CRM-konsult arbetar med säljprocessen och kunddatan: hur affärer följs upp, hur data hålls ren och hur marknad och sälj arbetar i samma underlag. Kompetensen skiljer sig mellan komplex B2B-försäljning och volymdriven försäljning.",
+      "En Sales-konsult arbetar med säljprocessen och kunddatan i Dynamics\u00a0365 Sales: hur affärer följs upp, hur data hålls ren och hur säljorganisationen får ett gemensamt arbetssätt. Kompetensen skiljer sig mellan komplex B2B-försäljning och volymdriven försäljning.",
     whatTheRoleDoes: [
       "Sätter upp säljprocess, pipeline och uppföljning.",
       "Strukturerar kund- och kontaktdata.",
-      "Kopplar ihop marknadsaktiviteter med säljarbetet.",
       "Bygger rapporter och prognoser för säljledningen.",
+      "Kopplar säljverktyget till affärssystem och kommunikationskanaler.",
     ],
     whenNeeded: [
       "När pipelinen inte går att lita på.",
       "Vid införande av ett gemensamt arbetssätt i säljorganisationen.",
-      "När marknad och sälj arbetar i skilda system.",
+      "När säljarna arbetar i olika system eller kalkylblad.",
       "Vid integration mellan CRM och affärssystem.",
     ],
     responsibilities: [
@@ -637,7 +637,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "Har konsulten arbetat med er typ av försäljning?",
       "Hur säkras att säljarna faktiskt använder systemet?",
       "Hur hanteras dubbletter och datakvalitet?",
-      "Hur kopplas CRM till affärssystemet?",
+      "Hur kopplas Dynamics\u00a0365 Sales till affärssystemet?",
       "Vilken uppföljning finns efter införandet?",
     ],
     risks: [
@@ -650,8 +650,63 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
         mitigation: "Börja enkelt och lägg till fält först när de används.",
       },
       {
+        risk: "Integrationen mot affärssystemet blir eftersatt.",
+        mitigation: "Ta fram datamodell och ägarskap för integrationen redan vid uppstart.",
+      },
+    ],
+  },
+  {
+    slug: "dynamics-365-customer-insights-marketing-konsult",
+    title: "Dynamics\u00a0365 Customer Insights (Marketing)-konsult",
+    shortTitle: "Customer Insights-konsult",
+    type: "product",
+    productArea: "Customer Insights",
+    status: "draft",
+    seoTitle: "Dynamics 365 Customer Insights-konsult: kompetens och krav",
+    seoDescription:
+      "Vad en Dynamics\u00a0365 Customer Insights-konsult arbetar med, när marknadsförings- och kunddataplattformen behövs och vad ni bör kontrollera.",
+    cardDescription:
+      "Kundsegmentering, marknadsaktiviteter och kunddataplattform i Dynamics\u00a0365 Customer Insights.",
+    intro:
+      "En Customer Insights-konsult arbetar med kunddata, segmentering och automatiserade marknadsaktiviteter i Dynamics\u00a0365 Customer Insights. Rollen kopplar ofta ihop marknad, sälj och kundservice kring en gemensam kundbild.",
+    whatTheRoleDoes: [
+      "Sätter upp kundprofiler och segment utifrån data från flera källor.",
+      "Bygger automatiserade marknadsaktiviteter och kundresor.",
+      "Kopplar samman marknadsaktiviteter med säljarbetet.",
+      "Stöttar mätning av leadgenerering och kampanjresultat.",
+    ],
+    whenNeeded: [
+      "När marknad och sälj arbetar i skilda system.",
+      "Vid behov av segmentering utifrån kundbeteende och data.",
+      "När leadhantering och uppföljning ska automatiseras.",
+      "Vid införande av en gemensam kundbild över flera system.",
+    ],
+    responsibilities: [
+      "Kunddatamodell och segmentering.",
+      "Uppbyggnad av kundresor och automatiserade aktiviteter.",
+      "Integration mot CRM, webb och eventverktyg.",
+      "Rapportering av leads, konvertering och kampanjresultat.",
+      "Säkerställande av samtycke och datalagstiftning.",
+    ],
+    buyerChecklist: [
+      "Har konsulten erfarenhet av er typ av marknadsautomation?",
+      "Hur kopplas kunddata från olika system utan att skapa dubbletter?",
+      "Vilken datagrund krävs för segmenteringen?",
+      "Hur mäts resultatet av marknadsaktiviteter?",
+      "Hur hanteras samtycke och lagring av personuppgifter?",
+    ],
+    risks: [
+      {
+        risk: "Kunddatan är för splittrad för att bygga meningsfulla segment.",
+        mitigation: "Gör en datainventering innan segmenteringen sätts upp.",
+      },
+      {
         risk: "Marknadsdelen införs utan ägare.",
-        mitigation: "Utse ansvarig för marknadsaktiviteter innan införandet.",
+        mitigation: "Utse ansvarig för marknadsaktiviteter och kunddata innan införandet.",
+      },
+      {
+        risk: "Automatiserade resor skickar kommunikation till fel målgrupper.",
+        mitigation: "Testa segment och resor stegvis med en begränsad grupp först.",
       },
     ],
   },
