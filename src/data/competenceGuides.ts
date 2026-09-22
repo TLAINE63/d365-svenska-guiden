@@ -295,44 +295,43 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-finance-konsult",
-    title: "Dynamics 365 Finance-konsult",
-    shortTitle: "Finance-konsult",
-    type: "product",
-    productArea: "Finance",
+    slug: "dynamics-365-ekonomikonsult",
+    title: "Ekonomikonsult inom Dynamics 365",
+    shortTitle: "Ekonomikonsult",
+    type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365 Finance-konsult: kompetens och krav",
+    seoTitle: "Ekonomikonsult Dynamics 365: kompetens och krav",
     seoDescription:
-      "Vad en Dynamics 365 Finance-konsult arbetar med, när kompetensen behövs och vad ni bör kontrollera. Hitta profilerade partners med relevant erfarenhet.",
+      "Vad en ekonomikonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för Business Central eller Finance.",
     cardDescription:
-      "Ekonomiprocesser i Dynamics 365 Finance: redovisning, koncern, rapportering och regelverk.",
+      "Redovisning, reskontror, periodavslut och rapportering. Välj produkt i filtret, Business Central eller Finance.",
     intro:
-      "En Finance-konsult arbetar med ekonomiprocesserna i Dynamics 365 Finance: redovisning, reskontror, anläggningar, koncernstruktur och rapportering. Kompetensen behövs både i införandeprojekt och vid förändringar i en befintlig lösning.",
+      "En ekonomikonsult sätter upp kontoplan, dimensioner, reskontror och rapportering. Arbetssättet är likartat oavsett produkt, men djupet skiljer sig mellan Business Central och Finance. Välj produkt i filtret så visas partners med erfarenhet av just den lösningen.",
     whatTheRoleDoes: [
-      "Sätter upp kontoplan, dimensioner och redovisningsregler.",
-      "Konfigurerar leverantörs- och kundreskontra samt betalflöden.",
-      "Anpassar rapportering och periodavslut till verksamhetens behov.",
-      "Stödjer krav som följer av lag, revision och koncernrapportering.",
+      "Sätter upp kontoplan, dimensioner och bokföringsregler.",
+      "Konfigurerar kund- och leverantörsreskontra samt betalflöden.",
+      "Bygger rapportering, nyckeltal och stöd för periodavslut.",
+      "Stödjer krav från lag, revision och koncernrapportering.",
     ],
     whenNeeded: [
       "Vid införande eller byte av affärssystem.",
-      "Vid ny koncernstruktur, förvärv eller ny juridisk enhet.",
+      "Vid nya bolag, valutor, förvärv eller ny koncernstruktur.",
       "När periodavslut tar för lång tid.",
       "När rapporteringen kräver manuellt arbete i kalkylblad.",
     ],
     responsibilities: [
-      "Kontoplan, dimensionsmodell och redovisningsuppsättning.",
+      "Ekonomisk grunduppsättning och dimensionsmodell.",
       "Flöden för kund- och leverantörsfakturor.",
-      "Periodavslut och avstämningar.",
+      "Periodavslut, avstämningar och bokslutsstöd.",
       "Rapportpaket och underlag till koncernrapportering.",
       "Utbildning av ekonomifunktionen.",
     ],
     buyerChecklist: [
-      "Har konsulten arbetat med svenska redovisningsregler och rapportkrav?",
+      "Har konsulten arbetat med svenska redovisningsregler och era rapportkrav?",
       "Finns erfarenhet av er koncernstruktur och antal bolag?",
-      "Hur hanteras integration mot bank, lön och eventuella förskedssystem?",
+      "Hur hanteras integration mot bank, lön och förskedssystem?",
       "Hur mycket av rapporteringen löses i standard?",
-      "Vem ansvarar för utbildning av ekonomiteamet?",
+      "Hur säkerställs att ekonomiavdelningen kan underhålla uppsättningen själv?",
     ],
     risks: [
       {
@@ -350,172 +349,72 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-supply-chain-konsult",
-    title: "Dynamics 365 Supply Chain-konsult",
-    shortTitle: "Supply Chain-konsult",
-    type: "product",
-    productArea: "Supply Chain Management",
-    status: "draft",
-    seoTitle: "Supply Chain-konsult i Dynamics 365: kompetens",
-    seoDescription:
-      "Vad en Supply Chain-konsult arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
-    cardDescription:
-      "Inköp, lager, produktion och logistik i Dynamics 365 Supply Chain Management.",
-    intro:
-      "En Supply Chain-konsult arbetar med flödena från inköp och lager till produktion och utleverans. Behovet ser olika ut i tillverkning, partihandel och projektdriven verksamhet, så erfarenheten bör matcha er typ av flöde.",
-    whatTheRoleDoes: [
-      "Konfigurerar inköps-, lager- och produktionsprocesser.",
-      "Sätter upp planering, prognos och materialstyrning.",
-      "Arbetar med spårbarhet, batch- och serienummer där det krävs.",
-      "Stödjer lagerlayout, plockflöden och terminalstöd.",
-    ],
-    whenNeeded: [
-      "Vid införande i tillverkande eller distribuerande verksamhet.",
-      "När lagersaldon eller leveransprecision inte är tillförlitliga.",
-      "Vid nytt lager, ny produktionslinje eller ny marknad.",
-      "När planeringen sker i kalkylblad utanför systemet.",
-    ],
-    responsibilities: [
-      "Processuppsättning för inköp, lager och produktion.",
-      "Planeringsparametrar och materialstyrning.",
-      "Spårbarhet och kvalitetskontroller.",
-      "Integration mot lagerutrustning och transportörer.",
-      "Utbildning av lager- och planeringspersonal.",
-    ],
-    buyerChecklist: [
-      "Finns erfarenhet av just er typ av produktion eller distribution?",
-      "Hur hanteras spårbarhet och eventuella branschkrav?",
-      "Vilken erfarenhet finns av integration mot lager- och transportsystem?",
-      "Hur testas flödena med verkliga volymer?",
-      "Hur utbildas personal som inte arbetar vid en dator dagligen?",
-    ],
-    risks: [
-      {
-        risk: "Planeringsparametrar sätts en gång och följs aldrig upp.",
-        mitigation: "Avtala om en uppföljning efter några månaders drift.",
-      },
-      {
-        risk: "Lagerflöden testas bara i liten skala.",
-        mitigation: "Genomför volymtest på de mest frekventa flödena.",
-      },
-      {
-        risk: "Produktionsdata är ofullständig vid start.",
-        mitigation: "Planera datakvalitetsarbetet som en egen aktivitet.",
-      },
-    ],
-  },
-  {
-    slug: "business-central-ekonomikonsult",
-    title: "Business Central-ekonomikonsult",
-    shortTitle: "Ekonomikonsult",
-    type: "product",
-    productArea: "Business Central",
-    status: "draft",
-    seoTitle: "Business Central-ekonomikonsult: kompetens och krav",
-    seoDescription:
-      "Vad en ekonomikonsult i Dynamics 365 Business Central arbetar med, när kompetensen behövs och vad ni bör kontrollera.",
-    cardDescription:
-      "Redovisning, rapportering och ekonomistyrning i Dynamics 365 Business Central.",
-    intro:
-      "En ekonomikonsult sätter upp redovisningsplan, dimensioner och rapportering i Business Central. Behovet är störst vid införande, bolagsbildning eller när rapporteringen inte ger den bild ledningen behöver.",
-    whatTheRoleDoes: [
-      "Sätter upp kontoplan, dimensioner och bokföringsmallar.",
-      "Konfigurerar reskontra, fasta kostnader och periodiseringar.",
-      "Bygger ekonomiska rapporter och nyckeltal.",
-      "Stödjer bokslut, budget och prognosarbete.",
-    ],
-    whenNeeded: [
-      "Vid införande eller byte av ekonomisystem.",
-      "När rapporteringen kräver manuellt arbete i Excel.",
-      "Vid nya bolag, valutor eller koncernstrukturer.",
-      "När budget- och prognosprocessen ska förenklas.",
-    ],
-    responsibilities: [
-      "Ekonomisk grunduppsättning och dimensioner.",
-      "Rapportering och nyckeltal.",
-      "Stöd vid periodavslut och bokslut.",
-      "Utbildning av ekonomiavdelningen.",
-    ],
-    buyerChecklist: [
-      "Har konsulten erfarenhet av er bolagsform och era rapporteringskrav?",
-      "Hur hanteras koncern, valutor och elimineringar?",
-      "Vilka rapporter ingår, och vilka kräver tillägg?",
-      "Hur säkerställs att ekonomiavdelningen kan underhålla uppsättningen själv?",
-    ],
-    risks: [
-      {
-        risk: "Kontoplan och dimensioner sätts upp för snabbt utan analys.",
-        mitigation: "Genomför en workshop om rapporteringsbehov innan uppsättningen.",
-      },
-      {
-        risk: "Historik följer inte med vid byte av system.",
-        mitigation: "Besluta tidigt vad som migreras och vad som arkiveras.",
-      },
-    ],
-  },
-  {
-    slug: "business-central-logistikkonsult",
-    title: "Business Central-logistikkonsult",
+    slug: "dynamics-365-logistikkonsult",
+    title: "Logistikkonsult inom Dynamics 365",
     shortTitle: "Logistikkonsult",
-    type: "product",
-    productArea: "Business Central",
+    type: "role",
     status: "draft",
-    seoTitle: "Business Central-logistikkonsult: kompetens och krav",
+    seoTitle: "Logistikkonsult Dynamics 365: kompetens och krav",
     seoDescription:
-      "Vad en logistikkonsult i Dynamics 365 Business Central arbetar med, när kompetensen behövs och vad ni bör kontrollera.",
+      "Vad en logistikkonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret.",
     cardDescription:
-      "Inköp, lager och orderflöden i Dynamics 365 Business Central.",
+      "Inköp, lager, orderflöden och distribution. Välj produkt i filtret, Business Central eller Supply Chain Management.",
     intro:
-      "En logistikkonsult arbetar med inköp, lager, lagerplatser och orderflöden. Behovet växer med antalet artiklar, lagerplatser och kraven på spårbarhet.",
+      "En logistikkonsult arbetar med inköp, lager, lagerplatser och orderflöden, i vissa fall hela vägen ut till transport och spårbarhet. Behovet växer med antal artiklar, lagerplatser och krav på spårbarhet. Välj produkt i filtret för att se partners med rätt produkterfarenhet.",
     whatTheRoleDoes: [
-      "Sätter upp artiklar, enheter och lagerplatser.",
+      "Sätter upp artiklar, enheter, lagerplatser och lagerstyrning.",
       "Konfigurerar inköps- och orderflöden med godkännanden.",
-      "Arbetar med lagerstyrning, inventering och ombokningar.",
-      "Kopplar samman logistikflödet med ekonomi och försäljning.",
+      "Arbetar med planering, materialstyrning och inventering.",
+      "Stödjer spårbarhet, batch- och serienummer samt plockflöden.",
     ],
     whenNeeded: [
-      "När lagersaldon inte stämmer med verkligheten.",
+      "När lagersaldon eller leveransprecision inte är tillförlitliga.",
       "Vid införande av lagerplatser eller streckkodshantering.",
-      "När inköpsprocessen saknar struktur och godkännanden.",
-      "Vid krav på spårbarhet via serienummer eller batcher.",
+      "Vid nytt lager, ny marknad eller ny distributionsmodell.",
+      "När planeringen sker i kalkylblad utanför systemet.",
     ],
     responsibilities: [
       "Artikel- och lagerplatsstruktur.",
       "Inköps- och orderprocesser.",
-      "Lagerstyrning och inventeringsrutiner.",
+      "Planeringsparametrar och materialstyrning.",
+      "Integration mot lagerutrustning och transportörer.",
       "Utbildning av lager- och inköpspersonal.",
     ],
     buyerChecklist: [
-      "Har konsulten erfarenhet av er typ av lager (handel, produktion, distribution)?",
+      "Har konsulten erfarenhet av er typ av lager, handel, produktion eller distribution?",
       "Hur hanteras streckkoder och mobila enheter, i standard eller med tillägg?",
       "Hur sätts spårbarhet upp för era artiklar?",
-      "Vem ansvarar för att lagerdata stäms av innan driftsättning?",
+      "Hur testas flödena med verkliga volymer?",
+      "Vem ansvarar för att lagerdata stäms av före driftsättning?",
     ],
     risks: [
       {
-        risk: "Lagerplatsstrukturen blir mer avancerad än verksamheten kräver.",
+        risk: "Lagerstrukturen blir mer avancerad än verksamheten kräver.",
         mitigation: "Börja med en enkel struktur och bygg ut stegvis.",
       },
       {
         risk: "Grunddata av dålig kvalitet följer med in i det nya systemet.",
         mitigation: "Avsätt tid för rensning av artikelregister före migrering.",
       },
+      {
+        risk: "Lagerflöden testas bara i liten skala.",
+        mitigation: "Genomför volymtest på de mest frekventa flödena.",
+      },
     ],
   },
   {
-    slug: "business-central-produktionskonsult",
-    title: "Business Central-produktionskonsult",
+    slug: "dynamics-365-produktionskonsult",
+    title: "Produktionskonsult inom Dynamics 365",
     shortTitle: "Produktionskonsult",
-    type: "product",
-    productArea: "Business Central",
+    type: "role",
     status: "draft",
-    seoTitle: "Business Central-produktionskonsult: kompetens och krav",
+    seoTitle: "Produktionskonsult Dynamics 365: kompetens och krav",
     seoDescription:
-      "Vad en produktionskonsult i Dynamics 365 Business Central arbetar med, när kompetensen behövs och vad ni bör kontrollera.",
+      "Vad en produktionskonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret.",
     cardDescription:
-      "Produktionsorder, strukturer och kapacitet i Dynamics 365 Business Central.",
+      "Produktionsorder, strukturer, kapacitet och efterkalkyl. Välj produkt i filtret.",
     intro:
-      "En produktionskonsult sätter upp produktionsorder, artikelstrukturer och kapacitetsplanering. Behovet beror på tillverkningsdjup, antal operationer och hur planeringen görs idag.",
+      "En produktionskonsult sätter upp artikelstrukturer, arbetsgångar, produktionsorder och kapacitetsplanering. Behovet beror på tillverkningsdjup, antal operationer och hur planeringen görs idag. Välj produkt i filtret för Business Central eller Supply Chain Management.",
     whatTheRoleDoes: [
       "Sätter upp artikelstrukturer och arbetsgångar.",
       "Konfigurerar produktionsorder och materialuttag.",
@@ -523,7 +422,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "Kopplar produktion till lager, inköp och ekonomi.",
     ],
     whenNeeded: [
-      "Vid införande av tillverkningsmodulen.",
+      "Vid införande av tillverkningsfunktionerna.",
       "När planering sker i kalkylblad vid sidan av systemet.",
       "Vid behov av kostnadsberäkning per produkt.",
       "När manuell rapportering av produktion tar för mycket tid.",
@@ -535,14 +434,14 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "Utbildning av produktionsledning och operatörer.",
     ],
     buyerChecklist: [
-      "Har konsulten erfarenhet av ert tillverkningssätt (order-, lager- eller projekttillverkning)?",
-      "Räcker Business Central standard, eller behövs tillägg för planering och rapportering?",
+      "Har konsulten erfarenhet av ert tillverkningssätt, order-, lager- eller projekttillverkning?",
+      "Räcker standard, eller behövs tillägg för planering och rapportering?",
       "Hur hanteras kostnadsberäkning och efterkalkyl?",
       "Hur säkerställs att strukturerna hålls uppdaterade efter införandet?",
     ],
     risks: [
       {
-        risk: "Produktionsmodulen sätts upp utan stöd i den verkliga planeringen.",
+        risk: "Produktionsuppsättningen speglar inte den verkliga planeringen.",
         mitigation: "Involvera produktionsledningen i designen från start.",
       },
       {
@@ -552,68 +451,18 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "business-central-utvecklare",
-    title: "Business Central-utvecklare",
-    shortTitle: "Utvecklare",
-    type: "product",
-    productArea: "Business Central",
+    slug: "dynamics-365-saljkonsult",
+    title: "Säljkonsult inom Dynamics 365",
+    shortTitle: "Säljkonsult",
+    type: "role",
     status: "draft",
-    seoTitle: "Business Central-utvecklare: kompetens och krav",
+    seoTitle: "Säljkonsult Dynamics 365: kompetens och krav",
     seoDescription:
-      "Vad en utvecklare i Dynamics 365 Business Central arbetar med, när kompetensen behövs och vad ni bör kontrollera.",
+      "Vad en säljkonsult inom Dynamics\u00a0365 arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
     cardDescription:
-      "AL-utveckling, integrationer och tillägg i Dynamics 365 Business Central.",
+      "Säljprocess, pipeline och uppföljning, framför allt i Dynamics\u00a0365 Sales.",
     intro:
-      "En Business Central-utvecklare bygger tillägg i AL, integrationer och anpassningar när standard och befintliga AppSource-tillägg inte räcker. Behovet beror på hur mycket er verksamhet avviker från standard.",
-    whatTheRoleDoes: [
-      "Utvecklar tillägg och anpassningar i AL.",
-      "Bygger integrationer via API:er och tjänster.",
-      "Tar fram rapporter och utskrifter utöver standard.",
-      "Anpassar kod vid Microsofts uppdateringar.",
-    ],
-    whenNeeded: [
-      "När ett affärskrav inte löses av standard eller AppSource-tillägg.",
-      "Vid integrationer mot webbshop, PIM eller andra system.",
-      "När äldre anpassningar ska byggas om till tillägg.",
-      "Vid behov av kundspecifika rapporter.",
-    ],
-    responsibilities: [
-      "Utveckling och test av tillägg i AL.",
-      "Integrationer och API-arbete.",
-      "Versionshantering och kodgranskning.",
-      "Teknisk dokumentation och överlämning.",
-    ],
-    buyerChecklist: [
-      "Hur säkerställs att koden klarar Microsofts två årliga uppdateringar?",
-      "Vem äger koden, och kan en annan partner ta över den?",
-      "Finns dokumentation och testrutiner för tilläggen?",
-      "Hur prissätts utvecklingsarbete, och vad ingår i förvaltningen?",
-    ],
-    risks: [
-      {
-        risk: "Omfattande egna tillägg gör uppdateringar kostsamma.",
-        mitigation: "Pröva alltid standard och AppSource-tillägg först.",
-      },
-      {
-        risk: "Kunskapen om anpassningarna finns bara hos en person.",
-        mitigation: "Krav på dokumentation och delad åtkomst till kodförråd.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-sales-konsult",
-    title: "Dynamics\u00a0365 Sales-konsult",
-    shortTitle: "Sales-konsult",
-    type: "product",
-    productArea: "Sales",
-    status: "draft",
-    seoTitle: "Dynamics 365 Sales-konsult: kompetens och krav",
-    seoDescription:
-      "Vad en Dynamics\u00a0365 Sales-konsult arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
-    cardDescription:
-      "Säljprocess, pipeline och uppföljning i Dynamics\u00a0365 Sales.",
-    intro:
-      "En Sales-konsult arbetar med säljprocessen och kunddatan i Dynamics\u00a0365 Sales: hur affärer följs upp, hur data hålls ren och hur säljorganisationen får ett gemensamt arbetssätt. Kompetensen skiljer sig mellan komplex B2B-försäljning och volymdriven försäljning.",
+      "En säljkonsult arbetar med säljprocessen och kunddatan: hur affärer följs upp, hur data hålls ren och hur säljorganisationen får ett gemensamt arbetssätt. Kompetensen skiljer sig mellan komplex B2B-försäljning och volymdriven försäljning. Välj produkt i filtret om ni vet vilken lösning ni använder.",
     whatTheRoleDoes: [
       "Sätter upp säljprocess, pipeline och uppföljning.",
       "Strukturerar kund- och kontaktdata.",
@@ -637,7 +486,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "Har konsulten arbetat med er typ av försäljning?",
       "Hur säkras att säljarna faktiskt använder systemet?",
       "Hur hanteras dubbletter och datakvalitet?",
-      "Hur kopplas Dynamics\u00a0365 Sales till affärssystemet?",
+      "Hur kopplas säljlösningen till affärssystemet?",
       "Vilken uppföljning finns efter införandet?",
     ],
     risks: [
@@ -656,19 +505,18 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-customer-insights-marketing-konsult",
-    title: "Dynamics\u00a0365 Customer Insights (Marketing)-konsult",
-    shortTitle: "Customer Insights-konsult",
-    type: "product",
-    productArea: "Customer Insights",
+    slug: "dynamics-365-marknadskonsult",
+    title: "Marknadskonsult inom Dynamics 365",
+    shortTitle: "Marknadskonsult",
+    type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365 Customer Insights-konsult: kompetens och krav",
+    seoTitle: "Marknadskonsult Dynamics 365: kompetens och krav",
     seoDescription:
-      "Vad en Dynamics\u00a0365 Customer Insights-konsult arbetar med, när marknadsförings- och kunddataplattformen behövs och vad ni bör kontrollera.",
+      "Vad en marknadskonsult inom Dynamics\u00a0365 arbetar med, när kunddata och marknadsautomation behövs och vad ni bör kontrollera.",
     cardDescription:
-      "Kundsegmentering, marknadsaktiviteter och kunddataplattform i Dynamics\u00a0365 Customer Insights.",
+      "Kundsegmentering, kundresor och marknadsaktiviteter, framför allt i Customer Insights.",
     intro:
-      "En Customer Insights-konsult arbetar med kunddata, segmentering och automatiserade marknadsaktiviteter i Dynamics\u00a0365 Customer Insights. Rollen kopplar ofta ihop marknad, sälj och kundservice kring en gemensam kundbild.",
+      "En marknadskonsult arbetar med kunddata, segmentering och automatiserade marknadsaktiviteter. Rollen kopplar ofta ihop marknad, sälj och kundservice kring en gemensam kundbild. Välj produkt i filtret om ni vet vilken lösning arbetet gäller.",
     whatTheRoleDoes: [
       "Sätter upp kundprofiler och segment utifrån data från flera källor.",
       "Bygger automatiserade marknadsaktiviteter och kundresor.",
@@ -711,19 +559,18 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-customer-service-konsult",
-    title: "Dynamics 365 Kundservice- och Contact Center-konsult",
-    shortTitle: "Kundservice-konsult",
-    type: "product",
-    productArea: "Customer Service",
+    slug: "dynamics-365-kundservicekonsult",
+    title: "Kundservicekonsult inom Dynamics 365",
+    shortTitle: "Kundservicekonsult",
+    type: "role",
     status: "draft",
-    seoTitle: "Customer Service-konsult: kompetens och krav",
+    seoTitle: "Kundservicekonsult Dynamics 365: kompetens",
     seoDescription:
-      "Vad en kundservice- och Contact Center-konsult arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera.",
+      "Vad en kundservicekonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
     cardDescription:
-      "Ärendehantering, kanaler och självbetjäning i Dynamics 365 Customer Service och Contact Center.",
+      "Ärendehantering, kanaler och självbetjäning, framför allt i Customer Service och Contact Center.",
     intro:
-      "En kundservicekonsult arbetar med ärendeflöden, kanaler och kunskapsstöd. Behovet varierar med volym, antal kanaler och hur mycket som ska lösas utan mänsklig hantering.",
+      "En kundservicekonsult arbetar med ärendeflöden, kanaler och kunskapsstöd. Behovet varierar med volym, antal kanaler och hur mycket som ska lösas utan mänsklig hantering. Välj produkt i filtret om ni vet vilken lösning arbetet gäller.",
     whatTheRoleDoes: [
       "Sätter upp ärendetyper, köer och servicenivåer.",
       "Konfigurerar kanaler som telefoni, chatt och e-post.",
@@ -766,56 +613,56 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "finance-supply-chain-utvecklare",
-    title: "Finance & Supply Chain-utvecklare",
-    shortTitle: "F&SCM-utvecklare",
+    slug: "dynamics-365-utvecklare",
+    title: "Utvecklare inom Dynamics 365",
+    shortTitle: "Utvecklare",
     type: "role",
     status: "draft",
-    seoTitle: "Finance & Supply Chain-utvecklare: kompetens och krav",
+    seoTitle: "Dynamics 365-utvecklare: kompetens och krav",
     seoDescription:
-      "Vad en Finance & Supply Chain-utvecklare arbetar med i Dynamics 365, när kompetensen behövs och vad ni bör kontrollera innan uppstart.",
+      "Vad en utvecklare inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för AL eller X++.",
     cardDescription:
-      "X++-, integrations- och lösningsutveckling i Dynamics 365 Finance och Supply Chain Management.",
+      "Tillägg, anpassningar och integrationer. Välj produkt i filtret, AL för Business Central eller X++ för Finance och Supply Chain.",
     intro:
-      "En Finance & Supply Chain-utvecklare bygger det som standardfunktionerna i Dynamics 365 Finance och Supply Chain Management inte täcker: integrationer, anpassningar, rapporter och tillägg. Behovet beror på hur mycket er verksamhet avviker från standard och hur komplex ert systemlandskap är.",
+      "En utvecklare bygger det som standard inte täcker: tillägg, integrationer, rapporter och anpassningar. Tekniken skiljer sig mellan produkterna, AL i Business Central och X++ i Finance och Supply Chain Management, så välj produkt i filtret för att se partners med rätt erfarenhet.",
     whatTheRoleDoes: [
-      "Bygger integrationer mot andra system och datakällor.",
-      "Utvecklar anpassningar och tillägg i X++.",
-      "Tar fram rapporter och vyer utöver standard.",
-      "Deltar i kodgranskning och versionshantering.",
+      "Utvecklar tillägg och anpassningar i AL eller X++.",
+      "Bygger integrationer via API:er och tjänster.",
+      "Tar fram rapporter och utskrifter utöver standard.",
+      "Anpassar egen kod vid Microsofts uppdateringar.",
     ],
     whenNeeded: [
-      "När integrationer mot befintliga system krävs.",
-      "När verksamhetskrav inte täcks av standardfunktioner.",
+      "När ett affärskrav inte löses av standard eller färdiga tillägg.",
+      "Vid integrationer mot webbshop, PIM eller andra system.",
+      "När äldre anpassningar ska byggas om eller förvaltas.",
       "Vid migrering av data från äldre system.",
-      "När befintliga anpassningar ska förvaltas eller byggas om.",
     ],
     responsibilities: [
-      "Teknisk design och utveckling av anpassningar i X++.",
+      "Teknisk design, utveckling och test av anpassningar.",
       "Integrationer, API:er och datautbyten.",
-      "Enhetstester och stöd vid acceptanstester.",
+      "Versionshantering och kodgranskning.",
       "Teknisk dokumentation och överlämning.",
       "Uppgraderingsanpassning av egen kod.",
     ],
     buyerChecklist: [
-      "Finns erfarenhet av just Finance eller Supply Chain Management?",
-      "Hur arbetar man med versionshantering och kodgranskning?",
-      "Vem äger koden, och hur säkerställs att ni kan byta partner?",
-      "Hur hanteras Microsofts uppdateringar och uppgraderingar?",
-      "Ingår dokumentation och kunskapsöverföring i uppdraget?",
+      "Finns erfarenhet av just er produkt och teknik, AL eller X++?",
+      "Hur säkerställs att koden klarar Microsofts uppdateringar?",
+      "Vem äger koden, och kan en annan partner ta över den?",
+      "Finns dokumentation och testrutiner för tilläggen?",
+      "Hur prissätts utvecklingsarbete, och vad ingår i förvaltningen?",
     ],
     risks: [
       {
-        risk: "Anpassningar blir en engångslösning som ingen annan kan förvalta.",
-        mitigation: "Krav på dokumentation och överlämning i avtalet.",
+        risk: "Omfattande egna tillägg gör uppdateringar kostsamma.",
+        mitigation: "Pröva alltid standard och färdiga tillägg först.",
+      },
+      {
+        risk: "Kunskapen om anpassningarna finns bara hos en person.",
+        mitigation: "Krav på dokumentation och delad åtkomst till kodförråd.",
       },
       {
         risk: "Integrationer byggs utan ägare på er sida.",
-        mitigation: "Uppnäm en förvaltningsansvarig innan utvecklingen startar.",
-      },
-      {
-        risk: "Omfattande anpassningar försvårar uppgraderingar.",
-        mitigation: "Utmana behovet av varje anpassning mot standardfunktioner.",
+        mitigation: "Utse en förvaltningsansvarig innan utvecklingen startar.",
       },
     ],
   },
