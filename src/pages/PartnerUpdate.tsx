@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
+import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
 import PartnerAiVisibilityCard from "@/components/PartnerAiVisibilityCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -2816,6 +2817,11 @@ const PartnerUpdate = () => {
   {/* Partnernytt: skicka in nyhet eller inlägg */}
   {invitation?.partner_id && token && (
     <PartnerNewsSubmissionSection token={token} partnerId={invitation.partner_id} />
+  )}
+
+  {/* Kompetenser och roller, granskas innan publicering */}
+  {invitation?.partner_id && token && (
+    <PartnerCompetenceProfilesSection token={token} partnerId={invitation.partner_id} />
   )}
 
   {/* Synlighet i AI-svar, endast för partnern själv i den här vyn */}
