@@ -356,13 +356,13 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     status: "draft",
     seoTitle: "Dynamics\u00A0365 - Utvecklare/Developer: kompetens och krav",
     seoDescription:
-      "Vad en Dynamics 365-utvecklare/Developer arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för AL eller X++.",
+      "Vad en Dynamics 365-utvecklare/Developer arbetar med, när kompetensen behövs och vad ni bör kontrollera. Utvecklingsspråket skiljer sig åt mellan produktområden.",
     cardDescription:
-      "Tillägg, anpassningar och integrationer. Välj produkt i filtret, AL för Business Central eller X++ för Finance och Supply Chain.",
+      "Tillägg, anpassningar och integrationer i det språk som gäller för vald produkt. Välj produkt i filtret.",
     intro:
-      "En utvecklare/Developer bygger det som standard inte täcker: tillägg, integrationer, rapporter och anpassningar. Tekniken skiljer sig mellan produkterna, AL i Business Central och X++ i Finance och Supply Chain Management, så välj produkt i filtret för att se partners med rätt erfarenhet.",
+      "En utvecklare/Developer bygger det som standard inte täcker: tillägg, integrationer, rapporter och anpassningar. Utvecklingsspråket skiljer sig åt mellan produktområdena, till exempel AL i Business Central, X++ i Finance och Supply Chain Management, och JavaScript/TypeScript eller C#-plugins i Sales, Customer Insights, Customer Service och andra Power Platform-baserade applikationer. Välj därför produkt i filtret för att se partners med rätt erfarenhet.",
     whatTheRoleDoes: [
-      "Utvecklar tillägg och anpassningar i AL eller X++.",
+      "Utvecklar tillägg och anpassningar i produktens teknik, till exempel AL, X++ eller JavaScript/TypeScript/C#-plugins.",
       "Bygger integrationer via API:er och tjänster.",
       "Tar fram rapporter och utskrifter utöver standard.",
       "Anpassar egen kod vid Microsofts uppdateringar.",
