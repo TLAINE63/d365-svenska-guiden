@@ -122,6 +122,54 @@ export type Database = {
         }
         Relationships: []
       }
+      assignment_profile_evidence: {
+        Row: {
+          created_at: string
+          evidence_type: string
+          id: string
+          is_public: boolean
+          profile_id: string
+          title: string
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          evidence_type: string
+          id?: string
+          is_public?: boolean
+          profile_id: string
+          title: string
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          evidence_type?: string
+          id?: string
+          is_public?: boolean
+          profile_id?: string
+          title?: string
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignment_profile_evidence_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "assignment_profiles_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assignment_profile_evidence_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "partner_assignment_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       buyer_tool_events: {
         Row: {
           company_size: string | null
@@ -155,6 +203,54 @@ export type Database = {
           session_hash?: string | null
           status?: string
           tool?: string
+        }
+        Relationships: []
+      }
+      competence_guides: {
+        Row: {
+          created_at: string
+          guide_type: string
+          id: string
+          intro: string | null
+          product_area: string | null
+          sections: Json
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          sort_order: number
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          guide_type: string
+          id?: string
+          intro?: string | null
+          product_area?: string | null
+          sections?: Json
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          sort_order?: number
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          guide_type?: string
+          id?: string
+          intro?: string | null
+          product_area?: string | null
+          sections?: Json
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          sort_order?: number
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -1211,6 +1307,89 @@ export type Database = {
           },
           {
             foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_assignment_profiles: {
+        Row: {
+          created_at: string
+          delivery_modes: string[]
+          experience_summary: string
+          guide_slug: string
+          heading: string
+          id: string
+          industries: string[]
+          internal_notes: string | null
+          last_reviewed_at: string | null
+          partner_id: string
+          products: string[]
+          regions: string[]
+          status: string
+          typical_assignments: string[]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_modes?: string[]
+          experience_summary: string
+          guide_slug: string
+          heading: string
+          id?: string
+          industries?: string[]
+          internal_notes?: string | null
+          last_reviewed_at?: string | null
+          partner_id: string
+          products?: string[]
+          regions?: string[]
+          status?: string
+          typical_assignments?: string[]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          delivery_modes?: string[]
+          experience_summary?: string
+          guide_slug?: string
+          heading?: string
+          id?: string
+          industries?: string[]
+          internal_notes?: string | null
+          last_reviewed_at?: string | null
+          partner_id?: string
+          products?: string[]
+          regions?: string[]
+          status?: string
+          typical_assignments?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_assignment_profiles_guide_slug_fkey"
+            columns: ["guide_slug"]
+            isOneToOne: false
+            referencedRelation: "competence_guides"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "partner_assignment_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_assignment_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_assignment_profiles_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
             referencedRelation: "partners_public"
@@ -3043,6 +3222,34 @@ export type Database = {
       }
     }
     Views: {
+      assignment_profiles_public: {
+        Row: {
+          delivery_modes: string[] | null
+          experience_summary: string | null
+          guide_slug: string | null
+          heading: string | null
+          id: string | null
+          industries: string[] | null
+          last_reviewed_at: string | null
+          logo_dark_bg: boolean | null
+          logo_url: string | null
+          partner_name: string | null
+          partner_slug: string | null
+          products: string[] | null
+          public_evidence_types: string[] | null
+          regions: string[] | null
+          typical_assignments: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_assignment_profiles_guide_slug_fkey"
+            columns: ["guide_slug"]
+            isOneToOne: false
+            referencedRelation: "competence_guides"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       isv_solution_overrides_public: {
         Row: {
           combos: string[] | null
