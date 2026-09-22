@@ -381,7 +381,7 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       "Uppgraderingsanpassning av egen kod.",
     ],
     buyerChecklist: [
-      "Finns erfarenhet av just er produkt och teknik, AL eller X++?",
+      "Har partnern erfarenhet av er produkts teknik och språk, till exempel AL, X++ eller JavaScript/TypeScript/C#-plugins?",
       "Hur säkerställs att koden klarar Microsofts uppdateringar?",
       "Vem äger koden, och kan en annan partner ta över den?",
       "Finns dokumentation och testrutiner för tilläggen?",
