@@ -232,6 +232,210 @@ const FinanceSupplyChain = () => {
   }}
   />
 
+      {/* Partners Section */}
+      <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="text-center mb-8 sm:mb-10 md:mb-12">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Finance & Supply Chain-partners
+ </h2>
+ <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+ Här är ett urval av partners som arbetar med Dynamics 365 Finance & Supply Chain i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ </p>
+ <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
+ Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
+ </p>
+ </div>
+
+ {/* Industry Filter */}
+ <FilterButtons
+ title="Filtrera på bransch"
+ icon="industry"
+ options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+ selectedValue={selectedIndustry}
+ onSelect={setSelectedIndustry}
+ colorScheme="finance-supply"
+ />
+
+ {/* Geography Filter */}
+  <FilterButtons
+  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
+ icon="geography"
+ options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
+ selectedValue={selectedGeography}
+ onSelect={setSelectedGeography}
+ colorScheme="finance-supply"
+ />
+
+ {/* Optional size filters */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
+ colorScheme="finance-supply"
+ />
+
+ {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
+ {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
+ <>
+ <SearchResultSummary
+  count={fscPartners.length}
+  criteria={[
+   "Finance & SCM",
+   selectedIndustry,
+   selectedGeography,
+   selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+   selectedRevenue,
+  ]}
+  onChangeFilters={() => {
+   if (typeof document !== "undefined") {
+    document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+   }
+  }}
+ />
+ <div className="text-center -mt-4 mb-8">
+ <Button 
+ variant="ghost" 
+ size="sm" 
+ onClick={() => {
+ setSelectedIndustry(null);
+ setSelectedGeography(null);
+ setSelectedCompanySize(null);
+ setSelectedRevenue(null);
+ }}
+ className="text-muted-foreground hover:text-foreground"
+ >
+ Rensa alla filter
+ </Button>
+ </div>
+ </>
+ )}
+
+
+ {fscPartners.length === 0 ? (
+ <div className="text-center py-6">
+ <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
+ <p className="text-muted-foreground">
+ Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
+ </p>
+ </div>
+ ) : (
+ <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ {fscPartners.map((partner, index) => {
+ // Build profile URL with filter context
+ const basePath = buildPartnerProductPath(partner.slug, "Finance & SCM");
+ const params = new URLSearchParams();
+ if (selectedIndustry) params.set("industry", selectedIndustry);
+ if (selectedGeography) params.set("geography", selectedGeography);
+ if (selectedCompanySize) params.set("companySize", selectedCompanySize);
+ if (selectedRevenue) params.set("revenue", selectedRevenue);
+ const qs = params.toString();
+ const profileUrl = qs ? `${basePath}?${qs}` : basePath;
+ 
+ return (
+ <PartnerCard
+ key={index}
+ partner={partner}
+ profileUrl={profileUrl}
+ colorScheme="primary"
+ productKey="fsc"
+ highlightedProduct="Finance & SCM"
+ highlightedIndustry={selectedIndustry || undefined}
+ highlightedGeography={selectedGeography || undefined}
+ highlightedCompanySize={selectedCompanySize || undefined}
+ highlightedRevenue={selectedRevenue || undefined}
+ showRandomIndicator={true}
+ showBestFitOnly
+ resultView
+ />
+ );
+ })}
+ </div>
+ )}
+
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="fsc"
+  productLabel="Finance & SCM"
+  industry={selectedIndustry || null}
+  />
+
+
+ {/* Lead CTA - shows when partners are filtered */}
+ {selectedIndustry && (
+ <div className="max-w-xl mx-auto mt-12">
+ {/* Premium Contact CTA Card - same design as PartnerProfile */}
+ <article className="relative rounded overflow-hidden ">
+ {/* Gradient background */}
+ <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+ 
+ {/* Animated orb */}
+ <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
+ 
+ <div className="relative p-6 sm:p-8">
+ <div className="flex items-start gap-4 mb-6">
+ <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
+ <span className="text-xl">✨</span>
+ </div>
+ <div>
+ <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+ Låt oss hjälpa dig hitta rätt partner
+ </h3>
+ <p className="text-white/70 text-sm sm:text-base">
+ Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
+ </p>
+ </div>
+ </div>
+ 
+ {/* Filter context with glass effect */}
+ <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
+ <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+ <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
+ Din sökning
+ </p>
+ <div className="flex flex-wrap gap-2">
+ <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
+ Finance & Supply Chain
+ </Badge>
+ {selectedIndustry && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedIndustry}
+ </Badge>
+ )}
+ {selectedGeography && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedGeography}
+ </Badge>
+ )}
+ </div>
+ </div>
+ 
+ <LeadCTA
+ sourcePage="/finance-supply-chain"
+ selectedProduct="Finance & Supply Chain"
+ selectedIndustry={selectedIndustry || undefined}
+ variant="inline"
+ />
+ </div>
+ </article>
+ </div>
+ )}
+
+ <div className="text-center mt-8">
+ <Button asChild variant="outline" size="lg">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik">
+  Se alla partners
+ <ArrowRight className="ml-2 h-4 w-4" />
+ </Link>
+ </Button>
+ </div>
+ </div>
+ </section>
+
   <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain">
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
  <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
@@ -554,209 +758,6 @@ const FinanceSupplyChain = () => {
 
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
 
-      {/* Partners Section */}
-      <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="text-center mb-8 sm:mb-10 md:mb-12">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Finance & Supply Chain-partners
- </h2>
- <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Finance & Supply Chain i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
- </p>
- <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
- Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
- </p>
- </div>
-
- {/* Industry Filter */}
- <FilterButtons
- title="Filtrera på bransch"
- icon="industry"
- options={allIndustries.map(ind => ({ label: ind, value: ind }))}
- selectedValue={selectedIndustry}
- onSelect={setSelectedIndustry}
- colorScheme="finance-supply"
- />
-
- {/* Geography Filter */}
-  <FilterButtons
-  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
- icon="geography"
- options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
- selectedValue={selectedGeography}
- onSelect={setSelectedGeography}
- colorScheme="finance-supply"
- />
-
- {/* Optional size filters */}
- <SizeFilters
- selectedCompanySize={selectedCompanySize}
- selectedRevenue={selectedRevenue}
- onCompanySizeChange={setSelectedCompanySize}
- onRevenueChange={setSelectedRevenue}
- colorScheme="finance-supply"
- />
-
- {/* Resultathuvud – användarens sökning visas en gång ovanför korten */}
- {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
- <>
- <SearchResultSummary
-  count={fscPartners.length}
-  criteria={[
-   "Finance & SCM",
-   selectedIndustry,
-   selectedGeography,
-   selectedCompanySize ? `${selectedCompanySize} anställda` : null,
-   selectedRevenue,
-  ]}
-  onChangeFilters={() => {
-   if (typeof document !== "undefined") {
-    document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
-   }
-  }}
- />
- <div className="text-center -mt-4 mb-8">
- <Button 
- variant="ghost" 
- size="sm" 
- onClick={() => {
- setSelectedIndustry(null);
- setSelectedGeography(null);
- setSelectedCompanySize(null);
- setSelectedRevenue(null);
- }}
- className="text-muted-foreground hover:text-foreground"
- >
- Rensa alla filter
- </Button>
- </div>
- </>
- )}
-
-
- {fscPartners.length === 0 ? (
- <div className="text-center py-6">
- <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
- <p className="text-muted-foreground">
- Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
- </p>
- </div>
- ) : (
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
- {fscPartners.map((partner, index) => {
- // Build profile URL with filter context
- const basePath = buildPartnerProductPath(partner.slug, "Finance & SCM");
- const params = new URLSearchParams();
- if (selectedIndustry) params.set("industry", selectedIndustry);
- if (selectedGeography) params.set("geography", selectedGeography);
- if (selectedCompanySize) params.set("companySize", selectedCompanySize);
- if (selectedRevenue) params.set("revenue", selectedRevenue);
- const qs = params.toString();
- const profileUrl = qs ? `${basePath}?${qs}` : basePath;
- 
- return (
- <PartnerCard
- key={index}
- partner={partner}
- profileUrl={profileUrl}
- colorScheme="primary"
- productKey="fsc"
- highlightedProduct="Finance & SCM"
- highlightedIndustry={selectedIndustry || undefined}
- highlightedGeography={selectedGeography || undefined}
- highlightedCompanySize={selectedCompanySize || undefined}
- highlightedRevenue={selectedRevenue || undefined}
- showRandomIndicator={true}
- showBestFitOnly
- resultView
- />
- );
- })}
- </div>
- )}
-
-  <UnprofiledPartnersList
-  variant="teaser"
-  showSeeAllLink
-  productKey="fsc"
-  productLabel="Finance & SCM"
-  industry={selectedIndustry || null}
-  />
-
-
- {/* Lead CTA - shows when partners are filtered */}
- {selectedIndustry && (
- <div className="max-w-xl mx-auto mt-12">
- {/* Premium Contact CTA Card - same design as PartnerProfile */}
- <article className="relative rounded overflow-hidden ">
- {/* Gradient background */}
- <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
- 
- {/* Animated orb */}
- <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
- 
- <div className="relative p-6 sm:p-8">
- <div className="flex items-start gap-4 mb-6">
- <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
- <span className="text-xl">✨</span>
- </div>
- <div>
- <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
- Låt oss hjälpa dig hitta rätt partner
- </h3>
- <p className="text-white/70 text-sm sm:text-base">
- Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
- </p>
- </div>
- </div>
- 
- {/* Filter context with glass effect */}
- <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
- <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
- <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
- Din sökning
- </p>
- <div className="flex flex-wrap gap-2">
- <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- Finance & Supply Chain
- </Badge>
- {selectedIndustry && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedIndustry}
- </Badge>
- )}
- {selectedGeography && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedGeography}
- </Badge>
- )}
- </div>
- </div>
- 
- <LeadCTA
- sourcePage="/finance-supply-chain"
- selectedProduct="Finance & Supply Chain"
- selectedIndustry={selectedIndustry || undefined}
- variant="inline"
- />
- </div>
- </article>
- </div>
- )}
-
- <div className="text-center mt-8">
- <Button asChild variant="outline" size="lg">
-<Link to="/valjdynamics365partner/#alla-partners-rubrik">
-  Se alla partners
- <ArrowRight className="ml-2 h-4 w-4" />
- </Link>
- </Button>
- </div>
- </div>
- </section>
 
  {/* CTA Section */}
  <section className="py-10 bg-secondary/50">
