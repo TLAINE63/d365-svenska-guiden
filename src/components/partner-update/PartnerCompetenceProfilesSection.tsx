@@ -21,7 +21,7 @@ import {
   REGION_OPTIONS,
   type DeliveryMode,
 } from "@/data/competenceGuides";
-import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 
 const FUNCTION_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-assignment-profiles`;
 
@@ -163,8 +163,8 @@ export function PartnerCompetenceProfilesSection({ token, partnerId }: Props) {
       title="Kompetenser och roller"
       description="Vilka roller ni kan bemanna inom Dynamics 365, till exempel projektledare, utvecklare eller solution architect. Beskriv funktioner, inte namngivna personer."
       icon={UserCog}
-      isOpen={open}
-      onToggle={() => setOpen((v) => !v)}
+      open={open}
+      onOpenChange={setOpen}
     >
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
@@ -329,7 +329,7 @@ export function PartnerCompetenceProfilesSection({ token, partnerId }: Props) {
             <div>
               <Label>Branscher</Label>
               <div className="flex flex-wrap gap-2 mt-1">
-                {STANDARD_INDUSTRIES.map((i) => (
+                {INDUSTRY_NAMES.map((i) => (
                   <Badge
                     key={i}
                     variant={draft.industries.includes(i) ? "default" : "outline"}
