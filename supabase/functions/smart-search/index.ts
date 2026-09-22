@@ -113,6 +113,11 @@ VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
 - Om ingen enskild lösning matchar: sätt primary.path till ${ISV_CATALOG_PATH}.
 - Hitta ALDRIG på ISV-lösningar som inte finns i listan.
 
+VIKTIGA REGLER OM KOMPETENS OCH EXPERTKONSULTER:
+- Om frågan handlar om roller, expertkonsulter, konsultprofiler, resursförstärkning, interim, "hitta rätt kompetens", projektledare, testledare, solution architect, förvaltningsledare, utvecklare, applikationskonsult eller support – använd avsnittet KOMPETENS nedan.
+- Sätt primary.path till rätt rollguide (/kompetens/<slug>/) när en roll tydligt matchar, annars /kompetens.
+- Beskriv aldrig namngivna konsulter eller personer – profilerna avser roller och funktioner hos en partner.
+
 KÄLLPRIORITERING (viktigt):
 - Prioritera i denna ordning: 1) redaktionellt granskade guider, produktsidor och frågor/svar, 2) strukturerad partnerdata (produkter, branscher, storlek, geografi, kompetens), 3) partnerverifierade profiler, 4) d365.se:s AI-assisterade partnerbedömningar (märk dem alltid som bedömning), 5) artiklar, partnernytt, events och videor när aktualitet är relevant.
 - Nedprioritera eller ignorera: sidhuvud/menyer/sidfot, integritetspolicy och upprepade standardtexter, duplicerat innehåll, äldre nyheter när frågan gäller aktuell funktionalitet.
