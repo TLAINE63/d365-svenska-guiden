@@ -569,6 +569,114 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
       },
     ],
   },
+  {
+    slug: "dynamics-365-utvecklare",
+    title: "Dynamics 365-utvecklare",
+    shortTitle: "Utvecklare",
+    type: "role",
+    status: "draft",
+    seoTitle: "Dynamics 365-utvecklare: kompetens och krav",
+    seoDescription:
+      "Vad en Dynamics 365-utvecklare arbetar med, när kompetensen behövs och vad ni bör kontrollera innan uppstart.",
+    cardDescription:
+      "Integrationer, anpassningar och tillägg i Dynamics 365, från AL och X++ till Dataverse.",
+    intro:
+      "En utvecklare bygger det som standardfunktionerna inte täcker: integrationer, anpassningar och tillägg. Behovet beror på vilken applikation ni använder och hur mycket som ska avvika från standard.",
+    whatTheRoleDoes: [
+      "Bygger integrationer mot andra system och datakällor.",
+      "Utvecklar anpassningar och tillägg i respektive applikation.",
+      "Tar fram rapporter och vyer utöver standard.",
+      "Deltar i kodgranskning och versionshantering.",
+    ],
+    whenNeeded: [
+      "När integrationer mot befintliga system krävs.",
+      "När verksamhetskrav inte täcks av standardfunktioner.",
+      "Vid migrering av data från äldre system.",
+      "När befintliga anpassningar ska förvaltas eller byggas om.",
+    ],
+    responsibilities: [
+      "Teknisk design och utveckling av anpassningar.",
+      "Integrationer, API:er och datautbyten.",
+      "Enhetstester och stöd vid acceptanstester.",
+      "Teknisk dokumentation och överlämning.",
+      "Uppgraderingsanpassning av egen kod.",
+    ],
+    buyerChecklist: [
+      "Finns erfarenhet av just er applikation (Business Central, Finance eller Supply Chain)?",
+      "Hur arbetar man med versionshantering och kodgranskning?",
+      "Vem äger koden, och hur säkerställs att ni kan byta partner?",
+      "Hur hanteras Microsofts uppdateringar och uppgraderingar?",
+      "Ingår dokumentation och kunskapsöverföring i uppdraget?",
+    ],
+    risks: [
+      {
+        risk: "Anpassningar blir en engångslösning som ingen annan kan förvalta.",
+        mitigation: "Krav på dokumentation och överlämning i avtalet.",
+      },
+      {
+        risk: "Integrationer byggs utan ägare på er sida.",
+        mitigation: "Uppnäm en förvaltningsansvarig innan utvecklingen startar.",
+      },
+      {
+        risk: "Omfattande anpassningar försvårar uppgraderingar.",
+        mitigation: "Utmana behovet av varje anpassning mot standardfunktioner.",
+      },
+    ],
+  },
+  {
+    slug: "dynamics-365-support-och-servicedesk",
+    title: "Dynamics 365-support och servicedesk",
+    shortTitle: "Support & servicedesk",
+    type: "role",
+    status: "draft",
+    seoTitle: "Dynamics 365-support: kompetens och krav",
+    seoDescription:
+      "Vad support och servicedesk för Dynamics 365 omfattar, när det behövs och vad ni bör kontrollera i avtalet.",
+    cardDescription:
+      "Löpande användarstöd, felhantering och servicedesk för era Dynamics 365-applikationer.",
+    intro:
+      "Efter go-live behövs löpande stöd för användare, felhantering och mindre justeringar. Omfattningen varierar med antal användare, applikationer och hur kritisk lösningen är för verksamheten.",
+    whatTheRoleDoes: [
+      "Tar emot och hanterar felanmälningar och användarfrågor.",
+      "Löser eller eskalerar ärenden till rätt kompetens.",
+      "Gör mindre konfigurationsändringar inom överenskommet ramverk.",
+      "Följer upp ärendevolymer och återkommande problem.",
+    ],
+    whenNeeded: [
+      "När systemet är i drift och användarna behöver löpande stöd.",
+      "När interna supportresurser saknar Dynamics 365-kompetens.",
+      "Vid övergång från införandeprojekt till förvaltning.",
+      "När servicenivåer ska regleras i avtal.",
+    ],
+    responsibilities: [
+      "Ärendemottagning, prioritering och återkoppling.",
+      "Felsökning och åtgärd inom definierade servicenivåer.",
+      "Eskalering till partnerns specialister eller Microsoft.",
+      "Rapportering av ärendestatistik och förbättringsförslag.",
+      "Stöd vid Microsofts uppdateringar och release-fönster.",
+    ],
+    buyerChecklist: [
+      "Vilka servicenivåer (svarstid, lösningsmål) erbjuds i avtalet?",
+      "Hur nås supporten, via portal, telefon eller e-post?",
+      "Vad ingår i fastpriset och vad debiteras löpande?",
+      "Hur hanteras akuta stoppärenden utanför kontorstid?",
+      "Hur rapporteras ärendevolymer och återkommande fel?",
+    ],
+    risks: [
+      {
+        risk: "Oklar avgränsning mellan support och förvaltning skapar merkostnader.",
+        mitigation: "Definiera vad som ingår i supportavtalet kontra debiterbart arbete.",
+      },
+      {
+        risk: "Akuta ärenden hanteras för långsamt.",
+        mitigation: "Avtala eskalationsvägar och responstider per prioritet.",
+      },
+      {
+        risk: "Samma fel återkommer utan åtgärd.",
+        mitigation: "Krav på analys av återkommande ärenden och förebyggande åtgärder.",
+      },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) =>
