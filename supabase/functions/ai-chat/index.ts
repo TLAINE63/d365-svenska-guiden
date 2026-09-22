@@ -98,8 +98,9 @@ Deno.serve(async (req) => {
     }
 
     const isvBlock = await buildIsvContextBlock();
+    const competenceBlock = await buildCompetenceContextBlock();
 
-    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock + isvBlock + PROMPT_CONFIDENTIALITY_SV;
+    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock + isvBlock + competenceBlock + PROMPT_CONFIDENTIALITY_SV;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
