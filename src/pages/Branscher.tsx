@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles, ChevronDown } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
@@ -179,23 +179,28 @@ const Branscher = () => {
 
         <section className="py-6 md:py-8 border-b border-border bg-background">
           <div className="container mx-auto px-4 max-w-6xl">
-            <h2 className="text-lg md:text-xl font-bold text-foreground mb-3">
-              Varför bransch spelar roll
-            </h2>
-            <div className="space-y-3 text-sm md:text-[15px] text-muted-foreground max-w-4xl leading-relaxed">
-              <p>
-                Två företag kan välja exakt samma Dynamics 365-produkt – och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
-              </p>
-              <p>
-                I flera branscher avgörs Dynamics 365-valet inte bara av Microsofts standardfunktionalitet, utan av vilka branschlösningar som krävs runt plattformen. Det kan handla om allergen- och etikettkrav i livsmedel, GMP/GxP-validering i Life Science, hyreslogik i fastighet, rental fleet management, EDI mot retailkedjor eller mobil lagerhantering.
-              </p>
-              <p>
-                Därför är ISV-frågan också en partnerfråga. En partner som är stark på Business Central eller Finance & Supply Chain Management är inte automatiskt rätt om lösningen kräver en specifik branschapplikation, certifiering eller implementeringserfarenhet.
-              </p>
-              <p>
-                Att börja med branschen – innan du jämför produkter eller partners – gör att utvärderingen sker på rätt grunder: dina processer, dina integrationsbehov och de partners som faktiskt har levererat i din typ av verksamhet tidigare.
-              </p>
-            </div>
+            <details className="group">
+              <summary className="flex items-center justify-between cursor-pointer list-none">
+                <h2 className="text-lg md:text-xl font-bold text-foreground">
+                  Varför bransch spelar roll
+                </h2>
+                <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="mt-3 space-y-3 text-sm md:text-[15px] text-muted-foreground max-w-4xl leading-relaxed">
+                <p>
+                  Två företag kan välja exakt samma Dynamics 365-produkt – och ändå hamna i två helt olika projekt. Implementationen, kravspecifikationen och vilken partnerprofil som faktiskt klarar uppdraget styrs i hög grad av branschens processer, terminologi och regelverk.
+                </p>
+                <p>
+                  I flera branscher avgörs Dynamics 365-valet inte bara av Microsofts standardfunktionalitet, utan av vilka branschlösningar som krävs runt plattformen. Det kan handla om allergen- och etikettkrav i livsmedel, GMP/GxP-validering i Life Science, hyreslogik i fastighet, rental fleet management, EDI mot retailkedjor eller mobil lagerhantering.
+                </p>
+                <p>
+                  Därför är ISV-frågan också en partnerfråga. En partner som är stark på Business Central eller Finance & Supply Chain Management är inte automatiskt rätt om lösningen kräver en specifik branschapplikation, certifiering eller implementeringserfarenhet.
+                </p>
+                <p>
+                  Att börja med branschen – innan du jämför produkter eller partners – gör att utvärderingen sker på rätt grunder: dina processer, dina integrationsbehov och de partners som faktiskt har levererat i din typ av verksamhet tidigare.
+                </p>
+              </div>
+            </details>
           </div>
         </section>
 
