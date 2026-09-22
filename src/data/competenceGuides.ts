@@ -295,320 +295,56 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
     ],
   },
   {
-    slug: "dynamics-365-ekonomikonsult",
-    title: "Ekonomikonsult inom Dynamics 365",
-    shortTitle: "Ekonomikonsult",
+    slug: "dynamics-365-applikationskonsult",
+    title: "Dynamics 365 Applikationskonsult",
+    shortTitle: "Applikationskonsult",
     type: "role",
     status: "draft",
-    seoTitle: "Ekonomikonsult Dynamics 365: kompetens och krav",
+    seoTitle: "Dynamics 365 Applikationskonsult: roll och kompetens",
     seoDescription:
-      "Vad en ekonomikonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret för Business Central eller Finance.",
+      "Vad en Dynamics 365 Applikationskonsult arbetar med, när rollen behövs och vad ni bör kontrollera. Välj produkt i filtret för Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service eller andra Dynamics 365-applikationer.",
     cardDescription:
-      "Redovisning, reskontror, periodavslut och rapportering. Välj produkt i filtret, Business Central eller Finance.",
+      "Konfiguration, processstöd och användarstöd inom vald Dynamics 365-applikation. Välj produkt i filtret.",
     intro:
-      "En ekonomikonsult sätter upp kontoplan, dimensioner, reskontror och rapportering. Arbetssättet är likartat oavsett produkt, men djupet skiljer sig mellan Business Central och Finance. Välj produkt i filtret så visas partners med erfarenhet av just den lösningen.",
+      "En applikationskonsult arbetar hands-on med inställningar, processer och användarstöd i Dynamics 365. Rollen kan vara inriktad på ekonomi, logistik, produktion, försäljning, marknad eller kundservice, men det gemensamma är att förstå verksamhetens behov och översätta dem till rätt konfiguration i systemet. Välj produkt i filtret för att se partners med erfarenhet av just den applikationen.",
     whatTheRoleDoes: [
-      "Sätter upp kontoplan, dimensioner och bokföringsregler.",
-      "Konfigurerar kund- och leverantörsreskontra samt betalflöden.",
-      "Bygger rapportering, nyckeltal och stöd för periodavslut.",
-      "Stödjer krav från lag, revision och koncernrapportering.",
+      "Kartlägger verksamhetens processer och behov tillsammans med beställaren.",
+      "Konfigurerar inställningar, mallar, flöden och rapporter i Dynamics 365.",
+      "Stödjer användare i det dagliga arbetet och vid införandet.",
+      "Dokumenterar lösningar och bidrar till utbildning av nyckelanvändare.",
     ],
     whenNeeded: [
-      "Vid införande eller byte av affärssystem.",
-      "Vid nya bolag, valutor, förvärv eller ny koncernstruktur.",
-      "När periodavslut tar för lång tid.",
-      "När rapporteringen kräver manuellt arbete i kalkylblad.",
+      "Vid införande eller uppgradering av en Dynamics 365-applikation.",
+      "När processer eller rutiner behöver justeras i systemet.",
+      "När användarna behöver hjälp med specifika funktioner eller arbetsflöden.",
+      "När ni vill säkerställa att konfigurationen följer verksamhetens krav.",
     ],
     responsibilities: [
-      "Ekonomisk grunduppsättning och dimensionsmodell.",
-      "Flöden för kund- och leverantörsfakturor.",
-      "Periodavslut, avstämningar och bokslutsstöd.",
-      "Rapportpaket och underlag till koncernrapportering.",
-      "Utbildning av ekonomifunktionen.",
+      "Kartläggning och kravställning utifrån verksamhetens processer.",
+      "Konfiguration av applikationen enligt överenskommen design.",
+      "Stöd till användare och nyckelanvändare.",
+      "Dokumentation av inställningar och rutiner.",
+      "Uppföljning och justering efter driftsättning.",
     ],
     buyerChecklist: [
-      "Har konsulten arbetat med svenska redovisningsregler och era rapportkrav?",
-      "Finns erfarenhet av er koncernstruktur och antal bolag?",
-      "Hur hanteras integration mot bank, lön och förskedssystem?",
-      "Hur mycket av rapporteringen löses i standard?",
-      "Hur säkerställs att ekonomiavdelningen kan underhålla uppsättningen själv?",
+      "Har konsulten erfarenhet av er produkt och er bransch?",
+      "Hur arbetar konsulten med kravställning och dokumentation?",
+      "Vilken metodik används för konfiguration och test?",
+      "Hur säkerställs att användarna förstår och tar till sig lösningen?",
+      "Vad ingår i överlämningen till er egen organisation eller förvaltning?",
     ],
     risks: [
       {
-        risk: "Dimensionsmodellen sätts för snävt.",
-        mitigation: "Utgå från rapporteringsbehovet, inte från den gamla kontoplanen.",
+        risk: "Konfigurationen speglar inte verksamhetens faktiska processer.",
+        mitigation: "Kräv att processerna dokumenteras innan konfigurationen påbörjas.",
       },
       {
-        risk: "Periodavslut planeras först vid driftsättning.",
-        mitigation: "Testa ett fullständigt avslut innan driftsättning.",
+        risk: "Kunskapen stannar hos konsulten istället för hos er.",
+        mitigation: "Säkerställ dokumentation och kompetensöverföring som en fast del av uppdraget.",
       },
       {
-        risk: "Rapporter byggs utanför systemet.",
-        mitigation: "Bestäm tidigt vilken rapportering som ska ligga i standard.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-logistikkonsult",
-    title: "Logistikkonsult inom Dynamics 365",
-    shortTitle: "Logistikkonsult",
-    type: "role",
-    status: "draft",
-    seoTitle: "Logistikkonsult Dynamics 365: kompetens och krav",
-    seoDescription:
-      "Vad en logistikkonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret.",
-    cardDescription:
-      "Inköp, lager, orderflöden och distribution. Välj produkt i filtret, Business Central eller Supply Chain Management.",
-    intro:
-      "En logistikkonsult arbetar med inköp, lager, lagerplatser och orderflöden, i vissa fall hela vägen ut till transport och spårbarhet. Behovet växer med antal artiklar, lagerplatser och krav på spårbarhet. Välj produkt i filtret för att se partners med rätt produkterfarenhet.",
-    whatTheRoleDoes: [
-      "Sätter upp artiklar, enheter, lagerplatser och lagerstyrning.",
-      "Konfigurerar inköps- och orderflöden med godkännanden.",
-      "Arbetar med planering, materialstyrning och inventering.",
-      "Stödjer spårbarhet, batch- och serienummer samt plockflöden.",
-    ],
-    whenNeeded: [
-      "När lagersaldon eller leveransprecision inte är tillförlitliga.",
-      "Vid införande av lagerplatser eller streckkodshantering.",
-      "Vid nytt lager, ny marknad eller ny distributionsmodell.",
-      "När planeringen sker i kalkylblad utanför systemet.",
-    ],
-    responsibilities: [
-      "Artikel- och lagerplatsstruktur.",
-      "Inköps- och orderprocesser.",
-      "Planeringsparametrar och materialstyrning.",
-      "Integration mot lagerutrustning och transportörer.",
-      "Utbildning av lager- och inköpspersonal.",
-    ],
-    buyerChecklist: [
-      "Har konsulten erfarenhet av er typ av lager, handel, produktion eller distribution?",
-      "Hur hanteras streckkoder och mobila enheter, i standard eller med tillägg?",
-      "Hur sätts spårbarhet upp för era artiklar?",
-      "Hur testas flödena med verkliga volymer?",
-      "Vem ansvarar för att lagerdata stäms av före driftsättning?",
-    ],
-    risks: [
-      {
-        risk: "Lagerstrukturen blir mer avancerad än verksamheten kräver.",
-        mitigation: "Börja med en enkel struktur och bygg ut stegvis.",
-      },
-      {
-        risk: "Grunddata av dålig kvalitet följer med in i det nya systemet.",
-        mitigation: "Avsätt tid för rensning av artikelregister före migrering.",
-      },
-      {
-        risk: "Lagerflöden testas bara i liten skala.",
-        mitigation: "Genomför volymtest på de mest frekventa flödena.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-produktionskonsult",
-    title: "Produktionskonsult inom Dynamics 365",
-    shortTitle: "Produktionskonsult",
-    type: "role",
-    status: "draft",
-    seoTitle: "Produktionskonsult Dynamics 365: kompetens och krav",
-    seoDescription:
-      "Vad en produktionskonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera. Välj produkt i filtret.",
-    cardDescription:
-      "Produktionsorder, strukturer, kapacitet och efterkalkyl. Välj produkt i filtret.",
-    intro:
-      "En produktionskonsult sätter upp artikelstrukturer, arbetsgångar, produktionsorder och kapacitetsplanering. Behovet beror på tillverkningsdjup, antal operationer och hur planeringen görs idag. Välj produkt i filtret för Business Central eller Supply Chain Management.",
-    whatTheRoleDoes: [
-      "Sätter upp artikelstrukturer och arbetsgångar.",
-      "Konfigurerar produktionsorder och materialuttag.",
-      "Arbetar med kapacitet, beläggning och planering.",
-      "Kopplar produktion till lager, inköp och ekonomi.",
-    ],
-    whenNeeded: [
-      "Vid införande av tillverkningsfunktionerna.",
-      "När planering sker i kalkylblad vid sidan av systemet.",
-      "Vid behov av kostnadsberäkning per produkt.",
-      "När manuell rapportering av produktion tar för mycket tid.",
-    ],
-    responsibilities: [
-      "Strukturer, arbetsgångar och kapaciteter.",
-      "Produktionsorder och rapportering av utfall.",
-      "Planeringsstöd och materialbehov.",
-      "Utbildning av produktionsledning och operatörer.",
-    ],
-    buyerChecklist: [
-      "Har konsulten erfarenhet av ert tillverkningssätt, order-, lager- eller projekttillverkning?",
-      "Räcker standard, eller behövs tillägg för planering och rapportering?",
-      "Hur hanteras kostnadsberäkning och efterkalkyl?",
-      "Hur säkerställs att strukturerna hålls uppdaterade efter införandet?",
-    ],
-    risks: [
-      {
-        risk: "Produktionsuppsättningen speglar inte den verkliga planeringen.",
-        mitigation: "Involvera produktionsledningen i designen från start.",
-      },
-      {
-        risk: "Förväntningar på planeringsstöd överstiger vad standard levererar.",
-        mitigation: "Kartlägg planeringsbehoven tidigt och utvärdera tillägg.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-saljkonsult",
-    title: "Säljkonsult inom Dynamics 365",
-    shortTitle: "Säljkonsult",
-    type: "role",
-    status: "draft",
-    seoTitle: "Säljkonsult Dynamics 365: kompetens och krav",
-    seoDescription:
-      "Vad en säljkonsult inom Dynamics\u00a0365 arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
-    cardDescription:
-      "Säljprocess, pipeline och uppföljning, framför allt i Dynamics\u00a0365 Sales.",
-    intro:
-      "En säljkonsult arbetar med säljprocessen och kunddatan: hur affärer följs upp, hur data hålls ren och hur säljorganisationen får ett gemensamt arbetssätt. Kompetensen skiljer sig mellan komplex B2B-försäljning och volymdriven försäljning. Välj produkt i filtret om ni vet vilken lösning ni använder.",
-    whatTheRoleDoes: [
-      "Sätter upp säljprocess, pipeline och uppföljning.",
-      "Strukturerar kund- och kontaktdata.",
-      "Bygger rapporter och prognoser för säljledningen.",
-      "Kopplar säljverktyget till affärssystem och kommunikationskanaler.",
-    ],
-    whenNeeded: [
-      "När pipelinen inte går att lita på.",
-      "Vid införande av ett gemensamt arbetssätt i säljorganisationen.",
-      "När säljarna arbetar i olika system eller kalkylblad.",
-      "Vid integration mellan CRM och affärssystem.",
-    ],
-    responsibilities: [
-      "Säljprocess och uppföljningsmodell.",
-      "Datastruktur för kunder, kontakter och affärer.",
-      "Integration mot affärssystem och e-post.",
-      "Rapporter och prognoser.",
-      "Utbildning av säljare och säljledning.",
-    ],
-    buyerChecklist: [
-      "Har konsulten arbetat med er typ av försäljning?",
-      "Hur säkras att säljarna faktiskt använder systemet?",
-      "Hur hanteras dubbletter och datakvalitet?",
-      "Hur kopplas säljlösningen till affärssystemet?",
-      "Vilken uppföljning finns efter införandet?",
-    ],
-    risks: [
-      {
-        risk: "Systemet byggs för ledningens rapporter, inte för säljarnas arbete.",
-        mitigation: "Låt säljare delta i designen och testa arbetsflödet tidigt.",
-      },
-      {
-        risk: "För många obligatoriska fält.",
-        mitigation: "Börja enkelt och lägg till fält först när de används.",
-      },
-      {
-        risk: "Integrationen mot affärssystemet blir eftersatt.",
-        mitigation: "Ta fram datamodell och ägarskap för integrationen redan vid uppstart.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-marknadskonsult",
-    title: "Marknadskonsult inom Dynamics 365",
-    shortTitle: "Marknadskonsult",
-    type: "role",
-    status: "draft",
-    seoTitle: "Marknadskonsult Dynamics 365: kompetens och krav",
-    seoDescription:
-      "Vad en marknadskonsult inom Dynamics\u00a0365 arbetar med, när kunddata och marknadsautomation behövs och vad ni bör kontrollera.",
-    cardDescription:
-      "Kundsegmentering, kundresor och marknadsaktiviteter, framför allt i Customer Insights.",
-    intro:
-      "En marknadskonsult arbetar med kunddata, segmentering och automatiserade marknadsaktiviteter. Rollen kopplar ofta ihop marknad, sälj och kundservice kring en gemensam kundbild. Välj produkt i filtret om ni vet vilken lösning arbetet gäller.",
-    whatTheRoleDoes: [
-      "Sätter upp kundprofiler och segment utifrån data från flera källor.",
-      "Bygger automatiserade marknadsaktiviteter och kundresor.",
-      "Kopplar samman marknadsaktiviteter med säljarbetet.",
-      "Stöttar mätning av leadgenerering och kampanjresultat.",
-    ],
-    whenNeeded: [
-      "När marknad och sälj arbetar i skilda system.",
-      "Vid behov av segmentering utifrån kundbeteende och data.",
-      "När leadhantering och uppföljning ska automatiseras.",
-      "Vid införande av en gemensam kundbild över flera system.",
-    ],
-    responsibilities: [
-      "Kunddatamodell och segmentering.",
-      "Uppbyggnad av kundresor och automatiserade aktiviteter.",
-      "Integration mot CRM, webb och eventverktyg.",
-      "Rapportering av leads, konvertering och kampanjresultat.",
-      "Säkerställande av samtycke och datalagstiftning.",
-    ],
-    buyerChecklist: [
-      "Har konsulten erfarenhet av er typ av marknadsautomation?",
-      "Hur kopplas kunddata från olika system utan att skapa dubbletter?",
-      "Vilken datagrund krävs för segmenteringen?",
-      "Hur mäts resultatet av marknadsaktiviteter?",
-      "Hur hanteras samtycke och lagring av personuppgifter?",
-    ],
-    risks: [
-      {
-        risk: "Kunddatan är för splittrad för att bygga meningsfulla segment.",
-        mitigation: "Gör en datainventering innan segmenteringen sätts upp.",
-      },
-      {
-        risk: "Marknadsdelen införs utan ägare.",
-        mitigation: "Utse ansvarig för marknadsaktiviteter och kunddata innan införandet.",
-      },
-      {
-        risk: "Automatiserade resor skickar kommunikation till fel målgrupper.",
-        mitigation: "Testa segment och resor stegvis med en begränsad grupp först.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-kundservicekonsult",
-    title: "Kundservicekonsult inom Dynamics 365",
-    shortTitle: "Kundservicekonsult",
-    type: "role",
-    status: "draft",
-    seoTitle: "Kundservicekonsult Dynamics 365: kompetens",
-    seoDescription:
-      "Vad en kundservicekonsult inom Dynamics 365 arbetar med, när kompetensen behövs och vad ni bör kontrollera vid utvärdering.",
-    cardDescription:
-      "Ärendehantering, kanaler och självbetjäning, framför allt i Customer Service och Contact Center.",
-    intro:
-      "En kundservicekonsult arbetar med ärendeflöden, kanaler och kunskapsstöd. Behovet varierar med volym, antal kanaler och hur mycket som ska lösas utan mänsklig hantering. Välj produkt i filtret om ni vet vilken lösning arbetet gäller.",
-    whatTheRoleDoes: [
-      "Sätter upp ärendetyper, köer och servicenivåer.",
-      "Konfigurerar kanaler som telefoni, chatt och e-post.",
-      "Bygger kunskapsbank och självbetjäning.",
-      "Följer upp lösningsgrad och svarstider.",
-    ],
-    whenNeeded: [
-      "När ärenden hanteras i delade e-postlådor.",
-      "Vid införande av fler kanaler.",
-      "När svarstider eller lösningsgrad behöver förbättras.",
-      "Vid behov av gemensam kundbild över sälj och service.",
-    ],
-    responsibilities: [
-      "Ärendemodell, köer och eskalering.",
-      "Kanaluppsättning och bemanningslogik.",
-      "Kunskapsartiklar och självbetjäning.",
-      "Rapportering av servicenivåer.",
-      "Utbildning av handläggare och ledning.",
-    ],
-    buyerChecklist: [
-      "Finns erfarenhet av er ärendevolym och era kanaler?",
-      "Hur hanteras telefoni, och vilken lösning föreslås?",
-      "Hur byggs kunskapsbanken, och vem underhåller den?",
-      "Hur mäts lösningsgrad och kundnöjdhet?",
-      "Hur införs eventuella automatiserade svar utan att kvaliteten sjunker?",
-    ],
-    risks: [
-      {
-        risk: "Kanaler införs snabbare än bemanningen klarar.",
-        mitigation: "Inför en kanal i taget och mät belastningen.",
-      },
-      {
-        risk: "Kunskapsbanken saknar ägare.",
-        mitigation: "Avsätt tid för underhåll i förvaltningen.",
-      },
-      {
-        risk: "Automatisering döljer verkliga problem.",
-        mitigation: "Följ upp vilka ärenden som återkommer och åtgärda orsaken.",
+        risk: "Användarna får för lite stöd vid övergången.",
+        mitigation: "Planera för coachning och nyckelanvändarstöd i samband med driftsättning.",
       },
     ],
   },
