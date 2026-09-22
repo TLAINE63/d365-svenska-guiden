@@ -193,6 +193,11 @@ const Navbar = () => {
                     Översikt – alla guider
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/kompetens/" className="cursor-pointer">
+                    Hitta rätt kompetens
+                  </Link>
+                </DropdownMenuItem>
                 {PARTNER_GUIDES.map((guide) => (
                   <DropdownMenuItem key={guide.slug} asChild>
                     <Link to={guidePath(guide)} className="cursor-pointer">
