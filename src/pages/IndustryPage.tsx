@@ -610,44 +610,44 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
    ) : (
     <>
     <WhyTheseResults className="mb-4" />
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {matchingPartners.map((p) => {
-        const partner = p as any;
-        return (
-          <li key={partner.id}>
-            <article className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md">
-              <div className="flex items-start gap-3">
-                {partner.logo_url ? (
-                  <img
-                    src={partner.logo_url}
-                    alt={`${partner.name} logotyp`}
-                    loading="lazy"
-                    className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"
-                  />
-                ) : (
-                  <div className="h-11 w-11 shrink-0 rounded-md bg-muted" />
-                )}
-                <div className="min-w-0 flex-1">
-                  <h3 className="truncate font-semibold text-foreground transition-colors group-hover:text-primary">
-                    <Link
-                      to={`/partner/${partner.slug}/`}
-                      className="before:absolute before:inset-0 before:content-['']"
-                    >
-                      {partner.name}
-                    </Link>
-                  </h3>
-                  <div className="mt-1">
-                    <VerifiedPartnerBadge size="sm" />
-                  </div>
-                </div>
-              </div>
+     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+       {matchingPartners.map((p) => {
+         const partner = p as any;
+         return (
+           <li key={partner.id}>
+             <article className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
+               <div className="flex items-start gap-3">
+                 {partner.logo_url ? (
+                   <img
+                     src={partner.logo_url}
+                     alt={`${partner.name} logotyp`}
+                     loading="lazy"
+                     className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"
+                   />
+                 ) : (
+                   <div className="h-11 w-11 shrink-0 rounded-md bg-muted" />
+                 )}
+                 <div className="min-w-0 flex-1">
+                   <h3 className="truncate font-semibold text-foreground transition-colors group-hover:text-primary">
+                     <Link
+                       to={`/partner/${partner.slug}/`}
+                       className="before:absolute before:inset-0 before:content-['']"
+                     >
+                       {partner.name}
+                     </Link>
+                   </h3>
+                   <div className="mt-1">
+                     <VerifiedPartnerBadge size="sm" />
+                   </div>
+                 </div>
+               </div>
 
-              {(partner.ai_summary || partner.short_description) && (
-                <div className="mt-3 rounded-lg bg-muted/50 p-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    {partner.ai_summary ? "d365.se:s AI-sammanfattning" : "Kort beskrivning"}
-                  </p>
-                  <p className="text-xs leading-relaxed text-foreground/90 line-clamp-4">
+               {(partner.ai_summary || partner.short_description) && (
+                 <div className="mt-3 rounded-lg bg-muted/50 p-3">
+                   <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                     {partner.ai_summary ? "d365.se:s AI-sammanfattning" : "Kort beskrivning"}
+                   </p>
+                   <p className="text-xs leading-relaxed text-foreground/90 line-clamp-6">
                     {partner.ai_summary || partner.short_description}
                   </p>
                   {partner.ai_summary && (
