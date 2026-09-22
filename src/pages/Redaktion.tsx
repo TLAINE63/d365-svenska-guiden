@@ -206,10 +206,24 @@ export default function Redaktion() {
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
+            <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="assignment-profiles">
+            <RedaktionAssignmentProfilesTab
+              token={token}
+              partners={partners.map((p) => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                is_featured: p.is_featured ?? false,
+              }))}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
 
           <TabsContent value="backlinks">
             <RedaktionBacklinksTab token={token} onSessionExpired={logout} />
