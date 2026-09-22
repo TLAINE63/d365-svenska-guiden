@@ -11,14 +11,8 @@ const PartnerCompareBar = () => {
 
   const onComparePage = location.pathname.startsWith("/jamfor-partners");
 
-  // Auto-clear the selection once the user has visited the compare page,
-  // so the floating bar & prompt don't keep reappearing on later navigation.
-  useEffect(() => {
-    if (onComparePage && selected.length > 0) {
-      clear();
-    }
-  }, [onComparePage, selected.length, clear]);
-
+  // Selection is kept after a visit to the compare page so the user can keep
+  // browsing and add more partners; it is cleared explicitly via "Rensa".
   if (onComparePage) return null;
   if (selected.length === 0) return null;
 
