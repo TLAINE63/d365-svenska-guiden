@@ -296,11 +296,11 @@ export const COMPETENCE_GUIDES: CompetenceGuide[] = [
   },
   {
     slug: "dynamics-365-applikationskonsult",
-    title: "Dynamics 365 Applikationskonsult",
+    title: "Applikationskonsult",
     shortTitle: "Applikationskonsult",
     type: "role",
     status: "draft",
-    seoTitle: "Dynamics 365 Applikationskonsult: roll och kompetens",
+    seoTitle: "Applikationskonsult inom Dynamics 365: roll och kompetens",
     seoDescription:
       "Vad en Dynamics 365 Applikationskonsult arbetar med, när rollen behövs och vad ni bör kontrollera. Välj produkt i filtret för Business Central, Finance, Supply Chain Management, Sales, Customer Insights, Customer Service eller andra Dynamics 365-applikationer.",
     cardDescription:
