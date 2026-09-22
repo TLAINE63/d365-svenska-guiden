@@ -217,7 +217,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
               />
               <Label htmlFor="kn-consent" className="text-sm font-normal leading-relaxed">
                 Jag har tagit del av{" "}
-                <Link to="/integritetspolicy/" className="underline" target="_blank">
+                <Link to="/dataskydd/" className="underline" target="_blank">
                   integritetspolicyn
                 </Link>
                 . *
