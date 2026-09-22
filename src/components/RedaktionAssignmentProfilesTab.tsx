@@ -139,7 +139,24 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
       body: { ...payload, token },
     });
     if (error) {
-      const msg = (data as any)?.error || error.message;
+      let msg = (data as any)?.error || error.message;
+      const res = (error as any)?.context;
+      if (res && typeof res.json === "function") {
+        try {
+          const body = await res.clone().json();
+          if (body?.error) {
+            msg = body.error;
+            if (body.details) {
+              const fields = Object.entries(body.details as Record<string, string[]>)
+                .map(([k, v]) => `${k}: ${(v || []).join(", ")}`)
+                .join(" | ");
+              if (fields) msg = `${msg} (${fields})`;
+            }
+          }
+        } catch {
+          /* behåll ursprungligt felmeddelande */
+        }
+      }
       if (String(msg).includes("Behörighet") || String(msg).includes("401")) onSessionExpired();
       throw new Error(msg);
     }
