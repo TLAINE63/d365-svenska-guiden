@@ -20,32 +20,32 @@ export const COMPETENCE_GUIDE_REFS: CompetenceGuideRef[] = [
   },
   {
     slug: 'dynamics-365-projektledare',
-    title: 'Dynamics 365-projektledare',
+    title: 'Projektledare',
     summary: 'Driver införandeprojekt: plan, budget, resurser, risker och styrgruppsrapportering.',
   },
   {
     slug: 'dynamics-365-testledare',
-    title: 'Dynamics 365-testledare',
+    title: 'Testledare',
     summary: 'Planerar och leder test: testfall, acceptanstest, regressionstest, felrapportering.',
   },
   {
     slug: 'dynamics-365-solution-architect',
-    title: 'Dynamics 365 Solution Architect',
+    title: 'Solution Architect',
     summary: 'Ansvarar för lösningsdesign, integrationer, dataflöden och tekniska vägval.',
   },
   {
     slug: 'dynamics-365-forvaltningsledare',
-    title: 'Dynamics 365-förvaltningsledare',
+    title: 'Förvaltningsledare',
     summary: 'Leder förvaltning och vidareutveckling efter driftsättning, releaser och prioritering.',
   },
   {
     slug: 'dynamics-365-utvecklare',
-    title: 'Dynamics 365 - Utvecklare/Developer',
+    title: 'Utvecklare/Developer',
     summary: 'Utvecklar anpassningar och integrationer. Språket skiljer sig per produktområde (AL, X++, JavaScript/TypeScript, C#-plugins).',
   },
   {
     slug: 'dynamics-365-support-och-servicedesk',
-    title: 'Dynamics 365-support och servicedesk',
+    title: 'Support & servicedesk',
     summary: 'Användarsupport, incidenthantering, servicenivåer och löpande ärenden.',
   },
 ];
