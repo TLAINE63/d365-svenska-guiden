@@ -15,7 +15,7 @@ export interface CompetenceGuideRef {
 export const COMPETENCE_GUIDE_REFS: CompetenceGuideRef[] = [
   {
     slug: 'dynamics-365-applikationskonsult',
-    title: 'Dynamics 365 Applikationskonsult',
+    title: 'Applikationskonsult',
     summary: 'Konfigurerar och anpassar Dynamics 365 efter verksamhetens processer, stöttar kravställning, dokumentation, test och överlämning. Produktområde väljs i filtret.',
   },
   {
