@@ -15,11 +15,6 @@
     "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nä"
   },
   {
-    "slug": "be-terna",
-    "name": "BE-terna",
-    "description": "BE-terna SE är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens och leverans över hela Dynamics 365-plattformen. Vi verkar inom retail, manufacturing "
-  },
-  {
     "slug": "bisqo",
     "name": "Bisqo AB",
     "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att "
@@ -68,11 +63,6 @@
     "slug": "point-taken",
     "name": "Point Taken",
     "description": "Point Taken arbetar med Dynamics 365 Customer Engagement med tyngdpunkt på Sales och Customer Service, kompletterat av Customer Insights, Field Service och Contact Center. Fokus ligger på CRM- och kun"
-  },
-  {
-    "slug": "sherpas-group-ab",
-    "name": "Sherpas Group AB",
-    "description": "Sherpas Group AB erbjuder implementering och rådgivning kring Microsoft Dynamics 365 Business Central, Finance och Supply Chain Management. Företaget har kontor i Skellefteå, Stockholm, Malmö, Götebor"
   },
   {
     "slug": "sirocco-group",

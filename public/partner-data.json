@@ -6,7 +6,7 @@
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
   "updated": "2026-09-22",
-  "count": 18,
+  "count": 16,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -66,32 +66,6 @@
       "offices": null,
       "company_size": null,
       "geography": [
-        "Sverige"
-      ],
-      "related_party": false
-    },
-    {
-      "name": "BE-terna",
-      "slug": "be-terna",
-      "url": "https://d365.se/partner/be-terna/",
-      "website": "https://www.be-terna.com/sv",
-      "description": "BE-terna SE är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens och leverans över hela Dynamics 365-plattformen. Vi verkar inom retail, manufacturing och professional services och kombinerar stark lokal närvaro i 10 länder i Europa med global leveransförmåga.\n\nVi tar end-to-end-ansvar för implementation, förvaltning och vidareutveckling med struktur, governance och metodik på storbolagsnivå – för långsiktig stabilitet och affärsnytta.",
-      "products": [
-        "Finance",
-        "Supply Chain Management",
-        "Commerce"
-      ],
-      "industries": [
-        "Grossist & Distribution",
-        "Tillverkningsindustri",
-        "Retail & E-handel"
-      ],
-      "offices": null,
-      "company_size": null,
-      "geography": [
-        "Europa",
-        "Globalt",
-        "Norden",
         "Sverige"
       ],
       "related_party": false
@@ -338,30 +312,6 @@
       "company_size": null,
       "geography": [
         "Sverige"
-      ],
-      "related_party": false
-    },
-    {
-      "name": "Sherpas Group AB",
-      "slug": "sherpas-group-ab",
-      "url": "https://d365.se/partner/sherpas-group-ab/",
-      "website": "https://sherpas.se",
-      "description": "Sherpas Group AB erbjuder implementering och rådgivning kring Microsoft Dynamics 365 Business Central, Finance och Supply Chain Management. Företaget har kontor i Skellefteå, Stockholm, Malmö, Göteborg och Västerås, vilket ger en geografisk närvaro över delar av Sverige. De fokuserar på att stötta företag med deras affärssystemslösningar. Sherpas Group AB arbetar med att konfigurera och anpassa Dynamics 365-applikationer efter kundernas specifika behov.",
-      "products": [
-        "F&SCM",
-        "Business Central"
-      ],
-      "industries": [
-        "Bygg, Entreprenad & Installation",
-        "Energi & Utilities",
-        "Tillverkningsindustri"
-      ],
-      "offices": null,
-      "company_size": null,
-      "geography": [
-        "Sverige",
-        "Norden",
-        "Europa"
       ],
       "related_party": false
     },
