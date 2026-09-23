@@ -18,9 +18,10 @@ import {
   COMPETENCE_GUIDES,
   DELIVERY_MODES,
   PRODUCT_OPTIONS,
-  REGION_OPTIONS,
   type DeliveryMode,
 } from "@/data/competenceGuides";
+import { CITIES_BY_REGION, regionsForCities } from "@/data/competenceGeography";
+import { Checkbox } from "@/components/ui/checkbox";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 
 const FUNCTION_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-assignment-profiles`;
@@ -34,6 +35,8 @@ interface ProfileDraft {
   products: string[];
   industries: string[];
   regions: string[];
+  onsite_cities: string[];
+  remote_available: boolean;
   delivery_modes: DeliveryMode[];
   status?: string;
 }
