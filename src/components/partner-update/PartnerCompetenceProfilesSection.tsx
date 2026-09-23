@@ -49,6 +49,8 @@ const emptyProfile = (): ProfileDraft => ({
   products: [],
   industries: [],
   regions: [],
+  onsite_cities: [],
+  remote_available: false,
   delivery_modes: [],
 });
 
@@ -348,20 +350,46 @@ export function PartnerCompetenceProfilesSection({ token, partnerId }: Props) {
             </div>
 
             <div>
-              <Label>Regioner</Label>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {REGION_OPTIONS.map((r) => (
-                  <Badge
-                    key={r}
-                    variant={draft.regions.includes(r) ? "default" : "outline"}
-                    className="cursor-pointer"
-                    onClick={() => setDraft({ ...draft, regions: toggleIn(draft.regions, r) })}
-                  >
-                    {r}
-                  </Badge>
+              <Label>Orter där konsulten kan vara på plats</Label>
+              <p className="text-xs text-muted-foreground mt-1 mb-2">
+                Ange leveransorter, alltså var konsulten kan arbeta hos kunden. Det är inte
+                samma sak som var ni har kontor.
+              </p>
+              <div className="space-y-3">
+                {Object.entries(CITIES_BY_REGION).map(([region, cities]) => (
+                  <div key={region}>
+                    <p className="text-xs text-muted-foreground mb-1">{region}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {cities.map((c) => (
+                        <Badge
+                          key={c}
+                          variant={draft.onsite_cities.includes(c) ? "default" : "outline"}
+                          className="cursor-pointer"
+                          onClick={() => {
+                            const next = toggleIn(draft.onsite_cities, c);
+                            setDraft({
+                              ...draft,
+                              onsite_cities: next,
+                              regions: regionsForCities(next),
+                            });
+                          }}
+                        >
+                          {c}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
+              <label className="flex items-center gap-2 mt-3 text-sm">
+                <Checkbox
+                  checked={draft.remote_available}
+                  onCheckedChange={(v) => setDraft({ ...draft, remote_available: v === true })}
+                />
+                Kan arbeta på distans
+              </label>
             </div>
+
 
             <div>
               <Label>Leveransform</Label>
