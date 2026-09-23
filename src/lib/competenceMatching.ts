@@ -78,24 +78,26 @@ export function matchProfile(
 
   const region = filters.region;
   const delivery = filters.delivery;
+  // Regionen avser var konsulten kan arbeta på plats, inte partnerns kontor.
+  const coversRegion = (r: string) => has(profileRegions(profile), r);
 
   if (delivery === "remote") {
-    if (!has(profile.delivery_modes, "remote")) return { matches: false, score: 0, reasons: [] };
-    reasons.push("Levererar på distans");
+    if (!isRemote(profile)) return { matches: false, score: 0, reasons: [] };
+    reasons.push("Kan arbeta på distans");
     score++;
   } else if (delivery === "onsite" || delivery === "hybrid") {
     if (!has(profile.delivery_modes, delivery)) return { matches: false, score: 0, reasons: [] };
-    if (region && !has(profile.regions, region)) return { matches: false, score: 0, reasons: [] };
+    if (region && !coversRegion(region)) return { matches: false, score: 0, reasons: [] };
     reasons.push(
       region
-        ? `Levererar ${deliveryModeLabel(delivery).toLowerCase()} i ${region}`
+        ? `Kan vara ${deliveryModeLabel(delivery).toLowerCase()} i ${region}`
         : `Levererar ${deliveryModeLabel(delivery).toLowerCase()}`
     );
     score++;
     if (region) score++;
   } else if (region) {
-    if (!has(profile.regions, region)) return { matches: false, score: 0, reasons: [] };
-    reasons.push(`Täcker ${region}`);
+    if (!coversRegion(region)) return { matches: false, score: 0, reasons: [] };
+    reasons.push(`Kan vara på plats i ${region}`);
     score++;
   }
 
