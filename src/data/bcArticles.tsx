@@ -639,14 +639,14 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         <ol className="space-y-3">
           <li><Link to="/kunskapscenter/business-central/tillagg-fakturahantering/" className="text-primary underline hover:text-primary/80 font-semibold">1. Fakturahantering &amp; AP Automation</Link> – Continia, ExFlow (Truvio).</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" className="text-primary underline hover:text-primary/80 font-semibold">2. Svensk lokalisering &amp; moms</Link> – Swebase, Smart Swedish VAT.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> – Tasklet, Ongoing WMS.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-wms-lager/" className="text-primary underline hover:text-primary/80 font-semibold">3. WMS, lager &amp; handdatorer</Link> – Tasklet, Ongoing WMS, Bitlog.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-edi-efaktura/" className="text-primary underline hover:text-primary/80 font-semibold">4. EDI &amp; e-faktura</Link> – Golden EDI, TrueCommerce, Peppol720, Continia e-dokument.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> – nShift, Shipmondo, Sendcloud, Cargoson.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> – nShift, Logtrade.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-ehandel/" className="text-primary underline hover:text-primary/80 font-semibold">6. E-handel B2B/B2C</Link> – Sana Commerce och connector-alternativ.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-retail-pos/" className="text-primary underline hover:text-primary/80 font-semibold">7. Retail, POS &amp; hospitality</Link> – LS Central.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> – Aptean, TRIMIT, COSMO.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-dokument-output/" className="text-primary underline hover:text-primary/80 font-semibold">9. Dokument &amp; output management</Link> – Lasernet, Continia Document Output.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> – Jet/insightsoftware, Bizview, Solver, Power BI/Fabric.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> – Jet/insightsoftware, Aimplan, Power BI/Fabric.</li>
         </ol>
 
         <h2>Hur vi tolkar "offentligt listad" vs "auktoriserad"</h2>
