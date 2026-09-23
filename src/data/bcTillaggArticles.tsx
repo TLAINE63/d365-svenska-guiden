@@ -483,10 +483,10 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Branschpaket",
     title: "Branschlösningar i Business Central",
     description:
-      "Aptean (food), TRIMIT och Pebblestone (mode) samt COSMO (tillverkning) är de vanligaste branschlösningarna ovanpå BC.",
+      "Aptean (food), TRIMIT och Pebblestone (mode) samt 4PS (bygg och service) är vanliga branschlösningar ovanpå BC.",
     seoTitle: "Branschlösningar i Business Central – Food, mode & tillverkning",
     seoDescription:
-      "Se de vanligaste branschlösningarna i Business Central: Aptean Food, TRIMIT, Pebblestone och COSMO – och när de används.",
+      "Se vanliga branschlösningar i Business Central: Aptean Food, TRIMIT, Pebblestone och 4PS, och när de används.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -494,8 +494,8 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     content: (
       <>
         <Lead>
-          Beroende på industri är de vanligaste branschpaketen ovanpå BC <strong>Aptean</strong>,
-          <strong> TRIMIT</strong>, <strong>COSMO CONSULT</strong> och <strong>4PS</strong>.
+          Beroende på industri är vanliga branschpaket ovanpå BC <strong>Aptean</strong>,
+          <strong> TRIMIT</strong>, <strong>Pebblestone</strong> och <strong>4PS</strong>.
         </Lead>
         <Disclaimer />
 
@@ -514,13 +514,6 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           <strong>BC-partner offentligt kopplad:</strong> Adbriq (svensk produktsida och case med
           TRIMIT och BC).
         </p>
-
-        <h2>COSMO Project / Process / Discrete Manufacturing</h2>
-        <p>
-          Branschpaket från COSMO CONSULT ovanpå BC för mer avancerad tillverkning,
-          projektproduktion och processflöden.
-        </p>
-        <p><strong>BC-partner:</strong> COSMO CONSULT Sweden.</p>
 
         <h2>4PS Construct</h2>
         <p>
@@ -600,7 +593,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "BC-tillägg – Rapportering & budget",
     title: "Rapportering, budget & FP&A för Business Central",
     description:
-      "Jet Reports/insightsoftware, Bizview, Solver samt Power BI och Microsoft Fabric är de vanligaste komplementen till BC:s standardrapportering.",
+      "Jet Reports/insightsoftware, Aimplan, Solver samt Power BI och Microsoft Fabric är vanliga komplement till BC:s standardrapportering.",
     productSlug: "businesscentral",
     product: "Business Central",
     parentPath: "/businesscentral/",
@@ -609,7 +602,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
       <>
         <Lead>
           Vanliga komplement till BC:s standardrapportering är <strong>Jet Reports / insightsoftware</strong>,
-          <strong> Bizview</strong> och <strong>Solver</strong> för Excel-rapportering, finansiell
+          <strong> Aimplan</strong> och <strong>Solver</strong> för Excel-rapportering, finansiell
           rapportering, budget och prognos.
         </Lead>
         <p>
@@ -619,13 +612,13 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         </p>
         <Disclaimer />
 
-        <h2>Jet Reports &amp; Bizview (insightsoftware)</h2>
+        <h2>Jet Reports och Aimplan</h2>
         <p>
           Relevant när kunden vill ha bättre Excel-rapportering, finansiell rapportering,
           budget/prognos och management reporting ovanpå BC.
         </p>
         <p>
-          Bizview visas som stödd för Sverige. Partnerrelationer bör verifieras i varje affär.
+          Aimplan är en svensk FP&amp;A-plattform. Moveahead AB, som driver d365.se, har ägarintresse i Aimplan. Läs mer på sidan om ägande och intressen.
         </p>
 
         <h2>Solver for Business Central</h2>
