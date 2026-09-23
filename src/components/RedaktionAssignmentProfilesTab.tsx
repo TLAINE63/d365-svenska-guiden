@@ -26,9 +26,9 @@ import {
   COMPETENCE_GUIDES,
   DELIVERY_MODES,
   PRODUCT_OPTIONS,
-  REGION_OPTIONS,
   deliveryModeLabel,
 } from "@/data/competenceGuides";
+import { CITIES_BY_REGION, regionsForCities } from "@/data/competenceGeography";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 interface PartnerRow {
@@ -48,6 +48,8 @@ interface ProfileRow {
   products: string[];
   industries: string[];
   regions: string[];
+  onsite_cities: string[];
+  remote_available: boolean;
   delivery_modes: string[];
   last_reviewed_at: string | null;
   status: string;
