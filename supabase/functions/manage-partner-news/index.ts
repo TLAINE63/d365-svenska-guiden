@@ -427,6 +427,36 @@ serve(async (req) => {
         if (signErr) throw signErr;
         return new Response(JSON.stringify({ success: true, image_url: signed.signedUrl, path: key }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
       }
+      case "import-image-url": {
+        const url = z.string().url().max(2000).parse(body.url);
+        const u = new URL(url);
+        const host = u.hostname.toLowerCase();
+        if (u.protocol !== "https:" || host === "localhost" || /^(\d+\.){3}\d+$/.test(host) || host.includes(":") || host.endsWith(".local") || host.endsWith(".internal")) {
+          return new Response(JSON.stringify({ error: "Ogiltig bildadress" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 10000);
+        let resp: Response;
+        try {
+          resp = await fetch(url, { signal: ctrl.signal, redirect: "follow", headers: { "User-Agent": "Mozilla/5.0 (d365.se image import)", Accept: "image/*" } });
+        } finally { clearTimeout(t); }
+        const ct = (resp.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+        const allowed: Record<string, string> = { "image/jpeg": "jpg", "image/jpg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
+        if (!resp.ok || !allowed[ct]) {
+          return new Response(JSON.stringify({ error: "Kunde inte hämta bilden" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const buf = new Uint8Array(await resp.arrayBuffer());
+        if (buf.length > 5 * 1024 * 1024) {
+          return new Response(JSON.stringify({ error: "Bilden är för stor (max 5 MB)" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
+        const contentType = ct === "image/jpg" ? "image/jpeg" : ct;
+        const key = `news/${crypto.randomUUID()}.${allowed[ct]}`;
+        const { error: upErr } = await supabase.storage.from("partner-news-images").upload(key, buf, { contentType, upsert: false });
+        if (upErr) throw upErr;
+        const { data: signed, error: signErr } = await supabase.storage.from("partner-news-images").createSignedUrl(key, 60 * 60 * 24 * 365 * 10);
+        if (signErr) throw signErr;
+        return new Response(JSON.stringify({ success: true, image_url: signed.signedUrl, path: key }), { status: 200, headers: { "Content-Type": "application/json", ...cors } });
+      }
       default:
         return new Response(JSON.stringify({ error: "Okänd åtgärd" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
     }
