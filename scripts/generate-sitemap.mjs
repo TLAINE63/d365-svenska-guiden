@@ -261,7 +261,7 @@ let eventEntries = [];
 if (_supaUrl && _supaKey) {
   try {
     const res = await fetch(
-      `${_supaUrl}/rest/v1/partner_events?select=id,updated_at&status=eq.approved&order=event_date.desc`,
+      `${_supaUrl}/rest/v1/partner_events_public?select=id,updated_at&status=eq.approved&order=event_date.desc`,
       { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
     );
     if (res.ok) {
