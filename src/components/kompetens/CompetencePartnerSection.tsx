@@ -43,11 +43,10 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
 
       {noProfilesAtAll ? (
         <div className="rounded-xl border border-border bg-card p-5">
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             d365.se har ännu inte publicerat några uppdragsprofiler för den här rollen. Beskriv
-            behovet så går vi igenom det och återkommer om vi ser ett relevant nästa steg.
+            behovet nedan så går vi igenom det och återkommer om vi ser ett relevant nästa steg.
           </p>
-          <Button onClick={onDescribeNeed}>Beskriv ert behov för d365.se</Button>
         </div>
       ) : (
         <>
