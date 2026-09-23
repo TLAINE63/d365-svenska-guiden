@@ -103,15 +103,6 @@ export const ISV_COMPARISONS: IsvComparison[] = [
   },
 
   {
-    slug: "4ps-vs-cosmo-projektproduktion",
-    title: "4PS Construct vs COSMO (bygg & projektproduktion)",
-    intro:
-      "4PS är specialiserat på bygg, installation och service. COSMO Project är bredare projektproduktion. Båda lever ovanpå BC.",
-    solutionIds: ["4ps-construct", "cosmo-manufacturing"],
-    category: "Branschpaket",
-    parentArticleSlug: "tillagg-branschpaket",
-  },
-  {
     slug: "lasernet-vs-continia-output",
     title: "Lasernet vs Continia Document Output",
     intro:
@@ -121,20 +112,11 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     parentArticleSlug: "tillagg-dokument-output",
   },
   {
-    slug: "bizview-vs-solver-vs-aimplan",
-    title: "Bizview vs Solver vs Aimplan",
+    slug: "jet-vs-solver-vs-aimplan",
+    title: "Jet Reports vs Solver vs Aimplan",
     intro:
-      "Tre FP&A-alternativ ovanpå Business Central. Bizview och Solver är globala plattformar med stark Sverige-närvaro. Aimplan är en svensk molnplattform med nordiskt fokus. Moveahead AB (som driver d365.se) har ägarintresse i Aimplan – se /agande-och-intressen.",
-    solutionIds: ["bizview", "solver", "aimplan"],
-    category: "Rapportering / FP&A",
-    parentArticleSlug: "tillagg-rapportering-budget",
-  },
-  {
-    slug: "jet-vs-bizview-vs-solver",
-    title: "Jet Reports vs Bizview vs Solver",
-    intro:
-      "Jet är klassisk Excel-rapportering nära BC. Bizview täcker finansiell rapportering, budget och prognos. Solver är dedikerat FP&A.",
-    solutionIds: ["jet-reports", "bizview", "solver"],
+      "Jet är klassisk Excel-rapportering nära BC. Solver är dedikerat FP&A. Aimplan är en svensk molnplattform med nordiskt fokus. Moveahead AB (som driver d365.se) har ägarintresse i Aimplan, se /agande-och-intressen.",
+    solutionIds: ["jet-reports", "solver", "aimplan"],
     category: "Rapportering / FP&A",
     parentArticleSlug: "tillagg-rapportering-budget",
   },
