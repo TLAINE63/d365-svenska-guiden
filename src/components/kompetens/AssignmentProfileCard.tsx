@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
 import { deliveryModeLabel } from "@/data/competenceGuides";
+import { onsiteSummary } from "@/data/competenceGeography";
 import {
   EVIDENCE_LABELS,
   reviewedLabel,
