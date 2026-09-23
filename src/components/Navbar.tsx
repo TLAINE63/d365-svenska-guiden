@@ -70,6 +70,12 @@ const Navbar = () => {
               Kunskapscenter
             </Link>
             <Link
+              to="/kompetens/"
+              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
+            >
+              Hitta rätt kompetens
+            </Link>
+            <Link
               to="/partnernytt/"
               className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
