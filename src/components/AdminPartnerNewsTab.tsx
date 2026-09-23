@@ -859,8 +859,8 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               <p className="text-xs text-muted-foreground mt-1">Välj bransch om artikeln är riktad. Lämna som "Branschoberoende" annars.</p>
             </div>
 
-            <div className="sm:col-span-2">
-              <Label>Bild (valfritt)</Label>
+            <div className="sm:col-span-2 rounded-md focus-within:ring-2 focus-within:ring-ring/40 outline-none" tabIndex={0} onPaste={handleImagePaste}>
+              <Label>Bild (valfritt) – klistra in med Ctrl+V</Label>
               {form.image_url ? (
                 <div className="mt-2 flex items-start gap-3">
                   <div className="relative inline-block">
@@ -923,9 +923,9 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
               )}
               <div className="mt-2">
                 <Label className="text-xs text-muted-foreground">Eller klistra in en publik bild-URL</Label>
-                <Input type="url" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} placeholder="https://..." />
+                <Input type="url" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} onBlur={(e) => void persistImageUrl(e.target.value.trim())} placeholder="https://..." />
               </div>
-              <p className="text-xs text-muted-foreground mt-1">JPG, PNG, WebP eller GIF, max 5 MB. Ta t.ex. en skärmdump av LinkedIn-inläggets bild.</p>
+              <p className="text-xs text-muted-foreground mt-1">Tips: klicka på bilden i LinkedIn, välj "Kopiera bild" och tryck Ctrl+V här i bildrutan. Bildadresser sparas automatiskt på sajten. JPG, PNG, WebP eller GIF, max 5 MB.</p>
             </div>
 
 
