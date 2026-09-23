@@ -200,6 +200,8 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
     setEditing({
       ...p,
       internal_notes: p.internal_notes || "",
+      onsite_cities: p.onsite_cities || [],
+      remote_available: p.remote_available ?? false,
       evidence: evidence.filter((e) => e.profile_id === p.id),
     });
   };
@@ -220,7 +222,9 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
           typical_assignments: editing.typical_assignments.filter(Boolean),
           products: editing.products,
           industries: editing.industries,
-          regions: editing.regions,
+          regions: regionsForCities(editing.onsite_cities),
+          onsite_cities: editing.onsite_cities,
+          remote_available: editing.remote_available,
           delivery_modes: editing.delivery_modes,
           last_reviewed_at: editing.last_reviewed_at || null,
           status: editing.status,
