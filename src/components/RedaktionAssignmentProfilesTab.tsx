@@ -83,6 +83,8 @@ const emptyProfile = (): ProfileRow & { evidence: EvidenceRow[] } => ({
   products: [],
   industries: [],
   regions: [],
+  onsite_cities: [],
+  remote_available: false,
   delivery_modes: [],
   last_reviewed_at: null,
   status: "draft",
