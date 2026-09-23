@@ -644,7 +644,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
           <li><Link to="/kunskapscenter/business-central/tillagg-frakt-ta/" className="text-primary underline hover:text-primary/80 font-semibold">5. Frakt, transport &amp; TA</Link> – nShift, Logtrade.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-ehandel/" className="text-primary underline hover:text-primary/80 font-semibold">6. E-handel B2B/B2C</Link> – Sana Commerce och connector-alternativ.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-retail-pos/" className="text-primary underline hover:text-primary/80 font-semibold">7. Retail, POS &amp; hospitality</Link> – LS Central.</li>
-          <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> – Aptean, TRIMIT, COSMO.</li>
+          <li><Link to="/kunskapscenter/business-central/tillagg-branschpaket/" className="text-primary underline hover:text-primary/80 font-semibold">8. Branschpaket</Link> – Aptean, TRIMIT, Pebblestone.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-dokument-output/" className="text-primary underline hover:text-primary/80 font-semibold">9. Dokument &amp; output management</Link> – Lasernet, Continia Document Output.</li>
           <li><Link to="/kunskapscenter/business-central/tillagg-rapportering-budget/" className="text-primary underline hover:text-primary/80 font-semibold">10. Rapportering, budget &amp; FP&amp;A</Link> – Jet/insightsoftware, Aimplan, Power BI/Fabric.</li>
         </ol>

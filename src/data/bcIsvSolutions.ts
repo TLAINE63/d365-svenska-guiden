@@ -1583,7 +1583,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     useCases: [],
     whenFits: "Ekonomifunktioner som vill kombinera rapportering och planering.",
     bestFor: "Ekonomifunktioner som vill kombinera rapportering och planering.",
-    considerations: "Bedöm integration, datamodell och behov jämfört med Bizview/Aimplan/Power BI.",
+    considerations: "Bedöm integration, datamodell och behov jämfört med Aimplan och Power BI.",
     combos: [],
     partnersSE: [],
     products: ["Business Central"],
