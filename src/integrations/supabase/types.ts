@@ -1325,9 +1325,11 @@ export type Database = {
           industries: string[]
           internal_notes: string | null
           last_reviewed_at: string | null
+          onsite_cities: string[]
           partner_id: string
           products: string[]
           regions: string[]
+          remote_available: boolean
           status: string
           typical_assignments: string[]
           updated_at: string
@@ -1342,9 +1344,11 @@ export type Database = {
           industries?: string[]
           internal_notes?: string | null
           last_reviewed_at?: string | null
+          onsite_cities?: string[]
           partner_id: string
           products?: string[]
           regions?: string[]
+          remote_available?: boolean
           status?: string
           typical_assignments?: string[]
           updated_at?: string
@@ -1359,9 +1363,11 @@ export type Database = {
           industries?: string[]
           internal_notes?: string | null
           last_reviewed_at?: string | null
+          onsite_cities?: string[]
           partner_id?: string
           products?: string[]
           regions?: string[]
+          remote_available?: boolean
           status?: string
           typical_assignments?: string[]
           updated_at?: string
@@ -3233,11 +3239,13 @@ export type Database = {
           last_reviewed_at: string | null
           logo_dark_bg: boolean | null
           logo_url: string | null
+          onsite_cities: string[] | null
           partner_name: string | null
           partner_slug: string | null
           products: string[] | null
           public_evidence_types: string[] | null
           regions: string[] | null
+          remote_available: boolean | null
           typical_assignments: string[] | null
         }
         Relationships: [
