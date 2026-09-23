@@ -69,10 +69,20 @@ const AssignmentProfileCard = ({ profile, onContact, onProfileClick }: Props) =>
             <dd>{profile.industries.slice(0, 3).join(", ")}</dd>
           </div>
         )}
-        {profile.regions?.length > 0 && (
+        {(profile.onsite_cities?.length || profile.regions?.length) > 0 && (
           <div>
-            <dt className="text-xs font-semibold text-muted-foreground">Geografisk täckning</dt>
-            <dd>{profile.regions.join(", ")}</dd>
+            <dt className="text-xs font-semibold text-muted-foreground">Kan vara på plats i</dt>
+            <dd>
+              {profile.onsite_cities?.length
+                ? onsiteSummary(profile.onsite_cities)
+                : profile.regions.join(", ")}
+            </dd>
+          </div>
+        )}
+        {profile.remote_available && (
+          <div>
+            <dt className="text-xs font-semibold text-muted-foreground">Distans</dt>
+            <dd>Kan arbeta på distans</dd>
           </div>
         )}
         {profile.delivery_modes?.length > 0 && (
