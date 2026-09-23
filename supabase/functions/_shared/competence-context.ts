@@ -75,7 +75,7 @@ export async function buildCompetenceContextBlock(): Promise<string> {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const res = await fetch(
-      `${supabaseUrl}/rest/v1/assignment_profiles_public?select=guide_slug,partner_slug,partner_name,heading,experience_summary,products,industries,regions,delivery_modes&limit=300`,
+      `${supabaseUrl}/rest/v1/assignment_profiles_public?select=guide_slug,partner_slug,partner_name,heading,experience_summary,products,industries,regions,onsite_cities,remote_available,delivery_modes&limit=300`,
       { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
     );
     if (res.ok) {

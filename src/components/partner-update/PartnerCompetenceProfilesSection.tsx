@@ -205,7 +205,11 @@ export function PartnerCompetenceProfilesSection({ token, partnerId }: Props) {
                         variant="ghost"
                         size="icon"
                         onClick={() => {
-                          setDraft({ ...item });
+                          setDraft({
+                            ...item,
+                            onsite_cities: item.onsite_cities || [],
+                            remote_available: item.remote_available ?? false,
+                          });
                           setShowForm(true);
                         }}
                       >
