@@ -297,6 +297,12 @@ const Navbar = () => {
                   Partnernytt
                 </Link>
                 <Link
+                  to="/kompetens/"
+                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                >
+                  Hitta rätt kompetens
+                </Link>
+                <Link
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
