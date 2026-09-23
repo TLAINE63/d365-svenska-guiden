@@ -71,7 +71,9 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
         </div>
 
         <div>
-          <Label className="text-xs font-semibold mb-1.5 block">Geografiskt område</Label>
+          <Label className="text-xs font-semibold mb-1.5 block">
+            Var behöver ni konsulten på plats?
+          </Label>
           <Select value={value.region ?? ALL} onValueChange={(v) => set("region", v)}>
             <SelectTrigger>
               <SelectValue placeholder="Hela Sverige" />

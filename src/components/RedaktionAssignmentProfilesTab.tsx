@@ -26,9 +26,9 @@ import {
   COMPETENCE_GUIDES,
   DELIVERY_MODES,
   PRODUCT_OPTIONS,
-  REGION_OPTIONS,
   deliveryModeLabel,
 } from "@/data/competenceGuides";
+import { CITIES_BY_REGION, regionsForCities } from "@/data/competenceGeography";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 interface PartnerRow {
@@ -48,6 +48,8 @@ interface ProfileRow {
   products: string[];
   industries: string[];
   regions: string[];
+  onsite_cities: string[];
+  remote_available: boolean;
   delivery_modes: string[];
   last_reviewed_at: string | null;
   status: string;
@@ -81,6 +83,8 @@ const emptyProfile = (): ProfileRow & { evidence: EvidenceRow[] } => ({
   products: [],
   industries: [],
   regions: [],
+  onsite_cities: [],
+  remote_available: false,
   delivery_modes: [],
   last_reviewed_at: null,
   status: "draft",
@@ -196,6 +200,8 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
     setEditing({
       ...p,
       internal_notes: p.internal_notes || "",
+      onsite_cities: p.onsite_cities || [],
+      remote_available: p.remote_available ?? false,
       evidence: evidence.filter((e) => e.profile_id === p.id),
     });
   };
@@ -216,7 +222,9 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
           typical_assignments: editing.typical_assignments.filter(Boolean),
           products: editing.products,
           industries: editing.industries,
-          regions: editing.regions,
+          regions: regionsForCities(editing.onsite_cities),
+          onsite_cities: editing.onsite_cities,
+          remote_available: editing.remote_available,
           delivery_modes: editing.delivery_modes,
           last_reviewed_at: editing.last_reviewed_at || null,
           status: editing.status,
@@ -385,12 +393,60 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
                 values={editing.industries}
                 onChange={(v) => setEditing({ ...editing, industries: v })}
               />
-              <MultiCheck
-                label="Geografiska områden"
-                options={REGION_OPTIONS}
-                values={editing.regions}
-                onChange={(v) => setEditing({ ...editing, regions: v })}
-              />
+              <div>
+                <Label className="text-xs font-semibold mb-1.5 block">
+                  Orter där konsulten kan vara på plats
+                </Label>
+                <p className="mb-2 text-xs text-muted-foreground">
+                  Avser leveransort, inte partnerns kontorsadress. Regionerna i filtret härleds
+                  automatiskt från orterna.
+                </p>
+                <div className="space-y-3">
+                  {Object.entries(CITIES_BY_REGION).map(([region, cities]) => (
+                    <div key={region}>
+                      <p className="mb-1 text-xs text-muted-foreground">{region}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {cities.map((c) => {
+                          const active = editing.onsite_cities.includes(c);
+                          return (
+                            <button
+                              key={c}
+                              type="button"
+                              onClick={() => {
+                                const next = active
+                                  ? editing.onsite_cities.filter((v) => v !== c)
+                                  : [...editing.onsite_cities, c];
+                                setEditing({
+                                  ...editing,
+                                  onsite_cities: next,
+                                  regions: regionsForCities(next),
+                                });
+                              }}
+                              className={`rounded-full border px-3 py-1 text-xs ${
+                                active
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : "border-border bg-background"
+                              }`}
+                            >
+                              {c}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <label className="mt-3 flex items-center gap-2 text-sm">
+                  <Checkbox
+                    checked={editing.remote_available}
+                    onCheckedChange={(v) =>
+                      setEditing({ ...editing, remote_available: v === true })
+                    }
+                  />
+                  Kan arbeta på distans
+                </label>
+              </div>
+
               <div>
                 <Label className="text-xs font-semibold mb-1.5 block">Leveransform</Label>
                 <div className="flex flex-wrap gap-2">
