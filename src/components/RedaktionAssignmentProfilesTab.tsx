@@ -385,12 +385,60 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
                 values={editing.industries}
                 onChange={(v) => setEditing({ ...editing, industries: v })}
               />
-              <MultiCheck
-                label="Geografiska områden"
-                options={REGION_OPTIONS}
-                values={editing.regions}
-                onChange={(v) => setEditing({ ...editing, regions: v })}
-              />
+              <div>
+                <Label className="text-xs font-semibold mb-1.5 block">
+                  Orter där konsulten kan vara på plats
+                </Label>
+                <p className="mb-2 text-xs text-muted-foreground">
+                  Avser leveransort, inte partnerns kontorsadress. Regionerna i filtret härleds
+                  automatiskt från orterna.
+                </p>
+                <div className="space-y-3">
+                  {Object.entries(CITIES_BY_REGION).map(([region, cities]) => (
+                    <div key={region}>
+                      <p className="mb-1 text-xs text-muted-foreground">{region}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {cities.map((c) => {
+                          const active = editing.onsite_cities.includes(c);
+                          return (
+                            <button
+                              key={c}
+                              type="button"
+                              onClick={() => {
+                                const next = active
+                                  ? editing.onsite_cities.filter((v) => v !== c)
+                                  : [...editing.onsite_cities, c];
+                                setEditing({
+                                  ...editing,
+                                  onsite_cities: next,
+                                  regions: regionsForCities(next),
+                                });
+                              }}
+                              className={`rounded-full border px-3 py-1 text-xs ${
+                                active
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : "border-border bg-background"
+                              }`}
+                            >
+                              {c}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <label className="mt-3 flex items-center gap-2 text-sm">
+                  <Checkbox
+                    checked={editing.remote_available}
+                    onCheckedChange={(v) =>
+                      setEditing({ ...editing, remote_available: v === true })
+                    }
+                  />
+                  Kan arbeta på distans
+                </label>
+              </div>
+
               <div>
                 <Label className="text-xs font-semibold mb-1.5 block">Leveransform</Label>
                 <div className="flex flex-wrap gap-2">
