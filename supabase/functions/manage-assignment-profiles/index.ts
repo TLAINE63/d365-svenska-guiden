@@ -88,6 +88,9 @@ const ProfileSchema = z.object({
   products: z.array(z.string().trim().max(80)).max(12).default([]),
   industries: z.array(z.string().trim().max(80)).max(12).default([]),
   regions: z.array(z.string().trim().max(80)).max(10).default([]),
+  // Orter där konsulten kan arbeta på plats hos kunden (leveransort).
+  onsite_cities: z.array(z.string().trim().max(80)).max(40).default([]),
+  remote_available: z.boolean().default(false),
   delivery_modes: z.array(z.enum(["onsite", "hybrid", "remote"])).max(3).default([]),
   last_reviewed_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
   status: z.enum(["draft", "published", "archived"]).default("draft"),
@@ -137,7 +140,7 @@ serve(async (req) => {
         const { data, error } = await svc
           .from("partner_assignment_profiles")
           .select(
-            "id, guide_slug, heading, experience_summary, typical_assignments, products, industries, regions, delivery_modes, status, updated_at"
+            "id, guide_slug, heading, experience_summary, typical_assignments, products, industries, regions, onsite_cities, remote_available, delivery_modes, status, updated_at"
           )
           .eq("partner_id", partnerId)
           .order("updated_at", { ascending: false });
