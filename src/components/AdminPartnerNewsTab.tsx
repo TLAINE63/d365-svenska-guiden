@@ -263,6 +263,7 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
       });
       setImportFullText(d.truncated ? d.full_text : null);
       setImportOpen(false);
+      if (d.image_url) void persistImageUrl(d.image_url);
       setDialogOpen(true);
       toast({
         title: "Importerad som utkast",
@@ -371,6 +372,33 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
     } catch (err) {
       toast({ title: "Kunde inte ta bort", description: (err as Error).message, variant: "destructive" });
     }
+  };
+
+  const isExternalImage = (url: string) =>
+    /^https:\/\//i.test(url) && !url.includes("/storage/v1/object/") ;
+
+  const persistImageUrl = async (url: string) => {
+    if (!isExternalImage(url)) return;
+    setUploadingImage(true);
+    try {
+      const res = await invoke("import-image-url", { url });
+      if (res?.image_url) {
+        setForm((f) => (f.image_url === url ? { ...f, image_url: res.image_url } : f));
+        toast({ title: "Bilden sparad på sajten" });
+      }
+    } catch {
+      toast({ title: "Bilden kunde inte sparas", description: "Originallänken behålls. Kopiera bilden i LinkedIn och tryck Ctrl+V i bildrutan.", variant: "destructive" });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleImagePaste = (e: React.ClipboardEvent) => {
+    const item = Array.from(e.clipboardData.items).find((i) => i.kind === "file" && i.type.startsWith("image/"));
+    const file = item?.getAsFile();
+    if (!file) return;
+    e.preventDefault();
+    handleImageUpload(file);
   };
 
   const uploadBlob = async (blob: Blob, filename: string, contentType: string) => {
