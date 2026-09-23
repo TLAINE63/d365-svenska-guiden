@@ -22,15 +22,18 @@ export const DELIVERY_MODES: { value: DeliveryMode; label: string }[] = [
 export const deliveryModeLabel = (v: string) =>
   DELIVERY_MODES.find((d) => d.value === v)?.label ?? v;
 
-/** Samma regionindelning som partnerprofilerna redan använder. */
-export const REGION_OPTIONS = [
-  "Storstockholm / Mälardalen",
-  "Syd / Sydväst",
-  "Väst",
-  "Sydost",
-  "Mellansverige",
-  "Norr",
-] as const;
+/**
+ * Geografin beskriver var konsulten kan arbeta på plats hos kunden,
+ * inte var partnern har kontor. Regionerna och orterna definieras i
+ * competenceGeography.ts.
+ */
+export {
+  COMPETENCE_REGIONS as REGION_OPTIONS,
+  CITIES_BY_REGION,
+  ALL_CITIES,
+  regionsForCities,
+  onsiteSummary,
+} from "./competenceGeography";
 
 export const PRODUCT_OPTIONS = [
   "Business Central",

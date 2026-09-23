@@ -1,4 +1,5 @@
 import { deliveryModeLabel, type DeliveryMode } from "@/data/competenceGuides";
+import { regionsForCities } from "@/data/competenceGeography";
 
 export interface AssignmentProfilePublic {
   id: string;
@@ -12,7 +13,12 @@ export interface AssignmentProfilePublic {
   typical_assignments: string[];
   products: string[];
   industries: string[];
+  /** Härledda regioner (bakåtkompatibelt fält). */
   regions: string[];
+  /** Orter där konsulten kan arbeta på plats. */
+  onsite_cities?: string[] | null;
+  /** Konsulten kan arbeta på distans. */
+  remote_available?: boolean | null;
   delivery_modes: string[];
   last_reviewed_at: string | null;
   public_evidence_types: string[];
@@ -34,6 +40,18 @@ export interface MatchResult {
 
 const has = (arr: string[] | null | undefined, v: string) =>
   Array.isArray(arr) && arr.some((x) => x?.toLowerCase() === v.toLowerCase());
+
+/**
+ * Regioner profilen täcker för arbete på plats. Härleds i första hand från
+ * orterna, med fall tillbaka på det äldre regionfältet.
+ */
+export const profileRegions = (p: AssignmentProfilePublic): string[] => {
+  const fromCities = regionsForCities(p.onsite_cities);
+  return fromCities.length > 0 ? fromCities : p.regions || [];
+};
+
+const isRemote = (p: AssignmentProfilePublic) =>
+  p.remote_available === true || has(p.delivery_modes, "remote");
 
 /**
  * Filterlogik enligt kravspecifikationens avsnitt 9.
