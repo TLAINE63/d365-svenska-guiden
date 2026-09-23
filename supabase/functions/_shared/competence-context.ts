@@ -84,7 +84,7 @@ export async function buildCompetenceContextBlock(): Promise<string> {
         profileLines = rows
           .map((r: any) => {
             const summary = String(r.experience_summary || '').replace(/\s+/g, ' ').trim().substring(0, 220);
-            return `- ${r.partner_name} → /partner/${r.partner_slug} | roll: ${r.guide_slug} (${competenceGuidePath(r.guide_slug)}) | ${r.heading || ''} | produkter: ${(r.products || []).join(', ')} | branscher: ${(r.industries || []).join(', ')} | regioner: ${(r.regions || []).join(', ')} | leverans: ${(r.delivery_modes || []).join(', ')} | ${summary}`;
+            return `- ${r.partner_name} → /partner/${r.partner_slug} | roll: ${r.guide_slug} (${competenceGuidePath(r.guide_slug)}) | ${r.heading || ''} | produkter: ${(r.products || []).join(', ')} | branscher: ${(r.industries || []).join(', ')} | på plats i orter: ${(r.onsite_cities || []).join(', ') || 'ej angivet'} | regioner: ${(r.regions || []).join(', ')} | distans: ${r.remote_available ? 'ja' : 'nej'} | leverans: ${(r.delivery_modes || []).join(', ')} | ${summary}`;
           })
           .join('\n');
       }
