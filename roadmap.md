@@ -60,3 +60,7 @@
 ## Expertkompetensutskick (2026-09-24)
 - [x] Gör "Expertkompetensprofiler" till en egen, större och fet rad i mejlet
 - [x] Skicka ett separat mejl för varje verifierad partner till thomas.laine@dynamicfactory.se
+
+## Kom igång på startsidan (2026-09-24)
+- [x] Lyft den interaktiva Kom igång-guiden direkt efter startsidans första del
+- [x] Kontrollera desktop, mobil och direktlänken till /kom-igang/
