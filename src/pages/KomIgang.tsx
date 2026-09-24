@@ -711,6 +711,9 @@ const KomIgang = () => {
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
                 </Button>
+                <Button variant="ghost" onClick={handleRestart}>
+                  <RotateCcw className="mr-2 h-4 w-4" /> Börja om
+                </Button>
                 <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   <Link to="/kontakt/">Vill du ha hjälp? Kontakta oss</Link>
                 </Button>
