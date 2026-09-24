@@ -58,5 +58,5 @@
 - [x] Uppdatera relevant mikrocopy på startsidan och verifiera mobil/desktop
 
 ## Expertkompetensutskick (2026-09-24)
-- [ ] Gör "Expertkompetensprofiler" till en egen, större och fet rad i mejlet
-- [ ] Skicka ett separat mejl för varje verifierad partner till thomas.laine@dynamicfactory.se
+- [x] Gör "Expertkompetensprofiler" till en egen, större och fet rad i mejlet
+- [x] Skicka ett separat mejl för varje verifierad partner till thomas.laine@dynamicfactory.se
