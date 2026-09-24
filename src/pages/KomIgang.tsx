@@ -321,7 +321,7 @@ const sizeOptions: { value: string; label: string; desc: string }[] = [
 
 const KomIgang = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data: partners = [] } = usePartners();
 
   const storedContext = getBuyerContext();
@@ -521,6 +521,7 @@ const KomIgang = () => {
 
   const handleRestart = () => {
     clearBuyerContext();
+    if (searchParams.size > 0) setSearchParams({}, { replace: true });
     setSelectedIndustry(null);
     setSelectedProduct(null);
     setSelectedGoals([]);
