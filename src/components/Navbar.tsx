@@ -73,7 +73,7 @@ const Navbar = () => {
               to="/kompetens/"
               className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
             >
-              Hitta rätt kompetens
+              Hitta rätt Dynamics 365-kompetens
             </Link>
             <Link
               to="/partnernytt/"
@@ -206,7 +206,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/kompetens/" className="cursor-pointer">
-                    Hitta rätt kompetens
+                    Hitta rätt Dynamics 365-kompetens
                   </Link>
                 </DropdownMenuItem>
                 {PARTNER_GUIDES.map((guide) => (
@@ -308,7 +308,7 @@ const Navbar = () => {
                   to="/kompetens/"
                   className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
                 >
-                  Hitta rätt kompetens
+                  Hitta rätt Dynamics 365-kompetens
                 </Link>
                 <Link
                   to="/branscher/"
@@ -367,7 +367,7 @@ const Navbar = () => {
                     Översikt – alla guider
                   </Link>
                   <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Hitta rätt kompetens
+                    Hitta rätt Dynamics 365-kompetens
                   </Link>
                   {PARTNER_GUIDES.map((guide) => (
                     <Link
