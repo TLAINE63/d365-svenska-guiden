@@ -104,10 +104,11 @@ Deno.serve(async (req) => {
         await supabase.from("email_send_log").insert({
           recipient_email: REVIEW_RECIPIENT,
           template_name: "partner-expert-profile-review",
+          subject,
           status,
-          provider_message_id: data?.id ?? null,
-          sent_at: status === "sent" ? new Date().toISOString() : null,
+          message_id: data?.id ?? null,
           error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
+          metadata: { partner_name: partner.name },
         });
       }
 
@@ -140,9 +141,9 @@ Deno.serve(async (req) => {
     await supabase.from("email_send_log").insert({
       recipient_email: to,
       template_name: "partner-outreach",
+      subject,
       status: "sent",
-      provider_message_id: result.data?.id ?? null,
-      sent_at: new Date().toISOString(),
+      message_id: result.data?.id ?? null,
     });
     return new Response(JSON.stringify({ ok: true, id: result.data?.id }), { headers: jsonHeaders });
   } catch (error) {
