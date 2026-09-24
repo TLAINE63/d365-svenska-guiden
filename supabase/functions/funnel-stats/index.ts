@@ -104,6 +104,56 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    if (body?.action === "competence") {
+      const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const since = new Date(Date.now() - d * 86400000).toISOString();
+      const fetchAll = async (table: string, cols: string, tsCol: string) => {
+        const out: any[] = [];
+        for (let from = 0; from < 300000; from += 1000) {
+          const { data, error } = await supabase.from(table).select(cols).gte(tsCol, since).range(from, from + 999);
+          if (error) { console.error(table, error); break; }
+          out.push(...(data || []));
+          if (!data || data.length < 1000) break;
+        }
+        return out;
+      };
+      const [visits, events] = await Promise.all([
+        fetchAll("visitor_analytics", "page_path, session_id", "visited_at"),
+        fetchAll("funnel_events", "event_type, event_name, step, session_id, occurred_at", "occurred_at"),
+      ]);
+      const visitS = new Set<string>();
+      for (const v of visits) if ((v.page_path || "").startsWith("/kompetens") && v.session_id) visitS.add(v.session_id);
+      const sets: Record<string, Set<string>> = { search: new Set(), result: new Set(), profile: new Set(), shortlist: new Set(), need: new Set(), intro: new Set() };
+      const firstComp = new Map<string, string>();
+      for (const e of events) {
+        const sid = e.session_id; if (!sid) continue;
+        if (e.event_type === "competence") {
+          visitS.add(sid);
+          const t = firstComp.get(sid); if (!t || e.occurred_at < t) firstComp.set(sid, e.occurred_at);
+          if (e.event_name === "kompetens_search") sets.search.add(sid);
+          if (e.event_name === "kompetens_partner_card_view") sets.result.add(sid);
+          if (e.event_name === "kompetens_partner_profile_click") sets.profile.add(sid);
+          if (e.event_name === "kompetens_need_form_submit") sets.need.add(sid);
+        }
+      }
+      for (const e of events) {
+        const sid = e.session_id; if (!sid) continue;
+        const t = firstComp.get(sid); if (!t || e.occurred_at < t) continue;
+        if (e.step === "shortlist_add" || e.event_name === "shortlist_add") sets.shortlist.add(sid);
+        if (e.step === "intro_sent") sets.intro.add(sid);
+      }
+      const steps = [
+        { key: "visit", label: "Besök på kompetenssidorna", count: visitS.size },
+        { key: "search", label: "Börjar söka kompetens", count: sets.search.size },
+        { key: "result", label: "Ser resultat", count: sets.result.size },
+        { key: "profile", label: "Öppnar en partner", count: sets.profile.size },
+        { key: "shortlist", label: "Lägger på shortlist", count: sets.shortlist.size },
+        { key: "need", label: "Beskriver sitt behov", count: sets.need.size },
+        { key: "intro", label: "Vill ha introduktion", count: sets.intro.size },
+      ];
+      return new Response(JSON.stringify({ steps }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
     if (body?.action === "engagement") {
       const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
       const since = new Date(Date.now() - d * 86400000).toISOString();

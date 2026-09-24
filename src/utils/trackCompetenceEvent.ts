@@ -1,3 +1,5 @@
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+
 /**
  * Mätning för kompetensfunktionen.
  * Går via PostHog, som endast laddas efter statistik-samtycke i cookie-bannern.
@@ -19,6 +21,12 @@ export function trackCompetenceEvent(
   props: Record<string, string | number | boolean | undefined> = {}
 ) {
   if (typeof window === "undefined") return;
+  // Egen databasmätning för kompetensresan (anonym, ingen fritext).
+  try {
+    const meta: Record<string, string | number | boolean> = {};
+    for (const [k, v] of Object.entries(props)) if (v !== undefined && v !== "") meta[k] = v;
+    trackFunnelEvent({ event_type: "competence", event_name: event, metadata: meta });
+  } catch { /* ignoreras */ }
   const ph = (window as any).posthog;
   if (!ph || typeof ph.capture !== "function") return;
   const clean: Record<string, string | number | boolean> = {};
