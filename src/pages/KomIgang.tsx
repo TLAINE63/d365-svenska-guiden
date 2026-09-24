@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
+import { getBuyerContext, updateBuyerContext } from "@/lib/buyerContext";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -174,6 +175,7 @@ const KomIgang = () => {
   const [searchParams] = useSearchParams();
   const { data: partners = [] } = usePartners();
 
+  const storedContext = getBuyerContext();
   const initialIndustry = searchParams.get("industry") || "";
   const requestedProduct = searchParams.get("product");
   const requestedGoal = searchParams.get("goal");
@@ -187,7 +189,19 @@ const KomIgang = () => {
   const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && goalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const requestedSize = searchParams.get("size") || storedContext.size || null;
+  const [selectedSize, setSelectedSize] = useState<string | null>(
+    requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : null,
+  );
+
+  // Kom ihåg besökarens val under sessionen så resten av sajten kan anpassa sig
+  useEffect(() => {
+    updateBuyerContext({
+      industry: selectedIndustry || undefined,
+      product: selectedProduct || undefined,
+      size: selectedSize || undefined,
+    });
+  }, [selectedIndustry, selectedProduct, selectedSize]);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });
