@@ -59,7 +59,7 @@ export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, 
       <div
         className="fixed inset-x-0 bottom-0 z-40 md:hidden border-t border-border bg-background/95 backdrop-blur px-3 py-2 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
         role="region"
-        aria-label={`Kontakta ${partnerName}`}
+        aria-label={`Be om introduktion till ${partnerName}`}
       >
         <PartnerDecisionActions
           partner={{ slug: partnerSlug, name: partnerName }}
@@ -74,7 +74,7 @@ export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, 
         {expanded && (
           <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-3 shadow-xl animate-in fade-in slide-in-from-bottom-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-1">
-              Kontakta {partnerName}
+              Be om introduktion till {partnerName}
             </p>
             <PartnerDecisionActions
               partner={{ slug: partnerSlug, name: partnerName }}
@@ -96,7 +96,7 @@ export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, 
           <Button
             onClick={() => setExpanded(true)}
             className="h-12 px-5 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-xl rounded-full"
-            aria-label={`Kontakta ${partnerName}`}
+            aria-label={`Be om introduktion till ${partnerName}`}
           >
             <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
             Nästa steg

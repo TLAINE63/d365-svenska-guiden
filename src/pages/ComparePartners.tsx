@@ -2440,9 +2440,9 @@ const ComparePartners = () => {
 
 
 
-                    {/* Kontakta valda partners */}
+                    {/* Be om introduktion till valda partners */}
                     <section className="space-y-3">
-                      <SectionTitle icon={Mail} title="Kontakta valda partners" />
+                      <SectionTitle icon={Mail} title="Be om introduktion till valda partners" />
                       {(() => {
                         const selected = [A, B, C].filter(
                           (s) => s.partner && !isBasicPartner(s.partner),
@@ -2528,7 +2528,7 @@ const ComparePartners = () => {
                         );
                       })()}
 
-                      {/* Kontakta enskilt */}
+                      {/* Be om introduktion enskilt */}
                       {(A.partner || B.partner || C.partner) && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
                           {[A, B, C].map((side, idx) => {

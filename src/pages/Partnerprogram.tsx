@@ -91,7 +91,7 @@ const journeySteps = [
   { label: "Filtrera", icon: SlidersHorizontal },
   { label: "Jämför", icon: Columns3 },
   { label: "Shortlist", icon: ListChecks },
-  { label: "Kontakta partner", icon: Mail },
+  { label: "Be om introduktion", icon: Mail },
 ];
 
 /** Fire one analytics event per page load. */

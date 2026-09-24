@@ -85,7 +85,7 @@ const KompetensOversikt = () => {
               <li>Välj den roll eller det kompetensområde ni söker.</li>
               <li>Läs vad rollen gör och vad ni bör kontrollera vid utvärdering.</li>
               <li>Filtrera partners på produkt, bransch, område och leveransform.</li>
-              <li>Gå vidare till partnerprofilen eller kontakta partnern direkt.</li>
+              <li>Gå vidare till partnerprofilen eller be d365.se om en introduktion.</li>
             </ol>
           </section>
 
