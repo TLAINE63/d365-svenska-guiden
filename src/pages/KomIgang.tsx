@@ -93,16 +93,91 @@ const productOptions = [
   { value: "", label: "Vet inte ännu", desc: "Vi hjälper dig hitta rätt", icon: null },
 ];
 
-// Step 3: Goal options
-const goalOptions = [
-  { value: "erp", label: "Införa eller byta affärssystem (ERP)" },
-  { value: "sales", label: "Förbättra försäljningsprocessen" },
-  { value: "marketing", label: "Införa marketing automation" },
-  { value: "service", label: "Effektivisera kundservice" },
-  { value: "contact-center", label: "Utvärdera Contact Center-lösningar" },
-  { value: "field-service", label: "Förbättra fältservice" },
-  { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
-];
+// Spår baserat på vald produkt – steg 3 och 5 anpassas efter spåret
+type Track = "erp" | "sales" | "marketing" | "service" | "projects" | "commerce" | "hr" | "general";
+
+const getTrack = (app: string): Track => {
+  if (app === "Business Central" || app === "Finance & SCM") return "erp";
+  if (app === "Sales") return "sales";
+  if (app === "Customer Insights (Marketing)") return "marketing";
+  if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return "service";
+  if (app === "Project Operations") return "projects";
+  if (app === "Commerce") return "commerce";
+  if (app === "Human Resources") return "hr";
+  return "general";
+};
+
+type Opt = { value: string; label: string; desc?: string };
+
+// Step 3: Goal options per spår
+const goalOptionsByTrack: Record<Track, Opt[]> = {
+  erp: [
+    { value: "erp-new", label: "Byta från ett äldre affärssystem" },
+    { value: "erp-first", label: "Införa vårt första riktiga affärssystem" },
+    { value: "erp-finance", label: "Snabbare bokslut och bättre ekonomistyrning" },
+    { value: "erp-supply", label: "Bättre kontroll på lager, inköp och logistik" },
+    { value: "erp-production", label: "Planera och styra produktion" },
+    { value: "erp-reporting", label: "Bättre rapportering och beslutsunderlag" },
+    { value: "erp-upgrade", label: "Uppgradera eller flytta till molnet" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  sales: [
+    { value: "sales-pipeline", label: "Få överblick över pipeline och prognoser" },
+    { value: "sales-leads", label: "Bättre hantering av leads och affärsmöjligheter" },
+    { value: "sales-quotes", label: "Snabbare offerter och avtal" },
+    { value: "sales-kam", label: "Stödja key account-arbete och kundrelationer" },
+    { value: "sales-copilot", label: "Använda AI och Copilot i säljarbetet" },
+    { value: "sales-replace", label: "Byta från Excel eller annat CRM" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  marketing: [
+    { value: "mkt-journeys", label: "Automatisera kundresor och kampanjer" },
+    { value: "mkt-data", label: "Samla kunddata på ett ställe" },
+    { value: "mkt-leads", label: "Fler och bättre kvalificerade leads till sälj" },
+    { value: "mkt-segment", label: "Bättre segmentering och personalisering" },
+    { value: "mkt-replace", label: "Byta från nuvarande marketingverktyg" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  service: [
+    { value: "svc-cases", label: "Effektivisera ärendehantering och support" },
+    { value: "svc-omni", label: "Samla kanaler (telefon, chatt, e-post)" },
+    { value: "svc-field", label: "Planera tekniker och arbetsorder i fält" },
+    { value: "svc-selfservice", label: "Självservice och kundportal" },
+    { value: "svc-copilot", label: "Använda AI och Copilot i kundservice" },
+    { value: "svc-sla", label: "Bättre uppföljning av SLA och kundnöjdhet" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  projects: [
+    { value: "prj-resources", label: "Bättre resursplanering och beläggning" },
+    { value: "prj-time", label: "Enklare tidrapportering och debitering" },
+    { value: "prj-profit", label: "Följa lönsamhet per projekt" },
+    { value: "prj-sales", label: "Koppla ihop försäljning och leverans" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  commerce: [
+    { value: "com-omni", label: "Samla butik, e-handel och lager" },
+    { value: "com-pos", label: "Nytt kassasystem i butik" },
+    { value: "com-b2b", label: "B2B-handel och kundportal" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  hr: [
+    { value: "hr-core", label: "Samla personaldata och HR-processer" },
+    { value: "hr-selfservice", label: "Självservice för chefer och medarbetare" },
+    { value: "hr-comp", label: "Förmåner, ersättning och kompetens" },
+    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
+  ],
+  general: [
+    { value: "erp", label: "Införa eller byta affärssystem (ERP)" },
+    { value: "sales", label: "Förbättra försäljningsprocessen" },
+    { value: "marketing", label: "Införa marketing automation" },
+    { value: "service", label: "Effektivisera kundservice" },
+    { value: "contact-center", label: "Utvärdera Contact Center-lösningar" },
+    { value: "field-service", label: "Förbättra fältservice" },
+    { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
+  ],
+};
+
+const allGoalOptions: Opt[] = Object.values(goalOptionsByTrack).flat();
 
 // Step 4: Situation options
 const situationOptions = [
@@ -112,22 +187,96 @@ const situationOptions = [
   { value: "unsure", label: "Osäker" },
 ];
 
-// Step 5: Complexity / verksamhet options (expanded)
-const complexityOptions = [
-  { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
-  { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
-  { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
-  { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
-  { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
-  { value: "consulting", label: "Konsultverksamhet", desc: "Projektbaserad verksamhet med resurs- och uppdragshantering" },
-  { value: "time-reporting", label: "Tidrapportering och debitering", desc: "Tid- och kostnadsuppföljning per projekt och kund" },
-  { value: "customer-service", label: "Kundservice och ärendehantering", desc: "Support, SLA:er och ärendeflöden" },
-  { value: "field-service", label: "Fältservice och arbetsorder", desc: "Mobila team, schemaläggning och arbetsorder" },
-  { value: "contact-center", label: "Contact Center", desc: "Omnikanal-kommunikation och köhantering" },
-  { value: "sales-crm", label: "Försäljning och CRM", desc: "Pipeline, offerter och kundhantering" },
-  { value: "marketing-automation", label: "Marketing och kampanjer", desc: "Automatiserade kundresor och segmentering" },
-  { value: "unsure", label: "Osäker – behöver vägledning", desc: "Vi hjälper dig välja rätt nivå" },
-];
+// Step 5: Verksamhet options per spår
+const unsureComplexity: Opt = { value: "unsure", label: "Osäker, behöver vägledning", desc: "Vi hjälper er välja rätt nivå" };
+const complexityOptionsByTrack: Record<Track, Opt[]> = {
+  erp: [
+    { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
+    { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
+    { value: "multi-entity", label: "Flera bolag eller länder", desc: "Koncern, flera juridiska enheter eller valutor" },
+    { value: "manufacturing", label: "Tillverkning", desc: "Produktion, planering och materialstyrning" },
+    { value: "logistics", label: "Avancerad lager och logistik", desc: "Flera lager, WMS eller komplexa flöden" },
+    { value: "integrations", label: "Höga krav på integrationer", desc: "E-handel, EDI, bank eller andra system" },
+    { value: "projects-erp", label: "Projekt och tidrapportering", desc: "Projektredovisning och debitering" },
+    unsureComplexity,
+  ],
+  sales: [
+    { value: "small-team", label: "Litet säljteam", desc: "Upp till cirka 10 säljare" },
+    { value: "large-team", label: "Flera säljteam eller regioner", desc: "Behov av roller, territorier och uppföljning" },
+    { value: "complex-deals", label: "Långa och komplexa affärer", desc: "Flera beslutsfattare, offerter och avtal" },
+    { value: "partner-sales", label: "Försäljning via återförsäljare", desc: "Partner- eller kanalförsäljning" },
+    { value: "erp-integration", label: "Behöver kopplas till affärssystemet", desc: "Kunder, artiklar, priser och order" },
+    { value: "marketing-link", label: "Nära samarbete med marknad", desc: "Leads och kampanjer ska hänga ihop" },
+    unsureComplexity,
+  ],
+  marketing: [
+    { value: "b2b", label: "B2B-marknadsföring", desc: "Lead-generering och säljöverlämning" },
+    { value: "b2c", label: "B2C med många kunder", desc: "Stora volymer och personalisering" },
+    { value: "many-sources", label: "Kunddata i många system", desc: "Behöver en samlad kundbild" },
+    { value: "events", label: "Event och webbinarier", desc: "Anmälningar och uppföljning" },
+    { value: "gdpr", label: "Höga krav på samtycke och GDPR", desc: "Preferenser och spårbarhet" },
+    unsureComplexity,
+  ],
+  service: [
+    { value: "b2b-support", label: "B2B-support med avtal och SLA", desc: "Serviceavtal och prioriteringar" },
+    { value: "high-volume", label: "Stora ärendevolymer", desc: "Många kontakter per dag och flera kanaler" },
+    { value: "field-teams", label: "Tekniker ute hos kund", desc: "Schemaläggning, arbetsorder och mobil app" },
+    { value: "assets", label: "Service på installerad utrustning", desc: "Anläggningsregister och förebyggande underhåll" },
+    { value: "phone", label: "Telefoni och kontaktcenter", desc: "Köer, routing och inspelning" },
+    { value: "erp-integration", label: "Behöver kopplas till affärssystemet", desc: "Artiklar, reservdelar och fakturering" },
+    unsureComplexity,
+  ],
+  projects: [
+    { value: "consulting", label: "Konsultverksamhet", desc: "Uppdrag, resurser och timdebitering" },
+    { value: "fixed-price", label: "Fastprisprojekt", desc: "Milstolpar och intäktsavräkning" },
+    { value: "many-resources", label: "Många konsulter och roller", desc: "Kompetensbaserad bemanning" },
+    { value: "multi-entity", label: "Flera bolag eller länder", desc: "Koncerngemensam resursplanering" },
+    unsureComplexity,
+  ],
+  commerce: [
+    { value: "many-stores", label: "Många butiker", desc: "Kedja med central styrning" },
+    { value: "online-first", label: "E-handel i fokus", desc: "Webbutik som huvudkanal" },
+    { value: "b2b-b2c", label: "Både B2B och B2C", desc: "Olika prislistor och flöden" },
+    unsureComplexity,
+  ],
+  hr: [
+    { value: "many-employees", label: "Många medarbetare", desc: "Behov av tydliga processer och roller" },
+    { value: "multi-country", label: "Flera länder", desc: "Olika regler och organisationer" },
+    { value: "payroll-link", label: "Koppling till lönesystem", desc: "Integration med svensk lön" },
+    unsureComplexity,
+  ],
+  general: [
+    { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
+    { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
+    { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
+    { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
+    { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
+    { value: "consulting", label: "Konsultverksamhet", desc: "Projektbaserad verksamhet med resurs- och uppdragshantering" },
+    { value: "customer-service", label: "Kundservice och ärendehantering", desc: "Support, SLA:er och ärendeflöden" },
+    { value: "sales-crm", label: "Försäljning och CRM", desc: "Pipeline, offerter och kundhantering" },
+    unsureComplexity,
+  ],
+};
+
+const allComplexityOptions: Opt[] = Object.values(complexityOptionsByTrack).flat();
+
+const trackStepLabels: Record<Track, { goal: string; complexity: string }> = {
+  erp: { goal: "Vad vill ni uppnå med affärssystemet?", complexity: "Hur ser er verksamhet ut?" },
+  sales: { goal: "Vad vill ni förbättra i säljarbetet?", complexity: "Hur ser er försäljning ut?" },
+  marketing: { goal: "Vad vill ni uppnå med marknadsföringen?", complexity: "Hur ser er marknadsföring ut?" },
+  service: { goal: "Vad vill ni förbättra i er service?", complexity: "Hur ser er serviceverksamhet ut?" },
+  projects: { goal: "Vad vill ni förbättra i projektverksamheten?", complexity: "Hur ser er projektverksamhet ut?" },
+  commerce: { goal: "Vad vill ni förbättra i handeln?", complexity: "Hur ser er handel ut?" },
+  hr: { goal: "Vad vill ni förbättra inom HR?", complexity: "Hur ser er organisation ut?" },
+  general: { goal: "Vad vill du förbättra?", complexity: "Hur ser er verksamhet ut?" },
+};
+
+const specByTrack: Partial<Record<Track, { path: string; label: string }>> = {
+  erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
+  sales: { path: "/kravspecifikation-sales/", label: "Skapa kravspec för Försäljning" },
+  marketing: { path: "/kravspecifikation-marketing/", label: "Skapa kravspec för Marketing" },
+  service: { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
+};
 
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
@@ -186,7 +335,7 @@ const KomIgang = () => {
   const [step, setStep] = useState(initialStep);
   const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && goalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const requestedSize = searchParams.get("size") || storedContext.size || null;
@@ -245,13 +394,23 @@ const KomIgang = () => {
   }, [partners]);
 
   const selectedApp = selectedProduct || "";
+  const track = getTrack(selectedApp);
+  const goalOptions = goalOptionsByTrack[track];
+  const complexityOptions = complexityOptionsByTrack[track];
+
+  // Rensa val som inte hör till det nya spåret när produkten byts
+  useEffect(() => {
+    setSelectedGoals((prev) => prev.filter((g) => goalOptions.some((o) => o.value === g)));
+    setSelectedComplexities((prev) => prev.filter((c) => complexityOptions.some((o) => o.value === c)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [track]);
 
   const stepLabels = [
     "Vilken bransch är du verksam inom?",
-    "Vilken Dynamics 365-produkt är du intresserad av?",
-    "Vad vill du förbättra?",
+    "Vilken Dynamics\u00A0365-produkt är du intresserad av?",
+    trackStepLabels[track].goal,
     "Var befinner du dig idag?",
-    "Hur ser er verksamhet ut?",
+    trackStepLabels[track].complexity,
     "Hur stor är er organisation?",
   ];
 
@@ -326,7 +485,10 @@ const KomIgang = () => {
               industry: selectedIndustry,
               companySize: selectedSize || "",
               situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
-              complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
+              complexity: [
+                ...selectedGoals.map(g => allGoalOptions.find(o => o.value === g)?.label),
+                ...selectedComplexities.map(c => allComplexityOptions.find(o => o.value === c)?.label),
+              ].filter(Boolean).join(", ") || "",
             },
           },
         });
@@ -502,7 +664,7 @@ const KomIgang = () => {
                   "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
                   erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
                 };
-                const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
+                const spec = specByTrack[track] ?? selectedGoals.map(g => specMap[g]).find(Boolean);
                 if (!spec || matchedPartners.length === 0) return null;
                 return (
                   <div className="mt-8 rounded border-2 border-primary/20 bg-primary/5 p-5 text-center">
