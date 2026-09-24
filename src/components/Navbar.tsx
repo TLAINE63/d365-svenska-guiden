@@ -81,6 +81,12 @@ const Navbar = () => {
             >
               Partnernytt
             </Link>
+            <Link
+              to="/om-oss/"
+              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
+            >
+              Om oss
+            </Link>
             <Button
               asChild
               variant="default"
@@ -292,6 +298,9 @@ const Navbar = () => {
                   <RegionLanguageSwitcher />
                 </div>
                 <div className="h-px bg-border" />
+                <Link to="/om-oss/" className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                  Om oss
+                </Link>
                 <Link to="/kom-igang/" className="text-lg font-semibold text-primary hover:text-[hsl(var(--signature))] transition-colors">
                   Kom igång
                 </Link>

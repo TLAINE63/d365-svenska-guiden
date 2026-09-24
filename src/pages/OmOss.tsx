@@ -33,7 +33,7 @@ const OmOss = () => {
       <SEOHead
         title={`Om d365.se – köparsidig guide till Microsoft ${D365}`}
         description={`d365.se drivs av ${ORGANIZATION.legalName} och hjälper svenska företag att förstå Microsoft ${D365}, ringa in sitt behov och hitta rätt partner. Läs om vilka vi är och hur sajten finansieras.`}
-        canonical="https://d365.se/om-oss/"
+        canonicalPath="/om-oss/"
       />
       <Navbar />
       <main>
