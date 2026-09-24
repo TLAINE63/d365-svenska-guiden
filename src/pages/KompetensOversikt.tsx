@@ -177,21 +177,6 @@ const KompetensOversikt = () => {
             </div>
           </section>
 
-          <section className="mb-10 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-bold mb-2">Beskriv ert behov för d365.se</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-              Hittar ni inte rätt kompetens? Beskriv behovet, så går vi igenom det och återkommer om
-              vi ser ett relevant nästa steg. Behovet skickas inte vidare till partners automatiskt.
-            </p>
-            <Button
-              onClick={() => {
-                setNeedOpen(true);
-                trackCompetenceEvent("kompetens_need_form_open");
-              }}
-            >
-              Beskriv ert behov
-            </Button>
-          </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-bold mb-3">Vad funktionen inte visar</h2>
