@@ -14,8 +14,8 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
   try {
     const key = req.headers.get("x-outreach-key");
-    const expected = Deno.env.get("OUTREACH_KEY");
-    if (!expected || key !== expected) {
+    const allowed = [Deno.env.get("OUTREACH_KEY"), Deno.env.get("OUTREACH_TEST_KEY")].filter(Boolean);
+    if (!allowed.length || !allowed.includes(key as string)) {
       return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: cors });
     }
     const { to, subject, html } = await req.json();
