@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductHero from "@/components/ProductHero";
@@ -600,7 +601,7 @@ const CRM = () => {
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  
-<FunnelCTA stage="early" guide="crm" source="/crm/" />
+<ContextualCta source="next-step:crm" heading="Har ni en bild av vilken CRM-del ni behöver?" text="Sales, Customer Service eller Marketing? Guiden hjälper er välja och visar partners som passar." primaryLabel="Få rekommenderad partnerlista" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 </main>
  <Footer />
  </div>

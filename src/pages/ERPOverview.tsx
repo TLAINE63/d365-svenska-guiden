@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import ProductHero from "@/components/ProductHero";
 import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -477,7 +478,7 @@ const ERPOverview = () => {
    </div>
  </section>
  
-<FunnelCTA stage="early" guide="erp" source="/erpoverview/" />
+<ContextualCta source="next-step:erp" heading="Business Central eller Finance & Supply Chain?" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
 </main>
  <Footer />
  </div>

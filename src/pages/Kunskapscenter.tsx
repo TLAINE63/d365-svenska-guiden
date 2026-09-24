@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
@@ -1320,7 +1321,8 @@ const Kunskapscenter = () => {
  </section>
  </>
  )}
- </main>
+ <ContextualCta source="next-step:kunskapscenter" heading="Har ni läst tillräckligt för att börja utvärdera?" text="När ni vet vilken produkt som passar är nästa steg att hitta partners med rätt erfarenhet." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+</main>
  <Footer />
  </>
  );
