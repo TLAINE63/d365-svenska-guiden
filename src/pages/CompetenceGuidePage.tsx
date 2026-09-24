@@ -138,6 +138,8 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
             </ul>
           </Section>
 
+          {hasFilterParams && <CompetenceResultSummary guide={guide} filters={filters} />}
+
           <CompetencePartnerSection
             guide={guide}
             filters={filters}
