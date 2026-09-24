@@ -1,12 +1,12 @@
-import { useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
+import { ArrowLeft, Check, Loader2, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
@@ -73,6 +73,9 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
+import PartnerDecisionActions from "@/components/partner/PartnerDecisionActions";
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Step 2: Product options
 const productOptions = [
@@ -168,12 +171,20 @@ const sizeOptions: { value: string; label: string; desc: string }[] = [
 
 const KomIgang = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { data: partners = [] } = usePartners();
 
-  const [step, setStep] = useState(1);
-  const [selectedIndustry, setSelectedIndustry] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const initialIndustry = searchParams.get("industry") || "";
+  const requestedProduct = searchParams.get("product");
+  const requestedGoal = searchParams.get("goal");
+  const source = searchParams.get("source") || "direct";
+  const initialProduct = productOptions.some((option) => option.value === requestedProduct) ? requestedProduct : null;
+  const initialStep = initialIndustry ? (initialProduct ? 3 : 2) : 1;
+
+  const [step, setStep] = useState(initialStep);
+  const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && goalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -182,6 +193,34 @@ const KomIgang = () => {
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [introPartner, setIntroPartner] = useState<DatabasePartner | null>(null);
+  const currentStep = useRef(initialStep);
+  const completed = useRef(false);
+
+  useEffect(() => {
+    trackFunnelEvent({
+      event_type: "funnel_start",
+      event_name: "kom_igang_start",
+      metadata: { source, initial_industry: initialIndustry || null, initial_product: initialProduct },
+    });
+    return () => {
+      trackFunnelEvent({
+        event_type: "funnel_abandon",
+        event_name: "kom_igang_exit",
+        metadata: { source, step: currentStep.current, completed: completed.current },
+      });
+    };
+  }, []);
+
+  const advanceTo = (nextStep: number) => {
+    trackFunnelEvent({
+      event_type: "funnel_step",
+      event_name: "kom_igang_step_complete",
+      metadata: { source, step, next_step: nextStep },
+    });
+    currentStep.current = nextStep;
+    setStep(nextStep);
+  };
 
   const sortedIndustries = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -243,6 +282,12 @@ const KomIgang = () => {
     // Limit to max 4
     setMatchedPartners(result.slice(0, 4));
     setShowResults(true);
+    completed.current = true;
+    trackFunnelEvent({
+      event_type: "funnel_complete",
+      event_name: "kom_igang_results",
+      metadata: { source, product: selectedApp || null, industry: selectedIndustry || null, result_count: result.length },
+    });
 
     if (result.length > 0) {
       setIsAiLoading(true);
@@ -361,29 +406,19 @@ const KomIgang = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-2 mt-4">
-                          {partner.website && (
-                            <Button size="sm" variant="outline" asChild>
-                              <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                                Besök
-                              </a>
+                        {partner.slug && (
+                          <div className="mt-4 space-y-2">
+                            <PartnerDecisionActions
+                              partner={{ slug: partner.slug, name: partner.name }}
+                              product={selectedApp}
+                              industry={selectedIndustry}
+                              onIntro={() => setIntroPartner(partner)}
+                            />
+                            <Button size="sm" variant="ghost" asChild className="w-full">
+                              <Link to={`/partner/${partner.slug}`}>{`Läs beslutsunderlaget om ${partner.name}`}</Link>
                             </Button>
-                          )}
-                          {partner.email && (
-                            <Button size="sm" asChild>
-                              <a href={`mailto:${partner.email}`}>
-                                <Mail className="h-3.5 w-3.5 mr-1.5" />
-                                Kontakta
-                              </a>
-                            </Button>
-                          )}
-                          {partner.slug && (
-                            <Button size="sm" variant="ghost" asChild>
-                              <Link to={`/partner/${partner.slug}`}>{`Läs mer om ${partner.name}`}</Link>
-                            </Button>
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -437,6 +472,17 @@ const KomIgang = () => {
           </div>
         </main>
         <Footer />
+        {introPartner?.slug && (
+          <PartnerRequestDialog
+            open={Boolean(introPartner)}
+            onOpenChange={(open) => !open && setIntroPartner(null)}
+            partnerSlug={introPartner.slug}
+            partnerName={introPartner.name}
+            selectedProduct={selectedApp || undefined}
+            industry={selectedIndustry || undefined}
+            mode="contact"
+          />
+        )}
       </div>
     );
   }
@@ -516,17 +562,17 @@ const KomIgang = () => {
                 </div>
                 <div>
                   {step === 3 && (
-                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                    <Button onClick={() => advanceTo(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 4 && (
-                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                    <Button onClick={() => advanceTo(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 5 && (
-                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                    <Button onClick={() => advanceTo(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
@@ -549,7 +595,7 @@ const KomIgang = () => {
                           key={ind}
                           onClick={() => {
                             setSelectedIndustry(ind);
-                            setTimeout(() => setStep(2), 250);
+                            setTimeout(() => advanceTo(2), 250);
                           }}
                           className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
@@ -593,7 +639,7 @@ const KomIgang = () => {
                         key={opt.value}
                         onClick={() => {
                           setSelectedProduct(opt.value);
-                          setTimeout(() => setStep(3), 250);
+                          setTimeout(() => advanceTo(3), 250);
                         }}
                         className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
                           isSelected
