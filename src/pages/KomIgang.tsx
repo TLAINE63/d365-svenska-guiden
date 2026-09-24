@@ -359,6 +359,10 @@ const KomIgang = () => {
 
   const getAiMatch = (id: string) => aiMatches.find(m => m.id === id);
 
+  useEffect(() => {
+    if (showResults) window.scrollTo({ top: 0 });
+  }, [showResults]);
+
   // Närmaste alternativ när kombinationen saknar träffar
   const [rerun, setRerun] = useState(false);
   useEffect(() => {
