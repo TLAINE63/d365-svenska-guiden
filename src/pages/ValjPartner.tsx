@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { useState, useMemo, useEffect } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
@@ -1122,7 +1123,8 @@ const ValjPartner = () => {
  </section>
 
  <RelatedPages heading="Skapa underlag innan du kontaktar partners" pages={valjPartnerRelatedPages} />
- </main>
+ <ContextualCta source="next-step:valj-partner" heading="Vet ni vad ni ska leta efter hos en partner nu?" text="Gör kriterierna konkreta. Svara på sex frågor så får ni en kortlista att jämföra mot det ni just läst." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Skapa kravspecifikation", to: "/kravspecifikation/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+</main>
  <Footer />
  </div>
  );

@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -337,7 +338,7 @@ const D365Sales = () => {
       <ProductIsvSection product="Sales" />
 
       
-<FunnelCTA stage="early" guide="crm" source="/d365sales/" />
+<ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
 </main>
       <Footer />
     </div>

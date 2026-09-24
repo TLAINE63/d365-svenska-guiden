@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { Link } from "react-router-dom";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
@@ -407,7 +408,8 @@ export default function AllD365Partners() {
         </section>
         <TrustBanner variant="compact" />
 
-      </main>
+      <ContextualCta source="next-step:alla-partners" heading="Svårt att välja bland alla partners?" text="Listan visar alla. Guiden sorterar fram de som passar er produkt, bransch och storlek." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
+</main>
 
       <Footer />
     </div>

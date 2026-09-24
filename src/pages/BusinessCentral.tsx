@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -996,7 +997,7 @@ const BusinessCentral = () => {
  <ProductIsvSection product="Business Central" />
 
  
-<FunnelCTA stage="early" guide="erp" source="/businesscentral/" />
+<ContextualCta source="next-step:businesscentral" heading="Har ni kommit så långt att ni utvärderar Business Central?" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
 </main>
  <Footer />
  </div>

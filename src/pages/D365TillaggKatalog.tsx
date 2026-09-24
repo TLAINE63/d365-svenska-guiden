@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { useSearchParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -70,7 +71,8 @@ const D365TillaggKatalog = () => {
             defaultCeApps={defaultCeApps}
           />
         </div>
-      </main>
+      <ContextualCta source="next-step:tillagg-katalog" heading="Hittat tillägg ni behöver?" text="Tillägg installeras nästan alltid av en partner. Se vilka partners som passar er lösning och bransch." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Business Central-tillägg per kategori", to: "/business-central/tillagg/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
+</main>
 
       <Footer />
     </div>

@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -234,7 +235,8 @@ export default function Partnernytt() {
         )}
 
         {eventsOnly && <PartnernyttEventsSection />}
-      </main>
+      <ContextualCta source="next-step:partnernytt" heading="Blev ni intresserade av en partner?" text="Jämför dem med andra som passar er situation innan ni tar kontakt. d365.se kan introducera er." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se alla partners", to: "/alla-d365-partners/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
+</main>
       <Footer />
     </div>
   );
