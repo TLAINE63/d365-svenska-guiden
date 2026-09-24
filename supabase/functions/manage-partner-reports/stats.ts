@@ -745,7 +745,8 @@ export async function buildDraftStats(
   const previousEnd = currentStart;
   const rolling90Start = `${shiftDays(end, -89)}T00:00:00Z`;
 
-  const historyAnchor = `${start.slice(0, 7)}-01`;
+  // Historiken ankras i periodens SLUT så att totalrapporter (långa perioder) visar de senaste månaderna.
+  const historyAnchor = `${end.slice(0, 7)}-01`;
 
   const [current, benchmark, topEntryPath, industryPagesListed, partnerNews, previous, rolling90, peers, history, demand, ai] =
     await Promise.all([
