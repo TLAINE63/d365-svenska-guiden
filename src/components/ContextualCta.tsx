@@ -27,9 +27,9 @@ const ContextualCta = ({
   source,
   className = "",
 }: ContextualCtaProps) => {
-  const safeEyebrow = eyebrow.replaceAll("Dynamics 365", "Dynamics\u00A0365");
-  const safeHeading = heading.replaceAll("Dynamics 365", "Dynamics\u00A0365");
-  const safeText = text.replaceAll("Dynamics 365", "Dynamics\u00A0365");
+  const safeEyebrow = eyebrow.split("Dynamics 365").join("Dynamics\u00A0365");
+  const safeHeading = heading.split("Dynamics 365").join("Dynamics\u00A0365");
+  const safeText = text.split("Dynamics 365").join("Dynamics\u00A0365");
   const primaryTo = buildKomIgangUrl({ industry, product, goal, source });
   const track = (target: string, action: "primary" | "secondary") =>
     trackFunnelEvent({
