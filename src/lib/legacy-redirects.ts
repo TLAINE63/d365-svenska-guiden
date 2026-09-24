@@ -86,7 +86,6 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
 
   // Tidigare hemsidesidor som konsoliderats till /
   { from: "/start",                     to: "/",                    intendedStatus: 301 },
-  { from: "/om-oss",                    to: "/",                    intendedStatus: 301 },
   { from: "/vara-tjanster",             to: "/",                    intendedStatus: 301 },
   { from: "/konfigurator",              to: "/",                    intendedStatus: 301 },
   { from: "/projektpaket",              to: "/",                    intendedStatus: 301 },

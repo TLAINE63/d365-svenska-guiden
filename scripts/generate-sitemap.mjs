@@ -108,6 +108,7 @@ const STATIC_ROUTES = [
   { path: "/kravspecifikation-marketing/", changefreq: "monthly", priority: "0.7" },
   { path: "/kravspecifikation-kundservice/", changefreq: "monthly", priority: "0.7" },
   { path: "/agande-och-intressen/", changefreq: "yearly", priority: "0.5" },
+  { path: "/om-oss/", changefreq: "yearly", priority: "0.5" },
   { path: "/om-thomas-laine/", changefreq: "yearly", priority: "0.5" },
   { path: "/om-michael-uhman/", changefreq: "yearly", priority: "0.5" },
   { path: "/priser/", changefreq: "monthly", priority: "0.8" },

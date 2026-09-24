@@ -49,6 +49,7 @@ const AIReadiness = lazy(() => import("./pages/AIReadiness"));
 const QA = lazy(() => import("./pages/QA"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const OmThomasLaine = lazy(() => import("./pages/OmThomasLaine"));
+const OmOss = lazy(() => import("./pages/OmOss"));
 const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
@@ -282,7 +283,8 @@ const AppShell = () => {
           <Route path="/partner-update/:token" element={<PartnerUpdate />} />
           {/* Redirects for old/legacy URLs (44 st 404 i GSC) */}
           <Route path="/kontakta-oss" element={<RedirectTo to="/kontakt/" />} />
-          <Route path="/om-oss" element={<RedirectTo to="/" />} />
+          <Route path="/om-oss" element={<OmOss />} />
+          <Route path="/om-oss/" element={<OmOss />} />
           <Route path="/våra-tjänster" element={<RedirectTo to="/" />} />
           <Route path="/vara-tjanster" element={<RedirectTo to="/" />} />
           <Route path="/nyheter" element={<RedirectTo to="/events/" />} />
