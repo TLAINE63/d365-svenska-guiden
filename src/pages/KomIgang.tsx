@@ -336,7 +336,7 @@ const KomIgang = () => {
   const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
   const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
-...
+  const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const requestedSize = searchParams.get("size") || storedContext.size || null;
   const [selectedSize, setSelectedSize] = useState<string | null>(
