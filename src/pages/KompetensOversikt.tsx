@@ -61,7 +61,7 @@ const KompetensOversikt = () => {
     <>
       <SEOHead
         title="Hitta rätt Dynamics 365-kompetens"
-        description="Förstå vilken kompetens ert projekt behöver och hitta profilerade Dynamics 365-partners med relevant erfarenhet av rollen, produkten och branschen."
+        description="Beskriv vilken kompetens ni behöver så visar vi relevanta roller och partners med dokumenterad erfarenhet."
         canonicalPath="/kompetens/"
         breadcrumbs={breadcrumbs}
       />
@@ -74,9 +74,8 @@ const KompetensOversikt = () => {
             {nowrapBrand("Hitta rätt Dynamics 365-kompetens")}
           </h1>
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-3xl">
-            {nowrapBrand(
-              "Förstå vilken kompetens ert projekt behöver och hitta profilerade Dynamics 365-partners med relevant erfarenhet."
-            )}
+            Beskriv vilken kompetens ni behöver så visar vi relevanta
+            roller och partners med dokumenterad erfarenhet.
           </p>
 
           <section className="mb-10">
