@@ -68,16 +68,9 @@ const SEOHead = ({
         description,
         url: canonicalUrl,
         inLanguage: "sv-SE",
-        isPartOf: { "@type": "WebSite", name: "d365.se", url: baseUrl },
+        isPartOf: { "@id": `${baseUrl}/#website` },
         primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
-        publisher: {
-          "@type": "Organization",
-          "@id": `${baseUrl}/#organization`,
-          name: ORGANIZATION.name,
-          legalName: ORGANIZATION.legalName,
-          url: baseUrl,
-          logo: { "@type": "ImageObject", url: `${baseUrl}/d365guide-logo.png` },
-        },
+        publisher: { "@id": `${baseUrl}/#organization` },
       }
     : null;
 

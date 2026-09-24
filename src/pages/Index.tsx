@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
-import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
+import { OrganizationSchema, WebSiteSchema, FAQSchema } from "@/components/StructuredData";
 import {
   Users,
   Phone,
@@ -266,7 +266,6 @@ const Index = () => {
       />
       <OrganizationSchema />
       <WebSiteSchema />
-      <LocalBusinessSchema />
       <FAQSchema faqs={homeFaqs} />
       <NoscriptSEO
         title="Microsoft Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
