@@ -56,3 +56,7 @@
 - [x] Förfina sticky jämförelsepanel för 1–3 valda partners
 - [x] Lägg avslutningsblock direkt efter partnerlistan
 - [x] Uppdatera relevant mikrocopy på startsidan och verifiera mobil/desktop
+
+## Expertkompetensutskick (2026-09-24)
+- [x] Gör "Expertkompetensprofiler" till en egen, större och fet rad i mejlet
+- [x] Skicka ett separat mejl för varje verifierad partner till thomas.laine@dynamicfactory.se
