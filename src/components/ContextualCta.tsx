@@ -27,6 +27,9 @@ const ContextualCta = ({
   source,
   className = "",
 }: ContextualCtaProps) => {
+  const safeEyebrow = eyebrow.replaceAll("Dynamics 365", "Dynamics\u00A0365");
+  const safeHeading = heading.replaceAll("Dynamics 365", "Dynamics\u00A0365");
+  const safeText = text.replaceAll("Dynamics 365", "Dynamics\u00A0365");
   const primaryTo = buildKomIgangUrl({ industry, product, goal, source });
   const track = (target: string, action: "primary" | "secondary") =>
     trackFunnelEvent({
@@ -42,10 +45,10 @@ const ContextualCta = ({
           <div>
             <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
               <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-              {eyebrow}
+              {safeEyebrow}
             </p>
-            <h2 className="mb-2 text-xl font-bold leading-tight text-foreground sm:text-2xl">{heading}</h2>
-            <p className="max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{text}</p>
+            <h2 className="mb-2 text-xl font-bold leading-tight text-foreground sm:text-2xl">{safeHeading}</h2>
+            <p className="max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{safeText}</p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row md:flex-col">
             <Button asChild size="lg" className="min-h-12 whitespace-normal text-center font-bold">
