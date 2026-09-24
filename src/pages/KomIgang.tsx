@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
-import { getBuyerContext, updateBuyerContext } from "@/lib/buyerContext";
+import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, HelpCircle, FileText, Users } from "lucide-react";
+import { ArrowLeft, Check, Loader2, HelpCircle, FileText, Users, RotateCcw } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
@@ -519,6 +519,28 @@ const KomIgang = () => {
     }
   };
 
+  const handleRestart = () => {
+    clearBuyerContext();
+    setSelectedIndustry(null);
+    setSelectedProduct(null);
+    setSelectedGoals([]);
+    setSelectedSituations([]);
+    setSelectedComplexities([]);
+    setSelectedSize(null);
+    setMatchedPartners([]);
+    setAiMatches([]);
+    setShowResults(false);
+    currentStep.current = 1;
+    completed.current = false;
+    setStep(1);
+    window.scrollTo({ top: 0 });
+    trackFunnelEvent({
+      event_type: "analysis_step",
+      event_name: "kom_igang_restart",
+      metadata: { source, step },
+    });
+  };
+
   const getAiMatch = (id: string) => aiMatches.find(m => m.id === id);
 
   useEffect(() => {
@@ -689,6 +711,9 @@ const KomIgang = () => {
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
                 </Button>
+                <Button variant="ghost" onClick={handleRestart}>
+                  <RotateCcw className="mr-2 h-4 w-4" /> Börja om
+                </Button>
                 <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   <Link to="/kontakt/">Vill du ha hjälp? Kontakta oss</Link>
                 </Button>
@@ -774,7 +799,7 @@ const KomIgang = () => {
 
               {/* Navigation buttons above content */}
               <div className="flex items-center justify-between mb-4">
-                <div>
+                <div className="flex items-center gap-4">
                   {step > 1 && (
                     <button
                       onClick={handleBack}
@@ -784,6 +809,13 @@ const KomIgang = () => {
                       Föregående
                     </button>
                   )}
+                  <button
+                    onClick={handleRestart}
+                    className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                    Börja om
+                  </button>
                 </div>
                 <div>
                   {step === 3 && (
