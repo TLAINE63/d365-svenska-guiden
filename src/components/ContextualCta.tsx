@@ -22,6 +22,8 @@ interface ContextualCtaProps extends KomIgangContext {
   secondaryLabel?: string;
   secondaryTo?: string;
   className?: string;
+  /** Extra genvägar under texten, t.ex. "Se partner för tillverkning". */
+  links?: { label: string; to: string }[];
 }
 
 const ContextualCta = ({
@@ -36,6 +38,7 @@ const ContextualCta = ({
   goal,
   source,
   className = "",
+  links,
 }: ContextualCtaProps) => {
   const buyer = useBuyerContext();
   const { data: partners = [] } = usePartners();
@@ -103,6 +106,18 @@ const ContextualCta = ({
                   Rensa val
                 </button>
               </div>
+            )}
+            {links && links.length > 0 && (
+              <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                {links.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} onClick={() => track(l.to, "secondary")} className="inline-flex items-center gap-1 text-foreground underline-offset-4 hover:underline">
+                      {l.label.split("Dynamics 365").join("Dynamics\u00A0365")}
+                      <ArrowRight className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
           <div className="flex flex-col gap-2 sm:flex-row md:flex-col">
