@@ -35,7 +35,6 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
-import ShortlistButton from "@/components/ShortlistButton";
 
 import {
   getResultAssessment,
