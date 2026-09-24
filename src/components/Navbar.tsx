@@ -87,6 +87,12 @@ const Navbar = () => {
             >
               Om oss
             </Link>
+            <Link
+              to="/kontakt/"
+              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
+            >
+              Kontakt
+            </Link>
             <Button
               asChild
               variant="default"
@@ -300,6 +306,9 @@ const Navbar = () => {
                 <div className="h-px bg-border" />
                 <Link to="/om-oss/" className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
                   Om oss
+                </Link>
+                <Link to="/kontakt/" className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                  Kontakt
                 </Link>
                 <Link to="/kom-igang/" className="text-lg font-semibold text-primary hover:text-[hsl(var(--signature))] transition-colors">
                   Kom igång
