@@ -117,7 +117,7 @@ const AssignmentProfileCard = ({ profile, onContact, onProfileClick }: Props) =>
           </Link>
         </Button>
         <Button size="sm" variant="outline" onClick={() => onContact(profile)}>
-          Kontakta partnern
+          Be om introduktion
         </Button>
       </div>
     </article>
