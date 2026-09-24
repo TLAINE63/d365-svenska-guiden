@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
+import ContextualCta from "@/components/ContextualCta";
 import {
   PRODUCT_COMPARISONS,
   PRODUCT_META,
@@ -160,6 +161,16 @@ const ErpComparisonPage = () => {
             </div>
           </div>
         </section>
+
+        <ContextualCta
+          eyebrow={`${data.productShort} eller ${data.competitor}`}
+          heading="Pröva alternativen mot era verkliga behov"
+          text={`Jämförelsen visar skillnaderna. Kom igång-guiden väger dessutom in er bransch, situation och organisation innan ni väljer väg.`}
+          product={data.productShort}
+          source={`comparison:${data.slug}`}
+          secondaryLabel={`Läs mer om ${data.productShort}`}
+          secondaryTo={data.productPath}
+        />
 
         {/* WHEN NOT */}
         <section className="py-8 sm:py-10">

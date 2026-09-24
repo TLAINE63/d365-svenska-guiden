@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageSquare, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
+import ContextualCta from "@/components/ContextualCta";
 import partnerDataJson from "@/data/partnerData.json";
 import {
   PRODUCT_PARTNERS_SVERIGE,
@@ -190,28 +190,15 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-              Vill du ha hjälp att hitta rätt {cfg.productLabel}-partner?
-            </h2>
-            <p className="text-base text-muted-foreground mb-6">
-              Vi vägleder dig köparsidigt och kostnadsfritt – berätta vad du behöver
-              så återkopplar vi med 2–3 lämpliga partners att jämföra.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
-            >
-              <Link to="/kontakt/">
-                <MessageSquare className="w-4 h-4 mr-2" />
-                Kontakta oss för matchning
-              </Link>
-            </Button>
-          </div>
-        </section>
+        <ContextualCta
+          eyebrow={cfg.productLabel}
+          heading={`Vilka ${cfg.productLabel}-partners passar er?`}
+          text="Välj bransch och svara på några korta frågor. Därefter får ni en motiverad kortlista att jämföra vidare."
+          product={cfg.productKey === "bc" ? "Business Central" : cfg.productKey === "fsc" ? "Finance & SCM" : cfg.slug.includes("customer-insights") ? "Customer Insights (Marketing)" : cfg.slug.includes("field-service") ? "Field Service" : cfg.slug.includes("contact-center") ? "Contact Center" : cfg.slug.includes("customer-service") ? "Customer Service" : cfg.productKey === "sales" ? "Sales" : undefined}
+          source={`product-partners:${cfg.slug}`}
+          secondaryLabel="Jämför partners direkt"
+          secondaryTo="/jamfor-partners/"
+        />
       </main>
 
       <Footer />

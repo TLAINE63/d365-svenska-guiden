@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
-import FunnelCTA from "@/components/FunnelCTA";
+import ContextualCta from "@/components/ContextualCta";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -767,35 +767,15 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  {/* Relaterade pelarsidor – interna länkar för SEO/AIO */}
  <RelatedPages heading="Utforska Dynamics 365" pages={branschRelatedPages} />
 
- {/* CTA */}
- <section className="py-12">
- <div className="container mx-auto px-4 max-w-4xl">
- <div className="rounded border border-border bg-card p-8 text-center">
- <h2 className="text-xl md:text-2xl font-bold mb-3">
- Nästa steg för {industryName.toLowerCase()}
- </h2>
- <p className="text-sm text-muted-foreground mb-5 max-w-2xl mx-auto">
- Gör en kostnadsfri behovsanalys eller låt oss matcha dig med partners som kan din bransch.
- </p>
- <div className="flex flex-wrap gap-3 justify-center">
- <Link
- to="/ERPbehovsanalys"
- className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
- >
- Behovsanalys ERP <ArrowRight className="w-4 h-4" />
- </Link>
- <Link
- to="/valjdynamics365partner"
- className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border text-sm font-medium hover:border-primary/50"
- >
- Hitta rätt partner
- </Link>
- </div>
- </div>
- </div>
- </section>
- 
-<FunnelCTA stage="evaluation" guide="erp" source="/industrypage/" />
+ <ContextualCta
+  eyebrow={`Partner för ${industryName}`}
+  heading={`Vilka partners kan er bransch och ert behov?`}
+  text={`Svara på sex frågor och få en kortlista där erfarenhet från ${industryName.toLowerCase()} väger tyngst.`}
+  industry={industryName}
+  source={`industry:${slug}`}
+  secondaryLabel="Gör en djupare behovsanalys"
+  secondaryTo="/ERPbehovsanalys/"
+ />
 </main>
  <Footer />
  </>
