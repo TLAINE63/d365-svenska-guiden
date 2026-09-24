@@ -542,69 +542,6 @@ const Index = () => {
 
 
 
-        {/* SECTION 3 – WHERE ARE YOU */}
-        <section className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <div className="max-w-2xl mb-10">
-              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">
-                Var står du?
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground tracking-tight mb-3 leading-tight">
-                Var står du i processen?
-              </h2>
-              <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Fyra vanliga utgångslägen – välj det som matchar var ni befinner er idag.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {situationCards.map((c) => (
-                <div
-                  key={c.title}
-                  className={`group relative bg-card rounded p-6 sm:p-7 flex flex-col transition-all hover:-translate-y-1 ${
-                    c.primary
-                      ? "border-2 border-[hsl(var(--cta-orange))]/50 shadow-[0_8px_32px_-12px_hsl(var(--cta-orange)/0.25)]"
-                      : "border border-border hover:border-primary/40"
-                  }`}
-                >
-                  <span className="inline-block text-[10.5px] font-bold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-4">
-                    {c.eyebrow}
-                  </span>
-                  <div className="w-11 h-11 rounded bg-[hsl(var(--signature))]/10 flex items-center justify-center mb-4">
-                    <c.icon className="w-5 h-5 text-[hsl(var(--signature))]" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 leading-snug">{c.title}</h3>
-                  <p className="text-[14px] text-muted-foreground leading-relaxed mb-6 flex-1">{c.desc}</p>
-                  {c.to ? (
-                    <Button
-                      asChild
-                      className={
-                        c.primary
-                          ? "bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-11 rounded font-semibold w-full justify-center"
-                          : "bg-foreground hover:bg-foreground/90 text-background h-11 rounded font-semibold w-full justify-center"
-                      }
-                    >
-                      <Link to={c.to}>
-                        {c.cta}
-                        <ArrowRight className="w-4 h-4 ml-1.5" />
-                      </Link>
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={c.onClick}
-                      className="bg-foreground hover:bg-foreground/90 text-background min-h-11 h-auto rounded px-4 py-2.5 font-semibold w-full justify-center whitespace-normal text-center leading-snug"
-                    >
-                      {c.cta}
-                      <ArrowRight className="w-4 h-4 ml-1.5" />
-                    </Button>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Verifierade partners – alla publicerade profiler */}
         <Suspense fallback={<div className="py-16" />}>
           <HomeVerifiedPartnersGrid onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
         </Suspense>
