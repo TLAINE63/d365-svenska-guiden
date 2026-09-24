@@ -335,8 +335,8 @@ const KomIgang = () => {
   const [step, setStep] = useState(initialStep);
   const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && goalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
-  const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
+...
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const requestedSize = searchParams.get("size") || storedContext.size || null;
   const [selectedSize, setSelectedSize] = useState<string | null>(
@@ -394,13 +394,23 @@ const KomIgang = () => {
   }, [partners]);
 
   const selectedApp = selectedProduct || "";
+  const track = getTrack(selectedApp);
+  const goalOptions = goalOptionsByTrack[track];
+  const complexityOptions = complexityOptionsByTrack[track];
+
+  // Rensa val som inte hör till det nya spåret när produkten byts
+  useEffect(() => {
+    setSelectedGoals((prev) => prev.filter((g) => goalOptions.some((o) => o.value === g)));
+    setSelectedComplexities((prev) => prev.filter((c) => complexityOptions.some((o) => o.value === c)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [track]);
 
   const stepLabels = [
     "Vilken bransch är du verksam inom?",
-    "Vilken Dynamics 365-produkt är du intresserad av?",
-    "Vad vill du förbättra?",
+    "Vilken Dynamics\u00A0365-produkt är du intresserad av?",
+    trackStepLabels[track].goal,
     "Var befinner du dig idag?",
-    "Hur ser er verksamhet ut?",
+    trackStepLabels[track].complexity,
     "Hur stor är er organisation?",
   ];
 
@@ -475,7 +485,10 @@ const KomIgang = () => {
               industry: selectedIndustry,
               companySize: selectedSize || "",
               situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
-              complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
+              complexity: [
+                ...selectedGoals.map(g => allGoalOptions.find(o => o.value === g)?.label),
+                ...selectedComplexities.map(c => allComplexityOptions.find(o => o.value === c)?.label),
+              ].filter(Boolean).join(", ") || "",
             },
           },
         });
@@ -651,7 +664,7 @@ const KomIgang = () => {
                   "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
                   erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
                 };
-                const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
+                const spec = specByTrack[track] ?? selectedGoals.map(g => specMap[g]).find(Boolean);
                 if (!spec || matchedPartners.length === 0) return null;
                 return (
                   <div className="mt-8 rounded border-2 border-primary/20 bg-primary/5 p-5 text-center">
