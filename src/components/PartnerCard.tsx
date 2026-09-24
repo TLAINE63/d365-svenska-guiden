@@ -1,4 +1,4 @@
-import { Star, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackPartnerImpression, trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { swedishPossessive } from "@/lib/utils";
@@ -14,6 +14,7 @@ import {
   ChevronUp,
   ExternalLink,
   ArrowLeftRight,
+  Star,
   Mail
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
