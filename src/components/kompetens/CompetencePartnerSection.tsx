@@ -61,10 +61,24 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
 
           {noMatches && (
             <div className="rounded-xl border border-border bg-card p-5">
-              <p className="text-sm font-semibold mb-2">
-                Vi hittade inga publicerade uppdragsprofiler som matchar alla val.
+              <p className="text-base font-bold mb-2">Vi kan hjälpa er vidare</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+                Vi har ännu inte tillräckligt verifierad information för att automatiskt
+                rangordna partners för just den här kombinationen.
               </p>
-              <p className="text-sm text-muted-foreground mb-4">Ni kan prova att:</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Beskriv kort vad ni behöver så går d365.se igenom relevanta partners och
+                återkommer med ett förslag.
+              </p>
+              <div className="mb-4">
+                <Button size="sm" onClick={onDescribeNeed}>
+                  Få hjälp att hitta rätt kompetens →
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mb-4">
+                Er förfrågan skickas inte vidare till någon partner utan ert godkännande.
+              </p>
+              <p className="text-sm text-muted-foreground mb-2">Ni kan också prova att:</p>
               <div className="flex flex-wrap gap-2">
                 {filters.region && (
                   <Button variant="outline" size="sm" onClick={() => onFiltersChange({ ...filters, region: undefined })}>
@@ -94,9 +108,6 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
                     Se partners som matchar roll och produkt
                   </Button>
                 )}
-                <Button size="sm" onClick={onDescribeNeed}>
-                  Beskriv ert behov för d365.se
-                </Button>
               </div>
             </div>
           )}
