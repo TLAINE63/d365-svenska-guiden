@@ -59,6 +59,7 @@ const ALLOWED_TYPES = new Set([
   "pdf_download",
   "content_view",
   "journey",
+  "engagement",
 ]);
 const STEPS = new Set(["landing","cta_view","cta_click","tool_start","tool_step_1","tool_result","shortlist_add","compare_open","intro_open","intro_sent"]);
 const SOURCES = new Set(["seo","geo_ai","direct","internal","social","email","paid","referral"]);

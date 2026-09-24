@@ -104,6 +104,75 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    if (body?.action === "engagement") {
+      const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const since = new Date(Date.now() - d * 86400000).toISOString();
+      const fetchAll = async (table: string, cols: string, tsCol: string) => {
+        const out: any[] = [];
+        for (let from = 0; from < 300000; from += 1000) {
+          const { data, error } = await supabase.from(table).select(cols).gte(tsCol, since).range(from, from + 999);
+          if (error) { console.error(table, error); break; }
+          out.push(...(data || []));
+          if (!data || data.length < 1000) break;
+        }
+        return out;
+      };
+      const [visits, funnel, clicks, leads] = await Promise.all([
+        fetchAll("visitor_analytics", "page_path, session_id", "visited_at"),
+        fetchAll("funnel_events", "event_type, event_name, session_id", "occurred_at"),
+        fetchAll("partner_clicks", "id, ip_address_anonymized", "clicked_at"),
+        fetchAll("leads", "source_type", "created_at"),
+      ]);
+      const pageGroup = (p: string): string | null => {
+        const s = (p || "").toLowerCase();
+        if (s.startsWith("/partner/")) return "partner_profile";
+        if (s.includes("jamfor") || s.startsWith("/compare/")) return "comparison";
+        if (s.startsWith("/artiklar/") || s.startsWith("/aktuellt/") || /^\/kunskapscenter\/[^/]+\/[^/]+/.test(s) || s.startsWith("/basic/")) return "article";
+        return null;
+      };
+      const agg = (key: string) => ({ views: 0, sessions: new Set<string>() });
+      const pages: Record<string, { views: number; sessions: Set<string> }> = {
+        article: agg("a"), partner_profile: agg("p"), comparison: agg("c"),
+      };
+      for (const v of visits) {
+        const g = pageGroup(v.page_path);
+        if (!g) continue;
+        pages[g].views++;
+        if (v.session_id) pages[g].sessions.add(v.session_id);
+      }
+      const clickAgg: Record<string, { count: number; sessions: Set<string> }> = {
+        ebook: { count: 0, sessions: new Set() },
+        needs_analysis: { count: 0, sessions: new Set() },
+        kravspec: { count: 0, sessions: new Set() },
+      };
+      for (const f of funnel) {
+        let k: string | null = null;
+        if (f.event_name === "ebook_click" || f.event_name === "ebook_banner") k = "ebook";
+        else if (f.event_name === "needs_analysis_click") k = "needs_analysis";
+        else if (f.event_name === "kravspec_click") k = "kravspec";
+        if (f.event_type === "cta_view") k = null;
+        if (!k) continue;
+        clickAgg[k].count++;
+        if (f.session_id) clickAgg[k].sessions.add(f.session_id);
+      }
+      const leadsByType: Record<string, number> = {};
+      for (const l of leads) leadsByType[l.source_type || "okänd"] = (leadsByType[l.source_type || "okänd"] || 0) + 1;
+      const extUnique = new Set(clicks.map((c) => c.ip_address_anonymized).filter(Boolean)).size;
+      const metrics = [
+        { key: "article", label: "Artikelbesök", count: pages.article.views, unique: pages.article.sessions.size },
+        { key: "partner_profile", label: "Partnerprofilbesök", count: pages.partner_profile.views, unique: pages.partner_profile.sessions.size },
+        { key: "comparison", label: "Jämförelsesidor", count: pages.comparison.views, unique: pages.comparison.sessions.size },
+        { key: "ebook", label: "E-boksklick", count: clickAgg.ebook.count, unique: clickAgg.ebook.sessions.size, extra: `${leadsByType["lead_magnet"] || 0} nedladdningar` },
+        { key: "needs_analysis", label: "Behovsanalysklick", count: clickAgg.needs_analysis.count, unique: clickAgg.needs_analysis.sessions.size },
+        { key: "kravspec", label: "Kravspecklick", count: clickAgg.kravspec.count, unique: clickAgg.kravspec.sessions.size, extra: `${leadsByType["requirements_spec"] || 0} skickade kravspecar` },
+        { key: "external_partner", label: "Externa partnerklick", count: clicks.length, unique: extUnique },
+        { key: "contact_form", label: "Kontaktformulär", count: leads.length, unique: leads.length },
+      ];
+      return new Response(JSON.stringify({ metrics, leads_by_type: leadsByType }), {
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
     if (body?.action === "journey") {
       const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
       const sinceJ = new Date(Date.now() - d * 86400000).toISOString();

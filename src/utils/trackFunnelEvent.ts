@@ -40,7 +40,8 @@ export type FunnelEventType =
   | "analysis_complete"
   | "pdf_download"
   | "content_view"
-  | "journey";
+  | "journey"
+  | "engagement";
 
 /** Fasta steg i köparresan. */
 export type FunnelStep =
@@ -155,6 +156,43 @@ export function trackLandingOnce(): void {
   } catch {
     /* ignore */
   }
+}
+
+/** Klassificerar länkklick till behovsanalys, kravspec och e-bok. */
+function classifyEngagementHref(href: string): string | null {
+  const p = href.toLowerCase();
+  if (/behovsanalys|matchningstest|ai-mognadsanalys|beslutsmognad/.test(p)) return "needs_analysis_click";
+  if (p.includes("kravspecifikation")) return "kravspec_click";
+  if (p.includes("ebook") || p.includes("e-bok")) return "ebook_click";
+  return null;
+}
+
+let engagementInstalled = false;
+/** Global lyssnare: mäter klick till behovsanalys, kravspec och e-bok. */
+export function installEngagementClickTracking(): void {
+  if (engagementInstalled || typeof document === "undefined") return;
+  engagementInstalled = true;
+  document.addEventListener(
+    "click",
+    (e) => {
+      const el = (e.target as HTMLElement | null)?.closest?.("a[href], [data-engagement]") as HTMLElement | null;
+      if (!el) return;
+      const explicit = el.getAttribute("data-engagement");
+      let name = explicit;
+      if (!name) {
+        const href = el.getAttribute("href") || "";
+        if (!href.startsWith("/") && !href.includes("d365.se")) return;
+        name = classifyEngagementHref(href);
+      }
+      if (!name) return;
+      trackFunnelEvent({
+        event_type: "engagement",
+        event_name: name,
+        metadata: { target: el.getAttribute("href") || null },
+      });
+    },
+    { capture: true },
+  );
 }
 
 export interface FunnelEventPayload {
