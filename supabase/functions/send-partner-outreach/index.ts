@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
     const rawBody: any = await req.clone().json().catch(() => ({}));
 
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
-    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send") {
+    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send" || rawBody?.action === "expert-mark-sent") {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
       if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey))) {
         return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
@@ -89,7 +89,30 @@ Deno.serve(async (req) => {
       });
 
       if (rawBody.action === "expert-list") {
-        return new Response(JSON.stringify({ partners: list.map(({ token, ...r }) => ({ ...r, has_link: !!token })) }), { headers: jsonHeaders });
+        return new Response(JSON.stringify({
+          partners: list.map(({ token, ...r }) => ({
+            ...r,
+            has_link: !!token,
+            link: token ? `${PUBLIC_BASE_URL}/partner-update/${token}` : null,
+          })),
+        }), { headers: jsonHeaders });
+      }
+
+      // Manuellt utskick från egen inkorg: logga som skickat utan att mejla via sajten.
+      if (rawBody.action === "expert-mark-sent") {
+        const ids = z.array(z.string().uuid()).min(1).max(100).safeParse(rawBody.partner_ids);
+        if (!ids.success) return new Response(JSON.stringify({ error: "Välj minst en partner" }), { status: 400, headers: jsonHeaders });
+        const subject = "Lägg upp era expertkompetensprofiler på d365.se";
+        const results: Array<{ partner: string; status: string; reason?: string }> = [];
+        for (const p of list.filter((x) => ids.data.includes(x.id))) {
+          if (!p.email || !z.string().email().safeParse(p.email).success) { results.push({ partner: p.name, status: "skipped", reason: "saknar e-post" }); continue; }
+          await sb.from("email_send_log").insert({
+            recipient_email: p.email, template_name: "partner-expert-profile", subject, status: "sent",
+            metadata: { partner_id: p.id, partner_name: p.name, manual: true },
+          });
+          results.push({ partner: p.name, status: "sent" });
+        }
+        return new Response(JSON.stringify({ results }), { headers: jsonHeaders });
       }
 
       const ids = z.array(z.string().uuid()).min(1).max(100).safeParse(rawBody.partner_ids);
