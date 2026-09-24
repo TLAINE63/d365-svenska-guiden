@@ -39,7 +39,12 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
 
   return (
     <section id="partners" className="scroll-mt-28">
-      <h2 className="text-xl font-bold mb-3">Profilerade partners med relevant erfarenhet</h2>
+      <h2 className="text-xl font-bold mb-1">Partners med relevant erfarenhet</h2>
+      {!isLoading && results.length > 0 && (
+        <p className="text-sm text-muted-foreground mb-3">
+          {results.length === 1 ? "1 partner matchar era val" : `${results.length} partners matchar era val`}
+        </p>
+      )}
 
       {noProfilesAtAll ? (
         <div className="rounded-xl border border-border bg-card p-5">
