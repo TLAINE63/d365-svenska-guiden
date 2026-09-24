@@ -93,10 +93,10 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
           <Label className="text-xs font-semibold mb-1.5 block">Leveransform</Label>
           <Select value={value.delivery ?? ALL} onValueChange={(v) => set("delivery", v)}>
             <SelectTrigger>
-              <SelectValue placeholder="Alla leveransformer" />
+              <SelectValue placeholder="Spelar ingen roll" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={ALL}>Alla leveransformer</SelectItem>
+              <SelectItem value={ALL}>Spelar ingen roll</SelectItem>
               {DELIVERY_MODES.map((d) => (
                 <SelectItem key={d.value} value={d.value}>
                   {d.label}
