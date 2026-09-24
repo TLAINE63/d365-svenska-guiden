@@ -165,7 +165,12 @@
       "industries": [],
       "offices": null,
       "company_size": null,
-      "geography": [],
+      "geography": [
+        "Norden",
+        "Europa",
+        "Globalt",
+        "Sverige"
+      ],
       "related_party": false
     },
     {
