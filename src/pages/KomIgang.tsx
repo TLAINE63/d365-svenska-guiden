@@ -199,13 +199,13 @@ const KomIgang = () => {
 
   useEffect(() => {
     trackFunnelEvent({
-      event_type: "funnel_start",
+      event_type: "analysis_start",
       event_name: "kom_igang_start",
       metadata: { source, initial_industry: initialIndustry || null, initial_product: initialProduct },
     });
     return () => {
       trackFunnelEvent({
-        event_type: "funnel_abandon",
+        event_type: "analysis_step",
         event_name: "kom_igang_exit",
         metadata: { source, step: currentStep.current, completed: completed.current },
       });
@@ -214,7 +214,7 @@ const KomIgang = () => {
 
   const advanceTo = (nextStep: number) => {
     trackFunnelEvent({
-      event_type: "funnel_step",
+      event_type: "analysis_step",
       event_name: "kom_igang_step_complete",
       metadata: { source, step, next_step: nextStep },
     });
@@ -284,7 +284,7 @@ const KomIgang = () => {
     setShowResults(true);
     completed.current = true;
     trackFunnelEvent({
-      event_type: "funnel_complete",
+      event_type: "analysis_complete",
       event_name: "kom_igang_results",
       metadata: { source, product: selectedApp || null, industry: selectedIndustry || null, result_count: result.length },
     });

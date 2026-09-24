@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Calendar, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import PartnerDecisionActions from "@/components/partner/PartnerDecisionActions";
 
 interface StickyContactCTAProps {
+  partnerSlug: string;
   partnerName: string;
-  onBookMeeting: () => void;
+  product?: string | null;
+  industry?: string;
   onIntro: () => void;
 }
 
@@ -14,7 +17,7 @@ interface StickyContactCTAProps {
  * Two primary actions: book a first meeting or request an intro.
  * Hidden while the main lead-form dialog is open (parent unmounts if needed).
  */
-export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: StickyContactCTAProps) => {
+export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, onIntro }: StickyContactCTAProps) => {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(true);
 
@@ -39,14 +42,13 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
     });
   }, [visible, partnerName]);
 
-  const handle = (action: "book" | "intro") => {
+  const handleIntro = () => {
     trackFunnelEvent({
       event_type: "cta_click",
       event_name: "partner_sticky_contact",
-      metadata: { partner: partnerName, action },
+      metadata: { partner: partnerName, action: "intro" },
     });
-    if (action === "book") onBookMeeting();
-    else onIntro();
+    onIntro();
   };
 
   if (!visible) return null;
@@ -59,23 +61,12 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
         role="region"
         aria-label={`Kontakta ${partnerName}`}
       >
-        <div className="flex gap-2">
-          <Button
-            onClick={() => handle("intro")}
-            variant="outline"
-            className="flex-1 h-11 text-sm font-semibold"
-          >
-            <MessageCircle className="w-4 h-4 mr-1.5" aria-hidden="true" />
-            Be om intro
-          </Button>
-          <Button
-            onClick={() => handle("book")}
-            className="flex-1 h-11 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            <Calendar className="w-4 h-4 mr-1.5" aria-hidden="true" />
-            Boka första möte
-          </Button>
-        </div>
+        <PartnerDecisionActions
+          partner={{ slug: partnerSlug, name: partnerName }}
+          product={product}
+          industry={industry}
+          onIntro={handleIntro}
+        />
       </div>
 
       {/* Desktop: floating bottom-left stack to avoid overlap with AI chat bubble (bottom-right) */}
@@ -85,21 +76,13 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-1">
               Kontakta {partnerName}
             </p>
-            <Button
-              onClick={() => handle("book")}
-              className="justify-start h-11 px-4 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-md"
-            >
-              <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-              Boka första möte
-            </Button>
-            <Button
-              onClick={() => handle("intro")}
-              variant="outline"
-              className="justify-start h-11 px-4 font-semibold"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
-              Be om introduktion
-            </Button>
+            <PartnerDecisionActions
+              partner={{ slug: partnerSlug, name: partnerName }}
+              product={product}
+              industry={industry}
+              onIntro={handleIntro}
+              compact
+            />
             <button
               onClick={() => setExpanded(false)}
               className="text-[11px] text-muted-foreground hover:text-foreground self-end px-1"
@@ -115,8 +98,8 @@ export const StickyContactCTA = ({ partnerName, onBookMeeting, onIntro }: Sticky
             className="h-12 px-5 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-xl rounded-full"
             aria-label={`Kontakta ${partnerName}`}
           >
-            <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-            Kontakta partner
+            <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
+            Nästa steg
           </Button>
         )}
       </div>
