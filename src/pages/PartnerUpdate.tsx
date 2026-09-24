@@ -16,7 +16,6 @@ import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Pl
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
 import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
-import PartnerAiVisibilityCard from "@/components/PartnerAiVisibilityCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -2822,15 +2821,6 @@ const PartnerUpdate = () => {
   {/* Kompetenser och roller, granskas innan publicering */}
   {invitation?.partner_id && token && (
     <PartnerCompetenceProfilesSection token={token} partnerId={invitation.partner_id} />
-  )}
-
-  {/* Synlighet i AI-svar, endast för partnern själv i den här vyn */}
-  {(existingSlug || invitation?.partner_name) && (
-    <PartnerAiVisibilityCard
-      slug={existingSlug || generateSlug(formData.name || invitation?.partner_name || "partner")}
-      partnerName={formData.name || invitation?.partner_name || "Er profil"}
-      forceVisible
-    />
   )}
 
  {/* Decision profile */}
