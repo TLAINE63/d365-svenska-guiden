@@ -25,7 +25,8 @@ Deno.serve(async (req) => {
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) throw new Error("RESEND_API_KEY saknas");
     const resend = new Resend(resendApiKey);
-    const from = "Thomas Laine <thomas.laine@dynamicfactory.se>";
+    const body = { to, subject, html } as { to: string; subject: string; html: string; from?: string };
+    const from = (typeof body.from === "string" && body.from) || "Thomas Laine <thomas.laine@dynamicfactory.se>";
     const { data, error } = await resend.emails.send({
       from,
       to: [to],
