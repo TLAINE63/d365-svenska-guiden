@@ -25,6 +25,8 @@ interface SEOHeadProps {
   webPageSchema?: boolean;
   /** Breadcrumb trail. Ange endast på sidor som inte redan renderar BreadcrumbSchema. */
   breadcrumbs?: { name: string; url: string }[];
+  /** Senast uppdaterad (ÅÅÅÅ-MM-DD), skrivs som dateModified i WebPage. */
+  dateModified?: string;
 }
 
 const SEOHead = ({
@@ -46,6 +48,7 @@ const SEOHead = ({
   articleTags,
   webPageSchema = true,
   breadcrumbs,
+  dateModified,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
   const { pathname } = useLocation();
@@ -71,6 +74,7 @@ const SEOHead = ({
         isPartOf: { "@id": `${baseUrl}/#website` },
         primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
         publisher: { "@id": `${baseUrl}/#organization` },
+        ...(dateModified ? { dateModified } : {}),
       }
     : null;
 
