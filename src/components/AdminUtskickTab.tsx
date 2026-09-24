@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { Loader2, RefreshCw, Send, Eye, CheckCircle2, Undo2, Trash2, Users } from "lucide-react";
+import AdminExpertOutreachCard from "@/components/AdminExpertOutreachCard";
 
 type ReportKind = "verified" | "basic";
 
@@ -219,6 +220,7 @@ export default function AdminUtskickTab({ token }: { token: string | null }) {
 
   return (
     <div className="space-y-6">
+      <AdminExpertOutreachCard token={token} />
       <Card>
         <CardHeader>
           <CardTitle>Utskick av rapporter</CardTitle>

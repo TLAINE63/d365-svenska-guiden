@@ -2,6 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { Resend } from "npm:resend@4";
 import { z } from "npm:zod@3";
+import { verifyAdminJWT } from "../_shared/isvAuth.ts";
 
 const PUBLIC_BASE_URL = "https://www.d365.se";
 const REVIEW_RECIPIENT = "thomas.laine@dynamicfactory.se";
@@ -54,11 +55,77 @@ Deno.serve(async (req) => {
   const jsonHeaders = { ...corsHeaders, "Content-Type": "application/json" };
 
   try {
+    const rawBody: any = await req.clone().json().catch(() => ({}));
+
+    // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
+    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send") {
+      const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+      if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey))) {
+        return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
+      }
+      const sb = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
+      const { data: partners, error: pErr } = await sb
+        .from("partners")
+        .select("id,name,admin_contact_email,email,partner_invitations(token,status,expires_at,created_at)")
+        .eq("is_featured", true)
+        .order("name");
+      if (pErr) throw pErr;
+      const now = Date.now();
+      const { data: logs } = await sb.from("email_send_log")
+        .select("metadata,created_at,status")
+        .eq("template_name", "partner-expert-profile")
+        .order("created_at", { ascending: false });
+      const list = (partners ?? []).map((p: any) => {
+        const inv = (p.partner_invitations ?? [])
+          .filter((i: any) => i.status === "approved" && new Date(i.expires_at).getTime() > now)
+          .sort((a: any, b: any) => b.created_at.localeCompare(a.created_at))[0];
+        const last = (logs ?? []).find((l: any) => l.metadata?.partner_id === p.id && l.status === "sent");
+        return {
+          id: p.id, name: p.name,
+          email: (p.admin_contact_email || p.email || "").trim() || null,
+          token: inv?.token ?? null,
+          last_sent_at: last?.created_at ?? null,
+        };
+      });
+
+      if (rawBody.action === "expert-list") {
+        return new Response(JSON.stringify({ partners: list.map(({ token, ...r }) => ({ ...r, has_link: !!token })) }), { headers: jsonHeaders });
+      }
+
+      const ids = z.array(z.string().uuid()).min(1).max(100).safeParse(rawBody.partner_ids);
+      if (!ids.success) return new Response(JSON.stringify({ error: "Välj minst en partner" }), { status: 400, headers: jsonHeaders });
+      const resendKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendKey) throw new Error("E-posttjänsten är inte konfigurerad");
+      const rs = new Resend(resendKey);
+      const results: Array<{ partner: string; status: string; reason?: string }> = [];
+      for (const p of list.filter((x) => ids.data.includes(x.id))) {
+        if (!p.email || !z.string().email().safeParse(p.email).success) { results.push({ partner: p.name, status: "skipped", reason: "saknar e-post" }); continue; }
+        if (!p.token) { results.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
+        const subject = "Lägg upp era expertkompetensprofiler på d365.se";
+        const { data, error } = await rs.emails.send({
+          from: "Thomas Laine via d365.se <info@d365.se>",
+          to: [p.email], reply_to: REVIEW_RECIPIENT, subject,
+          html: expertProfileEmail(p.name, p.token),
+        });
+        const status = error ? "failed" : "sent";
+        results.push({ partner: p.name, status });
+        await sb.from("email_send_log").insert({
+          recipient_email: p.email, template_name: "partner-expert-profile", subject, status,
+          message_id: data?.id ?? null,
+          error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
+          metadata: { partner_id: p.id, partner_name: p.name },
+        });
+        await new Promise((r) => setTimeout(r, 600));
+      }
+      return new Response(JSON.stringify({ results }), { headers: jsonHeaders });
+    }
+
     const suppliedKey = req.headers.get("x-outreach-key");
     const allowedKeys = [Deno.env.get("OUTREACH_KEY"), Deno.env.get("OUTREACH_TEST_KEY")].filter(Boolean);
     if (!suppliedKey || !allowedKeys.includes(suppliedKey)) {
       return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
     }
+
 
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
