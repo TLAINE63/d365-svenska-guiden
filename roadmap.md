@@ -64,3 +64,12 @@
 ## Kom igång på startsidan (2026-09-24)
 - [x] Lyft den interaktiva Kom igång-guiden direkt efter startsidans första del
 - [x] Kontrollera desktop, mobil och direktlänken till /kom-igang/
+
+## Kom igång som primär konverteringsmotor (2026-09-24)
+- [x] Förval och mätning i Kom igång-flödet
+- [x] Primär Kom igång-ingång i desktop- och mobilmenyn
+- [x] Resultat med Jämför, Fråga d365.se och Be om introduktion
+- [x] Samma tre beslutsvägar på partnerprofiler
+- [x] Kontextuell CTA på produkt-, bransch-, jämförelse- och partnerlistsidor
+- [x] Kontextuell CTA i guider och kunskapscenterartiklar
+- [x] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er

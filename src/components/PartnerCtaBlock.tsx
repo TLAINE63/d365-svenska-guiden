@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
-import { CTA, findPartnerUrl } from "@/data/ctaLabels";
+import { CTA } from "@/data/ctaLabels";
+import { buildKomIgangUrl } from "@/lib/komIgangUrl";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface Props {
@@ -19,13 +20,13 @@ interface Props {
  * (Starta behovsanalys). Används efter artiklar och efter genomförda verktyg.
  */
 const PartnerCtaBlock = ({ variant = "article", source, industry, product, className = "" }: Props) => {
-  const to = findPartnerUrl({ industry, product });
+  const to = buildKomIgangUrl({ industry, product, source });
   const isTool = variant === "tool";
 
-  const heading = isTool ? "Redo för nästa steg?" : "Behöver du hjälp att välja Dynamics 365-partner?";
+  const heading = isTool ? "Redo för nästa steg?" : "Gör en personlig kortlista på sex frågor";
   const body = isTool
     ? "Baserat på dina svar kan vi hjälpa dig hitta relevanta Dynamics 365-partners."
-    : null;
+    : "Välj produkt och bransch, beskriv nuläget och få relevanta partners att jämföra.";
 
   const track = (target: string) =>
     trackFunnelEvent({
@@ -41,7 +42,7 @@ const PartnerCtaBlock = ({ variant = "article", source, industry, product, class
     >
       <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{heading}</h2>
-        {body && <p className="text-muted-foreground mb-6 max-w-2xl">{body}</p>}
+        <p className="text-muted-foreground mb-6 max-w-2xl">{body}</p>
 
         {!isTool && (
           <ul className="space-y-2 mb-7">
@@ -64,7 +65,7 @@ const PartnerCtaBlock = ({ variant = "article", source, industry, product, class
             onClick={() => track(to)}
             className="inline-flex items-center justify-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] px-6 py-3 text-sm font-bold text-white transition-all hover:bg-[hsl(var(--cta-orange-hover))] hover:-translate-y-0.5"
           >
-            {CTA.findPartner}
+            Kom igång
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link

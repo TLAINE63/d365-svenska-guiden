@@ -1,4 +1,4 @@
-import PartnerCtaBlock from "@/components/PartnerCtaBlock";
+import ContextualCta from "@/components/ContextualCta";
 import { useParams, Link, Navigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { buildArticleMetaDescription } from "@/lib/metaDescription";
@@ -331,7 +331,15 @@ const DeepDiveArticle = () => {
           </div>
         </section>
       </main>
-      <PartnerCtaBlock variant="article" source="/kunskapscenter/fordjupning" />
+      <ContextualCta
+        eyebrow={article.product}
+        heading="Gå från kunskap till en relevant partnerkortlista"
+        text="Använd det du har läst och komplettera med sex frågor om verksamheten. Därefter kan du jämföra relevanta partners."
+        product={article.product}
+        source={`deep-dive:${article.slug}`}
+        secondaryLabel="Fråga d365.se"
+        secondaryTo={`/fraga/?q=${encodeURIComponent(`Vad bör vi tänka på kring ${article.title}?`)}`}
+      />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>

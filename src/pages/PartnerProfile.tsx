@@ -62,6 +62,7 @@ import { trackPartnerView } from "@/utils/trackPartnerView";
 import { trackPartnerCardEvent, trackPartnerEvent, isReturningVisitorForPartner } from "@/utils/trackPartnerEvent";
 import ShortlistButton from "@/components/ShortlistButton";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import PartnerDecisionActions from "@/components/partner/PartnerDecisionActions";
 
 
 // Map application names to product categories
@@ -674,7 +675,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  {slug && partner?.name && (
   <section className="pt-4">
    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-    <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+     <PartnerDecisionActions
+      partner={{ slug, name: partner.name }}
+      product={activeTabProduct || selectedProduct}
+      industry={selectedIndustry}
+      onIntro={() => openRequest("contact")}
+     />
+     <div className="mt-2 flex flex-col sm:flex-row gap-2 sm:items-center">
      <ShortlistButton
       variant="compact"
       cardType="verifierad"
@@ -771,8 +778,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   <Footer />
 
   <StickyContactCTA
+    partnerSlug={slug || ""}
     partnerName={partner.name}
-    onBookMeeting={() => openRequest("demo")}
+    product={activeTabProduct || selectedProduct}
+    industry={selectedIndustry}
     onIntro={() => openRequest("contact")}
   />
 

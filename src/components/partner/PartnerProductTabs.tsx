@@ -555,40 +555,6 @@ export default function PartnerProductTabs({
               </section>
             )}
 
-            {/* Lead CTA – auto-fills active product */}
-            {onRequest && (
-              <section className="w-full">
-                <div className="flex flex-col gap-2">
-                  <button
-                    type="button"
-                    onClick={() => onRequest("contact")}
-                    className="w-full min-h-[52px] bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-semibold text-base rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  >
-                    Ställ en fråga till {partner.name}
-                  </button>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <button
-                      type="button"
-                      onClick={() => onRequest("demo")}
-                      className="flex-1 min-h-[52px] border border-slate-300 bg-white hover:bg-slate-50 text-foreground font-medium text-sm rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      Boka Demo/Genomgång
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => onRequest("quote")}
-                      className="flex-1 min-h-[52px] border border-slate-300 bg-white hover:bg-slate-50 text-foreground font-medium text-sm rounded inline-flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      Få en uppskattning av tid och kostnad
-                    </button>
-                  </div>
-                </div>
-                <p className="mt-3 text-xs text-center text-muted-foreground">
-                  Din förfrågan gäller <span className="font-semibold text-foreground">{tabMeta.label}</span>. Kostnadsfritt – {partner.name} svarar dig direkt, d365.se är kopierad för uppföljning. Inga privata e-postadresser accepteras.
-                </p>
-              </section>
-            )}
-
             {/* Quick facts – helps customers compare themselves against the partner */}
             <PartnerQuickFacts partner={partner} activeTab={active} />
 

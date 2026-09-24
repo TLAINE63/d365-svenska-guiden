@@ -87,7 +87,7 @@ const Navbar = () => {
               size="sm"
               className="rounded-full bg-[hsl(var(--cta-orange))]/90 hover:bg-[hsl(var(--cta-orange))] text-white text-xs px-3 py-1 h-auto border-0 shadow-none"
             >
-              <Link to="/kontakt/">Få hjälp att välja partner</Link>
+              <Link to="/kom-igang/">Kom igång</Link>
             </Button>
             <RegionLanguageSwitcher />
           </div>
@@ -131,6 +131,11 @@ const Navbar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
+                <DropdownMenuItem asChild>
+                  <Link to="/kom-igang/" className="cursor-pointer font-semibold text-primary">
+                    Kom igång
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
                     🔍 Hitta rätt partner
@@ -287,6 +292,9 @@ const Navbar = () => {
                   <RegionLanguageSwitcher />
                 </div>
                 <div className="h-px bg-border" />
+                <Link to="/kom-igang/" className="text-lg font-semibold text-primary hover:text-[hsl(var(--signature))] transition-colors">
+                  Kom igång
+                </Link>
                 <Link to="/fraga/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
                   <Sparkles className="h-4 w-4" /> Fråga d365.se
                 </Link>
