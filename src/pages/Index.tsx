@@ -801,7 +801,7 @@ const Index = () => {
                   </div>
                 </div>
                 <p className="text-[15px] text-muted-foreground leading-relaxed">
-                  Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur – innan dialogen blir för bred, för teknisk eller för säljorienterad.
+                  Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se hjälper svenska företag in i den processen med bättre struktur. Det sker innan dialogen blir för bred, för teknisk eller för säljorienterad.
                 </p>
                 <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-muted-foreground">
                   <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--signature))]" />
@@ -823,7 +823,7 @@ const Index = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">De 5 vanligaste frågorna om Dynamics 365</h2>
             <p className="text-center text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Ärliga svar på pris, val, partner och AI – med en kort video från Microsoft eller ledande experter per fråga.
+              Ärliga svar om pris, val, partner och AI. Varje svar får en kort video från Microsoft eller ledande experter.
             </p>
 
             <div className="max-w-4xl mx-auto">
@@ -839,8 +839,8 @@ const Index = () => {
                     <AccordionContent className="pb-6">
                       <div className="grid gap-6 lg:grid-cols-[1fr,minmax(0,340px)] lg:items-start">
                         <div className="space-y-3 text-muted-foreground">
-                          <p>Microsoft Dynamics 365 är en familj av appar för affärssystem (ERP) och kundhantering (CRM). Flera av apparna använder Dataverse och kan kopplas till varandra, men vilka integrationer som behövs beror på lösning och upplägg.</p>
-                          <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain – med <em>Business Central</em> (för SMB) och <em>Finance & Supply Chain Management</em> (för större koncerner).</p>
+                          <p>Microsoft Dynamics 365 är en familj av appar för affärssystem (ERP) och kundhantering (CRM). Flera appar använder Dataverse och kan kopplas ihop. Vilka integrationer som behövs beror på lösning och upplägg.</p>
+                          <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain. <em>Business Central</em> passar mindre och medelstora företag. <em>Finance & Supply Chain Management</em> passar större koncerner.</p>
                           <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice.</p>
                           <p>• <strong>AI-stöd</strong> finns i flera appar via Microsoft Copilot. Funktioner och licenskrav varierar.</p>
                         </div>
