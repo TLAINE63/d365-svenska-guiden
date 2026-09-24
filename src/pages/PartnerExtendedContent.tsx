@@ -1,4 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -82,7 +83,7 @@ const PartnerExtendedContent = () => {
             <div className="flex items-center gap-4 mb-4">
               {partner.logo_url && (
                 <img
-                  src={partner.logo_url}
+                  src={optimizedLogo(partner.logo_url)}
                   alt={`${partner.name} logotyp`}
                   className="w-16 h-16 object-contain rounded-lg bg-white border p-2"
                   loading="eager"

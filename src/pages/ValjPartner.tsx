@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
@@ -1037,7 +1038,7 @@ const ValjPartner = () => {
  <div className="min-w-0 flex-1">
  {p.logo_url ? (
  <img
- src={p.logo_url}
+ src={optimizedLogo(p.logo_url)}
  alt={`${p.name} logotyp`}
  loading="lazy"
  className="h-10 max-w-[160px] object-contain mb-2"

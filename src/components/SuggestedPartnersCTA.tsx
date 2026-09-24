@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
 import { ArrowRight, GitCompare, Sparkles } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
@@ -87,7 +88,7 @@ const SuggestedPartnersCTA = ({
             >
               {p.logo_url ? (
                 <img
-                  src={p.logo_url}
+                  src={optimizedLogo(p.logo_url)}
                   alt={`${p.name} logotyp`}
                   loading="lazy"
                   width={56}

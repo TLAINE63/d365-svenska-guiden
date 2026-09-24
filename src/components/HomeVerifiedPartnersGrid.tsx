@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
 
 import { Link } from "react-router-dom";
@@ -345,7 +346,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                         >
                           {p.logo_url ? (
                             <img
-                              src={p.logo_url}
+                              src={optimizedLogo(p.logo_url)}
                               alt={`${p.name} logotyp`}
                               loading="lazy"
                               width={160}

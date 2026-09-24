@@ -1,4 +1,5 @@
 
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useState, useEffect, useMemo } from "react";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import {
@@ -502,7 +503,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       aria-label={`Till ${partner.name}s webbplats (öppnas i ny flik)`}
     >
       <img
-      src={partner.logo_url}
+      src={optimizedLogo(partner.logo_url)}
       alt={`${partner.name} logotyp`}
       className="max-w-full max-h-full object-contain"
       />
@@ -510,7 +511,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     ) : (
     <div className="w-48 h-28 sm:w-64 sm:h-32 flex items-center justify-center overflow-hidden rounded">
       <img
-      src={partner.logo_url}
+      src={optimizedLogo(partner.logo_url)}
       alt={`${partner.name} logotyp`}
       className="max-w-full max-h-full object-contain"
       />

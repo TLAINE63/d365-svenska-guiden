@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
@@ -55,7 +56,7 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
             >
               {p.logo_url ? (
                 <img
-                  src={p.logo_url}
+                  src={optimizedLogo(p.logo_url)}
                   alt={`${p.name} logotyp`}
                   loading="lazy"
                   className="h-10 w-10 flex-shrink-0 rounded object-contain"

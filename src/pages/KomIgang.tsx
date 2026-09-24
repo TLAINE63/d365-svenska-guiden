@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -335,7 +336,7 @@ const KomIgang = () => {
                         <div className="flex items-start gap-4">
                           {partner.logo_url && (
                             <img
-                              src={partner.logo_url}
+                              src={optimizedLogo(partner.logo_url)}
                               alt={partner.name || ""}
                               className="w-14 h-14 object-contain rounded-lg bg-white border border-border p-1 flex-shrink-0"
                             />

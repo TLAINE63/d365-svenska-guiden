@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ function EventCard({ event, past }: { event: PartnerEvent; past?: boolean }) {
         >
           {event.partners?.logo_url ? (
             <img
-              src={event.partners.logo_url}
+              src={optimizedLogo(event.partners.logo_url)}
               alt={event.partners.name}
               loading="lazy"
               className="max-w-11 max-h-11 object-contain"

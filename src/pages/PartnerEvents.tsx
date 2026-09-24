@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -234,7 +235,7 @@ const PartnerEvents = () => {
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
             {partner?.logo_url ? (
-              <img src={partner.logo_url} alt={partner.name} className="w-16 h-16 object-contain rounded-lg border" />
+              <img src={optimizedLogo(partner.logo_url)} alt={partner.name} className="w-16 h-16 object-contain rounded-lg border" />
             ) : (
               <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
                 <Building2 className="w-8 h-8 text-muted-foreground" />

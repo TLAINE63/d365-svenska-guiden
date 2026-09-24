@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackPartnerImpression, trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { swedishPossessive } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -429,7 +430,7 @@ const PartnerCard = ({
    title={`Visa ${partner.name || "partner"}s profil`}
   >
    <img
-    src={partner.logo_url}
+    src={optimizedLogo(partner.logo_url)}
     alt={`${partner.name} logotyp`}
     width="72"
     height="72"

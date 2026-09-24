@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -295,7 +296,7 @@ export default function AllD365Partners() {
                       <div className="min-w-0 flex-1">
                         {p.logo_url ? (
                           <img
-                            src={p.logo_url}
+                            src={optimizedLogo(p.logo_url)}
                             alt={`${p.name} logotyp`}
                             loading="lazy"
                             className="h-10 max-w-[160px] object-contain mb-2"
