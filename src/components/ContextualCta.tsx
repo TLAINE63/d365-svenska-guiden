@@ -40,9 +40,13 @@ const ContextualCta = ({
   const buyer = useBuyerContext();
   const { data: partners = [] } = usePartners();
   // Anpassa bara om besökarens val inte krockar med sidans egen produkt/bransch
+  const same = (a: string, b: string) => {
+    const x = a.toLowerCase(), y = b.toLowerCase();
+    return x.includes(y) || y.includes(x) || shortProductName(a) === shortProductName(b);
+  };
   const conflicts =
-    (product && buyer.product && product !== buyer.product) ||
-    (industry && buyer.industry && industry !== buyer.industry);
+    (product && buyer.product && !same(product, buyer.product)) ||
+    (industry && buyer.industry && !same(industry, buyer.industry));
   const personalized = hasBuyerContext(buyer) && !conflicts && partners.length > 0;
   const ctx = {
     industry: buyer.industry || industry || null,
