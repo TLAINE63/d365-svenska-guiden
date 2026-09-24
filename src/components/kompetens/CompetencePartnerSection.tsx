@@ -108,9 +108,6 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
                     Se partners som matchar roll och produkt
                   </Button>
                 )}
-                <Button size="sm" onClick={onDescribeNeed}>
-                  Beskriv ert behov för d365.se
-                </Button>
               </div>
             </div>
           )}
