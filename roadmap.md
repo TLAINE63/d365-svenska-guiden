@@ -66,10 +66,10 @@
 - [x] Kontrollera desktop, mobil och direktlänken till /kom-igang/
 
 ## Kom igång som primär konverteringsmotor (2026-09-24)
-- [ ] Förval och mätning i Kom igång-flödet
-- [ ] Primär Kom igång-ingång i desktop- och mobilmenyn
-- [ ] Resultat med Jämför, Fråga d365.se och Be om introduktion
-- [ ] Samma tre beslutsvägar på partnerprofiler
-- [ ] Kontextuell CTA på produkt-, bransch-, jämförelse- och partnerlistsidor
-- [ ] Kontextuell CTA i guider och kunskapscenterartiklar
+- [x] Förval och mätning i Kom igång-flödet
+- [x] Primär Kom igång-ingång i desktop- och mobilmenyn
+- [x] Resultat med Jämför, Fråga d365.se och Be om introduktion
+- [x] Samma tre beslutsvägar på partnerprofiler
+- [x] Kontextuell CTA på produkt-, bransch-, jämförelse- och partnerlistsidor
+- [x] Kontextuell CTA i guider och kunskapscenterartiklar
 - [ ] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er

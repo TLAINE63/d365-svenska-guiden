@@ -478,7 +478,6 @@ const BlogArticle = () => {
           </section>
         )}
       </main>
-      <PartnerCtaBlock variant="article" source="/kunskapscenter/artikel" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       <Footer />
     </>
