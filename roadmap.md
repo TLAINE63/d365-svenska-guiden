@@ -72,4 +72,4 @@
 - [x] Samma tre beslutsvägar på partnerprofiler
 - [x] Kontextuell CTA på produkt-, bransch-, jämförelse- och partnerlistsidor
 - [x] Kontextuell CTA i guider och kunskapscenterartiklar
-- [ ] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er
+- [x] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er
