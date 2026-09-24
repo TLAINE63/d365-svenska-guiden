@@ -403,6 +403,88 @@ const Index = () => {
           </div>
         </section>
 
+        {/* KOM IGÅNG – tidig väg för besökare som vill få en kortlista */}
+        <section className="section-divider bg-secondary/40 border-b border-border py-8 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="grid overflow-hidden rounded border border-border bg-card lg:grid-cols-[1.08fr_0.92fr]">
+              <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-12">
+                <span className="mb-5 inline-flex w-fit items-center gap-2 rounded border border-accent/25 bg-accent/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
+                  <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+                  Interaktiv guide
+                </span>
+                <h2 className="mb-4 text-2xl font-bold leading-tight text-foreground sm:text-3xl">
+                  Några frågor, sedan en kortlista att gå vidare med
+                </h2>
+                <p className="mb-7 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+                  Svara på sex korta frågor om bransch, behov och ambitionsnivå. Du får ett tydligt urval av partner som passar er situation.
+                </p>
+                <ul className="mb-8 grid gap-3 text-[14px] font-medium text-foreground sm:grid-cols-2" aria-label="Fördelar med Kom igång-guiden">
+                  <li className="flex items-start gap-2.5">
+                    <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                    Kortlista baserad på era svar
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                    Ingen inloggning krävs
+                  </li>
+                </ul>
+                <Button asChild size="lg" className="h-12 w-full rounded px-6 text-base font-bold sm:w-fit">
+                  <Link to="/kom-igang/">
+                    Starta Kom igång-guiden
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="flex flex-col justify-center bg-[hsl(var(--hero-dark))] p-6 sm:p-9 lg:p-12">
+                <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.12em] text-[hsl(var(--muted-dark))]">
+                  Från frågor till nästa steg
+                </p>
+                <ol className="space-y-3">
+                  {[
+                    { n: "01", title: "Beskriv er situation", detail: "Bransch och nuläge" },
+                    { n: "02", title: "Välj omfattning", detail: "Behov och ambitionsnivå" },
+                    { n: "03", title: "Se er kortlista", detail: "Relevanta partner att jämföra" },
+                  ].map((step, index) => (
+                    <li
+                      key={step.n}
+                      className={`flex items-center gap-4 rounded border p-4 transition-transform duration-200 hover:-translate-y-0.5 ${
+                        index === 0
+                          ? "border-accent/50 bg-card/10"
+                          : "border-white/10 bg-card/5"
+                      }`}
+                    >
+                      <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded text-xs font-bold ${
+                        index === 0 ? "bg-accent text-accent-foreground" : "bg-card/10 text-white/70"
+                      }`}>
+                        {step.n}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[15px] font-semibold text-white">{step.title}</span>
+                        <span className="block text-[13px] leading-relaxed text-white/55">{step.detail}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-5 flex items-center gap-2" aria-label="Sex steg i guiden">
+                  {[0, 1, 2, 3, 4, 5].map((step) => (
+                    <span
+                      key={step}
+                      className={`h-1.5 flex-1 rounded-full ${step === 0 ? "bg-accent" : "bg-card/15"}`}
+                      aria-hidden="true"
+                    />
+                  ))}
+                  <span className="ml-2 text-xs font-medium text-white/55">6 steg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* SÅ FUNGERAR DET – processen i fyra steg */}
         <section className="section-divider py-12 sm:py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
