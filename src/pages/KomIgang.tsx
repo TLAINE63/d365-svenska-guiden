@@ -359,18 +359,33 @@ const KomIgang = () => {
 
   const getAiMatch = (id: string) => aiMatches.find(m => m.id === id);
 
+  // Närmaste alternativ när kombinationen saknar träffar
+  const [rerun, setRerun] = useState(false);
+  useEffect(() => {
+    if (!rerun) return;
+    setRerun(false);
+    findPartners();
+    window.scrollTo({ top: 0 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rerun]);
+  const altProductKey = selectedApp ? getProductKey(selectedApp) : null;
+  const altWithoutIndustry = altProductKey && selectedIndustry
+    ? partners.filter((p) => matchesDbProductFilter(p, altProductKey)).length : 0;
+  const altWithoutProduct = selectedIndustry && selectedApp
+    ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(selectedIndustry))).length : 0;
+
   // Results page
   if (showResults) {
     return (
       <div className="min-h-screen bg-background">
         <SEOHead webPageSchema={false} title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." canonicalPath="/kom-igang" noIndex />
         <Navbar />
-        <main className="pt-12 lg:pt-28 pb-10">
+        <main className="pt-28 sm:pt-32 pb-10">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-8">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  {matchedPartners.length > 0 ? "Här är partners som borde passa din situation" : "Inga exakta träffar"}
+                  {matchedPartners.length > 0 ? "Här är partners som borde passa din situation" : "Ingen exakt träff, men här är närmaste vägar"}
                 </h1>
                 <p className="text-sm text-muted-foreground">Baserat på dina svar</p>
                 {isAiLoading && (
@@ -438,9 +453,39 @@ const KomIgang = () => {
                   })}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground mb-6">Vi hittade inga partners som matchar exakt. Oftast beror detta på en kombination av valet för bransch och produkt. Prova att bredda sökningen.</p>
-                  <Button onClick={handleBack}>Ändra dina val</Button>
+                <div className="rounded border border-border bg-card p-6 sm:p-8">
+                  <p className="text-foreground mb-1 font-semibold">
+                    Ingen partner har angett både {selectedApp || "vald produkt"}{selectedIndustry ? ` och ${selectedIndustry.toLowerCase()}` : ""}.
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    Det betyder inte att ingen kan hjälpa er, bara att ingen profil täcker exakt den kombinationen ännu. Välj hur ni vill gå vidare:
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {altWithoutIndustry > 0 && (
+                      <button type="button" onClick={() => { setSelectedIndustry(""); setRerun(true); }}
+                        className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} partners för {selectedApp}</span>
+                        <span className="block text-sm text-muted-foreground">Utan krav på branscherfarenhet</span>
+                      </button>
+                    )}
+                    {altWithoutProduct > 0 && (
+                      <button type="button" onClick={() => { setSelectedProduct(null); setRerun(true); }}
+                        className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                        <span className="block font-semibold text-foreground">Visa {altWithoutProduct} partners inom {selectedIndustry.toLowerCase()}</span>
+                        <span className="block text-sm text-muted-foreground">Med erfarenhet av andra Dynamics&nbsp;365-produkter</span>
+                      </button>
+                    )}
+                    <Link to={`/fraga/?q=${encodeURIComponent(`Vilka partners kan ${selectedApp || "Dynamics 365"}${selectedIndustry ? ` för ${selectedIndustry.toLowerCase()}` : ""}?`)}&source=kom-igang-no-results`}
+                      className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                      <span className="block font-semibold text-foreground">Fråga d365.se</span>
+                      <span className="block text-sm text-muted-foreground">Vi känner partnerna och tipsar om vem som kan hjälpa er</span>
+                    </Link>
+                    <button type="button" onClick={handleBack}
+                      className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                      <span className="block font-semibold text-foreground">Ändra era svar</span>
+                      <span className="block text-sm text-muted-foreground">Gå tillbaka och justera urvalet</span>
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -454,7 +499,7 @@ const KomIgang = () => {
                   erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
                 };
                 const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
-                if (!spec) return null;
+                if (!spec || matchedPartners.length === 0) return null;
                 return (
                   <div className="mt-8 rounded border-2 border-primary/20 bg-primary/5 p-5 text-center">
                     <div className="flex items-center justify-center gap-2 mb-2">
@@ -474,14 +519,14 @@ const KomIgang = () => {
                 );
               })()}
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              {matchedPartners.length > 0 && <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
                 </Button>
                 <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   <Link to="/kontakt/">Vill du ha hjälp? Kontakta oss</Link>
                 </Button>
-              </div>
+              </div>}
             </div>
           </div>
         </main>
