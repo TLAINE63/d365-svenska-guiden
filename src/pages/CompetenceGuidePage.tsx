@@ -7,6 +7,7 @@ import GuideBreadcrumb from "@/components/guides/GuideBreadcrumb";
 import { Button } from "@/components/ui/button";
 import NotFound from "./NotFound";
 import CompetencePartnerSection from "@/components/kompetens/CompetencePartnerSection";
+import CompetenceResultSummary from "@/components/kompetens/CompetenceResultSummary";
 import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
 import { CompetenceDisclaimer, SelectionNotice } from "@/components/kompetens/GuideNotices";
 import { guideBySlug, guidePath, type DeliveryMode } from "@/data/competenceGuides";
