@@ -18,15 +18,14 @@ Deno.serve(async (req) => {
     if (!allowed.length || !allowed.includes(key as string)) {
       return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: cors });
     }
-    const { to, subject, html } = await req.json();
+    const { to, subject, html, from: fromOverride } = await req.json();
     if (!to || !subject || !html) {
       return new Response(JSON.stringify({ error: "missing to/subject/html" }), { status: 400, headers: cors });
     }
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) throw new Error("RESEND_API_KEY saknas");
     const resend = new Resend(resendApiKey);
-    const body = { to, subject, html } as { to: string; subject: string; html: string; from?: string };
-    const from = (typeof body.from === "string" && body.from) || "Thomas Laine <thomas.laine@dynamicfactory.se>";
+    const from = (typeof fromOverride === "string" && fromOverride) || "Thomas Laine <thomas.laine@dynamicfactory.se>";
     const { data, error } = await resend.emails.send({
       from,
       to: [to],
