@@ -88,7 +88,43 @@ const KompetensOversikt = () => {
             </ol>
           </section>
 
-          <section className="mb-10 rounded-xl border border-border bg-card p-5">
+          <div className="mb-10 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h2 className="text-lg font-bold mb-2">Vet ni redan vilken kompetens ni behöver?</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Sök efter roll, produkt och erfarenhet och se vilka partners som kan vara
+                relevanta.
+              </p>
+              <Button
+                onClick={() =>
+                  document.getElementById("sok-kompetens")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+              >
+                Sök kompetens
+              </Button>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h2 className="text-lg font-bold mb-2">Vill ni hellre få hjälp?</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Beskriv kort projektet så hjälper d365.se er att bedöma vilken kompetens ni
+                behöver och vilka partners som kan vara relevanta.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setNeedOpen(true);
+                  trackCompetenceEvent("kompetens_need_form_open");
+                }}
+              >
+                Beskriv ert behov
+              </Button>
+              <p className="text-xs text-muted-foreground mt-3">
+                Ingen information skickas vidare till partners utan ert godkännande.
+              </p>
+            </div>
+          </div>
+
+          <section id="sok-kompetens" className="mb-10 scroll-mt-28 rounded-xl border border-border bg-card p-5">
             <h2 className="text-xl font-bold mb-4">Sök kompetens</h2>
             <div className="mb-4 max-w-sm">
               <Label className="text-xs font-semibold mb-1.5 block">
