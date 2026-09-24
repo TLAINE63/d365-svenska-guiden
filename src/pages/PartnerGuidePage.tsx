@@ -11,6 +11,7 @@ import NextGuideRecommendation from "@/components/guides/NextGuideRecommendation
 import StickyPartnerCTA from "@/components/guides/StickyPartnerCTA";
 import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
 import GuideSearch from "@/components/guides/GuideSearch";
+import ContextualCta from "@/components/ContextualCta";
 import {
   PARTNER_GUIDES,
   PartnerGuideKey,
@@ -186,23 +187,18 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
 
           {guideKey === "hub" && <GuideCardsGrid />}
 
-          <GuideCTA
-            heading="Jämför Dynamics 365-partners"
-            text="Filtrera svenska Dynamics 365-partners utifrån produktområde, bransch och företagsstorlek."
-            buttonLabel="Jämför partners"
-            to={partnerListUrl}
-            source={`${path}#cta-intro`}
-          />
-
           {bodyBlocks.map((block, i) => (
             <div key={i}>
               {i === midCtaIndex && (
-                <GuideCTA
-                  heading={guide.midCtaLabel}
-                  text="Se vilka svenska partners som arbetar med det här området – filtrerat på bransch och storlek."
-                  buttonLabel={guide.midCtaLabel}
-                  to={partnerListUrl}
-                  source={`${path}#cta-mid`}
+                <ContextualCta
+                  eyebrow="Använd guiden på ert eget behov"
+                  heading="Skapa en relevant kortlista"
+                  text="Svara på sex frågor. Ni får partners att jämföra utifrån produkt, bransch, situation och organisation."
+                  product={guide.apps[0] === "Finance" ? "Finance & SCM" : guide.apps[0]}
+                  source={`partner-guide:${guide.key}`}
+                  secondaryLabel={guide.midCtaLabel}
+                  secondaryTo={partnerListUrl}
+                  className="my-10"
                 />
               )}
               {renderBlock(block, i)}
