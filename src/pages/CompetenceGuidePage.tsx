@@ -9,7 +9,7 @@ import NotFound from "./NotFound";
 import CompetencePartnerSection from "@/components/kompetens/CompetencePartnerSection";
 import CompetenceResultSummary from "@/components/kompetens/CompetenceResultSummary";
 import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
-import { CompetenceDisclaimer, SelectionNotice } from "@/components/kompetens/GuideNotices";
+import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { guideBySlug, guidePath, type DeliveryMode } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import type { CompetenceFilterState } from "@/lib/competenceMatching";
@@ -167,10 +167,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
             </Button>
           </section>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <SelectionNotice />
-            <CompetenceDisclaimer />
-          </div>
+          <MatchInfoDisclosure />
         </div>
       </main>
       <Footer />

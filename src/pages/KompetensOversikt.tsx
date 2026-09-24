@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import CompetenceFilters from "@/components/kompetens/CompetenceFilters";
 import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
-import { CompetenceDisclaimer, SelectionNotice } from "@/components/kompetens/GuideNotices";
+import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { COMPETENCE_GUIDES, guidePath } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import type { CompetenceFilterState } from "@/lib/competenceMatching";
@@ -187,10 +187,7 @@ const KompetensOversikt = () => {
             </p>
           </section>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <SelectionNotice />
-            <CompetenceDisclaimer />
-          </div>
+          <MatchInfoDisclosure />
         </div>
       </main>
       <Footer />
