@@ -57,7 +57,13 @@ const ALLOWED_TYPES = new Set([
   "analysis_step",
   "analysis_complete",
   "pdf_download",
+  "content_view",
+  "journey",
 ]);
+const STEPS = new Set(["landing","cta_view","cta_click","tool_start","tool_step_1","tool_result","shortlist_add","compare_open","intro_open","intro_sent"]);
+const SOURCES = new Set(["seo","geo_ai","direct","internal","social","email","paid","referral"]);
+const DEVICES = new Set(["mobile","tablet","desktop"]);
+const clip = (v: unknown, n: number) => (typeof v === "string" && v ? v.slice(0, n) : null);
 
 Deno.serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
@@ -90,6 +96,12 @@ Deno.serve(async (req) => {
       session_id,
       step_number,
       metadata,
+      step,
+      landing_path,
+      traffic_source,
+      tool,
+      device,
+      partner_slug,
     } = body;
 
     if (!event_type || !ALLOWED_TYPES.has(event_type)) {
@@ -125,6 +137,12 @@ Deno.serve(async (req) => {
       metadata: metadata && typeof metadata === "object" ? metadata : {},
       ip_anonymized: anonIp,
       user_agent: userAgent,
+      step: typeof step === "string" && STEPS.has(step) ? step : null,
+      landing_path: clip(landing_path, 500),
+      traffic_source: typeof traffic_source === "string" && SOURCES.has(traffic_source) ? traffic_source : null,
+      tool: clip(tool, 60),
+      device: typeof device === "string" && DEVICES.has(device) ? device : null,
+      partner_slug: clip(partner_slug, 120),
     });
 
     if (error) {
