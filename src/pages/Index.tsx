@@ -106,13 +106,35 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
 const IDENTIFIED_PARTNER_COUNT_FALLBACK = 84;
 
 
+// Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
+const HOME_LAST_UPDATED = "2026-09-24";
+
+const HOME_SOURCES = [
+  { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
+  { label: "Microsoft: Dynamics 365-priser", url: "https://www.microsoft.com/sv-se/dynamics-365/pricing" },
+  { label: "Microsoft: Business Central-priser", url: "https://www.microsoft.com/sv-se/dynamics-365/products/business-central/pricing" },
+  { label: "Microsoft Licensing Guide för Dynamics 365", url: "https://go.microsoft.com/fwlink/?LinkId=866544" },
+  { label: "Microsoft AppSource: partnerkatalog", url: "https://appsource.microsoft.com/sv-se/marketplace/partner-dir" },
+];
+
+const HOME_APP_TABLE = [
+  { app: "Business Central Essentials", type: "ERP", fit: "Små och medelstora företag", price: "764,70 kr" },
+  { app: "Business Central Premium", type: "ERP", fit: "SMB med produktion eller service", price: "1 051,40 kr" },
+  { app: "Finance", type: "ERP", fit: "Större bolag, flera länder", price: "2 007,30 kr" },
+  { app: "Supply Chain Management", type: "ERP", fit: "Komplex logistik och produktion", price: "2 007,30 kr" },
+  { app: "Sales Professional", type: "CRM", fit: "Säljteam med standardbehov", price: "621,30 kr" },
+  { app: "Sales Enterprise", type: "CRM", fit: "Större säljorganisationer", price: "1 003,70 kr" },
+  { app: "Customer Service Professional", type: "CRM", fit: "Kundtjänst med ärendehantering", price: "477,90 kr" },
+  { app: "Field Service", type: "CRM", fit: "Service ute hos kund", price: "1 003,70 kr" },
+];
+
 const homeFaqs = [
-  { question: "Vad är Microsoft\u00a0Dynamics\u00a0365?", answer: "Microsoft\u00a0Dynamics\u00a0365 är en familj av molntjänster för affärssystem (ERP) och kundhantering (CRM). Business Central och Finance & Supply Chain Management används för ERP. Sales, Customer Service, Field Service och Customer Insights används för olika delar av CRM. Tjänsterna kan kopplas till Microsoft 365 och Copilot. Licenserna säljs vanligtvis per användare och månad." },
-  { question: "Vad kostar Business Central i Sverige, pris per användare?", answer: "Dynamics\u00a0365 Business Central kostar från 765 kr per användare och månad för Essentials eller 1 051 kr per månad för Premium, som även omfattar produktion och servicehantering. Team Members med begränsad åtkomst kostar från cirka 77 kr per månad. Ett införande uppskattas ofta till 100 000–250 000 kr för ett mindre upplägg och 250 000–800 000 kr för ett normalstort projekt. Det faktiska priset beror på bland annat integrationer, datamigrering och anpassningar." },
-  { question: "Vilken Dynamics\u00a0365-lösning passar vårt företag bäst, ERP eller CRM?", answer: "Business Central används ofta av små och medelstora företag som behöver stöd för ekonomi, order, lager, inköp, produktion eller projekt. Finance & Supply Chain Management är avsett för mer komplex ekonomi, produktion och logistik, ofta i företag med flera bolag eller länder. Sales, Customer Service och Customer Insights täcker olika CRM-behov. Behovsanalysen kan hjälpa er att avgränsa vilka alternativ som är värda att undersöka vidare." },
-  { question: "Hur hittar jag rätt Microsoft\u00a0Dynamics\u00a0365-partner i Sverige?", answer: "Jämför partnerns erfarenhet av er bransch, den aktuella applikationen och projekt av liknande omfattning. Be också att få veta vilka konsulter som ska arbeta i projektet, hur leveransen går till och hur supporten fungerar efter driftstart. På d365.se kan du filtrera partners efter bransch, produkt och geografi." },
-  { question: "Hur lång tid tar det att införa Dynamics\u00a0365?", answer: "Ett Business Central-projekt kan ta omkring 2–9 månader. Finance & Supply Chain Management tar ofta 9–18 månader, och internationella utrullningar kan ta längre tid. Sales, Customer Service och Customer Insights kan i avgränsade projekt införas på ungefär 2–6 månader. Tiden påverkas av omfattning, data, integrationer och hur mycket tid den egna organisationen kan avsätta." },
-  { question: "Är Dynamics\u00a0365 ett alternativ till SAP, Salesforce eller Fortnox?", answer: "Ja, men jämförelsen beror på vilket behov som ska lösas. Business Central jämförs ofta med ekonomisystem och ERP-lösningar för mindre och medelstora företag. Finance & Supply Chain Management jämförs med ERP-plattformar för större verksamheter. Sales och Customer Service jämförs med andra CRM-lösningar. Befintliga Microsoft-tjänster kan göra integrationen enklare, men funktion, kostnad och partnerstöd behöver bedömas i varje enskilt fall." },
+  { question: "Vad är Microsoft\u00a0Dynamics\u00a0365?", answer: "Microsoft\u00a0Dynamics\u00a0365 är en familj av molntjänster för affärssystem (ERP) och kundhantering (CRM). Business Central och Finance & Supply Chain Management används för ERP. Sales, Customer Service, Field Service och Customer Insights täcker CRM. Tjänsterna kan kopplas till Microsoft 365 och Copilot. Licenserna säljs oftast per användare och månad." },
+  { question: "Vad kostar Business Central i Sverige, pris per användare?", answer: "Business Central Essentials kostar från 765 kr per användare och månad. Premium kostar 1 051 kr och omfattar även produktion och service. Team Members kostar cirka 77 kr per månad. Ett mindre införande kostar ofta 100 000–250 000 kr. Ett normalstort projekt landar ofta på 250 000–800 000 kr. Priset beror på integrationer, datamigrering och anpassningar." },
+  { question: "Vilken Dynamics\u00a0365-lösning passar vårt företag bäst, ERP eller CRM?", answer: "Business Central passar ofta små och medelstora företag. Det täcker ekonomi, order, lager, inköp, produktion och projekt. Finance & Supply Chain Management är byggt för mer komplex ekonomi och logistik. Det används ofta i koncerner med flera bolag eller länder. Sales, Customer Service och Customer Insights täcker olika CRM-behov. Behovsanalysen hjälper er att välja vad som är värt att undersöka." },
+  { question: "Hur hittar jag rätt Microsoft\u00a0Dynamics\u00a0365-partner i Sverige?", answer: "Jämför partnerns erfarenhet av er bransch och av rätt applikation. Titta också på projekt av liknande storlek. Fråga vilka konsulter som ska arbeta i projektet. Fråga hur leveransen går till och hur supporten fungerar efter start. På d365.se kan du filtrera partners efter bransch, produkt och geografi." },
+  { question: "Hur lång tid tar det att införa Dynamics\u00a0365?", answer: "Ett Business Central-projekt tar ofta 2–9 månader. Finance & Supply Chain Management tar ofta 9–18 månader. Internationella utrullningar kan ta längre tid. Avgränsade CRM-projekt tar ungefär 2–6 månader. Tiden beror på omfattning, data, integrationer och hur mycket tid er egen organisation kan lägga." },
+  { question: "Är Dynamics\u00a0365 ett alternativ till SAP, Salesforce eller Fortnox?", answer: "Ja, men det beror på behovet. Business Central jämförs ofta med ERP för mindre och medelstora företag. Finance & Supply Chain Management jämförs med ERP för större verksamheter. Sales och Customer Service jämförs med andra CRM-system. Befintliga Microsoft-tjänster kan förenkla integrationen. Funktion, kostnad och partnerstöd behöver ändå bedömas i varje fall." },
 ];
 
 const Index = () => {
@@ -263,16 +285,17 @@ const Index = () => {
         description="D365 (Microsoft Dynamics 365) i Sverige: köparsidig guide med priskalkylator, kostnadsfri behovsanalys och jämförelse av partners per bransch."
         canonicalPath="/"
         ogImage="https://d365.se/og-erp.png"
+        dateModified={HOME_LAST_UPDATED}
       />
       <OrganizationSchema />
       <WebSiteSchema />
       <FAQSchema faqs={homeFaqs} />
       <NoscriptSEO
         title="Microsoft Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
-        description="d365.se är Sveriges köparsidiga guide till Microsoft Dynamics 365. Vi står på köparens sida och hjälper svenska företag att jämföra ERP- och CRM-lösningar, hitta rätt Microsoft-certifierad partner och göra kostnadsfria behovsanalyser. Business Central från 765 kr per användare och månad."
+        description="d365.se är en köparsidig guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar. Du kan hitta en Microsoft-certifierad partner och göra en kostnadsfri behovsanalys. Business Central kostar från 765 kr per användare och månad."
         sections={[
-          { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM). Plattformen består av specialiserade affärsapplikationer: Business Central och Finance & Supply Chain Management för ERP, samt Sales, Customer Service, Field Service, Marketing och Customer Insights för CRM." },
-          { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Att välja rätt implementeringspartner är avgörande för ett lyckat Dynamics 365-projekt. En bra partner bör ha dokumenterad branschkunskap inom din sektor, referenskunder av liknande storlek och djupkompetens på den specifika applikation du ska implementera." },
+          { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnplattform för affärssystem (ERP) och kundhantering (CRM). Business Central och Finance & Supply Chain Management används för ERP. Sales, Customer Service, Field Service och Customer Insights används för CRM." },
+          { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Rätt partner avgör om projektet lyckas. En bra partner har erfarenhet av er bransch. Den har referenskunder av liknande storlek. Den kan också den applikation ni ska införa." },
         ]}
       />
       <Navbar />
@@ -624,6 +647,58 @@ const Index = () => {
               </Link>
             </div>
             <LatestArticlesStrip />
+          </div>
+        </section>
+
+        {/* APPAR, PRISER OCH KÄLLOR */}
+        <section className="section-divider py-12 sm:py-16 bg-background border-b border-border" aria-labelledby="app-table-heading">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 id="app-table-heading" className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-3">
+              <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-apparna i korthet
+            </h2>
+            <p className="text-[15px] text-muted-foreground leading-relaxed mb-6 max-w-3xl">
+              Listpris per användare och månad i SEK. Priserna kommer från Microsofts officiella prislista.
+            </p>
+            <div className="overflow-x-auto border border-border rounded bg-card">
+              <table className="w-full text-[14px]">
+                <caption className="sr-only">Dynamics 365-appar med typ, målgrupp och listpris</caption>
+                <thead className="bg-muted/50 text-left">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold text-foreground">App</th>
+                    <th scope="col" className="px-4 py-3 font-semibold text-foreground">Typ</th>
+                    <th scope="col" className="px-4 py-3 font-semibold text-foreground">Passar för</th>
+                    <th scope="col" className="px-4 py-3 font-semibold text-foreground text-right">Från / användare / mån</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {HOME_APP_TABLE.map((r) => (
+                    <tr key={r.app} className="border-t border-border">
+                      <th scope="row" className="px-4 py-3 font-medium text-foreground text-left">{r.app}</th>
+                      <td className="px-4 py-3 text-muted-foreground">{r.type}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{r.fit}</td>
+                      <td className="px-4 py-3 text-foreground text-right whitespace-nowrap">{r.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-8 grid gap-6 md:grid-cols-[2fr_1fr]">
+              <div>
+                <h3 className="text-[15px] font-semibold text-foreground mb-2">Källor</h3>
+                <ul className="space-y-1.5 text-[14px]">
+                  {HOME_SOURCES.map((s) => (
+                    <li key={s.url}>
+                      <a href={s.url} target="_blank" rel="noopener" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className="text-[13px] text-muted-foreground md:text-right self-end">
+                Senast uppdaterad: <time dateTime={HOME_LAST_UPDATED}>{HOME_LAST_UPDATED}</time>
+              </p>
+            </div>
           </div>
         </section>
 
