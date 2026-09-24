@@ -1,4 +1,5 @@
 
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useState, useEffect, useMemo } from "react";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import {
