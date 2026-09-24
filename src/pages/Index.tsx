@@ -432,7 +432,7 @@ const Index = () => {
                     Ingen inloggning krävs
                   </li>
                 </ul>
-                <Button asChild size="lg" className="h-12 w-full rounded px-6 text-base font-bold sm:w-fit">
+                <Button asChild size="lg" className="h-12 w-full rounded !bg-[hsl(var(--cta-orange))] px-6 text-base font-bold !text-primary-foreground hover:!bg-[hsl(var(--cta-orange-hover))] sm:w-fit">
                   <Link to="/kom-igang/">
                     Starta Kom igång-guiden
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />

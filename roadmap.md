@@ -63,4 +63,4 @@
 
 ## Kom igång på startsidan (2026-09-24)
 - [x] Lyft den interaktiva Kom igång-guiden direkt efter startsidans första del
-- [ ] Kontrollera desktop, mobil och direktlänken till /kom-igang/
+- [x] Kontrollera desktop, mobil och direktlänken till /kom-igang/
