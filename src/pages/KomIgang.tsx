@@ -468,14 +468,14 @@ const KomIgang = () => {
                     {altWithoutIndustry > 0 && (
                       <button type="button" onClick={() => { setSelectedIndustry(""); setRerun(true); }}
                         className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} partners för {selectedApp}</span>
+                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} {altWithoutIndustry === 1 ? "partner" : "partners"} för {selectedApp}</span>
                         <span className="block text-sm text-muted-foreground">Utan krav på branscherfarenhet</span>
                       </button>
                     )}
                     {altWithoutProduct > 0 && (
                       <button type="button" onClick={() => { setSelectedProduct(null); setRerun(true); }}
                         className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                        <span className="block font-semibold text-foreground">Visa {altWithoutProduct} partners inom {selectedIndustry.toLowerCase()}</span>
+                        <span className="block font-semibold text-foreground">Visa {altWithoutProduct} {altWithoutProduct === 1 ? "partner" : "partners"} inom {selectedIndustry.toLowerCase()}</span>
                         <span className="block text-sm text-muted-foreground">Med erfarenhet av andra Dynamics&nbsp;365-produkter</span>
                       </button>
                     )}
