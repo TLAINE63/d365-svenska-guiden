@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { allIndustries } from "@/data/partners";
 import { Link } from "react-router-dom";
 import {
@@ -1003,7 +1004,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                           <div className="flex-shrink-0">
                             {isDatabasePartner(partner) && partner.logo_url ? (
                               <img 
-                                src={partner.logo_url} 
+                                src={optimizedLogo(partner.logo_url)} 
                                 alt={`${partner.name} logotyp`}
                                 className={`w-12 h-12 object-contain rounded-lg p-1.5 border ${
                                   partner.logo_dark_bg 

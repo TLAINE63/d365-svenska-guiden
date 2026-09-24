@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link as RouterLink } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -3184,7 +3185,7 @@ Thomas`,
  />
  {partner.logo_url ? (
  <img 
- src={partner.logo_url} 
+ src={optimizedLogo(partner.logo_url)} 
  alt={partner.name} 
  className="h-12 w-12 object-contain"
  />
@@ -4487,7 +4488,7 @@ Thomas`,
  <div className="flex items-center gap-4 mt-2">
  {partnerFormData.logo_url ? (
   <img 
-  src={partnerFormData.logo_url} 
+  src={optimizedLogo(partnerFormData.logo_url)} 
   alt={`${partnerFormData.name || 'Partnerns'} logotyp`} 
   className="h-16 w-16 object-contain border rounded"
   />

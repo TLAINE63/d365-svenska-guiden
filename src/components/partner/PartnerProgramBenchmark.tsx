@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Mail, MapPin, Minus, User, Video } from "lucide-react";
 
@@ -336,7 +337,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
               <div className="flex items-start gap-3">
                 {reference?.logo_url && (
                   <img
-                    src={reference.logo_url}
+                    src={optimizedLogo(reference.logo_url)}
                     alt={`${reference.name} logotyp`}
                     loading="lazy"
                     className={`h-14 w-14 shrink-0 rounded-lg object-contain p-1.5 shadow-sm ring-1 ring-border ${

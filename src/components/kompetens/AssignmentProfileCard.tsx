@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
@@ -28,7 +29,7 @@ const AssignmentProfileCard = ({ profile, onContact, onProfileClick }: Props) =>
       <div className="flex items-start gap-4 mb-3">
         {profile.logo_url && (
           <img
-            src={profile.logo_url}
+            src={optimizedLogo(profile.logo_url)}
             alt={`${profile.partner_name} logotyp`}
             loading="lazy"
             className={`h-10 w-auto max-w-[120px] object-contain ${

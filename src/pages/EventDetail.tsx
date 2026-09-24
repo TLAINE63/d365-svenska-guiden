@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
@@ -401,7 +402,7 @@ const EventDetail = () => {
                         }`}>
                           {event.partners.logo_url ? (
                             <img 
-                              src={event.partners.logo_url} 
+                              src={optimizedLogo(event.partners.logo_url)} 
                               alt={event.partners.name}
                               className="max-w-12 max-h-12 object-contain"
                             />

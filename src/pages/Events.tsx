@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import eventsHeroImage from "@/assets/events-hero.jpg";
@@ -295,7 +296,7 @@ const Events = () => {
  }`}>
  {event.partners?.logo_url ? (
  <img 
- src={event.partners.logo_url} 
+ src={optimizedLogo(event.partners.logo_url)} 
  alt={event.partners.name}
  className="max-w-16 max-h-16 object-contain"
  />
@@ -410,7 +411,7 @@ const Events = () => {
  }`}>
  {event.partners?.logo_url ? (
  <img 
- src={event.partners.logo_url} 
+ src={optimizedLogo(event.partners.logo_url)} 
  alt={event.partners.name}
  className="max-w-10 max-h-10 object-contain"
  />

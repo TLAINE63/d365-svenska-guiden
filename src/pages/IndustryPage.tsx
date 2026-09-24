@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import FunnelCTA from "@/components/FunnelCTA";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -619,7 +620,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                <div className="flex items-start gap-3">
                  {partner.logo_url ? (
                    <img
-                     src={partner.logo_url}
+                     src={optimizedLogo(partner.logo_url)}
                      alt={`${partner.name} logotyp`}
                      loading="lazy"
                      className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"

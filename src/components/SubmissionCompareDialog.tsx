@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
@@ -302,7 +303,7 @@ export const SubmissionCompareDialog = ({
                       <span className="text-muted-foreground italic text-sm">Ny partner</span>
                     ) : existingPartner?.logo_url ? (
                       <div className="w-20 h-20 border rounded overflow-hidden bg-white flex items-center justify-center">
-                        <img src={existingPartner.logo_url} alt="Befintlig" className="max-w-full max-h-full object-contain p-1" />
+                        <img src={optimizedLogo(existingPartner.logo_url)} alt="Befintlig" className="max-w-full max-h-full object-contain p-1" />
                       </div>
                     ) : (
                       <span className="text-muted-foreground text-sm">Ingen logotyp</span>
@@ -313,7 +314,7 @@ export const SubmissionCompareDialog = ({
                     <Label className="text-muted-foreground text-xs block mb-2">Logotyp</Label>
                     {submission.logo_url ? (
                       <div className="w-20 h-20 border rounded overflow-hidden bg-white flex items-center justify-center">
-                        <img src={submission.logo_url} alt="Ny" className="max-w-full max-h-full object-contain p-1" />
+                        <img src={optimizedLogo(submission.logo_url)} alt="Ny" className="max-w-full max-h-full object-contain p-1" />
                       </div>
                     ) : (
                       <span className="text-muted-foreground text-sm">Ingen logotyp</span>

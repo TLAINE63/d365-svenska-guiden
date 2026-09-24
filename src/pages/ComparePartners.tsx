@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -235,7 +236,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
         >
           {partner.logo_url && !basic ? (
             <img
-              src={partner.logo_url}
+              src={optimizedLogo(partner.logo_url)}
               alt={`${partner.name} logotyp`}
               width="176"
               height="176"
