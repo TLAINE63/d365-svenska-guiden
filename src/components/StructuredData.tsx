@@ -208,25 +208,13 @@ export const WebSiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${ORGANIZATION.url}/#website`,
     "name": ORGANIZATION.name,
     "alternateName": ["D365 Guiden", "Dynamics 365 Guiden Sverige"],
     "url": ORGANIZATION.url,
     "description": ORGANIZATION.description,
     "inLanguage": "sv-SE",
-    "publisher": {
-      "@type": "Organization",
-      "@id": `${ORGANIZATION.url}/#organization`,
-      "name": ORGANIZATION.name,
-      "legalName": ORGANIZATION.legalName,
-      "url": ORGANIZATION.url,
-      "logo": {
-        "@type": "ImageObject",
-        "url": ORGANIZATION.logoUrl,
-        "width": 2000,
-        "height": 1620
-      }
-
-    },
+    "publisher": { "@id": `${ORGANIZATION.url}/#organization` },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
