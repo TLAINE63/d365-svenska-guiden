@@ -20,6 +20,7 @@ import {
   FileText,
   MessageCircle,
   Check,
+  ChevronDown,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
@@ -488,36 +489,46 @@ const Index = () => {
         {/* SÅ FUNGERAR DET – processen i fyra steg */}
         <section className="section-divider py-12 sm:py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <div className="max-w-3xl mb-9">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-3">
-                Så hjälper d365.se dig hitta rätt Dynamics 365-partner
-              </h2>
-              <p className="text-[15px] text-muted-foreground leading-relaxed">
-                Jämför erfarenhet, arbetssätt och kompetens utifrån det projekt ni planerar.
-              </p>
-            </div>
-            <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { icon: ClipboardCheck, t: "Beskriv ert behov eller välj bransch", d: "Börja med det du redan vet – resten kan du komplettera senare." },
-                { icon: Search, t: "Hitta relevanta Dynamics 365-partners", d: "Se kompetens och erfarenhet som passar er verksamhet." },
-                { icon: ArrowLeftRight, t: "Jämför upp till tre partner sida vid sida", d: "Skapa en tydlig kortlista innan du bestämmer dig." },
-                { icon: MessageCircle, t: "Kontakta endast de partner du själv väljer", d: "Du styr vilka som får ta del av din förfrågan." },
-              ].map((s, i) => (
-                <li key={s.t} className="bg-card border border-border rounded p-5">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded bg-accent/10 text-accent">
-                      <s.icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <span className="text-xs font-bold text-muted-foreground">0{i + 1}</span>
-                  </div>
-                  <h3 className="text-[15px] font-semibold text-foreground mb-1.5 leading-snug">{s.t}</h3>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.d}</p>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-6 text-[14px] text-muted-foreground">
-              Inga partner får tillgång till dina uppgifter innan du själv väljer att ta kontakt.
-            </p>
+            <details className="group">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded border border-border bg-card px-5 py-4 transition-colors hover:border-primary/40">
+                <span>
+                  <span className="block text-lg sm:text-xl font-bold text-foreground tracking-tight">
+                    Så hjälper d365.se dig hitta rätt Dynamics&nbsp;365-partner
+                  </span>
+                  <span className="mt-1 block text-[14px] text-muted-foreground leading-relaxed">
+                    Jämför erfarenhet, arbetssätt och kompetens utifrån det projekt ni planerar.
+                  </span>
+                </span>
+                <ChevronDown
+                  className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                  aria-hidden="true"
+                />
+              </summary>
+              <div className="pt-6">
+                <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {[
+                    { icon: ClipboardCheck, t: "Beskriv ert behov eller välj bransch", d: "Börja med det du redan vet – resten kan du komplettera senare." },
+                    { icon: Search, t: "Hitta relevanta Dynamics 365-partners", d: "Se kompetens och erfarenhet som passar er verksamhet." },
+                    { icon: ArrowLeftRight, t: "Jämför upp till tre partner sida vid sida", d: "Skapa en tydlig kortlista innan du bestämmer dig." },
+                    { icon: MessageCircle, t: "Kontakta endast de partner du själv väljer", d: "Du styr vilka som får ta del av din förfrågan." },
+                  ].map((s, i) => (
+                    <li key={s.t} className="bg-card border border-border rounded p-5">
+                      <div className="mb-4 flex items-center justify-between">
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded bg-accent/10 text-accent">
+                          <s.icon className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                        <span className="text-xs font-bold text-muted-foreground">0{i + 1}</span>
+                      </div>
+                      <h3 className="text-[15px] font-semibold text-foreground mb-1.5 leading-snug">{s.t}</h3>
+                      <p className="text-[13.5px] text-muted-foreground leading-relaxed">{s.d}</p>
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-6 text-[14px] text-muted-foreground">
+                  Inga partner får tillgång till dina uppgifter innan du själv väljer att ta kontakt.
+                </p>
+              </div>
+            </details>
           </div>
         </section>
 
