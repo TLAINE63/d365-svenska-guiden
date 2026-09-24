@@ -3,6 +3,16 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildKomIgangUrl, type KomIgangContext } from "@/lib/komIgangUrl";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { usePartners } from "@/hooks/usePartners";
+import {
+  clearBuyerContext,
+  contextualPartnerPhrase,
+  countMatchingPartners,
+  hasBuyerContext,
+  shortProductName,
+  sizeLabel,
+  useBuyerContext,
+} from "@/lib/buyerContext";
 
 interface ContextualCtaProps extends KomIgangContext {
   eyebrow?: string;
@@ -27,15 +37,44 @@ const ContextualCta = ({
   source,
   className = "",
 }: ContextualCtaProps) => {
+  const buyer = useBuyerContext();
+  const { data: partners = [] } = usePartners();
+  // Anpassa bara om besökarens val inte krockar med sidans egen produkt/bransch
+  const conflicts =
+    (product && buyer.product && product !== buyer.product) ||
+    (industry && buyer.industry && industry !== buyer.industry);
+  const personalized = hasBuyerContext(buyer) && !conflicts && partners.length > 0;
+  const ctx = {
+    industry: buyer.industry || industry || null,
+    product: buyer.product || product || null,
+    size: buyer.size || null,
+  };
+  const matchCount = personalized ? countMatchingPartners(partners, ctx) : 0;
+  const usePersonal = personalized && matchCount > 0;
+  if (usePersonal) {
+    const prod = shortProductName(ctx.product);
+    heading = `För er situation: ${matchCount} relevanta ${prod ? `${prod}-partners` : "partners"}`;
+    text = `${contextualPartnerPhrase(ctx)}. Guiden är redan förifylld med era val, så ni svarar bara på det som återstår.`;
+    primaryLabel = matchCount >= 3 ? "Se de 3 som matchar bäst" : "Se de som matchar bäst";
+    eyebrow = "Anpassat efter era val";
+  }
+  const chips = usePersonal ? [ctx.industry, sizeLabel(ctx.size), shortProductName(ctx.product)].filter(Boolean) : [];
+
   const safeEyebrow = eyebrow.split("Dynamics 365").join("Dynamics\u00A0365");
   const safeHeading = heading.split("Dynamics 365").join("Dynamics\u00A0365");
   const safeText = text.split("Dynamics 365").join("Dynamics\u00A0365");
-  const primaryTo = buildKomIgangUrl({ industry, product, goal, source });
+  const primaryTo = buildKomIgangUrl({
+    industry: usePersonal ? ctx.industry : industry,
+    product: usePersonal ? ctx.product : product,
+    size: usePersonal ? ctx.size : null,
+    goal,
+    source,
+  });
   const track = (target: string, action: "primary" | "secondary") =>
     trackFunnelEvent({
       event_type: "cta_click",
       event_name: "contextual_cta_click",
-      metadata: { source, target, action, industry, product, goal },
+      metadata: { source, target, action, industry, product, goal, personalized: usePersonal, match_count: matchCount },
     });
 
   return (
@@ -49,6 +88,18 @@ const ContextualCta = ({
             </p>
             <h2 className="mb-2 text-xl font-bold leading-tight text-foreground sm:text-2xl">{safeHeading}</h2>
             <p className="max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{safeText}</p>
+            {chips.length > 0 && (
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+                {chips.map((c) => (
+                  <span key={c as string} className="rounded-full border border-border bg-background px-2.5 py-1 font-medium text-foreground">
+                    {c}
+                  </span>
+                ))}
+                <button type="button" onClick={clearBuyerContext} className="text-muted-foreground underline underline-offset-2 hover:text-foreground">
+                  Rensa val
+                </button>
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-2 sm:flex-row md:flex-col">
             <Button asChild size="lg" className="min-h-12 whitespace-normal text-center font-bold">
