@@ -89,16 +89,17 @@ export function sizeLabel(size?: string | null): string | null {
   return map[size] || size;
 }
 
+type FilterMap = Record<string, { industries?: string[]; companySize?: string[] } | undefined>;
 interface CountablePartner {
   industries?: string[];
-  product_filters?: Record<string, { industries?: string[]; companySize?: string[] } | undefined>;
+  product_filters?: unknown;
 }
 
 /** Antal partners som matchar val. Storlek används bara om det ger träffar. */
 export function countMatchingPartners(partners: CountablePartner[], c: BuyerContext): number {
   const key = productKeyFor(c.product);
   const base = partners.filter((p) => {
-    const filters = p.product_filters || {};
+    const filters = (p.product_filters || {}) as FilterMap;
     if (key) {
       const f = filters[key];
       if (!f) return false;
@@ -113,7 +114,7 @@ export function countMatchingPartners(partners: CountablePartner[], c: BuyerCont
     return true;
   });
   if (!c.size || !key) return base.length;
-  const sized = base.filter((p) => p.product_filters?.[key]?.companySize?.includes(c.size!));
+  const sized = base.filter((p) => (p.product_filters as FilterMap | undefined)?.[key]?.companySize?.includes(c.size!));
   return sized.length > 0 ? sized.length : base.length;
 }
 
