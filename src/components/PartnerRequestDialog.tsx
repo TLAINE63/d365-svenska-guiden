@@ -11,6 +11,7 @@ import { AlertCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackFormStarted, trackFormSubmitted } from "@/utils/trackPartnerEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { trackFunnelStep } from "@/utils/trackFunnelEvent";
 
 interface PartnerRequestDialogProps {
   open: boolean;
@@ -308,6 +309,7 @@ const PartnerRequestDialog = ({
             : config.toastDescription(displayName),
       });
       trackFormSubmitted({ slug: partnerSlug }, "verifierad", formId, selectedProduct ?? null);
+      trackFunnelStep("intro_sent", { partner_slug: partnerSlug, mode, recipients: targets.length - failed.length });
       reset();
       onOpenChange(false);
     } catch (err) {

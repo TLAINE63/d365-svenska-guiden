@@ -574,39 +574,57 @@ export type Database = {
       }
       funnel_events: {
         Row: {
+          device: string | null
           event_name: string
           event_type: string
           id: string
           ip_anonymized: string | null
+          landing_path: string | null
           metadata: Json
           occurred_at: string
           page_path: string | null
+          partner_slug: string | null
           session_id: string | null
+          step: string | null
           step_number: number | null
+          tool: string | null
+          traffic_source: string | null
           user_agent: string | null
         }
         Insert: {
+          device?: string | null
           event_name: string
           event_type: string
           id?: string
           ip_anonymized?: string | null
+          landing_path?: string | null
           metadata?: Json
           occurred_at?: string
           page_path?: string | null
+          partner_slug?: string | null
           session_id?: string | null
+          step?: string | null
           step_number?: number | null
+          tool?: string | null
+          traffic_source?: string | null
           user_agent?: string | null
         }
         Update: {
+          device?: string | null
           event_name?: string
           event_type?: string
           id?: string
           ip_anonymized?: string | null
+          landing_path?: string | null
           metadata?: Json
           occurred_at?: string
           page_path?: string | null
+          partner_slug?: string | null
           session_id?: string | null
+          step?: string | null
           step_number?: number | null
+          tool?: string | null
+          traffic_source?: string | null
           user_agent?: string | null
         }
         Relationships: []

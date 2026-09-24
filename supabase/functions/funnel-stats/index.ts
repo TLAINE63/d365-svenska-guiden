@@ -104,6 +104,81 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    if (body?.action === "journey") {
+      const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const sinceJ = new Date(Date.now() - d * 86400000).toISOString();
+      const src: string | null = body?.source || null;
+      const dev: string | null = body?.device || null;
+      const toolF: string | null = body?.tool || null;
+      const landF: string | null = body?.landing || null;
+      const rows: any[] = [];
+      for (let from = 0; from < 200000; from += 1000) {
+        const { data, error } = await supabase
+          .from("funnel_events")
+          .select("session_id, step, landing_path, traffic_source, tool, device")
+          .gte("occurred_at", sinceJ)
+          .not("step", "is", null)
+          .not("session_id", "is", null)
+          .order("occurred_at", { ascending: true })
+          .range(from, from + 999);
+        if (error) { console.error(error); break; }
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
+      }
+      // Session attributes come from its first event
+      const sessions = new Map<string, { landing: string; source: string; device: string; tools: Set<string>; steps: Set<string> }>();
+      for (const r of rows) {
+        let s = sessions.get(r.session_id);
+        if (!s) {
+          s = { landing: r.landing_path || "(okänd)", source: r.traffic_source || "direct", device: r.device || "desktop", tools: new Set(), steps: new Set() };
+          sessions.set(r.session_id, s);
+        }
+        if (r.tool) s.tools.add(r.tool);
+        s.steps.add(r.step);
+      }
+      const STEP_ORDER = ["landing","cta_view","cta_click","tool_start","tool_step_1","tool_result","shortlist_add","compare_open","intro_open","intro_sent"];
+      const filtered = [...sessions.values()].filter((s) =>
+        (!src || s.source === src) && (!dev || s.device === dev) && (!toolF || s.tools.has(toolF)) && (!landF || s.landing === landF));
+      const counts: Record<string, number> = Object.fromEntries(STEP_ORDER.map((k) => [k, 0]));
+      for (const s of filtered) {
+        // Ett senare steg innebär att sessionen passerat landningen
+        s.steps.add("landing");
+        for (const st of s.steps) if (st in counts) counts[st]++;
+      }
+      const ratio = (a: number, b: number) => (b > 0 ? Math.round((a / b) * 1000) / 10 : 0);
+      const organic = filtered.filter((s) => s.source === "seo" || s.source === "geo_ai");
+      const withStart = filtered.filter((s) => s.steps.has("tool_start"));
+      const withResult = filtered.filter((s) => s.steps.has("tool_result"));
+      const withShort = filtered.filter((s) => s.steps.has("shortlist_add"));
+      const sub = [
+        { key: "organic_to_start", label: "SEO/GEO-besök → verktygsstart", from: organic.length, to: organic.filter((s) => s.steps.has("tool_start")).length },
+        { key: "start_to_result", label: "Verktygsstart → resultat", from: withStart.length, to: withStart.filter((s) => s.steps.has("tool_result")).length },
+        { key: "result_to_shortlist", label: "Resultat → shortlist", from: withResult.length, to: withResult.filter((s) => s.steps.has("shortlist_add")).length },
+        { key: "shortlist_to_contact", label: "Shortlist → skickad förfrågan", from: withShort.length, to: withShort.filter((s) => s.steps.has("intro_sent")).length },
+      ].map((x) => ({ ...x, rate: ratio(x.to, x.from) }));
+      const pages = new Map<string, { landing: string; sessions: number; cta_click: number; tool_start: number; tool_result: number; intro_sent: number }>();
+      for (const s of filtered) {
+        const p = pages.get(s.landing) || { landing: s.landing, sessions: 0, cta_click: 0, tool_start: 0, tool_result: 0, intro_sent: 0 };
+        p.sessions++;
+        if (s.steps.has("cta_click")) p.cta_click++;
+        if (s.steps.has("tool_start")) p.tool_start++;
+        if (s.steps.has("tool_result")) p.tool_result++;
+        if (s.steps.has("intro_sent")) p.intro_sent++;
+        pages.set(s.landing, p);
+      }
+      const toolSet = new Set<string>();
+      for (const s of sessions.values()) for (const t of s.tools) toolSet.add(t);
+      return new Response(JSON.stringify({
+        success: true,
+        days: d,
+        sessions: filtered.length,
+        steps: STEP_ORDER.map((k) => ({ key: k, count: counts[k] })),
+        sub_conversions: sub,
+        top_landings: [...pages.values()].sort((a, b) => b.sessions - a.sessions).slice(0, 20),
+        tools: [...toolSet].sort(),
+      }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
     const since: string | null = days === null ? null : new Date(Date.now() - days * 86400000).toISOString();
     const gte = <T extends { gte: (col: string, v: string) => T }>(q: T, col: string): T =>
       since ? q.gte(col, since) : q;

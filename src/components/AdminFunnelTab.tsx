@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AdminJourneyFunnel from "@/components/AdminJourneyFunnel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -75,6 +76,7 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
 
   return (
     <div className="space-y-6">
+      <AdminJourneyFunnel token={token} onSessionExpired={onSessionExpired} />
       <Card>
         <CardHeader>
           <CardTitle>Konverteringsfunnel</CardTitle>

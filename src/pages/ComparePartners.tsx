@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
+import { trackFunnelStep } from "@/utils/trackFunnelEvent";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1314,6 +1315,10 @@ const ComparePartners = () => {
     });
     return counts;
   }, [sortedPartners, productFilters, verifiedOnly]);
+
+  useEffect(() => {
+    trackFunnelStep("compare_open");
+  }, []);
 
   // Clear selected industry if it no longer has any published partners.
   // Vänta tills partnerdata är laddad, annars nollställs ett medskickat
