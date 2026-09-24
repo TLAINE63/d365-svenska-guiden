@@ -14,6 +14,7 @@ import {
   ChevronUp,
   ExternalLink,
   ArrowLeftRight,
+  Star,
   Mail
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
@@ -35,7 +36,6 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
-import ShortlistButton from "@/components/ShortlistButton";
 
 import {
   getResultAssessment,
@@ -700,8 +700,8 @@ const PartnerCard = ({
        : 'bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30'
      }`}
     >
-     <ArrowLeftRight className="h-3.5 w-3.5" />
-     {compareActive ? 'Vald' : 'Jämför'}
+     <Star className={`h-3.5 w-3.5 ${compareActive ? 'fill-current' : ''}`} />
+     {compareActive ? 'I shortlist' : 'Lägg till i shortlist'}
     </button>
     <button
      type="button"
@@ -748,15 +748,9 @@ const PartnerCard = ({
      : 'bg-transparent text-foreground border-border hover:border-[hsl(var(--cta-orange))] hover:text-[hsl(var(--cta-orange))]'
    }`}
   >
-   <ArrowLeftRight className="h-3.5 w-3.5" />
-   {compareActive ? 'Vald för jämförelse' : 'Jämför partners (välj upp till 3)'}
+   <Star className={`h-3.5 w-3.5 ${compareActive ? 'fill-current' : ''}`} />
+   {compareActive ? 'I shortlist' : 'Lägg till i shortlist'}
    </button>
-  )}
-  {compareSlug && (
-   <ShortlistButton
-    className="mt-2"
-    entry={{ slug: compareSlug, name: partner.name || 'Partner', url: cleanProfileUrl, verified: true }}
-   />
   )}
 
   </>
