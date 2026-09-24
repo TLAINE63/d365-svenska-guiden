@@ -563,10 +563,10 @@ const Index = () => {
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded border border-border bg-card px-5 py-4 transition-colors hover:border-primary/40">
                 <span>
                   <span className="block text-lg sm:text-xl font-bold text-foreground tracking-tight">
-                    Så hjälper d365.se dig hitta rätt Dynamics&nbsp;365-partner
+                    Så hjälper d365.se er vidare
                   </span>
                   <span className="mt-1 block text-[14px] text-muted-foreground leading-relaxed">
-                    Jämför erfarenhet, arbetssätt och kompetens utifrån det projekt ni planerar.
+                    Från behov till beslut, oavsett om ni söker partner eller specifik kompetens.
                   </span>
                 </span>
                 <ChevronDown
@@ -577,10 +577,10 @@ const Index = () => {
               <div className="pt-6">
                 <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {[
-                    { icon: ClipboardCheck, t: "Beskriv ert behov eller välj bransch", d: "Börja med det du redan vet – resten kan du komplettera senare." },
-                    { icon: Search, t: "Hitta relevanta Dynamics 365-partners", d: "Se kompetens och erfarenhet som passar er verksamhet." },
-                    { icon: ArrowLeftRight, t: "Jämför upp till tre partner sida vid sida", d: "Skapa en tydlig kortlista innan du bestämmer dig." },
-                    { icon: MessageCircle, t: "Kontakta endast de partner du själv väljer", d: "Du styr vilka som får ta del av din förfrågan." },
+                    { icon: ClipboardCheck, t: "Beskriv vad ni behöver", d: "Börja med det ni redan vet, resten kan ni komplettera senare." },
+                    { icon: Search, t: "Hitta relevanta partners och kompetenser", d: "Se erfarenhet och specialistkompetens som passar er verksamhet." },
+                    { icon: ArrowLeftRight, t: "Jämför alternativen", d: "Skapa en tydlig kortlista innan ni bestämmer er." },
+                    { icon: MessageCircle, t: "Välj vilka ni vill gå vidare med", d: "Ni styr vilka som får ta del av er förfrågan." },
                   ].map((s, i) => (
                     <li key={s.t} className="bg-card border border-border rounded p-5">
                       <div className="mb-4 flex items-center justify-between">
