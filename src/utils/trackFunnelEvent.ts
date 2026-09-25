@@ -66,6 +66,8 @@ function classifySource(): string {
     const params = new URLSearchParams(window.location.search);
     const utmSource = (params.get("utm_source") || "").toLowerCase();
     const utmMedium = (params.get("utm_medium") || "").toLowerCase();
+    if (utmSource === "businesscentral.se") return "businesscentral_se";
+    if (document.referrer && /businesscentral\.se/i.test(document.referrer)) return "businesscentral_se";
     if (utmSource && AI_HOSTS.test(utmSource)) return "geo_ai";
     if (utmMedium === "email" || utmSource.includes("mail") || utmSource === "newsletter") return "email";
     if (utmMedium === "cpc" || utmMedium === "paid" || params.get("gclid")) return "paid";
