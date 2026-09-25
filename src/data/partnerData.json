@@ -9,18 +9,14 @@
     "website": "https://www.4ps.se/",
     "email": "anders.ostby@4ps.se",
     "contact_person": "Anders Östby",
-    "contact_photo_url": null,
+    "contact_photo_url": "",
     "phone": "+46 10 540 00 00",
     "applications": [
       "Business Central"
     ],
-    "industries": [
-      "Bygg, Entreprenad & Installation"
-    ],
+    "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Globalt"
-    ],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 1,
@@ -42,9 +38,9 @@
           "250-999",
           "1.000-4.999"
         ],
-        "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
+        "contactName": "Anders Östby",
+        "contactEmail": "anders.ostby@4ps.se",
+        "contactPhone": "010 540 00 00",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -58,6 +54,7 @@
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
+        "landingPageUrl": "https://www.4ps.se/losningar/",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
@@ -123,7 +120,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-24T14:54:52.71569+00:00",
+    "updated_at": "2026-09-25T06:26:13.243233+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -144,16 +141,24 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Passar särskilt företag inom bygg, installation och service som söker full kontroll över projektens lönsamhet.",
-    "delivery_profile": {},
-    "team_size_sweden": null,
+    "positioning_statement": "Vi är valet när du söker full kontroll över projektens lönsamhet inom bygg, installation eller service.",
+    "delivery_profile": {
+      "methodology": "4PS Compass methodik",
+      "typical_length": "",
+      "bc_project_cost_band": "1M–2.5M",
+      "bc_project_weeks_max": 30,
+      "bc_project_weeks_min": 16
+    },
+    "team_size_sweden": "11–25",
     "implementations_done": null,
     "not_a_fit": [
       "Företag utanför bygg, installation, service och närliggande projektorienterade branscher",
       "Organisationer vars primära ERP-behov är Dynamics 365 Finance & Supply Chain Management",
       "Företag som framför allt söker avancerad kundspecifik AI- eller agentutveckling"
     ],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Business Central": "100+"
+    },
     "ai_summary": "4PS är en specialiserad Dynamics 365 Business Central-partner för bygg-, installations-, service- och entreprenadverksamheter. Kärnan är 4PS Construct, en branschlösning som samlar bland annat projekt, ekonomi, kalkyl, inköp, resursplanering och fältservice i Business Central.",
     "ai_summary_generated_at": "2026-06-29T16:18:46.838+00:00",
     "ai_profile": {
@@ -223,9 +228,9 @@
       "Branschlösningen 4PS Construct är byggd på Dynamics 365 Business Central",
       "Inriktning mot bygg, entreprenad, installation och service",
       "Stöd för projekt, kalkyl, inköp, resursplanering och fältservice i samma system",
-      "Kontor i Norrköping och Göteborg"
+      "Mer än 500 kunder i branschen in Europe, 15 i Sverige"
     ],
-    "key_differentiators_source": "d365",
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att 4PS Construction Software AB är en vertikal ISV-partner som specialiserar sig på branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning, 4PS Construct, är baserad på Microsoft Dynamics 365 Business Central och fokuserar på end-to-end-funktionalitet för projektledning, ekonomi och service.\n\nFöretaget ägs av Hilti Group, vilket indikerar en stark internationell koppling och produktutveckling, även om den svenska enheten är mindre. De framhäver sin expertis inom branschen, realtidsvisibilitet i projekt, samt sin förmåga att integrera processer för ökad effektivitet och datadrivet beslutsfattande.\n\nInnehållet indikerar att de adresserar behov hos medelstora till större företag inom bygg, entreprenad och installation, där kontroll över projektlönsamhet, marginaler och resursplanering är avgörande. Företaget lyfter även fram sin Microsoft Inner Circle-status och kapacitet inom Power Platform-teknologier som Power BI och Copilot.",
     "public_focus_tags": [
       "Construction ERP",
