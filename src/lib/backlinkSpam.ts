@@ -36,7 +36,9 @@ const OWN_DOMAINS = [
   "businesscentral.se",
   "fpaa.se",
   "dynamicfactory.se",
-  "moveahead.se",
+  "cloudahead.se",
+  "16weeksofhelp.com",
+  "d365guide.com",
 ];
 
 export function isLikelySpamDomain(
