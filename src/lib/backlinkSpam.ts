@@ -30,6 +30,15 @@ const SPAM_TLDS = [
   ".sbs.",
 ];
 
+// Egna domäner som aldrig ska flaggas som skräp.
+const OWN_DOMAINS = [
+  "d365.se",
+  "businesscentral.se",
+  "fpaa.se",
+  "dynamicfactory.se",
+  "moveahead.se",
+];
+
 export function isLikelySpamDomain(
   domain: string,
   authority: number | null | undefined,
@@ -37,6 +46,7 @@ export function isLikelySpamDomain(
 ): boolean {
   const d = String(domain || "").toLowerCase().trim();
   if (!d) return false;
+  if (OWN_DOMAINS.some((own) => d === own || d.endsWith("." + own))) return false;
   const a = typeof authority === "number" ? authority : null;
   const b = typeof backlinks === "number" ? backlinks : 0;
 
