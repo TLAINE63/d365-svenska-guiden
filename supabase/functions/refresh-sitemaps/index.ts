@@ -9,7 +9,10 @@
  *   - pg_cron (daily at 03:00 UTC)
  *   - Manual invoke from the admin SEO tab
  */
-import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
 
 const HOST = "d365.se";
 const SITE_PROPERTY = "sc-domain:d365.se";

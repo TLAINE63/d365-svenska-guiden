@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -76,6 +77,18 @@ import WhyTheseResults from "@/components/WhyTheseResults";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import PartnerDecisionActions from "@/components/partner/PartnerDecisionActions";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
+
+const normalizeIndustryParam = (raw: string | null): string => {
+  if (!raw) return "";
+  const v = raw.trim().toLowerCase();
+  const exact = STANDARD_INDUSTRIES.find((i) => i.name.toLowerCase() === v || i.slug === v);
+  if (exact) return exact.name;
+  const fuzzy = STANDARD_INDUSTRIES.find((i) => {
+    const s = i.short.toLowerCase();
+    return v.includes(s) || v.includes(i.name.toLowerCase().split(/[ ,&/]/)[0]);
+  });
+  return fuzzy ? fuzzy.name : "";
+};
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Step 2: Product options
@@ -325,7 +338,7 @@ const KomIgang = () => {
   const { data: partners = [] } = usePartners();
 
   const storedContext = getBuyerContext();
-  const initialIndustry = searchParams.get("industry") || "";
+  const initialIndustry = normalizeIndustryParam(searchParams.get("industry"));
   const requestedProduct = searchParams.get("product");
   const requestedGoal = searchParams.get("goal");
   const source = searchParams.get("source") || "direct";
