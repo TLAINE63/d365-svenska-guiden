@@ -1,4 +1,5 @@
 import ContextualCta from "@/components/ContextualCta";
+import BcSiteHandoff from "@/components/BcSiteHandoff";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -295,6 +296,8 @@ const BusinessCentral = () => {
   to: "/businesscentral/roi-kalkylator/",
   }}
     />
+
+      <BcSiteHandoff />
 
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
