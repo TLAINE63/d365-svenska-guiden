@@ -33,8 +33,10 @@ interface Handoff {
 
 function sizeFromUsers(users?: number): string | null {
   if (!users) return null;
+  // Använd endast standardbucketarna från Kom igång-guiden (sizeOptions i
+  // src/pages/KomIgang.tsx), annars kasseras storleken i guiden.
   if (users <= 10) return "1-49";
-  if (users <= 50) return "50-249";
+  if (users <= 50) return "50-99";
   return "250-999";
 }
 
