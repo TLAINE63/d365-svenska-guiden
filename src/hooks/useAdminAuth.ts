@@ -70,11 +70,20 @@ export function useAdminAuth(): AdminAuthState {
       });
 
       if (error) {
-        console.error("Login error:", error);
+        // Non-2xx (t.ex. 401 fel lösenord, 429 rate limit): läs serverns meddelande
+        const ctx = (error as { context?: Response }).context;
+        if (ctx && typeof ctx.json === "function") {
+          try {
+            const body = await ctx.json();
+            if (body?.error) return { success: false, error: String(body.error) };
+          } catch {
+            // ignorera tolkningsfel
+          }
+        }
         return { success: false, error: "Kunde inte ansluta till servern" };
       }
 
-      if (data.error) {
+      if (data?.error) {
         return { success: false, error: data.error };
       }
 
