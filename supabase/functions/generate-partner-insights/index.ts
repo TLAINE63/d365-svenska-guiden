@@ -79,8 +79,8 @@ function buildPrompt(p: any): string {
   const desc = (p.description || "").slice(0, 2000);
   const extended = (p.extended_content || "").slice(0, 4000);
   const positioning = (p.positioning_statement || "").slice(0, 600);
-  const productProfiles = Object.entries(p.product_filters || {}).
-    map(([key, value]: [string, any]) => {
+  const productProfiles = Object.entries(p.product_filters || {})
+    .map(([key, value]: [string, any]) => {
       const profile = value?.deliveryProfile || {};
       return [
         `Produktområde: ${APP_LABELS[key] || key}`,
@@ -119,7 +119,7 @@ Branscher: ${industries}
 Geografi: ${geo}
 Orter med kontor: ${cities || "ej angett"}
 Plattformskompetenser: ${platforms || "ej angett"}
-Kundexempel: ${customers || "ej angett"}`;
+Kundexempel: ${customers || "ej angett"}
 Partnerns produktvisa profiltexter:
 ${productProfiles || "(saknas)"}`;
 }
