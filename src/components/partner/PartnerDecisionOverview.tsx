@@ -79,7 +79,7 @@ function formatSizeRange(sizes: string[]): string | null {
   return `${first.min.toLocaleString("sv-SE")}–${last.max.toLocaleString("sv-SE")} anställda`;
 }
 
-function sizeSegmentLabel(sizes: string[]): string | null {
+function sizeSegmentLabel(sizes: string[], isFinanceAndSupplyChain: boolean): string | null {
   const ordered = sizes
     .filter((s) => SIZE_ORDER.includes(s))
     .sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
@@ -90,6 +90,7 @@ function sizeSegmentLabel(sizes: string[]): string | null {
   if (last.max === null && first.min >= 1000) return "Stora och internationella företag";
   if (last.max === null) return "Företag i alla storlekar";
   if (last.max <= 49) return "Små företag";
+  if (isFinanceAndSupplyChain && first.min >= 50) return "Medelstora företag";
   if (last.max <= 249) return first.min >= 50 ? "Medelstora företag" : "Små och medelstora företag";
   if (first.min >= 1000) return "Stora företag";
   if (first.min >= 250) return "Medelstora och större företag";
@@ -302,7 +303,7 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
   const derivedDifferentiators = buildDifferentiators(partner).filter((d) => !partnerStated.includes(d));
   const differentiators = derivedDifferentiators;
 
-  const sizeLabel = sizeSegmentLabel(sizes);
+  const sizeLabel = sizeSegmentLabel(sizes, keys.includes("fsc"));
   const sizeRange = formatSizeRange(sizes);
   const geoLabel = formatGeography(geography);
 
