@@ -12,7 +12,7 @@ interface SEOHeadProps {
   ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
-  ogType?: "website" | "article" | "video.other";
+  ogType?: "website" | "article" | "event" | "video.other";
   ogVideo?: string;
   noIndex?: boolean;
   // Article-specific metadata (used when ogType === "article")
@@ -124,7 +124,7 @@ const SEOHead = ({
       {isArticle && (articleModifiedTime || articlePublishedTime) && (
         <meta
           property="article:modified_time"
-          content={articleModifiedTime || articlePublishedTime!}
+          content={articleModifiedTime ?? articlePublishedTime ?? ""}
         />
       )}
       {isArticle && articleAuthor && (

@@ -16,13 +16,20 @@ import { ArrowLeft, ExternalLink, Calendar, Building2 } from "lucide-react";
 import { setNewsAttribution } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import type { PartnerNewsItem } from "@/hooks/usePartnerNews";
 
 const formatDate = formatDateYYYYMMDD;
 
 
-export default function PartnerNewsDetail() {
+interface PartnerNewsDetailProps {
+  initialData?: PartnerNewsItem | null;
+}
+
+export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDetailProps) {
   const { id } = useParams<{ id: string }>();
-  const { data: item, isLoading, error } = usePartnerNewsItem(id);
+  const { data: fetchedItem, isLoading: queryLoading, error } = usePartnerNewsItem(id);
+  const item = fetchedItem ?? initialData;
+  const isLoading = queryLoading && !initialData;
 
   useEffect(() => {
     if (!item?.id) return;
@@ -110,7 +117,7 @@ export default function PartnerNewsDetail() {
     partner?.name,
   ].filter((v): v is string => Boolean(v));
 
-  const ogImage = item.image_url || undefined;
+  const ogImage = item.image_url || "https://d365.se/og-default.png";
 
   /** Interna fördjupningslänkar per produktområde (stärker pelarsidorna). */
   const PRODUCT_PAGE_MAP: Record<string, { path: string; label: string }> = {
@@ -145,7 +152,7 @@ export default function PartnerNewsDetail() {
         canonicalPath={`/partnernytt/artikel/${item.id}/`}
         ogType="article"
         ogImage={ogImage}
-        ogImageAlt={ogImage ? item.editorial_title : undefined}
+        ogImageAlt={item.editorial_title}
         articlePublishedTime={item.news_date ? new Date(item.news_date).toISOString() : undefined}
         articleModifiedTime={item.updated_at ? new Date(item.updated_at).toISOString() : undefined}
         articleAuthor={partner?.name}

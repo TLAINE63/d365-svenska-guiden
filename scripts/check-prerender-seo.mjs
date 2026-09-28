@@ -124,6 +124,49 @@ export function validateHtml(route, html) {
   return { route, errors, title, canonical };
 }
 
+export function validateRichShareHtml(route, html, expectedType) {
+  const result = validateHtml(route, html);
+  const errors = [...result.errors];
+
+  const ogImage = pick(
+    html,
+    /<meta[^>]+property=["']og:image["'][^>]*content=["']([^"']+)["']/i,
+  );
+  if (!ogImage) errors.push("missing og:image");
+  else if (!/^https:\/\//i.test(ogImage)) errors.push(`og:image is not absolute HTTPS: ${ogImage}`);
+
+  const twitterCard = pick(
+    html,
+    /<meta[^>]+name=["']twitter:card["'][^>]*content=["']([^"']+)["']/i,
+  );
+  if (twitterCard !== "summary_large_image") {
+    errors.push(`twitter:card is not summary_large_image: ${twitterCard || "missing"}`);
+  }
+
+  const twitterImage = pick(
+    html,
+    /<meta[^>]+name=["']twitter:image["'][^>]*content=["']([^"']+)["']/i,
+  );
+  if (!twitterImage) errors.push("missing twitter:image");
+  else if (twitterImage !== ogImage) errors.push("twitter:image differs from og:image");
+
+  const ogType = pick(
+    html,
+    /<meta[^>]+property=["']og:type["'][^>]*content=["']([^"']+)["']/i,
+  );
+  if (ogType !== expectedType) errors.push(`unexpected og:type: ${ogType || "missing"}`);
+
+  if (expectedType === "article") {
+    const published = pick(
+      html,
+      /<meta[^>]+property=["']article:published_time["'][^>]*content=["']([^"']+)["']/i,
+    );
+    if (!published) errors.push("missing article:published_time");
+  }
+
+  return { ...result, errors };
+}
+
 export function checkRoute(route) {
   const file = htmlPathFor(route);
   if (!existsSync(file)) {

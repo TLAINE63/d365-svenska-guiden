@@ -30,7 +30,7 @@ import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 
-interface Partner {
+export interface Partner {
   id: string;
   name: string;
   slug: string;
@@ -39,7 +39,7 @@ interface Partner {
   description?: string | null;
 }
 
-interface PartnerEvent {
+export interface PartnerEvent {
   id: string;
   title: string;
   description: string | null;
@@ -57,10 +57,14 @@ interface PartnerEvent {
   partners: Partner | null; // Can be null for d365.se events
 }
 
-const EventDetail = () => {
+interface EventDetailProps {
+  initialData?: PartnerEvent | null;
+}
+
+const EventDetail = ({ initialData = null }: EventDetailProps) => {
   const { eventId } = useParams<{ eventId: string }>();
-  const [event, setEvent] = useState<PartnerEvent | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [event, setEvent] = useState<PartnerEvent | null>(initialData);
+  const [loading, setLoading] = useState(!initialData);
   const [notFound, setNotFound] = useState(false);
   const { toast } = useToast();
 
@@ -291,9 +295,13 @@ const EventDetail = () => {
         title={seoTitle}
         description={seoDescription}
         canonicalPath={`/events/${event.id}`}
-        ogImage={event.image_url || undefined}
+        ogImage={event.image_url || "https://d365.se/og-events.png"}
         ogImageAlt={event.title}
-        ogType="article"
+        ogType="event"
+        articlePublishedTime={startDate}
+        articleModifiedTime={event.event_date}
+        articleAuthor={organizerName}
+        articleSection="Events"
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(eventSchema)}</script>
