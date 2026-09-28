@@ -82,8 +82,8 @@ function formatSizeRange(sizes: string[]): string | null {
 function statedCustomerSegment(typicalCustomers: string | null): string | null {
   if (!typicalCustomers) return null;
   const text = typicalCustomers.toLocaleLowerCase("sv-SE");
-  if (/medelstora\s+(?:och|till)\s+(?:större|stora)/.test(text)) return "Medelstora och större företag";
-  if (/små\s+(?:och|till)\s+medelstora/.test(text)) return "Små och medelstora företag";
+  if (/(?:medelstora|mellanstora)\s+(?:och|till)\s+(?:större|stora)/.test(text)) return "Medelstora och större företag";
+  if (/(?:små|mindre)\s+(?:och|till)\s+medelstora/.test(text)) return "Små och medelstora företag";
   if (/stora\s+(?:och|till)\s+internationella/.test(text)) return "Stora och internationella företag";
   if (/\bmedelstora\b/.test(text)) return "Medelstora företag";
   if (/\bstora\b/.test(text)) return "Stora företag";

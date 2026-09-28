@@ -77,5 +77,5 @@
 ## Partnerns målgrupp i AI-bedömningar (2026-09-28)
 - [x] Låt partnerns egen text om typiska kunder styra segmentetiketten i snabböversikten
 - [x] Lägg samma källprioritet i AI-underlagen för sammanfattning, lämplighet och avgränsning
-- [ ] Generera om befintliga publicerade AI-bedömningar
+- [x] Synka befintliga publicerade målgruppsbedömningar mot partnernas egna texter
 - [ ] Verifiera Implema samt urval av BC-, F&SCM- och CRM-profiler
