@@ -295,9 +295,13 @@ const EventDetail = ({ initialData = null }: EventDetailProps) => {
         title={seoTitle}
         description={seoDescription}
         canonicalPath={`/events/${event.id}`}
-        ogImage={event.image_url || undefined}
+        ogImage={event.image_url || "https://d365.se/og-events.png"}
         ogImageAlt={event.title}
         ogType="event"
+        articlePublishedTime={startDate}
+        articleModifiedTime={event.event_date}
+        articleAuthor={organizerName}
+        articleSection="Events"
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(eventSchema)}</script>

@@ -16,7 +16,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - plain ESM script, no types
-import { CRITICAL_ROUTES, checkRoute } from "../../scripts/check-prerender-seo.mjs";
+import { CRITICAL_ROUTES, checkRoute, validateRichShareHtml } from "../../scripts/check-prerender-seo.mjs";
 
 const distExists = existsSync(resolve(process.cwd(), "dist"));
 const d = distExists ? describe : describe.skip;
@@ -33,4 +33,37 @@ d("Prerendered SEO tags (dist/)", () => {
       expect(result.errors, result.errors.join("; ")).toEqual([]);
     });
   }
+});
+
+describe("Rich share metadata", () => {
+  const sharedHead = `
+    <title>Exempel | d365.se</title>
+    <meta name="description" content="En fullständig beskrivning av innehållet för delning och sökresultat." />
+    <link rel="canonical" href="https://d365.se/artiklar/exempel/" />
+    <meta property="og:title" content="Exempel | d365.se" />
+    <meta property="og:description" content="En fullständig beskrivning av innehållet för delning och sökresultat." />
+    <meta property="og:url" content="https://d365.se/artiklar/exempel/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://d365.se/og-default.png" />
+    <meta property="article:published_time" content="2026-09-28" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://d365.se/og-default.png" />
+  `;
+
+  it("accepts complete article sharing metadata", () => {
+    const result = validateRichShareHtml("/artiklar/exempel", sharedHead, "article");
+    expect(result.errors).toEqual([]);
+  });
+
+  it("detects missing rich-preview fields", () => {
+    const result = validateRichShareHtml(
+      "/artiklar/exempel",
+      sharedHead
+        .replace(/<meta property="og:image"[^>]+>/, "")
+        .replace(/<meta name="twitter:image"[^>]+>/, ""),
+      "article",
+    );
+    expect(result.errors).toContain("missing og:image");
+    expect(result.errors).toContain("missing twitter:image");
+  });
 });

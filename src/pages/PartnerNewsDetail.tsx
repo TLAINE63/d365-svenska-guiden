@@ -117,7 +117,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
     partner?.name,
   ].filter((v): v is string => Boolean(v));
 
-  const ogImage = item.image_url || undefined;
+  const ogImage = item.image_url || "https://d365.se/og-default.png";
 
   /** Interna fördjupningslänkar per produktområde (stärker pelarsidorna). */
   const PRODUCT_PAGE_MAP: Record<string, { path: string; label: string }> = {
@@ -152,7 +152,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
         canonicalPath={`/partnernytt/artikel/${item.id}/`}
         ogType="article"
         ogImage={ogImage}
-        ogImageAlt={ogImage ? item.editorial_title : undefined}
+        ogImageAlt={item.editorial_title}
         articlePublishedTime={item.news_date ? new Date(item.news_date).toISOString() : undefined}
         articleModifiedTime={item.updated_at ? new Date(item.updated_at).toISOString() : undefined}
         articleAuthor={partner?.name}
