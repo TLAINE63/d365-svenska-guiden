@@ -16,13 +16,20 @@ import { ArrowLeft, ExternalLink, Calendar, Building2 } from "lucide-react";
 import { setNewsAttribution } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import type { PartnerNewsItem } from "@/hooks/usePartnerNews";
 
 const formatDate = formatDateYYYYMMDD;
 
 
-export default function PartnerNewsDetail() {
+interface PartnerNewsDetailProps {
+  initialData?: PartnerNewsItem | null;
+}
+
+export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDetailProps) {
   const { id } = useParams<{ id: string }>();
-  const { data: item, isLoading, error } = usePartnerNewsItem(id);
+  const { data: fetchedItem, isLoading: queryLoading, error } = usePartnerNewsItem(id);
+  const item = fetchedItem ?? initialData;
+  const isLoading = queryLoading && !initialData;
 
   useEffect(() => {
     if (!item?.id) return;
