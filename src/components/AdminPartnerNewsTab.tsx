@@ -762,9 +762,9 @@ export default function AdminPartnerNewsTab({ token, partners, onSessionExpired 
             </div>
 
             <div className="sm:col-span-2">
-              <Label>Kort sammanfattning (max 600 tecken)</Label>
-              <Textarea value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })} rows={4} maxLength={600} />
-              <p className="text-xs text-muted-foreground mt-1">{form.summary.length}/600</p>
+              <Label>Kort sammanfattning (max 800 tecken)</Label>
+              <Textarea value={form.summary} onChange={(e) => setForm({ ...form, summary: e.target.value })} rows={4} maxLength={800} />
+              <p className="text-xs text-muted-foreground mt-1">{form.summary.length}/800</p>
             </div>
 
             {importFullText && (
