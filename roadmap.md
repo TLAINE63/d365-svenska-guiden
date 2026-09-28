@@ -81,6 +81,6 @@
 - [x] Verifiera Implema på mobil och dator samt kontrollera källunderlag för publicerade BC-, F&SCM- och CRM-profiler
 
 ## Nya grundprofiler (2026-09-28)
-- [ ] Lägg till Bedege från företagets publika information
-- [ ] Lägg till Effekt från företagets publika information
-- [ ] Verifiera att båda visas bland partners och på egna grundprofiler
+- [x] Lägg till Bedege från företagets publika information
+- [x] Lägg till Effekt från företagets publika information
+- [x] Verifiera att båda visas bland partners och på egna grundprofiler
