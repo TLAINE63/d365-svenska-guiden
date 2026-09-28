@@ -688,7 +688,9 @@ Deno.serve(async (req) => {
     const token = body?.token || "";
     const partnerSlug: string = body?.partnerSlug || "";
     const mode: "summary" | "send" = body?.mode === "send" ? "send" : "summary";
-    const recipient: string = body?.recipient || "thomas.laine@dynamicfactory.se";
+    const ALLOWED_RECIPIENTS = ["thomas.laine@dynamicfactory.se", "info@d365.se", "michael.uhman@dynamicfactory.se"];
+    const requestedRecipient = String(body?.recipient || "").trim().toLowerCase();
+    const recipient: string = ALLOWED_RECIPIENTS.includes(requestedRecipient) ? requestedRecipient : "thomas.laine@dynamicfactory.se";
 
     const SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!SECRET) {

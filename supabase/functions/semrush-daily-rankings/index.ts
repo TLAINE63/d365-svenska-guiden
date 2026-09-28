@@ -125,8 +125,8 @@ serve(async (req) => {
     const isAdmin = tok && await verifyAdminJWT(tok, secret);
     // Snapshot kan triggas av cron (anropas med projektets anon apikey) – idempotent per dag
     const isCron = action === "snapshot" && (
-      body.cron_token === secret ||
-      (apikeyHeader && apikeyHeader === anonKey)
+      (!!secret && body.cron_token === secret) ||
+      (!!secret && tok === secret)
     );
     if (!isAdmin && !isCron) {
       return json({ error: "Sessionen har gått ut. Logga in igen." }, 401, h);

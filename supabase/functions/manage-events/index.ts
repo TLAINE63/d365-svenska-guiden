@@ -246,12 +246,12 @@ serve(async (req: Request): Promise<Response> => {
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
             to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
-            subject: `Nytt event att granska: ${event.title} (${partnerData?.name || invitation.partner_name})`,
+            subject: `Nytt event att granska: ${String(event.title ?? "").replace(/[\r\n]/g, " ").slice(0, 150)} (${String(partnerData?.name || invitation.partner_name || "").replace(/[\r\n]/g, " ").slice(0, 100)})`,
             html: `
               <h2>Nytt event väntar på godkännande</h2>
-              <p><strong>Partner:</strong> ${partnerData?.name || invitation.partner_name}</p>
-              <p><strong>Eventtitel:</strong> ${event.title}</p>
-              <p><strong>Datum:</strong> ${event.event_date}</p>
+              <p><strong>Partner:</strong> ${escHtml(partnerData?.name || invitation.partner_name)}</p>
+              <p><strong>Eventtitel:</strong> ${escHtml(event.title)}</p>
+              <p><strong>Datum:</strong> ${escHtml(event.event_date)}</p>
               <p><strong>Källa:</strong> Partnerprofilering (inbjudningsformulär)</p>
               <p><a href="https://www.d365.se/admin">Granska i Admin</a></p>
             `,
@@ -1623,3 +1623,7 @@ D365.se`;
     );
   }
 });
+
+function escHtml(v: unknown): string {
+  return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
+}
