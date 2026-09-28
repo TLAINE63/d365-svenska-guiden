@@ -47,7 +47,7 @@ export default function ExtendedCompetenciesSection({
     >
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026") }}
       />
 
       <header className="flex items-center gap-2">
