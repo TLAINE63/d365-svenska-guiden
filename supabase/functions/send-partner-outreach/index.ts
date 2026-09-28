@@ -219,10 +219,14 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: parsed.error.flatten().fieldErrors }), { status: 400, headers: jsonHeaders });
     }
 
-    const { to, subject, html, from } = parsed.data;
+    const { to, subject, html } = parsed.data;
+    // Enstaka mejl går endast till granskningsmottagaren – aldrig till godtyckliga adresser.
+    if (to.trim().toLowerCase() !== REVIEW_RECIPIENT.toLowerCase()) {
+      return new Response(JSON.stringify({ error: "Mottagaren är inte tillåten" }), { status: 400, headers: jsonHeaders });
+    }
     const result = await resend.emails.send({
-      from: from || "Thomas Laine via d365.se <info@d365.se>",
-      to: [to],
+      from: "Thomas Laine via d365.se <info@d365.se>",
+      to: [REVIEW_RECIPIENT],
       subject,
       html,
       reply_to: REVIEW_RECIPIENT,

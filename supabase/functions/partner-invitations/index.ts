@@ -313,7 +313,7 @@ serve(async (req: Request): Promise<Response> => {
           industries: submissionData.industries || [],
           secondary_industries: submissionData.secondary_industries || [],
           geography: submissionData.geography || [],
-          product_filters: submissionData.product_filters || {},
+          product_filters: stripRankingFields(submissionData.product_filters),
           industry_apps: submissionData.industry_apps || [],
           office_cities: submissionData.office_cities || [],
           notes: submissionData.notes,
@@ -2534,3 +2534,21 @@ d365.se`;
     );
   }
 });
+
+// Partners får aldrig sätta egna rankningsvärden via profileringslänken.
+function stripRankingFields(input: unknown): Record<string, unknown> {
+  if (!input || typeof input !== "object" || Array.isArray(input)) return {};
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
+    if (key === "ranking" || key === "rank" || key === "priority") continue;
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      const inner: Record<string, unknown> = {};
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        if (k === "ranking" || k === "rank" || k === "priority") continue;
+        inner[k] = v;
+      }
+      out[key] = inner;
+    } else out[key] = value;
+  }
+  return out;
+}
