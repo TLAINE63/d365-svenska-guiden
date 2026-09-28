@@ -84,3 +84,9 @@
 - [x] Lägg till Bedege från företagets publika information
 - [x] Lägg till Effekt från företagets publika information
 - [x] Verifiera att båda visas bland partners och på egna grundprofiler
+
+## Rika delningsförhandsvisningar (2026-09-28)
+- [x] Behåll full Open Graph- och Twitter-metadata för bloggartiklar och kunskapsartiklar
+- [x] Förgenerera publicerade Partnernytt-artiklar med egen titel, beskrivning, URL och bild
+- [x] Förgenerera events med eventets titel, beskrivning, arrangör, datum och bild
+- [ ] Verifiera färdig HTML och publicera ändringen

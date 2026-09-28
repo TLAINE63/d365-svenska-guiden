@@ -124,7 +124,7 @@ const SEOHead = ({
       {isArticle && (articleModifiedTime || articlePublishedTime) && (
         <meta
           property="article:modified_time"
-          content={articleModifiedTime || articlePublishedTime!}
+          content={articleModifiedTime ?? articlePublishedTime ?? ""}
         />
       )}
       {isArticle && articleAuthor && (

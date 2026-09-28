@@ -6,6 +6,8 @@ import { normalizeBasicPartnerRow, type BasicPartner } from './hooks/useBasicPar
 
 /** Filled by getDynamicRoutes() before prerendering so /basic/:slug renders real HTML. */
 const BASIC_PARTNERS_BY_SLUG: Record<string, BasicPartner> = {};
+const EVENTS_BY_ID: Record<string, PartnerEvent> = {};
+const PARTNER_NEWS_BY_ID: Record<string, PartnerNewsItem> = {};
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -452,6 +454,14 @@ export function render(url: string) {
   const basicSlug = basicMatch ? basicMatch[1].replace(/\/$/, '') : null;
   const basicInitialData = basicSlug ? BASIC_PARTNERS_BY_SLUG[basicSlug] || null : null;
 
+  const eventMatch = url.match(/^\/events\/([^/?#]+)/);
+  const eventId = eventMatch ? eventMatch[1].replace(/\/$/, '') : null;
+  const eventInitialData = eventId ? EVENTS_BY_ID[eventId] || null : null;
+
+  const partnerNewsMatch = url.match(/^\/partnernytt\/artikel\/([^/?#]+)/);
+  const partnerNewsId = partnerNewsMatch ? partnerNewsMatch[1].replace(/\/$/, '') : null;
+  const partnerNewsInitialData = partnerNewsId ? PARTNER_NEWS_BY_ID[partnerNewsId] || null : null;
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, enabled: false },
@@ -569,7 +579,7 @@ export function render(url: string) {
               <Route path="/d365commerce" element={<D365Commerce />} />
               <Route path="/d365humanresources" element={<D365HumanResources />} />
               <Route path="/events" element={<Events />} />
-              <Route path="/events/:eventId" element={<EventDetail />} />
+              <Route path="/events/:eventId" element={<EventDetail initialData={eventInitialData} />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
@@ -620,6 +630,7 @@ export function render(url: string) {
               <Route path="/customer-engagement/tillagg/:kategori" element={<CeIsvCategoryPage />} />
               <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
+              <Route path="/partnernytt/artikel/:id" element={<PartnerNewsDetail initialData={partnerNewsInitialData} />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
               <Route path="/lankar-till-d365" element={<Backlankar />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />
@@ -729,24 +740,54 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   // ── Events: fetch published/upcoming events from Supabase REST ──────
   const eventRoutes: PrerenderRoute[] = [];
   const articleRoutes: PrerenderRoute[] = [];
+  const partnerNewsRoutes: PrerenderRoute[] = [];
   try {
     const supaUrl = process.env.VITE_SUPABASE_URL;
     const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
     if (supaUrl && supaKey) {
       const today = new Date().toISOString().split('T')[0];
-      const url = `${supaUrl}/rest/v1/partner_events_public?select=id,title,description,event_date,updated_at,status&event_date=gte.${today}&order=event_date.asc`;
+      const publicPartners = new Map(
+        partnerDataJson.map((partner) => [partner.id, partner]),
+      );
+      const url = `${supaUrl}/rest/v1/partner_events_public?select=id,partner_id,title,description,event_date,event_time,end_time,is_online,location,event_link,registration_link,registration_deadline,image_url,recording_url,recording_available,status,updated_at&event_date=gte.${today}&order=event_date.asc`;
       const res = await fetch(url, {
         headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
       });
       if (res.ok) {
         const events = (await res.json()) as Array<{
           id: string;
+          partner_id: string | null;
           title: string;
           description: string | null;
           event_date: string;
+          event_time: string | null;
+          end_time: string | null;
+          is_online: boolean;
+          location: string | null;
+          event_link: string | null;
+          registration_link: string | null;
+          registration_deadline: string | null;
+          image_url: string | null;
+          recording_url: string | null;
+          recording_available: boolean;
+          status: string;
           updated_at: string;
         }>;
         for (const ev of events) {
+          const partner = ev.partner_id ? publicPartners.get(ev.partner_id) : undefined;
+          EVENTS_BY_ID[ev.id] = {
+            ...ev,
+            partners: partner
+              ? {
+                  id: partner.id,
+                  name: partner.name,
+                  slug: partner.slug,
+                  logo_url: partner.logo_url ?? null,
+                  logo_dark_bg: partner.logo_dark_bg ?? false,
+                  description: partner.description ?? null,
+                }
+              : null,
+          };
           eventRoutes.push({
             path: `/events/${ev.id}`,
             priority: '0.6',
@@ -763,6 +804,38 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         console.log(`  📦 Found ${eventRoutes.length} event routes from Supabase`);
       } else {
         console.warn(`  ⚠️  Events fetch failed: ${res.status}`);
+      }
+
+      // ── Partnernytt: published articles with complete share metadata ──
+      const pnUrl = `${supaUrl}/rest/v1/partner_news?select=id,partner_id,source_org,editorial_title,summary,source_url,source_type,product_area,product_areas,news_type,industry,image_url,news_date,event_date,is_featured,show_on_home,show_on_partner_profile,show_on_product_page,status,published_at,created_at,updated_at&status=eq.published&order=news_date.desc`;
+      const pnRes = await fetch(pnUrl, {
+        headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
+      });
+      if (pnRes.ok) {
+        const newsItems = (await pnRes.json()) as PartnerNewsItem[];
+        for (const item of newsItems) {
+          const partner = item.partner_id ? publicPartners.get(item.partner_id) : undefined;
+          const hydratedItem: PartnerNewsItem = {
+            ...item,
+            partner: partner
+              ? { id: partner.id, name: partner.name, slug: partner.slug, logo_url: partner.logo_url ?? null }
+              : null,
+          };
+          PARTNER_NEWS_BY_ID[item.id] = hydratedItem;
+          partnerNewsRoutes.push({
+            path: `/partnernytt/artikel/${item.id}`,
+            priority: '0.6',
+            changefreq: 'monthly',
+            lastmod: (item.updated_at || item.published_at || item.news_date || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${item.editorial_title}${partner?.name ? ` | ${partner.name}` : ''} | Partnernytt`,
+              description: item.summary.slice(0, 155),
+            },
+          });
+        }
+        console.log(`  📦 Found ${partnerNewsRoutes.length} Partnernytt routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Partnernytt fetch failed: ${pnRes.status}`);
       }
 
       // ── Knowledge articles: published, internal urls only ──
@@ -804,5 +877,5 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     console.warn(`  ⚠️  Dynamic routes fetch error: ${err.message}`);
   }
 
-  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes];
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes];
 }
