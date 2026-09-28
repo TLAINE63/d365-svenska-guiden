@@ -79,3 +79,8 @@
 - [x] Lägg samma källprioritet i AI-underlagen för sammanfattning, lämplighet och avgränsning
 - [x] Synka befintliga publicerade målgruppsbedömningar mot partnernas egna texter
 - [x] Verifiera Implema på mobil och dator samt kontrollera källunderlag för publicerade BC-, F&SCM- och CRM-profiler
+
+## Nya grundprofiler (2026-09-28)
+- [ ] Lägg till Bedege från företagets publika information
+- [ ] Lägg till Effekt från företagets publika information
+- [ ] Verifiera att båda visas bland partners och på egna grundprofiler
