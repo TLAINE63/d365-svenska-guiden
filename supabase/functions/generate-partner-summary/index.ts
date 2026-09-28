@@ -77,6 +77,10 @@ function buildPrompt(p: any): string {
   const platforms = (p.platform_capabilities || []).join(", ");
   const customers = (p.customer_examples || []).slice(0, 8).join(", ");
   const desc = (p.description || "").slice(0, 1500);
+  const productProfiles = Object.entries(p.product_filters || {}).map(([key, value]: [string, any]) => {
+    const profile = value?.deliveryProfile || {};
+    return `Produktområde ${APP_LABELS[key] || key}: Typiska kunder: ${(profile.typicalCustomers || "").slice(0, 1200) || "(saknas)"}. Typiska projekt: ${(profile.typicalProjects || "").slice(0, 900) || "(saknas)"}.`;
+  }).join("\n");
 
   return `Du skriver en kort, skannbar AI-sammanfattning på svenska om en Microsoft Dynamics 365-partner. Sammanfattningen visas överst på partnerns publika profil och ska ge besökaren en förståelse på cirka 10 sekunder.
 
@@ -84,6 +88,7 @@ REGLER:
 - Formulera exakt 5 punkter, varje punkt ska vara max 8 ord.
 - Varje punkt ska inledas med "- " (bindestreck + mellanslag).
 - Lyft fram: vilka D365-applikationer/typ av partner de är (t.ex. "Svensk specialist på Business Central"), branschfokus, typ av kund de passar för, geografi, och särskilda styrkor/nischkompetenser.
+- Partnerns egna produktvisa beskrivningar av typiska kunder och projekt väger tyngst. Strukturerade val är kontroll och komplettering. Motsäg inte partnerns målgruppsbeskrivning utan tydligt verifierat underlag.
 - Skriv i tredje person, neutralt och rådgivande. Ingen säljjargong, inga superlativ ("bäst", "ledande", "premium", "marknadsledande").
 - Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Nämn EJ pris, antal anställda, eller konkurrenter.
@@ -99,6 +104,8 @@ Geografi: ${geo}
 Orter med kontor: ${cities || "ej angett"}
 Plattformskompetenser: ${platforms || "ej angett"}
 Kundexempel: ${customers || "ej angett"}
+Partnerns produktvisa profiltexter:
+${productProfiles || "(saknas)"}
 
 Skriv de 5 punkterna nu. Håll varje punkt kort och konkret.`;
 }

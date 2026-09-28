@@ -73,3 +73,9 @@
 - [x] Kontextuell CTA på produkt-, bransch-, jämförelse- och partnerlistsidor
 - [x] Kontextuell CTA i guider och kunskapscenterartiklar
 - [x] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er
+
+## Partnerns målgrupp i AI-bedömningar (2026-09-28)
+- [x] Låt partnerns egen text om typiska kunder styra segmentetiketten i snabböversikten
+- [x] Lägg samma källprioritet i AI-underlagen för sammanfattning, lämplighet och avgränsning
+- [ ] Generera om befintliga publicerade AI-bedömningar
+- [ ] Verifiera Implema samt urval av BC-, F&SCM- och CRM-profiler

@@ -109,6 +109,8 @@ function buildPrompt(p: any, section: { key: string; label: string; apps: string
   const aiSummary = (p.ai_summary || "").slice(0, 800);
   const positioning = (p.product_profiles?.[section.apps[0]]?.positioning || p.positioning_statement || "").slice(0, 300);
   const productDesc = (sectionData.productDescription || "").slice(0, 1200);
+  const typicalCustomers = (sectionData.deliveryProfile?.typicalCustomers || "").slice(0, 1600);
+  const typicalProjects = (sectionData.deliveryProfile?.typicalProjects || "").slice(0, 1200);
   const customerEx = (sectionData.customerExamples || []).slice(0, 6).join(", ");
   const teamSize = p.team_size_sweden || p.employees_sweden || "okänt";
 
@@ -116,7 +118,7 @@ function buildPrompt(p: any, section: { key: string; label: string; apps: string
 1) whyChoose – kort text "Varför välja er för ${section.label}?" (2–4 meningar, max ~450 tecken).
 2) keyPoints – 3–4 konkreta punkter (varje punkt en kort mening, max ~120 tecken per punkt).
 
-Basera enbart på PARTNERDATA + WEBBKONTEXT nedan. Var konservativ – hittar du inte tydligt underlag, håll texten generell men trovärdig utifrån partnerns branscher, geografi och profil. Skriv ALDRIG saker som inte har stöd i datan.
+Basera enbart på PARTNERDATA + WEBBKONTEXT nedan. Partnerns egna produktvisa texter om typiska kunder och projekt väger tyngst. Strukturerade val är kontroll och komplettering; webbkontext är endast komplettering. Motsäg inte partnerns målgruppsbeskrivning utan tydligt verifierat underlag. Var konservativ – hittar du inte tydligt underlag, håll texten generell men trovärdig utifrån partnerns branscher, geografi och profil. Skriv ALDRIG saker som inte har stöd i datan.
 
 REGLER för whyChoose:
 - Svenska, 2–4 meningar.
@@ -148,6 +150,8 @@ Geografi: ${geo}
 Orter: ${cities}
 Kundexempel inom ${section.label}: ${customerEx || "(ej angett)"}
 Produktbeskrivning från partnern: ${productDesc || "(saknas)"}
+Typiska kunder enligt partnern: ${typicalCustomers || "(saknas)"}
+Typiska projekt enligt partnern: ${typicalProjects || "(saknas)"}
 
 WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus – använd försiktigt):
 ${webContext ? webContext.slice(0, 6000) : "(ingen webbkontext)"}
