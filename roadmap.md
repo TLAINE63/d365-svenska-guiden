@@ -78,4 +78,4 @@
 - [x] Låt partnerns egen text om typiska kunder styra segmentetiketten i snabböversikten
 - [x] Lägg samma källprioritet i AI-underlagen för sammanfattning, lämplighet och avgränsning
 - [x] Synka befintliga publicerade målgruppsbedömningar mot partnernas egna texter
-- [ ] Verifiera Implema samt urval av BC-, F&SCM- och CRM-profiler
+- [x] Verifiera Implema på mobil och dator samt kontrollera källunderlag för publicerade BC-, F&SCM- och CRM-profiler
