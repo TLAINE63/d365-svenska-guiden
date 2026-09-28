@@ -292,9 +292,9 @@ serve(async (req) => {
       draft: {
         editorial_title: title.slice(0, 200),
         // Ordagrann text från partnern – aldrig omskriven av AI.
-        summary: text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 600),
+        summary: text.replace(/\n{3,}/g, "\n\n").trim().slice(0, 800),
         full_text: text.slice(0, 6000),
-        truncated: text.trim().length > 600,
+        truncated: text.trim().length > 800,
         source_url: url || "",
         source_type: url ? guessSourceType(url) : "linkedin",
         image_url: image,

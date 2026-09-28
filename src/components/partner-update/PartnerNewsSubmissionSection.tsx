@@ -293,9 +293,9 @@ export function PartnerNewsSubmissionSection({ token, partnerId }: Props) {
                     placeholder="Kort sammanfattning, 2 till 4 meningar."
                     value={draft.summary}
                     onChange={(e) => setDraft((p) => ({ ...p, summary: e.target.value }))}
-                    maxLength={600}
+                    maxLength={800}
                   />
-                  <p className="text-xs text-muted-foreground">{draft.summary.length}/600 tecken</p>
+                  <p className="text-xs text-muted-foreground">{draft.summary.length}/800 tecken</p>
                 </div>
 
                 <div className="space-y-2">
