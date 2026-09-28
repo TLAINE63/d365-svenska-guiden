@@ -130,8 +130,9 @@ const PartnerAiInsights = ({ partner }: Props) => {
             )}
 
             <p className="text-[11px] leading-snug text-muted-foreground">
-              Texten är framtagen med AI utifrån uppgifter på d365.se och publika källor. Den kan
-              innehålla fel och är inte granskad eller godkänd av partnern.
+              Texten är framtagen med AI. Partnerns egen profilinformation väger tyngst och
+              kompletteras med strukturerade uppgifter och publika källor. Analysen kan innehålla
+              fel och är inte granskad eller godkänd av partnern.
             </p>
 
             {hasDeepDive && (

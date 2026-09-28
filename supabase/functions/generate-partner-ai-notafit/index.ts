@@ -166,6 +166,10 @@ function buildPrompt(p: any, webContext: string): string {
   const aiSummary = (p.ai_summary || "").slice(0, 1000);
   const positioning = (p.positioning_statement || "").slice(0, 400);
   const teamSize = p.team_size_sweden || p.employees_sweden || "okänt";
+  const productProfiles = Object.entries(p.product_filters || {}).map(([key, value]: [string, any]) => {
+    const profile = value?.deliveryProfile || {};
+    return `Produktområde ${key}: Typiska kunder (partnerns egen text): ${(profile.typicalCustomers || "").slice(0, 1500) || "(saknas)"}. Typiska projekt (partnerns egen text): ${(profile.typicalProjects || "").slice(0, 1200) || "(saknas)"}. Produktbeskrivning: ${(value?.productDescription || "").slice(0, 1200) || "(saknas)"}.`;
+  }).join("\n");
 
   return `Du hjälper att fylla i två sektioner i en Microsoft Dynamics 365-partners publika profil på d365.se:
 1) "AI, Copilot & Automation" (ai_profile) – partnerns AI/automations-kapacitet.
@@ -209,6 +213,9 @@ REGLER för not_a_fit:
 - Formulera KUNDENS situation (t.ex. "Kunder som söker …", "Bolag som kräver …", "Projekt där …"), inte partnerns aktivitet.
 - Inga superlativ, ingen självhävdelse, ingen negativ ton om partnern själv.
 - Undvik dubbletter och triviala saker som "kunder utan behov av D365".
+- KÄLLPRIORITET: Partnerns egna produktvisa texter om typiska kunder och projekt väger tyngst. Strukturerade fält är kontroll och komplettering. Webbkontext är endast komplettering.
+- Härled en avgränsning bara när den är en försiktig och tydlig konsekvens av partnerns uttalade målgrupp, produktfokus, bransch, geografi eller leveransmodell. Att något inte nämns är inte bevis för att partnern saknar förmågan.
+- Motsäg aldrig partnerns egen målgruppsbeskrivning utan tydligt verifierat underlag.
 
 PARTNERDATA:
 Namn: ${p.name}
@@ -221,6 +228,8 @@ Beskrivning: ${desc || "(saknas)"}
 Positioneringsmening: ${positioning || "(saknas)"}
 AI-sammanfattning från d365.se: ${aiSummary || "(saknas)"}
 Föreslagna relevant_areas utifrån appar: ${suggestedAreas}
+Partnerns produktvisa profiltexter:
+${productProfiles || "(saknas)"}
 
 WEBBKONTEXT (utdrag från partnerns webbplats, kan vara brus – använd försiktigt):
 ${webContext ? webContext.slice(0, 6000) : "(ingen webbkontext)"}

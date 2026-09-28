@@ -2062,13 +2062,14 @@
     "team_size_sweden": "26–50",
     "implementations_done": null,
     "not_a_fit": [
-      "Mycket små och isolerade projekt där bred Microsoft-kapacitet inte tillför värde"
+      "Mindre, avgränsade projekt utan behov av sammanhållna ekonomi-, inköps-, lager-, produktions- eller leveranskedjeprocesser",
+      "Organisationer vars huvudsakliga behov ligger utanför Finance & Supply Chain Management och närliggande verksamhetsprocesser"
     ],
     "implementations_per_app": {
       "F&SCM": "25–100",
       "Project Operations": "<10"
     },
-    "ai_summary": "Implema AB specialiserar sig på Microsoft Dynamics 365-applikationer som Finance, Supply Chain Management, Project Operations, Commerce och Human Resources. De har en stark geografisk närvaro i Sverige med kontor i bland annat Stockholm, Göteborg och Malmö. Företaget fokuserar på att accelerera sina kunders affärer genom effektiv implementering av D365-lösningar.",
+    "ai_summary": "Implema arbetar främst med Dynamics 365 Finance & Supply Chain Management för medelstora och större svenska eller nordiska verksamheter med internationell verksamhet och komplexa flöden. Partnerns egen profil lyfter tjänsteproducerande företag, tillverkningsindustri samt life science/medtech, med behov av gemensamma processer för ekonomi, inköp, lager, produktion och leveranskedja.",
     "ai_summary_generated_at": "2026-05-07T14:44:09.058+00:00",
     "ai_profile": {
       "use_cases": [],
@@ -2088,7 +2089,12 @@
     "partner_size_tier": 2,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": null,
-    "best_fit_for": [],
+    "best_fit_for": [
+      "Medelstora och större svenska eller nordiska verksamheter",
+      "Tillverkningsindustri och life science/medtech med komplexa flöden",
+      "Tjänsteproducerande företag med behov av gemensamma processer",
+      "Internationella verksamheter inom ekonomi, inköp, lager och leveranskedja"
+    ],
     "ai_tags": [],
     "extended_competencies": {},
     "team_size_per_app": {},

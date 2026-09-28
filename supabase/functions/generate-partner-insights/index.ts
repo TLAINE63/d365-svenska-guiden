@@ -79,6 +79,16 @@ function buildPrompt(p: any): string {
   const desc = (p.description || "").slice(0, 2000);
   const extended = (p.extended_content || "").slice(0, 4000);
   const positioning = (p.positioning_statement || "").slice(0, 600);
+  const productProfiles = Object.entries(p.product_filters || {})
+    .map(([key, value]: [string, any]) => {
+      const profile = value?.deliveryProfile || {};
+      return [
+        `Produktområde: ${APP_LABELS[key] || key}`,
+        `Typiska kunder (partnerns egen text): ${(profile.typicalCustomers || "").slice(0, 1800) || "(saknas)"}`,
+        `Typiska projekt (partnerns egen text): ${(profile.typicalProjects || "").slice(0, 1400) || "(saknas)"}`,
+        `Produktbeskrivning (partnerns egen text): ${(value?.productDescription || "").slice(0, 1400) || "(saknas)"}`,
+      ].join("\n");
+    }).join("\n\n");
 
   return `Du skriver "d365.se:s analys" om en Microsoft Dynamics 365-partner på svenska. Analysen är redaktionell, neutral och köparsidig – den ska hjälpa en kund att förstå när partnern är relevant.
 
@@ -94,6 +104,8 @@ REGLER:
 - Nämn ALDRIG andra partners/konkurrenter vid namn och gör inga jämförelser med namngivna företag. Påstå inget om certifieringsnivå, designations eller antal certifierade konsulter som inte uttryckligen framgår av underlaget.
 - Nämn inte pris, konkurrenter eller exakt antal anställda.
 - "best_fit_for" ska beskriva kundtyper/situationer där partnern passar (bransch, storlek, produktområde, projekttyp).
+- KÄLLPRIORITET: Partnerns egna produktvisa texter om typiska kunder och projekt väger tyngst. Strukturerade val om storlek, bransch, produkt och geografi är kontroll och komplettering. Publika källor är endast komplettering.
+- Motsäg aldrig partnerns egen målgruppsbeskrivning utan tydligt verifierat underlag. Om partnern exempelvis skriver "medelstora och större verksamheter" ska kundsegmentet återges så, även om ett strukturerat intervall börjar vid 50.
 - "ai_tags" ska vara sökbara nyckelord (produktområden, branscher, kompetenser).
 - Ingen meta-text, inga rubriker, ingen markdown.
 
@@ -107,7 +119,9 @@ Branscher: ${industries}
 Geografi: ${geo}
 Orter med kontor: ${cities || "ej angett"}
 Plattformskompetenser: ${platforms || "ej angett"}
-Kundexempel: ${customers || "ej angett"}`;
+Kundexempel: ${customers || "ej angett"}
+Partnerns produktvisa profiltexter:
+${productProfiles || "(saknas)"}`;
 }
 
 function parseJsonLoose(text: string): any {

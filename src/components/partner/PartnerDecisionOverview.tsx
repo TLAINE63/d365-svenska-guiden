@@ -79,7 +79,19 @@ function formatSizeRange(sizes: string[]): string | null {
   return `${first.min.toLocaleString("sv-SE")}–${last.max.toLocaleString("sv-SE")} anställda`;
 }
 
-function sizeSegmentLabel(sizes: string[], isFinanceAndSupplyChain: boolean): string | null {
+function statedCustomerSegment(typicalCustomers: string | null): string | null {
+  if (!typicalCustomers) return null;
+  const text = typicalCustomers.toLocaleLowerCase("sv-SE");
+  if (/(?:medelstora|mellanstora)\s+(?:och|till)\s+(?:större|stora)/.test(text)) return "Medelstora och större företag";
+  if (/(?:små|mindre)\s+(?:och|till)\s+medelstora/.test(text)) return "Små och medelstora företag";
+  if (/stora\s+(?:och|till)\s+internationella/.test(text)) return "Stora och internationella företag";
+  if (/\bmedelstora\b/.test(text)) return "Medelstora företag";
+  if (/\bstora\b/.test(text)) return "Stora företag";
+  if (/\bsmå\b/.test(text)) return "Små företag";
+  return null;
+}
+
+function sizeSegmentLabel(sizes: string[]): string | null {
   const ordered = sizes
     .filter((s) => SIZE_ORDER.includes(s))
     .sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
@@ -90,7 +102,6 @@ function sizeSegmentLabel(sizes: string[], isFinanceAndSupplyChain: boolean): st
   if (last.max === null && first.min >= 1000) return "Stora och internationella företag";
   if (last.max === null) return "Företag i alla storlekar";
   if (last.max <= 49) return "Små företag";
-  if (isFinanceAndSupplyChain && first.min >= 50) return "Medelstora företag";
   if (last.max <= 249) return first.min >= 50 ? "Medelstora företag" : "Små och medelstora företag";
   if (first.min >= 1000) return "Stora företag";
   if (first.min >= 250) return "Medelstora och större företag";
@@ -303,10 +314,6 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
   const derivedDifferentiators = buildDifferentiators(partner).filter((d) => !partnerStated.includes(d));
   const differentiators = derivedDifferentiators;
 
-  const sizeLabel = sizeSegmentLabel(sizes, keys.includes("fsc"));
-  const sizeRange = formatSizeRange(sizes);
-  const geoLabel = formatGeography(geography);
-
   const level = supportLevel(partner);
   const supportTexts = filters
     .map(([key, f]) => ({ key, profile: f.deliveryProfile }))
@@ -329,6 +336,9 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
     filters.map(([, f]) => f.deliveryProfile?.typicalProjects).find(Boolean),
     2,
   );
+  const sizeLabel = statedCustomerSegment(typicalCustomers) || sizeSegmentLabel(sizes);
+  const sizeRange = formatSizeRange(sizes);
+  const geoLabel = formatGeography(geography);
 
   const hasOverview =
     !!sizeLabel || products.length > 0 || industries.length > 0 || !!geoLabel || projects.length > 0;
