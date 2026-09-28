@@ -89,4 +89,5 @@
 - [x] Behåll full Open Graph- och Twitter-metadata för bloggartiklar och kunskapsartiklar
 - [x] Förgenerera publicerade Partnernytt-artiklar med egen titel, beskrivning, URL och bild
 - [x] Förgenerera events med eventets titel, beskrivning, arrangör, datum och bild
-- [ ] Verifiera färdig HTML och publicera ändringen
+- [x] Verifiera metadataregler, typkontroll och byggstatus
+- [ ] Publicera ändringen (inväntar att projektet publiceras)
