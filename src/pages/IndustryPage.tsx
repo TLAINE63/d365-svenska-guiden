@@ -9,7 +9,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
 
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -613,91 +613,23 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
     <WhyTheseResults className="mb-4" />
      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
        {matchingPartners.map((p) => {
-         const partner = p as any;
+          const partner = p as import("@/hooks/usePartners").DatabasePartner;
+          const selectedProductKeys = Array.from(
+            new Set(selected.map((key) => FILTER_TO_UNDERLYING[key])),
+          );
+          const selectedProductKey = selectedProductKeys.length === 1 ? selectedProductKeys[0] : null;
+          const selectedProductLabel =
+            selected.length === 1
+              ? PRODUCT_FILTERS.find((filter) => filter.key === selected[0])?.label || null
+              : null;
          return (
            <li key={partner.id}>
-             <article className="group relative flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
-               <div className="flex items-start gap-3">
-                 {partner.logo_url ? (
-                   <img
-                     src={optimizedLogo(partner.logo_url)}
-                     alt={`${partner.name} logotyp`}
-                     loading="lazy"
-                     className="h-11 w-11 shrink-0 rounded-md object-contain bg-white p-1 ring-1 ring-border"
-                   />
-                 ) : (
-                   <div className="h-11 w-11 shrink-0 rounded-md bg-muted" />
-                 )}
-                 <div className="min-w-0 flex-1">
-                   <h3 className="truncate font-semibold text-foreground transition-colors group-hover:text-primary">
-                     <Link
-                       to={`/partner/${partner.slug}/`}
-                       className="before:absolute before:inset-0 before:content-['']"
-                     >
-                       {partner.name}
-                     </Link>
-                   </h3>
-                   <div className="mt-1">
-                     <VerifiedPartnerBadge size="sm" />
-                   </div>
-                 </div>
-               </div>
-
-               {(partner.ai_summary || partner.short_description) && (
-                 <div className="mt-3 rounded-lg bg-muted/50 p-3">
-                   <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                     {partner.ai_summary ? "d365.se:s AI-sammanfattning" : "Kort beskrivning"}
-                   </p>
-                   <p className="text-xs leading-relaxed text-foreground/90 line-clamp-6">
-                    {partner.ai_summary || partner.short_description}
-                  </p>
-                  {partner.ai_summary && (
-                    <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
-                      Kan innehålla fel och är inte granskad av partnern.
-                    </p>
-                  )}
-                </div>
-              )}
-
-              {partner.applications?.length > 0 && (
-                <div className="mt-3">
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    Dokumenterad erfarenhet
-                  </p>
-                  <div className="flex flex-wrap gap-1">
-                    {partner.applications.slice(0, 4).map((a: string) => (
-                      <Badge
-                        key={a}
-                        variant="outline"
-                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                      >
-                        {a}
-                      </Badge>
-                    ))}
-                    {partner.applications.length > 4 && (
-                      <Badge
-                        variant="outline"
-                        className="text-[10px] px-1.5 py-0 border-border text-muted-foreground"
-                      >
-                        +{partner.applications.length - 4}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {partner.geographic_scope?.length > 0 && (
-                <p className="mt-3 text-[11px] text-muted-foreground">
-                  Geografi: {partner.geographic_scope.slice(0, 3).join(", ")}
-                </p>
-              )}
-
-              <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                Se partnerprofil
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-              </span>
-
-            </article>
+              <IndustryVerifiedPartnerCard
+                partner={partner}
+                industry={industryName}
+                productKey={selectedProductKey}
+                productLabel={selectedProductLabel}
+              />
           </li>
         );
       })}
