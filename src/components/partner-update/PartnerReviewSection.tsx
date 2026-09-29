@@ -15,7 +15,7 @@ interface Item {
 interface Change { id: string; dimension_key: string; value_label: string; change_type: string; status: string; editor_note: string | null }
 interface ReviewData {
   has_bc: boolean; items: Item[]; missing: string[];
-  options: Record<string, { key: string; label: string }[]>; counts: { A: number; B: number; C: number }; changes: Change[];
+  options: Record<string, { key: string; label: string }[]>; counts: { A: number; B: number; C: number }; changes: Change[]; auto_publish?: boolean;
 }
 
 const TITLES: Record<string, string> = {
@@ -24,6 +24,14 @@ const TITLES: Record<string, string> = {
   industry_solution: "Branschlösning",
 };
 const DIMS = ["migration", "competency", "capability", "project_type", "delivery_model"];
+const HELP: Record<string, string> = {
+  migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
+  competency: "Vilka områden i Business Central har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+  capability: "Förmågor som används tillsammans med Business Central, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
+  project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
+  delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+  industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+};
 const QUALITY: Record<Item["quality"], string> = { confirmed: "Bekräftad", partner: "Partneruppgift", public: "Publik källa" };
 
 const endpoint = (a: string) => `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${a}`;
@@ -45,6 +53,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
   const [solution, setSolution] = useState<{ name: string; industry: string; description: string } | null>(null);
   const [preview, setPreview] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [published, setPublished] = useState(false);
   const [result, setResult] = useState<{ title: string; previous: string; next: string }[] | null>(null);
 
   const load = useCallback(async () => {
@@ -98,7 +107,8 @@ export function PartnerReviewSection({ token }: { token: string }) {
       });
       setResult(res.diff || []);
       setDecisions({}); setAdds({}); setSolution(null); setPreview(false); setPicker(null);
-      toast({ title: "Tack!", description: "Ändringarna har skickats till redaktionen för granskning." });
+      toast({ title: "Tack!", description: res.published ? "Ändringarna är sparade och publicerade på er profil." : "Ändringarna har skickats till redaktionen för granskning." });
+      setPublished(!!res.published);
       await load();
     } catch (e) {
       toast({ title: "Kunde inte spara", description: e instanceof Error ? e.message : "Försök igen", variant: "destructive" });
@@ -126,8 +136,10 @@ export function PartnerReviewSection({ token }: { token: string }) {
       <CardHeader>
         <CardTitle className="text-lg">Granska er Business Central-profil</CardTitle>
         <CardDescription>
-          Vi har samlat det vi redan vet om er. Ni behöver bara bekräfta, ta bort eller komplettera.
-          Allt ni ändrar granskas av d365.se innan det publiceras.
+          Vi har samlat det vi redan vet om er Business Central-verksamhet. Gå igenom de tre delarna nedan:
+          1) kontrollera det som redan är bekräftat, 2) bekräfta eller ta bort uppgifter vi hittat, 3) lägg till det som saknas.
+          Klicka sedan på "Granska ändringar" längst ner och spara.{" "}
+          {data.auto_publish ? "Era ändringar publiceras direkt på er partnerprofil." : "Allt ni ändrar granskas av d365.se innan det publiceras."}
         </CardDescription>
         <div className="flex flex-wrap gap-2 pt-2 text-xs">
           <Badge variant="secondary">Bekräftade: {data.counts.A}</Badge>
@@ -147,13 +159,13 @@ export function PartnerReviewSection({ token }: { token: string }) {
 
         <section className="space-y-2">
           <h4 className="font-semibold text-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-accent" /> Bekräftade uppgifter</h4>
-          <p className="text-xs text-muted-foreground">Ingen åtgärd krävs.</p>
+          <p className="text-xs text-muted-foreground">Ingen åtgärd krävs. Stämmer något inte längre kan ni ta bort det med krysset.</p>
           {A.length === 0 ? <p className="text-sm text-muted-foreground">Inga ännu.</p> : (
             <ul className="grid sm:grid-cols-2 gap-1.5">
               {A.map((i) => (
                 <li key={k(i)} className={`text-sm flex items-center justify-between gap-2 rounded border border-border px-2 py-1 ${decisions[k(i)] === "remove" ? "line-through opacity-60" : ""}`}>
                   <span>{i.dimension !== "base" && <span className="text-muted-foreground">{TITLES[i.dimension]}: </span>}{i.label}
-                    {i.quality === "partner" && <Badge variant="outline" className="ml-2 text-[10px]">Väntar på redaktionen</Badge>}</span>
+                    {i.quality === "partner" && !data.auto_publish && <Badge variant="outline" className="ml-2 text-[10px]">Väntar på redaktionen</Badge>}</span>
                   {i.dimension !== "base" && i.dimension !== "industry_solution" && (
                     <button type="button" aria-label={`Ta bort ${i.label}`} className="text-muted-foreground hover:text-destructive" onClick={() => setDecision(i, "remove")}>
                       <X className="w-3.5 h-3.5" />
@@ -167,6 +179,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
 
         <section className="space-y-3">
           <h4 className="font-semibold text-sm">Behöver bekräftas</h4>
+          <p className="text-xs text-muted-foreground">Uppgifter vi hittat i er tidigare profil eller publika källor. Välj Bekräfta om det stämmer, Ta bort om det inte gör det, eller Ändra för att välja något annat.</p>
           {B.length === 0 ? <p className="text-sm text-muted-foreground">Inget att bekräfta just nu.</p> : B.map((i) => (
             <div key={k(i)} className="rounded-lg border border-border p-3 space-y-2">
               <div className="flex flex-wrap items-start justify-between gap-2">
@@ -191,11 +204,13 @@ export function PartnerReviewSection({ token }: { token: string }) {
 
         <section className="space-y-3">
           <h4 className="font-semibold text-sm">Saknas</h4>
+          <p className="text-xs text-muted-foreground">Områden där vi inte har några uppgifter. Klicka på Lägg till och välj de alternativ som stämmer. Hoppa över det som inte är relevant.</p>
           {data.missing.length === 0 && <p className="text-sm text-muted-foreground">Inget saknas.</p>}
           {data.missing.map((d) => (
             <div key={d} className="rounded-lg border border-dashed border-border p-3">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium">{TITLES[d]} <span className="text-xs text-muted-foreground font-normal">Ej angiven</span></p>
+                <div><p className="text-sm font-medium">{TITLES[d]} <span className="text-xs text-muted-foreground font-normal">Ej angiven</span></p>
+                  {HELP[d] && <p className="text-xs text-muted-foreground mt-0.5">{HELP[d]}</p>}</div>
                 {d === "industry_solution" ? (
                   <Button type="button" size="sm" variant="outline" onClick={() => setSolution(solution ? null : { name: "", industry: "", description: "" })}>
                     <Plus className="w-3.5 h-3.5 mr-1" /> Lägg till
@@ -225,7 +240,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
             <summary className="cursor-pointer text-muted-foreground">Lägg till något annat</summary>
             <div className="space-y-3 mt-2">
               {DIMS.filter((d) => !data.missing.includes(d)).map((d) => (
-                <div key={d}><p className="text-xs font-medium">{TITLES[d]}</p><Picker dim={d} /></div>
+                <div key={d}><p className="text-xs font-medium">{TITLES[d]}</p>{HELP[d] && <p className="text-xs text-muted-foreground">{HELP[d]}</p>}<Picker dim={d} /></div>
               ))}
             </div>
           </details>
@@ -247,19 +262,19 @@ export function PartnerReviewSection({ token }: { token: string }) {
                   </div>
                 ))}
                 <div className="flex gap-2">
-                  <Button type="button" onClick={submit} disabled={saving}>{saving && <Loader2 className="w-4 h-4 mr-1 animate-spin" />}Skicka till redaktionen</Button>
+                  <Button type="button" onClick={submit} disabled={saving}>{saving && <Loader2 className="w-4 h-4 mr-1 animate-spin" />}{data.auto_publish ? "Spara och publicera" : "Skicka till redaktionen"}</Button>
                   <Button type="button" variant="ghost" onClick={() => setPreview(false)}>Tillbaka</Button>
                 </div>
               </>
             ) : (
-              <Button type="button" onClick={() => setPreview(true)}>Granska {diff.length} ändring(ar)</Button>
+              <Button type="button" onClick={() => setPreview(true)}>Granska ändringar ({diff.length})</Button>
             )}
           </div>
         )}
 
         {result && result.length > 0 && (
           <div className="rounded-lg bg-muted/40 p-3 text-sm space-y-1">
-            <p className="font-semibold">Skickat för granskning</p>
+            <p className="font-semibold">{published ? "Sparat och publicerat" : "Skickat för granskning"}</p>
             {result.map((x, i) => <p key={i}><strong>{x.title}:</strong> {x.previous} → {x.next}</p>)}
           </div>
         )}
