@@ -4,7 +4,7 @@
  * Används inte för ranking, matchning eller AI.
  */
 
-export type BcAttributeType = "migration" | "competency" | "project_type" | "delivery_model";
+export type BcAttributeType = "migration" | "competency" | "project_type" | "delivery_model" | "capability";
 
 export interface Option { key: string; label: string }
 
@@ -33,9 +33,6 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "retail_ecommerce", label: "Retail och e-handel" },
     { key: "edi", label: "EDI" },
     { key: "integrations_api", label: "Integrationer och API" },
-    { key: "reporting_power_bi", label: "Rapportering och Power BI" },
-    { key: "power_platform_bc", label: "Power Platform i anslutning till Business Central" },
-    { key: "copilot_bc", label: "Copilot i Business Central" },
     { key: "multi_company", label: "Flerbolagsmiljö" },
     { key: "international", label: "Internationell verksamhet" },
   ],
@@ -58,6 +55,12 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "maintenance_partner", label: "Förvaltningspartner" },
     { key: "managed_services", label: "Managed Services" },
   ],
+  // Tvärgående förmågor (sparas som partner_product_capabilities, nyckel = product_catalog.product_key)
+  capability: [
+    { key: "power-bi", label: "Power BI" },
+    { key: "power-platform", label: "Power Platform" },
+    { key: "copilot", label: "Copilot" },
+  ],
 };
 
 export const BC_GROUP_TITLES: Record<BcAttributeType, { title: string; desc: string }> = {
@@ -65,6 +68,7 @@ export const BC_GROUP_TITLES: Record<BcAttributeType, { title: string; desc: str
   competency: { title: "Business Central-kompetens", desc: "Inom vilka områden har ni dokumenterad kompetens?" },
   project_type: { title: "Typiska projekt", desc: "Vilka typer av Business Central-projekt gör ni oftast?" },
   delivery_model: { title: "Leveransmodell", desc: "Hur erbjuder ni att starta och leverera?" },
+  capability: { title: "Tvärgående förmågor", desc: "Vilka förmågor levererar ni tillsammans med Business Central?" },
 };
 
 export const VERIFICATION_STATUSES = [
@@ -94,12 +98,13 @@ export interface StructuredProfile {
   competency: string[];
   project_type: string[];
   delivery_model: string[];
+  capability: string[];
   has_industry_solution: boolean | null;
   industry_solutions: IndustrySolution[];
 }
 
 export const EMPTY_STRUCTURED_PROFILE: StructuredProfile = {
-  migration: [], competency: [], project_type: [], delivery_model: [],
+  migration: [], competency: [], project_type: [], delivery_model: [], capability: [],
   has_industry_solution: null, industry_solutions: [],
 };
 
@@ -116,6 +121,7 @@ export function normalizeStructuredProfile(raw: unknown): StructuredProfile {
     competency: pick(r.competency, "competency"),
     project_type: pick(r.project_type, "project_type"),
     delivery_model: pick(r.delivery_model, "delivery_model"),
+    capability: pick(r.capability, "capability"),
     has_industry_solution: typeof r.has_industry_solution === "boolean" ? r.has_industry_solution : null,
     industry_solutions: sols
       .filter((s): s is Record<string, unknown> => !!s && typeof s === "object")

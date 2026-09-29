@@ -152,13 +152,15 @@ function base64UrlDecode(str: string): Uint8Array {
 
 const SP_LISTS: Record<string, string[]> = {
   migration: ["nav","bc_onprem","bc_other_environment","visma","monitor","pyramid","jeeves","sap_business_one","fortnox","other_erp"],
-  competency: ["finance_accounting","purchasing","sales_order","warehouse_logistics","distribution_wholesale","manufacturing","projects","service_management","retail_ecommerce","edi","integrations_api","reporting_power_bi","power_platform_bc","copilot_bc","multi_company","international"],
+  competency: ["finance_accounting","purchasing","sales_order","warehouse_logistics","distribution_wholesale","manufacturing","projects","service_management","retail_ecommerce","edi","integrations_api","multi_company","international"],
   project_type: ["new_implementation","migration","upgrade","maintenance_support","rescue","system_consolidation","multi_company_implementation","international_rollout"],
   delivery_model: ["fixed_price_start","quickstart_package","proof_of_concept","phased_implementation","traditional_project","maintenance_partner","managed_services"],
 };
+const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot"];
 function sanitizeStructured(raw: any) {
   const r = raw && typeof raw === "object" ? raw : {};
   const out: Record<string, any> = {};
+  out.capability = Array.isArray(r.capability) ? [...new Set(r.capability.filter((x: unknown) => typeof x === "string" && CAPABILITY_KEYS.includes(x as string)))] : [];
   for (const [k, allowed] of Object.entries(SP_LISTS)) {
     out[k] = Array.isArray(r[k]) ? [...new Set(r[k].filter((x: unknown) => typeof x === "string" && allowed.includes(x as string)))] : [];
   }
@@ -213,6 +215,22 @@ async function writePartnerBcProposals(supabase: any, partnerId: string, applica
     const { error } = await supabase.from("partner_product_attributes").insert(inserts);
     if (error) console.error("product attributes insert:", error);
   }
+  // Tvärgående förmågor -> partner_product_capabilities (opublicerat)
+  const { data: capProds } = await supabase.from("product_catalog").select("id, product_key").in("product_key", CAPABILITY_KEYS);
+  const capId = new Map((capProds || []).map((c: any) => [c.product_key, c.id]));
+  const { data: exCaps } = await supabase.from("partner_product_capabilities")
+    .select("id, capability_product_id, verification_status, is_published").eq("partner_product_profile_id", profileId);
+  const hasCap = new Set((exCaps || []).map((c: any) => c.capability_product_id));
+  const wantCap = new Set(sp.capability.map((k: string) => capId.get(k)).filter(Boolean));
+  const capDel = (exCaps || []).filter((c: any) => !wantCap.has(c.capability_product_id)
+    && c.verification_status === "partner_verified" && !c.is_published).map((c: any) => c.id);
+  if (capDel.length) await supabase.from("partner_product_capabilities").delete().in("id", capDel);
+  const capIns = [...wantCap].filter((id) => !hasCap.has(id)).map((id) => ({ partner_product_profile_id: profileId,
+    capability_product_id: id, verification_status: "partner_verified", source_type: "partner", verified_by: "partner", verified_at: today, is_published: false }));
+  if (capIns.length) {
+    const { error } = await supabase.from("partner_product_capabilities").insert(capIns);
+    if (error) console.error("capabilities insert:", error);
+  }
   if (sp.has_industry_solution !== null) {
     await supabase.from("partner_industry_solutions").delete()
       .eq("profile_id", profileId).eq("partner_verified", true).eq("editorial_verified", false).eq("is_published", false);
@@ -232,11 +250,13 @@ async function readPartnerBc(supabase: any, partnerId: string) {
     .select("id, product_catalog!inner(product_key)").eq("partner_id", partnerId)
     .eq("product_catalog.product_key", "business-central").maybeSingle();
   if (!prof) return null;
-  const [{ data: attrs }, { data: sols }] = await Promise.all([
+  const [{ data: attrs }, { data: sols }, { data: caps }] = await Promise.all([
     supabase.from("partner_product_attributes").select("option:product_attribute_options!inner(dimension_key, attribute_key)").eq("partner_product_profile_id", prof.id),
     supabase.from("partner_industry_solutions").select("id, name, description, industries").eq("profile_id", prof.id),
+    supabase.from("partner_product_capabilities").select("cap:product_catalog!inner(product_key)").eq("partner_product_profile_id", prof.id),
   ]);
   const out: Record<string, any> = { migration: [], competency: [], project_type: [], delivery_model: [] };
+  out.capability = (caps || []).map((c: any) => c.cap?.product_key).filter((k: string) => CAPABILITY_KEYS.includes(k));
   for (const a of attrs || []) out[a.option?.dimension_key]?.push(a.option?.attribute_key);
   out.industry_solutions = (sols || []).map((s: any) => ({ id: s.id, name: s.name, description: s.description || "", industry: s.industries?.[0] || "" }));
   out.has_industry_solution = out.industry_solutions.length ? true : null;
