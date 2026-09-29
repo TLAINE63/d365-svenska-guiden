@@ -215,9 +215,9 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
               <CardHeader className="flex flex-row items-start justify-between gap-2">
                 <div>
                   <CardTitle className="text-lg">{detail.partner.name}</CardTitle>
-                  <CardDescription>
+                  <div className="text-sm text-muted-foreground">
                     {PRODUCT_LABELS[detailProduct]} · Status: {detail.profile_status} · A {detail.counts.A} · B {detail.counts.B} · C {detail.counts.C}
-                  </CardDescription>
+                  </div>
                   <div className="flex flex-wrap gap-1 pt-2">
                     {PRODUCT_KEYS.filter((k) => {
                       const row = overview?.rows?.find((x: any) => x.partner_id === detail.partner.id);
@@ -242,7 +242,7 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
                   </div>
                 ))}
                 {detail.missing.length > 0 && (
-                  <p><Badge variant="outline">C</Badge> Saknas: {detail.missing.map((d: string) => titleFor(d, detailProduct)).join(", ")}</p>
+                  <div><Badge variant="outline">C</Badge> Saknas: {detail.missing.map((d: string) => titleFor(d, detailProduct)).join(", ")}</div>
                 )}
               </CardContent>
             </Card>
