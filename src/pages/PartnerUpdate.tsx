@@ -1259,12 +1259,6 @@ const PartnerUpdate = () => {
                 </p>
               );
             })()}
-            {invitation?.partner_id && (
-              <Button type="button" variant="outline" size="sm" className="mt-3"
-                onClick={() => document.getElementById("bc-review")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
-                Gå till granskning av Business Central-profilen ↓
-              </Button>
-            )}
           </CardContent>
         </Card>
 
@@ -2387,6 +2381,15 @@ const PartnerUpdate = () => {
      </>
    );
  })()}
+  {productKey === "bc" && (
+    <div className="border-t border-border pt-6 mt-6">
+      {invitation?.partner_id && token ? (
+        <PartnerReviewSection token={token} />
+      ) : (
+        <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+      )}
+    </div>
+  )}
  </CardContent>
  </Card>
  );
@@ -2411,15 +2414,6 @@ const PartnerUpdate = () => {
      onChange={setCompetencyInput}
    />
  </PremiumCollapsibleSection>
-
- <div className="my-4 scroll-mt-24" id="bc-review">
-   {invitation?.partner_id && token ? (
-     <PartnerReviewSection token={token} />
-   ) : (
-     <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
-   )}
- </div>
-
 
  {/* Products Section */}
 
