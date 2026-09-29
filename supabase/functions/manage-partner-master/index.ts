@@ -195,13 +195,13 @@ serve(async (req) => {
       const { data: profiles } = await sb.from("partner_product_profiles").select("id, partner_id, verification_status, verified_at, is_published").eq("product_id", bc!.id).in("partner_id", ids);
       const pids = (profiles || []).map((p: any) => p.id);
       const [{ data: attrs }, { data: sols }] = await Promise.all([
-        pids.length ? sb.from("partner_bc_attributes").select("profile_id, attribute_type, verification_status").in("profile_id", pids) : Promise.resolve({ data: [] }),
+        pids.length ? sb.from("partner_product_attributes").select("profile_id:partner_product_profile_id, verification_status, option:product_attribute_options!inner(dimension_key)").in("partner_product_profile_id", pids) : Promise.resolve({ data: [] }),
         pids.length ? sb.from("partner_industry_solutions").select("profile_id").in("profile_id", pids) : Promise.resolve({ data: [] }),
       ]);
       const rows = (partners || []).map((p: any) => {
         const prof = (profiles || []).find((x: any) => x.partner_id === p.id) || null;
         const a = (attrs || []).filter((x: any) => x.profile_id === prof?.id);
-        const count = (t: string) => a.filter((x: any) => x.attribute_type === t).length;
+        const count = (t: string) => a.filter((x: any) => x.option?.dimension_key === t).length;
         const bcText = p.product_profiles?.["Business Central"] || null;
         const examples = Array.isArray(p.customer_examples) ? p.customer_examples.filter((e: any) => !e?.application || e.application === "Business Central") : [];
         const missing = [
