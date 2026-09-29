@@ -182,7 +182,7 @@ export function PartnerReviewSection({ token, productKey = "bc", scope = "produc
       <CardHeader>
         <CardTitle className="text-lg">{scope === "capability" ? "Tvärgående förmågor (hela partnern)" : `Granska er ${data.product_label}-profil`}</CardTitle>
         <CardDescription>
-          {scope === "capability" ? "Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter gäller hela er organisation och alla era produktområden, så de anges bara här en gång." : `Vi har samlat det vi redan vet om er ${data.product_label}-verksamhet.`} Gå igenom de tre delarna nedan:
+          {scope === "capability" ? "Power BI, Power Platform samt Copilot Studio och AI-agenter gäller hela er organisation och alla era produktområden, så de anges bara här en gång." : `Vi har samlat det vi redan vet om er ${data.product_label}-verksamhet.`} Gå igenom de tre delarna nedan:
           1) kontrollera det som redan är bekräftat, 2) bekräfta eller ta bort uppgifter vi hittat, 3) lägg till det som saknas.
           Klicka sedan på "Granska ändringar" längst ner och spara.{" "}
           {data.auto_publish ? "Era ändringar publiceras direkt på er partnerprofil." : "Allt ni ändrar granskas av d365.se innan det publiceras."}
