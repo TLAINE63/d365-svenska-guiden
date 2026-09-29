@@ -15,7 +15,7 @@ interface Props {
   onChange: (v: StructuredProfile) => void;
 }
 
-const GROUPS: BcAttributeType[] = ["migration", "competency", "project_type", "delivery_model"];
+const GROUPS: BcAttributeType[] = ["migration", "competency", "capability", "project_type", "delivery_model"];
 
 export function StructuredProfileSection({ value, onChange }: Props) {
   const toggle = (key: BcAttributeType, opt: string) =>
