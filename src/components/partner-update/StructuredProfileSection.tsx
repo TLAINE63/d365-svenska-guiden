@@ -7,40 +7,22 @@ import { Button } from "@/components/ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import {
-  MIGRATION_SOURCES, BC_COMPETENCIES, PROJECT_TYPES, DELIVERY_MODELS,
-  type StructuredProfile,
+  BC_OPTIONS, BC_GROUP_TITLES, type BcAttributeType, type StructuredProfile,
 } from "@/data/structuredPartnerProfile";
-
-type ListKey = "migration_experience" | "bc_competencies" | "project_types" | "delivery_models";
 
 interface Props {
   value: StructuredProfile;
   onChange: (v: StructuredProfile) => void;
 }
 
+const GROUPS: BcAttributeType[] = ["migration", "competency", "project_type", "delivery_model"];
+
 export function StructuredProfileSection({ value, onChange }: Props) {
-  const toggle = (key: ListKey, opt: string) =>
+  const toggle = (key: BcAttributeType, opt: string) =>
     onChange({
       ...value,
       [key]: value[key].includes(opt) ? value[key].filter((x) => x !== opt) : [...value[key], opt],
     });
-
-  const group = (key: ListKey, title: string, desc: string, options: readonly string[]) => (
-    <div className="space-y-2">
-      <div>
-        <h4 className="font-semibold text-sm text-foreground">{title}</h4>
-        <p className="text-xs text-muted-foreground">{desc}</p>
-      </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {options.map((o) => (
-          <label key={o} className="flex items-center gap-2 text-sm cursor-pointer">
-            <Checkbox checked={value[key].includes(o)} onCheckedChange={() => toggle(key, o)} />
-            {o}
-          </label>
-        ))}
-      </div>
-    </div>
-  );
 
   const sols = value.industry_solutions;
   const setSol = (i: number, patch: Partial<StructuredProfile["industry_solutions"][number]>) =>
@@ -49,17 +31,29 @@ export function StructuredProfileSection({ value, onChange }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Strukturerad profil</CardTitle>
+        <CardTitle className="text-lg">Strukturerad Business Central-profil</CardTitle>
         <CardDescription>
-          Kryssa i det som stämmer. Uppgifterna hjälper köpare att förstå er erfarenhet och används inte
-          för köpt placering.
+          Kryssa i det som stämmer för er Business Central-verksamhet. Uppgifterna granskas av d365.se
+          innan de publiceras och ger ingen köpt placering.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {group("migration_experience", "Migreringserfarenhet", "Från vilka system har ni migrerat kunder?", MIGRATION_SOURCES)}
-        {group("bc_competencies", "Business Central-kompetens", "Vilka områden har ni dokumenterad kompetens inom?", BC_COMPETENCIES)}
-        {group("project_types", "Typiska projekt", "Vilka typer av projekt gör ni oftast?", PROJECT_TYPES)}
-        {group("delivery_models", "Leveransmodell", "Hur erbjuder ni att starta och leverera?", DELIVERY_MODELS)}
+        {GROUPS.map((g) => (
+          <div key={g} className="space-y-2">
+            <div>
+              <h4 className="font-semibold text-sm text-foreground">{BC_GROUP_TITLES[g].title}</h4>
+              <p className="text-xs text-muted-foreground">{BC_GROUP_TITLES[g].desc}</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {BC_OPTIONS[g].map((o) => (
+                <label key={o.key} className="flex items-center gap-2 text-sm cursor-pointer">
+                  <Checkbox checked={value[g].includes(o.key)} onCheckedChange={() => toggle(g, o.key)} />
+                  {o.label}
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
 
         <div className="space-y-3">
           <h4 className="font-semibold text-sm text-foreground">Har ni en egen branschlösning?</h4>

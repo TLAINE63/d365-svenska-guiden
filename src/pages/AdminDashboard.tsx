@@ -119,6 +119,7 @@ import AdminProductPricesTab from "@/components/AdminProductPricesTab";
 import AdminMarketReportTab from "@/components/AdminMarketReportTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
+import AdminPartnerMasterTab from "@/components/AdminPartnerMasterTab";
 import AdminDataGapsTab from "@/components/AdminDataGapsTab";
 import AdminContentGapsTab from "@/components/AdminContentGapsTab";
 import AdminBasicPartnersTab from "@/components/AdminBasicPartnersTab";
@@ -2405,6 +2406,12 @@ Thomas`,
   </span>
   Datakvalitet
   </TabsTrigger>
+ <TabsTrigger value="partner-master" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+  <Building2 className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
+  </span>
+  Partnerdata (master)
+  </TabsTrigger>
  <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
  <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
@@ -3425,6 +3432,10 @@ Thomas`,
   </TabsContent>
 
 
+
+  <TabsContent value="partner-master" className="space-y-6">
+    <AdminPartnerMasterTab token={token || null} onSessionExpired={logout} />
+  </TabsContent>
 
  {/* ==================== INVITATIONS TAB ==================== */}
  <TabsContent value="invitations">

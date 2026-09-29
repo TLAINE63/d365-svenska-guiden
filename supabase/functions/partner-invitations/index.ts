@@ -151,25 +151,88 @@ function base64UrlDecode(str: string): Uint8Array {
 
 
 const SP_LISTS: Record<string, string[]> = {
-  migration_experience: ["NAV / Navision","Business Central On-Prem","Visma","Monitor","Pyramid","Jeeves","SAP Business One","Fortnox","Annat ERP"],
-  bc_competencies: ["Ekonomi","Redovisning","Inköp","Order","Lager","Distribution","Produktion","Projekt","Service","E-handel","EDI","Integrationer","Power BI","Power Platform","Copilot","Flerbolag","Internationellt"],
-  project_types: ["Nyimplementation","Migrering","Uppgradering","Förvaltning","Rescue-projekt","Internationell utrullning"],
-  delivery_models: ["Fastprisstart","Snabbstartspaket","Proof of Concept","Successiv implementation","Förvaltningspartner"],
+  migration: ["nav","bc_onprem","bc_other_environment","visma","monitor","pyramid","jeeves","sap_business_one","fortnox","other_erp"],
+  competency: ["finance_accounting","purchasing","sales_order","warehouse_logistics","distribution_wholesale","manufacturing","projects","service_management","retail_ecommerce","edi","integrations_api","reporting_power_bi","power_platform_bc","copilot_bc","multi_company","international"],
+  project_type: ["new_implementation","migration","upgrade","maintenance_support","rescue","system_consolidation","multi_company_implementation","international_rollout"],
+  delivery_model: ["fixed_price_start","quickstart_package","proof_of_concept","phased_implementation","traditional_project","maintenance_partner","managed_services"],
 };
 function sanitizeStructured(raw: any) {
   const r = raw && typeof raw === "object" ? raw : {};
-  const out: Record<string, unknown> = {};
+  const out: Record<string, any> = {};
   for (const [k, allowed] of Object.entries(SP_LISTS)) {
-    out[k] = Array.isArray(r[k]) ? r[k].filter((x: unknown) => typeof x === "string" && allowed.includes(x)) : [];
+    out[k] = Array.isArray(r[k]) ? [...new Set(r[k].filter((x: unknown) => typeof x === "string" && allowed.includes(x as string)))] : [];
   }
   out.has_industry_solution = typeof r.has_industry_solution === "boolean" ? r.has_industry_solution : null;
   out.industry_solutions = out.has_industry_solution && Array.isArray(r.industry_solutions)
     ? r.industry_solutions.slice(0, 10).map((x: any) => ({
-        name: String(x?.name ?? "").slice(0, 120),
+        name: String(x?.name ?? "").trim().slice(0, 120),
         description: String(x?.description ?? "").slice(0, 800),
         industry: String(x?.industry ?? "").slice(0, 120),
-      })).filter((x: any) => x.name.trim())
+      })).filter((x: any) => x.name)
     : [];
+  return out;
+}
+
+// Partnerns förslag -> mastermodellen (opublicerat; redaktionen publicerar)
+async function writePartnerBcProposals(supabase: any, partnerId: string, applications: string[], raw: any) {
+  if (!raw || !applications?.includes("Business Central")) return;
+  const sp = sanitizeStructured(raw);
+  const { data: prod } = await supabase.from("product_catalog").select("id").eq("product_key", "business-central").single();
+  if (!prod) return;
+  const { data: prof } = await supabase.from("partner_product_profiles")
+    .upsert({ partner_id: partnerId, product_id: prod.id }, { onConflict: "partner_id,product_id", ignoreDuplicates: true })
+    .select("id").maybeSingle();
+  let profileId = prof?.id;
+  if (!profileId) {
+    const { data: ex } = await supabase.from("partner_product_profiles").select("id").eq("partner_id", partnerId).eq("product_id", prod.id).single();
+    profileId = ex?.id;
+  }
+  if (!profileId) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const { data: existing } = await supabase.from("partner_bc_attributes")
+    .select("id, attribute_type, value_key, verification_status, is_published").eq("profile_id", profileId);
+  const has = new Set((existing || []).map((e: any) => `${e.attribute_type}:${e.value_key}`));
+  const wanted = new Set<string>();
+  const inserts: any[] = [];
+  for (const t of Object.keys(SP_LISTS)) for (const v of sp[t]) {
+    wanted.add(`${t}:${v}`);
+    if (!has.has(`${t}:${v}`)) inserts.push({ profile_id: profileId, attribute_type: t, value_key: v,
+      verification_status: "partner_verified", verified_by: "partner", verified_at: today, is_published: false });
+  }
+  const toDelete = (existing || []).filter((e: any) => !wanted.has(`${e.attribute_type}:${e.value_key}`)
+    && e.verification_status === "partner_verified" && !e.is_published).map((e: any) => e.id);
+  if (toDelete.length) await supabase.from("partner_bc_attributes").delete().in("id", toDelete);
+  if (inserts.length) {
+    const { error } = await supabase.from("partner_bc_attributes").insert(inserts);
+    if (error) console.error("bc attributes insert:", error);
+  }
+  if (sp.has_industry_solution !== null) {
+    await supabase.from("partner_industry_solutions").delete()
+      .eq("profile_id", profileId).eq("partner_verified", true).eq("editorial_verified", false).eq("is_published", false);
+    if (sp.industry_solutions.length) {
+      const { error } = await supabase.from("partner_industry_solutions").insert(sp.industry_solutions.map((s: any) => ({
+        profile_id: profileId, name: s.name, description: s.description || null,
+        industries: s.industry ? [s.industry] : [], solution_type: "own",
+        partner_verified: true, verified_at: today, is_published: false,
+      })));
+      if (error) console.error("industry solutions insert:", error);
+    }
+  }
+}
+
+async function readPartnerBc(supabase: any, partnerId: string) {
+  const { data: prof } = await supabase.from("partner_product_profiles")
+    .select("id, product_catalog!inner(product_key)").eq("partner_id", partnerId)
+    .eq("product_catalog.product_key", "business-central").maybeSingle();
+  if (!prof) return null;
+  const [{ data: attrs }, { data: sols }] = await Promise.all([
+    supabase.from("partner_bc_attributes").select("attribute_type, value_key").eq("profile_id", prof.id),
+    supabase.from("partner_industry_solutions").select("id, name, description, industries").eq("profile_id", prof.id),
+  ]);
+  const out: Record<string, any> = { migration: [], competency: [], project_type: [], delivery_model: [] };
+  for (const a of attrs || []) out[a.attribute_type]?.push(a.value_key);
+  out.industry_solutions = (sols || []).map((s: any) => ({ id: s.id, name: s.name, description: s.description || "", industry: s.industries?.[0] || "" }));
+  out.has_industry_solution = out.industry_solutions.length ? true : null;
   return out;
 }
 
@@ -246,12 +309,11 @@ serve(async (req: Request): Promise<Response> => {
             positioning_statement, delivery_profile, team_size_sweden,
             implementations_done, implementations_per_app, team_size_per_app, not_a_fit, key_differentiators, key_differentiators_source, ai_profile, product_profiles,
             extended_competencies, extended_competency_input,
-            structured_profile, data_verified_at, data_verified_by,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
           .single();
-        existingData = partner;
+        existingData = partner ? { ...partner, structured_profile: await readPartnerBc(supabase, partner.id) } : partner;
       } else if (invitation.status === "submitted" || invitation.status === "approved") {
         // For new partners that were already submitted, fetch from the latest submission
         const { data: latestSubmission } = await supabase
@@ -355,7 +417,6 @@ serve(async (req: Request): Promise<Response> => {
         team_size_per_app: submissionData.team_size_per_app || {},
           team_size_per_app: submissionData.team_size_per_app || {},
           extended_competency_input: competencyInput,
-          structured_profile: sanitizeStructured(submissionData.structured_profile),
         });
 
       // Handle events if provided
@@ -456,9 +517,6 @@ serve(async (req: Request): Promise<Response> => {
         key_differentiators: submissionData.key_differentiators || [],
         key_differentiators_source: (submissionData.key_differentiators || []).length ? "partner" : "d365",
         extended_competency_input: competencyInput,
-        structured_profile: sanitizeStructured(submissionData.structured_profile),
-        data_verified_at: new Date().toISOString().slice(0, 10),
-        data_verified_by: "partner",
         updated_at: new Date().toISOString(),
       };
 
@@ -494,6 +552,11 @@ serve(async (req: Request): Promise<Response> => {
             .update({ partner_id: partnerId })
             .eq("id", invitation.id);
         }
+      }
+
+      if (partnerId) {
+        try { await writePartnerBcProposals(supabase, partnerId, submissionData.applications || [], submissionData.structured_profile); }
+        catch (e) { console.error("bc proposals:", e); }
       }
 
       // Update invitation status to approved (auto-approved)
