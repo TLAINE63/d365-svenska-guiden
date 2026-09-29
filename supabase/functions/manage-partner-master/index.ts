@@ -245,7 +245,7 @@ serve(async (req) => {
     }
     if (action === "review-changes") {
       const status = ["pending", "clarification", "approved", "rejected"].includes(body.status) ? body.status : "pending";
-      const { data, error } = await sb.from("partner_review_changes").select("*, partner:partners(name, slug)")
+      const { data, error } = await sb.from("partner_review_changes").select("*, partner:partners(name, slug), profile:partner_product_profiles(product_id, product:product_catalog(product_key, name))")
         .eq("status", status).order("created_at", { ascending: false }).limit(300);
       if (error) return json({ error: error.message }, 400);
       return json({ changes: data });
