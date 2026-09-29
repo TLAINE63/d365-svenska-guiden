@@ -2368,21 +2368,14 @@
     "website": "https://www.knowit.se/vart-erbjudande/solutions/",
     "email": "Johan.Svenungsson@knowit.se",
     "contact_person": "Johan Svenungsson",
-    "contact_photo_url": null,
+    "contact_photo_url": "",
     "phone": "0704105749",
     "applications": [
-      "Finance",
-      "Supply Chain Management"
+      "F&SCM"
     ],
-    "industries": [
-      "Tillverkningsindustri",
-      "Grossist & Distribution"
-    ],
+    "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige",
-      "Norden"
-    ],
+    "geography": [],
     "product_filters": {
       "fsc": {
         "ranking": 1,
@@ -2406,7 +2399,7 @@
           "250-999",
           "1.000-4.999"
         ],
-        "contactName": "Johan Svennungsson",
+        "contactName": "Johan Svenungsson",
         "contactEmail": "Johan.Svenungsson@knowit.se",
         "contactPhone": "+46 704 105749",
         "swedenCities": [
@@ -2428,10 +2421,10 @@
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
-        "landingPageUrl": "",
+        "landingPageUrl": "https://www.knowit.se/vart-erbjudande/affarssystem-erp/microsoft-dynamics-365/",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
-        "contactPhotoUrl": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/knowit-contact-fsc.png?t=1790693102564",
         "deliveryProfile": {
           "suggestions": {
             "generatedAt": "2026-08-21T10:17:46.501Z",
@@ -2479,7 +2472,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Knowit+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-24T14:54:55.227809+00:00",
+    "updated_at": "2026-09-29T14:49:38.920959+00:00",
     "industry_pitches": [
       {
         "text": "Knowit bistår organisationer inom grossist- och distributionsbranschen med att utveckla och modernisera sina affärssystem baserade på Microsoft Dynamics 365. Genom att implementera och optimera applikationer som Dynamics 365 Finance och Supply Chain Management, strävar Knowit efter att förbättra verksamhetsprocesser, datainsamling och automatisering. De fokuserar på att integrera ERP-system med data och intelligenta arbetsflöden för att möjliggöra effektivare beslutsfattande och en mer hållbar verksamhetsutveckling. Knowit har kompetens att anpassa lösningar för att möta branschens krav på optimerade leveranskedjor och finansiell kontroll, vilket kan stödja grossister och distributörer i en konkurrensutsatt marknad.",
@@ -2594,7 +2587,7 @@
       "Kundcase inom tillverkning, grossist/distribution, energi och handel",
       "Kontor i Stockholm, Göteborg och Malmö"
     ],
-    "key_differentiators_source": "d365",
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att Knowit är en omfattande nordisk konsultgrupp med en uttalad satsning på Dynamics 365 Finance & Supply Chain Management i Sverige. Partnern kombinerar ERP-strategi, implementering och förvaltning med expertis inom Data & AI, Power Platform, cybersäkerhet och management consulting. Detta positionerar Knowit som en partner för medelstora och större organisationer som ser ERP som en del av en bredare verksamhets- och ledningstransformation.\nInnehållet indikerar att Knowit har uppnått Microsoft Cloud Partner-status i alla sex designated areas och har nyligen utsetts till Microsoft Partner of the Year inom AI Business Solutions – Process. Partnerns erbjudande lämpar sig särskilt för tillverkningsindustrin samt grossist- och distributionsbranschen. En tydlig styrka är förmågan att integrera ERP med intelligenta arbetssätt, vilket inkluderar AI, för att stödja effektivare processer och beslutsfattande.\nPublikt material framhåller också att Knowit fokuserar på att modernisera affärssystem med ERP som ett nav för processer, data, AI och automatisering på Microsofts plattform. Exempel visar på arbete med kunder inom olika branscher, inklusive offentlig sektor, och att de bygger lösningar som skapar värde genom digital innovation.",
     "public_focus_tags": [
       "Dynamics 365 Finance",
