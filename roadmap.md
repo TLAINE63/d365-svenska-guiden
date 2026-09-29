@@ -123,3 +123,10 @@
 - [x] Visa gemensamt premiumkort på CRM-sidan
 - [x] Ge alla premiumkort CTA för profil, shortlist och introduktion
 - [x] Kontrollera produktsidorna och CTA-flödena på dator och mobil
+
+## Rollstyrd vägledning under Guider (2026-09-29)
+- [x] Lägg Välj din roll under Guider i dator- och mobilmenyn
+- [x] Skapa `/roller/` med VD, CFO, COO och IT-chef
+- [x] Återanvänd befintliga områden, guider och partnerlistor
+- [x] Mät visningar, rollval och vidare klick anonymt
+- [x] Kontrollera alla fyra roller på dator och mobil

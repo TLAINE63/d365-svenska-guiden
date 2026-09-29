@@ -209,6 +209,11 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <Link to="/roller/" className="cursor-pointer font-medium text-primary">
+                    Välj din roll
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/kompetens/" className="cursor-pointer">
                     Hitta rätt Dynamics 365-kompetens
                   </Link>
@@ -372,6 +377,9 @@ const Navbar = () => {
                   <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
                   <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Översikt – alla guider
+                  </Link>
+                  <Link to="/roller/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                    Välj din roll
                   </Link>
                   <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Hitta rätt Dynamics 365-kompetens

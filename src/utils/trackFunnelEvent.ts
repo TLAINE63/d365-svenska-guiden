@@ -42,7 +42,8 @@ export type FunnelEventType =
   | "content_view"
   | "journey"
   | "engagement"
-  | "competence";
+  | "competence"
+  | "role_guidance";
 
 /** Fasta steg i köparresan. */
 export type FunnelStep =
