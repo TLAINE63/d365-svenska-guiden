@@ -13,7 +13,7 @@ export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilo
 // Särskilda projekt och leveransformer efterfrågas inte för F&SCM (beslut 2026-09-29:
 // alla F&SCM-partners skulle kryssa i allt; dimensionen är främst relevant för BC).
 export function dimsForProduct(productKey: string): string[] {
-  return REVIEW_DIMENSIONS.filter((d) => !(productKey === "fsc" && d === "special_delivery"));
+  return REVIEW_DIMENSIONS.filter((d) => d !== "special_delivery");
 }
 
 export interface ReviewProductConfig {
