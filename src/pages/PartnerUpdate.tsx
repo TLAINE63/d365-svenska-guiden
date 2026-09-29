@@ -424,9 +424,10 @@ const PartnerUpdate = () => {
         geo.length > 0,
         (pf.industries?.length ?? 0) > 0,
       ].filter(Boolean).length;
-      return sum + (productFields / 5) * 10;
+      return sum + productFields / 5;
     }, 0);
-    score += Math.min(productScore, 40);
+    // Snitt över partnerns aktiva produkter, så en ren BC-partner kan nå 100 %
+    if (activeProducts.length > 0) score += (productScore / activeProducts.length) * 40;
 
     return Math.round(Math.min(score, 100));
   }, [formData, positioningStatement, notAFitInput, deliveryProfile, activeProducts, selectedSpecialtyProducts, productFilters]);
