@@ -78,6 +78,20 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
       if (partner_id) await openPartner(partner_id, product);
     } catch (e: any) { toast.error(e.message); } finally { setBusy(false); }
   };
+  const prefillAll = async () => {
+    setBusy(true);
+    try {
+      const parts: string[] = [];
+      let total = 0;
+      for (const product of PRODUCT_KEYS) {
+        const r = await call("review-prefill", { all: true, product });
+        total += r.created || 0;
+        parts.push(`${PRODUCT_LABELS[product]}: ${r.created || 0}`);
+      }
+      toast.success(`${total} förslag förifyllda (${parts.join(", ")})`);
+      await loadOverview();
+    } catch (e: any) { toast.error(e.message); } finally { setBusy(false); }
+  };
   const decide = async (id: string, decision: string) => {
     try {
       await call("review-decide", { id, decision, note: notes[id] || null });
@@ -130,8 +144,8 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
               </div>
               <div className="flex gap-2">
                 <Button size="sm" variant="outline" onClick={loadOverview}><RefreshCw className="w-4 h-4" /></Button>
-                <Button size="sm" onClick={() => prefill()} disabled={busy}>
-                  {busy ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Wand2 className="w-4 h-4 mr-1" />}Förifyll alla (BC)
+                <Button size="sm" onClick={prefillAll} disabled={busy}>
+                  {busy ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Wand2 className="w-4 h-4 mr-1" />}Förifyll alla områden
                 </Button>
               </div>
             </CardHeader>
