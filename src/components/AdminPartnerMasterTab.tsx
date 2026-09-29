@@ -325,28 +325,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
               </Card>
             )}
 
-            {profile && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Tvärgående förmågor (gäller alla partnerns produktområden)</CardTitle>
-                  <CardDescription>Till exempel Power BI, Copilot Studio eller Power Platform kopplat till just denna produktprofil.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-1">
-                  {capabilityProducts.map((p) => {
-                    const c = caps.find((x) => x.capability_product_id === p.id);
-                    return (
-                      <div key={p.id} className="flex flex-wrap items-center gap-2 py-1 border-b border-border/50">
-                        <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
-                          <Checkbox checked={!!c} onCheckedChange={() => toggleCap(p.id)} /> {p.name}
-                        </label>
-                        
-                      </div>
-                    );
-                  })}
-                  <Button className="mt-3" onClick={saveCaps} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara förmågor</Button>
-                </CardContent>
-              </Card>
-            )}
 
             {profile && (
               <Card>
