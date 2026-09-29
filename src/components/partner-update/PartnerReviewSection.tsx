@@ -8,29 +8,64 @@ import { Check, X, Plus, Loader2, CheckCircle2, AlertCircle, Clock } from "lucid
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { useToast } from "@/hooks/use-toast";
 
+export type ReviewProductKey = "bc" | "fsc" | "sales" | "service";
+
 interface Item {
   dimension: string; key: string; label: string; klass: "A" | "B";
   quality: "confirmed" | "partner" | "public"; source: string; excerpt: string | null;
 }
 interface Change { id: string; dimension_key: string; value_label: string; change_type: string; status: string; editor_note: string | null }
 interface ReviewData {
-  has_bc: boolean; items: Item[]; missing: string[];
+  has_app: boolean; has_bc: boolean; product_key: string; product_label: string; profile_label: string;
+  items: Item[]; missing: string[];
   options: Record<string, { key: string; label: string }[]>; counts: { A: number; B: number; C: number }; changes: Change[]; auto_publish?: boolean;
 }
 
-const TITLES: Record<string, string> = {
-  base: "Grunduppgifter", migration: "Migreringserfarenhet", competency: "Business Central-kompetens",
+const BASE_TITLES: Record<string, string> = {
+  base: "Grunduppgifter", migration: "Migreringserfarenhet",
   project_type: "Typiska projekt", delivery_model: "Leveransmodell", capability: "Tvärgående förmågor",
   industry_solution: "Branschlösning",
 };
+const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
+  bc: "Business Central-kompetens",
+  fsc: "F&SCM-kompetens",
+  sales: "CRM-kompetens (Sales & Customer Insights)",
+  service: "Service-kompetens (Customer Service & Field Service)",
+};
 const DIMS = ["migration", "competency", "capability", "project_type", "delivery_model"];
-const HELP: Record<string, string> = {
-  migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
-  competency: "Vilka områden i Business Central har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
-  capability: "Förmågor som används tillsammans med Business Central, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
-  project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
-  delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
-  industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+const HELP: Record<ReviewProductKey, Record<string, string>> = {
+  bc: {
+    migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
+    competency: "Vilka områden i Business Central har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    capability: "Förmågor som används tillsammans med Business Central, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
+    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
+    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+  },
+  fsc: {
+    migration: "Vilka system har ni hjälpt kunder att flytta ifrån när de infört Finance och/eller Supply Chain Management? Välj bara det ni faktiskt har gjort i kundprojekt.",
+    competency: "Vilka områden i Finance och Supply Chain Management har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    capability: "Förmågor som används tillsammans med F&SCM, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
+    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
+    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+  },
+  sales: {
+    migration: "Från vilka CRM-system eller kalkylblad har ni hjälpt kunder att flytta? Välj bara det ni faktiskt har gjort i kundprojekt.",
+    competency: "Vilka områden inom Sales och Customer Insights har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    capability: "Förmågor som används tillsammans med Sales och Customer Insights, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
+    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
+    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+  },
+  service: {
+    migration: "Från vilka system har ni hjälpt kunder att flytta sin kundservice eller fältservice? Välj bara det ni faktiskt har gjort i kundprojekt.",
+    competency: "Vilka områden inom Customer Service, Field Service och Contact Center har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    capability: "Förmågor som används tillsammans med serviceappararna, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
+    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
+    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
+  },
 };
 const QUALITY: Record<Item["quality"], string> = { confirmed: "Bekräftad", partner: "Partneruppgift", public: "Publik källa" };
 
@@ -42,8 +77,11 @@ const post = async (a: string, body: unknown) => {
   return j;
 };
 
-/** Granska och godkänn i stället för att fylla i allt igen. Ändringar granskas av redaktionen. */
-export function PartnerReviewSection({ token }: { token: string }) {
+const titleOf = (productKey: ReviewProductKey, dim: string) =>
+  dim === "competency" ? COMPETENCY_TITLES[productKey] : BASE_TITLES[dim] || dim;
+
+/** Granska och godkänn i stället för att fylla i allt igen. Ändringar granskas av redaktionen (publicerade partner publiceras direkt). */
+export function PartnerReviewSection({ token, productKey = "bc" }: { token: string; productKey?: ReviewProductKey }) {
   const { toast } = useToast();
   const [data, setData] = useState<ReviewData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -58,12 +96,13 @@ export function PartnerReviewSection({ token }: { token: string }) {
 
   const load = useCallback(async () => {
     setLoading(true);
-    try { setData(await post("get-review", { token })); } catch { setData(null); } finally { setLoading(false); }
-  }, [token]);
+    try { setData(await post("get-review", { token, product: productKey })); } catch { setData(null); } finally { setLoading(false); }
+  }, [token, productKey]);
   useEffect(() => { load(); }, [load]);
 
   const k = (i: { dimension: string; key: string }) => `${i.dimension}:${i.key}`;
   const labelOf = (dim: string, key: string) => data?.options[dim]?.find((o) => o.key === key)?.label || key;
+  const title = (d: string) => titleOf(productKey, d);
 
   const diff = useMemo(() => {
     if (!data) return [];
@@ -77,13 +116,13 @@ export function PartnerReviewSection({ token }: { token: string }) {
         ...(d === "industry_solution" && solution?.name.trim() ? [solution.name.trim()] : []),
       ];
       const changed = cur.some((i) => decisions[k(i)]) || (adds[d] || []).length > 0 || (d === "industry_solution" && !!solution?.name.trim());
-      return { d, title: TITLES[d], previous: prev.join(", ") || "Tomt", next: next.join(", ") || "Tomt", changed };
+      return { d, title: title(d), previous: prev.join(", ") || "Tomt", next: next.join(", ") || "Tomt", changed };
     }).filter((x) => x.changed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, decisions, adds, solution]);
+  }, [data, decisions, adds, solution, productKey]);
 
   if (loading) return <Card><CardContent className="py-8 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></CardContent></Card>;
-  if (!data || !data.has_bc) return null;
+  if (!data || !data.has_app) return null;
 
   const A = data.items.filter((i) => i.klass === "A");
   const B = data.items.filter((i) => i.klass === "B");
@@ -99,7 +138,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
     try {
       const ref = (key: string) => { const [dimension, ...rest] = key.split(":"); return { dimension, key: rest.join(":") }; };
       const res = await post("submit-review", {
-        token,
+        token, product: productKey,
         confirm: Object.entries(decisions).filter(([, v]) => v === "confirm").map(([key]) => ref(key)),
         remove: Object.entries(decisions).filter(([, v]) => v === "remove").map(([key]) => ref(key)),
         add: Object.entries(adds).flatMap(([dimension, keys]) => keys.map((key) => ({ dimension, key }))),
@@ -131,12 +170,14 @@ export function PartnerReviewSection({ token }: { token: string }) {
     );
   };
 
+  const help = HELP[productKey] || {};
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Granska er Business Central-profil</CardTitle>
+        <CardTitle className="text-lg">Granska er {data.product_label}-profil</CardTitle>
         <CardDescription>
-          Vi har samlat det vi redan vet om er Business Central-verksamhet. Gå igenom de tre delarna nedan:
+          Vi har samlat det vi redan vet om er {data.product_label}-verksamhet. Gå igenom de tre delarna nedan:
           1) kontrollera det som redan är bekräftat, 2) bekräfta eller ta bort uppgifter vi hittat, 3) lägg till det som saknas.
           Klicka sedan på "Granska ändringar" längst ner och spara.{" "}
           {data.auto_publish ? "Era ändringar publiceras direkt på er partnerprofil." : "Allt ni ändrar granskas av d365.se innan det publiceras."}
@@ -152,7 +193,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
           <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-2">
             <p className="text-sm font-semibold flex items-center gap-2"><AlertCircle className="w-4 h-4 text-accent" /> Redaktionen ber om förtydligande</p>
             {clarifications.map((c) => (
-              <p key={c.id} className="text-sm"><strong>{TITLES[c.dimension_key]}: {c.value_label}</strong> – {c.editor_note}</p>
+              <p key={c.id} className="text-sm"><strong>{title(c.dimension_key)}: {c.value_label}</strong> – {c.editor_note}</p>
             ))}
           </div>
         )}
@@ -164,7 +205,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
             <ul className="grid sm:grid-cols-2 gap-1.5">
               {A.map((i) => (
                 <li key={k(i)} className={`text-sm flex items-center justify-between gap-2 rounded border border-border px-2 py-1 ${decisions[k(i)] === "remove" ? "line-through opacity-60" : ""}`}>
-                  <span>{i.dimension !== "base" && <span className="text-muted-foreground">{TITLES[i.dimension]}: </span>}{i.label}
+                  <span>{i.dimension !== "base" && <span className="text-muted-foreground">{title(i.dimension)}: </span>}{i.label}
                     {i.quality === "partner" && !data.auto_publish && <Badge variant="outline" className="ml-2 text-[10px]">Väntar på redaktionen</Badge>}</span>
                   {i.dimension !== "base" && i.dimension !== "industry_solution" && (
                     <button type="button" aria-label={`Ta bort ${i.label}`} className="text-muted-foreground hover:text-destructive" onClick={() => setDecision(i, "remove")}>
@@ -184,7 +225,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
             <div key={k(i)} className="rounded-lg border border-border p-3 space-y-2">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <p className="text-sm"><span className="text-muted-foreground">{TITLES[i.dimension]}:</span> <strong>{i.label}</strong></p>
+                  <p className="text-sm"><span className="text-muted-foreground">{title(i.dimension)}:</span> <strong>{i.label}</strong></p>
                   <p className="text-xs text-muted-foreground">Källa: {i.source}{i.excerpt ? ` – ${i.excerpt}` : ""}</p>
                 </div>
                 <div className="flex gap-2">
@@ -209,8 +250,8 @@ export function PartnerReviewSection({ token }: { token: string }) {
           {data.missing.map((d) => (
             <div key={d} className="rounded-lg border border-dashed border-border p-3">
               <div className="flex items-center justify-between gap-2">
-                <div><p className="text-sm font-medium">{TITLES[d]} <span className="text-xs text-muted-foreground font-normal">Ej angiven</span></p>
-                  {HELP[d] && <p className="text-xs text-muted-foreground mt-0.5">{HELP[d]}</p>}</div>
+                <div><p className="text-sm font-medium">{title(d)} <span className="text-xs text-muted-foreground font-normal">Ej angiven</span></p>
+                  {help[d] && <p className="text-xs text-muted-foreground mt-0.5">{help[d]}</p>}</div>
                 {d === "industry_solution" ? (
                   <Button type="button" size="sm" variant="outline" onClick={() => setSolution(solution ? null : { name: "", industry: "", description: "" })}>
                     <Plus className="w-3.5 h-3.5 mr-1" /> Lägg till
@@ -240,7 +281,7 @@ export function PartnerReviewSection({ token }: { token: string }) {
             <summary className="cursor-pointer text-muted-foreground">Lägg till något annat</summary>
             <div className="space-y-3 mt-2">
               {DIMS.filter((d) => !data.missing.includes(d)).map((d) => (
-                <div key={d}><p className="text-xs font-medium">{TITLES[d]}</p>{HELP[d] && <p className="text-xs text-muted-foreground">{HELP[d]}</p>}<Picker dim={d} /></div>
+                <div key={d}><p className="text-xs font-medium">{title(d)}</p>{help[d] && <p className="text-xs text-muted-foreground">{help[d]}</p>}<Picker dim={d} /></div>
               ))}
             </div>
           </details>
