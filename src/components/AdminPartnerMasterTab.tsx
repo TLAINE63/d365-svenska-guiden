@@ -144,8 +144,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   const profile = detail?.profiles.find((p: any) => p.id === profileId);
   const profileOptions = useMemo(() => options.filter((o) => o.product_id === profile?.product_id), [options, profile]);
   const dimensions = useMemo(() => {
-    const isFsc = ["finance", "supply-chain"].includes(profile?.product?.product_key);
-    return [...new Set(profileOptions.map((o) => o.dimension_key))].filter((d) => !(isFsc && d === "special_delivery"));
+    return [...new Set(profileOptions.map((o) => o.dimension_key))].filter((d) => d !== "special_delivery");
   }, [profileOptions, profile]);
   const capabilityProducts = useMemo(() => products.filter((p) => p.is_active && ["capability", "platform"].includes(p.catalog_type) && p.id !== profile?.product_id), [products, profile]);
   const shownPartners = partners.filter((p) => filter === "all" || p.agreement_signed);
