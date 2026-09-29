@@ -149,6 +149,30 @@ function base64UrlDecode(str: string): Uint8Array {
   return bytes;
 }
 
+
+const SP_LISTS: Record<string, string[]> = {
+  migration_experience: ["NAV / Navision","Business Central On-Prem","Visma","Monitor","Pyramid","Jeeves","SAP Business One","Fortnox","Annat ERP"],
+  bc_competencies: ["Ekonomi","Redovisning","Inköp","Order","Lager","Distribution","Produktion","Projekt","Service","E-handel","EDI","Integrationer","Power BI","Power Platform","Copilot","Flerbolag","Internationellt"],
+  project_types: ["Nyimplementation","Migrering","Uppgradering","Förvaltning","Rescue-projekt","Internationell utrullning"],
+  delivery_models: ["Fastprisstart","Snabbstartspaket","Proof of Concept","Successiv implementation","Förvaltningspartner"],
+};
+function sanitizeStructured(raw: any) {
+  const r = raw && typeof raw === "object" ? raw : {};
+  const out: Record<string, unknown> = {};
+  for (const [k, allowed] of Object.entries(SP_LISTS)) {
+    out[k] = Array.isArray(r[k]) ? r[k].filter((x: unknown) => typeof x === "string" && allowed.includes(x)) : [];
+  }
+  out.has_industry_solution = typeof r.has_industry_solution === "boolean" ? r.has_industry_solution : null;
+  out.industry_solutions = out.has_industry_solution && Array.isArray(r.industry_solutions)
+    ? r.industry_solutions.slice(0, 10).map((x: any) => ({
+        name: String(x?.name ?? "").slice(0, 120),
+        description: String(x?.description ?? "").slice(0, 800),
+        industry: String(x?.industry ?? "").slice(0, 120),
+      })).filter((x: any) => x.name.trim())
+    : [];
+  return out;
+}
+
 serve(async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
   
@@ -222,6 +246,7 @@ serve(async (req: Request): Promise<Response> => {
             positioning_statement, delivery_profile, team_size_sweden,
             implementations_done, implementations_per_app, team_size_per_app, not_a_fit, key_differentiators, key_differentiators_source, ai_profile, product_profiles,
             extended_competencies, extended_competency_input,
+            structured_profile, data_verified_at, data_verified_by,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
@@ -330,6 +355,7 @@ serve(async (req: Request): Promise<Response> => {
         team_size_per_app: submissionData.team_size_per_app || {},
           team_size_per_app: submissionData.team_size_per_app || {},
           extended_competency_input: competencyInput,
+          structured_profile: sanitizeStructured(submissionData.structured_profile),
         });
 
       // Handle events if provided
@@ -430,6 +456,9 @@ serve(async (req: Request): Promise<Response> => {
         key_differentiators: submissionData.key_differentiators || [],
         key_differentiators_source: (submissionData.key_differentiators || []).length ? "partner" : "d365",
         extended_competency_input: competencyInput,
+        structured_profile: sanitizeStructured(submissionData.structured_profile),
+        data_verified_at: new Date().toISOString().slice(0, 10),
+        data_verified_by: "partner",
         updated_at: new Date().toISOString(),
       };
 
