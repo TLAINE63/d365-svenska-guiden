@@ -24,6 +24,8 @@ const VERIFIED_BY = [
 ];
 const DIMENSION_TITLES: Record<string, string> = {
   ...Object.fromEntries(Object.entries(BC_GROUP_TITLES).map(([k, v]) => [k, v.title])),
+  competency: "Specialiseringar",
+  special_delivery: "Särskilda projekt och leveransformer",
   industry_solution_type: "Typ av branschlösning",
 };
 const dimTitle = (d: string) => DIMENSION_TITLES[d] || d.replace(/_/g, " ");
@@ -39,6 +41,7 @@ interface Solution {
 const sel = "h-9 rounded-md border border-input bg-background px-2 text-sm";
 const emptyVerif: Verif = { verification_status: "unverified", verified_by: "", verified_at: "", source_url: "" };
 const STATUS_LABELS: Record<string, string> = Object.fromEntries(VERIFICATION_STATUSES.map((s) => [s.value, s.label]));
+const adminVerif = () => ({ verification_status: "editorial_verified", verified_by: "redaktion", verified_at: new Date().toISOString().slice(0, 10), source_url: "", is_published: true });
 const isVerified = (v: Verif) => ["partner_verified", "editorial_verified", "public_source"].includes(v.verification_status);
 
 function VerifFields({ v, onChange }: { v: Verif; onChange: (p: Partial<Verif>) => void }) {
@@ -148,13 +151,13 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   const toggleAttr = (id: string) => {
     setAttrs((prev) => prev.some((a) => a.product_attribute_option_id === id)
       ? prev.filter((a) => a.product_attribute_option_id !== id)
-      : [...prev, { product_attribute_option_id: id, ...emptyVerif, is_published: false }]);
+      : [...prev, { product_attribute_option_id: id, ...adminVerif() }]);
   };
   const patchAttr = (id: string, p: Partial<Attr>) =>
     setAttrs((prev) => prev.map((a) => (a.product_attribute_option_id === id ? { ...a, ...p } : a)));
   const toggleCap = (id: string) => setCaps((prev) => prev.some((c) => c.capability_product_id === id)
     ? prev.filter((c) => c.capability_product_id !== id)
-    : [...prev, { capability_product_id: id, ...emptyVerif, is_published: false }]);
+    : [...prev, { capability_product_id: id, ...adminVerif() }]);
   const patchCap = (id: string, p: Partial<Cap>) =>
     setCaps((prev) => prev.map((c) => (c.capability_product_id === id ? { ...c, ...p } : c)));
 
@@ -285,9 +288,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                       <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_primary} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_primary: !!c })} /> Primärt produktområde</label>
                       <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_published} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_published: !!c })} /> Publicerad (ingår i export)</label>
                     </div>
-                    {!isVerified(profileForm) || revealed[`profile:${profileId}`]
-                      ? <VerifFields v={profileForm} onChange={(p) => setProfileForm({ ...profileForm, ...p })} />
-                      : <VerifiedBadge v={profileForm} onEdit={() => revealKey(`profile:${profileId}`)} />}
                     <Button size="sm" onClick={saveProfile} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara produktprofil</Button>
                   </div>
                 )}
@@ -304,17 +304,9 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base">Produktval: {profile.product?.name}</CardTitle>
-                  <CardDescription>Valen läses från produktkatalogen. Förifyll aldrig från marknadsföringstext. Ange källa för varje val.</CardDescription>
+                  <CardDescription>Valen läses från produktkatalogen. Klicka i de områden som gäller. Valen publiceras direkt när du sparar.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="rounded-lg bg-muted/40 p-3 space-y-2">
-                    <div className="text-sm font-medium">Sätt samma verifiering på alla ikryssade val</div>
-                    <VerifFields v={bulk} onChange={(p) => setBulk({ ...bulk, ...p })} />
-                    <div className="flex gap-3 items-center">
-                      <label className="flex items-center gap-2 text-sm"><Checkbox checked={bulk.is_published} onCheckedChange={(c) => setBulk({ ...bulk, is_published: !!c })} /> Publicerad</label>
-                      <Button size="sm" variant="outline" onClick={() => setAttrs((prev) => prev.map((a) => ({ ...a, ...bulk })))}>Tillämpa på alla</Button>
-                    </div>
-                  </div>
 
                   {dimensions.map((g) => (
                     <div key={g} className="space-y-2">
@@ -327,14 +319,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                               <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
                                 <Checkbox checked={!!a} onCheckedChange={() => toggleAttr(o.id)} /> {o.label}
                               </label>
-                              {a && (
-                                <>
-                                  {!isVerified(a) || revealed[`attr:${o.id}`]
-                                    ? <VerifFields v={a} onChange={(p) => patchAttr(o.id, p)} />
-                                    : <VerifiedBadge v={a} onEdit={() => revealKey(`attr:${o.id}`)} />}
-                                  <label className="flex items-center gap-1 text-xs"><Checkbox checked={a.is_published} onCheckedChange={(c) => patchAttr(o.id, { is_published: !!c })} /> Publ.</label>
-                                </>
-                              )}
+                              
                             </div>
                           );
                         })}
@@ -360,14 +345,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                         <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
                           <Checkbox checked={!!c} onCheckedChange={() => toggleCap(p.id)} /> {p.name}
                         </label>
-                        {c && (
-                          <>
-                            {!isVerified(c) || revealed[`cap:${p.id}`]
-                              ? <VerifFields v={c} onChange={(x) => patchCap(p.id, x)} />
-                              : <VerifiedBadge v={c} onEdit={() => revealKey(`cap:${p.id}`)} />}
-                            <label className="flex items-center gap-1 text-xs"><Checkbox checked={c.is_published} onCheckedChange={(v) => patchCap(p.id, { is_published: !!v })} /> Publ.</label>
-                          </>
-                        )}
+                        
                       </div>
                     );
                   })}
