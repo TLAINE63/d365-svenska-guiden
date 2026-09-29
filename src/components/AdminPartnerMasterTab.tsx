@@ -285,18 +285,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                   <Button size="sm" variant="outline" disabled={!newProduct || busy} onClick={createProfile}><Plus className="w-4 h-4 mr-1" /> Skapa</Button>
                 </div>
 
-                {profileForm && (
-                  <div className="rounded-lg border border-border p-3 space-y-2">
-                    <div className="flex flex-wrap gap-3 items-center text-sm">
-                      <select className={sel} value={profileForm.status} onChange={(e) => setProfileForm({ ...profileForm, status: e.target.value })}>
-                        <option value="draft">Utkast</option><option value="active">Aktiv</option><option value="archived">Arkiverad</option>
-                      </select>
-                      <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_primary} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_primary: !!c })} /> Primärt produktområde</label>
-                      <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_published} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_published: !!c })} /> Publicerad (ingår i export)</label>
-                    </div>
-                    <Button size="sm" onClick={saveProfile} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara produktprofil</Button>
-                  </div>
-                )}
               </CardContent>
             </Card>
 
