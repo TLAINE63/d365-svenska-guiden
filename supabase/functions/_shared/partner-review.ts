@@ -184,15 +184,22 @@ export async function computeReview(sb: any, partnerId: string) {
 /** Regelbaserad förifyllning. Skapar endast opublicerade förslag (legacy_import) för val som saknas. */
 export async function runPrefill(sb: any, partnerId: string) {
   const { data: p } = await sb.from("partners").select(
-    "id, applications, description, positioning_statement, product_profiles, delivery_profile, customer_examples, key_differentiators, industry_apps",
+    "id, applications, description, product_profiles, delivery_profile, customer_examples, key_differentiators, key_differentiators_source",
   ).eq("id", partnerId).single();
   if (!p || !(p.applications || []).includes("Business Central")) return { created: 0, skipped: "Ingen Business Central-profil" };
+  // Endast partnerns egna texter. AI-genererade formuleringar (positionering, AI-styrkor) används aldrig.
   const texts: string[] = [];
   collectStrings(p.description, texts);
-  collectStrings(p.positioning_statement, texts);
-  collectStrings(p.product_profiles?.["Business Central"], texts);
+  const bc = p.product_profiles?.["Business Central"];
+  if (bc && typeof bc === "object") {
+    for (const [k, v] of Object.entries(bc as Record<string, unknown>)) {
+      if (/_ai_generated$|_generated_at$/.test(k)) continue;
+      if ((bc as any)[`${k}_ai_generated`] === true) continue;
+      collectStrings(v, texts);
+    }
+  }
   collectStrings(p.delivery_profile, texts);
-  collectStrings(p.key_differentiators, texts);
+  if (p.key_differentiators_source === "partner") collectStrings(p.key_differentiators, texts);
   collectStrings((p.customer_examples || []).filter((e: any) => !e?.application || e.application === "Business Central"), texts);
   const text = texts.join("\n");
   if (!text) return { created: 0 };
