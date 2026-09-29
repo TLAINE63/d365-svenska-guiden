@@ -102,3 +102,10 @@
 - [x] Visa samma korttyp på `/alla-d365-partners/`
 - [x] Visa samma korttyp på startsidan i ”Så hittar du rätt partner”
 - [x] Kontrollera de tre ytorna på dator och mobil
+
+## Premiumkort på produktsidor (2026-09-29)
+- [ ] Visa gemensamt premiumkort på Business Central-sidan
+- [ ] Visa gemensamt premiumkort på Finance & Supply Chain-sidan
+- [ ] Visa gemensamt premiumkort på CRM-sidan
+- [ ] Ge alla premiumkort CTA för profil, shortlist och introduktion
+- [ ] Kontrollera produktsidorna och CTA-flödena på dator och mobil
