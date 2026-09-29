@@ -27,19 +27,6 @@ type RawPartner = {
   industry_apps?: Record<string, unknown> | unknown[];
 };
 
-const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
-  { match: (a) => a.includes("Business Central"), label: "Business Central" },
-  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management") || a.includes("F&SCM"), label: "Finance & SCM" },
-  { match: (a) => a.includes("Sales"), label: "Sales" },
-  { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
-  { match: (a) => a.includes("Field Service"), label: "Field Service" },
-  { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
-  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
-  { match: (a) => a.includes("Project Operations"), label: "Project Operations" },
-  { match: (a) => a.includes("Commerce"), label: "Commerce" },
-  { match: (a) => a.includes("Human Resources"), label: "Human Resources" },
-];
-
 type ProductId =
   | "all"
   | "bc"
@@ -126,7 +113,7 @@ interface HomeVerifiedPartnersGridProps {
 }
 
 export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeVerifiedPartnersGridProps) {
-  const { selected, isSelected, toggle, clear, max } = usePartnerCompare();
+  const { selected, clear, max } = usePartnerCompare();
   const [product, setProduct] = useState<ProductId>("all");
   const [industry, setIndustry] = useState<string>("");
 
