@@ -82,8 +82,6 @@ const BC_RULES: [string, string, RegExp][] = [
   ["competency", "projects", /\b(projektverksamhet|projektredovisning|projektstyrning|projektbaserade)\w*/i],
   ["competency", "service_management", /\b(servicehantering|serviceorder|fältservice|service\s+management)\w*/i],
   ["competency", "retail_ecommerce", /\b(e-handel|ehandel|detaljhandel|retail)\w*/i],
-  ["competency", "edi", /\bedi\b/i],
-  ["competency", "integrations_api", /\b(integrationer|integrationsplattform|api-integration\w*)\b/i],
   ["competency", "multi_company", /\b(flerbolag\w*|koncernkonsolidering|koncernredovisning|intercompany)\b/i],
   ["competency", "international", /\b(internationell\w*\s+(verksamhet|bolag|kunder|utrullning)|flera\s+länder)\b/i],
 ];
@@ -105,8 +103,6 @@ const FSC_RULES: [string, string, RegExp][] = [
   ["competency", "retail_ecommerce", /\b(e-handel|ehandel|detaljhandel|retail)\w*/i],
   ["competency", "projects", /\b(projektverksamhet|projektredovisning|projektstyrning|projektbaserade)\w*/i],
   ["competency", "service_management", /\b(servicehantering|serviceorder|fältservice|service\s+management)\w*/i],
-  ["competency", "edi", /\bedi\b/i],
-  ["competency", "integrations_api", /\b(integrationer|integrationsplattform|api-integration\w*)\b/i],
   ["competency", "multi_company", /\b(flerbolag\w*|koncernkonsolidering|koncernredovisning|intercompany)\b/i],
   ["competency", "international", /\b(internationell\w*\s+(verksamhet|bolag|kunder|utrullning)|flera\s+länder)\b/i],
 ];
