@@ -16,6 +16,8 @@ import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Pl
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
 import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
+import { StructuredProfileSection } from "@/components/partner-update/StructuredProfileSection";
+import { EMPTY_STRUCTURED_PROFILE, normalizeStructuredProfile, type StructuredProfile } from "@/data/structuredPartnerProfile";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -268,6 +270,7 @@ const PartnerUpdate = () => {
   const [aiProfile, setAiProfile] = useState<import("@/lib/aiProfile").AiProfile>({});
   const [competencyLevels, setCompetencyLevels] = useState<ExtendedCompetencies>({});
   const [competencyInput, setCompetencyInput] = useState<Record<string, string>>({});
+  const [structuredProfile, setStructuredProfile] = useState<StructuredProfile>(EMPTY_STRUCTURED_PROFILE);
   const [autofilling, setAutofilling] = useState(false);
 
   /** Låter AI föreslå text för de fält partnern lämnat tomma. Ifyllda fält rörs aldrig. */
@@ -578,6 +581,7 @@ const PartnerUpdate = () => {
   if (Array.isArray((ed as any).key_differentiators)) setKeyDifferentiatorsInput(((ed as any).key_differentiators as string[]).join("\n"));
   if (ed.ai_profile && typeof ed.ai_profile === "object") setAiProfile(ed.ai_profile);
   setCompetencyLevels(normalizeCompetencies(ed.extended_competencies));
+  setStructuredProfile(normalizeStructuredProfile(ed.structured_profile));
   if (ed.extended_competency_input && typeof ed.extended_competency_input === "object") {
     setCompetencyInput(ed.extended_competency_input as Record<string, string>);
   }
@@ -1090,6 +1094,7 @@ const PartnerUpdate = () => {
    key_differentiators: keyDifferentiatorsInput.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 5),
    key_differentiators_source: "partner",
   ai_profile: aiProfile,
+  structured_profile: normalizeStructuredProfile(structuredProfile),
   extended_competency_input: Object.fromEntries(
     COMPETENCY_AREAS.map((a) => [a.key, (competencyInput[a.key] || "").trim().slice(0, 800)]).filter(([, v]) => v)
   ),
@@ -2384,6 +2389,10 @@ const PartnerUpdate = () => {
      onChange={setCompetencyInput}
    />
  </PremiumCollapsibleSection>
+
+ <div className="my-4">
+   <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+ </div>
 
 
  {/* Products Section */}
