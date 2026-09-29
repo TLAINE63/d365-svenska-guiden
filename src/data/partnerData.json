@@ -3728,6 +3728,122 @@
     "public_profile_updated_at": "2026-09-16T16:07:18.168+00:00"
   },
   {
+    "id": "21ea09d7-d76c-4841-90d3-bed49641b095",
+    "slug": "norra-commerce-partner",
+    "name": "Norra Commerce Partner",
+    "description": null,
+    "logo_url": null,
+    "logo_dark_bg": false,
+    "website": "https://norracommerce.se/",
+    "email": null,
+    "contact_person": "Johann Runemark",
+    "contact_photo_url": null,
+    "phone": null,
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [
+      "Sverige"
+    ],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
+        "geography": [
+          "Sverige"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Retail & E-handel",
+          "Mode, Sport & Textil"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "contactName": "",
+        "contactEmail": "",
+        "contactPhone": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "industry_apps": [],
+    "is_featured": true,
+    "customer_examples": [],
+    "office_cities": [
+      "Stockholm",
+      "Malmö"
+    ],
+    "map_url": null,
+    "youtube_video_id": null,
+    "created_at": "2026-04-27T10:54:18.709178+00:00",
+    "updated_at": "2026-09-29T11:25:33.789241+00:00",
+    "industry_pitches": [],
+    "agreement_signed": true,
+    "related_party": false,
+    "positioning_statement": null,
+    "delivery_profile": {},
+    "team_size_sweden": null,
+    "implementations_done": null,
+    "not_a_fit": [],
+    "implementations_per_app": {},
+    "ai_summary": null,
+    "ai_summary_generated_at": null,
+    "ai_profile": {},
+    "extended_content": "Norra Commerce Partner är en specialiserad Microsoft Dynamics 365 Business Central-partner med fokus på retail och fashion. Bolaget har kontor i Stockholm (Riddargatan 18) och positionerar sig som \"Your partner for Business Central in retail\" med kombinationen av djup teknisk expertis och operativ erfarenhet från detaljhandeln.\n\nAktiva produktområden: Microsoft Dynamics 365 Business Central är den enda plattformen, med renodlat fokus på retail-vertikalen. Erbjudandet täcker hela livscykeln: analys, design, implementation, go-live och managed services/förvaltning. Specifika kompetenser inkluderar retail-anpassning av ekonomi, orderhantering, lager och inköp, samt integrationer mot e-handel, POS och WMS. Genom strategiskt partnerskap med Codeunit levereras best-in-class systemintegrationer för omnikanalhandel.\n\nTydliga styrkor: Exklusivt fokus på BC och retail ger djup snarare än bredd – \"We speak retail, not just IT\". Konsulterna kommer från operativa roller i detaljhandeln, inte bara IT-bakgrund, vilket ger förståelse för verkliga affärsutmaningar. Stark integrationsförmåga för e-handelsekosystem: koppling mellan fysiska butiker, webshop och ERP utan friktion. Zero-interruption-approach för driftsäkerhet. Codeunit-partnerskapet säkrar teknisk kvalitet på integrationsarkitekturen.\n\nRäckvidd och segment: Stockholm-baserat med nationell leveransförmåga. Kundsegment: medelstora retail- och fashionföretag som behöver BC som nav i sitt omnikanal-ekosystem. Fokus på företag som är redo att modernisera sin ERP-plattform och skapa stabil grund för tillväxt.\n\nPassar bäst: Retail- och fashionföretag som söker en specialiserad BC-partner med operativ branschförståelse, omnikanalhandlare som behöver sömlös integration mellan e-handel, butik och ERP, företag som prioriterar teknisk kvalitet och driftsäkerhet framför lägsta pris, samt organisationer som vill ha en partner som tar helhetsansvar för BC och dess integrationer. Mindre lämplig för företag utanför retail/fashion, organisationer som behöver F&SCM eller CE/CRM, samt kunder som söker en stor generalistpartner med internationell räckvidd.\n\nRätt jämförelsegrupp: Andra retail-fokuserade BC-partners (Adbriq för fashion, Amesto), med generella BC-partners och enterprise SI:er som lägre jämförelserelevans.",
+    "extended_content_updated_at": "2026-09-29T11:25:33.55+00:00",
+    "partner_size_tier": 4,
+    "partner_size_tier_needs_review": false,
+    "ai_summary_full": null,
+    "best_fit_for": [],
+    "ai_tags": [],
+    "extended_competencies": {},
+    "team_size_per_app": {},
+    "key_differentiators": [],
+    "key_differentiators_source": "partner",
+    "public_profile_summary": "Analys av publika källor visar att Norra Commerce Partner positionerar sig som en specialiserad Microsoft Dynamics 365 Business Central-partner med ett exklusivt fokus på detaljhandels- och modebranschen. Verksamheten har kontor i Stockholm och beskriver sig med djup teknisk expertis kombinerat med operativ erfarenhet från detaljhandeln.\n\nFöretagets erbjudande omfattar hela livscykeln för Business Central, från analys och design till implementation och förvaltning. Specifika kompetenser inkluderar anpassningar av ekonomi, orderhantering, lager och inköp för retail, samt integrationer med e-handel, POS och WMS. Ett strategiskt partnerskap med Codeunit för systemintegrationer framhålls.\n\nNorra Commerce Partner riktar sig till medelstora retail- och fashionföretag som behöver Business Central som nav i ett omnikanal-ekosystem. Innehållet indikerar att konsulterna har bakgrund från operativa roller inom detaljhandeln och att företaget lägger vikt vid driftsäkerhet och teknisk kvalitet.",
+    "public_focus_tags": [
+      "Microsoft Dynamics 365 Business Central",
+      "Retail",
+      "Fashion",
+      "Omnikanal",
+      "E-handel",
+      "POS",
+      "WMS",
+      "Systemintegration",
+      "ERP",
+      "Förvaltning"
+    ],
+    "public_topics_12m": [],
+    "public_profile_sources": [
+      "https://norracommerce.se/"
+    ],
+    "public_profile_updated_at": "2026-09-16T16:09:02.332+00:00"
+  },
+  {
     "id": "5faf2ae1-e0a4-4481-a209-6e75e82c7efa",
     "slug": "point-taken",
     "name": "Point Taken",
