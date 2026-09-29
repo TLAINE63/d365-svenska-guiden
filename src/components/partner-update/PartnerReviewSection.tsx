@@ -33,6 +33,8 @@ const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
   service: "Service-kompetens (Customer Service & Field Service)",
 };
 const DIMS = ["migration", "competency", "capability", "special_delivery"];
+// F&SCM frågar inte om särskilda projekt och leveransformer (alla skulle kryssa i allt).
+const dimsFor = (pk: ReviewProductKey) => DIMS.filter((d) => !(pk === "fsc" && d === "special_delivery"));
 const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
     migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
@@ -102,7 +104,7 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
 
   const diff = useMemo(() => {
     if (!data) return [];
-    const dims = [...DIMS, "industry_solution"];
+    const dims = [...dimsFor(productKey), "industry_solution"];
     return dims.map((d) => {
       const cur = data.items.filter((i) => i.dimension === d);
       const prev = cur.map((i) => i.label);
@@ -120,8 +122,10 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
   if (loading) return <Card><CardContent className="py-8 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></CardContent></Card>;
   if (!data || !data.has_app) return null;
 
-  const A = data.items.filter((i) => i.klass === "A");
-  const B = data.items.filter((i) => i.klass === "B");
+  const shownDims = new Set([...dimsFor(productKey), "base", "industry_solution"]);
+  const shownItems = data.items.filter((i) => shownDims.has(i.dimension));
+  const A = shownItems.filter((i) => i.klass === "A");
+  const B = shownItems.filter((i) => i.klass === "B");
   const pending = data.changes.filter((c) => c.status === "pending");
   const clarifications = data.changes.filter((c) => c.status === "clarification");
   const toggleAdd = (dim: string, key: string) =>
@@ -276,7 +280,7 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
           <details className="text-sm">
             <summary className="cursor-pointer text-muted-foreground">Lägg till något annat</summary>
             <div className="space-y-3 mt-2">
-              {DIMS.filter((d) => !data.missing.includes(d)).map((d) => (
+              {dimsFor(productKey).filter((d) => !data.missing.includes(d)).map((d) => (
                 <div key={d}><p className="text-xs font-medium">{title(d)}</p>{help[d] && <p className="text-xs text-muted-foreground">{help[d]}</p>}<Picker dim={d} /></div>
               ))}
             </div>
