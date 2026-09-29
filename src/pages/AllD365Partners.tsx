@@ -1,14 +1,13 @@
 import ContextualCta from "@/components/ContextualCta";
 import { Link } from "react-router-dom";
-import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, ArrowRight, Users, CheckCircle2 } from "lucide-react";
-import { usePartners } from "@/hooks/usePartners";
+import { MessageSquare, Users, CheckCircle2 } from "lucide-react";
+import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
@@ -16,6 +15,7 @@ import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
@@ -29,16 +29,8 @@ const breadcrumbs = [
 // Static snapshot of featured partners (built into the bundle so the
 // prerendered HTML always lists every profiled partner without requiring
 // client-side JavaScript or a network round-trip).
-const STATIC_PROFILED = (partnerDataJson as any[])
+const STATIC_PROFILED = (partnerDataJson as unknown as DatabasePartner[])
   .filter((p) => p.is_featured !== false)
-  .map((p) => ({
-    id: p.id as string,
-    slug: p.slug as string,
-    name: p.name as string,
-    logo_url: (p.logo_url ?? null) as string | null,
-    applications: (p.applications ?? []) as string[],
-    description: (p.description ?? "") as string,
-  }))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {
@@ -61,16 +53,7 @@ export default function AllD365Partners() {
   };
 
   const profiledAll = useMemo(() => {
-    const live = (dbPartners || [])
-      .filter((p) => p.is_featured)
-      .map((p) => ({
-        id: p.id,
-        slug: p.slug,
-        name: p.name,
-        logo_url: p.logo_url || null,
-        applications: p.applications ?? [],
-        description: p.description || "",
-      }));
+    const live = (dbPartners || []).filter((p) => p.is_featured);
     const source = live.length > 0 ? live : STATIC_PROFILED;
     return [...source].sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
@@ -286,48 +269,14 @@ export default function AllD365Partners() {
             ) : profiled.length === 0 ? (
               <p className="text-sm text-muted-foreground">Inga partnerverifierade profiler matchar filtret.</p>
             ) : (
-              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+               <ul className="grid lg:grid-cols-2 gap-4">
                 {profiled.map((p) => (
                   <li key={p.id} className="h-full">
-                    <Link
-                      to={`/partner/${p.slug}`}
-                      aria-label={p.name}
-                      className="group relative flex items-start justify-between gap-3 p-4 h-full rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
-                    >
-                      <div className="min-w-0 flex-1">
-                        {p.logo_url ? (
-                          <img
-                            src={optimizedLogo(p.logo_url)}
-                            alt={`${p.name} logotyp`}
-                            loading="lazy"
-                            className="h-10 max-w-[160px] object-contain mb-2"
-                          />
-                        ) : (
-                          <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
-                            {p.name}
-                          </div>
-                        )}
-                        {p.description && (
-                          <p className="text-xs text-muted-foreground leading-relaxed mb-2 line-clamp-4">
-                            {p.description}
-                          </p>
-                        )}
-                        {p.applications.length > 0 && (
-                          <div className="flex flex-wrap gap-1">
-                            {p.applications.slice(0, 3).map((app) => (
-                              <Badge
-                                key={app}
-                                variant="outline"
-                                className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
-                              >
-                                {app}
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
-                    </Link>
+                     <IndustryVerifiedPartnerCard
+                       partner={p}
+                       productKey={productFilter === "all" ? null : productFilter}
+                       productLabel={productFilter === "all" ? null : productOptions.find((option) => option.key === productFilter)?.label || null}
+                     />
                   </li>
                 ))}
               </ul>

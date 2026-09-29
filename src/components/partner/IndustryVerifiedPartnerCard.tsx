@@ -1,10 +1,12 @@
-import { ArrowRight, CheckCircle2, Lightbulb, ShieldCheck } from "lucide-react";
+import { ArrowLeftRight, ArrowRight, Check, CheckCircle2, Lightbulb, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
 import { optimizedLogo } from "@/lib/optimizedLogo";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import {
   getDocumentedEvidence,
   getRelevanceFactors,
@@ -13,9 +15,10 @@ import {
 
 interface IndustryVerifiedPartnerCardProps {
   partner: DatabasePartner;
-  industry: string;
+  industry?: string | null;
   productKey?: string | null;
   productLabel?: string | null;
+  enableCompare?: boolean;
 }
 
 function firstUsefulSentence(text?: string | null, maxChars = 230): string | null {
@@ -44,19 +47,47 @@ function selectedProductFilter(
 
 function partnerProvidedRelevance(
   partner: DatabasePartner,
-  industry: string,
+  industry?: string | null,
   productKey?: string | null,
 ): string | null {
   const productFilter = selectedProductFilter(partner, productKey);
-  const matchingPitch = partner.industry_pitches?.find(
+  const matchingPitch = industry ? partner.industry_pitches?.find(
     (pitch) =>
       pitch.industry?.toLocaleLowerCase("sv") === industry.toLocaleLowerCase("sv") &&
       (!productKey || !pitch.product || pitch.product === productKey),
-  );
+  ) : null;
 
   return firstUsefulSentence(
-    matchingPitch?.text || productFilter?.whyChoose || productFilter?.productDescription,
+    matchingPitch?.text || productFilter?.whyChoose || productFilter?.productDescription ||
+      partner.positioning_statement || partner.description,
   );
+}
+
+const PRODUCT_LABELS: Record<string, string> = {
+  bc: "Business Central",
+  fsc: "Finance & Supply Chain Management",
+  sales: "Sales",
+  service: "Customer Service",
+  crm: "Sales",
+};
+
+function deliveredApplications(partner: DatabasePartner, productLabel?: string | null): string[] {
+  const candidates = [
+    ...(productLabel ? [productLabel] : []),
+    ...Object.entries(partner.product_filters || {})
+      .filter(([, filter]) => Boolean(filter))
+      .map(([key]) => PRODUCT_LABELS[key])
+      .filter(Boolean),
+    ...(partner.applications || []),
+  ];
+  const canonical = (value: string) => {
+    const normalized = value.toLocaleLowerCase("sv");
+    if (normalized === "finance" || normalized === "supply chain management" || normalized.includes("f&sc")) {
+      return "Finance & Supply Chain Management";
+    }
+    return value;
+  };
+  return Array.from(new Set(candidates.map(canonical)));
 }
 
 export default function IndustryVerifiedPartnerCard({
@@ -64,15 +95,18 @@ export default function IndustryVerifiedPartnerCard({
   industry,
   productKey,
   productLabel,
+  enableCompare = false,
 }: IndustryVerifiedPartnerCardProps) {
+  const { isSelected, toggle } = usePartnerCompare();
+  const compareActive = isSelected(partner.slug);
   const productFilter = selectedProductFilter(partner, productKey);
   const partnerRelevance = partnerProvidedRelevance(partner, industry, productKey);
   const documentedEvidence = getDocumentedEvidence(partner, {
     productKey,
-    focusIndustry: industry,
+    focusIndustry: industry || null,
   });
   const relevanceFactors = getRelevanceFactors(partner, {
-    highlightedIndustry: industry,
+    highlightedIndustry: industry || undefined,
     highlightedProduct: productLabel,
   });
   const partnerDifferentiators =
@@ -100,9 +134,7 @@ export default function IndustryVerifiedPartnerCard({
     (partner.not_a_fit || []).find((item) => item && !productScopePattern.test(item)),
     130,
   );
-  const applications = productLabel
-    ? [productLabel, ...(partner.applications || []).filter((app) => app !== productLabel)]
-    : partner.applications || [];
+  const applications = deliveredApplications(partner, productLabel);
   const sourceLabel = partnerRelevance ? "Partnerns uppgifter" : "Belagd relevans";
   const sizeLabel = productFilter?.companySize?.length
     ? `Kundstorlek: ${productFilter.companySize.slice(0, 3).join(" · ")}`
@@ -137,7 +169,7 @@ export default function IndustryVerifiedPartnerCard({
             <div className="mb-3 flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-accent" aria-hidden />
               <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                Varför relevant för {industry}
+                {industry ? `Varför relevant för ${industry}` : "Partnerns inriktning"}
               </h4>
             </div>
 
@@ -170,6 +202,9 @@ export default function IndustryVerifiedPartnerCard({
           )}
 
           <div className="flex flex-wrap gap-1.5">
+            <p className="w-full text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+              Produkter de levererar
+            </p>
             {applications.slice(0, 4).map((application) => (
               <Badge
                 key={application}
@@ -225,20 +260,38 @@ export default function IndustryVerifiedPartnerCard({
 
       <footer className="flex items-center justify-between gap-4 bg-[hsl(var(--hero-dark))] px-5 py-4">
         <div className="min-w-0">
-          <p className="text-xs font-semibold text-[hsl(var(--border-on-dark))]">{industry}</p>
+          <p className="text-xs font-semibold text-[hsl(var(--border-on-dark))]">
+            {industry || "Partnerverifierad profil"}
+          </p>
           {partner.geography?.length > 0 && (
             <p className="mt-0.5 truncate text-[10px] text-[hsl(var(--muted-dark))]">
               Leverans: {partner.geography.slice(0, 3).join(" · ")}
             </p>
           )}
         </div>
-        <Link
-          to={`/partner/${partner.slug}/`}
-          className="inline-flex shrink-0 items-center gap-1.5 rounded bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground transition-colors hover:bg-[hsl(var(--cta-orange-hover))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          Se partnerprofil
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          {enableCompare && (
+            <Button
+              type="button"
+              size="icon"
+              variant="outline"
+              onClick={() => toggle({ slug: partner.slug, name: partner.name })}
+              aria-pressed={compareActive}
+              aria-label={`${compareActive ? "Ta bort" : "Lägg till"} ${partner.name} i jämförelse`}
+              className={`h-9 w-9 shrink-0 ${compareActive ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90" : "border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"}`}
+              title={compareActive ? "Ta bort från jämförelse" : "Lägg till i jämförelse"}
+            >
+              {compareActive ? <Check className="h-4 w-4" aria-hidden /> : <ArrowLeftRight className="h-4 w-4" aria-hidden />}
+            </Button>
+          )}
+          <Link
+            to={`/partner/${partner.slug}/`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground transition-colors hover:bg-[hsl(var(--cta-orange-hover))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            Se partnerprofil
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </Link>
+        </div>
       </footer>
     </article>
   );

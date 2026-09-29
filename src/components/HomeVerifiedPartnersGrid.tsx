@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
 
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowLeftRight, Check } from "lucide-react";
+import { ArrowRight, ArrowLeftRight } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { Button } from "@/components/ui/button";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
+import type { DatabasePartner } from "@/hooks/usePartners";
 
 
 type RawPartner = {
@@ -26,19 +26,6 @@ type RawPartner = {
   product_filters?: Record<string, { industries?: string[]; companySize?: string[] } | null>;
   industry_apps?: Record<string, unknown> | unknown[];
 };
-
-const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
-  { match: (a) => a.includes("Business Central"), label: "Business Central" },
-  { match: (a) => a.includes("Finance") || a.includes("Supply Chain Management") || a.includes("F&SCM"), label: "Finance & SCM" },
-  { match: (a) => a.includes("Sales"), label: "Sales" },
-  { match: (a) => a.includes("Customer Service"), label: "Customer Service" },
-  { match: (a) => a.includes("Field Service"), label: "Field Service" },
-  { match: (a) => a.includes("Contact Center"), label: "Contact Center" },
-  { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Customer Insights (Marketing Automation)" },
-  { match: (a) => a.includes("Project Operations"), label: "Project Operations" },
-  { match: (a) => a.includes("Commerce"), label: "Commerce" },
-  { match: (a) => a.includes("Human Resources"), label: "Human Resources" },
-];
 
 type ProductId =
   | "all"
@@ -110,20 +97,6 @@ const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
   "human-resources": "fsc",
 };
 
-const productAreas = (apps: string[] = []) =>
-  APP_BADGES.filter((b) => b.match(apps)).map((b) => b.label);
-
-
-const partnerCustomerSizes = (p: RawPartner, product: ProductId) => {
-  const key = PRODUCT_FILTER_KEY[product];
-  if (!key) return [];
-  return p.product_filters?.[key]?.companySize || [];
-};
-
-
-
-
-
 const partnerIndustries = (p: RawPartner) => {
   const set = new Set<string>([...(p.industries || []), ...(p.secondary_industries || [])]);
   Object.values(p.product_filters || {}).forEach((f) =>
@@ -140,7 +113,7 @@ interface HomeVerifiedPartnersGridProps {
 }
 
 export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeVerifiedPartnersGridProps) {
-  const { selected, isSelected, toggle, clear, max } = usePartnerCompare();
+  const { selected, clear, max } = usePartnerCompare();
   const [product, setProduct] = useState<ProductId>("all");
   const [industry, setIndustry] = useState<string>("");
 
@@ -329,139 +302,17 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 .
               </div>
             ) : (
-              <ul className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-4">
+              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {filtered.map((p) => {
-                  const areas = productAreas(p.applications);
-                  const active = isSelected(p.slug);
                   return (
-                    <li key={p.slug} className="relative">
-                      <Link
-                        to={`/partner/${p.slug}/`}
-                        className="group h-full flex flex-col bg-card border border-border rounded-lg p-4 pb-14 transition-all hover:-translate-y-1 hover:shadow-lg hover:border-[hsl(var(--cta-orange))]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] focus-visible:ring-offset-2"
-                      >
-                        <div
-                          className={`h-14 flex items-center justify-center rounded mb-3 px-2 ${
-                            p.logo_dark_bg ? "bg-[hsl(var(--hero-dark))]" : "bg-muted/40"
-                          }`}
-                        >
-                          {p.logo_url ? (
-                            <img
-                              src={optimizedLogo(p.logo_url)}
-                              alt={`${p.name} logotyp`}
-                              loading="lazy"
-                              width={160}
-                              height={40}
-                              className="max-h-10 max-w-full w-auto h-auto object-contain"
-                            />
-
-                          ) : (
-                            <span className="text-sm font-semibold text-foreground">{p.name}</span>
-                          )}
-                        </div>
-
-                        <div className="mb-1.5">
-                          <VerifiedPartnerBadge />
-                        </div>
-
-                        {!p.logo_url && (
-                          <h3 className="text-[15px] font-semibold text-foreground leading-snug mb-1.5">
-                            {p.name}
-                          </h3>
-                        )}
-
-                        {(p.ai_summary || p.positioning_statement) && (
-                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-6 mb-2">
-                            {p.ai_summary || p.positioning_statement}
-                          </p>
-                        )}
-
-
-
-                        {product !== "all" ? (
-                          <div className="flex flex-wrap gap-1 mb-2">
-                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[hsl(var(--cta-orange))] text-white border border-[hsl(var(--cta-orange))]">
-                              {PRODUCT_FILTERS.find((f) => f.id === product)?.label}
-                            </span>
-                            {(() => {
-                              const selectedArea = PRODUCT_AREA_LABEL[product];
-                              const others = areas.filter((a) => a !== selectedArea);
-                              return (
-                                <>
-                                  {others.slice(0, 2).map((a) => (
-                                    <span
-                                      key={a}
-                                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/20"
-                                    >
-                                      {a}
-                                    </span>
-                                  ))}
-                                  {others.length > 2 && (
-                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                      +{others.length - 2}
-                                    </span>
-                                  )}
-                                </>
-                              );
-                            })()}
-                          </div>
-                        ) : (
-                          <div className="flex flex-wrap gap-1 mb-2">
-                            {areas.slice(0, 2).map((a) => (
-                              <span
-                                key={a}
-                                className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/20"
-                              >
-                                {a}
-                              </span>
-                            ))}
-                            {areas.length > 2 && (
-                              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                +{areas.length - 2}
-                              </span>
-                            )}
-                          </div>
-                        )}
-
-                        {product !== "all" && !industry && (
-                          <p className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mb-1">
-                            {(() => {
-                              const key = PRODUCT_FILTER_KEY[product];
-                              const ind = key
-                                ? (p.product_filters?.[key]?.industries || [])
-                                : partnerIndustries(p);
-                              return ind.length > 0
-                                ? `${ind.slice(0, 4).join(" · ")}${ind.length > 4 ? ` +${ind.length - 4}` : ""}`
-                                : null;
-                            })()}
-                          </p>
-                        )}
-
-                        {product !== "all" && (
-                          <p className="text-[11px] text-muted-foreground leading-snug">
-                            {(() => {
-                              const sizes = partnerCustomerSizes(p, product);
-                              return sizes.length > 0
-                                ? `Kundsegmentsinriktning (ant. anställda): ${sizes.slice(0, 4).join(" · ")}${sizes.length > 4 ? ` +${sizes.length - 4}` : ""}`
-                                : null;
-                            })()}
-                          </p>
-                        )}
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() => toggle({ slug: p.slug, name: p.name })}
-                        aria-pressed={active}
-                        aria-label={`Markera ${p.name} för jämförelse`}
-                        className={`absolute bottom-3 left-4 right-4 inline-flex items-center justify-center gap-1.5 px-2 py-1.5 rounded text-[11.5px] font-semibold border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--cta-orange))] ${
-                          active
-                            ? "bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))]"
-                            : "bg-transparent text-foreground border-border hover:border-[hsl(var(--cta-orange))] hover:text-[hsl(var(--cta-orange))]"
-                        }`}
-                      >
-                        {active ? <Check className="w-3.5 h-3.5" /> : <ArrowLeftRight className="w-3.5 h-3.5" />}
-                        {active ? "Vald för jämförelse" : "Lägg till i jämförelse"}
-                      </button>
+                    <li key={p.slug} className="h-full">
+                      <IndustryVerifiedPartnerCard
+                        partner={p as unknown as DatabasePartner}
+                        industry={industry || null}
+                        productKey={PRODUCT_FILTER_KEY[product]}
+                        productLabel={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
+                        enableCompare
+                      />
                     </li>
                   );
                 })}
