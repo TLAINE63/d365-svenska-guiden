@@ -237,9 +237,12 @@ serve(async (req) => {
       const product = ["bc", "fsc", "sales", "service"].includes(body.product) ? body.product : "bc";
       if (body.all) {
         const { data: ps } = await sb.from("partners").select("id").eq("agreement_signed", true);
-        let created = 0;
-        for (const p of ps || []) created += (await runPrefill(sb, p.id, product)).created || 0;
-        return json({ created });
+        let created = 0; const failed: string[] = [];
+        for (const p of ps || []) {
+          try { created += (await runPrefill(sb, p.id, product)).created || 0; }
+          catch (e) { console.error("prefill", p.id, product, e); failed.push(p.id); }
+        }
+        return json({ created, failed: failed.length });
       }
       return json(await runPrefill(sb, String(body.partner_id || ""), product));
     }
@@ -263,6 +266,6 @@ serve(async (req) => {
     return json({ error: "Okänd åtgärd" }, 400);
   } catch (e) {
     console.error("manage-partner-master:", e);
-    return json({ error: e instanceof Error ? e.message : "Serverfel" }, 400);
+    return json({ error: e instanceof Error ? e.message : ((e as any)?.message || "Serverfel") }, 400);
   }
 });

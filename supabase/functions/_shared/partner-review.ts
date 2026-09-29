@@ -379,7 +379,9 @@ export async function runPrefill(sb: any, partnerId: string, productKey = "bc") 
 
   const profileId = await getProfile(sb, partnerId, cfg, true);
   if (!profileId) return { created: 0 };
-  const groupIds = [...(await productIds(sb, cfg.productKeys)).values()];
+  // Alternativen måste tillhöra just denna profils produkt (databasregel), inte hela gruppen
+  const { data: prof } = await sb.from("partner_product_profiles").select("product_id").eq("id", profileId).single();
+  const groupIds = prof?.product_id ? [prof.product_id] : [...(await productIds(sb, cfg.productKeys)).values()];
   const capIds = [...(await productIds(sb, CAPABILITY_KEYS)).values()];
   const [{ data: opts }, { data: caps }, { data: exA }, { data: exC }, { data: removed }] = await Promise.all([
     sb.from("product_attribute_options").select("id, dimension_key, attribute_key").in("product_id", groupIds).eq("is_active", true),
