@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Loader2, Download, Plus, Trash2, Save } from "lucide-react";
+import { Loader2, Download, Plus, Trash2, Save, Check } from "lucide-react";
 import {
   BC_GROUP_TITLES, VERIFICATION_STATUSES, SOLUTION_TYPES,
 } from "@/data/structuredPartnerProfile";
@@ -38,6 +38,8 @@ interface Solution {
 
 const sel = "h-9 rounded-md border border-input bg-background px-2 text-sm";
 const emptyVerif: Verif = { verification_status: "unverified", verified_by: "", verified_at: "", source_url: "" };
+const STATUS_LABELS: Record<string, string> = Object.fromEntries(VERIFICATION_STATUSES.map((s) => [s.value, s.label]));
+const isVerified = (v: Verif) => ["partner_verified", "editorial_verified", "public_source"].includes(v.verification_status);
 
 function VerifFields({ v, onChange }: { v: Verif; onChange: (p: Partial<Verif>) => void }) {
   return (
