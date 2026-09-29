@@ -101,4 +101,4 @@
 - [x] Visa produkter och särskilda styrkor på `/partners-per-bransch/`
 - [x] Visa samma korttyp på `/alla-d365-partners/`
 - [x] Visa samma korttyp på startsidan i ”Så hittar du rätt partner”
-- [ ] Kontrollera de tre ytorna på dator och mobil
+- [x] Kontrollera de tre ytorna på dator och mobil
