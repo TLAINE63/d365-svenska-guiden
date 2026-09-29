@@ -40,28 +40,28 @@ const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
     migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Välj era särskilda Business Central-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
-    capability: "Gäller hela er organisation, inte bara detta produktområde: Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter. Ett val här gäller automatiskt alla era produktområden.",
+    capability: "Välj de förmågor ni har egna konsulter för. Valet gäller automatiskt alla era produktområden.",
     special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   fsc: {
     migration: "Vilka system har ni hjälpt kunder att flytta ifrån när de infört Finance och/eller Supply Chain Management? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Välj era särskilda Finance- och Supply Chain Management-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
-    capability: "Gäller hela er organisation, inte bara detta produktområde: Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter. Ett val här gäller automatiskt alla era produktområden.",
+    capability: "Välj de förmågor ni har egna konsulter för. Valet gäller automatiskt alla era produktområden.",
     special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   sales: {
     migration: "Från vilka CRM-system eller kalkylblad har ni hjälpt kunder att flytta? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Vilka områden inom Sales och Customer Insights har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
-    capability: "Gäller hela er organisation, inte bara detta produktområde: Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter. Ett val här gäller automatiskt alla era produktområden.",
+    capability: "Välj de förmågor ni har egna konsulter för. Valet gäller automatiskt alla era produktområden.",
     special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   service: {
     migration: "Från vilka system har ni hjälpt kunder att flytta sin kundservice eller fältservice? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Vilka områden inom Customer Service, Field Service och Contact Center har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
-    capability: "Gäller hela er organisation, inte bara detta produktområde: Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter. Ett val här gäller automatiskt alla era produktområden.",
+    capability: "Välj de förmågor ni har egna konsulter för. Valet gäller automatiskt alla era produktområden.",
     special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
@@ -80,7 +80,9 @@ const titleOf = (productKey: ReviewProductKey, dim: string) =>
   dim === "competency" ? COMPETENCY_TITLES[productKey] : BASE_TITLES[dim] || dim;
 
 /** Granska och godkänn i stället för att fylla i allt igen. Ändringar granskas av redaktionen (publicerade partner publiceras direkt). */
-export function PartnerReviewSection({ token, productKey = "bc" }: { token: string; productKey?: ReviewProductKey }) {
+export function PartnerReviewSection({ token, productKey = "bc", scope = "product" }: { token: string; productKey?: ReviewProductKey; scope?: "product" | "capability" }) {
+  // Tvärgående förmågor gäller hela partnern och visas en gång (scope="capability"), inte under varje produktkort.
+  const ownDims = scope === "capability" ? ["capability"] : dimsFor(productKey).filter((d) => d !== "capability");
   const { toast } = useToast();
   const [data, setData] = useState<ReviewData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -105,7 +107,7 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
 
   const diff = useMemo(() => {
     if (!data) return [];
-    const dims = [...dimsFor(productKey), "industry_solution"];
+    const dims = scope === "capability" ? ownDims : [...ownDims, "industry_solution"];
     return dims.map((d) => {
       const cur = data.items.filter((i) => i.dimension === d);
       const prev = cur.map((i) => i.label);
@@ -118,13 +120,15 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
       return { d, title: title(d), previous: prev.join(", ") || "Tomt", next: next.join(", ") || "Tomt", changed };
     }).filter((x) => x.changed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, decisions, adds, solution, productKey]);
+  }, [data, decisions, adds, solution, productKey, scope]);
 
   if (loading) return <Card><CardContent className="py-8 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></CardContent></Card>;
   if (!data || !data.has_app) return null;
 
-  const shownDims = new Set([...dimsFor(productKey), "base", "industry_solution"]);
+  const shownDims = new Set(scope === "capability" ? ownDims : [...ownDims, "base", "industry_solution"]);
   const shownItems = data.items.filter((i) => shownDims.has(i.dimension));
+  const missing = data.missing.filter((d) => shownDims.has(d));
+  const counts = { A: shownItems.filter((i) => i.klass === "A").length, B: shownItems.filter((i) => i.klass === "B").length, C: missing.length };
   const A = shownItems.filter((i) => i.klass === "A");
   const B = shownItems.filter((i) => i.klass === "B");
   const pending = data.changes.filter((c) => c.status === "pending");
@@ -176,17 +180,17 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Granska er {data.product_label}-profil</CardTitle>
+        <CardTitle className="text-lg">{scope === "capability" ? "Tvärgående förmågor (hela partnern)" : `Granska er ${data.product_label}-profil`}</CardTitle>
         <CardDescription>
-          Vi har samlat det vi redan vet om er {data.product_label}-verksamhet. Gå igenom de tre delarna nedan:
+          {scope === "capability" ? "Power BI, Power Platform, Copilot samt Copilot Studio och AI-agenter gäller hela er organisation och alla era produktområden, så de anges bara här en gång." : `Vi har samlat det vi redan vet om er ${data.product_label}-verksamhet.`} Gå igenom de tre delarna nedan:
           1) kontrollera det som redan är bekräftat, 2) bekräfta eller ta bort uppgifter vi hittat, 3) lägg till det som saknas.
           Klicka sedan på "Granska ändringar" längst ner och spara.{" "}
           {data.auto_publish ? "Era ändringar publiceras direkt på er partnerprofil." : "Allt ni ändrar granskas av d365.se innan det publiceras."}
         </CardDescription>
         <div className="flex flex-wrap gap-2 pt-2 text-xs">
-          <Badge variant="secondary">Bekräftade: {data.counts.A}</Badge>
-          <Badge variant="outline">Behöver bekräftas: {data.counts.B}</Badge>
-          <Badge variant="outline">Saknas: {data.counts.C}</Badge>
+          <Badge variant="secondary">Bekräftade: {counts.A}</Badge>
+          <Badge variant="outline">Behöver bekräftas: {counts.B}</Badge>
+          <Badge variant="outline">Saknas: {counts.C}</Badge>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -247,8 +251,8 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
         <section className="space-y-3">
           <h4 className="font-semibold text-sm">Saknas</h4>
           <p className="text-xs text-muted-foreground">Områden där vi inte har några uppgifter. Klicka på Lägg till och välj de alternativ som stämmer. Hoppa över det som inte är relevant.</p>
-          {data.missing.length === 0 && <p className="text-sm text-muted-foreground">Inget saknas.</p>}
-          {data.missing.map((d) => (
+          {missing.length === 0 && <p className="text-sm text-muted-foreground">Inget saknas.</p>}
+          {missing.map((d) => (
             <div key={d} className="rounded-lg border border-dashed border-border p-3">
               <div className="flex items-center justify-between gap-2">
                 <div><p className="text-sm font-medium">{title(d)} <span className="text-xs text-muted-foreground font-normal">Ej angiven</span></p>
@@ -281,7 +285,7 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
           <details className="text-sm">
             <summary className="cursor-pointer text-muted-foreground">Lägg till något annat</summary>
             <div className="space-y-3 mt-2">
-              {dimsFor(productKey).filter((d) => !data.missing.includes(d)).map((d) => (
+              {ownDims.filter((d) => !missing.includes(d)).map((d) => (
                 <div key={d}><p className="text-xs font-medium">{title(d)}</p>{help[d] && <p className="text-xs text-muted-foreground">{help[d]}</p>}<Picker dim={d} /></div>
               ))}
             </div>
