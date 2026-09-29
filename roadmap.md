@@ -74,6 +74,10 @@
 - [x] Kontextuell CTA i guider och kunskapscenterartiklar
 - [x] Mobil-, desktop- och flödeskontroll utan dubbla CTA:er
 
+## Kompaktare Kom igång-steg (2026-09-29)
+- [ ] Bredda alla valsteg och rym branschvalen utan skrollning på vanlig dator
+- [ ] Kontrollera samtliga steg på dator och mobil
+
 ## Partnerns målgrupp i AI-bedömningar (2026-09-28)
 - [x] Låt partnerns egen text om typiska kunder styra segmentetiketten i snabböversikten
 - [x] Lägg samma källprioritet i AI-underlagen för sammanfattning, lämplighet och avgränsning

@@ -771,10 +771,10 @@ const KomIgang = () => {
 
       <main className="flex-1 flex flex-col">
         {/* Hero */}
-        <section className="relative pt-28 pb-4 sm:pt-32 sm:pb-6 overflow-hidden">
+        <section className="relative pt-24 pb-2 sm:pt-28 sm:pb-3 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
               Några frågor – sedan en kortlista att gå vidare med
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground">Vi ringar in bransch, behov och ambitionsnivå och visar vilka partners som faktiskt matchar – utan säljpåverkan.</p>
@@ -782,11 +782,11 @@ const KomIgang = () => {
         </section>
 
         {/* Wizard */}
-        <section className="flex-1 py-4 sm:py-6">
+        <section className="flex-1 py-3 sm:py-4">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               {/* Step indicator */}
-              <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="flex items-center justify-center gap-2 mb-2">
                 <span className="text-sm font-semibold text-foreground">Steg {step}</span>
                 <span className="text-sm text-muted-foreground">av {TOTAL_STEPS}</span>
                 <div className="flex gap-1.5 ml-3">
@@ -802,7 +802,7 @@ const KomIgang = () => {
               </div>
 
               {/* Step heading */}
-              <div className="text-center mb-3">
+              <div className="text-center mb-2">
                 <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                   {stepLabels[step - 1]}
                 </h2>
@@ -812,7 +812,7 @@ const KomIgang = () => {
               </div>
 
               {/* Navigation buttons above content */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-4">
                   {step > 1 && (
                     <button
@@ -857,7 +857,7 @@ const KomIgang = () => {
 
               {step === 1 && (
                 <div>
-                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-2">
                     {sortedIndustries.map((ind) => {
                       const isSelected = selectedIndustry === ind;
                       const img = industryImages[ind];
@@ -868,7 +868,7 @@ const KomIgang = () => {
                             setSelectedIndustry(ind);
                             setTimeout(() => advanceTo(2), 250);
                           }}
-                          className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
+                          className={`relative group rounded overflow-hidden border-2 transition-all aspect-[5/4] lg:aspect-[8/5] ${
                             isSelected
                               ? "border-[hsl(var(--cta-orange))] ring-2 ring-[hsl(var(--cta-orange))]/30 scale-[1.02]"
                               : "border-border hover:border-[hsl(var(--cta-orange))]/40"
@@ -890,7 +890,7 @@ const KomIgang = () => {
                               <Check className="h-3 w-3 text-white" />
                             </div>
                           )}
-                          <span className="absolute bottom-0 left-0 right-0 px-1 py-1.5 text-white text-[10px] sm:text-xs font-semibold text-center leading-tight">
+                          <span className="absolute inset-x-0 bottom-0 px-1 py-1 text-white text-[10px] font-semibold text-center leading-tight">
                             {ind}
                           </span>
                         </button>
@@ -902,7 +902,7 @@ const KomIgang = () => {
 
               {/* Step 2: Product */}
               {step === 2 && (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                   {productOptions.map((opt) => {
                     const isSelected = selectedProduct === opt.value;
                     return (
@@ -912,16 +912,16 @@ const KomIgang = () => {
                           setSelectedProduct(opt.value);
                           setTimeout(() => advanceTo(3), 250);
                         }}
-                        className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
+                        className={`relative flex flex-col items-center justify-center text-center px-3 py-3 rounded border-2 transition-all min-h-[112px] ${
                           isSelected
                             ? "border-[hsl(var(--cta-orange))] bg-[hsl(var(--cta-orange))]/5 "
                             : "border-border bg-card hover:border-[hsl(var(--cta-orange))]/40"
                         }`}
                       >
                         {opt.icon ? (
-                          <img src={opt.icon} alt={opt.label} className="w-10 h-10 object-contain mb-2" />
+                          <img src={opt.icon} alt={opt.label} className="w-8 h-8 object-contain mb-1.5" />
                         ) : (
-                          <HelpCircle className="w-10 h-10 text-muted-foreground mb-2" />
+                          <HelpCircle className="w-8 h-8 text-muted-foreground mb-1.5" />
                         )}
                         <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
                         <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
@@ -939,7 +939,7 @@ const KomIgang = () => {
               {/* Step 3: Goal (multi-select) */}
               {step === 3 && (
                 <div>
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {goalOptions.map((opt) => {
                       const isSelected = selectedGoals.includes(opt.value);
                       return (
@@ -950,7 +950,7 @@ const KomIgang = () => {
                               prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
                             );
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
                             isSelected
                               ? "border-primary bg-primary/5 text-foreground"
                               : "border-border bg-card text-foreground hover:border-primary/30"
@@ -972,7 +972,7 @@ const KomIgang = () => {
               {/* Step 4: Situation (multi-select) */}
               {step === 4 && (
                 <div>
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {situationOptions.map((opt) => {
                       const isSelected = selectedSituations.includes(opt.value);
                       return (
@@ -983,7 +983,7 @@ const KomIgang = () => {
                               prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
                             );
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
                             isSelected
                               ? "border-primary bg-primary/5 text-foreground"
                               : "border-border bg-card text-foreground hover:border-primary/30"
@@ -1005,7 +1005,7 @@ const KomIgang = () => {
               {/* Step 5: Verksamhet (multi-select, two columns) */}
               {step === 5 && (
                 <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {complexityOptions.map((opt) => {
                       const isSelected = selectedComplexities.includes(opt.value);
                       return (
@@ -1016,7 +1016,7 @@ const KomIgang = () => {
                               prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
                             );
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
                             isSelected
                               ? "border-primary bg-primary/5 text-foreground"
                               : "border-border bg-card text-foreground hover:border-primary/30"
@@ -1041,7 +1041,7 @@ const KomIgang = () => {
               {/* Step 6: Company size (single-select with skip option) */}
               {step === 6 && (
                 <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {sizeOptions.map((opt) => {
                       const isSelected = selectedSize === opt.value;
                       return (
@@ -1051,13 +1051,13 @@ const KomIgang = () => {
                             setSelectedSize(opt.value);
                             setTimeout(() => findPartners(), 250);
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
                             isSelected
                               ? "border-primary bg-primary/5 text-foreground"
                               : "border-border bg-card text-foreground hover:border-primary/30"
                           }`}
                         >
-                          <div className={`w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 ${
+                          <div className={`w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0 ${
                             isSelected ? "bg-primary/20" : ""
                           }`}>
                             <Users className="h-4 w-4 text-primary" />
@@ -1078,7 +1078,7 @@ const KomIgang = () => {
                       setSelectedSize(null);
                       findPartners();
                     }}
-                    className="mt-4 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                    className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
                   >
                     Hoppa över – visa alla relevanta partners
                   </button>
