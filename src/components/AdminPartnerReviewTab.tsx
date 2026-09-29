@@ -51,6 +51,8 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
   const [detail, setDetail] = useState<any>(null);
   const [detailProduct, setDetailProduct] = useState<ProductKey>("bc");
   const [busy, setBusy] = useState(false);
+  const [prefillProgress, setPrefillProgress] = useState<string | null>(null);
+  const [prefillResult, setPrefillResult] = useState<{ total: number; parts: { label: string; created: number; failed: number }[]; ts: string } | null>(null);
   const [notes, setNotes] = useState<Record<string, string>>({});
 
   const loadOverview = useCallback(async () => {
@@ -80,17 +82,23 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
   };
   const prefillAll = async () => {
     setBusy(true);
+    setPrefillResult(null);
     try {
-      const parts: string[] = [];
+      const parts: { label: string; created: number; failed: number }[] = [];
       let total = 0;
       for (const product of PRODUCT_KEYS) {
+        setPrefillProgress(`Kör ${PRODUCT_LABELS[product]} (${PRODUCT_KEYS.indexOf(product) + 1}/${PRODUCT_KEYS.length})…`);
         const r = await call("review-prefill", { all: true, product });
         total += r.created || 0;
-        parts.push(`${PRODUCT_LABELS[product]}: ${r.created || 0}`);
+        parts.push({ label: PRODUCT_LABELS[product], created: r.created || 0, failed: r.failed || 0 });
       }
-      toast.success(`${total} förslag förifyllda (${parts.join(", ")})`);
+      const now = new Date();
+      const ts = `${now.toISOString().slice(0, 10)} ${now.toTimeString().slice(0, 5)}`;
+      setPrefillResult({ total, parts, ts });
+      if (total > 0) toast.success(`${total} nya förslag förifyllda`);
+      else toast.info("Körningen klar. Inga nya uppgifter hittades.");
       await loadOverview();
-    } catch (e: any) { toast.error(e.message); } finally { setBusy(false); }
+    } catch (e: any) { toast.error(e.message); } finally { setBusy(false); setPrefillProgress(null); }
   };
   const decide = async (id: string, decision: string) => {
     try {
@@ -150,6 +158,27 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
               </div>
             </CardHeader>
             <CardContent>
+              {(prefillProgress || prefillResult) && (
+                <div className="mb-4 rounded-md border border-border bg-muted/40 p-3 text-sm" role="status" aria-live="polite">
+                  {prefillProgress ? (
+                    <p className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" />{prefillProgress}</p>
+                  ) : prefillResult && (
+                    <>
+                      <p className="font-medium">
+                        Förifyllning klar {prefillResult.ts}: {prefillResult.total > 0 ? `${prefillResult.total} nya förslag` : "inga nya uppgifter hittades"}
+                      </p>
+                      <p className="text-muted-foreground mt-1">
+                        {prefillResult.parts.map((p) => `${p.label}: ${p.created}${p.failed ? ` (${p.failed} fel)` : ""}`).join(" · ")}
+                      </p>
+                      {prefillResult.total === 0 && (
+                        <p className="text-muted-foreground mt-1">
+                          Allt som går att läsa ut ur partnernas egna texter är redan förifyllt. Det som saknas (C) måste partnern själv komplettera via profileringslänken.
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
               {!overview ? <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /> : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
