@@ -131,7 +131,6 @@ const SERVICE_RULES: [string, string, RegExp][] = [
   ["competency", "knowledge_base", /\b(kunskapsbas|självservice|kundportal)\w*/i],
   ["competency", "omnichannel", /\b(omnikanal\w*|flera\s+kanaler|chat|kundtjänst)\w*/i],
   ["competency", "csat", /\b(kundnöjdhet|csat|nöjdhetsmätning)\w*/i],
-  ["competency", "integrations_api", /\b(integrationer|api-?integration\w*)\b/i],
 ];
 
 const SHARED_RULES: [string, string, RegExp][] = [
