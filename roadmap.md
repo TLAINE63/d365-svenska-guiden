@@ -129,4 +129,4 @@
 - [x] Skapa `/roller/` med VD, CFO, COO och IT-chef
 - [x] Återanvänd befintliga områden, guider och partnerlistor
 - [x] Mät visningar, rollval och vidare klick anonymt
-- [ ] Kontrollera alla fyra roller på dator och mobil
+- [x] Kontrollera alla fyra roller på dator och mobil
