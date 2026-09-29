@@ -13,7 +13,7 @@ import { useBasicPartners } from "@/hooks/useBasicPartners";
 import BasicIndustryFootnote from "@/components/BasicIndustryFootnote";
 import { useState } from "react";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
-import PartnerCard from "@/components/PartnerCard";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 
@@ -154,15 +154,12 @@ const PartnersPerBransch = () => {
                           för vägledning.
                         </p>
                       ) : (
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           {list.map((p) => (
                             <li key={p.id} className="h-full">
-                              <PartnerCard
+                              <IndustryVerifiedPartnerCard
                                 partner={p}
-                                profileUrl={`/partner/${p.slug}/`}
-                                colorScheme="primary"
-                                highlightedIndustry={industry.name}
-                                resultView
+                                industry={industry.name}
                               />
                             </li>
                           ))}
