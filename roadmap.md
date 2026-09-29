@@ -1,6 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Förenklad BizApps-profil (2026-09-29)
+- [x] Slå ihop projekttyper och leveransmodeller till en fråga med endast särskiljande val
 - [x] Ta bort fem gemensamma ERP-basval från BC och F&SCM
 - [x] Samla Power Apps, Power Automate, Power Pages och Dataverse under Power Platform
 - [x] Bevara historik och verifieringsmetadata vid sammanslagningen

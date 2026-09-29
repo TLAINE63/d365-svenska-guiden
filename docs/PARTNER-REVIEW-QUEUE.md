@@ -8,9 +8,9 @@ Alla verifierade partner (avtal): namn, senast verifierad, antal A/B/C, profilst
 
 ## 2. Förifyllningsregler
 Knappen "Förifyll alla" / "Kör förifyllning". Explicita textregler (regex) per val i `_shared/partner-review.ts`, t.ex.
-"migrera från NAV" → Migrering: NAV, "fastpris" → Fastprisstart, "EDI" → EDI, "Power BI" → Power BI.
+"migrera från NAV" → Migrering: NAV, "Proof of Concept" → Proof of Concept, "EDI" → EDI, "Power BI" → Power BI.
 Källor: partnerbeskrivning, partnerns egna BC-produkttexter (ej AI-genererade), leveransprofil, kundexempel och styrkor endast om partnern skrivit dem.
-Sparas som opublicerat förslag (Importerad äldre uppgift, källa Tidigare partnerprofil, med textutdrag). Befintliga val skrivs aldrig över; val som partnern tagit bort föreslås inte igen. Inget matchar → fältet lämnas tomt.
+Sparas som opublicerat förslag (Importerad äldre uppgift, källa Tidigare partnerprofil, med textutdrag). Befintliga val skrivs aldrig över; val som partnern tagit bort föreslås inte igen. Inget matchar → fältet lämnas tomt. Vanlig implementation, migrering, uppgradering, successiv implementation, förvaltning och support efterfrågas inte. Bara särskiljande projekt- och leveransformer visas. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal.
 
 ## 3. Partnervy (profileringslänken)
 Befintliga partners ser "Granska er Business Central-profil" i stället för hela kryssformuläret:

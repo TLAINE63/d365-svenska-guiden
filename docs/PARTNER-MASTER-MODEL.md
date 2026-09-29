@@ -36,8 +36,7 @@ Förra stegets fält `partners.structured_profile`, `data_verified_at`, `data_ve
 |---|---|
 | migration | nav, bc_onprem, bc_other_environment, visma, monitor, pyramid, jeeves, sap_business_one, fortnox, other_erp |
 | competency | manufacturing, projects, service_management, retail_ecommerce, edi, integrations_api, multi_company, international |
-| project_type | new_implementation, migration, upgrade, maintenance_support, rescue, system_consolidation, multi_company_implementation, international_rollout |
-| delivery_model | fixed_price_start, quickstart_package, proof_of_concept, phased_implementation, traditional_project, maintenance_partner, managed_services |
+| special_delivery | managed_services, rescue, international_rollout, system_consolidation, multi_company_implementation, fixed_price_start, quickstart_package, proof_of_concept |
 
 "Annat ERP" har ingen fritext i filtrering. Eventuell kommentar lagras i `editorial_note`.
 
@@ -82,8 +81,8 @@ Endast profiler och val med `is_published = true`. Inga e-postadresser, telefonn
 | industries | json[] | nej | product_filters.bc | ja | ja | ja |
 | bc_competencies | [{key, sourceType, verifiedAt}] | nej | partner_bc_attributes | ja | ja | ja |
 | migration_experience | samma | nej | samma | ja | ja | ja |
-| project_types | samma | nej | samma | ja | ja | ja |
-| delivery_models | samma (inkl. maintenance_partner, managed_services = SupportAndManagedServices) | nej | samma | ja | ja | ja |
+| project_types | särskilda projektformer från special_delivery | nej | samma | ja | ja | ja |
+| delivery_models | särskilda leveransformer från special_delivery | nej | samma | ja | ja | ja |
 | industry_solutions | [{name, description, industries, type, sourceUrl, partnerVerified, editorialVerified, verifiedAt}] | nej | partner_industry_solutions | ja | ja | ja |
 
 EmployeeRanges finns inte strukturerat i dag (bara `team_size_sweden` som fritext) och ingår därför inte i v1.0. Läsning sker via adminfunktionen (`action=export-bc`). Ingen integration med businesscentral.se är byggd.

@@ -7,7 +7,7 @@
 // alternativ speglas per produkt med identiska nycklar och raderas/bekräftas
 // över alla profiler i gruppen; tillägg skrivs till primärprofilen.
 
-export const REVIEW_DIMENSIONS = ["migration", "competency", "project_type", "delivery_model", "capability"] as const;
+export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
 export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio", "ai-agents"];
 
 export interface ReviewProductConfig {
@@ -51,8 +51,8 @@ export function dimensionTitle(productKey: string, dim: string): string {
     service: { competency: "Service-kompetens (Customer Service & Field Service)" },
   };
   const base: Record<string, string> = {
-    migration: "Migreringserfarenhet", project_type: "Typiska projekt",
-    delivery_model: "Leveransmodell", capability: "Tvärgående förmågor",
+    migration: "Migreringserfarenhet", special_delivery: "Särskilda projekt och leveransformer",
+    capability: "Tvärgående förmågor",
     industry_solution: "Branschlösning", base: "Grunduppgifter",
   };
   return titles[productKey]?.[dim] || base[dim] || dim;
@@ -138,18 +138,14 @@ const SERVICE_RULES: [string, string, RegExp][] = [
 ];
 
 const SHARED_RULES: [string, string, RegExp][] = [
-  ["project_type", "new_implementation", /\b(nyimplementation\w*|nyinförande\w*|implementationsprojekt\w*)\b/i],
-  ["project_type", "migration", /\bmigrer(ing|ingar|ingsprojekt)\w*/i],
-  ["project_type", "upgrade", /\buppgradering\w*/i],
-  ["project_type", "maintenance_support", /\b(förvaltning|supportavtal|förvaltningsavtal)\w*/i],
-  ["project_type", "rescue", /\b(rescue|räddningsprojekt)\w*/i],
-  ["project_type", "international_rollout", /\b(internationell\s+utrullning|roll-?out)\b/i],
-  ["delivery_model", "fixed_price_start", /\b(fast\s+pris|fastpris)\w*/i],
-  ["delivery_model", "quickstart_package", /\b(snabbstart\w*|quick\s?start|startpaket)\b/i],
-  ["delivery_model", "proof_of_concept", /\b(proof\s+of\s+concept|poc)\b/i],
-  ["delivery_model", "phased_implementation", /\b(stegvis\w*|etappvis\w*|successiv\w*\s+(implementation|införande))\b/i],
-  ["delivery_model", "maintenance_partner", /\b(förvaltningspartner|förvaltningsavtal)\b/i],
-  ["delivery_model", "managed_services", /\bmanaged\s+services?\b/i],
+  ["special_delivery", "managed_services", /\bmanaged\s+services?\b/i],
+  ["special_delivery", "rescue", /\b(rescue|räddningsprojekt)\w*/i],
+  ["special_delivery", "international_rollout", /\b(internationell\s+utrullning|global\s+utrullning|roll-?out)\b/i],
+  ["special_delivery", "system_consolidation", /\b(systemkonsolidering|konsolidering\s+av\s+(flera\s+)?(system|miljöer))\b/i],
+  ["special_delivery", "multi_company_implementation", /\b(flerbolagsimplementation|flerbolagslösning|multi[-\s]?company)\w*/i],
+  ["special_delivery", "fixed_price_start", /\b(fastprisstart|fastprisad\s+(förstudie|start|analysfas))\b/i],
+  ["special_delivery", "quickstart_package", /\b(snabbstartspaket|quick\s?start[-\s]?paket|paketerad\s+snabbstart)\b/i],
+  ["special_delivery", "proof_of_concept", /\b(proof\s+of\s+concept|poc)\b/i],
   ["capability", "power-bi", /\bpower\s?bi\b/i],
   ["capability", "power-platform", /\b(power\s+platform|power\s+apps|power\s+automate)\b/i],
   ["capability", "copilot-studio", /\bcopilot\s+studio\b/i],
