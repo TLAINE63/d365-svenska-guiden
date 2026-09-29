@@ -197,19 +197,12 @@
       "website": "https://www.knowit.se/vart-erbjudande/solutions/",
       "description": "Våra experter hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav för verksamhetens processer, data, AI och automatisering – byggt på Microsofts plattform. Genom att knyta samman ERP, data och intelligenta arbetssätt skapar vi förutsättningar för bättre beslut, effektivare processer och hållbar verksamhetsutveckling.",
       "products": [
-        "Finance",
-        "Supply Chain Management"
+        "F&SCM"
       ],
-      "industries": [
-        "Tillverkningsindustri",
-        "Grossist & Distribution"
-      ],
+      "industries": [],
       "offices": null,
       "company_size": null,
-      "geography": [
-        "Sverige",
-        "Norden"
-      ],
+      "geography": [],
       "related_party": false
     },
     {
