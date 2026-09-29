@@ -10,6 +10,12 @@
 export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
 export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio"];
 
+// Särskilda projekt och leveransformer efterfrågas inte för F&SCM (beslut 2026-09-29:
+// alla F&SCM-partners skulle kryssa i allt; dimensionen är främst relevant för BC).
+export function dimsForProduct(productKey: string): string[] {
+  return REVIEW_DIMENSIONS.filter((d) => !(productKey === "fsc" && d === "special_delivery"));
+}
+
 export interface ReviewProductConfig {
   key: string;
   label: string;
@@ -303,9 +309,10 @@ export async function computeReview(sb: any, partnerId: string, productKey = "bc
   if (partner.agreement_signed) base.push({ key: "agreement", label: "Verifierad partner (avtal)" });
   for (const b of base) items.push({ dimension: "base", key: b.key, label: b.label, klass: "A", quality: "confirmed", source: "Partnerprofil", excerpt: null, verified_at: null });
 
-  const missing = [...REVIEW_DIMENSIONS, "industry_solution"].filter((d) => !items.some((i) => i.dimension === d));
+  const dims = dimsForProduct(productKey);
+  const missing = [...dims, "industry_solution"].filter((d) => !items.some((i) => i.dimension === d));
   const options: Record<string, { key: string; label: string }[]> = {};
-  for (const d of REVIEW_DIMENSIONS) {
+  for (const d of dims) {
     options[d] = d === "capability"
       ? (caps || []).map((c: any) => ({ key: c.product_key, label: c.name }))
       : [...optIndex.values()].filter((o) => o.dimension_key === d).map((o) => ({ key: o.attribute_key, label: o.label }));
@@ -381,7 +388,9 @@ export async function runPrefill(sb: any, partnerId: string, productKey = "bc") 
   const hasA = new Set((exA || []).map((a: any) => a.product_attribute_option_id));
   const hasC = new Set((exC || []).map((c: any) => c.capability_product_id));
   const attrIns: any[] = [], capIns: any[] = [];
+  const allowedDims = new Set(dimsForProduct(productKey));
   for (const [dim, key, re] of (PREFILL_RULE_SETS[productKey] || PREFILL_RULE_SETS.bc)) {
+    if (!allowedDims.has(dim)) continue;
     if (blocked.has(`${dim}:${key}`)) continue;
     const ex = excerpt(text, re);
     if (!ex) continue;
