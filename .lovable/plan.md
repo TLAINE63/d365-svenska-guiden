@@ -3,6 +3,7 @@
 ## Ändringar
 - Återanvänd det gemensamma verifierade partnerkortet på `/partners-per-bransch/`, med aktuell bransch som sammanhang.
 - Visa samma korttyp för verifierade partners i den allmänna partnerkatalogen, utan att hitta på ett branschsammanhang.
+- Visa samma korttyp i startsidans ”Så hittar du rätt partner”, anpassat efter de valda produkt- och branschfiltren.
 - Låt korten alltid visa partnerns levererade Dynamics 365-produkter och dokumenterade särskilda styrkor när uppgifterna finns.
 - Behåll grundpartners i deras befintliga, tydligt avgränsade kort.
 
@@ -12,5 +13,5 @@
 - Använd full partnerdata i den allmänna katalogen så styrkor och produktprofiler inte tappas bort.
 
 ## Kontroll
-- Kontrollera båda katalogerna på dator och mobil, inklusive produktfilter och länkar till partnerprofiler.
+- Kontrollera båda katalogerna och startsidan på dator och mobil, inklusive filter och länkar till partnerprofiler.
 - Säkerställ att inga produktavgränsningar visas som missvisande kontrollpunkter.
