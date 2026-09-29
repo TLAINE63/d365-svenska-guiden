@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Loader2, Download, Plus, Trash2, Save } from "lucide-react";
 import {
-  BC_OPTIONS, BC_GROUP_TITLES, VERIFICATION_STATUSES, SOLUTION_TYPES, type BcAttributeType,
+  BC_GROUP_TITLES, VERIFICATION_STATUSES, SOLUTION_TYPES,
 } from "@/data/structuredPartnerProfile";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 
@@ -22,10 +22,15 @@ const VERIFIED_BY = [
   { value: "publik_kalla", label: "Publik källa" },
   { value: "import", label: "Import" },
 ];
-const GROUPS: BcAttributeType[] = ["migration", "competency", "project_type", "delivery_model"];
+const DIMENSION_TITLES: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(BC_GROUP_TITLES).map(([k, v]) => [k, v.title])),
+  industry_solution_type: "Typ av branschlösning",
+};
+const dimTitle = (d: string) => DIMENSION_TITLES[d] || d.replace(/_/g, " ");
 
 interface Verif { verification_status: string; verified_by: string; verified_at: string; source_url: string }
-interface Attr extends Verif { attribute_type: string; value_key: string; is_published: boolean }
+interface Attr extends Verif { product_attribute_option_id: string; is_published: boolean }
+interface Cap extends Verif { capability_product_id: string; is_published: boolean }
 interface Solution {
   id?: string; name: string; description: string; industries: string[]; solution_type: string;
   source_url: string; partner_verified: boolean; editorial_verified: boolean; verified_at: string; is_published: boolean;
@@ -66,6 +71,8 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
 
   const [partners, setPartners] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
+  const [options, setOptions] = useState<any[]>([]);
+  const [caps, setCaps] = useState<Cap[]>([]);
   const [filter, setFilter] = useState<"verified" | "all">("verified");
   const [partnerId, setPartnerId] = useState("");
   const [detail, setDetail] = useState<any>(null);
@@ -81,7 +88,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
 
   useEffect(() => {
     if (!token) return;
-    call("bootstrap").then((d) => { setPartners(d.partners || []); setProducts(d.products || []); })
+    call("bootstrap").then((d) => { setPartners(d.partners || []); setProducts(d.products || []); setOptions(d.options || []); })
       .catch((e) => toast.error(e.message));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
@@ -105,10 +112,12 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
       verification_status: p.verification_status, verified_by: p.verified_by || "",
       verified_at: p.verified_at || "", source_url: p.source_url || "",
     } : null);
-    setAttrs((d.attributes || []).filter((a: any) => a.profile_id === id).map((a: any) => ({
-      attribute_type: a.attribute_type, value_key: a.value_key, verification_status: a.verification_status,
-      verified_by: a.verified_by || "", verified_at: a.verified_at || "", source_url: a.source_url || "", is_published: a.is_published,
-    })));
+    const meta = (a: any) => ({ verification_status: a.verification_status, verified_by: a.verified_by || "",
+      verified_at: a.verified_at || "", source_url: a.source_url || "", is_published: a.is_published });
+    setAttrs((d.attributes || []).filter((a: any) => a.partner_product_profile_id === id)
+      .map((a: any) => ({ product_attribute_option_id: a.product_attribute_option_id, ...meta(a) })));
+    setCaps((d.capabilities || []).filter((c: any) => c.partner_product_profile_id === id)
+      .map((c: any) => ({ capability_product_id: c.capability_product_id, ...meta(c) })));
     setSolutions((d.solutions || []).filter((s: any) => s.profile_id === id).map((s: any) => ({
       id: s.id, name: s.name, description: s.description || "", industries: s.industries || [],
       solution_type: s.solution_type, source_url: s.source_url || "", partner_verified: s.partner_verified,
@@ -117,17 +126,24 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   };
 
   const profile = detail?.profiles.find((p: any) => p.id === profileId);
-  const isBc = profile?.product?.product_key === "business-central";
+  const profileOptions = useMemo(() => options.filter((o) => o.product_id === profile?.product_id), [options, profile]);
+  const dimensions = useMemo(() => [...new Set(profileOptions.map((o) => o.dimension_key))], [profileOptions]);
+  const capabilityProducts = useMemo(() => products.filter((p) => p.is_active && ["capability", "platform"].includes(p.catalog_type) && p.id !== profile?.product_id), [products, profile]);
   const shownPartners = partners.filter((p) => filter === "all" || p.agreement_signed);
   const availableProducts = useMemo(() => products.filter((p) => p.is_active && !detail?.profiles.some((x: any) => x.product_id === p.id)), [products, detail]);
 
-  const toggleAttr = (t: string, k: string) => {
-    setAttrs((prev) => prev.some((a) => a.attribute_type === t && a.value_key === k)
-      ? prev.filter((a) => !(a.attribute_type === t && a.value_key === k))
-      : [...prev, { attribute_type: t, value_key: k, ...emptyVerif, is_published: false }]);
+  const toggleAttr = (id: string) => {
+    setAttrs((prev) => prev.some((a) => a.product_attribute_option_id === id)
+      ? prev.filter((a) => a.product_attribute_option_id !== id)
+      : [...prev, { product_attribute_option_id: id, ...emptyVerif, is_published: false }]);
   };
-  const patchAttr = (t: string, k: string, p: Partial<Attr>) =>
-    setAttrs((prev) => prev.map((a) => (a.attribute_type === t && a.value_key === k ? { ...a, ...p } : a)));
+  const patchAttr = (id: string, p: Partial<Attr>) =>
+    setAttrs((prev) => prev.map((a) => (a.product_attribute_option_id === id ? { ...a, ...p } : a)));
+  const toggleCap = (id: string) => setCaps((prev) => prev.some((c) => c.capability_product_id === id)
+    ? prev.filter((c) => c.capability_product_id !== id)
+    : [...prev, { capability_product_id: id, ...emptyVerif, is_published: false }]);
+  const patchCap = (id: string, p: Partial<Cap>) =>
+    setCaps((prev) => prev.map((c) => (c.capability_product_id === id ? { ...c, ...p } : c)));
 
   const run = async (fn: () => Promise<void>, ok: string) => {
     setBusy(true);
@@ -140,9 +156,14 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   }, "Produktprofilen sparad");
 
   const saveAttrs = () => run(async () => {
-    await call("save-bc-attributes", { profile_id: profileId, attributes: attrs });
+    await call("save-attributes", { profile_id: profileId, attributes: attrs });
     await loadPartner(partnerId, profileId);
-  }, "Business Central-valen sparade");
+  }, "Produktvalen sparade");
+
+  const saveCaps = () => run(async () => {
+    await call("save-capabilities", { profile_id: profileId, capabilities: caps });
+    await loadPartner(partnerId, profileId);
+  }, "Förmågorna sparade");
 
   const saveSolution = (s: Solution) => run(async () => {
     await call("save-solution", { profile_id: profileId, ...s });
@@ -258,17 +279,17 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
               </CardContent>
             </Card>
 
-            {profile && !isBc && (
+            {profile && !profileOptions.length && (
               <Card><CardContent className="py-4 text-sm text-muted-foreground">
-                Produktspecifika fält finns ännu bara för Business Central. Profilen kan redan publiceras och verifieras.
+                Inga produktval finns ännu i katalogen för {profile.product?.name}. Profilen kan redan publiceras och verifieras.
               </CardContent></Card>
             )}
 
-            {isBc && (
+            {profile && profileOptions.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Business Central-modul</CardTitle>
-                  <CardDescription>Förifyll aldrig från marknadsföringstext. Ange källa för varje val.</CardDescription>
+                  <CardTitle className="text-base">Produktval: {profile.product?.name}</CardTitle>
+                  <CardDescription>Valen läses från produktkatalogen. Förifyll aldrig från marknadsföringstext. Ange källa för varje val.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="rounded-lg bg-muted/40 p-3 space-y-2">
@@ -280,21 +301,21 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                     </div>
                   </div>
 
-                  {GROUPS.map((g) => (
+                  {dimensions.map((g) => (
                     <div key={g} className="space-y-2">
-                      <h4 className="font-semibold text-sm">{BC_GROUP_TITLES[g].title}</h4>
+                      <h4 className="font-semibold text-sm">{dimTitle(g)}</h4>
                       <div className="space-y-1">
-                        {BC_OPTIONS[g].map((o) => {
-                          const a = attrs.find((x) => x.attribute_type === g && x.value_key === o.key);
+                        {profileOptions.filter((o) => o.dimension_key === g).map((o) => {
+                          const a = attrs.find((x) => x.product_attribute_option_id === o.id);
                           return (
-                            <div key={o.key} className="flex flex-wrap items-center gap-2 py-1 border-b border-border/50">
+                            <div key={o.id} className="flex flex-wrap items-center gap-2 py-1 border-b border-border/50">
                               <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
-                                <Checkbox checked={!!a} onCheckedChange={() => toggleAttr(g, o.key)} /> {o.label}
+                                <Checkbox checked={!!a} onCheckedChange={() => toggleAttr(o.id)} /> {o.label}
                               </label>
                               {a && (
                                 <>
-                                  <VerifFields v={a} onChange={(p) => patchAttr(g, o.key, p)} />
-                                  <label className="flex items-center gap-1 text-xs"><Checkbox checked={a.is_published} onCheckedChange={(c) => patchAttr(g, o.key, { is_published: !!c })} /> Publ.</label>
+                                  <VerifFields v={a} onChange={(p) => patchAttr(o.id, p)} />
+                                  <label className="flex items-center gap-1 text-xs"><Checkbox checked={a.is_published} onCheckedChange={(c) => patchAttr(o.id, { is_published: !!c })} /> Publ.</label>
                                 </>
                               )}
                             </div>
@@ -303,7 +324,35 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                       </div>
                     </div>
                   ))}
-                  <Button onClick={saveAttrs} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara Business Central-val</Button>
+                  <Button onClick={saveAttrs} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara produktval</Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {profile && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Tvärgående förmågor ({profile.product?.name})</CardTitle>
+                  <CardDescription>Till exempel Power BI, Copilot Studio eller Power Platform kopplat till just denna produktprofil.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-1">
+                  {capabilityProducts.map((p) => {
+                    const c = caps.find((x) => x.capability_product_id === p.id);
+                    return (
+                      <div key={p.id} className="flex flex-wrap items-center gap-2 py-1 border-b border-border/50">
+                        <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
+                          <Checkbox checked={!!c} onCheckedChange={() => toggleCap(p.id)} /> {p.name}
+                        </label>
+                        {c && (
+                          <>
+                            <VerifFields v={c} onChange={(x) => patchCap(p.id, x)} />
+                            <label className="flex items-center gap-1 text-xs"><Checkbox checked={c.is_published} onCheckedChange={(v) => patchCap(p.id, { is_published: !!v })} /> Publ.</label>
+                          </>
+                        )}
+                      </div>
+                    );
+                  })}
+                  <Button className="mt-3" onClick={saveCaps} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara förmågor</Button>
                 </CardContent>
               </Card>
             )}
