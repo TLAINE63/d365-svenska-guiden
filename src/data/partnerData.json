@@ -293,14 +293,9 @@
     "applications": [
       "Business Central"
     ],
-    "industries": [
-      "Mode, Sport & Textil",
-      "Retail & E-handel"
-    ],
+    "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige"
-    ],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 999,
@@ -411,7 +406,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=adbriq+Borås",
     "youtube_video_id": null,
     "created_at": "2026-05-26T11:20:39.922112+00:00",
-    "updated_at": "2026-09-24T14:54:53.101473+00:00",
+    "updated_at": "2026-09-29T16:48:56.279413+00:00",
     "industry_pitches": [
       {
         "text": "adbriq erbjuder stöd för företag inom mode, sport och textil som använder Microsoft Dynamics 365 Business Central. De fokuserar på att optimera affärsprocesser kopplade till produktlivscykelhantering, lageroptimering och distributionskedjan. Med förståelse för branschens specifika krav, som exempelvis säsongsvariationer, kollektionshantering och flera försäljningskanaler, arbetar adbriq med att anpassa Business Central för en effektiv hantering av dessa flöden. De kan även bistå med integrationer mot externa e-handelsplattformar och logistikpartners för en sammanhållen IT-miljö. adbriq stödjer företag i att hantera data för bland annat artikelvariationer, kundordrar och returer i Business Central.",
@@ -432,18 +427,26 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Passar särskilt företag inom mode, sport och textil som söker en Business Central-specialist med djup branscherfarenhet.",
-    "delivery_profile": {},
-    "team_size_sweden": null,
+    "positioning_statement": "Vi är valet när du söker en Business Central-specialist med djup förståelse för mode-, sport- och textilbranschen.",
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": "250k–500k",
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": "11–25",
     "implementations_done": null,
     "not_a_fit": [
       "Större verksamheter där Finance & Supply Chain Management är det naturliga ERP-valet",
       "Företag i helt andra branscher utan motsvarande variant-, kollektions- eller retailbehov",
       "Projekt där avancerad AI är en central del av lösningen"
     ],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Business Central": "10–25"
+    },
     "ai_summary": "adbriq är en Business Central-specialist med tydlig branschinriktning mot mode, sport, textil, retail och e-handel. Partnern arbetar bland annat med TRIMIT Fashion och lösningar för artikelvarianter, kollektioner, produktdata, lager och integrationer.",
-    "ai_summary_generated_at": "2026-06-29T16:19:06.678+00:00",
+    "ai_summary_generated_at": "2026-09-29T16:48:56.029+00:00",
     "ai_profile": {
       "use_cases": [],
       "description": "adbriq erbjuder rådgivning och implementering av Business Central för att digitalisera affärsprocesser och informationsflöden. De arbetar med att effektivisera verksamheter, främst inom mode-, sport- och textilbranschen. Företaget fokuserar på att utnyttja affärssystem och branschspecifik kunskap för att möta kundernas specifika behov. Generella AI-funktioner hanteras som en del av de standardlösningar som erbjuds.",
@@ -467,7 +470,7 @@
       "ai_experience_summary_generated_at": "2026-07-03T14:03:32.977Z"
     },
     "extended_content": "Adbriq (adbriq AB) är en vertikal Business Central-specialist med huvudkontor i Borås, med en tydlig nisch inom fashion, sport, textil och e-handel/lager. Erbjudandet kombinerar Business Central med TRIMIT Fashion och den egna plattformen bisting. Till skillnad från de generella BC-partnerna (Bisqo, NAB Solutions, Yellow Solution) är Adbriq en renodlad branschspecialist med egen IP snarare än en bred processpartner.\n\nAktiva produktområden: Business Central är kärnområdet, med TRIMIT Fashion och bisting som centrala komponenter i den vertikala lösningen. Sekundärt: integration, datalager/datawarehouse via bisting, PDM, försäljning, inköp, logistik, e-handel/lager och rapportering. Power BI/Data & Analytics är angränsande men inte verifierade som fristående erbjudande. Viktig avgränsning: F&SCM, fristående CE/CRM, Customer Service, Field Service, Contact Center, Commerce, HR och Project Operations är inte aktiva filter. D365 Commerce ska inte antas bara för att kunderna är verksamma inom e-handel.\n\nTydliga styrkor: Tydlig vertikal BC-nisch med TRIMIT Fashion-kompetens och en egen produkt (bisting), färdiga briq-paket, en stark casebas inom mode/sport/textil (bland annat Salming, Filippa K, Kids Brand Store, Oscar Jacobson, Holebrook, Båstadgruppen och Galvin Green), samt verifierade integrationskopplingar till Ongoing WMS och Madden Analytics. Stark förvaltningskapacitet inom den egna BC/TRIMIT/bisting-miljön, med stöd från behovsanalys till genomförande, support och vidareutveckling.\n\nRäckvidd och segment: Huvudkontor i Borås (Bryggaregatan 19). Ingår i koncern med adbriq Group AB som moderbolag. Omsättning 33 070 KSEK 2025, rörelseresultat 7 141 KSEK och årets resultat 5 611 KSEK enligt Bolagsfakta/Allabolag. 20 anställda 2025. Segment: mindre till medelstora och växande varumärkes-/handelsbolag, särskilt där komplexiteten kommer från varianter, kollektioner, lager och kanaler snarare än stor koncernskala. Branschfokus: fashion, sport, textil/profilprodukter och e-handel/lager.\n\nPassar bäst: Mode-, sport-, textil- och varumärkesbolag som moderniserar från NAV/Navision eller äldre ERP till Business Central, kunder med många varianter, kollektioner, storlekar, färger, säsonger och PDM-behov, företag med e-handel, B2B/B2C, lager, WMS och integrationsbehov mot nischade spetssystem, samt bolag som vill ha en paketerad, branschspecifik BC-lösning snarare än ett helt skräddarsytt ERP-projekt. Mindre lämplig för större enterprise-kunder som söker F&SCM som huvudplattform, organisationer som primärt söker CRM/CE, Contact Center, Field Service, HR eller Project Operations, kunder utan behov av fashion/sport/textil eller e-handel/lager, mycket stora globala transformationsprogram, eller projekt där lägsta pris väger tyngre än branschkunskap och långsiktig vidareutveckling.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst ISV-/tilläggsauktorisation: kunder som kräver verifierad auktorisation för specifika BC-tillägg där Adbriq inte är dokumenterat som partner bör hanteras separat, och ska inte antas som täckta bara för att Adbriq är en fashion-/e-handelsspecialist.\n\nSedan internationell leveransförmåga: kundbolagen har ofta internationella kanaler och försäljning, men Adbriqs egen organisatoriska leveransskala är mindre än större nordiska/europeiska partners, så internationell projektleverans bör verifieras per projekt.\n\nSlutligen AI-mognaden: ingen tydlig publik Copilot-/agentposition har identifierats för Adbriq, så AI-matchning bör hållas till Business Central/Copilot-standard, datakvalitet, rapportering och prognos/planering snarare än en stark egen AI-berättelse.\n\nSammanfattning: En nischad svensk Business Central-partner med egen IP (TRIMIT Fashion, bisting) och en tydlig branschprofil inom mode, sport och textil, snarare än en bred generalist. Rätt jämförelsegrupp är BrightCom, Navcite, NAB Solutions, Modia, Update, 4PS och andra TRIMIT-/fashionorienterade BC-partners, med enterprise F&SCM-partners, globala SI:er, renodlade CRM-/CE-specialister och redovisningsnära IT-kanaler som lägre relevans i jämförelsen.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "extended_content_updated_at": "2026-09-29T16:48:56.029+00:00",
     "partner_size_tier": 3,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": "adbriqs profil är relativt smal men tydlig. Partnern riktar sig främst till mindre och medelstora företag där Business Central behöver kompletteras med funktionalitet för mode- och livsstilsbranschens särskilda krav, exempelvis storlek/färg-varianter, kollektioner, produktdata, säsongsflöden och distribution.\nd365.se anger huvudsakligen företag med 1–249 anställda och visar ett stort antal referenser inom mode och sport. AI-kompetensen som framgår är i första hand kopplad till standardfunktionalitet och rådgivning inom Business Central, snarare än fristående AI-utveckling.",
@@ -493,11 +496,7 @@
       "Integrationer",
       "ERP"
     ],
-    "extended_competencies": {
-      "copilot_ai": null,
-      "power_platform": null,
-      "copilot_studio_agents": null
-    },
+    "extended_competencies": {},
     "team_size_per_app": {},
     "key_differentiators": [
       "Business Central-specialist med inriktning mot mode, sport, textil, retail och e-handel",
@@ -505,7 +504,7 @@
       "Stöd för lager och integrationer mot handelsflöden",
       "Verksamhet från Borås"
     ],
-    "key_differentiators_source": "d365",
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att adbriq positionerar sig som en specialist inom Microsoft Dynamics 365 Business Central, med en tydlig vertikal nisch mot mode-, sport- och textilbranscherna samt e-handel och lager. Företaget kombinerar branschspecifik kunskap med erfarenhet av IT-verktyg för att stödja digitalisering av affärsprocesser och informationsflöden, inklusive implementering och vidareutveckling av affärssystem.\n\nInnehållet indikerar att adbriq använder sig av TRIMIT Fashion och den egna plattformen bisting som centrala komponenter i sina lösningar. Deras kundbas inkluderar varumärken som Oscar Jacobson, Filippa K och Galvin Green. Geografiskt är företaget baserat i Borås.\n\nPublika källor nämner att adbriq erbjuder löpande support, rådgivning och paketerade lösningar, med en tydlig styrka inom förvaltning av sin egen BC/TRIMIT/bisting-miljö. Observerade integrationer inkluderar Ongoing WMS och Madden Analytics.",
     "public_focus_tags": [
       "Business Central",
