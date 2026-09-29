@@ -124,12 +124,7 @@ const SERVICE_RULES: [string, string, RegExp][] = [
   ["migration", "salesforce_service", /\bsalesforce\b/i],
   ["migration", "dynamics_crm", /\bdynamics\s*crm\b/i],
   ["migration", "spreadsheets", /\b(kalkylblad|excel\b)/i],
-  ["competency", "sla_queues", /\b(sla\b|servicenivå|ärendekö\w*)/i],
-  ["competency", "field_service", /\b(fältservice|arbetsorder|work\s*order|serviceanläggning\w*)\w*/i],
-  ["competency", "scheduling", /\b(schemaläggning|resursplanering|bokningsflöde)\w*/i],
-  ["competency", "knowledge_base", /\b(kunskapsbas|självservice|kundportal)\w*/i],
-  ["competency", "omnichannel", /\b(omnikanal\w*|flera\s+kanaler|chat|kundtjänst)\w*/i],
-  ["competency", "csat", /\b(kundnöjdhet|csat|nöjdhetsmätning)\w*/i],
+  ["competency", "telephony", /\b(telefoni\w*|teams\s*phone|växel\w*|azure\s*communication\s*services)/i],
 ];
 
 const SHARED_RULES: [string, string, RegExp][] = [
