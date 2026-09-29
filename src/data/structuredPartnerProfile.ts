@@ -26,8 +26,6 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "projects", label: "Projektverksamhet" },
     { key: "service_management", label: "Servicehantering" },
     { key: "retail_ecommerce", label: "Retail och e-handel" },
-    { key: "edi", label: "EDI" },
-    { key: "integrations_api", label: "Integrationer och API" },
     { key: "multi_company", label: "Flerbolagsmiljö" },
     { key: "international", label: "Internationell verksamhet" },
   ],
