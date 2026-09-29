@@ -58,12 +58,13 @@ serve(async (req) => {
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
 
     if (action === "bootstrap") {
-      const [{ data: partners }, { data: products }, { data: options }] = await Promise.all([
+      const [{ data: partners }, { data: products }, { data: options }, { data: groups }] = await Promise.all([
         sb.from("partners").select("id, name, slug, is_featured, agreement_signed").order("name"),
         sb.from("product_catalog").select("*").order("sort_order"),
-        sb.from("bc_attribute_options").select("*").eq("is_active", true).order("sort_order"),
+        sb.from("product_attribute_options").select("*").eq("is_active", true).order("sort_order"),
+        sb.from("product_groups").select("group_key, name, purpose, members:product_group_members(product_id)").eq("is_active", true),
       ]);
-      return json({ partners, products, options });
+      return json({ partners, products, options, groups });
     }
 
     if (action === "partner") {
@@ -73,14 +74,15 @@ serve(async (req) => {
       ).eq("id", id).single();
       if (error || !partner) return json({ error: "Partnern finns inte" }, 404);
       const { data: profiles } = await sb.from("partner_product_profiles")
-        .select("*, product:product_catalog(product_key, name, category)").eq("partner_id", id);
+        .select("*, product:product_catalog(product_key, name, category, catalog_type, display_group)").eq("partner_id", id);
       const ids = (profiles || []).map((p: any) => p.id);
-      const [{ data: attributes }, { data: solutions }, { data: certifications }] = await Promise.all([
-        ids.length ? sb.from("partner_bc_attributes").select("*").in("profile_id", ids) : Promise.resolve({ data: [] }),
+      const [{ data: attributes }, { data: capabilities }, { data: solutions }, { data: certifications }] = await Promise.all([
+        ids.length ? sb.from("partner_product_attributes").select("*").in("partner_product_profile_id", ids) : Promise.resolve({ data: [] }),
+        ids.length ? sb.from("partner_product_capabilities").select("*").in("partner_product_profile_id", ids) : Promise.resolve({ data: [] }),
         ids.length ? sb.from("partner_industry_solutions").select("*").in("profile_id", ids).order("created_at") : Promise.resolve({ data: [] }),
         sb.from("partner_certifications").select("*").eq("partner_id", id),
       ]);
-      return json({ partner, profiles, attributes, solutions, certifications });
+      return json({ partner, profiles, attributes, capabilities, solutions, certifications });
     }
 
     if (action === "create-profile") {
@@ -105,24 +107,55 @@ serve(async (req) => {
       return json({ ok: true });
     }
 
-    // Ersätter hela uppsättningen BC-val för en profil
-    if (action === "save-bc-attributes") {
+    const pickMeta = (a: any) => ({
+      ...validateVerification(a),
+      source_type: ["partner", "redaktion", "publik_kalla", "import"].includes(a.verified_by) ? a.verified_by : null,
+      is_published: !!a.is_published,
+      editorial_note: typeof a.editorial_note === "string" ? a.editorial_note.slice(0, 500) : null,
+    });
+
+    // Generiskt: ersätter hela uppsättningen attributval för en produktprofil.
+    // "save-bc-attributes" finns kvar som alias för bakåtkompatibilitet.
+    if (action === "save-attributes" || action === "save-bc-attributes") {
       const list = Array.isArray(body.attributes) ? body.attributes : [];
+      const { data: prof } = await sb.from("partner_product_profiles").select("product_id").eq("id", body.profile_id).single();
+      if (!prof) return json({ error: "Profilen finns inte" }, 404);
+      const { data: opts } = await sb.from("product_attribute_options").select("id, dimension_key, attribute_key").eq("product_id", prof.product_id);
+      const byKey = new Map((opts || []).map((o: any) => [`${o.dimension_key}:${o.attribute_key}`, o.id]));
+      const byId = new Set((opts || []).map((o: any) => o.id));
       const seen = new Set<string>();
       const rows = list.map((a: any) => {
-        const k = `${a.attribute_type}:${a.value_key}`;
-        if (seen.has(k)) throw new Error("Ett val förekommer flera gånger");
-        seen.add(k);
-        return {
-          profile_id: body.profile_id, attribute_type: String(a.attribute_type), value_key: String(a.value_key),
-          ...validateVerification(a), is_published: !!a.is_published,
-          editorial_note: typeof a.editorial_note === "string" ? a.editorial_note.slice(0, 500) : null,
-        };
+        const optId = a.product_attribute_option_id && byId.has(a.product_attribute_option_id)
+          ? a.product_attribute_option_id
+          : byKey.get(`${a.dimension_key ?? a.attribute_type}:${a.attribute_key ?? a.value_key}`);
+        if (!optId) throw new Error("Attributet tillhör inte profilens produkt");
+        if (seen.has(optId)) throw new Error("Ett val förekommer flera gånger");
+        seen.add(optId);
+        return { partner_product_profile_id: body.profile_id, product_attribute_option_id: optId, ...pickMeta(a) };
       });
-      const { error: dErr } = await sb.from("partner_bc_attributes").delete().eq("profile_id", body.profile_id);
+      const { error: dErr } = await sb.from("partner_product_attributes").delete().eq("partner_product_profile_id", body.profile_id);
       if (dErr) return json({ error: dErr.message }, 400);
       if (rows.length) {
-        const { error } = await sb.from("partner_bc_attributes").insert(rows);
+        const { error } = await sb.from("partner_product_attributes").insert(rows);
+        if (error) return json({ error: error.message }, 400);
+      }
+      return json({ ok: true, count: rows.length });
+    }
+
+    // Tvärgående förmågor på en produktprofil (ersätter hela uppsättningen)
+    if (action === "save-capabilities") {
+      const list = Array.isArray(body.capabilities) ? body.capabilities : [];
+      const seen = new Set<string>();
+      const rows = list.map((c: any) => {
+        const pid = String(c.capability_product_id || "");
+        if (!pid || seen.has(pid)) throw new Error("Ogiltig eller dubblerad förmåga");
+        seen.add(pid);
+        return { partner_product_profile_id: body.profile_id, capability_product_id: pid, ...pickMeta(c) };
+      });
+      const { error: dErr } = await sb.from("partner_product_capabilities").delete().eq("partner_product_profile_id", body.profile_id);
+      if (dErr) return json({ error: dErr.message }, 400);
+      if (rows.length) {
+        const { error } = await sb.from("partner_product_capabilities").insert(rows);
         if (error) return json({ error: error.message }, 400);
       }
       return json({ ok: true, count: rows.length });
@@ -162,13 +195,13 @@ serve(async (req) => {
       const { data: profiles } = await sb.from("partner_product_profiles").select("id, partner_id, verification_status, verified_at, is_published").eq("product_id", bc!.id).in("partner_id", ids);
       const pids = (profiles || []).map((p: any) => p.id);
       const [{ data: attrs }, { data: sols }] = await Promise.all([
-        pids.length ? sb.from("partner_bc_attributes").select("profile_id, attribute_type, verification_status").in("profile_id", pids) : Promise.resolve({ data: [] }),
+        pids.length ? sb.from("partner_product_attributes").select("profile_id:partner_product_profile_id, verification_status, option:product_attribute_options!inner(dimension_key)").in("partner_product_profile_id", pids) : Promise.resolve({ data: [] }),
         pids.length ? sb.from("partner_industry_solutions").select("profile_id").in("profile_id", pids) : Promise.resolve({ data: [] }),
       ]);
       const rows = (partners || []).map((p: any) => {
         const prof = (profiles || []).find((x: any) => x.partner_id === p.id) || null;
         const a = (attrs || []).filter((x: any) => x.profile_id === prof?.id);
-        const count = (t: string) => a.filter((x: any) => x.attribute_type === t).length;
+        const count = (t: string) => a.filter((x: any) => x.option?.dimension_key === t).length;
         const bcText = p.product_profiles?.["Business Central"] || null;
         const examples = Array.isArray(p.customer_examples) ? p.customer_examples.filter((e: any) => !e?.application || e.application === "Business Central") : [];
         const missing = [

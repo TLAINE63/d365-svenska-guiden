@@ -112,3 +112,60 @@ EmployeeRanges finns inte strukturerat i dag (bara `team_size_sweden` som fritex
 
 ## 14. Rekommenderat nästa steg
 Kontakta de verifierade partnerna. De fyller i BC-profilen via sin profileringslänk, och redaktionen granskar och publicerar i Admin. Påbörja inte Min BC-plan, matchning, ranking, lead-routing eller synkronisering.
+
+---
+
+# Fas 2.7 – Gemensam attributmodell och klassificerad katalog (2026-09-29)
+
+## Inventering före migrering
+| Tabell | Poster | Nycklar |
+|---|---|---|
+| product_catalog | 20 | PK id, UNIQUE product_key |
+| partner_product_profiles | 150 (0 publicerade) | PK id, UNIQUE (partner_id, product_id), FK partners, product_catalog |
+| bc_attribute_options | 41 | PK (attribute_type, value_key) |
+| partner_bc_attributes | 0 | PK id, UNIQUE (profile_id, attribute_type, value_key) |
+| partner_industry_solutions / partner_certifications | 0 / 0 | |
+Läsare av BC-attribut: manage-partner-master (partner, save-bc-attributes, migration-report), partner-invitations (writePartnerBcProposals, readPartnerBc), vyn export_bc_partner_v1. RLS: påslaget utan policyer, endast service_role (adminfunktion + profileringslänk).
+
+## Nya tabeller och fält
+- `product_catalog`: `catalog_type` (app/platform/capability), `display_group` (erp/crm/platform/data_analytics/ai), `parent_product_id`. Ny post `fabric`.
+- `product_groups` + `product_group_members`: gruppen `fscm` = finance + supply-chain. Vyn `partner_product_group_membership` ger distinkta partners per grupp (12 partners, 24 profiler, ingen dubbelräkning).
+- `product_attribute_options` (product_id, dimension_key, attribute_key, label, description, sort_order, is_active), UNIQUE (product_id, dimension_key, attribute_key).
+- `partner_product_attributes` (profil, alternativ, verification_status, source_type, source_url, verified_by, verified_at, is_published, editorial_note, legacy_bc_attribute_id), UNIQUE (profil, alternativ). Trigger stoppar alternativ från annan produkt och sätter source_type utifrån status.
+- `partner_product_capabilities`: tvärgående förmåga (katalogpost av typ capability/platform) per produktprofil, samma verifieringsfält.
+
+## Klassificering
+| Typ | Grupp | Produkter |
+|---|---|---|
+| app | erp | business-central, finance, supply-chain, project-operations, commerce, human-resources |
+| app | crm | sales, customer-service, field-service, customer-insights, contact-center |
+| platform | platform | power-platform |
+| capability | platform | power-apps, power-automate, power-pages, dataverse (parent = power-platform) |
+| capability | data_analytics | power-bi, fabric |
+| capability | ai | copilot, copilot-studio, ai-agents |
+Befintlig `category` behålls oförändrad för bakåtkompatibilitet.
+
+## Migrering
+41 → 41 alternativ (nycklar och etiketter oförändrade, 0 avvikelser). 0 → 0 partnerval (tabellen var tom; skriptet mappar ändå alla fält och sparar `legacy_bc_attribute_id`). 150 profiler, alla fortfarande opublicerade.
+
+## Manuell granskning
+BC-alternativen `reporting_power_bi`, `power_platform_bc` och `copilot_bc` är kvar som BC-kompetenser. De betyder "i Business Central-sammanhang", inte samma sak som förmågan i sig, så mappningen är inte entydig. Inga partnerval fanns att flytta. Redaktionen bör besluta om de ska ersättas av förmågorna power-bi, power-platform och copilot.
+
+## Administration och export
+- Admin läser tillåtna val från `product_attribute_options` för profilens produkt, grupperat per dimension, och har en ny sektion för tvärgående förmågor. Actions: `save-attributes` (alias `save-bc-attributes`), `save-capabilities`.
+- Profileringslänken skriver till `partner_product_attributes` (opublicerat, partner_verified); partnern kan bara ta bort egna opublicerade förslag.
+- `export_bc_partner_v1` läser den nya modellen med identiska kolumner, nycklar och semantik. schemaVersion 1.0 behålls.
+
+## Tester (i återställd transaktion)
+Flera kompetenser, migrering + projekttyp, Power BI som förmåga, partner med BC + Sales (11), Finance + SCM (12, ingen har bara den ena), profil utan attribut, opublicerad/publicerad profil, partner-, redaktions- och publik-källa-val, opublicerat val utesluts ur export, fel produkt stoppas, app som förmåga stoppas, partnerverifierat utan datum stoppas, skrivning till legacy stoppas. Adminfunktionen svarar 401 utan inloggning. Typecheck OK.
+
+## Återställning
+1. Ta bort triggern `legacy_bc_attributes_block_writes_trg`.
+2. Återställ vyn `export_bc_partner_v1` till att läsa `partner_bc_attributes` (definitionen finns i Fas 2.6-migreringen).
+3. Kopiera eventuella nya val tillbaka: `INSERT INTO partner_bc_attributes ... FROM partner_product_attributes JOIN product_attribute_options` (dimension_key → attribute_type, attribute_key → value_key).
+4. Återställ de två edge-funktionerna från föregående version.
+5. De nya tabellerna och katalogfälten kan ligga kvar eller tas bort; de påverkar inget publikt.
+Legacy-tabellerna tas bort först när migreringen godkänts.
+
+## Kända begränsningar
+Inga attributuppsättningar för Finance, CRM eller Power Platform ännu. Katalogens `category` och `display_group` överlappar. F&SCM-vyn används inte i något gränssnitt än.

@@ -189,22 +189,29 @@ async function writePartnerBcProposals(supabase: any, partnerId: string, applica
   }
   if (!profileId) return;
   const today = new Date().toISOString().slice(0, 10);
-  const { data: existing } = await supabase.from("partner_bc_attributes")
-    .select("id, attribute_type, value_key, verification_status, is_published").eq("profile_id", profileId);
-  const has = new Set((existing || []).map((e: any) => `${e.attribute_type}:${e.value_key}`));
+  // Gemensam attributmodell: product_attribute_options + partner_product_attributes
+  const { data: opts } = await supabase.from("product_attribute_options")
+    .select("id, dimension_key, attribute_key").eq("product_id", prod.id).eq("is_active", true);
+  const optId = new Map((opts || []).map((o: any) => [`${o.dimension_key}:${o.attribute_key}`, o.id]));
+  const { data: existing } = await supabase.from("partner_product_attributes")
+    .select("id, product_attribute_option_id, verification_status, is_published").eq("partner_product_profile_id", profileId);
+  const has = new Set((existing || []).map((e: any) => e.product_attribute_option_id));
   const wanted = new Set<string>();
   const inserts: any[] = [];
   for (const t of Object.keys(SP_LISTS)) for (const v of sp[t]) {
-    wanted.add(`${t}:${v}`);
-    if (!has.has(`${t}:${v}`)) inserts.push({ profile_id: profileId, attribute_type: t, value_key: v,
-      verification_status: "partner_verified", verified_by: "partner", verified_at: today, is_published: false });
+    const id = optId.get(`${t}:${v}`);
+    if (!id) continue;
+    wanted.add(id);
+    if (!has.has(id)) inserts.push({ partner_product_profile_id: profileId, product_attribute_option_id: id,
+      verification_status: "partner_verified", source_type: "partner", verified_by: "partner", verified_at: today, is_published: false });
   }
-  const toDelete = (existing || []).filter((e: any) => !wanted.has(`${e.attribute_type}:${e.value_key}`)
+  // Partnern kan bara ta bort egna opublicerade förslag
+  const toDelete = (existing || []).filter((e: any) => !wanted.has(e.product_attribute_option_id)
     && e.verification_status === "partner_verified" && !e.is_published).map((e: any) => e.id);
-  if (toDelete.length) await supabase.from("partner_bc_attributes").delete().in("id", toDelete);
+  if (toDelete.length) await supabase.from("partner_product_attributes").delete().in("id", toDelete);
   if (inserts.length) {
-    const { error } = await supabase.from("partner_bc_attributes").insert(inserts);
-    if (error) console.error("bc attributes insert:", error);
+    const { error } = await supabase.from("partner_product_attributes").insert(inserts);
+    if (error) console.error("product attributes insert:", error);
   }
   if (sp.has_industry_solution !== null) {
     await supabase.from("partner_industry_solutions").delete()
@@ -226,11 +233,11 @@ async function readPartnerBc(supabase: any, partnerId: string) {
     .eq("product_catalog.product_key", "business-central").maybeSingle();
   if (!prof) return null;
   const [{ data: attrs }, { data: sols }] = await Promise.all([
-    supabase.from("partner_bc_attributes").select("attribute_type, value_key").eq("profile_id", prof.id),
+    supabase.from("partner_product_attributes").select("option:product_attribute_options!inner(dimension_key, attribute_key)").eq("partner_product_profile_id", prof.id),
     supabase.from("partner_industry_solutions").select("id, name, description, industries").eq("profile_id", prof.id),
   ]);
   const out: Record<string, any> = { migration: [], competency: [], project_type: [], delivery_model: [] };
-  for (const a of attrs || []) out[a.attribute_type]?.push(a.value_key);
+  for (const a of attrs || []) out[a.option?.dimension_key]?.push(a.option?.attribute_key);
   out.industry_solutions = (sols || []).map((s: any) => ({ id: s.id, name: s.name, description: s.description || "", industry: s.industries?.[0] || "" }));
   out.has_industry_solution = out.industry_solutions.length ? true : null;
   return out;
