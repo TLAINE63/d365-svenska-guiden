@@ -124,7 +124,6 @@ const SERVICE_RULES: [string, string, RegExp][] = [
   ["migration", "salesforce_service", /\bsalesforce\b/i],
   ["migration", "dynamics_crm", /\bdynamics\s*crm\b/i],
   ["migration", "spreadsheets", /\b(kalkylblad|excel\b)/i],
-  ["competency", "case_management", /\b(ärendehantering|ärenden|ärendehanteringssystem|case\s?management)\w*/i],
   ["competency", "sla_queues", /\b(sla\b|servicenivå|ärendekö\w*)/i],
   ["competency", "field_service", /\b(fältservice|arbetsorder|work\s*order|serviceanläggning\w*)\w*/i],
   ["competency", "scheduling", /\b(schemaläggning|resursplanering|bokningsflöde)\w*/i],

@@ -1,0 +1,1 @@
+UPDATE public.product_attribute_options SET is_active = false WHERE attribute_key = 'case_management';
