@@ -156,7 +156,7 @@ const SP_LISTS: Record<string, string[]> = {
   project_type: ["new_implementation","migration","upgrade","maintenance_support","rescue","system_consolidation","multi_company_implementation","international_rollout"],
   delivery_model: ["fixed_price_start","quickstart_package","proof_of_concept","phased_implementation","traditional_project","maintenance_partner","managed_services"],
 };
-const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot"];
+const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio", "ai-agents"];
 function sanitizeStructured(raw: any) {
   const r = raw && typeof raw === "object" ? raw : {};
   const out: Record<string, any> = {};

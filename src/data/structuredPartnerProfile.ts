@@ -60,6 +60,8 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "power-bi", label: "Power BI" },
     { key: "power-platform", label: "Power Platform" },
     { key: "copilot", label: "Copilot" },
+    { key: "copilot-studio", label: "Copilot Studio" },
+    { key: "ai-agents", label: "AI-agenter" },
   ],
 };
 
