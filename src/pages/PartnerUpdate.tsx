@@ -2393,6 +2393,14 @@ const PartnerUpdate = () => {
  );
  })}
  </div>
+ {(() => {
+   const reviewKey = activeProducts.find((p) => ["bc", "fsc", "sales", "service"].includes(p));
+   return invitation?.partner_id && token && reviewKey ? (
+     <div className="mt-6">
+       <PartnerReviewSection token={token} productKey={reviewKey as "bc" | "fsc" | "sales" | "service"} scope="capability" />
+     </div>
+   ) : null;
+ })()}
  </PremiumCollapsibleSection>
 
  {/* AI, Automation & Power Platform – underlag för d365.se:s bedömning */}
