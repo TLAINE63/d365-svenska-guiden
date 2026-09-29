@@ -8,7 +8,7 @@
 // över alla profiler i gruppen; tillägg skrivs till primärprofilen.
 
 export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
-export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio", "ai-agents"];
+export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio"];
 
 export interface ReviewProductConfig {
   key: string;
@@ -148,9 +148,8 @@ const SHARED_RULES: [string, string, RegExp][] = [
   ["special_delivery", "proof_of_concept", /\b(proof\s+of\s+concept|poc)\b/i],
   ["capability", "power-bi", /\bpower\s?bi\b/i],
   ["capability", "power-platform", /\b(power\s+platform|power\s+apps|power\s+automate)\b/i],
-  ["capability", "copilot-studio", /\bcopilot\s+studio\b/i],
+  ["capability", "copilot-studio", /\b(copilot\s+studio|ai[-\s]agent\w*)\b/i],
   ["capability", "copilot", /\bcopilot\b(?!\s+studio)/i],
-  ["capability", "ai-agents", /\bai[-\s]agent\w*/i],
 ];
 
 export const PREFILL_RULE_SETS: Record<string, [string, string, RegExp][]> = {
