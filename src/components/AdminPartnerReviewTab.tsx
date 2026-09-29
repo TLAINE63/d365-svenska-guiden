@@ -83,7 +83,6 @@ export default function AdminPartnerReviewTab({ token, onSessionExpired }: Props
       await call("review-decide", { id, decision, note: notes[id] || null });
       toast.success(decision === "approve" ? "Godkänd" : decision === "reject" ? "Avvisad" : "Förtydligande begärt");
       await Promise.all([loadChanges(), loadOverview()]);
-ecatch: ;
     } catch (e: any) { toast.error(e.message); }
   };
 
