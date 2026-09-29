@@ -280,7 +280,6 @@ export default function IndustryVerifiedPartnerCard({
           )}
         </div>
         </div>
-        </div>
         <Button asChild className="mb-2.5 w-full font-bold">
           <Link to={profileUrl || `/partner/${partner.slug}/`}>
             Se partnerprofil
