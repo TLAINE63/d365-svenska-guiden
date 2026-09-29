@@ -1,5 +1,11 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Förenklad BizApps-profil (2026-09-29)
+- [x] Ta bort fem gemensamma ERP-basval från BC och F&SCM
+- [x] Samla Power Apps, Power Automate, Power Pages och Dataverse under Power Platform
+- [x] Bevara historik och verifieringsmetadata vid sammanslagningen
+- [x] Uppdatera profileringsflöde, förifyllning och dokumentation
+
 - [x] Basickort: rubrik "GRUNDPROFIL – EJ PARTNERVERIFIERAD" + ny förklaring
 - [x] Basickort: ny text för partner-CTA ("Granska, korrigera och komplettera profilen…")
 - [x] Partnerverifierad profil: rubrik + förklaring om profileringsavtal, ingen kvalitetscertifiering, ingen köpt fördel

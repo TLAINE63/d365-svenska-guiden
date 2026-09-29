@@ -26,7 +26,7 @@ Förra stegets fält `partners.structured_profile`, `data_verified_at`, `data_ve
 2. Backfill: 150 produktprofiler för 38 partners från `applications`, status `legacy_import`, opublicerade. Ingen fritext omvandlad.
 
 ## 5. Produktkatalog
-`business-central, finance, supply-chain, project-operations, commerce, human-resources, sales, customer-service, field-service, customer-insights, contact-center, power-platform, power-apps, power-automate, power-pages, dataverse, power-bi, copilot, copilot-studio, ai-agents`. "F&SCM" mappas till finance och supply-chain.
+`business-central, finance, supply-chain, project-operations, commerce, human-resources, sales, customer-service, field-service, customer-insights, contact-center, power-platform, power-bi, copilot, copilot-studio, ai-agents`. "F&SCM" mappas till finance och supply-chain. Power Apps, Power Automate, Power Pages och Dataverse ingår i den gemensamma förmågan Power Platform och väljs inte separat.
 
 ## 6. Partnerproduktprofil
 `id, partner_id, product_id, status (draft/active/archived), is_primary, is_published, verification_status, verified_by, verified_at, source_url, summary`.
@@ -35,7 +35,7 @@ Förra stegets fält `partners.structured_profile`, `data_verified_at`, `data_ve
 | attribute_type | nycklar |
 |---|---|
 | migration | nav, bc_onprem, bc_other_environment, visma, monitor, pyramid, jeeves, sap_business_one, fortnox, other_erp |
-| competency | finance_accounting, purchasing, sales_order, warehouse_logistics, distribution_wholesale, manufacturing, projects, service_management, retail_ecommerce, edi, integrations_api, reporting_power_bi, power_platform_bc, copilot_bc, multi_company, international |
+| competency | manufacturing, projects, service_management, retail_ecommerce, edi, integrations_api, multi_company, international |
 | project_type | new_implementation, migration, upgrade, maintenance_support, rescue, system_consolidation, multi_company_implementation, international_rollout |
 | delivery_model | fixed_price_start, quickstart_package, proof_of_concept, phased_implementation, traditional_project, maintenance_partner, managed_services |
 
@@ -140,7 +140,7 @@ Läsare av BC-attribut: manage-partner-master (partner, save-bc-attributes, migr
 | app | erp | business-central, finance, supply-chain, project-operations, commerce, human-resources |
 | app | crm | sales, customer-service, field-service, customer-insights, contact-center |
 | platform | platform | power-platform |
-| capability | platform | power-apps, power-automate, power-pages, dataverse (parent = power-platform) |
+| capability | platform | Power Apps, Power Automate, Power Pages och Dataverse är inaktiva undernivåer; partnerprofilen använder endast power-platform |
 | capability | data_analytics | power-bi, fabric |
 | capability | ai | copilot, copilot-studio, ai-agents |
 Befintlig `category` behålls oförändrad för bakåtkompatibilitet.
@@ -172,3 +172,6 @@ Inga attributuppsättningar för Finance, CRM eller Power Platform ännu. Katalo
 
 ### Beslut 2026-09-29: BC-kompetenser ersatta av förmågor
 `reporting_power_bi` → förmågan `power-bi`, `power_platform_bc` → `power-platform`, `copilot_bc` → `copilot`. Alternativen är inaktiverade (is_active=false, raderas inte). Inga partnerval behövde flyttas (0). Förmågor: power-bi, power-platform, copilot, copilot-studio, ai-agents. Migrering flyttar ev. gamla val till partner_product_capabilities med bevarad metadata; inaktiva alternativ kan inte sparas. Profileringslänken har gruppen "Tvärgående förmågor" som sparas som opublicerade partnerförslag i partner_product_capabilities; Admin visar förmågor i egen sektion.
+
+### Beslut 2026-09-29: gemensam ERP-basnivå och samlad Power Platform
+Ekonomi och redovisning, Inköp, Försäljning och order, Lager och logistik samt Distribution och grossist betraktas som gemensam basnivå för partner som arbetar med Business Central eller F&SCM. Alternativen är inaktiverade för Business Central, Finance och Supply Chain Management, visas inte i profileringen och påverkar inte A/B/C-status. Befintliga uppgifter behålls som historik. Power Apps, Power Automate, Power Pages och Dataverse är inaktiverade som separata förmågor; befintliga val har slagits samman till Power Platform med bevarad verifieringsmetadata.
