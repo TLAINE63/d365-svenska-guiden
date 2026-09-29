@@ -285,7 +285,9 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                       <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_primary} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_primary: !!c })} /> Primärt produktområde</label>
                       <label className="flex items-center gap-2"><Checkbox checked={profileForm.is_published} onCheckedChange={(c) => setProfileForm({ ...profileForm, is_published: !!c })} /> Publicerad (ingår i export)</label>
                     </div>
-                    <VerifFields v={profileForm} onChange={(p) => setProfileForm({ ...profileForm, ...p })} />
+                    {!isVerified(profileForm) || revealed[`profile:${profileId}`]
+                      ? <VerifFields v={profileForm} onChange={(p) => setProfileForm({ ...profileForm, ...p })} />
+                      : <VerifiedBadge v={profileForm} onEdit={() => revealKey(`profile:${profileId}`)} />}
                     <Button size="sm" onClick={saveProfile} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara produktprofil</Button>
                   </div>
                 )}
@@ -327,7 +329,9 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                               </label>
                               {a && (
                                 <>
-                                  <VerifFields v={a} onChange={(p) => patchAttr(o.id, p)} />
+                                  {!isVerified(a) || revealed[`attr:${o.id}`]
+                                    ? <VerifFields v={a} onChange={(p) => patchAttr(o.id, p)} />
+                                    : <VerifiedBadge v={a} onEdit={() => revealKey(`attr:${o.id}`)} />}
                                   <label className="flex items-center gap-1 text-xs"><Checkbox checked={a.is_published} onCheckedChange={(c) => patchAttr(o.id, { is_published: !!c })} /> Publ.</label>
                                 </>
                               )}
@@ -358,7 +362,9 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                         </label>
                         {c && (
                           <>
-                            <VerifFields v={c} onChange={(x) => patchCap(p.id, x)} />
+                            {!isVerified(c) || revealed[`cap:${p.id}`]
+                              ? <VerifFields v={c} onChange={(x) => patchCap(p.id, x)} />
+                              : <VerifiedBadge v={c} onEdit={() => revealKey(`cap:${p.id}`)} />}
                             <label className="flex items-center gap-1 text-xs"><Checkbox checked={c.is_published} onCheckedChange={(v) => patchCap(p.id, { is_published: !!v })} /> Publ.</label>
                           </>
                         )}
