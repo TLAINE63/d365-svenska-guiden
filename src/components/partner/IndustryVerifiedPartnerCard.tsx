@@ -1,6 +1,8 @@
-import { ArrowLeftRight, ArrowRight, Check, CheckCircle2, Lightbulb, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,7 +20,10 @@ interface IndustryVerifiedPartnerCardProps {
   industry?: string | null;
   productKey?: string | null;
   productLabel?: string | null;
-  enableCompare?: boolean;
+  profileUrl?: string;
+  geography?: string | null;
+  companySize?: string | null;
+  revenue?: string | null;
 }
 
 function firstUsefulSentence(text?: string | null, maxChars = 230): string | null {
@@ -95,8 +100,12 @@ export default function IndustryVerifiedPartnerCard({
   industry,
   productKey,
   productLabel,
-  enableCompare = false,
+  profileUrl,
+  geography,
+  companySize,
+  revenue,
 }: IndustryVerifiedPartnerCardProps) {
+  const [contactOpen, setContactOpen] = useState(false);
   const { isSelected, toggle } = usePartnerCompare();
   const compareActive = isSelected(partner.slug);
   const productFilter = selectedProductFilter(partner, productKey);
@@ -258,7 +267,8 @@ export default function IndustryVerifiedPartnerCard({
         </aside>
       </div>
 
-      <footer className="flex items-center justify-between gap-4 bg-[hsl(var(--hero-dark))] px-5 py-4">
+      <footer className="bg-[hsl(var(--hero-dark))] px-5 py-4">
+        <div className="mb-3 flex items-center justify-between gap-4">
         <div className="min-w-0">
           <p className="text-xs font-semibold text-[hsl(var(--border-on-dark))]">
             {industry || "Partnerverifierad profil"}
@@ -269,30 +279,48 @@ export default function IndustryVerifiedPartnerCard({
             </p>
           )}
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          {enableCompare && (
-            <Button
-              type="button"
-              size="icon"
-              variant="outline"
-              onClick={() => toggle({ slug: partner.slug, name: partner.name })}
-              aria-pressed={compareActive}
-              aria-label={`${compareActive ? "Ta bort" : "Lägg till"} ${partner.name} i jämförelse`}
-              className={`h-9 w-9 shrink-0 ${compareActive ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90" : "border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"}`}
-              title={compareActive ? "Ta bort från jämförelse" : "Lägg till i jämförelse"}
-            >
-              {compareActive ? <Check className="h-4 w-4" aria-hidden /> : <ArrowLeftRight className="h-4 w-4" aria-hidden />}
-            </Button>
-          )}
-          <Link
-            to={`/partner/${partner.slug}/`}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground transition-colors hover:bg-[hsl(var(--cta-orange-hover))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
+        </div>
+        </div>
+        <Button asChild className="mb-2.5 w-full font-bold">
+          <Link to={profileUrl || `/partner/${partner.slug}/`}>
             Se partnerprofil
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
+        </Button>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => toggle({ slug: partner.slug, name: partner.name })}
+            aria-pressed={compareActive}
+            className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
+          >
+            <Star className={`h-4 w-4 ${compareActive ? "fill-current text-primary" : ""}`} aria-hidden />
+            {compareActive ? "I shortlist" : "Lägg till i shortlist"}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setContactOpen(true)}
+            className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
+          >
+            <Mail className="h-4 w-4" aria-hidden />
+            Be om introduktion
+          </Button>
         </div>
       </footer>
+      <PartnerRequestDialog
+        open={contactOpen}
+        onOpenChange={setContactOpen}
+        partnerSlug={partner.slug}
+        partnerName={partner.name}
+        selectedProduct={productLabel || undefined}
+        industry={industry || undefined}
+        geography={geography || undefined}
+        companySize={companySize || undefined}
+        revenue={revenue || undefined}
+        mode="contact"
+      />
     </article>
   );
 }
