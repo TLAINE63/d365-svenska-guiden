@@ -2,6 +2,7 @@
 // Ingen ranking, matchning eller AI. Se docs/PARTNER-MASTER-MODEL.md.
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { computeReview, runPrefill, decideChange, reviewOverview } from "../_shared/partner-review.ts";
 
 const ALLOWED_ORIGINS = ["https://d365.se", "https://www.d365.se", "http://localhost:5173", "http://localhost:8080"];
 function cors(req: Request): Record<string, string> {
@@ -227,6 +228,29 @@ serve(async (req) => {
         };
       });
       return json({ rows });
+    }
+
+    // ---- Partner Review Queue ----
+    if (action === "review-overview") return json(await reviewOverview(sb));
+    if (action === "review-partner") return json(await computeReview(sb, String(body.partner_id || "")));
+    if (action === "review-prefill") {
+      if (body.all) {
+        const { data: ps } = await sb.from("partners").select("id").eq("agreement_signed", true);
+        let created = 0;
+        for (const p of ps || []) created += (await runPrefill(sb, p.id)).created || 0;
+        return json({ created });
+      }
+      return json(await runPrefill(sb, String(body.partner_id || "")));
+    }
+    if (action === "review-changes") {
+      const status = ["pending", "clarification", "approved", "rejected"].includes(body.status) ? body.status : "pending";
+      const { data, error } = await sb.from("partner_review_changes").select("*, partner:partners(name, slug)")
+        .eq("status", status).order("created_at", { ascending: false }).limit(300);
+      if (error) return json({ error: error.message }, 400);
+      return json({ changes: data });
+    }
+    if (action === "review-decide") {
+      return json(await decideChange(sb, String(body.id || ""), String(body.decision || ""), typeof body.note === "string" ? body.note : null));
     }
 
     if (action === "export-bc") {

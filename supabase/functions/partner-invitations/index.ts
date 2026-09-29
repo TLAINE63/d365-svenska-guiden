@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@4.0.0";
+import { computeReview, applyPartnerResponse } from "../_shared/partner-review.ts";
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -277,6 +278,34 @@ serve(async (req: Request): Promise<Response> => {
 
     const url = new URL(req.url);
     const action = url.searchParams.get("action");
+
+    // Partnergranskning via profileringslänkens token (Partner Review Queue)
+    if ((action === "get-review" || action === "submit-review") && req.method === "POST") {
+      const h = { "Content-Type": "application/json", "Cache-Control": "no-store", ...corsHeaders };
+      const body = await req.json().catch(() => ({}));
+      const tok = typeof body?.token === "string" ? body.token : "";
+      const { data: inv } = tok ? await supabase.from("partner_invitations").select("partner_id, status, expires_at").eq("token", tok).maybeSingle() : { data: null };
+      if (!inv?.partner_id || (inv.status === "pending" && new Date(inv.expires_at) < new Date())) {
+        return new Response(JSON.stringify({ error: "Ogiltig länk" }), { status: 403, headers: h });
+      }
+      try {
+        if (action === "submit-review") {
+          const result = await applyPartnerResponse(supabase, inv.partner_id, {
+            confirm: body.confirm, remove: body.remove, add: body.add, add_solutions: body.add_solutions,
+          });
+          return new Response(JSON.stringify(result), { headers: h });
+        }
+        const r = await computeReview(supabase, inv.partner_id);
+        return new Response(JSON.stringify({
+          has_bc: r.partner.has_bc, items: r.items, missing: r.missing, options: r.options, counts: r.counts,
+          changes: r.changes.map((c: any) => ({ id: c.id, dimension_key: c.dimension_key, value_label: c.value_label,
+            change_type: c.change_type, status: c.status, editor_note: c.status === "clarification" ? c.editor_note : null })),
+        }), { headers: h });
+      } catch (e) {
+        console.error("partner review:", e);
+        return new Response(JSON.stringify({ error: "Kunde inte hantera granskningen" }), { status: 400, headers: h });
+      }
+    }
 
     // Public actions (no auth required)
     if (action === "get-invitation") {
