@@ -42,8 +42,7 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "international_rollout", label: "Internationell utrullning" },
   ],
   delivery_model: [
-    { key: "fixed_price_start", label: "Fastprisstart" },
-    { key: "quickstart_package", label: "Snabbstartspaket" },
+    { key: "quickstart_package", label: "Snabbstartspaket till fast pris" },
     { key: "proof_of_concept", label: "Proof of Concept" },
     { key: "phased_implementation", label: "Successiv implementation" },
     { key: "traditional_project", label: "Traditionellt implementationsprojekt" },
