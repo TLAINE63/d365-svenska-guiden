@@ -1,75 +1,126 @@
 /**
- * Strukturerad partnerdata (Partner Data Enrichment MVP).
- * Lagras i partners.structured_profile (jsonb) + data_verified_at/data_verified_by.
- * Används ännu inte för ranking, matchning eller AI. Se docs/PARTNER-DATA-MODEL.md.
+ * Business Central-modulen i partnermastermodellen (se docs/PARTNER-MASTER-MODEL.md).
+ * Stabila nycklar = samma som tabellen bc_attribute_options. Etiketter är endast visning.
+ * Används inte för ranking, matchning eller AI.
  */
 
-export const MIGRATION_SOURCES = [
-  "NAV / Navision", "Business Central On-Prem", "Visma", "Monitor", "Pyramid",
-  "Jeeves", "SAP Business One", "Fortnox", "Annat ERP",
+export type BcAttributeType = "migration" | "competency" | "project_type" | "delivery_model";
+
+export interface Option { key: string; label: string }
+
+export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
+  migration: [
+    { key: "nav", label: "NAV / Navision" },
+    { key: "bc_onprem", label: "Business Central On-Prem" },
+    { key: "bc_other_environment", label: "Business Central från annan miljö eller partner" },
+    { key: "visma", label: "Visma" },
+    { key: "monitor", label: "Monitor ERP" },
+    { key: "pyramid", label: "Pyramid" },
+    { key: "jeeves", label: "Jeeves" },
+    { key: "sap_business_one", label: "SAP Business One" },
+    { key: "fortnox", label: "Fortnox" },
+    { key: "other_erp", label: "Annat ERP" },
+  ],
+  competency: [
+    { key: "finance_accounting", label: "Ekonomi och redovisning" },
+    { key: "purchasing", label: "Inköp" },
+    { key: "sales_order", label: "Försäljning och order" },
+    { key: "warehouse_logistics", label: "Lager och logistik" },
+    { key: "distribution_wholesale", label: "Distribution och grossist" },
+    { key: "manufacturing", label: "Produktion och tillverkning" },
+    { key: "projects", label: "Projektverksamhet" },
+    { key: "service_management", label: "Servicehantering" },
+    { key: "retail_ecommerce", label: "Retail och e-handel" },
+    { key: "edi", label: "EDI" },
+    { key: "integrations_api", label: "Integrationer och API" },
+    { key: "reporting_power_bi", label: "Rapportering och Power BI" },
+    { key: "power_platform_bc", label: "Power Platform i anslutning till Business Central" },
+    { key: "copilot_bc", label: "Copilot i Business Central" },
+    { key: "multi_company", label: "Flerbolagsmiljö" },
+    { key: "international", label: "Internationell verksamhet" },
+  ],
+  project_type: [
+    { key: "new_implementation", label: "Nyimplementation" },
+    { key: "migration", label: "Migrering" },
+    { key: "upgrade", label: "Uppgradering" },
+    { key: "maintenance_support", label: "Förvaltning och support" },
+    { key: "rescue", label: "Rescue-projekt" },
+    { key: "system_consolidation", label: "Konsolidering av flera system" },
+    { key: "multi_company_implementation", label: "Flerbolagsimplementation" },
+    { key: "international_rollout", label: "Internationell utrullning" },
+  ],
+  delivery_model: [
+    { key: "fixed_price_start", label: "Fastprisstart" },
+    { key: "quickstart_package", label: "Snabbstartspaket" },
+    { key: "proof_of_concept", label: "Proof of Concept" },
+    { key: "phased_implementation", label: "Successiv implementation" },
+    { key: "traditional_project", label: "Traditionellt implementationsprojekt" },
+    { key: "maintenance_partner", label: "Förvaltningspartner" },
+    { key: "managed_services", label: "Managed Services" },
+  ],
+};
+
+export const BC_GROUP_TITLES: Record<BcAttributeType, { title: string; desc: string }> = {
+  migration: { title: "Migreringserfarenhet", desc: "Från vilka system har ni migrerat kunder till Business Central?" },
+  competency: { title: "Business Central-kompetens", desc: "Inom vilka områden har ni dokumenterad kompetens?" },
+  project_type: { title: "Typiska projekt", desc: "Vilka typer av Business Central-projekt gör ni oftast?" },
+  delivery_model: { title: "Leveransmodell", desc: "Hur erbjuder ni att starta och leverera?" },
+};
+
+export const VERIFICATION_STATUSES = [
+  { value: "partner_verified", label: "Partnerverifierad" },
+  { value: "editorial_verified", label: "Redaktionellt verifierad" },
+  { value: "public_source", label: "Publik källa" },
+  { value: "legacy_import", label: "Importerad äldre uppgift" },
+  { value: "unverified", label: "Ej verifierad" },
 ] as const;
 
-export const BC_COMPETENCIES = [
-  "Ekonomi", "Redovisning", "Inköp", "Order", "Lager", "Distribution", "Produktion",
-  "Projekt", "Service", "E-handel", "EDI", "Integrationer", "Power BI",
-  "Power Platform", "Copilot", "Flerbolag", "Internationellt",
-] as const;
-
-export const PROJECT_TYPES = [
-  "Nyimplementation", "Migrering", "Uppgradering", "Förvaltning",
-  "Rescue-projekt", "Internationell utrullning",
-] as const;
-
-export const DELIVERY_MODELS = [
-  "Fastprisstart", "Snabbstartspaket", "Proof of Concept",
-  "Successiv implementation", "Förvaltningspartner",
-] as const;
-
-export const VERIFIED_BY_OPTIONS = [
-  { value: "partner", label: "Partner" },
-  { value: "redaktion", label: "d365.se Redaktion" },
-  { value: "publik_kalla", label: "Publik källa" },
+export const SOLUTION_TYPES = [
+  { value: "own", label: "Egenutvecklad" },
+  { value: "third_party", label: "Tredjepartslösning" },
+  { value: "packaged_offering", label: "Paketerat erbjudande" },
 ] as const;
 
 export interface IndustrySolution {
+  id?: string;
   name: string;
   description: string;
   industry: string;
 }
 
+/** Partnerns val i profileringslänken. */
 export interface StructuredProfile {
-  migration_experience: string[];
-  bc_competencies: string[];
-  project_types: string[];
-  delivery_models: string[];
+  migration: string[];
+  competency: string[];
+  project_type: string[];
+  delivery_model: string[];
   has_industry_solution: boolean | null;
   industry_solutions: IndustrySolution[];
 }
 
 export const EMPTY_STRUCTURED_PROFILE: StructuredProfile = {
-  migration_experience: [],
-  bc_competencies: [],
-  project_types: [],
-  delivery_models: [],
-  has_industry_solution: null,
-  industry_solutions: [],
+  migration: [], competency: [], project_type: [], delivery_model: [],
+  has_industry_solution: null, industry_solutions: [],
 };
 
-const pick = (v: unknown, allowed: readonly string[]) =>
-  Array.isArray(v) ? v.filter((x): x is string => typeof x === "string" && allowed.includes(x)) : [];
+const pick = (v: unknown, t: BcAttributeType) => {
+  const allowed = BC_OPTIONS[t].map((o) => o.key);
+  return Array.isArray(v) ? [...new Set(v.filter((x): x is string => typeof x === "string" && allowed.includes(x)))] : [];
+};
 
 export function normalizeStructuredProfile(raw: unknown): StructuredProfile {
   const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
   const sols = Array.isArray(r.industry_solutions) ? r.industry_solutions : [];
   return {
-    migration_experience: pick(r.migration_experience, MIGRATION_SOURCES),
-    bc_competencies: pick(r.bc_competencies, BC_COMPETENCIES),
-    project_types: pick(r.project_types, PROJECT_TYPES),
-    delivery_models: pick(r.delivery_models, DELIVERY_MODELS),
+    migration: pick(r.migration, "migration"),
+    competency: pick(r.competency, "competency"),
+    project_type: pick(r.project_type, "project_type"),
+    delivery_model: pick(r.delivery_model, "delivery_model"),
     has_industry_solution: typeof r.has_industry_solution === "boolean" ? r.has_industry_solution : null,
     industry_solutions: sols
       .filter((s): s is Record<string, unknown> => !!s && typeof s === "object")
       .map((s) => ({
+        id: typeof s.id === "string" ? s.id : undefined,
         name: String(s.name ?? "").slice(0, 120),
         description: String(s.description ?? "").slice(0, 800),
         industry: String(s.industry ?? "").slice(0, 120),
