@@ -96,3 +96,9 @@
 - [x] Separera partnerns egna uppgifter, belagda styrkor och d365.se:s AI-bedömning
 - [x] Lägg till branschspecifik relevans, kontrollpunkt, produktområden, leveransområde och tydlig profillänk
 - [x] Verifiera kortet på dator och mobil
+
+## Gemensamt profilkort för verifierade partners (2026-09-29)
+- [ ] Visa produkter och särskilda styrkor på `/partners-per-bransch/`
+- [ ] Visa samma korttyp på `/alla-d365-partners/`
+- [ ] Visa samma korttyp på startsidan i ”Så hittar du rätt partner”
+- [ ] Kontrollera de tre ytorna på dator och mobil
