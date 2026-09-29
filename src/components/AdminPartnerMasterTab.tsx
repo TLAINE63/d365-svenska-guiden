@@ -56,6 +56,15 @@ function VerifFields({ v, onChange }: { v: Verif; onChange: (p: Partial<Verif>) 
   );
 }
 
+function VerifiedBadge({ v, onEdit }: { v: Verif; onEdit: () => void }) {
+  return (
+    <button type="button" onClick={onEdit} title="Klicka för att ändra verifiering"
+      className="flex items-center gap-1 text-xs text-emerald-600 hover:underline">
+      <Check className="w-3.5 h-3.5" /> {STATUS_LABELS[v.verification_status]}
+    </button>
+  );
+}
+
 export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props) {
   const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-partner-master`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
