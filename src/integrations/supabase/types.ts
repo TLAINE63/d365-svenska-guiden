@@ -2797,6 +2797,96 @@ export type Database = {
           },
         ]
       }
+      partner_review_changes: {
+        Row: {
+          change_type: string
+          created_at: string
+          dimension_key: string
+          editor_note: string | null
+          id: string
+          new_value: string | null
+          partner_id: string
+          previous_value: string | null
+          profile_id: string | null
+          reviewed_at: string | null
+          source: string
+          status: string
+          updated_at: string
+          value_key: string
+          value_label: string
+        }
+        Insert: {
+          change_type: string
+          created_at?: string
+          dimension_key: string
+          editor_note?: string | null
+          id?: string
+          new_value?: string | null
+          partner_id: string
+          previous_value?: string | null
+          profile_id?: string | null
+          reviewed_at?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+          value_key: string
+          value_label: string
+        }
+        Update: {
+          change_type?: string
+          created_at?: string
+          dimension_key?: string
+          editor_note?: string | null
+          id?: string
+          new_value?: string | null
+          partner_id?: string
+          previous_value?: string | null
+          profile_id?: string | null
+          reviewed_at?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+          value_key?: string
+          value_label?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_review_changes_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "export_bc_partner_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_review_changes_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_review_changes_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_review_changes_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_review_changes_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "partner_product_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_submissions: {
         Row: {
           address: string | null
