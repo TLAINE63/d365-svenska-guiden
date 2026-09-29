@@ -337,7 +337,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
             {profile && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-base">Tvärgående förmågor ({profile.product?.name})</CardTitle>
+                  <CardTitle className="text-base">Tvärgående förmågor (gäller alla partnerns produktområden)</CardTitle>
                   <CardDescription>Till exempel Power BI, Copilot Studio eller Power Platform kopplat till just denna produktprofil.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-1">
