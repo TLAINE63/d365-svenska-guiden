@@ -87,6 +87,8 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   const [busy, setBusy] = useState(false);
   const [report, setReport] = useState<any[] | null>(null);
   const [exportData, setExportData] = useState<any>(null);
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const revealKey = (k: string) => setRevealed((prev) => ({ ...prev, [k]: true }));
 
   useEffect(() => {
     if (!token) return;
