@@ -8,7 +8,7 @@
 // över alla profiler i gruppen; tillägg skrivs till primärprofilen.
 
 export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
-export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio"];
+export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot-studio"];
 
 // Särskilda projekt och leveransformer efterfrågas inte för någon produkt (beslut
 // 2026-09-29: alla partners skulle kryssa i allt). Kompetenspecialiseringar efterfrågas
@@ -138,7 +138,6 @@ const SHARED_RULES: [string, string, RegExp][] = [
   ["capability", "power-bi", /\bpower\s?bi\b/i],
   ["capability", "power-platform", /\b(power\s+platform|power\s+apps|power\s+automate)\b/i],
   ["capability", "copilot-studio", /\b(copilot\s+studio|ai[-\s]agent\w*)\b/i],
-  ["capability", "copilot", /\bcopilot\b(?!\s+studio)/i],
 ];
 
 export const PREFILL_RULE_SETS: Record<string, [string, string, RegExp][]> = {
