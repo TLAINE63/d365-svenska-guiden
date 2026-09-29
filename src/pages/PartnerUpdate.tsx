@@ -1259,12 +1259,6 @@ const PartnerUpdate = () => {
                 </p>
               );
             })()}
-            {invitation?.partner_id && (
-              <Button type="button" variant="outline" size="sm" className="mt-3"
-                onClick={() => document.getElementById("bc-review")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
-                Gå till granskning av Business Central-profilen ↓
-              </Button>
-            )}
           </CardContent>
         </Card>
 
@@ -1711,8 +1705,9 @@ const PartnerUpdate = () => {
    ? "Specialister på B2B med långa säljcykler\nCopilot for Sales och LinkedIn Sales Navigator i grunden\nMallar för pipeline, forecast och account-planer\nAdoption-program så CRM faktiskt används"
    : "Omnikanal: telefon, mejl, chatt, självservice\nCopilot-agents för förstaledssupport\nKunskapsbas och ärendeflöden från dag ett\nMätbara mål på lösningsgrad, AHT och CSAT";
  
- return (
- <Card key={productKey} className="ring-2 ring-offset-2" style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
+  return (
+  <div key={productKey} className="space-y-4">
+  <Card className="ring-2 ring-offset-2" style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
  <CardHeader className={`pb-4 ${section.colorClass} text-white rounded-t-lg`}>
  <CardTitle className="text-xl font-bold flex items-center justify-between">
  <span className="flex items-center gap-3">
@@ -2389,6 +2384,14 @@ const PartnerUpdate = () => {
  })()}
  </CardContent>
  </Card>
+  {productKey === "bc" && (
+    invitation?.partner_id && token ? (
+      <PartnerReviewSection token={token} />
+    ) : (
+      <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+    )
+  )}
+  </div>
  );
  })}
  </div>
@@ -2411,15 +2414,6 @@ const PartnerUpdate = () => {
      onChange={setCompetencyInput}
    />
  </PremiumCollapsibleSection>
-
- <div className="my-4 scroll-mt-24" id="bc-review">
-   {invitation?.partner_id && token ? (
-     <PartnerReviewSection token={token} />
-   ) : (
-     <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
-   )}
- </div>
-
 
  {/* Products Section */}
 
