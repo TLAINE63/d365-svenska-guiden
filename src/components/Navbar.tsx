@@ -87,14 +87,12 @@ const Navbar = () => {
             >
               Kontakt
             </Link>
-            <Button
-              asChild
-              variant="default"
-              size="sm"
-              className="rounded-full bg-[hsl(var(--cta-orange))]/90 hover:bg-[hsl(var(--cta-orange))] text-white text-xs px-3 py-1 h-auto border-0 shadow-none"
+            <Link
+              to="/kom-igang/"
+              className="inline-flex items-center rounded-full bg-[hsl(var(--cta-orange))] px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-[hsl(var(--cta-orange))]/85 transition-colors whitespace-nowrap"
             >
-              <Link to="/kom-igang/">Kom igång</Link>
-            </Button>
+              Kom igång
+            </Link>
             <RegionLanguageSwitcher />
           </div>
         </div>
