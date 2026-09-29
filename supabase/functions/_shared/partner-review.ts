@@ -7,8 +7,10 @@
 // alternativ speglas per produkt med identiska nycklar och raderas/bekräftas
 // över alla profiler i gruppen; tillägg skrivs till primärprofilen.
 
-export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
-export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot-studio"];
+// Tvärgående förmågor efterfrågas inte längre (beslut 2026-09-29): Power BI,
+// Power Platform och Copilot Studio finns redan som produkter i katalogen.
+export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery"] as const;
+export const CAPABILITY_KEYS: string[] = [];
 
 // Särskilda projekt och leveransformer efterfrågas inte för någon produkt (beslut
 // 2026-09-29: alla partners skulle kryssa i allt). Kompetenspecialiseringar efterfrågas
@@ -135,9 +137,6 @@ const SHARED_RULES: [string, string, RegExp][] = [
   ["special_delivery", "multi_company_implementation", /\b(flerbolagsimplementation|flerbolagslösning|multi[-\s]?company)\w*/i],
   ["special_delivery", "quickstart_package", /\b(snabbstartspaket|quick\s?start[-\s]?paket|paketerad\s+snabbstart|fastprisstart|fastprisad\s+(förstudie|start|analysfas))\b/i],
   ["special_delivery", "proof_of_concept", /\b(proof\s+of\s+concept|poc)\b/i],
-  ["capability", "power-bi", /\bpower\s?bi\b/i],
-  ["capability", "power-platform", /\b(power\s+platform|power\s+apps|power\s+automate)\b/i],
-  ["capability", "copilot-studio", /\b(copilot\s+studio|ai[-\s]agent\w*)\b/i],
 ];
 
 export const PREFILL_RULE_SETS: Record<string, [string, string, RegExp][]> = {
