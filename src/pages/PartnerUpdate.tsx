@@ -17,6 +17,7 @@ import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsible
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
 import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
 import { StructuredProfileSection } from "@/components/partner-update/StructuredProfileSection";
+import { PartnerReviewSection } from "@/components/partner-update/PartnerReviewSection";
 import { EMPTY_STRUCTURED_PROFILE, normalizeStructuredProfile, type StructuredProfile } from "@/data/structuredPartnerProfile";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1094,7 +1095,8 @@ const PartnerUpdate = () => {
    key_differentiators: keyDifferentiatorsInput.split("\n").map(s => s.trim()).filter(Boolean).slice(0, 5),
    key_differentiators_source: "partner",
   ai_profile: aiProfile,
-  structured_profile: normalizeStructuredProfile(structuredProfile),
+  // Befintliga partners granskar via PartnerReviewSection (sparas separat) – skicka inte gammal strukturerad profil
+  structured_profile: invitation?.partner_id ? undefined : normalizeStructuredProfile(structuredProfile),
   extended_competency_input: Object.fromEntries(
     COMPETENCY_AREAS.map((a) => [a.key, (competencyInput[a.key] || "").trim().slice(0, 800)]).filter(([, v]) => v)
   ),
@@ -2391,7 +2393,11 @@ const PartnerUpdate = () => {
  </PremiumCollapsibleSection>
 
  <div className="my-4">
-   <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+   {invitation?.partner_id && token ? (
+     <PartnerReviewSection token={token} />
+   ) : (
+     <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+   )}
  </div>
 
 
