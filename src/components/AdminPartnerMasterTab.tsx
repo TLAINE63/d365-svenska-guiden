@@ -32,7 +32,6 @@ const dimTitle = (d: string) => DIMENSION_TITLES[d] || d.replace(/_/g, " ");
 
 interface Verif { verification_status: string; verified_by: string; verified_at: string; source_url: string }
 interface Attr extends Verif { product_attribute_option_id: string; is_published: boolean }
-interface Cap extends Verif { capability_product_id: string; is_published: boolean }
 interface Solution {
   id?: string; name: string; description: string; industries: string[]; solution_type: string;
   source_url: string; partner_verified: boolean; editorial_verified: boolean; verified_at: string; is_published: boolean;
@@ -86,7 +85,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   const [partners, setPartners] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [options, setOptions] = useState<any[]>([]);
-  const [caps, setCaps] = useState<Cap[]>([]);
   const [filter, setFilter] = useState<"verified" | "all">("verified");
   const [partnerId, setPartnerId] = useState("");
   const [detail, setDetail] = useState<any>(null);
@@ -132,8 +130,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
       verified_at: a.verified_at || "", source_url: a.source_url || "", is_published: a.is_published });
     setAttrs((d.attributes || []).filter((a: any) => a.partner_product_profile_id === id)
       .map((a: any) => ({ product_attribute_option_id: a.product_attribute_option_id, ...meta(a) })));
-    setCaps((d.capabilities || []).filter((c: any) => c.partner_product_profile_id === id)
-      .map((c: any) => ({ capability_product_id: c.capability_product_id, ...meta(c) })));
     setSolutions((d.solutions || []).filter((s: any) => s.profile_id === id).map((s: any) => ({
       id: s.id, name: s.name, description: s.description || "", industries: s.industries || [],
       solution_type: s.solution_type, source_url: s.source_url || "", partner_verified: s.partner_verified,
@@ -150,7 +146,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
     return [...new Set(profileOptions.map((o) => o.dimension_key))]
       .filter((d) => d !== "special_delivery" && !(d === "competency" && isSales));
   }, [profileOptions, profile]);
-  const capabilityProducts = useMemo(() => products.filter((p) => p.is_active && ["capability", "platform"].includes(p.catalog_type) && p.id !== profile?.product_id), [products, profile]);
   const shownPartners = partners.filter((p) => filter === "all" || p.agreement_signed);
   const availableProducts = useMemo(() => products.filter((p) => p.is_active && !detail?.profiles.some((x: any) => x.product_id === p.id)), [products, detail]);
 
@@ -161,11 +156,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   };
   const patchAttr = (id: string, p: Partial<Attr>) =>
     setAttrs((prev) => prev.map((a) => (a.product_attribute_option_id === id ? { ...a, ...p } : a)));
-  const toggleCap = (id: string) => setCaps((prev) => prev.some((c) => c.capability_product_id === id)
-    ? prev.filter((c) => c.capability_product_id !== id)
-    : [...prev, { capability_product_id: id, ...adminVerif() }]);
-  const patchCap = (id: string, p: Partial<Cap>) =>
-    setCaps((prev) => prev.map((c) => (c.capability_product_id === id ? { ...c, ...p } : c)));
 
   const run = async (fn: () => Promise<void>, ok: string) => {
     setBusy(true);
@@ -182,10 +172,6 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
     await loadPartner(partnerId, profileId);
   }, "Produktvalen sparade");
 
-  const saveCaps = () => run(async () => {
-    await call("save-capabilities", { profile_id: profileId, capabilities: caps.map((c) => (isVerified(c) ? { ...c, is_published: true } : { ...c, ...adminVerif() })) });
-    await loadPartner(partnerId, profileId);
-  }, "Förmågorna sparade");
 
   const saveSolution = (s: Solution) => run(async () => {
     await call("save-solution", { profile_id: profileId, ...s });
