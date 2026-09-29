@@ -1,0 +1,1 @@
+UPDATE public.product_attribute_options SET is_active = false WHERE dimension_key = 'capability' AND attribute_key = 'copilot';
