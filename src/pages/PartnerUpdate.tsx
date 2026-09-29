@@ -424,9 +424,10 @@ const PartnerUpdate = () => {
         geo.length > 0,
         (pf.industries?.length ?? 0) > 0,
       ].filter(Boolean).length;
-      return sum + (productFields / 5) * 10;
+      return sum + productFields / 5;
     }, 0);
-    score += Math.min(productScore, 40);
+    // Snitt över partnerns aktiva produkter, så en ren BC-partner kan nå 100 %
+    if (activeProducts.length > 0) score += (productScore / activeProducts.length) * 40;
 
     return Math.round(Math.min(score, 100));
   }, [formData, positioningStatement, notAFitInput, deliveryProfile, activeProducts, selectedSpecialtyProducts, productFilters]);
@@ -1242,9 +1243,28 @@ const PartnerUpdate = () => {
               </div>
             </div>
             <Progress value={profileProgress} indicatorClassName="bg-cta-orange" />
-            <p className="text-xs text-muted-foreground mt-2">
-              Fyll i grundinfo, positionering, produkter och branschpitchar för att öka träffsäkerheten.
-            </p>
+            {(() => {
+              const miss = [
+                !formData.logo_url?.trim() && "Logotyp",
+                !formData.contact_photo_url?.trim() && "Kontaktfoto",
+                !positioningStatement?.trim() && "Positionering",
+                !notAFitInput?.trim() && "När ni inte passar",
+                !deliveryProfile.methodology?.trim() && "Metodik",
+                !deliveryProfile.typical_length?.trim() && "Typisk projektlängd",
+                !deliveryProfile.bc_project_cost_band?.trim() && "Kostnadsintervall",
+              ].filter(Boolean) as string[];
+              return (
+                <p className="text-xs text-muted-foreground mt-2">
+                  {miss.length ? <>Saknas för 100 %: {miss.join(", ")} (samt ev. fält i produktkorten).</> : "Fyll i grundinfo, positionering, produkter och branschpitchar för att öka träffsäkerheten."}
+                </p>
+              );
+            })()}
+            {invitation?.partner_id && (
+              <Button type="button" variant="outline" size="sm" className="mt-3"
+                onClick={() => document.getElementById("bc-review")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                Gå till granskning av Business Central-profilen ↓
+              </Button>
+            )}
           </CardContent>
         </Card>
 
@@ -2392,7 +2412,7 @@ const PartnerUpdate = () => {
    />
  </PremiumCollapsibleSection>
 
- <div className="my-4">
+ <div className="my-4 scroll-mt-24" id="bc-review">
    {invitation?.partner_id && token ? (
      <PartnerReviewSection token={token} />
    ) : (
