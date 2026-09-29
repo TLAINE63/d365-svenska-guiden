@@ -1,0 +1,1 @@
+DELETE FROM public.partners WHERE id = '74e609cb-f2a7-44bc-8642-845de68354fb' AND slug = 'nebulaa-it-solutions';
