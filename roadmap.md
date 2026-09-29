@@ -77,6 +77,8 @@
 ## Kompaktare Kom igång-steg (2026-09-29)
 - [x] Bredda alla valsteg och rym branschvalen utan skrollning på vanlig dator
 - [x] Kontrollera samtliga steg på dator och mobil
+- [ ] Låt Ändra urval öppna steg ett högst upp
+- [ ] Visa sju branscher per rad och håll samma frågeformat med sidfoten under skärmen
 
 ## Partnerns målgrupp i AI-bedömningar (2026-09-28)
 - [x] Låt partnerns egen text om typiska kunder styra segmentetiketten i snabböversikten

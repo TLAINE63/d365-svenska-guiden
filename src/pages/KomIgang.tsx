@@ -524,7 +524,9 @@ const KomIgang = () => {
   const handleBack = () => {
     if (showResults) {
       setShowResults(false);
-      setStep(TOTAL_STEPS);
+      currentStep.current = 1;
+      setStep(1);
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
     } else if (step > 1) {
       setStep(step - 1);
     } else {
@@ -769,7 +771,7 @@ const KomIgang = () => {
       />
       <Navbar />
 
-      <main className="flex-1 flex flex-col">
+      <main className="min-h-[100svh] flex flex-col">
         {/* Hero */}
         <section className="relative pt-24 pb-2 sm:pt-28 sm:pb-3 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
@@ -855,9 +857,10 @@ const KomIgang = () => {
                 </div>
               </div>
 
+              <div className="min-h-[280px]">
               {step === 1 && (
                 <div>
-                  <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 gap-2">
                     {sortedIndustries.map((ind) => {
                       const isSelected = selectedIndustry === ind;
                       const img = industryImages[ind];
@@ -1084,6 +1087,7 @@ const KomIgang = () => {
                   </button>
                 </div>
               )}
+              </div>
             </div>
           </div>
         </section>
