@@ -120,7 +120,7 @@ export function PartnerReviewSection({ token, productKey = "bc" }: { token: stri
       return { d, title: title(d), previous: prev.join(", ") || "Tomt", next: next.join(", ") || "Tomt", changed };
     }).filter((x) => x.changed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, decisions, adds, solution, productKey, scope]);
+  }, [data, decisions, adds, solution, productKey]);
 
   if (loading) return <Card><CardContent className="py-8 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></CardContent></Card>;
   if (!data || !data.has_app) return null;
