@@ -32,9 +32,10 @@ const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
   sales: "CRM-kompetens (Sales & Customer Insights)",
   service: "Service-kompetens (Customer Service & Field Service)",
 };
-const DIMS = ["migration", "competency", "capability", "special_delivery"];
+const DIMS = ["migration", "competency", "special_delivery"];
 // Särskilda projekt och leveransformer efterfrågas inte (alla skulle kryssa i allt).
 // Sales-specialiseringar efterfrågas inte (alla CRM-partners hävdar hela listan).
+// Tvärgående förmågor efterfrågas inte (finns redan som produkter i katalogen).
 const dimsFor = (pk: ReviewProductKey) => DIMS.filter((d) => d !== "special_delivery" && !(d === "competency" && pk === "sales"));
 const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
@@ -80,9 +81,8 @@ const titleOf = (productKey: ReviewProductKey, dim: string) =>
   dim === "competency" ? COMPETENCY_TITLES[productKey] : BASE_TITLES[dim] || dim;
 
 /** Granska och godkänn i stället för att fylla i allt igen. Ändringar granskas av redaktionen (publicerade partner publiceras direkt). */
-export function PartnerReviewSection({ token, productKey = "bc", scope = "product" }: { token: string; productKey?: ReviewProductKey; scope?: "product" | "capability" }) {
-  // Tvärgående förmågor gäller hela partnern och visas en gång (scope="capability"), inte under varje produktkort.
-  const ownDims = scope === "capability" ? ["capability"] : dimsFor(productKey).filter((d) => d !== "capability");
+export function PartnerReviewSection({ token, productKey = "bc" }: { token: string; productKey?: ReviewProductKey }) {
+  const ownDims = dimsFor(productKey);
   const { toast } = useToast();
   const [data, setData] = useState<ReviewData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -107,7 +107,7 @@ export function PartnerReviewSection({ token, productKey = "bc", scope = "produc
 
   const diff = useMemo(() => {
     if (!data) return [];
-    const dims = scope === "capability" ? ownDims : [...ownDims, "industry_solution"];
+    const dims = [...ownDims, "industry_solution"];
     return dims.map((d) => {
       const cur = data.items.filter((i) => i.dimension === d);
       const prev = cur.map((i) => i.label);
@@ -120,12 +120,12 @@ export function PartnerReviewSection({ token, productKey = "bc", scope = "produc
       return { d, title: title(d), previous: prev.join(", ") || "Tomt", next: next.join(", ") || "Tomt", changed };
     }).filter((x) => x.changed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, decisions, adds, solution, productKey, scope]);
+  }, [data, decisions, adds, solution, productKey]);
 
   if (loading) return <Card><CardContent className="py-8 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></CardContent></Card>;
   if (!data || !data.has_app) return null;
 
-  const shownDims = new Set(scope === "capability" ? ownDims : [...ownDims, "base", "industry_solution"]);
+  const shownDims = new Set([...ownDims, "base", "industry_solution"]);
   const shownItems = data.items.filter((i) => shownDims.has(i.dimension));
   const missing = data.missing.filter((d) => shownDims.has(d));
   const counts = { A: shownItems.filter((i) => i.klass === "A").length, B: shownItems.filter((i) => i.klass === "B").length, C: missing.length };
@@ -180,9 +180,9 @@ export function PartnerReviewSection({ token, productKey = "bc", scope = "produc
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">{scope === "capability" ? "Tvärgående förmågor (hela partnern)" : `Granska er ${data.product_label}-profil`}</CardTitle>
+        <CardTitle className="text-lg">{`Granska er ${data.product_label}-profil`}</CardTitle>
         <CardDescription>
-          {scope === "capability" ? "Power BI, Power Platform samt Copilot Studio och AI-agenter gäller hela er organisation och alla era produktområden, så de anges bara här en gång." : `Vi har samlat det vi redan vet om er ${data.product_label}-verksamhet.`} Gå igenom de tre delarna nedan:
+          {`Vi har samlat det vi redan vet om er ${data.product_label}-verksamhet.`} Gå igenom de tre delarna nedan:
           1) kontrollera det som redan är bekräftat, 2) bekräfta eller ta bort uppgifter vi hittat, 3) lägg till det som saknas.
           Klicka sedan på "Granska ändringar" längst ner och spara.{" "}
           {data.auto_publish ? "Era ändringar publiceras direkt på er partnerprofil." : "Allt ni ändrar granskas av d365.se innan det publiceras."}
