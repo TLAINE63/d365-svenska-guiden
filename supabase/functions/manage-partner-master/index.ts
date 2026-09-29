@@ -232,19 +232,20 @@ serve(async (req) => {
 
     // ---- Partner Review Queue ----
     if (action === "review-overview") return json(await reviewOverview(sb));
-    if (action === "review-partner") return json(await computeReview(sb, String(body.partner_id || "")));
+    if (action === "review-partner") return json(await computeReview(sb, String(body.partner_id || ""), ["bc", "fsc", "sales", "service"].includes(body.product) ? body.product : "bc"));
     if (action === "review-prefill") {
+      const product = ["bc", "fsc", "sales", "service"].includes(body.product) ? body.product : "bc";
       if (body.all) {
         const { data: ps } = await sb.from("partners").select("id").eq("agreement_signed", true);
         let created = 0;
-        for (const p of ps || []) created += (await runPrefill(sb, p.id)).created || 0;
+        for (const p of ps || []) created += (await runPrefill(sb, p.id, product)).created || 0;
         return json({ created });
       }
-      return json(await runPrefill(sb, String(body.partner_id || "")));
+      return json(await runPrefill(sb, String(body.partner_id || ""), product));
     }
     if (action === "review-changes") {
       const status = ["pending", "clarification", "approved", "rejected"].includes(body.status) ? body.status : "pending";
-      const { data, error } = await sb.from("partner_review_changes").select("*, partner:partners(name, slug)")
+      const { data, error } = await sb.from("partner_review_changes").select("*, partner:partners(name, slug), profile:partner_product_profiles(product_id, product:product_catalog(product_key, name))")
         .eq("status", status).order("created_at", { ascending: false }).limit(300);
       if (error) return json({ error: error.message }, 400);
       return json({ changes: data });

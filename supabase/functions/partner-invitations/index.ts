@@ -289,15 +289,18 @@ serve(async (req: Request): Promise<Response> => {
         return new Response(JSON.stringify({ error: "Ogiltig länk" }), { status: 403, headers: h });
       }
       try {
+        // Produktområde (bc | fsc | sales | service), default bc
+        const product = ["bc", "fsc", "sales", "service"].includes(body?.product) ? body.product : "bc";
         if (action === "submit-review") {
           const result = await applyPartnerResponse(supabase, inv.partner_id, {
             confirm: body.confirm, remove: body.remove, add: body.add, add_solutions: body.add_solutions,
-          });
+          }, product);
           return new Response(JSON.stringify(result), { headers: h });
         }
-        const r = await computeReview(supabase, inv.partner_id);
+        const r = await computeReview(supabase, inv.partner_id, product);
         return new Response(JSON.stringify({
-          has_bc: r.partner.has_bc, items: r.items, missing: r.missing, options: r.options, counts: r.counts,
+          has_app: r.partner.has_app, has_bc: r.partner.has_bc, product_key: r.product_key, product_label: r.product_label,
+          profile_label: r.profile_label, items: r.items, missing: r.missing, options: r.options, counts: r.counts, auto_publish: r.auto_publish,
           changes: r.changes.map((c: any) => ({ id: c.id, dimension_key: c.dimension_key, value_label: c.value_label,
             change_type: c.change_type, status: c.status, editor_note: c.status === "clarification" ? c.editor_note : null })),
         }), { headers: h });

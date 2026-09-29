@@ -2384,13 +2384,11 @@ const PartnerUpdate = () => {
  })()}
  </CardContent>
  </Card>
-  {productKey === "bc" && (
-    invitation?.partner_id && token ? (
-      <PartnerReviewSection token={token} />
-    ) : (
-      <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
-    )
-  )}
+  {invitation?.partner_id && token && ["bc", "fsc", "sales", "service"].includes(productKey) ? (
+    <PartnerReviewSection token={token} productKey={productKey as "bc" | "fsc" | "sales" | "service"} />
+  ) : productKey === "bc" ? (
+    <StructuredProfileSection value={structuredProfile} onChange={setStructuredProfile} />
+  ) : null}
   </div>
  );
  })}
