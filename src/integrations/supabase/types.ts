@@ -2329,6 +2329,129 @@ export type Database = {
           },
         ]
       }
+      partner_product_attributes: {
+        Row: {
+          created_at: string
+          editorial_note: string | null
+          id: string
+          is_published: boolean
+          legacy_bc_attribute_id: string | null
+          partner_product_profile_id: string
+          product_attribute_option_id: string
+          source_type: string | null
+          source_url: string | null
+          updated_at: string
+          verification_status: string
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          editorial_note?: string | null
+          id?: string
+          is_published?: boolean
+          legacy_bc_attribute_id?: string | null
+          partner_product_profile_id: string
+          product_attribute_option_id: string
+          source_type?: string | null
+          source_url?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          editorial_note?: string | null
+          id?: string
+          is_published?: boolean
+          legacy_bc_attribute_id?: string | null
+          partner_product_profile_id?: string
+          product_attribute_option_id?: string
+          source_type?: string | null
+          source_url?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_product_attributes_partner_product_profile_id_fkey"
+            columns: ["partner_product_profile_id"]
+            isOneToOne: false
+            referencedRelation: "partner_product_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_product_attributes_product_attribute_option_id_fkey"
+            columns: ["product_attribute_option_id"]
+            isOneToOne: false
+            referencedRelation: "product_attribute_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_product_capabilities: {
+        Row: {
+          capability_product_id: string
+          created_at: string
+          editorial_note: string | null
+          id: string
+          is_published: boolean
+          partner_product_profile_id: string
+          source_type: string | null
+          source_url: string | null
+          updated_at: string
+          verification_status: string
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          capability_product_id: string
+          created_at?: string
+          editorial_note?: string | null
+          id?: string
+          is_published?: boolean
+          partner_product_profile_id: string
+          source_type?: string | null
+          source_url?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          capability_product_id?: string
+          created_at?: string
+          editorial_note?: string | null
+          id?: string
+          is_published?: boolean
+          partner_product_profile_id?: string
+          source_type?: string | null
+          source_url?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_product_capabilities_capability_product_id_fkey"
+            columns: ["capability_product_id"]
+            isOneToOne: false
+            referencedRelation: "product_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_product_capabilities_partner_product_profile_id_fkey"
+            columns: ["partner_product_profile_id"]
+            isOneToOne: false
+            referencedRelation: "partner_product_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_product_profiles: {
         Row: {
           created_at: string
@@ -3091,37 +3214,164 @@ export type Database = {
         }
         Relationships: []
       }
+      product_attribute_options: {
+        Row: {
+          attribute_key: string
+          created_at: string
+          description: string | null
+          dimension_key: string
+          id: string
+          is_active: boolean
+          label: string
+          product_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          attribute_key: string
+          created_at?: string
+          description?: string | null
+          dimension_key: string
+          id?: string
+          is_active?: boolean
+          label: string
+          product_id: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          attribute_key?: string
+          created_at?: string
+          description?: string | null
+          dimension_key?: string
+          id?: string
+          is_active?: boolean
+          label?: string
+          product_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_attribute_options_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_catalog: {
         Row: {
+          catalog_type: string
           category: string
           created_at: string
+          display_group: string
           id: string
           is_active: boolean
           legacy_names: string[]
           name: string
+          parent_product_id: string | null
           product_key: string
           sort_order: number
           updated_at: string
         }
         Insert: {
+          catalog_type: string
           category: string
           created_at?: string
+          display_group: string
           id?: string
           is_active?: boolean
           legacy_names?: string[]
           name: string
+          parent_product_id?: string | null
           product_key: string
           sort_order?: number
           updated_at?: string
         }
         Update: {
+          catalog_type?: string
           category?: string
           created_at?: string
+          display_group?: string
           id?: string
           is_active?: boolean
           legacy_names?: string[]
           name?: string
+          parent_product_id?: string | null
           product_key?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_catalog_parent_product_id_fkey"
+            columns: ["parent_product_id"]
+            isOneToOne: false
+            referencedRelation: "product_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_group_members: {
+        Row: {
+          group_id: string
+          product_id: string
+        }
+        Insert: {
+          group_id: string
+          product_id: string
+        }
+        Update: {
+          group_id?: string
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "product_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_group_members_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_groups: {
+        Row: {
+          created_at: string
+          group_key: string
+          id: string
+          is_active: boolean
+          name: string
+          purpose: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          group_key: string
+          id?: string
+          is_active?: boolean
+          name: string
+          purpose?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          group_key?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          purpose?: string
           sort_order?: number
           updated_at?: string
         }
@@ -4034,6 +4284,43 @@ export type Database = {
           unique_sessions: number | null
         }
         Relationships: []
+      }
+      partner_product_group_membership: {
+        Row: {
+          any_published: boolean | null
+          group_key: string | null
+          partner_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "export_bc_partner_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_basic_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       partners_basic_public: {
         Row: {
