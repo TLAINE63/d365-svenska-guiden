@@ -114,7 +114,7 @@ export interface ReviewItem {
 /** Klassar en partners information i A (bekräftat), B (förifyllt, kräver bekräftelse) och C (saknas). */
 export async function computeReview(sb: any, partnerId: string) {
   const { data: partner } = await sb.from("partners")
-    .select("id, name, slug, applications, geography, office_cities, team_size_sweden, agreement_signed, agreement_signed_at")
+    .select("id, name, slug, applications, geography, office_cities, team_size_sweden, agreement_signed, agreement_signed_at, is_featured")
     .eq("id", partnerId).single();
   if (!partner) throw new Error("Partnern finns inte");
   const profileId = await getProfile(sb, partnerId, false);
@@ -178,6 +178,8 @@ export async function computeReview(sb: any, partnerId: string) {
     partner: { id: partner.id, name: partner.name, slug: partner.slug, has_bc: (partner.applications || []).includes("Business Central") },
     profile_id: profileId, items, missing, options, counts, last_verified_at: lastVerified, profile_status: status,
     changes: changes || [],
+    // Publicerade partners (is_featured) får sina ändringar publicerade direkt (beslut 2026-09-29).
+    auto_publish: !!partner.is_featured,
   };
 }
 
@@ -269,10 +271,12 @@ export async function applyPartnerResponse(sb: any, partnerId: string, resp: Par
   const labelsIn = (dim: string) => before.items.filter((i) => i.dimension === dim).map((i) => i.label);
   const after: Record<string, string[]> = {};
   for (const d of [...REVIEW_DIMENSIONS, "industry_solution"]) after[d] = labelsIn(d);
-  const meta = { verification_status: "partner_verified", source_type: "partner", verified_by: "partner", verified_at: today(), is_published: false };
+  const live = !!before.auto_publish;
+  const meta = { verification_status: "partner_verified", source_type: "partner", verified_by: "partner", verified_at: today(), is_published: live };
   const changes: any[] = [];
   const queue = (r: Ref, label: string, type: string, source: string) => changes.push({ partner_id: partnerId, profile_id: profileId,
-    dimension_key: r.dimension, value_key: r.key, value_label: label, change_type: type, source });
+    dimension_key: r.dimension, value_key: r.key, value_label: label, change_type: type, source,
+    ...(live ? { status: "approved", editor_note: "Publicerad direkt (publicerad partner)", reviewed_at: new Date().toISOString() } : {}) });
 
   for (const r of (resp.confirm || []).slice(0, 100)) {
     const t = resolve(r); const it = before.items.find((i) => i.dimension === r.dimension && i.key === r.key);
@@ -284,6 +288,7 @@ export async function applyPartnerResponse(sb: any, partnerId: string, resp: Par
   for (const r of (resp.remove || []).slice(0, 100)) {
     const t = resolve(r); const it = before.items.find((i) => i.dimension === r.dimension && i.key === r.key);
     if (!t || !it) continue;
+    if (live) await sb.from(t.table).delete().eq("partner_product_profile_id", profileId).eq(t.col, t.id);
     after[r.dimension] = after[r.dimension].filter((l) => l !== t.label);
     queue(r, t.label, "remove", it.source);
   }
@@ -300,7 +305,7 @@ export async function applyPartnerResponse(sb: any, partnerId: string, resp: Par
     if (!name) continue;
     const { data: row, error } = await sb.from("partner_industry_solutions").insert({ profile_id: profileId, name,
       description: String(s.description || "").slice(0, 800) || null, industries: s.industry ? [String(s.industry).slice(0, 120)] : [],
-      solution_type: "own", partner_verified: true, verified_at: today(), is_published: false }).select("id").single();
+      solution_type: "own", partner_verified: true, verified_at: today(), is_published: live }).select("id").single();
     if (error) throw error;
     after.industry_solution = [...after.industry_solution, name];
     queue({ dimension: "industry_solution", key: row.id }, name, "add", "Partner");
@@ -319,11 +324,12 @@ export async function applyPartnerResponse(sb: any, partnerId: string, resp: Par
   }
   const { error } = await sb.from("partner_review_changes").insert(changes);
   if (error) throw error;
+  if (live) await sb.from("partner_product_profiles").update({ is_published: true }).eq("id", profileId);
   const diff = [...new Set(changes.map((c) => c.dimension_key))].map((d) => ({
     dimension: d, title: DIMENSION_TITLES[d] || d,
     previous: labelsIn(d).join(", ") || "Tomt", next: after[d].join(", ") || "Tomt",
   }));
-  return { changes: changes.length, diff };
+  return { changes: changes.length, diff, published: live };
 }
 
 /** Redaktionens beslut: approve | reject | clarify. */
