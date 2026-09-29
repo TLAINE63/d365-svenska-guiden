@@ -27,6 +27,10 @@ function firstUsefulSentence(text?: string | null, maxChars = 230): string | nul
     : sentence;
 }
 
+function keepDynamics365Together(text: string): string {
+  return text.replace(/Microsoft Dynamics 365/g, "Microsoft\u00a0Dynamics\u00a0365").replace(/Dynamics 365/g, "Dynamics\u00a0365");
+}
+
 function selectedProductFilter(
   partner: DatabasePartner,
   productKey?: string | null,
@@ -75,11 +79,16 @@ export default function IndustryVerifiedPartnerCard({
     partner.key_differentiators_source === "partner"
       ? (partner.key_differentiators || []).filter(Boolean).slice(0, 2)
       : [];
+  const applicationNames = new Set(
+    (partner.applications || []).map((application) => application.toLocaleLowerCase("sv")),
+  );
   const proofPoints = Array.from(
     new Set([
       ...(documentedEvidence ? [documentedEvidence] : []),
       ...partnerDifferentiators,
-      ...relevanceFactors,
+      ...relevanceFactors.filter(
+        (factor) => !applicationNames.has(factor.toLocaleLowerCase("sv")),
+      ),
     ]),
   ).slice(0, 3);
   const assessment = getResultAssessment(partner);
@@ -131,7 +140,7 @@ export default function IndustryVerifiedPartnerCard({
                   {sourceLabel}
                 </p>
                 <p className="text-[13px] font-medium leading-relaxed text-foreground/90">
-                  {partnerRelevance || documentedEvidence}
+                  {keepDynamics365Together(partnerRelevance || documentedEvidence || "")}
                 </p>
               </div>
             )}
@@ -146,7 +155,7 @@ export default function IndustryVerifiedPartnerCard({
                 {proofPoints.map((point) => (
                   <li key={point} className="flex items-start gap-2 text-xs leading-snug text-foreground/80">
                     <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
-                    <span>{point}</span>
+                    <span>{keepDynamics365Together(point)}</span>
                   </li>
                 ))}
               </ul>
@@ -179,7 +188,9 @@ export default function IndustryVerifiedPartnerCard({
             </h4>
           </div>
           {assessment ? (
-            <p className="text-[13px] italic leading-relaxed text-foreground/75">{assessment}</p>
+            <p className="text-[13px] italic leading-relaxed text-foreground/75">
+              {keepDynamics365Together(assessment)}
+            </p>
           ) : (
             <p className="text-[13px] leading-relaxed text-muted-foreground">
               Öppna profilen för att granska partnerns fullständiga underlag.
@@ -192,7 +203,7 @@ export default function IndustryVerifiedPartnerCard({
                 Kontrollera särskilt
               </p>
               <p className="text-xs leading-snug text-foreground/75">
-                {checkPoint || sizeLabel}
+                {keepDynamics365Together(checkPoint || sizeLabel || "")}
               </p>
             </div>
           )}

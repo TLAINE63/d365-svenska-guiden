@@ -91,3 +91,8 @@
 - [x] Förgenerera events med eventets titel, beskrivning, arrangör, datum och bild
 - [x] Verifiera metadataregler, typkontroll och byggstatus
 - [ ] Publicera ändringen (inväntar att projektet publiceras)
+
+## Premiumkort för verifierade partners i branschfilter (2026-09-29)
+- [x] Separera partnerns egna uppgifter, belagda styrkor och d365.se:s AI-bedömning
+- [x] Lägg till branschspecifik relevans, kontrollpunkt, produktområden, leveransområde och tydlig profillänk
+- [x] Verifiera kortet på dator och mobil
