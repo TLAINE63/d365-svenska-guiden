@@ -33,8 +33,9 @@ const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
   service: "Service-kompetens (Customer Service & Field Service)",
 };
 const DIMS = ["migration", "competency", "capability", "special_delivery"];
-// F&SCM frågar inte om särskilda projekt och leveransformer (alla skulle kryssa i allt).
-const dimsFor = (_pk: ReviewProductKey) => DIMS.filter((d) => d !== "special_delivery");
+// Särskilda projekt och leveransformer efterfrågas inte (alla skulle kryssa i allt).
+// Sales-specialiseringar efterfrågas inte (alla CRM-partners hävdar hela listan).
+const dimsFor = (pk: ReviewProductKey) => DIMS.filter((d) => d !== "special_delivery" && !(d === "competency" && pk === "sales"));
 const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
     migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",

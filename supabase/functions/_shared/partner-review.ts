@@ -10,10 +10,11 @@
 export const REVIEW_DIMENSIONS = ["migration", "competency", "special_delivery", "capability"] as const;
 export const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio"];
 
-// Särskilda projekt och leveransformer efterfrågas inte för F&SCM (beslut 2026-09-29:
-// alla F&SCM-partners skulle kryssa i allt; dimensionen är främst relevant för BC).
+// Särskilda projekt och leveransformer efterfrågas inte för någon produkt (beslut
+// 2026-09-29: alla partners skulle kryssa i allt). Kompetenspecialiseringar efterfrågas
+// inte för Sales (alla CRM-partners hävdar hela listan; beslut 2026-09-29).
 export function dimsForProduct(productKey: string): string[] {
-  return REVIEW_DIMENSIONS.filter((d) => d !== "special_delivery");
+  return REVIEW_DIMENSIONS.filter((d) => d !== "special_delivery" && !(d === "competency" && productKey === "sales"));
 }
 
 export interface ReviewProductConfig {
@@ -114,13 +115,7 @@ const SALES_RULES: [string, string, RegExp][] = [
   ["migration", "lime", /\blime\b/i],
   ["migration", "dynamics_crm", /\bdynamics\s*crm\b/i],
   ["migration", "spreadsheets", /\b(kalkylblad|excel\s*[-(]?(listor|ark)|egna\s+listor)\b/i],
-  ["competency", "sales_process", /\b(säljprocess|försäljningsprocess|pipeline|säljarbete|säljstyrning)\w*/i],
-  ["competency", "forecasting", /\b(prognos|forecast|försäljningsprognos)\w*/i],
-  ["competency", "quoting", /\b(offert|prislist)\w*/i],
-  ["competency", "marketing", /\b(marknadsföring|kampanj|marketing|kundresa|leadshantering)\w*/i],
-  ["competency", "customer_data", /\b(kunddata|segmentering|kundprofil|kundregister)\w*/i],
-  ["competency", "integrations_api", /\b(integrationer|api-?integration\w*|outlook|teams)\b/i],
-  ["competency", "reporting", /\b(rapportering|dashboard|säljrapport)\w*/i],
+  // Sales-specialiseringar efterfrågas inte (alla partners skulle kryssa i allt).
 ];
 
 const SERVICE_RULES: [string, string, RegExp][] = [
