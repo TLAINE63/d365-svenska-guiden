@@ -172,12 +172,12 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   }, "Produktprofilen sparad");
 
   const saveAttrs = () => run(async () => {
-    await call("save-attributes", { profile_id: profileId, attributes: attrs });
+    await call("save-attributes", { profile_id: profileId, attributes: attrs.map((a) => (isVerified(a) ? { ...a, is_published: true } : { ...a, ...adminVerif() })) });
     await loadPartner(partnerId, profileId);
   }, "Produktvalen sparade");
 
   const saveCaps = () => run(async () => {
-    await call("save-capabilities", { profile_id: profileId, capabilities: caps });
+    await call("save-capabilities", { profile_id: profileId, capabilities: caps.map((c) => (isVerified(c) ? { ...c, is_published: true } : { ...c, ...adminVerif() })) });
     await loadPartner(partnerId, profileId);
   }, "Förmågorna sparade");
 
