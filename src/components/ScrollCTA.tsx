@@ -94,7 +94,7 @@ const ScrollCTA = () => {
     setSubmitting(true);
     try {
       await supabase.functions.invoke("enrich-lead", {
-        body: { lead_id: leadId, ...details },
+        body: { lead_id: leadId, email, ...details },
       });
       setDetailsSaved(true);
     } catch (err) {

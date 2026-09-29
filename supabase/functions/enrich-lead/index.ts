@@ -55,6 +55,13 @@ Deno.serve(async (req) => {
       });
     }
 
+    const email = clean(body?.email, 255);
+    if (!email) {
+      return new Response(JSON.stringify({ error: "E-post krävs" }), {
+        status: 400,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
     const contactName = clean(body?.contact_name, 100);
     const companyName = clean(body?.company_name, 100);
     const phone = clean(body?.phone, 40);
@@ -80,6 +87,7 @@ Deno.serve(async (req) => {
       .from("leads")
       .update(patch)
       .eq("id", leadId)
+      .ilike("email", email.replace(/[%_\\]/g, "\\$&"))
       .gte("created_at", twoHoursAgo)
       .eq("company_name", "Okänt företag")
       .select("id");
