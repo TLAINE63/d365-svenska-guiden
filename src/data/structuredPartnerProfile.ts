@@ -22,11 +22,6 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
     { key: "other_erp", label: "Annat ERP" },
   ],
   competency: [
-    { key: "finance_accounting", label: "Ekonomi och redovisning" },
-    { key: "purchasing", label: "Inköp" },
-    { key: "sales_order", label: "Försäljning och order" },
-    { key: "warehouse_logistics", label: "Lager och logistik" },
-    { key: "distribution_wholesale", label: "Distribution och grossist" },
     { key: "manufacturing", label: "Produktion och tillverkning" },
     { key: "projects", label: "Projektverksamhet" },
     { key: "service_management", label: "Servicehantering" },
@@ -67,7 +62,7 @@ export const BC_OPTIONS: Record<BcAttributeType, Option[]> = {
 
 export const BC_GROUP_TITLES: Record<BcAttributeType, { title: string; desc: string }> = {
   migration: { title: "Migreringserfarenhet", desc: "Från vilka system har ni migrerat kunder till Business Central?" },
-  competency: { title: "Business Central-kompetens", desc: "Inom vilka områden har ni dokumenterad kompetens?" },
+  competency: { title: "Business Central-specialiseringar", desc: "Välj områden utöver den grundläggande ERP-kompetens som alla Business Central-partner förväntas ha." },
   project_type: { title: "Typiska projekt", desc: "Vilka typer av Business Central-projekt gör ni oftast?" },
   delivery_model: { title: "Leveransmodell", desc: "Hur erbjuder ni att starta och leverera?" },
   capability: { title: "Tvärgående förmågor", desc: "Vilka förmågor levererar ni tillsammans med Business Central?" },

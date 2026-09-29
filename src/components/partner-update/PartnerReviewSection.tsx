@@ -36,7 +36,7 @@ const DIMS = ["migration", "competency", "capability", "project_type", "delivery
 const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
     migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
-    competency: "Vilka områden i Business Central har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    competency: "Välj era särskilda Business Central-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
     capability: "Förmågor som används tillsammans med Business Central, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
     project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
     delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
@@ -44,7 +44,7 @@ const HELP: Record<ReviewProductKey, Record<string, string>> = {
   },
   fsc: {
     migration: "Vilka system har ni hjälpt kunder att flytta ifrån när de infört Finance och/eller Supply Chain Management? Välj bara det ni faktiskt har gjort i kundprojekt.",
-    competency: "Vilka områden i Finance och Supply Chain Management har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
+    competency: "Välj era särskilda Finance- och Supply Chain Management-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
     capability: "Förmågor som används tillsammans med F&SCM, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
     project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
     delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",

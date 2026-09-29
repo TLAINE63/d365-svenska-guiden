@@ -72,11 +72,6 @@ const BC_RULES: [string, string, RegExp][] = [
   ["migration", "jeeves", MIG("jeeves")],
   ["migration", "sap_business_one", MIG("sap\\s*business\\s*one")],
   ["migration", "fortnox", MIG("fortnox")],
-  ["competency", "finance_accounting", /\b(redovisning|bokslut|ekonomistyrning|ekonomifunktion)\w*/i],
-  ["competency", "purchasing", /\binköp(s)?(process|flöde|hantering|avdelning)?\b/i],
-  ["competency", "sales_order", /\b(orderhantering|försäljningsorder|orderflöde)\w*/i],
-  ["competency", "warehouse_logistics", /\b(lagerhantering|lagerstyrning|lagerhållning|logistik|wms)\w*/i],
-  ["competency", "distribution_wholesale", /\b(grossist|partihandel|distributionsföretag|distributörer)\w*/i],
   ["competency", "manufacturing", /\b(tillverkning|tillverkande|produktionsplanering|produktionsföretag)\w*/i],
   ["competency", "projects", /\b(projektverksamhet|projektredovisning|projektstyrning|projektbaserade)\w*/i],
   ["competency", "service_management", /\b(servicehantering|serviceorder|fältservice|service\s+management)\w*/i],
@@ -99,16 +94,11 @@ const FSC_RULES: [string, string, RegExp][] = [
   ["migration", "ifs", /\bifs\b/i],
   ["migration", "ax", /\b(dynamics\s*ax|d365\s*fo|finance\s*&\s*operations|axapta)\b/i],
   ["migration", "fortnox", /\bfortnox\b/i],
-  ["competency", "finance_accounting", /\b(redovisning|bokslut|ekonomistyrning|ekonomi(modul|funktion)?|koncernkonsolidering)\w*/i],
-  ["competency", "purchasing", /\binköp(s)?(process|flöde|hantering|avdelning)?\b/i],
   ["competency", "supply_chain_planning", /\b(planering|demand\s*plan|supply\s*plan|efterfrågeplanering)\w*/i],
-  ["competency", "warehouse_logistics", /\b(lagerhantering|lagerstyrning|lagerhållning|logistik|wms)\w*/i],
   ["competency", "manufacturing", /\b(tillverkning|tillverkande|produktionsplanering|produktionsföretag|produktion)\w*/i],
-  ["competency", "distribution_wholesale", /\b(grossist|partihandel|distributionsföretag|distributörer)\w*/i],
   ["competency", "retail_ecommerce", /\b(e-handel|ehandel|detaljhandel|retail)\w*/i],
   ["competency", "projects", /\b(projektverksamhet|projektredovisning|projektstyrning|projektbaserade)\w*/i],
   ["competency", "service_management", /\b(servicehantering|serviceorder|fältservice|service\s+management)\w*/i],
-  ["competency", "sales_order", /\b(orderhantering|försäljningsorder|orderflöde)\w*/i],
   ["competency", "edi", /\bedi\b/i],
   ["competency", "integrations_api", /\b(integrationer|integrationsplattform|api-integration\w*)\b/i],
   ["competency", "multi_company", /\b(flerbolag\w*|koncernkonsolidering|koncernredovisning|intercompany)\b/i],
@@ -255,8 +245,8 @@ export async function computeReview(sb: any, partnerId: string, productKey = "bc
   const capIds = CAPABILITY_KEYS.map((k) => products.get(k)).filter(Boolean);
 
   const [{ data: allOpts }, { data: caps }, attrsRes, capsRes, solsRes, changesRes] = await Promise.all([
-    sb.from("product_attribute_options").select("id, product_id, dimension_key, attribute_key, label, is_active").in("product_id", groupIds.length ? groupIds : ["00000000-0000-0000-0000-000000000000"]),
-    sb.from("product_catalog").select("id, product_key, name").in("id", capIds.length ? capIds : ["00000000-0000-0000-0000-000000000000"]),
+    sb.from("product_attribute_options").select("id, product_id, dimension_key, attribute_key, label, is_active").in("product_id", groupIds.length ? groupIds : ["00000000-0000-0000-0000-000000000000"]).eq("is_active", true),
+    sb.from("product_catalog").select("id, product_key, name").in("id", capIds.length ? capIds : ["00000000-0000-0000-0000-000000000000"]).eq("is_active", true),
     profileIds.length ? sb.from("partner_product_attributes").select("*").in("partner_product_profile_id", profileIds) : Promise.resolve({ data: [] }),
     profileIds.length ? sb.from("partner_product_capabilities").select("*").in("partner_product_profile_id", profileIds) : Promise.resolve({ data: [] }),
     profileIds.length ? sb.from("partner_industry_solutions").select("*").in("profile_id", profileIds) : Promise.resolve({ data: [] }),
@@ -385,7 +375,7 @@ export async function runPrefill(sb: any, partnerId: string, productKey = "bc") 
   const capIds = [...(await productIds(sb, CAPABILITY_KEYS)).values()];
   const [{ data: opts }, { data: caps }, { data: exA }, { data: exC }, { data: removed }] = await Promise.all([
     sb.from("product_attribute_options").select("id, dimension_key, attribute_key").in("product_id", groupIds).eq("is_active", true),
-    sb.from("product_catalog").select("id, product_key").in("id", capIds),
+    sb.from("product_catalog").select("id, product_key").in("id", capIds).eq("is_active", true),
     sb.from("partner_product_attributes").select("product_attribute_option_id").eq("partner_product_profile_id", profileId),
     sb.from("partner_product_capabilities").select("capability_product_id").eq("partner_product_profile_id", profileId),
     // Val som partnern tagit bort ska inte förifyllas igen
@@ -433,7 +423,7 @@ export async function applyPartnerResponse(sb: any, partnerId: string, resp: Par
   const groupIds = cfg.productKeys.map((k) => products.get(k)).filter(Boolean);
   const [{ data: opts }, { data: caps }] = await Promise.all([
     sb.from("product_attribute_options").select("id, product_id, dimension_key, attribute_key, label").in("product_id", groupIds).eq("is_active", true),
-    sb.from("product_catalog").select("id, product_key, name").in("id", CAPABILITY_KEYS.map((k) => products.get(k)).filter(Boolean)),
+    sb.from("product_catalog").select("id, product_key, name").in("id", CAPABILITY_KEYS.map((k) => products.get(k)).filter(Boolean)).eq("is_active", true),
   ]);
   const resolve = (r: Ref) => {
     if (!r || typeof r.dimension !== "string" || typeof r.key !== "string") return null;
