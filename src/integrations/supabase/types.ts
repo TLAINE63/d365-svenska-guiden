@@ -2307,6 +2307,7 @@ export type Database = {
           product_filters: Json | null
           product_profiles: Json
           secondary_industries: string[] | null
+          structured_profile: Json
           submitted_at: string
           team_size_per_app: Json
           team_size_sweden: string | null
@@ -2343,6 +2344,7 @@ export type Database = {
           product_filters?: Json | null
           product_profiles?: Json
           secondary_industries?: string[] | null
+          structured_profile?: Json
           submitted_at?: string
           team_size_per_app?: Json
           team_size_sweden?: string | null
@@ -2379,6 +2381,7 @@ export type Database = {
           product_filters?: Json | null
           product_profiles?: Json
           secondary_industries?: string[] | null
+          structured_profile?: Json
           submitted_at?: string
           team_size_per_app?: Json
           team_size_sweden?: string | null
@@ -2437,6 +2440,8 @@ export type Database = {
           contact_photo_url: string | null
           created_at: string
           customer_examples: string[] | null
+          data_verified_at: string | null
+          data_verified_by: string | null
           delivery_profile: Json | null
           description: string | null
           description_ai_generated: boolean | null
@@ -2499,6 +2504,7 @@ export type Database = {
           source_document_text: string | null
           source_document_updated_at: string | null
           source_document_url: string | null
+          structured_profile: Json
           team_size_per_app: Json
           team_size_sweden: string | null
           updated_at: string
@@ -2526,6 +2532,8 @@ export type Database = {
           contact_photo_url?: string | null
           created_at?: string
           customer_examples?: string[] | null
+          data_verified_at?: string | null
+          data_verified_by?: string | null
           delivery_profile?: Json | null
           description?: string | null
           description_ai_generated?: boolean | null
@@ -2588,6 +2596,7 @@ export type Database = {
           source_document_text?: string | null
           source_document_updated_at?: string | null
           source_document_url?: string | null
+          structured_profile?: Json
           team_size_per_app?: Json
           team_size_sweden?: string | null
           updated_at?: string
@@ -2615,6 +2624,8 @@ export type Database = {
           contact_photo_url?: string | null
           created_at?: string
           customer_examples?: string[] | null
+          data_verified_at?: string | null
+          data_verified_by?: string | null
           delivery_profile?: Json | null
           description?: string | null
           description_ai_generated?: boolean | null
@@ -2677,6 +2688,7 @@ export type Database = {
           source_document_text?: string | null
           source_document_updated_at?: string | null
           source_document_url?: string | null
+          structured_profile?: Json
           team_size_per_app?: Json
           team_size_sweden?: string | null
           updated_at?: string
