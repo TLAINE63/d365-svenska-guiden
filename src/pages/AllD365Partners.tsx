@@ -275,7 +275,7 @@ export default function AllD365Partners() {
                      <IndustryVerifiedPartnerCard
                        partner={p}
                        productKey={productFilter === "all" ? null : productFilter}
-                       productLabel={productOptions.find((option) => option.key === productFilter)?.label || null}
+                       productLabel={productFilter === "all" ? null : productOptions.find((option) => option.key === productFilter)?.label || null}
                      />
                   </li>
                 ))}

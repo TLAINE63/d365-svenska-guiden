@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
@@ -270,16 +271,18 @@ export default function IndustryVerifiedPartnerCard({
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {enableCompare && (
-            <button
+            <Button
               type="button"
+              size="icon"
+              variant="outline"
               onClick={() => toggle({ slug: partner.slug, name: partner.name })}
               aria-pressed={compareActive}
               aria-label={`${compareActive ? "Ta bort" : "Lägg till"} ${partner.name} i jämförelse`}
-              className={`inline-flex h-9 w-9 items-center justify-center rounded border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${compareActive ? "border-primary bg-primary text-primary-foreground" : "border-[hsl(var(--border-on-dark))] text-[hsl(var(--border-on-dark))] hover:border-primary hover:text-primary"}`}
+              className={`h-9 w-9 shrink-0 ${compareActive ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90" : "border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"}`}
               title={compareActive ? "Ta bort från jämförelse" : "Lägg till i jämförelse"}
             >
               {compareActive ? <Check className="h-4 w-4" aria-hidden /> : <ArrowLeftRight className="h-4 w-4" aria-hidden />}
-            </button>
+            </Button>
           )}
           <Link
             to={`/partner/${partner.slug}/`}
