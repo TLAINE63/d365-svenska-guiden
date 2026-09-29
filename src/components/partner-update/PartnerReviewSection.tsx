@@ -23,7 +23,7 @@ interface ReviewData {
 
 const BASE_TITLES: Record<string, string> = {
   base: "Grunduppgifter", migration: "Migreringserfarenhet",
-  project_type: "Typiska projekt", delivery_model: "Leveransmodell", capability: "Tvärgående förmågor",
+  special_delivery: "Särskilda projekt och leveransformer", capability: "Tvärgående förmågor",
   industry_solution: "Branschlösning",
 };
 const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
@@ -32,38 +32,34 @@ const COMPETENCY_TITLES: Record<ReviewProductKey, string> = {
   sales: "CRM-kompetens (Sales & Customer Insights)",
   service: "Service-kompetens (Customer Service & Field Service)",
 };
-const DIMS = ["migration", "competency", "capability", "project_type", "delivery_model"];
+const DIMS = ["migration", "competency", "capability", "special_delivery"];
 const HELP: Record<ReviewProductKey, Record<string, string>> = {
   bc: {
     migration: "Vilka system har ni hjälpt kunder att flytta från till Business Central? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Välj era särskilda Business Central-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
     capability: "Förmågor som används tillsammans med Business Central, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
-    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
-    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   fsc: {
     migration: "Vilka system har ni hjälpt kunder att flytta ifrån när de infört Finance och/eller Supply Chain Management? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Välj era särskilda Finance- och Supply Chain Management-kompetenser utöver ekonomi, inköp, order, lager, logistik och distribution, som räknas som gemensam ERP-basnivå.",
     capability: "Förmågor som används tillsammans med F&SCM, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
-    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
-    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   sales: {
     migration: "Från vilka CRM-system eller kalkylblad har ni hjälpt kunder att flytta? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Vilka områden inom Sales och Customer Insights har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
     capability: "Förmågor som används tillsammans med Sales och Customer Insights, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
-    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
-    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
   service: {
     migration: "Från vilka system har ni hjälpt kunder att flytta sin kundservice eller fältservice? Välj bara det ni faktiskt har gjort i kundprojekt.",
     competency: "Vilka områden inom Customer Service, Field Service och Contact Center har ni egna konsulter för? Välj det ni kan leverera själva, inte via underleverantör.",
     capability: "Förmågor som används tillsammans med serviceappararna, till exempel Power BI, Power Platform, Copilot, Copilot Studio och AI-agenter.",
-    project_type: "Vilka typer av projekt gör ni oftast? Det hjälper köpare att förstå om ni passar deras situation.",
-    delivery_model: "Hur arbetar ni med kunderna: på plats, på distans eller en blandning?",
+    special_delivery: "Välj bara sådant som särskiljer er. Managed Services betyder proaktivt helhetsansvar med löpande övervakning, förbättring och optimering, inte ett vanligt supportavtal. Ett enda val räcker.",
     industry_solution: "En egen lösning eller paketering för en viss bransch. Ange namn, bransch och en kort beskrivning.",
   },
 };
