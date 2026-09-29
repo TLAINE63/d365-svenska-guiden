@@ -90,7 +90,8 @@ serve(async (req) => {
       const { data: prod } = await sb.from("product_catalog").select("id, is_active").eq("product_key", String(body.product_key || "")).maybeSingle();
       if (!prod) return json({ error: "Ogiltig produktnyckel" }, 400);
       if (!prod.is_active) return json({ error: "Produkten är inaktiv" }, 400);
-      const { data, error } = await sb.from("partner_product_profiles").insert({ partner_id: body.partner_id, product_id: prod.id }).select().single();
+      // Beslut 2026-09-29: allt ifyllt är ok för publicering/export; ingen primärprodukt.
+      const { data, error } = await sb.from("partner_product_profiles").insert({ partner_id: body.partner_id, product_id: prod.id, status: "active", is_published: true, is_primary: false, verification_status: "editorial_verified", verified_by: "redaktion", verified_at: new Date().toISOString().slice(0, 10) }).select().single();
       if (error) return json({ error: error.code === "23505" ? "Partnern har redan en profil för produkten" : error.message }, 400);
       return json({ profile: data });
     }
