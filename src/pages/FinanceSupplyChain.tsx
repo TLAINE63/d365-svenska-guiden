@@ -22,7 +22,7 @@ import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
-import PartnerCard from "@/components/PartnerCard";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
@@ -322,7 +322,7 @@ const FinanceSupplyChain = () => {
  </p>
  </div>
  ) : (
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {fscPartners.map((partner, index) => {
  // Build profile URL with filter context
  const basePath = buildPartnerProductPath(partner.slug, "Finance & SCM");
@@ -335,20 +335,16 @@ const FinanceSupplyChain = () => {
  const profileUrl = qs ? `${basePath}?${qs}` : basePath;
  
  return (
- <PartnerCard
+ <IndustryVerifiedPartnerCard
  key={index}
  partner={partner}
  profileUrl={profileUrl}
- colorScheme="primary"
  productKey="fsc"
- highlightedProduct="Finance & SCM"
- highlightedIndustry={selectedIndustry || undefined}
- highlightedGeography={selectedGeography || undefined}
- highlightedCompanySize={selectedCompanySize || undefined}
- highlightedRevenue={selectedRevenue || undefined}
- showRandomIndicator={true}
- showBestFitOnly
- resultView
+ productLabel="Finance & Supply Chain Management"
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
  />
  );
  })}

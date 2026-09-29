@@ -18,7 +18,7 @@ import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
-import PartnerCard from "@/components/PartnerCard";
+import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
@@ -311,22 +311,18 @@ const CRM = () => {
  </>
  )}
 
- <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {crmPartners.map((partner, index) => (
- <PartnerCard
+ <IndustryVerifiedPartnerCard
  key={index}
  partner={partner}
- profileUrl={`/partner/${partner.slug}`}
- colorScheme="crm"
+ profileUrl={`/partner/${partner.slug}/`}
  productKey="crm"
- highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
- highlightedIndustry={selectedIndustry || undefined}
- highlightedCompanySize={selectedCompanySize || undefined}
- highlightedRevenue={selectedRevenue || undefined}
- highlightedGeography={selectedGeography || undefined}
- showRandomIndicator={true}
- showBestFitOnly
- resultView
+ productLabel={selectedApplications.length > 0 ? selectedApplications.join(', ') : "Marknad, Sälj & Service"}
+ industry={selectedIndustry}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ geography={selectedGeography}
  />
  ))}
  </div>
