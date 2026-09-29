@@ -36,7 +36,7 @@ Förra stegets fält `partners.structured_profile`, `data_verified_at`, `data_ve
 |---|---|
 | migration | nav, bc_onprem, bc_other_environment, visma, monitor, pyramid, jeeves, sap_business_one, fortnox, other_erp |
 | competency | manufacturing, projects, service_management, retail_ecommerce, edi, integrations_api, multi_company, international |
-| special_delivery | managed_services, rescue, international_rollout, system_consolidation, multi_company_implementation, fixed_price_start, quickstart_package, proof_of_concept |
+| special_delivery | managed_services, rescue, international_rollout, system_consolidation, multi_company_implementation, quickstart_package, proof_of_concept |
 
 "Annat ERP" har ingen fritext i filtrering. Eventuell kommentar lagras i `editorial_note`.
 

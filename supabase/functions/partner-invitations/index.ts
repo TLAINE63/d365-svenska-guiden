@@ -155,7 +155,7 @@ const SP_LISTS: Record<string, string[]> = {
   migration: ["nav","bc_onprem","bc_other_environment","visma","monitor","pyramid","jeeves","sap_business_one","fortnox","other_erp"],
   competency: ["manufacturing","projects","service_management","retail_ecommerce","edi","integrations_api","multi_company","international"],
   project_type: ["new_implementation","migration","upgrade","maintenance_support","rescue","system_consolidation","multi_company_implementation","international_rollout"],
-  delivery_model: ["fixed_price_start","quickstart_package","proof_of_concept","phased_implementation","traditional_project","maintenance_partner","managed_services"],
+  delivery_model: ["quickstart_package","proof_of_concept","phased_implementation","traditional_project","maintenance_partner","managed_services"],
 };
 const CAPABILITY_KEYS = ["power-bi", "power-platform", "copilot", "copilot-studio", "ai-agents"];
 function sanitizeStructured(raw: any) {
