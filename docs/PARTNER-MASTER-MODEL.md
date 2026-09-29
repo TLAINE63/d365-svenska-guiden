@@ -35,8 +35,8 @@ Förra stegets fält `partners.structured_profile`, `data_verified_at`, `data_ve
 | attribute_type | nycklar |
 |---|---|
 | migration | nav, bc_onprem, bc_other_environment, visma, monitor, pyramid, jeeves, sap_business_one, fortnox, other_erp |
-| competency | manufacturing, projects, service_management, retail_ecommerce, edi, integrations_api, multi_company, international |
-| special_delivery | managed_services, rescue, international_rollout, system_consolidation, multi_company_implementation, quickstart_package, proof_of_concept (efterfrågas endast för BC och CRM, inte F&SCM) |
+| competency | manufacturing, projects, service_management, retail_ecommerce, multi_company, international (edi och integrations_api borttagna för ERP; Sales/CRM-specialiseringar efterfrågas inte alls, beslut 2026-09-29) |
+| special_delivery | managed_services, rescue, international_rollout, system_consolidation, multi_company_implementation, quickstart_package, proof_of_concept (efterfrågas inte för någon produkt (beslut 2026-09-29: alla partners skulle kryssa i allt)) |
 
 "Annat ERP" har ingen fritext i filtrering. Eventuell kommentar lagras i `editorial_note`.
 
