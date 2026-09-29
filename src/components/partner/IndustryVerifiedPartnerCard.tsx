@@ -92,7 +92,14 @@ export default function IndustryVerifiedPartnerCard({
     ]),
   ).slice(0, 3);
   const assessment = getResultAssessment(partner);
-  const checkPoint = firstUsefulSentence(partner.not_a_fit?.[0], 130);
+  // Hoppa över avgränsningar som bara säger att partnern inte jobbar med en annan
+  // Dynamics 365-produkt – det är självklart och förvirrar på kortet.
+  const productScopePattern =
+    /business central|finance|supply chain|f&scm|\bsales\b|customer service|field service|\bcrm\b|\berp\b|marketing|customer insights|commerce|project operations|human resources|huvudprojekt|huvudbehov/i;
+  const checkPoint = firstUsefulSentence(
+    (partner.not_a_fit || []).find((item) => item && !productScopePattern.test(item)),
+    130,
+  );
   const applications = productLabel
     ? [productLabel, ...(partner.applications || []).filter((app) => app !== productLabel)]
     : partner.applications || [];
