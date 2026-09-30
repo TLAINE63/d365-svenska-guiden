@@ -109,6 +109,26 @@ serve(async (req) => {
       return json({ ok: true });
     }
 
+    // BC-fält för businesscentral.se (support + snabbstart). Källa sätts automatiskt: redaktion.
+    if (action === "save-bc-extras") {
+      const { data: prof } = await sb.from("partner_product_profiles").select("field_meta").eq("id", body.profile_id).single();
+      if (!prof) return json({ error: "Profilen finns inte" }, 404);
+      const today = new Date().toISOString().slice(0, 10);
+      const offered = !!body.fixed_price_start;
+      const upd = {
+        support_level: ["endast_projekt", "kontorstid", "utokad_support", "forvaltningsavtal"].includes(body.support_level) ? body.support_level : null,
+        fixed_price_start: offered,
+        fixed_price_start_name: offered && typeof body.fixed_price_start_name === "string" ? body.fixed_price_start_name.trim().slice(0, 120) || null : null,
+        fixed_price_start_url: offered ? urlOrNull(body.fixed_price_start_url) : null,
+        field_meta: { ...(prof.field_meta || {}),
+          support_level: { source: "redaktion", verified_at: today },
+          fixed_price_start: { source: "redaktion", verified_at: today } },
+      };
+      const { error } = await sb.from("partner_product_profiles").update(upd).eq("id", body.profile_id);
+      if (error) return json({ error: error.message }, 400);
+      return json({ ok: true });
+    }
+
     const pickMeta = (a: any) => ({
       ...validateVerification(a),
       source_type: ["partner", "redaktion", "publik_kalla", "import"].includes(a.verified_by) ? a.verified_by : null,
@@ -133,7 +153,8 @@ serve(async (req) => {
         if (!optId) throw new Error("Attributet tillhör inte profilens produkt");
         if (seen.has(optId)) throw new Error("Ett val förekommer flera gånger");
         seen.add(optId);
-        return { partner_product_profile_id: body.profile_id, product_attribute_option_id: optId, ...pickMeta(a) };
+        const level = ["har_gjort", "har_gjort_flera", "specialitet"].includes(a.level) ? a.level : null;
+        return { partner_product_profile_id: body.profile_id, product_attribute_option_id: optId, level, ...pickMeta(a) };
       });
       const { error: dErr } = await sb.from("partner_product_attributes").delete().eq("partner_product_profile_id", body.profile_id);
       if (dErr) return json({ error: dErr.message }, 400);
