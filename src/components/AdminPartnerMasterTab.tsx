@@ -31,7 +31,19 @@ const DIMENSION_TITLES: Record<string, string> = {
 const dimTitle = (d: string) => DIMENSION_TITLES[d] || d.replace(/_/g, " ");
 
 interface Verif { verification_status: string; verified_by: string; verified_at: string; source_url: string }
-interface Attr extends Verif { product_attribute_option_id: string; is_published: boolean }
+interface Attr extends Verif { product_attribute_option_id: string; is_published: boolean; level?: string | null }
+const LEVELS = [
+  { value: "har_gjort", label: "Har gjort" },
+  { value: "har_gjort_flera", label: "Har gjort flera" },
+  { value: "specialitet", label: "Specialitet" },
+];
+const SUPPORT_LEVELS = [
+  { value: "", label: "Ej angivet" },
+  { value: "endast_projekt", label: "Endast projekt" },
+  { value: "kontorstid", label: "Support kontorstid" },
+  { value: "utokad_support", label: "Utökad support" },
+  { value: "forvaltningsavtal", label: "Förvaltningsavtal" },
+];
 interface Solution {
   id?: string; name: string; description: string; industries: string[]; solution_type: string;
   source_url: string; partner_verified: boolean; editorial_verified: boolean; verified_at: string; is_published: boolean;
@@ -93,6 +105,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
   const [attrs, setAttrs] = useState<Attr[]>([]);
   const [bulk, setBulk] = useState<Verif & { is_published: boolean }>({ ...emptyVerif, is_published: false });
   const [solutions, setSolutions] = useState<Solution[]>([]);
+  const [extras, setExtras] = useState({ support_level: "", fixed_price_start: false, fixed_price_start_name: "", fixed_price_start_url: "" });
   const [newProduct, setNewProduct] = useState("");
   const [busy, setBusy] = useState(false);
   const [report, setReport] = useState<any[] | null>(null);
@@ -126,8 +139,10 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
       verification_status: p.verification_status, verified_by: p.verified_by || "",
       verified_at: p.verified_at || "", source_url: p.source_url || "",
     } : null);
+    setExtras({ support_level: p?.support_level || "", fixed_price_start: !!p?.fixed_price_start,
+      fixed_price_start_name: p?.fixed_price_start_name || "", fixed_price_start_url: p?.fixed_price_start_url || "" });
     const meta = (a: any) => ({ verification_status: a.verification_status, verified_by: a.verified_by || "",
-      verified_at: a.verified_at || "", source_url: a.source_url || "", is_published: a.is_published });
+      verified_at: a.verified_at || "", source_url: a.source_url || "", is_published: a.is_published, level: a.level || null });
     setAttrs((d.attributes || []).filter((a: any) => a.partner_product_profile_id === id)
       .map((a: any) => ({ product_attribute_option_id: a.product_attribute_option_id, ...meta(a) })));
     setSolutions((d.solutions || []).filter((s: any) => s.profile_id === id).map((s: any) => ({
@@ -171,6 +186,12 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
     await call("save-attributes", { profile_id: profileId, attributes: attrs.map((a) => (isVerified(a) ? { ...a, is_published: true } : { ...a, ...adminVerif() })) });
     await loadPartner(partnerId, profileId);
   }, "Produktvalen sparade");
+
+  const saveExtras = () => run(async () => {
+    await call("save-bc-extras", { profile_id: profileId, ...extras });
+    await loadPartner(partnerId, profileId);
+  }, "Support och snabbstart sparade");
+
 
 
   const saveSolution = (s: Solution) => run(async () => {
@@ -299,7 +320,12 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                               <label className="flex items-center gap-2 text-sm w-72 cursor-pointer">
                                 <Checkbox checked={!!a} onCheckedChange={() => toggleAttr(o.id)} /> {o.label}
                               </label>
-                              
+                              {a && g === "migration" && (
+                                <select className={sel} value={a.level || ""} onChange={(e) => patchAttr(o.id, { level: e.target.value || null })}>
+                                  <option value="">Nivå: ej angiven</option>
+                                  {LEVELS.map((l) => <option key={l.value} value={l.value}>{l.label}</option>)}
+                                </select>
+                              )}
                             </div>
                           );
                         })}
@@ -307,6 +333,34 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
                     </div>
                   ))}
                   <Button onClick={saveAttrs} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara produktval</Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {profile?.product?.product_key === "business-central" && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Support och snabbstart</CardTitle>
+                  <CardDescription>Visas på businesscentral.se. Snabbstart bör ha en länk som belägg.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <label className="flex items-center gap-2 text-sm">
+                    <span className="w-40">Supportnivå</span>
+                    <select className={sel} value={extras.support_level} onChange={(e) => setExtras({ ...extras, support_level: e.target.value })}>
+                      {SUPPORT_LEVELS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+                    </select>
+                  </label>
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <Checkbox checked={extras.fixed_price_start} onCheckedChange={(v) => setExtras({ ...extras, fixed_price_start: !!v })} />
+                    Erbjuder snabbstart till fast pris
+                  </label>
+                  {extras.fixed_price_start && (
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      <Input placeholder="Namn, t.ex. Rapid Start" value={extras.fixed_price_start_name} onChange={(e) => setExtras({ ...extras, fixed_price_start_name: e.target.value })} />
+                      <Input placeholder="https://" value={extras.fixed_price_start_url} onChange={(e) => setExtras({ ...extras, fixed_price_start_url: e.target.value })} />
+                    </div>
+                  )}
+                  <Button onClick={saveExtras} disabled={busy}><Save className="w-4 h-4 mr-1" /> Spara</Button>
                 </CardContent>
               </Card>
             )}
