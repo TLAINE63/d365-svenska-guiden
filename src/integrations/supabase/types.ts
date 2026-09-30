@@ -302,6 +302,13 @@ export type Database = {
             foreignKeyName: "contact_attempt_blocked_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "contact_attempt_blocked_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -1344,6 +1351,13 @@ export type Database = {
             foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_ai_knowledge_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -1435,6 +1449,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "competence_guides"
             referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "partner_assignment_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
           },
           {
             foreignKeyName: "partner_assignment_profiles_partner_id_fkey"
@@ -1577,6 +1598,13 @@ export type Database = {
             foreignKeyName: "partner_certifications_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_certifications_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -1700,6 +1728,13 @@ export type Database = {
             foreignKeyName: "partner_engagement_events_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -1749,6 +1784,13 @@ export type Database = {
           token?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_event_tokens_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_event_tokens_partner_id_fkey"
             columns: ["partner_id"]
@@ -1854,6 +1896,13 @@ export type Database = {
             foreignKeyName: "partner_events_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -1933,6 +1982,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_feeds_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_feeds_partner_id_fkey"
             columns: ["partner_id"]
@@ -2100,6 +2156,13 @@ export type Database = {
             foreignKeyName: "partner_invitations_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_invitations_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -2216,6 +2279,13 @@ export type Database = {
             foreignKeyName: "partner_news_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_news_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -2303,6 +2373,13 @@ export type Database = {
             foreignKeyName: "partner_performance_reports_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_performance_reports_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -2336,6 +2413,7 @@ export type Database = {
           id: string
           is_published: boolean
           legacy_bc_attribute_id: string | null
+          level: string | null
           partner_product_profile_id: string
           product_attribute_option_id: string
           source_type: string | null
@@ -2351,6 +2429,7 @@ export type Database = {
           id?: string
           is_published?: boolean
           legacy_bc_attribute_id?: string | null
+          level?: string | null
           partner_product_profile_id: string
           product_attribute_option_id: string
           source_type?: string | null
@@ -2366,6 +2445,7 @@ export type Database = {
           id?: string
           is_published?: boolean
           legacy_bc_attribute_id?: string | null
+          level?: string | null
           partner_product_profile_id?: string
           product_attribute_option_id?: string
           source_type?: string | null
@@ -2455,6 +2535,10 @@ export type Database = {
       partner_product_profiles: {
         Row: {
           created_at: string
+          field_meta: Json
+          fixed_price_start: boolean
+          fixed_price_start_name: string | null
+          fixed_price_start_url: string | null
           id: string
           is_primary: boolean
           is_published: boolean
@@ -2463,6 +2547,7 @@ export type Database = {
           source_url: string | null
           status: string
           summary: string | null
+          support_level: string | null
           updated_at: string
           verification_status: string
           verified_at: string | null
@@ -2470,6 +2555,10 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          field_meta?: Json
+          fixed_price_start?: boolean
+          fixed_price_start_name?: string | null
+          fixed_price_start_url?: string | null
           id?: string
           is_primary?: boolean
           is_published?: boolean
@@ -2478,6 +2567,7 @@ export type Database = {
           source_url?: string | null
           status?: string
           summary?: string | null
+          support_level?: string | null
           updated_at?: string
           verification_status?: string
           verified_at?: string | null
@@ -2485,6 +2575,10 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          field_meta?: Json
+          fixed_price_start?: boolean
+          fixed_price_start_name?: string | null
+          fixed_price_start_url?: string | null
           id?: string
           is_primary?: boolean
           is_published?: boolean
@@ -2493,12 +2587,20 @@ export type Database = {
           source_url?: string | null
           status?: string
           summary?: string | null
+          support_level?: string | null
           updated_at?: string
           verification_status?: string
           verified_at?: string | null
           verified_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_product_profiles_partner_id_fkey"
             columns: ["partner_id"]
@@ -2571,6 +2673,13 @@ export type Database = {
           viewed_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_profile_views_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_profile_views_partner_id_fkey"
             columns: ["partner_id"]
@@ -2648,6 +2757,13 @@ export type Database = {
           webinars_count?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_public_insights_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_public_insights_partner_id_fkey"
             columns: ["partner_id"]
@@ -2771,6 +2887,13 @@ export type Database = {
             foreignKeyName: "partner_report_monthly_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_report_monthly_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -2850,6 +2973,13 @@ export type Database = {
           value_label?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_review_changes_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_review_changes_partner_id_fkey"
             columns: ["partner_id"]
@@ -3003,6 +3133,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "partner_invitations"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_submissions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
           },
           {
             foreignKeyName: "partner_submissions_partner_id_fkey"
@@ -3548,6 +3685,13 @@ export type Database = {
             foreignKeyName: "report_recipients_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "report_recipients_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -4065,6 +4209,25 @@ export type Database = {
           },
         ]
       }
+      bc_partners_v1: {
+        Row: {
+          bc_competencies: Json | null
+          field_meta: Json | null
+          fixed_price_start: Json | null
+          industry_solution_industries: string[] | null
+          industry_solution_name: string | null
+          industry_solution_type: string | null
+          migration_sources: Json | null
+          partner_id: string | null
+          partner_name: string | null
+          partner_slug: string | null
+          partner_status: string | null
+          schema_version: string | null
+          support_level: string | null
+          updated_at: string | null
+        }
+        Relationships: []
+      }
       export_bc_partner_v1: {
         Row: {
           bc_competencies: Json | null
@@ -4148,6 +4311,13 @@ export type Database = {
             foreignKeyName: "partner_engagement_events_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -4185,6 +4355,13 @@ export type Database = {
           period_month: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_engagement_events_partner_id_fkey"
             columns: ["partner_id"]
@@ -4233,6 +4410,13 @@ export type Database = {
           shortlist_saves: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_engagement_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_engagement_events_partner_id_fkey"
             columns: ["partner_id"]
@@ -4329,6 +4513,13 @@ export type Database = {
             foreignKeyName: "partner_events_partner_id_fkey"
             columns: ["partner_id"]
             isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
             referencedRelation: "export_bc_partner_v1"
             referencedColumns: ["partner_id"]
           },
@@ -4382,6 +4573,13 @@ export type Database = {
           partner_id: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "partner_product_profiles_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "bc_partners_v1"
+            referencedColumns: ["partner_id"]
+          },
           {
             foreignKeyName: "partner_product_profiles_partner_id_fkey"
             columns: ["partner_id"]
@@ -4639,6 +4837,7 @@ export type Database = {
       }
     }
     Functions: {
+      bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
       delete_email: {
         Args: { message_id: number; queue_name: string }
