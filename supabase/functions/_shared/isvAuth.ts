@@ -48,7 +48,7 @@ export async function verifyAdminJWT(token: string, secret: string, allowedRoles
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    return allowedRoles.includes(payload.role);
   } catch {
     return false;
   }
