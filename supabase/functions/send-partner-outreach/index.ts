@@ -143,7 +143,7 @@ Deno.serve(async (req) => {
     const rawBody: any = await req.clone().json().catch(() => ({}));
 
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
-    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send" || rawBody?.action === "expert-mark-sent") {
+    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send" || rawBody?.action === "expert-mark-sent" || rawBody?.action === "newsletter-send") {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
       if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey))) {
         return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
