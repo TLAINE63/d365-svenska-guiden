@@ -1029,44 +1029,68 @@ const ValjPartner = () => {
  {[...staticPartnerData]
  .filter((p: any) => p.is_featured)
  .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
- .map((p: any) => (
- <li key={p.id}>
- <Link
- to={`/partner/${p.slug}/`}
- aria-label={p.name}
- className="group relative flex items-center justify-between gap-3 p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
- >
- <div className="min-w-0 flex-1">
- {p.logo_url ? (
- <img
- src={optimizedLogo(p.logo_url)}
- alt={`${p.name} logotyp`}
- loading="lazy"
- className="h-10 max-w-[160px] object-contain mb-2"
- />
- ) : (
- <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-2">
- {p.name}
- </h3>
- )}
- {Array.isArray(p.applications) && p.applications.length > 0 && (
- <div className="flex flex-wrap gap-1">
- {p.applications.slice(0, 3).map((app: string) => (
- <Badge
- key={app}
- variant="outline"
- className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
- >
- {app}
- </Badge>
- ))}
- </div>
- )}
- </div>
- <ArrowRight className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
- </Link>
- </li>
- ))}
+.map((p: any) => {
+const cardSummary = getCardSummaryData(p as DatabasePartner);
+const cardText = p.ai_summary || p.ai_profile?.card_ai_summary || p.positioning_statement || "";
+return (
+<li key={p.id}>
+<Link
+to={`/partner/${p.slug}/`}
+aria-label={p.name}
+className="group relative flex flex-col h-full p-4 rounded-lg border-2 border-primary/25 bg-card shadow-sm hover:border-primary hover:shadow-md transition-all"
+>
+<div className="flex items-start justify-between gap-3 mb-1">
+<div className="min-w-0 flex-1">
+{p.logo_url ? (
+<img
+src={optimizedLogo(p.logo_url)}
+alt={`${p.name} logotyp`}
+loading="lazy"
+className="h-10 max-w-[160px] object-contain mb-2"
+/>
+) : null}
+<h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors leading-snug">
+{p.name}
+</h3>
+</div>
+<ArrowRight className="w-4 h-4 mt-2 shrink-0 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+</div>
+{cardText && (
+<p className="text-xs text-muted-foreground leading-snug line-clamp-2 mb-2">
+{cardText}
+</p>
+)}
+{Array.isArray(p.applications) && p.applications.length > 0 && (
+<div className="flex flex-wrap gap-1 mb-3">
+{p.applications.slice(0, 3).map((app: string) => (
+<Badge
+key={app}
+variant="outline"
+className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
+>
+{app}
+</Badge>
+))}
+</div>
+)}
+<div className="mt-auto pt-2 border-t border-border/60 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+<span className="inline-flex items-center gap-1">
+<MapPin className="w-3 h-3" />
+{cardSummary.location}
+</span>
+<span className="inline-flex items-center gap-1">
+<Building2 className="w-3 h-3" />
+{cardSummary.industry}
+</span>
+<span className="inline-flex items-center gap-1">
+<Users className="w-3 h-3" />
+{cardSummary.size}
+</span>
+</div>
+</Link>
+</li>
+);
+})}
  </ul>
  </div>
  </div>
