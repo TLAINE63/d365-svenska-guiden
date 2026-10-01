@@ -247,6 +247,19 @@ const PrivacyPolicy = () => {
                 Laglig grund: berättigat intresse av att förbättra tjänsten. Eftersom data
                 anonymiseras vid insamling krävs inget cookie-samtycke för denna behandling.
               </p>
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-2">Ert Dynamics&nbsp;365-underlag</h3>
+              <p className="leading-relaxed">
+                Svaren i våra bedömningstester och på sidan Ert Dynamics&nbsp;365-underlag sparas
+                anonymt under ett slumpat id i er webbläsare. Underlaget innehåller inga
+                personuppgifter och inga cookies används för analysen. Ni kan när som helst rensa
+                underlaget på sidan.
+              </p>
+              <p className="leading-relaxed mt-3">
+                Väljer ni att skicka underlaget sparar vi namn, företag, e-post, eventuellt
+                telefonnummer och underlaget. Uppgifterna används för att skicka underlaget till er
+                och för att kunna följa upp er förfrågan. Laglig grund är ert samtycke, som ni kan
+                återkalla genom att kontakta oss. Personuppgiftsansvarig är Dynamic Factory.
+              </p>
             </section>
 
             <section>
