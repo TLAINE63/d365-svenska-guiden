@@ -1,4 +1,5 @@
 import ContextualCta from "@/components/ContextualCta";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
