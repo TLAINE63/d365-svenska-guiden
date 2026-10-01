@@ -24,7 +24,7 @@ const Footer = () => {
               <li><Link to="/erp/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Affärssystem & ERP – guide</Link></li>
               <li><Link to="/erp/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central vs F&SCM</Link></li>
               <li><Link to="/businesscentral/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Business Central</Link></li>
-              <li><Link to="/finance-supply-chain/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Finance & SCM</Link></li>
+              <li><Link to="/finance-supply-chain/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Finance & Supply Chain Management (F&O)</Link></li>
               <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
               <li><Link to="/finance-supply-chain-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Finance & Supply Chain-partners</Link></li>
               <li><Link to="/d365projectoperations/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Project Operations</Link></li>

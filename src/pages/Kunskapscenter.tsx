@@ -190,7 +190,7 @@ const STATIC_TOOLS: Array<{
  },
  {
  id: "tool-branschjamforelse",
- title: "Branschjämförelse: BC vs Finance & SCM",
+ title: "Branschjämförelse: BC vs Finance & Supply Chain Management (F&O)",
  description: "Jämför Business Central och Finance & Supply Chain Management utifrån bransch, storlek och geografi.",
  type: "guide",
  url: "/erp/#branschjamforelse",

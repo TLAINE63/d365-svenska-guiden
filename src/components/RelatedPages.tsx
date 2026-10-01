@@ -65,7 +65,7 @@ export const fscRelatedPages: RelatedPage[] = [
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/ERPbehovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Finance & Supply Chain", href: "/copilot/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
-  { title: "Hitta rätt partner", description: "Filtrera och jämför Finance & SCM-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Filtrera och jämför Finance & Supply Chain Management (F&O)-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
 // MOFU – teknisk jämförelse Business Central vs Finance & SCM.
@@ -176,7 +176,7 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
-  { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
+  { title: "Microsoft Dynamics 365 Finance & Supply Chain Management (F&O)", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
   { title: "Affärssystem & ERP – guide", description: "Köparsidig guide: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/erp/" },
   { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
