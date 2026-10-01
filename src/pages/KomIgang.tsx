@@ -16,6 +16,7 @@ import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
 // Product icons
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
 import financeIcon from "@/assets/icons/Finance.svg";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import salesIcon from "@/assets/icons/Sales.svg";
 import marketingIcon from "@/assets/icons/Marketing.svg";
 import csIcon from "@/assets/icons/CustomerService.svg";
@@ -659,7 +660,7 @@ const KomIgang = () => {
               ) : (
                 <div className="rounded border border-border bg-card p-6 sm:p-8">
                   <p className="text-foreground mb-1 font-semibold">
-                    Ingen partner har angett både {selectedApp || "vald produkt"}{selectedIndustry ? ` och ${selectedIndustry.toLowerCase()}` : ""}.
+                    Ingen partner har angett både {selectedApp ? applicationFilterLabel(selectedApp) : "vald produkt"}{selectedIndustry ? ` och ${selectedIndustry.toLowerCase()}` : ""}.
                   </p>
                   <p className="text-sm text-muted-foreground mb-6">
                     Det betyder inte att ingen kan hjälpa er, bara att ingen profil täcker exakt den kombinationen ännu. Välj hur ni vill gå vidare:
@@ -668,7 +669,7 @@ const KomIgang = () => {
                     {altWithoutIndustry > 0 && (
                       <button type="button" onClick={() => { setSelectedIndustry(""); setRerun(true); }}
                         className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} {altWithoutIndustry === 1 ? "partner" : "partners"} för {selectedApp}</span>
+                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} {altWithoutIndustry === 1 ? "partner" : "partners"} för {selectedApp ? applicationFilterLabel(selectedApp) : ""}</span>
                         <span className="block text-sm text-muted-foreground">Utan krav på branscherfarenhet</span>
                       </button>
                     )}

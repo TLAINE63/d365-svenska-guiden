@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners, PRODUCT_LABEL, PRODUCT_ORDER } from "@/hooks/useBasicPartners";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { getBasicPartnerIndustries } from "@/lib/basicPartnerMatch";
 import BasicIndustryFootnote from "@/components/BasicIndustryFootnote";
 
@@ -106,9 +107,9 @@ const UnprofiledPartnersList = ({
   if (combined.length === 0) return null;
 
   const heading = productKey && productLabel
-    ? `Fler partners som arbetar med ${productLabel}`
+    ? `Fler partners som arbetar med ${applicationFilterLabel(productLabel)}`
     : "Fler Dynamics 365-partners på den svenska marknaden";
-  const areaText = productKey && productLabel ? productLabel : "Dynamics 365";
+  const areaText = productKey && productLabel ? applicationFilterLabel(productLabel) : "Dynamics 365";
   const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en partnerverifierad profil. Informationen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter och har inte granskats eller bekräftats av partnern.`;
 
   return (

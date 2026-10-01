@@ -1582,7 +1582,7 @@ const ComparePartners = () => {
     const allKeys = Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[];
     const shortLabel: Record<ProductFilterKey, string> = {
       bc: "Business Central",
-      fsc: "F&SCM",
+      fsc: "Finance & Supply Chain Management (F&O)",
       commerce: "Commerce",
       hr: "HR",
       sales: "Sales/CI",
