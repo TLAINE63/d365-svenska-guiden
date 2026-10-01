@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
+import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 
 export type PartnerViewType = "card_click" | "profile_visit";
 
@@ -14,6 +15,7 @@ export const trackPartnerView = async (
   partnerId?: string | null
 ) => {
   if (typeof window !== "undefined" && isExcludedFromTracking()) return;
+  if (viewType === "profile_visit") trackUnderlagEvent("partner_profile_opened", { partner: partnerSlug });
   try {
     await supabase.functions.invoke("track-partner-view", {
       body: {
