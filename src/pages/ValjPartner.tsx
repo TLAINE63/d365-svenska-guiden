@@ -50,7 +50,7 @@ import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
 import { saveProfile, getBuyerProfile } from "@/lib/buyerProfile";
 import {
  PRODUCT_TO_APP, APP_TO_PRODUCT_KEY, GEO_LABEL, widestGeo, industryNameFromSlug, industrySlugFromName,
- type CompareFilters, type ProductKey, type CriterionKey, deriveCompareFilters,
+ type CompareFilters, type ProductKey as UnderlagProductKey, type CriterionKey, deriveCompareFilters,
 } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 
@@ -220,7 +220,7 @@ const ValjPartner = () => {
  // Underlagsfilter: ?product=fscm,sales&industry=<slug>&size=<anställda>&geo=sverige,europa
  const underlagMode = searchParams.get("underlag") === "1";
  const productParam = searchParams.get("product");
- const urlProducts = (productParam || "").split(",").filter((k): k is ProductKey => k in PRODUCT_TO_APP);
+ const urlProducts = (productParam || "").split(",").filter((k): k is UnderlagProductKey => k in PRODUCT_TO_APP);
  const urlGeo = (searchParams.get("geo") || "").split(",").filter((g) => g in GEO_LABEL);
  const aiParam = searchParams.get("ai");
  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
@@ -273,7 +273,7 @@ const ValjPartner = () => {
   if (geoKey) sp.set("geo", geoKey);
   sp.set("underlag", "1");
   if (sp.toString() !== searchParams.toString()) setSearchParams(sp, { replace: true });
-  const PRODUCT_SCOPE: Record<ProductKey, string[]> = { fscm: ["finance", "scm"], sales: ["sales"], customer_service: ["customer_service"], field_service: ["field_service"], customer_insights: ["customer_insights"], contact_center: ["contact_center"] };
+  const PRODUCT_SCOPE: Record<UnderlagProductKey, string[]> = { fscm: ["finance", "scm"], sales: ["sales"], customer_service: ["customer_service"], field_service: ["field_service"], customer_insights: ["customer_insights"], contact_center: ["contact_center"] };
   const allProductScope = Object.values(PRODUCT_SCOPE).flat();
   const cur = (getBuyerProfile().scope.apps as string[]) || [];
   const keepOther = cur.filter((a) => !allProductScope.includes(a));
