@@ -63,7 +63,7 @@ const partnerFaqsRaw = [
  },
  {
  question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
- answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
+ answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain Management (F&O) för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
  },
  {
  question: "Har partnern erfarenhet av vår bransch?",
@@ -572,7 +572,7 @@ const ValjPartner = () => {
   />
 
   <ShortAnswer title="Vad är en Dynamics 365-partner">
- Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain, Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft-partners för din bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
+ Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft-partners för din bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
  </ShortAnswer>
 
 

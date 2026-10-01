@@ -521,7 +521,7 @@ const BusinessCentral = () => {
        ["Införandetid", "3–6 månader (2–3 månader med startpaket)"],
        ["Ingår i Premium", "Tillverkning (MRP, kapacitetsplanering) och servicehantering"],
        ["AI", "Microsoft Copilot ingår utan extra licensavgift"],
-       ["Vanliga alternativ", "Dynamics 365 Finance & Supply Chain, Fortnox, Visma, Monitor"],
+       ["Vanliga alternativ", "Dynamics 365 Finance & Supply Chain Management (F&O), Fortnox, Visma, Monitor"],
        ["Införs av", "Microsoft-certifierad partner – jämför partners nedan"],
       ].map(([label, value]) => (
        <tr key={label} className="border-b border-border last:border-0">
@@ -592,7 +592,7 @@ const BusinessCentral = () => {
         "Djup verkstadsfunktionalitet i standard; Business Central täcker bredare verksamhet (ekonomi, handel, projekt) och byggs ut via appar från Microsoft Marketplace.",
        ],
        [
-        "Dynamics 365 Finance & Supply Chain",
+        "Dynamics 365 Finance & Supply Chain Management (F&O)",
         "Från ca 300 användare, koncern och global drift",
         "Samma Microsoft-plattform men tyngre: fler legala enheter, avancerad supply chain – och högre licens- och införandekostnad.",
        ],

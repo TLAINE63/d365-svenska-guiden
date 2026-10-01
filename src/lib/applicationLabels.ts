@@ -22,6 +22,8 @@ const FSCM_ALIASES = new Set([
   "Finance",
   "Supply Chain Management",
   "Finance & Supply Chain Management",
+  "Finance & Supply Chain Management (F&O)",
+  "Finance & Supply Chain",
   "Finance & SCM",
   "F&SCM",
   FSCM_DISPLAY_NAME,

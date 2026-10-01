@@ -30,7 +30,7 @@ const OFFERS: Offer[] = [
   },
   {
     prefix: "/finance-supply-chain",
-    eyebrow: "Nästa steg för Finance & Supply Chain",
+    eyebrow: "Nästa steg för Finance & Supply Chain Management (F&O)",
     title: "Testa om Finance & Supply Chain Management (F&O) matchar er verksamhet",
     body: "Ett kort matchningstest visar om F&SCM eller Business Central passar din storlek och komplexitet – och vilka partners som levererar det.",
     cta: "Gör matchningstestet",

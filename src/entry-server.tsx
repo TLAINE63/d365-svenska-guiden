@@ -278,7 +278,7 @@ export const routes: PrerenderRoute[] = [
     meta: {
       title: 'Dynamics 365-tillägg: katalog över ISV-lösningar',
       description:
-        'Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain, Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch.',
+        'Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch.',
     },
   },
   ...CE_CATEGORY_PAGES.map((p) => ({

@@ -72,7 +72,7 @@ const appIconSrc: Record<string, string> = {
   "Finance": FinanceIcon,
   "Supply Chain Management": FinanceIcon,
   "Finance & SCM": FinanceIcon,
-  "Finance & Supply Chain": FinanceIcon,
+  "Finance & Supply Chain Management (F&O)": FinanceIcon,
   "F&SCM": FinanceIcon,
   "Sales": SalesIcon,
   "Customer Service": CustomerServiceIcon,
@@ -99,7 +99,7 @@ const TAB_META: Record<
     filterKeys: ["bc"],
   },
   fsc: {
-    label: "Finance & Supply Chain",
+    label: "Finance & Supply Chain Management (F&O)",
     short: "F&SCM",
     icon: FinanceIcon,
     slug: "finance-supply-chain",

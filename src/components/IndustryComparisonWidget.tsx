@@ -436,7 +436,7 @@ const IndustryComparisonWidget = () => {
             <div className="rounded border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
               <div className="p-4 bg-gradient-to-br from-[hsl(250_50%_95%)] to-[hsl(250_50%_90%)] dark:from-[hsl(250_30%_18%)] dark:to-[hsl(250_30%_14%)]">
                 <div className="text-base font-bold text-[hsl(250_50%_25%)] dark:text-[hsl(250_50%_80%)]">Finance & Supply Chain Management (F&O)</div>
-                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain{showFscmApps ? " + etablerade tilläggsappar" : ""}</div>
+                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain Management (F&O){showFscmApps ? " + etablerade tilläggsappar" : ""}</div>
               </div>
               <div className="p-3 space-y-2">
                 {entry.fscm.p.map((p, i) => <CardItem key={`fp${i}`} title={p.t} desc={p.d} type="strength" />)}

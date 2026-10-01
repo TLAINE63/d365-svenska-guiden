@@ -74,7 +74,7 @@ const productOrder: {
   roiPath?: string;
 }[] = [
   { key: "business-central", label: "Business Central", path: "/businesscentral/", licenseKey: "bc-essentials", roiPath: "/businesscentral/roi-kalkylator/" },
-  { key: "finance-scm", label: "Finance & Supply Chain", path: "/finance-supply-chain/", licenseKey: "finance", roiPath: "/finance-supply-chain/roi-kalkylator/" },
+  { key: "finance-scm", label: "Finance & Supply Chain Management (F&O)", path: "/finance-supply-chain/", licenseKey: "finance", roiPath: "/finance-supply-chain/roi-kalkylator/" },
   { key: "sales", label: "Sales", path: "/d365sales/", licenseKey: "sales-professional", roiPath: "/d365sales/roi-kalkylator/" },
   { key: "customer-service", label: "Customer Service", path: "/d365customerservice/", licenseKey: "customer-service-pro", roiPath: "/d365customerservice/roi-kalkylator/" },
   { key: "contact-center", label: "Contact Center", path: "/d365contactcenter/", licenseKey: "contact-center-komplett", roiPath: "/d365contactcenter/roi-kalkylator/" },

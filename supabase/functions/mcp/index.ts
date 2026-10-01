@@ -17,7 +17,7 @@ function supabaseAnon() {
 var search_partners_default = defineTool({
   name: "search_partners",
   title: "S\xF6k Dynamics 365-partners",
-  description: "S\xF6k publika, publicerade Dynamics 365-partners p\xE5 d365.se. Filtrera p\xE5 applikation (t.ex. 'Business Central', 'Finance & Supply Chain', 'Sales', 'Customer Service'), bransch och geografi. Returnerar namn, kort beskrivning, applikationer, branscher, geografi och publik profil-URL.",
+  description: "S\xF6k publika, publicerade Dynamics 365-partners p\xE5 d365.se. Filtrera p\xE5 applikation (t.ex. 'Business Central', 'Finance & Supply Chain Management (F&O)', 'Sales', 'Customer Service'), bransch och geografi. Returnerar namn, kort beskrivning, applikationer, branscher, geografi och publik profil-URL.",
   inputSchema: {
     application: z.string().optional().describe("Dynamics 365-applikation att filtrera p\xE5."),
     industry: z.string().optional().describe("Bransch (t.ex. 'Tillverkning', 'Detaljhandel')."),

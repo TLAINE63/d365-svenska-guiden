@@ -40,12 +40,12 @@ const PROFILE_PARTNER_HINT: Record<ProfileKey, string> = {
 
 const FURTHER_READING: Record<ProfileKey, { label: string; to: string }[]> = {
  concern: [
- { label: "Business Central vs Finance & Supply Chain", to: "/businesscentral/" },
- { label: "Finance & Supply Chain – översikt", to: "/finance-supply-chain/" },
+ { label: "Business Central vs Finance & Supply Chain Management (F&O)", to: "/businesscentral/" },
+ { label: "Finance & Supply Chain Management (F&O) – översikt", to: "/finance-supply-chain/" },
  ],
  supplyChain: [
- { label: "Finance & Supply Chain – översikt", to: "/finance-supply-chain/" },
- { label: "Kunskapscenter: Finance & Supply Chain", to: "/kunskapscenter/finance-supply-chain/" },
+ { label: "Finance & Supply Chain Management (F&O) – översikt", to: "/finance-supply-chain/" },
+ { label: "Kunskapscenter: Finance & Supply Chain Management (F&O)", to: "/kunskapscenter/finance-supply-chain/" },
  ],
  project: [
  { label: "Dynamics 365 Project Operations", to: "/d365projectoperations/" },
@@ -53,7 +53,7 @@ const FURTHER_READING: Record<ProfileKey, { label: string; to: string }[]> = {
  ],
  commerce: [
  { label: "Dynamics 365 Commerce", to: "/d365commerce/" },
- { label: "Finance & Supply Chain – översikt", to: "/finance-supply-chain/" },
+ { label: "Finance & Supply Chain Management (F&O) – översikt", to: "/finance-supply-chain/" },
  ],
 };
 
@@ -179,7 +179,7 @@ const FscmMatchningstest = () => {
  return (
  <div className="min-h-screen flex flex-col bg-background">
  <SEOHead
-        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain", url: "/finance-supply-chain/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain Management (F&O)", url: "/finance-supply-chain/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
  title="Matchar F&SCM dina behov? – Matchningstest | d365.se"
  description="Tio minuter, 26 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management passar dig – eller om enklare alternativ räcker."
  canonicalPath="/finance-supply-chain-management/matchningstest"
@@ -467,7 +467,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  ))}
  <li>
  <Link to="/valjdynamics365partner/" className="text-primary hover:underline">
- Se Microsoft-partners som arbetar med Finance & Supply Chain
+ Se Microsoft-partners som arbetar med Finance & Supply Chain Management (F&O)
  </Link>
  </li>
  </ul>

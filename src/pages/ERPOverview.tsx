@@ -72,7 +72,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vad kostar ett affärssystem?",
- answer: "Kostnaden består av tre delar: licens per användare och månad, ett engångspris för implementering och en löpande förvaltningskostnad. För Microsofts ERP är licensen {{price:bc-essentials:short}} för Business Central Essentials, {{price:bc-premium:short}} för Premium och ca {{price:finance:short}} för Dynamics 365 Finance. Implementeringen ligger typiskt på 100 000–250 000 kr för ett litet Business Central-projekt, 250 000–800 000 kr för ett normalstort och 1–5 MSEK för ett Finance & Supply Chain-projekt. Räkna dessutom med 10–20 % av projektkostnaden per år för förvaltning och vidareutveckling."
+ answer: "Kostnaden består av tre delar: licens per användare och månad, ett engångspris för implementering och en löpande förvaltningskostnad. För Microsofts ERP är licensen {{price:bc-essentials:short}} för Business Central Essentials, {{price:bc-premium:short}} för Premium och ca {{price:finance:short}} för Dynamics 365 Finance. Implementeringen ligger typiskt på 100 000–250 000 kr för ett litet Business Central-projekt, 250 000–800 000 kr för ett normalstort och 1–5 MSEK för ett Finance & Supply Chain Management (F&O)-projekt. Räkna dessutom med 10–20 % av projektkostnaden per år för förvaltning och vidareutveckling."
  },
  {
  question: "Vilket ERP-system passar för entreprenadföretag?",
@@ -87,7 +87,7 @@ const erpFaqsRaw = [
  answer: "Microsoft ERP pris Sverige: Business Central Essentials {{price:bc-essentials:short}}, Business Central Premium {{price:bc-premium:short}}, Dynamics 365 Finance ca {{price:finance:short}} och Supply Chain Management ca {{price:supply-chain-management:short}}. Implementeringskostnaden varierar: Business Central startpaket från 100 000 kr, F&SCM Enterprise-projekt från 1–5 MSEK. Välj rätt licens utifrån antal användare och funktionsbehov."
  },
  {
- question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain?",
+ question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain Management (F&O)?",
  answer: "Business Central är designat för SMB (5–300 användare) och täcker ekonomi, lager, försäljning och produktion (Premium). Finance & Supply Chain Management riktar sig till enterprise med krav på global juridisk struktur, avancerat MRP/MPS, WMS och komplexa internprissättningsregler. Business Central är snabbare att implementera (3–6 mån vs 9–18 mån) och har lägre total ägandekostnad för de flesta medelstora företag."
  },
  {
@@ -134,7 +134,7 @@ const ERPOverview = () => {
  <div className="min-h-screen">
  <SEOHead 
  title="Affärssystem & ERP 2026 – guide & partners"
- description={resolvePriceTokens("Vad ett affärssystem är, vad det kostar och hur du väljer rätt – med fokus på Microsoft Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & Supply Chain ({{price:finance:short}}).")}
+ description={resolvePriceTokens("Vad ett affärssystem är, vad det kostar och hur du väljer rätt – med fokus på Microsoft Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & Supply Chain Management (F&O) ({{price:finance:short}}).")}
  canonicalPath="/erp"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"
@@ -155,7 +155,7 @@ const ERPOverview = () => {
  titleAccent="Så väljer du rätt utan säljpåverkan."
  subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
- secondary={{ label: "Jämför Business Central vs Finance & Supply Chain", href: "#comparison" }}
+ secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
   />
 
   {/* Introduction Section */}
@@ -263,7 +263,7 @@ const ERPOverview = () => {
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
- Business Central vs Finance & Supply Chain
+ Business Central vs Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground">
  Två kraftfulla ERP-system – men för olika behov
@@ -324,7 +324,7 @@ const ERPOverview = () => {
  <div className="flex items-center gap-3 mb-4">
  <img src={FinanceIcon} alt="Dynamics 365 Finance" className="h-10 w-10" />
  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
- <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Finance & Supply Chain</h3>
+ <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Finance & Supply Chain Management (F&O)</h3>
  </div>
  
  <p className="text-muted-foreground mb-6">
@@ -365,7 +365,7 @@ const ERPOverview = () => {
  
  <Link to="/finance-supply-chain/">
  <Button variant="outline" className="w-full border-finance-supply text-finance-supply hover:bg-finance-supply hover:text-white">
- Läs mer om Finance & Supply Chain
+ Läs mer om Finance & Supply Chain Management (F&O)
  <ArrowRight className="ml-2 h-4 w-4" />
  </Button>
  </Link>
@@ -478,7 +478,7 @@ const ERPOverview = () => {
    </div>
  </section>
  
-<ContextualCta source="next-step:erp" heading="Business Central eller Finance & Supply Chain?" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
+<ContextualCta source="next-step:erp" heading="Business Central eller Finance & Supply Chain Management (F&O)?" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
 </main>
  <Footer />
  </div>

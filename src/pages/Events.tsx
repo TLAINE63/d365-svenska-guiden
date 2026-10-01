@@ -64,7 +64,7 @@ const eventsFaqs = [
  answer: "Företag som står inför ett byte av affärssystem har störst nytta av webinars och seminarier som går igenom Business Central och Finance & Supply Chain Management – gärna kombinerade med branschspecifika exempel (tillverkning, grossist, fastighet, tjänstebolag). Titta också efter event som tar upp datamigrering, integration och förändringsledning, eftersom det är där de flesta ERP-projekt fastnar. På d365.se markerar vi vilka event som är relevanta för ERP-beslut, och du kan kombinera dem med vår ERP-behovsanalys för att förbereda valet av partner."
  },
  {
- question: "Finns det webinars om Business Central och Finance & Supply Chain?",
+ question: "Finns det webinars om Business Central och Finance & Supply Chain Management (F&O)?",
  answer: "Ja. Svenska Microsoft-partners arrangerar regelbundet webinars om både Business Central (för mindre och medelstora bolag) och Finance & Supply Chain Management (för stora, internationella organisationer). Innehållet varierar från produktdemos och Release Wave-genomgångar till djupare sessioner om finansiella konsolideringar, lager- och produktionsstyrning, AP/AR-automation och Copilot. De flesta webinars är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk på respektive event."
  },
  {
@@ -73,7 +73,7 @@ const eventsFaqs = [
  },
  {
  question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",
- answer: "På d365.se samlar vi kommande events, webinars och seminarier från Microsoft Dynamics 365-partners i Sverige. Eventen täcker Business Central, Finance & Supply Chain, Sales, Customer Service och AI/Copilot. De flesta events är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk."
+ answer: "På d365.se samlar vi kommande events, webinars och seminarier från Microsoft Dynamics 365-partners i Sverige. Eventen täcker Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service och AI/Copilot. De flesta events är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk."
  },
  {
  question: "Är Dynamics 365 webinars gratis att delta i?",

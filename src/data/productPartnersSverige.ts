@@ -43,9 +43,9 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     productKey: "fsc",
     productLabel: "Dynamics 365 Finance & Supply Chain Management",
     productLandingPath: "/finance-supply-chain/",
-    h1: "Finance & Supply Chain-partners i Sverige",
+    h1: "Finance & Supply Chain Management (F&O)-partners i Sverige",
     metaTitle:
-      "Finance & Supply Chain-partners i Sverige – D365 F&SCM | d365.se",
+      "Finance & Supply Chain Management (F&O)-partners i Sverige – D365 F&SCM | d365.se",
     metaDescription:
       "Microsoft Dynamics 365 Finance & Supply Chain Management-partners i Sverige. För större organisationer med koncernkrav, multi-currency och avancerad logistik.",
     intro:

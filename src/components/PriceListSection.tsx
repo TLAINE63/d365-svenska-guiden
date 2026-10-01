@@ -19,7 +19,7 @@ const PRODUCT_MATCHERS: Record<string, (name: string) => boolean> = {
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
-  ERP: "ERP – Business Central, Finance & Supply Chain",
+  ERP: "ERP – Business Central, Finance & Supply Chain Management (F&O)",
   CRM: "CRM – Sales, Service, Customer Insights m.fl.",
 };
 

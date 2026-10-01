@@ -49,7 +49,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/d365marketing": "Dynamics 365 Marketing",
   "/d365fieldservice": "Dynamics 365 Field Service",
   "/d365contactcenter": "Dynamics 365 Contact Center",
-  "/finance-supply-chain": "Finance & Supply Chain",
+  "/finance-supply-chain": "Finance & Supply Chain Management (F&O)",
   "/ERPbehovsanalys": "Behovsanalys ERP",
   "/CRMbehovsanalys": "Behovsanalys Sälj & Marknad",
   "/kundservice-behovsanalys": "Behovsanalys Kundservice",

@@ -120,7 +120,7 @@ export default function Priser() {
 
         <section className="py-8 sm:py-10">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <Section title="ERP – Business Central, Finance & Supply Chain" rows={erp} />
+            <Section title="ERP – Business Central, Finance & Supply Chain Management (F&O)" rows={erp} />
             <Section title="CRM – Sales, Service, Customer Insights m.fl." rows={crm} />
             <SourceNote
               className="mt-6"

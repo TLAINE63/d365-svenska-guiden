@@ -61,9 +61,9 @@ const fscFaqs = [
  { question: "Vad kostar Dynamics 365 Finance och Supply Chain Management?", answer: "Dynamics 365 Finance kostar 2 007,30 kr per användare och månad. Supply Chain Management kostar lika mycket – 2 007,30 kr per användare/mån. Human Resources kostar 1 290,40 kr/mån. Implementeringskostnader för medelstora till stora organisationer varierar från 2 till 10+ miljoner kronor beroende på komplexitet, antal juridiska entiteter och anpassningsbehov." },
  { question: "Dynamics 365 Finance & Supply Chain Management (F&O) vs SAP S/4HANA – vilket ERP ska jag välja?", answer: "Dynamics 365 Finance & Supply Chain Management (F&O) är optimalt för organisationer i Microsoft-ekosystemet med ett starkt behov av Office 365/Teams-integration och lägre total ägandekostnad. SAP S/4HANA är branschledande inom tung processindustri och kemi. Dynamics 365 Finance & Supply Chain Management har fördelen av inbyggd Copilot AI, snabbare implementationstider och lägre licenspriser. För nordiska medelstora till stora tillverkningsföretag är Dynamics 365 Finance & Supply Chain Management ofta det starkare alternativet." },
  { question: "Vad är skillnaden mellan Dynamics 365 Finance & Supply Chain Management (F&O) och Business Central?", answer: "Business Central riktar sig till SMB-segmentet (upp till ca 300 användare) med fokus på enkelhet och lägre pris (från 765 kr/mån). Finance & Supply Chain Management (F&O) är enterprise-lösningen för komplexa globala organisationer med flera juridiska entiteter, avancerad tillverkning och supply chain. F&SCM har betydligt djupare funktionalitet inom ekonomi, lagerstyrning (WMS), produktionsplanering (MRP/MPS) och global compliance." },
- { question: "Hur lång tid tar det att implementera Dynamics 365 Finance & Supply Chain?", answer: "En typisk F&SCM-implementation tar 9–24 månader beroende på komplexitet. En Dynamics 365 Finance-only-implementation för en juridisk entitet kan göras på 6–9 månader. Komplett Finance + SCM med tillverkning och WMS för en global organisation tar 18–36 månader. Vi rekommenderar alltid en fasad implementation för att minimera risker och leverera värde snabbt." },
- { question: "Vilka branscher passar Dynamics 365 Finance & Supply Chain bäst för?", answer: "F&SCM är optimalt för: tillverkning (diskret och processindustri), grossist och distribution, läkemedel och life science, livsmedel och dryck, detaljhandel med komplex supply chain, offentlig sektor och statliga organisationer samt internationella koncerner med flera bolag och valutor. Lösningen har inbyggd branschfunktionalitet och ett rikt ekosystem av ISV-tillägg." },
- { question: "Hur fungerar Copilot AI i Dynamics 365 Finance & Supply Chain?", answer: "Copilot i Finance analyserar ekonomidata och identifierar avvikelser, föreslår matchning av bankposter, genererar finansiella rapporter och sammanfattar avvikelser. Copilot i Supply Chain varnar för leveransrisker, optimerar inköpsplaner, identifierar flaskhalsar i produktionen och föreslår omplaneringar vid störningar. Copilot är inkluderat utan extra kostnad i F&SCM-licensen." },
+ { question: "Hur lång tid tar det att implementera Dynamics 365 Finance & Supply Chain Management (F&O)?", answer: "En typisk F&SCM-implementation tar 9–24 månader beroende på komplexitet. En Dynamics 365 Finance-only-implementation för en juridisk entitet kan göras på 6–9 månader. Komplett Finance + SCM med tillverkning och WMS för en global organisation tar 18–36 månader. Vi rekommenderar alltid en fasad implementation för att minimera risker och leverera värde snabbt." },
+ { question: "Vilka branscher passar Dynamics 365 Finance & Supply Chain Management (F&O) bäst för?", answer: "F&SCM är optimalt för: tillverkning (diskret och processindustri), grossist och distribution, läkemedel och life science, livsmedel och dryck, detaljhandel med komplex supply chain, offentlig sektor och statliga organisationer samt internationella koncerner med flera bolag och valutor. Lösningen har inbyggd branschfunktionalitet och ett rikt ekosystem av ISV-tillägg." },
+ { question: "Hur fungerar Copilot AI i Dynamics 365 Finance & Supply Chain Management (F&O)?", answer: "Copilot i Finance analyserar ekonomidata och identifierar avvikelser, föreslår matchning av bankposter, genererar finansiella rapporter och sammanfattar avvikelser. Copilot i Supply Chain varnar för leveransrisker, optimerar inköpsplaner, identifierar flaskhalsar i produktionen och föreslår omplaneringar vid störningar. Copilot är inkluderat utan extra kostnad i F&SCM-licensen." },
  { question: "Hur flexibelt och anpassningsbart är Dynamics 365 Finance & Supply Chain Management?", answer: "F&SCM är mycket flexibelt och anpassas via tre nivåer: (1) Konfiguration via parameterinställningar utan kod, (2) Utökning via Power Platform och low-code, (3) Specialutveckling i X++ för komplexa anpassningar. Det finns ett rikt ISV-ekosystem med hundratals branschlösningar på Microsoft Marketplace. Alla anpassningar separeras från kärnkoden för enklare uppgradering." },
  { question: "Kan Dynamics 365 Finance & Supply Chain Management integreras med befintliga system och tredjepartsprogram?", answer: "Ja, F&SCM har robusta integrationsmöjligheter via OData-API:er, Azure Service Bus, Logic Apps och Power Automate. Färdiga kopplingar finns för populära system som Salesforce, Shopify, Amazon och EDI-nätverk. Integration med produktionssystem (MES, SCADA), WMS-system, 3PL-providers och bankgiro/autogiro är välbeprövade scenarier." },
 ];
@@ -151,8 +151,8 @@ const FinanceSupplyChain = () => {
  uploadDate: "2021-10-28",
  },
  {
- title: "Dynamics 365 Finance & Supply Chain",
- description: "Se hur Finance & Supply Chain kan optimera din verksamhet",
+ title: "Dynamics 365 Finance & Supply Chain Management (F&O)",
+ description: "Se hur Finance & Supply Chain Management (F&O) kan optimera din verksamhet",
  videoId: "7lbGGMvL-GU",
  uploadDate: "2025-09-04",
  },
@@ -200,7 +200,7 @@ const FinanceSupplyChain = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Finance & Supply Chain – pris & partner"
+ title="Finance & Supply Chain Management (F&O) – pris & partner"
  description="Enterprise-ERP för tillverkning, distribution och global ekonomi: pris från 2 007 kr/mån, moduler, implementationstid och svenska Microsoft-partners."
  canonicalPath="/finance-supply-chain"
  keywords="Dynamics 365 Finance pris, Supply Chain Management Microsoft, SAP alternativ ERP, Dynamics 365 Finance SCM, enterprise ERP Sverige, ERP tillverkning, global ekonomihantering, Dynamics 365 vs SAP, supply chain system Microsoft, ERP grossist distribution"
@@ -238,10 +238,10 @@ const FinanceSupplyChain = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Finance & Supply Chain-partners
+ Finance & Supply Chain Management (F&O)-partners
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Finance & Supply Chain i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ Här är ett urval av partners som arbetar med Dynamics 365 Finance & Supply Chain Management (F&O) i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
  </p>
  <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
  Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
@@ -396,7 +396,7 @@ const FinanceSupplyChain = () => {
  </p>
  <div className="flex flex-wrap gap-2">
  <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- Finance & Supply Chain
+ Finance & Supply Chain Management (F&O)
  </Badge>
  {selectedIndustry && (
  <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
@@ -433,7 +433,7 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
-  <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain">
+  <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain Management (F&O)">
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
  <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
  <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
@@ -476,7 +476,7 @@ const FinanceSupplyChain = () => {
  <div className="max-w-4xl mx-auto">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Vanliga frågor om Finance & Supply Chain
+ Vanliga frågor om Finance & Supply Chain Management (F&O)
  </h2>
  </div>
  
@@ -595,7 +595,7 @@ const FinanceSupplyChain = () => {
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-8 sm:mb-10">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- AI & Agenter för Finance & Supply Chain
+ AI & Agenter för Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground">
  Enterprise AI för komplex finans- och supply chain-hantering
@@ -610,7 +610,7 @@ const FinanceSupplyChain = () => {
  <span className="text-xl">👤</span>
  </div>
  <div>
- <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot för Finance & Supply Chain</h3>
+ <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot för Finance & Supply Chain Management (F&O)</h3>
  <p className="text-muted-foreground mb-4">
  AI-assistent för ekonomi, leveranskedja och produktion
  </p>
@@ -643,7 +643,7 @@ const FinanceSupplyChain = () => {
  <span className="text-xl">⚡</span>
  </div>
  <div>
- <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain</h3>
+ <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain Management (F&O)</h3>
  <p className="text-muted-foreground mb-4">
  Autonoma AI-system för enterprise-processer
  </p>
@@ -751,9 +751,9 @@ const FinanceSupplyChain = () => {
       <ProductRoiCta productKey="finance-scm" />
 
       <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
-      <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain" />
+      <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain Management (F&O)" />
 
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain" />
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain Management (F&O)" />
 
 
  {/* CTA Section */}

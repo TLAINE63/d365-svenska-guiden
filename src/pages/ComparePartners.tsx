@@ -1874,7 +1874,7 @@ const ComparePartners = () => {
                   {(() => {
                     const ERP_CHIPS: { label: string; icon: string; key: ProductFilterKey }[] = [
                       { label: "Business Central", icon: bcIcon, key: "bc" },
-                      { label: "Finance & Supply Chain", icon: financeIcon, key: "fsc" },
+                      { label: "Finance & Supply Chain Management (F&O)", icon: financeIcon, key: "fsc" },
                       { label: "Commerce", icon: commerceIcon, key: "commerce" },
                       { label: "Human Resources", icon: hrIcon, key: "hr" },
                     ];

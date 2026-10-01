@@ -3565,7 +3565,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
         <h2>Produktvalet är viktigt. Men partnervalet avgör vad det blir av det.</h2>
         <p>
-          Dynamics 365, Business Central, Finance & Supply Chain, Sales,
+          Dynamics 365, Business Central, Finance & Supply Chain Management (F&O), Sales,
           Customer Service och andra moderna affärsplattformar kan skapa stort
           värde. Men plattformen realiserar inte värdet av sig själv.
         </p>

@@ -1826,7 +1826,7 @@ Business Central passar företag som vill ha ett kraftfullt men lättanvänt aff
 • **Regulatorisk efterlevnad** – Stöd för internationella redovisningsstandarder
 • **Enterprise-skalbarhet** – Hanterar stora transaktionsvolymer och komplex organisationsstruktur
 
-Finance & Supply Chain passar organisationer med höga krav på funktionalitet, global närvaro och komplexa affärsprocesser.`;
+Finance & Supply Chain Management (F&O) passar organisationer med höga krav på funktionalitet, global närvaro och komplexa affärsprocesser.`;
 
     // Deduplicate and limit reasons
     const uniqueBcReasons = [...new Set(bcReasons)].slice(0, 5);
@@ -3048,7 +3048,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       appendSuggestedPartnersPage(pdf, _suggested.map(p => ({
         name: p.name, slug: p.slug,
         positioning: (p as any).positioning_statement, description: p.description,
-      })), { compareUrl: _compareUrl, productLabel: _isBC ? "Business Central" : "Finance & Supply Chain", industry: _industry });
+      })), { compareUrl: _compareUrl, productLabel: _isBC ? "Business Central" : "Finance & Supply Chain Management (F&O)", industry: _industry });
     } catch (e) { console.warn("Suggested partners append failed", e); }
 
     // Generate PDF
@@ -4139,7 +4139,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   partners.push({ icon: "⚡", label: "Business Central-specialist", description: "Partner specialiserad på snabba och kostnadseffektiva BC-implementationer för tillväxtbolag" });
                 }
                 if (!isBC) {
-                  partners.push({ icon: "🔬", label: "Auktoriserad partner inom Finance & Supply Chain", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
+                  partners.push({ icon: "🔬", label: "Auktoriserad partner inom Finance & Supply Chain Management (F&O)", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
                 }
                 if (data.businessModel === "Produktion") {
                   partners.push({ icon: "🏭", label: "Tillverkningsspecialist", description: "Partner med djup kunskap om MRP, APS och produktionsprocesser i Dynamics 365" });
@@ -4403,7 +4403,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <div>
                       <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-2">Du befinner dig i gränslandet mellan plattformarna</h3>
                       <p className="text-sm text-amber-700 dark:text-amber-400 mb-3">
-                        Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain ({recommendation.fscScore}p) är liten.
+                        Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain Management (F&O) ({recommendation.fscScore}p) är liten.
                         Partnerns arkitekturkompetens blir avgörande för att säkerställa rätt val.
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3 mt-3">
@@ -4414,7 +4414,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         </Button>
                         <Button asChild variant="outline" size="sm" className="border-finance-supply text-finance-supply hover:bg-finance-supply/10">
                           <a href="/partners?app=finance-supply-chain">
-                            👉 Visa Finance & Supply Chain-partners
+                            👉 Visa Finance & Supply Chain Management (F&O)-partners
                           </a>
                         </Button>
                       </div>
@@ -4602,7 +4602,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead 
         title="Behovsanalys ERP – Business Central eller F&SCM"
-        description="Kostnadsfri ERP-behovsanalys på 5 minuter: svar på frågor om verksamhet och processer ger rekommendation av Business Central eller Finance & Supply Chain."
+        description="Kostnadsfri ERP-behovsanalys på 5 minuter: svar på frågor om verksamhet och processer ger rekommendation av Business Central eller Finance & Supply Chain Management (F&O)."
         canonicalPath="/ERPbehovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
         ogImage="https://d365.se/og-behovsanalys.png"

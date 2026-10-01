@@ -36,7 +36,7 @@ export const ROLE_GUIDANCE: RoleGuidance[] = [
     ],
     guides: [
       { label: "Välja Dynamics 365-partner", path: "/guider/valja-dynamics-365-partner/" },
-      { label: "ERP: Business Central eller Finance & Supply Chain?", path: "/erp/" },
+      { label: "ERP: Business Central eller Finance & Supply Chain Management (F&O)?", path: "/erp/" },
     ],
     partnerLinks: [
       { label: "Jämför Dynamics 365-partners", path: "/valjdynamics365partner/#hitta-partners" },
@@ -57,11 +57,11 @@ export const ROLE_GUIDANCE: RoleGuidance[] = [
     ],
     guides: [
       { label: "Välja Business Central-partner", path: "/guider/valja-business-central-partner/" },
-      { label: "Välja Finance & Supply Chain-partner", path: "/guider/valja-finance-supply-chain-partner/" },
+      { label: "Välja Finance & Supply Chain Management (F&O)-partner", path: "/guider/valja-finance-supply-chain-partner/" },
     ],
     partnerLinks: [
       { label: "Business Central-partners", path: "/business-central-partners-sverige/" },
-      { label: "Finance & Supply Chain-partners", path: "/finance-supply-chain-partners-sverige/" },
+      { label: "Finance & Supply Chain Management (F&O)-partners", path: "/finance-supply-chain-partners-sverige/" },
     ],
   },
   {
@@ -78,11 +78,11 @@ export const ROLE_GUIDANCE: RoleGuidance[] = [
     ],
     guides: [
       { label: "Välja Business Central-partner", path: "/guider/valja-business-central-partner/" },
-      { label: "Välja Finance & Supply Chain-partner", path: "/guider/valja-finance-supply-chain-partner/" },
+      { label: "Välja Finance & Supply Chain Management (F&O)-partner", path: "/guider/valja-finance-supply-chain-partner/" },
       { label: "Välja Field Service-partner", path: "/guider/valja-customer-service-field-service-partner/" },
     ],
     partnerLinks: [
-      { label: "Finance & Supply Chain-partners", path: "/finance-supply-chain-partners-sverige/" },
+      { label: "Finance & Supply Chain Management (F&O)-partners", path: "/finance-supply-chain-partners-sverige/" },
       { label: "Field Service-partners", path: "/dynamics-365-field-service-partners-sverige/" },
     ],
   },

@@ -328,13 +328,13 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
   },
   {
     slug: "finance-supply-chain",
-    metaTitle: "Finance & Supply Chain – kunskap, guider och fördjupningar | d365.se",
+    metaTitle: "Finance & Supply Chain Management (F&O) – kunskap, guider och fördjupningar | d365.se",
     metaDescription:
       "Allt om Dynamics 365 Finance & Supply Chain Management: produktfördjupningar, artiklar, behovsanalys och branschjämförelse mot Business Central.",
-    h1: "Finance & Supply Chain – kunskap, guider och fördjupningar",
+    h1: "Finance & Supply Chain Management (F&O) – kunskap, guider och fördjupningar",
     intro:
       "Allt material om Dynamics 365 Finance & Supply Chain Management (F&SCM) samlat på ett ställe. Jämför mot Business Central, läs produktfördjupningar och påbörja en behovsanalys.",
-    breadcrumbLabel: "Finance & Supply Chain",
+    breadcrumbLabel: "Finance & Supply Chain Management (F&O)",
     resources: [
       tools.behovsanalysErp,
       tools.kravspecErp,

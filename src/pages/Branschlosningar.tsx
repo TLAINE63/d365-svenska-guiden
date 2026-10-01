@@ -33,7 +33,7 @@ const branschBreadcrumbs = [
 const branschFaqs = [
  {
  question: "Vilka Dynamics 365 branschlösningar finns för svenska företag?",
- answer: "Dynamics 365 erbjuder branschanpassade lösningar för 18+ branscher i Sverige: tillverkning, grossist & distribution, bygg, entreprenad & installation, fastighet, handel & e-handel, konsultbolag, life science, IT & tech, transport & logistik, energi, finans & försäkring, hälsa & sjukvård, media, jordbruk, offentlig sektor, utbildning, uthyrning och ideella organisationer. Varje bransch kan kombineras med Business Central (SMB), Finance & Supply Chain (enterprise) eller CRM (Sales, Customer Service) beroende på verksamhetens storlek och processer."
+ answer: "Dynamics 365 erbjuder branschanpassade lösningar för 18+ branscher i Sverige: tillverkning, grossist & distribution, bygg, entreprenad & installation, fastighet, handel & e-handel, konsultbolag, life science, IT & tech, transport & logistik, energi, finans & försäkring, hälsa & sjukvård, media, jordbruk, offentlig sektor, utbildning, uthyrning och ideella organisationer. Varje bransch kan kombineras med Business Central (SMB), Finance & Supply Chain Management (F&O) (enterprise) eller CRM (Sales, Customer Service) beroende på verksamhetens storlek och processer."
  },
  {
  question: "Vilket Microsoft ERP passar för tillverkning i Sverige?",
@@ -138,7 +138,7 @@ const industries: Industry[] = [
 
 const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: string }[] = [
  { value: "bc", label: "Business Central", variant: "business-central", icon: businessCentralIcon },
- { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply", icon: financeIcon },
+ { value: "fsc", label: "Finance & Supply Chain Management (F&O)", variant: "finance-supply", icon: financeIcon },
  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm", icon: salesIcon },
  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm", icon: customerServiceIcon },
 ];
@@ -628,7 +628,7 @@ const Branschlosningar = () => {
  cta: "hover:border-business-central/70 hover:bg-business-central/5",
  },
  {
- label: "Finance & Supply Chain",
+ label: "Finance & Supply Chain Management (F&O)",
  desc: "Enterprise ERP för globala organisationer",
  path: "/finance-supply-chain",
  industries: "Tillverkning, Logistik, Life Science, Energi",

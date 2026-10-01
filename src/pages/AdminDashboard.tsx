@@ -4903,7 +4903,7 @@ Thomas`,
       section.key === 'bc'
       ? "T.ex. 'Business Central-implementationer i medelstora bolag inom distribution'"
       : section.key === 'fsc'
-      ? "T.ex. 'Finance & Supply Chain för tillverkande koncerner med komplexa flöden'"
+      ? "T.ex. 'Finance & Supply Chain Management (F&O) för tillverkande koncerner med komplexa flöden'"
       : section.key === 'sales'
       ? "T.ex. 'Sales-implementeringar för B2B-företag med långa säljcykler'"
       : "T.ex. 'Customer Service-lösningar för supportteam med höga volymer'"

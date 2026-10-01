@@ -78,7 +78,7 @@ const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | n
 const getProductDisplayName = (category: 'bc' | 'fsc' | 'sales' | 'service'): string => {
  switch (category) {
  case 'bc': return 'Business Central';
- case 'fsc': return 'Finance & Supply Chain';
+ case 'fsc': return 'Finance & Supply Chain Management (F&O)';
  case 'sales': return 'Sälj & Marknad';
  case 'service': return 'Kundservice';
  }
