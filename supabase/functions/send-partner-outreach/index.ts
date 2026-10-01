@@ -143,9 +143,13 @@ Deno.serve(async (req) => {
     const rawBody: any = await req.clone().json().catch(() => ({}));
 
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
-    if (["expert-list", "expert-send", "expert-mark-sent", "newsletter-send", "newsletter-list", "newsletter-preview"].includes(rawBody?.action)) {
+    // Månadsbrevet (lista, förhandsgranska, testutskick som endast går till REVIEW_RECIPIENT)
+    // är även öppet för redaktörer (/redaktion). Expertutskicken går till partnerna och förblir admin-only.
+    const NEWSLETTER_ACTIONS = ["newsletter-send", "newsletter-list", "newsletter-preview"];
+    if (["expert-list", "expert-send", "expert-mark-sent", ...NEWSLETTER_ACTIONS].includes(rawBody?.action)) {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-      if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey))) {
+      const allowedRoles = NEWSLETTER_ACTIONS.includes(rawBody.action) ? ["admin", "editor"] : ["admin"];
+      if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey, allowedRoles))) {
         return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
       }
       const sb = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
