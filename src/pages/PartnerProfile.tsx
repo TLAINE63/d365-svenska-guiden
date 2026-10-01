@@ -520,11 +520,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     )}
     <h1 className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
       {partner.name}
+      <span className="block text-base sm:text-lg font-medium text-muted-foreground mt-1">– <span className="whitespace-nowrap">Dynamics 365</span>-partner</span>
     </h1>
   </>
   ) : (
   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
     {partner.name}
+    <span className="block text-base sm:text-lg font-medium text-muted-foreground mt-1">– <span className="whitespace-nowrap">Dynamics 365</span>-partner</span>
   </h1>
   )}
   </div>

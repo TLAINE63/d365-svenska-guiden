@@ -705,7 +705,8 @@ const Index = () => {
         </Suspense>
 
         {/* Statistik & metodik – förtroende efter köpresan, före kunskapssektionen */}
-        <section className="border-b border-border bg-secondary/40 py-7 sm:py-9">
+        <section aria-labelledby="statistik-rubrik" className="border-b border-border bg-secondary/40 py-7 sm:py-9">
+          <h2 id="statistik-rubrik" className="sr-only">d365.se i siffror</h2>
           <div className="container mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-5 px-4 sm:px-6 md:grid-cols-4">
             {[
               { n: `${identifiedPartnerCount}`, t: "Kartlagda Dynamics 365-partners", path: "/alla-d365-partners/" },
