@@ -114,7 +114,7 @@ const FILTER_TO_UNDERLYING: Record<FilterKey, UnderlyingKey> = {
 };
 const PRODUCT_FILTERS: { key: FilterKey; label: string; icon: string }[] = [
  { key: "bc", label: "Business Central", icon: BusinessCentralIcon },
- { key: "fsc", label: "Finance & Supply Chain", icon: FinanceIcon },
+ { key: "fsc", label: "Finance & Supply Chain Management (F&O)", icon: FinanceIcon },
  { key: "sales", label: "Sales", icon: SalesIcon },
  { key: "ci", label: "Customer Insights (Marketing Automation)", icon: MarketingIcon },
  { key: "cs", label: "Customer Service", icon: CustomerServiceIcon },

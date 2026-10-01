@@ -134,7 +134,7 @@ export default function AllD365Partners() {
   const productOptions: { key: "all" | "bc" | "fsc" | "sales" | "service"; label: string }[] = [
     { key: "all", label: "Alla produkter" },
     { key: "bc", label: "Business Central" },
-    { key: "fsc", label: "Finance & Supply Chain" },
+    { key: "fsc", label: "Finance & Supply Chain Management (F&O)" },
     { key: "sales", label: "Sales & Marketing" },
     { key: "service", label: "Service" },
   ];

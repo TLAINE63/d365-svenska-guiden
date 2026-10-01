@@ -116,7 +116,7 @@ interface PartnerGuideDialogProps {
 
 const applicationOptions = [
   { value: "Business Central", label: "Business Central", icon: bcIcon },
-  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", icon: financeIcon },
   { value: "Sales", label: "Sales", icon: salesIcon },
   { value: "Customer Insights (Marketing)", label: "Customer Insights (Marketing Automation)", icon: marketingIcon },
   { value: "Customer Service", label: "Customer Service", icon: csIcon },
@@ -145,7 +145,7 @@ const crmAdditionalOptions = [
 
 const erpAdditionalOptions = [
   { value: "Business Central", label: "Business Central", icon: bcIcon },
-  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", icon: financeIcon },
   { value: "Project Operations", label: "Project Operations", icon: poIcon },
   { value: "Commerce", label: "Commerce", icon: commerceIcon },
   { value: "Human Resources", label: "Human Resources", icon: hrIcon },

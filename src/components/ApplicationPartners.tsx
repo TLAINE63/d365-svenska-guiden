@@ -13,6 +13,7 @@ import { SizeFilters } from "@/components/SizeFilters";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { appToProductFilterKey } from "@/lib/productFilterGroup";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
