@@ -30,8 +30,11 @@ function base64UrlDecode(s: string): Uint8Array {
   return bytes;
 }
 
-/** Verifierar admin-JWT (HMAC med service role-nyckeln som hemlighet). */
-export async function verifyAdminJWT(token: string, secret: string): Promise<boolean> {
+/**
+ * Verifierar sessions-JWT (HMAC med service role-nyckeln som hemlighet).
+ * Standard: endast roll "admin". Ange allowedRoles för att även släppa in t.ex. "editor" (Redaktion).
+ */
+export async function verifyAdminJWT(token: string, secret: string, allowedRoles: string[] = ["admin"]): Promise<boolean> {
   try {
     const [h, p, sig] = token.split(".");
     if (!h || !p || !sig) return false;
@@ -45,7 +48,7 @@ export async function verifyAdminJWT(token: string, secret: string): Promise<boo
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    return allowedRoles.includes(payload.role);
   } catch {
     return false;
   }

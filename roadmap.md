@@ -4,6 +4,7 @@
 - [x] Ta bort besöksstatistiken för d365guide.com ur septemberbrevet
 - [x] Beskriv d365guide.com endast som en ny nordisk sajt
 - [x] Lägg månadsbrevets testutskick som en egen flik på `/redaktion`
+- [x] Förhandsgranskning och testutskick fungerar även med redaktörsinloggning (expertutskick förblir admin-only)
 
 ## Förenklad BizApps-profil (2026-09-29)
 - [x] Slå ihop Copilot Studio och AI-agenter till en tvärgående förmåga
