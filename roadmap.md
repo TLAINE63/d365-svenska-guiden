@@ -135,3 +135,6 @@
 - [x] Återanvänd befintliga områden, guider och partnerlistor
 - [x] Mät visningar, rollval och vidare klick anonymt
 - [x] Kontrollera alla fyra roller på dator och mobil
+
+## Månadsbrev ersätter partnerrapporter (2026-10-01)
+- [x] Ett utskick med bara nyhetsbrevets innehåll, förhandsgranskning per partner och testutskick till Thomas

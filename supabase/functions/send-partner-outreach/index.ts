@@ -143,7 +143,7 @@ Deno.serve(async (req) => {
     const rawBody: any = await req.clone().json().catch(() => ({}));
 
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
-    if (rawBody?.action === "expert-list" || rawBody?.action === "expert-send" || rawBody?.action === "expert-mark-sent" || rawBody?.action === "newsletter-send") {
+    if (["expert-list", "expert-send", "expert-mark-sent", "newsletter-send", "newsletter-list", "newsletter-preview"].includes(rawBody?.action)) {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
       if (!(await verifyAdminJWT(String(rawBody.token || ""), serviceKey))) {
         return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
@@ -202,12 +202,27 @@ Deno.serve(async (req) => {
 
       // Testutskick av nyhetsbrevet: ett personligt mejl per publicerad partner,
       // men alla levereras till granskningsmottagaren.
+      if (rawBody.action === "newsletter-list") {
+        return new Response(JSON.stringify({
+          subject: NEWSLETTER_SUBJECT,
+          partners: list.map((p) => ({ id: p.id, name: p.name, has_link: !!p.token })),
+        }), { headers: jsonHeaders });
+      }
+
+      if (rawBody.action === "newsletter-preview") {
+        const p = list.find((x) => x.id === rawBody.partner_id);
+        if (!p) return new Response(JSON.stringify({ error: "Partnern hittades inte" }), { status: 404, headers: jsonHeaders });
+        if (!p.token) return new Response(JSON.stringify({ error: "Partnern saknar giltig profileringslänk" }), { status: 400, headers: jsonHeaders });
+        return new Response(JSON.stringify({ subject: NEWSLETTER_SUBJECT, html: newsletterEmail(p.name, p.token) }), { headers: jsonHeaders });
+      }
+
       if (rawBody.action === "newsletter-send") {
         const resendKeyNl = Deno.env.get("RESEND_API_KEY");
         if (!resendKeyNl) throw new Error("E-posttjänsten är inte konfigurerad");
         const rsNl = new Resend(resendKeyNl);
         const resultsNl: Array<{ partner: string; status: string; reason?: string }> = [];
-        for (const p of list) {
+        const onlyIds: string[] | null = Array.isArray(rawBody.partner_ids) ? rawBody.partner_ids.map(String) : null;
+        for (const p of list.filter((x) => !onlyIds || onlyIds.includes(x.id))) {
           if (!p.token) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
           const subject = `[Granskning: ${p.name}] ${NEWSLETTER_SUBJECT}`;
           const { data, error } = await rsNl.emails.send({
