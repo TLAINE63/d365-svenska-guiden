@@ -194,7 +194,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
                   eyebrow="Använd guiden på ert eget behov"
                   heading="Skapa en relevant kortlista"
                   text="Svara på sex frågor. Ni får partners att jämföra utifrån produkt, bransch, situation och organisation."
-                  product={guide.apps[0] === "Finance" ? "Finance & SCM" : guide.apps[0]}
+                  product={guide.apps[0] === "Finance" ? "Finance & Supply Chain Management (F&O)" : guide.apps[0]}
                   source={`partner-guide:${guide.key}`}
                   secondaryLabel={guide.midCtaLabel}
                   secondaryTo={partnerListUrl}

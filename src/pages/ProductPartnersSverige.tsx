@@ -194,7 +194,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           eyebrow={cfg.productLabel}
           heading={`Vilka ${cfg.productLabel}-partners passar er?`}
           text="Välj bransch och svara på några korta frågor. Därefter får ni en motiverad kortlista att jämföra vidare."
-          product={cfg.productKey === "bc" ? "Business Central" : cfg.productKey === "fsc" ? "Finance & SCM" : cfg.slug.includes("customer-insights") ? "Customer Insights (Marketing)" : cfg.slug.includes("field-service") ? "Field Service" : cfg.slug.includes("contact-center") ? "Contact Center" : cfg.slug.includes("customer-service") ? "Customer Service" : cfg.productKey === "sales" ? "Sales" : undefined}
+          product={cfg.productKey === "bc" ? "Business Central" : cfg.productKey === "fsc" ? "Finance & Supply Chain Management (F&O)" : cfg.slug.includes("customer-insights") ? "Customer Insights (Marketing)" : cfg.slug.includes("field-service") ? "Field Service" : cfg.slug.includes("contact-center") ? "Contact Center" : cfg.slug.includes("customer-service") ? "Customer Service" : cfg.productKey === "sales" ? "Sales" : undefined}
           source={`product-partners:${cfg.slug}`}
           secondaryLabel="Jämför partners direkt"
           secondaryTo="/jamfor-partners/"

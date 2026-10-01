@@ -79,7 +79,7 @@ const erpFaqsRaw = [
  answer: "Entreprenad- och byggföretag behöver projektredovisning med successiv vinstavräkning, ÄTA-hantering, tidrapportering per projekt, maskin- och materialhantering samt uppföljning per arbetsorder. Business Central täcker detta med projektmodulen och ett branschtillägg – i Sverige används bland annat lösningar byggda på Business Central för bygg och installation. Större entreprenadkoncerner med många juridiska enheter hamnar oftare i Finance & Supply Chain Management. Vilket som passar dig avgörs av antal samtidiga projekt, hur mycket egen produktion du har och om du behöver konsolidera flera bolag."
  },
  {
- question: "Vilket ERP system passar bäst i Sverige – jämförelse Business Central vs Finance & SCM?",
+ question: "Vilket ERP system passar bäst i Sverige – jämförelse Business Central vs Finance & Supply Chain Management (F&O)?",
  answer: "ERP system jämförelse Sverige: Business Central är bäst för företag med 5–300 användare och omsättning under 1–2 miljarder – det täcker ekonomi, lager, försäljning och produktion i ett kostnadseffektivt molnsystem. Dynamics 365 Finance & Supply Chain Management (F&SCM) passar stora internationella koncerner med komplexa regulatoriska krav, multinationell ekonomistyrning och avancerad supply chain. Huvudskillnad: BC kostar {{price:bc-essentials:short}} vs F&SCM ca {{price:finance:short}} per användare."
  },
  {
@@ -96,7 +96,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vilket Microsoft ERP-system passar mitt företag?",
- answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & SCM om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En köparsidig behovsanalys hjälper dig välja rätt – utan säljpåverkan."
+ answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & Supply Chain Management (F&O) om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En köparsidig behovsanalys hjälper dig välja rätt – utan säljpåverkan."
  },
  {
  question: "Vad är ett affärssystem?",

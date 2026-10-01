@@ -134,11 +134,11 @@ function mergeArrays<T>(...arrs: (T[] | undefined | null)[]): T[] {
   return Array.from(set);
 }
 
-import { displayApplicationName, normalizeApplications, sortApplications, FSCM_DISPLAY_NAME } from "@/lib/applicationLabels";
+import { displayApplicationName, normalizeApplications, sortApplications, FSCM_FILTER_LABEL } from "@/lib/applicationLabels";
 
 const PRODUCT_FILTER_TO_APP: Record<string, string> = {
   bc: "Business Central",
-  fsc: FSCM_DISPLAY_NAME,
+  fsc: FSCM_FILTER_LABEL,
   sales: "Sales",
   service: "Customer Service",
   crm: "Sales",

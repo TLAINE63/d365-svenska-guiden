@@ -1,4 +1,5 @@
 import ContextualCta from "@/components/ContextualCta";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
@@ -189,7 +190,7 @@ const STATIC_TOOLS: Array<{
  },
  {
  id: "tool-branschjamforelse",
- title: "Branschjämförelse: BC vs Finance & SCM",
+ title: "Branschjämförelse: BC vs Finance & Supply Chain Management (F&O)",
  description: "Jämför Business Central och Finance & Supply Chain Management utifrån bransch, storlek och geografi.",
  type: "guide",
  url: "/erp/#branschjamforelse",
@@ -1009,7 +1010,7 @@ const Kunskapscenter = () => {
  />
  <MultiSelectDropdown<ProductValue>
  label="Produkt"
- options={PRODUCT_OPTIONS.map(p => ({ label: p, value: p }))}
+ options={PRODUCT_OPTIONS.map(p => ({ label: applicationFilterLabel(p), value: p }))}
  selected={selectedProducts}
  onChange={setSelectedProducts}
  />
@@ -1081,11 +1082,11 @@ const Kunskapscenter = () => {
  deepDiveProduct === product
  ? "bg-primary text-primary-foreground border-primary "
  : "bg-card text-foreground border-border hover:border-primary/50"
- }`}
- >
- {product}
- </button>
- ))}
+  }`}
+  >
+  {applicationFilterLabel(product)}
+  </button>
+  ))}
  </div>
  </div>
  </section>
@@ -1279,10 +1280,10 @@ const Kunskapscenter = () => {
  {item.products.slice(0, 3).map((product) => (
  <span
  key={product}
- className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
- >
- {product}
- </span>
+  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+  >
+  {applicationFilterLabel(product)}
+  </span>
  ))}
  {item.products.length > 3 && (
  <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
