@@ -45,7 +45,7 @@ export function applicationFilterLabel(app: string): string {
  * Finance and Supply Chain Management are always shown as "F&SCM".
  */
 export function displayApplicationName(app: string): string {
-  if (isFscmApp(app)) return FSCM_DISPLAY_NAME;
+  if (isFscmApp(app)) return FSCM_FILTER_LABEL;
   return app;
 }
 
@@ -61,6 +61,7 @@ export const applicationIcons: Record<string, string> = {
   "Finance": FinanceIcon,
   "Supply Chain Management": SupplyChainIcon,
   [FSCM_DISPLAY_NAME]: FinanceIcon,
+  [FSCM_FILTER_LABEL]: FinanceIcon,
   "Finance & SCM": FinanceIcon,
   "F&SCM": FinanceIcon,
   "Copilot": CopilotIcon,
@@ -103,7 +104,7 @@ export function normalizeApplications(apps: string[]): string[] {
 /** Stable product order for badges. */
 const PRODUCT_ORDER = [
   "Business Central",
-  FSCM_DISPLAY_NAME,
+  FSCM_FILTER_LABEL,
   "Sales",
   "Customer Insights (Marketing)",
   "Customer Service",

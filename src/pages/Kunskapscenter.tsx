@@ -1009,7 +1009,7 @@ const Kunskapscenter = () => {
  />
  <MultiSelectDropdown<ProductValue>
  label="Produkt"
- options={PRODUCT_OPTIONS.map(p => ({ label: p, value: p }))}
+ options={PRODUCT_OPTIONS.map(p => ({ label: applicationFilterLabel(p), value: p }))}
  selected={selectedProducts}
  onChange={setSelectedProducts}
  />

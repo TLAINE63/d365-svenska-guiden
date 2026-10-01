@@ -68,10 +68,10 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
     ctaSecondary: { label: "ROI/TCO-kalkylator", url: "/businesscentral/roi-kalkylator/" },
   },
   fscm: {
-    name: "Dynamics 365 Finance & SCM",
-    short: "Finance & SCM",
+    name: "Dynamics 365 Finance & Supply Chain Management",
+    short: "Finance & Supply Chain Management (F&O)",
     path: "/finance-supply-chain/",
-    breadcrumb: "Finance & SCM",
+    breadcrumb: "Finance & Supply Chain Management (F&O)",
     ctaPrimary: { label: "Behovsanalys ERP", url: "/ERPbehovsanalys/" },
     ctaSecondary: { label: "Kravspec ERP", url: "/kravspecifikation/" },
   },

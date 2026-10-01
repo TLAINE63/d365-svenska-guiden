@@ -64,7 +64,7 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
   {
     key: "fscm",
     slug: "valja-finance-supply-chain-partner",
-    shortLabel: "Finance & SCM",
+    shortLabel: "Finance & Supply Chain Management (F&O)",
     cardTitle: "Hur väljer du F&SCM-partner?",
     cardDescription:
       "För större företag och koncerner med komplex ekonomi, logistik eller produktion.",

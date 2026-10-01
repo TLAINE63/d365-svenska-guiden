@@ -283,7 +283,7 @@ const FinanceSupplyChain = () => {
  <SearchResultSummary
   count={fscPartners.length}
   criteria={[
-   "Finance & SCM",
+   "Finance & Supply Chain Management (F&O)",
    selectedIndustry,
    selectedGeography,
    selectedCompanySize ? `${selectedCompanySize} anställda` : null,
@@ -355,7 +355,7 @@ const FinanceSupplyChain = () => {
   variant="teaser"
   showSeeAllLink
   productKey="fsc"
-  productLabel="Finance & SCM"
+  productLabel="Finance & Supply Chain Management (F&O)"
   industry={selectedIndustry || null}
   />
 

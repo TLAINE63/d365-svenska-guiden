@@ -187,7 +187,7 @@ const Branschlosningar = () => {
  const productShortLabelFor = (value: ProductKey): string => {
  switch (value) {
  case "bc": return "Business Central";
- case "fsc": return "Finance & SCM";
+ case "fsc": return "Finance & Supply Chain Management (F&O)";
  case "crm-sales": return "CRM Sales";
  case "crm-service": return "CRM Service";
  }

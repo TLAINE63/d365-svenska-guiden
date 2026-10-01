@@ -31,7 +31,7 @@ interface Props {
 const PAGE_FILTERS = [
   { value: "", label: "Alla sidor" },
   { value: "/business-central", label: "Business Central" },
-  { value: "/finance-supply-chain", label: "Finance & SCM" },
+  { value: "/finance-supply-chain", label: "Finance & Supply Chain Management (F&O)" },
   { value: "/crm", label: "CRM" },
   { value: "/aioversikt", label: "AI" },
   { value: "/branschlosningar", label: "Branschlösningar" },
