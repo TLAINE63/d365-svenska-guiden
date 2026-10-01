@@ -80,7 +80,7 @@ import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsresan from './pages/Upphandlingsresan';
 import KunskapscenterFaq from './pages/KunskapscenterFaq';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
-import BcMatchningstest from './pages/BcMatchningstest';
+import ExternalRedirect from './components/ExternalRedirect';
 import FscmMatchningstest from './pages/FscmMatchningstest';
 import CrmMatchningstest from './pages/CrmMatchningstest';
 import CrmMatchningstestResultat from './pages/CrmMatchningstestResultat';
@@ -298,7 +298,6 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
-  { path: '/businesscentral/matchningstest', priority: '0.6', changefreq: 'monthly' },
   { path: '/businesscentral/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/finance-supply-chain-management/matchningstest', priority: '0.6', changefreq: 'monthly' },
   { path: '/finance-supply-chain/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
@@ -606,7 +605,7 @@ export function render(url: string) {
               <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
               <Route path="/partner/:slug/:productSlug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
-              <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
+              <Route path="/businesscentral/matchningstest" element={<ExternalRedirect to="https://businesscentral.se/matchningstest" label="matchningstestet för Business Central på businesscentral.se" />} />
               <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
               <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
               <Route path="/finance-supply-chain/roi-kalkylator" element={<ProductRoiPage productKey="finance-scm" />} />

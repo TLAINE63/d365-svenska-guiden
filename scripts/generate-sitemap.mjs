@@ -14,7 +14,6 @@ const STATIC_ROUTES = [
   { path: "/d365marketing/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365contactcenter/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365fieldservice/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
-  { path: "/businesscentral/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365sales/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365sales/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
   { path: "/d365customerservice/matchningstest/", changefreq: "monthly", priority: "0.7" },
