@@ -52,6 +52,88 @@ function expertProfileEmail(partnerName: string, token: string): string {
 </html>`;
 }
 
+const NEWSLETTER_SUBJECT = "Din partnerprofil på d365.se: nya besökare, ny synlighet och en uppdatering i oktober";
+
+function escapeHtml(s: string): string {
+  return s
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function newsletterEmail(partnerName: string, token: string): string {
+  const name = escapeHtml(partnerName);
+  const url = `${PUBLIC_BASE_URL}/partner-update/${encodeURIComponent(token)}`;
+  const p = 'style="margin:0 0 16px;font-size:15px;line-height:1.6"';
+  const h2 = 'style="margin:26px 0 10px;font-size:18px;line-height:1.35;font-weight:700"';
+  const li = 'style="margin:0 0 6px;font-size:15px;line-height:1.55"';
+  return `<!doctype html>
+<html lang="sv">
+  <body style="margin:0;background:#f4f7f8;font-family:Arial,Helvetica,sans-serif;color:#17212b">
+    <div style="max-width:640px;margin:0 auto;padding:32px 20px">
+      <div style="background:#ffffff;border:1px solid #dce4e7;border-radius:8px;padding:32px">
+        <p ${p}>Hej ${name},</p>
+        <div style="background:#eef6f7;border:1px solid #cfe4e6;border-radius:6px;padding:16px 18px;margin:0 0 20px">
+          <p style="margin:0 0 8px;font-size:15px;line-height:1.6;font-weight:700">Sammanfattat: det händer mycket just nu.</p>
+          <p style="margin:0;font-size:15px;line-height:1.6">Besökarstatistiken stiger stadigt, AI-sökmotorer hittar er profil i ökande takt, och i oktober lanseras nya köparunderlag som gör era profilfält ännu viktigare. <strong>Det viktigaste du kan göra nu: öppna din personliga profileringslänk och komplettera profilen.</strong></p>
+          <p style="margin:14px 0 0"><a href="${url}" style="display:inline-block;background:#0e7c86;color:#ffffff;text-decoration:none;font-size:16px;font-weight:700;padding:13px 20px;border-radius:6px">Öppna din profileringslänk</a></p>
+          <p style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#52606d">Länken är personlig för ${name} och gäller tills vidare.</p>
+        </div>
+
+        <h2 ${h2}>September 2026 på d365.se</h2>
+        <ul style="margin:0 0 16px;padding-left:20px">
+          <li ${li}>409 unika besökare (+25 % mot augusti)</li>
+          <li ${li}>798 besök (+31 %)</li>
+          <li ${li}>1 752 sidvisningar (+20 %)</li>
+          <li ${li}>216 interaktioner med partnerkort och partnerprofiler (+28 %)</li>
+          <li ${li}>19 olika partners fick besök på sina sidor</li>
+          <li ${li}>Över 4 minuter i genomsnitt per besök</li>
+          <li ${li}>32 % av trafiken kommer från Google och Bing</li>
+          <li ${li}>57 publicerade inlägg i Partnernytt, som delas i sociala medier och indexeras av Google och AI-sökmotorer</li>
+        </ul>
+
+        <h2 ${h2}>businesscentral.se</h2>
+        <p ${p}>Vår specialiserade sajt för Business&nbsp;Central hade i september 688 unika besökare, 718 besök och 1 970 sidvisningar. Mätningen startade i september, så månadsjämförelser kommer från oktober. Era Business&nbsp;Central-uppgifter visas där automatiskt från d365.se, så en uppdatering på ett ställe räcker.</p>
+
+        <h2 ${h2}>d365guide.com</h2>
+        <p ${p}>Vår engelskspråkiga internationella guide är i tidiga dagar: 15 unika besökare och 134 sidvisningar i september. Trafiken är ännu liten, men besökarna går djupare in på sajten: kontaktsidan växte från 2 till 11 visningar och branschsidorna från 2 till 10.</p>
+
+        <h2 ${h2}>AI-synlighet ökar snabbt</h2>
+        <ul style="margin:0 0 16px;padding-left:20px">
+          <li ${li}>178 besök från AI-crawlers i september (+180 %)</li>
+          <li ${li}>ClaudeBot +166 %, GPTBot +288 %, dessutom Meta AI, Perplexity och Amazonbot</li>
+          <li ${li}>I vårt första AI-synlighetstest nämnde Copilot d365.se vid frågan om bästa Dynamics&nbsp;365-partner i Sverige</li>
+        </ul>
+
+        <h2 ${h2}>Nyheter sedan sist</h2>
+        <ul style="margin:0 0 16px;padding-left:20px">
+          <li ${li}><strong>Era egna ändringar publiceras direkt.</strong> Publicerade partners behöver inte längre vänta på granskning av egna profiluppdateringar.</li>
+          <li ${li}><strong>Förenklad profilering.</strong> Vi har tagit bort frågor som alla kryssade i och slagit ihop Power Platform till ett val.</li>
+          <li ${li}><strong>Nya köparunderlag (oktober).</strong> Besökare skapar anonyma behovsanalyser som matchas mot era profiler. Varje tomt fält i er profil visas som "saknas" för köparen, så en komplett profil syns bättre.</li>
+          <li ${li}><strong>Shortlist och "Be om introduktion".</strong> Köpare kan stjärnmarkera upp till tre partners och be om introduktion direkt.</li>
+          <li ${li}><strong>Expertkompetensprofiler.</strong> Max tre per partner, med konsultroller och uppdrag. Håll "senast kontrollerat"-datumet aktuellt.</li>
+          <li ${li}><strong>ISV-katalogen</strong> har 192 publicerade lösningar, och vår nya <strong>rollguide</strong> hjälper VD, CFO, COO och IT-chefer att hitta rätt innehåll.</li>
+        </ul>
+
+        <h2 ${h2}>Det här kan du göra nu</h2>
+        <ul style="margin:0 0 16px;padding-left:20px">
+          <li ${li}>Granska och komplettera era produktområden via profileringslänken</li>
+          <li ${li}>Beskriv typiska kunder och projekt per produkt. Det väger tyngst vid matchning.</li>
+          <li ${li}>Lägg in kundexempel, events och webbinarier</li>
+          <li ${li}>Publicera nyheter och kundcase i Partnernytt</li>
+        </ul>
+        <p ${p}><a href="${url}" style="display:inline-block;background:#0e7c86;color:#ffffff;text-decoration:none;font-size:16px;font-weight:700;padding:13px 20px;border-radius:6px">Öppna din profileringslänk</a></p>
+
+        <p style="margin:24px 0 0;font-size:15px;line-height:1.6">Frågor? Svara gärna på detta mejl.</p>
+        <p style="margin:18px 0 0;font-size:15px;line-height:1.6">Vänliga hälsningar,<br><strong>Thomas Laine och Michael Uhman</strong><br>d365.se</p>
+      </div>
+    </div>
+  </body>
+</html>`;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
