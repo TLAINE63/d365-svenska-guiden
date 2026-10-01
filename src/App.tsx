@@ -32,6 +32,9 @@ const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
+const Underlag = lazy(() => import("./pages/Underlag"));
+const CrmUnderlagTest = lazy(() => import("./pages/CrmUnderlagTest"));
+const ExternalRedirect = lazy(() => import("./components/ExternalRedirect"));
 const CrmMatchningstest = lazy(() => import("./pages/CrmMatchningstest"));
 const CrmMatchningstestResultat = lazy(() => import("./pages/CrmMatchningstestResultat"));
 const BcRoiCalculator = lazy(() => import("./pages/BcRoiCalculator"));
@@ -159,7 +162,9 @@ const AppShell = () => {
           <Route path="/crm" element={<CRM />} />
           <Route path="/businesscentral" element={<BusinessCentral />} />
           <Route path="/business-central" element={<RedirectTo to="/businesscentral" />} />
-          <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
+          <Route path="/businesscentral/matchningstest" element={<ExternalRedirect to="https://businesscentral.se/matchningstest" label="matchningstestet för Business Central på businesscentral.se" />} />
+          <Route path="/underlag" element={<Underlag />} />
+          <Route path="/crm/matchningstest" element={<CrmUnderlagTest />} />
           <Route path="/business-central/matchningstest" element={<RedirectTo to="/businesscentral/matchningstest" />} />
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
           <Route path="/business-central/roi-kalkylator" element={<RedirectTo to="/businesscentral/roi-kalkylator" />} />
