@@ -28,8 +28,9 @@ export default defineTool({
       .limit(limit ?? 20);
 
     if (query && query.trim()) {
-      const term = `%${query.trim()}%`;
-      q = q.or(`title.ilike.${term},summary.ilike.${term}`);
+      const safe = query.trim().slice(0, 100).replace(/[^\p{L}\p{N} \-&]/gu, " ").trim();
+      const term = `%${safe}%`;
+      if (safe) q = q.or(`title.ilike.${term},summary.ilike.${term}`);
     }
 
     const { data, error } = await q;

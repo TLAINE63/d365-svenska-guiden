@@ -608,7 +608,7 @@ serve(async (req: Request): Promise<Response> => {
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
             to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
-            subject: `Nytt event att granska: ${event.title} (${tokenData.partners.name})`,
+            subject: `Nytt event att granska: ${String(event.title ?? "").replace(/[\r\n]/g, " ").slice(0, 150)} (${String(tokenData.partners.name ?? "").replace(/[\r\n]/g, " ").slice(0, 100)})`,
             html: `
               <!DOCTYPE html>
               <html>
@@ -625,9 +625,9 @@ serve(async (req: Request): Promise<Response> => {
                 <h2 style="color: #7c3aed;">Nytt event väntar på godkännande</h2>
                 
                 <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                  <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${tokenData.partners.name}</p>
-                  <p style="margin: 0 0 10px 0;"><strong>Eventtitel:</strong> ${event.title}</p>
-                  <p style="margin: 0 0 10px 0;"><strong>Datum:</strong> ${event.event_date}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${escHtml(tokenData.partners.name)}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Eventtitel:</strong> ${escHtml(event.title)}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Datum:</strong> ${escHtml(event.event_date)}</p>
                   <p style="margin: 0;"><strong>Typ:</strong> ${event.is_online ? 'Online' : 'På plats'}</p>
                 </div>
                 
@@ -841,15 +841,15 @@ serve(async (req: Request): Promise<Response> => {
                   <p style="color: #6b7280; margin: 5px 0 0 0;">Event-notifikation</p>
                 </div>
                 
-                <p>Hej${eventData.partners?.contact_person ? ` ${eventData.partners.contact_person}` : ''},</p>
+                <p>Hej${eventData.partners?.contact_person ? ` ${escHtml(eventData.partners.contact_person)}` : ''},</p>
                 
                 ${isApproved ? `
                   <p>Goda nyheter! Ditt event har godkänts och är nu publicerat på D365.se.</p>
                   
                   <div style="background-color: #f0fdf4; border: 1px solid #86efac; padding: 20px; border-radius: 8px; margin: 20px 0;">
                     <h3 style="color: #166534; margin: 0 0 10px 0;">✅ Godkänt</h3>
-                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${eventData.title}</p>
-                    <p style="margin: 0 0 10px 0;"><strong>Datum:</strong> ${eventData.event_date}</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${escHtml(eventData.title)}</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Datum:</strong> ${escHtml(eventData.event_date)}</p>
                     <p style="margin: 0;"><strong>Typ:</strong> ${eventData.is_online ? 'Online' : 'På plats'}</p>
                   </div>
                   
@@ -863,8 +863,8 @@ serve(async (req: Request): Promise<Response> => {
                   
                   <div style="background-color: #fef2f2; border: 1px solid #fecaca; padding: 20px; border-radius: 8px; margin: 20px 0;">
                     <h3 style="color: #991b1b; margin: 0 0 10px 0;">❌ Ej godkänt</h3>
-                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${eventData.title}</p>
-                    ${admin_notes ? `<p style="margin: 0;"><strong>Anledning:</strong> ${admin_notes}</p>` : ''}
+                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${escHtml(eventData.title)}</p>
+                    ${admin_notes ? `<p style="margin: 0;"><strong>Anledning:</strong> ${escHtml(admin_notes)}</p>` : ''}
                   </div>
                   
                   <p>Du är välkommen att uppdatera ditt event och skicka in det igen via din event-portal.</p>
