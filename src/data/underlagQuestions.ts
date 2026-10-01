@@ -78,9 +78,6 @@ export const UNDERLAG_QUESTIONS: UQuestion[] = [
   { id: "budget", section: "project", key: "budget", text: "Har ni en budgetram för projektet?", help: "Frivilligt. Används bara för att visa er egen ram i underlaget.", options: [{ value: "lt1", label: "Under 1 Mkr" }, { value: "1-3", label: "1–3 Mkr" }, { value: "3-10", label: "3–10 Mkr" }, { value: "10+", label: "Över 10 Mkr" }, { value: "none", label: "Ingen ram ännu" }] },
 ];
 
-/** Korta CRM-testet: frågor som styr vilka CRM-appar som verkar relevanta. */
-export const CRM_TEST_IDS = ["sellers", "channels", "field_service", "marketing", "crm_system", "contact_system", "cc_volume", "cc_voice", "cc_ai", "erp_integration"];
-
 export const CRM_TEST_EXTRA: UQuestion[] = [
   { id: "crm_sales_process", section: "crm", key: "sales_process", text: "Hur ser er säljprocess ut?", options: [{ value: "structured", label: "Strukturerad med pipeline och prognoser" }, { value: "simple", label: "Enkel, mest kundregister" }, { value: "none", label: "Säljet är inte i fokus" }] },
   { id: "crm_service", section: "crm", key: "service", text: "Hanterar ni kundärenden i större omfattning?", options: yn },
@@ -92,7 +89,7 @@ const byId = Object.fromEntries([...UNDERLAG_QUESTIONS, ...CRM_TEST_EXTRA].map((
 
 export const CRM_TEST_QUESTIONS: UQuestion[] = [
   byId.crm_sales_process, byId.crm_service, byId.sellers, byId.channels, byId.field_service, byId.marketing,
-  byId.crm_system, byId.cc_volume, { ...byId.cc_voice, when: undefined }, { ...byId.cc_ai, when: undefined }, byId.erp_integration,
+  byId.crm_system, byId.cc_volume, byId.cc_voice, byId.cc_ai, byId.erp_integration,
 ].map((q) => ({ ...q, when: undefined }));
 
 export function questionsFor(p: BuyerProfile, list = UNDERLAG_QUESTIONS) {

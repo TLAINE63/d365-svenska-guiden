@@ -61,7 +61,7 @@ export function deriveCompareFilters(p: BuyerProfile): CompareFilters {
   const prod = p.fscm?.production;
   if (prod && prod !== "none") criteria.push("manufacturing");
   if (p.crm?.field_service === "yes" || apps.includes("field_service")) criteria.push("field_service");
-  if (apps.includes("contact_center") && (p.contact_center?.voice === "yes" || p.contact_center?.multichannel === "yes" || true)) criteria.push("contact_center");
+  if (apps.includes("contact_center")) criteria.push("contact_center");
   if (geo && product.includes("fscm")) criteria.push("localization");
   return { product, industry, size, geo, criteria };
 }
@@ -152,7 +152,7 @@ export function matchPartnerToProfile(partner: PartnerLike, f: CompareFilters): 
   if (f.size) {
     const any = pfs(f.product.flatMap((p) => PF_KEY[p]));
     const sizes = any.flatMap((pf) => pf?.companySize || []);
-    items.push({ label: `Kundstorlek ${f.size} anställda`, status: sizes.includes(f.size) ? "documented" : sizes.length ? "missing" : "missing" });
+    items.push({ label: `Kundstorlek ${f.size} anställda`, status: sizes.includes(f.size) ? "documented" : "missing" });
   }
 
   if (f.geo?.length) {
@@ -160,7 +160,7 @@ export function matchPartnerToProfile(partner: PartnerLike, f: CompareFilters): 
     const order = ["Sverige", "Norden", "Europa", "Globalt"];
     const geos = pfs(f.product.flatMap((p) => PF_KEY[p])).flatMap((pf) => (Array.isArray(pf?.geography) ? pf.geography : pf?.geography ? [pf.geography] : []));
     const ok = geos.some((g) => order.indexOf(g) >= order.indexOf(wide));
-    items.push({ label: `Leverans: ${wide}`, status: ok ? "documented" : geos.length ? "missing" : "missing" });
+    items.push({ label: `Leverans: ${wide}`, status: ok ? "documented" : "missing" });
   }
 
   for (const c of f.criteria) {
