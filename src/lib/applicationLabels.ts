@@ -14,6 +14,9 @@ const CopilotIcon = "/d365-icons/Copilot.png";
 /** Canonical merged name for Finance + Supply Chain Management. */
 export const FSCM_DISPLAY_NAME = "Finance & Supply Chain Management";
 
+/** Full filter label, spelled out with the commonly used F&O abbreviation. */
+export const FSCM_FILTER_LABEL = "Finance & Supply Chain Management (F&O)";
+
 /** All labels that should be treated as the Finance & SCM product group. */
 const FSCM_ALIASES = new Set([
   "Finance",
@@ -26,6 +29,15 @@ const FSCM_ALIASES = new Set([
 
 export function isFscmApp(app: string): boolean {
   return FSCM_ALIASES.has(app);
+}
+
+/**
+ * Buyer-facing label for filters and product pickers.
+ * Finance/SCM aliases always render as the spelled-out name.
+ */
+export function applicationFilterLabel(app: string): string {
+  if (isFscmApp(app)) return FSCM_FILTER_LABEL;
+  return app;
 }
 
 /**

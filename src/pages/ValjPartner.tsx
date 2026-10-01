@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
 import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search, MapPin, Building2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import ProductHero from "@/components/ProductHero";
@@ -745,7 +746,7 @@ const ValjPartner = () => {
  <MultiFilterButtons
  title="Filtrera på Dynamics 365 Applikation (obligatoriskt)"
  icon="application"
- options={allApplications.map(app => ({ label: app, value: app }))}
+ options={allApplications.map(app => ({ label: applicationFilterLabel(app), value: app }))}
  selectedValues={selectedApplications}
  onToggle={toggleApplication}
  colorScheme="amber"
@@ -785,7 +786,7 @@ const ValjPartner = () => {
  <div className="text-center mb-8">
  <p className="text-sm text-muted-foreground">
  Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
- {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
+ {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.map(applicationFilterLabel).join(', ')}</span></>}
  {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
  {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
  {selectedCompanySize && <> · storlek <span className="font-semibold text-accent">{selectedCompanySize}</span></>}
@@ -948,7 +949,7 @@ const ValjPartner = () => {
  <div className="flex flex-wrap gap-2">
  {selectedApplications.map(app => (
  <Badge key={app} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- {app}
+ {applicationFilterLabel(app)}
  </Badge>
  ))}
  {selectedIndustry && (

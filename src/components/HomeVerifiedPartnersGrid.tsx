@@ -72,7 +72,7 @@ const matchesProduct = (apps: string[] = [], id: ProductId) => {
 const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
   all: "",
   bc: "Business Central",
-  fscm: "Finance & SCM",
+  fscm: "Finance & Supply Chain Management (F&O)",
   sales: "Sales",
   "customer-service": "Customer Service",
   "field-service": "Field Service",

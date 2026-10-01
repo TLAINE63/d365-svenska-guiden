@@ -13,6 +13,7 @@ import { SizeFilters } from "@/components/SizeFilters";
 import { usePartners } from "@/hooks/usePartners";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { appToProductFilterKey } from "@/lib/productFilterGroup";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -166,7 +167,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  Hitta rätt partner
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med {applicationFilter} i Sverige.
+ Här är ett urval av partners som arbetar med {applicationFilterLabel(applicationFilter)} i Sverige.
  {filterMode === "companySize"
  ? " Filtrera på din storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."
  : " Filtrera på bransch, storlek (antal anställda och omsättning) och geografi för att hitta partners som passar dig bäst."}
@@ -329,7 +330,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  </p>
  <div className="flex flex-wrap gap-2">
  <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- {applicationFilter}
+ {applicationFilterLabel(applicationFilter)}
  </Badge>
  {selectedIndustry && (
  <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">

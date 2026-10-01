@@ -23,6 +23,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import LeadCTA from "@/components/LeadCTA";
+import { applicationFilterLabel, normalizeApplications, sortApplications } from "@/lib/applicationLabels";
 import { Partner } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
@@ -116,7 +117,7 @@ interface PartnerGuideDialogProps {
 
 const applicationOptions = [
   { value: "Business Central", label: "Business Central", icon: bcIcon },
-  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", icon: financeIcon },
   { value: "Sales", label: "Sales", icon: salesIcon },
   { value: "Customer Insights (Marketing)", label: "Customer Insights (Marketing Automation)", icon: marketingIcon },
   { value: "Customer Service", label: "Customer Service", icon: csIcon },
@@ -145,7 +146,7 @@ const crmAdditionalOptions = [
 
 const erpAdditionalOptions = [
   { value: "Business Central", label: "Business Central", icon: bcIcon },
-  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", icon: financeIcon },
   { value: "Project Operations", label: "Project Operations", icon: poIcon },
   { value: "Commerce", label: "Commerce", icon: commerceIcon },
   { value: "Human Resources", label: "Human Resources", icon: hrIcon },
@@ -640,7 +641,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Vilket workload-fokus är viktigast för din?</h3>
             <p className="text-sm text-muted-foreground">
-              Välj det som bäst beskriver dina behov inom <strong>{selectedApp}</strong>
+              Välj det som bäst beskriver dina behov inom <strong>{applicationFilterLabel(selectedApp)}</strong>
             </p>
             <RadioGroup value={selectedWorkload} onValueChange={setSelectedWorkload}>
               <div className="space-y-3">
@@ -908,7 +909,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               <h4 className="text-sm font-semibold mb-2 text-foreground">Dessa val har du gjort</h4>
               <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
                 <span className="text-muted-foreground">Produkt:</span>
-                <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
+                <span className="font-medium">{applicationFilterLabel(selectedApp)}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
                 <span className="text-muted-foreground">Bransch:</span>
                 <span className="font-medium">{selectedIndustry || '–'}</span>
                 {selectedAdditionalApps.length > 0 && (
@@ -1073,7 +1074,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                             <PartnerCardSummary partner={partner} highlightedIndustry={selectedIndustry || null} />
                             
                             <div className="flex flex-wrap gap-1.5 mb-3">
-                              {(partner.applications || []).slice(0, 4).map((app, i) => (
+                              {sortApplications(normalizeApplications(partner.applications || [])).slice(0, 4).map((app, i) => (
                                 <Badge key={i} variant="secondary" className="text-xs px-2 py-0.5">
                                   {app}
                                 </Badge>

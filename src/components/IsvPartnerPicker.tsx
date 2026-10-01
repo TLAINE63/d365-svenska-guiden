@@ -17,7 +17,7 @@ const PRODUCT_KEYS = Object.keys(PRODUCT_FILTER_GROUP) as ProductFilterKey[];
 
 const SHORT_LABEL: Record<ProductFilterKey, string> = {
   bc: "Business Central",
-  fsc: "Finance & SCM",
+  fsc: "Finance & Supply Chain Management (F&O)",
   sales: "Sales & Marketing",
   service: "Service",
 };
