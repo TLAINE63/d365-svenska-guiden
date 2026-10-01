@@ -284,12 +284,12 @@ export const LeadCTA = ({
               )}
               {selectedProduct && (
                 <Badge variant="secondary" className="text-xs">
-                  {selectedProduct}
+                  {applicationFilterLabel(selectedProduct)}
                 </Badge>
               )}
               {selectedProducts && selectedProducts.map(product => (
                 <Badge key={product} variant="secondary" className="text-xs">
-                  {product}
+                  {applicationFilterLabel(product)}
                 </Badge>
               ))}
               {selectedIndustry && (
