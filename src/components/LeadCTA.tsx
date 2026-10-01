@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle, Filter } from "lucide-react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 
