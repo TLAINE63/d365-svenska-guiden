@@ -31,7 +31,6 @@ const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
-const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
 const Underlag = lazy(() => import("./pages/Underlag"));
 const CrmUnderlagTest = lazy(() => import("./pages/CrmUnderlagTest"));
 const ExternalRedirect = lazy(() => import("./components/ExternalRedirect"));
