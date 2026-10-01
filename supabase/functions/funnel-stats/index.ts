@@ -104,6 +104,34 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    if (body?.action === "underlag") {
+      const since = new Date(Date.now() - 30 * 86400000).toISOString();
+      const rows: any[] = [];
+      for (let from = 0; from < 200000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, session_id, metadata").eq("event_type", "underlag").gte("occurred_at", since).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
+      }
+      const STEPS_U = ["test_started", "test_completed", "underlag_viewed", "compare_prefilled", "partner_saved", "partners_compared", "partner_profile_opened", "decision_package_exported", "underlag_sent"];
+      const sets: Record<string, Record<string, Set<string>>> = { fscm: {}, crm: {}, all: {} };
+      for (const t of Object.keys(sets)) for (const s of STEPS_U) sets[t][s] = new Set();
+      const trackOf = new Map<string, string>();
+      for (const r of rows) {
+        const tr = (r.metadata?.track as string) || "";
+        if (r.session_id && (tr === "fscm" || tr === "crm")) trackOf.set(r.session_id, tr);
+      }
+      for (const r of rows) {
+        if (!r.session_id || !STEPS_U.includes(r.event_name)) continue;
+        sets.all[r.event_name].add(r.session_id);
+        const tr = (r.metadata?.track as string) || trackOf.get(r.session_id);
+        if (tr === "fscm" || tr === "crm") sets[tr][r.event_name].add(r.session_id);
+      }
+      const funnels = Object.fromEntries(Object.entries(sets).map(([t, m]) => [t, STEPS_U.map((s) => ({ key: s, count: m[s].size }))]));
+      const { data: subs } = await supabase.from("underlag_submissions").select("id, created_at, name, company, email, phone, buying_signal, email_status, underlag_text").order("created_at", { ascending: false }).limit(100);
+      return new Response(JSON.stringify({ funnels, submissions: subs || [] }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
     if (body?.action === "competence") {
       const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
       const since = new Date(Date.now() - d * 86400000).toISOString();
