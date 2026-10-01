@@ -2181,7 +2181,7 @@ D365.se`;
         emailSubject = subjectSetting?.value || "VIKTIGT! Uppdatera er partnerprofil på d365.se";
       }
 
-      const endOf2026 = new Date("2026-12-31T23:59:59.000Z").toISOString();
+      const farFuture = new Date("2099-12-31T23:59:59.000Z").toISOString();
 
       let sent = 0;
       let failed = 0;
@@ -2196,7 +2196,7 @@ D365.se`;
             continue;
           }
 
-          // Create a fresh invitation valid through the end of 2026
+          // Create a fresh invitation valid indefinitely (tills vidare)
           const { data: invitation, error: invErr } = await supabase
             .from("partner_invitations")
             .insert({
@@ -2204,7 +2204,7 @@ D365.se`;
               partner_name: partner.name,
               partner_id: partner.id || null,
               status: "approved",
-              expires_at: endOf2026,
+              expires_at: farFuture,
             })
             .select()
             .single();
@@ -2273,7 +2273,7 @@ D365.se`;
             template_name: "partner_profile_refresh",
             subject: personalizedSubject,
             status: "sent",
-            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: endOf2026 },
+            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: farFuture },
           });
         } catch (sendErr: any) {
           failed++;

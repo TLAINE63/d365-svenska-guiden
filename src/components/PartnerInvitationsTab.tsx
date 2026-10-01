@@ -447,7 +447,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       toast.error("Brödtexten måste innehålla {{INVITATION_LINK}}");
       return;
     }
-    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig hela 2026.`)) return;
+    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig tills vidare.`)) return;
 
     setSendingProfileRefresh(true);
     try {
@@ -1025,7 +1025,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             ) : (
               <>
                 <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
-                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig hela 2026.
+                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig tills vidare.
                   Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där länken ska placeras och valfritt <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för partnerns namn.
                   Mail skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
                 </div>

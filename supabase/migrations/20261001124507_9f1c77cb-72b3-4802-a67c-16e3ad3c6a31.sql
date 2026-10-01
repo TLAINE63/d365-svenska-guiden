@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_invitations ALTER COLUMN expires_at SET DEFAULT '2099-12-31T23:59:59Z'::timestamptz; UPDATE public.partner_invitations SET expires_at = '2099-12-31T23:59:59Z'::timestamptz WHERE expires_at < '2099-12-31T23:59:59Z'::timestamptz;
