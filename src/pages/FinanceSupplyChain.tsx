@@ -325,7 +325,7 @@ const FinanceSupplyChain = () => {
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {fscPartners.map((partner, index) => {
  // Build profile URL with filter context
- const basePath = buildPartnerProductPath(partner.slug, "Finance & Supply Chain Management (F&O)");
+ const basePath = buildPartnerProductPath(partner.slug, "Finance & SCM");
  const params = new URLSearchParams();
  if (selectedIndustry) params.set("industry", selectedIndustry);
  if (selectedGeography) params.set("geography", selectedGeography);
