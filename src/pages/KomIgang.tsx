@@ -525,8 +525,8 @@ const KomIgang = () => {
   const handleBack = () => {
     if (showResults) {
       setShowResults(false);
-      currentStep.current = 1;
-      setStep(1);
+      currentStep.current = TOTAL_STEPS;
+      setStep(TOTAL_STEPS);
       window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
     } else if (step > 1) {
       setStep(step - 1);
