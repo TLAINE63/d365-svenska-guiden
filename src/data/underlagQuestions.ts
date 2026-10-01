@@ -89,7 +89,7 @@ const byId = Object.fromEntries([...UNDERLAG_QUESTIONS, ...CRM_TEST_EXTRA].map((
 
 export const CRM_TEST_QUESTIONS: UQuestion[] = [
   byId.crm_sales_process, byId.crm_service, byId.sellers, byId.channels, byId.field_service, byId.marketing,
-  byId.crm_system, byId.cc_volume, byId.cc_voice, byId.cc_ai, byId.erp_integration,
+  byId.cc_volume, byId.cc_voice, byId.cc_ai, byId.erp_integration,
 ].map((q) => ({ ...q, when: undefined }));
 
 export function questionsFor(p: BuyerProfile, list = UNDERLAG_QUESTIONS) {
