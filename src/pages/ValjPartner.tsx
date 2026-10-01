@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search, MapPin, Building2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
@@ -44,6 +44,7 @@ import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import { getCardSummaryData } from "@/lib/partnerCardSummary";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
