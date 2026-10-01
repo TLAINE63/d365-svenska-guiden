@@ -37,7 +37,7 @@ export const SOLUTIONS: SolutionOption[] = [
   },
   {
     key: "fscm",
-    label: "Finance & Supply Chain",
+    label: "Finance & Supply Chain Management (F&O)",
     baseHours: 1500,
     licenseKeys: { standard: "finance", premium: "finance-premium" },
     standardLabel: "Finance",

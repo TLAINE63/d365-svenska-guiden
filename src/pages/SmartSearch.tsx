@@ -61,7 +61,7 @@ const NEXT_STEP: Record<
 };
 
 const EXAMPLES = [
-  "Vilka Finance & Supply Chain-partners passar ett svenskt tillverkningsföretag?",
+  "Vilka Finance & Supply Chain Management (F&O)-partners passar ett svenskt tillverkningsföretag?",
   "Vad kostar en Business Central-implementation?",
   "Skillnad mellan Business Central och Finance & SCM",
 ];
@@ -124,7 +124,7 @@ export default function SmartSearch() {
             <Input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Exempel: Vilka Finance & Supply Chain-partners passar ett svenskt tillverkningsföretag?"
+              placeholder="Exempel: Vilka Finance & Supply Chain Management (F&O)-partners passar ett svenskt tillverkningsföretag?"
               className="pl-10 h-12"
               autoFocus
             />

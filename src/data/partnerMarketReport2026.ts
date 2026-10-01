@@ -32,7 +32,7 @@ export const REPORT_STATS: ReportStat[] = [
     group: "produkt",
   },
   {
-    label: "Finance & Supply Chain",
+    label: "Finance & Supply Chain Management (F&O)",
     value: 37,
     note: "Partners inriktade mot F&SCM och större ERP-implementationer.",
     group: "produkt",
