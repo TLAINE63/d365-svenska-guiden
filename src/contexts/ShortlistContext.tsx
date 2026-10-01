@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
+import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 
 export type ShortlistEntry = {
   slug: string;
@@ -77,6 +78,7 @@ export const ShortlistProvider = ({ children }: { children: ReactNode }) => {
           metadata: { partner: entry.slug, size: next.length },
         });
         if (!exists) {
+          trackUnderlagEvent("partner_saved", { partner: entry.slug });
           trackPartnerEvent({
             event: "partner_saved",
             partnerSlug: entry.slug,

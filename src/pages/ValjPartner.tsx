@@ -956,7 +956,7 @@ const ValjPartner = () => {
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-     Profiler som matchar din filtrering ({filteredBasicPartners.length})
+     {underlagMode ? "Info från publika sajter" : "Profiler som matchar din filtrering"} ({filteredBasicPartners.length})
     </h3>
    <p className="text-sm text-muted-foreground">
     Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.
