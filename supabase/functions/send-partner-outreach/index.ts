@@ -200,6 +200,41 @@ Deno.serve(async (req) => {
         return new Response(JSON.stringify({ results }), { headers: jsonHeaders });
       }
 
+      // Testutskick av nyhetsbrevet: ett personligt mejl per publicerad partner,
+      // men alla levereras till granskningsmottagaren.
+      if (rawBody.action === "newsletter-send") {
+        const resendKeyNl = Deno.env.get("RESEND_API_KEY");
+        if (!resendKeyNl) throw new Error("E-posttjänsten är inte konfigurerad");
+        const rsNl = new Resend(resendKeyNl);
+        const resultsNl: Array<{ partner: string; status: string; reason?: string }> = [];
+        for (const p of list) {
+          if (!p.token) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
+          const subject = `[Granskning: ${p.name}] ${NEWSLETTER_SUBJECT}`;
+          const { data, error } = await rsNl.emails.send({
+            from: "Thomas Laine via d365.se <info@d365.se>",
+            to: [REVIEW_RECIPIENT], reply_to: REVIEW_RECIPIENT, subject,
+            html: newsletterEmail(p.name, p.token),
+          });
+          const status = error ? "failed" : "sent";
+          resultsNl.push({ partner: p.name, status });
+          await sb.from("email_send_log").insert({
+            recipient_email: REVIEW_RECIPIENT, template_name: "partner-newsletter-review", subject, status,
+            message_id: data?.id ?? null,
+            error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
+            metadata: { partner_id: p.id, partner_name: p.name },
+          });
+          await new Promise((r) => setTimeout(r, 600));
+        }
+        const failedNl = resultsNl.filter((r) => r.status === "failed");
+        return new Response(JSON.stringify({
+          ok: failedNl.length === 0,
+          sent: resultsNl.filter((r) => r.status === "sent").length,
+          skipped: resultsNl.filter((r) => r.status === "skipped").length,
+          failed: failedNl.length,
+          results: resultsNl,
+        }), { status: failedNl.length ? 502 : 200, headers: jsonHeaders });
+      }
+
       const ids = z.array(z.string().uuid()).min(1).max(100).safeParse(rawBody.partner_ids);
       if (!ids.success) return new Response(JSON.stringify({ error: "Välj minst en partner" }), { status: 400, headers: jsonHeaders });
       const resendKey = Deno.env.get("RESEND_API_KEY");
