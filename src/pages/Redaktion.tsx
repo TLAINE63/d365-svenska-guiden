@@ -19,6 +19,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import PostHogStatsCard from "@/components/PostHogStatsCard";
 import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
+import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -209,6 +210,7 @@ export default function Redaktion() {
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
+            <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
@@ -225,6 +227,10 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="newsletter">
+            <AdminNewsletterCard token={token} />
           </TabsContent>
 
           <TabsContent value="backlinks">

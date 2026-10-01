@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Månadsbrev i Redaktion (2026-10-01)
+- [x] Ta bort besöksstatistiken för d365guide.com ur septemberbrevet
+- [x] Beskriv d365guide.com endast som en ny nordisk sajt
+- [x] Lägg månadsbrevets testutskick som en egen flik på `/redaktion`
+
 ## Förenklad BizApps-profil (2026-09-29)
 - [x] Slå ihop Copilot Studio och AI-agenter till en tvärgående förmåga
 - [x] Slå ihop projekttyper och leveransmodeller till en fråga med endast särskiljande val
