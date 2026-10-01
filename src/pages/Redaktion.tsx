@@ -18,6 +18,7 @@ import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import PostHogStatsCard from "@/components/PostHogStatsCard";
+import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -234,6 +235,7 @@ export default function Redaktion() {
             <PostHogStatsCard token={token} onSessionExpired={logout} />
             <SiteTrafficStatsCard token={token} variant="full" />
             <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
+            <AdminUnderlagFunnel token={token} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="ai">

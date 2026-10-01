@@ -35,7 +35,7 @@ function base64UrlDecode(str: string): Uint8Array {
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
   return bytes;
 }
-async function verifyJWT(token: string, secret: string) {
+async function verifyJWT(token: string, secret: string, allowedRoles: string[] = ["admin"]) {
   try {
     const parts = token.split(".");
     if (parts.length !== 3) return { valid: false, error: "Invalid token format", payload: null as any };
@@ -58,7 +58,7 @@ async function verifyJWT(token: string, secret: string) {
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     const now = Math.floor(Date.now() / 1000);
     if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired", payload: null };
-    if (payload.role !== "admin") return { valid: false, error: "Insufficient permissions", payload: null };
+    if (!allowedRoles.includes(payload.role)) return { valid: false, error: "Insufficient permissions", payload: null };
     return { valid: true, payload };
   } catch (e) {
     console.error("JWT verify error", e);
@@ -91,7 +91,8 @@ Deno.serve(async (req) => {
         headers: { ...cors, "Content-Type": "application/json" },
       });
     }
-    const v = await verifyJWT(token, JWT_SECRET);
+    // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
