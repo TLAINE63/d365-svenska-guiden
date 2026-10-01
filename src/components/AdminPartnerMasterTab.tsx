@@ -215,7 +215,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
 
   const downloadCsv = () => {
     if (!report) return;
-    const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""').replace(/\n/g, " ")}"`;
+    const esc = (v: unknown) => `"${String(v ?? "").replace(/^([=+\-@\t\r])/, "'$1").replace(/"/g, '""').replace(/\n/g, " ")}"`;
     const head = ["Partner", "Har BC", "BC-profil status", "Senast verifierad", "Migrering", "Kompetens", "Projekt", "Leverans", "Kräver partnerbekräftelse", "Saknas", "BC-positionering (fritext)", "Metodik (fritext)", "Kundexempel", "Branschappar"];
     const lines = report.map((r) => [
       r.name, r.has_bc ? "Ja" : "Nej", r.bc_profile?.verification_status || "Saknar profil", r.last_verified_at || "",

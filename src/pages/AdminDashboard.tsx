@@ -2902,7 +2902,7 @@ Thomas`,
  published ? 'Ja' : 'Nej',
  invited ? 'Ja' : 'Nej',
  invited && !published ? 'Ja' : 'Nej',
- ].join('\t');
+ ].map(v => String(v).replace(/[\t\r\n]/g, ' ').replace(/^([=+\-@])/, "'$1")).join('\t');
  });
  const tsv = [header, ...rows].join('\n');
  const blob = new Blob(['\uFEFF' + tsv], { type: 'text/tab-separated-values;charset=utf-8' });

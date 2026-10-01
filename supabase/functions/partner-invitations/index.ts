@@ -642,7 +642,7 @@ serve(async (req: Request): Promise<Response> => {
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
             to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
-            subject: `Partner ${isUpdate ? "uppdaterad" : "skapad"}: ${submissionData.name}`,
+            subject: `Partner ${isUpdate ? "uppdaterad" : "skapad"}: ${String(submissionData.name ?? "").replace(/[\r\n]/g, " ").slice(0, 150)}`,
             html: `
               <!DOCTYPE html>
               <html>
@@ -657,14 +657,14 @@ serve(async (req: Request): Promise<Response> => {
                 </div>
                 
                 <h2 style="color: #059669;">Partnerprofil ${isUpdate ? "uppdaterad" : "skapad"}!</h2>
-                <p>${submissionData.name} har ${isUpdate ? "uppdaterat sin profil" : "skapat en ny profil"} via sin inbjudningslänk. Ändringarna är redan publicerade.</p>
+                <p>${escH(submissionData.name)} har ${isUpdate ? "uppdaterat sin profil" : "skapat en ny profil"} via sin inbjudningslänk. Ändringarna är redan publicerade.</p>
                 
                 <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                  <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${submissionData.name}</p>
-                  <p style="margin: 0 0 10px 0;"><strong>Kontaktperson:</strong> ${submissionData.contact_person || 'Ej angivet'}</p>
-                  <p style="margin: 0 0 10px 0;"><strong>E-post:</strong> ${submissionData.email || invitation.email}</p>
-                  <p style="margin: 0 0 10px 0;"><strong>Webbplats:</strong> ${submissionData.website}</p>
-                  <p style="margin: 0;"><strong>Produkter:</strong> ${(submissionData.applications || []).join(', ') || 'Ej angivet'}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${escH(submissionData.name)}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Kontaktperson:</strong> ${escH(submissionData.contact_person || 'Ej angivet')}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>E-post:</strong> ${escH(submissionData.email || invitation.email)}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Webbplats:</strong> ${escH(submissionData.website)}</p>
+                  <p style="margin: 0;"><strong>Produkter:</strong> ${escH((submissionData.applications || []).join(', ') || 'Ej angivet')}</p>
                 </div>
                 
                 <div style="text-align: center; margin: 30px 0;">
@@ -2702,4 +2702,8 @@ function stripRankingFields(input: unknown): Record<string, unknown> {
     } else out[key] = value;
   }
   return out;
+}
+
+function escH(v: unknown): string {
+  return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }

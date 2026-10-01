@@ -438,7 +438,21 @@ serve(async (req) => {
         const t = setTimeout(() => ctrl.abort(), 10000);
         let resp: Response;
         try {
-          resp = await fetch(url, { signal: ctrl.signal, redirect: "follow", headers: { "User-Agent": "Mozilla/5.0 (d365.se image import)", Accept: "image/*" } });
+          let current = url;
+          let hops = 0;
+          while (true) {
+            if (!(await isPublicHttpsUrl(current))) {
+              return new Response(JSON.stringify({ error: "Ogiltig bildadress" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+            }
+            resp = await fetch(current, { signal: ctrl.signal, redirect: "manual", headers: { "User-Agent": "Mozilla/5.0 (d365.se image import)", Accept: "image/*" } });
+            const loc = resp.headers.get("location");
+            if (resp.status >= 300 && resp.status < 400 && loc && hops < 3) {
+              current = new URL(loc, current).toString();
+              hops++;
+              continue;
+            }
+            break;
+          }
         } finally { clearTimeout(t); }
         const ct = (resp.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
         const allowed: Record<string, string> = { "image/jpeg": "jpg", "image/jpg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
@@ -465,3 +479,32 @@ serve(async (req) => {
     return new Response(JSON.stringify({ error: (err as Error).message || "Serverfel" }), { status: 500, headers: { "Content-Type": "application/json", ...cors } });
   }
 });
+
+function isPrivateIp(ip: string): boolean {
+  const v = ip.toLowerCase();
+  if (v.includes(":")) {
+    return v === "::1" || v === "::" || v.startsWith("fc") || v.startsWith("fd") || v.startsWith("fe80") || v.startsWith("::ffff:");
+  }
+  const p = v.split(".").map(Number);
+  if (p.length !== 4 || p.some((n) => isNaN(n))) return true;
+  const [a, b] = p;
+  return a === 0 || a === 10 || a === 127 || (a === 100 && b >= 64 && b <= 127) || (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || a >= 224;
+}
+
+async function isPublicHttpsUrl(raw: string): Promise<boolean> {
+  let u: URL;
+  try { u = new URL(raw); } catch { return false; }
+  const host = u.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+  if (u.protocol !== "https:" || (u.port && u.port !== "443")) return false;
+  if (host === "localhost" || host.endsWith(".local") || host.endsWith(".internal") || host.includes(":") || /^(\d+\.){3}\d+$/.test(host)) return false;
+  try {
+    const ips: string[] = [];
+    try { ips.push(...(await Deno.resolveDns(host, "A"))); } catch { /* none */ }
+    try { ips.push(...(await Deno.resolveDns(host, "AAAA"))); } catch { /* none */ }
+    if (ips.length === 0) return false;
+    return ips.every((ip) => !isPrivateIp(ip));
+  } catch {
+    return false;
+  }
+}

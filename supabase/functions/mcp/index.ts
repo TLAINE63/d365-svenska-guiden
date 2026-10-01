@@ -107,8 +107,9 @@ var list_knowledge_articles_default = defineTool3({
     const sb = supabaseAnon3();
     let q = sb.from("knowledge_articles").select("slug,title,summary,category,published_at").not("published_at", "is", null).order("published_at", { ascending: false }).limit(limit ?? 20);
     if (query && query.trim()) {
-      const term = `%${query.trim()}%`;
-      q = q.or(`title.ilike.${term},summary.ilike.${term}`);
+      const safe = query.trim().slice(0, 100).replace(/[^\p{L}\p{N} \-&]/gu, " ").trim();
+      const term = `%${safe}%`;
+      if (safe) q = q.or(`title.ilike.${term},summary.ilike.${term}`);
     }
     const { data, error } = await q;
     if (error) {
