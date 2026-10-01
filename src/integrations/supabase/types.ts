@@ -194,6 +194,54 @@ export type Database = {
         }
         Relationships: []
       }
+      buyer_profiles: {
+        Row: {
+          assessment: Json
+          buyer_id: string
+          company: Json
+          contact_center: Json
+          created_at: string
+          crm: Json
+          current_erp: Json
+          fscm: Json
+          id: string
+          integrations: Json
+          project: Json
+          scope: Json
+          updated_at: string
+        }
+        Insert: {
+          assessment?: Json
+          buyer_id: string
+          company?: Json
+          contact_center?: Json
+          created_at?: string
+          crm?: Json
+          current_erp?: Json
+          fscm?: Json
+          id?: string
+          integrations?: Json
+          project?: Json
+          scope?: Json
+          updated_at?: string
+        }
+        Update: {
+          assessment?: Json
+          buyer_id?: string
+          company?: Json
+          contact_center?: Json
+          created_at?: string
+          crm?: Json
+          current_erp?: Json
+          fscm?: Json
+          id?: string
+          integrations?: Json
+          project?: Json
+          scope?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       buyer_tool_events: {
         Row: {
           company_size: string | null
@@ -4069,6 +4117,51 @@ export type Database = {
           id?: string
           metadata?: Json | null
           reason?: string
+        }
+        Relationships: []
+      }
+      underlag_submissions: {
+        Row: {
+          buyer_id: string | null
+          buying_signal: string | null
+          company: string
+          consent: boolean
+          created_at: string
+          email: string
+          email_status: string | null
+          id: string
+          name: string
+          phone: string | null
+          profile: Json
+          underlag_text: string
+        }
+        Insert: {
+          buyer_id?: string | null
+          buying_signal?: string | null
+          company: string
+          consent?: boolean
+          created_at?: string
+          email: string
+          email_status?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          profile?: Json
+          underlag_text?: string
+        }
+        Update: {
+          buyer_id?: string | null
+          buying_signal?: string | null
+          company?: string
+          consent?: boolean
+          created_at?: string
+          email?: string
+          email_status?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          profile?: Json
+          underlag_text?: string
         }
         Relationships: []
       }
