@@ -101,6 +101,7 @@ import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import AdminPartnerProfileVisitsTab from "@/components/AdminPartnerProfileVisitsTab";
 import AdminPartnerEngagementTab from "@/components/AdminPartnerEngagementTab";
+import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import AdminFunnelTab from "@/components/AdminFunnelTab";
 import Admin404Tab from "@/components/Admin404Tab";
 
@@ -3735,6 +3736,7 @@ Thomas`,
  {/* ==================== FUNNEL TAB ==================== */}
  <TabsContent value="funnel">
  <AdminFunnelTab token={token || null} onSessionExpired={logout} />
+ <AdminUnderlagFunnel token={token || null} onSessionExpired={logout} />
   </TabsContent>
 
   {/* ==================== 404-LOGG ==================== */}

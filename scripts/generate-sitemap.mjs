@@ -5,6 +5,7 @@ const BASE_URL = "https://d365.se";
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const STATIC_ROUTES = [
+  { path: "/businesscentral/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/crm/", changefreq: "monthly", priority: "0.9" },
   { path: "/businesscentral/", changefreq: "monthly", priority: "0.9" },
@@ -14,7 +15,6 @@ const STATIC_ROUTES = [
   { path: "/d365marketing/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365contactcenter/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365fieldservice/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
-  { path: "/businesscentral/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365sales/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365sales/matchningstest/resultat/", changefreq: "monthly", priority: "0.6" },
   { path: "/d365customerservice/matchningstest/", changefreq: "monthly", priority: "0.7" },

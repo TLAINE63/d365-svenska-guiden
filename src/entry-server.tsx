@@ -81,6 +81,7 @@ import Upphandlingsresan from './pages/Upphandlingsresan';
 import KunskapscenterFaq from './pages/KunskapscenterFaq';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import BcMatchningstest from './pages/BcMatchningstest';
+import CrmUnderlagTest from './pages/CrmUnderlagTest';
 import FscmMatchningstest from './pages/FscmMatchningstest';
 import CrmMatchningstest from './pages/CrmMatchningstest';
 import CrmMatchningstestResultat from './pages/CrmMatchningstestResultat';
@@ -298,9 +299,10 @@ export const routes: PrerenderRoute[] = [
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
-  { path: '/businesscentral/matchningstest', priority: '0.6', changefreq: 'monthly' },
   { path: '/businesscentral/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/finance-supply-chain-management/matchningstest', priority: '0.6', changefreq: 'monthly' },
+  { path: '/businesscentral/matchningstest', priority: '0.6', changefreq: 'monthly' },
+  { path: '/crm/matchningstest', priority: '0.6', changefreq: 'monthly' },
   { path: '/finance-supply-chain/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/d365sales/matchningstest', priority: '0.6', changefreq: 'monthly' },
   { path: '/d365sales/matchningstest/resultat', priority: '0.3', changefreq: 'monthly' },
@@ -609,6 +611,7 @@ export function render(url: string) {
               <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
               <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
               <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
+              <Route path="/crm/matchningstest" element={<CrmUnderlagTest />} />
               <Route path="/finance-supply-chain/roi-kalkylator" element={<ProductRoiPage productKey="finance-scm" />} />
               <Route path="/d365sales/matchningstest" element={<CrmMatchningstest productKey="sales" />} />
               <Route path="/d365sales/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="sales" />} />

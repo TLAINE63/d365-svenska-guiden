@@ -46,6 +46,13 @@ import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import { getCardSummaryData } from "@/lib/partnerCardSummary";
+import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
+import { saveProfile, getBuyerProfile } from "@/lib/buyerProfile";
+import {
+ PRODUCT_TO_APP, APP_TO_PRODUCT_KEY, GEO_LABEL, widestGeo, industryNameFromSlug, industrySlugFromName,
+ type CompareFilters, type ProductKey as UnderlagProductKey, type CriterionKey, deriveCompareFilters,
+} from "@/lib/underlag";
+import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -209,7 +216,12 @@ const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): 
 const ValjPartner = () => {
  const { data: dbPartners, isLoading } = usePartners();
  const { data: basicPartners } = useBasicPartners();
- const [searchParams] = useSearchParams();
+ const [searchParams, setSearchParams] = useSearchParams();
+ // Underlagsfilter: ?product=fscm,sales&industry=<slug>&size=<anställda>&geo=sverige,europa
+ const underlagMode = searchParams.get("underlag") === "1";
+ const productParam = searchParams.get("product");
+ const urlProducts = (productParam || "").split(",").filter((k): k is UnderlagProductKey => k in PRODUCT_TO_APP);
+ const urlGeo = (searchParams.get("geo") || "").split(",").filter((g) => g in GEO_LABEL);
  const aiParam = searchParams.get("ai");
  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
  const [guideOpen, setGuideOpen] = useState(!!aiParam);
@@ -229,17 +241,60 @@ const ValjPartner = () => {
  // Guider och andra ingångar kan förvälja produktområde via ?apps=Business Central
  const appsParam = searchParams.get("apps");
  const [selectedApplications, setSelectedApplications] = useState<string[]>(() =>
-  appsParam ? appsParam.split(",").map((a) => a.trim()).filter(Boolean) : []
+  urlProducts.length ? urlProducts.map((k) => PRODUCT_TO_APP[k]) : appsParam ? appsParam.split(",").map((a) => a.trim()).filter(Boolean) : []
  );
 
  useEffect(() => {
   if (!appsParam) return;
   setSelectedApplications(appsParam.split(",").map((a) => a.trim()).filter(Boolean));
  }, [appsParam]);
- const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
- const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+ const [selectedIndustry, setSelectedIndustry] = useState<string | null>(() => industryNameFromSlug(searchParams.get("industry")) ?? null);
+ const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(() => searchParams.get("size") || null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
- const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+ const [selectedGeography, setSelectedGeography] = useState<string | null>(() => widestGeo(urlGeo) ?? null);
+ // Kriterier från underlaget (visas på korten, filtrerar aldrig bort partners).
+ const [underlagCriteria] = useState<CriterionKey[]>(() => (underlagMode ? deriveCompareFilters(getBuyerProfile()).criteria : []));
+
+ useEffect(() => {
+  if (underlagMode) trackUnderlagEvent("compare_prefilled", { products: urlProducts });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, []);
+
+ // Ändrade filter skrivs tillbaka till URL:en och till underlaget.
+ useEffect(() => {
+  if (!underlagMode) return;
+  const products = selectedApplications.map((a) => APP_TO_PRODUCT_KEY[a]).filter(Boolean);
+  const sp = new URLSearchParams();
+  if (products.length) sp.set("product", products.join(","));
+  const indSlug = industrySlugFromName(selectedIndustry);
+  if (indSlug) sp.set("industry", indSlug);
+  if (selectedCompanySize) sp.set("size", selectedCompanySize);
+  const geoKey = Object.entries(GEO_LABEL).find(([, v]) => v === selectedGeography)?.[0];
+  if (geoKey) sp.set("geo", geoKey);
+  sp.set("underlag", "1");
+  if (sp.toString() !== searchParams.toString()) setSearchParams(sp, { replace: true });
+  const PRODUCT_SCOPE: Record<UnderlagProductKey, string[]> = { fscm: ["finance", "scm"], sales: ["sales"], customer_service: ["customer_service"], field_service: ["field_service"], customer_insights: ["customer_insights"], contact_center: ["contact_center"] };
+  const allProductScope = Object.values(PRODUCT_SCOPE).flat();
+  const cur = (getBuyerProfile().scope.apps as string[]) || [];
+  const keepOther = cur.filter((a) => !allProductScope.includes(a));
+  const keepFscmSplit = cur.filter((a) => (a === "finance" || a === "scm"));
+  const fromFilter = products.flatMap((k) => (k === "fscm" && keepFscmSplit.length ? keepFscmSplit : PRODUCT_SCOPE[k]));
+  saveProfile({
+   scope: { apps: Array.from(new Set([...keepOther, ...fromFilter])) },
+   company: { industry: indSlug ?? null, employees: selectedCompanySize ?? null },
+  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [underlagMode, selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
+
+ const underlagFilters: CompareFilters | null = underlagMode
+  ? {
+    product: selectedApplications.map((a) => APP_TO_PRODUCT_KEY[a]).filter(Boolean),
+    industry: industrySlugFromName(selectedIndustry),
+    size: selectedCompanySize ?? undefined,
+    geo: (() => { const g = Object.entries(GEO_LABEL).find(([, v]) => v === selectedGeography)?.[0]; return g ? [g] : undefined; })(),
+    criteria: underlagCriteria,
+   }
+  : null;
  const [verifiedOnly, setVerifiedOnly] = useState(false);
  const [nameQuery, setNameQuery] = useState("");
 
@@ -732,6 +787,13 @@ const ValjPartner = () => {
   </div>
  </div>
 
+ {underlagMode && (
+  <p className="mx-auto mb-6 max-w-3xl rounded-lg border border-primary/30 bg-primary/5 px-4 py-2 text-center text-sm text-foreground">
+   Filtren är förifyllda från ert underlag.{" "}
+   <Link to="/underlag/" className="text-primary underline">ändra</Link>
+  </p>
+ )}
+
  {/* Industry Filter */}
  <FilterButtons
  title="Filtrera på bransch (rekommenderat)"
@@ -868,8 +930,8 @@ const ValjPartner = () => {
  else if (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service) productKey = 'crm';
 
  return (
+ <div key={partner.id} className="flex flex-col gap-3">
  <PartnerCard
- key={index}
  partner={partner}
  profileUrl={buildPartnerProfileUrl(partner.slug)}
  colorScheme="amber"
@@ -881,6 +943,8 @@ const ValjPartner = () => {
  highlightedGeography={selectedGeography || undefined}
  showRandomIndicator={true}
  />
+ {underlagFilters && <UnderlagMatchBox partner={partner as any} filters={underlagFilters} />}
+ </div>
  );
  })}
   </div>
@@ -892,7 +956,7 @@ const ValjPartner = () => {
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-     Profiler som matchar din filtrering ({filteredBasicPartners.length})
+     {underlagMode ? "Info från publika sajter" : "Profiler som matchar din filtrering"} ({filteredBasicPartners.length})
     </h3>
    <p className="text-sm text-muted-foreground">
     Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.

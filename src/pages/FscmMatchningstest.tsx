@@ -10,8 +10,50 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { BLOCKS, QUESTIONS, visibleQuestions, type Answers, type Question } from "@/data/fscmMatchningstest";
-import { calculateScore, profileLabel, topProfiles, type ProfileKey, type ScoreResult } from "@/lib/fscmScoring";
+import { calculateScore, topProfiles, type ProfileKey, type ScoreResult } from "@/lib/fscmScoring";
 import { supabase } from "@/integrations/supabase/client";
+import { addScopeApps, getBuyerProfile, saveProfile, setAnswer } from "@/lib/buyerProfile";
+import { BC_TEST_URL, deriveCompareFilters, filtersToSearch, FSCM_LEVEL_TEXT, type FscmLevel } from "@/lib/underlag";
+import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+
+// Koppling mellan testets frågor och det anonyma underlaget (båda riktningarna).
+const INDUSTRY_TO_SLUG: Record<string, string> = { tillverkning: "tillverkning", grossist: "grossist-distribution", detaljhandel: "retail-ehandel" };
+const SLUG_TO_INDUSTRY: Record<string, string> = Object.fromEntries(Object.entries(INDUSTRY_TO_SLUG).map(([k, v]) => [v, k]));
+const INTL_TO_COUNTRIES: Record<string, string> = { "0": "1", "1-3": "europe", "4+": "global" };
+const COUNTRIES_TO_INTL: Record<string, string> = { "1": "0", nordic: "1-3", europe: "1-3", global: "4+" };
+const PROD_TO_PROFILE: Record<string, string> = { no: "none", discrete: "discrete", process: "process", mixed: "discrete" };
+const LEVEL_MAP: Record<ScoreResult["level"], FscmLevel> = { strong: "relevant", partial: "analysis", oversized: "below" };
+
+function syncAnswerToProfile(qid: string, v: string) {
+  const yn = v === "yes" ? "yes" : v === "no" ? "no" : "unknown";
+  switch (qid) {
+    case "q3_industry": if (INDUSTRY_TO_SLUG[v]) setAnswer("company", "industry", INDUSTRY_TO_SLUG[v]); break;
+    case "q2_revenue": setAnswer("company", "revenue", v); break;
+    case "q4_legal_entities": setAnswer("company", "legal_entities", v); break;
+    case "q5_intl_entities": setAnswer("company", "countries", INTL_TO_COUNTRIES[v]); break;
+    case "q9_multicurrency": setAnswer("company", "multi_currency", yn); break;
+    case "q8_intercompany": setAnswer("fscm", "intercompany", yn); break;
+    case "q13_warehouse": setAnswer("fscm", "wms", yn); break;
+    case "q15_manufacturing": setAnswer("fscm", "production", PROD_TO_PROFILE[v] ?? "none"); break;
+    case "q16_purchasing": setAnswer("fscm", "mrp", v === "mrp" ? "yes" : "no"); break;
+  }
+}
+
+function answersFromProfile(): Answers {
+  const p = getBuyerProfile();
+  const a: Answers = {};
+  const ind = p.company.industry as string | undefined;
+  if (ind && SLUG_TO_INDUSTRY[ind]) a.q3_industry = SLUG_TO_INDUSTRY[ind];
+  if (typeof p.company.revenue === "string") a.q2_revenue = p.company.revenue;
+  if (typeof p.company.legal_entities === "string") a.q4_legal_entities = p.company.legal_entities;
+  const c = p.company.countries as string | undefined;
+  if (c && COUNTRIES_TO_INTL[c]) a.q5_intl_entities = COUNTRIES_TO_INTL[c];
+  for (const [qid, sec, key] of [["q9_multicurrency", "company", "multi_currency"], ["q8_intercompany", "fscm", "intercompany"], ["q13_warehouse", "fscm", "wms"]] as const) {
+    const v = p[sec][key];
+    if (v === "yes" || v === "no") a[qid] = v;
+  }
+  return a;
+}
 
 const STORAGE_KEY = "fscm_matchningstest_answers_v1";
 const TIME_PER_QUESTION_SEC = 22;
@@ -62,24 +104,21 @@ const LEVEL_COPY: Record<
  { headline: string; body: string }
 > = {
  strong: {
- headline: "Stark matchning",
+ headline: FSCM_LEVEL_TEXT.relevant,
  body:
- "Dina svar pekar på en verksamhet där Dynamics 365 Finance & Supply Chain Management och dess närliggande moduler täcker behov som mindre system har svårt att hantera samlat. Det betyder inte automatiskt att F&SCM är rätt val – men att det är ett rimligt alternativ att utvärdera på allvar.",
+ "Dina svar pekar på en verksamhet där Dynamics 365 Finance & Supply Chain Management och dess närliggande moduler täcker behov som mindre system har svårt att hantera samlat. Det är ett rimligt alternativ att utvärdera vidare, men kräver fortsatt analys tillsammans med partner.",
  },
  partial: {
- headline: "Delvis matchning",
+ headline: FSCM_LEVEL_TEXT.analysis,
  body:
  "Vissa delar av er verksamhet talar för F&SCM, andra ligger närmare ett enklare system som Business Central. Det är värt att titta noggrant på vilka behov som faktiskt är dimensionerande och om de motiverar F&SCM:s högre komplexitet och kostnad.",
  },
  oversized: {
- headline: "Sannolikt överdimensionerat",
+ headline: FSCM_LEVEL_TEXT.below,
  body:
  "Dina svar pekar på en verksamhet där ett enklare system, som Business Central, troligen täcker behoven väl idag. F&SCM:s styrkor inom flerbolagsstruktur och avancerad supply chain blir mest relevanta först om koncernen växer i komplexitet.",
  },
 };
-
-const formatProfileScore = (v: number | "not_applicable"): string =>
- v === "not_applicable" ? "Ej aktuellt" : `${v}%`;
 
 // ---- Wizard ----
 
@@ -89,7 +128,8 @@ const FscmMatchningstest = () => {
  if (typeof window === "undefined") return {};
  try {
  const raw = window.localStorage.getItem(STORAGE_KEY);
- return raw ? JSON.parse(raw) : {};
+ const own = raw ? JSON.parse(raw) : {};
+ return { ...answersFromProfile(), ...own };
  } catch {
  return {};
  }
@@ -100,6 +140,12 @@ const FscmMatchningstest = () => {
 
  useEffect(() => {
  window.scrollTo(0, 0);
+ trackUnderlagEvent("test_started", { track: "fscm" });
+ // Börja på första obesvarade frågan; förifyllda svar från underlaget hoppas över.
+ const vis = visibleQuestions(answers);
+ const first = vis.findIndex((q) => answers[q.id] === undefined);
+ if (first > 0) setIndex(first);
+ // eslint-disable-next-line react-hooks/exhaustive-deps
  }, []);
 
  useEffect(() => {
@@ -128,6 +174,9 @@ const FscmMatchningstest = () => {
  useEffect(() => {
  if (!showResult || submitted || !score) return;
  setSubmitted(true);
+ saveProfile({ assessment: { fscm_level: LEVEL_MAP[score.level], fscm_completed_at: new Date().toISOString().slice(0, 10) } });
+ addScopeApps(["finance", "scm"]);
+ trackUnderlagEvent("test_completed", { track: "fscm", level: LEVEL_MAP[score.level] });
  void supabase.from("assessments").insert([
  {
  contact_name: "anonymous",
@@ -144,6 +193,7 @@ const FscmMatchningstest = () => {
 
  const handlePick = (qid: string, value: string) => {
  setAnswers((prev) => ({ ...prev, [qid]: value }));
+ syncAnswerToProfile(qid, value);
  // Auto-advance for single-select & yes/no
  setTimeout(() => {
  const nextVisible = visibleQuestions({ ...answers, [qid]: value });
@@ -181,7 +231,7 @@ const FscmMatchningstest = () => {
  <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain Management (F&O)", url: "/finance-supply-chain/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
  title="Matchar F&SCM dina behov? – Matchningstest | d365.se"
- description="Tio minuter, 26 frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management passar dig – eller om enklare alternativ räcker."
+ description={`Cirka tio minuter, upp till ${QUESTIONS.length} frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management verkar relevant att utvärdera vidare – eller om enklare alternativ räcker.`}
  canonicalPath="/finance-supply-chain-management/matchningstest"
  keywords="Dynamics 365 Finance matchningstest, F&SCM behovsanalys, ERP-test, Business Central vs F&SCM"
  ogImage="https://d365.se/og-finance-scm.png"
@@ -360,12 +410,6 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  ? "Dina svar pekar mer på dagens behov än ett tydligt framtida AI-tryck – fokusera utvärderingen på vad du behöver lösa nu."
  : "AI och skalbarhet är värda att ha med i utvärderingen, men inget som ensamt bör styra valet.";
 
- const profileBars: { key: ProfileKey; value: number | "not_applicable" }[] = [
- { key: "concern", value: score.concern },
- { key: "supplyChain", value: score.supplyChain },
- { key: "project", value: score.project },
- { key: "commerce", value: score.commerce },
- ];
 
  return (
  <div className="space-y-8">
@@ -376,40 +420,8 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-2">
  {level.headline}
  </h2>
- <p className="text-sm text-muted-foreground mb-4">
- Sammanvägd matchningsgrad: <span className="font-semibold text-foreground">{score.total}/100</span>
- </p>
  <p className="text-foreground/85 leading-relaxed">{level.body}</p>
  </div>
-
- <Card>
- <CardContent className="p-6 sm:p-8">
- <h3 className="text-lg font-semibold text-foreground mb-4">Profil per behovsområde</h3>
- <div className="space-y-4">
- {profileBars.map((p) => (
- <div key={p.key}>
- <div className="flex items-center justify-between mb-1">
- <span className="text-sm font-medium text-foreground">{profileLabel(p.key)}</span>
- <span
- className={`text-sm ${
- p.value === "not_applicable"
- ? "text-muted-foreground italic"
- : "text-foreground font-semibold"
- }`}
- >
- {formatProfileScore(p.value)}
- </span>
- </div>
- {p.value === "not_applicable" ? (
- <div className="h-2 rounded bg-secondary" />
- ) : (
- <Progress value={p.value} className="h-2" />
- )}
- </div>
- ))}
- </div>
- </CardContent>
- </Card>
 
  {tops.length > 0 && (
  <Card>
@@ -445,10 +457,10 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  <p className="text-foreground/85 leading-relaxed mb-4">
  Dina svar pekar på att F&SCM:s funktioner för flerbolagsstruktur, avancerad lagerstyrning och
  global compliance sannolikt är överdimensionerade för dig i dag. Business Central täcker
- normalt motsvarande behov till en bråkdel av kostnaden och med kortare implementationstid.
+ ofta motsvarande behov med ett mindre omfattande projekt. Kostnad och tidplan bör kontrolleras med partner.
  </p>
  <Button asChild variant="outline">
- <Link to="/businesscentral/">Business Central ERP</Link>
+ <a href={BC_TEST_URL} target="_blank" rel="noopener">Utvärdera Business Central på businesscentral.se</a>
  </Button>
  </CardContent>
  </Card>
@@ -478,10 +490,15 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
    sourcePage="/fscm-matchningstest"
    assessmentType="fscm_matching"
    products={["fsc"]}
-   underlagSummary={`F&SCM matchningstest – ${level.headline}\n\nSammanvägd matchning: ${score.total}/100.\n\n${level.body}\n\nStarkaste områden: ${tops.map((t) => PROFILE_STRONG_COPY[t.key]).join("; ") || "–"}`}
+   underlagSummary={`F&SCM matchningstest – ${level.headline}\n\n${level.body}\n\nStarkaste områden: ${tops.map((t) => PROFILE_STRONG_COPY[t.key]).join("; ") || "–"}`}
    resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
  />
 
+
+ <div className="flex flex-wrap gap-3">
+ <Button asChild><Link to="/underlag/">Se ert underlag<ArrowRight className="w-4 h-4 ml-1" /></Link></Button>
+ <Button asChild variant="outline"><Link to={`/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(getBuyerProfile()))}`}>Se partners förifyllda från underlaget</Link></Button>
+ </div>
 
  <div className="flex flex-wrap gap-3 pt-2">
  <Button variant="ghost" onClick={onBack}>

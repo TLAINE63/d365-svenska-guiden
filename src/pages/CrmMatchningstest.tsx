@@ -14,6 +14,10 @@ import {
   type Question,
 } from "@/data/crmMatchningstestConfigs";
 import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
+import { addScopeApps } from "@/lib/buyerProfile";
+import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+
+const SCOPE_APP: Record<string, string> = { sales: "sales", "customer-service": "customer_service", marketing: "customer_insights", "field-service": "field_service", "contact-center": "contact_center" };
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -66,7 +70,11 @@ const CrmMatchningstest = ({ productKey }: Props) => {
   const minutesLeft = Math.max(1, Math.round(remainingSec / 60));
   const progressPct = questions.length === 0 ? 0 : Math.round((answeredCount / questions.length) * 100);
 
-  const goToResult = () => navigate(resultPath);
+  const goToResult = () => {
+    addScopeApps([SCOPE_APP[productKey]]);
+    trackUnderlagEvent("test_completed", { track: "crm", product: productKey });
+    navigate(resultPath);
+  };
 
   const handlePick = (qid: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [qid]: value }));
