@@ -1082,11 +1082,11 @@ const Kunskapscenter = () => {
  deepDiveProduct === product
  ? "bg-primary text-primary-foreground border-primary "
  : "bg-card text-foreground border-border hover:border-primary/50"
- }`}
- >
- {product}
- </button>
- ))}
+  }`}
+  >
+  {applicationFilterLabel(product)}
+  </button>
+  ))}
  </div>
  </div>
  </section>
@@ -1280,10 +1280,10 @@ const Kunskapscenter = () => {
  {item.products.slice(0, 3).map((product) => (
  <span
  key={product}
- className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
- >
- {product}
- </span>
+  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+  >
+  {applicationFilterLabel(product)}
+  </span>
  ))}
  {item.products.length > 3 && (
  <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
