@@ -98,7 +98,7 @@ function newsletterEmail(partnerName: string, token: string): string {
         <p ${p}>Vår specialiserade sajt för Business&nbsp;Central hade i september 688 unika besökare, 718 besök och 1 970 sidvisningar. Mätningen startade i september, så månadsjämförelser kommer från oktober. Era Business&nbsp;Central-uppgifter visas där automatiskt från d365.se, så en uppdatering på ett ställe räcker.</p>
 
         <h2 ${h2}>d365guide.com</h2>
-        <p ${p}>Vår engelskspråkiga internationella guide är i tidiga dagar: 15 unika besökare och 134 sidvisningar i september. Trafiken är ännu liten, men besökarna går djupare in på sajten: kontaktsidan växte från 2 till 11 visningar och branschsidorna från 2 till 10.</p>
+        <p ${p}>Vi har lanserat d365guide.com, en ny nordisk sajt som hjälper köpare att hitta vägledning och partnerkompetens på flera språk.</p>
 
         <h2 ${h2}>AI-synlighet ökar snabbt</h2>
         <ul style="margin:0 0 16px;padding-left:20px">

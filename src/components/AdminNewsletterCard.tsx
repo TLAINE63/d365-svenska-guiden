@@ -37,8 +37,8 @@ export default function AdminNewsletterCard({ token }: { token: string | null })
         <CardTitle>Nyhetsbrev september 2026: testutskick</CardTitle>
         <CardDescription>
           Skickar nyhetsbrevet (statistik, nyheter och uppmaning) en gång per publicerad partner, med respektive partners
-          personliga profileringslänk, men alla mejl levereras till thomas.laine@dynamicfactory.se så att du kan granska
-          hur det ser ut innan det går ut till partnerna.
+          personliga profileringslänk. Detta är ett testutskick: alla mejl levereras endast till
+          thomas.laine@dynamicfactory.se och inget skickas till partnerna.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
