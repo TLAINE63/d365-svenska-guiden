@@ -46,7 +46,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
 
   "finance-scm": {
     intro:
-      "Finance & Supply Chain är Microsofts tunga ERP-plattform. Den klarar väldigt mycket – men är också ett av de mer komplexa systemen du kan välja. Ställ tuffa frågor innan du signerar.",
+      "Finance & Supply Chain Management (F&O) är Microsofts tunga ERP-plattform. Den klarar väldigt mycket – men är också ett av de mer komplexa systemen du kan välja. Ställ tuffa frågor innan du signerar.",
     notFit: [
       "Bolag under ~50 användare eller utan flera juridiska enheter – Business Central räcker oftast och blir betydligt billigare.",
       "Snabba 'lyft och flytta'-projekt – F&SCM kräver gedigen process­design och datakvalitet för att leverera värde.",

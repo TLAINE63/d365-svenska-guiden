@@ -54,7 +54,7 @@ type Quick = "all" | "bc" | "fscm" | "sales" | "marketing" | "customer-service" 
 const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "all", label: "Alla" },
   { id: "bc", label: "Business Central" },
-  { id: "fscm", label: "Finance & Supply Chain" },
+  { id: "fscm", label: "Finance & Supply Chain Management (F&O)" },
   { id: "sales", label: "Sales" },
   { id: "marketing", label: "Customer Insights (Marketing Automation)" },
   { id: "customer-service", label: "Customer Service" },

@@ -43,7 +43,7 @@ type ProductId =
 const PRODUCT_FILTERS: Array<{ id: ProductId; label: string }> = [
   { id: "all", label: "Alla lösningar" },
   { id: "bc", label: "Business Central" },
-  { id: "fscm", label: "Finance & Supply Chain" },
+  { id: "fscm", label: "Finance & Supply Chain Management (F&O)" },
   { id: "sales", label: "Sales" },
   { id: "customer-service", label: "Customer Service" },
   { id: "field-service", label: "Field Service" },

@@ -14,7 +14,7 @@ const FUNCTION_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-p
 
 const PRODUCT_AREAS: { value: string; label: string }[] = [
   { value: "business-central", label: "Business Central" },
-  { value: "finance-scm", label: "Finance & Supply Chain" },
+  { value: "finance-scm", label: "Finance & Supply Chain Management (F&O)" },
   { value: "crm-sales", label: "Sales & Customer Insights" },
   { value: "crm-service", label: "Customer Service & Field Service" },
   { value: "microsoft-ai", label: "Copilot & AI" },

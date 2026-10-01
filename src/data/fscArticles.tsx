@@ -82,7 +82,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -151,7 +151,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -220,7 +220,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -280,7 +280,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -349,7 +349,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -391,7 +391,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           <p className="text-sm text-muted-foreground">
             <strong>Tillbaka till produktsidan:</strong>{" "}
             <Link to="/finance-supply-chain/" className="text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -457,7 +457,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -526,7 +526,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -592,7 +592,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>
@@ -661,7 +661,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
           </p>
           <p>
             <Link to="/finance-supply-chain/" className="font-semibold text-primary hover:underline">
-              Till Finance & Supply Chain-sidan →
+              Till Finance & Supply Chain Management (F&O)-sidan →
             </Link>
           </p>
         </div>

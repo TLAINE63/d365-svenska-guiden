@@ -1680,7 +1680,7 @@ const PartnerUpdate = () => {
    productKey === 'bc' 
    ? "Ex: Business Central-implementationer i medelstora bolag inom distribution"
    : productKey === 'fsc'
-   ? "Ex: Finance & Supply Chain för tillverkande koncerner med komplexa flöden"
+   ? "Ex: Finance & Supply Chain Management (F&O) för tillverkande koncerner med komplexa flöden"
    : productKey === 'sales'
    ? "Ex: Sales-implementeringar för B2B-företag med långa säljcykler"
    : "Ex: Customer Service-lösningar för supportteam med höga volymer";

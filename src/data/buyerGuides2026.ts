@@ -43,12 +43,12 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
     title: "ERP-köparguiden 2026",
     seoTitle: "ERP-köparguiden 2026 – köp affärssystem rätt",
     seoDescription:
-      "Köparsidig guide inför ERP-upphandling 2026: när Business Central räcker, när Finance & Supply Chain behövs, vad kostnaden består av och vilka krav du ska ställa på partnern.",
+      "Köparsidig guide inför ERP-upphandling 2026: när Business Central räcker, när Finance & Supply Chain Management (F&O) behövs, vad kostnaden består av och vilka krav du ska ställa på partnern.",
     hero: "Så köper du affärssystem 2026 – utan att betala för fel scope",
     intro:
       "Guiden är skriven från köparens sida. Den beskriver hur du avgör vilket Dynamics 365-ERP som passar, vad totalkostnaden faktiskt består av och vilka bevis du ska kräva av partnern innan du skriver på.",
     benefits: [
-      "Beslutsunderlag för valet mellan Business Central och Finance & Supply Chain",
+      "Beslutsunderlag för valet mellan Business Central och Finance & Supply Chain Management (F&O)",
       "Checklista för vad totalkostnaden består av utöver listpris",
       "De frågor som avslöjar om partnern har levererat i din bransch tidigare",
       "Mall för hur du strukturerar utvärdering och referenstagning",
@@ -66,10 +66,10 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
         ],
       },
       {
-        heading: "2. Business Central eller Finance & Supply Chain?",
+        heading: "2. Business Central eller Finance & Supply Chain Management (F&O)?",
         bullets: [
           "Business Central passar typiskt små och medelstora bolag med ett fåtal juridiska enheter och rimligt komplex tillverkning eller distribution.",
-          "Finance & Supply Chain blir aktuellt vid många bolag och länder, avancerad tillverkning, tung logistik eller omfattande koncernkrav.",
+          "Finance & Supply Chain Management (F&O) blir aktuellt vid många bolag och länder, avancerad tillverkning, tung logistik eller omfattande koncernkrav.",
           "Antal användare säger mindre än processkomplexiteten – ett litet bolag med extrem komplexitet kan behöva F&SCM och tvärtom.",
           "Räkna alltid på förvaltningsförmågan internt: F&SCM kräver mer eget ägarskap över tid.",
         ],
@@ -89,7 +89,7 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
       {
         heading: "4. Så utvärderar du partners",
         intro: "Produktvalet är viktigt. Partnervalet avgör oftare om projektet lyckas.",
-        bullets: commonPartnerProof("Business Central eller Finance & Supply Chain"),
+        bullets: commonPartnerProof("Business Central eller Finance & Supply Chain Management (F&O)"),
       },
       {
         heading: "5. Vanliga fallgropar",

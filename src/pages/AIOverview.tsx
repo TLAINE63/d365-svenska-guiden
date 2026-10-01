@@ -103,7 +103,7 @@ const goals = [
  "Sales forecasting med Dynamics 365 Sales",
  "Lagerprognoser i Supply Chain Management",
  ],
- cta: { label: "Utforska Finance & Supply Chain", link: "/finance-supply-chain" },
+ cta: { label: "Utforska Finance & Supply Chain Management (F&O)", link: "/finance-supply-chain" },
  },
  },
  {

@@ -11,7 +11,7 @@ import {
 
 const PRODUCT_OPTIONS = [
   "Business Central",
-  "Finance & Supply Chain",
+  "Finance & Supply Chain Management (F&O)",
   "Sales",
   "Customer Service",
   "Contact Center",

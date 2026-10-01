@@ -2156,7 +2156,7 @@ export const PRODUCT_GROUPS: { key: ProductKey; label: string; description: stri
   },
   {
     key: "fscm",
-    label: "Finance & Supply Chain",
+    label: "Finance & Supply Chain Management (F&O)",
     description: "Enterprise-ERP för medel- och storbolag.",
   },
   {

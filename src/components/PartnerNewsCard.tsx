@@ -8,7 +8,7 @@ import { formatDateYYYYMMDD } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<PartnerNewsProductArea, string> = {
   "business-central": "Business Central",
-  "finance-scm": "Finance & Supply Chain",
+  "finance-scm": "Finance & Supply Chain Management (F&O)",
   "crm-sales": "CRM – Sales & Customer Insights",
   "crm-service": "CRM – Customer Service, Field Service & Contact Center",
   "crm": "CRM / Customer Engagement",

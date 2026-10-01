@@ -956,7 +956,7 @@ const Kunskapscenter = () => {
  {[
   { slug: "business-central", label: "Business Central" },
   { slug: "dynamics-365-tillagg", label: "Dynamics 365-tillägg (ISV)" },
-  { slug: "finance-supply-chain", label: "Finance & Supply Chain" },
+  { slug: "finance-supply-chain", label: "Finance & Supply Chain Management (F&O)" },
   { slug: "sales", label: "Sales & CRM" },
   { slug: "customer-service", label: "Kundservice & Field Service" },
   { slug: "copilot", label: "Copilot & AI" },

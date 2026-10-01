@@ -43,7 +43,7 @@ type RangeKey = "30" | "90" | "all";
 
 const PRODUCT_ALIASES: Record<string, string> = {
   "Business Central": "Business Central",
-  "Finance & Supply Chain": "Finance & Supply Chain",
+  "Finance & Supply Chain Management (F&O)": "Finance & Supply Chain Management (F&O)",
   "Sales": "Sales",
   "Customer Service": "Customer Service",
   "Field Service": "Field Service",

@@ -16,7 +16,7 @@ export type VideoProductGroup = (typeof VIDEO_PRODUCT_GROUPS)[number];
 
 export const VIDEO_PRODUCT_LABELS: Record<VideoProductGroup, string> = {
   "business-central": "Business Central",
-  "finance-scm": "Finance & Supply Chain",
+  "finance-scm": "Finance & Supply Chain Management (F&O)",
   "crm-sales": "Sales",
   "crm-service": "Customer Service",
   "customer-insights": "Customer Insights (Marketing Automation)",

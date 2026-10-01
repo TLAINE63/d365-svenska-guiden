@@ -17,7 +17,7 @@ export const FREE_TOOLS: FreeTool[] = [
 
   // Matchningstester
   { path: "/businesscentral/matchningstest/", label: "Matchningstest Business Central", category: "matchningstest" },
-  { path: "/finance-supply-chain-management/matchningstest/", label: "Matchningstest Finance & Supply Chain", category: "matchningstest" },
+  { path: "/finance-supply-chain-management/matchningstest/", label: "Matchningstest Finance & Supply Chain Management (F&O)", category: "matchningstest" },
   { path: "/d365sales/matchningstest/", label: "Matchningstest Sales", category: "matchningstest" },
   { path: "/d365customerservice/matchningstest/", label: "Matchningstest Customer Service", category: "matchningstest" },
   { path: "/d365marketing/matchningstest/", label: "Matchningstest Customer Insights", category: "matchningstest" },
@@ -27,7 +27,7 @@ export const FREE_TOOLS: FreeTool[] = [
   // Kalkylatorer
   { path: "/implementationskalkylator/", label: "Pris- och omfattningskalkylator", category: "kalkylator" },
   { path: "/businesscentral/roi-kalkylator/", label: "ROI-kalkylator Business Central", category: "kalkylator" },
-  { path: "/finance-supply-chain/roi-kalkylator/", label: "ROI-kalkylator Finance & Supply Chain", category: "kalkylator" },
+  { path: "/finance-supply-chain/roi-kalkylator/", label: "ROI-kalkylator Finance & Supply Chain Management (F&O)", category: "kalkylator" },
   { path: "/d365sales/roi-kalkylator/", label: "ROI-kalkylator Sales", category: "kalkylator" },
   { path: "/d365customerservice/roi-kalkylator/", label: "ROI-kalkylator Customer Service", category: "kalkylator" },
   { path: "/d365marketing/roi-kalkylator/", label: "ROI-kalkylator Customer Insights", category: "kalkylator" },

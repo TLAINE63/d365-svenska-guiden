@@ -30,7 +30,7 @@ function shortenToSentences(paragraphs: string[], maxSentences = 3): string {
 }
 
 const PRODUCT_LABELS: Array<{ match: string[]; label: string }> = [
-  { match: ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"], label: "Dynamics 365 Finance & Supply Chain Management (F&O)" },
+  { match: ["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain Management (F&O)"], label: "Dynamics 365 Finance & Supply Chain Management (F&O)" },
   { match: ["Business Central"], label: "Dynamics 365 Business Central" },
   { match: ["Sales"], label: "Dynamics 365 Sales" },
   { match: ["Customer Service"], label: "Dynamics 365 Customer Service" },

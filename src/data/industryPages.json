@@ -109,7 +109,7 @@
         "q": "Hur hanterar Dynamics 365 projekt och ÄTA-hantering?"
       },
       {
-        "a": "Ja, både Dynamics 365 Finance & Supply Chain och Business Central har inbyggt stöd för successiv vinstavräkning. Systemet kan konfigureras att beräkna färdigställandegrad baserat på nedlagda kostnader eller andra metoder för korrekt finansiell rapportering i långa projekt.",
+        "a": "Ja, både Dynamics 365 Finance & Supply Chain Management (F&O) och Business Central har inbyggt stöd för successiv vinstavräkning. Systemet kan konfigureras att beräkna färdigställandegrad baserat på nedlagda kostnader eller andra metoder för korrekt finansiell rapportering i långa projekt.",
         "q": "Stödjer systemet successiv vinstavräkning?"
       },
       {
@@ -117,7 +117,7 @@
         "q": "Kan vi integrera våra befintliga kalkylprogram?"
       },
       {
-        "a": "Dynamics 365-plattformen är modulär. Man kan kombinera funktionalitet från t.ex. Finance & Supply Chain för stora projekt med applikationen Field Service för att hantera service- och underhållsverksamheten, allt inom ett och samma ekosystem.",
+        "a": "Dynamics 365-plattformen är modulär. Man kan kombinera funktionalitet från t.ex. Finance & Supply Chain Management (F&O) för stora projekt med applikationen Field Service för att hantera service- och underhållsverksamheten, allt inom ett och samma ekosystem.",
         "q": "Hur fungerar systemet för både stora entreprenader och mindre serviceuppdrag?"
       },
       {
@@ -257,11 +257,11 @@
         "q": "Hur integrerar Dynamics 365 med tekniska system som GIS och SCADA?"
       },
       {
-        "a": "Valet styrs av bolagets storlek och komplexitet. Finance & Supply Chain är byggt för större koncerner med avancerade krav på anläggningshantering, projektredovisning och logistik. Business Central är en allt-i-ett-lösning som passar utmärkt för medelstora bolag med behov av en bred men mer standardiserad funktionalitet.",
-        "q": "Vilken Dynamics-lösning passar oss, Business Central eller Finance & Supply Chain?"
+        "a": "Valet styrs av bolagets storlek och komplexitet. Finance & Supply Chain Management (F&O) är byggt för större koncerner med avancerade krav på anläggningshantering, projektredovisning och logistik. Business Central är en allt-i-ett-lösning som passar utmärkt för medelstora bolag med behov av en bred men mer standardiserad funktionalitet.",
+        "q": "Vilken Dynamics-lösning passar oss, Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
-        "a": "Dynamics 365 Finance & Supply Chain har kraftfulla moduler för projektledning och redovisning som hanterar budget, planering, tidrapportering och kostnadskontroll. Tillsammans med anläggningsregistret ger det full spårbarhet på tillgångar från investeringsbeslut till avyttring.",
+        "a": "Dynamics 365 Finance & Supply Chain Management (F&O) har kraftfulla moduler för projektledning och redovisning som hanterar budget, planering, tidrapportering och kostnadskontroll. Tillsammans med anläggningsregistret ger det full spårbarhet på tillgångar från investeringsbeslut till avyttring.",
         "q": "Hur hanterar systemet stora anläggnings- och underhållsprojekt?"
       },
       {
@@ -344,7 +344,7 @@
       },
       {
         "title": "BC vs F&SCM för fastighetsbolag",
-        "description": "Mindre bestånd klarar sig ofta med Business Central + ISV, medan större börsnoterade fastighetsbolag med koncernkonsolidering och internationell närvaro lutar mot Finance & Supply Chain."
+        "description": "Mindre bestånd klarar sig ofta med Business Central + ISV, medan större börsnoterade fastighetsbolag med koncernkonsolidering och internationell närvaro lutar mot Finance & Supply Chain Management (F&O)."
       }
     ],
     "roles": [
@@ -429,8 +429,8 @@
         "q": "Hur hanteras KPI-indexering av hyror i Dynamics 365?"
       },
       {
-        "a": "Business Central + branschtillägg räcker långt för svenska fastighetsbolag upp till några miljarder i omsättning. Finance & Supply Chain blir aktuellt vid koncernredovisning över flera länder, mycket avancerad projektredovisning eller när man redan har F&SCM i moderbolaget.",
-        "q": "Klarar Business Central större fastighetsbestånd eller måste vi välja Finance & Supply Chain?"
+        "a": "Business Central + branschtillägg räcker långt för svenska fastighetsbolag upp till några miljarder i omsättning. Finance & Supply Chain Management (F&O) blir aktuellt vid koncernredovisning över flera länder, mycket avancerad projektredovisning eller när man redan har F&SCM i moderbolaget.",
+        "q": "Klarar Business Central större fastighetsbestånd eller måste vi välja Finance & Supply Chain Management (F&O)?"
       }
     ],
     "related_industries": [],
@@ -557,7 +557,7 @@
     ],
     "faq": [
       {
-        "a": "Dynamics 365 Finance & Supply Chain är utformat för komplex redovisning och kan konfigureras för att stödja specifika rapporteringsstandarder. Genom datamodellering och integrationer kan systemet samla in nödvändig data och producera rapporter i enlighet med gällande regelverk. Det kräver dock ofta branschspecifik konfiguration och ibland kompletterande lösningar.",
+        "a": "Dynamics 365 Finance & Supply Chain Management (F&O) är utformat för komplex redovisning och kan konfigureras för att stödja specifika rapporteringsstandarder. Genom datamodellering och integrationer kan systemet samla in nödvändig data och producera rapporter i enlighet med gällande regelverk. Det kräver dock ofta branschspecifik konfiguration och ibland kompletterande lösningar.",
         "q": "Hur hanterar Dynamics 365 regulatoriska krav som IFRS 17 och Solvens II?"
       },
       {
@@ -693,11 +693,11 @@
     ],
     "faq": [
       {
-        "a": "Valet beror på företagets storlek, komplexitet och framtida ambitioner. Business Central är en allt-i-ett-lösning som passar de flesta medelstora grossister. Finance & Supply Chain är avsett för större, ofta internationella, företag med mer komplexa krav på logistik, produktion eller avancerad lagerhantering.",
-        "q": "Passar Business Central eller Finance & Supply Chain bäst för vår grossistverksamhet?"
+        "a": "Valet beror på företagets storlek, komplexitet och framtida ambitioner. Business Central är en allt-i-ett-lösning som passar de flesta medelstora grossister. Finance & Supply Chain Management (F&O) är avsett för större, ofta internationella, företag med mer komplexa krav på logistik, produktion eller avancerad lagerhantering.",
+        "q": "Passar Business Central eller Finance & Supply Chain Management (F&O) bäst för vår grossistverksamhet?"
       },
       {
-        "a": "Både Business Central och Finance & Supply Chain har inbyggda WMS-funktioner. Finance & Supply Chain erbjuder den mest avancerade modulen för att detaljstyra lagerprocesser, från styrd inlagring och optimerade plockrundor till integration med lagerautomatik och handdatorer.",
+        "a": "Både Business Central och Finance & Supply Chain Management (F&O) har inbyggda WMS-funktioner. Finance & Supply Chain Management (F&O) erbjuder den mest avancerade modulen för att detaljstyra lagerprocesser, från styrd inlagring och optimerade plockrundor till integration med lagerautomatik och handdatorer.",
         "q": "Hur hanterar Dynamics 365 avancerad lagerhantering (WMS)?"
       },
       {
@@ -842,10 +842,10 @@
       },
       {
         "a": "Valet beror på organisationens storlek och komplexitet. Business Central är en bred allt-i-ett-lösning som passar mindre till medelstora vårdgivare. Finance & Supply Chain Management är avsett för större organisationer med mer komplexa krav på exempelvis koncernredovisning, avancerad logistik och detaljerad spårbarhet.",
-        "q": "Vilken applikation ska vi välja, Business Central eller Finance & Supply Chain?"
+        "q": "Vilken applikation ska vi välja, Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
-        "a": "Dynamics 365 Finance & Supply Chain erbjuder avancerade funktioner för lagerhantering som inkluderar batch- och serienummerspårning. Detta gör det möjligt att spåra medicintekniska produkter och läkemedel från inleverans till användning på en specifik patient, vilket är en grundförutsättning för regelefterlevnad och patientsäkerhet.",
+        "a": "Dynamics 365 Finance & Supply Chain Management (F&O) erbjuder avancerade funktioner för lagerhantering som inkluderar batch- och serienummerspårning. Detta gör det möjligt att spåra medicintekniska produkter och läkemedel från inleverans till användning på en specifik patient, vilket är en grundförutsättning för regelefterlevnad och patientsäkerhet.",
         "q": "Hur hanteras spårbarhet för läkemedel och implantat i systemet?"
       }
     ],
@@ -989,7 +989,7 @@
         "q": "Hur stöder Dynamics 365 hanteringen av subventioner och EU-stöd?"
       },
       {
-        "a": "Ja, Microsoft Dynamics 365 är skalbart och består av olika applikationer. Mindre företag kan dra nytta av Business Central för grundläggande funktioner, medan större organisationer kan använda Finance & Supply Chain och andra specialiserade appar. Valet av applikation beror på företagets specifika behov och komplexitet.",
+        "a": "Ja, Microsoft Dynamics 365 är skalbart och består av olika applikationer. Mindre företag kan dra nytta av Business Central för grundläggande funktioner, medan större organisationer kan använda Finance & Supply Chain Management (F&O) och andra specialiserade appar. Valet av applikation beror på företagets specifika behov och komplexitet.",
         "q": "Är Dynamics 365 lämpligt för både små lantbruk och större skogsindustrier?"
       },
       {
@@ -1113,7 +1113,7 @@
     ],
     "faq": [
       {
-        "a": "Ja, genom att kombinera applikationer kan man skapa ett sammanhängande flöde. Dynamics 365 Sales hanterar kund- och anbudsprocessen, medan projekt- och ekonomidelarna i Business Central eller Finance & Supply Chain hanterar planering, tidrapportering och fakturering.",
+        "a": "Ja, genom att kombinera applikationer kan man skapa ett sammanhängande flöde. Dynamics 365 Sales hanterar kund- och anbudsprocessen, medan projekt- och ekonomidelarna i Business Central eller Finance & Supply Chain Management (F&O) hanterar planering, tidrapportering och fakturering.",
         "q": "Kan Dynamics 365 hantera hela flödet från sälj till faktura?"
       },
       {
@@ -1121,8 +1121,8 @@
         "q": "Hur stödjer systemet resursplanering och optimering av beläggning?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och framtida tillväxtplaner. Business Central är ofta ett bra val för företag som vill ha en bred allt-i-ett-lösning. Finance & Supply Chain är mer anpassat för större organisationer med mer komplexa finansiella processer eller internationell verksamhet. En behovsanalys rekommenderas alltid.",
-        "q": "Vilken version passar oss, Business Central eller Finance & Supply Chain?"
+        "a": "Valet beror på företagets storlek, komplexitet och framtida tillväxtplaner. Business Central är ofta ett bra val för företag som vill ha en bred allt-i-ett-lösning. Finance & Supply Chain Management (F&O) är mer anpassat för större organisationer med mer komplexa finansiella processer eller internationell verksamhet. En behovsanalys rekommenderas alltid.",
+        "q": "Vilken version passar oss, Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
         "a": "Ja, projektmodulerna i Dynamics 365 är byggda för att vara flexibla. Det finns stöd för att konfigurera och hantera olika projekt- och faktureringstyper, såsom fastpris, löpande räkning (tid och material) och abonnemang/retainers.",
@@ -1269,12 +1269,12 @@
         "q": "Kan Dynamics 365 valideras för att möta GxP- och FDA 21 CFR Part 11-krav?"
       },
       {
-        "a": "Både Finance & Supply Chain och Business Central har inbyggda funktioner för avancerad lagerhantering. Systemen kan spåra batch- och serienummer genom hela värdekedjan, från ankommande gods via produktion till leverans, vilket är en grundförutsättning för att uppfylla spårbarhetskrav som UDI (Unique Device Identification).",
+        "a": "Både Finance & Supply Chain Management (F&O) och Business Central har inbyggda funktioner för avancerad lagerhantering. Systemen kan spåra batch- och serienummer genom hela värdekedjan, från ankommande gods via produktion till leverans, vilket är en grundförutsättning för att uppfylla spårbarhetskrav som UDI (Unique Device Identification).",
         "q": "Hur hanterar Dynamics 365 spårbarhet för UDI och batcher?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och tillväxtplaner. Business Central är en allt-i-ett-lösning som passar utmärkt för små och medelstora företag. Finance & Supply Chain riktar sig till större, ofta internationella, företag med mer komplexa krav inom tillverkning, ekonomi och logistik.",
-        "q": "Passar Business Central eller Finance & Supply Chain bäst för oss?"
+        "a": "Valet beror på företagets storlek, komplexitet och tillväxtplaner. Business Central är en allt-i-ett-lösning som passar utmärkt för små och medelstora företag. Finance & Supply Chain Management (F&O) riktar sig till större, ofta internationella, företag med mer komplexa krav inom tillverkning, ekonomi och logistik.",
+        "q": "Passar Business Central eller Finance & Supply Chain Management (F&O) bäst för oss?"
       },
       {
         "a": "Ja, Dynamics 365 är byggt med öppna API:er som möjliggör integration med andra system. Det är vanligt att integrera affärssystemet med ett specialiserat QMS för att synkronisera produktdata, ändringshantering och kvalitetsdokumentation för en sömlös process.",
@@ -1405,7 +1405,7 @@
     ],
     "faq": [
       {
-        "a": "Både Business Central och Finance & Supply Chain har inbyggt stöd för batch- och serienummer. Detta möjliggör spårning av enskilda batcher från råvaruinköp, genom produktionens alla steg, till färdig produkt och slutkund. Informationen är integrerad med lager och kvalitet för att snabbt kunna agera vid en eventuell återkallelse.",
+        "a": "Både Business Central och Finance & Supply Chain Management (F&O) har inbyggt stöd för batch- och serienummer. Detta möjliggör spårning av enskilda batcher från råvaruinköp, genom produktionens alla steg, till färdig produkt och slutkund. Informationen är integrerad med lager och kvalitet för att snabbt kunna agera vid en eventuell återkallelse.",
         "q": "Hur hanterar Dynamics 365 spårbarhet och batchhantering?"
       },
       {
@@ -1421,8 +1421,8 @@
         "q": "Är Dynamics 365 ett validerat system för livsmedelsindustrin?"
       },
       {
-        "a": "Finance & Supply Chain är riktat mot större och mer komplexa organisationer med avancerade krav på produktionsstyrning, lager och logistik. Business Central är en allt-i-ett-lösning för små till medelstora företag som önskar en bred funktionalitet i ett mindre komplext format. Valet beror på företagets storlek, processkomplexitet och framtida tillväxtplaner.",
-        "q": "Vilken är skillnaden mellan Business Central och Finance & Supply Chain för vår bransch?"
+        "a": "Finance & Supply Chain Management (F&O) är riktat mot större och mer komplexa organisationer med avancerade krav på produktionsstyrning, lager och logistik. Business Central är en allt-i-ett-lösning för små till medelstora företag som önskar en bred funktionalitet i ett mindre komplext format. Valet beror på företagets storlek, processkomplexitet och framtida tillväxtplaner.",
+        "q": "Vilken är skillnaden mellan Business Central och Finance & Supply Chain Management (F&O) för vår bransch?"
       },
       {
         "a": "Lagerhanteringen i Dynamics 365 har dedikerade fält för bäst-före- och utgångsdatum. Systemet kan konfigureras för att automatiskt föreslå utleverans enligt FEFO-principen (First-Expired, First-Out), vilket hjälper till att säkerställa att äldre produkter skickas först och minimerar risken för svinn.",
@@ -1541,7 +1541,7 @@
     ],
     "faq": [
       {
-        "a": "Dynamics 365 Finance & Supply Chain inkluderar avancerade moduler för lagerhantering (WMS) och grundläggande transporthantering (TMS). Många företag väljer att komplettera med tredjepartslösningar för specialiserad TMS-funktionalitet som ruttoptimering, vilka ofta kan integreras med Dynamics 365.",
+        "a": "Dynamics 365 Finance & Supply Chain Management (F&O) inkluderar avancerade moduler för lagerhantering (WMS) och grundläggande transporthantering (TMS). Många företag väljer att komplettera med tredjepartslösningar för specialiserad TMS-funktionalitet som ruttoptimering, vilka ofta kan integreras med Dynamics 365.",
         "q": "Kan Dynamics 365 hantera våra transport- och lagerprocesser (TMS/WMS)?"
       },
       {
@@ -1549,8 +1549,8 @@
         "q": "Hur fungerar integration med våra befintliga system, t.ex. från fordon eller tull?"
       },
       {
-        "a": "Valet beror på företagets storlek och komplexitet. Business Central är ofta ett bra val för mindre och medelstora bolag med mer standardiserade behov. Finance & Supply Chain riktar sig till större eller mer komplexa organisationer med internationell verksamhet och avancerade krav inom logistik och ekonomi.",
-        "q": "Är Business Central eller Finance & Supply Chain rätt val för oss?"
+        "a": "Valet beror på företagets storlek och komplexitet. Business Central är ofta ett bra val för mindre och medelstora bolag med mer standardiserade behov. Finance & Supply Chain Management (F&O) riktar sig till större eller mer komplexa organisationer med internationell verksamhet och avancerade krav inom logistik och ekonomi.",
+        "q": "Är Business Central eller Finance & Supply Chain Management (F&O) rätt val för oss?"
       },
       {
         "a": "Ja, en central styrka i Dynamics 365 är dimensionsbaserad redovisning. Det gör det möjligt att tagga intäkter och kostnader med dimensioner som t.ex. bil, rutt, projekt eller kund, för att sedan kunna analysera lönsamheten i detalj.",
@@ -1677,7 +1677,7 @@
     ],
     "faq": [
       {
-        "a": "Ja, både Business Central och Finance & Supply Chain har funktioner för återkommande fakturering som kan konfigureras för att hantera olika typer av prenumerationsmodeller. Funktionerna stödjer automatiserad generering av fakturor, förnyelsehantering och periodisering av intäkter enligt gällande redovisningsprinciper.",
+        "a": "Ja, både Business Central och Finance & Supply Chain Management (F&O) har funktioner för återkommande fakturering som kan konfigureras för att hantera olika typer av prenumerationsmodeller. Funktionerna stödjer automatiserad generering av fakturor, förnyelsehantering och periodisering av intäkter enligt gällande redovisningsprinciper.",
         "q": "Kan Dynamics 365 hantera vår prenumerationsfakturering?"
       },
       {
@@ -1973,11 +1973,11 @@
     ],
     "faq": [
       {
-        "a": "Ja, både Business Central (ofta via branschtillägg) och Finance & Supply Chain / Commerce stödjer style/SKU-strukturer med varianter i storlek, färg och andra dimensioner, inklusive separata lager, priser och streckkoder per variant.",
+        "a": "Ja, både Business Central (ofta via branschtillägg) och Finance & Supply Chain Management (F&O) / Commerce stödjer style/SKU-strukturer med varianter i storlek, färg och andra dimensioner, inklusive separata lager, priser och streckkoder per variant.",
         "q": "Hanterar Dynamics 365 storlek- och färgmatriser för mode och sport?"
       },
       {
-        "a": "Mindre och medelstora varumärken börjar ofta i Business Central kombinerat med ett mode-tillägg och en e-handelsplattform. Större aktörer med butikskedja, flera länder och egen produktion väljer ofta Finance & Supply Chain och/eller Commerce för full omnichannel.",
+        "a": "Mindre och medelstora varumärken börjar ofta i Business Central kombinerat med ett mode-tillägg och en e-handelsplattform. Större aktörer med butikskedja, flera länder och egen produktion väljer ofta Finance & Supply Chain Management (F&O) och/eller Commerce för full omnichannel.",
         "q": "Vilken Dynamics 365-applikation passar bäst för ett växande modevarumärke?"
       },
       {
@@ -2289,8 +2289,8 @@
         "q": "Kan Dynamics 365 användas för vår ärendehantering?"
       },
       {
-        "a": "Förenklat kan man säga att Business Central är ett komplett affärssystem riktat mot mindre till medelstora organisationer. Finance & Supply Chain är en mer specialiserad och skalbar lösning för större, komplexa organisationer med omfattande krav inom exempelvis redovisning, logistik och anläggningsregister, vilket ofta är fallet för större kommuner och myndigheter.",
-        "q": "Vad är den största skillnaden mellan Business Central och Finance & Supply Chain för en kommun?"
+        "a": "Förenklat kan man säga att Business Central är ett komplett affärssystem riktat mot mindre till medelstora organisationer. Finance & Supply Chain Management (F&O) är en mer specialiserad och skalbar lösning för större, komplexa organisationer med omfattande krav inom exempelvis redovisning, logistik och anläggningsregister, vilket ofta är fallet för större kommuner och myndigheter.",
+        "q": "Vad är den största skillnaden mellan Business Central och Finance & Supply Chain Management (F&O) för en kommun?"
       },
       {
         "a": "Dynamics 365 är en standardplattform, men den är mycket flexibel och kan konfigureras för att spegla unika verksamhetsprocesser och terminologi. Plattformen kan anpassas med lågkod-verktyg för att möta specifika krav utan att påverka möjligheten att uppgradera systemet. En grundlig förstudie är viktig för att kartlägga vilka processer som är standard och vilka som kräver anpassning.",
@@ -2425,8 +2425,8 @@
         "q": "Kan vi integrera vår befintliga e-handelsplattform med Dynamics 365?"
       },
       {
-        "a": "Valet beror på er storlek och komplexitet. Business Central är en bred allt-i-ett-lösning för små/medelstora bolag. Finance & Supply Chain är mer specialiserat och kraftfullt för större organisationer med avancerade krav på logistik, lagerstyrning och finans över flera bolag och länder.",
-        "q": "Bör vi välja Business Central eller Finance & Supply Chain?"
+        "a": "Valet beror på er storlek och komplexitet. Business Central är en bred allt-i-ett-lösning för små/medelstora bolag. Finance & Supply Chain Management (F&O) är mer specialiserat och kraftfullt för större organisationer med avancerade krav på logistik, lagerstyrning och finans över flera bolag och länder.",
+        "q": "Bör vi välja Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
         "a": "Dynamics 365 erbjuder ett modernt, molnbaserat kassasystem (POS). Det kan köras på olika enheter som stationära kassor, surfplattor och mobiler. Systemet är helt integrerat med den centrala plattformen för realtidsdata om lager, kunder och kampanjer.",
@@ -2581,16 +2581,16 @@
     ],
     "faq": [
       {
-        "a": "Dynamics 365, särskilt med Finance & Supply Chain, har dedikerade moduler för prenumerationsfakturering. Systemet kan automatisera fakturering för olika perioder (månad, kvartal, år), hantera prisjusteringar, tilläggstjänster och automatiskt periodisera intäkterna enligt gällande redovisningsregler.",
+        "a": "Dynamics 365, särskilt med Finance & Supply Chain Management (F&O), har dedikerade moduler för prenumerationsfakturering. Systemet kan automatisera fakturering för olika perioder (månad, kvartal, år), hantera prisjusteringar, tilläggstjänster och automatiskt periodisera intäkterna enligt gällande redovisningsregler.",
         "q": "Hur hanterar Dynamics 365 prenumerationer och återkommande fakturering?"
       },
       {
-        "a": "Ja, plattformen är utformad för att hantera en mix av affärsmodeller. Projektmodulerna i Finance & Supply Chain eller Business Central hanterar allt från planering och budget till tidrapportering och projektfakturering. Detta kan kombineras med service- och prenumerationsmoduler för att ge en komplett bild av kundens engagemang och lönsamhet.",
+        "a": "Ja, plattformen är utformad för att hantera en mix av affärsmodeller. Projektmodulerna i Finance & Supply Chain Management (F&O) eller Business Central hanterar allt från planering och budget till tidrapportering och projektfakturering. Detta kan kombineras med service- och prenumerationsmoduler för att ge en komplett bild av kundens engagemang och lönsamhet.",
         "q": "Kan systemet hantera både projekt och löpande serviceavtal?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är ofta ett bra val för små och medelstora företag som vill ha en bred, samlad lösning. Finance & Supply Chain riktar sig till större eller mer komplexa organisationer med avancerade krav på ekonomi, logistik, projektredovisning och verksamhet i flera länder.",
-        "q": "Vilken ERP-lösning passar oss bäst, Business Central eller Finance & Supply Chain?"
+        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är ofta ett bra val för små och medelstora företag som vill ha en bred, samlad lösning. Finance & Supply Chain Management (F&O) riktar sig till större eller mer komplexa organisationer med avancerade krav på ekonomi, logistik, projektredovisning och verksamhet i flera länder.",
+        "q": "Vilken ERP-lösning passar oss bäst, Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
         "a": "Ja, Dynamics 365 är byggt på en öppen plattform (Microsoft Dataverse) som är designad för integration. Med hjälp av standardiserade API:er och anslutningsverktyg är det vanligt att integrera affärssystemet med exempelvis provisioneringssystem, övervakningsverktyg eller specialiserade faktureringsmotorer för att skapa ett sammanhängande IT-landskap.",
@@ -2692,7 +2692,7 @@
       },
       {
         "title": "Val mellan volymstyrt BC och avancerat F&SCM",
-        "description": "Diskret styckmontering och måttliga volymer hanteras bra i Business Central, medan högvolymsproduktion, avancerad produktkonfigurator, formelbaserad processtillverkning och planeringsoptimering kräver Finance & Supply Chain."
+        "description": "Diskret styckmontering och måttliga volymer hanteras bra i Business Central, medan högvolymsproduktion, avancerad produktkonfigurator, formelbaserad processtillverkning och planeringsoptimering kräver Finance & Supply Chain Management (F&O)."
       },
       {
         "title": "Komplexitet i produktkonfigurator",
@@ -2749,7 +2749,7 @@
     ],
     "faq": [
       {
-        "a": "Dynamics 365 har brett stöd för olika tillverkningsprinciper. Systemet kan hantera diskret tillverkning (montering), processtillverkning (receptbaserad), lean manufacturing (kanban) samt projektbaserad tillverkning (make-to-order, engineer-to-order). Funktionaliteten anpassas baserat på om man väljer Business Central eller Finance & Supply Chain.",
+        "a": "Dynamics 365 har brett stöd för olika tillverkningsprinciper. Systemet kan hantera diskret tillverkning (montering), processtillverkning (receptbaserad), lean manufacturing (kanban) samt projektbaserad tillverkning (make-to-order, engineer-to-order). Funktionaliteten anpassas baserat på om man väljer Business Central eller Finance & Supply Chain Management (F&O).",
         "q": "Vilka produktionstyper stödjer Dynamics 365? (Diskret, process, projekt etc.)"
       },
       {
@@ -2757,8 +2757,8 @@
         "q": "Hur hanterar Dynamics 365 spårbarhet och kvalitetskontroll?"
       },
       {
-        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är en bred lösning som passar många SMB-företag. Finance & Supply Chain riktar sig till större, ofta internationella, organisationer med mer komplexa krav på exempelvis produktkonfigurering, logistik och koncernredovisning.",
-        "q": "Är Business Central eller Finance & Supply Chain rätt för oss?"
+        "a": "Valet beror på företagets storlek, komplexitet och internationella närvaro. Business Central är en bred lösning som passar många SMB-företag. Finance & Supply Chain Management (F&O) riktar sig till större, ofta internationella, organisationer med mer komplexa krav på exempelvis produktkonfigurering, logistik och koncernredovisning.",
+        "q": "Är Business Central eller Finance & Supply Chain Management (F&O) rätt för oss?"
       },
       {
         "a": "Ja, Dynamics 365 är byggt för integration. Genom standardiserade gränssnitt (API:er) kan data utbytas i realtid med externa system för produktionsstyrning (MES), datainsamling (SCADA) eller andra specialiserade fabriksapplikationer för att skapa ett sammanhållet informationsflöde.",
@@ -2770,7 +2770,7 @@
       },
       {
         "a": "BC räcker oftast för diskret tillverkning upp till ~500 anställda, måttliga produktionsvolymer och enklare stycklistor. F&SCM blir motiverat vid hög volym, avancerad produktkonfigurator, formelbaserad processtillverkning, MES-integration med planeringsoptimering eller koncernkonsolidering över flera länder.",
-        "q": "När räcker Business Central och när behöver vi Finance & Supply Chain?"
+        "q": "När räcker Business Central och när behöver vi Finance & Supply Chain Management (F&O)?"
       },
       {
         "a": "F&SCM har en inbyggd Product Configuration Model där man bygger regler, attribut och prissättning som genererar unika varianter vid orderläggning. BC har enklare varianthantering med dimensioner och attribut samt kan kompletteras med ISV-konfiguratorer som ETO-paket.",
@@ -2897,15 +2897,15 @@
         "q": "Kan Dynamics 365 hantera studentadministration (SIS)?"
       },
       {
-        "a": "Valet beror på organisationens storlek och komplexitet. Business Central är ofta ett bra val för privata skolor och mindre utbildningsföretag. Finance & Supply Chain är riktat mot större, komplexa organisationer som universitet med omfattande krav på ekonomi och anslagshantering.",
-        "q": "Vilken ERP-lösning passar oss: Business Central eller Finance & Supply Chain?"
+        "a": "Valet beror på organisationens storlek och komplexitet. Business Central är ofta ett bra val för privata skolor och mindre utbildningsföretag. Finance & Supply Chain Management (F&O) är riktat mot större, komplexa organisationer som universitet med omfattande krav på ekonomi och anslagshantering.",
+        "q": "Vilken ERP-lösning passar oss: Business Central eller Finance & Supply Chain Management (F&O)?"
       },
       {
         "a": "Dynamics 365 har robusta funktioner för att strukturera och lagra data. Genom konfiguration och integrationer kan systemet anpassas för att generera de dataunderlag och rapporter som krävs av svenska myndigheter, vilket minskar manuellt arbete och ökar datakvaliteten.",
         "q": "Hur stödjer systemet rapportering till myndigheter som CSN och SCB?"
       },
       {
-        "a": "Ja, både Business Central och Finance & Supply Chain har avancerade moduler för projekthantering och redovisning. De gör det möjligt att budgetera, tidrapportera och följa upp kostnader och intäkter per projekt eller anslag.",
+        "a": "Ja, både Business Central och Finance & Supply Chain Management (F&O) har avancerade moduler för projekthantering och redovisning. De gör det möjligt att budgetera, tidrapportera och följa upp kostnader och intäkter per projekt eller anslag.",
         "q": "Passar Dynamics 365 för att hantera projekt och anslagsfinansierad forskning?"
       },
       {
@@ -2984,7 +2984,7 @@
       },
       {
         "title": "Standard-D365 saknar rental-funktionalitet",
-        "description": "Varken Business Central eller Finance & Supply Chain har färdig uthyrning ur lådan — det krävs en rental-ISV eller egen utveckling för att hantera tillgänglighetskalender, hyresavtal och periodisk fakturering."
+        "description": "Varken Business Central eller Finance & Supply Chain Management (F&O) har färdig uthyrning ur lådan — det krävs en rental-ISV eller egen utveckling för att hantera tillgänglighetskalender, hyresavtal och periodisk fakturering."
       },
       {
         "title": "Val mellan rental-ISV och egenutvecklat",
@@ -3041,7 +3041,7 @@
     ],
     "faq": [
       {
-        "a": "Ja, både Business Central och Finance & Supply Chain kan konfigureras för att hantera avancerad prissättning. Detta inkluderar prislistor per kund, stafflade priser baserade på hyrestid, och olika priser för helg och vardag.",
+        "a": "Ja, både Business Central och Finance & Supply Chain Management (F&O) kan konfigureras för att hantera avancerad prissättning. Detta inkluderar prislistor per kund, stafflade priser baserade på hyrestid, och olika priser för helg och vardag.",
         "q": "Kan Dynamics 365 hantera komplexa prismodeller för uthyrning?"
       },
       {
@@ -3057,11 +3057,11 @@
         "q": "Stödjer Dynamics 365 automatisk fakturering för långtidshyra?"
       },
       {
-        "a": "För många medelstora företag är Business Central en fullgod lösning som kombinerar ekonomi, lager och uthyrning. Om verksamheten har mycket komplex logistik, avancerade servicekrav eller internationell närvaro kan en kombination med Finance & Supply Chain och Field Service vara mer passande.",
+        "a": "För många medelstora företag är Business Central en fullgod lösning som kombinerar ekonomi, lager och uthyrning. Om verksamheten har mycket komplex logistik, avancerade servicekrav eller internationell närvaro kan en kombination med Finance & Supply Chain Management (F&O) och Field Service vara mer passande.",
         "q": "Vilken Dynamics 365-applikation passar bäst för ett medelstort uthyrningsföretag?"
       },
       {
-        "a": "De vanligaste är To-Increase DynaRent (för Finance & Supply Chain), samt flera mindre BC-baserade paket från nordiska partners. DynaRent är marknadsledande för maskin- och utrustningsuthyrning, medan BC-paketen ofta passar mindre bolag med enklare flöden.",
+        "a": "De vanligaste är To-Increase DynaRent (för Finance & Supply Chain Management (F&O)), samt flera mindre BC-baserade paket från nordiska partners. DynaRent är marknadsledande för maskin- och utrustningsuthyrning, medan BC-paketen ofta passar mindre bolag med enklare flöden.",
         "q": "Vilka ISV-lösningar finns för uthyrning på Dynamics 365?"
       },
       {
@@ -3070,7 +3070,7 @@
       },
       {
         "a": "För nordiska uthyrningsbolag med enklare maskinpark och en eller ett fåtal depåer räcker BC + branschtillägg långt. Vid stora maskinparker, flera bolag/länder, avancerad service och komplex långtidsuthyrning är F&SCM + DynaRent vanligare valet.",
-        "q": "Räcker Business Central eller behöver vi Finance & Supply Chain för uthyrning?"
+        "q": "Räcker Business Central eller behöver vi Finance & Supply Chain Management (F&O) för uthyrning?"
       }
     ],
     "related_industries": [],
