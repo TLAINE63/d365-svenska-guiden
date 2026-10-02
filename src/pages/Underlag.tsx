@@ -101,7 +101,9 @@ export default function Underlag() {
       ? { label: "Se partners förifyllda från ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(filters)}` }
       : !compared
         ? { label: "Jämför era sparade partners sida vid sida", to: "/shortlist/" }
-        : { label: "Skicka ert underlag och få hjälp att ta det vidare", to: "#skicka" };
+        : hasPackage
+          ? { label: "Skicka ert underlag och få hjälp att ta det vidare", to: "#skicka" }
+          : { label: "Komplettera underlaget så kan ni skicka det", to: "#komplettera" };
 
   const copy = async () => {
     try {
