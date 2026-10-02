@@ -91,7 +91,7 @@ function newsletterEmail(partnerName: string, token: string): string {
           <li ${li}>19 olika partners fick besök på sina sidor</li>
           <li ${li}>Över 4 minuter i genomsnitt per besök</li>
           <li ${li}>32 % av trafiken kommer från Google och Bing</li>
-          <li ${li}>57 publicerade inlägg i Partnernytt, som delas i sociala medier och indexeras av Google och AI-sökmotorer</li>
+          <li ${li}>28 nya inlägg i Partnernytt publicerade i september (57 totalt publicerade), som delas i sociala medier och indexeras av Google och AI-sökmotorer</li>
         </ul>
 
         <h2 ${h2}>businesscentral.se</h2>
