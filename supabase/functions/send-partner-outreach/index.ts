@@ -194,7 +194,7 @@ Deno.serve(async (req) => {
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
     // Månadsbrevet (lista, förhandsgranska, testutskick som endast går till REVIEW_RECIPIENT)
     // är även öppet för redaktörer (/redaktion). Expertutskicken går till partnerna och förblir admin-only.
-    const NEWSLETTER_ACTIONS = ["newsletter-send", "newsletter-list", "newsletter-preview"];
+    const NEWSLETTER_ACTIONS = ["newsletter-send", "newsletter-list", "newsletter-preview", "newsletter-save"];
     if (["expert-list", "expert-send", "expert-mark-sent", ...NEWSLETTER_ACTIONS].includes(rawBody?.action)) {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
       const allowedRoles = NEWSLETTER_ACTIONS.includes(rawBody.action) ? ["admin", "editor"] : ["admin"];
@@ -255,9 +255,21 @@ Deno.serve(async (req) => {
 
       // Testutskick av nyhetsbrevet: ett personligt mejl per publicerad partner,
       // men alla levereras till granskningsmottagaren.
+      const content = await loadContent(sb);
+
+      if (rawBody.action === "newsletter-save") {
+        const parsed = ContentSchema.safeParse(rawBody.content);
+        if (!parsed.success) return new Response(JSON.stringify({ error: "Ämnesrad, sammanfattning och brevtext måste fyllas i" }), { status: 400, headers: jsonHeaders });
+        const { error: sErr } = await sb.from("newsletter_content").upsert({ id: "current", ...parsed.data, updated_at: new Date().toISOString() });
+        if (sErr) throw sErr;
+        return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
+      }
+
       if (rawBody.action === "newsletter-list") {
         return new Response(JSON.stringify({
-          subject: NEWSLETTER_SUBJECT,
+          subject: content.subject,
+          content,
+          default_content: DEFAULT_CONTENT,
           partners: list.map((p) => ({ id: p.id, name: p.name, has_link: !!p.token })),
         }), { headers: jsonHeaders });
       }
@@ -266,7 +278,9 @@ Deno.serve(async (req) => {
         const p = list.find((x) => x.id === rawBody.partner_id);
         if (!p) return new Response(JSON.stringify({ error: "Partnern hittades inte" }), { status: 404, headers: jsonHeaders });
         if (!p.token) return new Response(JSON.stringify({ error: "Partnern saknar giltig profileringslänk" }), { status: 400, headers: jsonHeaders });
-        return new Response(JSON.stringify({ subject: NEWSLETTER_SUBJECT, html: newsletterEmail(p.name, p.token) }), { headers: jsonHeaders });
+        const draft = rawBody.content ? ContentSchema.safeParse(rawBody.content) : null;
+        const c = draft?.success ? draft.data : content;
+        return new Response(JSON.stringify({ subject: c.subject, html: newsletterEmail(p.name, p.token, c) }), { headers: jsonHeaders });
       }
 
       if (rawBody.action === "newsletter-send") {
@@ -277,11 +291,11 @@ Deno.serve(async (req) => {
         const onlyIds: string[] | null = Array.isArray(rawBody.partner_ids) ? rawBody.partner_ids.map(String) : null;
         for (const p of list.filter((x) => !onlyIds || onlyIds.includes(x.id))) {
           if (!p.token) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
-          const subject = `[Granskning: ${p.name}] ${NEWSLETTER_SUBJECT}`;
+          const subject = `[Granskning: ${p.name}] ${content.subject}`;
           const { data, error } = await rsNl.emails.send({
             from: "Thomas Laine via d365.se <info@d365.se>",
             to: [REVIEW_RECIPIENT], reply_to: REVIEW_RECIPIENT, subject,
-            html: newsletterEmail(p.name, p.token),
+            html: newsletterEmail(p.name, p.token, content),
           });
           const status = error ? "failed" : "sent";
           resultsNl.push({ partner: p.name, status });
