@@ -234,7 +234,7 @@ export default function Underlag() {
                 </div>
               </section>
 
-              <section className="print:hidden">
+              <section id="komplettera" className="print:hidden">
                 <Button variant="outline" size="sm" onClick={() => setShowEdit((v) => !v)}>{showEdit ? "Dölj frågorna" : "Komplettera underlaget"}</Button>
                 {showEdit && <div className="mt-4"><UnderlagQuestionnaire questions={UNDERLAG_QUESTIONS} /></div>}
               </section>
