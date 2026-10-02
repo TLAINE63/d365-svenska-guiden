@@ -140,8 +140,8 @@ function renderMarkup(src: string, name: string, button: string): string {
       const t = l.trim();
       if (t.startsWith("## ")) { flush(); out.push(`<h2 ${h2}>${inline(t.slice(3), name)}</h2>`); }
       else if (t === "[KNAPP]") { flush(); out.push(`<p ${p}>${button}</p>`); }
-      else if (/^[-*] /.test(t)) { if (para.length) { const l2 = list; list = []; flush(); list = l2; } list.push(inline(t.slice(2), name)); }
-      else { if (list.length) { const p2 = para; para = []; flush(); para = p2; } para.push(inline(t, name)); }
+      else if (/^[-*] /.test(t)) { if (para.length) flush(); list.push(inline(t.slice(2), name)); }
+      else { if (list.length) flush(); para.push(inline(t, name)); }
     }
     flush();
   }
