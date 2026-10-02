@@ -1309,6 +1309,30 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_content: {
+        Row: {
+          body: string
+          id: string
+          subject: string
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          id?: string
+          subject: string
+          summary: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          id?: string
+          subject?: string
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       not_found_events: {
         Row: {
           full_url: string | null
