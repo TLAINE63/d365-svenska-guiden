@@ -101,6 +101,31 @@ Deno.serve(async (req) => {
     console.error("crawler-log insert failed", e);
   }
 
+  // Vidarebefordra till OtterlyAI (AI-trafikanalys). Får aldrig blockera svaret.
+  const otterlyKey = Deno.env.get("OTTERLY_API_KEY");
+  if (otterlyKey) {
+    const ip = (req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "").split(",")[0].trim();
+    const payload = [{
+      timestamp: new Date().toISOString(),
+      host: "d365.se",
+      method: "GET",
+      path: pagePath || `/${resource}`,
+      url: `${SITE}${pagePath || `/${resource}`}`,
+      status: 200,
+      user_agent: ua.slice(0, 500),
+      referrer: req.headers.get("referer") || "",
+      ip,
+    }];
+    const p = fetch("https://analytics.otterly.ai/logs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${otterlyKey}` },
+      body: JSON.stringify(payload),
+    }).then(async (r) => { if (!r.ok) console.error("otterly forward", r.status, (await r.text()).slice(0, 200)); })
+      .catch((e) => console.error("otterly forward failed", e));
+    // deno-lint-ignore no-explicit-any
+    (globalThis as any).EdgeRuntime?.waitUntil?.(p);
+  }
+
   if (pagePath) {
     const gif = Uint8Array.from(
       atob("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"),
