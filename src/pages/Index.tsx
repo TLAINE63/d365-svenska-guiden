@@ -76,6 +76,7 @@ import partnerData from "@/data/partnerData.json";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
 import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
 import { usePartners } from "@/hooks/usePartners";
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 // Endast branscher som har minst en publicerad (verifierad) partner.
@@ -148,6 +149,7 @@ const Index = () => {
   // Dynamisk statistik – speglar vad sajten faktiskt innehåller just nu.
   const { data: verifiedPartners } = usePartners();
   const { data: basicPartners } = useBasicPartners();
+  const isvSolutionCount = useIsvSolutions().length;
   const liveIdentifiedCount =
     (verifiedPartners?.length || 0) + (basicPartners?.length || 0);
   const identifiedPartnerCount =
@@ -375,10 +377,11 @@ const Index = () => {
                     Visa matchande partners
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                  <ul className="grid gap-2 pt-4 sm:grid-cols-3" aria-label="Fakta om d365.se">
+                  <ul className="grid gap-2 pt-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
                     {[
                       `${identifiedPartnerCount} kartlagda Dynamics 365-partners`,
                       `${HERO_INDUSTRIES.length} branscher`,
+                      `${isvSolutionCount} tilläggslösningar i ISV-katalogen`,
                       "40+ års erfarenhet av ERP- och Dynamics-val",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
