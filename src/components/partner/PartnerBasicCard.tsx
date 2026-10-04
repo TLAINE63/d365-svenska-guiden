@@ -127,6 +127,15 @@ export function PartnerBasicCard({
           )}
         </div>
 
+        <dl className="mt-3 space-y-2 text-xs leading-relaxed">
+          {[
+            { label: "Produktområde", value: documented.map(k => PRODUCT_LABEL[k]).join(", ") },
+            { label: "Bransch", value: factIndustries.join(", ") },
+            { label: "Geografisk kapacitet", value: factGeo.join(", ") },
+          ].filter(f => f.value).map(f => <div key={f.label}><dt className="font-semibold text-foreground">{f.label}</dt><dd className="break-words text-muted-foreground">{f.value}</dd></div>)}
+        </dl>
+        <p className="mt-2 text-[11px] text-muted-foreground">Observerade uppgifter, ej partnerverifierade. Kundstorlek, implementation och support behöver bekräftas.</p>
+
         <span className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
           Visa grundinformation
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />

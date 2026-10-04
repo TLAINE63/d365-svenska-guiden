@@ -1,3 +1,4 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import CompetenceFilters from "./CompetenceFilters";
@@ -117,6 +118,7 @@ const CompetencePartnerSection = ({ guide, filters, onFiltersChange, onDescribeN
             </div>
           )}
 
+          {results.length > 0 && <WhyTheseResults order="relevance" explanation="Dessa uppdragsprofiler motsvarar rollens grundkrav och era val. Relevans för produkt, bransch och leverans vägs i ordningen; likvärdiga profiler visas alfabetiskt. Profilen beskriver kompetens, inte garanterad tillgänglighet." className="mb-5" />}
           {results.length > 0 && (
             <div className="grid gap-4 lg:grid-cols-2">
               {results.map((p) => (

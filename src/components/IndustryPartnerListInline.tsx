@@ -1,3 +1,5 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
@@ -39,20 +41,20 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
   if (matching.length === 0) return null;
 
   return (
-    <section className="not-prose my-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-      <h3 className="mb-2 text-lg font-semibold text-slate-900">
+    <section className="not-prose my-10 border-y border-border py-6">
+      <h3 className="mb-2 text-lg font-semibold text-foreground">
         Publicerade partners för {industry} ({matching.length})
       </h3>
-      <p className="mb-5 text-sm text-slate-600">
-        Listan uppdateras automatiskt och visar samtliga partners med aktivt
-        avtal som angett {industry.toLowerCase()} som bransch.
+      <p className="mb-5 text-sm text-muted-foreground">
+        Dessa partners har registrerad branschinriktning inom {industry.toLowerCase()}.
       </p>
+      <WhyTheseResults order="alphabetical" criteria={[industry]} className="mb-5" />
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {matching.map((p) => (
-          <li key={p.id}>
+          <li key={p.id} className="rounded-lg border border-border bg-card p-3">
             <Link
               to={`/partner/${p.slug}/`}
-              className="flex h-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition hover:border-slate-400 hover:shadow-sm"
+              className="flex items-center gap-3 p-3 text-foreground transition hover:text-primary"
             >
               {p.logo_url ? (
                 <img
@@ -62,14 +64,15 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
                   className="h-10 w-10 flex-shrink-0 rounded object-contain"
                 />
               ) : (
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-slate-100 text-xs font-semibold text-slate-500">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-muted text-xs font-semibold text-muted-foreground">
                   {p.name.slice(0, 2).toUpperCase()}
                 </div>
               )}
-              <span className="text-sm font-medium text-slate-900">
+              <span className="text-sm font-medium text-foreground">
                 {p.name}
               </span>
             </Link>
+            <PartnerSelectionFacts partner={p} />
           </li>
         ))}
       </ul>

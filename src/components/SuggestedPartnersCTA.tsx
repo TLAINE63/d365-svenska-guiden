@@ -1,3 +1,5 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link } from "react-router-dom";
@@ -79,12 +81,13 @@ const SuggestedPartnersCTA = ({
             `Utifrån ${industry ? `din bransch (${industry}) och ` : ""}din valda produktinriktning har vi plockat fram fem partnerverifierade profiler som matchar det du behöver. Jämför dem sida vid sida innan du tar kontakt – då pressar du både pris och funktion.`}
         </p>
 
+        <WhyTheseResults order="relevance" criteria={[industry]} explanation="Dessa partners är förslag utifrån produkt- och branschprofil. Kundstorlek och omsättning kan förbättra matchningen men bevisar inte projektlämplighet. Urvalet är begränsat, inte en fullständig marknadslista." className="mb-5" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
           {suggested.map((p) => (
             <Link
               key={p.slug}
               to={`/partner/${p.slug}`}
-              className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-[hsl(var(--cta-orange))] hover:shadow-md"
+              className="group flex flex-col items-start gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-[hsl(var(--cta-orange))] hover:shadow-md"
             >
               {p.logo_url ? (
                 <img
@@ -110,6 +113,7 @@ const SuggestedPartnersCTA = ({
                     "Se profil för detaljer"}
                 </div>
               </div>
+              <PartnerSelectionFacts partner={p} productKey={Array.isArray(product) ? null : product} />
               <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--cta-orange))] transition-transform" />
             </Link>
           ))}
@@ -135,7 +139,7 @@ const SuggestedPartnersCTA = ({
         </div>
         <p className="mt-4 text-xs text-muted-foreground italic">
           Urvalet baseras på samma köparsidiga rankning som resten av sajten
-          (bransch- och produktprofil, agreement-signed partners först). Detta är
+          (bransch- och produktprofil med kompletterande storlekssignaler). Detta är
           inte en fullständig lista – gå gärna vidare till jämför-sidan eller
           till fler partners.
           {productLabel ? "" : null}

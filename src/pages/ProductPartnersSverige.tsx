@@ -1,3 +1,5 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useMemo } from "react";
 import Navbar from "@/components/Navbar";
@@ -108,6 +110,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               {partners.length} {partners.length === 1 ? "partner" : "partners"} att jämföra
             </h2>
+            <WhyTheseResults order="alphabetical" criteria={[cfg.productLabel]} explanation={cfg.productKey === "ai" ? "Dessa partners har registrerade AI-förmågor och uppgifter om svensk närvaro. Registrerad förmåga är inte ett bevis för varje enskilt AI-användningsfall." : undefined} className="mb-5" />
             {partners.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 Vi har ännu inte profilerat någon partner med denna inriktning.{" "}
@@ -140,6 +143,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                             {cities.length > 3 ? ` +${cities.length - 3}` : ""}
                           </span>
                         )}
+                        <PartnerSelectionFacts partner={p} productKey={cfg.productKey === "ai" ? null : cfg.productKey} />
                       </Link>
                     </li>
                   );

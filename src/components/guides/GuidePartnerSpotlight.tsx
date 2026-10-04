@@ -1,3 +1,5 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
@@ -56,6 +58,7 @@ const GuidePartnerSpotlight = ({ guide, className = "" }: Props) => {
         partnerns egen webbplats.
       </p>
 
+      <WhyTheseResults order="alphabetical" criteria={guide.apps} explanation={`Dessa partners har publicerade profiler inom guidens produktområde. Här visas de första ${shown.length} i alfabetisk ordning, inte de högst rankade eller de enda relevanta partnerna.`} className="mb-5" />
       <ul className="grid gap-4 sm:grid-cols-2">
         {shown.map((p) => (
           <li
@@ -73,6 +76,7 @@ const GuidePartnerSpotlight = ({ guide, className = "" }: Props) => {
               </p>
             )}
 
+            <PartnerSelectionFacts partner={p} />
             <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
               <Link
                 to={`/partner/${p.slug}`}
