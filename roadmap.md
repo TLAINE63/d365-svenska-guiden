@@ -1,9 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Tydlig avsändare (2026-10-04)
-- [ ] Gemensam avsändarmodul på redaktionella guider, partnerguider, jämförelser och branschsidor
-- [ ] Visa verkliga uppdateringsdatum och markera saknade granskningsuppgifter
-- [ ] Kontrollera täckning, semantisk HTML och läsbarhet på dator och mobil
+- [x] Gemensam avsändarmodul på redaktionella guider, partnerguider, jämförelser och branschsidor
+- [x] Visa verkliga uppdateringsdatum och markera saknade granskningsuppgifter
+- [x] Kontrollera täckning, semantisk HTML och läsbarhet på dator och mobil
 
 ## Månadsbrev i Redaktion (2026-10-01)
 - [x] Ta bort besöksstatistiken för d365guide.com ur septemberbrevet

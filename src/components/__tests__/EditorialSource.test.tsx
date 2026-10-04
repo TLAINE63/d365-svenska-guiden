@@ -33,7 +33,7 @@ describe("EditorialSource", () => {
 
   it.each([
     "PartnerGuidePage", "CompetenceGuidePage", "BuyerGuide2026", "DeepDiveArticle",
-    "BlogArticle", "IndustryPage", "Branscher", "Branschlosningar", "IsvCompare",
+    "BlogArticle", "IndustryPage", "Branscher", "Branschlosningar", "IsvCompare", "ComparePartners",
     "ErpComparisonPage", "ErpComparisonsHub", "PartnerMarketReport2026", "GuiderIndex",
     "KunskapscenterHub", "Upphandlingsguiden", "RoleGuidance", "Kostnad", "Priser", "KunskapscenterFaq",
   ])("keeps source attribution in the %s page template", (page) => {
