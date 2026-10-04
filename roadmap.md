@@ -1,5 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## D365.SE:s bedömning (2026-10-04)
+- [ ] Sidvisa köparslutsatser på ERP, CRM, Business Central, F&O och kostnadsguiden
+- [ ] Enhetlig synlig avsändare och kontroll på dator och mobil
+
 ## Tydlig avsändare (2026-10-04)
 - [x] Gemensam avsändarmodul på redaktionella guider, partnerguider, jämförelser och branschsidor
 - [x] Visa verkliga uppdateringsdatum och markera saknade granskningsuppgifter
