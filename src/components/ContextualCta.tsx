@@ -136,9 +136,7 @@ const ContextualCta = ({
               </Link>
             </Button>
             {secondaryLabel && secondaryTo && (
-              <Button asChild size="lg" variant="outline" className="min-h-12 whitespace-normal text-center">
-                <Link to={secondaryTo} onClick={() => track(secondaryTo, "secondary")}>{secondaryLabel}</Link>
-              </Button>
+              <Link to={secondaryTo} onClick={() => track(secondaryTo, "secondary")} className="text-center text-sm font-semibold text-foreground underline underline-offset-4 hover:text-accent">{secondaryLabel}</Link>
             )}
           </div>
         </div>
