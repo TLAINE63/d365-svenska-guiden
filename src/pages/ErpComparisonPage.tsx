@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowRight, Check, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -317,6 +318,7 @@ const ErpComparisonPage = () => {
             </div>
           </section>
         )}
+      <SourcesAndMethod />
       </main>
 
       <Footer />

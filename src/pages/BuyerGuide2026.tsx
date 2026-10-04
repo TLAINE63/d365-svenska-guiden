@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -120,6 +121,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
         </section>
 
         <FunnelCTA stage="early" guide={variant} source={path} />
+      <SourcesAndMethod />
       </main>
 
       <Footer />

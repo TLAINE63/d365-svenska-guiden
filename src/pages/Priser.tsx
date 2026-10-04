@@ -1,3 +1,5 @@
+import { priceSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import SourceNote from "@/components/SourceNote";
@@ -154,6 +156,7 @@ export default function Priser() {
             </div>
           </div>
         </section>
+      <SourcesAndMethod externalSources={priceSources} />
       </main>
 
       <section className="py-8">

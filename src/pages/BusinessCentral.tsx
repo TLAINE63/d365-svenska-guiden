@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
@@ -1001,7 +1002,8 @@ const BusinessCentral = () => {
 
  
 <ContextualCta source="next-step:businesscentral" heading="Har ni kommit så långt att ni utvärderar Business Central?" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
-</main>
+<SourcesAndMethod />
+      </main>
  <Footer />
  </div>
  );

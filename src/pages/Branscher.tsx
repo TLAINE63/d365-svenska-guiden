@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import { useMemo, useState } from "react";
@@ -268,7 +270,8 @@ const Branscher = () => {
           </div>
         </section>
  <ContextualCta source="next-step:branscher" heading="Hittade ni er bransch?" text="Välj bransch och produkt i guiden, så visas de partners som har arbetat med företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se alla partners", to: "/alla-d365-partners/" }]} />
-</main>
+<SourcesAndMethod partnerEvidence={partnerSources} />
+      </main>
  <Footer />
  </>
  );

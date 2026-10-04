@@ -1,3 +1,5 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -321,6 +323,7 @@ const BlogArticle = () => {
             >
               {article.content}
             </article>
+            <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />
 
             {/* Redaktionell not – för ämnen med snabb utveckling */}
             {(() => {

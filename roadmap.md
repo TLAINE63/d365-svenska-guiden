@@ -1,5 +1,13 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Källor och metod i guider (2026-10-04)
+- [x] Återanvändbart källblock med extern fakta, partnerunderlag och redaktionell analys
+- [x] Integrera i guider och artikelmallar utifrån befintliga hänvisningar
+- [x] Verifiera källor, tomt underlag och synlig visning
+
+- Verifierat: 4 komponenttester; 12 representativa sidor i webbläsare utan runtimefel; mobilblock 390 px utan överflöde.
+- Full testsuite: 780 godkända, 118 underkända, 2 hoppade över. Underkända kontroller gäller andra områden (bl.a. SEO-texter, legacy-redirect och partnerfakta); inte ändrade inom detta uppdrag.
+
 ## Förklarande partnerlistor och D365.SE-modeller (2026-10-04)
 - [x] Gemensam urvalsförklaring ovanför publika partnerlistor
 - [x] Strukturerade partneruppgifter utifrån befintliga belägg

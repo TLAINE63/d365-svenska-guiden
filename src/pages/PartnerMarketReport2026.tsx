@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -446,6 +448,7 @@ export default function PartnerMarketReport2026() {
             </div>
           </div>
         </section>
+      <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
       <Footer />
     </div>

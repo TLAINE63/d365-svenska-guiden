@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import PageOfferBanner from "@/components/PageOfferBanner";
@@ -685,7 +687,8 @@ const Branschlosningar = () => {
      <PageOfferBanner />
    </div>
  </section>
- </main>
+ <SourcesAndMethod partnerEvidence={partnerSources} />
+      </main>
  <Footer />
 
  {/* No Partner Dialog */}

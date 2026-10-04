@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
@@ -793,7 +794,8 @@ const FinanceSupplyChain = () => {
 
 
  <ContextualCta source="next-step:finance-supply-chain" heading="Har ni kommit så långt att ni utvärderar Finance & Supply Chain?" text="Nästa steg är att se vilka partners som har gjort liknande projekt i er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Finance & Supply Chain" links={[{ label: "Jämför relevanta partners", to: "/finance-supply-chain-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Så väljer ni Finance & Supply Chain Management (F&O)-partner", to: "/guider/valja-finance-supply-chain-partner/" }]} />
-</main>
+<SourcesAndMethod />
+      </main>
  <Footer />
  </div>
  );

@@ -1,3 +1,5 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import ContextualCta from "@/components/ContextualCta";
 import { useParams, Link, Navigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
@@ -252,34 +254,11 @@ const DeepDiveArticle = () => {
                 ],
               };
               const links = learnLinks[article.productSlug];
-              if (!links?.length) return null;
-              return (
-                <aside
-                  aria-label="Officiella källor"
-                  className="mt-10 p-5 rounded border border-border bg-secondary/30"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
-                    Officiella källor från Microsoft
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    {links.map((l) => (
-                      <li key={l.url}>
-                        <a
-                          href={l.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline"
-                        >
-                          {l.label} →
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-xs text-muted-foreground mt-3">
-                    Innehållet här är en redaktionell sammanfattning. För fullständig och alltid uppdaterad dokumentation, se Microsofts officiella resurser ovan.
-                  </p>
-                </aside>
-              );
+              if (!links?.length) return <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />;
+              return <SourcesAndMethod externalSources={[
+                ...links.map(link => ({ name: link.label, href: link.url, supports: "Produktfunktioner och teknisk dokumentation för artikelns produktområde. Hänvisningen är övergripande och belägger inte automatiskt alla enskilda påståenden." })),
+                ...getArticleMicrosoftSources(article.content).filter(source => !links.some(link => link.url === source.href)),
+              ]} />;
             })()}
           </div>
         </section>

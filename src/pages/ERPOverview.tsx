@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import FitModel from "@/components/FitModel";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
@@ -483,7 +484,8 @@ const ERPOverview = () => {
  </section>
  
 <ContextualCta source="next-step:erp" heading="Business Central eller Finance & Supply Chain Management (F&O)?" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
-</main>
+<SourcesAndMethod />
+      </main>
  <Footer />
  </div>
  );
