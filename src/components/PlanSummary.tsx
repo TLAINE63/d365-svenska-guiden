@@ -44,6 +44,17 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           </Select>
         </dd></div>
       </dl>
+      <ul aria-label="Planens status" className="mt-5 grid gap-1.5 text-sm sm:grid-cols-2">
+        {([
+          [Boolean(meta.area), meta.area ? areas[meta.area] : "Område ej valt"],
+          [Boolean(buyer.industry), buyer.industry || "Bransch ej angiven"],
+          [Boolean(buyer.size), sizeLabel(buyer.size) || "Storlek ej angiven"],
+          [needs.length + meta.needs.length + priorities.length > 0, "Viktiga behov angivna"],
+          [Boolean(buyer.product), buyer.product ? `Lösning: ${buyer.product}` : "Lösning ej vald"],
+          [items.length > 0, items.length ? `${items.length} partner sparade` : "Partner ej vald"],
+        ] as [boolean, string][]).map(([done, label]) => <li key={label} className={done ? "text-foreground" : "text-muted-foreground"}><span aria-hidden="true" className={done ? "text-accent" : ""}>{done ? "✓" : "□"}</span> {nowrapBrand(label)}<span className="sr-only">{done ? " (klart)" : " (återstår)"}</span></li>)}
+      </ul>
+      <p className="mt-3 text-sm"><span className="font-semibold">Rekommenderat nästa steg:</span> {next.label}</p>
       <h3 className="mt-5 font-semibold">Behov och prioriteringar</h3>
       {needs.length || meta.needs.length || priorities.length ? <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">
         {Array.from(new Set([...meta.needs, ...needs])).map((need) => <li key={need}>{nowrapBrand(need)}</li>)}

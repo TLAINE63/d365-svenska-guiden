@@ -40,7 +40,7 @@ export function updatePlan(patch: Partial<PlanMeta>) {
   try { existed = localStorage.getItem(KEY) !== null; } catch { /* ignore */ }
   state = { ...snapshot(), ...patch };
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* memory-only fallback */ }
-  if (!existed) trackFunnelEvent({ event_type: "plan", event_name: "plan_created", metadata: { area: state.area || null } });
+  if (!existed) trackFunnelEvent({ event_type: "engagement", event_name: "plan_created", metadata: { area: state.area || null } });
   listeners.forEach((l) => l());
 }
 export function setPlanDimension(key: string, priority: PlanPriority | null) {
