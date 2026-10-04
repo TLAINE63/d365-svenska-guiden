@@ -154,12 +154,37 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="Pelarsida · Köparsidig guide"
- title="Affärssystem (ERP) – vad det är."
- titleAccent="Så väljer du rätt utan säljpåverkan."
+ title="Vilket affärssystem (ERP) passar er verksamhet?"
  subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
   />
+   <section className="py-8 sm:py-12 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-3xl mx-auto">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
+ Kort svar
+ </h2>
+ <p className="text-lg text-muted-foreground mb-4">
+ Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar
+ ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam
+ databas. Syftet är enkelt: en sanning för hela företaget i stället för Excel-ark som inte stämmer
+ överens med varandra.
+ </p>
+ <p className="text-lg text-muted-foreground mb-4">
+ I praktiken är affärssystemet den ryggrad som styr hur ordrar, fakturor, lagersaldon, inköp och
+ redovisning hänger ihop. När en säljare lägger en order ska den synas på lagret, i ekonomin och i
+ rapporterna – utan dubbelregistrering. Det är där värdet uppstår, och det är också där de flesta
+ ERP-projekt misslyckas: när processerna inte är genomtänkta innan systemet införs.
+ </p>
+ <p className="text-lg text-muted-foreground">
+ Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
+ <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central ERP</Link> för mindre och medelstora bolag, och&nbsp;
+ <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas. Se även <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central pris</Link> för aktuella licensintervall och implementationskostnader.
+ </p>
+ </div>
+ </div>
+ </section>
   <EditorialAssessment assessment="erp" />
  <FitModel model="erp" />
 
@@ -205,39 +230,14 @@ const ERPOverview = () => {
   </section>
 
  {/* TAYA: Vad är ett affärssystem */}
- <section className="py-8 sm:py-12 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-3xl mx-auto">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
- Vad är ett affärssystem – egentligen?
- </h2>
- <p className="text-lg text-muted-foreground mb-4">
- Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar
- ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam
- databas. Syftet är enkelt: en sanning för hela företaget i stället för Excel-ark som inte stämmer
- överens med varandra.
- </p>
- <p className="text-lg text-muted-foreground mb-4">
- I praktiken är affärssystemet den ryggrad som styr hur ordrar, fakturor, lagersaldon, inköp och
- redovisning hänger ihop. När en säljare lägger en order ska den synas på lagret, i ekonomin och i
- rapporterna – utan dubbelregistrering. Det är där värdet uppstår, och det är också där de flesta
- ERP-projekt misslyckas: när processerna inte är genomtänkta innan systemet införs.
- </p>
- <p className="text-lg text-muted-foreground">
- Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
- <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central ERP</Link> för mindre och medelstora bolag, och&nbsp;
- <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas. Se även <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central pris</Link> för aktuella licensintervall och implementationskostnader.
- </p>
- </div>
- </div>
- </section>
+
 
  {/* TAYA: Ärliga fakta */}
  <section className="py-8 sm:py-12 bg-secondary/40">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 text-center">
- Det här säger ingen leverantör – men du behöver veta det
+ Risker att tänka på vid ett ERP-införande
  </h2>
  <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
  Vi tror på radikal transparens. Här är de sex sakerna som avgör om ett ERP-projekt blir lyckat
@@ -268,7 +268,7 @@ const ERPOverview = () => {
  <div className="max-w-5xl mx-auto">
  <div className="text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
- Business Central vs Finance & Supply Chain Management (F&O)
+ Jämförelse: Business Central och Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground">
  Två kraftfulla ERP-system – men för olika behov
@@ -409,7 +409,7 @@ const ERPOverview = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-3xl mx-auto text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
- Första hjälpen
+ Så går du vidare med ert ERP-val
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
  Vår ERP-behovsanalys tar bara några minuter och ger dig en 

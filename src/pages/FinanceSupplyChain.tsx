@@ -222,8 +222,7 @@ const FinanceSupplyChain = () => {
   <ProductHero
   icon={FinanceIcon}
   eyebrow="Finance & Supply Chain Management"
-        title="Finance & Supply Chain Management."
-        titleAccent="Byggt för internationell komplexitet – och kräver en partner med motsvarande erfarenhet."
+        title="När passar Finance & Supply Chain Management (F&O)?"
   subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot dina befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför du partners som levererat F&SCM i din bransch."
   primary={{
     label: "Jämför F&SCM-partners",
@@ -235,6 +234,13 @@ const FinanceSupplyChain = () => {
     to: "/finance-supply-chain/roi-kalkylator/",
   }}
   />
+  <ShortAnswer>
+ <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
+ <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
+ <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
+ <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
+ <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
+ </ShortAnswer>
   <EditorialAssessment assessment="fscm" />
 
       {/* Partners Section */}
@@ -438,13 +444,7 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
-  <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain Management (F&O)">
- <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
- <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
- <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
- <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
- <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
- </ShortAnswer>
+  
 
  {/* Matchningstest CTA */}
  <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
@@ -579,7 +579,7 @@ const FinanceSupplyChain = () => {
  <div className="container mx-auto px-4">
  <div className="text-center mb-12">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Videoguider
+ Videoguider om Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
  Här kommer några korta inspirationsvideos om Dynamics 365 Finance och Supply Chain Management samt även Human Resources och Commerce
@@ -731,7 +731,7 @@ const FinanceSupplyChain = () => {
  <div className="container mx-auto px-4">
  <div className="text-center mb-16">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Prisöversikt
+ Licenspriser för Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
  Priser per användare och månad

@@ -283,7 +283,7 @@ const BusinessCentral = () => {
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="Microsoft Dynamics 365 Business Central – ERP-pris, funktioner och rätt partner i Sverige"
+  title="När passar Dynamics 365 Business Central och hur väljer ni partner?"
   subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot dina befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför du partners som faktiskt levererat Business Central i din bransch."
   primary={{
     label: "Jämför Business Central-partners",
@@ -299,6 +299,12 @@ const BusinessCentral = () => {
   to: "/businesscentral/roi-kalkylator/",
   }}
     />
+  <ShortAnswer>
+ <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
+ <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
+ <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
+ <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
+ </ShortAnswer>
   <EditorialAssessment assessment="bc" />
 
       <BcSiteHandoff />
@@ -499,18 +505,13 @@ const BusinessCentral = () => {
 
 
 
- <ShortAnswer title="Vad är Business Central som ERP-system">
- <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
- <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
- <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
- <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
- </ShortAnswer>
+ 
 
  {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
  <section className="py-10 sm:py-12 bg-background">
   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-    Business Central ERP – snabbfakta
+    Vad avgör valet av Business Central?
    </h2>
    <p className="text-muted-foreground mb-6 text-sm sm:text-base">
     Det som flest frågar om innan de jämför Business Central med andra affärssystem.
@@ -564,7 +565,7 @@ const BusinessCentral = () => {
    </p>
 
    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
-    Business Central jämfört med andra affärssystem
+    Jämförelse med andra affärssystem
    </h3>
    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
     De alternativ som svenska köpare oftast ställer mot Business Central – och vad som skiljer dem åt
@@ -726,7 +727,7 @@ const BusinessCentral = () => {
   <section className="py-10 sm:py-12 bg-background">
    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-     Business Central i din verksamhet
+     När passar Business Central i er verksamhet?
     </h2>
     <p className="text-muted-foreground mb-8 text-sm sm:text-base">
      Två av de vanligaste användningsområdena på den svenska marknaden – och vad som krävs utöver standard.
@@ -948,7 +949,7 @@ const BusinessCentral = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Korta inspirationsvideos
+              Videoguider om Business Central
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
@@ -973,7 +974,7 @@ const BusinessCentral = () => {
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Redo att växa med Business Central?
+ Så går du vidare med Business Central
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
  Kontakta oss för en kostnadsfri konsultation

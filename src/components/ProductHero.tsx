@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Link } from "react-router-dom";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -111,7 +112,7 @@ const ProductHero = ({
             )}
 
             <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-6 sm:mb-12 max-w-3xl">
-              <span className="block mb-2 sm:mb-6">{title}</span>
+              <span className="block mb-2 sm:mb-6">{nowrapBrand(title)}</span>
               {titleAccent && (
                 <span className="block text-[hsl(var(--muted-dark))] font-normal italic">
                   {titleAccent}

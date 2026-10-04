@@ -214,8 +214,7 @@ const CRM = () => {
   <ProductHero
   icon={SalesIcon}
   eyebrow="CRM (Customer Engagement)"
-  title="Dynamics 365 CRM."
-  titleAccent="6 applikationer – är alla partners specialister på allt?"
+  title="Vilka Dynamics 365 CRM-applikationer och vilken partner passar er?"
   subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper dig hitta dem som faktiskt levererat det du behöver."
   primary={{
     label: "Jämför CRM-partners",
@@ -223,6 +222,13 @@ const CRM = () => {
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   />
+  <ShortAnswer>
+ <p>Microsoft Dynamics 365 Customer Engagement – i dagligt tal Dynamics 365 CRM – är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter.</p>
+ <p>Sviten omfattar <strong>Dynamics 365 Sales</strong> för pipeline- och offerthantering, <strong>Dynamics 365 Customer Service</strong> och <strong>Contact Center</strong> för ärendehantering och omnikanal-support, <strong>Dynamics 365 Field Service</strong> för planering och utförande av arbete ute hos kund, samt <strong>Customer Insights – Journeys</strong> och <strong>Data</strong> för marknadsföring, kundresor och en enhetlig kundprofil.</p>
+ <p>Alla applikationer delar samma datamodell via Dataverse och är djupt integrerade med Microsoft 365 (Outlook, Teams, Excel), Power BI, Power Automate och Azure. Det ger en sammanhängande 360°-bild av kunden och eliminerar behovet av separata system för sälj, support och marknad.</p>
+ <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter – sammanfattning av ärenden, nästa-bästa-åtgärd i säljdialogen, automatisk dirigering av supportärenden och AI-genererade kundresor – direkt i de flöden där medarbetarna redan arbetar.</p>
+ <p>Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.</p>
+ </ShortAnswer>
   <EditorialAssessment assessment="crm" />
  <FitModel model="crm" />
 
@@ -231,7 +237,7 @@ const CRM = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- CRM-partners
+ Partners och kompetens för Dynamics 365 CRM
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
  Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
@@ -416,13 +422,7 @@ const CRM = () => {
  </section>
 
 
- <ShortAnswer title="Vad är Microsoft Dynamics 365 Customer Engagement (CRM)?">
- <p>Microsoft Dynamics 365 Customer Engagement – i dagligt tal Dynamics 365 CRM – är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter.</p>
- <p>Sviten omfattar <strong>Dynamics 365 Sales</strong> för pipeline- och offerthantering, <strong>Dynamics 365 Customer Service</strong> och <strong>Contact Center</strong> för ärendehantering och omnikanal-support, <strong>Dynamics 365 Field Service</strong> för planering och utförande av arbete ute hos kund, samt <strong>Customer Insights – Journeys</strong> och <strong>Data</strong> för marknadsföring, kundresor och en enhetlig kundprofil.</p>
- <p>Alla applikationer delar samma datamodell via Dataverse och är djupt integrerade med Microsoft 365 (Outlook, Teams, Excel), Power BI, Power Automate och Azure. Det ger en sammanhängande 360°-bild av kunden och eliminerar behovet av separata system för sälj, support och marknad.</p>
- <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter – sammanfattning av ärenden, nästa-bästa-åtgärd i säljdialogen, automatisk dirigering av supportärenden och AI-genererade kundresor – direkt i de flöden där medarbetarna redan arbetar.</p>
- <p>Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.</p>
- </ShortAnswer>
+ 
 
 
  {/* FAQ Section */}
@@ -580,7 +580,7 @@ const CRM = () => {
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Redo att förbättra din kundhantering?
+ Så går du vidare med Dynamics 365 CRM
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
  Kontakta oss för en kostnadsfri konsultation

@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -26,20 +26,19 @@ interface ShortAnswerProps {
 const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: ShortAnswerProps) => {
   return (
     <section
-      aria-label={title}
+      aria-label={nowrapBrand(title)}
       className={`py-8 sm:py-10 bg-background ${className}`}
     >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="rounded p-5 sm:p-7" style={{ border: "1px solid #e7c5b7", background: "#faf8f6" }}>
+          <div className="border-y border-border py-5 sm:py-7">
             <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-[hsl(var(--signature))] m-0">
-                {title}
+              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-foreground m-0">
+                {nowrapBrand(title)}
               </h2>
             </div>
             <div className="text-sm sm:text-[15px] leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
-              {typeof children === "string" ? <p>{children}</p> : children}
+              {typeof children === "string" ? <p>{nowrapBrand(children)}</p> : children}
             </div>
             {cta && (
               <div className="mt-5">

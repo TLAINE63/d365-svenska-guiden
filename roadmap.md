@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Frågebaserad rubrikarkitektur (2026-10-04)
+- [ ] Frågebaserad H1 och Kort svar i viktiga guider
+- [ ] Tydliga H2/H3 för val, jämförelse, risker, kompetens och nästa steg
+- [ ] Testa rubrikhierarki och kontrollera dator/mobil; artikelarkivet lämnas oförändrat
+
 ## Källor och metod i guider (2026-10-04)
 - [x] Återanvändbart källblock med extern fakta, partnerunderlag och redaktionell analys
 - [x] Integrera i guider och artikelmallar utifrån befintliga hänvisningar
