@@ -139,3 +139,4 @@
 
 ## Månadsbrev ersätter partnerrapporter (2026-10-01)
 - [x] Ett utskick med bara nyhetsbrevets innehåll, förhandsgranskning per partner och testutskick till Thomas
+- [ ] Sökpositioner: admin-vy + schemaläggning (väntar på besked om Semrush-plan, gratisnivån ger bara 10 rader per hämtning)
