@@ -103,3 +103,6 @@ verify_jwt = false
 
 [functions.serp-watch]
 verify_jwt = false
+
+[functions.search-performance]
+verify_jwt = false

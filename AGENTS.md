@@ -9,4 +9,4 @@
 
 - Rollvägledningen på `/roller/` ligger under Guider och länkar endast till befintligt innehåll; den ändrar inte produktnavigationen.
 - businesscentral.se läser BC-fält live från den publika vyn `bc_partners_v1` (schema 1.0, inga kontaktuppgifter, COSMO aldrig som branschlösning); källan sätts automatiskt (partner/redaktion), eftersom manuella verifieringsfält togs bort.
-- Sökpositionsbevakningen (edge function `serp-watch`, tabeller `serp_watch_*`) körs månadsvis och kvotstyrt mot Semrush-kontots dagsgräns, eftersom gratisnivån annars slår i taket; fraser utan träff lagras som position null ("ej topp 100").
+- Sökprestanda för d365.se hämtas dagligen från Search Console (primär, Sverige) och Bing (komplement) via edge function `search-performance` (tabell `search_perf_daily`); konkurrenter kommer bara från manuellt uppladdade Semrush-CSV:er (`competitor_csv_*`), eftersom Semrush API kräver Business-plan plus API-enheter. Fraslistan `serp_watch_phrases` styr grupperingen; omatchade frågor blir "Övrigt". Semrush-API-hämtningar schemaläggs inte.
