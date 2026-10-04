@@ -27,6 +27,7 @@ describe("Human-first buyer guide presentation", () => {
     expect(html).toContain("<table");
     expect(html).toContain('scope="col"');
     expect(html).toContain('scope="row"');
-    for (const row of fitModels[model].dimensions) expect(html).toContain(row.dimension);
+    const text = html.replace(/<[^>]+>/g, "");
+    for (const row of fitModels[model].dimensions) expect(text).toContain(row.dimension);
   });
 });
