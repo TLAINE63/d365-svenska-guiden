@@ -356,6 +356,7 @@ const BlogArticle = () => {
               text="Svara på sex frågor och få en kortlista som tar hänsyn till er produkt, bransch, situation och organisation."
               industry={article.category === "Branschguide" ? article.title.replace(/^Dynamics 365 för /i, "") : undefined}
               source={`article:${article.slug}`}
+              goal={/migrering|migration|uppgradering|flytta.*moln/i.test(article.title) ? "erp-upgrade" : undefined}
               secondaryLabel="Skapa en kravspecifikation"
               secondaryTo="/kravspecifikation/"
               className="mt-12"

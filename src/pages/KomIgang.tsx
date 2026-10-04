@@ -370,7 +370,7 @@ const KomIgang = () => {
   }, [selectedIndustry, selectedProduct, selectedSize]);
   useEffect(() => {
     const industry = STANDARD_INDUSTRIES.find((i) => i.name === selectedIndustry)?.slug;
-    if (industry || selectedSize) saveProfile({ company: { industry: industry || undefined, employees: selectedSize || undefined } });
+    if (industry || selectedSize) saveProfile({ company: { ...(industry ? { industry } : {}), ...(selectedSize ? { employees: selectedSize } : {}) } });
     updatePlan({ needs: allGoalOptions.filter((o) => selectedGoals.includes(o.value)).map((o) => o.label) });
   }, [selectedIndustry, selectedSize, selectedGoals]);
   const [showResults, setShowResults] = useState(false);
