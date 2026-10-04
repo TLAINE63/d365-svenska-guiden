@@ -107,7 +107,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
 
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            {nowrapBrand(`Hur väljer ni rätt kompetens inom ${guide.shortTitle}?`)}
+            {nowrapBrand(`Hur väljer ni rätt ${guide.shortTitle.toLowerCase()} för Dynamics 365?`)}
           </h1>
           <EditorialSource sourceType="Partnerguide" />
           <h2 className="text-xl font-bold mb-3">Kort svar</h2>

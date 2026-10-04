@@ -141,7 +141,7 @@ const Upphandlingsguiden = () => {
   <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
   Hur upphandlar ni rätt{" "}
   <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
-  och väljer Microsoft-partner?
+  {" "}och väljer Microsoft-partner?
   </h1>
   <EditorialSource sourceType="Köpguide" tone="dark" />
   <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
