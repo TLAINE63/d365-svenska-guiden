@@ -70,6 +70,7 @@ export default function AdminUnderlagFunnel({ token, onSessionExpired }: { token
             <Funnel title="CRM" rows={data.funnels.crm || []} />
             <Funnel title="Totalt" rows={data.funnels.all || []} />
           </div>
+          {data.funnels.journey && <div className="mt-6 max-w-md"><Funnel title="Plan, kompetens och partnerförfrågningar" rows={data.funnels.journey} /></div>}
         </CardContent>
       </Card>
       <Card>
