@@ -5296,6 +5296,7 @@ export type Database = {
         }[]
       }
       report_cron_secret: { Args: never; Returns: string }
+      search_perf_dispatch: { Args: { payload: Json }; Returns: number }
       teaser_engagement_stats: {
         Args: { end_ts: string; start_ts: string }
         Returns: {
