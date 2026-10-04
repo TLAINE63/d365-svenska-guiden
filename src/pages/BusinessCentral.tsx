@@ -1,3 +1,4 @@
+import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import BcSiteHandoff from "@/components/BcSiteHandoff";
 import ProductIsvSection from "@/components/ProductIsvSection";
@@ -296,6 +297,7 @@ const BusinessCentral = () => {
   to: "/businesscentral/roi-kalkylator/",
   }}
     />
+  <EditorialAssessment assessment="bc" />
 
       <BcSiteHandoff />
 

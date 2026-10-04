@@ -1,3 +1,4 @@
+import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import ProductHero from "@/components/ProductHero";
 import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
@@ -157,6 +158,7 @@ const ERPOverview = () => {
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
   />
+  <EditorialAssessment assessment="erp" />
 
   {/* Introduction Section */}
   <section id="comparison-intro" className="py-8 sm:py-12 md:py-16 bg-background scroll-mt-24">

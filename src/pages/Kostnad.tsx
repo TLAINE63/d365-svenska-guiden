@@ -1,3 +1,4 @@
+import EditorialAssessment from "@/components/EditorialAssessment";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -174,6 +175,7 @@ export default function Kostnad() {
             </nav>
           </div>
         </section>
+        <EditorialAssessment assessment="cost" />
 
         <LicenseCostTable />
 
