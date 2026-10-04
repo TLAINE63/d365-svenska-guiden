@@ -4000,6 +4000,150 @@ export type Database = {
         }
         Relationships: []
       }
+      serp_watch_api_usage: {
+        Row: {
+          calls: number
+          day: string
+        }
+        Insert: {
+          calls?: number
+          day: string
+        }
+        Update: {
+          calls?: number
+          day?: string
+        }
+        Relationships: []
+      }
+      serp_watch_domains: {
+        Row: {
+          created_at: string
+          domain: string
+          is_own: boolean
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+          is_own?: boolean
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+          is_own?: boolean
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      serp_watch_phrases: {
+        Row: {
+          created_at: string
+          group_tag: string
+          id: string
+          phrase: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          group_tag: string
+          id?: string
+          phrase: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          group_tag?: string
+          id?: string
+          phrase?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      serp_watch_results: {
+        Row: {
+          fetched_at: string
+          id: string
+          phrase_id: string
+          position: number | null
+          run_id: string
+          url: string | null
+          volume: number | null
+        }
+        Insert: {
+          fetched_at?: string
+          id?: string
+          phrase_id: string
+          position?: number | null
+          run_id: string
+          url?: string | null
+          volume?: number | null
+        }
+        Update: {
+          fetched_at?: string
+          id?: string
+          phrase_id?: string
+          position?: number | null
+          run_id?: string
+          url?: string | null
+          volume?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "serp_watch_results_phrase_id_fkey"
+            columns: ["phrase_id"]
+            isOneToOne: false
+            referencedRelation: "serp_watch_phrases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "serp_watch_results_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "serp_watch_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      serp_watch_runs: {
+        Row: {
+          calls_used: number
+          chunks_done: number
+          chunks_total: number
+          created_at: string
+          domain: string
+          id: string
+          last_error: string | null
+          month: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          calls_used?: number
+          chunks_done?: number
+          chunks_total?: number
+          created_at?: string
+          domain: string
+          id?: string
+          last_error?: string | null
+          month: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          calls_used?: number
+          chunks_done?: number
+          chunks_total?: number
+          created_at?: string
+          domain?: string
+          id?: string
+          last_error?: string | null
+          month?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_backlink_snapshots: {
         Row: {
           authority_score: number | null

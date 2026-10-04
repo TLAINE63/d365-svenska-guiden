@@ -100,3 +100,6 @@ verify_jwt = false
 
 [functions.track-buyer-tool-event]
 verify_jwt = false
+
+[functions.serp-watch]
+verify_jwt = false
