@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { fitModels, type FitModelKey } from "@/data/fitModels";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import FitPrioritySelect from "@/components/FitPrioritySelect";
+import { Button } from "@/components/ui/button";
 
 export default function FitModel({ model, heading }: { model: FitModelKey; heading?: string }) {
   const value = fitModels[model];
@@ -18,12 +20,13 @@ export default function FitModel({ model, heading }: { model: FitModelKey; headi
           </summary>
         <p className="mt-3 text-sm leading-relaxed text-foreground">Inga godtyckliga poäng används. Saknat underlag betyder att frågan behöver utredas, inte att ett system eller en partner är lämplig eller olämplig. Kritiska krav måste beläggas innan beslut.</p>
         <div className="mt-5 max-w-full overflow-x-auto">
-          <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-xs sm:text-sm">
+          <table className="w-full min-w-[800px] table-fixed border-collapse text-left text-xs sm:text-sm">
             <caption className="sr-only">{value.name}: dimensioner, underlag och beslutstolkning</caption>
-            <thead><tr className="border-b border-border bg-muted"><th scope="col" className="w-1/4 p-2 sm:p-3">Bedömningsdimension</th><th scope="col" className="w-1/3 p-2 sm:p-3">Underlag att kontrollera</th><th scope="col" className="p-2 sm:p-3">Så påverkar det beslutet</th></tr></thead>
-            <tbody>{value.dimensions.map(row => <tr key={row.dimension} className="border-b border-border align-top"><th scope="row" className="break-words p-2 font-semibold sm:p-3">{nowrapBrand(row.dimension)}</th><td className="break-words p-2 text-muted-foreground sm:p-3">{nowrapBrand(row.evidence)}</td><td className="break-words p-2 text-muted-foreground sm:p-3">{nowrapBrand(row.interpretation)}</td></tr>)}</tbody>
+            <thead><tr className="border-b border-border bg-muted"><th scope="col" className="w-1/5 p-2 sm:p-3">Bedömningsdimension</th><th scope="col" className="w-1/4 p-2 sm:p-3">Underlag att kontrollera</th><th scope="col" className="p-2 sm:p-3">Så påverkar det beslutet</th><th scope="col" className="w-1/5 p-2 sm:p-3">Er prioritering</th></tr></thead>
+            <tbody>{value.dimensions.map(row => <tr key={row.dimension} className="border-b border-border align-top"><th scope="row" className="break-words p-2 font-semibold sm:p-3">{nowrapBrand(row.dimension)}</th><td className="break-words p-2 text-muted-foreground sm:p-3">{nowrapBrand(row.evidence)}</td><td className="break-words p-2 text-muted-foreground sm:p-3">{nowrapBrand(row.interpretation)}</td><td className="p-2 sm:p-3"><FitPrioritySelect dimensionKey={`${model}:${row.dimension}`} label={row.dimension} /></td></tr>)}</tbody>
           </table>
         </div>
+        <Button asChild variant="outline" className="mt-4"><Link to={`/underlag/?area=${model}`}>Ta vidare prioriteringarna i Min D365-plan</Link></Button>
         <nav aria-label="Relaterade beslutsmodeller" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-primary">
           {model !== "partner" && <Link className="underline underline-offset-4" to="/alla-d365-partners/#d365-partner-fit-model">Partner Fit Model</Link>}
           {model !== "erp" && <Link className="underline underline-offset-4" to="/erp/#d365-erp-fit-model">ERP Fit Model</Link>}

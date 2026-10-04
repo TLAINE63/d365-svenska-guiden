@@ -215,7 +215,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/underlag/" className="cursor-pointer font-medium text-primary">
-                    Ert Dynamics&nbsp;365-underlag
+                    Min D365-plan
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -387,7 +387,7 @@ const Navbar = () => {
                     Välj din roll
                   </Link>
                   <Link to="/underlag/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Ert Dynamics&nbsp;365-underlag
+                    Min D365-plan
                   </Link>
                   <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Hitta rätt Dynamics 365-kompetens

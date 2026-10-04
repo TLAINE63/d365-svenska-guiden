@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, ClipboardCopy, Printer, Trash2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,6 +16,10 @@ import {
   type FscmLevel, type SectionStatus,
 } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import PlanSummary from "@/components/PlanSummary";
+import { isPlanArea, updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { FitModelKey } from "@/data/fitModels";
+import FitModel from "@/components/FitModel";
 
 const ids = (list: string[]) => UNDERLAG_QUESTIONS.filter((q) => list.includes(q.id));
 const PARTS: { key: string; title: string; questions: UQuestion[] }[] = [
@@ -71,11 +75,19 @@ const statusCls: Record<SectionStatus, string> = {
 };
 
 export default function Underlag() {
+  const [params] = useSearchParams();
+  const meta = usePlanMeta();
   const profile = useBuyerProfile();
   const { items } = useShortlist();
   const { toast } = useToast();
   const [showEdit, setShowEdit] = useState(false);
   const any = hasAnyAnswer(profile);
+  const area = params.get("area");
+  useEffect(() => { if (isPlanArea(area)) updatePlan({ area }); }, [area]);
+  const edit = () => {
+    setShowEdit(true);
+    window.setTimeout(() => document.getElementById("komplettera")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
 
   useEffect(() => {
     trackUnderlagEvent("underlag_viewed");
@@ -130,19 +142,20 @@ export default function Underlag() {
         <section className="container mx-auto px-4 sm:px-6 max-w-4xl pt-24 sm:pt-28 pb-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2 print:hidden">Anonymt, ingen inloggning</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 [hyphens:manual]">
-            Ert <span className="whitespace-nowrap">Dynamics 365</span>-underlag
+            Min D365-plan
           </h1>
+
+          <PlanSummary onEdit={edit} />
+
+          {!any && <section id="komplettera" className="scroll-mt-32 mb-6">
+            <h2 className="mb-3 text-xl font-semibold">Utgå från er verksamhet</h2>
+            <UnderlagQuestionnaire questions={showEdit ? UNDERLAG_QUESTIONS : PARTS[0].questions.slice(0, 3)} />
+          </section>}
+          {!any && (meta.area === "erp" || meta.area === "crm") && <FitModel model={meta.area as FitModelKey} heading="Vilka behov avgör ert val?" />}
 
           {!any ? (
             <div className="space-y-6">
-              <p className="text-muted-foreground max-w-2xl">
-                Här samlas era svar från bedömningstesterna och frågorna nedan. Underlaget sparas anonymt i er webbläsare och fyller automatiskt i filtren när ni jämför partners.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild><Link to="/finance-supply-chain-management/matchningstest">Test för Finance &amp; Supply&nbsp;Chain&nbsp;Management</Link></Button>
-                <Button asChild variant="outline"><Link to="/crm/matchningstest">CRM-test</Link></Button>
-              </div>
-              <UnderlagQuestionnaire questions={PARTS[0].questions.slice(0, 3)} />
+              <p className="text-muted-foreground max-w-2xl">Ert underlag växer fram när ni besvarar frågor och markerar prioriteringar. Ett enklare system, en annan leverantör eller fortsatt utredning kan vara rätt nästa steg. En vald prioritering är inte en produktrekommendation.</p>
             </div>
           ) : (
             <div className="space-y-8">
@@ -222,7 +235,7 @@ export default function Underlag() {
                 </section>
               )}
 
-              <section className="rounded-lg border border-primary/30 bg-primary/5 p-4 print:hidden">
+              {(lvl || crmApps.length > 0 || items.length > 0) && <section className="border-y border-border py-4 print:hidden">
                 <h2 className="text-xl font-semibold mb-2">Nästa steg</h2>
                 {nextStep.to.startsWith("#") ? (
                   <a href={nextStep.to} className="inline-flex items-center text-primary font-medium">{nextStep.label}<ArrowRight className="w-4 h-4 ml-1" /></a>
@@ -232,9 +245,9 @@ export default function Underlag() {
                 <div className="mt-3">
                   <Link to={`/valjdynamics365partner/?${filtersToSearch(filters)}`} className="text-sm text-muted-foreground underline">Se partners förifyllda från underlaget</Link>
                 </div>
-              </section>
+              </section>}
 
-              <section id="komplettera" className="print:hidden">
+              <section id="komplettera" className="scroll-mt-32 print:hidden">
                 <Button variant="outline" size="sm" onClick={() => setShowEdit((v) => !v)}>{showEdit ? "Dölj frågorna" : "Komplettera underlaget"}</Button>
                 {showEdit && <div className="mt-4"><UnderlagQuestionnaire questions={UNDERLAG_QUESTIONS} /></div>}
               </section>
@@ -249,6 +262,7 @@ export default function Underlag() {
             </div>
           )}
         </section>
+        {any && (meta.area === "erp" || meta.area === "crm" || meta.area === "partner") && <FitModel model={meta.area} heading="Vilka behov avgör ert val?" />}
       </main>
       <div className="print:hidden"><Footer /></div>
     </div>
