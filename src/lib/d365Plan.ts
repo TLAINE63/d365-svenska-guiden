@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { type BuyerContext, getBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { type BuyerProfile, clearProfile } from "@/lib/buyerProfile";
 import { deriveCompareFilters, filtersToSearch } from "@/lib/underlag";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export type PlanArea = "erp" | "crm" | "migration" | "partner";
 export type PlanPriority = "important" | "investigate";
@@ -50,7 +51,14 @@ export function setPlanDimension(key: string, priority: PlanPriority | null) {
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => { listeners.delete(listener); };
-...
+}
+export function usePlanMeta() { return useSyncExternalStore(subscribe, snapshot, () => EMPTY); }
+export function clearD365Plan() {
+  clearBuyerContext();
+  clearProfile();
+  updatePlan({ area: undefined, needs: [], dimensions: {} });
+}
+
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
   if (savedCount && buyer.industry && buyer.size && (meta.area || buyer.product)) return { label: "Få hjälp att matcha rätt partner", to: "/shortlist/" };
   if (savedCount) return { label: "Jämför era sparade partners", to: "/shortlist/" };
