@@ -128,7 +128,16 @@ Deno.serve(async (req) => {
         const tr = (r.metadata?.track as string) || trackOf.get(r.session_id);
         if (tr === "fscm" || tr === "crm") sets[tr][r.event_name].add(r.session_id);
       }
-      const funnels = Object.fromEntries(Object.entries(sets).map(([t, m]) => [t, STEPS_U.map((s) => ({ key: s, count: m[s].size }))]));
+      const funnels: Record<string, { key: string; count: number }[]> = Object.fromEntries(Object.entries(sets).map(([t, m]) => [t, STEPS_U.map((s) => ({ key: s, count: m[s].size }))]));
+      const EXTRA = ["plan_created", "kompetens_need_form_open", "kompetens_need_form_submit", "intro_sent"];
+      const extra: Record<string, Set<string>> = Object.fromEntries(EXTRA.map((e) => [e, new Set<string>()]));
+      for (let from = 0; from < 200000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, session_id").in("event_name", EXTRA).gte("occurred_at", since).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) if (r.session_id) extra[r.event_name]?.add(r.session_id);
+        if (!data || data.length < 1000) break;
+      }
+      funnels.journey = EXTRA.map((k) => ({ key: k, count: extra[k].size }));
       const { data: subs } = await supabase.from("underlag_submissions").select("id, created_at, name, company, email, phone, buying_signal, email_status, underlag_text").order("created_at", { ascending: false }).limit(100);
       return new Response(JSON.stringify({ funnels, submissions: subs || [] }), { headers: { ...cors, "Content-Type": "application/json" } });
     }

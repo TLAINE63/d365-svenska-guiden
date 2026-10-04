@@ -12,6 +12,10 @@ const LABELS: Record<string, string> = {
   partner_profile_opened: "Partnerprofil öppnad",
   decision_package_exported: "Underlag exporterat",
   underlag_sent: "Underlag skickat",
+  plan_created: "Min D365-plan skapad",
+  kompetens_need_form_open: "Kompetensbehov påbörjat",
+  kompetens_need_form_submit: "Kompetensförfrågan skickad",
+  intro_sent: "Partnerförfrågan (introduktion) skickad",
 };
 
 interface Row { key: string; count: number }
