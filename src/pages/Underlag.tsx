@@ -98,7 +98,10 @@ export default function Underlag() {
   const crmApps = (profile.assessment?.crm_apps as string[]) || [];
   const budget = profile.project?.budget as string | undefined;
   const takeForward = questionsToTakeForward(profile);
-  const text = useMemo(() => buildText(profile, items.map((i) => i.name)), [profile, items]);
+  const text = useMemo(() => {
+    const priorities = Object.entries(meta.dimensions).map(([key, priority]) => `- ${key.slice(key.indexOf(":") + 1)}: ${priority === "important" ? "Prioriterat behov" : "Behöver utredas"}`);
+    return [buildText(profile, items.map((i) => i.name)), ...(meta.needs.length ? ["", "ANGIVNA MÅL", ...meta.needs.map((n) => `- ${n}`)] : []), ...(priorities.length ? ["", "EGNA PRIORITERINGAR (INTE EN PRODUKTBEDÖMNING)", ...priorities] : [])].join("\n");
+  }, [profile, items, meta]);
   const compared = profile.assessment?.compared === true;
   const apps = (profile.scope?.apps as string[]) || [];
   const hasPackage = !!profile.company?.industry && apps.length > 0 && (!!lvl || crmApps.length > 0);

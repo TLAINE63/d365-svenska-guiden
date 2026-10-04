@@ -72,7 +72,7 @@ export const hasBuyerContext = (c: BuyerContext) => Boolean(c.industry || c.prod
 /** Kort produktnamn för rubriker. */
 export function shortProductName(product?: string | null): string | null {
   if (!product) return null;
-  if (product === "Finance & SCM" || product === "Finance & Supply Chain") return "F&SCM";
+  if (["Finance & SCM", "Finance & Supply Chain", "Finance & Supply Chain Management (F&O)"].includes(product)) return "F&SCM";
   if (product === "Customer Insights (Marketing)") return "Customer Insights";
   return product;
 }
@@ -80,7 +80,7 @@ export function shortProductName(product?: string | null): string | null {
 export function productKeyFor(product?: string | null): "bc" | "fsc" | "sales" | "service" | null {
   if (!product) return null;
   if (product === "Business Central") return "bc";
-  if (["Finance & SCM", "Finance & Supply Chain", "Commerce", "Human Resources"].includes(product)) return "fsc";
+  if (["Finance & SCM", "Finance & Supply Chain", "Finance & Supply Chain Management (F&O)", "Commerce", "Human Resources"].includes(product)) return "fsc";
   if (["Sales", "Customer Insights (Marketing)"].includes(product)) return "sales";
   if (["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(product)) return "service";
   return null;
