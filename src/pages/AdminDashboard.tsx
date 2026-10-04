@@ -133,6 +133,7 @@ import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
 import AdminGscTab from "@/components/AdminGscTab";
+import AdminSearchPerfTab from "@/components/AdminSearchPerfTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerPerformanceTab from "@/components/AdminPartnerPerformanceTab";
@@ -308,7 +309,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "seo",
  label: "SEO & Konkurrens",
  icon: TrendingUp,
- tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
+ tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "search-perf", "pillar-followup"],
  },
  {
  id: "partnerportal",
