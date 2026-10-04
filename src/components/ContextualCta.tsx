@@ -3,6 +3,8 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildKomIgangUrl, type KomIgangContext } from "@/lib/komIgangUrl";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { contextualJourney } from "@/lib/ctaJourney";
+import { updatePlan } from "@/lib/d365Plan";
 import { usePartners } from "@/hooks/usePartners";
 import {
   clearBuyerContext,
@@ -41,6 +43,7 @@ const ContextualCta = ({
   links,
 }: ContextualCtaProps) => {
   const buyer = useBuyerContext();
+  const journey = contextualJourney(source || "", goal);
   const { data: partners = [] } = usePartners();
   // Anpassa bara om besökarens val inte krockar med sidans egen produkt/bransch
   const same = (a: string, b: string) => {
@@ -50,7 +53,7 @@ const ContextualCta = ({
   const conflicts =
     (product && buyer.product && !same(product, buyer.product)) ||
     (industry && buyer.industry && !same(industry, buyer.industry));
-  const personalized = hasBuyerContext(buyer) && !conflicts && partners.length > 0;
+  const personalized = (!journey || journey.area === "partner") && hasBuyerContext(buyer) && !conflicts && partners.length > 0;
   const ctx = {
     industry: buyer.industry || industry || null,
     product: buyer.product || product || null,
@@ -62,15 +65,20 @@ const ContextualCta = ({
     const prod = shortProductName(ctx.product);
     heading = `För er situation: ${matchCount} relevanta ${prod ? `${prod}-partners` : "partners"}`;
     text = `${contextualPartnerPhrase(ctx)}. Guiden är redan förifylld med era val, så ni svarar bara på det som återstår.`;
-    primaryLabel = matchCount >= 3 ? "Se de 3 som matchar bäst" : "Se de som matchar bäst";
+    primaryLabel = "Jämför partners för vårt behov";
     eyebrow = "Anpassat efter era val";
   }
   const chips = usePersonal ? [ctx.industry, sizeLabel(ctx.size), shortProductName(ctx.product)].filter(Boolean) : [];
 
+  if (journey) primaryLabel = journey.label;
+  if (journey && journey.area !== "partner") {
+    heading = journey.area === "migration" ? "Vad behöver ni utreda inför migrationen?" : "Pröva alternativen mot er situation";
+    text = "Börja med era processer, behov och förutsättningar. Samla det ni vet i er plan innan ni väljer lösning eller partner.";
+  }
   const safeEyebrow = eyebrow.split("Dynamics 365").join("Dynamics\u00A0365");
   const safeHeading = heading.split("Dynamics 365").join("Dynamics\u00A0365");
   const safeText = text.split("Dynamics 365").join("Dynamics\u00A0365");
-  const primaryTo = buildKomIgangUrl({
+  const primaryTo = journey?.to || buildKomIgangUrl({
     industry: usePersonal ? ctx.industry : industry,
     product: usePersonal ? ctx.product : product,
     size: usePersonal ? ctx.size : null,
@@ -102,9 +110,9 @@ const ContextualCta = ({
                     {c}
                   </span>
                 ))}
-                <button type="button" onClick={clearBuyerContext} className="text-muted-foreground underline underline-offset-2 hover:text-foreground">
+                <Button variant="link" size="sm" onClick={clearBuyerContext} className="h-auto p-0 text-muted-foreground underline underline-offset-2 hover:text-foreground">
                   Rensa val
-                </button>
+                </Button>
               </div>
             )}
             {links && links.length > 0 && (
@@ -122,7 +130,7 @@ const ContextualCta = ({
           </div>
           <div className="flex flex-col gap-2 sm:flex-row md:flex-col">
             <Button asChild size="lg" className="min-h-12 whitespace-normal text-center font-bold">
-              <Link to={primaryTo} onClick={() => track(primaryTo, "primary")}>
+              <Link to={primaryTo} onClick={() => { if (journey) updatePlan({ area: journey.area }); track(primaryTo, "primary"); }}>
                 {primaryLabel}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

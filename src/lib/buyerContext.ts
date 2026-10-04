@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-/** Val besökaren gjort under sessionen (ingen persondata, bara sessionStorage). */
+/** Besökarens egna val, sparade lokalt utan personuppgifter. */
 export interface BuyerContext {
   industry?: string | null;
   product?: string | null;
@@ -8,14 +8,20 @@ export interface BuyerContext {
 }
 
 const KEY = "buyer_context";
+const PERSIST_KEY = "d365_buyer_context_v1";
 const EVENT = "buyer-context-change";
+let memoryContext: BuyerContext = {};
 
 export function getBuyerContext(): BuyerContext {
   try {
     if (typeof window === "undefined") return {};
-    return JSON.parse(sessionStorage.getItem(KEY) || "{}") as BuyerContext;
+    const raw = localStorage.getItem(PERSIST_KEY) || sessionStorage.getItem(KEY);
+    if (!raw) return memoryContext;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return {};
+    return Object.fromEntries(["industry", "product", "size"].filter((k) => typeof parsed[k] === "string").map((k) => [k, parsed[k]]));
   } catch {
-    return {};
+    return memoryContext;
   }
 }
 
@@ -30,7 +36,9 @@ export function updateBuyerContext(patch: BuyerContext): void {
       else next[k] = v;
     }
     if (JSON.stringify(next) === JSON.stringify(current)) return;
-    sessionStorage.setItem(KEY, JSON.stringify(next));
+    memoryContext = next;
+    try { sessionStorage.setItem(KEY, JSON.stringify(next)); } catch { /* memory fallback */ }
+    try { localStorage.setItem(PERSIST_KEY, JSON.stringify(next)); } catch { /* memory fallback */ }
     window.dispatchEvent(new Event(EVENT));
   } catch {
     /* ignore */
@@ -38,12 +46,14 @@ export function updateBuyerContext(patch: BuyerContext): void {
 }
 
 export function clearBuyerContext(): void {
+  memoryContext = {};
   try {
     sessionStorage.removeItem(KEY);
-    window.dispatchEvent(new Event(EVENT));
+    localStorage.removeItem(PERSIST_KEY);
   } catch {
     /* ignore */
   }
+  if (typeof window !== "undefined") window.dispatchEvent(new Event(EVENT));
 }
 
 export function useBuyerContext(): BuyerContext {
@@ -62,7 +72,7 @@ export const hasBuyerContext = (c: BuyerContext) => Boolean(c.industry || c.prod
 /** Kort produktnamn för rubriker. */
 export function shortProductName(product?: string | null): string | null {
   if (!product) return null;
-  if (product === "Finance & SCM" || product === "Finance & Supply Chain") return "F&SCM";
+  if (["Finance & SCM", "Finance & Supply Chain", "Finance & Supply Chain Management (F&O)"].includes(product)) return "F&SCM";
   if (product === "Customer Insights (Marketing)") return "Customer Insights";
   return product;
 }
@@ -70,7 +80,7 @@ export function shortProductName(product?: string | null): string | null {
 export function productKeyFor(product?: string | null): "bc" | "fsc" | "sales" | "service" | null {
   if (!product) return null;
   if (product === "Business Central") return "bc";
-  if (["Finance & SCM", "Finance & Supply Chain", "Commerce", "Human Resources"].includes(product)) return "fsc";
+  if (["Finance & SCM", "Finance & Supply Chain", "Finance & Supply Chain Management (F&O)", "Commerce", "Human Resources"].includes(product)) return "fsc";
   if (["Sales", "Customer Insights (Marketing)"].includes(product)) return "sales";
   if (["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(product)) return "service";
   return null;
@@ -109,12 +119,13 @@ export function countMatchingPartners(partners: CountablePartner[], c: BuyerCont
     if (Object.keys(filters).length === 0) return false;
     if (c.industry) {
       return (p.industries || []).includes(c.industry) ||
-        Object.values(filters).some((f) => f?.industries?.includes(c.industry!));
+        Object.values(filters).some((f) => c.industry ? f?.industries?.includes(c.industry) : false);
     }
     return true;
   });
   if (!c.size || !key) return base.length;
-  const sized = base.filter((p) => (p.product_filters as FilterMap | undefined)?.[key]?.companySize?.includes(c.size!));
+  const size = c.size;
+  const sized = base.filter((p) => (p.product_filters as FilterMap | undefined)?.[key]?.companySize?.includes(size));
   return sized.length > 0 ? sized.length : base.length;
 }
 

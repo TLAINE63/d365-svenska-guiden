@@ -5,6 +5,8 @@
  */
 import { useSyncExternalStore } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { updateBuyerContext } from "@/lib/buyerContext";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 export const SECTIONS = ["company", "current_erp", "scope", "fscm", "crm", "contact_center", "integrations", "project", "assessment"] as const;
 export type SectionKey = (typeof SECTIONS)[number];
@@ -42,7 +44,14 @@ function load() {
   loaded = true;
   try {
     const raw = localStorage.getItem(CACHE_KEY);
-    if (raw) state = { ...emptyProfile(), ...JSON.parse(raw) };
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      state = emptyProfile();
+      for (const section of SECTIONS) {
+        const values = parsed?.[section];
+        if (values && typeof values === "object" && !Array.isArray(values)) state[section] = values;
+      }
+    }
   } catch {
     /* ignore */
   }
@@ -90,6 +99,13 @@ export function saveProfile(patch: Partial<Record<SectionKey, Record<string, Pro
   }
   state = next;
   emit();
+  if (patch.company) {
+    const industry = patch.company.industry;
+    updateBuyerContext({
+      industry: typeof industry === "string" ? STANDARD_INDUSTRIES.find((i) => i.slug === industry)?.name || industry : industry === null ? null : undefined,
+      size: typeof patch.company.employees === "string" ? patch.company.employees : patch.company.employees === null ? null : undefined,
+    });
+  }
   const buyer_id = getBuyerId();
   if (!buyer_id) return;
   void supabase.functions.invoke("buyer-profile", { body: { action: "save", buyer_id, patch } }).catch(() => {});

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
+import { updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { saveProfile } from "@/lib/buyerProfile";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -339,8 +341,9 @@ const KomIgang = () => {
   const { data: partners = [] } = usePartners();
 
   const storedContext = getBuyerContext();
-  const initialIndustry = normalizeIndustryParam(searchParams.get("industry"));
-  const requestedProduct = searchParams.get("product");
+  const plan = usePlanMeta();
+  const initialIndustry = normalizeIndustryParam(searchParams.get("industry") || storedContext.industry || null);
+  const requestedProduct = searchParams.get("product") || storedContext.product;
   const requestedGoal = searchParams.get("goal");
   const source = searchParams.get("source") || "direct";
   const initialProduct = productOptions.some((option) => option.value === requestedProduct) ? requestedProduct : null;
@@ -349,7 +352,7 @@ const KomIgang = () => {
   const [step, setStep] = useState(initialStep);
   const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : []);
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : allGoalOptions.filter((o) => plan.needs.includes(o.label)).map((o) => o.value));
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const requestedSize = searchParams.get("size") || storedContext.size || null;
@@ -361,10 +364,15 @@ const KomIgang = () => {
   useEffect(() => {
     updateBuyerContext({
       industry: selectedIndustry || undefined,
-      product: selectedProduct || undefined,
+      product: selectedProduct === null ? undefined : selectedProduct || null,
       size: selectedSize || undefined,
     });
   }, [selectedIndustry, selectedProduct, selectedSize]);
+  useEffect(() => {
+    const industry = STANDARD_INDUSTRIES.find((i) => i.name === selectedIndustry)?.slug;
+    if (industry || selectedSize) saveProfile({ company: { ...(industry ? { industry } : {}), ...(selectedSize ? { employees: selectedSize } : {}) } });
+    updatePlan({ needs: allGoalOptions.filter((o) => selectedGoals.includes(o.value)).map((o) => o.label) });
+  }, [selectedIndustry, selectedSize, selectedGoals]);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });

@@ -24,7 +24,7 @@ export const fitModels: Record<FitModelKey, FitModel> = {
   },
   erp: {
     name: "D365.SE ERP Fit Model",
-    method: "Kartlägg processerna och skilj absoluta krav från önskemål. Pröva kraven i standardfunktioner, tillägg och integrationer samt jämför kostnad och intern förmåga att genomföra förändringen. Business Central är ofta relevant vid standardiserade behov; Finance & Supply Chain Management (F&O) blir mer relevant vid hög process- och koncernkomplexitet. Modellen kan också visa att ett enklare system eller ett annat ERP bör utredas.",
+    method: "Kartlägg processerna och skilj absoluta krav från önskemål. Pröva relevanta ERP-alternativ mot standardfunktioner, tillägg och integrationer samt jämför kostnad och intern förmåga att genomföra förändringen. Ett enklare system, en annan leverantör eller fortsatt utredning kan vara rätt väg. Business Central och Finance & Supply Chain Management (F&O) är alternativ att pröva när kraven motiverar det, inte förutbestämda svar.",
     dimensions: rows([
       ["Antal bolag", "Juridiska enheter, koncernstruktur och intercompanyflöden", "Fler bolag ökar samordningsbehovet; antal ensamt avgör inte produkt."],
       ["Antal länder", "Verksamhetsländer, språk, valutor och lokaliseringar", "Kontrollera lokala krav och gemensam styrning."],
@@ -43,7 +43,7 @@ export const fitModels: Record<FitModelKey, FitModel> = {
   },
   crm: {
     name: "D365.SE CRM Fit Model",
-    method: "Utgå från hur kunder, försäljning och service faktiskt hanteras. Prioritera användarnas arbetsflöden och datakvalitet före antal funktioner. Pröva relevanta Dynamics 365-applikationer mot ert behov och kontrollera integration, förvaltning och användning i vardagen. Vid enkla kontakt- och säljbehov kan ett enklare CRM vara mer ändamålsenligt.",
+    method: "Utgå från hur kunder, försäljning och service faktiskt hanteras. Prioritera användarnas arbetsflöden och datakvalitet före antal funktioner. Jämför relevanta CRM-alternativ och kontrollera integration, förvaltning och användning i vardagen. Vid enkla kontakt- och säljbehov kan ett enklare CRM vara mer ändamålsenligt. Dynamics 365 är ett alternativ när kraven och förutsättningarna motiverar det.",
     dimensions: rows([
       ["B2B/B2C", "Kundtyper, relationer och köpbeteenden", "Skilj kontobaserad försäljning från volymbaserade konsumentflöden."],
       ["Antal säljare", "Roller, team och arbetssätt", "Antalet påverkar licenser och införande, men avgör inte produkt ensamt."],
