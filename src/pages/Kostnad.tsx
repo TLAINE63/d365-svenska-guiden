@@ -1,3 +1,5 @@
+import { priceSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
@@ -294,7 +296,8 @@ export default function Kostnad() {
         <CostContactForm />
       
 <FunnelCTA stage="early" guide="erp" source="/kostnad/" />
-</main>
+<SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
+      </main>
 
       <section className="py-8">
         <div className="container mx-auto px-4 max-w-6xl">

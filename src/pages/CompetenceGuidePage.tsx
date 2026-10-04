@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -171,6 +173,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
 
           <MatchInfoDisclosure />
         </div>
+      <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
       <Footer />
 

@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -710,7 +712,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   secondaryLabel="Gör en djupare behovsanalys"
   secondaryTo="/ERPbehovsanalys/"
  />
-</main>
+<SourcesAndMethod partnerEvidence={partnerSources} />
+      </main>
  <Footer />
  </>
  );

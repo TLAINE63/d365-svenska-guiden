@@ -1,3 +1,4 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -318,7 +319,8 @@ const Upphandlingsguiden = () => {
  </div>
  </div>
  </section>
- </main>
+ <SourcesAndMethod />
+      </main>
  <Footer />
  </>
  );

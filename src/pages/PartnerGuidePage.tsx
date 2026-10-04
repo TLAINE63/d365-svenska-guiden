@@ -1,3 +1,5 @@
+import { partnerSources } from "@/lib/guideSources";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
 import FitModel from "@/components/FitModel";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
@@ -228,6 +230,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             <p className="text-[15px] leading-relaxed text-muted-foreground">{content.about}</p>
           </section>
         </article>
+      <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
 
       <StickyPartnerCTA to={partnerListUrl} source={path} />
