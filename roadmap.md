@@ -1,9 +1,11 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Människan först i köpguiden (2026-10-04)
-- [ ] Integrera kort svar, bedömning och avsändare med diskretare gemensam presentation
-- [ ] Behåll modeller, tabeller, källor och semantik utan att de dominerar läsflödet
-- [ ] Kontrollera befintliga nästa steg samt läsbarhet på dator och mobil
+- [x] Integrera kort svar, bedömning och avsändare med diskretare gemensam presentation
+- [x] Behåll modeller, tabeller, källor och semantik utan att de dominerar läsflödet
+- [x] Kontrollera befintliga nästa steg samt läsbarhet på dator och mobil
+
+Verifierat: 48 riktade tester godkända; ERP, CRM, Business Central och partnerkatalogen kontrollerade vid 1280/390 px utan runtimefel. Alla tre modeller öppnas och stängs med mus/tangentbord och tabellerna finns kvar i HTML, med lokal horisontell skrollning på mobil. Business Central-knappen öppnar Kom igång med produktförval och synlig branschfråga utan e-postkrav. Källblocken och avsändaren finns kvar där de fanns tidigare. Automatisk byggkontroll godkänd. Ingen publicering.
 
 ## Frågebaserad rubrikarkitektur (2026-10-04)
 - [x] Frågebaserad H1 och Kort svar i viktiga guider

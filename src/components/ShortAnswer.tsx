@@ -1,5 +1,4 @@
 import { nowrapBrand } from "@/lib/nowrapBrand";
-import { Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -18,28 +17,24 @@ interface ShortAnswerProps {
 }
 
 /**
- * "Kort svar"-block för AIO/AI Overview-readiness och featured snippets.
- *
- * Visas högt upp på pelarsidor (efter ingressen) och svarar direkt på
- * sidans huvudfråga i 2–4 meningar. Rubriken är h2 så Google/AI-läsare
- * lätt kan plocka ut svaret.
+ * Answers the visitor's main question before deeper decision support.
+ * Keeps a semantic heading and any existing next-step link.
  */
 const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: ShortAnswerProps) => {
   return (
     <section
       aria-label={title}
-      className={`py-8 sm:py-10 bg-background ${className}`}
+      className={`py-6 sm:py-8 bg-background ${className}`}
     >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="rounded p-5 sm:p-7" style={{ border: "1px solid #e7c5b7", background: "#faf8f6" }}>
-            <div className="flex items-center gap-2 mb-3">
-              <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
-              <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-[hsl(var(--signature))] m-0">
+          <div>
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold text-foreground m-0">
                 {nowrapBrand(title)}
               </h2>
             </div>
-            <div className="text-sm sm:text-[15px] leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
+            <div className="text-base leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
               {typeof children === "string" ? <p>{nowrapBrand(children)}</p> : children}
             </div>
             {cta && (
