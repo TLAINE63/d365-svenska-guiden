@@ -133,6 +133,7 @@ import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
 import AdminGscTab from "@/components/AdminGscTab";
+import AdminSearchPerfTab from "@/components/AdminSearchPerfTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerPerformanceTab from "@/components/AdminPartnerPerformanceTab";
@@ -308,7 +309,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "seo",
  label: "SEO & Konkurrens",
  icon: TrendingUp,
- tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
+ tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "search-perf", "pillar-followup"],
  },
  {
  id: "partnerportal",
@@ -2668,7 +2669,13 @@ Thomas`,
  </span>
  Search Console
  </TabsTrigger>
- <TabsTrigger value="pillar-followup" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+  <TabsTrigger value="search-perf" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-600/10 ring-1 ring-teal-400/20">
+  <LineChart className="h-3.5 w-3.5 text-teal-300" strokeWidth={1.75} />
+  </span>
+  Sökprestanda
+  </TabsTrigger>
+  <TabsTrigger value="pillar-followup" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
  <TrendingUp className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
  </span>
@@ -3896,7 +3903,11 @@ Thomas`,
  <AdminGscTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
- <TabsContent value="pillar-followup">
+  <TabsContent value="search-perf">
+  <AdminSearchPerfTab token={token || null} onSessionExpired={logout} />
+  </TabsContent>
+
+  <TabsContent value="pillar-followup">
  <AdminPillarFollowupTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
  </Tabs>

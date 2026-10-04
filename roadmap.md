@@ -139,4 +139,6 @@
 
 ## Månadsbrev ersätter partnerrapporter (2026-10-01)
 - [x] Ett utskick med bara nyhetsbrevets innehåll, förhandsgranskning per partner och testutskick till Thomas
-- [ ] Sökpositioner: admin-vy + schemaläggning (väntar på besked om Semrush-plan, gratisnivån ger bara 10 rader per hämtning)
+- [x] Sökpositioner: Semrush-API pausat (kräver Business-plan + separata API-enheter), körningar kvar som "partial"
+- [x] Sökprestanda: GSC (Sverige, dygn) + Bing (veckovis) hämtas dagligen kl 05:40 UTC, grupp-tagging mot fraslistan, verifierat 2026-10-04
+- [x] Sökprestanda: Admin-flik "Sökprestanda" (SEO & Konkurrens) med trend per grupp/månad, frasjämförelse mot konkurrenter och CSV-uppladdning (Semrush Organic Positions, kvartalsvis)
