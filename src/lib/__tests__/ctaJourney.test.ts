@@ -38,3 +38,11 @@ describe("Human-first journey", () => {
     expect(planNextStep(emptyProfile(), {}, parsePlan(null), 2).to).toBe("/shortlist/");
   });
 });
+import { contextualJourney as cj2 } from "@/lib/ctaJourney";
+import { describe as d2, it as i2, expect as e2 } from "vitest";
+d2("bransch-journey", () => {
+  i2("branschsidor leder till verksamhetsanpassad bedömning", () => {
+    e2(cj2("industry:tillverkning")?.label).toBe("Se vilka lösningar som passar er verksamhet");
+    e2(cj2("next-step:branscher")?.to).toBe("/underlag/?area=erp");
+  });
+});

@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { type BuyerContext, getBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { type BuyerProfile, clearProfile } from "@/lib/buyerProfile";
 import { deriveCompareFilters, filtersToSearch } from "@/lib/underlag";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export type PlanArea = "erp" | "crm" | "migration" | "partner";
 export type PlanPriority = "important" | "investigate";
@@ -35,8 +36,11 @@ function snapshot() {
   return state;
 }
 export function updatePlan(patch: Partial<PlanMeta>) {
+  let existed = true;
+  try { existed = localStorage.getItem(KEY) !== null; } catch { /* ignore */ }
   state = { ...snapshot(), ...patch };
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* memory-only fallback */ }
+  if (!existed) trackFunnelEvent({ event_type: "engagement", event_name: "plan_created", metadata: { area: state.area || null } });
   listeners.forEach((l) => l());
 }
 export function setPlanDimension(key: string, priority: PlanPriority | null) {
@@ -56,6 +60,7 @@ export function clearD365Plan() {
 }
 
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
+  if (savedCount && buyer.industry && buyer.size && (meta.area || buyer.product)) return { label: "Få hjälp att matcha rätt partner", to: "/shortlist/" };
   if (savedCount) return { label: "Jämför era sparade partners", to: "/shortlist/" };
   const assessed = Boolean(profile.assessment?.fscm_level || (Array.isArray(profile.assessment?.crm_apps) && profile.assessment.crm_apps.length));
   if (assessed && meta.area !== "erp" && meta.area !== "crm" && meta.area !== "migration") return { label: "Se partners för ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(profile))}` };
