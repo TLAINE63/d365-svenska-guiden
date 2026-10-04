@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Människan först i köpguiden (2026-10-04)
+- [ ] Integrera kort svar, bedömning och avsändare med diskretare gemensam presentation
+- [ ] Behåll modeller, tabeller, källor och semantik utan att de dominerar läsflödet
+- [ ] Kontrollera befintliga nästa steg samt läsbarhet på dator och mobil
+
 ## Frågebaserad rubrikarkitektur (2026-10-04)
 - [x] Frågebaserad H1 och Kort svar i viktiga guider
 - [x] Tydliga H2/H3 för val, jämförelse, risker, kompetens och nästa steg
