@@ -237,8 +237,8 @@ export default function AdminSearchPerfTab({ token, onSessionExpired }: Props) {
                 </TableHeader>
                 <TableBody>
                   {(["gsc", "bing"] as const).map((src) => (
-                    <>
-                      <TableRow key={src} className="bg-muted/40">
+                    <Fragment key={src}>
+                      <TableRow className="bg-muted/40">
                         <TableCell colSpan={months.length + 1} className="font-medium text-xs uppercase tracking-wide">
                           {src === "gsc" ? "Google (Sverige)" : "Bing (alla länder, veckovis)"}
                         </TableCell>
@@ -260,7 +260,7 @@ export default function AdminSearchPerfTab({ token, onSessionExpired }: Props) {
                           </TableRow>
                         );
                       })}
-                    </>
+                    </Fragment>
                   ))}
                 </TableBody>
               </Table>
