@@ -1,3 +1,4 @@
+import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import ProductIsvSection from "@/components/ProductIsvSection";
@@ -232,6 +233,7 @@ const FinanceSupplyChain = () => {
     to: "/finance-supply-chain/roi-kalkylator/",
   }}
   />
+  <EditorialAssessment assessment="fscm" />
 
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">

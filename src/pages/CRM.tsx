@@ -1,3 +1,4 @@
+import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -219,6 +220,7 @@ const CRM = () => {
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   />
+  <EditorialAssessment assessment="crm" />
 
  {/* Partners Section */}
  <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
