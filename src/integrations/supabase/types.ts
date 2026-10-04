@@ -326,6 +326,77 @@ export type Database = {
         }
         Relationships: []
       }
+      competitor_csv_imports: {
+        Row: {
+          created_at: string
+          domain: string
+          export_date: string
+          filename: string | null
+          id: string
+          rows_matched: number | null
+          rows_total: number | null
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+          export_date: string
+          filename?: string | null
+          id?: string
+          rows_matched?: number | null
+          rows_total?: number | null
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+          export_date?: string
+          filename?: string | null
+          id?: string
+          rows_matched?: number | null
+          rows_total?: number | null
+        }
+        Relationships: []
+      }
+      competitor_csv_rows: {
+        Row: {
+          group_tag: string | null
+          id: number
+          import_id: string
+          keyword: string
+          phrase_id: string | null
+          position: number | null
+          url: string | null
+          volume: number | null
+        }
+        Insert: {
+          group_tag?: string | null
+          id?: number
+          import_id: string
+          keyword: string
+          phrase_id?: string | null
+          position?: number | null
+          url?: string | null
+          volume?: number | null
+        }
+        Update: {
+          group_tag?: string | null
+          id?: number
+          import_id?: string
+          keyword?: string
+          phrase_id?: string | null
+          position?: number | null
+          url?: string | null
+          volume?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitor_csv_rows_import_id_fkey"
+            columns: ["import_id"]
+            isOneToOne: false
+            referencedRelation: "competitor_csv_imports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_attempt_blocked: {
         Row: {
           created_at: string
@@ -3789,6 +3860,81 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      search_perf_daily: {
+        Row: {
+          clicks: number
+          country: string
+          day: string
+          fetched_at: string
+          group_tag: string
+          id: number
+          impressions: number
+          page: string
+          position: number | null
+          query: string
+          source: string
+        }
+        Insert: {
+          clicks?: number
+          country?: string
+          day: string
+          fetched_at?: string
+          group_tag?: string
+          id?: number
+          impressions?: number
+          page?: string
+          position?: number | null
+          query: string
+          source: string
+        }
+        Update: {
+          clicks?: number
+          country?: string
+          day?: string
+          fetched_at?: string
+          group_tag?: string
+          id?: number
+          impressions?: number
+          page?: string
+          position?: number | null
+          query?: string
+          source?: string
+        }
+        Relationships: []
+      }
+      search_perf_runs: {
+        Row: {
+          error: string | null
+          id: string
+          range_end: string | null
+          range_start: string | null
+          rows_saved: number | null
+          source: string
+          started_at: string
+          status: string
+        }
+        Insert: {
+          error?: string | null
+          id?: string
+          range_end?: string | null
+          range_start?: string | null
+          rows_saved?: number | null
+          source: string
+          started_at?: string
+          status?: string
+        }
+        Update: {
+          error?: string | null
+          id?: string
+          range_end?: string | null
+          range_start?: string | null
+          rows_saved?: number | null
+          source?: string
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
       }
       semrush_monthly_stats: {
         Row: {
