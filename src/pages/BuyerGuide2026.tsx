@@ -1,3 +1,6 @@
+import ShortAnswer from "@/components/ShortAnswer";
+import { nowrapBrand } from "@/lib/nowrapBrand";
+import { buyerSectionHeading } from "@/lib/guideHeadings";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -53,14 +56,15 @@ const BuyerGuide2026 = ({ variant }: Props) => {
               Tidig köpfas · Köparguide
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-5">
-              {guide.title}
+              {nowrapBrand(variant === "erp" ? "Hur väljer och köper ni rätt Dynamics 365-affärssystem?" : "Hur väljer och köper ni rätt Dynamics 365 CRM?")}
             </h1>
             <EditorialSource sourceType="Köpguide" tone="dark" />
             <p className="text-lg text-white/80 leading-relaxed mb-6">{guide.hero}</p>
-            <p className="text-base text-white/70 leading-relaxed">{guide.intro}</p>
             <p className="mt-6 text-sm text-white/60">Omfattning: {guide.scope}</p>
           </div>
         </section>
+
+        <ShortAnswer>{guide.intro}</ShortAnswer>
 
         <section className="container mx-auto px-4 sm:px-6 max-w-4xl py-12 sm:py-16">
           <h2 className="text-xl font-bold mb-4">Det här får du ut av guiden</h2>
@@ -75,7 +79,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
 
           {guide.sections.map((section) => (
             <article key={section.heading} className="mb-10">
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-3">{section.heading}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-3">{nowrapBrand(buyerSectionHeading(section.heading))}</h2>
               {section.intro && (
                 <p className="text-muted-foreground leading-relaxed mb-4">{section.intro}</p>
               )}
@@ -111,6 +115,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
             ))}
           </div>
 
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">Så går du vidare</h2>
           <p className="text-muted-foreground leading-relaxed">
             {guide.nextStep}{" "}
             <Link to="/kostnad/" className="underline underline-offset-4 hover:text-foreground">

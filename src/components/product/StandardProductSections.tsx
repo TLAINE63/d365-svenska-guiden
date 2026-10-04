@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { ArrowRight, CheckCircle2, AlertTriangle, Users, Database, GitBranch, BarChart3, Workflow, Building2 } from "lucide-react";
 
 export interface StandardSectionsData {
@@ -36,7 +37,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Känner du igen dig?
+            {nowrapBrand(`När passar ${productName}?`)}
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Situationer där svenska bolag brukar börja utvärdera {productName}.
@@ -59,7 +60,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Vad Microsoft Dynamics 365 löser
+            {nowrapBrand(`Vilka behov kan ${productName} stödja?`)}
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Sakligt – utan Microsofts marknadsföringsord.
@@ -79,7 +80,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Var partnern avgör
+            Partner och kompetens: vad avgör införandet?
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Microsoft levererar plattformen. Partnern avgör om implementationen faktiskt fungerar i er verksamhet.
@@ -104,7 +105,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Vanliga fallgropar
+            Risker att tänka på
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Det vi ser oftast i utvärderingar som inte landar väl.
@@ -127,7 +128,7 @@ export default function StandardProductSections({ productName, data }: Props) {
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Rekommenderat nästa steg
+            Så förbereder ni beslutsunderlaget
           </h2>
           <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
             Tre konkreta steg som gör beslutsunderlaget skarpare innan partnerdialogen börjar.

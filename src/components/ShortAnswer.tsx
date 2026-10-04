@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -35,11 +36,11 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: Sho
             <div className="flex items-center gap-2 mb-3">
               <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.12em] text-[hsl(var(--signature))] m-0">
-                {title}
+                {nowrapBrand(title)}
               </h2>
             </div>
             <div className="text-sm sm:text-[15px] leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
-              {typeof children === "string" ? <p>{children}</p> : children}
+              {typeof children === "string" ? <p>{nowrapBrand(children)}</p> : children}
             </div>
             {cta && (
               <div className="mt-5">

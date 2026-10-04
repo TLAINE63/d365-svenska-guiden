@@ -1,5 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Frågebaserad rubrikarkitektur (2026-10-04)
+- [x] Frågebaserad H1 och Kort svar i viktiga guider
+- [x] Tydliga H2/H3 för val, jämförelse, risker, kompetens och nästa steg
+- [x] Testa rubrikhierarki och kontrollera dator/mobil; artikelarkivet lämnas oförändrat
+
+Verifiering: 20 riktade regressionstester godkända; 14 guider kontrollerade vid 1280 och 390 px utan runtimefel. Befintligt mobilöverflöde på ERP och Business Central kvarstår; även F&O har observerat överflöde utanför de nya rubrikerna. Partnerlistornas ankare, filter och kontaktflöden bevarade. Ingen publicering utförd.
+
 ## Källor och metod i guider (2026-10-04)
 - [x] Återanvändbart källblock med extern fakta, partnerunderlag och redaktionell analys
 - [x] Integrera i guider och artikelmallar utifrån befintliga hänvisningar

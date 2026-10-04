@@ -222,8 +222,7 @@ const FinanceSupplyChain = () => {
   <ProductHero
   icon={FinanceIcon}
   eyebrow="Finance & Supply Chain Management"
-        title="Finance & Supply Chain Management."
-        titleAccent="Byggt för internationell komplexitet – och kräver en partner med motsvarande erfarenhet."
+        title="När passar Finance & Supply Chain Management (F&O)?"
   subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot dina befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför du partners som levererat F&SCM i din bransch."
   primary={{
     label: "Jämför F&SCM-partners",
@@ -235,7 +234,333 @@ const FinanceSupplyChain = () => {
     to: "/finance-supply-chain/roi-kalkylator/",
   }}
   />
+  <ShortAnswer>
+ <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
+ <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
+ <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
+ <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
+ <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
+ </ShortAnswer>
   <EditorialAssessment assessment="fscm" />
+
+
+
+  
+
+ {/* Matchningstest CTA */}
+ <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
+   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
+       <div>
+         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
+           Matchningstest
+         </p>
+         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
+           Vad avgör valet av Finance &amp; Supply Chain Management (F&O)?
+         </h2>
+         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
+           Ett funktionsorienterat test som tittar på vilka konkreta behov du har – inte ett mognadsbetyg.
+           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för dig. Då pekar vi i stället
+           på Business Central eller andra alternativ.
+         </p>
+       </div>
+       <Link
+         to="/finance-supply-chain-management/matchningstest/"
+         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
+       >
+         Starta matchningstestet →
+       </Link>
+     </div>
+   </div>
+ </section>
+
+ <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
+
+ {/* FAQ Section */}
+ <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-4xl mx-auto">
+ <div className="text-center mb-8 sm:mb-10 md:mb-12">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Vanliga frågor om Finance & Supply Chain Management (F&O)
+ </h2>
+ </div>
+ 
+ <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+ <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Vad är skillnaden mellan Dynamics 365 Finance & Supply Chain Management och andra ERP-system?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11 space-y-3">
+ <p>Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika applikationer för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.</p>
+ <p className="text-sm">
+ <strong className="text-foreground">Se publicerade jämförelser:</strong>{" "}
+ <Link to="/jamfor/fscm-vs-sap-s4hana/" className="text-primary hover:underline font-medium">F&SCM vs SAP S/4HANA</Link>
+ {" · "}
+ <Link to="/jamfor/fscm-vs-infor-m3/" className="text-primary hover:underline font-medium">F&SCM vs Infor M3</Link>
+ {" · "}
+ <Link to="/jamfor/" className="text-primary hover:underline font-medium">Alla jämförelser</Link>
+ </p>
+ </AccordionContent>
+ </AccordionItem>
+ 
+ <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Hur mycket kostar Dynamics 365 Finance & Supply Chain Management – och vad påverkar priset?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11">
+ Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer du behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
+ </AccordionContent>
+ </AccordionItem>
+ 
+ <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11">
+ En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Kan en fasad implementering, där du rullar ut funktionaliteten stegvis för att minimera risker, vara en variant för dig?
+ </AccordionContent>
+ </AccordionItem>
+ 
+ <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11">
+ F&SCM är mycket flexibelt och kan anpassas till komplexa affärsprocesser och branschspecifika krav. Systemet stödjer omfattande konfiguration via Power Platform, samt utveckling av specialanpassningar när det behövs. Det finns också ett rikt ekosystem av ISV-lösningar (Independent Software Vendors) för specifika branscher som tillverkning, detaljhandel, läkemedel och livsmedel.
+ </AccordionContent>
+ </AccordionItem>
+ 
+ <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11">
+ F&SCM integreras sömlöst med hela Microsoft-ekosystemet inklusive Microsoft 365, Teams, Power BI och Azure. Systemet har robusta API:er och stöd för integration med tredjepartssystem som CRM-lösningar, e-handelsplattformar, WMS-system, MES-system och IoT-enheter. Integration kan ske via Azure Logic Apps, Power Automate eller direktintegrationer via standardprotokoll.
+ </AccordionContent>
+ </AccordionItem>
+ 
+ <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ <span className="flex items-start gap-3">
+ <span className="text-2xl">❓</span>
+ <span>Vilken partner borde passa vår verksamhet bäst?</span>
+ </span>
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 pl-11">
+ Rätt partner beror på din bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valjdynamics365partner/" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan du filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar dina krav. Du kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+ </AccordionContent>
+ </AccordionItem>
+ </Accordion>
+ </div>
+ </div>
+ </section>
+
+
+
+
+
+ {/* Videos Section */}
+ <section id="videos" className="py-10 bg-background">
+ <div className="container mx-auto px-4">
+ <div className="text-center mb-12">
+ <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+ Videoguider om Finance & Supply Chain Management (F&O)
+ </h2>
+ <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+ Här kommer några korta inspirationsvideos om Dynamics 365 Finance och Supply Chain Management samt även Human Resources och Commerce
+ </p>
+ </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+ {fscVideos.map((video, index) => (
+ <VideoCard key={index} {...video} />
+ ))}
+ </div>
+ </div>
+ </section>
+
+
+ {/* AI & Agents Section for Finance & Supply Chain */}
+ <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-5xl mx-auto">
+ <div className="text-center mb-8 sm:mb-10">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
+ AI & Agenter för Finance & Supply Chain Management (F&O)
+ </h2>
+ <p className="text-lg text-muted-foreground">
+ Enterprise AI för komplex finans- och supply chain-hantering
+ </p>
+ </div>
+
+ <div className="space-y-6">
+ {/* Copilot Features */}
+ <div className="bg-card rounded p-6 sm:p-8 border border-border">
+ <div className="flex items-start gap-4 mb-4">
+ <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+ <span className="text-xl">👤</span>
+ </div>
+ <div>
+ <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot för Finance & Supply Chain Management (F&O)</h3>
+ <p className="text-muted-foreground mb-4">
+ AI-assistent för ekonomi, leveranskedja och produktion
+ </p>
+ </div>
+ </div>
+ <div className="grid sm:grid-cols-2 gap-4 text-sm">
+ <div>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Avancerad ekonomisk analys och prognoser</li>
+ <li>• Identifierar avvikelser i transaktioner</li>
+ <li>• Supply chain-insikter och rekommendationer</li>
+ <li>• Prediktiva underhållsförslag</li>
+ </ul>
+ </div>
+ <div>
+ <ul className="space-y-2 text-muted-foreground">
+ <li>• Genererar budgetförslag</li>
+ <li>• Analyserar leverantörsprestanda</li>
+ <li>• Optimerar produktionsscheman</li>
+ <li>• Förutsäger kassaflöde</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+
+ {/* Agents Features */}
+ <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 sm:p-8 border-2 border-primary/30">
+ <div className="flex items-start gap-4 mb-4">
+ <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+ <span className="text-xl">⚡</span>
+ </div>
+ <div>
+ <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain Management (F&O)</h3>
+ <p className="text-muted-foreground mb-4">
+ Autonoma AI-system för enterprise-processer
+ </p>
+ </div>
+ </div>
+ <div className="space-y-4">
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>💰</span> Treasury Management Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Övervakar kassaflöde globalt i realtid, optimerar likviditet mellan juridiska enheter, 
+ hanterar valutaexponering automatiskt och placerar överskottslikvid enligt policy
+ </p>
+ </div>
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>📊</span> Financial Planning Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Skapar rullande prognoser automatiskt, identifierar trender och avvikelser, 
+ distribuerar budgetar mellan kostnadsställen och varnar för budgetöverskridanden proaktivt
+ </p>
+ </div>
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>📦</span> Supply Chain Orchestration Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Optimerar hela leveranskedjan från råmaterial till slutkund, hanterar störningar proaktivt, 
+ omdirigerar transporter automatiskt och balanserar lager mellan platser baserat på efterfrågan
+ </p>
+ </div>
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>🏭</span> Production Optimization Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Schemalägger produktion för maximal effektivitet, justerar planer baserat på orderändringar och kapacitet, 
+ koordinerar med leverantörer för just-in-time leverans och minimerar stillestånd
+ </p>
+ </div>
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>🤝</span> Vendor Management Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Utvärderar leverantörsprestanda kontinuerligt, förhandlar priser och villkor automatiskt enligt ramar, 
+ diversifierar leverantörsbas för riskreducering och identifierar alternativa källor proaktivt
+ </p>
+ </div>
+ <div className="bg-card/50 rounded-lg p-4">
+ <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+ <span>🔧</span> Predictive Maintenance Agent
+ </h4>
+ <p className="text-sm text-muted-foreground">
+ Analyserar IoT-data från maskiner för att förutsäga fel, schemalägger underhåll vid optimal tidpunkt, 
+ beställer reservdelar automatiskt och minimerar oplanerade produktionsstopp
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div className="mt-8 text-center">
+ <Button asChild size="lg" variant="outline">
+ <Link to="/agents/">
+ Utforska Agenter för Enterprise
+ <span className="ml-2">→</span>
+ </Link>
+ </Button>
+ </div>
+ </div>
+ </div>
+ </section>
+
+
+ {/* Pricing Section */}
+ <section id="pricing" className="py-10 bg-background">
+ <div className="container mx-auto px-4">
+ <div className="text-center mb-16">
+ <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+ Licenspriser för Finance & Supply Chain Management (F&O)
+ </h2>
+ <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+ Priser per användare och månad
+ </p>
+ </div>
+ <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+ {fscPricingPlans.map((plan, index) => (
+ <PricingCard key={index} {...plan} />
+ ))}
+ </div>
+ <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
+ Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
+ </p>
+ </div>
+ </section>
+
+
+      <BuyerManual product="finance-scm" />
+      <CostBreakdown product="finance-scm" />
+      <ComparisonQuickLinks productKeys="fscm" />
+
+      <ProductRoiCta productKey="finance-scm" />
+
+      <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
+      <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain Management (F&O)" />
+
+      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain Management (F&O)" />
+
 
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
@@ -438,335 +763,12 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
-  <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain Management (F&O)">
- <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
- <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
- <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
- <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
- <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
- </ShortAnswer>
-
- {/* Matchningstest CTA */}
- <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
-   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
-       <div>
-         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
-           Matchningstest
-         </p>
-         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Matchar F&amp;SCM dina behov?
-         </h2>
-         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           Ett funktionsorienterat test som tittar på vilka konkreta behov du har – inte ett mognadsbetyg.
-           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för dig. Då pekar vi i stället
-           på Business Central eller andra alternativ.
-         </p>
-       </div>
-       <Link
-         to="/finance-supply-chain-management/matchningstest/"
-         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
-       >
-         Starta matchningstestet →
-       </Link>
-     </div>
-   </div>
- </section>
-
- <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
-
- {/* FAQ Section */}
- <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
- <div className="text-center mb-8 sm:mb-10 md:mb-12">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Vanliga frågor om Finance & Supply Chain Management (F&O)
- </h2>
- </div>
- 
- <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
- <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Vad är skillnaden mellan Dynamics 365 Finance & Supply Chain Management och andra ERP-system?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11 space-y-3">
- <p>Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika applikationer för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.</p>
- <p className="text-sm">
- <strong className="text-foreground">Se publicerade jämförelser:</strong>{" "}
- <Link to="/jamfor/fscm-vs-sap-s4hana/" className="text-primary hover:underline font-medium">F&SCM vs SAP S/4HANA</Link>
- {" · "}
- <Link to="/jamfor/fscm-vs-infor-m3/" className="text-primary hover:underline font-medium">F&SCM vs Infor M3</Link>
- {" · "}
- <Link to="/jamfor/" className="text-primary hover:underline font-medium">Alla jämförelser</Link>
- </p>
- </AccordionContent>
- </AccordionItem>
- 
- <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Hur mycket kostar Dynamics 365 Finance & Supply Chain Management – och vad påverkar priset?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer du behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
- </AccordionContent>
- </AccordionItem>
- 
- <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Kan en fasad implementering, där du rullar ut funktionaliteten stegvis för att minimera risker, vara en variant för dig?
- </AccordionContent>
- </AccordionItem>
- 
- <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- F&SCM är mycket flexibelt och kan anpassas till komplexa affärsprocesser och branschspecifika krav. Systemet stödjer omfattande konfiguration via Power Platform, samt utveckling av specialanpassningar när det behövs. Det finns också ett rikt ekosystem av ISV-lösningar (Independent Software Vendors) för specifika branscher som tillverkning, detaljhandel, läkemedel och livsmedel.
- </AccordionContent>
- </AccordionItem>
- 
- <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- F&SCM integreras sömlöst med hela Microsoft-ekosystemet inklusive Microsoft 365, Teams, Power BI och Azure. Systemet har robusta API:er och stöd för integration med tredjepartssystem som CRM-lösningar, e-handelsplattformar, WMS-system, MES-system och IoT-enheter. Integration kan ske via Azure Logic Apps, Power Automate eller direktintegrationer via standardprotokoll.
- </AccordionContent>
- </AccordionItem>
- 
- <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
- <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- <span className="flex items-start gap-3">
- <span className="text-2xl">❓</span>
- <span>Vilken partner borde passa vår verksamhet bäst?</span>
- </span>
- </AccordionTrigger>
- <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Rätt partner beror på din bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valjdynamics365partner/" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan du filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar dina krav. Du kan också använda vårt verktyg för att få personliga partnerrekommendationer.
- </AccordionContent>
- </AccordionItem>
- </Accordion>
- </div>
- </div>
- </section>
-
-
-
-
-
- {/* Videos Section */}
- <section id="videos" className="py-10 bg-background">
- <div className="container mx-auto px-4">
- <div className="text-center mb-12">
- <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Videoguider
- </h2>
- <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
- Här kommer några korta inspirationsvideos om Dynamics 365 Finance och Supply Chain Management samt även Human Resources och Commerce
- </p>
- </div>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
- {fscVideos.map((video, index) => (
- <VideoCard key={index} {...video} />
- ))}
- </div>
- </div>
- </section>
-
-
- {/* AI & Agents Section for Finance & Supply Chain */}
- <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
- <div className="text-center mb-8 sm:mb-10">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- AI & Agenter för Finance & Supply Chain Management (F&O)
- </h2>
- <p className="text-lg text-muted-foreground">
- Enterprise AI för komplex finans- och supply chain-hantering
- </p>
- </div>
-
- <div className="space-y-6">
- {/* Copilot Features */}
- <div className="bg-card rounded p-6 sm:p-8 border border-border">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">👤</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot för Finance & Supply Chain Management (F&O)</h3>
- <p className="text-muted-foreground mb-4">
- AI-assistent för ekonomi, leveranskedja och produktion
- </p>
- </div>
- </div>
- <div className="grid sm:grid-cols-2 gap-4 text-sm">
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Avancerad ekonomisk analys och prognoser</li>
- <li>• Identifierar avvikelser i transaktioner</li>
- <li>• Supply chain-insikter och rekommendationer</li>
- <li>• Prediktiva underhållsförslag</li>
- </ul>
- </div>
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Genererar budgetförslag</li>
- <li>• Analyserar leverantörsprestanda</li>
- <li>• Optimerar produktionsscheman</li>
- <li>• Förutsäger kassaflöde</li>
- </ul>
- </div>
- </div>
- </div>
-
- {/* Agents Features */}
- <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 sm:p-8 border-2 border-primary/30">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">⚡</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain Management (F&O)</h3>
- <p className="text-muted-foreground mb-4">
- Autonoma AI-system för enterprise-processer
- </p>
- </div>
- </div>
- <div className="space-y-4">
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>💰</span> Treasury Management Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Övervakar kassaflöde globalt i realtid, optimerar likviditet mellan juridiska enheter, 
- hanterar valutaexponering automatiskt och placerar överskottslikvid enligt policy
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📊</span> Financial Planning Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Skapar rullande prognoser automatiskt, identifierar trender och avvikelser, 
- distribuerar budgetar mellan kostnadsställen och varnar för budgetöverskridanden proaktivt
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📦</span> Supply Chain Orchestration Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Optimerar hela leveranskedjan från råmaterial till slutkund, hanterar störningar proaktivt, 
- omdirigerar transporter automatiskt och balanserar lager mellan platser baserat på efterfrågan
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🏭</span> Production Optimization Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Schemalägger produktion för maximal effektivitet, justerar planer baserat på orderändringar och kapacitet, 
- koordinerar med leverantörer för just-in-time leverans och minimerar stillestånd
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🤝</span> Vendor Management Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Utvärderar leverantörsprestanda kontinuerligt, förhandlar priser och villkor automatiskt enligt ramar, 
- diversifierar leverantörsbas för riskreducering och identifierar alternativa källor proaktivt
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🔧</span> Predictive Maintenance Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Analyserar IoT-data från maskiner för att förutsäga fel, schemalägger underhåll vid optimal tidpunkt, 
- beställer reservdelar automatiskt och minimerar oplanerade produktionsstopp
- </p>
- </div>
- </div>
- </div>
- </div>
-
- <div className="mt-8 text-center">
- <Button asChild size="lg" variant="outline">
- <Link to="/agents/">
- Utforska Agenter för Enterprise
- <span className="ml-2">→</span>
- </Link>
- </Button>
- </div>
- </div>
- </div>
- </section>
-
-
- {/* Pricing Section */}
- <section id="pricing" className="py-10 bg-background">
- <div className="container mx-auto px-4">
- <div className="text-center mb-16">
- <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Prisöversikt
- </h2>
- <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
- Priser per användare och månad
- </p>
- </div>
- <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
- {fscPricingPlans.map((plan, index) => (
- <PricingCard key={index} {...plan} />
- ))}
- </div>
- <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
- Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
- </p>
- </div>
- </section>
-
-
-      <BuyerManual product="finance-scm" />
-      <CostBreakdown product="finance-scm" />
-      <ComparisonQuickLinks productKeys="fscm" />
-
-      <ProductRoiCta productKey="finance-scm" />
-
-      <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
-      <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain Management (F&O)" />
-
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain Management (F&O)" />
-
-
  {/* CTA Section */}
  <section className="py-10 bg-secondary/50">
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Redo att transformera din verksamhet?
+ Rådgivning inför val av Finance & Supply Chain Management (F&O)
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
  Kontakta oss för en kostnadsfri konsultation
@@ -780,7 +782,7 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
- <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
+ <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">
      <PageOfferBanner />
@@ -793,7 +795,7 @@ const FinanceSupplyChain = () => {
       />
 
 
- <ContextualCta source="next-step:finance-supply-chain" heading="Har ni kommit så långt att ni utvärderar Finance & Supply Chain?" text="Nästa steg är att se vilka partners som har gjort liknande projekt i er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Finance & Supply Chain" links={[{ label: "Jämför relevanta partners", to: "/finance-supply-chain-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Så väljer ni Finance & Supply Chain Management (F&O)-partner", to: "/guider/valja-finance-supply-chain-partner/" }]} />
+ <ContextualCta source="next-step:finance-supply-chain" heading="Så går du vidare med Finance & Supply Chain Management (F&O)" text="Nästa steg är att se vilka partners som har gjort liknande projekt i er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Finance & Supply Chain" links={[{ label: "Jämför relevanta partners", to: "/finance-supply-chain-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Så väljer ni Finance & Supply Chain Management (F&O)-partner", to: "/guider/valja-finance-supply-chain-partner/" }]} />
 <SourcesAndMethod />
       </main>
  <Footer />

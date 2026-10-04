@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
@@ -359,7 +360,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <span className="text-foreground">{industryName}</span>
  </nav>
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-">
- {seoDefaults?.h1 || `Dynamics 365 för ${industryName} – guide & partners i Sverige`}
+ {nowrapBrand(`Vilken Dynamics 365-lösning och partner passar ${industryName.toLowerCase()}?`)}
  </h1>
  <EditorialSource sourceType="Branschguide" updatedAt={page?.updated_at} />
  <div className="mb-3">
@@ -372,9 +373,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </span>
  </div>
  {page?.intro && (
+ <section aria-label="Kort svar"><h2 className="text-lg font-bold mb-2">Kort svar</h2>
  <p className="text-xs md:text-sm text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
  {page.intro}
- </p>
+ </p></section>
  )}
           <p className="mt-3 text-xs md:text-sm text-muted-foreground max-w-3xl leading-relaxed">
             Välj applikation och partner utifrån branschens processer, inte bara efter produktnamn. Läs mer om{" "}
@@ -413,17 +415,17 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <Accordion type="multiple" className="space-y-3">
  {page?.processes && page.processes.length > 0 && (
  <AccordionItem value="processes" className="border border-border rounded-lg bg-card px-5">
- <AccordionTrigger className="hover:no-underline py-4">
+ <AccordionTrigger headingLevel="h2" className="hover:no-underline py-4">
  <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
  <Briefcase className="w-5 h-5 text-primary" />
- Typiska affärsprocesser
+ Vad avgör valet? Branschens affärsprocesser
  </span>
  </AccordionTrigger>
  <AccordionContent>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
  {page.processes.map((p, i) => (
  <div key={i} className="rounded-lg border border-border bg-background p-5">
- <h2 className="font-semibold text-foreground mb-2">{p.title}</h2>
+ <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
  <p className="text-sm text-muted-foreground">{p.description}</p>
  </div>
  ))}
@@ -435,17 +437,17 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {page?.challenges && page.challenges.length > 0 && (
  <AccordionItem value="challenges" className="border border-border rounded-lg bg-card px-5">
- <AccordionTrigger className="hover:no-underline py-4">
+ <AccordionTrigger headingLevel="h2" className="hover:no-underline py-4">
  <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
  <AlertTriangle className="w-5 h-5 text-primary" />
- Vanliga utmaningar
+ Risker att tänka på
  </span>
  </AccordionTrigger>
  <AccordionContent>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
  {page.challenges.map((c, i) => (
  <div key={i} className="rounded-lg border border-border bg-background p-5">
- <h2 className="font-semibold text-foreground mb-2">{c.title}</h2>
+ <h3 className="font-semibold text-foreground mb-2">{c.title}</h3>
  <p className="text-sm text-muted-foreground">{c.description}</p>
  </div>
  ))}
@@ -457,7 +459,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
             {/* Dold tills vidare: Roller & funktioner */}
             {false && page?.roles && page.roles.length > 0 && (
               <AccordionItem value="roles" className="border border-border rounded-lg bg-card px-5">
-                <AccordionTrigger className="hover:no-underline py-4">
+                <AccordionTrigger headingLevel="h2" className="hover:no-underline py-4">
                   <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
                     <Users className="w-5 h-5 text-primary" />
                     Roller & funktioner
@@ -467,7 +469,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
                     {page.roles.map((r, i) => (
                       <div key={i} className="rounded-lg border border-border bg-background p-5">
-                        <h2 className="font-semibold text-foreground mb-2">{r.role}</h2>
+                        <h3 className="font-semibold text-foreground mb-2">{r.role}</h3>
                         <p className="text-sm text-muted-foreground">{r.needs}</p>
                       </div>
                     ))}
@@ -478,10 +480,10 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {page?.applications && page.applications.length > 0 && (
  <AccordionItem value="applications" className="border border-border rounded-lg bg-card px-5">
- <AccordionTrigger className="hover:no-underline py-4">
+ <AccordionTrigger headingLevel="h2" className="hover:no-underline py-4">
  <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
  <Layers className="w-5 h-5 text-primary" />
- Dynamics 365-applikationer som passar branschen
+ Jämförelse av applikationer för branschen
  </span>
  </AccordionTrigger>
  <AccordionContent>
@@ -499,7 +501,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {page?.faq && page.faq.length > 0 && (
  <AccordionItem value="faq" className="border border-border rounded-lg bg-card px-5">
- <AccordionTrigger className="hover:no-underline py-4">
+ <AccordionTrigger headingLevel="h2" className="hover:no-underline py-4">
  <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
  <HelpCircle className="w-5 h-5 text-primary" />
  Vanliga frågor
@@ -527,7 +529,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <div className="flex items-center gap-2 mb-2">
  <Building2 className="w-5 h-5 text-primary" />
  <h2 className="text-2xl font-bold">
- {matchingPartners.length === 1 ? '1 partnerverifierad profil' : `${matchingPartners.length} partnerverifierade profiler`} inom {industryName}
+ {nowrapBrand(`Partner och kompetens inom ${industryName.toLowerCase()}`)}
  </h2>
  </div>
  <p className="text-sm text-muted-foreground mb-6">
@@ -684,7 +686,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
  )}
  <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">
- Utforska andra branscher
+ Jämför krav i andra branscher
  </h2>
  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
  {STANDARD_INDUSTRIES.filter((i) => i.slug !== slug).map((i) => (

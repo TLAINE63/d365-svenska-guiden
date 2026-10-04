@@ -1,5 +1,7 @@
 # Projektregler
 
+- Important guides use question-led H1s and content-appropriate H2 sections, with existing short answers before editorial assessments; do not force empty sections or rewrite archive articles to fit a template.
+
 - Guides use SourcesAndMethod at the bottom to separate explicit external citations, partner evidence and editorial analysis; absent references and source dates must not be fabricated, and inline SourceNote citations remain intact.
 
 - Public partner lists share WhyTheseResults and PartnerSelectionFacts with explicit page context; this separates actual selection rules and registered evidence from AI assessments.

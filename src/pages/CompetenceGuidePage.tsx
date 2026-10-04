@@ -107,9 +107,10 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
 
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            {nowrapBrand(guide.title)}
+            {nowrapBrand(`Hur väljer ni rätt ${guide.shortTitle.toLowerCase()} för Dynamics 365?`)}
           </h1>
           <EditorialSource sourceType="Partnerguide" />
+          <h2 className="text-xl font-bold mb-3">Kort svar</h2>
           <p className="text-muted-foreground leading-relaxed mb-10 max-w-3xl">
             {nowrapBrand(guide.intro)}
           </p>
@@ -126,11 +127,11 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
             <Bullets items={guide.responsibilities} />
           </Section>
 
-          <Section title="Vad köparen bör kontrollera">
+          <Section title="Vad avgör valet av kompetens?">
             <Bullets items={guide.buyerChecklist} />
           </Section>
 
-          <Section title="Vanliga risker och missförstånd">
+          <Section title="Risker att tänka på">
             <ul className="space-y-3">
               {guide.risks.map((r) => (
                 <li key={r.risk} className="rounded-lg border border-border bg-card p-4">
@@ -156,7 +157,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
           />
 
           <section className="my-10 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-bold mb-2">Beskriv ert behov för d365.se</h2>
+            <h2 className="text-lg font-bold mb-2">Så går du vidare med ert kompetensbehov</h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-2xl">
               Berätta vad ni behöver, så går vi igenom det och återkommer om vi ser ett relevant
               nästa steg. Behovet skickas inte vidare till partners automatiskt.

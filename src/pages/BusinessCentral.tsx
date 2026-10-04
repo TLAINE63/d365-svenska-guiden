@@ -283,7 +283,7 @@ const BusinessCentral = () => {
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="Microsoft Dynamics 365 Business Central – ERP-pris, funktioner och rätt partner i Sverige"
+  title="När passar Dynamics 365 Business Central och hur väljer ni partner?"
   subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot dina befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför du partners som faktiskt levererat Business Central i din bransch."
   primary={{
     label: "Jämför Business Central-partners",
@@ -299,218 +299,28 @@ const BusinessCentral = () => {
   to: "/businesscentral/roi-kalkylator/",
   }}
     />
-  <EditorialAssessment assessment="bc" />
-
-      <BcSiteHandoff />
-
-      {/* Partners Section */}
-      <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="text-center mb-8 sm:mb-10 md:mb-12">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Dynamics 365 Business Central-partners i Sverige
- </h2>
- <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
- </p>
- <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
- Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
- </p>
- </div>
-
- {/* Industry Filter */}
- <FilterButtons
- title="Filtrera på bransch"
- icon="industry"
- options={allIndustries.map(ind => ({ label: ind, value: ind }))}
- selectedValue={selectedIndustry}
- onSelect={setSelectedIndustry}
- colorScheme="business-central"
- />
-
- {/* Geography Filter */}
-  <FilterButtons
-  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
- icon="geography"
- options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
- selectedValue={selectedGeography}
- onSelect={setSelectedGeography}
- colorScheme="business-central"
- />
-
- {/* Optional size filters */}
- <SizeFilters
- selectedCompanySize={selectedCompanySize}
- selectedRevenue={selectedRevenue}
- onCompanySizeChange={setSelectedCompanySize}
- onRevenueChange={setSelectedRevenue}
- colorScheme="business-central"
- />
-
- {/* Resultathuvud */}
- {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
- <>
- <SearchResultSummary
- count={bcPartners.length}
- criteria={[
- "Business Central",
- selectedIndustry,
- selectedGeography,
- selectedCompanySize ? `${selectedCompanySize} anställda` : null,
- selectedRevenue,
- ]}
- onChangeFilters={() => {
- if (typeof document !== "undefined") {
- document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
- }
- }}
- />
- <div className="text-center -mt-4 mb-8">
- <Button 
- variant="ghost"
- size="sm" 
- onClick={() => {
- setSelectedIndustry(null);
- setSelectedGeography(null);
- setSelectedCompanySize(null);
- setSelectedRevenue(null);
- }}
- className="text-muted-foreground hover:text-foreground"
- >
- Rensa alla filter
- </Button>
- </div>
- </>
- )}
-
- <WhyTheseResults agreementPriority criteria={["Business Central", selectedIndustry, selectedGeography]} className="mb-6" />
- {bcPartners.length === 0 ? (
- <div className="text-center py-6">
- <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
- <p className="text-muted-foreground">
- Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
- </p>
- </div>
- ) : (
- <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
- {bcPartners.map((partner, index) => {
- const basePath = buildPartnerProductPath(partner.slug, "Business Central");
- const params = new URLSearchParams();
- if (selectedIndustry) params.set("industry", selectedIndustry);
- if (selectedGeography) params.set("geography", selectedGeography);
- if (selectedCompanySize) params.set("companySize", selectedCompanySize);
- if (selectedRevenue) params.set("revenue", selectedRevenue);
- const qs = params.toString();
- const profileUrl = qs ? `${basePath}?${qs}` : basePath;
-
- return (
- <IndustryVerifiedPartnerCard
- key={index}
- partner={partner}
- profileUrl={profileUrl}
- productKey="bc"
- productLabel="Business Central"
- industry={selectedIndustry}
- geography={selectedGeography}
- companySize={selectedCompanySize}
- revenue={selectedRevenue}
- />
- );
- })}
- </div>
- )}
-
-  <UnprofiledPartnersList
-  variant="teaser"
-  showSeeAllLink
-  productKey="bc"
-  productLabel="Business Central"
-  industry={selectedIndustry || null}
-  />
-
- {/* Lead CTA - shows when partners are filtered */}
- {selectedIndustry && (
- <div className="max-w-xl mx-auto mt-12">
- <article className="relative rounded overflow-hidden ">
- <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
- <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
-
- <div className="relative p-6 sm:p-8">
- <div className="flex items-start gap-4 mb-6">
- <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
- <span className="text-xl">✨</span>
- </div>
- <div>
- <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
- Låt oss hjälpa dig hitta rätt partner
- </h3>
- <p className="text-white/70 text-sm sm:text-base">
- Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare, helt kostnadsfritt.
- </p>
- </div>
- </div>
-
- <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
- <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
- <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
- Din sökning
- </p>
- <div className="flex flex-wrap gap-2">
- <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- Business Central
- </Badge>
- {selectedIndustry && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedIndustry}
- </Badge>
- )}
- {selectedGeography && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedGeography}
- </Badge>
- )}
- </div>
- </div>
-
- <LeadCTA
- sourcePage="/businesscentral"
- selectedProduct="Business Central"
- selectedIndustry={selectedIndustry || undefined}
- variant="inline"
- />
- </div>
- </article>
- </div>
- )}
-
- <div className="text-center mt-8">
- <Button asChild variant="outline" size="lg">
-<Link to="/valjdynamics365partner/#alla-partners-rubrik">
-  Se alla partners
- <ArrowRight className="ml-2 h-4 w-4" />
- </Link>
- </Button>
- </div>
- </div>
- </section>
-
-
-
-
- <ShortAnswer title="Vad är Business Central som ERP-system">
+  <ShortAnswer>
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
  <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
  <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
+  <EditorialAssessment assessment="bc" />
+
+      <BcSiteHandoff />
+
+
+
+
+
+
+ 
 
  {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
  <section className="py-10 sm:py-12 bg-background">
   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-    Business Central ERP – snabbfakta
+    Vad avgör valet av Business Central?
    </h2>
    <p className="text-muted-foreground mb-6 text-sm sm:text-base">
     Det som flest frågar om innan de jämför Business Central med andra affärssystem.
@@ -564,7 +374,7 @@ const BusinessCentral = () => {
    </p>
 
    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
-    Business Central jämfört med andra affärssystem
+    Jämförelse med andra affärssystem
    </h3>
    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
     De alternativ som svenska köpare oftast ställer mot Business Central – och vad som skiljer dem åt
@@ -726,7 +536,7 @@ const BusinessCentral = () => {
   <section className="py-10 sm:py-12 bg-background">
    <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-     Business Central i din verksamhet
+     När passar Business Central i er verksamhet?
     </h2>
     <p className="text-muted-foreground mb-8 text-sm sm:text-base">
      Två av de vanligaste användningsområdena på den svenska marknaden – och vad som krävs utöver standard.
@@ -948,7 +758,7 @@ const BusinessCentral = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Korta inspirationsvideos
+              Videoguider om Business Central
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
@@ -968,12 +778,205 @@ const BusinessCentral = () => {
 
 
 
+      {/* Partners Section */}
+      <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="text-center mb-8 sm:mb-10 md:mb-12">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Dynamics 365 Business Central-partners i Sverige
+ </h2>
+ <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+ Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ </p>
+ <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
+ Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
+ </p>
+ </div>
+
+ {/* Industry Filter */}
+ <FilterButtons
+ title="Filtrera på bransch"
+ icon="industry"
+ options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+ selectedValue={selectedIndustry}
+ onSelect={setSelectedIndustry}
+ colorScheme="business-central"
+ />
+
+ {/* Geography Filter */}
+  <FilterButtons
+  title="Var behöver du leverans och support? (Sverige, Norden, Europa, Globalt)"
+ icon="geography"
+ options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
+ selectedValue={selectedGeography}
+ onSelect={setSelectedGeography}
+ colorScheme="business-central"
+ />
+
+ {/* Optional size filters */}
+ <SizeFilters
+ selectedCompanySize={selectedCompanySize}
+ selectedRevenue={selectedRevenue}
+ onCompanySizeChange={setSelectedCompanySize}
+ onRevenueChange={setSelectedRevenue}
+ colorScheme="business-central"
+ />
+
+ {/* Resultathuvud */}
+ {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
+ <>
+ <SearchResultSummary
+ count={bcPartners.length}
+ criteria={[
+ "Business Central",
+ selectedIndustry,
+ selectedGeography,
+ selectedCompanySize ? `${selectedCompanySize} anställda` : null,
+ selectedRevenue,
+ ]}
+ onChangeFilters={() => {
+ if (typeof document !== "undefined") {
+ document.getElementById("partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+ }
+ }}
+ />
+ <div className="text-center -mt-4 mb-8">
+ <Button 
+ variant="ghost"
+ size="sm" 
+ onClick={() => {
+ setSelectedIndustry(null);
+ setSelectedGeography(null);
+ setSelectedCompanySize(null);
+ setSelectedRevenue(null);
+ }}
+ className="text-muted-foreground hover:text-foreground"
+ >
+ Rensa alla filter
+ </Button>
+ </div>
+ </>
+ )}
+
+ <WhyTheseResults agreementPriority criteria={["Business Central", selectedIndustry, selectedGeography]} className="mb-6" />
+ {bcPartners.length === 0 ? (
+ <div className="text-center py-6">
+ <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
+ <p className="text-muted-foreground">
+ Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
+ </p>
+ </div>
+ ) : (
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+ {bcPartners.map((partner, index) => {
+ const basePath = buildPartnerProductPath(partner.slug, "Business Central");
+ const params = new URLSearchParams();
+ if (selectedIndustry) params.set("industry", selectedIndustry);
+ if (selectedGeography) params.set("geography", selectedGeography);
+ if (selectedCompanySize) params.set("companySize", selectedCompanySize);
+ if (selectedRevenue) params.set("revenue", selectedRevenue);
+ const qs = params.toString();
+ const profileUrl = qs ? `${basePath}?${qs}` : basePath;
+
+ return (
+ <IndustryVerifiedPartnerCard
+ key={index}
+ partner={partner}
+ profileUrl={profileUrl}
+ productKey="bc"
+ productLabel="Business Central"
+ industry={selectedIndustry}
+ geography={selectedGeography}
+ companySize={selectedCompanySize}
+ revenue={selectedRevenue}
+ />
+ );
+ })}
+ </div>
+ )}
+
+  <UnprofiledPartnersList
+  variant="teaser"
+  showSeeAllLink
+  productKey="bc"
+  productLabel="Business Central"
+  industry={selectedIndustry || null}
+  />
+
+ {/* Lead CTA - shows when partners are filtered */}
+ {selectedIndustry && (
+ <div className="max-w-xl mx-auto mt-12">
+ <article className="relative rounded overflow-hidden ">
+ <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+ <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+ <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
+
+ <div className="relative p-6 sm:p-8">
+ <div className="flex items-start gap-4 mb-6">
+ <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
+ <span className="text-xl">✨</span>
+ </div>
+ <div>
+ <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+ Låt oss hjälpa dig hitta rätt partner
+ </h3>
+ <p className="text-white/70 text-sm sm:text-base">
+ Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare, helt kostnadsfritt.
+ </p>
+ </div>
+ </div>
+
+ <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
+ <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+ <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
+ Din sökning
+ </p>
+ <div className="flex flex-wrap gap-2">
+ <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
+ Business Central
+ </Badge>
+ {selectedIndustry && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedIndustry}
+ </Badge>
+ )}
+ {selectedGeography && (
+ <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
+ {selectedGeography}
+ </Badge>
+ )}
+ </div>
+ </div>
+
+ <LeadCTA
+ sourcePage="/businesscentral"
+ selectedProduct="Business Central"
+ selectedIndustry={selectedIndustry || undefined}
+ variant="inline"
+ />
+ </div>
+ </article>
+ </div>
+ )}
+
+ <div className="text-center mt-8">
+ <Button asChild variant="outline" size="lg">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik">
+  Se alla partners
+ <ArrowRight className="ml-2 h-4 w-4" />
+ </Link>
+ </Button>
+ </div>
+ </div>
+ </section>
+
  {/* CTA Section */}
  <section className="py-10 bg-background">
  <div className="container mx-auto px-4">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Redo att växa med Business Central?
+ Rådgivning inför val av Business Central
  </h2>
  <p className="text-lg text-muted-foreground mb-8">
  Kontakta oss för en kostnadsfri konsultation
@@ -992,7 +995,7 @@ const BusinessCentral = () => {
 
 
 
- <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
+ <RelatedPages pages={bcRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">
      <PageOfferBanner />
@@ -1001,7 +1004,7 @@ const BusinessCentral = () => {
  <ProductIsvSection product="Business Central" />
 
  
-<ContextualCta source="next-step:businesscentral" heading="Har ni kommit så långt att ni utvärderar Business Central?" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
+<ContextualCta source="next-step:businesscentral" heading="Så går du vidare med Business Central" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
 <SourcesAndMethod />
       </main>
  <Footer />

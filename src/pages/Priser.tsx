@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
@@ -113,9 +114,10 @@ export default function Priser() {
               <span aria-current="page">Prislista</span>
             </nav>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Microsofts listpriser – och vad de faktiskt säger
+              {nowrapBrand("Vad kostar Dynamics 365-licenser och vad ingår i listpriset?")}
             </h1>
             <EditorialSource sourceType="Köpguide" />
+            <h2 className="text-xl font-bold mb-3">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground">
               Officiella listpriser för Dynamics 365 (SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling – och utgör bara en del av totalkostnaden. Implementation, integration och förvaltning står normalt för en betydligt större andel över tid.
             </p>
