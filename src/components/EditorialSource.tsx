@@ -41,19 +41,19 @@ export default function EditorialSource({
       aria-label="Avsändare och innehållskälla"
       data-editorial-source={sourceType}
       className={cn(
-        "my-5 border-y py-3 text-xs leading-relaxed",
+        "my-3 border-b pb-2 text-xs leading-relaxed",
         dark ? "border-primary-foreground/20 text-primary-foreground/80" : "border-border text-muted-foreground",
         className,
       )}
     >
-      <p className={cn("text-sm font-semibold", dark ? "text-primary-foreground" : "text-foreground")}>
+      <p className={cn("text-xs font-semibold", dark ? "text-primary-foreground" : "text-foreground")}>
         {ORGANIZATION.name.toUpperCase()} {sourceType}
       </p>
-      <p className="mt-1 max-w-3xl">
+      <p className="mt-1 max-w-3xl text-xs">
         Köparsidig vägledning för svenska företag som utvärderar{" "}
         <span className="whitespace-nowrap">Dynamics&nbsp;365</span>, ERP, CRM och Microsoft-partners.
       </p>
-      <dl className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
+      <dl className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
         <div className="flex flex-wrap gap-x-1">
           <dt>Utgivare:</dt>
           <dd itemScope itemType="https://schema.org/Organization" itemID={`${ORGANIZATION.url}/#organization`}>

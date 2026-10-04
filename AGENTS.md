@@ -5,7 +5,7 @@
 - Guides use SourcesAndMethod at the bottom to separate explicit external citations, partner evidence and editorial analysis; absent references and source dates must not be fabricated, and inline SourceNote citations remain intact.
 
 - Public partner lists share WhyTheseResults and PartnerSelectionFacts with explicit page context; this separates actual selection rules and registered evidence from AI assessments.
-- FitModel renders the manually maintained Partner, ERP and CRM matrices from fitModels; these explain editorial decision criteria without adding automated scores or changing existing ranking.
+- FitModel renders the manually maintained Partner, ERP and CRM matrices from fitModels inside native details, keeping the method visible and table in HTML; this prioritizes the reading flow without automated scores or ranking changes.
 
 - Editorial guides, comparisons and industry pages use the shared EditorialSource near the title; pass only existing content dates and confirmed reviewers to avoid fabricated provenance.
 - Central buying pages use EditorialAssessment with manually maintained, page-specific copy so conclusions remain consistently attributed and are never generated at runtime.
