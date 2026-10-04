@@ -1,5 +1,11 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Förklarande partnerlistor och D365.SE-modeller (2026-10-04)
+- [ ] Gemensam urvalsförklaring ovanför publika partnerlistor
+- [ ] Strukturerade partneruppgifter utifrån befintliga belägg
+- [ ] Partner Fit Model, ERP Fit Model och CRM Fit Model som transparenta matriser
+- [ ] Kontrollera urval, modeller och kort på dator och mobil
+
 ## D365.SE:s bedömning (2026-10-04)
 - [x] Sidvisa köparslutsatser på ERP, CRM, Business Central, F&O och kostnadsguiden
 - [x] Enhetlig synlig avsändare och kontroll på dator och mobil
