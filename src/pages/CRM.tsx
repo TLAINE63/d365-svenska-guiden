@@ -1,3 +1,5 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
+import FitModel from "@/components/FitModel";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
@@ -221,6 +223,7 @@ const CRM = () => {
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   />
   <EditorialAssessment assessment="crm" />
+ <FitModel model="crm" />
 
  {/* Partners Section */}
  <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
@@ -313,6 +316,7 @@ const CRM = () => {
  </>
  )}
 
+ <WhyTheseResults order="alphabetical" criteria={[selectedApplications.length ? selectedApplications.join(", ") : "Sales / Customer Service / Field Service", selectedIndustry, selectedGeography]} className="mb-6" />
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
  {crmPartners.map((partner, index) => (
  <IndustryVerifiedPartnerCard

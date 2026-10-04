@@ -1,3 +1,4 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
 import { useMemo, useState } from "react";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -75,6 +76,7 @@ export default function ProductBasicPartnersSection({
               i kontakt med någon av dem, hör av dig till oss så hjälper vi till.
             </p>
           </div>
+          <WhyTheseResults basic order="alphabetical" criteria={[...applications, industry, geography]} className="mb-5" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((p) => (
               <PartnerBasicCard key={p.id} partner={p} variant="list" />

@@ -1,3 +1,4 @@
+import FitModel from "@/components/FitModel";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -187,7 +188,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
 
           {introBlocks.map(renderBlock)}
 
-          {guideKey === "hub" && <GuideCardsGrid />}
+          {guideKey === "hub" && <><FitModel model="partner" /><GuideCardsGrid /></>}
 
           {bodyBlocks.map((block, i) => (
             <div key={i}>

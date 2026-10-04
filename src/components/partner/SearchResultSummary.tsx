@@ -59,7 +59,7 @@ export default function SearchResultSummary({
         ))}
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
-        Samtliga partners nedan uppfyller dessa kriterier. Korten visar vad som skiljer dem åt.
+        Urvalet utgår från era val. Kundstorlek och omsättning kan vara kompletterande signaler, inte absoluta krav. Kontrollera partnerns egna uppgifter på kortet.
       </p>
     </div>
   );

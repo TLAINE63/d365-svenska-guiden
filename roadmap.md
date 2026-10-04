@@ -1,10 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Förklarande partnerlistor och D365.SE-modeller (2026-10-04)
-- [ ] Gemensam urvalsförklaring ovanför publika partnerlistor
-- [ ] Strukturerade partneruppgifter utifrån befintliga belägg
-- [ ] Partner Fit Model, ERP Fit Model och CRM Fit Model som transparenta matriser
-- [ ] Kontrollera urval, modeller och kort på dator och mobil
+- [x] Gemensam urvalsförklaring ovanför publika partnerlistor
+- [x] Strukturerade partneruppgifter utifrån befintliga belägg
+- [x] Partner Fit Model, ERP Fit Model och CRM Fit Model som transparenta matriser
+- [x] Kontrollera urval, modeller och kort på dator och mobil
+
+Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webbläsarkontroll på startsida, partnerkatalog, CRM, ERP och Business Central i 1280 och 390 px utan sidfel. Katalog, startsida och CRM utan horisontellt överflöde; ERP och BC har kvar tidigare rapporterat mobilöverflöde utanför den här ändringen. Hela testsamlingen är inte grön: 776 passerade, 118 misslyckades och två hoppades över, bland annat äldre SEO-, redirect- och situationskortstester. Ingen publicering utförd.
 
 ## D365.SE:s bedömning (2026-10-04)
 - [x] Sidvisa köparslutsatser på ERP, CRM, Business Central, F&O och kostnadsguiden

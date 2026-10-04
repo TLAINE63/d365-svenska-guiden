@@ -1,3 +1,4 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, ArrowRight } from "lucide-react";
@@ -125,6 +126,7 @@ const UnprofiledPartnersList = ({
           {industry && <BasicIndustryFootnote />}
         </div>
 
+        <WhyTheseResults basic order="alphabetical" criteria={[productLabel, industry]} className="mb-5" />
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {combined.map((p) => {
             const additional = (p.products || []).filter(
