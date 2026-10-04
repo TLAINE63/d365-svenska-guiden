@@ -1,3 +1,4 @@
+import WhyTheseResults from "@/components/WhyTheseResults";
 import { useEffect, useMemo, useState } from "react";
 import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
 
@@ -293,6 +294,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
               </div>
             </div>
 
+            <WhyTheseResults order="alphabetical" criteria={[product === "all" ? null : PRODUCT_AREA_LABEL[product], industry]} className="mb-5" />
             {filtered.length === 0 ? (
               <div className="rounded border border-border bg-card p-8 text-center text-sm text-muted-foreground">
                 Inga partners matchar valet just nu.{" "}

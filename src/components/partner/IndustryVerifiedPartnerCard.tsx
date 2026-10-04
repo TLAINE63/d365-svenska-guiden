@@ -1,3 +1,4 @@
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -209,6 +210,8 @@ export default function IndustryVerifiedPartnerCard({
               </ul>
             </section>
           )}
+
+          <PartnerSelectionFacts partner={partner} productKey={productKey} />
 
           <div className="flex flex-wrap gap-1.5">
             <p className="w-full text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">

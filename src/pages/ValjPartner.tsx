@@ -911,7 +911,7 @@ const ValjPartner = () => {
  </div>
   ) : (
    <>
-    <WhyTheseResults className="mb-6 max-w-4xl mx-auto" />
+    <WhyTheseResults className="mb-6 max-w-4xl mx-auto" agreementPriority criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Determine which product key to use for this partner

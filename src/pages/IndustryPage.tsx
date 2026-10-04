@@ -612,7 +612,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
    ) : (
     <>
-    <WhyTheseResults className="mb-4" />
+    <WhyTheseResults className="mb-4" criteria={[industryName, ...selected.map(key => PRODUCT_FILTERS.find(f => f.key === key)?.label)]} />
      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
        {matchingPartners.map((p) => {
           const partner = p as import("@/hooks/usePartners").DatabasePartner;

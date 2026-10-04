@@ -1,3 +1,4 @@
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackPartnerImpression, trackPartnerEvent } from "@/utils/trackPartnerEvent";
@@ -650,6 +651,8 @@ const PartnerCard = ({
  )}
 
 
+
+ <PartnerSelectionFacts partner={partner} productKey={productKey} />
 
  <div className="mt-auto pt-3 space-y-2">
  {!resultView && productLandingPageUrl && (

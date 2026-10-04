@@ -1,3 +1,5 @@
+import FitModel from "@/components/FitModel";
+import WhyTheseResults from "@/components/WhyTheseResults";
 import ContextualCta from "@/components/ContextualCta";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -253,6 +255,8 @@ export default function AllD365Partners() {
 
 
 
+        <FitModel model="partner" />
+
         {/* Profiled partners */}
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
@@ -264,6 +268,7 @@ export default function AllD365Partners() {
                 d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.
               </p>
             </div>
+            <WhyTheseResults order="alphabetical" criteria={[productFilter === "all" ? null : productOptions.find(o => o.key === productFilter)?.label, q ? `namnsökning: ${query}` : null]} className="mb-5" />
             {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
             ) : profiled.length === 0 ? (
@@ -299,6 +304,7 @@ export default function AllD365Partners() {
                 </p>
 
               </div>
+              <WhyTheseResults order="alphabetical" basic className="mb-5" />
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 {basicSorted.map((p) => (
                   <PartnerBasicCard key={p.id} partner={p} variant="list" />

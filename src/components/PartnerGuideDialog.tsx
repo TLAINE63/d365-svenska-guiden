@@ -1,3 +1,4 @@
+import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { allIndustries } from "@/data/partners";
@@ -977,7 +978,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               </div>
             ) : (
               <div className="space-y-3">
-                <WhyTheseResults />
+                <WhyTheseResults order="guide" explanation="Dessa partners är förslag utifrån era svar om produkt, bransch, geografi och behov. En hög placering är inte en garanti för att alla krav är uppfyllda." />
                 {suggestedPartners.map((partner, index) => {
                   const partnerSlug = isDatabasePartner(partner) 
                     ? partner.slug 
@@ -1072,6 +1073,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                             )}
                             
                             <PartnerCardSummary partner={partner} highlightedIndustry={selectedIndustry || null} />
+                            <PartnerSelectionFacts partner={partner} productKey={selectedApp === "Business Central" ? "bc" : selectedApp?.includes("Finance") ? "fsc" : selectedApp === "Sales" ? "sales" : selectedApp === "Customer Service" ? "service" : null} />
                             
                             <div className="flex flex-wrap gap-1.5 mb-3">
                               {sortApplications(normalizeApplications(partner.applications || [])).slice(0, 4).map((app, i) => (
