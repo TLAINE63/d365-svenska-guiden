@@ -70,14 +70,14 @@ const ContextualCta = ({
   }
   const chips = usePersonal ? [ctx.industry, sizeLabel(ctx.size), shortProductName(ctx.product)].filter(Boolean) : [];
 
-  const safeEyebrow = eyebrow.split("Dynamics 365").join("Dynamics\u00A0365");
-  const safeHeading = heading.split("Dynamics 365").join("Dynamics\u00A0365");
-  const safeText = text.split("Dynamics 365").join("Dynamics\u00A0365");
   if (journey) primaryLabel = journey.label;
   if (journey && journey.area !== "partner") {
     heading = journey.area === "migration" ? "Vad behöver ni utreda inför migrationen?" : "Pröva alternativen mot er situation";
     text = "Börja med era processer, behov och förutsättningar. Samla det ni vet i er plan innan ni väljer lösning eller partner.";
   }
+  const safeEyebrow = eyebrow.split("Dynamics 365").join("Dynamics\u00A0365");
+  const safeHeading = heading.split("Dynamics 365").join("Dynamics\u00A0365");
+  const safeText = text.split("Dynamics 365").join("Dynamics\u00A0365");
   const primaryTo = journey?.to || buildKomIgangUrl({
     industry: usePersonal ? ctx.industry : industry,
     product: usePersonal ? ctx.product : product,

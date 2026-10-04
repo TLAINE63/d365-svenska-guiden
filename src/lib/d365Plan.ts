@@ -58,7 +58,7 @@ export function clearD365Plan() {
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
   if (savedCount) return { label: "Jämför era sparade partners", to: "/shortlist/" };
   const assessed = Boolean(profile.assessment?.fscm_level || (Array.isArray(profile.assessment?.crm_apps) && profile.assessment.crm_apps.length));
-  if (assessed) return { label: "Se partners för ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(profile))}` };
+  if (assessed && meta.area !== "erp" && meta.area !== "crm" && meta.area !== "migration") return { label: "Se partners för ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(profile))}` };
   if (meta.area === "migration") return { label: "Kartlägg nuvarande system och beroenden", to: "#komplettera" };
   if (meta.area === "crm") return { label: "Jämför CRM-alternativ och arbetssätt", to: "/crm/" };
   if (meta.area === "erp") return { label: "Jämför möjliga ERP-lösningar", to: "/jamfor/" };
