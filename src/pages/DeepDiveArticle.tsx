@@ -9,6 +9,7 @@ import RelatedPages, { articleRelatedPages } from "@/components/RelatedPages";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { ArrowLeft, BookOpen, Calendar, RefreshCw } from "lucide-react";
 import { KNOWLEDGE_CENTER_LAST_REVIEWED, formatLongDateSv } from "@/lib/contentFreshness";
+import EditorialSource from "@/components/EditorialSource";
 
 // Map legacy productSlugs (used in old indexed URLs) to current hub slugs
 const LEGACY_PRODUCT_SLUG_MAP: Record<string, string> = {
@@ -127,17 +128,21 @@ const DeepDiveArticle = () => {
             <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
               {article.title}
             </h1>
+            <EditorialSource
+              sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"}
+              updatedAt={modifiedAt}
+            />
             <p className="text-muted-foreground mt-2 max-w-2xl">
               {article.description}
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
-                Publicerad: <time dateTime={fallbackPublished}>{formatLongDateSv(fallbackPublished)}</time>
+                Publicerad: <time dateTime={publishedAt}>{formatLongDateSv(publishedAt)}</time>
               </span>
               <span className="flex items-center gap-1.5">
                 <RefreshCw className="w-3.5 h-3.5" />
-                Senast uppdaterad: <time dateTime={lastReviewed} className="font-medium text-foreground">{formatLongDateSv(lastReviewed)}</time>
+                Senast uppdaterad: <time dateTime={modifiedAt} className="font-medium text-foreground">{formatLongDateSv(modifiedAt)}</time>
               </span>
             </div>
           </div>
