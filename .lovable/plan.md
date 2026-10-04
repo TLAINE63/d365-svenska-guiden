@@ -1,0 +1,43 @@
+# Rebalansera köpresan och bygg Min D365-plan
+
+## Mål
+Ge besökaren konkret hjälp direkt och ett relevant nästa steg, utan att riva upp befintliga sidor. Behåll avsändare, korta svar, redaktionella bedömningar, rubriker, källor, verkliga datum och sökmetadata diskret integrerade i läsflödet.
+
+## 1. Anpassa nästa steg till sidan
+- ERP-guide: **Se vilka lösningar som passar er**.
+- Produktjämförelse: **Gör en första produktbedömning**.
+- Partnersida: **Jämför partners för vårt behov**.
+- Migration: **Bedöm vår migrationssituation**.
+- CRM-guide: en behovsbedömning som utgår från kundarbete, inte ett redan valt system.
+- Återanvänd befintliga bedömningar, köparunderlag, shortlist och kontaktflöden. Redan gjorda val ska följa med när de är relevanta, men inte skriva över sidans sammanhang eller göra en neutral produktbedömning till partnerförmedling i förtid.
+
+## 2. Min D365-plan
+- Samla produktområde, bransch, företagsstorlek, behov och nästa steg i en begriplig översikt.
+- Visa vad besökaren faktiskt har valt och vad som ännu är obesvarat. Skilj på ett område som utreds och en vald produkt.
+- Låt besökaren fortsätta, ändra svar och rensa planen utan inloggning eller kontaktuppgifter.
+- Återanvänd befintliga sparade svar; låt relevanta val från Kom igång och köparunderlaget uppdatera planen successivt.
+- Spara mellan besök i samma webbläsare med tydlig information om detta. Ingen ny insamling av personuppgifter och inget automatiskt skickande till partners.
+- Lägg en diskret ingång till planen i navigationen och visa sammanfattningen där besökaren behöver fortsätta sin bedömning.
+
+## 3. Gör Fit Models användbara för egen kartläggning
+- Behåll öppningsbara modeller, metodtext och tabeller i HTML.
+- Lägg till möjlighet att markera relevanta behov och frågor som behöver utredas, med sparning i planen.
+- Visa en sammanfattning av besökarens egna prioriteringar och ett relevant nästa steg, inte ett nytt automatiskt betyg eller påhittad produktrekommendation.
+- Återanvänd befintliga frågor när de motsvarar modellernas dimensioner. Markeringar i modellen ersätter inte verifierade partneruppgifter eller kvalificerade produktsvar.
+
+## 4. Bevara produktneutralitet och lugnt läsflöde
+- På generella ERP/CRM-sidor ska behovsbedömningen även kunna leda till enklare lösningar, andra leverantörer eller fortsatt utredning.
+- Dynamics 365 presenteras som ett relevant alternativ när underlaget motiverar det, aldrig som förutbestämt svar.
+- Ingen ny upprepning av avsändarblock, AI-badges, FAQ:er eller sökordsfylld text. Ändra bara sådant som behövs för nästa steg och planen.
+
+## Teknisk avgränsning
+- Återanvänd `ContextualCta`, `buyerContext`, `buyerProfile`, Kom igång, köparunderlag och befintliga bedömningar. Samla kopplingen till planen i en gemensam lösning i stället för separata sidvisa minnen.
+- Hantera tomma, äldre och otillgängliga lokala sparningar utan att sidan slutar fungera. Bevara korrekt förgenererad HTML.
+- Ändra inte partnerdata, ranking, verifiering, publicering eller kontaktmedgivande. Ingen ny automatisk scoring och inga ändringar av fungerande webbadresser.
+- Behåll metadata, källor och befintliga granskningsdatum. Ingen publicering.
+
+## Verifiering
+- Kontrollera hela vägen: guide → bedömning → sparad plan → nästa sida → fortsatt underlag eller partnerjämförelse.
+- Testa återbesök, ändrade och rensade val, motstridiga produktval och ofullständiga svar.
+- Kontrollera att generella ERP/CRM-vägar inte låser besökaren till Microsoft.
+- Testa dator och mobil, tangentbordsanvändning och att källor, tabeller och rubriker finns kvar.
