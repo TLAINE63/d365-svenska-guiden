@@ -168,7 +168,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
                 trackCompetenceEvent("kompetens_need_form_open", { guide: guide.slug });
               }}
             >
-              Beskriv ert behov
+              Beskriv vilken kompetens ni behöver
             </Button>
           </section>
 
