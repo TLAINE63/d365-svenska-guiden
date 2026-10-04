@@ -22,4 +22,9 @@ describe("documented partner selection facts", () => {
   it("uses the full Finance product label", () => {
     expect(getPartnerSelectionFacts(partner({ product_filters: { fsc: {} } }), "fsc")).toContainEqual({ label: "Produktområde", value: "Finance & Supply Chain Management (F&O)" });
   });
+  it("combines Sales and Service on CRM surfaces without including ERP", () => {
+    const facts = getPartnerSelectionFacts(partner({ product_filters: { sales: { industries: ["Handel"] }, service: { geography: ["Sverige"] }, bc: { industries: ["Bygg"] } } }), "crm");
+    expect(facts).toContainEqual({ label: "Bransch", value: "Handel" });
+    expect(JSON.stringify(facts)).not.toContain("Bygg");
+  });
 });

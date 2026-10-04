@@ -10,9 +10,9 @@ export function getPartnerSelectionFacts(partner: SelectionPartner, productKey?:
   const db = "product_filters" in partner ? partner : null;
   const filters = db?.product_filters || ("productFilters" in partner ? partner.productFilters : {}) || {};
   const selected = productKey ? (filters as Record<string, ProductFilterInput | undefined>)[productKey] : undefined;
-  const scoped = productKey ? (selected ? [selected] : []) : Object.values(filters).filter(Boolean) as ProductFilterInput[];
+  const scoped = (productKey === "crm" ? [filters.sales, filters.service, selected].filter(Boolean) : productKey ? (selected ? [selected] : []) : Object.values(filters).filter(Boolean)) as ProductFilterInput[];
   const deliveries = scoped.map(f => (f as ProductFilterInput & { deliveryProfile?: DeliveryProfileValue }).deliveryProfile).filter((d): d is DeliveryProfileValue => !!d);
-  const products = productKey ? (selected && labels[productKey] ? [labels[productKey]] : []) : unique([...(partner.applications || []).map(displayApplicationName), ...Object.keys(filters).map(k => labels[k] || "")]);
+  const products = productKey === "crm" ? unique([filters.sales ? labels.sales : "", filters.service ? labels.service : "", selected ? labels.crm : ""]) : productKey ? (selected && labels[productKey] ? [labels[productKey]] : []) : unique([...(partner.applications || []).map(displayApplicationName), ...Object.keys(filters).map(k => labels[k] || "")]);
   const industries = unique(scoped.flatMap(f => f.industries || []));
   const sizes = unique(scoped.flatMap(f => f.companySize || []));
   const geos = unique(scoped.flatMap(f => typeof f.geography === "string" ? [f.geography] : f.geography || []));
@@ -28,7 +28,7 @@ export function getPartnerSelectionFacts(partner: SelectionPartner, productKey?:
     if (count) add("Implementationskompetens", [`Registrerad implementationserfarenhet: ${count}`]);
   }
   add("Förvaltning/support", deliveries.map(d => d.managedServices || d.furtherDevelopment || ""));
-  const apps = (db?.industry_apps || []).filter(a => !productKey || selected?.industries?.includes(a.industry));
+  const apps = (db?.industry_apps || []).filter(a => !productKey || industries.includes(a.industry));
   add("Relevant specialisering", [...scoped.map(f => f.keyPoints || ""), ...apps.map(a => `${a.name} (${a.industry})`), ...(!productKey && db?.key_differentiators_source === "partner" ? db.key_differentiators || [] : [])]);
   return result;
 }
