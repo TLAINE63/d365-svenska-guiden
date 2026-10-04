@@ -8,7 +8,7 @@ const labels: Record<string, string> = { bc: "Business Central", fsc: "Finance &
 const unique = (values: string[]) => [...new Set(values.map(v => v.trim()).filter(Boolean))];
 export function getPartnerSelectionFacts(partner: SelectionPartner, productKey?: string | null): SelectionFact[] {
   const db = "product_filters" in partner ? partner : null;
-  const filters = db?.product_filters || ("productFilters" in partner ? partner.productFilters : {}) || {};
+  const filters = (db?.product_filters || ("productFilters" in partner ? partner.productFilters : {}) || {}) as Record<string, ProductFilterInput | undefined>;
   const selected = productKey ? (filters as Record<string, ProductFilterInput | undefined>)[productKey] : undefined;
   const scoped = (productKey === "crm" ? [filters.sales, filters.service, selected].filter(Boolean) : productKey ? (selected ? [selected] : []) : Object.values(filters).filter(Boolean)) as ProductFilterInput[];
   const deliveries = scoped.map(f => (f as ProductFilterInput & { deliveryProfile?: DeliveryProfileValue }).deliveryProfile).filter((d): d is DeliveryProfileValue => !!d);
