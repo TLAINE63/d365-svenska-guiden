@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import { useEffect, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
@@ -51,6 +52,7 @@ const RoleGuidance = () => {
           <header className="max-w-3xl mb-9">
             <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(var(--signature))] mb-3">Vägledning efter ansvar</p>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">Vilken roll har du i er digitaliseringsresa?</h1>
+            <EditorialSource sourceType="Köpguide" />
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               {nowrapBrand("Välj den roll som bäst beskriver ditt ansvar och få vägledning till relevanta systemområden, guider och partner.")}
             </p>

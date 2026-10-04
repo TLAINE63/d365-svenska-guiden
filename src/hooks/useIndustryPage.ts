@@ -34,6 +34,7 @@ export interface IndustryPage {
   related_industries: string[];
   is_published: boolean;
   ai_generated_at: string | null;
+  updated_at?: string | null;
 }
 
 import industryPagesSnapshot from "@/data/industryPages.json";

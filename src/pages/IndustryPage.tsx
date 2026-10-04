@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import ContextualCta from "@/components/ContextualCta";
@@ -358,6 +359,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-">
  {seoDefaults?.h1 || `Dynamics 365 för ${industryName} – guide & partners i Sverige`}
  </h1>
+ <EditorialSource sourceType="Branschguide" updatedAt={page?.updated_at} />
  <div className="mb-3">
  <span
  title="Innehållet på denna branschsida är initialt genererat med AI och granskat redaktionellt. Partnerdata är manuellt kvalitetssäkrad."

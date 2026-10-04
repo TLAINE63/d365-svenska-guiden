@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -172,6 +173,7 @@ const Branscher = () => {
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               Välj bransch först – annars jämför du Dynamics 365 på fel grunder
             </h1>
+            <EditorialSource sourceType="Branschguide" />
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
             </p>

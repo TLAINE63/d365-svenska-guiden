@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import { Link } from "react-router-dom";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -36,6 +37,7 @@ const ErpComparisonsHub = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
               Jämför Dynamics 365 mot konkurrenter
             </h1>
+            <EditorialSource sourceType="Jämförelse" tone="dark" />
             <p className="text-base sm:text-lg text-white/85 max-w-3xl">
               Strukturerade köparsidiga jämförelser av Microsoft Dynamics 365 mot etablerade
               alternativ – för ERP, CRM, kundservice, marketing/CDP, kontaktcenter och fältservice.
