@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
@@ -173,9 +174,10 @@ const Branscher = () => {
         <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-6xl">
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-              Välj bransch först – annars jämför du Dynamics 365 på fel grunder
+              {nowrapBrand("Hur påverkar er bransch valet av Dynamics 365 och partner?")}
             </h1>
             <EditorialSource sourceType="Branschguide" />
+            <h2 className="text-lg font-bold mb-2">Kort svar</h2>
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
             </p>
@@ -187,7 +189,7 @@ const Branscher = () => {
             <details className="group">
               <summary className="flex items-center justify-between cursor-pointer list-none">
                 <h2 className="text-lg md:text-xl font-bold text-foreground">
-                  Varför bransch spelar roll
+                  Vad avgör valet? Branschens krav
                 </h2>
                 <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180" />
               </summary>

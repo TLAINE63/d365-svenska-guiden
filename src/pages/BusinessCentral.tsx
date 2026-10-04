@@ -1002,7 +1002,7 @@ const BusinessCentral = () => {
  <ProductIsvSection product="Business Central" />
 
  
-<ContextualCta source="next-step:businesscentral" heading="Har ni kommit så långt att ni utvärderar Business Central?" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
+<ContextualCta source="next-step:businesscentral" heading="Så går du vidare med Business Central" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
 <SourcesAndMethod />
       </main>
  <Footer />
