@@ -1,5 +1,7 @@
 # Projektregler
 
+- Guides use SourcesAndMethod at the bottom to separate explicit external citations, partner evidence and editorial analysis; absent references and source dates must not be fabricated, and inline SourceNote citations remain intact.
+
 - Public partner lists share WhyTheseResults and PartnerSelectionFacts with explicit page context; this separates actual selection rules and registered evidence from AI assessments.
 - FitModel renders the manually maintained Partner, ERP and CRM matrices from fitModels; these explain editorial decision criteria without adding automated scores or changing existing ranking.
 

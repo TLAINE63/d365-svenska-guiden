@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Källor och metod i guider (2026-10-04)
+- [ ] Återanvändbart källblock med extern fakta, partnerunderlag och redaktionell analys
+- [ ] Integrera i guider och artikelmallar utifrån befintliga hänvisningar
+- [ ] Verifiera källor, tomt underlag och synlig visning
+
 ## Förklarande partnerlistor och D365.SE-modeller (2026-10-04)
 - [x] Gemensam urvalsförklaring ovanför publika partnerlistor
 - [x] Strukturerade partneruppgifter utifrån befintliga belägg
