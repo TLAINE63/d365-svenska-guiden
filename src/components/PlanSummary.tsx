@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useBuyerContext, sizeLabel } from "@/lib/buyerContext";
+import { useBuyerContext, sizeLabel, updateBuyerContext } from "@/lib/buyerContext";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useBuyerProfile } from "@/lib/buyerProfile";
 import { clearD365Plan, planNextStep, updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { UNDERLAG_QUESTIONS, answerLabel } from "@/data/underlagQuestions";
@@ -30,14 +31,22 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
       <dl className="grid gap-3 text-sm sm:grid-cols-2">
         {[
           ["Område som utreds", meta.area ? areas[meta.area] : scope],
-          ["Vald produkt", buyer.product || "Inte vald ännu"],
           ["Bransch", buyer.industry || "Inte angiven ännu"],
           ["Företagsstorlek", sizeLabel(buyer.size) || "Inte angiven ännu"],
         ].map(([label, value]) => <div key={label}><dt className="text-muted-foreground">{label}</dt><dd className="mt-1 font-medium text-foreground">{nowrapBrand(value)}</dd></div>)}
+        <div><dt className="mb-1 text-muted-foreground">Vald produkt</dt><dd>
+          <Select value={buyer.product || "unset"} onValueChange={(product) => updateBuyerContext({ product: product === "unset" ? null : product })}>
+            <SelectTrigger aria-label="Vald produkt" className="h-auto min-h-10 text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unset">Inte vald ännu</SelectItem>
+              {["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service", "Contact Center", "Project Operations", "Commerce", "Human Resources"].map((product) => <SelectItem key={product} value={product}>{product === "Finance & SCM" ? "Finance & Supply Chain Management (F&O)" : product}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </dd></div>
       </dl>
       <h3 className="mt-5 font-semibold">Behov och prioriteringar</h3>
       {needs.length || meta.needs.length || priorities.length ? <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">
-        {[...meta.needs, ...needs].map((need) => <li key={need}>{nowrapBrand(need)}</li>)}
+        {Array.from(new Set([...meta.needs, ...needs])).map((need) => <li key={need}>{nowrapBrand(need)}</li>)}
         {priorities.map(([key, value]) => <li key={key}>{key.slice(key.indexOf(":") + 1)}: {value === "important" ? "Prioriterat behov" : "Behöver utredas"}</li>)}
       </ul> : <p className="mt-2 text-sm text-muted-foreground">Inga behov har angetts ännu.</p>}
       <div className="mt-5 flex flex-wrap gap-3 print:hidden">

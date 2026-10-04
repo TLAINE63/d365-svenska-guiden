@@ -60,8 +60,9 @@ export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: P
   const assessed = Boolean(profile.assessment?.fscm_level || (Array.isArray(profile.assessment?.crm_apps) && profile.assessment.crm_apps.length));
   if (assessed) return { label: "Se partners för ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(profile))}` };
   if (meta.area === "migration") return { label: "Kartlägg nuvarande system och beroenden", to: "#komplettera" };
-  if (buyer.product) return { label: "Jämför partners för vårt behov", to: planPartnerUrl(buyer) };
   if (meta.area === "crm") return { label: "Jämför CRM-alternativ och arbetssätt", to: "/crm/" };
+  if (meta.area === "erp") return { label: "Jämför möjliga ERP-lösningar", to: "/jamfor/" };
+  if (buyer.product) return { label: "Jämför partners för vårt behov", to: planPartnerUrl(buyer) };
   if (meta.area === "partner") return { label: "Kartlägg ert behov inför partnerjämförelsen", to: "#komplettera" };
   return { label: "Jämför möjliga ERP-lösningar", to: "/jamfor/" };
 }

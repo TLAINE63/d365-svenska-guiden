@@ -22,6 +22,10 @@ describe("Human-first journey", () => {
   it("never defaults an unanswered ERP plan to F&O", () => {
     expect(planNextStep(emptyProfile(), {}, { area: "erp", needs: [], dimensions: {} }, 0).to).toBe("/jamfor/");
   });
+  it("does not turn a neutral CRM or ERP journey into partners because of an old product", () => {
+    expect(planNextStep(emptyProfile(), { product: "Business Central" }, { area: "crm", needs: [], dimensions: {} }, 0).to).toBe("/crm/");
+    expect(planNextStep(emptyProfile(), { product: "Business Central" }, { area: "erp", needs: [], dimensions: {} }, 0).to).toBe("/jamfor/");
+  });
   it("keeps a migration plan in investigation until assessed", () => {
     expect(planNextStep(emptyProfile(), {}, { area: "migration", needs: [], dimensions: {} }, 0).to).toBe("#komplettera");
   });

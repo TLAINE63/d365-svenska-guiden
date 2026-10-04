@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import UnderlagQuestionnaire from "@/components/underlag/UnderlagQuestionnaire";
 import SendUnderlagForm from "@/components/underlag/SendUnderlagForm";
-import { clearProfile, hasAnyAnswer, useBuyerProfile, type BuyerProfile } from "@/lib/buyerProfile";
+import { hasAnyAnswer, useBuyerProfile, type BuyerProfile } from "@/lib/buyerProfile";
 import { answerLabel, questionsFor, UNDERLAG_QUESTIONS, type UQuestion } from "@/data/underlagQuestions";
 import {
   BC_TEST_URL, CRM_APP_LABEL, deriveCompareFilters, filtersToSearch, FSCM_LEVEL_TEXT, questionsToTakeForward,
@@ -17,7 +17,7 @@ import {
 } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import PlanSummary from "@/components/PlanSummary";
-import { isPlanArea, updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { clearD365Plan, isPlanArea, updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { FitModelKey } from "@/data/fitModels";
 import FitModel from "@/components/FitModel";
 
@@ -131,7 +131,7 @@ export default function Underlag() {
     window.print();
   };
   const clear = () => {
-    if (window.confirm("Vill ni rensa hela underlaget?")) clearProfile();
+    if (window.confirm("Vill ni rensa planens svar och prioriteringar? Era sparade partners finns kvar.")) clearD365Plan();
   };
 
   return (
