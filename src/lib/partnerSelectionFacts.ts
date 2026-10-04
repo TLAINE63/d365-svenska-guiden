@@ -20,7 +20,7 @@ export function getPartnerSelectionFacts(partner: SelectionPartner, productKey?:
   const add = (label: string, values: string[]) => { const value = unique(values).join("; "); if (value) result.push({ label, value }); };
   add("Produktområde", products);
   add("Bransch", industries.length ? industries : productKey ? [] : partner.industries || []);
-  add("Typisk kundstorlek", sizes.length ? [`${sizes.join(", ")} anställda`] : deliveries.map(d => d.typicalCustomers || ""));
+  add("Typisk kundstorlek", sizes.length ? [`${sizes.join(", ")} anställda`] : []);
   add("Geografisk kapacitet", geos.length ? geos : productKey ? [] : typeof partner.geography === "string" ? [partner.geography] : partner.geography || []);
   add("Implementationskompetens", deliveries.map(d => d.typicalProjects || d.deliveryModel || ""));
   if (!result.some(r => r.label === "Implementationskompetens")) {
