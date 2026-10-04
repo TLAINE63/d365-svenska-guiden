@@ -1,3 +1,5 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
+import { partnerQuestion } from "@/lib/guideHeadings";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import FitModel from "@/components/FitModel";
@@ -36,13 +38,13 @@ const renderBlock = (block: GuideBlock, i: number) => {
     case "h2":
       return (
         <h2 key={i} className="text-xl sm:text-2xl font-bold tracking-tight mt-10 mb-3">
-          {block.text}
+          {nowrapBrand(block.text)}
         </h2>
       );
     case "h3":
       return (
         <h3 key={i} className="text-lg font-semibold mt-7 mb-2">
-          {block.text}
+          {nowrapBrand(block.text)}
         </h3>
       );
     case "ul":
@@ -125,7 +127,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: content.h1,
+    headline: partnerQuestion(content.h1),
     description: guide.seoDescription,
     inLanguage: "sv-SE",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE}${path}` },
@@ -184,13 +186,13 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           <GuideSearch className="mb-6 max-w-xl" />
 
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
-            {content.h1}
+            {nowrapBrand(partnerQuestion(content.h1))}
           </h1>
           <EditorialSource sourceType="Partnerguide" />
 
-          {introBlocks.map(renderBlock)}
+          {introBlocks.length > 0 && <section aria-label="Kort svar"><h2 className="text-xl font-bold mb-3">Kort svar</h2>{introBlocks.map(renderBlock)}</section>}
 
-          {guideKey === "hub" && <><FitModel model="partner" /><GuideCardsGrid /></>}
+          {guideKey === "hub" && <><FitModel model="partner" heading="Vad avgör valet av partner?" /><GuideCardsGrid /></>}
 
           {bodyBlocks.map((block, i) => (
             <div key={i}>
@@ -212,7 +214,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
 
           <GuideCTA
             variant="final"
-            heading="Redo att börja jämföra partners?"
+            heading="Så går du vidare med partnervalet"
             text="Använd d365.se för att identifiera relevanta Dynamics 365-partners och skapa en kortlista innan du börjar boka möten."
             buttonLabel="Jämför Dynamics 365-partners"
             to={partnerListUrl}

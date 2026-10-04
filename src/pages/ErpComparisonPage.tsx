@@ -1,3 +1,5 @@
+import ShortAnswer from "@/components/ShortAnswer";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowRight, Check, AlertTriangle, ExternalLink, Sparkles } from "lucide-react";
@@ -58,77 +60,21 @@ const ErpComparisonPage = () => {
               Konkurrentjämförelse · Köparsidigt perspektiv
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              {data.title}
+              {nowrapBrand(`${data.productShort} eller ${data.competitor}, vilket passar er verksamhet?`)}
             </h1>
             <EditorialSource sourceType="Jämförelse" tone="dark" />
-            <p className="text-base sm:text-lg text-white/85 max-w-3xl">{data.intro}</p>
           </div>
         </section>
 
-        {/* SUMMARIES */}
-        <section className="py-8 sm:py-10">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
-            <Card className="border-border">
-              <CardContent className="p-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                  {data.productName}
-                </p>
-                <h2 className="text-xl font-bold mb-3 text-foreground">
-                  När {data.productShort} är rätt val
-                </h2>
-                <p className="text-sm text-muted-foreground mb-4">{data.productSummary}</p>
-                {data.productKey === "bc" && (
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Mer om <Link to="/businesscentral/" className="text-primary hover:underline font-medium">Business Central ERP</Link> – pris, licensnivåer och partners.
-                  </p>
-                )}
-                <ul className="space-y-2">
-                  {data.bestFor.product.map((b) => (
-                    <li key={b} className="flex gap-2 text-sm text-foreground">
-                      <Check className="h-4 w-4 mt-0.5 text-[hsl(var(--cta-orange))] shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="border-border">
-              <CardContent className="p-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                  {data.competitor}
-                  {data.competitorUrl && (
-                    <a
-                      href={data.competitorUrl}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="inline-flex items-center gap-1 ml-2 text-muted-foreground/70 hover:text-foreground"
-                    >
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  )}
-                </p>
-                <h2 className="text-xl font-bold mb-3 text-foreground">
-                  När {data.competitor} är rätt val
-                </h2>
-                <p className="text-sm text-muted-foreground mb-4">{data.competitorSummary}</p>
-                <ul className="space-y-2">
-                  {data.bestFor.competitor.map((b) => (
-                    <li key={b} className="flex gap-2 text-sm text-foreground">
-                      <Check className="h-4 w-4 mt-0.5 text-[hsl(var(--cta-orange))] shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+        <ShortAnswer>{data.intro}</ShortAnswer>
+
+
 
         {/* COMPARISON TABLE */}
         <section className="py-8 sm:py-10 bg-secondary/40 border-y border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
-              Strukturerad jämförelse
+              Jämförelse
             </h2>
             <div className="overflow-x-auto rounded-lg border border-border bg-background">
               <table className="w-full text-sm">
@@ -165,6 +111,65 @@ const ErpComparisonPage = () => {
           </div>
         </section>
 
+        {/* SUMMARIES */}
+        <section className="py-8 sm:py-10">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
+            <Card className="border-border">
+              <CardContent className="p-6">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                  {data.productName}
+                </p>
+                <h2 className="text-xl font-bold mb-3 text-foreground">
+                  {nowrapBrand(`När passar ${data.productShort}?`)}
+                </h2>
+                <p className="text-sm text-muted-foreground mb-4">{data.productSummary}</p>
+                {data.productKey === "bc" && (
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Mer om <Link to="/businesscentral/" className="text-primary hover:underline font-medium">Business Central ERP</Link> – pris, licensnivåer och partners.
+                  </p>
+                )}
+                <ul className="space-y-2">
+                  {data.bestFor.product.map((b) => (
+                    <li key={b} className="flex gap-2 text-sm text-foreground">
+                      <Check className="h-4 w-4 mt-0.5 text-[hsl(var(--cta-orange))] shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="border-border">
+              <CardContent className="p-6">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                  {data.competitor}
+                  {data.competitorUrl && (
+                    <a
+                      href={data.competitorUrl}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="inline-flex items-center gap-1 ml-2 text-muted-foreground/70 hover:text-foreground"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </p>
+                <h2 className="text-xl font-bold mb-3 text-foreground">
+                  {nowrapBrand(`När passar ${data.competitor}?`)}
+                </h2>
+                <p className="text-sm text-muted-foreground mb-4">{data.competitorSummary}</p>
+                <ul className="space-y-2">
+                  {data.bestFor.competitor.map((b) => (
+                    <li key={b} className="flex gap-2 text-sm text-foreground">
+                      <Check className="h-4 w-4 mt-0.5 text-[hsl(var(--cta-orange))] shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         <ContextualCta
           eyebrow={`${data.productShort} eller ${data.competitor}`}
           heading="Pröva alternativen mot era verkliga behov"
@@ -177,6 +182,7 @@ const ErpComparisonPage = () => {
 
         {/* WHEN NOT */}
         <section className="py-8 sm:py-10">
+          <h2 className="container mx-auto max-w-5xl px-4 sm:px-6 text-2xl font-bold mb-6">Risker att tänka på</h2>
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
             <Card className="border-amber-200 bg-amber-50/40">
               <CardContent className="p-6">
@@ -231,7 +237,7 @@ const ErpComparisonPage = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/60 to-background p-6 sm:p-10 text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
-                Vill du jämföra {data.productShort} mot ditt behov – inte mot {data.competitor}?
+                Så går du vidare med {nowrapBrand(data.productShort)}
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Starta en behovsanalys, räkna fram TCO eller utforska {data.productShort}-sidan med

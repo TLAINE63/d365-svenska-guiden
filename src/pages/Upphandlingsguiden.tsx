@@ -139,11 +139,12 @@ const Upphandlingsguiden = () => {
   Upphandlingsguiden för Microsoft Dynamics 365
   </div>
   <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-  Kvalitetssäkrad upphandling av{" "}
+  Hur upphandlar ni rätt{" "}
   <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
-  <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
+  och väljer Microsoft-partner?
   </h1>
   <EditorialSource sourceType="Köpguide" tone="dark" />
+  <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
   På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att du kan fatta trygga beslut hela vägen fram till avtal och införande.
   </p>
@@ -195,7 +196,7 @@ const Upphandlingsguiden = () => {
  <div className="container mx-auto max-w-6xl">
  <div className="max-w-3xl mb-10 sm:mb-14">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground leading-tight tracking-tight mb-3">
- Vår metodik – från krav till kontrakt
+ Vad avgör valet? Sex steg från krav till kontrakt
  </h2>
  <p className="text-[15px] text-muted-foreground leading-relaxed">
  Sex steg som tar dig tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så du kan komma igång direkt.
@@ -292,7 +293,7 @@ const Upphandlingsguiden = () => {
   <RadialGlow />
   <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
- Redo att starta din upphandling?
+ Så går du vidare med upphandlingen
  </h2>
  <p className="text-[15px] sm:text-base text-white/80 leading-relaxed mb-7 max-w-2xl mx-auto">
  Börja med en behovsanalys eller hoppa direkt till partnermatchningen. Båda är gratis och tar bara några minuter.

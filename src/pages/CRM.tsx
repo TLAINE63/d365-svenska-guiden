@@ -230,7 +230,7 @@ const CRM = () => {
  <p>Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="crm" />
- <FitModel model="crm" />
+ <FitModel model="crm" heading="Vad avgör valet?" />
 
  {/* Partners Section */}
  <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">

@@ -186,7 +186,7 @@ const ERPOverview = () => {
  </div>
  </section>
   <EditorialAssessment assessment="erp" />
- <FitModel model="erp" />
+ <FitModel model="erp" heading="Vad avgör valet?" />
 
   {/* Introduction Section */}
   <section id="comparison-intro" className="py-8 sm:py-12 md:py-16 bg-background scroll-mt-24">

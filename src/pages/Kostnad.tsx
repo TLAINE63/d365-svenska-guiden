@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -120,9 +121,10 @@ export default function Kostnad() {
               På köparens sida
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Vad kostar Dynamics 365 – egentligen?
+              {nowrapBrand("Vad kostar Dynamics 365, inklusive införande och förvaltning?")}
             </h1>
             <EditorialSource sourceType="Köpguide" />
+            <h2 className="text-xl font-bold mb-3">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Total­kostnaden består av tre delar: <strong>abonnemang</strong> (licens per
               användare och månad), <strong>implementation</strong> (en engångs­kostnad hos
@@ -220,9 +222,9 @@ export default function Kostnad() {
             <div className="container mx-auto px-4 sm:px-6 pt-10">
               <div className="max-w-5xl">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                    {p.label}
-                  </h2>
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                    {nowrapBrand(p.label)}
+                  </h3>
                   <Link to={p.path} className="text-sm text-primary underline">
                     Läs mer om {p.label} →
                   </Link>
@@ -253,7 +255,7 @@ export default function Kostnad() {
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-              Behöver du hjälp att tolka offerterna?
+              Så går du vidare med kostnadsunderlaget
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Vi är på köparens sida. Använd vår behovsanalys för att få en mognads­profil
