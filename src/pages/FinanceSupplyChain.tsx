@@ -256,7 +256,7 @@ const FinanceSupplyChain = () => {
            Matchningstest
          </p>
          <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Matchar F&amp;SCM dina behov?
+           Vad avgör valet av Finance &amp; Supply Chain Management (F&O)?
          </h2>
          <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
            Ett funktionsorienterat test som tittar på vilka konkreta behov du har – inte ett mognadsbetyg.

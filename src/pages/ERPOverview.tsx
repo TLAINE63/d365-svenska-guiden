@@ -476,14 +476,14 @@ const ERPOverview = () => {
  </div>
  </section>
 
- <RelatedPages pages={erpRelatedPages} heading="Utforska vidare" />
+ <RelatedPages pages={erpRelatedPages} heading="Fördjupning om affärssystem, kostnader och partner" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">
      <PageOfferBanner />
    </div>
  </section>
  
-<ContextualCta source="next-step:erp" heading="Business Central eller Finance & Supply Chain Management (F&O)?" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
+<ContextualCta source="next-step:erp" heading="Så går du vidare med ert ERP-val" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
 <SourcesAndMethod />
       </main>
  <Footer />
