@@ -155,7 +155,12 @@ Deno.serve(async (req) => {
           return { run_id: run.id, phrase_id: p.id, position: b?.position ?? null, volume: b?.volume ?? null, url: b?.url || null, fetched_at: new Date().toISOString() };
         });
         await sb.from("serp_watch_results").upsert(results, { onConflict: "run_id,phrase_id" });
-        await sb.from("serp_watch_runs").update({ status: "complete", chunks_done: 1, calls_used: (run.calls_used || 0) + 1, last_error: null }).eq("id", run.id);
+        // Gratisnivån returnerar max 10 rader per hämtning: markera som ofullständig.
+        const capped = !nothing && rows.length > 0 && rows.length <= 10;
+        await sb.from("serp_watch_runs").update({
+          status: capped ? "partial" : "complete", chunks_done: 1, calls_used: (run.calls_used || 0) + 1,
+          last_error: capped ? `Semrush returnerade bara ${rows.length} rader (kontots radtak). Fraser utanför dessa kan ranka utan att synas.` : null,
+        }).eq("id", run.id);
         log.push({ domain, status: "klar", rowsFromSemrush: rows.length, matched: best.size });
       }
       return json({ month, log });
