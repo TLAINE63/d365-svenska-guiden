@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import { Link, Navigate } from "react-router-dom";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -112,6 +113,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
               Kunskapscenter
             </div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-white">{hub.h1}</h1>
+            <EditorialSource sourceType="Köpguide" tone="dark" />
             <p className="text-base md:text-lg text-white/85 leading-relaxed max-w-3xl">
               {hub.intro}
             </p>

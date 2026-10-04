@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -106,6 +107,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             {nowrapBrand(guide.title)}
           </h1>
+          <EditorialSource sourceType="Partnerguide" />
           <p className="text-muted-foreground leading-relaxed mb-10 max-w-3xl">
             {nowrapBrand(guide.intro)}
           </p>

@@ -4,6 +4,7 @@ import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
 import { trackFunnelStep } from "@/utils/trackFunnelEvent";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import EditorialSource from "@/components/EditorialSource";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -1814,6 +1815,7 @@ const ComparePartners = () => {
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
                   Hitta rätt Dynamics 365-partner
                 </h1>
+                <EditorialSource sourceType="Jämförelse" className="text-left" />
                 <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
                   Alla partner i jämförelsen är relevanta kandidater. Här ser du var de skiljer sig åt och vilken typ av företag de passar bäst för.
                 </p>

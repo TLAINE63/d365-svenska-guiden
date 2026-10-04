@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -28,6 +29,7 @@ const GuiderIndex = () => (
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
           Guider: välja Dynamics 365-partner
         </h1>
+        <EditorialSource sourceType="Partnerguide" />
         <p className="text-muted-foreground leading-relaxed mb-8">
           Huvudguiden täcker urvalsprocessen oavsett applikation. Produktguiderna går
           djupare in på det som skiljer respektive upphandling åt.

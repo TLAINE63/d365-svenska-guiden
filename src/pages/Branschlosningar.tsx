@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import { Link, useNavigate } from "react-router-dom";
@@ -344,6 +345,7 @@ const Branschlosningar = () => {
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3">
  Branschlösningar
  </h1>
+ <EditorialSource sourceType="Branschguide" />
  <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
  {selectedIndustry 
  ? `Partners inom ${selectedIndustry.name} med ${getProductLabel()}-kompetens`

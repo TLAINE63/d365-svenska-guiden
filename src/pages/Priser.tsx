@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import SourceNote from "@/components/SourceNote";
 import PageOfferBanner from "@/components/PageOfferBanner";
@@ -112,6 +113,7 @@ export default function Priser() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               Microsofts listpriser – och vad de faktiskt säger
             </h1>
+            <EditorialSource sourceType="Köpguide" />
             <p className="text-base sm:text-lg text-muted-foreground">
               Officiella listpriser för Dynamics 365 (SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling – och utgör bara en del av totalkostnaden. Implementation, integration och förvaltning står normalt för en betydligt större andel över tid.
             </p>

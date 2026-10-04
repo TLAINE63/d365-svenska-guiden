@@ -8,6 +8,7 @@ import GatedPdfDownload from "@/components/GatedPdfDownload";
 import { BUYER_GUIDES } from "@/data/buyerGuides2026";
 import { generateBuyerGuidePdf } from "@/utils/generateBuyerGuidePdf";
 import { Check } from "lucide-react";
+import EditorialSource from "@/components/EditorialSource";
 
 interface Props {
   variant: "erp" | "crm";
@@ -53,6 +54,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-5">
               {guide.title}
             </h1>
+            <EditorialSource sourceType="Köpguide" tone="dark" />
             <p className="text-lg text-white/80 leading-relaxed mb-6">{guide.hero}</p>
             <p className="text-base text-white/70 leading-relaxed">{guide.intro}</p>
             <p className="mt-6 text-sm text-white/60">Omfattning: {guide.scope}</p>

@@ -6,6 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import ContextualCta from "@/components/ContextualCta";
+import EditorialSource from "@/components/EditorialSource";
 import {
   PRODUCT_COMPARISONS,
   PRODUCT_META,
@@ -58,6 +59,7 @@ const ErpComparisonPage = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
               {data.title}
             </h1>
+            <EditorialSource sourceType="Jämförelse" tone="dark" />
             <p className="text-base sm:text-lg text-white/85 max-w-3xl">{data.intro}</p>
           </div>
         </section>

@@ -20,6 +20,7 @@ import {
   guidePath,
 } from "@/data/partnerGuides";
 import { GUIDE_CONTENT, GuideBlock } from "@/data/partnerGuideContent";
+import EditorialSource from "@/components/EditorialSource";
 
 interface Props {
   guideKey: PartnerGuideKey;
@@ -182,6 +183,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
             {content.h1}
           </h1>
+          <EditorialSource sourceType="Partnerguide" />
 
           {introBlocks.map(renderBlock)}
 

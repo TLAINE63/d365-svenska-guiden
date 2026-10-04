@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import { useParams, Link, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -65,6 +66,7 @@ const IsvCompare = () => {
             Jämförelse · {comparison.category}
           </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">{comparison.title}</h1>
+          <EditorialSource sourceType="Jämförelse" tone="dark" />
           <p className="text-lg text-white/85 max-w-3xl leading-relaxed">{comparison.intro}</p>
         </div>
       </section>

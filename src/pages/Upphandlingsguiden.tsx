@@ -1,3 +1,4 @@
+import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -141,6 +142,7 @@ const Upphandlingsguiden = () => {
   <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
   <span className="block text-white/90 mt-1">– från behov till val av Microsoftpartner</span>
   </h1>
+  <EditorialSource sourceType="Köpguide" tone="dark" />
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
   På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att du kan fatta trygga beslut hela vägen fram till avtal och införande.
   </p>
