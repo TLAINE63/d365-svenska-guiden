@@ -26,6 +26,11 @@ describe("Human-first journey", () => {
     expect(planNextStep(emptyProfile(), { product: "Business Central" }, { area: "crm", needs: [], dimensions: {} }, 0).to).toBe("/crm/");
     expect(planNextStep(emptyProfile(), { product: "Business Central" }, { area: "erp", needs: [], dimensions: {} }, 0).to).toBe("/jamfor/");
   });
+  it("does not reuse an old assessment to bypass a neutral evaluation", () => {
+    const profile = emptyProfile();
+    profile.assessment.fscm_level = "below";
+    expect(planNextStep(profile, { product: "Business Central" }, { area: "crm", needs: [], dimensions: {} }, 0).to).toBe("/crm/");
+  });
   it("keeps a migration plan in investigation until assessed", () => {
     expect(planNextStep(emptyProfile(), {}, { area: "migration", needs: [], dimensions: {} }, 0).to).toBe("#komplettera");
   });

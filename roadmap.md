@@ -1,10 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Kontextuell köpresa och Min D365-plan (2026-10-04)
-- [ ] Anpassa nästa steg efter ERP/CRM, produktjämförelse, partner och migration
-- [ ] Samla befintliga val i Min D365-plan med produktområde, bransch, storlek, behov och nästa steg
-- [ ] Gör befintliga Fit Models användbara för egen behovskartläggning utan automatiska poäng
-- [ ] Behåll neutrala ERP/CRM-vägar och verifiera sparade val, nästa steg och mobil/dator
+- [x] Anpassa nästa steg efter ERP/CRM, produktjämförelse, partner och migration
+- [x] Samla befintliga val i Min D365-plan med produktområde, bransch, storlek, behov och nästa steg
+- [x] Gör befintliga Fit Models användbara för egen behovskartläggning utan automatiska poäng
+- [x] Behåll neutrala ERP/CRM-vägar och verifiera sparade val, nästa steg och mobil/dator
+
+Verifierat: verkliga bransch-, storleks-, produkt-, integrations- och migrationssvar samt mål sparas och läses tillbaka. ERP/CRM och produktjämförelsen behåller neutrala nästa steg trots tidigare produktval. Partnerjämförelsen förifylls, rensning består efter omladdning och modellprioriteringar sparas även på mobil. Playwright vid 1280/390 px utan runtimefel; ingen sidöverbredd i planen. Ingen publicering.
 
 ## Människan först i köpguiden (2026-10-04)
 - [x] Integrera kort svar, bedömning och avsändare med diskretare gemensam presentation

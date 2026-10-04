@@ -139,7 +139,7 @@ export default function Underlag() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <SEOHead title="Ert Dynamics 365-underlag | d365.se" description="Samla era svar, bedömningar och sparade partners i ett anonymt beslutsunderlag för Dynamics 365." canonicalPath="/underlag/" noIndex />
+      <SEOHead title="Min D365-plan | d365.se" description="Samla verksamhetens behov, egna prioriteringar, bedömningar och sparade partners i er plan utan kontaktkrav." canonicalPath="/underlag/" noIndex />
       <div className="print:hidden"><Navbar /></div>
       <main className="flex-1">
         <section className="container mx-auto px-4 sm:px-6 max-w-4xl pt-24 sm:pt-28 pb-12">
@@ -238,7 +238,7 @@ export default function Underlag() {
                 </section>
               )}
 
-              {(lvl || crmApps.length > 0 || items.length > 0) && <section className="border-y border-border py-4 print:hidden">
+              {(meta.area === "partner" || !meta.area) && (lvl || crmApps.length > 0 || items.length > 0) && <section className="border-y border-border py-4 print:hidden">
                 <h2 className="text-xl font-semibold mb-2">Nästa steg</h2>
                 {nextStep.to.startsWith("#") ? (
                   <a href={nextStep.to} className="inline-flex items-center text-primary font-medium">{nextStep.label}<ArrowRight className="w-4 h-4 ml-1" /></a>
