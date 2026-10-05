@@ -223,9 +223,10 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           </div>
         </section>
 
+        {cfg.productKey === "crm" && <CrmMarketSection />}
+
         {/* FAQ */}
         {faqs.length > 0 && (
-          {cfg.productKey === "crm" && <CrmMarketSection />}
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
