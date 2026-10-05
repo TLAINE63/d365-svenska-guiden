@@ -14,6 +14,7 @@ import basicRoutes from "@/data/basicPartnerRoutes.json";
 import { getPartnerSelectionFacts } from "@/lib/partnerSelectionFacts";
 import { MISSING_TEXT } from "@/components/partner/PartnerSelectionFacts";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import {
   PRODUCT_PARTNERS_SVERIGE,
   findProductPartnersSverigeConfig,
@@ -102,6 +103,9 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
               <span className="mx-2">/</span>
               <span aria-current="page">{cfg.h1}</span>
             </nav>
+            <span className="block text-xs font-bold uppercase tracking-[0.2em] text-accent mb-3">
+              Partnerguiden
+            </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {cfg.h1}
             </h1>
@@ -127,7 +131,16 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                   <thead><tr className="border-b border-border bg-muted"><th scope="col" className="p-2 sm:p-3">Partner</th><th scope="col" className="p-2 sm:p-3">Orter</th><th scope="col" className="p-2 sm:p-3">Branscher</th><th scope="col" className="p-2 sm:p-3">Typisk kundstorlek</th><th scope="col" className="p-2 sm:p-3">Profiltyp</th></tr></thead>
                   <tbody>{rows.map(({ p, cities, industries, size }) => (
                     <tr key={p.id} className="border-b border-border align-top">
-                      <th scope="row" className="p-2 sm:p-3 font-semibold"><Link to={`/partner/${p.slug}/`} className="text-foreground hover:text-primary underline-offset-4 hover:underline">{p.name}</Link></th>
+                      <th scope="row" className="p-2 sm:p-3 font-semibold">
+                        <Link to={`/partner/${p.slug}/`} className="flex items-center gap-3 text-foreground hover:text-primary underline-offset-4 hover:underline">
+                          {p.logo_url && (
+                            <span className="flex h-9 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-card p-1">
+                              <img src={optimizedLogo(p.logo_url, 128)} alt="" loading="lazy" className="max-h-7 max-w-full object-contain" />
+                            </span>
+                          )}
+                          {p.name}
+                        </Link>
+                      </th>
                       <td className="p-2 sm:p-3 text-muted-foreground">{cities}</td>
                       <td className="p-2 sm:p-3 text-muted-foreground">{nowrapBrand(industries)}</td>
                       <td className="p-2 sm:p-3 text-muted-foreground">{size}</td>
@@ -156,30 +169,44 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                 så hjälper vi dig att hitta en lämplig kandidat.
               </p>
             ) : (
-              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {partners.map((p: any) => {
                   const cities: string[] = p.office_cities || [];
                   return (
                     <li key={p.id}>
                       <Link
                         to={`/partner/${p.slug}/`}
-                        className="group flex flex-col gap-1 p-4 rounded-lg border border-border bg-card hover:border-primary/50  transition-all h-full"
+                        className="group flex flex-col rounded-2xl border border-border bg-card shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 transition-all h-full overflow-hidden"
                         aria-label={`${p.name} – ${cfg.productLabel}-partner`}
                       >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="flex flex-col items-center gap-3 border-b border-border/60 bg-gradient-to-b from-card to-secondary/30 p-5">
+                          {p.logo_url ? (
+                            <span className="flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-card p-3 shadow-sm">
+                              <img src={optimizedLogo(p.logo_url, 160)} alt="" loading="lazy" className="max-h-14 max-w-full object-contain" />
+                            </span>
+                          ) : (
+                            <span className="flex h-20 w-20 items-center justify-center rounded-xl border border-border bg-secondary/60 text-xl font-bold text-foreground">
+                              {p.name.charAt(0)}
+                            </span>
+                          )}
+                          <span className="font-bold text-foreground group-hover:text-primary transition-colors text-center">
                             {p.name}
                           </span>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+                          {cities.length > 0 && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                              <MapPin className="w-3 h-3" />
+                              {cities.slice(0, 3).join(", ")}
+                              {cities.length > 3 ? ` +${cities.length - 3}` : ""}
+                            </span>
+                          )}
                         </div>
-                        {cities.length > 0 && (
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
-                            {cities.slice(0, 3).join(", ")}
-                            {cities.length > 3 ? ` +${cities.length - 3}` : ""}
-                          </span>
-                        )}
-                        <PartnerSelectionFacts partner={p} productKey={cfg.productKey === "ai" ? null : cfg.productKey} showMissing />
+                        <div className="flex flex-1 flex-col gap-1 p-4">
+                          <PartnerSelectionFacts partner={p} productKey={cfg.productKey === "ai" ? null : cfg.productKey} showMissing />
+                        </div>
+                        <span className="mx-4 mb-4 mt-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all group-hover:brightness-110">
+                          Visa fullständig profil
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </span>
                       </Link>
                     </li>
                   );
