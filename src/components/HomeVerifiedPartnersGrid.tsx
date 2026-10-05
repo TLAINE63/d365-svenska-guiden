@@ -313,6 +313,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                         industry={industry || null}
                         productKey={PRODUCT_FILTER_KEY[product]}
                         productLabel={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
+                        compactSelectionFacts
                       />
                     </li>
                   );

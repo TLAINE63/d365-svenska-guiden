@@ -25,6 +25,7 @@ interface IndustryVerifiedPartnerCardProps {
   geography?: string | null;
   companySize?: string | null;
   revenue?: string | null;
+  compactSelectionFacts?: boolean;
 }
 
 function firstUsefulSentence(text?: string | null, maxChars = 230): string | null {
