@@ -494,7 +494,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
             kostnader, licenser, tidplan och förvaltning på en egen sida i Kunskapscentret.
           </p>
           <a
-            href="/kunskapscenter/fragor-och-svar/"
+            href="/qa/"
             className="text-sm font-semibold text-primary hover:underline"
           >
             Läs vanliga frågor om affärssystem och partnerval →
