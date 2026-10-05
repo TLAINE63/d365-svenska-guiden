@@ -322,7 +322,7 @@ const AppShell = () => {
           <Route path="/kostnad" element={<Kostnad />} />
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
-          <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
+          <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
@@ -340,7 +340,7 @@ const AppShell = () => {
           <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />
           <Route path="/kunskapscenter/customer-service" element={<KunskapscenterHub slug="customer-service" />} />
           <Route path="/kunskapscenter/copilot" element={<KunskapscenterHub slug="copilot" />} />
-          <Route path="/kunskapscenter/upphandling" element={<KunskapscenterHub slug="upphandling" />} />
+          <Route path="/kunskapscenter/upphandling" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/kunskapscenter/partners" element={<KunskapscenterHub slug="partners" />} />
           <Route path="/bc-ap-automation" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-fakturahantering/" />} />
           <Route path="/bc-svensk-lokalisering" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" />} />

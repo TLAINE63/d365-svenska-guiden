@@ -67,6 +67,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/erp",                       to: "/affarssystem/",       intendedStatus: 301 },
   { from: "/kunskapscenter/fragor-och-svar", to: "/qa/", intendedStatus: 301 },
 
+  // Upphandlingssidorna sammanslagna till /upphandlingsguiden/ (7 stadier, beslut 2026-10-05)
+  { from: "/kunskapscenter/upphandling",     to: "/upphandlingsguiden/", intendedStatus: 301 },
+  { from: "/kunskapscenter/upphandlingsresan", to: "/upphandlingsguiden/", intendedStatus: 301 },
+
   // Tidigare admin-paths
   { from: "/partner-admin",             to: "/admin",               intendedStatus: 301 },
   { from: "/lead-admin",                to: "/admin",               intendedStatus: 301 },
