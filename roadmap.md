@@ -189,3 +189,6 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] Sökpositioner: Semrush-API pausat (kräver Business-plan + separata API-enheter), körningar kvar som "partial"
 - [x] Sökprestanda: GSC (Sverige, dygn) + Bing (veckovis) hämtas dagligen kl 05:40 UTC, grupp-tagging mot fraslistan, verifierat 2026-10-04
 - [x] Sökprestanda: Admin-flik "Sökprestanda" (SEO & Konkurrens) med trend per grupp/månad, frasjämförelse mot konkurrenter och CSV-uppladdning (Semrush Organic Positions, kvartalsvis)
+
+- [ ] Startsidan "Så hittar du rätt partner": dölj Implementationskompetens, Förvaltning/Support, Relevant specialisering i partnerkorten (tar för mycket plats)
+- [ ] Publicera (grundprofil-länkar + startsidesfix)
