@@ -3723,52 +3723,50 @@
     "id": "21ea09d7-d76c-4841-90d3-bed49641b095",
     "slug": "norra-commerce-partner",
     "name": "Norra Commerce Partner",
-    "description": null,
-    "logo_url": null,
+    "description": "",
+    "logo_url": "",
     "logo_dark_bg": false,
     "website": "https://norracommerce.se/",
-    "email": null,
+    "email": "Johann.runemark@norracommerce.se",
     "contact_person": "Johann Runemark",
-    "contact_photo_url": null,
-    "phone": null,
+    "contact_photo_url": "",
+    "phone": "",
     "applications": [
       "Business Central"
     ],
     "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige"
-    ],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 999,
         "revenue": [
-          "25-99 MSEK",
-          "100-499 MSEK",
-          "500-999 MSEK"
+          "1-24 MSEK"
         ],
         "geography": [
-          "Sverige"
+          "Sverige",
+          "Norden"
         ],
+        "keyPoints": "",
+        "whyChoose": "",
         "industries": [
           "Grossist & Distribution",
           "Retail & E-handel",
           "Mode, Sport & Textil"
         ],
         "companySize": [
-          "50-99",
-          "100-249",
-          "250-999"
+          "1-49"
         ],
-        "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
+        "contactName": "Johann Runemark",
+        "contactEmail": "johann.runemark@norracommerce.se",
+        "contactPhone": "+46(0)735190622",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
         "aiOtherPartner": "",
         "aiProjectCount": "",
         "hasBuiltAgents": false,
+        "landingPageUrl": "",
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
@@ -3792,16 +3790,49 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-04-27T10:54:18.709178+00:00",
-    "updated_at": "2026-09-29T11:25:33.789241+00:00",
-    "industry_pitches": [],
+    "updated_at": "2026-10-05T13:31:21.92052+00:00",
+    "industry_pitches": [
+      {
+        "text": "Norra Commerce Partner hjälper detaljhandels- och e-handelsföretag att effektivisera sin verksamhet med Microsoft Dynamics 365 Business Central. De bistår med att integrera kärnprocesser för en sammanhållen kundupplevelse över olika försäljningskanaler. Typiska utmaningar som hanteras inkluderar lageroptimering, orderhantering och automatisering av finansiella flöden. Med Business Central kan partnern bidra till förbättrad insyn i försäljning och lagersaldo, vilket underlättar beslutsfattande och minskar svinn. De stödjer även hantering av priser och kampanjer samt en effektivare returhantering. Lösningarna syftar till att skapa en enhetlig process för allt från inköp och logistik till kundfaktura, vilket är centralt för en framgångsrik omnichannel-strategi.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "partner",
+        "updated_at": "2026-10-05T13:27:34.803Z",
+        "generated_at": "2026-10-05T13:27:34.803Z"
+      },
+      {
+        "text": "Norra Commerce Partner hjälper företag inom mode, sport och textil att optimera sina affärsprocesser med Microsoft Dynamics 365 Business Central. De adresserar utmaningar som korta produktcykler och säsongsdriven efterfrågan genom att effektivisera lagerhantering och orderflöden. Partnern fokuserar på att förbättra spårbarheten genom hela värdekedjan, från inköp till försäljning, vilket är avgörande för att möta krav på hållbarhet och transparens. Genom att integrera försäljningskanaler, inklusive e-handel och fysisk butik, stödjer de en sömlös kundupplevelse. De kan anpassa systemet för att hantera de komplexa variantflödena av storlekar, färger och modeller som är typiska för branschen, vilket bidrar till bättre planeringsförmåga och snabbare respons på marknadens skiftningar.",
+        "product": null,
+        "industry": "Mode, Sport & Textil",
+        "edited_by": "partner",
+        "updated_at": "2026-10-05T13:28:03.009Z",
+        "generated_at": "2026-10-05T13:28:03.009Z"
+      },
+      {
+        "text": "Norra Commerce Partner hjälper grossist- och distributionsföretag att optimera sin verksamhet med Microsoft Dynamics 365 Business Central. De fokuserar på att strömlinjeforma centrala processer som orderhantering, lageroptimering och inköpsflöden för att möta branschens krav på effektivitet och spårbarhet. Genom att implementera Business Central adresserar partnern utmaningar som manuella processer, ineffektiv lagerhantering och bristfällig överblick över leveranskedjan. Detta möjliggör bättre prognoser, minskade lagernivåer och förbättrad leveransprecision. Lösningen stödjer bland annat integration av e-handelsplattformar och ger en samlad bild av kunder, produkter och logistik, vilket bidrar till snabbare orderhantering och mer välinformerade beslut.",
+        "product": null,
+        "industry": "Grossist & Distribution",
+        "edited_by": "partner",
+        "updated_at": "2026-10-05T13:28:20.454Z",
+        "generated_at": "2026-10-05T13:28:20.454Z"
+      }
+    ],
     "agreement_signed": true,
     "related_party": false,
     "positioning_statement": null,
-    "delivery_profile": {},
-    "team_size_sweden": null,
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": "11–25",
     "implementations_done": null,
     "not_a_fit": [],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Business Central": "25–100"
+    },
     "ai_summary": null,
     "ai_summary_generated_at": null,
     "ai_profile": {},
@@ -3815,7 +3846,7 @@
     "extended_competencies": {},
     "team_size_per_app": {},
     "key_differentiators": [],
-    "key_differentiators_source": "partner",
+    "key_differentiators_source": "d365",
     "public_profile_summary": "Analys av publika källor visar att Norra Commerce Partner positionerar sig som en specialiserad Microsoft Dynamics 365 Business Central-partner med ett exklusivt fokus på detaljhandels- och modebranschen. Verksamheten har kontor i Stockholm och beskriver sig med djup teknisk expertis kombinerat med operativ erfarenhet från detaljhandeln.\n\nFöretagets erbjudande omfattar hela livscykeln för Business Central, från analys och design till implementation och förvaltning. Specifika kompetenser inkluderar anpassningar av ekonomi, orderhantering, lager och inköp för retail, samt integrationer med e-handel, POS och WMS. Ett strategiskt partnerskap med Codeunit för systemintegrationer framhålls.\n\nNorra Commerce Partner riktar sig till medelstora retail- och fashionföretag som behöver Business Central som nav i ett omnikanal-ekosystem. Innehållet indikerar att konsulterna har bakgrund från operativa roller inom detaljhandeln och att företaget lägger vikt vid driftsäkerhet och teknisk kvalitet.",
     "public_focus_tags": [
       "Microsoft Dynamics 365 Business Central",
