@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { ORGANIZATION } from "@/data/organization";
+import { ORGANIZATION, ORGANIZATION_SCHEMA_DESCRIPTION } from "@/data/organization";
 
 
 // Organization Schema
@@ -20,7 +20,11 @@ export const OrganizationSchema = () => {
       "caption": "d365.se – köparsidig guide till Microsoft Dynamics 365"
     },
     "image": ORGANIZATION.logoUrl,
-    "description": ORGANIZATION.description,
+    "description": ORGANIZATION_SCHEMA_DESCRIPTION,
+    "founder": [
+      { "@type": "Person", "name": "Thomas Laine" },
+      { "@type": "Person", "name": "Michael Uhman" }
+    ],
     "foundingDate": ORGANIZATION.foundingDate,
     "email": ORGANIZATION.email,
     "telephone": ORGANIZATION.telephoneE164,

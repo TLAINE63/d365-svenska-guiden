@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { ORGANIZATION } from "@/data/organization";
+import { ORGANIZATION, BUYER_SIDE_DESCRIPTION, BUYER_SIDE_EXPLAINER, BUYER_SIDE_LINK_TEXT } from "@/data/organization";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
 
@@ -46,6 +46,15 @@ const OmOss = () => {
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight mb-5">
               Vi står på köparens sida när du väljer Microsoft {D365}-partner
             </h1>
+            <p className="text-base sm:text-lg text-foreground leading-relaxed mb-4">
+              {BUYER_SIDE_DESCRIPTION}
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+              {BUYER_SIDE_EXPLAINER}{" "}
+              <Link to="/agande-och-intressen/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">
+                {BUYER_SIDE_LINK_TEXT}
+              </Link>
+            </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               Ett {D365}-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning,
               rätt vägval och framför allt rätt partner. d365.se hjälper svenska företag in i den

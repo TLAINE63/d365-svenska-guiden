@@ -52,3 +52,9 @@ export const ORGANIZATION = {
 
 /** "d365.se (Dynamic Factory)" – för copyright- och utgivarrader. */
 export const ORGANIZATION_ATTRIBUTION = `${ORGANIZATION.name} (${ORGANIZATION.legalName})`;
+
+/** Ordagrann köparsidig beskrivning (Thomas beslut 2026-10-05). Används på startsida, /om-oss/ och /qa/. */
+export const BUYER_SIDE_DESCRIPTION = "d365.se är en köparsidig tjänst för val av Microsoft Dynamics\u00A0365-partner i Sverige. Tjänsten är kostnadsfri för köpare och omfattar alla Dynamics\u00A0365-applikationer: Business Central, Finance & Supply Chain Management, Sales, Customer Service, Field Service, Customer Insights, Contact Center, Project Operations, Commerce och Human Resources.";
+export const BUYER_SIDE_EXPLAINER = "Köparsidig betyder att vi utgår från köparens behov när vi jämför och rekommenderar partners. Partners kan teckna profileringsavtal med d365.se och granska sina profiler, men avtalet ger ingen köpt fördel i d365.se:s rekommendationer.";
+export const BUYER_SIDE_LINK_TEXT = "Läs mer om hur samarbetet med partners fungerar.";
+export const ORGANIZATION_SCHEMA_DESCRIPTION = "Köparsidig tjänst för val av Microsoft Dynamics 365-partner i Sverige. Kostnadsfri för köpare.";
