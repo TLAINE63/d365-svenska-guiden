@@ -96,7 +96,6 @@ const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
 const CeIsvCategoryPage = lazy(() => import("./pages/CeIsvCategoryPage"));
 const BcIsvCategoryPage = lazy(() => import("./pages/BcIsvCategoryPage"));
-const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const PartnerGuidePage = lazy(() => import("./pages/PartnerGuidePage"));
 const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
