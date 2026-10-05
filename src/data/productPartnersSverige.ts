@@ -5,7 +5,7 @@ import type { ProductKey } from "@/hooks/usePartnerFilters";
 
 export interface ProductPartnersSverigeConfig {
   slug: string;                  // URL-segment (utan inledande slash)
-  productKey: ProductKey | "ai"; // Vilket product_filters-fält som styr listan ("ai" = aiCapabilities)
+  productKey: ProductKey | "ai" | "crm"; // Vilket product_filters-fält som styr listan ("ai" = aiCapabilities)
   h1: string;
   metaTitle: string;
   metaDescription: string;
@@ -74,96 +74,28 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     ],
   },
   {
-    slug: "dynamics-365-sales-partners-sverige",
-    productKey: "sales",
-    productLabel: "Dynamics 365 Sales",
-    productLandingPath: "/d365sales/",
-    h1: "Dynamics 365 Sales-partners i Sverige",
-    metaTitle: "Dynamics 365 Sales-partners i Sverige – CRM-partner | d365.se",
+    slug: "dynamics-365-crm-partners-sverige",
+    productKey: "crm",
+    productLabel: "Dynamics 365 CRM (Sales, Customer Insights, Customer Service, Field Service, Contact Center)",
+    productLandingPath: "/crm/",
+    h1: "Dynamics 365 CRM-partners i Sverige",
+    metaTitle: "Dynamics 365 CRM-partners i Sverige: jämför {count} partners | d365.se",
     metaDescription:
-      "Microsoft-partners i Sverige för Dynamics 365 Sales – pipeline, prognoser, Copilot for Sales och integration mot Outlook och Teams.",
+      "Jämför Microsoft-partners i Sverige för hela Dynamics 365 CRM-sviten: Sales, Customer Insights, Customer Service, Field Service och Contact Center. Köparsidig vägledning.",
     intro:
-      "Dynamics 365 Sales är Microsofts CRM-plattform för säljteam – pipeline, prognoser, Copilot for Sales och integration mot Outlook och Teams. Här är de partners i Sverige som arbetar med Dynamics 365 Sales.",
+      "Dynamics 365 CRM (Customer Engagement) är en svit av appar på samma plattform: Sales, Customer Insights (Marketing), Customer Service, Field Service och Contact Center. I praktiken arbetar de flesta CRM-partners med hela sviten, därför jämför vi dem på en gemensam sida i stället för per app.\n\nHär listas partners på den svenska marknaden som har registrerat Sales eller Customer Service i sin profil, sorterade efter namn. Ordningen säger inget om kvalitet.\n\nJämför partners på tre punkter: erfarenhet av er bransch, referenser från bolag av er storlek och vilken del av CRM-sviten de faktiskt har levererat flest projekt inom. Be om ett kundcase för just den app som är viktigast för er.",
     faq: [
+      {
+        q: "Varför jämförs CRM-partners på en gemensam sida?",
+        a: "Apparna i Dynamics 365 CRM delar plattform och kunddata (Dataverse), och nästan alla CRM-partners erbjuder hela sviten. Skillnaden ligger i var de har störst erfarenhet. Fråga därför efter referenser inom den app som är viktigast för er, till exempel Sales eller Customer Service.",
+      },
       {
         q: "Vad skiljer en CRM-partner från en ERP-partner?",
-        a: "En CRM-partner förstår säljprocesser, marketing automation, kunddata och Copilot for Sales på djupet. En ren ERP-partner kan ofta säga 'ja, vi gör Sales också' men har inte samma metodik. Be konkret om en demo av en säljprocess i lösningen.",
+        a: "En CRM-partner förstår säljprocesser, marketing automation, kundtjänst och kunddata på djupet. En ren ERP-partner kan säga att de gör CRM också men har inte alltid samma metodik. Be om en demo av en verklig process i lösningen.",
       },
-    ],
-  },
-  {
-    slug: "dynamics-365-marketing-partners-sverige",
-    productKey: "sales",
-    productLabel: "Dynamics 365 Customer Insights (Marketing)",
-    productLandingPath: "/d365marketing/",
-    h1: "Dynamics 365 Customer Insights (Marketing)-partners i Sverige",
-    metaTitle:
-      "Customer Insights-partners i Sverige – D365 Marketing | d365.se",
-    metaDescription:
-      "Microsoft-partners i Sverige för Dynamics 365 Customer Insights (tidigare Marketing) – kundresor, AI-segmentering och CDP.",
-    intro:
-      "Dynamics 365 Customer Insights (tidigare Marketing) är Microsofts plattform för marknadsföringsautomation och Customer Data Platform. Här är de partners i Sverige som arbetar med Customer Insights – sorterade efter namn.",
-    faq: [
       {
-        q: "Hur skiljer sig Customer Insights från HubSpot eller Marketo?",
-        a: "Customer Insights är djupt integrerat med Dynamics 365 Sales och Service och delar samma kunddatamodell (Dataverse). Det är ofta ett naturligt val för bolag som redan kör Microsoft-stacken, medan HubSpot/Marketo kan passa bättre för fristående marknadsteam.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-customer-service-partners-sverige",
-    productKey: "service",
-    productLabel: "Dynamics 365 Customer Service",
-    productLandingPath: "/d365customerservice/",
-    h1: "Dynamics 365 Customer Service-partners i Sverige",
-    metaTitle:
-      "Dynamics 365 Customer Service-partners i Sverige | d365.se",
-    metaDescription:
-      "Microsoft-partners i Sverige för Dynamics 365 Customer Service – ärendehantering, omnikanal och Copilot for Service.",
-    intro:
-      "Dynamics 365 Customer Service är Microsofts plattform för ärendehantering, omnikanal och kundtjänst med Copilot for Service. Här är de partners i Sverige som arbetar med Customer Service.",
-    faq: [
-      {
-        q: "Vad ingår i en typisk Customer Service-implementation?",
-        a: "Ärendetyper, SLA-regler, kunskapsbas, omnikanal (e-post/chatt/telefoni), routing och rapportering. Copilot for Service kan automatisera svarsförslag och ärendesammanfattningar.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-field-service-partners-sverige",
-    productKey: "service",
-    productLabel: "Dynamics 365 Field Service",
-    productLandingPath: "/d365fieldservice/",
-    h1: "Dynamics 365 Field Service-partners i Sverige",
-    metaTitle:
-      "Dynamics 365 Field Service-partners i Sverige | d365.se",
-    metaDescription:
-      "Microsoft-partners i Sverige för Dynamics 365 Field Service – schemaläggning, mobilitet och integration mot ERP.",
-    intro:
-      "Dynamics 365 Field Service är Microsofts lösning för fältservice – schemaläggning, mobilapp för tekniker, IoT-larm och integration mot ERP. Här är de partners i Sverige som arbetar med Field Service.",
-    faq: [
-      {
-        q: "Hur viktig är ERP-integrationen för Field Service?",
-        a: "Mycket viktig. Order, artiklar, lager och fakturering bör flöda mellan Field Service och ditt ERP (Business Central eller F&SCM). Välj en partner som behärskar båda sidor av integrationen.",
-      },
-    ],
-  },
-  {
-    slug: "dynamics-365-contact-center-partners-sverige",
-    productKey: "service",
-    productLabel: "Dynamics 365 Contact Center",
-    productLandingPath: "/d365contactcenter/",
-    h1: "Dynamics 365 Contact Center-partners i Sverige",
-    metaTitle:
-      "Dynamics 365 Contact Center-partners i Sverige | d365.se",
-    metaDescription:
-      "Microsoft-partners i Sverige för Dynamics 365 Contact Center – AI-driven röst, chatt och digital självbetjäning.",
-    intro:
-      "Dynamics 365 Contact Center är Microsofts AI-drivna kontaktcenter-lösning med röst, chatt, digital självbetjäning och Copilot. Här är de partners i Sverige som arbetar med Contact Center.",
-    faq: [
-      {
-        q: "Behöver vi byta telefoni för att använda Contact Center?",
-        a: "Inte alltid. Contact Center kan ofta integreras med befintliga växel- och telefoniplattformar via SIP eller Microsoft Teams, men en plan för röst-routing och inspelning bör tas fram tidigt.",
+        q: "Behöver vi olika partners för Sales och Customer Service?",
+        a: "Oftast inte. Eftersom apparna delar plattform är det en fördel med en partner som tar helheten. Om ni har mycket specifika behov, till exempel avancerad fältservice eller kontaktcenter med telefoni, kan det vara värt att kontrollera specialistkompetensen särskilt.",
       },
     ],
   },
