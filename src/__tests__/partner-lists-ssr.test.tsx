@@ -45,7 +45,7 @@ describe("Partner list SSR – SEO regression", () => {
     const html = ssr("/alla-d365-partners", <AllD365Partners />);
 
     it("renders the H1", () => {
-      expect(html).toContain("Alla Dynamics 365-partners i Sverige");
+      expect(html).toContain("Microsoft Dynamics 365-partners på den svenska marknaden");
     });
 
     it("renders every featured partner name", () => {
