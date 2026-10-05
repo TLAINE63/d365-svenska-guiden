@@ -184,6 +184,7 @@ const PartnerUpdate = () => {
  const [loading, setLoading] = useState(true);
  const [submitting, setSubmitting] = useState(false);
  const [submitted, setSubmitted] = useState(false);
+ const finishAfterSaveRef = useRef(true);
  const [error, setError] = useState<string | null>(null);
   const [invitation, setInvitation] = useState<Invitation | null>(null);
   const [existingSlug, setExistingSlug] = useState<string | null>(null);
@@ -1124,8 +1125,12 @@ const PartnerUpdate = () => {
  throw new Error(result.error || "Kunde inte skicka formuläret");
  }
 
- setSubmitted(true);
- toast.success("Tack! Dina uppgifter har skickats in.");
+ if (finishAfterSaveRef.current) {
+   setSubmitted(true);
+   toast.success("Tack! Dina uppgifter har skickats in.");
+ } else {
+   toast.success("Sparat. Du kan fortsätta fylla i formuläret.");
+ }
  } catch (err: any) {
  console.error("Submit error:", err);
  toast.error(err.message || "Ett fel uppstod");
@@ -3169,16 +3174,12 @@ const PartnerUpdate = () => {
  </PremiumCollapsibleSection>
 
  {/* Submit */}
- <div className="flex justify-end gap-4">
- <Button type="submit" disabled={submitting || (activeProducts.length === 0 && selectedSpecialtyProducts.length === 0)} size="lg">
- {submitting ? (
- <>
- <Loader2 className="w-4 h-4 mr-2 animate-spin" />
- Sparar...
- </>
- ) : (
- "Spara och Uppdatera"
- )}
+ <div className="sticky bottom-0 z-20 -mx-4 flex flex-wrap justify-end gap-3 border-t border-border bg-background/95 px-4 py-3 backdrop-blur">
+ <Button type="submit" variant="outline" size="lg" onClick={() => { finishAfterSaveRef.current = false; }} disabled={submitting || (activeProducts.length === 0 && selectedSpecialtyProducts.length === 0)}>
+ {submitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sparar...</> : "Spara och fortsätt"}
+ </Button>
+ <Button type="submit" size="lg" onClick={() => { finishAfterSaveRef.current = true; }} disabled={submitting || (activeProducts.length === 0 && selectedSpecialtyProducts.length === 0)}>
+ {submitting ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sparar...</> : "Spara och avsluta"}
  </Button>
  </div>
  </form>
