@@ -580,6 +580,7 @@ export function render(url: string) {
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<EventDetail initialData={eventInitialData} />} />
               <Route path="/qa" element={<QA />} />
+              <Route path="/kunskapscenter/fragor-och-svar" element={<Navigate to="/qa/" replace />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
               <Route path="/kostnad" element={<Kostnad />} />
