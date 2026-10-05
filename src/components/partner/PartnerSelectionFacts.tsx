@@ -1,7 +1,7 @@
 import { getPartnerSelectionFacts, type SelectionPartner } from "@/lib/partnerSelectionFacts";
 import { nowrapBrand } from "@/lib/nowrapBrand";
-export default function PartnerSelectionFacts({ partner, productKey }: { partner: SelectionPartner; productKey?: string | null }) {
-  const facts = getPartnerSelectionFacts(partner, productKey);
+export default function PartnerSelectionFacts({ partner, productKey, hideLabels }: { partner: SelectionPartner; productKey?: string | null; hideLabels?: string[] }) {
+  const facts = getPartnerSelectionFacts(partner, productKey).filter((f) => !hideLabels?.includes(f.label));
   if (!facts.length) return null;
   return <section data-partner-selection-facts className="my-4 min-w-0 border-t border-border pt-3" aria-label="Registrerade partneruppgifter">
     <h4 className="mb-2 text-xs font-semibold text-foreground">Underlag för ert partnerval</h4>
