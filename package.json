@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs && node scripts/generate-partner-data.mjs",
+    "predev": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs && node scripts/generate-partner-data.mjs && node scripts/generate-site-texts.mjs",
     "dev": "vite",
     "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-partner-data.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs && node scripts/generate-site-texts.mjs",
     "build": "vite build",
