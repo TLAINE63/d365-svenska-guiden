@@ -129,13 +129,17 @@ const D365Sales = () => {
         titleAccent="Verktyget är en sak. Partnern som sätter dina säljprocesser är en annan."
         subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt din specifika modell avgör om det blir din pipeline eller bara ett dyrt CRM. Här jämför du partners som faktiskt levererat Sales i din typ av verksamhet."
         primary={{
-          label: "Jämför Sales-partners",
-          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+          label: "Jämför CRM-partners",
+          to: "/dynamics-365-crm-partners-sverige/",
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365sales/roi-kalkylator/",
+        }}
+        quaternary={{
+          label: "Filtrera fram en passande Sales-partner",
+          href: "#partners",
         }}
       />
 
@@ -349,7 +353,7 @@ const D365Sales = () => {
       <ProductIsvSection product="Sales" />
 
       
-<ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
+<ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
 </main>

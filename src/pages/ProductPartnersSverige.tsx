@@ -47,6 +47,12 @@ function partnersForConfig(cfg: ProductPartnersSverigeConfig) {
       .filter((p) => isSwedenPartner(p, "bc") || isSwedenPartner(p, "fsc") || isSwedenPartner(p, "sales") || isSwedenPartner(p, "service"))
       .sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }
+  if (cfg.productKey === "crm") {
+    return featured
+      .filter((p) => !!p.product_filters?.sales || !!p.product_filters?.service)
+      .filter((p) => isSwedenPartner(p, "sales") || isSwedenPartner(p, "service"))
+      .sort((a, b) => a.name.localeCompare(b.name, "sv"));
+  }
   return featured
     .filter((p) => !!p.product_filters?.[cfg.productKey])
     .filter((p) => isSwedenPartner(p, cfg.productKey))
@@ -65,7 +71,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
   const partners = useMemo(() => partnersForConfig(cfg), [cfg]);
   const canonical = `/${cfg.slug}/`;
-  const basicCount = (basicRoutes as any[]).filter((b) => Array.isArray(b?.products) && b.products.includes(cfg.productKey)).length;
+  const basicCount = (basicRoutes as any[]).filter((b) => Array.isArray(b?.products) && (cfg.productKey === "crm" ? (b.products.includes("sales") || b.products.includes("service")) : b.products.includes(cfg.productKey))).length;
   const fill = (t: string) => t.replace(/\{\{bcVerified\}\}/g, String(partners.length)).replace(/\{\{bcBasic\}\}/g, String(basicCount));
   const faqs = cfg.faq.map((f) => ({ q: f.q, a: fill(resolvePriceTokens(f.a)) }));
   const rows = partners.map((p: any) => {
@@ -261,7 +267,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           eyebrow={cfg.productLabel}
           heading={`Vilka ${cfg.productLabel}-partners passar er?`}
           text="Välj bransch och svara på några korta frågor. Därefter får ni en motiverad kortlista att jämföra vidare."
-          product={cfg.productKey === "bc" ? "Business Central" : cfg.productKey === "fsc" ? "Finance & Supply Chain Management (F&O)" : cfg.slug.includes("customer-insights") ? "Customer Insights (Marketing)" : cfg.slug.includes("field-service") ? "Field Service" : cfg.slug.includes("contact-center") ? "Contact Center" : cfg.slug.includes("customer-service") ? "Customer Service" : cfg.productKey === "sales" ? "Sales" : undefined}
+          product={cfg.productKey === "bc" ? "Business Central" : cfg.productKey === "fsc" ? "Finance & Supply Chain Management (F&O)" : cfg.slug.includes("customer-insights") ? "Customer Insights (Marketing)" : cfg.slug.includes("field-service") ? "Field Service" : cfg.slug.includes("contact-center") ? "Contact Center" : cfg.slug.includes("customer-service") ? "Customer Service" : cfg.productKey === "crm" ? "CRM" : undefined}
           source={`product-partners:${cfg.slug}`}
           secondaryLabel="Jämför partners direkt"
           secondaryTo="/jamfor-partners/"

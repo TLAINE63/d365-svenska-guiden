@@ -221,7 +221,7 @@ const CRM = () => {
   subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper dig hitta dem som faktiskt levererat det du behöver."
   primary={{
     label: "Jämför CRM-partners",
-    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+    to: "/dynamics-365-crm-partners-sverige/",
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   tertiary={{
@@ -788,7 +788,7 @@ const CRM = () => {
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  
-<ContextualCta source="next-step:crm" heading="Har ni en bild av vilken CRM-del ni behöver?" text="Sales, Customer Service eller Marketing? Guiden hjälper er välja och visar partners som passar." primaryLabel="Få rekommenderad partnerlista" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+<ContextualCta source="next-step:crm" heading="Har ni en bild av vilken CRM-del ni behöver?" text="Sales, Customer Service eller Marketing? Guiden hjälper er välja och visar partners som passar." primaryLabel="Få rekommenderad partnerlista" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
       </main>

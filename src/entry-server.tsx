@@ -514,6 +514,11 @@ export function render(url: string) {
               <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<Navigate to="/affarssystem/" replace />} />
+              <Route path="/dynamics-365-sales-partners-sverige" element={<Navigate to="/dynamics-365-crm-partners-sverige/" replace />} />
+              <Route path="/dynamics-365-marketing-partners-sverige" element={<Navigate to="/dynamics-365-crm-partners-sverige/" replace />} />
+              <Route path="/dynamics-365-customer-service-partners-sverige" element={<Navigate to="/dynamics-365-crm-partners-sverige/" replace />} />
+              <Route path="/dynamics-365-field-service-partners-sverige" element={<Navigate to="/dynamics-365-crm-partners-sverige/" replace />} />
+              <Route path="/dynamics-365-contact-center-partners-sverige" element={<Navigate to="/dynamics-365-crm-partners-sverige/" replace />} />
               <Route path="/affarssystem" element={<ERPOverview />} />
               
               <Route path="/copilot" element={<Copilot />} />

@@ -230,11 +230,12 @@ const AppShell = () => {
           <Route path="/partners-sitemap" element={<PartnersSitemap />} />
           <Route path="/business-central-partners-sverige" element={<ProductPartnersSverige configSlug="business-central-partners-sverige" />} />
           <Route path="/finance-supply-chain-partners-sverige" element={<ProductPartnersSverige configSlug="finance-supply-chain-partners-sverige" />} />
-          <Route path="/dynamics-365-sales-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-sales-partners-sverige" />} />
-          <Route path="/dynamics-365-marketing-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-marketing-partners-sverige" />} />
-          <Route path="/dynamics-365-customer-service-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-customer-service-partners-sverige" />} />
-          <Route path="/dynamics-365-field-service-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-field-service-partners-sverige" />} />
-          <Route path="/dynamics-365-contact-center-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-contact-center-partners-sverige" />} />
+          <Route path="/dynamics-365-crm-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-crm-partners-sverige" />} />
+          <Route path="/dynamics-365-sales-partners-sverige" element={<RedirectTo to="/dynamics-365-crm-partners-sverige/" />} />
+          <Route path="/dynamics-365-marketing-partners-sverige" element={<RedirectTo to="/dynamics-365-crm-partners-sverige/" />} />
+          <Route path="/dynamics-365-customer-service-partners-sverige" element={<RedirectTo to="/dynamics-365-crm-partners-sverige/" />} />
+          <Route path="/dynamics-365-field-service-partners-sverige" element={<RedirectTo to="/dynamics-365-crm-partners-sverige/" />} />
+          <Route path="/dynamics-365-contact-center-partners-sverige" element={<RedirectTo to="/dynamics-365-crm-partners-sverige/" />} />
           <Route path="/dynamics-365-ai-copilot-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-ai-copilot-partners-sverige" />} />
           <Route path="/rapporter/dynamics-365-partnersverige-2026" element={<PartnerMarketReport2026 />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />

@@ -295,13 +295,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://d365.se/dynamics-365-sales-partners-sverige/</loc>
-    <lastmod>2026-10-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/dynamics-365-marketing-partners-sverige/</loc>
+    <loc>https://d365.se/dynamics-365-crm-partners-sverige/</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -319,34 +313,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://d365.se/dynamics-365-customer-service-partners-sverige/</loc>
-    <lastmod>2026-10-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://d365.se/d365fieldservice/</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://d365.se/dynamics-365-field-service-partners-sverige/</loc>
-    <lastmod>2026-10-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://d365.se/d365contactcenter/</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/dynamics-365-contact-center-partners-sverige/</loc>
-    <lastmod>2026-10-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://d365.se/dynamics-365-ai-copilot-partners-sverige/</loc>
