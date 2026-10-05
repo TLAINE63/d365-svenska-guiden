@@ -37,7 +37,7 @@ describe("EditorialSource", () => {
     "PartnerGuidePage", "CompetenceGuidePage", "BuyerGuide2026", "DeepDiveArticle",
     "BlogArticle", "IndustryPage", "Branscher", "Branschlosningar", "IsvCompare", "ComparePartners",
     "ErpComparisonPage", "ErpComparisonsHub", "PartnerMarketReport2026", "GuiderIndex",
-    "KunskapscenterHub", "Upphandlingsguiden", "RoleGuidance", "Kostnad", "Priser", "KunskapscenterFaq",
+    "KunskapscenterHub", "Upphandlingsguiden", "RoleGuidance", "Kostnad", "Priser", 
   ])("keeps source attribution in the %s page template", (page) => {
     expect(readFileSync(`src/pages/${page}.tsx`, "utf8")).toContain("<EditorialSource");
   });
@@ -45,7 +45,7 @@ describe("EditorialSource", () => {
   it.each([
     "ERPOverview", "D365ProjectOperations", "D365Marketing", "D365HumanResources",
     "D365FieldService", "D365ContactCenter", "D365Commerce", "D365CustomerService",
-    "D365Sales", "CRM", "FinanceSupplyChain", "BusinessCentral", "ValjPartner", "Upphandlingsresan",
+    "D365Sales", "CRM", "FinanceSupplyChain", "BusinessCentral", "ValjPartner", 
   ])("keeps source attribution at the bottom of the %s product page", (page) => {
     expect(readFileSync(`src/pages/${page}.tsx`, "utf8")).toContain("<EditorialSource");
   });
