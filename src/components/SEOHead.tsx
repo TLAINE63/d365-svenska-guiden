@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { pageReviewDate } from "@/data/pageReviewDates";
 import { useLocation } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
 import { buildSeoTitle } from "@/lib/seoTitle";
@@ -85,8 +86,11 @@ const SEOHead = ({
         inLanguage: "sv-SE",
         isPartOf: { "@id": `${baseUrl}/#website` },
         primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
-        publisher: { "@id": `${baseUrl}/#organization` },
-        ...(dateModified ? { dateModified } : {}),
+        "@id": `${canonicalUrl}#webpage`,
+        mainEntityOfPage: canonicalUrl,
+        author: { "@type": "Organization", name: "d365.se-redaktionen", url: `${baseUrl}/om-oss/`, parentOrganization: { "@id": `${baseUrl}/#organization` } },
+        publisher: { "@type": "Organization", "@id": `${baseUrl}/#organization`, name: "d365.se", url: baseUrl },
+        ...((dateModified ?? pageReviewDate(trailingPath)) ? { dateModified: dateModified ?? pageReviewDate(trailingPath) } : {}),
       }
     : null;
 
