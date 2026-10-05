@@ -18,6 +18,7 @@ import {
 import { BUYER_SIDE_DESCRIPTION, BUYER_SIDE_EXPLAINER, BUYER_SIDE_LINK_TEXT } from "@/data/organization";
 import { useEffect, useState } from "react";
 import { scrollElementIntoView } from "@/lib/anchorScroll";
+import { FAQ_TOPICS, ALL_FAQ_ITEMS } from "@/data/faqTopics";
 
 const QA = () => {
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
@@ -143,13 +144,16 @@ const QA = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Vanliga frågor om Microsoft Dynamics 365 – FAQ"
-        description="Vanliga frågor om Microsoft Dynamics 365: tid, licenskostnader, BC vs Finance och CRM-val. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        title="Vanliga frågor om Dynamics 365, affärssystem och partnerval"
+        description="Svar på vanliga frågor om Microsoft Dynamics 365, affärssystem och CRM: kostnad, licenser, tidplan, partnerval och förvaltning. Köparsidig vägledning från d365.se."
         canonicalPath="/qa"
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"
       />
-      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) }))} />
+      <FAQSchema faqs={[
+        ...faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) })),
+        ...ALL_FAQ_ITEMS.filter(i => !faqs.some(f => f.question === i.question)),
+      ]} />
       <BreadcrumbSchema items={[
         { name: "Hem", url: "https://d365.se" },
         { name: "Vanliga frågor", url: "https://d365.se/qa" },
