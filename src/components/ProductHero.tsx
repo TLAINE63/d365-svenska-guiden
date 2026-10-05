@@ -82,6 +82,7 @@ const ProductHero = ({
   primary,
   secondary,
   tertiary,
+  quaternary,
   photo,
   photoAlt,
 }: ProductHeroProps) => {
