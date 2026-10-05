@@ -1,3 +1,6 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -123,6 +126,8 @@ const D365ContactCenter = () => {
           Lösningen passar både rena callcenter och bredare kundserviceorganisationer som vill konsolidera kanaler, sänka samtalstider och låta AI ta hand om den enkla volymen – men design av röstflöden, kunskapsbas och integrationer avgör hur stort lyftet faktiskt blir.
         </p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="contact" />
+      <EditorialAssessment assessment="contact" />
 
 
       {/* Introduction Section */}
@@ -316,6 +321,7 @@ const D365ContactCenter = () => {
 
       </main>
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );

@@ -1,3 +1,4 @@
+import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -150,8 +151,9 @@ const D365Sales = () => {
         <p>Inbyggd AI via Microsoft Copilot och nya autonoma säljagenter sammanfattar mejlkonversationer, förbereder mötesunderlag, föreslår rätt budskap baserat på affärsläge och kan till och med kvalificera inkommande leads och boka in möten på egen hand. Resultatet är mer kvalitativ säljtid, snabbare offertprocesser, bättre prognosprecision och en pipeline som faktiskt speglar verkligheten.</p>
         <p>Det blir riktigt vasst när partnern modellerar din specifika säljprocess, dina kvalificeringskriterier och dina nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela din säljorganisation.</p>
       </ShortAnswer>
-
+      <BuyerFitSection fitKey="sales" />
       <EditorialAssessment assessment="sales" />
+
 
       {/* Introduction Section */}
       <section className="pt-0 pb-8 sm:pb-12 md:pb-12 bg-background">

@@ -1,3 +1,6 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
 import ProductIsvSection from "@/components/ProductIsvSection";
@@ -135,6 +138,8 @@ const D365CustomerService = () => {
           Lösningen passar lika väl volymdriven konsumentsupport som komplex B2B-service med avtalsstyrning, och växer sömlöst tillsammans med Dynamics 365 Sales, Field Service och Contact Center i samma datamodell. Men hur partnern designar ärendeflöden, SLA:er, kunskapsstruktur och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker och kundnöjdheten lyfter.
         </p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="service" />
+      <EditorialAssessment assessment="service" />
 
 
       {/* Introduction Section */}
@@ -374,6 +379,7 @@ const D365CustomerService = () => {
 </main>
       <BasicProfilesDirectory products={["service"]} />
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );

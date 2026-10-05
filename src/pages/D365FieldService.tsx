@@ -1,3 +1,6 @@
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -122,6 +125,8 @@ const D365FieldService = () => {
           Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen – förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
         </p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="field" />
+      <EditorialAssessment assessment="field" />
 
 
       {/* Introduction Section */}
@@ -315,6 +320,7 @@ const D365FieldService = () => {
 
       </main>
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );
