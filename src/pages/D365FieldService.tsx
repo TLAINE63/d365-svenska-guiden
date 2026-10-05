@@ -102,13 +102,17 @@ const D365FieldService = () => {
         title="Dynamics 365 Field Service – planering, mobilitet och integration med ERP"
         subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som kan höja andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför du partners som faktiskt levererat Field Service i din bransch."
         primary={{
-          label: "Jämför FS-partners",
-          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+          label: "Jämför CRM-partners",
+          to: "/dynamics-365-crm-partners-sverige/",
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365fieldservice/roi-kalkylator/",
+        }}
+        quaternary={{
+          label: "Filtrera fram en passande Field Service-partner",
+          href: "#partners",
         }}
       />
 

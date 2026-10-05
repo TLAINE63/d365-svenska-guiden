@@ -100,13 +100,17 @@ const D365ContactCenter = () => {
         titleAccent="Omnichannel är inte plug-and-play. Partnervalet avgör projektframgången."
         subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma – men hur partnern designar röstflöden, automatiseringen och anpassningarna till dina branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför du partners som faktiskt levererat Contact Center i din bransch och samtalsvolym."
         primary={{
-          label: "Jämför CC-partners",
-          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+          label: "Jämför CRM-partners",
+          to: "/dynamics-365-crm-partners-sverige/",
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365contactcenter/roi-kalkylator/",
+        }}
+        quaternary={{
+          label: "Filtrera fram en passande Contact Center-partner",
+          href: "#partners",
         }}
       />
 
