@@ -201,7 +201,11 @@ export function useIsvSolutions(): IsvSolution[] {
     const merged = dbSolutions.length
       ? [...dbSolutions, ...staticWithModel.filter((s) => !dbIds.has(s.id))]
       : staticWithModel;
-    return applyIsvOverrides(merged, overrides);
-
+    // Power BI och Microsoft Fabric är Microsofts plattformsprodukter, inte
+    // ISV-tillägg – de ska inte synas i eller räknas in i ISV-katalogen.
+    return applyIsvOverrides(
+      merged.filter((s) => !NON_ISV_PLATFORM_IDS.has(s.id)),
+      overrides
+    );
   }, [overrides, dbSolutions]);
 }
