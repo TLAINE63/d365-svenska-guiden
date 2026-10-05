@@ -137,7 +137,7 @@ function useSectionView(eventName: string, partnerSlug?: string | null) {
 function formatOverviewDate(value: string | null | undefined): string | null {
   if (!value) return null;
   const m = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  return m ? `${m[1]}/${m[2]}/${m[3]}` : null;
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
 }
 
 const Partnerprogram = () => {
@@ -311,7 +311,8 @@ const Partnerprogram = () => {
               däremot göra det möjligt för d365.se att bedöma er relevans mer precist.
             </p>
             <div className="mt-5 flex flex-col gap-2 max-w-2xl">
-              {overviewDates.published && (
+              {overviewDates.published &&
+                (!overviewDates.deadline || overviewDates.published > overviewDates.deadline) && (
                 <p className="text-sm font-medium text-foreground border-l-4 border-primary pl-3">
                   Partneröversikt {new Date().getFullYear()} publiceras {overviewDates.published}.
                 </p>
