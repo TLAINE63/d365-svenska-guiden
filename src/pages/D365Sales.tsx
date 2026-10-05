@@ -1,4 +1,5 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
+import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -35,7 +36,6 @@ const salesBreadcrumbs = [
   { name: "Dynamics 365 Sales", url: "https://d365.se/d365sales" },
 ];
 import {
-import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
