@@ -14,7 +14,7 @@ const ELIGIBLE_PREFIXES = [
   "/implementationskalkylator",
   "/roi",
   "/branschlosningar",
-  "/erp",
+  "/affarssystem",
   "/affarssystem",
 ];
 

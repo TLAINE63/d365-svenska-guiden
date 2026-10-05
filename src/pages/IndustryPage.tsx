@@ -380,7 +380,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  )}
           <p className="mt-3 text-xs md:text-sm text-muted-foreground max-w-3xl leading-relaxed">
             Välj applikation och partner utifrån branschens processer, inte bara efter produktnamn. Läs mer om{" "}
-            <Link to="/erp/" className="text-primary hover:underline font-medium">
+            <Link to="/affarssystem/" className="text-primary hover:underline font-medium">
               pris, funktioner och implementationstid
             </Link>{" "}
             innan du jämför partners nedan.

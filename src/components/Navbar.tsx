@@ -19,7 +19,7 @@ import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 
 const Navbar = () => {
   const erpItems = [
-    { label: "Business Central vs Finance & Supply Chain Management", path: "/erp" },
+    { label: "Business Central vs Finance & Supply Chain Management", path: "/affarssystem" },
     { label: "Business Central", path: "/businesscentral" },
     { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
     { label: "Project Operations", path: "/d365projectoperations" },

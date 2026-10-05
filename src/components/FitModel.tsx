@@ -29,7 +29,7 @@ export default function FitModel({ model, heading }: { model: FitModelKey; headi
         <Button asChild variant="outline" className="mt-4"><Link to={`/underlag/?area=${model}`}>Ta vidare prioriteringarna i Min D365-plan</Link></Button>
         <nav aria-label="Relaterade beslutsmodeller" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-primary">
           {model !== "partner" && <Link className="underline underline-offset-4" to="/alla-d365-partners/#d365-partner-fit-model">Partner Fit Model</Link>}
-          {model !== "erp" && <Link className="underline underline-offset-4" to="/erp/#d365-erp-fit-model">ERP Fit Model</Link>}
+          {model !== "erp" && <Link className="underline underline-offset-4" to="/affarssystem/#d365-erp-fit-model">ERP Fit Model</Link>}
           {model !== "crm" && <Link className="underline underline-offset-4" to="/crm/#d365-crm-fit-model">CRM Fit Model</Link>}
         </nav>
         </details>

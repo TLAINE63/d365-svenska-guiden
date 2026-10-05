@@ -23,7 +23,7 @@ const PARTNER_DATA = resolve(process.cwd(), "src/data/partnerData.json");
 
 export const CRITICAL_ROUTES = [
   "/",
-  "/erp",
+  "/affarssystem",
   "/businesscentral",
   "/priser",
   "/kom-igang",

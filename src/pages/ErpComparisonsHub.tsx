@@ -44,7 +44,7 @@ const ErpComparisonsHub = () => {
               jämförelser totalt.
             </p>
             <p className="text-sm text-white/70 mt-3">
-              Vill du gå djupare? Se <Link to="/businesscentral/" className="text-white underline hover:text-white/80">Business Central ERP</Link> med priser, funktioner och svenska partners, eller <Link to="/erp/" className="text-white underline hover:text-white/80">ERP-guiden</Link> för jämförelsen mellan BC och Finance & Supply Chain Management.
+              Vill du gå djupare? Se <Link to="/businesscentral/" className="text-white underline hover:text-white/80">Business Central ERP</Link> med priser, funktioner och svenska partners, eller <Link to="/affarssystem/" className="text-white underline hover:text-white/80">ERP-guiden</Link> för jämförelsen mellan BC och Finance & Supply Chain Management.
             </p>
           </div>
         </section>

@@ -21,7 +21,7 @@ import EditorialSource from "@/components/EditorialSource";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+  { name: "Affärssystem (ERP)", url: "https://d365.se/affarssystem/" },
   { name: "Dynamics 365 Project Operations", url: "https://d365.se/d365projectoperations" },
 ];
 

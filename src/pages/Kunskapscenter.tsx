@@ -193,7 +193,7 @@ const STATIC_TOOLS: Array<{
  title: "Branschjämförelse: BC vs Finance & Supply Chain Management (F&O)",
  description: "Jämför Business Central och Finance & Supply Chain Management utifrån bransch, storlek och geografi.",
  type: "guide",
- url: "/erp/#branschjamforelse",
+ url: "/affarssystem/#branschjamforelse",
  image_url: branschjamforelseImage,
  icon: Wrench,
  products: ["Business Central", "Finance & SCM"],

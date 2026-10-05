@@ -57,7 +57,7 @@ const SITE_ENC = encodeURIComponent(SITE);
 const PILLARS: { label: string; path: string; intent: string }[] = [
   { label: "Hub (Partner)",     path: "/",                intent: "BOFU / partnerval" },
   { label: "Affärssystem (TOFU)", path: "/affarssystem/", intent: "TOFU – vad är affärssystem" },
-  { label: "ERP (MOFU)",         path: "/erp/",            intent: "MOFU – BC vs F&SCM" },
+  { label: "ERP (MOFU)",         path: "/affarssystem/",            intent: "MOFU – BC vs F&SCM" },
   { label: "Business Central",   path: "/businesscentral/", intent: "BOFU – produkt" },
 ];
 

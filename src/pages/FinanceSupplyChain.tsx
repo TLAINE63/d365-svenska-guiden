@@ -49,7 +49,7 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 // Breadcrumb items
 const fscBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
- { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+ { name: "Affärssystem (ERP)", url: "https://d365.se/affarssystem/" },
  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
 ];
 import {

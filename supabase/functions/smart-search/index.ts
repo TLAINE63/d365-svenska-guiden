@@ -18,7 +18,7 @@ const ROUTES = [
   { path: '/d365contactcenter', label: 'Contact Center – omnikanal kundtjänst, telefoni' },
   { path: '/business-central', label: 'Business Central – ERP för mindre och medelstora företag, ekonomi, lager' },
   { path: '/finance-supply-chain', label: 'Finance & Supply Chain Management – ERP för stora bolag, ekonomi, supply chain, produktion' },
-  { path: '/erp', label: 'ERP-jämförelse: Business Central vs Finance & SCM' },
+  { path: '/affarssystem', label: 'ERP-jämförelse: Business Central vs Finance & SCM' },
   { path: '/aioversikt', label: 'AI med Copilot och AI-agenter i Dynamics 365' },
   { path: '/ai-readiness', label: 'AI Readiness Assessment – mät AI-mognad' },
   { path: '/copilot', label: 'Microsoft Copilot i Dynamics 365' },
