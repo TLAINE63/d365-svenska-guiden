@@ -14,6 +14,7 @@ import basicRoutes from "@/data/basicPartnerRoutes.json";
 import { getPartnerSelectionFacts } from "@/lib/partnerSelectionFacts";
 import { MISSING_TEXT } from "@/components/partner/PartnerSelectionFacts";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import { optimizedLogo } from "@/lib/optimizedLogo";
 import {
   PRODUCT_PARTNERS_SVERIGE,
   findProductPartnersSverigeConfig,
@@ -102,6 +103,9 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
               <span className="mx-2">/</span>
               <span aria-current="page">{cfg.h1}</span>
             </nav>
+            <span className="block text-xs font-bold uppercase tracking-[0.2em] text-accent mb-3">
+              Partnerguiden
+            </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {cfg.h1}
             </h1>
@@ -127,7 +131,16 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                   <thead><tr className="border-b border-border bg-muted"><th scope="col" className="p-2 sm:p-3">Partner</th><th scope="col" className="p-2 sm:p-3">Orter</th><th scope="col" className="p-2 sm:p-3">Branscher</th><th scope="col" className="p-2 sm:p-3">Typisk kundstorlek</th><th scope="col" className="p-2 sm:p-3">Profiltyp</th></tr></thead>
                   <tbody>{rows.map(({ p, cities, industries, size }) => (
                     <tr key={p.id} className="border-b border-border align-top">
-                      <th scope="row" className="p-2 sm:p-3 font-semibold"><Link to={`/partner/${p.slug}/`} className="text-foreground hover:text-primary underline-offset-4 hover:underline">{p.name}</Link></th>
+                      <th scope="row" className="p-2 sm:p-3 font-semibold">
+                        <Link to={`/partner/${p.slug}/`} className="flex items-center gap-3 text-foreground hover:text-primary underline-offset-4 hover:underline">
+                          {p.logo_url && (
+                            <span className="flex h-9 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-card p-1">
+                              <img src={optimizedLogo(p.logo_url, 128)} alt="" loading="lazy" className="max-h-7 max-w-full object-contain" />
+                            </span>
+                          )}
+                          {p.name}
+                        </Link>
+                      </th>
                       <td className="p-2 sm:p-3 text-muted-foreground">{cities}</td>
                       <td className="p-2 sm:p-3 text-muted-foreground">{nowrapBrand(industries)}</td>
                       <td className="p-2 sm:p-3 text-muted-foreground">{size}</td>
