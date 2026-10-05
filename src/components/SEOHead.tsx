@@ -5,6 +5,8 @@ import { buildSeoTitle } from "@/lib/seoTitle";
 
 interface SEOHeadProps {
   title: string;
+  /** Endast när en exakt beslutad titel är längre än standardgränsen. */
+  titleMaxLength?: number;
   description: string;
   canonicalPath?: string;
   keywords?: string;
@@ -31,6 +33,7 @@ interface SEOHeadProps {
 
 const SEOHead = ({
   title,
+  titleMaxLength,
   description,
   canonicalPath,
   keywords,
@@ -67,7 +70,7 @@ const SEOHead = ({
   const resolvedPath = canonicalPath ?? pathname ?? "/";
   const trailingPath = resolvedPath.endsWith("/") ? resolvedPath : `${resolvedPath}/`;
   const canonicalUrl = `${baseUrl}${trailingPath}`;
-  const fullTitle = buildSeoTitle(title);
+  const fullTitle = buildSeoTitle(title, titleMaxLength);
 
   const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${baseUrl}${ogImage}`;
   const isArticle = ogType === "article";
