@@ -540,11 +540,18 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
                   </article>
                 )}
               </div>
-              <p className="mt-4 text-[11px] leading-snug text-muted-foreground">
-                Bedömningen bygger på d365.se:s analysmodell och AI-assisterade genomgång av
-                partnerdata och publika källor. Den är jämförbar mellan partnerprofiler, är inte
-                verifierade fakta och är inte granskad eller godkänd av partnern.
-              </p>
+              {isEditorialReviewed(partner.slug) ? (
+                <EditorialReviewNote
+                  slug={partner.slug}
+                  className="mt-4 text-[11px] leading-snug text-muted-foreground"
+                />
+              ) : (
+                <p className="mt-4 text-[11px] leading-snug text-muted-foreground">
+                  Bedömningen bygger på d365.se:s analysmodell och AI-assisterade genomgång av
+                  partnerdata och publika källor. Den är jämförbar mellan partnerprofiler, är inte
+                  verifierade fakta och är inte granskad eller godkänd av partnern.
+                </p>
+              )}
             </div>
           )}
         </div>

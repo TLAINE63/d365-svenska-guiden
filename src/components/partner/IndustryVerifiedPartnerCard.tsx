@@ -265,9 +265,10 @@ export default function IndustryVerifiedPartnerCard({
           )}
 
           {assessment && (
-            <p className="mt-auto pt-5 text-[10px] leading-snug text-muted-foreground">
-              AI-assisterad sammanställning. Kan innehålla fel och är inte granskad av partnern.
-            </p>
+            <EditorialReviewNote
+              slug={partner.slug}
+              className="mt-auto pt-5 text-[10px] leading-snug text-muted-foreground"
+            />
           )}
         </aside>
       </div>

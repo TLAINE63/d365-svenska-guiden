@@ -129,11 +129,18 @@ const PartnerAiInsights = ({ partner }: Props) => {
               </ul>
             )}
 
-            <p className="text-[11px] leading-snug text-muted-foreground">
-              Texten är framtagen med AI. Partnerns egen profilinformation väger tyngst och
-              kompletteras med strukturerade uppgifter och publika källor. Analysen kan innehålla
-              fel och är inte granskad eller godkänd av partnern.
-            </p>
+            {isEditorialReviewed(partner.slug) ? (
+              <EditorialReviewNote
+                slug={partner.slug}
+                className="text-[11px] leading-snug text-muted-foreground"
+              />
+            ) : (
+              <p className="text-[11px] leading-snug text-muted-foreground">
+                Texten är framtagen med AI. Partnerns egen profilinformation väger tyngst och
+                kompletteras med strukturerade uppgifter och publika källor. Analysen kan innehålla
+                fel och är inte granskad eller godkänd av partnern.
+              </p>
+            )}
 
             {hasDeepDive && (
               <details
