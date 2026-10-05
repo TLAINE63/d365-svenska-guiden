@@ -55,7 +55,8 @@ const ErpComparisonsHub = () => {
               const items = getComparisonsByProduct(group.key);
               if (items.length === 0) return null;
               return (
-                <div key={group.key}>
+                <div key={group.key} id={group.key === "sales" ? "crm" : group.key} className="scroll-mt-24">
+                  {group.key === "sales" && <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">CRM: sälj, marknad, kundservice, kontaktcenter och fältservice</p>}
                   <div className="mb-5">
                     <h2 className="text-2xl font-bold text-foreground">{group.label}</h2>
                     <p className="text-sm text-muted-foreground">{group.description}</p>
