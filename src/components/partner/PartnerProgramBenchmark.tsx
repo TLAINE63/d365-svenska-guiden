@@ -328,35 +328,36 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             )}
           </article>
 
-          {/* Höger: profilerad referens */}
-          <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-accent/30 bg-card shadow-[0_20px_60px_-25px_hsl(var(--accent)/0.45)] ring-1 ring-accent/20">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-primary to-accent" />
-            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl" />
+          {/* Höger: profilerad referens – premiumkort med mörk gradient */}
+          <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(215,45%,14%)] via-[hsl(200,55%,16%)] to-[hsl(185,65%,18%)] text-white shadow-[0_30px_80px_-20px_hsl(200_70%_20%/0.6)] ring-1 ring-white/15">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[hsl(var(--accent))] via-[hsl(var(--cta-orange))] to-[hsl(var(--accent))]" />
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[hsl(var(--accent))]/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl" />
             <div className="relative flex flex-1 flex-col p-6 pt-7">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 {reference?.logo_url && (
-                  <img
-                    src={optimizedLogo(reference.logo_url)}
-                    alt={`${reference.name} logotyp`}
-                    loading="lazy"
-                    className={`h-14 w-14 shrink-0 rounded-lg object-contain p-1.5 shadow-sm ring-1 ring-border ${
-                      reference.logo_dark_bg ? "bg-foreground" : "bg-background"
-                    }`}
-                  />
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white/95 p-2 shadow-lg ring-1 ring-white/40 backdrop-blur">
+                    <img
+                      src={optimizedLogo(reference.logo_url)}
+                      alt={`${reference.name} logotyp`}
+                      loading="lazy"
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
                 )}
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--accent))] brightness-150">
                     Exempel på profilerad partner
                   </p>
-                  <h3 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
+                  <h3 className="mt-1 text-2xl font-semibold tracking-tight text-white">
                     {reference?.name ?? "Referensprofil"}
                   </h3>
                 </div>
               </div>
               <VerifiedPartnerBadge size="sm" />
             </div>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-xs text-white/60">
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.
             </p>
@@ -366,59 +367,62 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             {reference && (
               <div className="mt-5 space-y-4 text-sm">
                 {reference.positioning_statement && (
-                  <p className="text-foreground">{reference.positioning_statement}</p>
+                  <p className="text-white/90">{reference.positioning_statement}</p>
                 )}
                 <div>
-                  <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                     Produktområden
                   </p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
                     {Object.keys(reference.product_filters || {}).map((k) => (
-                      <Badge key={k} variant="secondary" className="text-[11px]">
+                      <span
+                        key={k}
+                        className="rounded-full border border-white/25 bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur"
+                      >
                         {PRODUCT_LABEL[k as ProductKey] ?? k.toUpperCase()}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 </div>
                 {!!refFilter?.industries?.length && (
                   <div>
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                       Branscher
                     </p>
-                    <p className="mt-1 text-foreground/80">{refFilter.industries.join(" · ")}</p>
+                    <p className="mt-1 text-white/85">{refFilter.industries.join(" · ")}</p>
                   </div>
                 )}
                 {(!!refFilter?.companySize?.length || !!refFilter?.geography?.length) && (
                   <div className="grid grid-cols-2 gap-3">
                     {!!refFilter?.companySize?.length && (
                       <div>
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                           Kundstorlek
                         </p>
-                        <p className="mt-1 text-foreground/80">
+                        <p className="mt-1 text-white/85">
                           {refFilter.companySize.join(", ")} anställda
                         </p>
                       </div>
                     )}
                     {!!refFilter?.geography?.length && (
                       <div>
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                           Geografi
                         </p>
-                        <p className="mt-1 text-foreground/80">{refFilter.geography.join(", ")}</p>
+                        <p className="mt-1 text-white/85">{refFilter.geography.join(", ")}</p>
                       </div>
                     )}
                   </div>
                 )}
                 {!!reference.best_fit_for?.length && (
                   <div>
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                       Passar bäst för
                     </p>
                     <ul className="mt-1 space-y-1">
                       {reference.best_fit_for.slice(0, 3).map((b: string) => (
-                        <li key={b} className="flex gap-2 text-foreground/80">
-                          <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+                        <li key={b} className="flex gap-2 text-white/85">
+                          <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent))] brightness-150" aria-hidden />
                           <span>{b}</span>
                         </li>
                       ))}
@@ -427,18 +431,18 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                 )}
                 {!!reference.not_a_fit?.length && (
                   <div>
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                       Mindre lämplig för
                     </p>
-                    <p className="mt-1 text-muted-foreground">{reference.not_a_fit[0]}</p>
+                    <p className="mt-1 text-white/65">{reference.not_a_fit[0]}</p>
                   </div>
                 )}
                 {reference.ai_summary_full && (
-                  <div>
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <div className="rounded-lg border border-white/15 bg-white/5 p-3 backdrop-blur">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                       d365.se:s analys
                     </p>
-                    <p className="mt-1 line-clamp-4 text-foreground/80">
+                    <p className="mt-1 line-clamp-4 text-white/85">
                       {reference.ai_summary_full}
                     </p>
                   </div>
@@ -447,28 +451,28 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                   <div className="grid grid-cols-2 gap-3">
                     {reference.team_size_sweden && (
                       <div>
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                           Team i Sverige
                         </p>
-                        <p className="mt-1 text-foreground/80">{reference.team_size_sweden}</p>
+                        <p className="mt-1 text-white/85">{reference.team_size_sweden}</p>
                       </div>
                     )}
                     {reference.implementations_done && (
                       <div>
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                           Implementationer
                         </p>
-                        <p className="mt-1 text-foreground/80">{reference.implementations_done}</p>
+                        <p className="mt-1 text-white/85">{reference.implementations_done}</p>
                       </div>
                     )}
                   </div>
                 )}
                 {!!reference.customer_examples?.length && (
                   <div>
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-white/55">
                       Kundexempel
                     </p>
-                    <p className="mt-1 text-foreground/80">
+                    <p className="mt-1 text-white/85">
                       {reference.customer_examples
                         .slice(0, 5)
                         .map((c: any) => (typeof c === "string" ? c : c?.name))
@@ -478,7 +482,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                   </div>
                 )}
                 {!!reference.office_cities?.length && (
-                  <p className="flex items-center gap-1.5 text-muted-foreground">
+                  <p className="flex items-center gap-1.5 text-white/65">
                     <MapPin className="h-4 w-4 shrink-0" aria-hidden />
                     {reference.office_cities.slice(0, 5).join(" · ")}
                   </p>
@@ -486,14 +490,17 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                 {!!reference.ai_tags?.length && (
                   <div className="flex flex-wrap gap-1.5">
                     {reference.ai_tags.slice(0, 8).map((t: string) => (
-                      <Badge key={t} variant="outline" className="text-[11px] font-normal">
+                      <span
+                        key={t}
+                        className="rounded-full border border-white/20 px-2.5 py-1 text-[11px] text-white/75"
+                      >
                         {t}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 )}
 
-                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                <div className="flex flex-wrap gap-3 text-xs text-white/65">
                   {reference.contact_person && (
                     <span className="inline-flex items-center gap-1.5">
                       <User className="h-3.5 w-3.5" aria-hidden />
@@ -517,7 +524,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             {reference && (
               <Button
                 asChild
-                className="mt-6 self-start"
+                className="mt-6 self-start bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
                 onClick={() =>
                   trackFunnelEvent({
                     event_type: "cta_click",
