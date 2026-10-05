@@ -129,13 +129,17 @@ const D365Sales = () => {
         titleAccent="Verktyget är en sak. Partnern som sätter dina säljprocesser är en annan."
         subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt din specifika modell avgör om det blir din pipeline eller bara ett dyrt CRM. Här jämför du partners som faktiskt levererat Sales i din typ av verksamhet."
         primary={{
-          label: "Jämför Sales-partners",
-          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+          label: "Jämför CRM-partners",
+          to: "/dynamics-365-crm-partners-sverige/",
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
         tertiary={{
           label: "Gör en estimerad TCO/ROI-kalkyl",
           to: "/d365sales/roi-kalkylator/",
+        }}
+        quaternary={{
+          label: "Filtrera fram en passande Sales-partner",
+          href: "#partners",
         }}
       />
 

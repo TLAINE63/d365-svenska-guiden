@@ -221,7 +221,7 @@ const CRM = () => {
   subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper dig hitta dem som faktiskt levererat det du behöver."
   primary={{
     label: "Jämför CRM-partners",
-    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+    to: "/dynamics-365-crm-partners-sverige/",
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
   tertiary={{
