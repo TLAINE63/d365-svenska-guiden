@@ -1,4 +1,5 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
+import EditorialSource from "@/components/EditorialSource";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -33,7 +34,6 @@ const customerServiceBreadcrumbs = [
   { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365customerservice" },
 ];
 import {
-import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,

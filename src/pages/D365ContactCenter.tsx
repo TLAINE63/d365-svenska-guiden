@@ -1,4 +1,5 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
@@ -31,7 +32,6 @@ const contactCenterBreadcrumbs = [
   { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365contactcenter" },
 ];
 import {
-import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
