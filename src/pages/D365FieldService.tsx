@@ -326,7 +326,7 @@ const D365FieldService = () => {
       </main>
       <ContextualCta source="next-step:d365fieldservice" heading="Passar Field Service er serviceverksamhet?" text="Pröva behovet mot er planering, era tekniker och ert affärssystem innan ni väljer partner." primaryLabel="Få hjälp att hitta rätt partner" product="Field Service" links={[{ label: "Hur väljer ni fältservicesystem?", to: "/faltservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
-      <SourcesAndMethod />
+      <SourcesAndMethod variant="product" />
       <Footer />
     </div>
   );

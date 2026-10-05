@@ -385,7 +385,7 @@ const D365CustomerService = () => {
       <BasicProfilesDirectory products={["service"]} />
       <ContextualCta source="next-step:d365customerservice" heading="Bedöm ert kundservicebehov" text="Gör en kort behovsanalys för kundservice och se partners som har infört Customer Service hos liknande verksamheter." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Service" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
-      <SourcesAndMethod />
+      <SourcesAndMethod variant="product" />
       <Footer />
     </div>
   );

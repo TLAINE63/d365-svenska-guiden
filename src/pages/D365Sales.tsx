@@ -357,7 +357,7 @@ const D365Sales = () => {
       
 <ContextualCta source="next-step:d365sales" heading="Bedöm om Dynamics 365 Sales passar ert behov" text="Gör en kort behovsanalys och se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Bedöm om Dynamics 365 Sales passar ert behov" product="Sales" links={[{ label: "Gör behovsanalys för sälj", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
 <EditorialSource sourceType="Köpguide" />
-<SourcesAndMethod />
+<SourcesAndMethod variant="product" />
 </main>
       <BasicProfilesDirectory products={["sales"]} />
       <Footer />

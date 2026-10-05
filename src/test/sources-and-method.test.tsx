@@ -10,7 +10,7 @@ describe("SourcesAndMethod", () => {
   expect(screen.getByRole("heading",{name:"Källor och metod"})).toBeTruthy();
   expect(screen.getByRole("heading",{name:"Fakta från extern källa"})).toBeTruthy();
   expect(screen.getByRole("heading",{name:"Partnerunderlag"})).toBeTruthy();
-  expect(screen.getByRole("heading",{name:"D365.SE:s analys"})).toBeTruthy();
+  expect(screen.getByRole("heading",{name:"Redaktionell bedömning"})).toBeTruthy();
   expect(screen.getByText("2026-06-11")).toBeTruthy();
  });
  it("discloses missing external references without inventing dates", () => {

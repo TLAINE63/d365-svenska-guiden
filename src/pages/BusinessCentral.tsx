@@ -1012,7 +1012,7 @@ const BusinessCentral = () => {
  
 <ContextualCta source="next-step:businesscentral" heading="Så går du vidare med Business Central" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
 <EditorialSource sourceType="Köpguide" />
-<SourcesAndMethod />
+<SourcesAndMethod variant="product" />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
  <Footer />

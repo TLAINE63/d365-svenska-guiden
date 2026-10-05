@@ -1,5 +1,7 @@
 import { ORGANIZATION } from "@/data/organization";
 import { cn } from "@/lib/utils";
+import { useInRouterContext, useLocation } from "react-router-dom";
+import { pageReviewDate } from "@/data/pageReviewDates";
 
 export type EditorialSourceType =
   | "Köpguide"
@@ -27,14 +29,23 @@ export function editorialDate(value?: string | null): string | undefined {
     : date;
 }
 
-export default function EditorialSource({
+function RouterPath({ children }: { children: (p: string) => import("react").ReactNode }) {
+  return <>{children(useLocation().pathname)}</>;
+}
+
+export default function EditorialSource(props: Props) {
+  return useInRouterContext() ? <RouterPath>{(p) => <EditorialSourceInner {...props} path={p} />}</RouterPath> : <EditorialSourceInner {...props} path="" />;
+}
+
+function EditorialSourceInner({
   sourceType,
   updatedAt,
   reviewedBy,
   tone = "light",
   className,
-}: Props) {
-  const date = editorialDate(updatedAt);
+  path,
+}: Props & { path: string }) {
+  const date = editorialDate(updatedAt) ?? editorialDate(pageReviewDate(path));
   const dark = tone === "dark";
   return (
     <aside
@@ -50,8 +61,8 @@ export default function EditorialSource({
         {ORGANIZATION.name.toUpperCase()} {sourceType}
       </p>
       <p className="mt-1 max-w-3xl text-xs">
-        Köparsidig vägledning för svenska företag som utvärderar{" "}
-        <span className="whitespace-nowrap">Dynamics&nbsp;365</span>, ERP, CRM och Microsoft-partners.
+        Av d365.se-redaktionen. d365.se är en svensk köparsidig kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{" "}
+        <span className="whitespace-nowrap">Dynamics&nbsp;365</span> och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft.
       </p>
       <dl className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
         <div className="flex flex-wrap gap-x-1">

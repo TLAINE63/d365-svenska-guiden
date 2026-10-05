@@ -231,7 +231,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           </section>
         </article>
       <EditorialSource sourceType="Partnerguide" />
-      <SourcesAndMethod partnerEvidence={partnerSources} />
+      <SourcesAndMethod variant="partners" partnerEvidence={partnerSources} />
       </main>
 
       <StickyPartnerCTA to={partnerListUrl} source={path} />
