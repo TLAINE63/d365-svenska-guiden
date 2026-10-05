@@ -916,6 +916,43 @@ case "click-stats": {
 
 
 
+      case "ai-traffic": {
+        const { startDate: aStart } = data;
+        const AI: { name: string; re: RegExp }[] = [
+          { name: "ChatGPT", re: /chatgpt\.com|chat\.openai\.com|openai/ },
+          { name: "Perplexity", re: /perplexity/ },
+          { name: "Copilot", re: /copilot\.microsoft\.com|copilot|bing\.com\/chat/ },
+          { name: "Gemini", re: /gemini\.google|bard\.google|gemini/ },
+          { name: "Claude", re: /claude\.ai|anthropic/ },
+        ];
+        let rows: any[] = []; let off = 0;
+        while (true) {
+          let q = supabase.from("visitor_analytics").select("session_id, ip_anonymized, page_path, referrer, utm_source, visited_at")
+            .or("utm_source.not.is.null,referrer.not.is.null").order("visited_at", { ascending: false }).range(off, off + 999);
+          if (aStart) q = q.gte("visited_at", aStart);
+          const { data: b, error: e } = await q; if (e) throw e;
+          if (!b?.length) break; rows = rows.concat(b); if (b.length < 1000) break; off += 1000;
+        }
+        const per: Record<string, { views: number; sessions: Set<string>; visitors: Set<string>; viaUtm: number; pages: Record<string, number> }> = {};
+        const sessionSource: Record<string, string> = {};
+        for (const r of rows) {
+          const hay = `${r.utm_source || ""} ${r.referrer || ""}`.toLowerCase();
+          const hit = AI.find((a) => a.re.test(hay));
+          if (!hit) continue;
+          const p = per[hit.name] ||= { views: 0, sessions: new Set(), visitors: new Set(), viaUtm: 0, pages: {} };
+          p.views++; if (r.session_id) { p.sessions.add(r.session_id); sessionSource[r.session_id] = hit.name; }
+          if (r.ip_anonymized) p.visitors.add(r.ip_anonymized);
+          if (r.utm_source && hit.re.test(String(r.utm_source).toLowerCase())) p.viaUtm++;
+          p.pages[r.page_path] = (p.pages[r.page_path] || 0) + 1;
+        }
+        const sources = AI.map((a) => {
+          const p = per[a.name];
+          return { name: a.name, views: p?.views || 0, sessions: p?.sessions.size || 0, visitors: p?.visitors.size || 0, viaUtm: p?.viaUtm || 0,
+            topPages: p ? Object.entries(p.pages).sort((x, y) => y[1] - x[1]).slice(0, 5).map(([path, views]) => ({ path, views })) : [] };
+        });
+        return new Response(JSON.stringify({ sources }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "page-path-counts": {
         const { startDate: pStart = null } = data;
         const runCount = async (filter: (q: any) => any) => {
