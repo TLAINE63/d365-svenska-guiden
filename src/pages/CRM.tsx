@@ -241,7 +241,178 @@ const CRM = () => {
  <p>Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="crm" />
- <FitModel model="crm" heading="Vad avgör valet?" />
+  <FitModel model="crm" heading="Vad avgör valet?" />
+
+  {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
+  <section className="py-10 sm:py-12 bg-background">
+   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+     Vad avgör valet av Dynamics 365 CRM?
+    </h2>
+    <p className="text-muted-foreground mb-6 text-sm sm:text-base">
+     Det som flest frågar om innan de jämför Dynamics 365 CRM med andra CRM-system.
+    </p>
+    <div className="overflow-x-auto rounded-lg border border-border">
+     <table className="w-full text-sm">
+      <tbody>
+       {[
+        ["Typ av system", "Molnbaserad CRM-svit (Customer Engagement) från Microsoft"],
+        ["Applikationer", "Sales, Customer Service, Field Service, Contact Center och Customer Insights"],
+        ["Passar", "Team från 5 användare till stora koncerner"],
+        ["Licenspris", resolvePriceTokens("Sales från {{price:sales-professional:exact}}, Customer Service från {{price:customer-service-pro:exact}} per användare/månad exkl. moms")],
+        ["Implementeringskostnad", "Typiskt 100 000–250 000 kr för en applikation, upp till 2 MSEK för hela sviten"],
+        ["Införandetid", "2–3 månader för en applikation, 4–6 månader för större lösningar"],
+        ["AI", "Microsoft Copilot ingår i Enterprise- och Premium-licenserna"],
+        ["Vanliga alternativ", "Salesforce, HubSpot, Zendesk, Lime, SuperOffice"],
+        ["Införs av", "Microsoft-certifierad partner – jämför partners nedan"],
+       ].map(([label, value]) => (
+        <tr key={label} className="border-b border-border last:border-0">
+         <th scope="row" className="text-left align-top font-medium text-foreground py-3 px-4 w-[42%] bg-muted/30">
+          {label}
+         </th>
+         <td className="py-3 px-4 text-muted-foreground">{value}</td>
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Vad Dynamics 365 CRM kostar i praktiken avgörs av tre saker: vilka applikationer ni väljer
+     (Sales, Customer Service, Field Service eller hela sviten), hur mycket processanpassning och
+     integration mot exempelvis ERP, e-post och telefoni som behövs, samt vilken partner som
+     genomför införandet. En standardimplementering av en enskild applikation landar typiskt på
+     100 000–250 000 kr, medan en komplett lösning med flera applikationer och ERP-koppling kan
+     ligga mellan 800 000 kr och 2 miljoner kronor.
+    </p>
+    <p className="text-sm text-muted-foreground mt-3">
+     Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför du svenska
+     CRM-partners på dokumenterad branscherfarenhet, kundstorlek och vilka applikationer de
+     faktiskt levererat, innan du tar kontakt.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
+     Jämförelse med andra CRM-system
+    </h3>
+    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+     De alternativ som svenska köpare oftast ställer mot Dynamics 365 CRM, och vad som skiljer
+     dem åt i praktiken.
+    </p>
+    <div className="overflow-x-auto rounded-lg border border-border">
+     <table className="w-full text-sm">
+      <thead>
+       <tr className="bg-muted/40">
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">System</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar typiskt</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Skillnad mot Dynamics 365 CRM</th>
+       </tr>
+      </thead>
+      <tbody>
+       {[
+        [
+         "Salesforce",
+         "Större säljorganisationer, ofta globala",
+         "Bredast tredjepartsekosystem, men högre totalkostnad och svagare native-integration mot Microsoft 365-verktygen många svenska bolag redan använder.",
+         "/jamfor/sales-vs-salesforce-sales-cloud/",
+        ],
+        [
+         "HubSpot",
+         "Mindre bolag med inbound-fokus, 1–50 anställda",
+         "Enklare att komma igång med, men mindre djup i komplexa säljprocesser, AI och koppling mot ERP.",
+         "/jamfor/sales-vs-hubspot-sales-hub/",
+        ],
+        [
+         "Zendesk",
+         "Kundserviceteam med fokus på ärendehantering",
+         "Starkt ärendeverktyg, men saknar CRM-svitens bredd inom sälj, marknad och fältservice.",
+         "/jamfor/customer-service-vs-zendesk/",
+        ],
+        [
+         "Lime",
+         "Svenska medelstora bolag",
+         "Svenskt alternativ med lokal närvaro, men mindre AI- och plattformskraft och ett smalare globalt ekosystem.",
+         null,
+        ],
+        [
+         "SuperOffice",
+         "Mindre svenska och nordiska bolag",
+         "Enklare CRM med snabb start, men begränsad skalbarhet för större processer och koncernkrav.",
+         null,
+        ],
+       ].map(([system, fit, diff, link]) => (
+        <tr key={system as string} className="border-b border-border last:border-0 align-top">
+         <th scope="row" className="text-left font-medium text-foreground py-3 px-4 w-[22%] bg-muted/20">
+          {link ? (
+           <Link to={link as string} className="text-primary underline underline-offset-2">
+            {system}
+           </Link>
+          ) : (
+           system
+          )}
+         </th>
+         <td className="py-3 px-4 text-muted-foreground w-[26%]">{fit}</td>
+         <td className="py-3 px-4 text-muted-foreground">{diff}</td>
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Valet av system avgör ramarna, valet av partner avgör resultatet. Se{" "}
+     <Link to="/jamfor/" className="text-primary underline underline-offset-2">
+      alla publicerade CRM-jämförelser
+     </Link>{" "}
+     innan du går vidare.
+    </p>
+
+    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
+     Licenser i Dynamics 365 CRM-sviten
+    </h3>
+    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+     Pris per användare och månad (Microsofts listpris exkl. moms). Applikationerna licensieras
+     separat och kan kombineras fritt efter vilka processer ni behöver stötta.
+    </p>
+    <div className="overflow-x-auto rounded-lg border border-border">
+     <table className="w-full text-sm">
+      <thead>
+       <tr className="bg-muted/40">
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Licens</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Pris per användare/månad</th>
+        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar</th>
+       </tr>
+      </thead>
+      <tbody>
+       {[
+        ["Sales Professional", resolvePriceTokens("{{price:sales-professional:exact}}"), "Säljteam med grundläggande pipeline- och kontakthantering"],
+        ["Sales Enterprise", resolvePriceTokens("{{price:sales-enterprise:exact}}"), "Säljorganisationer som vill ha Copilot, prognoser och avancerad analys"],
+        ["Sales Premium", resolvePriceTokens("{{price:sales-premium:exact}}"), "Datadriven försäljning med conversation intelligence och relationship scoring"],
+        ["Customer Service Professional", resolvePriceTokens("{{price:customer-service-pro:exact}}"), "Team som vill komma igång med strukturerad ärendehantering"],
+        ["Customer Service Enterprise", resolvePriceTokens("{{price:customer-service-enterprise:exact}}"), "Kundservice med omnikanal, kunskapsbas och Copilot"],
+        ["Field Service", resolvePriceTokens("{{price:field-service:exact}}"), "Fältservice med planering, resursoptimering och mobilappen för tekniker"],
+        ["Customer Insights", resolvePriceTokens("{{price:customer-insights:exact}}") + " per tenant", "Marknadsföring och kunddata med obegränsat antal användare"],
+       ].map(([license, price, fit]) => (
+        <tr key={license} className="border-b border-border last:border-0 align-top">
+         <th scope="row" className="text-left font-medium text-foreground py-3 px-4 bg-muted/20">
+          {license}
+         </th>
+         <td className="py-3 px-4 text-foreground font-medium whitespace-nowrap">{price}</td>
+         <td className="py-3 px-4 text-muted-foreground">{fit}</td>
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Se hela prislistan på{" "}
+     <Link to="/priser/" className="text-primary underline underline-offset-2">
+      prissidan
+     </Link>{" "}
+     eller räkna på hela kostnaden i{" "}
+     <Link to="/d365sales/roi-kalkylator/" className="text-primary underline underline-offset-2">
+      TCO/ROI-kalkylatorn
+     </Link>.
+    </p>
+   </div>
+  </section>
 
  
 
