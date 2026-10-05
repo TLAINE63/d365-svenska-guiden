@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "accenture",
+    "name": "Accenture"
+  },
+  {
+    "slug": "accigo",
+    "name": "Accigo"
+  },
+  {
+    "slug": "active-business-solutions",
+    "name": "Active Business Solutions"
+  },
+  {
+    "slug": "acumant",
+    "name": "Acumant"
+  },
+  {
+    "slug": "aperit",
+    "name": "Aperit"
+  },
+  {
+    "slug": "apx-core-solutions",
+    "name": "APX Core Solutions"
+  },
+  {
+    "slug": "avanade",
+    "name": "Avanade"
+  },
+  {
+    "slug": "avega",
+    "name": "Avega"
+  },
+  {
+    "slug": "azets",
+    "name": "Azets"
+  },
+  {
+    "slug": "basecloud",
+    "name": "Basecloud"
+  },
+  {
+    "slug": "be-terna",
+    "name": "BE-terna"
+  },
+  {
+    "slug": "bedege",
+    "name": "Bedege AB"
+  },
+  {
+    "slug": "birdie-cloud",
+    "name": "Birdie Cloud"
+  },
+  {
+    "slug": "brain-accounting",
+    "name": "Brain Accounting"
+  },
+  {
+    "slug": "exsitec",
+    "name": "BrightCom"
+  },
+  {
+    "slug": "capgemini",
+    "name": "Capgemini"
+  },
+  {
+    "slug": "cegeka",
+    "name": "Cegeka"
+  },
+  {
+    "slug": "cepheo",
+    "name": "Cepheo"
+  },
+  {
+    "slug": "cgi",
+    "name": "CGI"
+  },
+  {
+    "slug": "columbus-sweden-ab",
+    "name": "Columbus Sweden AB"
+  },
+  {
+    "slug": "compago",
+    "name": "Compago"
+  },
+  {
+    "slug": "consid",
+    "name": "Consid"
+  },
+  {
+    "slug": "cosmo-consult",
+    "name": "COSMO CONSULT"
+  },
+  {
+    "slug": "dizparc",
+    "name": "Dizparc"
+  },
+  {
+    "slug": "dynamicskonsult",
+    "name": "Dynamicskonsult"
+  },
+  {
+    "slug": "ecit-sverige-ab",
+    "name": "ECIT Sverige AB"
+  },
+  {
+    "slug": "effekt",
+    "name": "Effekt"
+  },
+  {
+    "slug": "eg-sverige",
+    "name": "EG Sverige"
+  },
+  {
+    "slug": "engage-group",
+    "name": "Engage Group"
+  },
+  {
+    "slug": "enqore-ab",
+    "name": "Enqore AB"
+  },
+  {
+    "slug": "navipro-ab",
+    "name": "Evidi"
+  },
+  {
+    "slug": "ey",
+    "name": "EY"
+  },
+  {
+    "slug": "forefront-group",
+    "name": "Forefront Group"
+  },
+  {
+    "slug": "fourone",
+    "name": "FourOne"
+  },
+  {
+    "slug": "fujitsu",
+    "name": "Fujitsu"
+  },
+  {
+    "slug": "hay-it",
+    "name": "Hay IT"
+  },
+  {
+    "slug": "hcl",
+    "name": "HCL"
+  },
+  {
+    "slug": "hso",
+    "name": "HSO"
+  },
+  {
+    "slug": "innofactor",
+    "name": "Innofactor"
+  },
+  {
+    "slug": "invid",
+    "name": "Invid"
+  },
+  {
+    "slug": "it-stod-ab",
+    "name": "IT Stöd AB"
+  },
+  {
+    "slug": "jma-maskindata",
+    "name": "JMA Maskindata"
+  },
+  {
+    "slug": "kpmg",
+    "name": "KPMG"
+  },
+  {
+    "slug": "langate",
+    "name": "Langate System AB"
+  },
+  {
+    "slug": "mavrix",
+    "name": "Mavrix"
+  },
+  {
+    "slug": "midpoint-ab",
+    "name": "Midpoint AB"
+  },
+  {
+    "slug": "navcite",
+    "name": "Navcite"
+  },
+  {
+    "slug": "navet-ab",
+    "name": "Navet AB"
+  },
+  {
+    "slug": "nemely",
+    "name": "Nemely AB"
+  },
+  {
+    "slug": "next365-group",
+    "name": "Next365 Group"
+  },
+  {
+    "slug": "norrminds",
+    "name": "Norrminds"
+  },
+  {
+    "slug": "norteam",
+    "name": "Norteam AB"
+  },
+  {
+    "slug": "pwc",
+    "name": "PWC"
+  },
+  {
+    "slug": "regentor",
+    "name": "Regentor"
+  },
+  {
+    "slug": "releye",
+    "name": "Releye"
+  },
+  {
+    "slug": "sa-global",
+    "name": "SA Global"
+  },
+  {
+    "slug": "sandbox-republic",
+    "name": "Sandbox Republic"
+  },
+  {
+    "slug": "sherpas-group-ab",
+    "name": "Sherpas Group AB"
+  },
+  {
+    "slug": "sii-sverige",
+    "name": "SII Sverige"
+  },
+  {
+    "slug": "softronic",
+    "name": "Softronic"
+  },
+  {
+    "slug": "sogeti",
+    "name": "Sogeti"
+  },
+  {
+    "slug": "sopra-steria",
+    "name": "Sopra Steria"
+  },
+  {
+    "slug": "sundet-crm",
+    "name": "Sundet CRM"
+  },
+  {
+    "slug": "texus",
+    "name": "Texus"
+  },
+  {
+    "slug": "thinknine",
+    "name": "Thinknine"
+  },
+  {
+    "slug": "transformant",
+    "name": "Transformant"
+  },
+  {
+    "slug": "united-hours",
+    "name": "United Hours"
+  },
+  {
+    "slug": "update-affarssystem-ab",
+    "name": "Update Affärssystem AB"
+  },
+  {
+    "slug": "future-it-partner",
+    "name": "Upheads AB"
+  },
+  {
+    "slug": "xlent",
+    "name": "Xlent"
+  }
+]
