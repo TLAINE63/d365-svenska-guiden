@@ -1,5 +1,8 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -144,6 +147,8 @@ const D365Sales = () => {
         <p>Det blir riktigt vasst när partnern modellerar din specifika säljprocess, dina kvalificeringskriterier och dina nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela din säljorganisation.</p>
       </ShortAnswer>
 
+      <EditorialAssessment assessment="sales" />
+
       {/* Introduction Section */}
       <section className="pt-0 pb-8 sm:pb-12 md:pb-12 bg-background">
 
@@ -197,7 +202,7 @@ const D365Sales = () => {
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
               <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
-                  ❓ Vad är skillnaden mellan Sales Professional och Sales Enterprise?
+                  Vad är skillnaden mellan Sales Professional och Sales Enterprise?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
                   Sales Professional är grundlicensen som inkluderar lead- och affärshantering, kontakthantering och e-postintegration. Sales Enterprise lägger till avancerade funktioner som AI-drivna insikter via Copilot, förutsägande analys och anpassningsbara automatiseringsflöden. Enterprise passar bättre för organisationer som behöver djupare kundinsikter och mer avancerad säljstyrning.
@@ -206,7 +211,7 @@ const D365Sales = () => {
 
               <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
-                  ❓ Hur fungerar AI och Copilot i Dynamics 365 Sales?
+                  Hur fungerar AI och Copilot i Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
                   Microsoft Copilot i Dynamics 365 Sales analyserar kunddata och interaktioner för att ge säljarna realtidsrekommendationer. Det kan sammanfatta möten, föreslå nästa steg, identifiera risker i affärer och prioritera leads baserat på sannolikhet att konvertera. Copilot hjälper också till att skriva e-postmeddelanden och förbereda kundmöten.
@@ -215,7 +220,7 @@ const D365Sales = () => {
 
               <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
-                  ❓ Kan Dynamics 365 Sales integreras med vårt befintliga ERP-system?
+                  Kan Dynamics 365 Sales integreras med vårt befintliga ERP-system?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
                   Ja, Dynamics 365 Sales kan integreras med de flesta ERP-system, både Microsofts egna (Business Central, Finance & Supply Chain Management (F&O)) och mängder av andra moderna ERP-system. Inbyggd integration med Business Central är enkel att konfigurera, medan integrationer med andra system ofta kräver anpassade lösningar via Power Platform eller standardkopplingar.
@@ -224,7 +229,7 @@ const D365Sales = () => {
 
               <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
-                  ❓ Hur lång tid tar det att implementera Dynamics 365 Sales?
+                  Hur lång tid tar det att implementera Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
                   En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om du har möjlighet att lägga den interna tiden som ofta krävs och om du har en god bild över hur du vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
@@ -317,6 +322,10 @@ const D365Sales = () => {
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
+      <div className="container mx-auto px-4 sm:px-6">
+        <UnprofiledPartnersList variant="teaser" showSeeAllLink />
+      </div>
+
       {/* CTA Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-sales">
         <div className="container mx-auto px-4 sm:px-6 text-center">
@@ -341,9 +350,10 @@ const D365Sales = () => {
 
       
 <ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
+<EditorialSource sourceType="Köpguide" />
+<SourcesAndMethod />
 </main>
       <BasicProfilesDirectory products={["sales"]} />
-      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );
