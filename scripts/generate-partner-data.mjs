@@ -108,6 +108,38 @@ try {
   };
   writeFileSync(PUBLIC_DATASET_PATH, JSON.stringify(dataset, null, 2) + "\n");
 
+  /**
+   * Snapshot av grundprofilerna (ej partnerverifierade) så att deras
+   * /basic/<slug>-länkar kan prerenderas i HTML (PartnersSitemap) och
+   * därmed hittas av sökmotorer och AI-crawlers utan klient-render.
+   * Misslyckas hämtningen behålls befintlig snapshot.
+   */
+  const BASIC_ROUTES_PATH = resolve(__dirname, "../src/data/basicPartnerRoutes.json");
+  try {
+    const basicRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/partners_basic_public?select=slug,name&order=name.asc`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+        },
+      },
+    );
+    if (!basicRes.ok) {
+      throw new Error(`HTTP ${basicRes.status}: ${await basicRes.text()}`);
+    }
+    const basicRows = (await basicRes.json()).filter((b) => b.slug && b.name);
+    if (basicRows.length === 0) {
+      throw new Error("Empty basic response — refusing to overwrite existing snapshot");
+    }
+    writeFileSync(BASIC_ROUTES_PATH, JSON.stringify(basicRows, null, 2) + "\n");
+    console.log(`[generate-partner-data] Wrote ${basicRows.length} basic partners → src/data/basicPartnerRoutes.json`);
+  } catch (basicErr) {
+    console.warn(
+      `[generate-partner-data] Basic partners refresh failed (${basicErr.message}). Keeping previous snapshot.`,
+    );
+  }
+
   console.log(
     `[generate-partner-data] Wrote ${rows.length} featured partners → src/data/partnerData.json + public/partner-data.json`,
   );

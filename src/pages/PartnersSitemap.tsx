@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import partnerDataJson from "@/data/partnerData.json";
+import basicPartnerRoutes from "@/data/basicPartnerRoutes.json";
 import { PRODUCT_PARTNERS_SVERIGE } from "@/data/productPartnersSverige";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
