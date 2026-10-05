@@ -324,7 +324,7 @@ const ErpComparisonPage = () => {
           </section>
         )}
       <EditorialSource sourceType="Jämförelse" />
-      <SourcesAndMethod />
+      <SourcesAndMethod variant="comparison" />
       </main>
 
       <Footer />

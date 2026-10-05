@@ -803,7 +803,7 @@ const FinanceSupplyChain = () => {
 
  <ContextualCta source="next-step:finance-supply-chain" heading="Så går du vidare med Finance & Supply Chain Management (F&O)" text="Nästa steg är att se vilka partners som har gjort liknande projekt i er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Finance & Supply Chain" links={[{ label: "Jämför relevanta partners", to: "/finance-supply-chain-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Så väljer ni Finance & Supply Chain Management (F&O)-partner", to: "/guider/valja-finance-supply-chain-partner/" }]} />
 <EditorialSource sourceType="Köpguide" />
-<SourcesAndMethod />
+<SourcesAndMethod variant="product" />
       </main>
  <BasicProfilesDirectory products={["fsc"]} />
  <Footer />

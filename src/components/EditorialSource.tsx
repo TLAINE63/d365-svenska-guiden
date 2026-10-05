@@ -29,7 +29,7 @@ export function editorialDate(value?: string | null): string | undefined {
     : date;
 }
 
-function RouterPath({ children }: { children: (p: string) => React.ReactNode }) {
+function RouterPath({ children }: { children: (p: string) => import("react").ReactNode }) {
   return <>{children(useLocation().pathname)}</>;
 }
 
