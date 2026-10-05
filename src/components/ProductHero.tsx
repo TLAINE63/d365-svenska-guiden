@@ -27,6 +27,8 @@ interface ProductHeroProps {
   secondary?: CTA;
   /** Tertiary CTA (ghost outline). Optional. */
   tertiary?: CTA;
+  /** Fourth CTA (ghost outline). Optional. Switches grid to 2x2. */
+  quaternary?: CTA;
   /** Optional right-side decorative photo (not full-bleed bg). */
   photo?: string;
   photoAlt?: string;
@@ -80,6 +82,7 @@ const ProductHero = ({
   primary,
   secondary,
   tertiary,
+  quaternary,
   photo,
   photoAlt,
 }: ProductHeroProps) => {
@@ -123,10 +126,15 @@ const ProductHero = ({
               {subhead}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-3xl">
+            <div
+              className={`grid grid-cols-1 gap-3 sm:gap-4 max-w-3xl ${
+                quaternary ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+            >
               {renderCTA(primary, "primary")}
               {secondary && renderCTA(secondary, "secondary")}
               {tertiary && renderCTA(tertiary, "secondary")}
+              {quaternary && renderCTA(quaternary, "secondary")}
             </div>
           </div>
 
