@@ -50,6 +50,7 @@ import {
 } from "@/components/ui/accordion";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import EditorialSource from "@/components/EditorialSource";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // CRM FAQs for schema
 const crmFaqs = [
@@ -223,6 +224,14 @@ const CRM = () => {
     onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
+  tertiary={{
+    label: "Gör en estimerad TCO/ROI-kalkyl",
+    to: "/d365sales/roi-kalkylator/",
+  }}
+  quaternary={{
+    label: "Filtrera fram en passande CRM-partner",
+    href: "#partners",
+  }}
   />
   <ShortAnswer>
  <p>Microsoft Dynamics 365 Customer Engagement – i dagligt tal Dynamics 365 CRM – är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter.</p>
