@@ -95,8 +95,8 @@ export default function Priser() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Microsoft Dynamics 365 prislista 2026 – ERP & CRM"
-        description="Komplett prislista för Microsoft Dynamics 365 (ERP & CRM) i SEK exkl. moms. Business Central, Finance, Supply Chain, Sales, Customer Service, Field Service och Contact Center."
+        title="Dynamics 365 licenspriser 2026 – prislista i SEK"
+        description="Licenspriser för Microsoft Dynamics 365 per användare och månad i SEK exkl. moms: Business Central, Finance & Supply Chain Management, Sales, Customer Service, Field Service och Contact Center. För totalkostnad inklusive införande, se kostnadsguiden."
         canonicalPath="/priser/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
