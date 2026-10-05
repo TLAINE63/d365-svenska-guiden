@@ -57,6 +57,9 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/valj-partner",              to: "/valjdynamics365partner", intendedStatus: 301 },
   { from: "/partner",                   to: "/valjdynamics365partner", intendedStatus: 301 },
 
+  // Partnernamnbyte: Goodfellows → Modia
+  { from: "/partner/goodfellows",       to: "/partner/modia/",        intendedStatus: 301 },
+
   // Branscher (gammalt namn)
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
 
