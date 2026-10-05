@@ -1,4 +1,5 @@
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
+import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";

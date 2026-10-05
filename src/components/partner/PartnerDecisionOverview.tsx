@@ -1,5 +1,7 @@
 import { Check, Minus, Info } from "lucide-react";
 import { DatabasePartner } from "@/hooks/usePartners";
+import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
+import { isEditorialReviewed } from "@/data/editorialReviewed";
 import {
   SUPPORT_FIELDS,
   SUPPORT_LEVEL_META,
