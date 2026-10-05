@@ -1,282 +1,557 @@
 [
   {
     "slug": "accenture",
-    "name": "Accenture"
+    "name": "Accenture",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "accigo",
-    "name": "Accigo"
+    "name": "Accigo",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "active-business-solutions",
-    "name": "Active Business Solutions"
+    "name": "Active Business Solutions",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "acumant",
-    "name": "Acumant"
+    "name": "Acumant",
+    "products": [
+      "bc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "aperit",
-    "name": "Aperit"
+    "name": "Aperit",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "apx-core-solutions",
-    "name": "APX Core Solutions"
+    "name": "APX Core Solutions",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "avanade",
-    "name": "Avanade"
+    "name": "Avanade",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "avega",
-    "name": "Avega"
+    "name": "Avega",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "azets",
-    "name": "Azets"
+    "name": "Azets",
+    "products": [
+      "bc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "basecloud",
-    "name": "Basecloud"
+    "name": "Basecloud",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "be-terna",
-    "name": "BE-terna"
+    "name": "BE-terna",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "bedege",
-    "name": "Bedege AB"
+    "name": "Bedege AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "birdie-cloud",
-    "name": "Birdie Cloud"
+    "name": "Birdie Cloud",
+    "products": [
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "brain-accounting",
-    "name": "Brain Accounting"
+    "name": "Brain Accounting",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "exsitec",
-    "name": "BrightCom"
+    "name": "BrightCom",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "capgemini",
-    "name": "Capgemini"
+    "name": "Capgemini",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "cegeka",
-    "name": "Cegeka"
+    "name": "Cegeka",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "cepheo",
-    "name": "Cepheo"
+    "name": "Cepheo",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "cgi",
-    "name": "CGI"
+    "name": "CGI",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "columbus-sweden-ab",
-    "name": "Columbus Sweden AB"
+    "name": "Columbus Sweden AB",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "compago",
-    "name": "Compago"
+    "name": "Compago",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "consid",
-    "name": "Consid"
+    "name": "Consid",
+    "products": []
   },
   {
     "slug": "cosmo-consult",
-    "name": "COSMO CONSULT"
+    "name": "COSMO CONSULT",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "dizparc",
-    "name": "Dizparc"
+    "name": "Dizparc",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "dynamicskonsult",
-    "name": "Dynamicskonsult"
+    "name": "Dynamicskonsult",
+    "products": [
+      "bc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "ecit-sverige-ab",
-    "name": "ECIT Sverige AB"
+    "name": "ECIT Sverige AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "effekt",
-    "name": "Effekt"
+    "name": "Effekt",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "eg-sverige",
-    "name": "EG Sverige"
+    "name": "EG Sverige",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "engage-group",
-    "name": "Engage Group"
+    "name": "Engage Group",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "enqore-ab",
-    "name": "Enqore AB"
+    "name": "Enqore AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "navipro-ab",
-    "name": "Evidi"
+    "name": "Evidi",
+    "products": [
+      "bc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "ey",
-    "name": "EY"
+    "name": "EY",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "forefront-group",
-    "name": "Forefront Group"
+    "name": "Forefront Group",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "fourone",
-    "name": "FourOne"
+    "name": "FourOne",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "fujitsu",
-    "name": "Fujitsu"
+    "name": "Fujitsu",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "hay-it",
-    "name": "Hay IT"
+    "name": "Hay IT",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "hcl",
-    "name": "HCL"
+    "name": "HCL",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "hso",
-    "name": "HSO"
+    "name": "HSO",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "innofactor",
-    "name": "Innofactor"
+    "name": "Innofactor",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "invid",
-    "name": "Invid"
+    "name": "Invid",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "it-stod-ab",
-    "name": "IT Stöd AB"
+    "name": "IT Stöd AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "jma-maskindata",
-    "name": "JMA Maskindata"
+    "name": "JMA Maskindata",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "kpmg",
-    "name": "KPMG"
+    "name": "KPMG",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "langate",
-    "name": "Langate System AB"
+    "name": "Langate System AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "mavrix",
-    "name": "Mavrix"
+    "name": "Mavrix",
+    "products": [
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "midpoint-ab",
-    "name": "Midpoint AB"
+    "name": "Midpoint AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "navcite",
-    "name": "Navcite"
+    "name": "Navcite",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "navet-ab",
-    "name": "Navet AB"
+    "name": "Navet AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "nemely",
-    "name": "Nemely AB"
+    "name": "Nemely AB",
+    "products": [
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "next365-group",
-    "name": "Next365 Group"
+    "name": "Next365 Group",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "norrminds",
-    "name": "Norrminds"
+    "name": "Norrminds",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "norteam",
-    "name": "Norteam AB"
+    "name": "Norteam AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "pwc",
-    "name": "PWC"
+    "name": "PWC",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "regentor",
-    "name": "Regentor"
+    "name": "Regentor",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "releye",
-    "name": "Releye"
+    "name": "Releye",
+    "products": [
+      "sales"
+    ]
   },
   {
     "slug": "sa-global",
-    "name": "SA Global"
+    "name": "SA Global",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sandbox-republic",
-    "name": "Sandbox Republic"
+    "name": "Sandbox Republic",
+    "products": [
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sherpas-group-ab",
-    "name": "Sherpas Group AB"
+    "name": "Sherpas Group AB",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sii-sverige",
-    "name": "SII Sverige"
+    "name": "SII Sverige",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "softronic",
-    "name": "Softronic"
+    "name": "Softronic",
+    "products": [
+      "bc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sogeti",
-    "name": "Sogeti"
+    "name": "Sogeti",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sopra-steria",
-    "name": "Sopra Steria"
+    "name": "Sopra Steria",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "sundet-crm",
-    "name": "Sundet CRM"
+    "name": "Sundet CRM",
+    "products": [
+      "sales",
+      "service"
+    ]
   },
   {
     "slug": "texus",
-    "name": "Texus"
+    "name": "Texus",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "thinknine",
-    "name": "Thinknine"
+    "name": "Thinknine",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "transformant",
-    "name": "Transformant"
+    "name": "Transformant",
+    "products": [
+      "bc",
+      "fsc"
+    ]
   },
   {
     "slug": "united-hours",
-    "name": "United Hours"
+    "name": "United Hours",
+    "products": [
+      "fsc"
+    ]
   },
   {
     "slug": "update-affarssystem-ab",
-    "name": "Update Affärssystem AB"
+    "name": "Update Affärssystem AB",
+    "products": [
+      "bc"
+    ]
   },
   {
     "slug": "future-it-partner",
-    "name": "Upheads AB"
+    "name": "Upheads AB",
+    "products": []
   },
   {
     "slug": "xlent",
-    "name": "Xlent"
+    "name": "Xlent",
+    "products": [
+      "sales",
+      "service"
+    ]
   }
 ]
