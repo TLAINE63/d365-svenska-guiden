@@ -36,6 +36,16 @@ function getSessionId(): string {
   return sessionId;
 }
 
+// utm_source sparas för hela sessionen (t.ex. utm_source=chatgpt.com från ChatGPT Search).
+function getUtmSource(): string | null {
+  const key = "visitor_utm_source";
+  try {
+    const fromUrl = new URLSearchParams(window.location.search).get("utm_source");
+    if (fromUrl) { sessionStorage.setItem(key, fromUrl.slice(0, 100)); return fromUrl.slice(0, 100); }
+    return sessionStorage.getItem(key);
+  } catch { return null; }
+}
+
 export function useVisitorTracking() {
   const location = useLocation();
   const pageLoadTime = useRef<number>(Date.now());
@@ -68,6 +78,7 @@ export function useVisitorTracking() {
             body: JSON.stringify({
               page_path: currentPath,
               referrer: document.referrer || null,
+              utm_source: getUtmSource(),
               session_id: getSessionId(),
               is_bounce: isFirstPage.current,
             }),

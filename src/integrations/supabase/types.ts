@@ -4569,6 +4569,7 @@ export type Database = {
           session_id: string | null
           time_on_page_seconds: number | null
           user_agent: string | null
+          utm_source: string | null
           visited_at: string
         }
         Insert: {
@@ -4585,6 +4586,7 @@ export type Database = {
           session_id?: string | null
           time_on_page_seconds?: number | null
           user_agent?: string | null
+          utm_source?: string | null
           visited_at?: string
         }
         Update: {
@@ -4601,6 +4603,7 @@ export type Database = {
           session_id?: string | null
           time_on_page_seconds?: number | null
           user_agent?: string | null
+          utm_source?: string | null
           visited_at?: string
         }
         Relationships: []

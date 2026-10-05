@@ -1,0 +1,2 @@
+ALTER TABLE public.visitor_analytics ADD COLUMN IF NOT EXISTS utm_source text;
+CREATE INDEX IF NOT EXISTS visitor_analytics_utm_source_idx ON public.visitor_analytics (utm_source) WHERE utm_source IS NOT NULL;

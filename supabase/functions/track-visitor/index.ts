@@ -119,7 +119,8 @@ Deno.serve(async (req) => {
     );
 
     const body = await req.json();
-    const { page_path, referrer, session_id, time_on_page_seconds, is_bounce, action } = body;
+    const { page_path, referrer, session_id, time_on_page_seconds, is_bounce, action, utm_source } = body;
+    const utmSource = typeof utm_source === "string" ? utm_source.trim().toLowerCase().slice(0, 100) || null : null;
 
     if (!page_path) {
       return new Response(
@@ -173,6 +174,7 @@ Deno.serve(async (req) => {
     const { error } = await supabase.from("visitor_analytics").insert({
       page_path,
       referrer: referrer || null,
+      utm_source: utmSource,
       session_id: session_id || null,
       user_agent: userAgent || null,
       time_on_page_seconds: null,

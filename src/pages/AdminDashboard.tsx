@@ -143,6 +143,7 @@ import AdminUtskickTab from "@/components/AdminUtskickTab";
 import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
+import AiTrafficCard from "@/components/AiTrafficCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
@@ -3704,6 +3705,9 @@ Thomas`,
  <TabsContent value="visitors">
  <div className="mb-6">
  <SiteTrafficStatsCard token={token} variant="full" />
+ </div>
+ <div className="mb-6">
+ <AiTrafficCard token={token} />
  </div>
  <Card>
  <CardContent className="pt-6">
