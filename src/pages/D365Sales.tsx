@@ -147,6 +147,8 @@ const D365Sales = () => {
         <p>Det blir riktigt vasst när partnern modellerar din specifika säljprocess, dina kvalificeringskriterier och dina nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela din säljorganisation.</p>
       </ShortAnswer>
 
+      <EditorialAssessment assessment="sales" />
+
       {/* Introduction Section */}
       <section className="pt-0 pb-8 sm:pb-12 md:pb-12 bg-background">
 
@@ -348,9 +350,10 @@ const D365Sales = () => {
 
       
 <ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
+<EditorialSource sourceType="Köpguide" />
+<SourcesAndMethod />
 </main>
       <BasicProfilesDirectory products={["sales"]} />
-      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );
