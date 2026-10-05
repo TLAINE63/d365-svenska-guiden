@@ -3723,14 +3723,14 @@
     "id": "21ea09d7-d76c-4841-90d3-bed49641b095",
     "slug": "norra-commerce-partner",
     "name": "Norra Commerce Partner",
-    "description": "",
-    "logo_url": "",
+    "description": "Vi stödjer retail-, e-commerce och fashion företag gnom hela Business Central-livscykeln — från första analys till löpande managed-drift.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/norra-commerce-partner.jpg",
     "logo_dark_bg": false,
     "website": "https://norracommerce.se/",
-    "email": "Johann.runemark@norracommerce.se",
+    "email": "johann.runemark@norracommerce.se",
     "contact_person": "Johann Runemark",
-    "contact_photo_url": "",
-    "phone": "",
+    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/norra-commerce-partner-contact-main.jpg?t=1791211014646",
+    "phone": "+46 735190622",
     "applications": [
       "Business Central"
     ],
@@ -3741,21 +3741,25 @@
       "bc": {
         "ranking": 999,
         "revenue": [
-          "1-24 MSEK"
+          "1-24 MSEK",
+          "25-99 MSEK",
+          "100-499 MSEK"
         ],
         "geography": [
           "Sverige",
           "Norden"
         ],
         "keyPoints": "",
-        "whyChoose": "",
+        "whyChoose": "En implementation anpassad för retail\nAtt implementera Business Central i en retailverksamhet kräver mer än teknisk kompetens — det kräver förståelse för hur sortiment, orderflöde, lager och försäljningskanaler hänger ihop.\n\nVi har genomfört implementationer för retail- och modebolag med komplexa krav på varianthantering, multikanalförsäljning, inköpsplanering och lageroptimering. Det gör att vi kan ställa rätt frågor, undvika vanliga fallgropar och leverera ett system som faktiskt stödjer din verksamhet.",
         "industries": [
           "Grossist & Distribution",
           "Retail & E-handel",
           "Mode, Sport & Textil"
         ],
         "companySize": [
-          "1-49"
+          "1-49",
+          "50-99",
+          "100-249"
         ],
         "contactName": "Johann Runemark",
         "contactEmail": "johann.runemark@norracommerce.se",
@@ -3785,12 +3789,12 @@
     "customer_examples": [],
     "office_cities": [
       "Stockholm",
-      "Malmö"
+      "Göteborg"
     ],
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-04-27T10:54:18.709178+00:00",
-    "updated_at": "2026-10-05T13:31:21.92052+00:00",
+    "updated_at": "2026-10-05T14:55:23.47096+00:00",
     "industry_pitches": [
       {
         "text": "Norra Commerce Partner hjälper detaljhandels- och e-handelsföretag att effektivisera sin verksamhet med Microsoft Dynamics 365 Business Central. De bistår med att integrera kärnprocesser för en sammanhållen kundupplevelse över olika försäljningskanaler. Typiska utmaningar som hanteras inkluderar lageroptimering, orderhantering och automatisering av finansiella flöden. Med Business Central kan partnern bidra till förbättrad insyn i försäljning och lagersaldo, vilket underlättar beslutsfattande och minskar svinn. De stödjer även hantering av priser och kampanjer samt en effektivare returhantering. Lösningarna syftar till att skapa en enhetlig process för allt från inköp och logistik till kundfaktura, vilket är centralt för en framgångsrik omnichannel-strategi.",
