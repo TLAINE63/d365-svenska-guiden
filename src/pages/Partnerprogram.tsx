@@ -365,9 +365,10 @@ const Partnerprogram = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
           <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
             En partnerverifierad profil hjälper företag, sökmotorer och AI-tjänster att förstå er
-            verksamhet, era specialistområden, er branscherfarenhet, era kundsegment och vilka Dynamics
-            365-lösningar ni arbetar med – Business Central, Finance, Supply Chain Management, Customer
-            Engagement (Sales, Customer Service), Power Platform och Copilot.
+            verksamhet, era specialistområden, er branscherfarenhet, era kundsegment och vilka
+            Dynamics&nbsp;365-lösningar ni arbetar med: Business Central, Finance & Supply Chain
+            Management (F&O) och CRM (Sales, Customer Service, Field Service, Contact Center och
+            Marketing), samt förmågor som Power Platform, Copilot och AI-agenter.
           </p>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -380,7 +381,7 @@ const Partnerprogram = () => {
               {
                 icon: BadgeCheck,
                 title: "Bli rätt förstådd",
-                text: "Verifiera själva vilka Dynamics 365-produkter, branscher, kundtyper och projekt ni faktiskt är bäst lämpade för.",
+                text: "Verifiera själva vilka Dynamics\u00A0365-produkter och branscher ni arbetar med, och beskriv med egna ord era typiska kunder och projekt.",
               },
               {
                 icon: Columns3,
@@ -465,9 +466,10 @@ const Partnerprogram = () => {
           </h2>
           <p className="max-w-3xl text-muted-foreground mb-8">
             På er egen webbplats berättar ni själva vilka ni är. En profilerad närvaro på d365.se skapar
-            ytterligare en extern, indexerbar källa i ett sammanhang helt fokuserat på Dynamics 365 –
-            Business Central, Finance, Supply Chain Management, Customer Engagement (Sales, Customer
-            Service, Field Service), Power Platform och Copilot.
+            ytterligare en extern, indexerbar källa i ett sammanhang helt fokuserat på Dynamics&nbsp;365:
+            Business Central, Finance & Supply Chain Management (F&O) och CRM (Sales, Customer Service,
+            Field Service, Contact Center och Marketing), med Power Platform, Copilot och AI-agenter som
+            förmågor.
           </p>
 
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -475,7 +477,7 @@ const Partnerprogram = () => {
               {
                 icon: FileText,
                 title: "Partnerprofil",
-                text: "Strukturerad information om produkter (Business Central, Finance, Supply Chain Management, Sales, Customer Service), branscherfarenhet, kundtyper och erbjudande.",
+                text: "Strukturerad information per produktområde (Business Central, Finance & Supply Chain Management, CRM), branscherfarenhet, typiska kunder och erbjudande.",
               },
               {
                 icon: Users,
@@ -541,7 +543,7 @@ const Partnerprogram = () => {
             {[
               {
                 t: "Produkter",
-                d: "Business Central, Finance, Supply Chain Management, Sales, Customer Service, Field Service, Power Platform och Copilot – namngivna, inte underförstådda.",
+                d: "Business Central, Finance & Supply Chain Management (F&O) eller CRM (Sales, Customer Service, Field Service, Contact Center och Marketing), namngivna och inte underförstådda. Power Platform, Copilot och AI-agenter anges som förmågor.",
               },
               {
                 t: "Branscherfarenhet",
@@ -682,7 +684,7 @@ const Partnerprogram = () => {
               {
                 n: "3",
                 t: "Vi publicerar och utvecklar profilen",
-                d: "Profilen publiceras på d365.se och kan kompletteras med expertintervju, video och ytterligare innehåll.",
+                d: "Nya profiler granskas av d365.se innan de publiceras. Därefter syns publicerade partners egna ändringar direkt. Profilen kan kompletteras med expertintervju, video och ytterligare innehåll.",
               },
             ].map((s) => (
               <div key={s.n} className="rounded-xl border border-border bg-card p-6">
@@ -698,7 +700,7 @@ const Partnerprogram = () => {
           <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
             {[
               "Publicering inom 10 arbetsdagar från att underlaget är komplett",
-              "Uppdateringar av er profil genomförs inom 3 arbetsdagar",
+              "Publicerade partners ändringar i profilen syns direkt",
               "Kvartalsvis genomgång av profilen tillsammans med er",
               "Statistik över profilvisningar",
               "En namngiven kontaktperson på d365.se",
@@ -723,8 +725,8 @@ const Partnerprogram = () => {
             Partners med partnerverifierad profil på d365.se
           </h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">
-            {VERIFIED_PARTNERS.length} Dynamics 365-partners har idag en partnerverifierad profil där
-            kompetens, branscherfarenhet och kundcase är granskade och publicerade.
+            {VERIFIED_PARTNERS.length} Dynamics&nbsp;365-partners har idag en partnerverifierad profil där
+            kompetens, branscherfarenhet och kundcase är verifierade av partnern själv och publicerade.
           </p>
           <ul className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
             {VERIFIED_PARTNERS.map((p) => (
