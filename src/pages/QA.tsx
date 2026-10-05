@@ -18,6 +18,7 @@ import {
 import { BUYER_SIDE_DESCRIPTION, BUYER_SIDE_EXPLAINER, BUYER_SIDE_LINK_TEXT } from "@/data/organization";
 import { useEffect, useState } from "react";
 import { scrollElementIntoView } from "@/lib/anchorScroll";
+import { FAQ_TOPICS, ALL_FAQ_ITEMS } from "@/data/faqTopics";
 
 const QA = () => {
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
@@ -143,13 +144,16 @@ const QA = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Vanliga frågor om Microsoft Dynamics 365 – FAQ"
-        description="Vanliga frågor om Microsoft Dynamics 365: tid, licenskostnader, BC vs Finance och CRM-val. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        title="Vanliga frågor om Dynamics 365, affärssystem och partnerval"
+        description="Svar på vanliga frågor om Microsoft Dynamics 365, affärssystem och CRM: kostnad, licenser, tidplan, partnerval och förvaltning. Köparsidig vägledning från d365.se."
         canonicalPath="/qa"
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"
       />
-      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) }))} />
+      <FAQSchema faqs={[
+        ...faqs.map(f => ({ question: f.question, answer: resolvePriceTokens(f.answer).substring(0, 300) })),
+        ...ALL_FAQ_ITEMS.filter(i => !faqs.some(f => f.question === i.question)),
+      ]} />
       <BreadcrumbSchema items={[
         { name: "Hem", url: "https://d365.se" },
         { name: "Vanliga frågor", url: "https://d365.se/qa" },
@@ -234,6 +238,36 @@ const QA = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Ämnesvisa frågor (tidigare /kunskapscenter/fragor-och-svar/, sammanslagen 2026-10-05) */}
+      <section className="pb-8 sm:pb-12 md:pb-16 bg-background" aria-labelledby="fler-fragor">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 id="fler-fragor" className="text-2xl md:text-3xl font-bold text-foreground mb-4">Fler frågor om affärssystem och partnerval</h2>
+            <nav aria-label="Ämnen" className="mb-10 rounded-lg border border-border bg-muted/40 p-5">
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {FAQ_TOPICS.map((topic) => (
+                  <li key={topic.id}><a href={`#${topic.id}`} className="text-sm text-primary hover:underline">{topic.title}</a></li>
+                ))}
+              </ul>
+            </nav>
+            {FAQ_TOPICS.map((topic) => (
+              <section key={topic.id} id={topic.id} className="mb-10 scroll-mt-28">
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{topic.title}</h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed">{topic.intro}</p>
+                <Accordion type="single" collapsible className="w-full">
+                  {topic.items.map((item, i) => (
+                    <AccordionItem key={item.question} value={`${topic.id}-${i}`}>
+                      <AccordionTrigger className="text-left text-base font-semibold">{item.question}</AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed">{item.answer}</AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </section>
+            ))}
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 /**
  * Vanliga frågor om affärssystem, ERP/CRM och partnerval.
- * Används av /kunskapscenter/fragor-och-svar/ (FAQ-sida + FAQPage-schema).
+ * Används av /qa/ (FAQ-sida + FAQPage-schema).
  *
  * Svaren ska vara sakliga och följa d365.se:s prisstandarder:
  * BC 100 000–800 000 kr, F&SCM 1,5–10 Mkr, Sales/Customer Insights

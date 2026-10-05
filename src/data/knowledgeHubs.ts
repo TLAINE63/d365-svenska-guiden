@@ -399,10 +399,10 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
   },
   {
     slug: "upphandling",
-    metaTitle: "Upphandling av ERP och CRM – guider, kravspecar och e-bok | d365.se",
+    metaTitle: "Resurser för upphandling av ERP och CRM | d365.se",
     metaDescription:
-      "Allt om upphandling av Dynamics 365: upphandlingsguiden, 7 stadier i upphandlingsresan, kravspecifikationer och e-bok om partnerval.",
-    h1: "Upphandling av ERP och CRM – guider, kravspecar och e-bok",
+      "Länksamling för upphandling av Dynamics 365: upphandlingsguiden, 7 stadier i upphandlingsresan, kravspecifikationer och e-bok om partnerval.",
+    h1: "Resurser för upphandling av ERP och CRM",
     intro:
       "Samlade resurser för dig som ska upphandla ett nytt affärssystem eller CRM. Förstå upphandlingsresans 7 stadier, skapa en kravspecifikation och läs vår e-bok om det viktiga partnervalet.",
     breadcrumbLabel: "Upphandling",

@@ -31,7 +31,6 @@ export const CRITICAL_ROUTES = [
   "/kunskapscenter",
   "/kunskapscenter/upphandling",
   "/kunskapscenter/upphandlingsresan",
-  "/kunskapscenter/fragor-och-svar",
   "/upphandlingsguiden",
   "/kravspecifikation",
   "/kravspecifikation-sales",

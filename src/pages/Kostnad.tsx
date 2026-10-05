@@ -100,8 +100,8 @@ export default function Kostnad() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Vad kostar Dynamics 365? Licens + implementation"
-        description="Komplett pris- och kostnadsguide för Microsoft Dynamics 365: licenspris per användare och månad, engångskostnad för implementation (S/M/L-intervall i SEK), löpande kostnader efter go-live och en snabb offertfråga som ger ditt kostnadsspann direkt."
+        title="Vad kostar Dynamics 365 totalt? Införande & drift"
+        description="Totalkostnaden för Microsoft Dynamics 365: engångskostnad för införande (S/M/L-intervall i SEK), löpande förvaltning efter go-live och vad som driver kostnaden. Licenspriserna finns i prislistan."
         canonicalPath="/kostnad/"
       />
 

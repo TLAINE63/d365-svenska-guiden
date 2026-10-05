@@ -263,7 +263,7 @@ const STATIC_TOOLS: Array<{
  title: "Vanliga frågor om affärssystem och partnerval",
  description: "Samlade svar på de vanligaste frågorna om ERP, CRM, partnerval, kostnader, tidplan och förvaltning.",
  type: "guide",
- url: "/kunskapscenter/fragor-och-svar",
+ url: "/qa/",
  image_url: guideValjPartnerImage,
  icon: BookOpen,
  products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],

@@ -77,7 +77,6 @@ import Priser from './pages/Priser';
 import Kostnad from './pages/Kostnad';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsresan from './pages/Upphandlingsresan';
-import KunskapscenterFaq from './pages/KunskapscenterFaq';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import BcMatchningstest from './pages/BcMatchningstest';
 import CrmUnderlagTest from './pages/CrmUnderlagTest';
@@ -270,7 +269,6 @@ export const routes: PrerenderRoute[] = [
     },
   },
   { path: '/kunskapscenter/upphandlingsresan', priority: '0.7', changefreq: 'monthly' },
-  { path: '/kunskapscenter/fragor-och-svar', priority: '0.8', changefreq: 'monthly' },
   {
     path: '/kunskapscenter/dynamics-365-tillagg',
     priority: '0.7',
@@ -582,12 +580,12 @@ export function render(url: string) {
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<EventDetail initialData={eventInitialData} />} />
               <Route path="/qa" element={<QA />} />
+              <Route path="/kunskapscenter/fragor-och-svar" element={<Navigate to="/qa/" replace />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
               <Route path="/kostnad" element={<Kostnad />} />
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
-              <Route path="/kunskapscenter/fragor-och-svar" element={<KunskapscenterFaq />} />
               <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
               <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
               <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
