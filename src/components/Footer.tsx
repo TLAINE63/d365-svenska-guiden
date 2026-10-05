@@ -42,6 +42,8 @@ const Footer = () => {
               <li><Link to="/d365sales/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365marketing/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 CRM-partners</Link></li>
+              <li><Link to="/kundservicesystem/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Välja kundservicesystem</Link></li>
+              <li><Link to="/faltservicesystem/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Välja fältservicesystem</Link></li>
               <li><Link to="/CRMbehovsanalys/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
