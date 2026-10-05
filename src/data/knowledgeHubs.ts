@@ -215,17 +215,9 @@ const tools = {
   upphandlingsguiden: {
     id: "tool-upphandlingsguiden",
     type: "guide" as const,
-    title: "Upphandlingsguiden",
-    description: "Steg-för-steg-guide för en lyckad ERP- eller CRM-upphandling.",
+    title: "Upphandlingsguiden – 7 stadier",
+    description: "De sju stadierna i en ERP- eller CRM-upphandling, med verktyg för varje steg.",
     url: "/upphandlingsguiden/",
-    category: "Upphandling",
-  },
-  upphandlingsresan: {
-    id: "tool-upphandlingsresan",
-    type: "guide" as const,
-    title: "Den typiska upphandlingsresan – 7 stadier",
-    description: "Var i systemlivscykeln står du? Upptäck de sju stadierna i en typisk upphandlingsresa.",
-    url: "/kunskapscenter/upphandlingsresan/",
     category: "Upphandling",
   },
   ebookPartnerval: {
@@ -401,14 +393,13 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     slug: "upphandling",
     metaTitle: "Resurser för upphandling av ERP och CRM | d365.se",
     metaDescription:
-      "Länksamling för upphandling av Dynamics 365: upphandlingsguiden, 7 stadier i upphandlingsresan, kravspecifikationer och e-bok om partnerval.",
+      "Länksamling för upphandling av Dynamics 365: upphandlingsguiden med 7 stadier, kravspecifikationer och e-bok om partnerval.",
     h1: "Resurser för upphandling av ERP och CRM",
     intro:
-      "Samlade resurser för dig som ska upphandla ett nytt affärssystem eller CRM. Förstå upphandlingsresans 7 stadier, skapa en kravspecifikation och läs vår e-bok om det viktiga partnervalet.",
+      "Samlade resurser för dig som ska upphandla ett nytt affärssystem eller CRM. Följ upphandlingsguidens 7 stadier, skapa en kravspecifikation och läs vår e-bok om det viktiga partnervalet.",
     breadcrumbLabel: "Upphandling",
     resources: [
       tools.upphandlingsguiden,
-      tools.upphandlingsresan,
       tools.kravspecErp,
       tools.kravspecSales,
       tools.kravspecMarketing,
