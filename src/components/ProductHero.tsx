@@ -2,7 +2,6 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Link } from "react-router-dom";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import EditorialSource from "@/components/EditorialSource";
 
 interface CTA {
   label: string;

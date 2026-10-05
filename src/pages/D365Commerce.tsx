@@ -15,6 +15,7 @@ import CommerceIcon from "@/assets/icons/Commerce.svg?url";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import EditorialSource from "@/components/EditorialSource";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -111,6 +112,7 @@ const D365Commerce = () => {
       <ProductIsvSection product="Commerce" />
 
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

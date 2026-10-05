@@ -176,7 +176,6 @@ const Branscher = () => {
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               {nowrapBrand("Hur påverkar er bransch valet av Dynamics 365 och partner?")}
             </h1>
-            <EditorialSource sourceType="Branschguide" />
             <h2 className="text-lg font-bold mb-2">Kort svar</h2>
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
@@ -272,6 +271,7 @@ const Branscher = () => {
           </div>
         </section>
  <ContextualCta source="next-step:branscher" heading="Så går du vidare med branschkraven" text="Välj bransch och produkt i guiden, så visas de partners som har arbetat med företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se alla partners", to: "/alla-d365-partners/" }]} />
+<EditorialSource sourceType="Branschguide" />
 <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
  <Footer />

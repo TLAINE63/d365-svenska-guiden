@@ -31,6 +31,7 @@ const contactCenterBreadcrumbs = [
   { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365contactcenter" },
 ];
 import {
+import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -314,6 +315,7 @@ const D365ContactCenter = () => {
       <ProductIsvSection product="Contact Center" />
 
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

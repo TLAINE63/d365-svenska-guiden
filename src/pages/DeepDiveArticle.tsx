@@ -130,10 +130,6 @@ const DeepDiveArticle = () => {
             <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
               {article.title}
             </h1>
-            <EditorialSource
-              sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"}
-              updatedAt={modifiedAt}
-            />
             <p className="text-muted-foreground mt-2 max-w-2xl">
               {article.description}
             </p>
@@ -254,6 +250,7 @@ const DeepDiveArticle = () => {
                 ],
               };
               const links = learnLinks[article.productSlug];
+              <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={modifiedAt} />
               if (!links?.length) return <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />;
               return <SourcesAndMethod externalSources={[
                 ...links.map(link => ({ name: link.label, href: link.url, supports: "Produktfunktioner och teknisk dokumentation för artikelns produktområde. Hänvisningen är övergripande och belägger inte automatiskt alla enskilda påståenden." })),

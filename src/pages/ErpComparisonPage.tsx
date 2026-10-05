@@ -62,7 +62,6 @@ const ErpComparisonPage = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
               {nowrapBrand(`${data.productShort} eller ${data.competitor}, vilket passar er verksamhet?`)}
             </h1>
-            <EditorialSource sourceType="Jämförelse" tone="dark" />
           </div>
         </section>
 
@@ -324,6 +323,7 @@ const ErpComparisonPage = () => {
             </div>
           </section>
         )}
+      <EditorialSource sourceType="Jämförelse" />
       <SourcesAndMethod />
       </main>
 

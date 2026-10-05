@@ -32,6 +32,7 @@ const marketingBreadcrumbs = [
   { name: "Customer Insights (Marketing)", url: "https://d365.se/d365marketing" },
 ];
 import {
+import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -317,6 +318,7 @@ const D365Marketing = () => {
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

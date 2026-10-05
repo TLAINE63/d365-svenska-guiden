@@ -33,6 +33,7 @@ const customerServiceBreadcrumbs = [
   { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365customerservice" },
 ];
 import {
+import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -372,6 +373,7 @@ const D365CustomerService = () => {
 <FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
 </main>
       <BasicProfilesDirectory products={["service"]} />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

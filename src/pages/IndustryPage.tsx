@@ -284,6 +284,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
  </div>
  </main>
+ <EditorialSource sourceType="Branschguide" updatedAt={page?.updated_at} />
  <Footer />
  </>
  );
@@ -362,7 +363,6 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-">
  {nowrapBrand(`Vilken Dynamics 365-lösning och partner passar ${industryName.toLowerCase()}?`)}
  </h1>
- <EditorialSource sourceType="Branschguide" updatedAt={page?.updated_at} />
  <div className="mb-3">
  <span
  title="Innehållet på denna branschsida är initialt genererat med AI och granskat redaktionellt. Partnerdata är manuellt kvalitetssäkrad."

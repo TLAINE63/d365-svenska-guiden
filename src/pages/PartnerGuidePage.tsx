@@ -188,8 +188,6 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
             {nowrapBrand(partnerQuestion(content.h1))}
           </h1>
-          <EditorialSource sourceType="Partnerguide" />
-
           {introBlocks.length > 0 && <section aria-label="Kort svar"><h2 className="text-xl font-bold mb-3">Kort svar</h2>{introBlocks.map(renderBlock)}</section>}
 
           {guideKey === "hub" && <><FitModel model="partner" heading="Vad avgör valet av partner?" /><GuideCardsGrid /></>}
@@ -232,6 +230,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             <p className="text-[15px] leading-relaxed text-muted-foreground">{content.about}</p>
           </section>
         </article>
+      <EditorialSource sourceType="Partnerguide" />
       <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
 

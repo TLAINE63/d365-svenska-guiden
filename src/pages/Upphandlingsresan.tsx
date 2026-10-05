@@ -7,6 +7,7 @@ import { RadialGlow } from "@/components/RadialGlow";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Sparkles, FileText, Lightbulb } from "lucide-react";
+import EditorialSource from "@/components/EditorialSource";
 
 const Upphandlingsresan = () => {
   return (
@@ -157,6 +158,7 @@ const Upphandlingsresan = () => {
           </div>
         </section>
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </>
   );

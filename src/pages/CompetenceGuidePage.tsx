@@ -109,7 +109,6 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             {nowrapBrand(`Hur väljer ni rätt ${guide.shortTitle.toLowerCase()} för Dynamics 365?`)}
           </h1>
-          <EditorialSource sourceType="Partnerguide" />
           <h2 className="text-xl font-bold mb-3">Kort svar</h2>
           <p className="text-muted-foreground leading-relaxed mb-10 max-w-3xl">
             {nowrapBrand(guide.intro)}
@@ -174,6 +173,7 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
 
           <MatchInfoDisclosure />
         </div>
+      <EditorialSource sourceType="Partnerguide" />
       <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
       <Footer />

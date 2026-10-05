@@ -32,6 +32,7 @@ const fieldServiceBreadcrumbs = [
   { name: "Dynamics 365 Field Service", url: "https://d365.se/d365fieldservice" },
 ];
 import {
+import EditorialSource from "@/components/EditorialSource";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -313,6 +314,7 @@ const D365FieldService = () => {
       <ProductIsvSection product="Field Service" />
 
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

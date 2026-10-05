@@ -113,7 +113,6 @@ const KunskapscenterHub = ({ slug }: Props) => {
               Kunskapscenter
             </div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-white">{hub.h1}</h1>
-            <EditorialSource sourceType="Köpguide" tone="dark" />
             <p className="text-base md:text-lg text-white/85 leading-relaxed max-w-3xl">
               {hub.intro}
             </p>
@@ -243,6 +242,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
       
 <ContextualCta source="next-step:kunskapscenter-hub" heading="Har ni läst tillräckligt för att börja utvärdera?" text="När ni vet vilken produkt som passar är nästa steg att hitta partners med rätt erfarenhet." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </>
   );

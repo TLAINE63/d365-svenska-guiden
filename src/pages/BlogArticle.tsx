@@ -209,7 +209,6 @@ const BlogArticle = () => {
             <h1 className="text-xl md:text-3xl font-bold text-foreground leading-tight tracking-tight text-balance">
               {article.title}
             </h1>
-            <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
             <p className="text-muted-foreground mt-3 max-w-2xl text-base md:text-lg leading-relaxed">
               {article.summary}
             </p>
@@ -323,6 +322,7 @@ const BlogArticle = () => {
             >
               {article.content}
             </article>
+            <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
             <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />
 
             {/* Redaktionell not – för ämnen med snabb utveckling */}
