@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -320,6 +321,7 @@ const D365ContactCenter = () => {
       <ProductIsvSection product="Contact Center" />
 
       </main>
+      <ContextualCta source="next-step:d365contactcenter" heading="Behöver ni ett kontaktcenter eller ett kundservicesystem?" text="Börja med behovet: telefoni och köer, eller ärendehantering. Guiden hjälper er reda ut det och visar partners med kontaktcentererfarenhet." primaryLabel="Få hjälp att hitta rätt partner" product="Contact Center" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod />
       <Footer />

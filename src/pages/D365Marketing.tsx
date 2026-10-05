@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -323,6 +324,7 @@ const D365Marketing = () => {
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
       </main>
+      <ContextualCta source="next-step:d365marketing" heading="Behöver ni marketing automation, CDP eller båda?" text="Gör en kort behovsanalys för sälj och marknad och se vilka partners som har infört Customer Insights." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Insights" links={[{ label: "Gör behovsanalys för sälj och marknad", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod />
       <Footer />

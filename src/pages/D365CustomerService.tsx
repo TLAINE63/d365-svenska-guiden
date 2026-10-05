@@ -1,3 +1,4 @@
+import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -378,6 +379,7 @@ const D365CustomerService = () => {
 <FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
 </main>
       <BasicProfilesDirectory products={["service"]} />
+      <ContextualCta source="next-step:d365customerservice" heading="Bedöm ert kundservicebehov" text="Gör en kort behovsanalys för kundservice och se partners som har infört Customer Service hos liknande verksamheter." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Service" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod />
       <Footer />
