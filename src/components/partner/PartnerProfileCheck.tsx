@@ -233,9 +233,10 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
   }, [selected, basicPartners]);
 
   /**
-   * Exempelprofilen ska spegla den valda partnerns produktområden:
-   * BC → NAB Solutions, F&SCM → Fellowmind, CRM (Sales/Service) → B3 Elevate.
-   * Saknas match väljs den mest kompletta verifierade profilen med överlapp.
+   * Exempelprofilen är alltid Fellowmind: en verifierad partner med bred
+   * produkttäckning (BC, F&SCM och CRM) som passar oavsett vald partners
+   * produktinriktning. Saknas Fellowmind väljs den verifierade profil
+   * med högst poäng.
    */
   const reference = useMemo(() => {
     const buildEntry = (p: RawPartner) => {
@@ -253,30 +254,11 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
 
     const candidates = VERIFIED.filter((p) => p.slug !== selected && p.slug !== "knowit");
 
-    const preferredBySlug: Partial<Record<ProductKey, string>> = {
-      bc: "nab-solutions",
-      fsc: "fellowmind",
-      sales: "b3-consulting-group",
-      service: "b3-consulting-group",
-    };
-
-    for (const key of PRODUCT_ORDER) {
-      if (!selectedProducts.includes(key)) continue;
-      const slug = preferredBySlug[key];
-      const match = candidates.find((p) => p.slug === slug && (p.product_filters || {})[key]);
-      if (match) return buildEntry(match);
-    }
-
-    if (selectedProducts.length) {
-      const overlap = candidates.filter((p) =>
-        selectedProducts.some((k) => Boolean((p.product_filters || {})[k])),
-      );
-      const best = bestOf(overlap);
-      if (best) return best;
-    }
+    const fellowmind = candidates.find((p) => p.slug === "fellowmind");
+    if (fellowmind) return buildEntry(fellowmind);
 
     return bestOf(candidates);
-  }, [selected, selectedProducts]);
+  }, [selected]);
   const referenceRows = reference?.rows ?? [];
   const referenceScore = reference?.score ?? 0;
   const referenceProducts = useMemo(
