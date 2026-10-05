@@ -106,6 +106,32 @@ export default function PartnersSitemap() {
           </div>
         </section>
 
+        {/* Grundprofiler (ej partnerverifierade) */}
+        <section className="py-8 sm:py-10 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              Grundprofiler
+            </h2>
+            <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
+              Kartlagda aktörer med grundprofil på d365.se. Dessa profiler är
+              inte partnerverifierade och företagen har ännu inte valt att
+              presentera sig fullt ut på sajten.
+            </p>
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-sm">
+              {(basicPartnerRoutes as Array<{ slug: string; name: string }>).map((b) => (
+                <li key={b.slug}>
+                  <Link
+                    to={`/basic/${b.slug}/`}
+                    className="text-foreground hover:text-primary hover:underline"
+                  >
+                    {b.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Per bransch */}
         <section className="py-8 sm:py-10 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
