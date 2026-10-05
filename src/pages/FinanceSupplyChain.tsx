@@ -228,12 +228,16 @@ const FinanceSupplyChain = () => {
   subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot dina befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför du partners som levererat F&SCM i din bransch."
   primary={{
     label: "Jämför F&SCM-partners",
-    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+    to: "/finance-supply-chain-partners-sverige/",
   }}
   secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
   tertiary={{
     label: "Gör en estimerad TCO/ROI-kalkyl",
     to: "/finance-supply-chain/roi-kalkylator/",
+  }}
+  quaternary={{
+    label: "Filtrera fram en passande F&SCM-partner",
+    href: "#partners",
   }}
   />
   <ShortAnswer>

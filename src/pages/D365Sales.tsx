@@ -1,5 +1,8 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -316,6 +319,10 @@ const D365Sales = () => {
       <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
+
+      <div className="container mx-auto px-4 sm:px-6">
+        <UnprofiledPartnersList variant="teaser" showSeeAllLink />
+      </div>
 
       {/* CTA Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-sales">
