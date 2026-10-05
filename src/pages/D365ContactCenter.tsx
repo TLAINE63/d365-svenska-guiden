@@ -1,4 +1,5 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
@@ -314,6 +315,7 @@ const D365ContactCenter = () => {
       <ProductIsvSection product="Contact Center" />
 
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

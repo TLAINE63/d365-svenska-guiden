@@ -38,7 +38,6 @@ export default function KunskapscenterFaq() {
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             Vanliga frågor om affärssystem och partnerval
           </h1>
-          <EditorialSource sourceType="Köpguide" />
           <p className="text-lg text-muted-foreground leading-relaxed">
             Här samlar vi de frågor vi oftast får från företag som står inför ett byte av
             affärssystem eller CRM. Svaren är vägledande och utgår från hur svenska
@@ -117,6 +116,7 @@ export default function KunskapscenterFaq() {
         </section>
       </main>
 
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

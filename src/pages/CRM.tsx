@@ -49,6 +49,7 @@ import {
  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
+import EditorialSource from "@/components/EditorialSource";
 
 // CRM FAQs for schema
 const crmFaqs = [
@@ -608,6 +609,7 @@ const CRM = () => {
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  
 <ContextualCta source="next-step:crm" heading="Har ni en bild av vilken CRM-del ni behöver?" text="Sales, Customer Service eller Marketing? Guiden hjälper er välja och visar partners som passar." primaryLabel="Få rekommenderad partnerlista" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+<EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
       </main>
  <BasicProfilesDirectory products={["sales","service"]} />

@@ -1815,7 +1815,6 @@ const ComparePartners = () => {
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
                   Hitta rätt Dynamics 365-partner
                 </h1>
-                <EditorialSource sourceType="Jämförelse" className="text-left" />
                 <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
                   Alla partner i jämförelsen är relevanta kandidater. Här ser du var de skiljer sig åt och vilken typ av företag de passar bäst för.
                 </p>
@@ -2679,6 +2678,7 @@ const ComparePartners = () => {
         sourcePage="compare-partners"
       />
 
+      <EditorialSource sourceType="Jämförelse" />
       <Footer />
     </div>
   );

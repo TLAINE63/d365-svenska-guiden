@@ -58,7 +58,6 @@ const BuyerGuide2026 = ({ variant }: Props) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight mb-5">
               {nowrapBrand(variant === "erp" ? "Hur väljer och köper ni rätt Dynamics 365-affärssystem?" : "Hur väljer och köper ni rätt Dynamics 365 CRM?")}
             </h1>
-            <EditorialSource sourceType="Köpguide" tone="dark" />
             <p className="text-lg text-white/80 leading-relaxed mb-6">{guide.hero}</p>
             <p className="mt-6 text-sm text-white/60">Omfattning: {guide.scope}</p>
           </div>
@@ -126,6 +125,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
         </section>
 
         <FunnelCTA stage="early" guide={variant} source={path} />
+      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod />
       </main>
 

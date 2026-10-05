@@ -1,4 +1,5 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
+import EditorialSource from "@/components/EditorialSource";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -372,6 +373,7 @@ const D365CustomerService = () => {
 <FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
 </main>
       <BasicProfilesDirectory products={["service"]} />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

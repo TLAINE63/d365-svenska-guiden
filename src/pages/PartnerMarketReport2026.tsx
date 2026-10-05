@@ -180,7 +180,6 @@ export default function PartnerMarketReport2026() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               Svenska Dynamics 365-partnermarknaden 2026
             </h1>
-            <EditorialSource sourceType="Marknadsöversikt" updatedAt={reportUpdated} />
             <p className="text-base sm:text-lg text-muted-foreground">
               d365.se kartlägger löpande de företag som levererar Microsoft
               Dynamics 365 i Sverige. Här är siffrorna för 2026 – hur många
@@ -448,6 +447,7 @@ export default function PartnerMarketReport2026() {
             </div>
           </div>
         </section>
+      <EditorialSource sourceType="Marknadsöversikt" updatedAt={reportUpdated} />
       <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
       <Footer />

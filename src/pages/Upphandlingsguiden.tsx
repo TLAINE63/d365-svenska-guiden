@@ -143,7 +143,6 @@ const Upphandlingsguiden = () => {
   <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
   {" "}och väljer Microsoft-partner?
   </h1>
-  <EditorialSource sourceType="Köpguide" tone="dark" />
   <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
   <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
   På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att du kan fatta trygga beslut hela vägen fram till avtal och införande.
@@ -320,6 +319,7 @@ const Upphandlingsguiden = () => {
  </div>
  </div>
  </section>
+ <EditorialSource sourceType="Köpguide" />
  <SourcesAndMethod />
       </main>
  <Footer />

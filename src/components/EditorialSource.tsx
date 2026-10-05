@@ -64,13 +64,17 @@ export default function EditorialSource({
         <div className="flex flex-wrap gap-x-1">
           <dt>Källtyp:</dt><dd>{sourceType}</dd>
         </div>
-        <div className="flex flex-wrap gap-x-1">
-          <dt>Senast uppdaterad:</dt>
-          <dd>{date ? <time dateTime={date}>{date}</time> : "Datum ej angivet"}</dd>
-        </div>
-        <div className="flex flex-wrap gap-x-1">
-          <dt>Granskad av:</dt><dd>{reviewedBy?.trim() || "Granskare ej angiven"}</dd>
-        </div>
+        {date && (
+          <div className="flex flex-wrap gap-x-1">
+            <dt>Senast uppdaterad:</dt>
+            <dd><time dateTime={date}>{date}</time></dd>
+          </div>
+        )}
+        {reviewedBy?.trim() && (
+          <div className="flex flex-wrap gap-x-1">
+            <dt>Granskad av:</dt><dd>{reviewedBy.trim()}</dd>
+          </div>
+        )}
       </dl>
     </aside>
   );

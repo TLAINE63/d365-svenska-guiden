@@ -123,7 +123,6 @@ export default function Kostnad() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {nowrapBrand("Vad kostar Dynamics 365, inklusive införande och förvaltning?")}
             </h1>
-            <EditorialSource sourceType="Köpguide" />
             <h2 className="text-xl font-bold mb-3">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Total­kostnaden består av tre delar: <strong>abonnemang</strong> (licens per
@@ -298,6 +297,7 @@ export default function Kostnad() {
         <CostContactForm />
       
 <FunnelCTA stage="early" guide="erp" source="/kostnad/" />
+<EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
       </main>
 

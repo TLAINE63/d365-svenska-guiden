@@ -2,7 +2,6 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Link } from "react-router-dom";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import EditorialSource from "@/components/EditorialSource";
 
 interface CTA {
   label: string;
@@ -119,8 +118,6 @@ const ProductHero = ({
                 </span>
               )}
             </h1>
-
-            <EditorialSource sourceType="Köpguide" tone="dark" />
 
             <p className="text-[15px] sm:text-lg text-white/70 font-light leading-[1.65] sm:leading-[1.9] mt-4 mb-8 sm:mt-10 sm:mb-14 max-w-2xl">
               {subhead}

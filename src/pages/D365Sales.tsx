@@ -1,4 +1,5 @@
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
+import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
@@ -342,6 +343,7 @@ const D365Sales = () => {
 <ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför Sales-partners", to: "/dynamics-365-sales-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
 </main>
       <BasicProfilesDirectory products={["sales"]} />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

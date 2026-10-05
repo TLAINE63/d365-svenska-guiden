@@ -9,8 +9,10 @@ describe("EditorialSource", () => {
     expect(html).toContain("D365.SE Partnerguide");
     expect(html).toContain("Utgivare:");
     expect(html).toContain("Källtyp:");
-    expect(html).toContain("Datum ej angivet");
-    expect(html).toContain("Granskare ej angiven");
+    expect(html).not.toContain("Senast uppdaterad");
+    expect(html).not.toContain("Granskad av");
+    expect(html).not.toContain("ej angivet");
+    expect(html).not.toContain("ej angiven");
     expect(html).toContain("https://d365.se/#organization");
     expect(html).not.toContain("oberoende");
     expect(html).not.toContain("<time");
@@ -40,7 +42,11 @@ describe("EditorialSource", () => {
     expect(readFileSync(`src/pages/${page}.tsx`, "utf8")).toContain("<EditorialSource");
   });
 
-  it("covers product and ERP/CRM guides through their shared header", () => {
-    expect(readFileSync("src/components/ProductHero.tsx", "utf8")).toContain('<EditorialSource sourceType="Köpguide"');
+  it.each([
+    "ERPOverview", "D365ProjectOperations", "D365Marketing", "D365HumanResources",
+    "D365FieldService", "D365ContactCenter", "D365Commerce", "D365CustomerService",
+    "D365Sales", "CRM", "FinanceSupplyChain", "BusinessCentral", "ValjPartner", "Upphandlingsresan",
+  ])("keeps source attribution at the bottom of the %s product page", (page) => {
+    expect(readFileSync(`src/pages/${page}.tsx`, "utf8")).toContain("<EditorialSource");
   });
 });

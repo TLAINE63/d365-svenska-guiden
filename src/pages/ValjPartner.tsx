@@ -53,6 +53,7 @@ import {
  type CompareFilters, type ProductKey as UnderlagProductKey, type CriterionKey, deriveCompareFilters,
 } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import EditorialSource from "@/components/EditorialSource";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -1215,6 +1216,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  <RelatedPages heading="Skapa underlag innan du kontaktar partners" pages={valjPartnerRelatedPages} />
  <ContextualCta source="next-step:valj-partner" heading="Vet ni vad ni ska leta efter hos en partner nu?" text="Gör kriterierna konkreta. Svara på sex frågor så får ni en kortlista att jämföra mot det ni just läst." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Skapa kravspecifikation", to: "/kravspecifikation/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 </main>
+ <EditorialSource sourceType="Partnerguide" />
  <Footer />
  </div>
  );
