@@ -42,7 +42,6 @@ const ProductRoiPage = lazy(() => import("./pages/ProductRoiPage"));
 const ErpComparisonsHub = lazy(() => import("./pages/ErpComparisonsHub"));
 const ErpComparisonPage = lazy(() => import("./pages/ErpComparisonPage"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
-const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));

@@ -20,7 +20,6 @@ import CRM from './pages/CRM';
 import BusinessCentral from './pages/BusinessCentral';
 import FinanceSupplyChain from './pages/FinanceSupplyChain';
 import ERPOverview from './pages/ERPOverview';
-import Affarssystem from './pages/Affarssystem';
 
 import Copilot from './pages/Copilot';
 import Agents from './pages/Agents';
