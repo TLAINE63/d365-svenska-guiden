@@ -300,6 +300,10 @@ const BusinessCentral = () => {
   label: "Gör en estimerad TCO/ROI-kalkyl",
   to: "/businesscentral/roi-kalkylator/",
   }}
+  quaternary={{
+  label: "Filtrera fram en passande Business Central-partner",
+  href: "#partners",
+  }}
     />
   <ShortAnswer>
  <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
