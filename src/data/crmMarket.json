@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-10-05",
+  "scope": "Publicerade partnerprofiler på d365.se med Dynamics 365 Sales eller Customer Service i profilen. Täcker inte hela den svenska marknaden.",
+  "totalPartners": 8,
+  "perApp": [
+    {
+      "app": "Dynamics 365 Sales",
+      "partners": 8
+    },
+    {
+      "app": "Dynamics 365 Customer Insights",
+      "partners": 8
+    },
+    {
+      "app": "Dynamics 365 Customer Service",
+      "partners": 7
+    },
+    {
+      "app": "Dynamics 365 Field Service",
+      "partners": 7
+    },
+    {
+      "app": "Dynamics 365 Contact Center",
+      "partners": 7
+    }
+  ],
+  "topIndustries": [
+    {
+      "value": "Tillverkningsindustri",
+      "partners": 4
+    },
+    {
+      "value": "Konsulttjänster",
+      "partners": 3
+    },
+    {
+      "value": "Grossist & Distribution",
+      "partners": 2
+    },
+    {
+      "value": "Medlemsorganisationer",
+      "partners": 2
+    },
+    {
+      "value": "Fastighet & Förvaltning",
+      "partners": 1
+    },
+    {
+      "value": "Finans & Försäkring",
+      "partners": 1
+    },
+    {
+      "value": "Jordbruk & Skogsbruk",
+      "partners": 1
+    },
+    {
+      "value": "Life Science / Medtech",
+      "partners": 1
+    }
+  ],
+  "companySize": [
+    {
+      "value": "250-999",
+      "partners": 7
+    },
+    {
+      "value": "100-249",
+      "partners": 6
+    },
+    {
+      "value": "1.000-4.999",
+      "partners": 5
+    },
+    {
+      "value": "50-99",
+      "partners": 3
+    },
+    {
+      "value": ">5.000",
+      "partners": 2
+    }
+  ],
+  "geography": [
+    {
+      "value": "Sverige",
+      "partners": 8
+    },
+    {
+      "value": "Norden",
+      "partners": 6
+    },
+    {
+      "value": "Europa",
+      "partners": 5
+    },
+    {
+      "value": "Globalt",
+      "partners": 4
+    }
+  ],
+  "support": [
+    {
+      "value": "Implementation och förvaltning",
+      "partners": 8
+    }
+  ]
+}
