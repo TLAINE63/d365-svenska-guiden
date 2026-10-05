@@ -1,3 +1,4 @@
+import { BUYER_SIDE_DESCRIPTION } from "@/data/organization";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
@@ -325,7 +326,7 @@ const Index = () => {
               </h1>
               <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
                 Jämför svenska Dynamics 365-partners utifrån bransch, lösning, erfarenhet och
-                specialistkompetens innan du tar kontakt.
+                specialistkompetens innan du tar kontakt. {BUYER_SIDE_DESCRIPTION}
               </p>
 
 

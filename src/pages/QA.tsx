@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import { BUYER_SIDE_DESCRIPTION, BUYER_SIDE_EXPLAINER, BUYER_SIDE_LINK_TEXT } from "@/data/organization";
 import { useEffect, useState } from "react";
 import { scrollElementIntoView } from "@/lib/anchorScroll";
 
@@ -41,6 +42,11 @@ const QA = () => {
   }, []);
 
   const faqs = [
+    {
+      id: "vad-ar-d365-se",
+      question: "Vad är d365.se?",
+      answer: `${BUYER_SIDE_DESCRIPTION}\n\n${BUYER_SIDE_EXPLAINER} [${BUYER_SIDE_LINK_TEXT}](/agande-och-intressen/)`,
+    },
     {
       id: "nar-starkt-val",
       question: "När passar Dynamics 365?",
