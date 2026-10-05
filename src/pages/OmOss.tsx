@@ -5,6 +5,8 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { ORGANIZATION, BUYER_SIDE_DESCRIPTION, BUYER_SIDE_EXPLAINER, BUYER_SIDE_LINK_TEXT } from "@/data/organization";
+import { siteText } from "@/data/siteTexts";
+import SiteTextParagraphs from "@/components/SiteTextParagraphs";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
 
@@ -14,14 +16,14 @@ const advisors = [
   {
     name: "Thomas Laine",
     image: thomasLaine,
-    role: `Medgrundare, d365.se. Köparsidig rådgivare inom Microsoft ${D365}, ERP, CRM och partnerlandskapet.`,
+    role: siteText("founder.thomas.role"),
     link: "/om-thomas-laine/",
     linkLabel: "Om Thomas Laine →",
   },
   {
     name: "Michael Uhman",
     image: michaelUhman,
-    role: `Medgrundare, d365.se. Köparsidig rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och ${D365}-relaterade beslut.`,
+    role: siteText("founder.michael.role"),
     link: "/om-michael-uhman/",
     linkLabel: "Om Michael Uhman →",
   },
@@ -55,12 +57,7 @@ const OmOss = () => {
                 {BUYER_SIDE_LINK_TEXT}
               </Link>
             </p>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Ett {D365}-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning,
-              rätt vägval och framför allt rätt partner. d365.se hjälper svenska företag in i den
-              processen med bättre struktur. Det sker innan dialogen blir för bred, för teknisk eller
-              för säljorienterad.
-            </p>
+            <SiteTextParagraphs textKey="omoss.intro" className="text-base sm:text-lg text-muted-foreground leading-relaxed" />
           </div>
         </section>
 
@@ -68,12 +65,7 @@ const OmOss = () => {
         <section className="px-4 sm:px-6 py-12 sm:py-16 border-b border-border">
           <div className="container mx-auto max-w-3xl">
             <h2 className="text-2xl font-bold text-foreground mb-4">Vad d365.se gör</h2>
-            <p className="text-[15px] text-muted-foreground leading-relaxed mb-4">
-              d365.se är en köparsidig guide till Microsoft {D365}. Här kan du läsa dig till hur
-              affärssystem, CRM och AI passar din verksamhet, göra en behovsanalys, söka efter specifik
-              kompetens och jämföra partners med dokumenterad erfarenhet inom din bransch och din
-              företagsstorlek.
-            </p>
+            <SiteTextParagraphs textKey="omoss.what" className="text-[15px] text-muted-foreground leading-relaxed mb-4" />
             <ul className="space-y-2.5 text-[15px] text-muted-foreground leading-relaxed list-none">
               <li className="flex gap-2.5">
                 <span className="text-[hsl(var(--cta-orange))] font-bold">1.</span>
@@ -99,16 +91,7 @@ const OmOss = () => {
         <section className="px-4 sm:px-6 py-12 sm:py-16 bg-secondary/40 border-b border-border">
           <div className="container mx-auto max-w-3xl">
             <h2 className="text-2xl font-bold text-foreground mb-4">Så finansieras d365.se</h2>
-            <p className="text-[15px] text-muted-foreground leading-relaxed mb-4">
-              Sajten drivs av {ORGANIZATION.legalName} och finansieras av partners som betalar för
-              utökade profiler. Betalning påverkar inte hur partners rangordnas i guider och analyser.
-              Matchningen styrs av den profilering partnern själv har lämnat om produkter, branscher,
-              geografi och kompetens.
-            </p>
-            <p className="text-[15px] text-muted-foreground leading-relaxed mb-5">
-              Vi redovisar öppet vilka intressen som finns bakom sajten, inklusive ägarförhållanden
-              och kopplingar till bolag som nämns i innehållet.
-            </p>
+            <div className="mb-5"><SiteTextParagraphs textKey="omoss.funding" className="text-[15px] text-muted-foreground leading-relaxed" /></div>
             <Link
               to="/agande-och-intressen/"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"

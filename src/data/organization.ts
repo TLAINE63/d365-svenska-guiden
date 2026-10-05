@@ -7,6 +7,8 @@
  * när uppgifterna är identiska på alla ytor.
  */
 
+import { rawSiteText, siteText, toE164 } from "./siteTexts";
+
 export const ORGANIZATION = {
   /** Varumärkes-/sajtnamn – används som primärt namn överallt. */
   name: "d365.se",
@@ -16,17 +18,16 @@ export const ORGANIZATION = {
   parentName: "Moveahead AB",
   url: "https://d365.se",
   logoUrl: "https://d365.se/d365guide-logo.png",
-  description:
-    "Köparsidig guide som hjälper svenska företag att förstå Microsoft Dynamics 365 och hitta rätt partner utifrån behov, bransch och storlek.",
+  description: rawSiteText("org.description"),
   foundingDate: "2020",
   countryCode: "SE",
   countryName: "Sweden",
   /** Bevakad brevlåda. Visas på kontaktsidan och i schema/llms.txt. */
-  email: "thomas.laine@dynamicfactory.se",
+  email: rawSiteText("contact.email"),
   /** E.164-format i schema och tel:-länkar. */
-  telephoneE164: "+46722324060",
+  telephoneE164: toE164(rawSiteText("contact.phone")),
   /** Läsbart format i synlig text. Samma nummer, ett enda skrivsätt. */
-  telephoneDisplay: "+46 72 232 40 60",
+  telephoneDisplay: rawSiteText("contact.phone"),
   contactPath: "/kontakt",
   /** Företagsinformation i footern. Lämna tomt tills verifierat värde finns. */
   organizationNumber: "",
@@ -37,24 +38,24 @@ export const ORGANIZATION = {
   advisors: [
     {
       name: "Thomas Laine",
-      email: "thomas.laine@dynamicfactory.se",
-      telephoneE164: "+46722324060",
-      telephoneDisplay: "+46 72 232 40 60",
+      email: rawSiteText("founder.thomas.email"),
+      telephoneE164: toE164(rawSiteText("founder.thomas.phone")),
+      telephoneDisplay: rawSiteText("founder.thomas.phone"),
     },
     {
       name: "Michael Uhman",
-      email: "michael.uhman@dynamicfactory.se",
-      telephoneE164: "+46705748850",
-      telephoneDisplay: "+46 70 574 88 50",
+      email: rawSiteText("founder.michael.email"),
+      telephoneE164: toE164(rawSiteText("founder.michael.phone")),
+      telephoneDisplay: rawSiteText("founder.michael.phone"),
     },
   ],
-} as const;
+};
 
 /** "d365.se (Dynamic Factory)" – för copyright- och utgivarrader. */
 export const ORGANIZATION_ATTRIBUTION = `${ORGANIZATION.name} (${ORGANIZATION.legalName})`;
 
 /** Ordagrann köparsidig beskrivning (Thomas beslut 2026-10-05). Används på startsida, /om-oss/ och /qa/. */
-export const BUYER_SIDE_DESCRIPTION = "d365.se är en köparsidig tjänst för val av Microsoft Dynamics\u00A0365-partner i Sverige. Tjänsten är kostnadsfri för köpare och omfattar alla Dynamics\u00A0365-applikationer: Business Central, Finance & Supply Chain Management, Sales, Customer Service, Field Service, Customer Insights, Contact Center, Project Operations, Commerce och Human Resources.";
-export const BUYER_SIDE_EXPLAINER = "Köparsidig betyder att vi utgår från köparens behov när vi jämför och rekommenderar partners. Partners kan teckna profileringsavtal med d365.se och granska sina profiler, men avtalet ger ingen köpt fördel i d365.se:s rekommendationer.";
-export const BUYER_SIDE_LINK_TEXT = "Läs mer om hur samarbetet med partners fungerar.";
-export const ORGANIZATION_SCHEMA_DESCRIPTION = "Köparsidig tjänst för val av Microsoft Dynamics 365-partner i Sverige. Kostnadsfri för köpare.";
+export const BUYER_SIDE_DESCRIPTION = siteText("buyer.description");
+export const BUYER_SIDE_EXPLAINER = siteText("buyer.explainer");
+export const BUYER_SIDE_LINK_TEXT = siteText("buyer.link_text");
+export const ORGANIZATION_SCHEMA_DESCRIPTION = rawSiteText("org.schema_description");
