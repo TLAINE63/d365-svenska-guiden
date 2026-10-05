@@ -1,3 +1,7 @@
+import ContextualCta from "@/components/ContextualCta";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
 import ProductIsvSection from "@/components/ProductIsvSection";
@@ -135,6 +139,8 @@ const D365CustomerService = () => {
           Lösningen passar lika väl volymdriven konsumentsupport som komplex B2B-service med avtalsstyrning, och växer sömlöst tillsammans med Dynamics 365 Sales, Field Service och Contact Center i samma datamodell. Men hur partnern designar ärendeflöden, SLA:er, kunskapsstruktur och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker och kundnöjdheten lyfter.
         </p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="service" />
+      <EditorialAssessment assessment="service" />
 
 
       {/* Introduction Section */}
@@ -373,7 +379,9 @@ const D365CustomerService = () => {
 <FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
 </main>
       <BasicProfilesDirectory products={["service"]} />
+      <ContextualCta source="next-step:d365customerservice" heading="Bedöm ert kundservicebehov" text="Gör en kort behovsanalys för kundservice och se partners som har infört Customer Service hos liknande verksamheter." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Service" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );

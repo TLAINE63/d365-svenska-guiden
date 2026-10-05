@@ -1,3 +1,4 @@
+import CrmMarketSection from "@/components/crm/CrmMarketSection";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -221,6 +222,8 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             )}
           </div>
         </section>
+
+        {cfg.productKey === "crm" && <CrmMarketSection />}
 
         {/* FAQ */}
         {faqs.length > 0 && (

@@ -33,7 +33,10 @@ const Navbar = () => {
   ];
 
   const crmItems = [
-    { label: "CRM Översikt", path: "/crm" },
+    { label: "CRM-guiden: välja CRM-system", path: "/crm/" },
+    { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
+    { label: "Välja fältservicesystem", path: "/faltservicesystem/" },
+    { label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" },
     { label: "Dynamics 365 Sales", path: "/d365sales" },
     { label: "Dynamics 365 Customer Insights", path: "/d365marketing" },
     { label: "Dynamics 365 Customer Service", path: "/d365customerservice" },
@@ -258,7 +261,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Marknad, Sälj & Service
+                  CRM – Sälj, Marknad & Service
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -420,7 +423,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Marknad, Sälj & Service</span>
+                  <span className="text-lg font-semibold text-foreground">CRM – Sälj, Marknad & Service</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {crmItems.map((item) => (
                       <Link

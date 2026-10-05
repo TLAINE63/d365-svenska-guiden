@@ -30,6 +30,8 @@ export const CRITICAL_ROUTES = [
   "/partnerprogram",
   "/kunskapscenter",
   "/upphandlingsguiden",
+  "/kundservicesystem",
+  "/faltservicesystem",
   "/kravspecifikation",
   "/kravspecifikation-sales",
   "/kravspecifikation-marketing",

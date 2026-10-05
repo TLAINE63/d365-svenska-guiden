@@ -1,3 +1,7 @@
+import ContextualCta from "@/components/ContextualCta";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -122,6 +126,8 @@ const D365FieldService = () => {
           Resultatet är högre andel ärenden lösta vid första besöket, mindre körtid, lägre kostnad per ärende och en kundupplevelse som matchar det allra bästa i branschen – förutsatt att partnern bygger schemaläggningsregler, kompetensmatris och integrationer rätt från start.
         </p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="field" />
+      <EditorialAssessment assessment="field" />
 
 
       {/* Introduction Section */}
@@ -314,7 +320,9 @@ const D365FieldService = () => {
       <ProductIsvSection product="Field Service" />
 
       </main>
+      <ContextualCta source="next-step:d365fieldservice" heading="Passar Field Service er serviceverksamhet?" text="Pröva behovet mot er planering, era tekniker och ert affärssystem innan ni väljer partner." primaryLabel="Få hjälp att hitta rätt partner" product="Field Service" links={[{ label: "Hur väljer ni fältservicesystem?", to: "/faltservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );

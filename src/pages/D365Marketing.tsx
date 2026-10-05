@@ -1,3 +1,7 @@
+import ContextualCta from "@/components/ContextualCta";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialAssessment from "@/components/EditorialAssessment";
+import BuyerFitSection from "@/components/BuyerFitSection";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
@@ -126,6 +130,8 @@ const D365Marketing = () => {
         <p>Inbyggd Copilot och autonoma marknadsagenter låter marknadsförare beskriva ett segment eller en kampanj i klartext och få färdiga målgrupper, ämnesrader, innehåll och kundresor genererade på sekunder – i stället för att lägga dagar på manuell segmentering och utkast.</p>
         <p>Genom djup integration med Dynamics 365 Sales, Customer Service, Dataverse, Fabric och Microsoft 365 ser sälj, marknad och service samma kundbild. Men datamodell, källsystem och integrationer som partnern sätter upp är det som faktiskt avgör om plattformen blir en sann tillväxtmotor eller bara ännu ett verktyg.</p>
       </ShortAnswer>
+      <BuyerFitSection fitKey="insights" />
+      <EditorialAssessment assessment="insights" />
 
 
       {/* Introduction Section */}
@@ -318,7 +324,9 @@ const D365Marketing = () => {
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
       </main>
+      <ContextualCta source="next-step:d365marketing" heading="Behöver ni marketing automation, CDP eller båda?" text="Gör en kort behovsanalys för sälj och marknad och se vilka partners som har infört Customer Insights." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Insights" links={[{ label: "Gör behovsanalys för sälj och marknad", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
+      <SourcesAndMethod />
       <Footer />
     </div>
   );

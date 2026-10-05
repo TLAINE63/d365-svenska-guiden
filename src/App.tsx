@@ -125,6 +125,7 @@ const Friskrivning = lazy(() => import("./pages/Friskrivning"));
 const Backlankar = lazy(() => import("./pages/Backlankar"));
 const Priser = lazy(() => import("./pages/Priser"));
 const Kostnad = lazy(() => import("./pages/Kostnad"));
+const CrmCategoryGuide = lazy(() => import("./pages/CrmCategoryGuide"));
 const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalculator"));
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
@@ -324,6 +325,9 @@ const AppShell = () => {
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
+          <Route path="/kundservicesystem" element={<CrmCategoryGuide guide="kundservicesystem" />} />
+          <Route path="/faltservicesystem" element={<CrmCategoryGuide guide="faltservicesystem" />} />
+
           <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
           {/* Topical hubs – explicit slugs (registered before the generic 2-segment article route) */}

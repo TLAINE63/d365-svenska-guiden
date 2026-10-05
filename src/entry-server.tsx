@@ -75,6 +75,7 @@ import OmMichaelUhman from './pages/OmMichaelUhman';
 import OwnershipAndInterests from './pages/OwnershipAndInterests';
 import Priser from './pages/Priser';
 import Kostnad from './pages/Kostnad';
+import CrmCategoryGuide from './pages/CrmCategoryGuide';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
 import BcMatchningstest from './pages/BcMatchningstest';
@@ -290,6 +291,8 @@ export const routes: PrerenderRoute[] = [
     meta: { title: p.metaTitle, description: p.metaDescription },
   })),
   { path: '/upphandlingsguiden', priority: '0.8', changefreq: 'monthly' },
+  { path: '/kundservicesystem', priority: '0.8', changefreq: 'monthly' },
+  { path: '/faltservicesystem', priority: '0.8', changefreq: 'monthly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
   { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
@@ -590,6 +593,8 @@ export function render(url: string) {
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
               <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
+              <Route path="/kundservicesystem" element={<CrmCategoryGuide guide="kundservicesystem" />} />
+              <Route path="/faltservicesystem" element={<CrmCategoryGuide guide="faltservicesystem" />} />
               <Route path="/om-thomas-laine" element={<OmThomasLaine />} />
               <Route path="/om-michael-uhman" element={<OmMichaelUhman />} />
               <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
