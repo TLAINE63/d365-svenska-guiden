@@ -15,7 +15,6 @@ const ELIGIBLE_PREFIXES = [
   "/roi",
   "/branschlosningar",
   "/affarssystem",
-  "/affarssystem",
 ];
 
 const ExitIntentOffer = () => {
