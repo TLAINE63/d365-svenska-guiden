@@ -21,7 +21,6 @@ const Navbar = () => {
   const erpItems = [
     { label: "Business Central vs Finance & Supply Chain Management", path: "/erp" },
     { label: "Business Central", path: "/businesscentral" },
-    { label: "Business Central-partners i Sverige", path: "/business-central-partners-sverige/" },
     { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
     { label: "Project Operations", path: "/d365projectoperations" },
     { label: "Commerce", path: "/d365commerce" },

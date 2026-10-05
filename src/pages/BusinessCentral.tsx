@@ -289,7 +289,7 @@ const BusinessCentral = () => {
   subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot dina befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför du partners som faktiskt levererat Business Central i din bransch."
   primary={{
     label: "Jämför Business Central-partners",
-    onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+    to: "/business-central-partners-sverige/",
   }}
   secondary={{
   label: "Generera en kravspecifikation",
