@@ -431,7 +431,7 @@ const CRM = () => {
  <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
  <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
+ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>Dynamics 365 Customer Engagement är en kraftfull samling intelligenta affärsapplikationer, noggrant utformade för att hjälpa moderna företag att bygga, vårda och stärka sina kundrelationer på ett effektivt och strukturerat sätt.</p>
@@ -448,7 +448,7 @@ const CRM = () => {
 
  <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur skiljer sig Dynamics 365 CE från andra CRM-system?
+ Hur skiljer sig Dynamics 365 CE från andra CRM-system?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>Det finns många CRM-system på marknaden, men Dynamics 365 Customer Engagement har flera egenskaper som tillsammans gör det till ett unikt och framtidssäkrat val för företag som vill mer.</p>
@@ -481,7 +481,7 @@ const CRM = () => {
 
  <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
+ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just dina unika förutsättningar. Vilka applikationer behöver du? Hur många användare ska ha tillgång? Och hur komplex är din verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
@@ -506,7 +506,7 @@ const CRM = () => {
 
  <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
+ Hur snabbt kan vi komma igång med Dynamics 365 CE?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>En av de vanligaste frågorna vi får handlar om tid – när kan vi vara igång? Svaret beror på flera faktorer, men det finns tydliga riktmärken att förhålla sig till. Nedan går vi igenom vad som påverkar tidsplanen och vad du kan förvänta dig i olika scenarion.</p>
@@ -527,7 +527,7 @@ const CRM = () => {
 
  <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Hur anpassningsbart är systemet för vår verksamhet?
+ Hur anpassningsbart är systemet för vår verksamhet?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CE är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
@@ -556,7 +556,7 @@ const CRM = () => {
 
  <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- ❓ Vilken partner borde passa vår verksamhet bäst?
+ Vilken partner borde passa vår verksamhet bäst?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6">
  Rätt partner beror på din bransch, företagsstorlek och vilka CRM-applikationer du behöver. Vi rekommenderar att du väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna du är intresserade av. På vår <a href="/valjdynamics365partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan du filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar dina krav. Du kan också använda vårt verktyg för att få personliga partnerrekommendationer.
