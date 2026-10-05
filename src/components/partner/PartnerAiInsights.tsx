@@ -1,6 +1,8 @@
 import { Check, Minus } from "lucide-react";
 import { DatabasePartner } from "@/hooks/usePartners";
 import { trackPartnerCardEvent } from "@/utils/trackPartnerEvent";
+import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
+import { isEditorialReviewed } from "@/data/editorialReviewed";
 
 interface Props {
   partner: DatabasePartner & {
@@ -129,11 +131,18 @@ const PartnerAiInsights = ({ partner }: Props) => {
               </ul>
             )}
 
-            <p className="text-[11px] leading-snug text-muted-foreground">
-              Texten är framtagen med AI. Partnerns egen profilinformation väger tyngst och
-              kompletteras med strukturerade uppgifter och publika källor. Analysen kan innehålla
-              fel och är inte granskad eller godkänd av partnern.
-            </p>
+            {isEditorialReviewed(partner.slug) ? (
+              <EditorialReviewNote
+                slug={partner.slug}
+                className="text-[11px] leading-snug text-muted-foreground"
+              />
+            ) : (
+              <p className="text-[11px] leading-snug text-muted-foreground">
+                Texten är framtagen med AI. Partnerns egen profilinformation väger tyngst och
+                kompletteras med strukturerade uppgifter och publika källor. Analysen kan innehålla
+                fel och är inte granskad eller godkänd av partnern.
+              </p>
+            )}
 
             {hasDeepDive && (
               <details

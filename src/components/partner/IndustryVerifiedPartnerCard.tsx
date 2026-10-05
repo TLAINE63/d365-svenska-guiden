@@ -1,4 +1,5 @@
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
+import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -265,9 +266,10 @@ export default function IndustryVerifiedPartnerCard({
           )}
 
           {assessment && (
-            <p className="mt-auto pt-5 text-[10px] leading-snug text-muted-foreground">
-              AI-assisterad sammanställning. Kan innehålla fel och är inte granskad av partnern.
-            </p>
+            <EditorialReviewNote
+              slug={partner.slug}
+              className="mt-auto pt-5 text-[10px] leading-snug text-muted-foreground"
+            />
           )}
         </aside>
       </div>
