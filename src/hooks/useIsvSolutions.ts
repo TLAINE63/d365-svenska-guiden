@@ -150,6 +150,12 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
 
 
 /**
+ * Plattformsprodukter som finns i den gamla kodkatalogen men som inte är
+ * ISV-tillägg och därför aldrig ska visas i eller räknas in i ISV-katalogen.
+ */
+const NON_ISV_PLATFORM_IDS = new Set(["power-bi", "fabric"]);
+
+/**
  * Returnerar ISV-katalogen: statisk kodkatalog + lösningar skapade i admin,
  * med eventuella admin- eller leverantörsredigerade texter pålagda.
  * Faller alltid tillbaka på den statiska katalogen (viktigt för SSG).
@@ -201,7 +207,11 @@ export function useIsvSolutions(): IsvSolution[] {
     const merged = dbSolutions.length
       ? [...dbSolutions, ...staticWithModel.filter((s) => !dbIds.has(s.id))]
       : staticWithModel;
-    return applyIsvOverrides(merged, overrides);
-
+    // Power BI och Microsoft Fabric är Microsofts plattformsprodukter, inte
+    // ISV-tillägg – de ska inte synas i eller räknas in i ISV-katalogen.
+    return applyIsvOverrides(
+      merged.filter((s) => !NON_ISV_PLATFORM_IDS.has(s.id)),
+      overrides
+    );
   }, [overrides, dbSolutions]);
 }
