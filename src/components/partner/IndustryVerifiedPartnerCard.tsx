@@ -105,6 +105,7 @@ export default function IndustryVerifiedPartnerCard({
   geography,
   companySize,
   revenue,
+  compactSelectionFacts,
 }: IndustryVerifiedPartnerCardProps) {
   const [contactOpen, setContactOpen] = useState(false);
   const { isSelected, toggle } = usePartnerCompare();
@@ -211,7 +212,7 @@ export default function IndustryVerifiedPartnerCard({
             </section>
           )}
 
-          <PartnerSelectionFacts partner={partner} productKey={productKey} />
+          <PartnerSelectionFacts partner={partner} productKey={productKey} hideLabels={compactSelectionFacts ? ["Implementationskompetens", "Förvaltning/support", "Relevant specialisering"] : undefined} />
 
           <div className="flex flex-wrap gap-1.5">
             <p className="w-full text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
