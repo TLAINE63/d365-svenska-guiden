@@ -205,7 +205,7 @@ const salesConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Sales – översikt", to: "/d365sales/" },
     { label: "CRM – översikt", to: "/crm/" },
-    { label: "Se Microsoft-partners inom Sales", to: "/dynamics-365-crm-partners-sverige/" },
+    { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -305,7 +305,7 @@ const customerServiceConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Customer Service – översikt", to: "/d365customerservice/" },
     { label: "Dynamics 365 Contact Center", to: "/d365contactcenter/" },
-    { label: "Se Microsoft-partners inom Customer Service", to: "/dynamics-365-crm-partners-sverige/" },
+    { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -405,7 +405,7 @@ const marketingConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Customer Insights – översikt", to: "/d365marketing/" },
     { label: "CRM – översikt", to: "/crm/" },
-    { label: "Se Microsoft-partners inom Marketing", to: "/dynamics-365-crm-partners-sverige/" },
+    { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -505,7 +505,7 @@ const fieldServiceConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Field Service – översikt", to: "/d365fieldservice/" },
     { label: "Dynamics 365 Customer Service", to: "/d365customerservice/" },
-    { label: "Se Microsoft-partners inom Field Service", to: "/dynamics-365-crm-partners-sverige/" },
+    { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -605,7 +605,7 @@ const contactCenterConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Contact Center – översikt", to: "/d365contactcenter/" },
     { label: "Dynamics 365 Customer Service", to: "/d365customerservice/" },
-    { label: "Se Microsoft-partners inom Contact Center", to: "/dynamics-365-crm-partners-sverige/" },
+    { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 

@@ -83,7 +83,7 @@ export const ROLE_GUIDANCE: RoleGuidance[] = [
     ],
     partnerLinks: [
       { label: "Finance & Supply Chain Management (F&O)-partners", path: "/finance-supply-chain-partners-sverige/" },
-      { label: "Field Service-partners", path: "/dynamics-365-crm-partners-sverige/" },
+      { label: "CRM-partners (inkl. Field Service)", path: "/dynamics-365-crm-partners-sverige/" },
     ],
   },
   {
