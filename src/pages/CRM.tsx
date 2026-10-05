@@ -9,6 +9,7 @@ import FunnelCTA from "@/components/FunnelCTA";
 import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import ShortAnswer from "@/components/ShortAnswer";
+import CrmBuyerGuideIntro from "@/components/crm/CrmBuyerGuideIntro";
 import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -198,8 +199,8 @@ const CRM = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="CRM Sverige – Microsoft Dynamics 365 priser | d365.se"
- description="Microsoft Dynamics 365 Sales från 621 kr/mån, Customer Service från 478 kr/mån. Jämför mot Salesforce – köparsidig vägledning vid val av Microsoft-partner."
+ title="CRM-system – så väljer svenska företag rätt CRM | d365.se"
+ description="Köpguide för CRM-system: vilka problem CRM löser, typer av plattformar, kostnad, när Dynamics 365 passar och när alternativ som Salesforce eller HubSpot är bättre."
  canonicalPath="/crm"
  keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
  ogImage="https://d365.se/og-crm.png"
@@ -216,9 +217,9 @@ const CRM = () => {
  {/* Header */}
   <ProductHero
   icon={SalesIcon}
-  eyebrow="CRM (Customer Engagement)"
-  title="Vilka Dynamics 365 CRM-applikationer och vilken partner passar er?"
-  subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper dig hitta dem som faktiskt levererat det du behöver."
+  eyebrow="CRM-guiden"
+  title="CRM-system – så väljer svenska företag rätt CRM"
+  subhead="Vilken typ av CRM behöver ni, vad kostar det och när passar Dynamics 365? Vi utgår från ert problem och visar sedan vilka lösningar och partners som är relevanta."
   primary={{
     label: "Jämför CRM-partners",
     to: "/dynamics-365-crm-partners-sverige/",
@@ -234,12 +235,10 @@ const CRM = () => {
   }}
   />
   <ShortAnswer>
- <p>Microsoft Dynamics 365 Customer Engagement – i dagligt tal Dynamics 365 CRM – är Microsofts samling av molnbaserade affärsapplikationer för försäljning, marknadsföring, kundservice, fältservice och kontaktcenter.</p>
- <p>Sviten omfattar <strong>Dynamics 365 Sales</strong> för pipeline- och offerthantering, <strong>Dynamics 365 Customer Service</strong> och <strong>Contact Center</strong> för ärendehantering och omnikanal-support, <strong>Dynamics 365 Field Service</strong> för planering och utförande av arbete ute hos kund, samt <strong>Customer Insights – Journeys</strong> och <strong>Data</strong> för marknadsföring, kundresor och en enhetlig kundprofil.</p>
- <p>Alla applikationer delar samma datamodell via Dataverse och är djupt integrerade med Microsoft 365 (Outlook, Teams, Excel), Power BI, Power Automate och Azure. Det ger en sammanhängande 360°-bild av kunden och eliminerar behovet av separata system för sälj, support och marknad.</p>
- <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter – sammanfattning av ärenden, nästa-bästa-åtgärd i säljdialogen, automatisk dirigering av supportärenden och AI-genererade kundresor – direkt i de flöden där medarbetarna redan arbetar.</p>
- <p>Plattformen är tillgänglig globalt med stöd för flera språk, valutor och regelverk, och kan skalas från enstaka avdelningar till stora koncerner med tusentals användare.</p>
+ <p>Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft 365 blir en CRM-svit som Dynamics 365 eller Salesforce mer relevant.</p>
+ <p>Jämför alltid totalkostnaden, inte bara licenspriset, och välj partner efter erfarenhet av just er process.</p>
  </ShortAnswer>
+  <CrmBuyerGuideIntro />
   <EditorialAssessment assessment="crm" />
   <FitModel model="crm" heading="Vad avgör valet?" />
 
@@ -788,7 +787,7 @@ const CRM = () => {
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  
-<ContextualCta source="next-step:crm" heading="Har ni en bild av vilken CRM-del ni behöver?" text="Sales, Customer Service eller Marketing? Guiden hjälper er välja och visar partners som passar." primaryLabel="Få rekommenderad partnerlista" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+<ContextualCta source="next-step:crm" heading="Vilken typ av CRM passar er?" text="Några frågor om er process ger en rekommenderad lösningstyp och partners som passar." primaryLabel="Se vilken typ av CRM som passar er" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
       </main>

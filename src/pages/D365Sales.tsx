@@ -355,7 +355,7 @@ const D365Sales = () => {
       <ProductIsvSection product="Sales" />
 
       
-<ContextualCta source="next-step:d365sales" heading="Har ni kommit så långt att ni utvärderar Dynamics 365 Sales?" text="Se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Få rekommenderad partnerlista" product="Sales" links={[{ label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
+<ContextualCta source="next-step:d365sales" heading="Bedöm om Dynamics 365 Sales passar ert behov" text="Gör en kort behovsanalys och se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Bedöm om Dynamics 365 Sales passar ert behov" product="Sales" links={[{ label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
 </main>
