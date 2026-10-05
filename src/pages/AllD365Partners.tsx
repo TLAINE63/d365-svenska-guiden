@@ -1,3 +1,4 @@
+import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import FitModel from "@/components/FitModel";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import ContextualCta from "@/components/ContextualCta";
@@ -366,6 +367,7 @@ export default function AllD365Partners() {
       <ContextualCta source="next-step:alla-partners" heading="Svårt att välja bland alla partners?" text="Listan visar alla. Guiden sorterar fram de som passar er produkt, bransch och storlek." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
 </main>
 
+      <BasicProfilesDirectory />
       <Footer />
     </div>
   );
