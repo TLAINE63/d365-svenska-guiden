@@ -3729,7 +3729,7 @@
     "website": "https://norracommerce.se/",
     "email": "johann.runemark@norracommerce.se",
     "contact_person": "Johann Runemark",
-    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/norra-commerce-partner-contact-main.jpg?t=1791211014646",
+    "contact_photo_url": "",
     "phone": "+46 735190622",
     "applications": [
       "Business Central"
@@ -3749,7 +3749,7 @@
           "Sverige",
           "Norden"
         ],
-        "keyPoints": "",
+        "keyPoints": "Fokus på Business Central för retail och mode\nStöd för sortiment, order, lager och inköp\nIntegrationer med e-handel, POS och WMS\nFörvaltning och stöd efter go-live",
         "whyChoose": "En implementation anpassad för retail\nAtt implementera Business Central i en retailverksamhet kräver mer än teknisk kompetens — det kräver förståelse för hur sortiment, orderflöde, lager och försäljningskanaler hänger ihop.\n\nVi har genomfört implementationer för retail- och modebolag med komplexa krav på varianthantering, multikanalförsäljning, inköpsplanering och lageroptimering. Det gör att vi kan ställa rätt frågor, undvika vanliga fallgropar och leverera ett system som faktiskt stödjer din verksamhet.",
         "industries": [
           "Grossist & Distribution",
@@ -3774,11 +3774,19 @@
         "youtubeVideoId": "",
         "aiOtherAdvanced": "",
         "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Underlaget beskriver inte något särskilt erbjudande för AI eller automation inom Business Central. Om sådana behov ingår bör omfattning, tillgängliga standardfunktioner, processer och integrationskrav därför fastställas i analysfasen. Eventuella initiativ behöver bedömas utifrån verksamhetens order-, lager-, inköps- och ekonomiflöden.",
+          "deliveryModel": "Leveransen täcker hela livscykeln från inledande analys och lösningsdesign till implementation, go-live och förvaltning. Arbetet utgår från retailverksamhetens processer och genomförs av konsulter med teknisk kompetens och erfarenhet från operativa roller i detaljhandeln. Partnern har kontor i Stockholm och Göteborg och kan leverera nationellt.",
+          "managedServices": "Efter go-live erbjuds löpande förvaltning och managed services för Business Central och tillhörande integrationer. Arbetet inriktas på stabil drift, kontinuitet och hantering av behov som uppstår i den dagliga verksamheten. Förvaltningen kan omfatta stöd för ekonomi-, order-, inköps- och lagerflöden samt kopplingar till e-handel, POS och WMS.",
+          "typicalProjects": "Typiska projekt omfattar förstudie, design och implementation av Business Central för retail- och modeverksamheter. Arbetet kan inkludera anpassning av ekonomi, orderhantering, inköp, lager, sortiment och varianter samt integrationer med webbshop, kassasystem och WMS. Projekten följs av go-live-stöd och övergång till löpande förvaltning.",
+          "typicalCustomers": "Typiska kunder är små och medelstora företag inom retail, e-handel, mode, sport, textil samt grossist och distribution. De använder eller planerar att använda Business Central som affärssystem och behöver samordna ekonomi, order, inköp och lager med butik och digitala försäljningskanaler. Erbjudandet passar även verksamheter med krav på variant- och multikanalshantering.",
+          "furtherDevelopment": "Vidareutvecklingen kan utgå från förändringar i sortiment, försäljningskanaler, lagerflöden och inköpsprocesser. Business Central och integrationerna kan justeras när verksamheten växer eller arbetssätten förändras. Partnerns livscykelansvar ger en sammanhållen övergång från implementation och go-live till löpande förbättringar och teknisk förvaltning."
+        },
         "aiBusinessImpact": "",
         "customerExamples": [],
         "aiCaseDescription": "",
         "customerCaseLinks": [],
-        "productDescription": "",
+        "productDescription": "Erbjudandet omfattar analys, design, implementation och förvaltning av Dynamics 365 Business Central för retail-, e-handels- och modeföretag. Lösningen anpassas för ekonomi, sortiment, order, lager och inköp samt integreras med e-handel, POS och WMS.",
         "aiPredictiveDetails": [],
         "secondaryIndustries": [],
         "aiSegmentationDetails": []
@@ -3794,7 +3802,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-04-27T10:54:18.709178+00:00",
-    "updated_at": "2026-10-05T14:55:23.47096+00:00",
+    "updated_at": "2026-10-05T14:58:46.623583+00:00",
     "industry_pitches": [
       {
         "text": "Norra Commerce Partner hjälper detaljhandels- och e-handelsföretag att effektivisera sin verksamhet med Microsoft Dynamics 365 Business Central. De bistår med att integrera kärnprocesser för en sammanhållen kundupplevelse över olika försäljningskanaler. Typiska utmaningar som hanteras inkluderar lageroptimering, orderhantering och automatisering av finansiella flöden. Med Business Central kan partnern bidra till förbättrad insyn i försäljning och lagersaldo, vilket underlättar beslutsfattande och minskar svinn. De stödjer även hantering av priser och kampanjer samt en effektivare returhantering. Lösningarna syftar till att skapa en enhetlig process för allt från inköp och logistik till kundfaktura, vilket är centralt för en framgångsrik omnichannel-strategi.",
@@ -3823,7 +3831,7 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": null,
+    "positioning_statement": "Passar särskilt företag som driver retail-, e-handels- eller modeverksamhet och vill använda Business Central som nav för ekonomi, order, lager, inköp och försäljningskanaler.",
     "delivery_profile": {
       "methodology": "",
       "typical_length": "",
@@ -3849,8 +3857,14 @@
     "ai_tags": [],
     "extended_competencies": {},
     "team_size_per_app": {},
-    "key_differentiators": [],
-    "key_differentiators_source": "d365",
+    "key_differentiators": [
+      "Renodlat fokus på Dynamics 365 Business Central för retail och mode",
+      "Erfarenhet av operativa processer inom detaljhandel",
+      "Integrationer mellan Business Central, e-handel, POS och WMS",
+      "Stöd genom analys, implementation, go-live och löpande förvaltning",
+      "Kontor i Stockholm och Göteborg samt nationell leveransförmåga"
+    ],
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att Norra Commerce Partner positionerar sig som en specialiserad Microsoft Dynamics 365 Business Central-partner med ett exklusivt fokus på detaljhandels- och modebranschen. Verksamheten har kontor i Stockholm och beskriver sig med djup teknisk expertis kombinerat med operativ erfarenhet från detaljhandeln.\n\nFöretagets erbjudande omfattar hela livscykeln för Business Central, från analys och design till implementation och förvaltning. Specifika kompetenser inkluderar anpassningar av ekonomi, orderhantering, lager och inköp för retail, samt integrationer med e-handel, POS och WMS. Ett strategiskt partnerskap med Codeunit för systemintegrationer framhålls.\n\nNorra Commerce Partner riktar sig till medelstora retail- och fashionföretag som behöver Business Central som nav i ett omnikanal-ekosystem. Innehållet indikerar att konsulterna har bakgrund från operativa roller inom detaljhandeln och att företaget lägger vikt vid driftsäkerhet och teknisk kvalitet.",
     "public_focus_tags": [
       "Microsoft Dynamics 365 Business Central",
