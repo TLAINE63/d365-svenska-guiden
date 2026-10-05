@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import SiteTextParagraphs from "@/components/SiteTextParagraphs";
 import { Mail, CheckCircle2, Users, Scale, BookOpen, ExternalLink } from "lucide-react";
 
 export default function OwnershipAndInterests() {
@@ -22,12 +23,7 @@ export default function OwnershipAndInterests() {
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             Så fungerar partnersamarbetet på d365.se
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            d365.se kartlägger löpande Dynamics 365-partners som bedöms vara aktiva på den
-            svenska marknaden. En partner behöver inte ha ett kommersiellt samarbete med
-            d365.se för att finnas med. Vilka partners som matchar ett företag avgörs av
-            relevans och behov.
-          </p>
+          <SiteTextParagraphs textKey="ownership.intro" className="text-lg text-muted-foreground leading-relaxed" />
         </div>
 
         <section className="mb-10">
@@ -90,15 +86,7 @@ export default function OwnershipAndInterests() {
 
         <section className="mb-10">
           <h2 className="text-2xl font-bold mb-3 text-foreground">Vår roll – och din</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            Vi står på köparens sida. Vi säljer varken system eller implementation, och vi
-            sluter inga avtal åt någon partner. Vår uppgift är att ge dig ett tryggt och
-            försvarbart beslutsunderlag.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-3">
-            När du är redo tar du själv kontakt med de partners du vill prata med, i din egen
-            takt. Vi förmedlar kunskap – inte kontrakt.
-          </p>
+          <SiteTextParagraphs textKey="ownership.role" className="text-muted-foreground leading-relaxed" />
         </section>
 
         <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">

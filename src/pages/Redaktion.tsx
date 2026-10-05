@@ -1,3 +1,4 @@
+import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -211,6 +212,7 @@ export default function Redaktion() {
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
             <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
+            <TabsTrigger value="texts">Textbank</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
@@ -231,6 +233,10 @@ export default function Redaktion() {
 
           <TabsContent value="newsletter">
             <AdminNewsletterCard token={token} />
+          </TabsContent>
+
+          <TabsContent value="texts">
+            <RedaktionSiteTextsTab token={token} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="backlinks">
