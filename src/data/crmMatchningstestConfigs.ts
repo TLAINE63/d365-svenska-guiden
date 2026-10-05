@@ -129,7 +129,7 @@ const salesConfig: ProductConfig = {
   assessmentType: "sales_matchningstest",
   productPagePath: "/d365sales/",
   needsAnalysisPath: "/CRMbehovsanalys",
-  partnerFilterPath: "/dynamics-365-sales-partners-sverige/",
+  partnerFilterPath: "/dynamics-365-crm-partners-sverige/",
   blocks: [
     { title: "Säljprocess och pipeline", description: "Hur strukturerad och komplex er säljprocess är i dag." },
     { title: "Volym, team och struktur", description: "Storlek på säljteamet och komplexitet i organisationen." },
@@ -205,7 +205,7 @@ const salesConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Sales – översikt", to: "/d365sales/" },
     { label: "CRM – översikt", to: "/crm/" },
-    { label: "Se Microsoft-partners inom Sales", to: "/dynamics-365-sales-partners-sverige/" },
+    { label: "Se Microsoft-partners inom Sales", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -229,7 +229,7 @@ const customerServiceConfig: ProductConfig = {
   assessmentType: "customer_service_matchningstest",
   productPagePath: "/d365customerservice/",
   needsAnalysisPath: "/kundservice-behovsanalys",
-  partnerFilterPath: "/dynamics-365-customer-service-partners-sverige/",
+  partnerFilterPath: "/dynamics-365-crm-partners-sverige/",
   blocks: [
     { title: "Ärendevolym och kanaler", description: "Hur många ärenden du hanterar och via vilka kanaler." },
     { title: "Kunskap, SLA och struktur", description: "Kunskapsdatabas, SLA-hantering och organisatorisk struktur." },
@@ -305,7 +305,7 @@ const customerServiceConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Customer Service – översikt", to: "/d365customerservice/" },
     { label: "Dynamics 365 Contact Center", to: "/d365contactcenter/" },
-    { label: "Se Microsoft-partners inom Customer Service", to: "/dynamics-365-customer-service-partners-sverige/" },
+    { label: "Se Microsoft-partners inom Customer Service", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -329,7 +329,7 @@ const marketingConfig: ProductConfig = {
   assessmentType: "marketing_matchningstest",
   productPagePath: "/d365marketing/",
   needsAnalysisPath: "/CRMbehovsanalys",
-  partnerFilterPath: "/dynamics-365-marketing-partners-sverige/",
+  partnerFilterPath: "/dynamics-365-crm-partners-sverige/",
   blocks: [
     { title: "Kunddata och segmentering", description: "Hur du samlar, enar och segmenterar kunddata i dag." },
     { title: "Kampanjer och journeys", description: "Utskicksvolym, kanaler och komplexitet i dina kundresor." },
@@ -405,7 +405,7 @@ const marketingConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Customer Insights – översikt", to: "/d365marketing/" },
     { label: "CRM – översikt", to: "/crm/" },
-    { label: "Se Microsoft-partners inom Marketing", to: "/dynamics-365-marketing-partners-sverige/" },
+    { label: "Se Microsoft-partners inom Marketing", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -429,7 +429,7 @@ const fieldServiceConfig: ProductConfig = {
   assessmentType: "field_service_matchningstest",
   productPagePath: "/d365fieldservice/",
   needsAnalysisPath: "/kundservice-behovsanalys",
-  partnerFilterPath: "/dynamics-365-field-service-partners-sverige/",
+  partnerFilterPath: "/dynamics-365-crm-partners-sverige/",
   blocks: [
     { title: "Tekniker och arbetsorder", description: "Antal tekniker, ärendevolym och komplexitet." },
     { title: "Planering och mobilitet", description: "Ruttoptimering, mobilt stöd och avtal/SLA." },
@@ -505,7 +505,7 @@ const fieldServiceConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Field Service – översikt", to: "/d365fieldservice/" },
     { label: "Dynamics 365 Customer Service", to: "/d365customerservice/" },
-    { label: "Se Microsoft-partners inom Field Service", to: "/dynamics-365-field-service-partners-sverige/" },
+    { label: "Se Microsoft-partners inom Field Service", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 
@@ -529,7 +529,7 @@ const contactCenterConfig: ProductConfig = {
   assessmentType: "contact_center_matchningstest",
   productPagePath: "/d365contactcenter/",
   needsAnalysisPath: "/kundservice-behovsanalys",
-  partnerFilterPath: "/dynamics-365-contact-center-partners-sverige/",
+  partnerFilterPath: "/dynamics-365-crm-partners-sverige/",
   blocks: [
     { title: "Volym, kanaler och telefoni", description: "Storlek på kontaktcenter, kanalmix och telefonibehov." },
     { title: "Bemanning och struktur", description: "Antal agenter, skift, kvalitet och WFM." },
@@ -605,7 +605,7 @@ const contactCenterConfig: ProductConfig = {
   furtherReading: [
     { label: "Dynamics 365 Contact Center – översikt", to: "/d365contactcenter/" },
     { label: "Dynamics 365 Customer Service", to: "/d365customerservice/" },
-    { label: "Se Microsoft-partners inom Contact Center", to: "/dynamics-365-contact-center-partners-sverige/" },
+    { label: "Se Microsoft-partners inom Contact Center", to: "/dynamics-365-crm-partners-sverige/" },
   ],
 };
 

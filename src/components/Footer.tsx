@@ -41,8 +41,8 @@ const Footer = () => {
               <li><Link to="/crm/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365sales/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365marketing/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights</Link></li>
-              <li><Link to="/dynamics-365-sales-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
-              <li><Link to="/dynamics-365-marketing-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights-partners</Link></li>
+              <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales-partners</Link></li>
+              <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Insights-partners</Link></li>
               <li><Link to="/CRMbehovsanalys/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
@@ -55,9 +55,9 @@ const Footer = () => {
               <li><Link to="/d365fieldservice/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Field Service</Link></li>
               <li><Link to="/d365contactcenter/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Contact Center</Link></li>
               <li><Link to="/kundservice-behovsanalys/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Behovsanalys Kundservice</Link></li>
-              <li><Link to="/dynamics-365-customer-service-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Service-partners</Link></li>
-              <li><Link to="/dynamics-365-field-service-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Field Service-partners</Link></li>
-              <li><Link to="/dynamics-365-contact-center-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Contact Center-partners</Link></li>
+              <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Service-partners</Link></li>
+              <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Field Service-partners</Link></li>
+              <li><Link to="/dynamics-365-crm-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Contact Center-partners</Link></li>
             </ul>
           </div>
 

@@ -64,6 +64,11 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
 
   // ERP-pelaren konsoliderad in i /affarssystem/ (huvud-URL, beslut 2026-10-05)
+  { from: "/dynamics-365-sales-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
+  { from: "/dynamics-365-marketing-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
+  { from: "/dynamics-365-customer-service-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
+  { from: "/dynamics-365-field-service-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
+  { from: "/dynamics-365-contact-center-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
   { from: "/erp",                       to: "/affarssystem/",       intendedStatus: 301 },
   { from: "/kunskapscenter/fragor-och-svar", to: "/qa/", intendedStatus: 301 },
 
