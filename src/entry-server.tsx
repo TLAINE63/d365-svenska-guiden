@@ -20,7 +20,6 @@ import CRM from './pages/CRM';
 import BusinessCentral from './pages/BusinessCentral';
 import FinanceSupplyChain from './pages/FinanceSupplyChain';
 import ERPOverview from './pages/ERPOverview';
-import Affarssystem from './pages/Affarssystem';
 
 import Copilot from './pages/Copilot';
 import Agents from './pages/Agents';
@@ -203,8 +202,8 @@ export const routes: PrerenderRoute[] = [
   { path: '/erp-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
   { path: '/crm-koparguiden-2026', priority: '0.9', changefreq: 'monthly' },
 
-  { path: '/erp', priority: '0.9', changefreq: 'weekly', lastmod: '2026-06-26' },
-  // /affarssystem är konsoliderad in i /erp (301-redirect via Affarssystem.tsx)
+  { path: '/affarssystem', priority: '0.9', changefreq: 'weekly', lastmod: '2026-06-26' },
+  // /erp är konsoliderad in i /affarssystem/ (301 via LEGACY_REDIRECTS)
 
   { path: '/businesscentral', priority: '0.9', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
@@ -518,8 +517,8 @@ export function render(url: string) {
               <Route path="/businesscentral" element={<BusinessCentral />} />
               <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
-              <Route path="/erp" element={<ERPOverview />} />
-              <Route path="/affarssystem" element={<Affarssystem />} />
+              <Route path="/erp" element={<Navigate to="/affarssystem/" replace />} />
+              <Route path="/affarssystem" element={<ERPOverview />} />
               
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />

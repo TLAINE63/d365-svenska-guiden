@@ -51,7 +51,7 @@ export default RelatedPages;
 // ── Predefined link sets per page context ──────────────────────────
 
 export const bcRelatedPages: RelatedPage[] = [
-  { title: "ERP-översikt", description: "Jämför Business Central och Finance & Supply Chain Management", href: "/erp/" },
+  { title: "ERP-översikt", description: "Jämför Business Central och Finance & Supply Chain Management", href: "/affarssystem/" },
   { title: "Finance & Supply Chain Management (F&O)", description: "Enterprise ERP för globala koncerner med avancerad tillverkning", href: "/finance-supply-chain/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/ERPbehovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Business Central", href: "/copilot/" },
@@ -60,7 +60,7 @@ export const bcRelatedPages: RelatedPage[] = [
 ];
 
 export const fscRelatedPages: RelatedPage[] = [
-  { title: "ERP-översikt", description: "Jämför Business Central och Finance & Supply Chain Management", href: "/erp/" },
+  { title: "ERP-översikt", description: "Jämför Business Central och Finance & Supply Chain Management", href: "/affarssystem/" },
   { title: "Business Central", description: "ERP för SMB – enklare och snabbare att implementera", href: "/businesscentral/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/ERPbehovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Finance & Supply Chain Management (F&O)", href: "/copilot/" },
@@ -83,7 +83,7 @@ export const erpRelatedPages: RelatedPage[] = [
 // Länkar FRAMÅT till /erp (MOFU jämförelse) och /businesscentral (produkt).
 // Använder INTE ordet "ERP" som ankartext för /erp (vi vill inte krocka med /erp:s primära sökord).
 export const affarssystemRelatedPages: RelatedPage[] = [
-  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
+  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/affarssystem/" },
   { title: "Business Central – produktsida", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/businesscentral/" },
   { title: "Finance & Supply Chain Management (F&O)", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
   { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på dina behov", href: "/ERPbehovsanalys/" },
@@ -177,7 +177,7 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & Supply Chain Management (F&O)", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "Affärssystem & ERP – guide", description: "Köparsidig guide: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/erp/" },
+  { title: "Affärssystem & ERP – guide", description: "Köparsidig guide: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/affarssystem/" },
   { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
 ];
@@ -189,7 +189,7 @@ export const requirementsErpRelatedPages: RelatedPage[] = [
   { title: "Behovsanalys ERP", description: "Få rekommendation Business Central eller Finance & Supply Chain Management (F&O) innan du skriver kravspec", href: "/ERPbehovsanalys/" },
   { title: "Business Central", description: "ERP för SMB – funktioner, pris och paketering", href: "/businesscentral/" },
   { title: "Finance & Supply Chain Management (F&O)", description: "Enterprise-ERP för koncerner med global drift", href: "/finance-supply-chain/" },
-  { title: "Jämför BC och F&SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
+  { title: "Jämför BC och F&SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/affarssystem/" },
   { title: "Hitta rätt partner", description: "Matcha kravspecifikationen mot Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
   { title: "Branschlösningar", description: "Branschspecifika krav för Dynamics 365", href: "/branscher/" },
 ];
@@ -214,7 +214,7 @@ export const needsAnalysisErpRelatedPages: RelatedPage[] = [
   { title: "Kravspecifikation affärssystem", description: "Bygg vidare på rekommendationen med en strukturerad kravspec", href: "/kravspecifikation/" },
   { title: "Business Central", description: "Produktdetaljer, pris och funktioner för SMB", href: "/businesscentral/" },
   { title: "Finance & Supply Chain Management (F&O)", description: "Produktdetaljer, pris och funktioner för enterprise", href: "/finance-supply-chain/" },
-  { title: "Jämför BC och F&SCM", description: "Teknisk MOFU-jämförelse av Microsofts ERP-system", href: "/erp/" },
+  { title: "Jämför BC och F&SCM", description: "Teknisk MOFU-jämförelse av Microsofts ERP-system", href: "/affarssystem/" },
   { title: "Branschlösningar", description: "Branschpaketering av Dynamics 365 ERP", href: "/branscher/" },
   { title: "Hitta rätt partner", description: "Få offerter från Microsoft-partners i Sverige", href: "/valjdynamics365partner/" },
 ];

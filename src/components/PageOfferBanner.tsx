@@ -69,7 +69,7 @@ const OFFERS: Offer[] = [
     to: "/valjdynamics365partner/",
   },
   {
-    prefix: "/erp",
+    prefix: "/affarssystem",
     eyebrow: "Nästa steg",
     title: "Jämför affärssystem på riktiga kriterier",
     body: "Sätt ihop din kravbild först – då blir jämförelsen mellan systemen och partnernas offerter faktiskt jämförbar.",

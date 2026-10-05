@@ -44,7 +44,7 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const bcBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
- { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+ { name: "Affärssystem (ERP)", url: "https://d365.se/affarssystem/" },
  { name: "Business Central", url: "https://d365.se/businesscentral" },
 ];
 
@@ -370,7 +370,7 @@ const BusinessCentral = () => {
    </p>
    <p className="text-sm text-muted-foreground mt-3">
     Vill du ställa Business Central mot ett större ERP-system? Läs{" "}
-    <Link to="/erp/" className="text-primary underline underline-offset-2">
+    <Link to="/affarssystem/" className="text-primary underline underline-offset-2">
      jämförelsen mellan Business Central och Finance &amp; Supply Chain
     </Link>{" "}
     eller se{" "}

@@ -177,7 +177,7 @@ const tools = {
     type: "guide" as const,
     title: "Branschjämförelse: Business Central vs Finance & SCM",
     description: "Jämför BC och F&SCM utifrån bransch, storlek och geografi.",
-    url: "/erp/#branschjamforelse",
+    url: "/affarssystem/#branschjamforelse",
     category: "Guide",
   },
   kravspecErp: {

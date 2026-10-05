@@ -36,7 +36,7 @@ export const ROLE_GUIDANCE: RoleGuidance[] = [
     ],
     guides: [
       { label: "Välja Dynamics 365-partner", path: "/guider/valja-dynamics-365-partner/" },
-      { label: "ERP: Business Central eller Finance & Supply Chain Management (F&O)?", path: "/erp/" },
+      { label: "ERP: Business Central eller Finance & Supply Chain Management (F&O)?", path: "/affarssystem/" },
     ],
     partnerLinks: [
       { label: "Jämför Dynamics 365-partners", path: "/valjdynamics365partner/#hitta-partners" },

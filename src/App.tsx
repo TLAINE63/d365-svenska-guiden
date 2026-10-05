@@ -42,7 +42,6 @@ const ProductRoiPage = lazy(() => import("./pages/ProductRoiPage"));
 const ErpComparisonsHub = lazy(() => import("./pages/ErpComparisonsHub"));
 const ErpComparisonPage = lazy(() => import("./pages/ErpComparisonPage"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
-const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
@@ -189,11 +188,11 @@ const AppShell = () => {
           <Route path="/d365fieldservice/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="field-service" />} />
           <Route path="/d365contactcenter/matchningstest" element={<CrmMatchningstest productKey="contact-center" />} />
           <Route path="/d365contactcenter/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="contact-center" />} />
-          <Route path="/erp" element={<ERPOverview />} />
+          <Route path="/erp" element={<RedirectTo to="/affarssystem/" />} />
           <Route path="/d365projectoperations" element={<D365ProjectOperations />} />
           <Route path="/d365commerce" element={<D365Commerce />} />
           <Route path="/d365humanresources" element={<D365HumanResources />} />
-          <Route path="/affarssystem" element={<Affarssystem />} />
+          <Route path="/affarssystem" element={<ERPOverview />} />
           <Route path="/affarssystem/partners" element={<RedirectTo to="/business-central-partners-sverige/" />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />

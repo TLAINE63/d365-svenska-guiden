@@ -66,7 +66,7 @@ function classifyChannel(sourcePage: string | null): string {
   if (p.includes("branschlos")) return "Branschlösningar";
   if (p === "homepage" || p === "/" || p === "index") return "Startsidan";
   if (p.startsWith("/crm") || p.startsWith("/d365-")) return "CRM-/produktsida";
-  if (p.startsWith("/business-central") || p.startsWith("/erp")) return "ERP-sida";
+  if (p.startsWith("/business-central") || p.startsWith("/erp") || p.startsWith("/affarssystem")) return "ERP-sida";
   if (p.includes("kontakt")) return "Kontaktformulär";
   return "Övrigt";
 }
