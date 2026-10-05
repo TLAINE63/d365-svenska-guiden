@@ -1,6 +1,6 @@
 import { ORGANIZATION } from "@/data/organization";
 import { cn } from "@/lib/utils";
-import { useLocation } from "react-router-dom";
+import { useInRouterContext, useLocation } from "react-router-dom";
 import { pageReviewDate } from "@/data/pageReviewDates";
 
 export type EditorialSourceType =
@@ -29,15 +29,23 @@ export function editorialDate(value?: string | null): string | undefined {
     : date;
 }
 
-export default function EditorialSource({
+function RouterPath({ children }: { children: (p: string) => React.ReactNode }) {
+  return <>{children(useLocation().pathname)}</>;
+}
+
+export default function EditorialSource(props: Props) {
+  return useInRouterContext() ? <RouterPath>{(p) => <EditorialSourceInner {...props} path={p} />}</RouterPath> : <EditorialSourceInner {...props} path="" />;
+}
+
+function EditorialSourceInner({
   sourceType,
   updatedAt,
   reviewedBy,
   tone = "light",
   className,
-}: Props) {
-  const { pathname } = useLocation();
-  const date = editorialDate(updatedAt) ?? editorialDate(pageReviewDate(pathname));
+  path,
+}: Props & { path: string }) {
+  const date = editorialDate(updatedAt) ?? editorialDate(pageReviewDate(path));
   const dark = tone === "dark";
   return (
     <aside
