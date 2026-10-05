@@ -10,6 +10,10 @@ import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import { ArrowRight, MapPin } from "lucide-react";
 import ContextualCta from "@/components/ContextualCta";
 import partnerDataJson from "@/data/partnerData.json";
+import basicRoutes from "@/data/basicPartnerRoutes.json";
+import { getPartnerSelectionFacts } from "@/lib/partnerSelectionFacts";
+import { MISSING_TEXT } from "@/components/partner/PartnerSelectionFacts";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import {
   PRODUCT_PARTNERS_SVERIGE,
   findProductPartnersSverigeConfig,
@@ -60,6 +64,14 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
   const partners = useMemo(() => partnersForConfig(cfg), [cfg]);
   const canonical = `/${cfg.slug}/`;
+  const basicCount = (basicRoutes as any[]).filter((b) => Array.isArray(b?.products) && b.products.includes(cfg.productKey)).length;
+  const fill = (t: string) => t.replace(/\{\{bcVerified\}\}/g, String(partners.length)).replace(/\{\{bcBasic\}\}/g, String(basicCount));
+  const faqs = cfg.faq.map((f) => ({ q: f.q, a: fill(resolvePriceTokens(f.a)) }));
+  const rows = partners.map((p: any) => {
+    const facts = getPartnerSelectionFacts(p, cfg.productKey === "ai" ? null : cfg.productKey);
+    const get = (l: string) => facts.find((f) => f.label === l)?.value || MISSING_TEXT;
+    return { p, cities: (p.office_cities || []).join(", ") || MISSING_TEXT, industries: get("Bransch"), size: get("Typisk kundstorlek") };
+  });
 
   const breadcrumbs = [
     { name: "Hem", url: "https://d365.se" },
@@ -70,12 +82,12 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={cfg.metaTitle}
+        title={cfg.metaTitle.replace("{count}", String(partners.length))}
         description={cfg.metaDescription}
         canonicalPath={canonical}
       />
       <BreadcrumbSchema items={breadcrumbs} />
-      <FAQSchema faqs={cfg.faq.map((f) => ({ question: f.q, answer: resolvePriceTokens(f.a) }))} />
+      <FAQSchema faqs={faqs.map((f) => ({ question: f.q, answer: f.a }))} />
       <Navbar />
 
       <main className="pt-10">
@@ -92,9 +104,9 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {cfg.h1}
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              {cfg.intro}
-            </p>
+            {cfg.intro.split(/\n\s*\n/).map((para, i) => (
+              <p key={i} className={`text-base sm:text-lg text-muted-foreground${i > 0 ? " mt-3" : ""}`}>{nowrapBrand(para)}</p>
+            ))}
             <p className="text-sm text-muted-foreground mt-4">
               Vill du läsa om produkten i sig?{" "}
               <Link to={cfg.productLandingPath} className="text-primary hover:underline font-medium">
@@ -103,6 +115,29 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             </p>
           </div>
         </section>
+
+        {rows.length > 0 && (
+          <section className="py-8 sm:py-10 border-b border-border">
+            <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Jämförelse i korthet</h2>
+              <div className="max-w-full overflow-x-auto">
+                <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+                  <caption className="sr-only">{cfg.h1}: orter, branscher, typisk kundstorlek och profiltyp</caption>
+                  <thead><tr className="border-b border-border bg-muted"><th scope="col" className="p-2 sm:p-3">Partner</th><th scope="col" className="p-2 sm:p-3">Orter</th><th scope="col" className="p-2 sm:p-3">Branscher</th><th scope="col" className="p-2 sm:p-3">Typisk kundstorlek</th><th scope="col" className="p-2 sm:p-3">Profiltyp</th></tr></thead>
+                  <tbody>{rows.map(({ p, cities, industries, size }) => (
+                    <tr key={p.id} className="border-b border-border align-top">
+                      <th scope="row" className="p-2 sm:p-3 font-semibold"><Link to={`/partner/${p.slug}/`} className="text-foreground hover:text-primary underline-offset-4 hover:underline">{p.name}</Link></th>
+                      <td className="p-2 sm:p-3 text-muted-foreground">{cities}</td>
+                      <td className="p-2 sm:p-3 text-muted-foreground">{nowrapBrand(industries)}</td>
+                      <td className="p-2 sm:p-3 text-muted-foreground">{size}</td>
+                      <td className="p-2 sm:p-3 text-muted-foreground">Verifierad</td>
+                    </tr>
+                  ))}</tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Partners – plain HTML list */}
         <section className="py-8 sm:py-12">
@@ -143,7 +178,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                             {cities.length > 3 ? ` +${cities.length - 3}` : ""}
                           </span>
                         )}
-                        <PartnerSelectionFacts partner={p} productKey={cfg.productKey === "ai" ? null : cfg.productKey} />
+                        <PartnerSelectionFacts partner={p} productKey={cfg.productKey === "ai" ? null : cfg.productKey} showMissing />
                       </Link>
                     </li>
                   );
@@ -154,17 +189,17 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         </section>
 
         {/* FAQ */}
-        {cfg.faq.length > 0 && (
+        {faqs.length > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
                 Vanliga frågor
               </h2>
               <div className="space-y-6">
-                {cfg.faq.map((f, i) => (
+                {faqs.map((f, i) => (
                   <div key={i}>
                     <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{resolvePriceTokens(f.a)}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{f.a}</p>
                   </div>
                 ))}
               </div>

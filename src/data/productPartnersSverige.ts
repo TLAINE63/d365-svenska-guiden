@@ -22,11 +22,11 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     productLabel: "Dynamics 365 Business Central",
     productLandingPath: "/businesscentral/",
     h1: "Business Central-partners i Sverige",
-    metaTitle: "Business Central-partners i Sverige – komplett lista | d365.se",
+    metaTitle: "Business Central-partners i Sverige: jämför {count} partners | d365.se",
     metaDescription:
       "Microsoft Dynamics 365 Business Central-partners i Sverige. Jämför inriktning, branscher och referenser. Köparsidig vägledning utan provisionsmodell.",
     intro:
-      "Här hittar du Microsoft-partners i Sverige som implementerar och förvaltar Dynamics 365 Business Central. Listan visar partnerverifierade profiler på d365.se, sorterade efter namn. Klicka på en partner för att läsa om kompetens, branscher, referenser och hur de tar betalt.",
+      "Business Central är Microsofts affärssystem för små och medelstora företag. Valet av partner påverkar ofta projektet mer än valet av system: partnern bestämmer metod, branschtillägg, integrationer och hur förvaltningen fungerar efter driftstart.\n\nHär listas Business Central-partners på den svenska marknaden, utifrån köparens perspektiv. Partners med profileringsavtal har granskat sina uppgifter. Övriga visas med en grundprofil som d365.se har sammanställt från publika källor. Listan är sorterad efter namn och säger inget om kvalitet.\n\nJämför partners på tre punkter: erfarenhet av er bransch, referenser från bolag av er storlek och hur de arbetar med förvaltning efter go-live.",
     faq: [
       {
         q: "Hur väljer jag rätt Business Central-partner?",
@@ -35,6 +35,22 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
       {
         q: "Vad kostar ett Business Central-projekt i Sverige?",
         a: "Licenskostnaden börjar på {{price:bc-team-members:exact}} (Team Member) och {{price:bc-essentials:amount-exact}} för Essentials. Implementationskostnaden ligger typiskt på 100 000–800 000 kr beroende på antal användare, integrationer och bransch-tillägg.",
+      },
+      {
+        q: "Vilka Business Central-partners hjälper till med migrering från NAV?",
+        a: "Migrering från Dynamics NAV till Business Central är ett vanligt uppdrag för partners med lång erfarenhet av NAV. Fråga partnern hur många NAV-uppgraderingar de genomfört, hur de hanterar egna anpassningar och historisk data, och om de rekommenderar en teknisk uppgradering eller en nyimplementation. Partnerprofilerna på sidan visar registrerad implementationskompetens och kundcase. Bekräfta erfarenheten av just NAV-migrering i första samtalet.",
+      },
+      {
+        q: "Hur lång tid tar ett Business Central-projekt?",
+        a: "Ett Business Central-projekt tar typiskt 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket. Projekt med många anpassningar, integrationer eller flera bolag tar ofta 6–12 månader. Tiden påverkas mer av datakvalitet, beslutstakt och integrationer än av antalet användare.",
+      },
+      {
+        q: "Hur många Business Central-partners finns i Sverige?",
+        a: "d365.se har kartlagt {{bcVerified}} partnerverifierade Business Central-partners och {{bcBasic}} med grundprofil på den svenska marknaden. Antalet ändras när partners tillkommer eller uppdaterar sina profiler. Grundprofilerna bygger på publika uppgifter och är inte granskade av partnern.",
+      },
+      {
+        q: "Vad skiljer en Business Central-partner med branschlösning från en generalist?",
+        a: "En partner med branschlösning har ett färdigt tillägg för exempelvis bygg, handel eller tillverkning, med processer och rapporter som redan är anpassade. Det kan korta projektet och minska egna anpassningar, men binder er också till partnerns produkt och utvecklingstakt. En generalist anpassar standardsystemet och kombinerar tillägg från olika leverantörer. Jämför hur väl branschlösningen täcker era kritiska processer och vad det kostar att byta partner senare.",
       },
     ],
   },
