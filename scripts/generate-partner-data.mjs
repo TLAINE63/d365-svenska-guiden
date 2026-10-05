@@ -117,7 +117,7 @@ try {
   const BASIC_ROUTES_PATH = resolve(__dirname, "../src/data/basicPartnerRoutes.json");
   try {
     const basicRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/partners_basic_public?select=slug,name&order=name.asc`,
+      `${SUPABASE_URL}/rest/v1/partners_basic_public?select=slug,name,observed_products&order=name.asc`,
       {
         headers: {
           apikey: SUPABASE_KEY,
@@ -128,7 +128,7 @@ try {
     if (!basicRes.ok) {
       throw new Error(`HTTP ${basicRes.status}: ${await basicRes.text()}`);
     }
-    const basicRows = (await basicRes.json()).filter((b) => b.slug && b.name);
+    const basicRows = (await basicRes.json()).filter((b) => b.slug && b.name).map((b) => ({ slug: b.slug, name: b.name, products: Object.entries(b.observed_products || {}).filter(([, v]) => v).map(([k]) => k) }));
     if (basicRows.length === 0) {
       throw new Error("Empty basic response — refusing to overwrite existing snapshot");
     }
