@@ -232,7 +232,7 @@ const Navbar = () => {
                 ))}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
+                  <Link to="/upphandlingsguiden/" className="cursor-pointer">
                     Upphandlingsresan
                   </Link>
                 </DropdownMenuItem>
@@ -401,7 +401,7 @@ const Navbar = () => {
                       {guide.shortLabel}
                     </Link>
                   ))}
-                  <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
+                  <Link to="/upphandlingsguiden/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
                     Upphandlingsresan
                   </Link>
                 </div>

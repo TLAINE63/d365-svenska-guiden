@@ -270,10 +270,10 @@ const STATIC_TOOLS: Array<{
  },
  {
  id: "tool-upphandlingsresan",
- title: "Den typiska upphandlingsresan – 7 stadier",
- description: "Var i systemlivscykeln står du? Upptäck de sju stadierna i en typisk upphandlingsresa för ERP och CRM.",
+ title: "Upphandlingsguiden – 7 stadier",
+ description: "Var i upphandlingsresan står du? Följ de sju stadierna för ERP och CRM, med verktyg för varje steg.",
  type: "guide",
- url: "/kunskapscenter/upphandlingsresan",
+ url: "/upphandlingsguiden/",
  image_url: upphandlingsresanImage,
  icon: BookOpen,
  products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],
@@ -960,7 +960,6 @@ const Kunskapscenter = () => {
   { slug: "sales", label: "Sales & CRM" },
   { slug: "customer-service", label: "Kundservice & Field Service" },
   { slug: "copilot", label: "Copilot & AI" },
-  { slug: "upphandling", label: "Upphandling" },
   { slug: "partners", label: "Partnerval" },
  ].map((hub) => (
  <Link

@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
 import { ShortlistProvider } from "@/contexts/ShortlistContext";
 
@@ -96,7 +96,6 @@ const KunskapscenterHub = lazy(() => import("./pages/KunskapscenterHub"));
 const D365TillaggKatalog = lazy(() => import("./pages/D365TillaggKatalog"));
 const CeIsvCategoryPage = lazy(() => import("./pages/CeIsvCategoryPage"));
 const BcIsvCategoryPage = lazy(() => import("./pages/BcIsvCategoryPage"));
-const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
 const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const PartnerGuidePage = lazy(() => import("./pages/PartnerGuidePage"));
 const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
@@ -322,7 +321,7 @@ const AppShell = () => {
           <Route path="/kostnad" element={<Kostnad />} />
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
-          <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
+          <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/videor" element={<VideoIndex />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
@@ -340,7 +339,7 @@ const AppShell = () => {
           <Route path="/kunskapscenter/sales" element={<KunskapscenterHub slug="sales" />} />
           <Route path="/kunskapscenter/customer-service" element={<KunskapscenterHub slug="customer-service" />} />
           <Route path="/kunskapscenter/copilot" element={<KunskapscenterHub slug="copilot" />} />
-          <Route path="/kunskapscenter/upphandling" element={<KunskapscenterHub slug="upphandling" />} />
+          <Route path="/kunskapscenter/upphandling" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/kunskapscenter/partners" element={<KunskapscenterHub slug="partners" />} />
           <Route path="/bc-ap-automation" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-fakturahantering/" />} />
           <Route path="/bc-svensk-lokalisering" element={<RedirectTo to="/kunskapscenter/business-central/tillagg-svensk-lokalisering/" />} />

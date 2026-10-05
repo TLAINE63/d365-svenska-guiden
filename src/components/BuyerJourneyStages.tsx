@@ -400,7 +400,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
  return compact ? (
  <a
  key={stage.id}
- href={`/kunskapscenter/upphandlingsresan/#stage-${stage.id}`}
+ href={`/upphandlingsguiden/#steg-${stage.id}`}
  className={cardClass}
  >
  {cardInner}
