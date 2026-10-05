@@ -3,6 +3,7 @@ import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import BuyerJourneyStages from "@/components/BuyerJourneyStages";
 import { RadialGlow } from "@/components/RadialGlow";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -68,12 +69,10 @@ const steps: Step[] = [
  highlight: "med köparsidig vägledning",
  description:
  "Få en strukturerad överblick över vilka partners som matchar din bransch, dina produktområden, din geografi och din storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
-    links: [
-      { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
-      { label: "Hitta rätt partner", to: "/branscher/" },
-      { label: "Utforska branscher", to: "/branscher/" },
-    ],
-
+ links: [
+ { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
+ { label: "Utforska branscher", to: "/branscher/" },
+ ],
  primary: true,
  },
  {
@@ -97,11 +96,10 @@ const steps: Step[] = [
  highlight: "team, metodik och bemanning",
  description:
  "Rätt implementeringspartner är avgörande för ett lyckat införande. Granska kundexempel, certifieringar, AI-förmågor och referenser för Business Central, F&SCM, Sales, Customer Service, Field Service, Customer Insights och Contact Center.",
-    links: [
-      { label: "Jämför partners", to: "/jamfor-partners" },
-      { label: "Så väljer du rätt partner", to: "/valjdynamics365partner/?ai=1" },
-    ],
-
+ links: [
+ { label: "Jämför partners", to: "/jamfor-partners" },
+ { label: "Så väljer du rätt partner", to: "/valjdynamics365partner/?ai=1" },
+ ],
  },
  {
  num: 6,
@@ -113,7 +111,7 @@ const steps: Step[] = [
  "Innan du skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar du produktjämförelser, guider, videos och ett kunskapscenter – utan säljfilter.",
  links: [
  { label: "Kunskapscenter", to: "/kunskapscenter" },
-  { label: "Business Central ERP – pris & partners", to: "/businesscentral/" },
+ { label: "Business Central ERP – pris & partners", to: "/businesscentral/" },
  ],
  },
 ];
@@ -122,59 +120,59 @@ const Upphandlingsguiden = () => {
  return (
  <>
  <SEOHead
-        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Upphandlingsguiden", url: "/upphandlingsguiden/" }]}
- title="Upphandla Dynamics 365 – guide steg för steg"
- description="Köparsidig vägledning genom hela upphandlingen av Microsoft Dynamics 365 – från behovsanalys och kravspec till partnerval, införande och avtal."
+ breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Upphandlingsguiden", url: "/upphandlingsguiden/" }]}
+ title="Upphandlingsguiden: 7 stadier från behov till partner"
+ description="De 7 stadierna i en upphandling av Dynamics 365 (ERP och CRM) – från tidiga signaler och behovsanalys till kravspecifikation, partnerval och avtal. Köparsidig vägledning steg för steg."
  canonicalPath="/upphandlingsguiden"
  />
  <Navbar />
-  <main className="min-h-screen bg-background">
-  {/* Hero */}
-  <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
-  <RadialGlow />
-  <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
-  <div className="max-w-4xl">
-  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
-  <Sparkles className="w-3 h-3" />
-  Upphandlingsguiden för Microsoft Dynamics 365
-  </div>
-  <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-  Hur upphandlar ni rätt{" "}
-  <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
-  {" "}och väljer Microsoft-partner?
-  </h1>
-  <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
-  <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-  På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att du kan fatta trygga beslut hela vägen fram till avtal och införande.
-  </p>
-  <div className="flex flex-col sm:flex-row gap-3">
-  <Button
-  asChild
-  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
-  >
-  <Link to="/valjdynamics365partner/">
-  Hitta rätt partner
-  <ArrowRight className="w-4 h-4 ml-1.5" />
-  </Link>
-  </Button>
-  <Button
-  asChild
-  variant="outline"
-  className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
-  >
-  <Link to="/ERPbehovsanalys/">Skapa en behovsanalys</Link>
-  </Button>
-  </div>
-  </div>
-  </div>
-  </section>
+ <main className="min-h-screen bg-background">
+ {/* Hero */}
+ <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+ <RadialGlow />
+ <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+ <div className="max-w-4xl">
+ <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
+ <Sparkles className="w-3 h-3" />
+ Upphandlingsguiden för Microsoft Dynamics 365
+ </div>
+ <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+ Hur upphandlar ni rätt{" "}
+ <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
+ {" "}– de 7 stadierna från behov till partner?
+ </h1>
+ <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
+ <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
+ En upphandling av affärssystem eller CRM rör sig genom sju stadier – från de första signalerna att något skaver, via behovsanalys och kravspecifikation, till partnerval och avtal. Här får du vägledning genom varje stadie, med verktyg och guider som hjälper dig att fatta trygga beslut hela vägen.
+ </p>
+ <div className="flex flex-col sm:flex-row gap-3">
+ <Button
+ asChild
+ className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-[15px] font-semibold h-12 px-7 rounded hover:-translate-y-0.5 transition-all"
+ >
+ <Link to="/valjdynamics365partner/">
+ Hitta rätt partner
+ <ArrowRight className="w-4 h-4 ml-1.5" />
+ </Link>
+ </Button>
+ <Button
+ asChild
+ variant="outline"
+ className="bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white text-[15px] font-semibold h-12 px-7 rounded"
+ >
+ <Link to="/ERPbehovsanalys/">Skapa en behovsanalys</Link>
+ </Button>
+ </div>
+ </div>
+ </div>
+ </section>
 
  {/* Köparsidigt löfte */}
  <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
  <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
  {[
  { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
- { icon: Check, title: "Strukturerad metodik", text: "Sex tydliga steg från behov till val av Microsoftpartner." },
+ { icon: Check, title: "Sju tydliga stadier", text: "Från tidiga signaler till val av Microsoftpartner." },
  { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på dina behov." },
  ].map(({ icon: Icon, title, text }) => (
  <div key={title} className="flex items-start gap-3 p-4 rounded bg-white border border-border ">
@@ -190,15 +188,18 @@ const Upphandlingsguiden = () => {
  </div>
  </section>
 
- {/* Steg */}
+ {/* De 7 stadierna */}
+ <BuyerJourneyStages />
+
+ {/* Verktyg per steg */}
  <section className="px-4 sm:px-6 py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-6xl">
  <div className="max-w-3xl mb-10 sm:mb-14">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-foreground leading-tight tracking-tight mb-3">
- Vad avgör valet? Sex steg från krav till kontrakt
+ Verktyg och guider för varje steg i upphandlingen
  </h2>
  <p className="text-[15px] text-muted-foreground leading-relaxed">
- Sex steg som tar dig tryggt genom upphandlingen av Microsoft Dynamics 365. Varje steg länkar vidare till verktyg och guider på sajten så du kan komma igång direkt.
+ När du vet var du står i resan tar dessa verktyg dig vidare – från behovsanalys och kravspecifikation till jämförelse och val av partner.
  </p>
  </div>
 
@@ -215,11 +216,11 @@ const Upphandlingsguiden = () => {
  : "bg-card border-border"
  }`}
  >
-  {isPrimary ? (
-  <RadialGlow />
-  ) : (
-  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
-  )}
+ {isPrimary ? (
+ <RadialGlow />
+ ) : (
+ <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
+ )}
 
  <div className="relative grid lg:grid-cols-[auto_1fr] gap-5 lg:gap-8 items-start">
  <div
@@ -262,7 +263,7 @@ const Upphandlingsguiden = () => {
  <div className="flex flex-wrap gap-2">
  {step.links.map((link) => (
  <Link
- key={link.to}
+ key={link.to + link.label}
  to={link.to}
  className={`group/item inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-[13.5px] font-semibold transition-all hover:-translate-y-0.5 ${
  isPrimary
@@ -288,9 +289,9 @@ const Upphandlingsguiden = () => {
  {/* Avslut CTA */}
  <section className="px-4 sm:px-6 py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-5xl">
-  <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
-  <RadialGlow />
-  <div className="relative">
+ <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
+ <RadialGlow />
+ <div className="relative">
  <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-white leading-tight tracking-tight mb-4">
  Så går du vidare med upphandlingen
  </h2>
@@ -321,7 +322,7 @@ const Upphandlingsguiden = () => {
  </section>
  <EditorialSource sourceType="Köpguide" />
  <SourcesAndMethod />
-      </main>
+ </main>
  <Footer />
  </>
  );
