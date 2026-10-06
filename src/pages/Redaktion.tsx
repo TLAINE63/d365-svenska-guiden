@@ -1,4 +1,5 @@
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
+import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
 import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -248,6 +249,7 @@ export default function Redaktion() {
             <SiteTrafficStatsCard token={token} variant="full" />
             <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
             <AdminUnderlagFunnel token={token} onSessionExpired={logout} />
+            <RedaktionPartnerMonthlyReport token={token} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="ai">
