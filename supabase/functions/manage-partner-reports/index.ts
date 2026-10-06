@@ -48,7 +48,7 @@ function b64UrlDecode(str: string): Uint8Array {
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return bytes;
 }
-async function verifyJWT(token: string, secret: string): Promise<boolean> {
+async function verifyJWT(token: string, secret: string, allowEditor = false): Promise<boolean> {
   try {
     const parts = token.split('.');
     if (parts.length !== 3) return false;
@@ -60,7 +60,7 @@ async function verifyJWT(token: string, secret: string): Promise<boolean> {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    return payload.role === "admin" || (allowEditor && payload.role === "editor");
   } catch { return false; }
 }
 
@@ -566,7 +566,7 @@ serve(async (req) => {
         isCronJob = typeof secret === "string" && secret.length > 0 && secret === provided;
       }
     }
-    if (!isCronJob && !(await verifyJWT(token || "", JWT_SECRET))) {
+    if (!isCronJob && !(await verifyJWT(token || "", JWT_SECRET, action === "partner_monthly_stats"))) {
       return new Response(JSON.stringify({ error: "Ogiltig session" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" }
       });
