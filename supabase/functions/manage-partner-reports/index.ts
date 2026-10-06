@@ -900,6 +900,92 @@ serve(async (req) => {
       }
 
 
+      case "partner_monthly_stats": {
+        // Månadsrapport per partner: vald månad + föregående månad för trend.
+        const { month } = data as { month?: string };
+        const now = new Date();
+        const def = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+        const m = /^\d{4}-\d{2}$/.test(month || "") ? month! : def.toISOString().slice(0, 7);
+        const [y, mo] = m.split("-").map(Number);
+        const curStart = new Date(Date.UTC(y, mo - 1, 1));
+        const curEnd = new Date(Date.UTC(y, mo, 1));
+        const prevStart = new Date(Date.UTC(y, mo - 2, 1));
+        const iso = (d: Date) => d.toISOString();
+        const fetchAll = async (table: string, cols: string, tsCol: string, extra?: (q: any) => any) => {
+          const out: any[] = [];
+          for (let from = 0; ; from += 1000) {
+            let q = supabase.from(table).select(cols).gte(tsCol, iso(prevStart)).lt(tsCol, iso(curEnd)).range(from, from + 999);
+            if (extra) q = extra(q);
+            const { data: rows, error } = await q;
+            if (error) throw error;
+            out.push(...(rows || []));
+            if (!rows || rows.length < 1000) break;
+          }
+          return out;
+        };
+        const [{ data: partners }, views, events, exposures, clicks, firstEv] = await Promise.all([
+          supabase.from("partners").select("slug, name, is_featured"),
+          fetchAll("partner_profile_views", "partner_slug, view_type, ip_address_anonymized, viewed_at", "viewed_at"),
+          fetchAll("partner_engagement_events", "partner_slug, event_name, visitor_id, session_id, ip_anonymized, occurred_at", "occurred_at"),
+          fetchAll("partner_filter_exposures", "partner_slug, page_path, session_id, ip_anonymized, viewed_at", "viewed_at"),
+          fetchAll("partner_clicks", "partner_name, clicked_at", "clicked_at"),
+          supabase.from("partner_profile_views").select("viewed_at").order("viewed_at", { ascending: true }).limit(1),
+        ]);
+        const nameBySlug = new Map<string, string>();
+        const slugByName = new Map<string, string>();
+        for (const p of partners || []) { nameBySlug.set(p.slug, p.name); slugByName.set(String(p.name).toLowerCase(), p.slug); }
+        type B = { profileViews: number; profileU: Set<string>; listedU: Set<string>; matchedU: Set<string>; comparedU: Set<string>; saved: number; websiteClicks: number };
+        const mk = (): B => ({ profileViews: 0, profileU: new Set(), listedU: new Set(), matchedU: new Set(), comparedU: new Set(), saved: 0, websiteClicks: 0 });
+        const buckets = { cur: new Map<string, B>(), prev: new Map<string, B>() };
+        const get = (slug: string, ts: string) => {
+          const key = new Date(ts) >= curStart ? "cur" : "prev";
+          const map = buckets[key];
+          let b = map.get(slug); if (!b) { b = mk(); map.set(slug, b); }
+          return b;
+        };
+        const LISTED = new Set(["partner_list_impression", "partner_filter_impression"]);
+        const MATCHED = new Set(["partner_match_impression", "partner_match_recommended", "partner_match_selected"]);
+        const COMPARED = new Set(["partner_comparison_impression", "partner_added_to_comparison", "lagg_till_jamforelse"]);
+        const SAVED = new Set(["partner_saved", "spara_shortlist"]);
+        for (const v of views) {
+          if (!v.partner_slug || v.view_type !== "profile_visit") continue;
+          const b = get(v.partner_slug, v.viewed_at); b.profileViews++; b.profileU.add(v.ip_address_anonymized || "?");
+        }
+        for (const e of events) {
+          if (!e.partner_slug) continue;
+          const b = get(e.partner_slug, e.occurred_at);
+          const vid = e.visitor_id || e.session_id || e.ip_anonymized || "?";
+          if (LISTED.has(e.event_name)) b.listedU.add(vid);
+          else if (MATCHED.has(e.event_name)) b.matchedU.add(vid);
+          else if (COMPARED.has(e.event_name)) b.comparedU.add(vid);
+          else if (SAVED.has(e.event_name)) b.saved++;
+          else if (e.event_name === "klick_utgaende_partnersajt") b.websiteClicks++;
+        }
+        for (const x of exposures) {
+          if (!x.partner_slug) continue;
+          const b = get(x.partner_slug, x.viewed_at);
+          const vid = x.session_id || x.ip_anonymized || "?";
+          if (x.page_path === "/jamfor-partners") b.comparedU.add(vid); else b.listedU.add(vid);
+        }
+        for (const c of clicks) {
+          const slug = slugByName.get(String(c.partner_name || "").toLowerCase());
+          if (slug) get(slug, c.clicked_at).websiteClicks++;
+        }
+        const flat = (b?: B) => b ? {
+          profileViews: b.profileViews, profileVisitors: b.profileU.size, listed: b.listedU.size,
+          matched: b.matchedU.size, compared: b.comparedU.size, saved: b.saved, websiteClicks: b.websiteClicks,
+        } : null;
+        const slugs = new Set([...buckets.cur.keys(), ...buckets.prev.keys()]);
+        const rows = [...slugs].map((slug) => ({
+          slug, name: nameBySlug.get(slug) || slug, is_featured: Boolean((partners || []).find((p: any) => p.slug === slug)?.is_featured),
+          current: flat(buckets.cur.get(slug)), previous: flat(buckets.prev.get(slug)),
+        })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+        return new Response(JSON.stringify({
+          month: m, previous_month: prevStart.toISOString().slice(0, 7),
+          measured_since: firstEv?.[0]?.viewed_at?.slice(0, 10) || null, rows,
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "partner_engagement": {
         // Aggregates: partners compared in /jamfor-partners, listed in filters, and card-clicked.
         const { period_start, period_end } = data as { period_start?: string; period_end?: string };
