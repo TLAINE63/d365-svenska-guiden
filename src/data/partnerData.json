@@ -2624,21 +2624,14 @@
     "website": "https://modia.se",
     "email": "sebastian.birgersson@modia.se",
     "contact_person": "Sebastian Birgersson",
-    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows-contact-main.png?t=1787817347076",
+    "contact_photo_url": "",
     "phone": "+46 705091444",
     "applications": [
       "Business Central"
     ],
-    "industries": [
-      "Grossist & Distribution",
-      "Konsulttjänster",
-      "Retail & E-handel"
-    ],
+    "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige",
-      "Norden"
-    ],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 999,
@@ -2713,7 +2706,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Modia+Göteborg",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-10-05T06:58:21.6538+00:00",
+    "updated_at": "2026-10-06T08:47:40.959816+00:00",
     "industry_pitches": [
       {
         "text": "Modia hjälper tillverkningsbolag att få kontroll över hela flödet med Microsoft Dynamics 365 Business Central som grund. Vi implementerar en beprövad standardlösning som anpassas efter hur produktionen faktiskt fungerar i vardagen.\nMed erfarenhet från verksamheter med krav på planering, kapacitetsutnyttjande och komplexa materialflöden skapar vi struktur i processerna från inköp och produktion till lager, leverans och efterkalkyl. Fokus ligger på att få produktion, lager och ekonomi att hänga ihop utan manuella mellanled.\n\nVi arbetar nära verksamheten för att säkerställa att systemet stödjer rätt arbetssätt redan från start. Oavsett om det handlar om produktionsplanering, stycklistor, spårbarhet eller hantering av förändringar i produktionen, ser vi till att lösningen används på ett sätt som ger effekt i praktiken.\n\nFör många av våra kunder är insyn i produktionen avgörande. Därför lägger vi stor vikt vid att skapa transparens i orderstatus, materialbehov och kostnadsuppföljning i realtid. Det ger bättre kontroll, minskar avvikelser och stärker beslutsfattandet.\n\nVår leverans är tydlig och förutsägbar. Ni vet vad som ska göras, när det ska göras och vad det kostar. Målet är ett affärssystem som inte bara hanterar produktionen, utan skapar struktur och effektivitet genom hela värdekedjan, från planering till leverans.",
@@ -2827,7 +2820,7 @@
       "Erfarenhet från grossist/distribution, handel, e-handel och produktion",
       "Verksamhet från Göteborg"
     ],
-    "key_differentiators_source": "d365",
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att Modia positionerar sig som en svensk Business Central-partner med tydlig inriktning mot små och medelstora företag. Innehållet indikerar en fokus på att erbjuda full kontroll och trygg leverans av affärssystem, med en betoning på en nära projektmodell där samma konsulter följer kunden från förstudie till förvaltning.\n\nFöretaget lyfter fram sin erfarenhet från branscher som handel, produktion, distribution och konsulttjänster, och erbjuder lösningar som knyter ihop ekonomi, order, lager, logistik, e-handel och rapportering. Partnern nämner även kompletterande lösningar för lager, frakt, WMS, EDI, leverantörsreskontra, e-handel samt projekt- och resurshantering genom specifika tillägg.\n\nModia anses vara relevant för kunder som söker en Business Central-partner för SMB/midmarket, med en tydlig förvaltnings- och integrationsprofil. Partnerskapet med lösningar som Golden EDI, ExFlow, LogTrade, Tasklet Factory, EazyStock och Progressus indikerar en bredd i förmågan att integrera med olika affärsflöden.",
     "public_focus_tags": [
       "Business Central",
