@@ -106,7 +106,7 @@ const PartnerAiInsights = ({ partner }: Props) => {
   const hasDeepDive = full.length > 0;
 
   return (
-    <section className="py-8 sm:py-10 bg-muted/40 border-y border-border">
+    <section className="partner-profile-analysis py-8 sm:py-10 bg-muted/40 border-y border-border">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-xl border border-border bg-card p-5 sm:p-6 space-y-4">

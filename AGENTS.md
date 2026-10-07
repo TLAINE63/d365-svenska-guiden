@@ -26,4 +26,4 @@
 
 - CRM pages lead with the buyer problem (BuyerFitSection from crmBuyerFit.ts, generic guides in crmCategoryGuides.ts) before Microsoft product detail; CRM market figures are computed at build by scripts/generate-crm-market-data.mjs from published partners only, so numbers stay sourced and SSG-safe.
 
-- Published partner openings share PartnerProfileOpening and PartnerDecisionOverview with scoped palette/type tokens; reuse existing facts and action contexts without changing basic profiles, list cards, ranking or partner data.
+- Published partner profiles share the opening's scoped palette/type tokens and 72rem content grid throughout; continuation hooks flatten section frames only within the profile, preserving shared cards, basic profiles, ranking, facts and action contexts.

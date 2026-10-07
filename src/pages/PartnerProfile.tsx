@@ -466,8 +466,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     <PartnerProfileOpening partner={partner} product={activeTabProduct || selectedProduct} industry={selectedIndustry} onIntro={() => openRequest("contact")} onVideo={() => setVideoOpen(true)} />
     <PartnerRequestDialog open={requestOpen} onOpenChange={setRequestOpen} partnerSlug={partner.slug} partnerName={partner.name} selectedProduct={activeTabProduct || selectedProduct} industry={selectedIndustry} mode={requestMode} />
     <PartnerDecisionOverview partner={partner} />
-  </div>
 
+ <div className="partner-profile-continuation">
  <PartnerAiInsights partner={partner as any} />
 
  <PartnerPublicSourcesSection partner={partner as any} />
@@ -520,8 +520,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     />
   </div>
 
-
-
+ </div>
+ </div>
  <TrustBanner variant="compact" />
 
 
