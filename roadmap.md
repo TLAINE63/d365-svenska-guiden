@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Premiuminledning på publicerade partnerprofiler (2026-10-07)
+- [ ] Välj färger, typografi och upplägg samt tre visuella förslag
+- [ ] Utforma de två första skärmbilderna med köparens viktigaste beslutsunderlag
+- [ ] Behåll partneruppgifter, källskillnader och befintliga köpresesteg samt verifiera resultatet
+
 ## Kontextuell köpresa och Min D365-plan (2026-10-04)
 - [x] Anpassa nästa steg efter ERP/CRM, produktjämförelse, partner och migration
 - [x] Samla befintliga val i Min D365-plan med produktområde, bransch, storlek, behov och nästa steg
