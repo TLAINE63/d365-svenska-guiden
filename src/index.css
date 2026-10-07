@@ -543,16 +543,16 @@ All colors MUST be HSL.
 
 /* Scoped partner opening, independent of basic profiles and list cards. */
 .partner-profile-premium {
-  --background: 200 18% 97%;
-  --foreground: 185 56% 16%;
+  --background: 200 17.647059% 96.666667%;
+  --foreground: 185.217391 56.097561% 16.078431%;
   --card: 0 0% 100%;
   --card-foreground: 185 56% 16%;
   --muted: 200 18% 94%;
   --muted-foreground: 185 18% 36%;
   --border: 185 20% 83%;
-  --primary: 14 75% 48%;
+  --primary: 14.098361 74.693878% 48.039216%;
   --primary-foreground: 0 0% 100%;
-  --accent: 170 100% 24%;
+  --accent: 170.322581 100% 24.313725%;
   --accent-foreground: 0 0% 100%;
   --ring: 14 75% 48%;
   font-family: 'Manrope', sans-serif;
