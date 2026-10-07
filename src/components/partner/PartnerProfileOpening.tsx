@@ -27,7 +27,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
   const saved = shortlist.isSaved(partner.slug);
   const compared = compare.isSelected(partner.slug);
   const value = (product || "").toLowerCase();
-  const keys = value.includes("business central") ? ["bc"] : /finance|supply/.test(value) ? ["fsc"] : /crm|customer engagement/.test(value) ? ["sales", "service", "crm"] : /sales|marketing|insights/.test(value) ? ["sales", "crm"] : /service|contact center|field/.test(value) ? ["service", "crm"] : [];
+  const keys: Array<keyof DatabasePartner["product_filters"]> = value.includes("business central") ? ["bc"] : /finance|supply/.test(value) ? ["fsc"] : /crm|customer engagement/.test(value) ? ["sales", "service", "crm"] : /sales|marketing|insights/.test(value) ? ["sales", "crm"] : /service|contact center|field/.test(value) ? ["service", "crm"] : [];
   const contact = keys.map(key => partner.product_filters?.[key]).find(p => p?.contactName || p?.contactEmail || p?.contactPhone);
   const name = contact?.contactName || partner.contactPerson;
   const photo = contact?.contactPhotoUrl || partner.contact_photo_url;
@@ -72,9 +72,9 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
         </div>
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
-          {(name || video) && <div className="flex items-center gap-3 shrink-0">
+          {(name || video) && <div className="flex min-w-0 items-center gap-3 sm:max-w-sm">
             {photo && <img src={photo} alt={name ? `Foto av ${name}` : "Partnerns kontaktperson"} className="h-12 w-12 rounded object-cover" loading="lazy" />}
-            {name && <div><p className="text-xs text-muted-foreground">{product ? nowrapBrand(`Kontakt för ${product}`) : "Partnerns kontaktperson"}</p><p className="text-sm font-semibold">{name}</p></div>}
+            {name && <div className="min-w-0"><p className="text-xs text-muted-foreground">{product ? nowrapBrand(`Kontakt för ${product}`) : "Partnerns kontaktperson"}</p><p className="text-sm font-semibold break-words">{name}</p></div>}
             {video && <Button variant="outline" size="icon" onClick={onVideo} aria-label={`Spela introduktionsvideo från ${partner.name}`} title="Spela introduktionsvideo"><Play className="h-4 w-4" /></Button>}
           </div>}
         </div>
