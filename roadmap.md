@@ -1,5 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Sammanhängande premiumdesign på partnerprofiler (2026-10-07)
+- [x] Behåll godkänd inledning och samordna följdsektionernas bredd, marginaler och typografi
+- [x] Använd ljusa, sammanhängande sektioner utan att ändra innehåll eller funktioner
+- [x] Kontrollera profilen och befintliga interaktioner i webbläsaren
+
+Verifierat på Vivicta: inledning, köparöversikt, analys, källor och produktdel har identiska 1152 px innehållsramar vid 1280 px. Mobil 390 px utan sidöverbredd. Analys öppnas, produktflik byts och introduktionsformulär öppnas utan att något skickas. Grundprofil saknar premiumramen. Två riktade tester godkända, automatisk byggkontroll godkänd och inga runtimefel. Ingen publicering.
+
 ## Premiuminledning på publicerade partnerprofiler (2026-10-07)
 - [x] Välj färger, typografi och upplägg samt tre visuella förslag (förslagen avböjdes, byggt direkt från önskemålet)
 - [x] Utforma de två första skärmbilderna med köparens viktigaste beslutsunderlag

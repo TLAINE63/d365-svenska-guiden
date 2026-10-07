@@ -503,7 +503,7 @@ export default function PartnerProductTabs({
         </div>
       </div>
 
-      <section className="py-8 sm:py-12">
+      <section className="partner-profile-products py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-10">
             {/* Match profile summary */}

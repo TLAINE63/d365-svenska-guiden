@@ -613,3 +613,72 @@ All colors MUST be HSL.
   --border: 185 25% 30%;
   --accent: 170 55% 62%;
 }
+
+/* The published profile continues the opening's grid, without changing shared cards elsewhere. */
+.partner-profile-continuation {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+.partner-profile-continuation .container {
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+}
+.partner-profile-continuation .container > .max-w-4xl {
+  max-width: none;
+}
+.partner-profile-continuation > section,
+.partner-profile-continuation > div[data-engagement] > .partner-profile-products {
+  padding-block: 2.5rem;
+  background: hsl(var(--background));
+}
+.partner-profile-continuation > section:has(> .container > [data-engagement]:empty),
+.partner-profile-continuation > section:has(> .container:empty) {
+  display: none;
+}
+.partner-profile-continuation .partner-profile-analysis,
+.partner-profile-continuation .partner-profile-sources {
+  border: 0;
+}
+.partner-profile-continuation .partner-profile-analysis .container > div > div,
+.partner-profile-continuation .partner-profile-sources .container > div > div,
+.partner-profile-continuation #ai-automation-power-platform {
+  padding: 0;
+  padding-top: 2rem;
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.partner-profile-continuation .partner-profile-products .container > div > section {
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 2rem;
+}
+.partner-profile-continuation .partner-profile-products .container > div > section[class*="rounded"] {
+  padding-inline: 0;
+  padding-bottom: 0;
+  border-inline: 0;
+  border-bottom: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.partner-profile-continuation h2 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.partner-profile-continuation [role="tablist"] {
+  justify-content: flex-start;
+}
+.partner-profile-continuation [role="tab"] {
+  border-radius: 6px;
+  box-shadow: none;
+}
+@media (min-width: 640px) {
+  .partner-profile-continuation .container { padding-inline: 2rem; }
+  .partner-profile-continuation > section,
+  .partner-profile-continuation > div[data-engagement] > .partner-profile-products { padding-block: 3rem; }
+  .partner-profile-continuation h2 { font-size: 1.5rem; }
+}
