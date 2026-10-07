@@ -3785,7 +3785,15 @@
         "aiSegmentationDetails": []
       }
     },
-    "industry_apps": [],
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.k3businesstechnologygroup%7CAID.k3pebblestone%7CPAPPID.4a91e8e3-eb85-4a1a-9544-4e68b32c5547",
+        "name": "Pepplestone",
+        "industry": "Mode, Sport & Textil",
+        "application": "Business Central",
+        "description": "Denna lösning är för mode företag där det behövs bl.a. matriser, färger, storlekar, säsonger m.m."
+      }
+    ],
     "is_featured": true,
     "customer_examples": [],
     "office_cities": [
@@ -3795,7 +3803,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-04-27T10:54:18.709178+00:00",
-    "updated_at": "2026-10-06T12:30:42.270199+00:00",
+    "updated_at": "2026-10-06T14:24:59.676897+00:00",
     "industry_pitches": [
       {
         "text": "Norra Commerce Partner hjälper detaljhandels- och e-handelsföretag att effektivisera sin verksamhet med Microsoft Dynamics 365 Business Central. De bistår med att integrera kärnprocesser för en sammanhållen kundupplevelse över olika försäljningskanaler. Typiska utmaningar som hanteras inkluderar lageroptimering, orderhantering och automatisering av finansiella flöden. Med Business Central kan partnern bidra till förbättrad insyn i försäljning och lagersaldo, vilket underlättar beslutsfattande och minskar svinn. De stödjer även hantering av priser och kampanjer samt en effektivare returhantering. Lösningarna syftar till att skapa en enhetlig process för allt från inköp och logistik till kundfaktura, vilket är centralt för en framgångsrik omnichannel-strategi.",
@@ -3824,7 +3832,7 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Passar särskilt företag som driver retail-, e-handels- eller modeverksamhet och vill använda Business Central som nav för ekonomi, order, lager, inköp och försäljningskanaler.",
+    "positioning_statement": "Vi är valet när Retail, Fashion och e-commerce bolag söker en partner som förstår deras bransch",
     "delivery_profile": {
       "methodology": "",
       "typical_length": "",
