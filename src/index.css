@@ -655,6 +655,15 @@ All colors MUST be HSL.
   border-top: 1px solid hsl(var(--border));
   padding-top: 2rem;
 }
+.partner-profile-continuation .partner-profile-products .container > div > section[class*="rounded"] {
+  padding-inline: 0;
+  padding-bottom: 0;
+  border-inline: 0;
+  border-bottom: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
 .partner-profile-continuation h2 {
   font-size: 1.25rem;
   line-height: 1.4;
