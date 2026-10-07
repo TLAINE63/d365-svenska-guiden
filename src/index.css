@@ -540,3 +540,35 @@ All colors MUST be HSL.
     text-shadow: none !important;
   }
 }
+
+/* Scoped partner opening, independent of basic profiles and list cards. */
+.partner-profile-premium {
+  --background: 200 18% 97%;
+  --foreground: 185 56% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 185 56% 16%;
+  --muted: 200 18% 94%;
+  --muted-foreground: 185 18% 36%;
+  --border: 185 20% 83%;
+  --primary: 14 75% 48%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 170 100% 24%;
+  --accent-foreground: 0 0% 100%;
+  --ring: 14 75% 48%;
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 0;
+}
+.partner-profile-premium h1, .partner-profile-premium h2,
+.partner-profile-premium h3, .partner-profile-premium h4 {
+  font-family: 'Sora', sans-serif;
+  letter-spacing: 0;
+}
+.partner-opening-name { font-size: 3.5rem; }
+@media (max-width: 640px) { .partner-opening-name { font-size: 2.25rem; } }
+.dark .partner-profile-premium {
+  --background: 185 42% 11%;
+  --foreground: 200 18% 97%;
+  --muted-foreground: 185 14% 74%;
+  --border: 185 25% 30%;
+  --accent: 170 55% 62%;
+}

@@ -25,3 +25,5 @@
 - Central page copy (d365.se description, ownership texts, founders/contact) lives in the site_texts textbank, edited in /redaktion via the site-texts function and snapshotted to src/data/siteTexts.json at build with defaults in siteTextDefaults.ts; keeps all pages consistent and SSG-safe.
 
 - CRM pages lead with the buyer problem (BuyerFitSection from crmBuyerFit.ts, generic guides in crmCategoryGuides.ts) before Microsoft product detail; CRM market figures are computed at build by scripts/generate-crm-market-data.mjs from published partners only, so numbers stay sourced and SSG-safe.
+
+- Published partner openings share PartnerProfileOpening and PartnerDecisionOverview with scoped palette/type tokens; reuse existing facts and action contexts without changing basic profiles, list cards, ranking or partner data.
