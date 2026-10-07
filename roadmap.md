@@ -1,9 +1,11 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Premiuminledning på publicerade partnerprofiler (2026-10-07)
-- [ ] Välj färger, typografi och upplägg samt tre visuella förslag
-- [ ] Utforma de två första skärmbilderna med köparens viktigaste beslutsunderlag
-- [ ] Behåll partneruppgifter, källskillnader och befintliga köpresesteg samt verifiera resultatet
+- [x] Välj färger, typografi och upplägg samt tre visuella förslag (förslagen avböjdes, byggt direkt från önskemålet)
+- [x] Utforma de två första skärmbilderna med köparens viktigaste beslutsunderlag
+- [x] Behåll partneruppgifter, källskillnader och befintliga köpresesteg samt verifiera resultatet
+
+Verifierat: alla 17 publicerade profiladresser visar inledningen utan runtimefel. Shortlist består efter omladdning, jämförelseval uppdateras, frågeknapp går till /fraga/ och introduktionsknappen öppnar befintligt formulär (ingen förfrågan skickad). Grundprofilen Enqore oförändrad. Dator och mobil 390 px kontrollerade utan överbredd i inledningen. Två nya översiktstester godkända; tre äldre PartnerQuickFacts-tester fallerar i den oförändrade komponenten. Ingen publicering.
 
 ## Kontextuell köpresa och Min D365-plan (2026-10-04)
 - [x] Anpassa nästa steg efter ERP/CRM, produktjämförelse, partner och migration
