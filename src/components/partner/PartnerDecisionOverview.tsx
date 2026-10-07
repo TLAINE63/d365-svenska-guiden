@@ -1,3 +1,4 @@
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { Check, Minus, Info } from "lucide-react";
 import { DatabasePartner } from "@/hooks/usePartners";
 import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
@@ -14,7 +15,7 @@ import { SOURCE_LABEL_PARTNER, SOURCE_LABEL_D365 } from "@/data/profileModel";
 
 /**
  * Beslutsstöd högst upp på partnerprofilen: snabböversikt, särskiljande fakta,
- * typiska kunder/projekt, support & förvaltning samt d365.se:s rekommendation.
+ * typiska kunder/projekt, support & förvaltning samt d365.se:s bedömning.
  *
  * All information härleds ur befintliga profilfält så att blocken blir
  * jämförbara mellan partners. Inga värderande formuleringar läggs till.
@@ -25,7 +26,7 @@ const GEO_ORDER = ["Sverige", "Norden", "Europa", "Globalt", "Övriga världen",
 
 const PRODUCT_KEY_LABEL: Record<string, string> = {
   bc: "Dynamics 365 Business Central",
-  fsc: "Dynamics 365 Finance & Supply Chain Management",
+  fsc: "Dynamics 365 Finance & Supply Chain Management (F&O)",
   sales: "Dynamics 365 Sales",
   service: "Dynamics 365 Customer Service",
   crm: "Dynamics 365 CRM",
@@ -269,8 +270,8 @@ function CheckList({ items }: { items: string[] }) {
     <ul className="space-y-1.5">
       {items.map((item, i) => (
         <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-foreground">
-          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent))]" aria-hidden="true" />
-          <span>{item}</span>
+          <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+          <span>{nowrapBrand(item)}</span>
         </li>
       ))}
     </ul>
@@ -281,7 +282,7 @@ function OverviewItem({ label, items }: { label: string; items: string[] }) {
   if (items.length === 0) return null;
   return (
     <div className="min-w-0">
-      <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+      <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
         {label}
       </h3>
       <CheckList items={items} />
@@ -351,170 +352,65 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
   if (!hasOverview && !hasTypical && !hasSupport && !hasRecommendation) return null;
 
   return (
-    <section className="py-6 sm:py-8">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="mx-auto max-w-4xl space-y-5">
-          {/* PRIORITET 1 – Snabböversikt */}
+    <section className="bg-background text-foreground py-10 sm:py-12">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="space-y-10">
+          {/* PRIORITET 1 – Är {partner.name} rätt för er? */}
           {hasOverview && (
-            <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
-              <h2 className="mb-4 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                Snabböversikt
+            <div className="border-t border-border pt-8">
+              <h2 className="mb-4 text-xl font-bold tracking-normal text-foreground sm:text-2xl">
+                Är {partner.name} rätt för er?
               </h2>
-              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
                 <OverviewItem
-                  label="Passar bäst för"
-                  items={uniq([sizeLabel, sizeRange])}
+                  label="Typiska kunder"
+                  items={typicalCustomers ? [typicalCustomers, ...(sizeRange ? [sizeRange] : [])] : uniq([sizeLabel, sizeRange])}
                 />
-                <OverviewItem label="Primärt fokus" items={products.slice(0, 3)} />
-                <OverviewItem label="Starkaste branscher" items={industries.slice(0, 3)} />
+                <OverviewItem label="Produktområden" items={products} />
+                <OverviewItem label="Fokusbranscher" items={industries.slice(0, 3)} />
                 <OverviewItem label="Geografi" items={geoLabel ? [geoLabel] : []} />
                 <OverviewItem label="Typiska projekt" items={projects} />
-                {notFit.length > 0 && (
-                  <div className="min-w-0">
-                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Mindre lämplig för
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {notFit.slice(0, 2).map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2 text-sm leading-relaxed text-foreground"
-                        >
-                          <Minus
-                            className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
-                            aria-hidden="true"
-                          />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {level && <OverviewItem label="Efter införandet" items={[SUPPORT_LEVEL_META[level].label]} />}
+
               </div>
             </div>
           )}
 
-          {/* PRIORITET 2 – Varför företag väljer denna partner */}
+          {/* PRIORITET 2 – Vad utmärker partnern? */}
           {(partnerStated.length > 0 || differentiators.length > 0) && (
-            <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
-              <h2 className="mb-1 text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                Varför företag väljer denna partner
+            <div className="border-t border-border pt-8">
+              <h2 className="mb-1 text-lg font-bold tracking-normal text-foreground sm:text-xl">
+                Vad utmärker partnern?
               </h2>
               <p className="mb-4 text-xs text-muted-foreground">
-                Faktabaserade punkter – inga marknadsföringspåståenden.
+                Partnerns uppgifter och d365.se:s sammanställning visas separat.
               </p>
               {partnerStated.length > 0 && (
                 <div className="mb-4">
-                  <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
                     {statedHeading}
                   </h3>
-                  <CheckList items={partnerStated} />
+                  <CheckList items={partnerStated.slice(0, 3)} />
+                  {partnerStated.length > 3 && <details className="mt-3 text-sm"><summary className="cursor-pointer text-muted-foreground">Fler uppgifter ur profilen</summary><div className="mt-3"><CheckList items={partnerStated.slice(3)} /></div></details>}
                 </div>
               )}
-              {differentiators.length > 0 && (
-                <div>
-                  {partnerStated.length > 0 && (
-                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      Ur profildata och d365.se:s bedömning
-                    </h3>
-                  )}
-                  <CheckList items={differentiators} />
-                </div>
-              )}
+              {differentiators.length > 0 && <details className="mt-4 text-sm"><summary className="cursor-pointer text-muted-foreground">Jämförbara fakta ur profiluppgifterna</summary><div className="mt-3"><CheckList items={differentiators} /></div></details>}
+
             </div>
           )}
 
 
-          {/* PRIORITET 3 – Typiska kunder och projekt */}
-          {hasTypical && (
-            <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
-              <h2 className="mb-4 text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                Typiska kunder och projekt
-              </h2>
-              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
-                <OverviewItem label="Företagsstorlek" items={sizeRange ? [sizeRange] : []} />
-                <OverviewItem label="Omsättning" items={revenue.slice(0, 4)} />
-                <OverviewItem label="Typiska uppdrag" items={projects} />
-                <OverviewItem
-                  label="Projektstorlek"
-                  items={
-                    products.length > 0 && sizeRange
-                      ? [`Projekt inom ${products[0]} hos företag med ${sizeRange}`]
-                      : []
-                  }
-                />
-              </div>
-              {(typicalCustomers || typicalProjects) && (
-                <div className="mt-5 space-y-3 border-t border-border pt-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    {SOURCE_LABEL_PARTNER}
-                  </p>
-                  {typicalCustomers && (
-                    <p className="max-w-[72ch] text-sm leading-relaxed text-foreground/90">
-                      {typicalCustomers}
-                    </p>
-                  )}
-                  {typicalProjects && (
-                    <p className="max-w-[72ch] text-sm leading-relaxed text-foreground/90">
-                      {typicalProjects}
-                    </p>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* PRIORITET 4 – Support, förvaltning och långsiktigt samarbete */}
-          {hasSupport && (
-            <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
-              <div className="mb-3 flex flex-wrap items-center gap-3">
-                <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                  Support, förvaltning och långsiktigt samarbete
-                </h2>
-                {level && (
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${SUPPORT_LEVEL_META[level].className}`}
-                  >
-                    <span className={`h-1.5 w-1.5 rounded-full ${SUPPORT_LEVEL_META[level].dot}`} />
-                    {SUPPORT_LEVEL_META[level].label}
-                  </span>
-                )}
-              </div>
-              {level && (
-                <p className="mb-4 max-w-[72ch] text-sm leading-relaxed text-foreground/90">
-                  {SUPPORT_LEVEL_META[level].description}
-                </p>
-              )}
-              {supportTexts.length > 0 && (
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {supportTexts.map((item, i) => (
-                    <div key={i} className="rounded-lg border border-border bg-muted/40 p-4">
-                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                        {item.label} – {item.product}
-                      </p>
-                      <p className="text-sm leading-relaxed text-foreground/90">{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <p className="mt-4 flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
-                <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                {SUPPORT_DISCLAIMER}
-              </p>
-            </div>
-          )}
-
-          {/* PRIORITET 5 – d365.se:s rekommendation */}
+          {/* PRIORITET 5 – d365.se:s bedömning */}
           {hasRecommendation && (
-            <div className="rounded-xl border border-primary/30 bg-primary/5 p-5 sm:p-6">
-              <h2 className="mb-1 text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                d365.se:s rekommendation
+            <div className="border-t border-border pt-8">
+              <h2 className="mb-1 text-lg font-bold tracking-normal text-foreground sm:text-xl">
+                d365.se:s bedömning
               </h2>
               <p className="mb-4 text-xs text-muted-foreground">{SOURCE_LABEL_D365}</p>
               <div className="grid gap-6 md:grid-cols-2">
                 {bestFit.length > 0 && (
                   <article>
-                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
                       Passar särskilt bra för
                     </h3>
                     <CheckList items={bestFit} />
@@ -522,7 +418,7 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
                 )}
                 {notFit.length > 0 && (
                   <article>
-                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
                       Överväg alternativa partners om
                     </h3>
                     <ul className="space-y-1.5">
@@ -535,7 +431,7 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
                             className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
                             aria-hidden="true"
                           />
-                          <span>{item}</span>
+                          <span>{nowrapBrand(item)}</span>
                         </li>
                       ))}
                     </ul>
@@ -556,6 +452,86 @@ const PartnerDecisionOverview = ({ partner }: { partner: DatabasePartner }) => {
               )}
             </div>
           )}
+          <details className="border-y border-border py-5"><summary className="cursor-pointer font-semibold">Mer om kunder, projekt och förvaltning</summary><div className="mt-6 space-y-8">          {/* PRIORITET 3 – Typiska kunder och projekt */}
+          {hasTypical && (
+            <div className="border-t border-border pt-8">
+              <h2 className="mb-4 text-lg font-bold tracking-normal text-foreground sm:text-xl">
+                Typiska kunder och projekt
+              </h2>
+              <div className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+                <OverviewItem label="Företagsstorlek" items={sizeRange ? [sizeRange] : []} />
+                <OverviewItem label="Omsättning" items={revenue.slice(0, 4)} />
+                <OverviewItem label="Typiska uppdrag" items={projects} />
+                <OverviewItem
+                  label="Projektstorlek"
+                  items={
+                    products.length > 0 && sizeRange
+                      ? [`Projekt inom ${products[0]} hos företag med ${sizeRange}`]
+                      : []
+                  }
+                />
+              </div>
+              {(typicalCustomers || typicalProjects) && (
+                <div className="mt-5 space-y-3 border-t border-border pt-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
+                    {SOURCE_LABEL_PARTNER}
+                  </p>
+                  {typicalCustomers && (
+                    <p className="max-w-[72ch] text-sm leading-relaxed text-foreground/90">
+                      {typicalCustomers}
+                    </p>
+                  )}
+                  {typicalProjects && (
+                    <p className="max-w-[72ch] text-sm leading-relaxed text-foreground/90">
+                      {typicalProjects}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* PRIORITET 4 – Support, förvaltning och långsiktigt samarbete */}
+          {hasSupport && (
+            <div className="border-t border-border pt-8">
+              <div className="mb-3 flex flex-wrap items-center gap-3">
+                <h2 className="text-lg font-bold tracking-normal text-foreground sm:text-xl">
+                  Support, förvaltning och långsiktigt samarbete
+                </h2>
+                {level && (
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${SUPPORT_LEVEL_META[level].className}`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${SUPPORT_LEVEL_META[level].dot}`} />
+                    {SUPPORT_LEVEL_META[level].label}
+                  </span>
+                )}
+              </div>
+              {level && (
+                <p className="mb-4 max-w-[72ch] text-sm leading-relaxed text-foreground/90">
+                  {SUPPORT_LEVEL_META[level].description}
+                </p>
+              )}
+              {supportTexts.length > 0 && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {supportTexts.map((item, i) => (
+                    <div key={i} className="rounded-lg border border-border bg-muted/40 p-4">
+                      <p className="mb-1 text-[11px] font-semibold uppercase tracking-normal text-muted-foreground">
+                        {item.label} – {item.product}
+                      </p>
+                      <p className="text-sm leading-relaxed text-foreground/90">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="mt-4 flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
+                <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {SUPPORT_DISCLAIMER}
+              </p>
+            </div>
+          )}
+
+</div></details>
         </div>
       </div>
     </section>
