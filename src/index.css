@@ -564,6 +564,47 @@ All colors MUST be HSL.
   letter-spacing: 0;
 }
 .partner-opening-name { font-size: 3.5rem; }
+.partner-profile-premium .partner-opening {
+  --background: 185.217391 56.097561% 16.078431%;
+  --foreground: 200 17.647059% 96.666667%;
+  --muted-foreground: 185 16% 76%;
+  --border: 185 24% 34%;
+  --accent: 170 44% 72%;
+  --primary: 14.098361 74.693878% 48.039216%;
+  --secondary: 185 37% 23%;
+  --secondary-foreground: 200 18% 97%;
+  --profile-logo-surface: 0 0% 100%;
+  --profile-shadow-color: 185 65% 6%;
+  --profile-logo-shadow: 0 12px 32px hsl(var(--profile-shadow-color) / 0.2);
+  --profile-cta-shadow: 0 5px 18px hsl(var(--primary) / 0.2);
+  border-bottom: 4px solid hsl(var(--primary));
+}
+.partner-profile-premium .partner-opening-logo {
+  background: hsl(var(--profile-logo-surface));
+  border-color: hsl(var(--profile-logo-surface) / 0.85);
+  box-shadow: var(--profile-logo-shadow);
+}
+.partner-profile-premium .partner-opening-actions button {
+  border-radius: 6px;
+}
+.partner-profile-premium .partner-opening-actions button:not(.partner-opening-intro) {
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+  background: transparent;
+}
+.partner-profile-premium .partner-opening-actions button:not(.partner-opening-intro):hover,
+.partner-profile-premium .partner-opening-actions button[aria-pressed="true"] {
+  background: hsl(var(--secondary));
+  border-color: hsl(var(--accent));
+}
+.partner-profile-premium .partner-opening-intro {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: var(--profile-cta-shadow);
+}
+.partner-profile-premium .partner-opening-intro:hover {
+  background: hsl(var(--primary) / 0.88);
+}
 @media (max-width: 640px) { .partner-opening-name { font-size: 2.25rem; } }
 .dark .partner-profile-premium {
   --background: 185 42% 11%;
