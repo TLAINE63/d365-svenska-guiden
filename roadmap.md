@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Sammanhängande premiumdesign på partnerprofiler (2026-10-07)
+- [ ] Behåll godkänd inledning och samordna följdsektionernas bredd, marginaler och typografi
+- [ ] Använd ljusa, sammanhängande sektioner utan att ändra innehåll eller funktioner
+- [ ] Kontrollera profilen och befintliga interaktioner i webbläsaren
+
 ## Premiuminledning på publicerade partnerprofiler (2026-10-07)
 - [x] Välj färger, typografi och upplägg samt tre visuella förslag (förslagen avböjdes, byggt direkt från önskemålet)
 - [x] Utforma de två första skärmbilderna med köparens viktigaste beslutsunderlag
