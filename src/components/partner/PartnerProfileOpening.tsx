@@ -45,7 +45,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           <span className="flex items-center gap-2 text-xs font-semibold text-accent"><ShieldCheck className="h-4 w-4" />Partnerverifierad profil</span>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-9">
-          {partner.logo_url && <div className="flex h-28 w-40 shrink-0 items-center justify-center border border-border bg-card p-4"><img src={optimizedLogo(partner.logo_url)} alt={`${partner.name} logotyp`} className="max-h-full max-w-full object-contain" loading="eager" /></div>}
+          {partner.logo_url && <div className="partner-opening-logo flex h-32 w-44 shrink-0 items-center justify-center rounded-lg border border-border bg-card p-5"><img src={optimizedLogo(partner.logo_url)} alt={`${partner.name} logotyp`} className="max-h-full max-w-full object-contain" loading="eager" /></div>}
           <div className="min-w-0">
             <p className="mb-3 text-sm text-muted-foreground">{nowrapBrand("Microsoft Dynamics 365-partner")}</p>
             <h1 className="partner-opening-name font-semibold leading-tight break-words">{partner.name}</h1>
@@ -55,8 +55,8 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
-        <div className="mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
-          <Button onClick={() => { track("request_intro"); onIntro(); }} className="min-h-12 px-6 font-semibold">Be om introduktion<ArrowRight className="h-4 w-4" /></Button>
+        <div className="partner-opening-actions mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
+          <Button onClick={() => { track("request_intro"); onIntro(); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om introduktion<ArrowRight className="h-4 w-4" /></Button>
           <Button variant="outline" aria-pressed={saved} onClick={() => {
             shortlist.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true });
             if (!saved) trackPartnerCardEvent("spara_shortlist", partner, "verifierad", product);
