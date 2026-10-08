@@ -2277,7 +2277,24 @@ const ComparePartners = () => {
                                 ]),
                               ) as ProductFilterKey[]);
                         const rows: JSX.Element[] = [];
+                        const dpField = (p: DatabasePartner | undefined, key: ProductFilterKey, f: string): string => {
+                          const v = ((p as any)?.product_filters?.[key]?.deliveryProfile?.[f]);
+                          return typeof v === "string" ? v.trim() : "";
+                        };
                         keysToShow.forEach((key) => {
+                          const label = PRODUCT_KEY_LABEL[key] || key;
+                          ([
+                            ["typicalProjects", "Typiska projekt", "Partnerns egen beskrivning av uppdragstyper, omfattning och komplexitet."],
+                            ["deliveryModel", "Genomförande och arbetssätt", "Partnerns egen beskrivning av team, metodik och kundens insats."],
+                            ["managedServices", "Support och förvaltning", "Partnerns egen beskrivning av förvaltning och support efter driftstart."],
+                          ] as const).forEach(([f, l, help]) => {
+                            const vals = [A, B, C].map((x) => dpField(x.partner, key, f));
+                            if (!vals.some(Boolean)) return;
+                            rows.push(
+                              <R key={`${f}-${key}`} label={`${l} (${label})`} help={help}
+                                a={renderValue(vals[0] || "Uppgift saknas")} b={renderValue(vals[1] || "Uppgift saknas")} c={renderValue(vals[2] || "Uppgift saknas")} />,
+                            );
+                          });
                           const mA = getProductMetrics(A.partner, key);
                           const mB = getProductMetrics(B.partner, key);
                           const mC = getProductMetrics(C.partner, key);
@@ -2286,7 +2303,6 @@ const ComparePartners = () => {
                             !mB.length && !mB.cost && !mB.methodology &&
                             !mC.length && !mC.cost && !mC.methodology
                           ) return;
-                          const label = PRODUCT_KEY_LABEL[key] || key;
                           rows.push(
                             <R
                               key={`method-${key}`}
