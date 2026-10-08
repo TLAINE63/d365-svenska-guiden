@@ -1,3 +1,6 @@
+import { useShortlist } from "@/contexts/ShortlistContext";
+import { useInquiry } from "@/contexts/InquiryContext";
+import { track } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
@@ -587,6 +590,18 @@ const KomIgang = () => {
   const altWithoutProduct = selectedIndustry && selectedApp
     ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(selectedIndustry))).length : 0;
 
+  const kortlista = useShortlist();
+  const inquiry = useInquiry();
+  const suggestedKey = showResults ? matchedPartners.slice(0, 3).map((p) => p.slug).join(",") : "";
+  useEffect(() => {
+    if (!suggestedKey) return;
+    matchedPartners.slice(0, 3).forEach((p) => {
+      if (!kortlista.isSaved(p.slug)) kortlista.toggle({ slug: p.slug, name: p.name, url: `/partner/${p.slug}/`, verified: true });
+    });
+    track("tool_complete", { tool: "kom-igang" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suggestedKey]);
+
   // Results page
   if (showResults) {
     return (
@@ -612,6 +627,10 @@ const KomIgang = () => {
               {matchedPartners.length > 0 ? (
                 <div className="space-y-4">
                   <WhyTheseResults />
+                  <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
+                    <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">De föreslagna partnerna är sparade i er kortlista.</p>
+                    <Button onClick={() => inquiry.open({ partners: matchedPartners.slice(0, 3).map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: selectedApp || null })}>Kontakta partners i kortlistan</Button>
+                  </div>
                   {matchedPartners.map((partner, idx) => {
                     const aiMatch = getAiMatch(partner.id);
                     return (
