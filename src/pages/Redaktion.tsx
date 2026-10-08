@@ -1,3 +1,4 @@
+import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
 import { useState } from "react";
@@ -247,6 +248,7 @@ export default function Redaktion() {
           <TabsContent value="stats" className="space-y-6">
             <PostHogStatsCard token={token} onSessionExpired={logout} />
             <SiteTrafficStatsCard token={token} variant="full" />
+            <ContentReadsCard token={token} />
             <AdminStatsSummary token={token || ""} onSessionExpired={logout} />
             <AdminUnderlagFunnel token={token} onSessionExpired={logout} />
             <RedaktionPartnerMonthlyReport token={token} onSessionExpired={logout} />

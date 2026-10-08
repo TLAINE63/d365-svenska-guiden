@@ -144,6 +144,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Editors may only read aggregated statistics, never lead data
     const EDITOR_ALLOWED_ACTIONS = new Set([
       "visitor-stats",
+      "content-reads",
       "click-stats",
       "partner-view-stats",
       "funnel-stats",
