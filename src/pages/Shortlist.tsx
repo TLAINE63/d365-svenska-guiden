@@ -33,7 +33,7 @@ const Shortlist = () => {
   const compareChosen = () => {
     compare.clear();
     chosen.forEach((c) => compare.toggle({ slug: c.slug, name: c.name }));
-    navigate(`/jamfor-partners/?${new URLSearchParams({ partners: chosen.map((c) => c.slug).join(",") })}`);
+    navigate(`/jamfor-partners/?${new URLSearchParams(Object.fromEntries(chosen.map((c, i) => [["a", "b", "c"][i], c.slug])))}`);
   };
   const contactChosen = () => inquiry.open({ partners: chosen.map((c) => ({ slug: c.slug, name: c.name })), type: "kortlista" });
   const filters = deriveCompareFilters(profile);
