@@ -300,7 +300,7 @@ export default function IndustryVerifiedPartnerCard({
             className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
           >
             <Star className={`h-4 w-4 ${compareActive ? "fill-current text-primary" : ""}`} aria-hidden />
-            {compareActive ? "I shortlist" : "Lägg till i shortlist"}
+            {compareActive ? "I kortlistan" : "Lägg till i kortlista"}
           </Button>
           <Button
             type="button"

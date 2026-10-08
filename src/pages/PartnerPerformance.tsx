@@ -439,7 +439,7 @@ export default function PartnerPerformance() {
                   <StatRow label="Tillagd i jämförelse" value={data.current.addedToComparison} />
                 </div>
                 <div>
-                  <StatRow label="Sparad i shortlist" value={data.current.saved} />
+                  <StatRow label="Sparad i kortlista" value={data.current.saved} />
                   <StatRow label="Klick på kundcase" value={data.current.caseClicks} />
                   <StatRow label="Klick på kompetensområden" value={data.current.competencyClicks} />
                 </div>

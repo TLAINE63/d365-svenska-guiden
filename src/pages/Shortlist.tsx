@@ -29,13 +29,13 @@ const Shortlist = () => {
   return (
     <>
       <SEOHead
-        title="Min shortlist – sparade Dynamics 365-partners"
-        description="Din personliga shortlist över Dynamics 365-partners. Jämför dina sparade partners, öppna profilerna och gå vidare till dialog när du är redo."
+        title="Min kortlista – sparade Dynamics 365-partners"
+        description="Din personliga kortlista över Dynamics 365-partners. Jämför dina sparade partners, öppna profilerna och gå vidare till dialog när du är redo."
         canonicalPath="/kortlista/"
         noIndex
         breadcrumbs={[
           { name: "Hem", url: "/" },
-          { name: "Min shortlist", url: "/kortlista/" },
+          { name: "Min kortlista", url: "/kortlista/" },
         ]}
       />
       <Navbar />
@@ -45,7 +45,7 @@ const Shortlist = () => {
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">
             Aktiv utvärdering
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Min shortlist</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Min kortlista</h1>
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-2xl">
             Här samlas de partners du sparat medan du utforskar sajten. Listan sparas lokalt i din
             webbläsare – vi kopplar den inte till dig som person.
@@ -54,7 +54,7 @@ const Shortlist = () => {
           {count === 0 ? (
             <div className="rounded-lg border border-dashed border-border p-10 text-center">
               <Bookmark className="mx-auto h-6 w-6 text-muted-foreground mb-3" />
-              <p className="font-semibold mb-1.5">Din shortlist är tom</p>
+              <p className="font-semibold mb-1.5">Din kortlista är tom</p>
               <p className="text-sm text-muted-foreground mb-6">
                 Spara partners från partnerlistorna, produktsidorna eller branschsidorna så dyker de upp här.
               </p>
@@ -81,7 +81,7 @@ const Shortlist = () => {
                     <button
                       type="button"
                       onClick={() => remove(item.slug)}
-                      aria-label={`Ta bort ${item.name} från shortlist`}
+                      aria-label={`Ta bort ${item.name} från kortlistan`}
                       className="text-muted-foreground hover:text-destructive shrink-0"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -143,7 +143,7 @@ const Shortlist = () => {
                   onClick={clear}
                   className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
                 >
-                  Töm shortlist
+                  Töm kortlistan
                 </button>
               </div>
             </>

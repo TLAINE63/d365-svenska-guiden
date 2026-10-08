@@ -38,7 +38,7 @@ const PartnerDecisionActions = ({ partner, product, industry, onIntro, compact =
     <div className={`grid gap-2 ${compact ? "grid-cols-1" : "sm:grid-cols-3"}`} aria-label={`Nästa steg för ${partner.name}`}>
       <Button type="button" variant="outline" onClick={compare} aria-pressed={selectedForCompare} className="min-h-11 whitespace-normal">
         <Star className={`h-4 w-4 ${selectedForCompare ? "fill-current text-primary" : ""}`} aria-hidden="true" />
-        {selectedForCompare ? "I shortlist" : "Lägg till i shortlist"}
+        {selectedForCompare ? "I kortlistan" : "Lägg till i kortlista"}
       </Button>
       <Button type="button" variant="outline" onClick={ask} className="min-h-11 whitespace-normal">
         <MessagesSquare className="h-4 w-4" aria-hidden="true" />

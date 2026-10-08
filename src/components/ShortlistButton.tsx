@@ -14,7 +14,7 @@ interface Props {
 }
 
 /**
- * "Spara till shortlist" – beslutsstödjande CTA i aktiv utvärderingsfas.
+ * "Lägg till i kortlista" – beslutsstödjande CTA i aktiv utvärderingsfas.
  * Shortlisten är obegränsad och lagras lokalt hos besökaren.
  */
 const ShortlistButton = ({ entry, className = "", variant = "full", cardType, productArea }: Props) => {
@@ -50,7 +50,7 @@ const ShortlistButton = ({ entry, className = "", variant = "full", cardType, pr
       } ${className}`}
     >
       {saved ? <BookmarkCheck className="h-3.5 w-3.5" /> : <Bookmark className="h-3.5 w-3.5" />}
-      {saved ? "Sparad i shortlist" : "Spara till shortlist"}
+      {saved ? "Sparad i kortlista" : "Lägg till i kortlista"}
     </button>
   );
 };

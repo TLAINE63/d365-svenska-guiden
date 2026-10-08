@@ -89,7 +89,7 @@ const journeySteps = [
   { label: "Hitta relevanta partners", icon: Search },
   { label: "Filtrera", icon: SlidersHorizontal },
   { label: "Jämför", icon: Columns3 },
-  { label: "Shortlist", icon: ListChecks },
+  { label: "Kortlista", icon: ListChecks },
   { label: "Be om introduktion", icon: Mail },
 ];
 
@@ -306,7 +306,7 @@ const Partnerprogram = () => {
               kan visa sin specialisering, sina kundcase, sina experter och en tydlig väg till kontakt.
             </p>
             <p className="text-lg md:text-2xl font-semibold leading-snug border-l-4 border-primary pl-5 mb-8">
-              Den största risken är inte att missa ett klick – utan att bli bortvald från en shortlist
+              Den största risken är inte att missa ett klick – utan att bli bortvald från en kortlista
               utan att veta att affärsmöjligheten fanns.
             </p>
             <Button asChild size="lg" onClick={() => checkClick("risk")}>

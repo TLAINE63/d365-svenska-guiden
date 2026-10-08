@@ -621,7 +621,7 @@ const ValjPartner = () => {
  
   <ProductHero
   title="Hitta Dynamics 365-partners som matchar dina behov"
-  subhead="Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
+  subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
@@ -766,7 +766,7 @@ const ValjPartner = () => {
  Så hittar du 2–4 relevanta partners att kontakta
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground">
- Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
+ Använd filtreringen nedan för att ta fram en första kortlista av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
  </p>
  </div>
  </div>
