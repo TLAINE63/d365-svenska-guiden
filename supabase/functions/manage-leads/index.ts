@@ -955,6 +955,34 @@ case "click-stats": {
         return new Response(JSON.stringify({ sources }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "content-reads": {
+        const { startDate: cStart } = data;
+        const GROUPS = [
+          { name: "Partnernytt-artiklar", re: /^\/partnernytt\/artikel\/[^/]+/ },
+          { name: "Kunskapscenter-artiklar", re: /^\/kunskapscenter\/[^/]+\/[^/]+/ },
+          { name: "Event", re: /^\/events\/[^/]+/ },
+        ];
+        let rows: any[] = []; let off = 0;
+        while (true) {
+          let q = supabase.from("visitor_analytics").select("session_id, ip_anonymized, page_path")
+            .or("page_path.like./partnernytt/artikel/%,page_path.like./kunskapscenter/%,page_path.like./events/%")
+            .order("visited_at", { ascending: false }).range(off, off + 999);
+          if (cStart) q = q.gte("visited_at", cStart);
+          const { data: b, error: e } = await q; if (e) throw e;
+          if (!b?.length) break; rows = rows.concat(b); if (b.length < 1000) break; off += 1000;
+        }
+        const groups = GROUPS.map((g) => {
+          const views = rows.filter((r) => g.re.test(String(r.page_path || "")));
+          const pages: Record<string, number> = {};
+          for (const r of views) { const p = String(r.page_path).replace(/\/+$/, ""); pages[p] = (pages[p] || 0) + 1; }
+          return { name: g.name, views: views.length,
+            visitors: new Set(views.map((r) => r.ip_anonymized).filter(Boolean)).size,
+            sessions: new Set(views.map((r) => r.session_id).filter(Boolean)).size,
+            topPages: Object.entries(pages).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([path, views]) => ({ path, views })) };
+        });
+        return new Response(JSON.stringify({ groups }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "page-path-counts": {
         const { startDate: pStart = null } = data;
         const runCount = async (filter: (q: any) => any) => {
