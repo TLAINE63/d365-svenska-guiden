@@ -60,8 +60,8 @@ export function clearD365Plan() {
 }
 
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
-  if (savedCount && buyer.industry && buyer.size && (meta.area || buyer.product)) return { label: "Få hjälp att matcha rätt partner", to: "/shortlist/" };
-  if (savedCount) return { label: "Jämför era sparade partners", to: "/shortlist/" };
+  if (savedCount && buyer.industry && buyer.size && (meta.area || buyer.product)) return { label: "Få hjälp att matcha rätt partner", to: "/kortlista/" };
+  if (savedCount) return { label: "Jämför era sparade partners", to: "/kortlista/" };
   const assessed = Boolean(profile.assessment?.fscm_level || (Array.isArray(profile.assessment?.crm_apps) && profile.assessment.crm_apps.length));
   if (assessed && meta.area !== "erp" && meta.area !== "crm" && meta.area !== "migration") return { label: "Se partners för ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(profile))}` };
   if (meta.area === "migration") return { label: "Kartlägg nuvarande system och beroenden", to: "#komplettera" };

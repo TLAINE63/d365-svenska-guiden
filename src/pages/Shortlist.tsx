@@ -31,11 +31,11 @@ const Shortlist = () => {
       <SEOHead
         title="Min shortlist – sparade Dynamics 365-partners"
         description="Din personliga shortlist över Dynamics 365-partners. Jämför dina sparade partners, öppna profilerna och gå vidare till dialog när du är redo."
-        canonicalPath="/shortlist/"
+        canonicalPath="/kortlista/"
         noIndex
         breadcrumbs={[
           { name: "Hem", url: "/" },
-          { name: "Min shortlist", url: "/shortlist/" },
+          { name: "Min shortlist", url: "/kortlista/" },
         ]}
       />
       <Navbar />
@@ -150,7 +150,7 @@ const Shortlist = () => {
           )}
         </section>
 
-        <FunnelCTA stage="evaluation" source="/shortlist/" />
+        <FunnelCTA stage="evaluation" source="/kortlista/" />
       </main>
 
       <Footer />
