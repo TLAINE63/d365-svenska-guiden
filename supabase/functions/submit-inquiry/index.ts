@@ -62,10 +62,11 @@ Deno.serve(async (req) => {
     const { data: inquiry, error } = await sb.from("inquiries").insert({ ...rest, project: d.include_project ? d.project ?? null : null, source_site: siteFromOrigin(origin) }).select("id").single();
     if (error || !inquiry) { console.error(error); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
 
+    const tokens = new Map(partners.map((p) => [p.slug, crypto.randomUUID().replace(/-/g, "")]));
     await sb.from("inquiry_partners").insert(partners.map((p) => ({
       inquiry_id: inquiry.id, partner_slug: p.slug, share_consent: true,
       consent_text: `Jag godkänner att mina kontaktuppgifter och mitt projektunderlag skickas till ${p.name}.`,
-      status_token: crypto.randomUUID().replace(/-/g, ""),
+      status_token: tokens.get(p.slug),
     })));
 
     const key = Deno.env.get("RESEND_API_KEY");
@@ -83,10 +84,12 @@ ${d.include_project ? projectText(d.project) : ""}
         const c = productKeys(d.product_area).map((k) => pf[k]).find((x: any) => x?.contactEmail);
         const to = (c?.contactEmail || (p as any).email || "").trim();
         try {
+          const base = `${siteFromOrigin(origin) === "businesscentral.se" ? "https://businesscentral.se" : "https://d365.se"}/partnersvar/${tokens.get(p.slug)}`;
+          const links = `<p><strong>Berätta gärna hur det går (ett klick, ingen inloggning):</strong><br><a href="${base}?s=kontaktad">Vi har kontaktat kunden</a><br><a href="${base}?s=offert">Vi har lämnat offert</a><br><a href="${base}?s=ej_aktuell">Inte aktuellt för oss</a></p>`;
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: to ? [to] : ADMIN_EMAILS, cc: to ? ADMIN_EMAILS : undefined,
             reply_to: d.email, subject: `Förfrågan via d365.se: ${d.company}`,
-            html: to ? body : `<p><strong>Partnern ${esc(p.name)} saknar e-postadress, vidarebefordra manuellt.</strong></p>${body}`,
+            html: (to ? body : `<p><strong>Partnern ${esc(p.name)} saknar e-postadress, vidarebefordra manuellt.</strong></p>${body}`) + links,
           });
         } catch (e) { console.error("partner mail", p.slug, e); }
       }

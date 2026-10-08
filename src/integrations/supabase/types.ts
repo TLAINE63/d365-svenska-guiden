@@ -848,10 +848,14 @@ export type Database = {
       }
       inquiries: {
         Row: {
+          buyer_replied_at: string | null
+          buyer_reply: string | null
           company: string
           contact_name: string
           created_at: string
           email: string
+          followup_sent_at: string | null
+          followup_token: string | null
           help_with: string | null
           id: string
           include_project: boolean | null
@@ -874,10 +878,14 @@ export type Database = {
           utm_term: string | null
         }
         Insert: {
+          buyer_replied_at?: string | null
+          buyer_reply?: string | null
           company: string
           contact_name: string
           created_at?: string
           email: string
+          followup_sent_at?: string | null
+          followup_token?: string | null
           help_with?: string | null
           id?: string
           include_project?: boolean | null
@@ -900,10 +908,14 @@ export type Database = {
           utm_term?: string | null
         }
         Update: {
+          buyer_replied_at?: string | null
+          buyer_reply?: string | null
           company?: string
           contact_name?: string
           created_at?: string
           email?: string
+          followup_sent_at?: string | null
+          followup_token?: string | null
           help_with?: string | null
           id?: string
           include_project?: boolean | null
@@ -5467,6 +5479,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      inquiry_followup_dispatch: { Args: never; Returns: number }
       move_to_dlq: {
         Args: {
           dlq_name: string
