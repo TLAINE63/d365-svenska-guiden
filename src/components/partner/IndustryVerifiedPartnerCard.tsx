@@ -295,21 +295,21 @@ export default function IndustryVerifiedPartnerCard({
           <Button
             type="button"
             variant="outline"
-            onClick={() => toggle({ slug: partner.slug, name: partner.name })}
-            aria-pressed={compareActive}
+            onClick={() => { kortlista.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true }); track(kortlista.isSaved(partner.slug) ? "shortlist_remove" : "shortlist_add", null, partner.slug); }}
+            aria-pressed={kortlista.isSaved(partner.slug)}
             className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
           >
-            <Star className={`h-4 w-4 ${compareActive ? "fill-current text-primary" : ""}`} aria-hidden />
-            {compareActive ? "I kortlistan" : "Lägg till i kortlista"}
+            <Star className={`h-4 w-4 ${kortlista.isSaved(partner.slug) ? "fill-current text-primary" : ""}`} aria-hidden />
+            {kortlista.isSaved(partner.slug) ? "I kortlistan" : "Lägg till i kortlista"}
           </Button>
           <Button
             type="button"
             variant="outline"
-            onClick={() => setContactOpen(true)}
+            onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner" })}
             className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
           >
             <Mail className="h-4 w-4" aria-hidden />
-            Be om introduktion
+            Be om kontakt
           </Button>
         </div>
       </footer>
