@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
-import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, ShieldCheck, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, ShieldCheck, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import { useShortlist } from "@/contexts/ShortlistContext";
@@ -33,6 +33,8 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
   const keys: Array<keyof DatabasePartner["product_filters"]> = value.includes("business central") ? ["bc"] : /finance|supply/.test(value) ? ["fsc"] : /crm|customer engagement/.test(value) ? ["sales", "service", "crm"] : /sales|marketing|insights/.test(value) ? ["sales", "crm"] : /service|contact center|field/.test(value) ? ["service", "crm"] : [];
   const contact = keys.map(key => partner.product_filters?.[key]).find(p => p?.contactName || p?.contactEmail || p?.contactPhone);
   const name = contact?.contactName || partner.contactPerson;
+  const email = (contact?.contactEmail || (partner as { email?: string | null }).email || "").trim();
+  const phone = (contact?.contactPhone || (partner as { phone?: string | null }).phone || "").trim();
   const photo = contact?.contactPhotoUrl || partner.contact_photo_url;
   const video = extractYouTubeId(contact?.youtubeVideoId || partner.youtube_video_id);
   const description = partner.description?.trim();
@@ -58,6 +60,11 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
+        {(email || phone || website) && <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
+          {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 break-all" onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)}>{email}</a></li>}
+          {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-4" onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)}>{phone}</a></li>}
+          {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
+        </ul>}
         <div className="partner-opening-actions mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
           <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om kontakt<ArrowRight className="h-4 w-4" /></Button>
           {saved ? (
