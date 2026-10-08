@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
 import { ShortlistProvider } from "@/contexts/ShortlistContext";
+import { InquiryProvider } from "@/contexts/InquiryContext";
 
 import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -55,6 +56,7 @@ const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
 const Shortlist = lazy(() => import("./pages/Shortlist"));
+const InquiryThanks = lazy(() => import("./pages/InquiryThanks"));
 
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
@@ -216,7 +218,9 @@ const AppShell = () => {
           <Route path="/guider/valja-customer-service-field-service-partner" element={<PartnerGuidePage guideKey="service" />} />
           <Route path="/erp-koparguiden-2026" element={<BuyerGuide2026 variant="erp" />} />
           <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
-          <Route path="/shortlist" element={<Shortlist />} />
+          <Route path="/kortlista" element={<Shortlist />} />
+          <Route path="/shortlist" element={<RedirectTo to="/kortlista/" />} />
+          <Route path="/forfragan/tack" element={<InquiryThanks />} />
           <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
 
           <Route path="/valj-partner/*" element={<RedirectTo to="/valjdynamics365partner" />} />
@@ -416,8 +420,10 @@ const App = () => (
       <BrowserRouter>
         <PartnerCompareProvider>
           <ShortlistProvider>
-            <AppShell />
-            <PartnerCompareBar />
+            <InquiryProvider>
+              <AppShell />
+              <PartnerCompareBar />
+            </InquiryProvider>
           </ShortlistProvider>
         </PartnerCompareProvider>
 
