@@ -206,3 +206,6 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 
 - [x] Startsidan "Så hittar du rätt partner": tre faktatexter dolda (Produktområde/Bransch/Storlek/Geografi kvar), verifierat i webbläsare
 - [ ] Publicera (grundprofil-länkar + startsidesfix)
+
+## Sprint 1 kortlista till förfrågan (2026-10-08)
+- [ ] Visa e-post, telefon och webbplatslänk överst på partnerprofilen
