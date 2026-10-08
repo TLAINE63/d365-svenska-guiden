@@ -1,10 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, Columns2, MessagesSquare, ShieldCheck, Play } from "lucide-react";
+import { useEffect } from "react";
+import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, ShieldCheck, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import { useShortlist } from "@/contexts/ShortlistContext";
-import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { useInquiry } from "@/contexts/InquiryContext";
+import { track as trackEvent, partnerWebsiteUrl } from "@/lib/track";
+import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { extractYouTubeId } from "@/lib/youtube";
@@ -21,15 +24,17 @@ interface Props {
 }
 
 export default function PartnerProfileOpening({ partner, product, industry, onIntro, onVideo }: Props) {
-  const navigate = useNavigate();
   const shortlist = useShortlist();
-  const compare = usePartnerCompare();
+  const inquiry = useInquiry();
   const saved = shortlist.isSaved(partner.slug);
-  const compared = compare.isSelected(partner.slug);
+  const website = partnerWebsiteUrl((partner as { website?: string | null }).website);
+  useEffect(() => { trackEvent("partner_profile_view", null, partner.slug); }, [partner.slug]);
   const value = (product || "").toLowerCase();
   const keys: Array<keyof DatabasePartner["product_filters"]> = value.includes("business central") ? ["bc"] : /finance|supply/.test(value) ? ["fsc"] : /crm|customer engagement/.test(value) ? ["sales", "service", "crm"] : /sales|marketing|insights/.test(value) ? ["sales", "crm"] : /service|contact center|field/.test(value) ? ["service", "crm"] : [];
   const contact = keys.map(key => partner.product_filters?.[key]).find(p => p?.contactName || p?.contactEmail || p?.contactPhone);
   const name = contact?.contactName || partner.contactPerson;
+  const email = (contact?.contactEmail || (partner as { email?: string | null }).email || "").trim();
+  const phone = (contact?.contactPhone || (partner as { phone?: string | null }).phone || "").trim();
   const photo = contact?.contactPhotoUrl || partner.contact_photo_url;
   const video = extractYouTubeId(contact?.youtubeVideoId || partner.youtube_video_id);
   const description = partner.description?.trim();
@@ -55,20 +60,23 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
+        {(email || phone || website) && <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
+          {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 break-all" onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)}>{email}</a></li>}
+          {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-4" onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)}>{phone}</a></li>}
+          {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
+        </ul>}
         <div className="partner-opening-actions mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
-          <Button onClick={() => { track("request_intro"); onIntro(); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om introduktion<ArrowRight className="h-4 w-4" /></Button>
-          <Button variant="outline" aria-pressed={saved} onClick={() => {
-            shortlist.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true });
-            if (!saved) trackPartnerCardEvent("spara_shortlist", partner, "verifierad", product);
-          }} className="min-h-12">{saved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}{saved ? "Sparad i shortlist" : "Spara till shortlist"}</Button>
-          <Button variant="ghost" aria-pressed={compared} onClick={() => {
-            if (!compared) trackPartnerCardEvent("lagg_till_jamforelse", partner, "verifierad", product);
-            compare.toggle({ slug: partner.slug, name: partner.name });
-          }} className="min-h-12"><Columns2 className="h-4 w-4" />{compared ? "Tillagd i jämförelse" : "Jämför"}</Button>
-          <Button variant="ghost" onClick={() => {
-            track("ask_d365");
-            navigate(`/fraga/?${new URLSearchParams({ q: `Vad bör vi kontrollera när vi utvärderar ${partner.name}${product ? ` för ${product}` : ""}${industry ? ` inom ${industry}` : ""}?`, source: `partner:${partner.slug}` })}`);
-          }} className="min-h-12"><MessagesSquare className="h-4 w-4" />Fråga d365.se</Button>
+          <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om kontakt<ArrowRight className="h-4 w-4" /></Button>
+          {saved ? (
+            <span className="inline-flex min-h-12 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium"><BookmarkCheck className="h-4 w-4" />Tillagd i kortlistan<Link to="/kortlista/" className="underline underline-offset-4">Visa kortlistan</Link></span>
+          ) : (
+            <Button variant="outline" onClick={() => {
+              shortlist.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true });
+              trackPartnerCardEvent("spara_shortlist", partner, "verifierad", product);
+              trackEvent("shortlist_add", null, partner.slug);
+            }} className="min-h-12"><Bookmark className="h-4 w-4" />Lägg till i kortlista</Button>
+          )}
+          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Till partnerns webbplats</a></Button>}
         </div>
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>

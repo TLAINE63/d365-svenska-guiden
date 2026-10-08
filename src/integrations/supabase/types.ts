@@ -846,6 +846,131 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiries: {
+        Row: {
+          company: string
+          contact_name: string
+          created_at: string
+          email: string
+          help_with: string | null
+          id: string
+          include_project: boolean | null
+          inquiry_type: string
+          landing_page: string | null
+          message: string | null
+          phone: string | null
+          privacy_ack: boolean
+          product_area: string | null
+          project: Json | null
+          referrer: string | null
+          role: string | null
+          session_id: string | null
+          source_site: string
+          timeframe: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+        }
+        Insert: {
+          company: string
+          contact_name: string
+          created_at?: string
+          email: string
+          help_with?: string | null
+          id?: string
+          include_project?: boolean | null
+          inquiry_type: string
+          landing_page?: string | null
+          message?: string | null
+          phone?: string | null
+          privacy_ack: boolean
+          product_area?: string | null
+          project?: Json | null
+          referrer?: string | null
+          role?: string | null
+          session_id?: string | null
+          source_site?: string
+          timeframe?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Update: {
+          company?: string
+          contact_name?: string
+          created_at?: string
+          email?: string
+          help_with?: string | null
+          id?: string
+          include_project?: boolean | null
+          inquiry_type?: string
+          landing_page?: string | null
+          message?: string | null
+          phone?: string | null
+          privacy_ack?: boolean
+          product_area?: string | null
+          project?: Json | null
+          referrer?: string | null
+          role?: string | null
+          session_id?: string | null
+          source_site?: string
+          timeframe?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+        }
+        Relationships: []
+      }
+      inquiry_partners: {
+        Row: {
+          consent_text: string
+          created_at: string
+          id: string
+          inquiry_id: string
+          partner_slug: string
+          share_consent: boolean
+          status: string | null
+          status_token: string | null
+          status_updated_at: string | null
+        }
+        Insert: {
+          consent_text: string
+          created_at?: string
+          id?: string
+          inquiry_id: string
+          partner_slug: string
+          share_consent: boolean
+          status?: string | null
+          status_token?: string | null
+          status_updated_at?: string | null
+        }
+        Update: {
+          consent_text?: string
+          created_at?: string
+          id?: string
+          inquiry_id?: string
+          partner_slug?: string
+          share_consent?: boolean
+          status?: string | null
+          status_token?: string | null
+          status_updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_partners_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       isv_invitations: {
         Row: {
           created_at: string
@@ -3313,6 +3438,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      partner_tracking_events: {
+        Row: {
+          created_at: string
+          event_name: string
+          id: string
+          metadata: Json | null
+          page_path: string | null
+          partner_slug: string | null
+          product_area: string | null
+          session_id: string | null
+          source_site: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_name: string
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          partner_slug?: string | null
+          product_area?: string | null
+          session_id?: string | null
+          source_site?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_name?: string
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          partner_slug?: string | null
+          product_area?: string | null
+          session_id?: string | null
+          source_site?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
       }
       partners: {
         Row: {

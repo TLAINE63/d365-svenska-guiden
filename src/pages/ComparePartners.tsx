@@ -1,3 +1,5 @@
+import { useInquiry } from "@/contexts/InquiryContext";
+import { track } from "@/lib/track";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
@@ -1395,6 +1397,12 @@ const ComparePartners = () => {
     () => [a, b, c].filter((p): p is DatabasePartner => Boolean(p)),
     [a, b, c]
   );
+  const inquiry = useInquiry();
+  const comparedKey = comparedPartners.map((p) => p.slug).join(",");
+  useEffect(() => {
+    if (comparedPartners.length >= 2) track("compare_view", { partners: comparedKey.split(",") });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comparedKey]);
   useTrackFilterExposure({
     partners: comparedPartners.map((p) => ({ slug: p.slug, id: p.id })),
     pagePath: "/jamfor-partners",
@@ -2094,6 +2102,10 @@ const ComparePartners = () => {
 
                 {hasBoth && (
                   <>
+                    <div className="mb-6 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
+                      <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">Ni väljer själva vilka av partnerna som får era uppgifter.</p>
+                      <Button onClick={() => inquiry.open({ partners: comparedPartners.map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: productFilters[0] || null })}>Kontakta de här partnerna</Button>
+                    </div>
                     {(() => {
                       const aiPartners = [a, b, ...(c ? [c] : [])].filter(
                         (p): p is DatabasePartner => !!p && !isBasicPartner(p),

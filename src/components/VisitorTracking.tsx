@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { initTracking } from "@/lib/track";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { initPartnerLinkClickTracking } from "@/utils/trackPartnerLinkClicks";
 import { trackLandingOnce, installEngagementClickTracking } from "@/utils/trackFunnelEvent";
@@ -10,6 +11,7 @@ import { trackLandingOnce, installEngagementClickTracking } from "@/utils/trackF
 export default function VisitorTracking() {
   useVisitorTracking();
 
+  useEffect(() => initTracking(), []);
   useEffect(() => initPartnerLinkClickTracking(), []);
   useEffect(() => trackLandingOnce(), []);
   useEffect(() => installEngagementClickTracking(), []);

@@ -281,7 +281,7 @@ export default function PartnerPerformanceReportView({
           <p className="text-sm">
             Du deltog i <strong>{m.comparisons}</strong> jämförelser den här månaden
             {shortlistRate !== null && m.compareAdds > 0 && (
-              <> och valdes vidare till shortlist i <strong>{m.compareAdds}</strong> av dem ({shortlistRate} %)</>
+              <> och valdes vidare till kortlista i <strong>{m.compareAdds}</strong> av dem ({shortlistRate} %)</>
             )}
             .
           </p>

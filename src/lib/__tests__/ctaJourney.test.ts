@@ -35,7 +35,7 @@ describe("Human-first journey", () => {
     expect(planNextStep(emptyProfile(), {}, { area: "migration", needs: [], dimensions: {} }, 0).to).toBe("#komplettera");
   });
   it("uses existing shortlist once partners are saved", () => {
-    expect(planNextStep(emptyProfile(), {}, parsePlan(null), 2).to).toBe("/shortlist/");
+    expect(planNextStep(emptyProfile(), {}, parsePlan(null), 2).to).toBe("/kortlista/");
   });
 });
 import { contextualJourney as cj2 } from "@/lib/ctaJourney";

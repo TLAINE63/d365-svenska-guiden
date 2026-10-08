@@ -117,7 +117,7 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
       },
     ],
     nextStep:
-      "När du vet vilket ERP-spår som är rimligt: jämför partners på bransch, storlek och leveransförmåga, spara dem till din shortlist och skicka ditt underlag till dem du vill prata med.",
+      "När du vet vilket ERP-spår som är rimligt: jämför partners på bransch, storlek och leveransförmåga, spara dem till din kortlista och skicka ditt underlag till dem du vill prata med.",
   },
 
   crm: {
@@ -199,6 +199,6 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
       },
     ],
     nextStep:
-      "När du vet vilka CRM-applikationer som är aktuella: jämför partners som faktiskt levererat inom ditt område, spara dem till din shortlist och skicka in ditt underlag.",
+      "När du vet vilka CRM-applikationer som är aktuella: jämför partners som faktiskt levererat inom ditt område, spara dem till din kortlista och skicka in ditt underlag.",
   },
 };

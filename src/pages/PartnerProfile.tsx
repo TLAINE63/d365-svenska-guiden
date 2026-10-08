@@ -533,7 +533,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     partnerName={partner.name}
     product={activeTabProduct || selectedProduct}
     industry={selectedIndustry}
-    onIntro={() => openRequest("contact")}
   />
 
 

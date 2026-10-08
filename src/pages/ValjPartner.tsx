@@ -1,3 +1,4 @@
+import { useInquiry } from "@/contexts/InquiryContext";
 import ContextualCta from "@/components/ContextualCta";
 import { useState, useMemo, useEffect } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -215,6 +216,7 @@ const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): 
 };
 
 const ValjPartner = () => {
+  const inquiry = useInquiry();
  const { data: dbPartners, isLoading } = usePartners();
  const { data: basicPartners } = useBasicPartners();
  const [searchParams, setSearchParams] = useSearchParams();
@@ -621,7 +623,7 @@ const ValjPartner = () => {
  
   <ProductHero
   title="Hitta Dynamics 365-partners som matchar dina behov"
-  subhead="Använd filtret som en första shortlist, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
+  subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
@@ -766,7 +768,7 @@ const ValjPartner = () => {
  Så hittar du 2–4 relevanta partners att kontakta
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground">
- Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
+ Använd filtreringen nedan för att ta fram en första kortlista av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
  </p>
  </div>
  </div>
@@ -945,6 +947,7 @@ const ValjPartner = () => {
  showRandomIndicator={true}
  />
  {underlagFilters && <UnderlagMatchBox partner={partner as any} filters={underlagFilters} />}
+ <Button variant="outline" className="self-start" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
  </div>
  );
  })}
