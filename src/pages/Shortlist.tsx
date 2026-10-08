@@ -6,7 +6,12 @@ import FunnelCTA from "@/components/FunnelCTA";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bookmark, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useInquiry } from "@/contexts/InquiryContext";
+import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { track } from "@/lib/track";
 import { usePartners } from "@/hooks/usePartners";
 import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
 import { setAnswer, useBuyerProfile, hasAnyAnswer } from "@/lib/buyerProfile";
@@ -18,6 +23,19 @@ const Shortlist = () => {
   const { data: partners = [] } = usePartners();
   const profile = useBuyerProfile();
   const [sideBySide, setSideBySide] = useState(false);
+  const navigate = useNavigate();
+  const inquiry = useInquiry();
+  const compare = usePartnerCompare();
+  const [picked, setPicked] = useState<string[]>([]);
+  useEffect(() => { setPicked((prev) => (prev.length ? prev.filter((s) => items.some((i) => i.slug === s)) : items.slice(0, 3).map((i) => i.slug))); }, [items]);
+  const chosen = items.filter((i) => picked.includes(i.slug));
+  const togglePick = (slug: string) => setPicked((prev) => prev.includes(slug) ? prev.filter((s) => s !== slug) : prev.length >= 3 ? prev : [...prev, slug]);
+  const compareChosen = () => {
+    compare.clear();
+    chosen.forEach((c) => compare.toggle({ slug: c.slug, name: c.name }));
+    navigate(`/jamfor-partners/?${new URLSearchParams({ partners: chosen.map((c) => c.slug).join(",") })}`);
+  };
+  const contactChosen = () => inquiry.open({ partners: chosen.map((c) => ({ slug: c.slug, name: c.name })), type: "kortlista" });
   const filters = deriveCompareFilters(profile);
   const withProfile = hasAnyAnswer(profile);
   const openSideBySide = () => {
@@ -67,10 +85,12 @@ const Shortlist = () => {
             </div>
           ) : (
             <>
+              <p className="text-sm text-muted-foreground mb-3">Välj upp till tre partners att jämföra eller kontakta.</p>
               <ul className="divide-y divide-border rounded-lg border border-border bg-card">
                 {items.map((item) => (
                   <li key={item.slug} className="flex items-center justify-between gap-4 p-4">
-                    <div className="min-w-0">
+                    <Checkbox checked={picked.includes(item.slug)} onCheckedChange={() => togglePick(item.slug)} aria-label={`Välj ${item.name}`} disabled={!picked.includes(item.slug) && picked.length >= 3} />
+                    <div className="min-w-0 flex-1">
                       <Link to={item.url} className="font-semibold hover:text-[hsl(var(--cta-orange))]">
                         {item.name}
                       </Link>
@@ -80,7 +100,7 @@ const Shortlist = () => {
                     </div>
                     <button
                       type="button"
-                      onClick={() => remove(item.slug)}
+                      onClick={() => { remove(item.slug); track("shortlist_remove", null, item.slug); }}
                       aria-label={`Ta bort ${item.name} från kortlistan`}
                       className="text-muted-foreground hover:text-destructive shrink-0"
                     >
@@ -129,12 +149,11 @@ const Shortlist = () => {
               )}
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                  <Link to="/jamfor-partners/">
-                    Jämför partners
-                    <ArrowRight className="ml-1.5 h-4 w-4" />
-                  </Link>
+                <Button onClick={contactChosen} disabled={!chosen.length}>
+                  Kontakta valda partners
+                  <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
+                <Button variant="outline" onClick={compareChosen} disabled={chosen.length < 2}>Jämför</Button>
                 <Button asChild variant="outline">
                   <Link to="/valjdynamics365partner/">Hitta rätt partner</Link>
                 </Button>
