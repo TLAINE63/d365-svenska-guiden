@@ -17,6 +17,7 @@ import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
 import { setAnswer, useBuyerProfile, hasAnyAnswer } from "@/lib/buyerProfile";
 import { deriveCompareFilters, questionsToTakeForward } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import ProjectSummary from "@/components/inquiry/ProjectSummary";
 
 const Shortlist = () => {
   const { items, remove, clear, count } = useShortlist();
@@ -85,6 +86,11 @@ const Shortlist = () => {
             </div>
           ) : (
             <>
+              <section className="mb-6 rounded-lg border border-border bg-card p-4">
+                <h2 className="font-semibold mb-2">Ert projektunderlag</h2>
+                <ProjectSummary profile={profile} />
+                <p className="mt-2 text-xs text-muted-foreground">Underlaget delas bara med de partners ni själva godkänner när ni skickar en förfrågan.</p>
+              </section>
               <p className="text-sm text-muted-foreground mb-3">Välj upp till tre partners att jämföra eller kontakta.</p>
               <ul className="divide-y divide-border rounded-lg border border-border bg-card">
                 {items.map((item) => (
