@@ -209,6 +209,30 @@ export default function Beslutsmognadsindex() {
           </div>
         </section>
 
+        {/* Förklarande text */}
+        <section className="max-w-[720px] mx-auto px-6 py-16 border-t border-bm-rule font-bm-display text-bm-ink-soft leading-relaxed" style={{ fontWeight: 320 }}>
+          <h2 className="text-bm-ink mb-4 leading-snug" style={{ fontSize: "1.5rem", fontWeight: 380 }}>
+            Vad mäter beslutsmognaden?
+          </h2>
+          <p className="mb-4">
+            Många investeringar i Microsoft&nbsp;Dynamics&nbsp;365 drar ut på tiden eller blir dyrare än planerat, inte för att tekniken brister utan för att beslutsunderlaget är ofullständigt. Diagnostiken hjälper er att se hur väl förberedda ni är innan ni väljer system och partner.
+          </p>
+          <p className="mb-4">
+            Frågorna täcker fem områden: hur tydligt behovet och målbilden är formulerade, hur samstämmig ledningsgruppen är, hur väl ni förstår riskerna i genomförandet, hur mycket ni vet om partnermarknaden och hur beslutet ska fattas och av vem. Varje område ger en poäng, och tillsammans visar de var ni står i dag.
+          </p>
+          <p className="mb-4">
+            Resultatet är ett stöd, inte ett hinder. En låg poäng betyder inte att ni måste vänta. Ni kan när som helst gå vidare till{" "}
+            <Link to="/underlag/" className="underline text-bm-accent-deep">projektunderlaget</Link>,{" "}
+            <Link to="/jamfor-partners/" className="underline text-bm-accent-deep">jämföra partners</Link>{" "}
+            eller läsa{" "}
+            <Link to="/upphandlingsguiden/" className="underline text-bm-accent-deep">upphandlingsguiden</Link>{" "}
+            om de sju stadierna i köpresan.
+          </p>
+          <p>
+            Era svar används för att förifylla projektunderlaget och de frågor ni bör ställa till partnerna, så att ni slipper svara på samma sak två gånger.
+          </p>
+        </section>
+
         <TrustBand />
         <FooterBand />
       </main>
