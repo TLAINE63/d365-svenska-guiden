@@ -591,6 +591,7 @@ const KomIgang = () => {
     ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(selectedIndustry))).length : 0;
 
   const kortlista = useShortlist();
+  useEffect(() => { track("tool_start", { tool: "kom-igang" }); }, []);
   const inquiry = useInquiry();
   const suggestedKey = showResults ? matchedPartners.slice(0, 3).map((p) => p.slug).join(",") : "";
   useEffect(() => {
