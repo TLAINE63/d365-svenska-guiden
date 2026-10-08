@@ -126,7 +126,7 @@ const Footer = () => {
         <div className="border-t border-[hsl(var(--line-dark))] pt-8 text-center text-[hsl(var(--muted-dark))]">
           <img src={siteLogo} alt="d365.se logotyp" width="194" height="40" loading="lazy" decoding="async" className="h-10 w-auto mx-auto mb-4 brightness-0 invert" />
           <p className="mb-2 text-white">
-            © {new Date().getFullYear()} {ORGANIZATION.name} – drivs av {ORGANIZATION.legalName} (ägare {ORGANIZATION.parentName})
+            © {new Date().getFullYear()} {ORGANIZATION.name} – drivs av {ORGANIZATION.legalName}
           </p>
           <p className="text-sm mb-1">
             Microsoft Business Applications Evangelister

@@ -13,7 +13,7 @@ export const ORGANIZATION = {
   /** Varumärkes-/sajtnamn – används som primärt namn överallt. */
   name: "d365.se",
   /** Juridisk person som driver sajten. */
-  legalName: "Dynamic Factory",
+  legalName: "Moveahead AB (Dynamic Factory)",
   /** Moderbolag/ägare. Redovisas öppet på /agande-och-intressen. */
   parentName: "Moveahead AB",
   url: "https://d365.se",
@@ -30,8 +30,8 @@ export const ORGANIZATION = {
   telephoneDisplay: rawSiteText("contact.phone"),
   contactPath: "/kontakt",
   /** Företagsinformation i footern. Lämna tomt tills verifierat värde finns. */
-  organizationNumber: "",
-  vatNumber: "",
+  organizationNumber: "559045-6041",
+  vatNumber: "SE559045604101",
   postalAddress: "",
   /** Endast verifierade profiler – inga gissade URL:er. */
   sameAs: ["https://dynamicfactory.se"],
