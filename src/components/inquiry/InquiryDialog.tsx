@@ -10,6 +10,7 @@ import { getBuyerProfile, hasAnyAnswer } from "@/lib/buyerProfile";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { getTrackSession, getTrackSource, track } from "@/lib/track";
 import type { InquiryPartner, InquiryType } from "@/contexts/InquiryContext";
+import ProjectSummary from "@/components/inquiry/ProjectSummary";
 
 const ROLES = ["VD", "CFO eller ekonomichef", "IT-ansvarig", "Försäljnings- eller servicechef", "Verksamhetschef", "Annan"];
 const PRODUCTS = ["Business Central", "Finance & Supply Chain Management (F&O)", "Sales", "Customer Service", "Field Service", "Contact Center", "Customer Insights", "Project Operations", "Human Resources", "Commerce", "Vet inte än"];
@@ -121,9 +122,9 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
           <div><Label htmlFor="iq-msg">Meddelande</Label><Textarea id="iq-msg" value={f.message} onChange={set("message")} maxLength={3000} rows={4} /></div>
 
           {project.items.length > 0 && (
-            <div className="rounded-md border border-border bg-muted/40 p-3 text-sm space-y-2">
-              <p className="font-semibold">Projektunderlag</p>
-              <p className="text-muted-foreground">{project.items.join(" · ")}</p>
+            <div className="rounded-md border border-border bg-muted/40 p-3 text-sm space-y-3">
+              <p className="font-semibold">Projektunderlag som partnerna får se</p>
+              <ProjectSummary profile={getBuyerProfile()} compact />
               <label className="flex items-center gap-2 cursor-pointer"><Checkbox checked={includeProject} onCheckedChange={(v) => setIncludeProject(v === true)} />Bifoga mitt projektunderlag</label>
             </div>
           )}
