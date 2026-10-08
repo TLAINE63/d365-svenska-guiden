@@ -945,6 +945,7 @@ const ValjPartner = () => {
  showRandomIndicator={true}
  />
  {underlagFilters && <UnderlagMatchBox partner={partner as any} filters={underlagFilters} />}
+ <Button variant="outline" className="self-start" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
  </div>
  );
  })}
