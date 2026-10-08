@@ -936,7 +936,9 @@ case "click-stats": {
         const per: Record<string, { views: number; sessions: Set<string>; visitors: Set<string>; viaUtm: number; pages: Record<string, number> }> = {};
         const sessionSource: Record<string, string> = {};
         for (const r of rows) {
-          const hay = `${r.utm_source || ""} ${r.referrer || ""}`.toLowerCase();
+          const ref = String(r.referrer || "").toLowerCase();
+          const external = ref && !/^https?:\/\/([a-z0-9-]+\.)*(d365\.se|lovable\.app|lovableproject\.com)(\/|$|:)/.test(ref) ? ref : "";
+          const hay = `${r.utm_source || ""} ${external}`.toLowerCase();
           const hit = AI.find((a) => a.re.test(hay));
           if (!hit) continue;
           const p = per[hit.name] ||= { views: 0, sessions: new Set(), visitors: new Set(), viaUtm: 0, pages: {} };
