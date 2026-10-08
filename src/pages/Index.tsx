@@ -171,24 +171,12 @@ const Index = () => {
   ];
 
   const submitHeroFinder = () => {
-    const product = heroProducts.find((x) => x.value === heroProduct);
-    const industryName = heroIndustry
-      ? HERO_INDUSTRIES.find((i) => i.slug === heroIndustry)?.name || ""
-      : "";
-
-    // Produkt vald → gå till produktsidans partnersektion med branschvalet förvalt.
-    if (product) {
-      const qs = industryName ? `?industry=${encodeURIComponent(industryName)}` : "";
-      navigate(`${product.path}${qs}${product.hasPartnerFilter ? "#partners" : ""}`);
-      return;
-    }
-    // Endast bransch vald → branschsidan.
-    if (heroIndustry) {
-      navigate(`/branscher/${heroIndustry}/`);
-      return;
-    }
-    // Inget val → direkt till hela partnerlistan (inget mellanled).
-    navigate("/alla-d365-partners/");
+    const APPS: Record<string, string> = { bc: "Business Central", fscm: "Finance & SCM", sales: "Sales", cs: "Customer Service", fs: "Field Service", ci: "Customer Insights (Marketing)", "contact-center": "Contact Center", "project-operations": "Project Operations", "human-resources": "Human Resources", commerce: "Commerce" };
+    const qs = new URLSearchParams();
+    if (heroProduct && APPS[heroProduct]) qs.set("apps", APPS[heroProduct]);
+    if (heroIndustry) qs.set("industry", heroIndustry);
+    const q = qs.toString();
+    navigate(`/valjdynamics365partner/${q ? `?${q}` : ""}`);
   };
 
 
@@ -394,21 +382,12 @@ const Index = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-                  <button
-                    type="button"
-                    onClick={() => setDirectionPicker("behovsanalys")}
-                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
-                  >
-                    Vet du inte vilken lösning du behöver? Starta behovsanalysen
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                  <span className="hidden sm:inline text-white/25">·</span>
                   <Link
-                    to="/jamfor-partners/"
+                    to="/kom-igang/"
                     className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
                   >
-                    <ArrowLeftRight className="w-4 h-4" />
-                    jämför upp till 3 partners sida vid sida
+                    Starta Kom igång-guiden
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
