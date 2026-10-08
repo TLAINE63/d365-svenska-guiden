@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 type Mode = "partner" | "buyer";
 const call = async (body: unknown) => {
@@ -32,8 +34,10 @@ export default function InquiryResponse({ mode }: { mode: Mode }) {
       : "Tack för ert svar.";
 
   return (
-    <main className="container mx-auto px-4 py-24 max-w-xl text-center">
-      <Helmet><title>Tack | D365.SE</title><meta name="robots" content="noindex, nofollow" /></Helmet>
+    <>
+    <SEOHead title="Tack – d365.se" description="Registrering av svar via d365.se." canonicalPath={mode === "partner" ? "/partnersvar" : "/forfragan/svar"} noIndex />
+    <Navbar />
+    <main className="min-h-[60vh] container mx-auto px-4 py-24 max-w-xl text-center">
       <h1 className="text-2xl font-semibold text-foreground">
         {state === "loading" ? "Registrerar…" : state === "ok" ? okText : "Länken kunde inte användas"}
       </h1>
@@ -41,5 +45,7 @@ export default function InquiryResponse({ mode }: { mode: Mode }) {
         <p className="mt-4 text-muted-foreground">Länken är ogiltig eller ofullständig. Kontakta info@d365.se om problemet kvarstår.</p>
       )}
     </main>
+    <Footer />
+    </>
   );
 }

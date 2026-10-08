@@ -57,6 +57,7 @@ const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
 const Shortlist = lazy(() => import("./pages/Shortlist"));
 const InquiryThanks = lazy(() => import("./pages/InquiryThanks"));
+const InquiryResponse = lazy(() => import("./pages/InquiryResponse"));
 
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PartnersPerBransch = lazy(() => import("./pages/PartnersPerBransch"));
@@ -221,6 +222,8 @@ const AppShell = () => {
           <Route path="/kortlista" element={<Shortlist />} />
           <Route path="/shortlist" element={<RedirectTo to="/kortlista/" />} />
           <Route path="/forfragan/tack" element={<InquiryThanks />} />
+          <Route path="/forfragan/svar/:token" element={<InquiryResponse mode="buyer" />} />
+          <Route path="/partnersvar/:token" element={<InquiryResponse mode="partner" />} />
           <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
 
           <Route path="/valj-partner/*" element={<RedirectTo to="/valjdynamics365partner" />} />
