@@ -1,6 +1,6 @@
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { useInquiry } from "@/contexts/InquiryContext";
-import { track } from "@/lib/track";
+import { track as trackEvent } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
@@ -591,7 +591,7 @@ const KomIgang = () => {
     ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(selectedIndustry))).length : 0;
 
   const kortlista = useShortlist();
-  useEffect(() => { track("tool_start", { tool: "kom-igang" }); }, []);
+  useEffect(() => { trackEvent("tool_start", { tool: "kom-igang" }); }, []);
   const inquiry = useInquiry();
   const suggestedKey = showResults ? matchedPartners.slice(0, 3).map((p) => p.slug).join(",") : "";
   useEffect(() => {
@@ -599,7 +599,7 @@ const KomIgang = () => {
     matchedPartners.slice(0, 3).forEach((p) => {
       if (!kortlista.isSaved(p.slug)) kortlista.toggle({ slug: p.slug, name: p.name, url: `/partner/${p.slug}/`, verified: true });
     });
-    track("tool_complete", { tool: "kom-igang" });
+    trackEvent("tool_complete", { tool: "kom-igang" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedKey]);
 
