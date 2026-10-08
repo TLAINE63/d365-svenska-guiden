@@ -10,6 +10,25 @@ import {
   type Question,
 } from "@/data/beslutsmognadQuestions";
 import { supabase } from "@/integrations/supabase/client";
+import { getBuyerProfile, saveProfile } from "@/lib/buyerProfile";
+import { findIndustryBySlug } from "@/data/standardIndustries";
+
+const ERP_MAP: Record<string, string> = { dynax: "ax2012", dynnav: "nav", sap: "sap", oracle: "oracle", ifs: "ifs", infor: "other", visma: "other", egen: "other" };
+
+/** Återanvänd svaren i köparunderlaget; skriver aldrig över befintliga svar. */
+function prefillBuyerProfile(answers: Record<string, string | number | string[]>, scores: Record<string, number>) {
+  try {
+    const p = getBuyerProfile();
+    const industry = typeof answers.b1 === "string" && findIndustryBySlug(answers.b1) ? answers.b1 : undefined;
+    const sys = (Array.isArray(answers.b4) ? answers.b4 : []).map((v) => ERP_MAP[v]).find(Boolean);
+    const weak = Object.entries(scores).filter(([, s]) => s <= 40).map(([d]) => d);
+    saveProfile({
+      ...(industry && !p.company?.industry ? { company: { industry } } : {}),
+      ...(sys && !p.current_erp?.erp ? { current_erp: { erp: sys } } : {}),
+      assessment: { bm_weak: weak.length ? weak : null, bm_role: typeof answers.b3 === "string" ? answers.b3 : null },
+    });
+  } catch { /* lokalt underlag är frivilligt */ }
+}
 
 
 const DRAFT_KEY = "beslutsmognadsindex_draft";
@@ -464,6 +483,7 @@ export default function BeslutsmognadDiagnostik() {
         });
 
       localStorage.removeItem(DRAFT_KEY);
+      prefillBuyerProfile(answers, dimension_scores as Record<string, number>);
       navigate("/beslutsmognad/resultat", {
         state: {
           means: dimension_scores,

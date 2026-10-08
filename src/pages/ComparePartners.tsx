@@ -7,6 +7,7 @@ import { trackFunnelStep } from "@/utils/trackFunnelEvent";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import EditorialSource from "@/components/EditorialSource";
+import DialogQuestions from "@/components/DialogQuestions";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -2690,6 +2691,7 @@ const ComparePartners = () => {
         sourcePage="compare-partners"
       />
 
+      <DialogQuestions />
       <EditorialSource sourceType="Jämförelse" />
       <Footer />
     </div>
