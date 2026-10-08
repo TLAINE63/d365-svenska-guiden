@@ -9,7 +9,7 @@ interface StickyContactCTAProps {
   partnerName: string;
   product?: string | null;
   industry?: string;
-  onIntro: () => void;
+  onIntro?: () => void;
 }
 
 /**
@@ -48,7 +48,7 @@ export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, 
       event_name: "partner_sticky_contact",
       metadata: { partner: partnerName, action: "intro" },
     });
-    onIntro();
+    onIntro?.();
   };
 
   if (!visible) return null;
