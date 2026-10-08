@@ -208,4 +208,6 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [ ] Publicera (grundprofil-länkar + startsidesfix)
 
 ## Sprint 1 kortlista till förfrågan (2026-10-08)
-- [ ] Visa e-post, telefon och webbplatslänk överst på partnerprofilen
+- [x] Visa e-post, telefon och webbplatslänk överst på partnerprofilen
+- [x] Sprint 1: förfrågan, kortlista, tre profilknappar, mätning, hero, metabeskrivning
+- [ ] Sitemap lastmod per sida (redovisat, ej ändrat)
