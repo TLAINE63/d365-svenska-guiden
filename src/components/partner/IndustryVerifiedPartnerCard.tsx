@@ -10,7 +10,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
 import { optimizedLogo } from "@/lib/optimizedLogo";
-import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { useShortlist } from "@/contexts/ShortlistContext";
+import { useInquiry } from "@/contexts/InquiryContext";
+import { track } from "@/lib/track";
 import {
   getDocumentedEvidence,
   getRelevanceFactors,
@@ -108,8 +110,8 @@ export default function IndustryVerifiedPartnerCard({
   revenue,
 }: IndustryVerifiedPartnerCardProps) {
   const [contactOpen, setContactOpen] = useState(false);
-  const { isSelected, toggle } = usePartnerCompare();
-  const compareActive = isSelected(partner.slug);
+  const kortlista = useShortlist();
+  const inquiry = useInquiry();
   const productFilter = selectedProductFilter(partner, productKey);
   const partnerRelevance = partnerProvidedRelevance(partner, industry, productKey);
   const documentedEvidence = getDocumentedEvidence(partner, {
