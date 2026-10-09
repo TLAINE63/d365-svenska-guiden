@@ -44,6 +44,14 @@ const Navbar = () => {
     { label: "Dynamics 365 Contact Center", path: "/d365contactcenter" },
   ];
 
+  const SURVEYS = "https://d365-surveys.lovable.app";
+  const surveyItems = [
+    { label: "ERP-benchmark och fördjupad ERP-analys", href: `${SURVEYS}/` },
+    { label: "Snabbkoll: bromsar ert affärssystem verksamheten?", href: `${SURVEYS}/snabbkoll` },
+    { label: "Förvaltning: stödjer den verksamhetens behov?", href: `${SURVEYS}/forvaltning` },
+    { label: "Övriga analyser", href: `${SURVEYS}/fler-analyser` },
+  ];
+
   const menuItems = [
     { label: "Kunskapscenter", path: "/kunskapscenter", external: false },
   ];
@@ -292,6 +300,23 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
+                  Analyser
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border border-border z-50">
+                {surveyItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <a href={item.href} className="cursor-pointer">
+                      {item.label}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
 
@@ -447,6 +472,20 @@ const Navbar = () => {
                       >
                         {item.label}
                       </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-semibold text-foreground">Analyser</span>
+                  <div className="flex flex-col gap-2 ml-4">
+                    {surveyItems.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
+                      >
+                        {item.label}
+                      </a>
                     ))}
                   </div>
                 </div>
