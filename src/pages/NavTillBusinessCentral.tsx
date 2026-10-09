@@ -222,7 +222,7 @@ const NavTillBusinessCentral = () => {
                     <CardTitle className="text-lg">Uppgradera och migrera NAV till Business Central</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed">
-                    Relevant att utreda när den befintliga NAV-lösningen ligger relativt nära standard och mängden
+                    Relevant att utreda när den befintliga NAV-lösningen ligger <strong className="font-semibold text-foreground">relativt nära standard</strong> och mängden
                     specialanpassningar och integrationer är hanterbar.
                   </CardContent>
                 </Card>
@@ -232,8 +232,8 @@ const NavTillBusinessCentral = () => {
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-4">
                     <p>
-                      Relevant när NAV utvecklats under många år och innehåller anpassningar eller integrationer som bör
-                      omprövas innan de flyttas.
+                      Relevant när NAV utvecklats under många år och innehåller anpassningar eller integrationer som <strong className="font-semibold text-foreground">bör
+                      omprövas innan de flyttas</strong>.
                     </p>
                     <div className="flex flex-wrap items-center gap-1.5 text-xs font-medium text-foreground">
                       {["Behåll", "Standard", "App", "Avveckla"].map((s, i) => (
@@ -243,7 +243,7 @@ const NavTillBusinessCentral = () => {
                         </span>
                       ))}
                     </div>
-                    <p className="text-xs">d365.se:s sätt att strukturera frågan, inte en officiell Microsoft-metodik.</p>
+                    <p className="text-xs"><em>d365.se:s sätt att strukturera frågan, inte en officiell Microsoft-metodik.</em></p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -252,13 +252,13 @@ const NavTillBusinessCentral = () => {
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-4">
                     <p>
-                      Relevant att utreda när den befintliga NAV-lösningen är kraftigt specialanpassad eller innehåller
+                      Relevant att utreda när den befintliga NAV-lösningen är <strong className="font-semibold text-foreground">kraftigt specialanpassad</strong> eller innehåller
                       mycket historiskt arv.
                     </p>
-                    <p className="font-medium text-foreground">
+                    <blockquote className="border-l-2 border-accent pl-3 font-medium text-foreground">
                       ”Är det bättre att återskapa gamla NAV eller bygga den Business Central-lösning verksamheten behöver
                       idag?”
-                    </p>
+                    </blockquote>
                   </CardContent>
                 </Card>
               </div>
@@ -305,8 +305,8 @@ const NavTillBusinessCentral = () => {
                   <li>äldre arbetssätt</li>
                   <li>funktioner som idag kan lösas annorlunda</li>
                 </ul>
-                <p className="mt-4 font-medium text-foreground">
-                  Flytta inte automatiskt allt bara för att det finns i den gamla lösningen.
+                <p className="mt-4 text-foreground">
+                  <strong className="font-semibold">Flytta inte automatiskt allt</strong> bara för att det finns i den gamla lösningen.
                 </p>
               </section>
 
