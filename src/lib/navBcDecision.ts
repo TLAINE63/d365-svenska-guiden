@@ -269,6 +269,7 @@ export function calculateNavResult(a: NavAnswers): NavResult {
   return {
     path,
     situation,
+    drivers: drivers.slice(0, 8),
     factors: factors.slice(0, 4),
     investigate: investigate.slice(0, 5),
     partnerQuestions: partnerQuestions.slice(0, 5),
