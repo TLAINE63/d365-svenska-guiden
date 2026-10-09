@@ -39,7 +39,7 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
   doc.setFont("helvetica", "normal"); doc.setFontSize(10.5);
   const bodyLines = doc.splitTextToSize(t(path.body), CW - 16);
   const nextLines = doc.splitTextToSize(t(path.next), CW - 16);
-  const cardH = 22 + titleLines.length * 7.2 + bodyLines.length * 5 + 10 + nextLines.length * 4.8 + 6;
+  const cardH = 30 + titleLines.length * 7.2 + bodyLines.length * 5 + nextLines.length * 4.4;
   doc.setFillColor(...B.cardBg); doc.setDrawColor(...B.cardBorder); doc.setLineWidth(0.3);
   doc.roundedRect(M, y, CW, cardH, 3, 3, "FD");
   doc.setFillColor(...B.primary); doc.rect(M, y, 2.2, cardH, "F");
@@ -102,8 +102,10 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
     doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);
     const head = result.unsafe ? NAV_UNSAFE_TEXT : "Det finns delar av er NAV-miljö som först behöver kartläggas.";
     const lines = result.unknowns.map((u) => doc.splitTextToSize(t(u), CW - 16));
-    const headLines = doc.splitTextToSize(t(head), CW - 12);
-    const h = 9 + headLines.length * 5 + lines.reduce((a, l) => a + l.length * 4.6 + 1.5, 0) + 3;
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10);
+    const headLines = doc.splitTextToSize(t(head), CW - 14);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);
+    const h = 9 + headLines.length * 5 + lines.reduce((a, l) => a + l.length * 4.2 + 1.5, 0);
     ensure(h + 4);
     doc.setFillColor(236, 246, 243); doc.setDrawColor(...B.accent);
     doc.roundedRect(M, y, CW, h, 2, 2, "FD");
@@ -111,7 +113,7 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
     doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(...B.dark);
     doc.text(headLines, M + 6, iy); iy += headLines.length * 5 + 1;
     doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...B.text);
-    lines.forEach((l) => { doc.setFillColor(...B.accent); doc.circle(M + 7.5, iy - 1.2, 0.8, "F"); doc.text(l, M + 10, iy); iy += l.length * 4.6 + 1.5; });
+    lines.forEach((l) => { doc.setFillColor(...B.accent); doc.circle(M + 7.5, iy - 1.2, 0.8, "F"); doc.text(l, M + 10, iy); iy += l.length * 4.2 + 1.5; });
     y += h + 8;
   }
 
