@@ -345,7 +345,7 @@ const NavTillBusinessCentral = () => {
                   </div>
                 </div>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Allt som flyttas ska kontrolleras, mappas och testas. Äldre historik kan ofta arkiveras och hållas
+                  <strong className="font-semibold text-foreground">Allt som flyttas ska kontrolleras, mappas och testas.</strong> Äldre historik kan ofta arkiveras och hållas
                   sökbar utan att följa med in i det nya systemet.
                 </p>
               </section>
@@ -375,6 +375,13 @@ const NavTillBusinessCentral = () => {
                 <p className="mt-4 text-muted-foreground leading-relaxed">
                   Versionen påverkar vilken uppgraderingsväg som är möjlig och hur mycket arbete som krävs. Exakt väg för
                   er version bör bekräftas av Microsofts dokumentation eller er partner.
+                </p>
+                <p className="mt-3 text-muted-foreground leading-relaxed">
+                  En viktig skillnad är tekniken bakom anpassningarna. I NAV skrevs de ofta direkt i standardkoden med{" "}
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">C/AL</code>. I Business Central
+                  byggs de i stället som tillägg med{" "}
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">AL</code>, så att standarden
+                  kan uppdateras utan att anpassningarna går sönder. Därför behöver varje anpassning prövas, inte bara flyttas.
                 </p>
                 <ul className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {navVersions.map((v) => (
