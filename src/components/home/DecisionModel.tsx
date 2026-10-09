@@ -8,6 +8,22 @@ const NODES = [
   { icon: Users, title: "Jämföra partners", text: "Partner eller kompetens", links: [{ label: "Partners", to: "/valjdynamics365partner/" }, { label: "Kompetens", to: "/kompetens/" }] },
 ];
 
+const renderNode = (n: (typeof NODES)[number]) => (
+  <div key={n.title} className="relative z-10 rounded border border-white/15 bg-[hsl(var(--hero-dark))] p-3 sm:p-4">
+    <n.icon className="mb-1.5 h-5 w-5 text-accent" aria-hidden="true" />
+    <h3 className="text-[14px] sm:text-[15px] font-semibold leading-tight text-white">{n.title}</h3>
+    <p className="mb-2 text-[12.5px] leading-snug text-white/65">{n.text}</p>
+    <div className="flex flex-wrap gap-x-3 gap-y-1">
+      {n.links.map((l) => (
+        <Link key={l.to} to={l.to} className="inline-flex items-center gap-1 text-[13px] font-semibold text-white underline-offset-4 hover:underline">
+          {l.label}
+          <ArrowRight className="h-3 w-3" aria-hidden="true" />
+        </Link>
+      ))}
+    </div>
+  </div>
+);
+
 /** Icke-linjär beslutsmodell: fyra fristående ingångar kring ett gemensamt beslutsunderlag. */
 const DecisionModel = () => (
   <nav aria-label="Var i ert beslut befinner ni er?" className="relative">
@@ -23,28 +39,14 @@ const DecisionModel = () => (
           <line x1="75" y1="25" x2="25" y2="75" vectorEffect="non-scaling-stroke" />
         </g>
       </svg>
-      {[NODES[0], NODES[1], "core", NODES[2], NODES[3]].map((n) => n === "core" ? (
-        <div key="core" className="relative z-10 col-span-2 flex justify-center -my-1">
-          <div className="rounded-full border border-accent/60 bg-[hsl(var(--hero-dark))] px-4 py-1.5 text-center">
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60">Mitt Dynamics-projekt</span>
-            <span className="block text-[12px] font-bold leading-tight text-white whitespace-nowrap">Gemensamt beslutsunderlag</span>
-          </div>
+      {NODES.slice(0, 2).map(renderNode)}
+      <div className="relative z-10 col-span-2 flex justify-center -my-1">
+        <div className="rounded-full border border-accent/60 bg-[hsl(var(--hero-dark))] px-4 py-1.5 text-center">
+          <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60">Mitt Dynamics-projekt</span>
+          <span className="block text-[12px] font-bold leading-tight text-white whitespace-nowrap">Gemensamt beslutsunderlag</span>
         </div>
-      ) : (
-        <div key={n.title} className="relative z-10 rounded border border-white/15 bg-[hsl(var(--hero-dark))] p-3 sm:p-4">
-          <NodeIcon n={n as typeof NODES[number]} />{null && <n.icon className="mb-1.5 h-5 w-5 text-accent" aria-hidden="true" />
-          <h3 className="text-[14px] sm:text-[15px] font-semibold leading-tight text-white">{n.title}</h3>
-          <p className="mb-2 text-[12.5px] leading-snug text-white/65">{n.text}</p>
-          <div className="flex flex-wrap gap-x-3 gap-y-1">
-            {(n as typeof NODES[number]).links.map((l) => (
-              <Link key={l.to} to={l.to} className="inline-flex items-center gap-1 text-[13px] font-semibold text-white underline-offset-4 hover:underline">
-                {l.label}
-                <ArrowRight className="h-3 w-3" aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      ))}
+      </div>
+      {NODES.slice(2).map(renderNode)}
     </div>
   </nav>
 );
