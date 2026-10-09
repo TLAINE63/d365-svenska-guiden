@@ -306,9 +306,9 @@ const BusinessCentral = () => {
   }}
     />
   <ShortAnswer title="Vad är Dynamics 365 Business Central?">
- <p>Dynamics 365 Business Central är Microsofts moderna molnbaserade ERP-system (affärssystem) för mindre och medelstora företag som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
- <p>Inbyggd AI via Microsoft Copilot och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
- <p>Genom Microsoft Marketplace finns dessutom över 7 000 certifierade tilläggsappar som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
+ <p><strong>Dynamics{"\u00A0"}365 Business Central är Microsofts molnbaserade ERP-system (affärssystem) för mindre och medelstora företag</strong> som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
+ <p>Inbyggd AI via <strong>Microsoft Copilot</strong> och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
+ <p>Genom Microsoft Marketplace finns dessutom <strong>över 7 000 certifierade tilläggsappar</strong> som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
  <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="bc" />

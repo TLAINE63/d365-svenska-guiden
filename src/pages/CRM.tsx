@@ -235,8 +235,8 @@ const CRM = () => {
   }}
   />
   <ShortAnswer title="Vad är ett CRM-system och när passar Dynamics 365 CRM?">
- <p>Ett CRM-system (Customer Relationship Management) samlar företagets kundkontakter, säljpipeline, kundservice och marknadsaktiviteter på ett ställe. Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft 365 blir en CRM-svit som Dynamics 365 eller Salesforce mer relevant.</p>
- <p>Jämför alltid totalkostnaden, inte bara licenspriset, och välj partner efter erfarenhet av just er process.</p>
+ <p><strong>Ett CRM-system (<em>Customer Relationship Management</em>) samlar företagets kundkontakter, säljpipeline, kundservice och marknadsaktiviteter på ett ställe.</strong> Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft{"\u00A0"}365 blir en CRM-svit som Dynamics{"\u00A0"}365 eller Salesforce mer relevant.</p>
+ <p>Jämför alltid <strong>totalkostnaden, inte bara licenspriset</strong>, och välj partner efter erfarenhet av just er process.</p>
  </ShortAnswer>
   <CrmBuyerGuideIntro />
   <EditorialAssessment assessment="crm" />
