@@ -9,13 +9,13 @@ const NODES = [
 ];
 
 const renderNode = (n: (typeof NODES)[number]) => (
-  <div key={n.title} className="relative z-10 rounded border border-white/15 bg-[hsl(var(--hero-dark))] p-3 sm:p-4">
-    <n.icon className="mb-1.5 h-5 w-5 text-accent" aria-hidden="true" />
-    <h3 className="text-[14px] sm:text-[15px] font-semibold leading-tight text-white">{n.title}</h3>
-    <p className="mb-2 text-[12.5px] leading-snug text-white/65">{n.text}</p>
-    <div className="flex flex-wrap gap-x-3 gap-y-1">
+  <div key={n.title} className="rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 sm:p-4 min-h-36 sm:min-h-32 flex flex-col">
+    <n.icon className="mb-2 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+    <h3 className="text-[14px] sm:text-[15px] font-semibold leading-tight text-primary-foreground">{n.title}</h3>
+    <p className="mt-1 mb-3 text-[12.5px] leading-snug text-primary-foreground/65">{n.text}</p>
+    <div className="mt-auto flex flex-wrap gap-x-3 gap-y-2">
       {n.links.map((l) => (
-        <Link key={l.to} to={l.to} className="inline-flex items-center gap-1 text-[13px] font-semibold text-white underline-offset-4 hover:underline">
+        <Link key={l.to} to={l.to} className="inline-flex items-center gap-1 text-[13px] font-semibold text-primary-foreground underline-offset-4 hover:underline">
           {l.label}
           <ArrowRight className="h-3 w-3" aria-hidden="true" />
         </Link>
@@ -26,22 +26,16 @@ const renderNode = (n: (typeof NODES)[number]) => (
 
 /** Icke-linjär beslutsmodell: fyra fristående ingångar kring ett gemensamt beslutsunderlag. */
 const DecisionModel = () => (
-  <nav aria-label="Var i ert beslut befinner ni er?" className="relative">
-    <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
-      {/* Prickade kopplingar */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <g stroke="hsl(var(--accent))" strokeOpacity="0.55" strokeWidth="0.5" strokeDasharray="1.5 1.5" fill="none" vectorEffect="non-scaling-stroke">
-          <rect x="25" y="25" width="50" height="50" vectorEffect="non-scaling-stroke" />
-          <line x1="25" y1="25" x2="75" y2="75" vectorEffect="non-scaling-stroke" />
-          <line x1="75" y1="25" x2="25" y2="75" vectorEffect="non-scaling-stroke" />
-        </g>
-      </svg>
+  <nav aria-label="Var i ert beslut befinner ni er?">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4">
       {NODES.slice(0, 2).map(renderNode)}
-      <div className="relative z-10 col-span-2 flex justify-center -my-1">
-        <div className="rounded-full border border-accent/60 bg-[hsl(var(--hero-dark))] px-4 py-1.5 text-center">
-          <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60">Mitt Dynamics-projekt</span>
-          <span className="block text-[12px] font-bold leading-tight text-white whitespace-nowrap">Gemensamt beslutsunderlag</span>
+      <div className="col-span-2 flex items-center gap-3 sm:gap-4" aria-label="Modellens gemensamma mittpunkt">
+        <span className="h-px flex-1 bg-accent/35" aria-hidden="true" />
+        <div className="min-w-0 rounded border border-accent/60 bg-accent/10 px-4 py-2.5 text-center">
+          <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground/60">Mitt Dynamics-projekt</span>
+          <span className="block text-[12px] sm:text-[13px] font-bold leading-tight text-primary-foreground">Gemensamt beslutsunderlag</span>
         </div>
+        <span className="h-px flex-1 bg-accent/35" aria-hidden="true" />
       </div>
       {NODES.slice(2).map(renderNode)}
     </div>
