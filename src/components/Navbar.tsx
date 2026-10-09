@@ -18,13 +18,16 @@ import {
 import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 
 const Navbar = () => {
+  // ERP och CRM har samma struktur: guide först, partnerjämförelse, sedan produkter.
   const erpItems = [
-    { label: "Business Central vs Finance & Supply Chain Management", path: "/affarssystem" },
-    { label: "Business Central", path: "/businesscentral" },
-    { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
-    { label: "Project Operations", path: "/d365projectoperations" },
-    { label: "Commerce", path: "/d365commerce" },
-    { label: "Human Resources", path: "/d365humanresources" },
+    { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/" },
+    { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
+    { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
+    { label: "Dynamics 365 Business Central", path: "/businesscentral" },
+    { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
+    { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
+    { label: "Dynamics 365 Commerce", path: "/d365commerce" },
+    { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
   ];
 
   const aiItems = [
