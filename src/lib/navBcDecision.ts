@@ -212,6 +212,38 @@ export function calculateNavResult(a: NavAnswers): NavResult {
     if (history === "master") factors.push("Begränsat behov av historik");
   }
 
+  // Genomlysning: vilka svar som påverkade vägvalet och hur
+  const drivers: NavDriver[] = [];
+  if (custom && custom !== "unknown") {
+    if (sCustom >= 3) drivers.push({ answer: label("custom", custom), effect: "complex", why: "Många eller kraftiga anpassningar är den enskilt största komplexitetsfaktorn och pekar mot väg B eller C." });
+    else if (sCustom === 1) drivers.push({ answer: label("custom", custom), effect: "simple", why: "Få anpassningar talar för en rakare väg, men varje anpassning bör ändå prövas." });
+    else drivers.push({ answer: label("custom", custom), effect: "simple", why: "En lösning nära standard är den tydligaste faktorn för en rak väg." });
+  }
+  if (importance === "replaceable" || importance === "unknown")
+    drivers.push({ answer: label("importance", importance), effect: "complex", why: "När anpassningar kan ersättas, eller bakgrunden är oklar, bör miljön förenklas innan migrering. Det pekar mot väg B." });
+  else if (importance === "most")
+    drivers.push({ answer: label("importance", importance), effect: "complex", why: "Anpassningar som fortfarande behövs måste återskapas eller ersättas, vilket ökar komplexiteten." });
+  if (integrations && integrations !== "unknown") {
+    if (sInteg >= 2) drivers.push({ answer: `${label("integrations", integrations)} integrationer`, effect: "complex", why: "Många integrationer måste kartläggas och eventuellt byggas om, vilket pekar mot väg B eller C." });
+    else drivers.push({ answer: integrations === "0" ? "Inga externa integrationer" : `${label("integrations", integrations)} integrationer`, effect: "simple", why: "Få integrationer gör övergången enklare." });
+  }
+  if (history && history !== "unknown") {
+    if (sHist >= 2) drivers.push({ answer: label("history", history), effect: "complex", why: "Stora mängder historik kräver en genomtänkt migreringsstrategi." });
+    else drivers.push({ answer: label("history", history), effect: "simple", why: "Begränsat historikbehov förenklar migreringen." });
+  }
+  if (companies && pts(W.companies, companies) >= 1)
+    drivers.push({ answer: `${label("companies", companies)} bolag`, effect: "complex", why: "Flera bolag innebär fler flöden, avstämmningar och ofta en mer planerad övergång." });
+  if (hasProduction)
+    drivers.push({ answer: "Produktion i NAV", effect: "complex", why: "Produktionsprocesser är ofta mest anpassade och kräver särskild genomlysning." });
+  else if (hasWarehouse && areas.length >= 3)
+    drivers.push({ answer: "Lager och logistik i NAV", effect: "complex", why: "Lagerprocesser i en bred lösning ökar komplexiteten." });
+  if (pts(W.specialists, specialists) >= 2)
+    drivers.push({ answer: label("specialists", specialists), effect: "complex", why: "Starkt beroende av specialister gör lösningen svårare att förändra och dokumentera." });
+  else if (specialists === "low")
+    drivers.push({ answer: label("specialists", specialists), effect: "simple", why: "Lågt specialistberoende gör övergången enklare." });
+  if (version === "older" || version === "2009")
+    drivers.push({ answer: label("version", version), effect: "complex", why: "Äldre versioner har färre direkta uppgraderingsvägar." });
+
   // Undersök först
   const investigate: string[] = [];
   if (sCustom >= 1 || importance) investigate.push("Lista alla NAV-anpassningar och pröva var och en: behåll, standard, app eller avveckla.");
