@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import NavBcTest from "@/components/nav/NavBcTest";
 
 const TEST_ID = "nav-test";
 
@@ -116,23 +117,6 @@ const TestCta = ({ label = "Gör NAV → Business Central-testet", size = "lg" }
     {label}
     <ArrowRight className="ml-2 h-4 w-4" />
   </Button>
-);
-
-/** Platshållare där NAV → Business Central-testet byggs i nästa steg. */
-export const NavBcTestContainer = () => (
-  <div
-    data-nav-bc-test-root
-    className="rounded-xl border border-dashed border-border bg-muted/40 p-6 sm:p-10 text-center"
-  >
-    <p className="text-sm font-medium text-foreground">Testet öppnar här inom kort.</p>
-    <p className="mt-2 text-sm text-muted-foreground">
-      Under tiden kan ni läsa om de tre vägarna nedan eller titta på{" "}
-      <Link to="/businesscentral/" className="underline underline-offset-2 hover:text-foreground">
-        Business Central-guiden
-      </Link>
-      .
-    </p>
-  </div>
 );
 
 const NavTillBusinessCentral = () => {
@@ -290,7 +274,7 @@ const NavTillBusinessCentral = () => {
                 en övergång till Business Central.
               </p>
               <div className="mt-8">
-                <NavBcTestContainer />
+                <NavBcTest />
               </div>
             </div>
           </div>
