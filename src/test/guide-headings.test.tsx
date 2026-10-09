@@ -12,7 +12,7 @@ describe("Guide heading architecture", () => {
   });
   it.each(["BusinessCentral", "FinanceSupplyChain", "CRM", "ERPOverview"])("puts the existing short answer before assessment in %s", page => {
     const source = readFileSync(`src/pages/${page}.tsx`, "utf8");
-    const short = page === "ERPOverview" ? source.indexOf("Kort svar") : source.indexOf("<ShortAnswer>");
+    const short = page === "ERPOverview" ? source.indexOf("Kort svar") : source.search(/<ShortAnswer[\s>]/);
     expect(short).toBeGreaterThan(0);
     expect(short).toBeLessThan(source.indexOf("<EditorialAssessment"));
     expect(source).toContain("<SourcesAndMethod");
