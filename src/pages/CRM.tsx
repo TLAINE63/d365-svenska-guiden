@@ -57,7 +57,7 @@ import { resolvePriceTokens } from "@/lib/productPriceFormat";
 const crmFaqs = [
  {
  question: "CRM-system – vad är det?",
- answer: "Ett CRM-system (Customer Relationship Management) är ett system där företaget samlar allt som rör kunder och prospekt: kontakter, affärer i pipeline, offerter, aktiviteter, ärenden och kundhistorik. Syftet är att sälj, marknad och kundservice arbetar mot samma kunddata i stället för egna listor och inkorgar. Microsofts CRM heter Dynamics 365 Customer Engagement och består av Sales, Customer Service, Customer Insights (Marketing Automation), Field Service och Contact Center."
+ answer: "Ett CRM-system (Customer Relationship Management) är ett system där företaget samlar allt som rör kunder och prospekt: kontakter, affärer i pipeline, offerter, aktiviteter, ärenden och kundhistorik. Syftet är att sälj, marknad och kundservice arbetar mot samma kunddata i stället för egna listor och inkorgar. Microsofts CRM heter Dynamics 365 CRM (tidigare Customer Engagement) och består av Sales, Customer Service, Customer Insights (Marketing Automation), Field Service och Contact Center."
  },
  {
  question: "Vad gör en CRM-konsult?",
@@ -234,8 +234,8 @@ const CRM = () => {
     href: "#partners",
   }}
   />
-  <ShortAnswer>
- <p>Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft 365 blir en CRM-svit som Dynamics 365 eller Salesforce mer relevant.</p>
+  <ShortAnswer title="Vad är ett CRM-system och när passar Dynamics 365 CRM?">
+ <p>Ett CRM-system (Customer Relationship Management) samlar företagets kundkontakter, säljpipeline, kundservice och marknadsaktiviteter på ett ställe. Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft 365 blir en CRM-svit som Dynamics 365 eller Salesforce mer relevant.</p>
  <p>Jämför alltid totalkostnaden, inte bara licenspriset, och välj partner efter erfarenhet av just er process.</p>
  </ShortAnswer>
   <CrmBuyerGuideIntro />
@@ -424,16 +424,16 @@ const CRM = () => {
  <div className="container mx-auto px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
- Vanliga frågor om Dynamics 365 Customer Engagement
+ Vanliga frågor om Microsoft Dynamics 365 CRM
  </h2>
  
  <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
  <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- Vad är Dynamics 365 Customer Engagement och vad ingår i det?
+ Vad är Microsoft Dynamics 365 CRM och vad ingår i systemet?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>Dynamics 365 Customer Engagement är en kraftfull samling intelligenta affärsapplikationer, noggrant utformade för att hjälpa moderna företag att bygga, vårda och stärka sina kundrelationer på ett effektivt och strukturerat sätt.</p>
+ <p>Microsoft Dynamics 365 CRM (även kallat Dynamics CRM eller Microsoft CRM) är en kraftfull samling intelligenta affärsapplikationer, noggrant utformade för att hjälpa moderna företag att bygga, vårda och stärka sina kundrelationer på ett effektivt och strukturerat sätt.</p>
  <p>Plattformen samlar flera specialiserade lösningar under ett och samma tak:</p>
  <p><strong>Sales</strong> ger säljteam de verktyg de behöver för att driva affärer framåt – från prospektering till avslut – med stöd av AI-drivna insikter och automatisering.</p>
  <p><strong>Customer Service</strong> möjliggör en snabb och personlig service som möter kundernas förväntningar, oavsett kanal eller tidpunkt.</p>
@@ -441,27 +441,27 @@ const CRM = () => {
  <p><strong>Contact Center</strong> samlar alla kundinteraktioner på ett ställe och ger agenterna rätt information i rätt ögonblick, för en smidigare och mer enhetlig kundupplevelse.</p>
  <p><strong>Field Service</strong> säkerställer att servicetekniker ute i fält alltid har tillgång till rätt resurser, schema och kundinformation – vilket leder till snabbare lösningar och nöjdare kunder.</p>
  <p><strong>Project Operations</strong> kopplar samman projektledning, resurser och ekonomi för att ge företag full kontroll över sina leveranser och lönsamhet.</p>
- <p>Det som gör Dynamics 365 Customer Engagement verkligt kraftfullt är hur alla dessa applikationer integreras sömlöst med varandra. Resultatet är en sammanhängande helhetsbild av varje enskild kund – vilket ger medarbetare på alla nivåer möjligheten att fatta välgrundade beslut och skapa genuint värde i varje kundmöte.</p>
+ <p>Det som gör Dynamics 365 CRM verkligt kraftfullt är hur alla dessa applikationer integreras sömlöst med varandra. Resultatet är en sammanhängande helhetsbild av varje enskild kund – vilket ger medarbetare på alla nivåer möjligheten att fatta välgrundade beslut och skapa genuint värde i varje kundmöte.</p>
  </AccordionContent>
  </AccordionItem>
 
  <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- Hur skiljer sig Dynamics 365 CE från andra CRM-system?
+ Hur skiljer sig Dynamics 365 CRM från andra CRM-system?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>Det finns många CRM-system på marknaden, men Dynamics 365 Customer Engagement har flera egenskaper som tillsammans gör det till ett unikt och framtidssäkrat val för företag som vill mer.</p>
+ <p>Det finns många CRM-system på marknaden, men Dynamics 365 CRM har flera egenskaper som tillsammans gör det till ett unikt och framtidssäkrat val för företag som vill mer.</p>
  <p><strong>Ett hem i Microsoft-ekosystemet</strong></p>
- <p>En av de mest påtagliga fördelarna är den djupa och naturliga integrationen med Microsofts övriga produkter. Jobbar ditt team redan i Outlook, Teams eller Office 365? Då känns Dynamics 365 CE direkt bekant. E-post, möten, dokument och kunddata flödar sömlöst mellan systemen – utan krångliga kopplingar eller manuell hantering. Det handlar inte bara om teknisk integration, utan om att skapa ett sammanhängande arbetssätt som sparar tid och minskar friktionen i vardagen.</p>
+ <p>En av de mest påtagliga fördelarna är den djupa och naturliga integrationen med Microsofts övriga produkter. Jobbar ditt team redan i Outlook, Teams eller Office 365? Då känns Dynamics 365 CRM direkt bekant. E-post, möten, dokument och kunddata flödar sömlöst mellan systemen – utan krångliga kopplingar eller manuell hantering. Det handlar inte bara om teknisk integration, utan om att skapa ett sammanhängande arbetssätt som sparar tid och minskar friktionen i vardagen.</p>
  <p><strong>AI som faktiskt hjälper dig i jobbet</strong></p>
- <p>Dynamics 365 CE kommer med Microsoft Copilot inbyggt – en AI-assistent som inte bara automatiserar repetitiva uppgifter, utan aktivt hjälper användarna att arbeta smartare. Det kan handla om att sammanfatta ett kundärende, föreslå nästa steg i en säljprocess eller analysera trender i kunddata. Det är AI som känns praktisk och relevant, inte ett funktionslager som ingen använder.</p>
+ <p>Dynamics 365 CRM kommer med Microsoft Copilot inbyggt – en AI-assistent som inte bara automatiserar repetitiva uppgifter, utan aktivt hjälper användarna att arbeta smartare. Det kan handla om att sammanfatta ett kundärende, föreslå nästa steg i en säljprocess eller analysera trender i kunddata. Det är AI som känns praktisk och relevant, inte ett funktionslager som ingen använder.</p>
  <p><strong>Anpassa utan att koda</strong></p>
- <p>Många system kräver omfattande och kostsam utveckling för att passa just ditt företags processer. Dynamics 365 CE är byggt med flexibilitet i centrum – med lågkodslösningar och kraftfulla konfigurationsverktyg kan verksamheter anpassa flöden, formulär och automatiseringar utan att vara beroende av en utvecklare för varje liten förändring. Det ger organisationen större kontroll och snabbare anpassningsförmåga.</p>
+ <p>Många system kräver omfattande och kostsam utveckling för att passa just ditt företags processer. Dynamics 365 CRM är byggt med flexibilitet i centrum – med lågkodslösningar och kraftfulla konfigurationsverktyg kan verksamheter anpassa flöden, formulär och automatiseringar utan att vara beroende av en utvecklare för varje liten förändring. Det ger organisationen större kontroll och snabbare anpassningsförmåga.</p>
  <p><strong>CRM och ERP – äntligen i ett</strong></p>
- <p>En annan stor skillnad är möjligheten att kombinera CRM med ERP i en och samma plattform. Genom att koppla ihop Dynamics 365 CE med exempelvis Business Central eller Finance &amp; Supply Chain Management får företaget en komplett affärslösning – från första kundkontakt till faktura och leverans. Det innebär att sälj, service, ekonomi och lager kan dela samma data och samma verklighet, vilket ger en helt ny nivå av transparens och effektivitet.</p>
+ <p>En annan stor skillnad är möjligheten att kombinera CRM med ERP i en och samma plattform. Genom att koppla ihop Dynamics 365 CRM med exempelvis Business Central eller Finance &amp; Supply Chain Management får företaget en komplett affärslösning – från första kundkontakt till faktura och leverans. Det innebär att sälj, service, ekonomi och lager kan dela samma data och samma verklighet, vilket ger en helt ny nivå av transparens och effektivitet.</p>
  <p><strong>Byggt för att växa med dig</strong></p>
- <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CE designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när du växer.</p>
- <p>Sammantaget är det just kombinationen av Microsoft-integration, inbyggd AI, flexibilitet, ERP-koppling och skalbarhet som gör Dynamics 365 CE till något mer än ett traditionellt CRM – det är en plattform för hela affären.</p>
+ <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CRM designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när du växer.</p>
+ <p>Sammantaget är det just kombinationen av Microsoft-integration, inbyggd AI, flexibilitet, ERP-koppling och skalbarhet som gör Dynamics 365 CRM till något mer än ett traditionellt CRM – det är en plattform för hela affären.</p>
  <p className="text-sm pt-2 border-t border-border">
  <strong className="text-foreground">Se publicerade jämförelser mot etablerade CRM-alternativ:</strong>
  </p>
@@ -480,10 +480,10 @@ const CRM = () => {
 
  <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
+ Hur mycket kostar Dynamics 365 CRM – och vad påverkar priset?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just dina unika förutsättningar. Vilka applikationer behöver du? Hur många användare ska ha tillgång? Och hur komplex är din verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
+ <p>Det finns inget enkelt svar på vad Dynamics 365 CRM kostar, eftersom priset formas av just dina unika förutsättningar. Vilka applikationer behöver du? Hur många användare ska ha tillgång? Och hur komplex är din verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
  <p><strong>Licenskostnad per användare</strong></p>
  <p>Licenserna prissätts per användare och månad, och varierar beroende på vilken applikation och vilken nivå du väljer. Som en riktlinje kan nämnas att:</p>
  <p>Customer Service Professional börjar på 478 kr/användare/månad – ett bra alternativ för team som vill komma igång med strukturerad kundservice. Sales Professional ligger på 621 kr/användare/månad.</p>
@@ -505,7 +505,7 @@ const CRM = () => {
 
  <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
- Hur snabbt kan vi komma igång med Dynamics 365 CE?
+ Hur snabbt kan vi komma igång med Dynamics 365 CRM?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
  <p>En av de vanligaste frågorna vi får handlar om tid – när kan vi vara igång? Svaret beror på flera faktorer, men det finns tydliga riktmärken att förhålla sig till. Nedan går vi igenom vad som påverkar tidsplanen och vad du kan förvänta dig i olika scenarion.</p>
@@ -529,9 +529,9 @@ const CRM = () => {
  Hur anpassningsbart är systemet för vår verksamhet?
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 space-y-4">
- <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CE är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
+ <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CRM är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
  <p><strong>Flexibilitet som standard</strong></p>
- <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschneutralt. Oavsett om du arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just dina processer, din terminologi och dina flöden.</p>
+ <p>Dynamics 365 CRM är byggt från grunden för att vara anpassningsbart och branschneutralt. Oavsett om du arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just dina processer, din terminologi och dina flöden.</p>
  <p>Det handlar inte om att välja ett system och sedan leva med dess begränsningar. Det handlar om att ta ett kraftfullt fundament och forma det till något som känns skräddarsytt för din.</p>
  <p><strong>Power Platform – anpassning utan programmering</strong></p>
  <p>En av de mest kraftfulla komponenterna i ekosystemet är Microsoft Power Platform, som ger dig möjlighet att:</p>
@@ -540,7 +540,7 @@ const CRM = () => {
  <p>Utveckla rapporter och dashboards i Power BI som ger dig precis den insikt du behöver, presenterad på det sätt som passar dig bäst.</p>
  <p>Det innebär att du inte är beroende av en utvecklare varje gång du vill justera en process eller lägga till ett nytt fält. Mycket av anpassningen kan hanteras av din egna verksamhet – vilket ger snabbhet, kontroll och lägre kostnader över tid.</p>
  <p><strong>Branschspecifika lösningar</strong></p>
- <p>Dynamics 365 CE stödjer dessutom ett brett ekosystem av branschspecifika lösningar och tillägg, vilket innebär att du inte behöver börja från noll oavsett vilken bransch du verkar i. Det finns färdiga lösningar och ramverk anpassade för bland annat:</p>
+ <p>Dynamics 365 CRM stödjer dessutom ett brett ekosystem av branschspecifika lösningar och tillägg, vilket innebär att du inte behöver börja från noll oavsett vilken bransch du verkar i. Det finns färdiga lösningar och ramverk anpassade för bland annat:</p>
  <p>Tillverkning – med stöd för servicehantering, garantiärenden och fältservice.</p>
  <p>Detaljhandel – med fokus på kundlojalitet, köphistorik och personalisering.</p>
  <p>Hälsovård – med lösningar för patientrelationer, compliance och ärendehantering.</p>
@@ -577,7 +577,7 @@ const CRM = () => {
  Partners och kompetens för Dynamics 365 CRM
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ Här är ett urval av partners som arbetar med Dynamics 365 CRM i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
  </p>
  <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
  Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
