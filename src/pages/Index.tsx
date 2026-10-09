@@ -395,6 +395,43 @@ const Index = () => {
           </div>
         </section>
 
+        {/* SNABB ÖVERBLICK + KÖPRESAN I FYRA STEG */}
+        <section aria-labelledby="snabb-overblick" className="border-b border-border bg-background py-8 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded border border-border bg-card p-6">
+              <h2 id="snabb-overblick" className="mb-4 text-xl font-bold text-foreground">Snabb överblick</h2>
+              <ul className="space-y-3 text-[14.5px] leading-relaxed text-muted-foreground">
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">För vem:</strong> företag som överväger ett <em>affärssystem (ERP)</em> eller ett <em>kundsystem för sälj, marknad och service (CRM)</em> från Microsoft.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> kostnadsfria verktyg, öppna listpriser och jämförelser av svenska partners.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Lösningarna:</strong> Business Central för små och medelstora företag, F&amp;SCM (<em>Finance &amp; Supply Chain Management</em>) för större och mer komplexa verksamheter, samt CRM-apparna.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Urvalet:</strong> ni väljer själva upp till tre partners. Inget skickas vidare utan ert godkännande.</span></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-4 text-xl font-bold text-foreground">Köpresan i fyra steg</h2>
+              <ol className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { title: "Identifiera behov", text: "Ringa in nuläget och om behovet gäller ERP, CRM eller båda.", to: "/kom-igang/" },
+                  { title: "Jämför lösningar", text: "Förstå skillnaden mellan Business Central, F&SCM och CRM-apparna, och vad licenserna kostar.", to: "/affarssystem/" },
+                  { title: "Välj upp till tre partners", text: "Filtrera på bransch, lösning och erfarenhet av liknande projekt.", to: "/valjdynamics365partner/" },
+                  { title: "Skapa kravunderlag", text: "Ta fram en kravspecifikation inför samtalen med partnerna.", to: "/kravspecifikation/" },
+                ].map((s, i) => (
+                  <li key={s.title}>
+                    <Link to={s.to} className="block h-full rounded border border-border bg-card p-4 transition-colors hover:border-accent/50">
+                      <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-[13px] font-bold text-accent">{i + 1}</span>
+                      <h3 className="mb-1 font-semibold text-foreground">{s.title}</h3>
+                      <p className="text-[13.5px] leading-relaxed text-muted-foreground">{s.text}</p>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-3 text-[12.5px] text-muted-foreground">
+                <strong>ISV</strong> = fristående programvaruleverantör som bygger certifierade tilläggsappar till Dynamics&nbsp;365.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* KOM IGÅNG – tidig väg för besökare som vill få en kortlista */}
         <section className="section-divider bg-secondary/40 border-b border-border py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
