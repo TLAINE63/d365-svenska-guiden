@@ -11,9 +11,14 @@ export default function EditorialAssessment({ assessment }: { assessment: Editor
         <h2 id={headingId} className="mb-2 text-base font-semibold text-foreground">
           {ORGANIZATION.name.toUpperCase()}:s bedömning
         </h2>
-        <p className="max-w-4xl text-sm leading-relaxed text-foreground/85">
-          {nowrapBrand(editorialAssessments[assessment])}
-        </p>
+        <blockquote className="max-w-4xl border-l-2 border-accent pl-4">
+          <p className="text-sm leading-relaxed text-foreground/85">
+            {nowrapBrand(editorialAssessments[assessment])}
+          </p>
+          <footer className="mt-1.5 text-xs text-muted-foreground">
+            <cite className="not-italic">Redaktionen, {ORGANIZATION.name}</cite>
+          </footer>
+        </blockquote>
       </div>
     </section>
   );
