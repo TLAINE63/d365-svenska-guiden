@@ -153,7 +153,7 @@ const ToggleButtons = ({ options, value, onChange, label }: { options: { v: stri
         <button
           key={o.v}
           onClick={() => onChange(o.v)}
-          className={`px-5 py-2.5 text-sm rounded border-2 transition-all whitespace-nowrap font-medium  ${
+          className={`max-w-full px-4 sm:px-5 py-2.5 text-sm text-left rounded border-2 transition-all whitespace-normal sm:whitespace-nowrap font-medium  ${
             value === o.v
               ? "bg-primary text-primary-foreground border-primary  scale-[1.02]"
               : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:bg-primary/5 hover:shadow"
