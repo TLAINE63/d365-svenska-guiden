@@ -276,7 +276,7 @@ const ERPOverview = () => {
  </p>
  </div>
  
- <div className="grid md:grid-cols-2 gap-8">
+ <div className="grid md:grid-cols-2 gap-8 [&>*]:min-w-0">
  {/* Business Central */}
  <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
  <div className="flex items-center gap-3 mb-4">
@@ -318,7 +318,7 @@ const ERPOverview = () => {
  </ul>
  
  <Link to="/businesscentral/">
- <Button variant="outline" className="w-full border-business-central text-business-central hover:bg-business-central hover:text-white">
+ <Button variant="outline" className="w-full h-auto py-2.5 whitespace-normal text-center border-business-central text-business-central hover:bg-business-central hover:text-white">
  Business Central – priser, funktioner och partners
  <ArrowRight className="ml-2 h-4 w-4" />
  </Button>
@@ -370,7 +370,7 @@ const ERPOverview = () => {
  </ul>
  
  <Link to="/finance-supply-chain/">
- <Button variant="outline" className="w-full border-finance-supply text-finance-supply hover:bg-finance-supply hover:text-white">
+ <Button variant="outline" className="w-full h-auto py-2.5 whitespace-normal text-center border-finance-supply text-finance-supply hover:bg-finance-supply hover:text-white">
  Läs mer om Finance & Supply Chain Management (F&O)
  <ArrowRight className="ml-2 h-4 w-4" />
  </Button>
