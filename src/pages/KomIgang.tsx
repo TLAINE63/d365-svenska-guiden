@@ -82,7 +82,6 @@ import { supabase } from "@/integrations/supabase/client";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import PartnerDecisionActions from "@/components/partner/PartnerDecisionActions";
-import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 
 const normalizeIndustryParam = (raw: string | null): string => {
   if (!raw) return "";
@@ -381,7 +380,6 @@ const KomIgang = () => {
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
-  const [introPartner, setIntroPartner] = useState<DatabasePartner | null>(null);
   const currentStep = useRef(initialStep);
   const completed = useRef(false);
 
@@ -674,7 +672,6 @@ const KomIgang = () => {
                               partner={{ slug: partner.slug, name: partner.name }}
                               product={selectedApp}
                               industry={selectedIndustry}
-                              onIntro={() => setIntroPartner(partner)}
                             />
                             <Button size="sm" variant="ghost" asChild className="w-full">
                               <Link to={`/partner/${partner.slug}`}>{`Läs beslutsunderlaget om ${partner.name}`}</Link>
@@ -767,17 +764,6 @@ const KomIgang = () => {
           </div>
         </main>
         <Footer />
-        {introPartner?.slug && (
-          <PartnerRequestDialog
-            open={Boolean(introPartner)}
-            onOpenChange={(open) => !open && setIntroPartner(null)}
-            partnerSlug={introPartner.slug}
-            partnerName={introPartner.name}
-            selectedProduct={selectedApp || undefined}
-            industry={selectedIndustry || undefined}
-            mode="contact"
-          />
-        )}
       </div>
     );
   }
