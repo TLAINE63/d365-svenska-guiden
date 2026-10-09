@@ -18,6 +18,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import Index from './pages/Index';
 import CRM from './pages/CRM';
 import BusinessCentral from './pages/BusinessCentral';
+import NavTillBusinessCentral from './pages/NavTillBusinessCentral';
 import FinanceSupplyChain from './pages/FinanceSupplyChain';
 import ERPOverview from './pages/ERPOverview';
 
@@ -205,6 +206,7 @@ export const routes: PrerenderRoute[] = [
   // /erp är konsoliderad in i /affarssystem/ (301 via LEGACY_REDIRECTS)
 
   { path: '/businesscentral', priority: '0.9', changefreq: 'weekly', lastmod: '2026-05-19' },
+  { path: '/nav-till-business-central', priority: '0.8', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
@@ -514,6 +516,7 @@ export function render(url: string) {
               <Route path="/" element={<Index />} />
               <Route path="/crm" element={<CRM />} />
               <Route path="/businesscentral" element={<BusinessCentral />} />
+              <Route path="/nav-till-business-central" element={<NavTillBusinessCentral />} />
               <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<Navigate to="/affarssystem/" replace />} />

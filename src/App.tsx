@@ -30,6 +30,7 @@ import VisitorTracking from "@/components/VisitorTracking";
 const NotFound = lazy(() => import("./pages/NotFound"));
 const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
+const NavTillBusinessCentral = lazy(() => import("./pages/NavTillBusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const FscmMatchningstest = lazy(() => import("./pages/FscmMatchningstest"));
 const BcMatchningstest = lazy(() => import("./pages/BcMatchningstest"));
@@ -161,6 +162,7 @@ const AppShell = () => {
           <Route path="/" element={<Index />} />
           <Route path="/crm" element={<CRM />} />
           <Route path="/businesscentral" element={<BusinessCentral />} />
+          <Route path="/nav-till-business-central" element={<NavTillBusinessCentral />} />
           <Route path="/business-central" element={<RedirectTo to="/businesscentral" />} />
           <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
           <Route path="/underlag" element={<Underlag />} />

@@ -228,7 +228,7 @@ const NavTillBusinessCentral = () => {
               <div className="mt-8 grid gap-5 md:grid-cols-3">
                 <Card>
                   <CardHeader>
-                    <CardTitle as="h3" className="text-lg">Uppgradera och migrera NAV till Business Central</CardTitle>
+                    <CardTitle className="text-lg">Uppgradera och migrera NAV till Business Central</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed">
                     Relevant att utreda när den befintliga NAV-lösningen ligger relativt nära standard och mängden
@@ -237,7 +237,7 @@ const NavTillBusinessCentral = () => {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle as="h3" className="text-lg">Förenkla NAV-lösningen före migreringen</CardTitle>
+                    <CardTitle className="text-lg">Förenkla NAV-lösningen före migreringen</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-4">
                     <p>
@@ -257,7 +257,7 @@ const NavTillBusinessCentral = () => {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle as="h3" className="text-lg">Implementera Business Central på nytt</CardTitle>
+                    <CardTitle className="text-lg">Implementera Business Central på nytt</CardTitle>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground leading-relaxed space-y-4">
                     <p>
