@@ -517,6 +517,7 @@ export default function BeslutsmognadDiagnostik() {
       />
 
       <main className="flex-1 flex flex-col">
+        <h1 className="sr-only">Beslutsmognadsindex – diagnostik</h1>
         {showTransition && pendingTransition ? (
           <SectionTransition
             section={pendingTransition}
