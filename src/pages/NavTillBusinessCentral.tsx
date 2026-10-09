@@ -111,7 +111,7 @@ const scrollToTest = () => {
   document.getElementById(TEST_ID)?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-const TestCta = ({ label = "Gör NAV → Business Central-testet", size = "lg" as const }) => (
+const TestCta = ({ label = "Gör NAV → Business Central-testet", size = "lg" }: { label?: string; size?: "lg" | "default" }) => (
   <Button size={size} onClick={scrollToTest}>
     {label}
     <ArrowRight className="ml-2 h-4 w-4" />
