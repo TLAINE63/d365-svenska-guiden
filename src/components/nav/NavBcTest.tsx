@@ -101,6 +101,35 @@ const NavBcTest = () => {
           </section>
         )}
 
+        {result.drivers.length > 0 && (
+          <section>
+            <h4 className="font-semibold text-foreground">Så påverkade era svar rekommendationen</h4>
+            <ul className="mt-3 space-y-3">
+              {result.drivers.map((d) => (
+                <li key={d.answer + d.why} className="flex items-start gap-3 text-sm">
+                  <span
+                    className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${d.effect === "complex" ? "bg-primary" : "bg-accent"}`}
+                    aria-hidden
+                  />
+                  <div>
+                    <p className="font-medium text-foreground">{d.answer}</p>
+                    <p className="text-muted-foreground">{d.why}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-primary" aria-hidden />Pekar mot högre komplexitet</span>
+              <span className="ml-4 inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-accent" aria-hidden />Talar för en enklare väg</span>
+            </p>
+          </section>
+        )}
+
+        <section className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5">
+          <h4 className="font-semibold text-foreground">Så görs bedömningen</h4>
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{NAV_METHOD_TEXT}</p>
+        </section>
+
         <section>
           <h4 className="font-semibold text-foreground">Det här bör ni undersöka först</h4>
           <ul className="mt-3 space-y-2">
