@@ -9,6 +9,7 @@ const STATIC_ROUTES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/crm/", changefreq: "monthly", priority: "0.9" },
   { path: "/businesscentral/", changefreq: "monthly", priority: "0.9" },
+  { path: "/nav-till-business-central/", changefreq: "monthly", priority: "0.8" },
   { path: "/businesscentral/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/finance-supply-chain/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365customerservice/roi-kalkylator/", changefreq: "monthly", priority: "0.7" },
