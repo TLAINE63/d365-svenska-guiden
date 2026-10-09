@@ -544,14 +544,14 @@ const Index = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <details className="group">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded border border-border bg-card px-5 py-4 transition-colors hover:border-primary/40">
-                <span>
-                  <span className="block text-lg sm:text-xl font-bold text-foreground tracking-tight">
+                <div>
+                  <h2 className="block text-lg sm:text-xl font-bold text-foreground tracking-tight">
                     Så hjälper d365.se er vidare
-                  </span>
+                  </h2>
                   <span className="mt-1 block text-[14px] text-muted-foreground leading-relaxed">
                     Från behov till beslut, oavsett om ni söker partner eller specifik kompetens.
                   </span>
-                </span>
+                </div>
                 <ChevronDown
                   className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
                   aria-hidden="true"
