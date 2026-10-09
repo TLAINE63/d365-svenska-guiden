@@ -57,7 +57,7 @@ import { resolvePriceTokens } from "@/lib/productPriceFormat";
 const crmFaqs = [
  {
  question: "CRM-system – vad är det?",
- answer: "Ett CRM-system (Customer Relationship Management) är ett system där företaget samlar allt som rör kunder och prospekt: kontakter, affärer i pipeline, offerter, aktiviteter, ärenden och kundhistorik. Syftet är att sälj, marknad och kundservice arbetar mot samma kunddata i stället för egna listor och inkorgar. Microsofts CRM heter Dynamics 365 Customer Engagement och består av Sales, Customer Service, Customer Insights (Marketing Automation), Field Service och Contact Center."
+ answer: "Ett CRM-system (Customer Relationship Management) är ett system där företaget samlar allt som rör kunder och prospekt: kontakter, affärer i pipeline, offerter, aktiviteter, ärenden och kundhistorik. Syftet är att sälj, marknad och kundservice arbetar mot samma kunddata i stället för egna listor och inkorgar. Microsofts CRM heter Dynamics 365 CRM (tidigare Customer Engagement) och består av Sales, Customer Service, Customer Insights (Marketing Automation), Field Service och Contact Center."
  },
  {
  question: "Vad gör en CRM-konsult?",
@@ -577,7 +577,7 @@ const CRM = () => {
  Partners och kompetens för Dynamics 365 CRM
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ Här är ett urval av partners som arbetar med Dynamics 365 CRM i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
  </p>
  <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
  Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
