@@ -3,6 +3,7 @@ import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+import DecisionModel from "@/components/home/DecisionModel";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
@@ -316,6 +317,12 @@ const Index = () => {
                 Jämför svenska Dynamics 365-partners utifrån bransch, lösning, erfarenhet och
                 specialistkompetens innan du tar kontakt. {BUYER_SIDE_DESCRIPTION}
               </p>
+
+              <div className="mb-8 max-w-2xl">
+                <DecisionModel />
+              </div>
+
+
 
 
               <div className="border-t border-white/10 pt-7 mb-8">
