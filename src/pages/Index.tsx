@@ -403,28 +403,35 @@ const Index = () => {
               <ul className="space-y-3 text-[14.5px] leading-relaxed text-muted-foreground">
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">För vem:</strong> företag som överväger ett <em>affärssystem (ERP)</em> eller ett <em>kundsystem för sälj, marknad och service (CRM)</em> från Microsoft.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> kostnadsfria verktyg, öppna listpriser och jämförelser av svenska partners.</span></li>
-                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Lösningarna:</strong> Business Central för små och medelstora företag, F&amp;SCM (<em>Finance &amp; Supply Chain Management</em>) för större och mer komplexa verksamheter, samt CRM-apparna.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Lösningarna:</strong> för ERP Business Central och F&amp;SCM (<em>Finance &amp; Supply Chain Management</em>); för CRM Sales, Customer Service, Field Service och Customer Insights.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Urvalet:</strong> ni väljer själva upp till tre partners. Inget skickas vidare utan ert godkännande.</span></li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-4 text-xl font-bold text-foreground">Köpresan i fyra steg</h2>
-              <ol className="grid gap-3 sm:grid-cols-2">
+              <h2 className="mb-1 text-xl font-bold text-foreground">Var i ert beslut befinner ni er?</h2>
+              <p className="mb-4 text-[14px] text-muted-foreground">Börja där ni står. Ni kan gå mellan delarna i valfri ordning.</p>
+              <ul className="grid gap-3 sm:grid-cols-2">
                 {[
-                  { title: "Identifiera behov", text: "Ringa in nuläget och om behovet gäller ERP, CRM eller båda.", to: "/kom-igang/" },
-                  { title: "Jämför lösningar", text: "Förstå skillnaden mellan Business Central, F&SCM och CRM-apparna, och vad licenserna kostar.", to: "/affarssystem/" },
-                  { title: "Välj upp till tre partners", text: "Filtrera på bransch, lösning och erfarenhet av liknande projekt.", to: "/valjdynamics365partner/" },
-                  { title: "Skapa kravunderlag", text: "Ta fram en kravspecifikation inför samtalen med partnerna.", to: "/kravspecifikation/" },
-                ].map((s, i) => (
-                  <li key={s.title}>
-                    <Link to={s.to} className="block h-full rounded border border-border bg-card p-4 transition-colors hover:border-accent/50">
-                      <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-[13px] font-bold text-accent">{i + 1}</span>
-                      <h3 className="mb-1 font-semibold text-foreground">{s.title}</h3>
-                      <p className="text-[13.5px] leading-relaxed text-muted-foreground">{s.text}</p>
-                    </Link>
+                  { icon: ClipboardCheck, title: "Vi vill ringa in behovet", text: "Ta reda på om behovet gäller ERP, CRM eller båda.", links: [{ label: "Kom igång", to: "/kom-igang/" }] },
+                  { icon: ArrowLeftRight, title: "Vi jämför lösningar och priser", text: "Se skillnader mellan apparna och vad licenserna kostar.", links: [{ label: "ERP-guiden", to: "/affarssystem/" }, { label: "CRM-guiden", to: "/crm/" }] },
+                  { icon: Users, title: "Vi söker partner eller kompetens", text: "Filtrera på bransch, lösning och erfarenhet av liknande projekt.", links: [{ label: "Hitta partner", to: "/valjdynamics365partner/" }, { label: "Hitta kompetens", to: "/kompetens/" }] },
+                  { icon: FileText, title: "Vi förbereder en upphandling", text: "Ta fram ett kravunderlag inför samtalen med partnerna.", links: [{ label: "Kravunderlag", to: "/kravspecifikation/" }, { label: "Upphandlingsguiden", to: "/upphandlingsguiden/" }] },
+                ].map((s) => (
+                  <li key={s.title} className="flex h-full flex-col rounded border border-border bg-card p-4">
+                    <s.icon className="mb-2 h-5 w-5 text-accent" aria-hidden="true" />
+                    <h3 className="mb-1 font-semibold text-foreground">{s.title}</h3>
+                    <p className="mb-3 text-[13.5px] leading-relaxed text-muted-foreground">{s.text}</p>
+                    <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1">
+                      {s.links.map((l) => (
+                        <Link key={l.to} to={l.to} className="inline-flex items-center gap-1 text-[13.5px] font-semibold text-foreground underline-offset-4 hover:underline">
+                          {l.label}
+                          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        </Link>
+                      ))}
+                    </div>
                   </li>
                 ))}
-              </ol>
+              </ul>
             </div>
           </div>
         </section>
