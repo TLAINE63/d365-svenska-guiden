@@ -1,5 +1,8 @@
-import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Download, Info, Loader2, RotateCcw } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { track } from "@/lib/track";
+import { trackFunnelEvent } from "@/lib/funnelTracking";
+import { ArrowLeft, ArrowRight, Calculator, Check, ClipboardCopy, Download, BookOpen, Users, Info, Loader2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NAV_QUESTIONS, NAV_METHOD_TEXT, NAV_PATH_TEXT, NAV_UNSAFE_TEXT, calculateNavResult, type NavAnswers,
@@ -7,11 +10,26 @@ import {
 
 const PATH_ORDER = ["A", "B", "C"] as const;
 
+/** Mäter via sajtens befintliga mätning (track-event + GA4). */
+const navTrack = (name: string, meta: Record<string, string | number> = {}) => {
+  track(name, meta, null, "business-central");
+  trackFunnelEvent(name, meta);
+};
+
+const NEXT_STEPS = {
+  cost: { key: "calculator", icon: Calculator, title: "Beräkna kostnaden för Business Central", text: "Gå vidare och få en första bild av licens, implementation och TCO.", cta: "Beräkna kostnaden", to: "/businesscentral/roi-kalkylator/" },
+  partner: { key: "partner", icon: Users, title: "Jämför Business Central-partners", text: "Se och jämför relevanta Business Central-partners på d365.se.", cta: "Hitta Business Central-partner", to: "/business-central-partners-sverige/" },
+  guide: { key: "guide", icon: BookOpen, title: "Läs mer om Business Central", text: "Fördjupa er i vad Business Central är, hur lösningen fungerar och vad ni bör tänka på som köpare.", cta: "Läs guiden till Business Central", to: "/kunskapscenter/businesscentral/introduktion/" },
+} as const;
+const NEXT_ORDER = { A: ["cost", "partner", "guide"], B: ["guide", "partner", "cost"], C: ["guide", "partner", "cost"] } as const;
+
 const NavBcTest = () => {
   const [answers, setAnswers] = useState<NavAnswers>({});
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [pdfBusy, setPdfBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const started = useRef(false);
   const downloadPdf = async () => {
     if (!result) return;
     setPdfBusy(true);
@@ -28,7 +46,42 @@ const NavBcTest = () => {
   const answered = q.multi ? Array.isArray(value) && value.length > 0 : !!value;
   const result = useMemo(() => (done ? calculateNavResult(answers) : null), [done, answers]);
 
+  useEffect(() => {
+    if (!result) return;
+    navTrack("nav_test_completed", { path: result.path, unknowns: result.unknowns.length });
+    navTrack(`nav_test_result_${result.path.toLowerCase()}`);
+  }, [result]);
+
+  const copySummary = async () => {
+    if (!result) return;
+    const t = NAV_PATH_TEXT[result.path];
+    const lines = [
+      "NAV > Business Central: sammanfattning (d365.se)",
+      "",
+      result.situation.length ? `Utgångsläge: ${result.situation.join(", ")}.` : "",
+      `Rekommenderad väg: ${t.title}`,
+      "",
+      "Viktigaste faktorer:",
+      ...result.factors.slice(0, 4).map((f) => `- ${f}`),
+      "",
+      "Undersök först:",
+      ...result.investigate.map((i) => `- ${i}`),
+      "",
+      "Frågor till partnern:",
+      ...result.partnerQuestions.map((p, i) => `${i + 1}. ${p}`),
+      "",
+      "Bedömningen bygger enbart på era svar och d365.se:s regler. https://d365.se/nav-till-business-central/",
+    ].filter((l, i, a) => !(l === "" && a[i - 1] === ""));
+    try {
+      await navigator.clipboard.writeText(lines.join("\n"));
+      setCopied(true);
+      navTrack("nav_test_copy_result", { path: result.path });
+      setTimeout(() => setCopied(false), 4000);
+    } catch { /* ignore */ }
+  };
+
   const pick = (v: string) => {
+    if (!started.current) { started.current = true; navTrack("nav_test_start"); }
     if (q.multi) {
       const cur = Array.isArray(value) ? value : [];
       setAnswers({ ...answers, [q.id]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] });
@@ -148,6 +201,28 @@ const NavBcTest = () => {
           </ol>
         </section>
 
+        <section aria-labelledby="nav-next-steps" className="border-t border-border pt-6">
+          <h4 id="nav-next-steps" className="text-lg font-semibold text-foreground">Vad vill ni göra nu?</h4>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            {NEXT_ORDER[result.path].map((k, i) => {
+              const s = NEXT_STEPS[k];
+              const Icon = s.icon;
+              return (
+                <div key={k} className={`flex flex-col rounded-lg border p-4 ${i === 0 ? "border-primary/50 bg-primary/5" : "border-border"}`}>
+                  <Icon className="h-5 w-5 text-accent" aria-hidden />
+                  <p className="mt-2 font-semibold text-foreground">{s.title}</p>
+                  <p className="mt-1 flex-1 text-sm text-muted-foreground">{s.text}</p>
+                  <Button asChild variant={i === 0 ? "default" : "outline"} className="mt-4">
+                    <Link to={s.to} onClick={() => navTrack(`nav_test_click_${s.key}`, { path: result.path, position: i + 1 })}>
+                      {s.cta}<ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         <p className="text-xs text-muted-foreground border-t border-border pt-4">
           Bedömningen bygger enbart på era svar och d365.se:s regler. Den är ett första beslutsunderlag, inte en teknisk förstudie eller offert.
         </p>
@@ -157,6 +232,9 @@ const NavBcTest = () => {
             {pdfBusy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
             Ladda ner resultatet som PDF
           </Button>
+          <Button variant="outline" onClick={copySummary}>
+            <ClipboardCopy className="mr-2 h-4 w-4" />Kopiera min sammanfattning
+          </Button>
           <Button variant="outline" onClick={() => { setDone(false); setStep(0); scrollTop(); }}>
             <ArrowLeft className="mr-2 h-4 w-4" />Ändra svar
           </Button>
@@ -164,6 +242,7 @@ const NavBcTest = () => {
             <RotateCcw className="mr-2 h-4 w-4" />Börja om
           </Button>
         </div>
+        <p role="status" aria-live="polite" className="text-sm text-accent min-h-5">{copied ? "Sammanfattningen är kopierad." : ""}</p>
       </div>
     );
   }
@@ -203,15 +282,15 @@ const NavBcTest = () => {
         </div>
       </fieldset>
       <div className="mt-8 flex items-center justify-between gap-3">
-        <Button variant="ghost" onClick={() => setStep(step - 1)} disabled={step === 0}>
+        <Button variant="ghost" onClick={() => { navTrack("nav_test_back", { from: step + 1 }); setStep(step - 1); }} disabled={step === 0}>
           <ArrowLeft className="mr-2 h-4 w-4" />Tillbaka
         </Button>
         {step < total - 1 ? (
-          <Button onClick={() => setStep(step + 1)} disabled={!answered}>
+          <Button onClick={() => { navTrack("nav_test_answer", { question: q.id, step: step + 1 }); setStep(step + 1); }} disabled={!answered}>
             Nästa<ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         ) : (
-          <Button onClick={() => { setDone(true); scrollTop(); }} disabled={!answered}>
+          <Button onClick={() => { navTrack("nav_test_answer", { question: q.id, step: step + 1 }); setDone(true); scrollTop(); }} disabled={!answered}>
             Visa min rekommendation<ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         )}

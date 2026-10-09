@@ -10,6 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import NavBcTest from "@/components/nav/NavBcTest";
+import { track } from "@/lib/track";
+import { trackFunnelEvent } from "@/lib/funnelTracking";
 
 const TEST_ID = "nav-test";
 
@@ -122,6 +124,11 @@ const TestCta = ({ label = "Gör NAV → Business Central-testet", size = "lg" }
 const NavTillBusinessCentral = () => {
   const heroRef = useRef<HTMLElement>(null);
   const [showSticky, setShowSticky] = useState(false);
+
+  useEffect(() => {
+    track("nav_landing_view", null, null, "business-central");
+    trackFunnelEvent("nav_landing_view");
+  }, []);
 
   useEffect(() => {
     const el = heroRef.current;

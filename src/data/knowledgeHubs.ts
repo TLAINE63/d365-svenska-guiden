@@ -140,6 +140,14 @@ const tools = {
     url: "/businesscentral/matchningstest/",
     category: "Behovsanalys",
   },
+  navTillBc: {
+    id: "tool-nav-till-bc",
+    type: "verktyg" as const,
+    title: "NAV → Business Central-test",
+    description: "Kör ni Navision eller Dynamics NAV? Svara på 10 frågor och få en första bedömning av vilken väg till Business Central som kan passa er.",
+    url: "/nav-till-business-central/",
+    category: "Gör NAV-testet",
+  },
   bcRoiKalkylator: {
     id: "tool-bc-roi-kalkylator",
     type: "verktyg" as const,
@@ -286,6 +294,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     resources: [
       tools.behovsanalysErp,
       tools.bcMatchningstest,
+      tools.navTillBc,
       tools.bcRoiKalkylator,
       tools.kravspecErp,
       tools.branschjamforelse,

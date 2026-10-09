@@ -36,6 +36,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
           <strong>En komplett introduktion till Sveriges populäraste affärssystem för mindre och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge mindre och medelstora företag full kontroll över sin verksamhet – från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
         </p>
 
+        <aside className="not-prose my-6 rounded-lg border border-border bg-muted/40 p-5">
+          <p className="font-semibold text-foreground">Kör ni fortfarande Navision eller Dynamics NAV?</p>
+          <p className="mt-1 text-sm text-muted-foreground">Ta reda på om ni bör migrera, förenkla den gamla lösningen eller utreda en nyimplementation.</p>
+          <Link to="/nav-till-business-central/" className="mt-3 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground no-underline hover:opacity-90">Gör NAV → Business Central-testet</Link>
+        </aside>
+
         <h2>Varför väljer svenska företag Business Central?</h2>
         <p>
           Business Central är idag ett av de snabbast växande affärssystemen i Sverige. Varje dag implementerar ett antal svenska företag Business Central som sin primära affärsplattform. Systemet kombinerar bred funktionalitet med en bekant Microsoft-miljö och integrerar sömlöst med verktyg som Outlook, Excel, Teams och Power BI som många medarbetare redan använder dagligen. Globalt förlitar sig över 50 000 företag i mer än 170 länder på Business Central.
