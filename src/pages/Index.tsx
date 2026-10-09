@@ -281,7 +281,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="D365 & Dynamics 365 i Sverige – guide & partnerval"
+        title="D365 (Dynamics 365) – köparguide i Sverige"
         description="D365 (Microsoft Dynamics 365) i Sverige: köparsidig guide med priskalkylator, kostnadsfri behovsanalys och jämförelse av partners per bransch."
         canonicalPath="/"
         ogImage="https://d365.se/og-erp.png"

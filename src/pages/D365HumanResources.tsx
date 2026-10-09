@@ -31,8 +31,8 @@ const D365HumanResources = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Dynamics 365 Human Resources – HR-system för bolag"
-        description="Microsofts HR-plattform för medarbetardata, organisation, kompensation, frånvaro och kompetensutveckling – integrerad med Finance & Supply Chain Management och Microsoft 365."
+        title="Dynamics 365 Human Resources – funktioner & pris"
+        description="Microsofts HR-plattform för medarbetardata, organisation, kompensation, frånvaro och kompetensutveckling. Se funktioner, licenspris, integration med Finance & Supply Chain Management och hur ni väljer partner."
         canonicalPath="/d365humanresources"
         keywords="Dynamics 365 Human Resources, HR-system Microsoft, personalsystem, talent management, kompensation, organisationsstruktur, HR-plattform Sverige"
         ogImage="https://d365.se/og-finance-supply-chain.png"

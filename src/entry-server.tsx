@@ -731,7 +731,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
             changefreq: 'monthly',
             lastmod: (r.updated_at || '').slice(0, 10) || undefined,
             meta: {
-              title: `${r.name} – Microsoft Dynamics 365-partner i Sverige | d365.se`,
+              title: `${r.name} som Dynamics 365-partner – fakta & produktområden | d365.se`,
               description:
                 desc ||
                 `${r.name} – observerad data om denna Microsoft Dynamics 365-partner i Sverige, sammanställd av d365.se från publika källor.`,
