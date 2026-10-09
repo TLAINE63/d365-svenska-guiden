@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Download, Info, Loader2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  NAV_QUESTIONS, NAV_PATH_TEXT, NAV_UNSAFE_TEXT, calculateNavResult, type NavAnswers,
+  NAV_QUESTIONS, NAV_METHOD_TEXT, NAV_PATH_TEXT, NAV_UNSAFE_TEXT, calculateNavResult, type NavAnswers,
 } from "@/lib/navBcDecision";
 
 const PATH_ORDER = ["A", "B", "C"] as const;
