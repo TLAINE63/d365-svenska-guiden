@@ -425,9 +425,6 @@ const Index = () => {
                   </li>
                 ))}
               </ol>
-              <p className="mt-3 text-[12.5px] text-muted-foreground">
-                <strong>ISV</strong> = fristående programvaruleverantör som bygger certifierade tilläggsappar till Dynamics&nbsp;365.
-              </p>
             </div>
           </div>
         </section>
