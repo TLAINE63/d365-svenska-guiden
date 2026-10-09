@@ -188,13 +188,13 @@ export function calculateNavResult(a: NavAnswers): NavResult {
   // Utgångsläge
   const situation: string[] = [];
   if (version && version !== "unknown") situation.push(`Ni kör ${label("version", version)}`);
-  if (hosting && hosting !== "unknown") situation.push(`drift: ${label("hosting", hosting).toLowerCase()}`);
-  if (custom && custom !== "unknown") situation.push(`anpassningsgrad: ${label("custom", custom).toLowerCase()}`);
+  if (hosting && hosting !== "unknown") situation.push(`drift: ${label("hosting", hosting).toLowerCase().replace(/\bnav\b/g, "NAV")}`);
+  if (custom && custom !== "unknown") situation.push(`anpassningsgrad: ${label("custom", custom).toLowerCase().replace(/\bnav\b/g, "NAV")}`);
   if (integrations && integrations !== "unknown")
-    situation.push(integrations === "0" ? "inga externa integrationer" : `${label("integrations", integrations).toLowerCase()} integrationer`);
-  if (companies) situation.push(companies === "1" ? "ett bolag" : `${label("companies", companies).toLowerCase()} bolag`);
-  if (areas.length) situation.push(`NAV används för ${areas.map((v) => label("areas", v).toLowerCase()).join(", ")}`);
-  if (reason) situation.push(`främsta skäl: ${label("reason", reason).toLowerCase()}`);
+    situation.push(integrations === "0" ? "inga externa integrationer" : `${label("integrations", integrations).toLowerCase().replace(/\bnav\b/g, "NAV")} integrationer`);
+  if (companies) situation.push(companies === "1" ? "ett bolag" : `${label("companies", companies).toLowerCase().replace(/\bnav\b/g, "NAV")} bolag`);
+  if (areas.length) situation.push(`NAV används för ${areas.map((v) => label("areas", v).toLowerCase().replace(/\bnav\b/g, "NAV")).join(", ")}`);
+  if (reason) situation.push(`främsta skäl: ${label("reason", reason).toLowerCase().replace(/\bnav\b/g, "NAV")}`);
 
   // Faktorer (bara det som följer av svaren)
   const factors: string[] = [];
