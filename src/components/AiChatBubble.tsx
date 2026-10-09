@@ -25,16 +25,18 @@ export default function AiChatBubble() {
   return (
     <>
       {/* Bubble */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        aria-label={open ? "Stäng AI-chat" : "Öppna AI-chat"}
-        className="fixed bottom-20 right-5 sm:bottom-5 sm:right-5 z-50 h-14 w-14 rounded bg-primary text-primary-foreground  hover:scale-105 transition-transform flex items-center justify-center group"
-      >
-        {open ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
-        {!open && (
-          <span className="absolute -top-1 -right-1 h-3 w-3 rounded bg-cta-orange animate-pulse" />
-        )}
-      </button>
+      {(pastTop || open) && (
+        <button
+          onClick={() => setOpen((o) => !o)}
+          aria-label={open ? "Stäng AI-chat" : "Öppna AI-chat"}
+          className="fixed bottom-20 right-5 sm:bottom-5 sm:right-5 z-50 h-14 w-14 rounded bg-primary text-primary-foreground hover:scale-105 transition-transform flex items-center justify-center group animate-fade-in"
+        >
+          {open ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+          {!open && (
+            <span className="absolute -top-1 -right-1 h-3 w-3 rounded bg-cta-orange animate-pulse" />
+          )}
+        </button>
+      )}
 
       {/* Panel */}
       {open && (
