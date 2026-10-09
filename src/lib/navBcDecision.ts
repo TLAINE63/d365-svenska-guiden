@@ -172,6 +172,8 @@ export function calculateNavResult(a: NavAnswers): NavResult {
   );
   const unknowns = unknownIds.map((id) => UNKNOWN_TEXT[id]);
   const unsafe = unknownIds.length >= UNKNOWN_UNSAFE;
+  // Många "Vet inte" ger ingen hög komplexitet, men en rak väg kan inte påstås förrän miljön kartlagts.
+  if (unsafe && path === "A") path = "B";
 
   // Utgångsläge
   const situation: string[] = [];
