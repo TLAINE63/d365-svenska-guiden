@@ -200,7 +200,7 @@ const CRM = () => {
  <div className="min-h-screen">
  <SEOHead 
  title="CRM-system – så väljer svenska företag rätt CRM | d365.se"
- description="Köpguide för CRM-system: vilka problem CRM löser, typer av plattformar, kostnad, när Dynamics 365 passar och när alternativ som Salesforce eller HubSpot är bättre."
+ description="Köpguide för CRM-system och Dynamics CRM (Dynamics 365): vilka problem CRM löser, typer av plattformar, kostnad, när Dynamics 365 passar och när alternativ som Salesforce eller HubSpot är bättre."
  canonicalPath="/crm"
  keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
  ogImage="https://d365.se/og-crm.png"

@@ -39,7 +39,7 @@ export default function PartnerBasicProfile({
     : [];
 
   const seoTitle = partner
-    ? `${partner.name} – Microsoft Dynamics 365-partner i Sverige`
+    ? `${partner.name} som Dynamics 365-partner – fakta & produktområden`
     : "D365-partner – observerad data";
 
   const seoDescription = partner
