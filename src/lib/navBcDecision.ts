@@ -114,9 +114,19 @@ const UNKNOWN_UNSAFE = 3;
 
 export type NavPath = "A" | "B" | "C";
 
+export interface NavDriver {
+  /** Svaret som påverkade, t.ex. "Många verksamhetsspecifika anpassningar". */
+  answer: string;
+  /** Hur svaret påverkar rekommendationen. */
+  effect: "complex" | "simple";
+  /** Kort förklaring av effekten. */
+  why: string;
+}
+
 export interface NavResult {
   path: NavPath;
   situation: string[];
+  drivers: NavDriver[];
   factors: string[];
   investigate: string[];
   partnerQuestions: string[];
