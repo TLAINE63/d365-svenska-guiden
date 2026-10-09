@@ -296,5 +296,8 @@ export const NAV_PATH_TEXT: Record<NavPath, { title: string; body: string; next:
   },
 };
 
+export const NAV_METHOD_TEXT =
+  "Bedömningen väger samman era svar om anpassningar, integrationer, historik, antal bolag, verksamhetsområden och specialistberoende. Svar som pekar på låg komplexitet talar för väg A. Svar som pekar på högre komplexitet, eller på att mycket kan förenklas, pekar mot väg B. Vid tydligt hög komplexitet rekommenderas väg C, där migration jämförs med en ny implementation. Enstaka svar kan avgöra ensamma: kraftig specialutveckling leder alltid minst till väg B, och kraftig specialutveckling i kombination med många integrationer eller stort historikbehov leder direkt till väg C. Många svarade 'Vet inte' räknas inte som komplexitet, men bedömningen markeras då som osäker och en rak väg rekommenderas inte förrän miljön kartlagts.";
+
 export const NAV_UNSAFE_TEXT =
   "Det finns delar av er NAV-miljö som behöver kartläggas innan migrationsvägen kan bedömas säkert.";
