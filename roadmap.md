@@ -211,3 +211,11 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] Visa e-post, telefon och webbplatslänk överst på partnerprofilen
 - [x] Sprint 1: förfrågan, kortlista, tre profilknappar, mätning, hero, metabeskrivning
 - [ ] Sitemap lastmod per sida (redovisat, ej ändrat)
+
+## Sprint 1: startsida och navigation (2026-10-09)
+- [x] Ersätt trappan i fyra steg med fyra fristående ingångar på startsidan
+- [x] Bygg interaktiv beslutsmodell med fyra hörn och gemensamt beslutsunderlag i mitten
+- [x] Flytta beslutsmodeellen till sidans första sektion och befintliga hero:n ett steg ned
+- [x] AI-bubblan döljs första skärmen så rubriken hålls läsbar på mobil
+- [x] Kontrollera startsidan i webbläsaren på dator och mobil
+- [ ] Publicera (ändringarna syns på d365.se först efter publicering)
