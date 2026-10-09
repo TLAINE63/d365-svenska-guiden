@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Info, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Download, Info, Loader2, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NAV_QUESTIONS, NAV_PATH_TEXT, NAV_UNSAFE_TEXT, calculateNavResult, type NavAnswers,
@@ -11,6 +11,17 @@ const NavBcTest = () => {
   const [answers, setAnswers] = useState<NavAnswers>({});
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const downloadPdf = async () => {
+    if (!result) return;
+    setPdfBusy(true);
+    try {
+      const { generateNavBcResultPdf } = await import("@/utils/generateNavBcResultPdf");
+      await generateNavBcResultPdf(result, answers);
+    } finally {
+      setPdfBusy(false);
+    }
+  };
   const q = NAV_QUESTIONS[step];
   const total = NAV_QUESTIONS.length;
   const value = answers[q.id];
@@ -113,6 +124,10 @@ const NavBcTest = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
+          <Button onClick={downloadPdf} disabled={pdfBusy}>
+            {pdfBusy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+            Ladda ner resultatet som PDF
+          </Button>
           <Button variant="outline" onClick={() => { setDone(false); setStep(0); scrollTop(); }}>
             <ArrowLeft className="mr-2 h-4 w-4" />Ändra svar
           </Button>
