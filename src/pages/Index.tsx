@@ -302,8 +302,24 @@ const Index = () => {
       <Navbar />
 
       <main>
-        {/* SECTION 1 – HERO */}
-        <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+        {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
+        <section
+          aria-labelledby="beslutsmodell"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
+        >
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
+            <h2 id="beslutsmodell" className="text-[22px] sm:text-[28px] font-bold text-white leading-tight tracking-tight mb-2">
+              Var i ert beslut befinner ni er?
+            </h2>
+            <p className="mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-white/70">
+              Börja där ni står. Ni kan gå mellan delarna i valfri ordning.
+            </p>
+            <DecisionModel />
+          </div>
+        </section>
+
+        {/* SECTION 2 – HERO */}
+        <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-10 sm:pt-14 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
@@ -318,14 +334,8 @@ const Index = () => {
                 specialistkompetens innan du tar kontakt. {BUYER_SIDE_DESCRIPTION}
               </p>
 
-              <div className="mb-8 max-w-2xl">
-                <DecisionModel />
-              </div>
-
-
-
-
               <div className="border-t border-white/10 pt-7 mb-8">
+
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
                   Matcha er med rätt partner
                 </h2>
