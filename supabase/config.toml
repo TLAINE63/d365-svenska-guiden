@@ -106,3 +106,6 @@ verify_jwt = false
 
 [functions.search-performance]
 verify_jwt = false
+
+[functions.seo-potential]
+verify_jwt = false

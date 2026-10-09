@@ -131,6 +131,7 @@ import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminSemrushDailyTab from "@/components/AdminSemrushDailyTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
+import AdminSeoPotentialTab from "@/components/AdminSeoPotentialTab";
 import AdminKeywordTrendsTab from "@/components/AdminKeywordTrendsTab";
 import AdminGscTab from "@/components/AdminGscTab";
 import AdminSearchPerfTab from "@/components/AdminSearchPerfTab";
@@ -311,7 +312,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "seo",
  label: "SEO & Konkurrens",
  icon: TrendingUp,
- tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "search-perf", "pillar-followup"],
+ tabs: ["semrush-daily", "seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "seo-potential", "gsc", "search-perf", "pillar-followup"],
  },
  {
  id: "partnerportal",
@@ -2647,6 +2648,10 @@ Thomas`,
  </span>
  Konkurrent
  </TabsTrigger>
+ <TabsTrigger value="seo-potential" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+ <TrendingUp className="h-3.5 w-3.5" strokeWidth={1.75} />
+ SEO-potential (AI)
+ </TabsTrigger>
  <TabsTrigger value="competitor-insights" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-fuchsia-600/10 ring-1 ring-fuchsia-400/20">
  <TrendingUp className="h-3.5 w-3.5 text-fuchsia-300" strokeWidth={1.75} />
@@ -3894,6 +3899,10 @@ Thomas`,
 
  <TabsContent value="competitor">
  <AdminCompetitorTab token={token || null} onSessionExpired={logout} />
+ </TabsContent>
+
+ <TabsContent value="seo-potential">
+ <AdminSeoPotentialTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
  <TabsContent value="competitor-insights">
