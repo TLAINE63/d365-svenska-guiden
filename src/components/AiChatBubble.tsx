@@ -7,7 +7,17 @@ const HIDDEN_PATHS = ["/admin", "/partner-update", "/partner-events", "/avtalssi
 
 export default function AiChatBubble() {
   const [open, setOpen] = useState(false);
+  const [pastTop, setPastTop] = useState(false);
   const { pathname } = useLocation();
+
+  // Fönstret högst upp är reserverat sidans egen rubrik – bubblan kommer
+  // först när besökaren rullat förbi den första skärmen.
+  useEffect(() => {
+    const onScroll = () => setPastTop(window.scrollY > Math.max(200, window.innerHeight * 0.35));
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Hide on admin/partner-internal pages and on the dedicated chat page
   if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return null;
