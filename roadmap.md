@@ -215,7 +215,7 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 ## Sprint 1: startsida och navigation (2026-10-09)
 - [x] Ersätt trappan i fyra steg med fyra fristående ingångar på startsidan
 - [x] Bygg interaktiv beslutsmodell med fyra hörn och gemensamt beslutsunderlag i mitten
-- [x] Flytta beslutsmodeellen till sidans första sektion och befintliga hero:n ett steg ned
+- [x] Flytta beslutsmodellen till sidans första sektion och befintliga hero:n ett steg ned
 - [x] AI-bubblan döljs första skärmen så rubriken hålls läsbar på mobil
 - [x] Kontrollera startsidan i webbläsaren på dator och mobil
 - [ ] Publicera (ändringarna syns på d365.se först efter publicering)
