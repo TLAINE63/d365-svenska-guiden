@@ -314,6 +314,17 @@ const BusinessCentral = () => {
   <EditorialAssessment assessment="bc" />
 
       <BcSiteHandoff />
+      <section className="py-6 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-lg border border-border bg-muted/30 p-5">
+            <div className="flex-1">
+              <h2 className="text-lg font-semibold text-foreground">Kommer ni från Navision eller Dynamics NAV?</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Börja med att förstå hur komplex vägen till Business Central kan bli.</p>
+            </div>
+            <Link to="/nav-till-business-central/" className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted">Gör NAV-testet</Link>
+          </div>
+        </div>
+      </section>
 
 
 
