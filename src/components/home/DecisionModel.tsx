@@ -27,9 +27,6 @@ const renderNode = (n: (typeof NODES)[number]) => (
 /** Icke-linjär beslutsmodell: fyra fristående ingångar kring ett gemensamt beslutsunderlag. */
 const DecisionModel = () => (
   <nav aria-label="Var i ert beslut befinner ni er?" className="relative">
-    <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
-      Börja var ni vill – allt hänger ihop
-    </p>
     <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
       {/* Prickade kopplingar */}
       <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">

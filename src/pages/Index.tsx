@@ -111,7 +111,7 @@ const IDENTIFIED_PARTNER_COUNT_FALLBACK = 84;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
-const HOME_LAST_UPDATED = "2026-09-24";
+const HOME_LAST_UPDATED = "2026-10-09";
 
 const HOME_SOURCES = [
   { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
@@ -425,8 +425,8 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-1 text-xl font-bold text-foreground">Var i ert beslut befinner ni er?</h2>
-              <p className="mb-4 text-[14px] text-muted-foreground">Börja där ni står. Ni kan gå mellan delarna i valfri ordning.</p>
+              <h2 className="mb-1 text-xl font-bold text-foreground">Fyra sätt att komma igång</h2>
+              <p className="mb-4 text-[14px] text-muted-foreground">Ni kan gå mellan delarna i valfri ordning.</p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {[
                   { icon: ClipboardCheck, title: "Vi vill ringa in behovet", text: "Ta reda på om behovet gäller ERP, CRM eller båda.", links: [{ label: "Kom igång", to: "/kom-igang/" }] },
