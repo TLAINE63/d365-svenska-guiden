@@ -9,7 +9,8 @@ type Item = { target: string; metric: string; why: string; action: string; prior
 type Result = { summary: string; pages: Item[]; queries: Item[] };
 interface Props { token: string | null; onSessionExpired: () => void }
 
-const prioVariant = (p: string) => (p === "hög" ? "default" : p === "medel" ? "secondary" : "outline") as const;
+const prioVariant = (p: string): "default" | "secondary" | "outline" =>
+  p === "hög" ? "default" : p === "medel" ? "secondary" : "outline";
 
 function List({ title, items }: { title: string; items: Item[] }) {
   return (
