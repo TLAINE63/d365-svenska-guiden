@@ -60,7 +60,7 @@ const ProductNextSteps = ({ product, pageSource }: Props) => {
             <Calculator className="h-6 w-6 text-accent mb-3" aria-hidden />
             <h3 className="text-lg font-semibold text-foreground mb-2">Räkna och analysera</h3>
             <p className="text-sm text-muted-foreground mb-4">{cfg.calc.text}</p>
-            <ul className="mt-auto space-y-2">
+            <ul className="space-y-2">
               {cfg.calc.links.map((l) => (
                 <li key={l.href}>
                   <Link to={l.href} className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
