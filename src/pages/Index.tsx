@@ -296,16 +296,16 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-20 sm:pt-28 pb-16 sm:pb-24 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-32 pb-16 sm:pb-24 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
-            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-2 text-balance">
+            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
               Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
             </h1>
-            <p className="mb-4 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
+            <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] leading-loose text-primary-foreground/70">
               För nya val och befintliga kunder: affärssystem för ekonomi, inköp, order, lager, projekt och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
             </p>
-            <p className="mb-3 text-[13px] sm:text-[14px] font-semibold text-primary-foreground">
+            <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold text-primary-foreground">
               Vad vill ni göra? <span className="font-normal text-primary-foreground/70">Välj det kort som passar er bäst.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
