@@ -1,128 +1,213 @@
 import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
-import { Menu, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import RegionLanguageSwitcher from "./RegionLanguageSwitcher";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 
+type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean };
+type NavGroup = { heading?: string; items: NavLinkItem[] };
+type NavMenu = { label: string; groups: NavGroup[] };
+
+const SURVEYS = "https://d365-surveys.lovable.app";
+
+/** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners & kompetens. ERP och CRM har samma struktur. */
+const MENUS: NavMenu[] = [
+  {
+    label: "ERP",
+    groups: [
+      { items: [{ label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true }] },
+      {
+        heading: "Applikationer",
+        items: [
+          { label: "Dynamics 365 Business Central", path: "/businesscentral" },
+          { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
+          { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
+          { label: "Dynamics 365 Commerce", path: "/d365commerce" },
+          { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
+        ],
+      },
+      {
+        heading: "Partners",
+        items: [
+          { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
+          { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "CRM",
+    groups: [
+      {
+        items: [
+          { label: "CRM-guiden: välja CRM-system", path: "/crm/", strong: true },
+          { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
+          { label: "Välja fältservicesystem", path: "/faltservicesystem/" },
+        ],
+      },
+      {
+        heading: "Applikationer",
+        items: [
+          { label: "Dynamics 365 Sales", path: "/d365sales" },
+          { label: "Dynamics 365 Customer Insights", path: "/d365marketing" },
+          { label: "Dynamics 365 Customer Service", path: "/d365customerservice" },
+          { label: "Dynamics 365 Field Service", path: "/d365fieldservice" },
+          { label: "Dynamics 365 Contact Center", path: "/d365contactcenter" },
+        ],
+      },
+      { heading: "Partners", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+    ],
+  },
+  {
+    label: "Guider & verktyg",
+    groups: [
+      {
+        items: [
+          { label: "Kom igång-guiden", path: "/kom-igang/", strong: true },
+          { label: "Kunskapscenter", path: "/kunskapscenter" },
+          { label: "Översikt: alla guider", path: "/guider/" },
+          { label: "Välj din roll", path: "/roller/" },
+          { label: "Upphandlingsguiden", path: "/upphandlingsguiden/" },
+        ],
+      },
+      {
+        heading: "Behovsanalys",
+        items: [
+          { label: "ERP (affärssystem)", path: "/ERPbehovsanalys/" },
+          { label: "CRM (sälj och marknad)", path: "/CRMbehovsanalys/" },
+          { label: "Kundservice, fältservice och Contact Center", path: "/kundservice-behovsanalys/" },
+        ],
+      },
+      {
+        heading: "Beslutsunderlag",
+        items: [
+          { label: "Kravspecifikation", path: "/kravspecifikation/" },
+          { label: "Beslutsmognadsindex", path: "/beslutsmognad/" },
+          { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
+          { label: "Min D365-plan", path: "/underlag/" },
+        ],
+      },
+      {
+        heading: "Microsoft AI",
+        items: [
+          { label: "AI med Copilot och agenter", path: "/aioversikt" },
+          { label: "AI Readiness Assessment", path: "/ai-readiness/" },
+          { label: "Fråga d365.se", path: "/fraga/" },
+        ],
+      },
+      {
+        heading: "Fördjupade analyser",
+        items: [
+          { label: "ERP-benchmark och fördjupad ERP-analys", href: `${SURVEYS}/` },
+          { label: "Snabbkoll: bromsar ert affärssystem verksamheten?", href: `${SURVEYS}/snabbkoll` },
+          { label: "Förvaltning: stödjer den verksamhetens behov?", href: `${SURVEYS}/forvaltning` },
+          { label: "Övriga analyser", href: `${SURVEYS}/fler-analyser` },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Partners & kompetens",
+    groups: [
+      {
+        items: [
+          { label: "Hitta rätt partner", path: "/valjdynamics365partner/", strong: true },
+          { label: "Partners per bransch", path: "/partners-per-bransch/" },
+          { label: "Jämför partners", path: "/jamfor-partners/" },
+          { label: "Min kortlista", path: "/kortlista/" },
+          { label: "Hitta rätt Dynamics 365-kompetens", path: "/kompetens/" },
+          { label: "Partnernytt", path: "/partnernytt/" },
+        ],
+      },
+      {
+        heading: "Guider: välja partner",
+        items: PARTNER_GUIDES.map((g) => ({ label: g.shortLabel, path: guidePath(g) })),
+      },
+    ],
+  },
+];
+
+const ItemLink = ({ item, className }: { item: NavLinkItem; className: string }) =>
+  item.href ? (
+    <a href={item.href} className={className}>{item.label}</a>
+  ) : (
+    <Link to={item.path!} className={className}>{item.label}</Link>
+  );
+
+const triggerClass =
+  "text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0 focus-visible:ring-2 focus-visible:ring-[hsl(var(--signature))]";
+
+const DesktopMenu = ({ menu }: { menu: NavMenu }) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button variant="ghost" className={triggerClass}>
+        {menu.label}
+        <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent className="bg-background border border-border z-50 w-72 max-h-[80vh] overflow-y-auto">
+      {menu.groups.map((g, gi) => (
+        <div key={gi}>
+          {gi > 0 && <DropdownMenuSeparator />}
+          {g.heading && (
+            <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wide text-foreground">{g.heading}</DropdownMenuLabel>
+          )}
+          {g.items.map((item) => (
+            <DropdownMenuItem key={item.path ?? item.href} asChild>
+              <ItemLink item={item} className={`cursor-pointer ${item.strong ? "font-semibold text-primary" : ""}`} />
+            </DropdownMenuItem>
+          ))}
+        </div>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+const utilityLink = "font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors";
+const mobileLink = "block py-1.5 text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors";
+
 const Navbar = () => {
-  // ERP och CRM har samma struktur: guide först, partnerjämförelse, sedan produkter.
-  const erpItems = [
-    { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/" },
-    { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
-    { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
-    { label: "Dynamics 365 Business Central", path: "/businesscentral" },
-    { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
-    { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
-    { label: "Dynamics 365 Commerce", path: "/d365commerce" },
-    { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
-  ];
-
-  const aiItems = [
-    { label: "AI med Copilot & Agenter", path: "/aioversikt" },
-    { label: "🧠 AI Readiness Assessment", path: "/ai-readiness" },
-  ];
-
-  const crmItems = [
-    { label: "CRM-guiden: välja CRM-system", path: "/crm/" },
-    { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
-    { label: "Välja fältservicesystem", path: "/faltservicesystem/" },
-    { label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" },
-    { label: "Dynamics 365 Sales", path: "/d365sales" },
-    { label: "Dynamics 365 Customer Insights", path: "/d365marketing" },
-    { label: "Dynamics 365 Customer Service", path: "/d365customerservice" },
-    { label: "Dynamics 365 Field Service", path: "/d365fieldservice" },
-    { label: "Dynamics 365 Contact Center", path: "/d365contactcenter" },
-  ];
-
-  const SURVEYS = "https://d365-surveys.lovable.app";
-  const surveyItems = [
-    { label: "ERP-benchmark och fördjupad ERP-analys", href: `${SURVEYS}/` },
-    { label: "Snabbkoll: bromsar ert affärssystem verksamheten?", href: `${SURVEYS}/snabbkoll` },
-    { label: "Förvaltning: stödjer den verksamhetens behov?", href: `${SURVEYS}/forvaltning` },
-    { label: "Övriga analyser", href: `${SURVEYS}/fler-analyser` },
-  ];
-
-  const menuItems = [
-    { label: "Kunskapscenter", path: "/kunskapscenter", external: false },
-  ];
-
+  const [erp, crm, tools, partners] = MENUS;
   return (
     <nav
       data-site-nav
+      aria-label="Huvudmeny"
       className="fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--hero-dark))]"
       style={{ borderBottom: "3px solid hsl(var(--signature))" }}
     >
-
-      {/* Top utility bar (desktop only) */}
+      {/* Sekundär rad (desktop) */}
       <div className="hidden lg:block border-b border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))]">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
-            <Link
-              to="/fraga/"
-              className="inline-flex items-center gap-1.5 font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
-            >
-              <Sparkles className="h-3.5 w-3.5" />
+            <Link to="/fraga/" className={`inline-flex items-center gap-1.5 ${utilityLink}`}>
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Fråga d365.se
             </Link>
-            <Link
-              to="/kunskapscenter"
-              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
-            >
-              Kunskapscenter
-            </Link>
-            <Link
-              to="/kompetens/"
-              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
-            >
-              Hitta rätt Dynamics 365-kompetens
-            </Link>
-            <Link
-              to="/partnernytt/"
-              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
-            >
-              Partnernytt
-            </Link>
-            <Link
-              to="/kontakt/"
-              className="font-medium text-white/70 hover:text-[hsl(var(--signature))] transition-colors"
-            >
-              Kontakt
-            </Link>
-            <Link
-              to="/kom-igang/"
-              className="inline-flex items-center rounded-full bg-[hsl(var(--cta-orange))] px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-[hsl(var(--cta-orange))]/85 transition-colors whitespace-nowrap"
-            >
-              Kom igång
-            </Link>
+            <Link to="/kunskapscenter" className={utilityLink}>Kunskapscenter</Link>
+            <Link to="/partnernytt/" className={utilityLink}>Partnernytt</Link>
+            <Link to="/kontakt/" className={utilityLink}>Kontakt</Link>
             <RegionLanguageSwitcher />
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            <img 
-              src={companyLogo} 
-              alt="d365.se - Guide för Dynamics 365" 
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Link to="/" className="flex items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <img
+              src={companyLogo}
+              alt="d365.se - Guide för Dynamics 365"
               className="h-10 lg:h-12 w-auto object-contain relative z-10"
               width="225"
               height="60"
@@ -132,395 +217,66 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
-            <Link
-              to="/branscher/"
-              className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors"
-            >
+          {/* Huvudmeny desktop */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
+            <DesktopMenu menu={erp} />
+            <DesktopMenu menu={crm} />
+            <Link to="/branscher/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors">
               Branscher
             </Link>
-            {/* Branschlösningar – dold tills vidare */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Verktyg & guider
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50 w-64">
-                <DropdownMenuItem asChild>
-                  <Link to="/kom-igang/" className="cursor-pointer font-semibold text-primary">
-                    Kom igång
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
-                    🔍 Hitta rätt partner
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/partners-per-bransch/" className="cursor-pointer">
-                    Partners per bransch
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/jamfor-partners/" className="cursor-pointer">
-                    Jämför partners
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/upphandlingsguiden/" className="cursor-pointer font-medium text-primary">
-                    Upphandlingsguiden
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="px-2 py-1.5">
-                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</p>
-                </div>
-                <DropdownMenuItem asChild>
-                  <Link to="/ERPbehovsanalys/" className="cursor-pointer">
-                    ERP (Affärssystem)
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/CRMbehovsanalys/" className="cursor-pointer">
-                    Sälj & Marknad (CRM)
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/kundservice-behovsanalys/" className="cursor-pointer">
-                    Kundservice (Ärendehantering), Fältservice & Contact Center
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/ai-readiness/" className="cursor-pointer">
-                    AI Readiness Assessment
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/beslutsmognad/" className="cursor-pointer">
-                    Beslutsmognadsindex
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="px-2 py-1.5">
-                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Kalkylatorer</p>
-                </div>
-                <DropdownMenuItem asChild>
-                  <Link to="/implementationskalkylator/" className="cursor-pointer">
-                    Pris- och omfattningskalkylator
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="px-2 py-1.5">
-                  <p className="text-xs text-foreground font-bold uppercase tracking-wide">Guider</p>
-                </div>
-                <DropdownMenuItem asChild>
-                  <Link to="/guider/" className="cursor-pointer font-medium text-primary">
-                    Översikt – alla guider
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/roller/" className="cursor-pointer font-medium text-primary">
-                    Välj din roll
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/underlag/" className="cursor-pointer font-medium text-primary">
-                    Min D365-plan
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/kompetens/" className="cursor-pointer">
-                    Hitta rätt Dynamics 365-kompetens
-                  </Link>
-                </DropdownMenuItem>
-                {PARTNER_GUIDES.map((guide) => (
-                  <DropdownMenuItem key={guide.slug} asChild>
-                    <Link to={guidePath(guide)} className="cursor-pointer">
-                      {guide.shortLabel}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/upphandlingsguiden/" className="cursor-pointer">
-                    Upphandlingsresan
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  ERP / Affärssystem
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {erpItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="cursor-pointer">
-                      {item.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  CRM – Sälj, Marknad & Service
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {crmItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="cursor-pointer">
-                      {item.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Microsoft AI
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {aiItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="cursor-pointer">
-                      {item.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0">
-                  Analyser
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {surveyItems.map((item) => (
-                  <DropdownMenuItem key={item.href} asChild>
-                    <a href={item.href} className="cursor-pointer">
-                      {item.label}
-                    </a>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <DesktopMenu menu={tools} />
+            <DesktopMenu menu={partners} />
+            <Link
+              to="/valjdynamics365partner/"
+              data-nav-cta
+              className="inline-flex items-center gap-1.5 rounded bg-[hsl(var(--cta-orange))] px-4 py-2 text-sm font-bold text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Hitta rätt partner
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
 
-
-          {/* Mobile Menu */}
+          {/* Mobil */}
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
+              <Button variant="ghost" size="icon" aria-label="Öppna menyn" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent className="overflow-y-auto">
-              <div className="flex flex-col gap-4 mt-8 pb-8">
-                <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-3 mt-8 pb-8">
+                <SheetClose asChild>
+                  <Link
+                    to="/valjdynamics365partner/"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded bg-[hsl(var(--cta-orange))] px-4 py-3 text-base font-bold text-white hover:bg-[hsl(var(--cta-orange-hover))]"
+                  >
+                    Hitta rätt partner
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </SheetClose>
+                <Accordion type="single" collapsible className="w-full">
+                  {[erp, crm].map((m) => (
+                    <MobileGroup key={m.label} menu={m} />
+                  ))}
+                  <div className="border-b border-border py-4">
+                    <SheetClose asChild>
+                      <Link to="/branscher/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Branscher</Link>
+                    </SheetClose>
+                  </div>
+                  {[tools, partners].map((m) => (
+                    <MobileGroup key={m.label} menu={m} />
+                  ))}
+                </Accordion>
+                <div className="flex flex-col gap-1 pt-2">
+                  <SheetClose asChild><Link to="/fraga/" className={`inline-flex items-center gap-2 ${mobileLink}`}><Sparkles className="h-4 w-4" aria-hidden="true" />Fråga d365.se</Link></SheetClose>
+                  <SheetClose asChild><Link to="/kunskapscenter" className={mobileLink}>Kunskapscenter</Link></SheetClose>
+                  <SheetClose asChild><Link to="/partnernytt/" className={mobileLink}>Partnernytt</Link></SheetClose>
+                  <SheetClose asChild><Link to="/kontakt/" className={mobileLink}>Kontakt</Link></SheetClose>
+                </div>
+                <div className="flex items-center justify-between pt-3 border-t border-border">
                   <span className="text-sm font-medium text-muted-foreground">Välj land / språk</span>
                   <RegionLanguageSwitcher />
                 </div>
-                <div className="h-px bg-border" />
-                <Link to="/kontakt/" className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                  Kontakt
-                </Link>
-                <Link to="/kom-igang/" className="text-lg font-semibold text-primary hover:text-[hsl(var(--signature))] transition-colors">
-                  Kom igång
-                </Link>
-                <Link to="/fraga/" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-[hsl(var(--signature))] transition-colors">
-                  <Sparkles className="h-4 w-4" /> Fråga d365.se
-                </Link>
-                <Link
-                  to="/partnernytt/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Partnernytt
-                </Link>
-                <Link
-                  to="/kompetens/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Hitta rätt Dynamics 365-kompetens
-                </Link>
-                <Link
-                  to="/branscher/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Branscher
-                </Link>
-                {/* Branschlösningar – dold tills vidare */}
-                <Link
-                  to="/valjdynamics365partner/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Hitta rätt partner
-                </Link>
-                <Link
-                  to="/partners-per-bransch/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Partners per bransch
-                </Link>
-                <Link
-                  to="/jamfor-partners/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Jämför partners
-                </Link>
-                <Link
-                  to="/upphandlingsguiden/"
-                  className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                >
-                  Upphandlingsguiden
-                </Link>
-                <div className="flex flex-col gap-2 ml-4">
-                  <span className="text-xs text-foreground font-bold uppercase tracking-wide">Börja med en behovsanalys</span>
-                  <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    ERP (Affärssystem)
-                  </Link>
-                  <Link to="/CRMbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Sälj & Marknad (CRM)
-                  </Link>
-                  <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Kundservice (Ärendehantering), Fältservice & Contact Center
-                  </Link>
-                  <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    AI Readiness Assessment
-                  </Link>
-                  <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Beslutsmognadsindex
-                  </Link>
-                  <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Kalkylatorer</span>
-                  <Link to="/implementationskalkylator/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Pris- och omfattningskalkylator
-                  </Link>
-                  <span className="text-xs text-foreground font-bold uppercase tracking-wide mt-2">Guider</span>
-                  <Link to="/guider/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Översikt – alla guider
-                  </Link>
-                  <Link to="/roller/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Välj din roll
-                  </Link>
-                  <Link to="/underlag/" className="text-base font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Min D365-plan
-                  </Link>
-                  <Link to="/kompetens/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Hitta rätt Dynamics 365-kompetens
-                  </Link>
-                  {PARTNER_GUIDES.map((guide) => (
-                    <Link
-                      key={guide.slug}
-                      to={guidePath(guide)}
-                      className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                    >
-                      {guide.shortLabel}
-                    </Link>
-                  ))}
-                  <Link to="/upphandlingsguiden/" className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors">
-                    Upphandlingsresan
-                  </Link>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">ERP / Affärssystem</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {erpItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">CRM – Sälj, Marknad & Service</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {crmItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Microsoft AI</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {aiItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Analyser</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {surveyItems.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        className="text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                {menuItems.map((item) => (
-                  item.external ? (
-                    <a
-                      key={item.path}
-                      href={item.path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="text-lg font-medium text-foreground hover:text-[hsl(var(--signature))] transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  )
-                ))}
-                <Button
-                  asChild
-                  variant="default"
-                  size="sm"
-                  className="w-full justify-start rounded-lg bg-[hsl(var(--cta-orange))]/90 hover:bg-[hsl(var(--cta-orange))] text-white text-base font-medium px-4 py-2.5 h-auto border-0 shadow-none"
-                >
-                  <Link to="/kontakt/">Få hjälp att välja partner</Link>
-                </Button>
               </div>
             </SheetContent>
           </Sheet>
@@ -529,5 +285,23 @@ const Navbar = () => {
     </nav>
   );
 };
+
+const MobileGroup = ({ menu }: { menu: NavMenu }) => (
+  <AccordionItem value={menu.label}>
+    <AccordionTrigger className="text-base font-semibold text-foreground hover:no-underline">{menu.label}</AccordionTrigger>
+    <AccordionContent>
+      {menu.groups.map((g, gi) => (
+        <div key={gi} className={gi > 0 ? "mt-3" : ""}>
+          {g.heading && <p className="mb-1 text-xs font-bold uppercase tracking-wide text-foreground">{g.heading}</p>}
+          {g.items.map((item) => (
+            <SheetClose asChild key={item.path ?? item.href}>
+              <ItemLink item={item} className={`${mobileLink} ${item.strong ? "!text-primary font-semibold" : ""}`} />
+            </SheetClose>
+          ))}
+        </div>
+      ))}
+    </AccordionContent>
+  </AccordionItem>
+);
 
 export default Navbar;
