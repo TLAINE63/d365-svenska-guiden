@@ -1,5 +1,4 @@
 import { track } from "@/lib/track";
-import { BUYER_SIDE_DESCRIPTION } from "@/data/organization";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
