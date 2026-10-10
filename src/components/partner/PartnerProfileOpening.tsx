@@ -76,7 +76,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
               trackEvent("shortlist_add", null, partner.slug);
             }} className="min-h-12"><Bookmark className="h-4 w-4" />Lägg till i kortlista</Button>
           )}
-          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Till partnerns webbplats</a></Button>}
+          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
         </div>
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
