@@ -3,7 +3,7 @@ import { Bookmark, BookmarkCheck, ExternalLink, UserRoundPlus } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { useInquiry } from "@/contexts/InquiryContext";
-import { track } from "@/lib/track";
+import { track, partnerWebsiteUrl } from "@/lib/track";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface PartnerDecisionActionsProps {
@@ -20,6 +20,8 @@ const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, 
   const shortlist = useShortlist();
   const inquiry = useInquiry();
   const saved = shortlist.isSaved(partner.slug);
+  // Samma UTM-modell som profilens övriga partnerlänkar (utm_source=d365.se, partnerprofil).
+  const outboundUrl = partnerWebsiteUrl(website);
 
   const contact = () => {
     trackFunnelEvent({ event_type: "cta_click", event_name: "partner_decision_action", metadata: { action: "request_contact", partner_slug: partner.slug, product, industry } });
@@ -28,7 +30,7 @@ const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, 
   };
 
   return (
-    <div className={`grid gap-2 ${compact ? "grid-cols-1" : website ? "sm:grid-cols-3" : "sm:grid-cols-2"}`} aria-label={`Nästa steg för ${partner.name}`}>
+    <div className={`grid gap-2 ${compact ? "grid-cols-1" : outboundUrl ? "sm:grid-cols-3" : "sm:grid-cols-2"}`} aria-label={`Nästa steg för ${partner.name}`}>
       <Button type="button" onClick={contact} className="min-h-11 whitespace-normal font-bold">
         <UserRoundPlus className="h-4 w-4" aria-hidden="true" />
         Be om kontakt
@@ -46,9 +48,9 @@ const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, 
           Lägg till i kortlista
         </Button>
       )}
-      {website && (
+      {outboundUrl && (
         <Button asChild variant="ghost" className="min-h-11 whitespace-normal">
-          <a href={website} target="_blank" rel="noopener" onClick={() => track("partner_outbound_click", { via: "sticky" }, partner.slug)}>
+          <a href={outboundUrl} target="_blank" rel="noopener" onClick={() => track("partner_outbound_click", { via: "sticky" }, partner.slug)}>
             <ExternalLink className="h-4 w-4" aria-hidden="true" />Besök partnerns webbplats
           </a>
         </Button>
