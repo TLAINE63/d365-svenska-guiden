@@ -1,3 +1,5 @@
+import KeyTakeaways from "@/components/guide/KeyTakeaways";
+import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import FitModel from "@/components/FitModel";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -186,6 +188,17 @@ const ERPOverview = () => {
  </div>
  </div>
  </section>
+  <div className="container mx-auto px-4 sm:px-6"><div className="max-w-3xl mx-auto">
+  <KeyTakeaways
+   partnersAnchor="guide-partners"
+   items={[
+    "Ett affärssystem samlar ekonomi, inköp, order, lager, projekt och produktion i en gemensam databas.",
+    "Business Central passar ofta mindre och medelstora bolag med standardnära processer.",
+    "Finance & Supply Chain Management passar större, internationella organisationer med koncernstruktur eller avancerad supply chain.",
+    "Jämför totalkostnad över tid och partnerns erfarenhet av er bransch, inte bara licenspriset.",
+   ]}
+  />
+  </div></div>
   <EditorialAssessment assessment="erp" />
  <FitModel model="erp" heading="Vad avgör valet?" />
 
@@ -484,6 +497,12 @@ const ERPOverview = () => {
    </div>
  </section>
  
+<GuidePartnerPicks
+ heading="Verifierade partners för båda affärssystemen"
+ intro="Lika många platser för Business Central och Finance & Supply Chain Management, så att ni kan jämföra specialister för det system som passar er."
+ groups={[{ key: "bc", label: "Business Central", application: "Business Central", allHref: "/businesscentral/#partners" }, { key: "fsc", label: "Finance & Supply Chain", application: "Finance & SCM", allHref: "/finance-supply-chain/#partners" }]}
+ pageSource="affarssystem"
+/>
 <ContextualCta source="next-step:erp" heading="Så går du vidare med ert ERP-val" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />

@@ -1,3 +1,5 @@
+import KeyTakeaways from "@/components/guide/KeyTakeaways";
+import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, ChevronRight, HelpCircle } from "lucide-react";
@@ -183,6 +185,16 @@ const NavTillBusinessCentral = () => {
                 Kör ni fortfarande Navision eller Dynamics NAV? Ta reda på vilken väg till Business Central som kan passa
                 ert företag, vad som kan göra migreringen komplex och vad ni bör undersöka innan ni begär offert.
               </p>
+              <KeyTakeaways
+                className="mt-6 max-w-3xl"
+                partnersAnchor="guide-partners"
+                items={[
+                  "Det finns tre vägar: teknisk uppgradering, migrering av data till en ny standardnära lösning eller att börja om helt.",
+                  "Era anpassningar och tillägg i NAV avgör ofta komplexiteten mer än antalet användare.",
+                  "Inventera versioner, integrationer och vilken historik som verkligen behövs innan ni begär offert.",
+                  "Testet nedan ger en första rekommenderad väg på 10 frågor, utan kontaktuppgifter.",
+                ]}
+              />
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
                 <TestCta />
                 <span className="text-sm text-muted-foreground">10 frågor. Få en första rekommendation direkt.</span>
@@ -418,6 +430,12 @@ const NavTillBusinessCentral = () => {
             </div>
           </div>
         </article>
+        <GuidePartnerPicks
+          heading="Partners med Business Central-kompetens"
+          intro="Verifierade partners som arbetar med Business Central. Fråga dem om erfarenhet av just er NAV-version och era anpassningar."
+          groups={[{ key: "bc", label: "Business Central", application: "Business Central", allHref: "/businesscentral/#partners" }]}
+          pageSource="nav-till-business-central"
+        />
       </main>
 
       {/* Diskret sticky CTA, endast desktop */}
