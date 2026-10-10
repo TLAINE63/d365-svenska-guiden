@@ -50,7 +50,7 @@ const renderNode = (n: (typeof NODES)[number], onStartNeedsAnalysis?: () => void
           track("home_needs_analysis_click", { source: "beslutsmodell" });
           onStartNeedsAnalysis();
         }}
-        className="mt-auto inline-flex min-h-[44px] items-center self-start rounded pt-1 text-[13px] font-semibold text-primary-foreground/80 underline-offset-4 hover:text-primary-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))]"
+        className="mt-auto inline-flex min-h-[44px] items-end self-start rounded pb-1 text-[13px] font-semibold text-primary-foreground/80 underline-offset-4 hover:text-primary-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))]"
       >
         Gör en behovsanalys
       </button>
