@@ -1,6 +1,8 @@
 // Statistik för rapporten "Svenska Dynamics 365-partnermarknaden 2026".
 // Siffrorna är framtagna ur d365.se:s partnerdatabas (kartlagda svenska
 // Dynamics 365-partners) och uppdateras manuellt när kartläggningen revideras.
+// Totalt antal och antal verifierade profiler räknas från den gemensamma källan.
+import { IDENTIFIED_PARTNER_COUNT, VERIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 
 export const REPORT_UPDATED = "2026/08/20";
 
@@ -14,14 +16,14 @@ export interface ReportStat {
 
 export const REPORT_STATS: ReportStat[] = [
   {
-    label: "Övriga partners",
-    value: 84,
+    label: "Kartlagda partners",
+    value: IDENTIFIED_PARTNER_COUNT,
     note: "Företag som aktivt levererar Dynamics 365 på den svenska marknaden.",
     group: "overblick",
   },
   {
     label: "Partnerverifierade profiler",
-    value: 17,
+    value: VERIFIED_PARTNER_COUNT,
     note: "Partners som själva granskat och godkänt sin profil på d365.se.",
     group: "overblick",
   },
@@ -84,7 +86,7 @@ export const REPORT_STATS: ReportStat[] = [
 export const REPORT_FAQ = [
   {
     q: "Hur många Dynamics 365-partners finns det i Sverige 2026?",
-    a: "d365.se har identifierat 84 partners som aktivt levererar Dynamics 365 på den svenska marknaden. 17 av dem har en partnerverifierad profil där de själva granskat uppgifterna.",
+    a: `d365.se har identifierat ${IDENTIFIED_PARTNER_COUNT} partners som aktivt levererar Dynamics 365 på den svenska marknaden. ${VERIFIED_PARTNER_COUNT} av dem har en partnerverifierad profil där de själva granskat uppgifterna.`,
   },
   {
     q: "Vilket produktområde har flest partners?",

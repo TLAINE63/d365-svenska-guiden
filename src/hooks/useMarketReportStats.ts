@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { IDENTIFIED_PARTNER_COUNT, VERIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 import {
   REPORT_STATS,
   REPORT_UPDATED,
@@ -14,6 +15,15 @@ const formatDate = formatDateYYYYMMDD;
  * Läser rapportens nyckeltal från databasen (redigerbara i admin).
  * Faller tillbaka på de statiska siffrorna så att SSG/SEO alltid har innehåll.
  */
+// Totalt antal och verifierade profiler följer alltid den gemensamma källan,
+// även om admin-tabellen har ett äldre värde.
+function syncPartnerTotals(s: ReportStat): ReportStat {
+  const l = s.label.toLowerCase();
+  if (l.includes("verifierade")) return { ...s, value: VERIFIED_PARTNER_COUNT };
+  if (l.includes("kartlagda") || l.includes("identifierade") || l.includes("övriga partners")) return { ...s, label: "Kartlagda partners", value: IDENTIFIED_PARTNER_COUNT };
+  return s;
+}
+
 export function useMarketReportStats() {
   const [stats, setStats] = useState<ReportStat[]>(REPORT_STATS);
   const [updated, setUpdated] = useState<string>(REPORT_UPDATED);
@@ -36,7 +46,7 @@ export function useMarketReportStats() {
           suffix: row.suffix || undefined,
           note: row.note || "",
           group: (row.group_key || "overblick") as ReportStat["group"],
-        }))
+        })).map(syncPartnerTotals)
       );
 
       const latest = data

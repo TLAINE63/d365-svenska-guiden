@@ -23,6 +23,7 @@ import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
+import { BASIC_PARTNER_COUNT } from "@/data/partnerCounts";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -33,7 +34,7 @@ const breadcrumbs = [
 // prerendered HTML always lists every profiled partner without requiring
 // client-side JavaScript or a network round-trip).
 const STATIC_PROFILED = (partnerDataJson as unknown as DatabasePartner[])
-  .filter((p) => p.is_featured !== false)
+  .filter((p) => p.is_featured === true)
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {
@@ -115,8 +116,9 @@ export default function AllD365Partners() {
     return deduped;
   }, [allNames, unprofiled, basicPartners, q, productFilter, verifiedOnly]);
 
-  const totalMarket =
-    profiledAll.length + (basicPartners?.length ?? 0);
+  // Gemensam källa: samma antal i förrenderad HTML och efter hydrering.
+  const basicCount = basicPartners?.length || BASIC_PARTNER_COUNT;
+  const totalMarket = profiledAll.length + basicCount;
 
   const filteredTotal = profiled.length + basicFiltered.length + others.length;
 
@@ -172,7 +174,7 @@ export default function AllD365Partners() {
                   {profiledAll.length} partnerverifierade profiler
                 </Badge>
                 <Badge variant="outline" className="text-muted-foreground">
-                  {(basicPartners?.length ?? 0)} basickort · {profiledAll.length + (basicPartners?.length ?? 0)} i marknadskartan
+                  {basicCount} grundprofiler · {totalMarket} i marknadskartan
                 </Badge>
               </div>
             )}

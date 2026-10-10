@@ -235,3 +235,7 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] Rätta fallerande tester
 - [x] NAV-sidan i automatisk SEO-kontroll
 - [x] Separata genvägar för fältservice och kontaktcenter
+
+## Fas 0 (2026-10-10) – klar
+- Gemensam källa för partnerantal (startsida, partnerlista, marknadsrapport). 
+- Kvar till fas 1: gemensam bransch-/produkttaxonomi; rapportens produkt-/branschsiffror är fortfarande manuella.
