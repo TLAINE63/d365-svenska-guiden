@@ -79,9 +79,7 @@ import partnerData from "@/data/partnerData.json";
 import basicPartnerRoutes from "@/data/basicPartnerRoutes.json";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
 import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
-import { usePartners } from "@/hooks/usePartners";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
-import { useBasicPartners } from "@/hooks/useBasicPartners";
 
 // Endast branscher som har minst en publicerad (verifierad) partner.
 // Använder samma logik som /branscher (product_filters medräknas).
@@ -110,7 +108,7 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
 // Totalt kartlagda partners = partnerverifierade + grundprofiler från byggtidens
 // datafiler. Samma källa i förrenderad HTML och efter hydrering, så talet växlar
 // aldrig under sidladdningen (slugs överlappar inte mellan filerna).
-const IDENTIFIED_PARTNER_COUNT = partnerData.length + basicPartnerRoutes.length;
+const IDENTIFIED_PARTNER_COUNT = publishedPartners.length + basicPartnerRoutes.length;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.

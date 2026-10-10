@@ -91,7 +91,10 @@ describe("Legacy redirect HTTP status", () => {
       resolve(process.cwd(), "src/entry-server.tsx"),
       "utf-8"
     );
-    expect(src).toMatch(/export\s*\{\s*LEGACY_REDIRECTS\s*,\s*buildRedirectHtml\s*\}\s+from\s+['"]\.\/lib\/legacy-redirects['"]/);
+    // The prerender plugin reads both names from the SSR bundle. LEGACY_REDIRECTS is
+    // exported as a superset: the static registry plus dynamic kunskapscenter redirects.
+    expect(src).toMatch(/export\s*\{\s*buildRedirectHtml\s*\}\s+from\s+['"]\.\/lib\/legacy-redirects['"]/);
+    expect(src).toMatch(/export\s+const\s+LEGACY_REDIRECTS\s*:\s*LegacyRedirect\[\]\s*=\s*\[\s*\.\.\.STATIC_LEGACY_REDIRECTS/);
   });
 });
 
