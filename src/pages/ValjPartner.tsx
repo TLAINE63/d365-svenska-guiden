@@ -492,20 +492,14 @@ const ValjPartner = () => {
  }
  }
  
- // Prioritera signerat avtal först, sedan slumpa inom respektive grupp (Fisher-Yates)
- const shuffleArr = (arr: DatabasePartner[]) => {
- const s = [...arr];
- for (let i = s.length - 1; i > 0; i--) {
- const j = Math.floor(Math.random() * (i + 1));
- [s[i], s[j]] = [s[j], s[i]];
- }
- return s;
- };
-  const q = nameQuery.trim().toLowerCase();
-  if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
-  const signed = result.filter(p => p.agreement_signed);
-  const unsigned = result.filter(p => !p.agreement_signed);
-  return [...shuffleArr(signed), ...shuffleArr(unsigned)];
+ // Avtalspartners först, sedan sessionsstabil seedad ordning inom respektive grupp
+ // (samma seed som övriga partnerlistor, så ordningen hoppar inte vid filterändringar).
+ const seed = getSessionSeed();
+   const q = nameQuery.trim().toLowerCase();
+   if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
+   const signed = result.filter(p => p.agreement_signed);
+   const unsigned = result.filter(p => !p.agreement_signed);
+   return [...seededShuffle(signed, seed), ...seededShuffle(unsigned, seed + 1)];
   }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery]);
 
  // Track which partners get shown in filter results (admin sales summary)
