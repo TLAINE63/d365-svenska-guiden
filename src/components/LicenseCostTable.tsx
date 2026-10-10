@@ -72,7 +72,7 @@ export default function LicenseCostTable() {
   return (
     <section className="py-8 sm:py-12 bg-secondary/20 border-b border-border" id="licenskostnad">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-        <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Del 1 av 3</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Fördjupning</p>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
           Licenskostnad – vad abonnemanget kostar
         </h2>

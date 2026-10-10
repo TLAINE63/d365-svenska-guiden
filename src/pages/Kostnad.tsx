@@ -14,6 +14,7 @@ import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
 import CostContactForm from "@/components/CostContactForm";
 import LicenseCostTable from "@/components/LicenseCostTable";
+import TcoScenarios from "@/components/TcoScenarios";
 import QuickQuoteEstimator from "@/components/QuickQuoteEstimator";
 import { Price } from "@/components/Price";
 import { costBreakdowns } from "@/data/costBreakdown";
@@ -278,6 +279,8 @@ export default function Kostnad() {
             </div>
           </div>
         </section>
+
+        <LicenseCostTable />
 
         <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border" id="vanliga-fragor">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
