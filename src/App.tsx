@@ -106,6 +106,7 @@ const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
 const KompetensOversikt = lazy(() => import("./pages/KompetensOversikt"));
 const CompetenceGuidePage = lazy(() => import("./pages/CompetenceGuidePage"));
 const RoleGuidance = lazy(() => import("./pages/RoleGuidance"));
+const BefintligKund = lazy(() => import("./pages/BefintligKund"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
 const VideoIndex = lazy(() => import("./pages/VideoIndex"));
 const Branscher = lazy(() => import("./pages/Branscher"));
@@ -214,6 +215,7 @@ const AppShell = () => {
           <Route path="/kompetens" element={<KompetensOversikt />} />
           <Route path="/kompetens/:slug" element={<CompetenceGuidePage />} />
           <Route path="/roller" element={<RoleGuidance />} />
+          <Route path="/befintlig-kund" element={<BefintligKund />} />
           <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />
           <Route path="/guider/valja-business-central-partner" element={<PartnerGuidePage guideKey="bc" />} />
           <Route path="/guider/valja-finance-supply-chain-partner" element={<PartnerGuidePage guideKey="fscm" />} />
