@@ -1,3 +1,4 @@
+import ProductNextSteps from "@/components/product/ProductNextSteps";
 import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -376,6 +377,7 @@ const D365CustomerService = () => {
         </div>
       </section>
 
+      <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Customer Service" />
 

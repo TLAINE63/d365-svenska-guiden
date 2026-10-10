@@ -1,3 +1,4 @@
+import ProductNextSteps from "@/components/product/ProductNextSteps";
 import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
@@ -351,6 +352,7 @@ const D365Sales = () => {
         </div>
       </section>
 
+      <ProductNextSteps product="sales" pageSource="D365 Sales" />
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Sales" />
 
