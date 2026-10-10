@@ -1,7 +1,7 @@
 import { track } from "@/lib/track";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ClipboardCheck, ArrowLeftRight, Users, FileText, ArrowRight } from "lucide-react";
+import { ClipboardCheck, ArrowLeftRight, Users, LayoutGrid, ArrowRight } from "lucide-react";
 
 /** Fyra vägval, ett huvudmål per kort (hela kortet klickbart). */
 const NODES = [
