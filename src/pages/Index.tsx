@@ -391,7 +391,7 @@ const Index = () => {
                       "40+ års erfarenhet av ERP- och Dynamics-val",
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}

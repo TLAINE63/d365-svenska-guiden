@@ -14,9 +14,9 @@ const renderNode = (n: (typeof NODES)[number]) => (
   <Link
     key={n.to}
     to={n.to}
-    className="group flex min-h-[44px] items-center gap-3 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 transition-colors hover:border-accent/70 hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent min-[420px]:flex-col min-[420px]:items-start lg:min-h-32 lg:p-5"
+    className="group flex min-h-[44px] items-center gap-3 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 transition-colors hover:border-[hsl(var(--accent-dark-zone))]/70 hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] min-[420px]:flex-col min-[420px]:items-start lg:min-h-32 lg:p-5"
   >
-    <n.icon className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+    <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
     <span className="flex min-w-0 flex-1 flex-col">
       <span className="text-[14px] font-semibold leading-tight text-primary-foreground lg:text-[16px]">{n.title}</span>
       <span className="mt-0.5 hidden text-[12.5px] leading-snug text-primary-foreground/65 min-[420px]:block lg:mt-1 lg:text-[13.5px]">{n.text}</span>
@@ -43,7 +43,7 @@ const DecisionModel = () => {
       <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:gap-3 lg:gap-4">
         {NODES.slice(0, 2).map(renderNode)}
         <div className="col-span-full hidden lg:flex justify-center">
-          <div className="rounded border border-accent/60 bg-accent/10 px-5 py-2.5 text-center">
+          <div className="rounded border border-[hsl(var(--accent-dark-zone))]/60 bg-[hsl(var(--accent-dark-zone))]/10 px-5 py-2.5 text-center">
             <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground/60">Mitt Dynamics-projekt</span>
             <span className="block text-[13px] font-bold leading-tight text-primary-foreground">Gemensamt beslutsunderlag</span>
           </div>

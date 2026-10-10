@@ -65,6 +65,7 @@ All colors MUST be HSL.
     --card-dark: 40 17% 7%;
     --line-dark: 30 16% 20%;            /* #3A332A */
     --accent-light: 156 47% 92%;        /* #E3F4EE – ljus teal bg för ikonchips */
+    --accent-dark-zone: 168 53% 53%;    /* #49C5AD – ljus teal för ikoner/text i mörka sektioner (8,7:1 mot hero-dark) */
     --muted-dark: 24 5% 58%;            /* #9A9490 – text på svart */
     --border-on-dark: 36 18% 81%;       /* #D8D1C6 – sekundär knapp på mörk bg */
 
@@ -82,6 +83,7 @@ All colors MUST be HSL.
     --color-cta: #B23D19;               /* Primär orange (CTA) – WCAG AA */
     --color-cta-hover: #9A3214;         /* Mörkare hover */
     --color-teal: #007C68;              /* Sekundär accent (ikoner, checks) */
+    --color-teal-dark-zone: #49C5AD;   /* Teal i mörka sektioner */
     --color-cta-bg: #E3F4EE;            /* Ljus teal bg för ikonchips */
 
 
