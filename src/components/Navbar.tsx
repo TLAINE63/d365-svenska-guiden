@@ -80,6 +80,7 @@ const MENUS: NavMenu[] = [
           { label: "Kunskapscenter", path: "/kunskapscenter" },
           { label: "Översikt: alla guider", path: "/guider/" },
           { label: "Välj din roll", path: "/roller/" },
+          { label: "Redan Dynamics-kund", path: "/befintlig-kund/" },
           { label: "Upphandlingsguiden", path: "/upphandlingsguiden/" },
         ],
       },
