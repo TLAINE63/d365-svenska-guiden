@@ -20,7 +20,7 @@ const formatDate = formatDateYYYYMMDD;
 function syncPartnerTotals(s: ReportStat): ReportStat {
   const l = s.label.toLowerCase();
   if (l.includes("verifierade")) return { ...s, value: VERIFIED_PARTNER_COUNT };
-  if (l.includes("kartlagda") || l.includes("övriga partners")) return { ...s, label: "Kartlagda partners", value: IDENTIFIED_PARTNER_COUNT };
+  if (l.includes("kartlagda") || l.includes("identifierade") || l.includes("övriga partners")) return { ...s, label: "Kartlagda partners", value: IDENTIFIED_PARTNER_COUNT };
   return s;
 }
 
