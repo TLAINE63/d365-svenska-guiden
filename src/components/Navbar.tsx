@@ -141,12 +141,21 @@ const MENUS: NavMenu[] = [
   },
 ];
 
-const ItemLink = ({ item, className }: { item: NavLinkItem; className: string }) =>
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
+
+type ItemLinkProps = ComponentPropsWithoutRef<"a"> & { item: NavLinkItem };
+
+/** Måste vidarebefordra ref och props: Radix Slot (DropdownMenuItem/SheetClose asChild)
+ *  klonar barnet och smälter in ref, onClick, tabIndex m.m. Utan detta går
+ *  tangentbordsnavigation i menyn och stängning av mobilmenyn förlorade. */
+const ItemLink = forwardRef<HTMLAnchorElement, ItemLinkProps>(({ item, ...props }, ref) =>
   item.href ? (
-    <a href={item.href} className={className}>{item.label}</a>
+    <a ref={ref} href={item.href} {...props}>{item.label}</a>
   ) : (
-    <Link to={item.path!} className={className}>{item.label}</Link>
-  );
+    <Link ref={ref} to={item.path!} {...props}>{item.label}</Link>
+  )
+);
+ItemLink.displayName = "ItemLink";
 
 const triggerClass =
   "text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0 focus-visible:ring-2 focus-visible:ring-[hsl(var(--signature))]";
