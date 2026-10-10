@@ -145,7 +145,7 @@ export const getProductIndustries = (
 };
 
 // Seeded random shuffle for consistent ordering per session
-const seededShuffle = <T,>(array: T[], seed: number): T[] => {
+export const seededShuffle = <T,>(array: T[], seed: number): T[] => {
   const shuffled = [...array];
   let currentIndex = shuffled.length;
   
@@ -166,7 +166,7 @@ const seededShuffle = <T,>(array: T[], seed: number): T[] => {
 
 // Get a session-stable seed (same for entire browser session)
 let sessionSeed: number | null = null;
-const getSessionSeed = (): number => {
+export const getSessionSeed = (): number => {
   if (sessionSeed === null) {
     sessionSeed = Math.floor(Math.random() * 1000000);
   }

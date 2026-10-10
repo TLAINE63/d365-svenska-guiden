@@ -227,3 +227,11 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] "Vad vill ni förbättra?"
 - [x] Partnerflödet inventerat (docs/SPRINT1-PARTNERFLODE.md)
 - [ ] Publicering (Thomas)
+
+## Kvalitetssprint (2026-10-10)
+- [x] Stabil partnersortering i partnerurvalet (avtalspartners först, sessionsstabil ordning)
+- [x] Samma UTM-modell på utgående partnerlänkar
+- [x] Partnerantal 87 från samma källa före och efter laddning
+- [x] Rätta fallerande tester
+- [x] NAV-sidan i automatisk SEO-kontroll
+- [x] Separata genvägar för fältservice och kontaktcenter

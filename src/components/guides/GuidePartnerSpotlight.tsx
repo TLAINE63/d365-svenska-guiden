@@ -1,3 +1,4 @@
+import { partnerWebsiteUrl } from "@/lib/track";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { Link } from "react-router-dom";
@@ -88,7 +89,7 @@ const GuidePartnerSpotlight = ({ guide, className = "" }: Props) => {
 
               {p.website && (
                 <a
-                  href={p.website}
+                  href={partnerWebsiteUrl(p.website) ?? p.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() =>

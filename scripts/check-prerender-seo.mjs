@@ -25,6 +25,7 @@ export const CRITICAL_ROUTES = [
   "/",
   "/affarssystem",
   "/businesscentral",
+  "/nav-till-business-central",
   "/priser",
   "/kom-igang",
   "/partnerprogram",
