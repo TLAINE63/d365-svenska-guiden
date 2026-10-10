@@ -305,14 +305,14 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
-            <h2 id="beslutsmodell" className="text-[22px] sm:text-[28px] font-bold text-white leading-tight tracking-tight mb-2">
-              Var i ert beslut befinner ni er?
+            <h2 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-2 text-balance">
+              Rätt <span className="whitespace-nowrap">Dynamics 365</span>-beslut börjar här.
             </h2>
-            <p className="mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-white/70">
-              Börja där ni står. Ni kan gå mellan delarna i valfri ordning.
+            <p className="mb-4 sm:mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
+              Förstå era behov, jämför ERP- och CRM-lösningar och hitta rätt <span className="whitespace-nowrap">Dynamics 365</span>-partner.
             </p>
             <DecisionModel />
           </div>
