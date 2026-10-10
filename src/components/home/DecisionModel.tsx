@@ -23,7 +23,7 @@ const NODES: {
   },
   { icon: ArrowLeftRight, title: "Jämföra & räkna TCO", text: "Införandekostnad, 3-års TCO & alternativ", to: "/kostnad/", compare: true },
   { icon: LayoutGrid, title: "Redan Dynamics-kund", text: "Utöka med fler applikationer, AI eller nya arbetsområden", to: "/underlag/" },
-  { icon: Users, title: "Hitta partner och expertis", text: "Specialister per lösning, bransch eller roll", to: "/valjdynamics365partner/" },
+  { icon: Users, title: "Hitta partner & expertis", text: "Specialister per produkt, bransch eller roll", to: "/valjdynamics365partner/" },
 ];
 
 const renderNode = (n: (typeof NODES)[number], onStartNeedsAnalysis?: () => void) => (
