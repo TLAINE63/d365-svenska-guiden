@@ -25,6 +25,7 @@ const Footer = () => {
               <li><Link to="/affarssystem/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central vs F&SCM</Link></li>
               <li><Link to="/businesscentral/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Business Central</Link></li>
               <li><Link to="/nav-till-business-central/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">NAV till Business Central – testet</Link></li>
+              <li><Link to="/befintlig-kund/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Redan Dynamics-kund</Link></li>
               <li><Link to="/finance-supply-chain/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Finance & Supply Chain Management (F&O)</Link></li>
               <li><Link to="/business-central-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central-partners</Link></li>
               <li><Link to="/finance-supply-chain-partners-sverige/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Finance & Supply Chain Management (F&O)-partners</Link></li>
