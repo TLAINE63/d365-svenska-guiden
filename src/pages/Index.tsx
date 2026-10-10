@@ -151,9 +151,9 @@ const Index = () => {
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
-    { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
-    { value: "fscm", label: "Finance & Supply Chain Management (F&O) (ERP Enterprise)", path: "/finance-supply-chain/", hasPartnerFilter: true },
-    { value: "sales", label: "Sales (CRM)", path: "/crm/", hasPartnerFilter: true },
+    { value: "bc", label: "Business Central (affärssystem, små och medelstora bolag)", path: "/businesscentral/", hasPartnerFilter: true },
+    { value: "fscm", label: "Finance & Supply Chain Management (affärssystem, större bolag/koncern)", path: "/finance-supply-chain/", hasPartnerFilter: true },
+    { value: "sales", label: "Sales (säljstöd/CRM)", path: "/crm/", hasPartnerFilter: true },
     { value: "cs", label: "Customer Service", path: "/d365customerservice/" },
     { value: "fs", label: "Field Service", path: "/d365fieldservice/" },
     { value: "ci", label: "Customer Insights (Marketing)", path: "/d365marketing/" },
@@ -304,7 +304,7 @@ const Index = () => {
               Rätt <span className="whitespace-nowrap">Dynamics 365</span>-beslut börjar här.
             </h2>
             <p className="mb-4 sm:mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
-              Förstå era behov, jämför ERP- och CRM-lösningar och hitta rätt <span className="whitespace-nowrap">Dynamics 365</span>-partner.
+              För nya val och befintliga kunder: affärssystem för ekonomi, lager och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
             </p>
             <DecisionModel />
           </div>

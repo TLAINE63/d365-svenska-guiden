@@ -5,10 +5,10 @@ import { ClipboardCheck, ArrowLeftRight, Users, FileText, ArrowRight } from "luc
 
 /** Fyra vägval, ett huvudmål per kort (hela kortet klickbart). */
 const NODES = [
-  { icon: ClipboardCheck, title: "Förstå våra behov", text: "ERP, CRM eller båda?", to: "/kom-igang/" },
-  { icon: ArrowLeftRight, title: "Jämföra lösningar", text: "ERP- och CRM-appar med listpriser", to: "/priser/" },
-  { icon: FileText, title: "Förbereda beslut", text: "Kravunderlag och upphandling", to: "/kravspecifikation/" },
-  { icon: Users, title: "Hitta rätt partner", text: "Partner eller kompetens", to: "/valjdynamics365partner/" },
+  { icon: ClipboardCheck, title: "Förstå verksamhetens behov", text: "Ekonomi och lager, sälj, kundservice eller helheten?", to: "/kom-igang/" },
+  { icon: ArrowLeftRight, title: "Jämföra och räkna kostnad", text: "Införande, TCO över tid och alternativ", to: "/kostnad/" },
+  { icon: FileText, title: "Redan Dynamics-kund", text: "Byta partner, förvaltning eller second opinion", to: "/kompetens/" },
+  { icon: Users, title: "Hitta partner och expertis", text: "Specialister per lösning, bransch eller roll", to: "/valjdynamics365partner/" },
 ];
 
 const renderNode = (n: (typeof NODES)[number]) => (
