@@ -170,9 +170,10 @@ export default function Kostnad() {
                 Innehåll i guiden
               </h2>
               <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm list-decimal pl-5">
-                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
+                <li><a href="#tco-3-ar" className="underline hover:text-foreground">Totalkostnad över tre år</a></li>
                 <li><a href="#snabb-offertfraga" className="underline hover:text-foreground">Snabb offertfråga – ditt kostnadsspann direkt</a></li>
                 <li><a href="#per-applikation" className="underline hover:text-foreground">Implementationskostnad per applikation</a></li>
+                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
                 <li><a href="#vanliga-fragor" className="underline hover:text-foreground">Vanliga frågor om kostnad</a></li>
               </ol>
             </nav>
@@ -180,7 +181,7 @@ export default function Kostnad() {
         </section>
         <EditorialAssessment assessment="cost" />
 
-        <LicenseCostTable />
+        <TcoScenarios />
 
         <QuickQuoteEstimator />
 
