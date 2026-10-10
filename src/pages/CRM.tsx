@@ -1,3 +1,5 @@
+import KeyTakeaways from "@/components/guide/KeyTakeaways";
+import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -238,6 +240,17 @@ const CRM = () => {
  <p><strong>Ett CRM-system (<em>Customer Relationship Management</em>) samlar företagets kundkontakter, säljpipeline, kundservice och marknadsaktiviteter på ett ställe.</strong> Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft{"\u00A0"}365 blir en CRM-svit som Dynamics{"\u00A0"}365 eller Salesforce mer relevant.</p>
  <p>Jämför alltid <strong>totalkostnaden, inte bara licenspriset</strong>, och välj partner efter erfarenhet av just er process.</p>
  </ShortAnswer>
+  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+  <KeyTakeaways
+   partnersAnchor="guide-partners"
+   items={[
+    <>Dynamics{"\u00A0"}365 CRM är modulärt: Sales, Customer Service, Field Service, Contact Center och Customer Insights.</>,
+    "Applikationerna delar samma kunddata, så sälj, service och marknad kan arbeta med en gemensam bild av kunden.",
+    <>Integrationen med Microsoft{"\u00A0"}365, Teams och affärssystem är ofta det avgörande skälet att välja Dynamics.</>,
+    "Licensen tecknas per användare och roll; jämför totalkostnaden och välj partner efter erfarenhet av er process.",
+   ]}
+  />
+  </div>
   <CrmBuyerGuideIntro />
   <EditorialAssessment assessment="crm" />
   <FitModel model="crm" heading="Vad avgör valet?" />
@@ -787,6 +800,12 @@ const CRM = () => {
  </section>
  <RelevantVideosSection productGroups={["crm-sales", "crm-service", "customer-insights"]} title="Videor om Dynamics 365 CRM" />
  
+<GuidePartnerPicks
+ heading="Verifierade CRM-partners"
+ intro="Specialister för säljstöd och kundservice, med lika många platser för båda områdena."
+ groups={[{ key: "sales", label: "Dynamics 365 Sales", application: "Sales", allHref: "/crm/#partners" }, { key: "service", label: "Customer Service", application: "Customer Service", allHref: "/crm/#partners" }]}
+ pageSource="crm"
+/>
 <ContextualCta source="next-step:crm" heading="Vilken typ av CRM passar er?" text="Några frågor om er process ger en rekommenderad lösningstyp och partners som passar." primaryLabel="Se vilken typ av CRM som passar er" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod />
