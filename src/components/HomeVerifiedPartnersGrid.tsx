@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowLeftRight } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
+import { useShortlist } from "@/contexts/ShortlistContext";
 import { Button } from "@/components/ui/button";
 import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import type { DatabasePartner } from "@/hooks/usePartners";
@@ -114,7 +114,9 @@ interface HomeVerifiedPartnersGridProps {
 }
 
 export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeVerifiedPartnersGridProps) {
-  const { selected, clear, max } = usePartnerCompare();
+  // Korten sparar till kortlistan; jämförelsen utgår från samma val (max tre).
+  const { items: selected, clear } = useShortlist();
+  const max = 3;
   const [product, setProduct] = useState<ProductId>("all");
   const [industry, setIndustry] = useState<string>("");
 
