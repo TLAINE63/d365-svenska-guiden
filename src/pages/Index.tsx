@@ -297,21 +297,31 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-14 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-16 sm:pt-20 md:pt-24 pb-6 sm:pb-8 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
             <h2 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-2 text-balance">
-              Rätt <span className="whitespace-nowrap">Dynamics 365</span>-beslut börjar här.
+              Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
             </h2>
-            <p className="mb-4 sm:mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
+            <p className="mb-4 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
               För nya val och befintliga kunder: affärssystem för ekonomi, inköp, order, lager, projekt och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
             </p>
+            <p className="mb-3 text-[13px] sm:text-[14px] font-semibold text-primary-foreground">
+              Vad vill ni göra? <span className="font-normal text-primary-foreground/70">Välj det kort som passar er bäst.</span>
+            </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+            <a
+              href="#matcha-partner"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 text-[13px] text-primary-foreground/70 underline-offset-4 hover:text-primary-foreground hover:underline"
+            >
+              Vet ni redan bransch och lösning? Filtrera partners direkt
+              <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
           </div>
         </section>
 
         {/* SECTION 2 – HERO */}
-        <section className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-10 sm:pt-14 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
+        <section id="matcha-partner" className="scroll-mt-20 section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-8 sm:pt-12 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">

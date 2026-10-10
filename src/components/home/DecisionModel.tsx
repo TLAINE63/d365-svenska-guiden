@@ -34,7 +34,7 @@ const renderNode = (n: (typeof NODES)[number], onStartNeedsAnalysis?: () => void
     <Link
       to={n.to}
       onClick={() => track("home_path_click", { path: n.title, to: n.to })}
-      className="flex min-h-[44px] flex-1 items-center gap-3 rounded transition-colors hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] min-[420px]:flex-col min-[420px]:items-start lg:min-h-32"
+      className="flex min-h-[44px] flex-1 items-center gap-3 rounded transition-colors hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] min-[420px]:flex-col min-[420px]:items-start lg:min-h-24"
     >
       <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
       <span className="flex min-w-0 flex-1 flex-col">
