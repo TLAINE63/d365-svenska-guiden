@@ -1,13 +1,13 @@
 import { track } from "@/lib/track";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ClipboardCheck, ArrowLeftRight, Users, FileText, ArrowRight } from "lucide-react";
+import { ClipboardCheck, ArrowLeftRight, Users, LayoutGrid, ArrowRight } from "lucide-react";
 
 /** Fyra vägval, ett huvudmål per kort (hela kortet klickbart). */
 const NODES = [
   { icon: ClipboardCheck, title: "Förstå verksamhetens behov", text: "Ekonomi och lager, sälj, kundservice eller helheten?", to: "/kom-igang/" },
   { icon: ArrowLeftRight, title: "Jämföra och räkna kostnad", text: "Införande, TCO över tid och alternativ", to: "/kostnad/" },
-  { icon: FileText, title: "Redan Dynamics-kund", text: "Byta partner, förvaltning eller second opinion", to: "/kompetens/" },
+  { icon: LayoutGrid, title: "Redan Dynamics-kund", text: "Utöka med fler applikationer, AI eller nya arbetsområden", to: "/underlag/" },
   { icon: Users, title: "Hitta partner och expertis", text: "Specialister per lösning, bransch eller roll", to: "/valjdynamics365partner/" },
 ];
 
