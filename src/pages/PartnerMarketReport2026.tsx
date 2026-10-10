@@ -1,4 +1,5 @@
 import { partnerSources } from "@/lib/guideSources";
+import { IDENTIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import { useMemo, useState } from "react";
@@ -136,7 +137,7 @@ export default function PartnerMarketReport2026() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Svenska Dynamics 365-partnermarknaden 2026 – rapport"
-        description="Rapport om Dynamics 365-partners i Sverige 2026: 84 övriga partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek."
+        description={`Rapport om Dynamics 365-partners i Sverige 2026: ${IDENTIFIED_PARTNER_COUNT} kartlagda partners fördelat på Business Central, F&SCM, CRM, Power Platform/AI, bransch och bolagsstorlek.`}
         canonicalPath={CANONICAL}
         ogType="article"
         keywords="Dynamics 365 partners Sverige, partnermarknad 2026, Business Central partner, F&SCM partner, CRM partner"

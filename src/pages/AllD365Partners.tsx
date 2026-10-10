@@ -34,7 +34,7 @@ const breadcrumbs = [
 // prerendered HTML always lists every profiled partner without requiring
 // client-side JavaScript or a network round-trip).
 const STATIC_PROFILED = (partnerDataJson as unknown as DatabasePartner[])
-  .filter((p) => p.is_featured !== false)
+  .filter((p) => p.is_featured === true)
   .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 export default function AllD365Partners() {

@@ -18,7 +18,7 @@ describe("Startsidan – genvägar och partnerantal", () => {
   });
 
   it("räknar partners från byggtidens data, utan hårdkodad fallback", () => {
-    expect(src).toMatch(/IDENTIFIED_PARTNER_COUNT\s*=\s*publishedPartners\.length\s*\+\s*basicPartnerRoutes\.length/);
+    expect(src).toMatch(/from \"@\/data\/partnerCounts\"/);
     expect(src).not.toMatch(/IDENTIFIED_PARTNER_COUNT_FALLBACK/);
   });
 
