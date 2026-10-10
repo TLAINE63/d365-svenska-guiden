@@ -76,7 +76,7 @@ import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
-import basicPartnerRoutes from "@/data/basicPartnerRoutes.json";
+import { IDENTIFIED_PARTNER_COUNT, VERIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
 import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
@@ -103,12 +103,8 @@ publishedPartners.forEach((p) => {
 });
 const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames.has(i.name));
 
-// Fallback som används vid SSG/innan data laddats – ersätts av live-siffror i klienten.
-const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
-// Totalt kartlagda partners = partnerverifierade + grundprofiler från byggtidens
-// datafiler. Samma källa i förrenderad HTML och efter hydrering, så talet växlar
-// aldrig under sidladdningen (slugs överlappar inte mellan filerna).
-const IDENTIFIED_PARTNER_COUNT = publishedPartners.length + basicPartnerRoutes.length;
+// Partnerantal från den gemensamma källan (samma i förrenderad HTML och efter hydrering).
+const VERIFIED_PARTNER_COUNT_FALLBACK = VERIFIED_PARTNER_COUNT;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
