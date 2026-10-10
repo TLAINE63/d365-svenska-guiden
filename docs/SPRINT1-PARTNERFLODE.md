@@ -20,3 +20,11 @@ Flöde: Partnermatchning → Partnerkortlista → Jämförelse → Kontaktförfr
 
 ## Åtgärdat 2026-10-10 (säker UI-rättelse)
 - Startsidans "Jämför valda partner" räknade det separata jämförelseurvalet medan korten sparade till kortlistan, så knappen förblev låst. Knappen utgår nu från kortlistan (max tre). Jämförelsesidan och förfrågan är oförändrade.
+
+## Underlag för nästa sprint (efter kvalitetssprinten 2026-10-10)
+- Kortlista och jämförelse: ShortlistContext och PartnerCompareContext är fortfarande två urval utanför startsidan. Slå ihop till en urvalsmodell (max tre).
+- Behovsanalyser (ERP, CRM, kundservice), implementationskalkylatorn och kravspecifikationen sparar inte till buyerProfile/buyerContext. Koppla dem stegvis till Min D365-plan, med användarens val om vad som sparas.
+- Valda produkter och branscher följer inte alltid med till partnerurvalet; kompetensförfrågan förifyller inte vald specialistroll.
+- Kravspecifikationens e-postkrav: mät användning och slutförande innan beslut (Thomas 2026-10-10).
+- ISV till partner och filter för övertagande/förvaltning kräver verifierad partnerdata först.
+- Partnerknappen "Besök partnerns webbplats" i beslutsraden visas bara om webbplats skickas in; ingen anropare gör det i dag.
