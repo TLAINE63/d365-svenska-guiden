@@ -219,3 +219,11 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] AI-bubblan döljs första skärmen så rubriken hålls läsbar på mobil
 - [x] Kontrollera startsidan i webbläsaren på dator och mobil
 - [ ] Publicera (ändringarna syns på d365.se först efter publicering)
+
+## Sprint 1 del 2 (2026-10-10)
+- [x] Konsoliderade startsidan (fyra upprepade sektioner + slut-CTA borttagna)
+- [x] Hero utan "Mitt Dynamics-projekt", fyra kort i rad
+- [x] Ny huvudmeny + mobilmeny
+- [x] "Vad vill ni förbättra?"
+- [x] Partnerflödet inventerat (docs/SPRINT1-PARTNERFLODE.md)
+- [ ] Publicering (Thomas)
