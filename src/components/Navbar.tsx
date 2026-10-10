@@ -141,9 +141,9 @@ const MENUS: NavMenu[] = [
   },
 ];
 
-import { forwardRef } from "react";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 
-type ItemLinkProps = React.ComponentPropsWithoutRef<"a"> & { item: NavLinkItem };
+type ItemLinkProps = ComponentPropsWithoutRef<"a"> & { item: NavLinkItem };
 
 /** Måste vidarebefordra ref och props: Radix Slot (DropdownMenuItem/SheetClose asChild)
  *  klonar barnet och smälter in ref, onClick, tabIndex m.m. Utan detta går
