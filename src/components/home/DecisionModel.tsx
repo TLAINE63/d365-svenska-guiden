@@ -19,7 +19,7 @@ const NODES: {
     to: "/kom-igang/",
     needsAnalysis: true,
   },
-  { icon: ArrowLeftRight, title: "Jämföra och räkna kostnad", text: "Införande, TCO över tid och alternativ", to: "/kostnad/" },
+  { icon: ArrowLeftRight, title: "Jämföra & räkna TCO", text: "Införandekostnad, 3-års TCO & alternativ", to: "/kostnad/", compare: true },
   { icon: LayoutGrid, title: "Redan Dynamics-kund", text: "Utöka med fler applikationer, AI eller nya arbetsområden", to: "/underlag/" },
   { icon: Users, title: "Hitta partner och expertis", text: "Specialister per lösning, bransch eller roll", to: "/valjdynamics365partner/" },
 ];
