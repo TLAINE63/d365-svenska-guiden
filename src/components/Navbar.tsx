@@ -21,7 +21,7 @@ type NavMenu = { label: string; groups: NavGroup[] };
 
 const SURVEYS = "https://d365-surveys.lovable.app";
 
-/** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners & kompetens. ERP och CRM har samma struktur. */
+/** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners. ERP och CRM har samma struktur. */
 const MENUS: NavMenu[] = [
   {
     label: "ERP",
@@ -118,15 +118,15 @@ const MENUS: NavMenu[] = [
     ],
   },
   {
-    label: "Partners & kompetens",
+    label: "Partners",
     groups: [
       {
         items: [
-          { label: "Hitta rätt partner", path: "/valjdynamics365partner/", strong: true },
+          { label: "Hitta partner", path: "/valjdynamics365partner/", strong: true },
           { label: "Partners per bransch", path: "/partners-per-bransch/" },
           { label: "Jämför partners", path: "/jamfor-partners/" },
           { label: "Min kortlista", path: "/kortlista/" },
-          { label: "Hitta rätt Dynamics 365-kompetens", path: "/kompetens/" },
+          { label: "Hitta kompetens", path: "/kompetens/" },
           { label: "Partnernytt", path: "/partnernytt/" },
         ],
       },

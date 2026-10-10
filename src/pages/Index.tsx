@@ -424,8 +424,8 @@ const Index = () => {
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Urvalet:</strong> ni väljer själva upp till tre partners. Inget skickas vidare utan ert godkännande.</span></li>
               </ul>
             </div>
-            <nav aria-labelledby="forbattra-rubrik" className="rounded border border-border bg-card p-6">
-              <h2 id="forbattra-rubrik" className="mb-1 text-xl font-bold text-foreground">Vad vill ni förbättra?</h2>
+            <nav aria-labelledby="forbattra-rubrik" className="p-1 lg:pl-2">
+              <h2 id="forbattra-rubrik" className="mb-1 text-lg font-semibold text-foreground">Vad vill ni förbättra?</h2>
               <p className="mb-4 text-[14px] text-muted-foreground">Gå direkt till det verksamhetsområde som berör er.</p>
               <ul className="grid gap-x-6 sm:grid-cols-2">
                 {[
