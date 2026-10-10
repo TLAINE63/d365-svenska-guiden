@@ -14,6 +14,7 @@ import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
 import CostContactForm from "@/components/CostContactForm";
 import LicenseCostTable from "@/components/LicenseCostTable";
+import TcoScenarios from "@/components/TcoScenarios";
 import QuickQuoteEstimator from "@/components/QuickQuoteEstimator";
 import { Price } from "@/components/Price";
 import { costBreakdowns } from "@/data/costBreakdown";
@@ -170,9 +171,10 @@ export default function Kostnad() {
                 Innehåll i guiden
               </h2>
               <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm list-decimal pl-5">
-                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
+                <li><a href="#tco-3-ar" className="underline hover:text-foreground">Totalkostnad över tre år</a></li>
                 <li><a href="#snabb-offertfraga" className="underline hover:text-foreground">Snabb offertfråga – ditt kostnadsspann direkt</a></li>
                 <li><a href="#per-applikation" className="underline hover:text-foreground">Implementationskostnad per applikation</a></li>
+                <li><a href="#licenskostnad" className="underline hover:text-foreground">Licenskostnad – vad abonnemanget kostar</a></li>
                 <li><a href="#vanliga-fragor" className="underline hover:text-foreground">Vanliga frågor om kostnad</a></li>
               </ol>
             </nav>
@@ -180,7 +182,7 @@ export default function Kostnad() {
         </section>
         <EditorialAssessment assessment="cost" />
 
-        <LicenseCostTable />
+        <TcoScenarios />
 
         <QuickQuoteEstimator />
 
@@ -277,6 +279,8 @@ export default function Kostnad() {
             </div>
           </div>
         </section>
+
+        <LicenseCostTable />
 
         <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border" id="vanliga-fragor">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
