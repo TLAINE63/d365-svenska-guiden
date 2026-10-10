@@ -304,7 +304,7 @@ const Index = () => {
               Rätt <span className="whitespace-nowrap">Dynamics 365</span>-beslut börjar här.
             </h2>
             <p className="mb-4 sm:mb-6 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
-              För nya val och befintliga kunder: affärssystem för ekonomi, lager och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
+              För nya val och befintliga kunder: affärssystem för ekonomi, inköp, order, lager, projekt och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
           </div>
