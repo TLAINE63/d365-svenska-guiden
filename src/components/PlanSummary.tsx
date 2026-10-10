@@ -8,6 +8,7 @@ import { clearD365Plan, planNextStep, updatePlan, usePlanMeta } from "@/lib/d365
 import { UNDERLAG_QUESTIONS, answerLabel } from "@/data/underlagQuestions";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import { productNextSteps } from "@/data/productNextSteps";
 
 export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
   const buyer = useBuyerContext();
@@ -60,6 +61,27 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
         {Array.from(new Set([...meta.needs, ...needs])).map((need) => <li key={need}>{nowrapBrand(need)}</li>)}
         {priorities.map(([key, value]) => <li key={key}>{key.slice(key.indexOf(":") + 1)}: {value === "important" ? "Prioriterat behov" : "Behöver utredas"}</li>)}
       </ul> : <p className="mt-2 text-sm text-muted-foreground">Inga behov har angetts ännu.</p>}
+      {(() => {
+        const map: Record<string, string> = { "Business Central": "Business Central", "Finance & SCM": "Finance & Supply Chain", Sales: "Sales", "Customer Service": "Customer Service", "Field Service": "Field Service", "Customer Insights (Marketing)": "Customer Insights", "Contact Center": "Contact Center" };
+        const cfg = buyer.product ? Object.values(productNextSteps).find((c) => c.label === map[buyer.product as string]) : undefined;
+        const general = [
+          "Vilket affärsproblem ska lösningen lösa, och hur mäter vi att det fungerar?",
+          "Vad kostar helheten över tre år: licenser, införande och förvaltning?",
+          "Vem i organisationen äger beslutet, och vilka roller behöver vara med?",
+        ];
+        return <>
+          <h3 className="mt-5 font-semibold">Frågor att ta med till styrgrupp och partners</h3>
+          <p className="mt-1 text-sm text-muted-foreground">Använd frågorna som checklista inför interna möten och partnersamtal.</p>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-foreground">
+            {[...general, ...(cfg ? cfg.questions : [])].map((q) => <li key={q}>{nowrapBrand(q)}</li>)}
+          </ol>
+          {!cfg && <p className="mt-2 text-xs text-muted-foreground print:hidden">Välj en produkt ovan för att få produktspecifika frågor.</p>}
+          {items.length > 0 && <>
+            <h3 className="mt-5 font-semibold">Sparade partners</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">{items.map((p) => <li key={p.slug}>{p.name}</li>)}</ul>
+          </>}
+        </>;
+      })()}
       <div className="mt-5 flex flex-wrap gap-3 print:hidden">
         {next.to.startsWith("#") ? <Button onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
         <Button variant="outline" onClick={onEdit}>Ändra eller komplettera svar</Button>
