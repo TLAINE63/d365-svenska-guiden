@@ -30,3 +30,4 @@
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
 - Critical inline CSS in index.html must be scoped (e.g. `nav[data-site-nav] ...`); bare selectors like `a[href="/kom-igang/"]` outspecificity Tailwind classes and restyle content links/cards site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
+- Public partner counts (verified, basic, total) come only from src/data/partnerCounts.ts (build-time partner data); keeps prerendered HTML, hydrated pages and the market report identical.
