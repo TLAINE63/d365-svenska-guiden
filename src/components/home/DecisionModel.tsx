@@ -11,6 +11,8 @@ const NODES: {
   to: string;
   /** Visar en extra ingång till behovsanalys i kortet. */
   needsAnalysis?: boolean;
+  /** Visar en extra ingång till jämförelser av alternativ. */
+  compare?: boolean;
 }[] = [
   {
     icon: ClipboardCheck,
