@@ -1,3 +1,4 @@
+import ProductNextSteps from "@/components/product/ProductNextSteps";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -1012,7 +1013,8 @@ const BusinessCentral = () => {
 
 
 
- <RelatedPages pages={bcRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
+ <ProductNextSteps product="business-central" pageSource="Business Central" />
+      <RelatedPages pages={bcRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">
      <PageOfferBanner />
