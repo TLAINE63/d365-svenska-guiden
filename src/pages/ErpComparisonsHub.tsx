@@ -51,6 +51,40 @@ const ErpComparisonsHub = () => {
 
         <section className="py-10 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-10">
+            <div id="snabbguide" className="scroll-mt-24">
+              <div className="mb-5">
+                <h2 className="text-2xl font-bold text-foreground">Vilket vägval står ni inför?</h2>
+                <p className="text-sm text-muted-foreground">
+                  De vanligaste jämförelserna bland svenska köpare. Börja med frågan som liknar er situation.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { group: "Affärssystem", q: "Växer ni ur ert nuvarande system och tillverkar själva?", slug: "business-central-vs-monitor-erp", label: "Business Central vs Monitor ERP" },
+                  { group: "Affärssystem", q: "Har ni bolag i flera länder och vill ha ett molnsystem?", slug: "business-central-vs-netsuite", label: "Business Central vs NetSuite" },
+                  { group: "Affärssystem", q: "Är ni en större koncern som väljer mellan de stora plattformarna?", slug: "fscm-vs-sap-s4hana", label: "Finance & Supply Chain vs SAP S/4HANA" },
+                  { group: "Säljstöd", q: "Vill ni ha säljstöd som hänger ihop med Microsoft 365?", slug: "sales-vs-salesforce-sales-cloud", label: "Sales vs Salesforce Sales Cloud" },
+                  { group: "Säljstöd", q: "Börjar ni i liten skala och funderar på enklare alternativ?", slug: "sales-vs-hubspot-sales-hub", label: "Sales vs HubSpot Sales Hub" },
+                  { group: "Kundservice", q: "Behöver kundtjänsten mer än ett ärendesystem?", slug: "customer-service-vs-zendesk", label: "Customer Service vs Zendesk" },
+                ].map((i) => (
+                  <Link key={i.slug} to={`/jamfor/${i.slug}/`} className="group">
+                    <Card className="h-full border-border transition group-hover:border-foreground/30">
+                      <CardContent className="p-5 flex flex-col h-full">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">{i.group}</p>
+                        <p className="font-semibold text-foreground mb-2">{i.q}</p>
+                        <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-[hsl(var(--cta-orange))]">
+                          {i.label} <ArrowRight className="h-4 w-4 shrink-0" />
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                Vill ni se vad helheten kostar över tre år? <Link to="/kostnad/" className="text-primary underline">Räkna totalkostnad</Link>.
+              </p>
+            </div>
+
             {PRODUCT_GROUPS.map((group) => {
               const items = getComparisonsByProduct(group.key);
               if (items.length === 0) return null;
