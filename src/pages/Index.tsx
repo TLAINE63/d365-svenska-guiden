@@ -1,5 +1,4 @@
 import { track } from "@/lib/track";
-import { BUYER_SIDE_DESCRIPTION } from "@/data/organization";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
@@ -300,9 +299,9 @@ const Index = () => {
           className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-20 sm:pt-28 pb-6 sm:pb-8 relative overflow-hidden border-b border-[hsl(var(--line-dark))]"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
-            <h2 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-2 text-balance">
+            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-2 text-balance">
               Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
-            </h2>
+            </h1>
             <p className="mb-4 max-w-2xl text-[14px] sm:text-[15px] leading-relaxed text-primary-foreground/70">
               För nya val och befintliga kunder: affärssystem för ekonomi, inköp, order, lager, projekt och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
             </p>
@@ -324,20 +323,7 @@ const Index = () => {
         <section id="matcha-partner" className="scroll-mt-20 section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-8 sm:pt-12 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6">
-                <Sparkles className="w-3 h-3" />
-                Upphandlingsguiden för Microsoft Dynamics 365
-              </div>
-              <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-                Jämför <span className="whitespace-nowrap">Dynamics&nbsp;365-partners</span> utifrån era behov
-              </h1>
-              <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-                Jämför svenska Dynamics 365-partners utifrån bransch, lösning, erfarenhet och
-                specialistkompetens innan du tar kontakt. {BUYER_SIDE_DESCRIPTION}
-              </p>
-
-              <div className="border-t border-white/10 pt-7 mb-8">
-
+              <div className="mb-8">
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
                   Matcha er med rätt partner
                 </h2>
