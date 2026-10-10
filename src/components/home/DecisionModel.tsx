@@ -1,3 +1,4 @@
+import { track } from "@/lib/track";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ClipboardCheck, ArrowLeftRight, Users, FileText, ArrowRight } from "lucide-react";
@@ -14,6 +15,7 @@ const renderNode = (n: (typeof NODES)[number]) => (
   <Link
     key={n.to}
     to={n.to}
+    onClick={() => track("home_path_click", { path: n.title, to: n.to })}
     className="group flex min-h-[44px] items-center gap-3 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] min-[420px]:flex-col min-[420px]:items-start lg:min-h-32 lg:p-5"
   >
     <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />

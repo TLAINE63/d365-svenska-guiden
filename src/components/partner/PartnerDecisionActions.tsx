@@ -15,7 +15,7 @@ interface PartnerDecisionActionsProps {
   compact?: boolean;
 }
 
-/** Profilens tre handlingar: Be om kontakt, Lägg till i kortlista, Till partnerns webbplats. */
+/** Profilens tre handlingar: Be om kontakt, Lägg till i kortlista, Besök partnerns webbplats. */
 const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, compact = false }: PartnerDecisionActionsProps) => {
   const shortlist = useShortlist();
   const inquiry = useInquiry();
@@ -49,7 +49,7 @@ const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, 
       {website && (
         <Button asChild variant="ghost" className="min-h-11 whitespace-normal">
           <a href={website} target="_blank" rel="noopener" onClick={() => track("partner_outbound_click", { via: "sticky" }, partner.slug)}>
-            <ExternalLink className="h-4 w-4" aria-hidden="true" />Till partnerns webbplats
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />Besök partnerns webbplats
           </a>
         </Button>
       )}

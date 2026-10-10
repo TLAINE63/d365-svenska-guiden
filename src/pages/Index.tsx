@@ -1,3 +1,4 @@
+import { track } from "@/lib/track";
 import { BUYER_SIDE_DESCRIPTION } from "@/data/organization";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
@@ -432,12 +433,13 @@ const Index = () => {
                   { t: "Ekonomi och styrning", to: "/affarssystem/" },
                   { t: "Försäljning", to: "/d365sales" },
                   { t: "Marknad och kundinsikter", to: "/d365marketing" },
-                  { t: "Kundservice och fältservice", to: "/kundservicesystem/" },
+                  { t: "Kundservice och ärendehantering", to: "/kundservicesystem/" },
+                  { t: "Kontaktcenter och fältservice", to: "/faltservicesystem/" },
                   { t: "Produktion och logistik", to: "/finance-supply-chain" },
                   { t: "Projekt och resurser", to: "/d365projectoperations" },
                 ].map((a) => (
                   <li key={a.to} className="border-b border-border last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0">
-                    <Link to={a.to} className="group flex min-h-[44px] items-center justify-between gap-2 py-2 text-[14.5px] font-semibold text-foreground hover:text-[hsl(var(--signature))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--signature))]">
+                    <Link to={a.to} onClick={() => track("home_area_click", { area: a.t, to: a.to })} className="group flex min-h-[44px] items-center justify-between gap-2 py-2 text-[14.5px] font-semibold text-foreground hover:text-[hsl(var(--signature))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--signature))]">
                       {a.t}
                       <ArrowRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                     </Link>

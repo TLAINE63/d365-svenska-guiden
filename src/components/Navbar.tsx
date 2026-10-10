@@ -1,3 +1,4 @@
+import { track } from "@/lib/track";
 import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles, ArrowRight } from "lucide-react";
@@ -24,7 +25,7 @@ const SURVEYS = "https://d365-surveys.lovable.app";
 /** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners. ERP och CRM har samma struktur. */
 const MENUS: NavMenu[] = [
   {
-    label: "ERP",
+    label: "Affärssystem / ERP",
     groups: [
       { items: [{ label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true }] },
       {
@@ -33,6 +34,7 @@ const MENUS: NavMenu[] = [
           { label: "Dynamics 365 Business Central", path: "/businesscentral" },
           { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
           { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
+          { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
           { label: "Dynamics 365 Commerce", path: "/d365commerce" },
           { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
         ],
@@ -57,13 +59,13 @@ const MENUS: NavMenu[] = [
         ],
       },
       {
-        heading: "Applikationer",
+        heading: "Områden (Customer Engagement)",
         items: [
-          { label: "Dynamics 365 Sales", path: "/d365sales" },
-          { label: "Dynamics 365 Customer Insights", path: "/d365marketing" },
-          { label: "Dynamics 365 Customer Service", path: "/d365customerservice" },
-          { label: "Dynamics 365 Field Service", path: "/d365fieldservice" },
-          { label: "Dynamics 365 Contact Center", path: "/d365contactcenter" },
+          { label: "Försäljning: Dynamics 365 Sales", path: "/d365sales" },
+          { label: "Marknad och kundinsikter: Customer Insights", path: "/d365marketing" },
+          { label: "Kundservice och ärendehantering: Customer Service", path: "/d365customerservice" },
+          { label: "Kontaktcenter: Contact Center", path: "/d365contactcenter" },
+          { label: "Fältservice: Field Service", path: "/d365fieldservice" },
         ],
       },
       { heading: "Partners", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
@@ -118,7 +120,7 @@ const MENUS: NavMenu[] = [
     ],
   },
   {
-    label: "Partners",
+    label: "Partners & kompetens",
     groups: [
       {
         items: [
@@ -151,7 +153,7 @@ const triggerClass =
 const DesktopMenu = ({ menu }: { menu: NavMenu }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className={triggerClass}>
+      <Button onClick={() => track("nav_menu_open", { menu: menu.label })} variant="ghost" className={triggerClass}>
         {menu.label}
         <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
       </Button>
