@@ -39,6 +39,7 @@ import { allIndustries } from "@/data/partners";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
+import { seededShuffle, getSessionSeed } from "@/hooks/usePartnerFilters";
 import SwedenOfficeMap from "@/components/SwedenOfficeMap";
 import staticPartnerData from "@/data/partnerData.json";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";

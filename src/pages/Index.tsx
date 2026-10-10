@@ -76,6 +76,7 @@ import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
+import basicPartnerRoutes from "@/data/basicPartnerRoutes.json";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
 import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
 import { usePartners } from "@/hooks/usePartners";
@@ -106,9 +107,10 @@ const HERO_INDUSTRIES = STANDARD_INDUSTRIES.filter((i) => publishedIndustryNames
 
 // Fallback som används vid SSG/innan data laddats – ersätts av live-siffror i klienten.
 const VERIFIED_PARTNER_COUNT_FALLBACK = publishedPartners.length;
-// Totalt kartlagda partners (partnerverifierade + grundprofiler). Håll i synk med
-// market_report_stats "Identifierade partners" – live-siffran används när data finns.
-const IDENTIFIED_PARTNER_COUNT_FALLBACK = 84;
+// Totalt kartlagda partners = partnerverifierade + grundprofiler från byggtidens
+// datafiler. Samma källa i förrenderad HTML och efter hydrering, så talet växlar
+// aldrig under sidladdningen (slugs överlappar inte mellan filerna).
+const IDENTIFIED_PARTNER_COUNT = partnerData.length + basicPartnerRoutes.length;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
@@ -150,14 +152,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   // Dynamisk statistik – speglar vad sajten faktiskt innehåller just nu.
-  const { data: verifiedPartners } = usePartners();
-  const { data: basicPartners } = useBasicPartners();
-  const isvSolutionCount = useIsvSolutions().length;
-  const liveIdentifiedCount =
-    (verifiedPartners?.length || 0) + (basicPartners?.length || 0);
-  const identifiedPartnerCount =
-    liveIdentifiedCount > 0 ? liveIdentifiedCount : IDENTIFIED_PARTNER_COUNT_FALLBACK;
-  const verifiedPartnerCount = verifiedPartners?.length || VERIFIED_PARTNER_COUNT_FALLBACK;
+  const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
+  const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
     { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
@@ -434,7 +430,8 @@ const Index = () => {
                   { t: "Försäljning", to: "/d365sales" },
                   { t: "Marknad och kundinsikter", to: "/d365marketing" },
                   { t: "Kundservice och ärendehantering", to: "/kundservicesystem/" },
-                  { t: "Kontaktcenter och fältservice", to: "/faltservicesystem/" },
+                  { t: "Fältservice och tekniker", to: "/faltservicesystem/" },
+                  { t: "Kontaktcenter och kunddialog", to: "/d365contactcenter/" },
                   { t: "Produktion och logistik", to: "/finance-supply-chain" },
                   { t: "Projekt och resurser", to: "/d365projectoperations" },
                 ].map((a) => (
