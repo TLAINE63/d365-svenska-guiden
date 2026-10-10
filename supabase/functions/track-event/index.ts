@@ -2,10 +2,10 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3";
 import { inquiryCors, isInquiryOrigin, siteFromOrigin } from "../_shared/inquiry-cors.ts";
 
-const EVENTS = ["partner_profile_view", "partner_outbound_click", "partner_contact_click", "shortlist_add", "shortlist_remove", "compare_view", "tool_start", "tool_complete", "inquiry_start", "inquiry_submit"] as const;
+// Valfritt händelsenamn i snake_case; okända namn ska inte ge fel i besökarens webbläsare.
 const s = (n: number) => z.string().trim().max(n).optional().nullable();
 const Body = z.object({
-  event_name: z.enum(EVENTS),
+  event_name: z.string().regex(/^[a-z][a-z0-9_]{1,63}$/),
   partner_slug: s(120), page_path: s(500), session_id: s(100), product_area: s(100),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100),
   metadata: z.record(z.unknown()).optional().nullable(),
