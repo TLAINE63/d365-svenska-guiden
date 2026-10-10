@@ -16,8 +16,8 @@ const NODES: {
 }[] = [
   {
     icon: ClipboardCheck,
-    title: "Förstå verksamhetsbehov",
-    text: "Affärssystem, sälj, kundservice eller helhet?",
+    title: "Matcha verksamhetsbehov",
+    text: "Rätt affärsapplikation & partner för era behov",
     to: "/kom-igang/",
     needsAnalysis: true,
   },
