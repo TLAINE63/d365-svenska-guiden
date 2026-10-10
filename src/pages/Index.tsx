@@ -149,7 +149,8 @@ const Index = () => {
   const [heroProduct, setHeroProduct] = useState("");
   const navigate = useNavigate();
 
-  // Dynamisk statistik – speglar vad sajten faktiskt innehåller just nu.
+  // Partnerantal från byggtidens data: identiskt i förrenderad HTML och efter hydrering.
+  const isvSolutionCount = useIsvSolutions().length;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
