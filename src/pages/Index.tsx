@@ -151,9 +151,9 @@ const Index = () => {
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
-    { value: "bc", label: "Business Central (ERP SMB)", path: "/businesscentral/", hasPartnerFilter: true },
-    { value: "fscm", label: "Finance & Supply Chain Management (F&O) (ERP Enterprise)", path: "/finance-supply-chain/", hasPartnerFilter: true },
-    { value: "sales", label: "Sales (CRM)", path: "/crm/", hasPartnerFilter: true },
+    { value: "bc", label: "Business Central (affärssystem, små och medelstora bolag)", path: "/businesscentral/", hasPartnerFilter: true },
+    { value: "fscm", label: "Finance & Supply Chain Management (affärssystem, större bolag/koncern)", path: "/finance-supply-chain/", hasPartnerFilter: true },
+    { value: "sales", label: "Sales (säljstöd/CRM)", path: "/crm/", hasPartnerFilter: true },
     { value: "cs", label: "Customer Service", path: "/d365customerservice/" },
     { value: "fs", label: "Field Service", path: "/d365fieldservice/" },
     { value: "ci", label: "Customer Insights (Marketing)", path: "/d365marketing/" },
