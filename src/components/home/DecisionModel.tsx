@@ -41,10 +41,19 @@ const renderNode = (n: (typeof NODES)[number], onStartNeedsAnalysis?: () => void
         <span className="text-[14px] font-semibold leading-tight text-primary-foreground lg:text-[16px]">{n.title}</span>
         <span className="mt-0.5 hidden text-[12.5px] leading-snug text-primary-foreground/65 min-[420px]:block lg:mt-1 lg:text-[13.5px]">{n.text}</span>
       </span>
-      {!n.needsAnalysis && (
+      {!n.needsAnalysis && !n.compare && (
         <ArrowRight className="h-4 w-4 shrink-0 text-primary-foreground/60 transition-transform group-hover:translate-x-0.5 min-[420px]:mt-auto" aria-hidden="true" />
       )}
     </Link>
+    {n.compare && (
+      <Link
+        to="/jamfor/"
+        onClick={() => track("home_compare_click", { source: "beslutsmodell" })}
+        className="mt-auto inline-flex min-h-[44px] items-end self-start rounded pb-1 text-[13px] font-semibold text-primary-foreground/80 underline-offset-4 hover:text-primary-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))]"
+      >
+        Jämför alternativ
+      </Link>
+    )}
     {n.needsAnalysis && onStartNeedsAnalysis && (
       <button
         type="button"
