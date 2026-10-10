@@ -17,3 +17,6 @@ Flöde: Partnermatchning → Partnerkortlista → Jämförelse → Kontaktförfr
 ## Genomfört i sprint 1 (endast UI)
 - Upprepade startsidessektioner borttagna; partnerlistan heter "Bygg er kortlista".
 - Ingen ändring av partnerdata, matchning, jämförelse, förfrågan eller behovsunderlag.
+
+## Åtgärdat 2026-10-10 (säker UI-rättelse)
+- Startsidans "Jämför valda partner" räknade det separata jämförelseurvalet medan korten sparade till kortlistan, så knappen förblev låst. Knappen utgår nu från kortlistan (max tre). Jämförelsesidan och förfrågan är oförändrade.
