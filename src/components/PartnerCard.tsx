@@ -601,7 +601,7 @@ const PartnerCard = ({
     {indicators.map((indicator, idx) => (
      <Tooltip key={idx}>
       <TooltipTrigger asChild>
-       <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 cursor-help hover:bg-accent/15 transition-colors">
+       <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-[hsl(var(--accent-light))] text-accent border border-accent/20 cursor-help hover:bg-accent/15 transition-colors">
         <span className="text-xs leading-none">{indicator.icon}</span>
         <span>{indicator.label}</span>
        </span>

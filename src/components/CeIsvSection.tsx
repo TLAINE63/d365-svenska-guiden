@@ -106,7 +106,7 @@ const CeIsvSection = ({ limit = 12, className = "" }: Props) => {
                   .map((a) => (
                     <span
                       key={a}
-                      className="text-[11px] font-medium px-2 py-0.5 rounded border border-accent/30 bg-accent/10 text-accent"
+                      className="text-[11px] font-medium px-2 py-0.5 rounded border border-accent/30 bg-[hsl(var(--accent-light))] text-accent"
                     >
                       {CE_APP_LABEL[a]}
                     </span>

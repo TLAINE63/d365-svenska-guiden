@@ -142,7 +142,7 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
       {ceApps(s).slice(0, 3).map((a) => (
         <span
           key={a}
-          className="px-2 py-0.5 text-[11px] font-medium bg-accent/10 text-accent border border-accent/30 rounded"
+          className="px-2 py-0.5 text-[11px] font-medium bg-[hsl(var(--accent-light))] text-accent border border-accent/30 rounded"
         >
           {CE_APP_LABEL[a]}
         </span>

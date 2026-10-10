@@ -45,7 +45,7 @@ const ShortlistButton = ({ entry, className = "", variant = "full", cardType, pr
       }}
       className={`flex items-center justify-center gap-1.5 rounded-md font-semibold border transition-all ${base} ${
         saved
-          ? "bg-accent/10 text-accent border-accent"
+          ? "bg-[hsl(var(--accent-light))] text-accent border-accent"
           : "bg-transparent text-muted-foreground border-border hover:text-foreground hover:border-foreground/30"
       } ${className}`}
     >
