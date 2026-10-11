@@ -6,6 +6,7 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
+import { NEED_OPTIONS, STRUCTURE_OPTIONS, SITUATION_OPTIONS, recommendProducts, type SituationKey, type StructureKey } from "@/lib/productRecommendation";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -325,7 +326,7 @@ interface AiMatchResult {
   bullets?: string[];
 }
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 5;
 
 // Step 6: Company size – short, friendly labels mapped to the canonical buckets
 const sizeOptions: { value: string; label: string; desc: string }[] = [
@@ -349,14 +350,16 @@ const KomIgang = () => {
   const requestedGoal = searchParams.get("goal");
   const source = searchParams.get("source") || "direct";
   const initialProduct = productOptions.some((option) => option.value === requestedProduct) ? requestedProduct : null;
-  const initialStep = initialIndustry ? (initialProduct ? 3 : 2) : 1;
+  const initialStep = initialIndustry ? 2 : 1;
 
   const [step, setStep] = useState(initialStep);
   const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(requestedGoal && allGoalOptions.some((option) => option.value === requestedGoal) ? [requestedGoal] : allGoalOptions.filter((o) => plan.needs.includes(o.label)).map((o) => o.value));
-  const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
-  const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
+  // selectedGoals = valda behov (NeedKey)
+  const [selectedGoals, setSelectedGoals] = useState<string[]>(NEED_OPTIONS.filter((o) => plan.needs.includes(o.label)).map((o) => o.value));
+  const [selectedSituation, setSelectedSituation] = useState<SituationKey | null>(null);
+  const [selectedStructure, setSelectedStructure] = useState<StructureKey | null>(null);
+  void requestedGoal;
   const requestedSize = searchParams.get("size") || storedContext.size || null;
   const [selectedSize, setSelectedSize] = useState<string | null>(
     requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : null,
@@ -418,45 +421,44 @@ const KomIgang = () => {
 
   const selectedApp = selectedProduct || "";
   const track = getTrack(selectedApp);
-  const goalOptions = goalOptionsByTrack[track];
-  const complexityOptions = complexityOptionsByTrack[track];
 
-  // Rensa val som inte hör till det nya spåret när produkten byts
-  useEffect(() => {
-    setSelectedGoals((prev) => prev.filter((g) => goalOptions.some((o) => o.value === g)));
-    setSelectedComplexities((prev) => prev.filter((c) => complexityOptions.some((o) => o.value === c)));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track]);
+  const recommendation = useMemo(
+    () => recommendProducts({ needs: selectedGoals, size: selectedSize, structure: selectedStructure, situation: selectedSituation }),
+    [selectedGoals, selectedSize, selectedStructure, selectedSituation],
+  );
 
   const stepLabels = [
-    "Vilken bransch är du verksam inom?",
-    "Vilken Dynamics\u00A0365-produkt är du intresserad av?",
-    trackStepLabels[track].goal,
-    "Var befinner du dig idag?",
-    trackStepLabels[track].complexity,
+    "Vilken bransch är ni verksamma inom?",
+    "Vilka behov och områden vill ni förbättra?",
     "Hur stor är er organisation?",
+    "Hur ser bolagsstrukturen ut?",
+    "Var står ni idag?",
   ];
 
   const stepSubtexts = [
-    "Vi använder detta för att hitta relevanta partners",
-    "Välj den produkt som passar bäst eller hoppa över om du inte vet",
-    "",
-    "",
-    "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
-    "Vi prioriterar partners med erfarenhet av organisationer i din storlek – hoppa över om du är osäker",
+    "Branschen styr vilka processer och partners som är relevanta",
+    "Välj ett eller flera områden – ni behöver inte kunna produktnamnen",
+    "Storleken påverkar vilken nivå av lösning som passar",
+    "Flera bolag, länder eller valutor ställer andra krav",
+    "Sedan visar vi vilken Dynamics\u00A0365-lösning som passar och vilka partners som kan den",
   ];
 
-  const findPartners = async () => {
-    const productKey = selectedApp ? getProductKey(selectedApp) : null;
+  const showRecommendation = (situation: SituationKey) => {
+    const rec = recommendProducts({ needs: selectedGoals, size: selectedSize, structure: selectedStructure, situation });
+    const preferred = initialProduct && [rec.primary, ...rec.complements].some((r) => r?.app === initialProduct) ? initialProduct : rec.primary?.app ?? "";
+    setSelectedProduct(preferred);
+    trackEvent("kom_igang_recommendation", { primary: rec.primary?.app ?? null, complements: rec.complements.map((c) => c.app).join(",") });
+    findPartners(preferred);
+  };
+
+  const findPartners = async (app: string = selectedApp) => {
+    const productKey = app ? getProductKey(app) : null;
 
     let result: DatabasePartner[];
     if (!productKey) {
-      // "Osäker" - return all partners with any product filter
       result = partners.filter(p => p.product_filters && Object.keys(p.product_filters).length > 0);
     } else {
       // HÅRDA filter: produkt är ALLTID låst. Om bransch är vald är även den låst.
-      // Vi relaxar ALDRIG dessa – partners utan profilering för vald produkt/bransch
-      // får aldrig visas i matchningen.
       result = partners.filter(p =>
         matchesDbProductFilter(p, productKey, selectedIndustry || undefined)
       );
@@ -547,11 +549,11 @@ const KomIgang = () => {
   const handleRestart = () => {
     clearBuyerContext();
     if (searchParams.size > 0) setSearchParams({}, { replace: true });
-    setSelectedIndustry(null);
+    setSelectedIndustry("");
     setSelectedProduct(null);
     setSelectedGoals([]);
-    setSelectedSituations([]);
-    setSelectedComplexities([]);
+    setSelectedSituation(null);
+    setSelectedStructure(null);
     setSelectedSize(null);
     setMatchedPartners([]);
     setAiMatches([]);
@@ -610,11 +612,42 @@ const KomIgang = () => {
         <main className="pt-28 sm:pt-32 pb-10">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
-                  {matchedPartners.length > 0 ? "Här är partners som borde passa din situation" : "Ingen exakt träff, men här är närmaste vägar"}
-                </h1>
-                <p className="text-sm text-muted-foreground">Baserat på dina svar</p>
+              <div className="text-center mb-6">
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vårt förslag utifrån era behov</h1>
+                <p className="text-sm text-muted-foreground">Baserat på bransch, behov, storlek och nuläge</p>
+              </div>
+
+              {recommendation.primary && (
+                <div className="mb-8 rounded border-2 border-primary/30 bg-card p-5 sm:p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Rekommenderad lösning</p>
+                  {[recommendation.primary, ...recommendation.complements].map((rec, i) => {
+                    const icon = productOptions.find((o) => o.value === rec.app)?.icon;
+                    const active = selectedApp === rec.app;
+                    return (
+                      <div key={rec.app} className={`flex items-start gap-3 ${i > 0 ? "mt-4 pt-4 border-t border-border" : ""}`}>
+                        {icon && <img src={icon} alt="" className="w-9 h-9 object-contain flex-shrink-0" />}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground">{i === 0 ? "Huvudförslag" : "Komplement"}</p>
+                          <h2 className="text-lg font-bold text-foreground"><span className="whitespace-nowrap">Dynamics&nbsp;365</span> {rec.label}</h2>
+                          <p className="text-sm text-muted-foreground mt-1">{rec.reason}</p>
+                        </div>
+                        {(recommendation.complements.length > 0) && (
+                          <Button size="sm" variant={active ? "default" : "outline"} disabled={active}
+                            onClick={() => { setSelectedProduct(rec.app); findPartners(rec.app); trackEvent("kom_igang_switch_recommendation", { product: rec.app }); }}>
+                            {active ? "Visas nedan" : "Visa partners"}
+                          </Button>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {recommendation.note && <p className="mt-4 text-sm text-muted-foreground">{recommendation.note}{selectedSituation === "extend" && <> <Link to="/befintlig-kund/" className="text-primary underline underline-offset-4">Se vägar för befintliga kunder →</Link></>}</p>}
+                </div>
+              )}
+
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-bold text-foreground">
+                  {matchedPartners.length > 0 ? `Partners för ${selectedApp ? applicationFilterLabel(selectedApp) : "Dynamics 365"}` : "Ingen exakt träff, men här är närmaste vägar"}
+                </h2>
                 {isAiLoading && (
                   <div className="flex items-center justify-center gap-2 text-sm text-primary mt-3">
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -904,24 +937,9 @@ const KomIgang = () => {
                   </button>
                 </div>
                 <div>
-                  {step === 3 && (
-                    <Button onClick={() => advanceTo(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                  {step === 2 && (
+                    <Button onClick={() => advanceTo(3)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
-                    </Button>
-                  )}
-                  {step === 4 && (
-                    <Button onClick={() => advanceTo(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      Nästa
-                    </Button>
-                  )}
-                  {step === 5 && (
-                    <Button onClick={() => advanceTo(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      Nästa
-                    </Button>
-                  )}
-                  {step === 6 && (
-                    <Button onClick={() => findPartners()} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      Visa partners
                     </Button>
                   )}
                 </div>
@@ -973,146 +991,31 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 2: Product */}
+              {/* Step 2: Behov (flerval, inga produktnamn) */}
               {step === 2 && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-                  {productOptions.map((opt) => {
-                    const isSelected = selectedProduct === opt.value;
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {NEED_OPTIONS.map((opt) => {
+                    const isSelected = selectedGoals.includes(opt.value);
                     return (
                       <button
                         key={opt.value}
-                        onClick={() => {
-                          setSelectedProduct(opt.value);
-                          setTimeout(() => advanceTo(3), 250);
-                        }}
-                        className={`relative flex flex-col items-center justify-center text-center px-3 py-3 rounded border-2 transition-all min-h-[112px] ${
-                          isSelected
-                            ? "border-[hsl(var(--cta-orange))] bg-[hsl(var(--cta-orange))]/5 "
-                            : "border-border bg-card hover:border-[hsl(var(--cta-orange))]/40"
+                        onClick={() => setSelectedGoals(prev => prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value])}
+                        className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
+                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
                         }`}
                       >
-                        {opt.icon ? (
-                          <img src={opt.icon} alt={opt.label} className="w-8 h-8 object-contain mb-1.5" />
-                        ) : (
-                          <HelpCircle className="w-8 h-8 text-muted-foreground mb-1.5" />
-                        )}
-                        <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
-                        <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
-                        {isSelected && (
-                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded bg-[hsl(var(--cta-orange))] flex items-center justify-center">
-                            <Check className="h-3 w-3 text-white" />
-                          </div>
-                        )}
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"}`}>
+                          {isSelected && <Check className="h-3 w-3" />}
+                        </div>
+                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
                       </button>
                     );
                   })}
                 </div>
               )}
 
-              {/* Step 3: Goal (multi-select) */}
+              {/* Step 3: Storlek */}
               {step === 3 && (
-                <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {goalOptions.map((opt) => {
-                      const isSelected = selectedGoals.includes(opt.value);
-                      return (
-                        <button
-                          key={opt.value}
-                          onClick={() => {
-                            setSelectedGoals(prev =>
-                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
-                            );
-                          }}
-                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
-                            isSelected
-                              ? "border-primary bg-primary/5 text-foreground"
-                              : "border-border bg-card text-foreground hover:border-primary/30"
-                          }`}
-                        >
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                          }`}>
-                            {isSelected && <Check className="h-3 w-3" />}
-                          </div>
-                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Situation (multi-select) */}
-              {step === 4 && (
-                <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {situationOptions.map((opt) => {
-                      const isSelected = selectedSituations.includes(opt.value);
-                      return (
-                        <button
-                          key={opt.value}
-                          onClick={() => {
-                            setSelectedSituations(prev =>
-                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
-                            );
-                          }}
-                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
-                            isSelected
-                              ? "border-primary bg-primary/5 text-foreground"
-                              : "border-border bg-card text-foreground hover:border-primary/30"
-                          }`}
-                        >
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                          }`}>
-                            {isSelected && <Check className="h-3 w-3" />}
-                          </div>
-                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 5: Verksamhet (multi-select, two columns) */}
-              {step === 5 && (
-                <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {complexityOptions.map((opt) => {
-                      const isSelected = selectedComplexities.includes(opt.value);
-                      return (
-                        <button
-                          key={opt.value}
-                          onClick={() => {
-                            setSelectedComplexities(prev =>
-                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
-                            );
-                          }}
-                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
-                            isSelected
-                              ? "border-primary bg-primary/5 text-foreground"
-                              : "border-border bg-card text-foreground hover:border-primary/30"
-                          }`}
-                        >
-                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                          }`}>
-                            {isSelected && <Check className="h-3 w-3" />}
-                          </div>
-                          <div className="min-w-0">
-                            <span className="text-sm font-medium leading-tight block">{opt.label}</span>
-                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 6: Company size (single-select with skip option) */}
-              {step === 6 && (
                 <div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {sizeOptions.map((opt) => {
@@ -1120,41 +1023,70 @@ const KomIgang = () => {
                       return (
                         <button
                           key={opt.value}
-                          onClick={() => {
-                            setSelectedSize(opt.value);
-                            setTimeout(() => findPartners(), 250);
-                          }}
+                          onClick={() => { setSelectedSize(opt.value); setTimeout(() => advanceTo(4), 250); }}
                           className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
-                            isSelected
-                              ? "border-primary bg-primary/5 text-foreground"
-                              : "border-border bg-card text-foreground hover:border-primary/30"
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
                           }`}
                         >
-                          <div className={`w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0 ${
-                            isSelected ? "bg-primary/20" : ""
-                          }`}>
+                          <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
                             <Users className="h-4 w-4 text-primary" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
                             <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
                           </div>
-                          {isSelected && (
-                            <Check className="h-4 w-4 text-primary flex-shrink-0" />
-                          )}
+                          {isSelected && <Check className="h-4 w-4 text-primary flex-shrink-0" />}
                         </button>
                       );
                     })}
                   </div>
                   <button
-                    onClick={() => {
-                      setSelectedSize(null);
-                      findPartners();
-                    }}
+                    onClick={() => { setSelectedSize(null); advanceTo(4); }}
                     className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
                   >
-                    Hoppa över – visa alla relevanta partners
+                    Hoppa över
                   </button>
+                </div>
+              )}
+
+              {/* Step 4: Bolagsstruktur */}
+              {step === 4 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                  {STRUCTURE_OPTIONS.map((opt) => {
+                    const isSelected = selectedStructure === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => { setSelectedStructure(opt.value); setTimeout(() => advanceTo(5), 250); }}
+                        className={`w-full text-left px-3 py-3 rounded border transition-all min-h-[64px] ${
+                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                        }`}
+                      >
+                        <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
+                        <span className="text-xs text-muted-foreground">{opt.desc}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Step 5: Nuläge → räknar fram rekommendation */}
+              {step === 5 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {SITUATION_OPTIONS.map((opt) => {
+                    const isSelected = selectedSituation === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => { setSelectedSituation(opt.value); setTimeout(() => showRecommendation(opt.value), 250); }}
+                        className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
+                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                        }`}
+                      >
+                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
               </div>
