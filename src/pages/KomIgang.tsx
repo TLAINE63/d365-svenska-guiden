@@ -749,6 +749,32 @@ const KomIgang = () => {
                 );
               })()}
 
+              {/* Fördjupning: frivillig detaljerad behovsanalys efter partnerbilden */}
+              {(() => {
+                const deep = [
+                  { key: "erp", label: "Affärssystem (ERP)", path: "/ERPbehovsanalys/" },
+                  { key: "crm", label: "Sälj & Marknad (CRM)", path: "/CRMbehovsanalys/" },
+                  { key: "service", label: "Kundservice", path: "/kundservice-behovsanalys/" },
+                ];
+                const match = track === "erp" ? "erp" : track === "sales" || track === "marketing" ? "crm" : track === "service" ? "service" : null;
+                const shown = match ? deep.filter((d) => d.key === match) : deep;
+                return (
+                  <div className="mt-6 rounded border border-border bg-card p-5 text-center">
+                    <h3 className="text-base font-semibold text-foreground mb-1">Vill ni gå djupare? Gör en detaljerad behovsanalys</h3>
+                    <p className="text-sm text-muted-foreground mb-4">Frivilligt. Fler frågor ger ett mer underbyggt underlag inför samtal med partners.</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {shown.map((d) => (
+                        <Button key={d.key} asChild variant="outline">
+                          <Link to={d.path} onClick={() => trackEvent("kom_igang_deep_analysis_click", { area: d.key })}>
+                            {match ? "Starta detaljerad behovsanalys" : d.label} →
+                          </Link>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
               {matchedPartners.length > 0 && <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
