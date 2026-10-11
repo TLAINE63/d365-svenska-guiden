@@ -81,9 +81,9 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
             <p className="mt-1 text-sm text-muted-foreground">Indikativa siffror från kalkylatorerna, exkl. moms.</p>
             {(meta.calculations || []).map((c) => <div key={c.id} className="mt-3 break-inside-avoid rounded-md border border-border p-3">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="font-medium text-foreground">{nowrapBrand(c.product)} <span className="text-xs font-normal text-muted-foreground">sparad {c.savedAt}</span></p>
+                <p className="font-medium text-foreground">{nowrapBrand(c.product)} <span className="text-xs font-normal text-muted-foreground">uppdaterad {c.savedAt}</span></p>
                 <span className="flex gap-3 text-xs print:hidden">
-                  {c.url && <Link to={c.url} className="text-primary hover:underline">Räkna om</Link>}
+                  {c.url && <Link to={c.url} className="text-primary hover:underline">Ändra i kalkylatorn</Link>}
                   <button type="button" className="text-muted-foreground hover:underline" onClick={() => removePlanCalculation(c.id)}>Ta bort</button>
                 </span>
               </div>

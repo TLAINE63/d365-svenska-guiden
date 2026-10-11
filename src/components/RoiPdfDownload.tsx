@@ -62,8 +62,8 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
   const planBox = (
     <div className="mt-3 flex flex-wrap items-center gap-3 rounded-md border border-border bg-card p-4 text-sm text-card-foreground">
       <p className="flex-1 min-w-[14rem]">Spara siffrorna i Min D365-plan, utan e-post. De följer med i den utskrivna planen.</p>
-      <Button type="button" variant="outline" onClick={saveToPlan}><BookmarkPlus className="mr-2 h-4 w-4" />{savedToPlan ? "Uppdatera i Min D365-plan" : "Spara i Min D365-plan"}</Button>
-      {savedToPlan && <Link to="/underlag/" className="font-medium text-primary hover:underline">Öppna planen</Link>}
+      <Button type="button" variant="outline" onClick={saveToPlan}><BookmarkPlus className="mr-2 h-4 w-4" />{existing || savedToPlan ? "Sparad, uppdateras automatiskt" : "Spara i Min D365-plan"}</Button>
+      {(existing || savedToPlan) && <Link to="/underlag/" className="font-medium text-primary hover:underline">Öppna planen</Link>}
     </div>
   );
 
