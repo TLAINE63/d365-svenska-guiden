@@ -50,7 +50,7 @@ import {
 // Sales FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const salesFaqsRaw = [
   { question: "Vad är guided selling?", answer: "Guided selling betyder att CRM-systemet vägleder säljaren genom säljprocessen steg för steg i stället för att lämna nästa åtgärd till minnet. I Dynamics 365 Sales sker det via Business Process Flows (definierade faser med obligatoriska fält), sekvenser som schemalägger samtal och e-post, samt Copilot-förslag på nästa aktivitet baserat på affärens historik. Effekten är jämnare arbetssätt mellan säljare och mer tillförlitlig pipeline-data – förutsatt att processen är definierad utifrån hur ni faktiskt säljer." },
-  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales finns i tre licensnivåer: Sales Professional kostar {{price:sales-professional:short}}, Sales Enterprise {{price:sales-enterprise:short}} och Sales Premium {{price:sales-premium:short}}. Implementeringskostnad för ett standardprojekt med 10–30 användare ligger typiskt på 100 000–400 000 kr." },
+  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales finns i tre licensnivåer: Sales Professional kostar {{price:sales-professional:short}}, Sales Enterprise {{price:sales-enterprise:short}} och Sales Premium {{price:sales-premium:short}}. Implementeringskostnad för ett standardprojekt med 10–30 användare ligger typiskt på 75 000–300 000 kr." },
   { question: "Vad är Dynamics 365 Sales och vad används det till?", answer: "Microsoft Dynamics 365 Sales är ett molnbaserat CRM-system (Customer Relationship Management) för säljteam. Det hjälper företag hantera leads, affärsmöjligheter, kundkonton och prognoser – med inbyggd AI via Microsoft Copilot som rekommenderar nästa steg och analyserar kunddata i realtid." },
   { question: "Hur jämför sig Dynamics 365 Sales mot Salesforce?", answer: "Dynamics 365 Sales och Salesforce är de två ledande CRM-systemen. Dynamics 365 Sales sticker ut med djup Microsoft 365-integration (Outlook, Teams, Excel), inbyggd Copilot AI utan extrakostnad i Enterprise-planen, och möjligheten att koppla CRM direkt med Microsoft ERP-system som Business Central. Salesforce har ett bredare ekosystem av tredjepartsappar men kräver ofta mer anpassning och har högre total ägandekostnad." },
   { question: "Vad är skillnaden mellan Sales Professional och Sales Enterprise?", answer: "Sales Professional ({{price:sales-professional:short}}) är grundlicensen med lead- och affärshantering, kontakthantering och Microsoft 365-integration. Sales Enterprise ({{price:sales-enterprise:short}}) lägger till inbyggd Copilot AI, förutsägande poängsättning av leads, avancerad försäljningsanalys och anpassningsbar automatisering via Power Automate." },
@@ -299,10 +299,10 @@ const D365Sales = () => {
                     Implementationskostnaden varierar beroende på anpassningar, integrationer och datamigrering.
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Liten implementation:</strong> 100 000 - 250 000 kr</li>
-                    <li>• <strong>Medelstor:</strong> 250 000 - 600 000 kr</li>
-                    <li>• <strong>Stor med anpassningar:</strong> 600 000 - 1 500 000 kr</li>
-                    <li>• <strong>Omfattande:</strong> &gt; 1 000 000 kr - ...</li>
+                    <li>• <strong>Liten implementation:</strong> 75 000 - 200 000 kr</li>
+                    <li>• <strong>Medelstor:</strong> 200 000 - 450 000 kr</li>
+                    <li>• <strong>Stor med anpassningar:</strong> 450 000 - 1 200 000 kr</li>
+                    <li>• <strong>Omfattande:</strong> &gt; 800 000 kr - ...</li>
                   </ul>
                 </div>
               </div>

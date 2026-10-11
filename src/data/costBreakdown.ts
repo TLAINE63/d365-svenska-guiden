@@ -216,7 +216,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "L",
         label: "Stor – 100+ säljare",
         scope: "Global säljkår, Copilot for Sales, Sales Premium med samtals­intelligens, omfattande integration.",
-        oneTime: "750 000 – 4 000 000+ kr",
+        oneTime: "550 000 – 3 000 000+ kr",
         weeks: "20–32 veckor",
       },
     ],
