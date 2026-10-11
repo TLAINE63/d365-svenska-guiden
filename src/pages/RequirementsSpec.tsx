@@ -67,9 +67,13 @@ const RequirementsSpec = () => {
   const produktParam = searchParams.get("produkt");
   const productKeys: ProductKey[] =
     produktParam === "bc" ? ["bc"] : produktParam === "fsc" ? ["fsc"] : ["bc", "fsc"];
-  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
+  // Bransch/storlek kan komma från Kom igång via state eller URL (?bransch=&storlek=), så valen överlever omladdning.
+  const stateIndustry = (location.state as { industry?: string } | null)?.industry;
+  const prefilledIndustry = stateIndustry || searchParams.get("bransch") || undefined;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
-  const [step, setStep] = useState(isValidPrefill ? 2 : 1);
+  const sizeParam = searchParams.get("storlek");
+  const prefilledSize = sizeParam && erpTeamSizes.includes(sizeParam) ? sizeParam : "";
+  const [step, setStep] = useState(isValidPrefill ? (prefilledSize ? 3 : 2) : 1);
   const totalSteps = 4;
 
   useEffect(() => {
@@ -84,7 +88,7 @@ const RequirementsSpec = () => {
 
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
-  const [companySize, setCompanySize] = useState<string>("");
+  const [companySize, setCompanySize] = useState<string>(prefilledSize);
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);

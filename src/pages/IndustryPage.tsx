@@ -278,7 +278,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  Innehållet för denna bransch är på väg. Under tiden kan du hitta partners eller göra en behovsanalys.
  </p>
  <div className="flex flex-wrap gap-3 justify-center">
- <Link to="/valjdynamics365partner" className="text-primary hover:underline">Hitta rätt partner →</Link>
+ <Link to={`/valjdynamics365partner/${slug ? `?industry=${encodeURIComponent(slug)}` : ""}`} className="text-primary hover:underline">Hitta rätt partner →</Link>
  <Link to="/ERPbehovsanalys" className="text-primary hover:underline">Gör en behovsanalys →</Link>
  <Link to="/branscher" className="text-primary hover:underline">Alla branscher →</Link>
  </div>
