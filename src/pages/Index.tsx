@@ -295,18 +295,18 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex min-h-[100svh] items-center overflow-hidden border-b border-[hsl(var(--line-dark))] py-28 sm:pt-48 sm:pb-16"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex min-h-[100svh] items-center overflow-hidden border-b border-[hsl(var(--line-dark))] py-24 sm:pt-28 sm:pb-16"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
-            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[32px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
+            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
               Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
             </h1>
-            <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] leading-loose text-primary-foreground/70">
+            <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
               Oavsett var ni befinner er i processen hjälper d365.se er vidare med systemval, kostnader, utveckling av befintliga <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösningar och val av partner.
             </p>
-            <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold leading-relaxed text-primary-foreground">
+            <p className="mb-6 sm:mb-8 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
               Var befinner ni er i processen?
-              <span className="mt-1 block font-normal text-primary-foreground/70">Välj det alternativ som bäst motsvarar er situation.</span>
+              <span className="mt-1.5 block font-normal text-[13px] sm:text-[14px] lg:text-[15px] text-primary-foreground/80">Välj det alternativ som bäst motsvarar er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
           </div>

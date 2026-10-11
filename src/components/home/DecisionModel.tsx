@@ -19,14 +19,14 @@ const NODES: {
 ];
 
 const cardClass =
-  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
+  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-4 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-6";
 
 const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
   <>
-    <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-    <span className="text-[14px] font-semibold leading-tight text-primary-foreground lg:text-[16px]">{n.title}</span>
-    <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[13.5px]">{n.text}</span>
-    <span className="mt-auto pt-1 text-[13px] font-semibold text-primary-foreground/90 underline-offset-4 group-hover:text-primary-foreground group-hover:underline">
+    <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))] lg:h-6 lg:w-6" aria-hidden="true" />
+    <span className="text-[14px] font-semibold leading-tight text-primary-foreground lg:text-[17px]">{n.title}</span>
+    <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[14.5px]">{n.text}</span>
+    <span className="mt-auto pt-1.5 text-[13px] font-semibold text-primary-foreground lg:text-[14px] underline-offset-4 group-hover:underline">
       {n.cta} <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
     </span>
   </>
