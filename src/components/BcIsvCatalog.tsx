@@ -178,7 +178,19 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
 export const IsvResellers = ({ slugs }: { slugs: string[] }) => {
   const { data: partners = [] } = useAllPartnerNames();
   const { data: basicPartners = [] } = useBasicPartners();
-  if (!slugs.length) return null;
+  if (!slugs.length) {
+    return (
+      <section>
+        <h4 className="font-semibold text-foreground mb-1">Återförsäljare / partners</h4>
+        <p className="text-sm text-muted-foreground">
+          Leverantören har inte angett några partners ännu. Söker ni en partner som kan hjälpa er att införa tillägget?{" "}
+          <Link to="/valjdynamics365partner/?product=bc" className="text-primary underline underline-offset-2">
+            Hitta verifierade Business Central-partners →
+          </Link>
+        </p>
+      </section>
+    );
+  }
   const names = slugs.map((slug) => partners.find((p) => p.slug === slug) || { slug, name: slug, is_featured: false });
   return (
     <section>
