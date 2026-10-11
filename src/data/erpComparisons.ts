@@ -1017,7 +1017,7 @@ const BC_COMPARISONS: ProductComparison[] = [
       arkitektur: "Moln (Odoo Online / Odoo.sh) eller on-prem. Open Source Community + kommersiell Enterprise.",
       licensModell: "Per användare/månad – från ~250 kr (One App Free) till ~450–550 kr (Standard) eller ~700–900 kr (Custom).",
       implTid: "6–20 veckor är vanligt; kortare för smala uppstarter, längre för full ERP-svit.",
-      implKostnad: "100 000–800 000 kr beroende på moduler, anpassningar och svensk lokalisering.",
+      implKostnad: "150 000–500 000 kr (startpaket från ca 50 000 kr, större från 500 000 kr) beroende på moduler, anpassningar och svensk lokalisering.",
       isvEko: "Stort globalt community + Odoo Apps Store. Mindre svenskt utbud av certifierade lösningar.",
       integration: "Integrationer mot Office finns men inte i samma djup som BC:s native Microsoft 365-integration.",
       ai: "Odoo AI-funktioner finns (text/automation) men är mindre mogna än Microsoft Copilot.",

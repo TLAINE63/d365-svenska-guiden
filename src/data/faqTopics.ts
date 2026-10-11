@@ -3,7 +3,7 @@
  * Används av /qa/ (FAQ-sida + FAQPage-schema).
  *
  * Svaren ska vara sakliga och följa d365.se:s prisstandarder:
- * BC 100 000–800 000 kr, F&SCM 1,5–10 Mkr, Sales/Customer Insights
+ * BC 150 000–500 000 kr (start från 50 000, större från 500 000), F&SCM 1,5–10 Mkr, Sales/Customer Insights
  * 100 000–1 200 000 kr, Customer Service 150 000–1 200 000 kr,
  * Field Service 200 000–1 800 000 kr, Contact Center 250 000–2 000 000 kr.
  */
@@ -101,7 +101,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Vad kostar ett Business Central-projekt?",
         answer:
-          "Som grov uppskattning ligger ett Business Central-projekt på 100 000–800 000 kr i implementationskostnad. Ett mindre upplägg med standardprocesser kan ligga på 100 000–250 000 kr. Projekt med integrationer, datamigrering och flera avdelningar kan ligga på 250 000–800 000 kr. Licenser tillkommer per användare och månad.",
+          "Som grov uppskattning finns startpaket med ren standard från cirka 50 000 kr. Ett mindre Business Central-projekt (5–15 användare) ligger på 150 000–300 000 kr, ett mellanprojekt (15–35 användare) på 250 000–500 000 kr och större projekt från 500 000 kr. Tillverkande industri ligger oftast högre än tjänsteföretag. Licenser tillkommer per användare och månad.",
       },
       {
         question: "Vad kostar ett Finance & Supply Chain Management-projekt?",

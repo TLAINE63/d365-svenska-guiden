@@ -67,7 +67,7 @@ const crmFaqs = [
  },
  {
  question: "Vad kostar CRM system i Sverige – Dynamics 365 jämförelse?",
- answer: "CRM system pris Sverige 2026 (Microsofts listpris, exkl. moms): Dynamics 365 Sales Professional 621 kr/användare/mån, Sales Enterprise 1 004 kr/mån, Sales Premium 1 434 kr/mån. Customer Service Professional 478 kr/mån, Customer Service Enterprise 1 004 kr/mån, Customer Service Premium 1 864 kr/mån. Field Service 1 004 kr/mån. Contact Center (komplett) 1 051 kr/mån. Customer Insights prissätts per tenant från 16 250 kr/mån (attach-pris 9 559 kr/mån för bolag med minst 10 befintliga D365-licenser). Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
+ answer: "CRM system pris Sverige 2026 (Microsofts listpris, exkl. moms): Dynamics 365 Sales Professional 621 kr/användare/mån, Sales Enterprise 1 004 kr/mån, Sales Premium 1 434 kr/mån. Customer Service Professional 478 kr/mån, Customer Service Enterprise 1 004 kr/mån, Customer Service Premium 1 864 kr/mån. Field Service 1 004 kr/mån. Contact Center (komplett) 1 051 kr/mån. Customer Insights prissätts per tenant från 16 250 kr/mån (attach-pris 9 559 kr/mån för bolag med minst 10 befintliga D365-licenser). Implementeringskostnad: standardimplementering Sales/Customer Service 75 000–350 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
  },
  {
  question: "Dynamics 365 CRM vs Salesforce – vilket ska jag välja?",
@@ -272,7 +272,7 @@ const CRM = () => {
         ["Applikationer", "Sales, Customer Service, Field Service, Contact Center och Customer Insights"],
         ["Passar", "Team från 5 användare till stora koncerner"],
         ["Licenspris", resolvePriceTokens("Sales från {{price:sales-professional:exact}}, Customer Service från {{price:customer-service-pro:exact}} per användare/månad exkl. moms")],
-        ["Implementeringskostnad", "Typiskt 100 000–250 000 kr för en applikation, upp till 2 MSEK för hela sviten"],
+        ["Implementeringskostnad", "Typiskt 75 000–350 000 kr för en applikation, upp till 2 MSEK för hela sviten"],
         ["Införandetid", "2–3 månader för en applikation, 4–6 månader för större lösningar"],
         ["AI", "Microsoft Copilot ingår i Enterprise- och Premium-licenserna"],
         ["Vanliga alternativ", "Salesforce, HubSpot, Zendesk, Lime, SuperOffice"],
@@ -293,7 +293,7 @@ const CRM = () => {
      (Sales, Customer Service, Field Service eller hela sviten), hur mycket processanpassning och
      integration mot exempelvis ERP, e-post och telefoni som behövs, samt vilken partner som
      genomför införandet. En standardimplementering av en enskild applikation landar typiskt på
-     100 000–250 000 kr, medan en komplett lösning med flera applikationer och ERP-koppling kan
+     75 000–350 000 kr (Sales från 75 000 kr, Customer Service från 150 000 kr), medan en komplett lösning med flera applikationer och ERP-koppling kan
      ligga mellan 800 000 kr och 2 miljoner kronor.
     </p>
     <p className="text-sm text-muted-foreground mt-3">
@@ -505,7 +505,7 @@ const CRM = () => {
  <p>Mellan dessa nivåer finns flera kombinationer, vilket gör det möjligt att sätta ihop ett licenspaket som matchar både behov och budget. Priserna är Microsofts listpris i SEK exkl. moms – faktiskt pris kan variera beroende på avtal (EA, CSP), volym och kampanjer. Se vår fullständiga <a href="/priser/" className="text-crm hover:underline font-medium">prislista</a>.</p>
  <p><strong>Implementeringskostnader</strong></p>
  <p>Utöver licenserna tillkommer kostnader för att implementera och konfigurera systemet. Här spelar &quot;scope&quot; en avgörande roll:</p>
- <p>En enskild applikation – till exempel enbart Customer Service eller Sales – brukar kosta mellan 100 000 och 250 000 kr att implementera.</p>
+ <p>En enskild applikation – till exempel enbart Customer Service eller Sales – brukar kosta mellan 75 000 och 350 000 kr att implementera. Sales börjar från cirka 75 000 kr och Customer Service från cirka 150 000 kr.</p>
  <p>En komplett lösning med flera integrerade applikationer, ERP-koppling och anpassade flöden kan ligga i intervallet 800 000 kr upp till 2 miljoner kronor.</p>
  <p>Det är viktigt att se implementeringskostnaden som en investering snarare än en utgift – en välgjord implementation lägger grunden för ett system som verkligen används och skapar värde.</p>
  <p><strong>Löpande kostnader</strong></p>
