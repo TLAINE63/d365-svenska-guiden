@@ -35,7 +35,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
     savePlanCalculation({
       id: sourceKey,
       product: data.productName,
-      url: data.pageUrl.replace(/^d365\.se/, ""),
+      url: data.pageUrl.startsWith("d365.se/") ? data.pageUrl.slice(7) : (typeof window !== "undefined" ? window.location.pathname : ""),
       rows: [
         ...data.kpis.map((k) => ({ label: k.label, value: k.value })),
         ...data.inputs.slice(0, 6).map((i) => ({ label: i.label, value: i.value })),
