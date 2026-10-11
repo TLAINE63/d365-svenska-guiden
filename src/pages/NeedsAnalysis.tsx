@@ -3720,7 +3720,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
 
             {/* Fråga 2 - Prioriterade AI-use cases (grupperade) */}
             <div>
-              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta för din?</h3>
+              <h3 className="text-lg font-semibold mb-1">Vilka AI-områden är mest intressanta?</h3>
               <p className="text-sm text-muted-foreground mb-3">
                 Områdena är grupperade per funktion i Dynamics 365 – från Ekonomi och Supply chain till
                 Marknad, Service och de nya <strong>Copilot</strong>- och <strong>autonoma agenter</strong> som
