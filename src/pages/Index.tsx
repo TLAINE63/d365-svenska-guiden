@@ -22,7 +22,6 @@ import {
   FileText,
   MessageCircle,
   Check,
-  ChevronDown,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
@@ -314,8 +313,7 @@ const Index = () => {
               href="#matcha-partner"
               className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 text-[13px] text-primary-foreground/70 underline-offset-4 hover:text-primary-foreground hover:underline"
             >
-              Vet ni redan bransch och lösning? Filtrera partners direkt
-              <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+              Vet ni redan vad ni söker? Filtrera partners direkt →
             </a>
           </div>
         </section>
