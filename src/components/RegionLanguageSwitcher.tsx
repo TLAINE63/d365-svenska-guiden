@@ -69,9 +69,10 @@ export default function RegionLanguageSwitcher() {
       window.location.href = "https://d365.se";
       return;
     }
-    // English is default (no prefix) on d365guide.com
-    const path = target === "en" ? "" : `/${target}`;
-    window.location.href = `https://d365guide.com${path}`;
+    // d365guide.com's root auto-redirects Swedish browsers back to d365.se
+    // (our cookie is not readable there), so always land on an explicit
+    // locale path: /en/ renders the global start page without that redirect.
+    window.location.href = `https://d365guide.com/${target}/?locale=${target}`;
   };
 
   return (
