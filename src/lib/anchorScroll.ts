@@ -43,6 +43,8 @@ export function scrollToAnchorWhenReady(id: string): () => void {
   let stable = 0;
 
   const settle = (el: HTMLElement) => {
+    // Fäll ut hopfällt innehåll (t.ex. Fit Model) när man länkas direkt dit.
+    el.querySelectorAll("details").forEach((d) => { d.open = true; });
     // Vid färsk sidladdning står vi högst upp – hoppa direkt dit utan
     // mjukscroll, annars "fladdrar" sidan genom alla sektioner.
     const initial = window.scrollY < 4;
@@ -51,7 +53,7 @@ export function scrollToAnchorWhenReady(id: string): () => void {
       if (cancelled) return;
       const again = document.getElementById(id);
       if (!again) return;
-      const diff = Math.abs(again.getBoundingClientRect().top - getHeaderOffset());
+      const diff = Math.abs(again.getBoundingClientRect().top - getHeaderOffset(again));
       if (diff > 8) scrollElementIntoView(again, "auto");
     }, 800);
   };
