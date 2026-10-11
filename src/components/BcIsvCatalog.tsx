@@ -20,6 +20,7 @@ import {
 } from "@/data/bcIsvSolutions";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
+import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 
@@ -174,19 +175,35 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
 );
 
 /** Återförsäljare/partners som ISV:n själv angett (slugs mot partnerdatabasen). */
-const IsvResellers = ({ slugs }: { slugs: string[] }) => {
+export const IsvResellers = ({ slugs }: { slugs: string[] }) => {
   const { data: partners = [] } = useAllPartnerNames();
+  const { data: basicPartners = [] } = useBasicPartners();
   if (!slugs.length) return null;
   const names = slugs.map((slug) => partners.find((p) => p.slug === slug) || { slug, name: slug, is_featured: false });
   return (
     <section>
       <h4 className="font-semibold text-foreground mb-1">Återförsäljare / partners</h4>
       <div className="flex flex-wrap gap-1.5">
-        {names.map((p) => (
-          <Badge key={p.slug} variant="outline" className="text-[11px] bg-muted/50 text-foreground border-border">
-            {p.name}
-          </Badge>
-        ))}
+        {names.map((p) => {
+          const basicPartner = basicPartners.find((partner) => partner.slug === p.slug);
+          const profileUrl = p.is_featured
+            ? `/partner/${p.slug}/`
+            : basicPartner ? `/basic/${basicPartner.slug}/` : null;
+          const badge = (
+            <Badge variant="outline" className="text-[11px] bg-muted/50 text-foreground border-border">
+              {basicPartner && !p.is_featured ? basicPartner.name : p.name}
+            </Badge>
+          );
+          return profileUrl ? (
+            <Link
+              key={p.slug}
+              to={profileUrl}
+              className="rounded-sm underline underline-offset-2 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              {badge}
+            </Link>
+          ) : <span key={p.slug}>{badge}</span>;
+        })}
       </div>
       <p className="text-xs text-muted-foreground mt-1">Angivet av leverantören.</p>
     </section>
