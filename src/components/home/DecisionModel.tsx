@@ -12,8 +12,8 @@ const NODES: {
   /** Kortet öppnar startsidans val av behovsanalys. */
   needsAnalysis?: boolean;
 }[] = [
-  { icon: ClipboardCheck, title: "Hitta rätt lösning", text: "Osäker på vilken Dynamics\u00A0365-lösning som passar era behov?", cta: "Starta behovsguiden", to: "/kom-igang/", needsAnalysis: true },
-  { icon: ArrowLeftRight, title: "Räkna på kostnaden", text: "Se införandekostnad, löpande kostnader och 3-års TCO.", cta: "Räkna på ert scenario", to: "/kostnad/" },
+  { icon: ClipboardCheck, title: "Hitta rätt lösning", text: "Ta reda på vilken Dynamics\u00A0365-lösning som passar era behov.", cta: "Starta behovsguiden", to: "/kom-igang/", needsAnalysis: true },
+  { icon: ArrowLeftRight, title: "Räkna på kostnaden", text: "Se införandekostnad, löpande kostnader och 3-års TCO.", cta: "Beräkna er kostnad", to: "/kostnad/" },
   { icon: LayoutGrid, title: "Redan Dynamics-kund", text: "Utöka, uppgradera, använd AI eller byt partner.", cta: "Se era alternativ", to: "/befintlig-kund/" },
   { icon: Users, title: "Hitta rätt partner", text: "Filtrera efter lösning, bransch och kompetens.", cta: "Hitta partners", to: "/valjdynamics365partner/" },
 ];
