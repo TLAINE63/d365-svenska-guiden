@@ -203,7 +203,7 @@ export default function QuickQuoteEstimator() {
                 <SelectTrigger id="qq-industry" className="mt-1.5">
                   <SelectValue placeholder="Välj bransch" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="max-h-[min(50vh,320px)]">
                   {allIndustries.map((i) => (
                     <SelectItem key={i} value={i}>
                       {i}
