@@ -305,16 +305,10 @@ const Index = () => {
               Ska ni välja affärssystem, utveckla er nuvarande <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning eller hitta rätt partner? Vi hjälper er vidare.
             </p>
             <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold leading-relaxed text-primary-foreground">
-              Var står ni i ert <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut?
+              Vad vill ni ha hjälp med?
               <span className="mt-1 block font-normal text-primary-foreground/70">Välj det som ligger närmast er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
-            <a
-              href="#matcha-partner"
-              className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 text-[13px] text-primary-foreground/70 underline-offset-4 hover:text-primary-foreground hover:underline"
-            >
-              Vet ni redan vad ni söker? Filtrera partners direkt →
-            </a>
           </div>
         </section>
 
