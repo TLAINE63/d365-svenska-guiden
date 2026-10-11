@@ -132,8 +132,8 @@ export default function SalesRoiCalculator() {
     // Sales-projekt är typiskt lättare än ERP. Bas:
     const complexityImpl: Record<Complexity, number> = {
       Låg: 150_000,
-      Medel: 350_000,
-      Hög: 750_000,
+      Medel: 275_000,
+      Hög: 600_000,
     };
     const industryFactor = SALES_INDUSTRY_IMPL_FACTOR[v.industry];
     // Skalas mjukt med antal säljare över 15 (baseline för CRM-projekt).
