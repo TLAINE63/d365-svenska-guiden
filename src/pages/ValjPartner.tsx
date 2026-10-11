@@ -946,7 +946,7 @@ const ValjPartner = () => {
  <div className="flex flex-wrap items-center gap-2">
   <Button variant="outline" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
   <div className="min-w-[12rem]">
-   <ShortlistButton entry={{ slug: partner.slug, name: partner.name, url: buildPartnerProfileUrl(partner.slug), verified: true }} cardType="verified" productArea={selectedApplications[0] || null} />
+   <ShortlistButton entry={{ slug: partner.slug, name: partner.name, url: buildPartnerProfileUrl(partner.slug), verified: true }} cardType="verifierad" productArea={selectedApplications[0] || null} />
   </div>
  </div>
  </div>
