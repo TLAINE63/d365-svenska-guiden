@@ -604,7 +604,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded text-center border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-2">Är vi rätt partner för din?</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Är vi rätt partner för er?</h3>
           <p className="text-muted-foreground mb-4">
             Ta ett förutsättningslöst möte med oss och se om vi är rätt match för er verksamhet.
           </p>

@@ -1853,7 +1853,7 @@ const CustomerServiceNeedsAnalysis = () => {
  return (
  <div className="space-y-6">
  <div>
- <Label className="text-base font-semibold mb-1 block">Vilka AI-användningsområden är intressanta för din?</Label>
+ <Label className="text-base font-semibold mb-1 block">Vilka AI-användningsområden är intressanta?</Label>
  <p className="text-sm text-muted-foreground mb-4">Välj alla som känns relevanta för din serviceverksamhet</p>
  <div className="space-y-3">
  {aiUseCaseCategories.map((cat) => (
