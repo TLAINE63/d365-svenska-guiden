@@ -67,7 +67,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "rows": [
           [
             "Business Central",
-            "100 000–800 000 kr (mindre projekt 100 000–250 000 kr)",
+            "150 000–500 000 kr (mindre projekt 150 000–300 000 kr, större från 500 000 kr)",
             "Cirka 500"
           ],
           [
@@ -485,7 +485,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Business Central är Microsofts affärssystem för små och medelstora bolag, med rötter i Navision. d365.se bedömer att det tillkommer i storleksordningen femhundra nya affärer per år i Sverige. Ett mindre, avgränsat införande ligger typiskt på 100 000–250 000 kr, medan ett normalstort projekt hamnar på 250 000–800 000 kr. Det gör det till det vanligaste Dynamics-införandet i landet. Siffrorna är d365.se:s marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
+        "text": "Business Central är Microsofts affärssystem för små och medelstora bolag, med rötter i Navision. d365.se bedömer att det tillkommer i storleksordningen femhundra nya affärer per år i Sverige. Ett mindre, avgränsat införande ligger typiskt på 150 000–300 000 kr, ett mellanprojekt på 250 000–500 000 kr och större projekt från 500 000 kr. Det gör det till det vanligaste Dynamics-införandet i landet. Siffrorna är d365.se:s marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
       },
       {
         "type": "p",
