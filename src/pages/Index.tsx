@@ -303,7 +303,7 @@ const Index = () => {
               Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
             </h1>
             <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] leading-loose text-primary-foreground/70">
-              För nya val och befintliga kunder: affärssystem för ekonomi, inköp, order, lager, projekt och produktion, eller stöd för sälj, marknad och kundservice. Jämför kostnad över tid, alternativ och rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partner.
+              Ska ni välja affärssystem, utveckla er nuvarande <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning eller hitta rätt partner? Vi hjälper er vidare.
             </p>
             <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold text-primary-foreground">
               Vad vill ni göra? <span className="font-normal text-primary-foreground/70">Välj det kort som passar er bäst.</span>
