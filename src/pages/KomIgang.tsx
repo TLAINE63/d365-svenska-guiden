@@ -749,6 +749,35 @@ const KomIgang = () => {
                 );
               })()}
 
+              {/* Kostnad: puff till rätt kostnadsavsnitt/ROI-kalkyl för vald produkt */}
+              {(() => {
+                const costMap: Record<string, { path: string; label: string }> = {
+                  "Business Central": { path: "/businesscentral/roi-kalkylator/", label: "Business Central" },
+                  "Finance & SCM": { path: "/finance-supply-chain/roi-kalkylator/", label: "Finance & Supply Chain" },
+                  "Commerce": { path: "/finance-supply-chain/roi-kalkylator/", label: "Finance & Supply Chain" },
+                  "Human Resources": { path: "/finance-supply-chain/roi-kalkylator/", label: "Finance & Supply Chain" },
+                  "Sales": { path: "/d365sales/roi-kalkylator/", label: "Sales" },
+                  "Customer Insights (Marketing)": { path: "/d365marketing/roi-kalkylator/", label: "Customer Insights" },
+                  "Customer Service": { path: "/d365customerservice/roi-kalkylator/", label: "Customer Service" },
+                  "Contact Center": { path: "/d365contactcenter/roi-kalkylator/", label: "Contact Center" },
+                  "Field Service": { path: "/d365fieldservice/roi-kalkylator/", label: "Field Service" },
+                };
+                const cost = costMap[selectedApp] ?? { path: "/kostnad/", label: "Dynamics 365" };
+                return (
+                  <div className="mt-6 rounded border border-border bg-card p-5 text-center">
+                    <h3 className="text-base font-semibold text-foreground mb-1">Vad kostar {cost.label}?</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Se prisintervall och räkna på er totalkostnad (TCO) innan ni pratar med partners.
+                    </p>
+                    <Button asChild variant="outline">
+                      <Link to={cost.path} onClick={() => trackEvent("kom_igang_cost_click", { product: selectedApp || "allmant" })}>
+                        Se priser och räkna på kostnaden →
+                      </Link>
+                    </Button>
+                  </div>
+                );
+              })()}
+
               {/* Fördjupning: frivillig detaljerad behovsanalys efter partnerbilden */}
               {(() => {
                 const deep = [
