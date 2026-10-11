@@ -106,8 +106,8 @@ export default function Kostnad() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Vad kostar Dynamics 365 totalt? Införande & drift"
-        description="Totalkostnaden för Microsoft Dynamics 365: engångskostnad för införande (S/M/L-intervall i SEK), löpande förvaltning efter go-live och vad som driver kostnaden. Licenspriserna finns i prislistan."
+        title="Vad kostar Dynamics 365? 3-års TCO och införande"
+        description="Totalkostnad över tre år för Dynamics 365 i SEK: Business Central från ca 50 tkr, mindre projekt 150–300 tkr, Sales från ca 75 tkr. Licens, införande, förvaltning och branschens påverkan."
         canonicalPath="/kostnad/"
       />
 
