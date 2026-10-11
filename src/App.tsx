@@ -167,6 +167,8 @@ const AppShell = () => {
           <Route path="/business-central" element={<RedirectTo to="/businesscentral" />} />
           <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
           <Route path="/underlag" element={<Underlag />} />
+          <Route path="/plan" element={<Navigate to="/underlag/" replace />} />
+          <Route path="/min-plan" element={<Navigate to="/underlag/" replace />} />
           <Route path="/crm/matchningstest" element={<CrmUnderlagTest />} />
           <Route path="/business-central/matchningstest" element={<RedirectTo to="/businesscentral/matchningstest" />} />
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
