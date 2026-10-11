@@ -2465,7 +2465,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  {/* Funktioner inom marketing automation */}
  <div>
- <Label className="text-base font-semibold mb-3 block">Vilka funktioner inom marketing automation är viktigast för din? (välj alla som stämmer)</Label>
+ <Label className="text-base font-semibold mb-3 block">Vilka funktioner inom marketing automation är viktigast för er? (välj alla som stämmer)</Label>
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
  {marketingNeedOptions.map((opt) => (
  <SelectionCard

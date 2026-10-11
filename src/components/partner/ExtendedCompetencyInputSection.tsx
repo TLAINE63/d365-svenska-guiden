@@ -82,7 +82,7 @@ export default function ExtendedCompetencyInputSection({
             <p className="text-xs text-muted-foreground leading-snug">{area.description}</p>
 
             <div className="space-y-2 rounded-md border border-border bg-muted/20 p-3">
-              <p className="text-xs font-semibold text-foreground">Vad stämmer för din?</p>
+              <p className="text-xs font-semibold text-foreground">Vad stämmer för er?</p>
               {COMPETENCY_SIGNALS[area.key].map((signal) => (
                 <label
                   key={signal.id}

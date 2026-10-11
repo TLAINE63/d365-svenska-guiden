@@ -640,7 +640,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {/* Step 2 (CRM only): Workload focus */}
         {step === 2 && isCrmApp && workloadOptions[selectedApp] && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Vilket workload-fokus är viktigast för din?</h3>
+            <h3 className="text-lg font-semibold">Vilket workload-fokus är viktigast?</h3>
             <p className="text-sm text-muted-foreground">
               Välj det som bäst beskriver dina behov inom <strong>{applicationFilterLabel(selectedApp)}</strong>
             </p>
