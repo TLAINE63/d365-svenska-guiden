@@ -305,8 +305,9 @@ const Index = () => {
             <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] leading-loose text-primary-foreground/70">
               Ska ni välja affärssystem, utveckla er nuvarande <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning eller hitta rätt partner? Vi hjälper er vidare.
             </p>
-            <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold text-primary-foreground">
-              Vad vill ni göra? <span className="font-normal text-primary-foreground/70">Välj det kort som passar er bäst.</span>
+            <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold leading-relaxed text-primary-foreground">
+              Var står ni i ert <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut?
+              <span className="mt-1 block font-normal text-primary-foreground/70">Välj det som ligger närmast er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
             <a
