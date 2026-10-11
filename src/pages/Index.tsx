@@ -302,11 +302,11 @@ const Index = () => {
               Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
             </h1>
             <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] leading-loose text-primary-foreground/70">
-              Ska ni välja affärssystem, utveckla er nuvarande <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning eller hitta rätt partner? Vi hjälper er vidare.
+              Oavsett var ni befinner er i processen hjälper d365.se er vidare med systemval, kostnader, utveckling av befintliga <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösningar och val av partner.
             </p>
             <p className="mb-6 sm:mb-8 text-[13px] sm:text-[14px] font-semibold leading-relaxed text-primary-foreground">
-              Vad vill ni ha hjälp med?
-              <span className="mt-1 block font-normal text-primary-foreground/70">Välj det som ligger närmast er situation.</span>
+              Var befinner ni er i processen?
+              <span className="mt-1 block font-normal text-primary-foreground/70">Välj det alternativ som bäst motsvarar er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
           </div>
