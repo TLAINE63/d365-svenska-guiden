@@ -376,7 +376,7 @@ const KomIgang = () => {
   useEffect(() => {
     const industry = STANDARD_INDUSTRIES.find((i) => i.name === selectedIndustry)?.slug;
     if (industry || selectedSize) saveProfile({ company: { ...(industry ? { industry } : {}), ...(selectedSize ? { employees: selectedSize } : {}) } });
-    updatePlan({ needs: allGoalOptions.filter((o) => selectedGoals.includes(o.value)).map((o) => o.label) });
+    updatePlan({ needs: NEED_OPTIONS.filter((o) => selectedGoals.includes(o.value)).map((o) => o.label) });
   }, [selectedIndustry, selectedSize, selectedGoals]);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
@@ -484,7 +484,7 @@ const KomIgang = () => {
     trackFunnelEvent({
       event_type: "analysis_complete",
       event_name: "kom_igang_results",
-      metadata: { source, product: selectedApp || null, industry: selectedIndustry || null, result_count: result.length },
+      metadata: { source, product: app || null, industry: selectedIndustry || null, result_count: result.length },
     });
 
     if (result.length > 0) {
@@ -506,13 +506,13 @@ const KomIgang = () => {
           body: {
             partners: payload,
             criteria: {
-              application: selectedApp || "Alla",
+              application: app || "Alla",
               industry: selectedIndustry,
               companySize: selectedSize || "",
-              situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
+              situation: SITUATION_OPTIONS.find(o => o.value === selectedSituation)?.label || "",
               complexity: [
-                ...selectedGoals.map(g => allGoalOptions.find(o => o.value === g)?.label),
-                ...selectedComplexities.map(c => allComplexityOptions.find(o => o.value === c)?.label),
+                ...selectedGoals.map(g => NEED_OPTIONS.find(o => o.value === g)?.label),
+                STRUCTURE_OPTIONS.find(o => o.value === selectedStructure)?.label,
               ].filter(Boolean).join(", ") || "",
             },
           },
