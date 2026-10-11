@@ -39,7 +39,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       rows: [
         ...data.kpis.map((k) => ({ label: k.label, value: k.value })),
         ...data.inputs.slice(0, 6).map((i) => ({ label: i.label, value: i.value })),
-        ...data.costRows.map((r) => ({ label: r.label, value: r.sub ? `${r.value} ${r.sub}` : r.value })),
+        ...data.costRows.filter((r) => r.label && r.value).map((r) => ({ label: r.label, value: r.sub ? `${r.value} ${r.sub}` : r.value })),
       ],
     });
     trackFunnelEvent({ event_type: "engagement", event_name: "plan_calculation_saved", metadata: { product: productLabel, source: sourceKey } });
