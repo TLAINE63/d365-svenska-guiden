@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Download, CheckCircle, FileDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Download, CheckCircle, FileDown, BookmarkPlus } from "lucide-react";
+import { savePlanCalculation } from "@/lib/d365Plan";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
@@ -26,6 +28,31 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const { ref: ctaRef, trackClick } = useCtaTracking<HTMLDivElement>("roi_pdf_download", { source: sourceKey });
+
+  const [savedToPlan, setSavedToPlan] = useState(false);
+  const saveToPlan = () => {
+    const data = buildPdfData("");
+    savePlanCalculation({
+      id: sourceKey,
+      product: data.productName,
+      url: data.pageUrl.replace(/^d365\.se/, ""),
+      rows: [
+        ...data.kpis.map((k) => ({ label: k.label, value: k.value })),
+        ...data.inputs.slice(0, 6).map((i) => ({ label: i.label, value: i.value })),
+        ...data.costRows.map((r) => ({ label: r.label, value: r.sub ? `${r.value} ${r.sub}` : r.value })),
+      ],
+    });
+    trackFunnelEvent({ event_type: "engagement", event_name: "plan_calculation_saved", metadata: { product: productLabel, source: sourceKey } });
+    setSavedToPlan(true);
+    toast({ title: "Kalkylen är sparad i Min D365-plan", description: "Siffrorna följer med när planen skrivs ut eller sparas som PDF." });
+  };
+  const planBox = (
+    <div className="mt-3 flex flex-wrap items-center gap-3 rounded-md border border-border bg-card p-4 text-sm text-card-foreground">
+      <p className="flex-1 min-w-[14rem]">Spara siffrorna i Min D365-plan, utan e-post. De följer med i den utskrivna planen.</p>
+      <Button type="button" variant="outline" onClick={saveToPlan}><BookmarkPlus className="mr-2 h-4 w-4" />{savedToPlan ? "Uppdatera i Min D365-plan" : "Spara i Min D365-plan"}</Button>
+      {savedToPlan && <Link to="/underlag/" className="font-medium text-primary hover:underline">Öppna planen</Link>}
+    </div>
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +106,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
 
   if (done) {
     return (
-      <Card className="border-emerald-500/30 bg-emerald-500/5">
+      <><Card className="border-emerald-500/30 bg-emerald-500/5">
         <CardContent className="p-5 flex items-center gap-3">
           <CheckCircle className="h-7 w-7 text-emerald-500 flex-shrink-0" />
           <div className="text-sm">
@@ -96,12 +123,12 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
             </p>
           </div>
         </CardContent>
-      </Card>
+      </Card>{planBox}</>
     );
   }
 
   return (
-    <Card ref={ctaRef} className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white overflow-hidden">
+    <><Card ref={ctaRef} className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white overflow-hidden">
       <CardContent className="p-6 sm:p-7">
         <div className="flex items-start gap-4 mb-4">
           <div className="bg-[hsl(var(--cta-orange))] rounded-md p-2.5 flex-shrink-0">
@@ -146,6 +173,6 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
           Kostnadsfri. Ingen prenumeration. Vi använder adressen för att kunna följa upp om du vill ha hjälp att tolka resultatet.
         </p>
       </CardContent>
-    </Card>
+    </Card>{planBox}</>
   );
 }
