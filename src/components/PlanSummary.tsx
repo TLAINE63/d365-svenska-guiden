@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useBuyerContext, sizeLabel, updateBuyerContext } from "@/lib/buyerContext";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useBuyerProfile } from "@/lib/buyerProfile";
-import { clearD365Plan, planNextStep, updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { clearD365Plan, removePlanCalculation, planNextStep, updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { UNDERLAG_QUESTIONS, answerLabel } from "@/data/underlagQuestions";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -76,6 +76,22 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
             {[...general, ...(cfg ? cfg.questions : [])].map((q) => <li key={q}>{nowrapBrand(q)}</li>)}
           </ol>
           {!cfg && <p className="mt-2 text-xs text-muted-foreground print:hidden">Välj en produkt ovan för att få produktspecifika frågor.</p>}
+          {(meta.calculations || []).length > 0 && <>
+            <h3 className="mt-5 font-semibold">Sparade kalkyler</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Indikativa siffror från kalkylatorerna, exkl. moms.</p>
+            {(meta.calculations || []).map((c) => <div key={c.id} className="mt-3 break-inside-avoid rounded-md border border-border p-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <p className="font-medium text-foreground">{nowrapBrand(c.product)} <span className="text-xs font-normal text-muted-foreground">sparad {c.savedAt}</span></p>
+                <span className="flex gap-3 text-xs print:hidden">
+                  {c.url && <Link to={c.url} className="text-primary hover:underline">Räkna om</Link>}
+                  <button type="button" className="text-muted-foreground hover:underline" onClick={() => removePlanCalculation(c.id)}>Ta bort</button>
+                </span>
+              </div>
+              <dl className="mt-2 grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
+                {c.rows.map((r, i) => <div key={i} className="flex justify-between gap-3 border-b border-border/50 py-0.5"><dt className="text-muted-foreground">{r.label}</dt><dd className="text-right font-medium text-foreground">{r.value}</dd></div>)}
+              </dl>
+            </div>)}
+          </>}
           {items.length > 0 && <>
             <h3 className="mt-5 font-semibold">Sparade partners</h3>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">{items.map((p) => <li key={p.slug}>{p.name}</li>)}</ul>

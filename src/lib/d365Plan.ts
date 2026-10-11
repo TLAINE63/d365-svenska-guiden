@@ -6,10 +6,13 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export type PlanArea = "erp" | "crm" | "migration" | "partner";
 export type PlanPriority = "important" | "investigate";
+export interface PlanCalculationRow { label: string; value: string }
+export interface PlanCalculation { id: string; product: string; url: string; savedAt: string; rows: PlanCalculationRow[] }
 export interface PlanMeta {
   area?: PlanArea;
   needs: string[];
   dimensions: Record<string, PlanPriority>;
+  calculations?: PlanCalculation[];
 }
 const KEY = "d365_plan_v1";
 const EMPTY: PlanMeta = { needs: [], dimensions: {} };
@@ -24,6 +27,7 @@ export function parsePlan(raw: string | null): PlanMeta {
     return {
       area: isPlanArea(v.area) ? v.area : undefined,
       needs: Array.isArray(v.needs) ? v.needs.filter((n: unknown) => typeof n === "string").slice(0, 50) : [],
+      calculations: Array.isArray(v.calculations) ? v.calculations.filter((c: PlanCalculation) => c && typeof c.id === "string" && typeof c.product === "string" && Array.isArray(c.rows)).slice(0, 10).map((c: PlanCalculation) => ({ id: c.id, product: c.product, url: String(c.url || ""), savedAt: String(c.savedAt || ""), rows: c.rows.filter((r) => r && typeof r.label === "string" && typeof r.value === "string").slice(0, 20) })) : [],
       dimensions: Object.fromEntries(Object.entries(v.dimensions || {}).filter(([k, p]) => /^(erp|crm|partner):/.test(k) && (p === "important" || p === "investigate"))) as Record<string, PlanPriority>,
     };
   } catch { return EMPTY; }
@@ -48,6 +52,15 @@ export function setPlanDimension(key: string, priority: PlanPriority | null) {
   if (priority) dimensions[key] = priority; else delete dimensions[key];
   updatePlan({ dimensions });
 }
+/** Sparar (eller ersätter) en kalkyl per kalkylator i planen. */
+export function savePlanCalculation(calc: Omit<PlanCalculation, "savedAt">) {
+  const savedAt = new Date().toISOString().slice(0, 10);
+  const rest = (snapshot().calculations || []).filter((c) => c.id !== calc.id);
+  updatePlan({ calculations: [{ ...calc, savedAt }, ...rest].slice(0, 10) });
+}
+export function removePlanCalculation(id: string) {
+  updatePlan({ calculations: (snapshot().calculations || []).filter((c) => c.id !== id) });
+}
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => { listeners.delete(listener); };
@@ -56,7 +69,7 @@ export function usePlanMeta() { return useSyncExternalStore(subscribe, snapshot,
 export function clearD365Plan() {
   clearBuyerContext();
   clearProfile();
-  updatePlan({ area: undefined, needs: [], dimensions: {} });
+  updatePlan({ area: undefined, needs: [], dimensions: {}, calculations: [] });
 }
 
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
