@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Download, CheckCircle, FileDown, BookmarkPlus } from "lucide-react";
-import { savePlanCalculation } from "@/lib/d365Plan";
+import { savePlanCalculation, usePlanMeta } from "@/lib/d365Plan";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { generateRoiPdf, type RoiPdfData } from "@/utils/generateRoiPdf";
@@ -29,10 +29,12 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
   const [done, setDone] = useState(false);
   const { ref: ctaRef, trackClick } = useCtaTracking<HTMLDivElement>("roi_pdf_download", { source: sourceKey });
 
+  const planMeta = usePlanMeta();
+  const existing = (planMeta.calculations || []).find((c) => c.id === sourceKey);
   const [savedToPlan, setSavedToPlan] = useState(false);
-  const saveToPlan = () => {
+  const buildCalc = () => {
     const data = buildPdfData("");
-    savePlanCalculation({
+    return {
       id: sourceKey,
       product: data.productName,
       url: data.pageUrl.startsWith("d365.se/") ? data.pageUrl.slice(7) : (typeof window !== "undefined" ? window.location.pathname : ""),
@@ -41,16 +43,27 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
         ...data.inputs.slice(0, 6).map((i) => ({ label: i.label, value: i.value })),
         ...data.costRows.filter((r) => r.label && r.value).map((r) => ({ label: r.label, value: r.sub ? `${r.value} ${r.sub}` : r.value })),
       ],
-    });
+    };
+  };
+  // Live-synk: när kalkylen redan finns i planen uppdateras raden automatiskt vid varje ändring.
+  const currentRowsKey = JSON.stringify(buildCalc().rows);
+  useEffect(() => {
+    if (!existing || JSON.stringify(existing.rows) === currentRowsKey) return;
+    const t = window.setTimeout(() => savePlanCalculation(buildCalc()), 400);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRowsKey, Boolean(existing)]);
+  const saveToPlan = () => {
+    savePlanCalculation(buildCalc());
     trackFunnelEvent({ event_type: "engagement", event_name: "plan_calculation_saved", metadata: { product: productLabel, source: sourceKey } });
     setSavedToPlan(true);
-    toast({ title: "Kalkylen är sparad i Min D365-plan", description: "Siffrorna följer med när planen skrivs ut eller sparas som PDF." });
+    toast({ title: "Kalkylen är sparad i Min D365-plan", description: "Ändringar i kalkylatorn uppdateras nu automatiskt i planen." });
   };
   const planBox = (
     <div className="mt-3 flex flex-wrap items-center gap-3 rounded-md border border-border bg-card p-4 text-sm text-card-foreground">
       <p className="flex-1 min-w-[14rem]">Spara siffrorna i Min D365-plan, utan e-post. De följer med i den utskrivna planen.</p>
-      <Button type="button" variant="outline" onClick={saveToPlan}><BookmarkPlus className="mr-2 h-4 w-4" />{savedToPlan ? "Uppdatera i Min D365-plan" : "Spara i Min D365-plan"}</Button>
-      {savedToPlan && <Link to="/underlag/" className="font-medium text-primary hover:underline">Öppna planen</Link>}
+      <Button type="button" variant="outline" onClick={saveToPlan}><BookmarkPlus className="mr-2 h-4 w-4" />{existing || savedToPlan ? "Sparad, uppdateras automatiskt" : "Spara i Min D365-plan"}</Button>
+      {(existing || savedToPlan) && <Link to="/underlag/" className="font-medium text-primary hover:underline">Öppna planen</Link>}
     </div>
   );
 
