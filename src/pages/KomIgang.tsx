@@ -773,7 +773,20 @@ const KomIgang = () => {
                       Definiera dina krav och få ett strukturerat underlag att skicka till partners.
                     </p>
                     <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      <Link to={spec.path} state={{ industry: selectedIndustry || undefined }}>
+                      <Link
+                        to={(() => {
+                          if (spec.path !== "/kravspecifikation/") return spec.path;
+                          const sizeMap: Record<string, string> = { "1-49": "26–50", "50-99": "51–100", "100-249": "101–250", "250-999": "500+", "1.000-4.999": "500+", ">5.000": "500+" };
+                          const p = new URLSearchParams();
+                          if (selectedApp === "Business Central") p.set("produkt", "bc");
+                          else if (selectedApp === "Finance & SCM") p.set("produkt", "fsc");
+                          if (selectedIndustry) p.set("bransch", selectedIndustry);
+                          if (selectedSize && sizeMap[selectedSize]) p.set("storlek", sizeMap[selectedSize]);
+                          const qs = p.toString();
+                          return qs ? `${spec.path}?${qs}` : spec.path;
+                        })()}
+                        state={{ industry: selectedIndustry || undefined }}
+                      >
                         <FileText className="h-4 w-4 mr-2" />
                         {spec.label}
                       </Link>

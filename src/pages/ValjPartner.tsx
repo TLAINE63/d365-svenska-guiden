@@ -56,6 +56,7 @@ import {
 } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import EditorialSource from "@/components/EditorialSource";
+import ShortlistButton from "@/components/ShortlistButton";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -942,7 +943,12 @@ const ValjPartner = () => {
  showRandomIndicator={true}
  />
  {underlagFilters && <UnderlagMatchBox partner={partner as any} filters={underlagFilters} />}
- <Button variant="outline" className="self-start" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
+ <div className="flex flex-wrap items-center gap-2">
+  <Button variant="outline" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
+  <div className="min-w-[12rem]">
+   <ShortlistButton entry={{ slug: partner.slug, name: partner.name, url: buildPartnerProfileUrl(partner.slug), verified: true }} cardType="verified" productArea={selectedApplications[0] || null} />
+  </div>
+ </div>
  </div>
  );
  })}
