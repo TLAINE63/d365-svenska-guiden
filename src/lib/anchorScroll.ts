@@ -11,14 +11,22 @@ const EXTRA_GAP = 12;
 const MAX_WAIT_MS = 8000;
 const STABLE_FRAMES = 3;
 
-export function getHeaderOffset(): number {
+export function getHeaderOffset(target?: HTMLElement): number {
   const header = document.querySelector("[data-site-nav], header");
   const height = header instanceof HTMLElement ? header.offsetHeight : 0;
-  return (height || HEADER_FALLBACK_HEIGHT) + EXTRA_GAP;
+  // Fästa paneler (t.ex. sökfilter) som ligger ovanför målet täcker också vyn.
+  let sticky = 0;
+  if (target) {
+    document.querySelectorAll<HTMLElement>("[data-sticky-offset]").forEach((s) => {
+      if (s.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_PRECEDING) return;
+      sticky += s.offsetHeight;
+    });
+  }
+  return (height || HEADER_FALLBACK_HEIGHT) + sticky + EXTRA_GAP;
 }
 
 export function scrollElementIntoView(el: HTMLElement, behavior: ScrollBehavior = "smooth") {
-  const top = el.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+  const top = el.getBoundingClientRect().top + window.scrollY - getHeaderOffset(el);
   window.scrollTo({ top: Math.max(top, 0), behavior });
 }
 
