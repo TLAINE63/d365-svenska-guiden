@@ -45,7 +45,7 @@ Fem huvudkategorier av partners (använd vid kategorisering och rådgivning):
    - Utmaning: kvalitet och företagskultur kan variera efter snabba förvärv.
 
 4) Lokala och nischade specialister (t.ex. Dizparc, Engage Group, Implema, Accigo,
-   Bisqo, BrightCom, Goodfellows, Navcite, Navet, Sherpas, Thinknine, Transformant,
+   Bisqo, BrightCom, Modia, Navcite, Navet, Sherpas, Thinknine, Transformant,
    Unitedhours, Update, Yellow Solution, Softronic samt 4PS för projektorienterade)
    - Långa kundrelationer, senior och djup branschspecifik kunskap.
    - Utmaning: begränsad kapacitet vid mycket stora projekt eller bredd som kräver

@@ -3754,14 +3754,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Goodfellows</strong><br />
+          <strong>Modia</strong><br />
           <em>
             Spetskompetens: Business Central | AI Integration Partner | Fokus:
             förutsägbar leverans
           </em>
         </p>
         <p>
-          Goodfellows profilerar sig på trygghet och kontroll i leveransen.
+          Modia profilerar sig på trygghet och kontroll i leveransen.
           Deras erfarenhet från handel, produktion och distribution gör dem till
           ett relevant val för handelsföretag som prioriterar en partner som tar
           tydligt ansvar för att lösningen fungerar i praktiken – inte enbart i
@@ -4029,11 +4029,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Goodfellows</strong><br />
+          <strong>Modia</strong><br />
           <em>Business Central</em>
         </p>
         <p>
-          Goodfellows profilerar sig på trygg och förutsägbar BC-leverans med
+          Modia profilerar sig på trygg och förutsägbar BC-leverans med
           djup branschförståelse för tillverkning, produktion och distribution.
           Rätt val för medelstora tillverkare som prioriterar en partner som
           tar tydligt ägandeskap för att lösningen fungerar i praktiken.
@@ -4564,16 +4564,16 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <p>
-          <strong>Goodfellows</strong><br />
+          <strong>Modia</strong><br />
           <em>Business Central | AI Integration Partner</em>
         </p>
         <p>
-          Goodfellows är en BC-specialist med djup erfarenhet från handel,
+          Modia är en BC-specialist med djup erfarenhet från handel,
           distribution och produktion. Deras profil är tydlig: förutsägbar
           leverans, nära samarbete med kundens team och fokus på att lösningen
           fungerar i praktiken – inte bara i projektplanen. För medelstora
           grossister med komplexa lagerflöden, avancerad prissättning och krav
-          på leveranssäkerhet är Goodfellows ett starkt alternativ bland
+          på leveranssäkerhet är Modia ett starkt alternativ bland
           BC-partnerna.
         </p>
 
@@ -5564,19 +5564,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           som driver ett större digitaliseringsprogram.
         </p>
 
-        <h3>Goodfellows</h3>
+        <h3>Modia</h3>
         <p className="!text-sm text-muted-foreground !mb-2">
           Business Central | AI Integration Partner
         </p>
         <p>
-          Goodfellows har ett uttalat fokus på konsult- och projektbolag och
+          Modia har ett uttalat fokus på konsult- och projektbolag och
           levererar BC förstärkt med Progressus Advanced Projects – ett
           integrerat tillägg för djupare projekthantering från Pryme. Deras
           erbjudande täcker tidrapportering, resursplanering, projektekonomi
           och fakturering i ett sammanhållet flöde. Leveransmodellen är tydlig
           och förutsägbar med bibehållna konsulter från förstudie till
           förvaltning, vilket minskar riskerna i implementationen. För
-          konsultföretag där projekt är verksamhetens kärna är Goodfellows ett
+          konsultföretag där projekt är verksamhetens kärna är Modia ett
           av de mest specialiserade alternativen i listan.
         </p>
 
@@ -5608,7 +5608,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <h2>Att välja rätt partner för din organisation</h2>
         <p>
           Konsulttjänster är en bransch där valet mellan partners i hög grad
-          handlar om djup kontra bredd. Goodfellows och NAB Solutions har
+          handlar om djup kontra bredd. Modia och NAB Solutions har
           tydliga profiler mot konsult- och tjänsteföretag. Fellowmind och
           Sopra Steria erbjuder bredare plattformskapacitet med konsulttjänster
           som ett av flera segment.
@@ -5616,7 +5616,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           En central fråga för konsultföretag är om BC räcker som projektsystem,
           eller om du behöver ett dedikerat projekthanteringstillägg som
-          Progressus Advanced Projects. Goodfellows och Sopra Steria lyfter
+          Progressus Advanced Projects. Modia och Sopra Steria lyfter
           båda fram detta alternativ – vilket är ett tecken på att de mött
           konsultföretag vars projektbehov överskrider BC-standardens kapacitet.
         </p>
