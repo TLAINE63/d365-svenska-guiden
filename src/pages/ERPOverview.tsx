@@ -77,7 +77,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vad kostar ett affärssystem?",
- answer: "Kostnaden består av tre delar: licens per användare och månad, ett engångspris för implementering och en löpande förvaltningskostnad. För Microsofts ERP är licensen {{price:bc-essentials:short}} för Business Central Essentials, {{price:bc-premium:short}} för Premium och ca {{price:finance:short}} för Dynamics 365 Finance. Paketerade snabbstarter för Business Central finns från 50 000 kr. Ett traditionellt Business Central-projekt räknat på 11 600 kr per konsultdag ligger på ca 175 000–465 000 kr (litet), 465 000 kr–1,2 MSEK (medelstort) och 1,2–2,9 MSEK (stort). Branschen påverkar mycket: enklare tjänsteföretag ligger lägst och tillverkande industri högst. Ett Finance & Supply Chain Management (F&O)-projekt ligger typiskt på 1–5 MSEK. Räkna dessutom med 10–20 % av projektkostnaden per år för förvaltning och vidareutveckling."
+ answer: "Kostnaden består av tre delar: licens per användare och månad, ett engångspris för implementering och en löpande förvaltningskostnad. För Microsofts ERP är licensen {{price:bc-essentials:short}} för Business Central Essentials, {{price:bc-premium:short}} för Premium och ca {{price:finance:short}} för Dynamics 365 Finance. Paketerade snabbstarter för Business Central finns från 50 000 kr. Ett traditionellt Business Central-projekt räknat på 11 600 kr per konsultdag ligger på ca 175 000–465 000 kr (litet), 465 000 kr–1,2 MSEK (medelstort) och 1,2–2,9 MSEK (stort). Branschen påverkar mycket: enklare tjänsteföretag ligger lägst och tillverkande industri högst. Ett Finance & Supply Chain Management (F&O)-projekt ligger typiskt på 2–6 MSEK (litet), 6–15 MSEK (medelstort) eller från 15 MSEK (stort). Räkna dessutom med 10–20 % av projektkostnaden per år för förvaltning och vidareutveckling."
  },
  {
  question: "Vilket ERP-system passar för entreprenadföretag?",
@@ -89,7 +89,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vad kostar Microsoft ERP system i Sverige?",
- answer: "Microsoft ERP pris Sverige: Business Central Essentials {{price:bc-essentials:short}}, Business Central Premium {{price:bc-premium:short}}, Dynamics 365 Finance ca {{price:finance:short}} och Supply Chain Management ca {{price:supply-chain-management:short}}. Implementeringskostnaden varierar: Business Central snabbstart från 50 000 kr och traditionella projekt från ca 175 000 kr (stora projekt 1,2–2,9 MSEK), F&SCM Enterprise-projekt från 1–5 MSEK. Välj rätt licens utifrån antal användare och funktionsbehov."
+ answer: "Microsoft ERP pris Sverige: Business Central Essentials {{price:bc-essentials:short}}, Business Central Premium {{price:bc-premium:short}}, Dynamics 365 Finance ca {{price:finance:short}} och Supply Chain Management ca {{price:supply-chain-management:short}}. Implementeringskostnaden varierar: Business Central snabbstart från 50 000 kr och traditionella projekt från ca 175 000 kr (stora projekt 1,2–2,9 MSEK), F&SCM-projekt från 2 MSEK (litet 2–6 MSEK, medelstort 6–15 MSEK, stort 15+ MSEK). Välj rätt licens utifrån antal användare och funktionsbehov."
  },
  {
  question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain Management (F&O)?",
