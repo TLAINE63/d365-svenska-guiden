@@ -844,6 +844,7 @@ const KomIgang = () => {
   const meta = STEP_META[step];
   const focusQ = answers.area ? FOCUS_QUESTIONS[answers.area] : null;
   const productFocusQ = answers.knownProduct ? PRODUCT_FOCUS_QUESTIONS[answers.knownProduct] : null;
+  const scopeQ = answers.area === "erp" ? "Några grundläggande fakta" : answers.area && answers.area !== "unsure" ? SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].text : null;
 
   const renderMultiStep = (key: "focus" | "existingFocus" | "productFocus", options: { value: string; label: string }[]) => {
     const selected = answers[key] ?? [];
@@ -930,7 +931,7 @@ const KomIgang = () => {
               {/* Step heading */}
               <div className="text-center mb-2">
                 <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                  {step === "focus" && focusQ ? focusQ.text : step === "productFocus" && productFocusQ ? productFocusQ.text : meta.label}
+                  {step === "focus" && focusQ ? focusQ.text : step === "productFocus" && productFocusQ ? productFocusQ.text : step === "scope" && scopeQ ? scopeQ : meta.label}
                 </h2>
                 {meta.sub && (
                   <p className="text-xs sm:text-sm text-muted-foreground">{meta.sub}</p>
