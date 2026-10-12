@@ -3,7 +3,7 @@
  * Används av /qa/ (FAQ-sida + FAQPage-schema).
  *
  * Svaren ska vara sakliga och följa d365.se:s prisstandarder:
- * BC 150 000–500 000 kr (start från 50 000, större från 500 000), F&SCM 1,5–10 Mkr, Sales/Customer Insights
+ * BC snabbstart från 50 000 kr, litet 175 000–465 000, medel 465 000–1,2 Mkr, stort 1,2–2,9 Mkr (11 600 kr/dag, synkat med businesscentral.se), F&SCM 1,5–10 Mkr, Sales/Customer Insights
  * 100 000–1 200 000 kr, Customer Service 150 000–1 200 000 kr,
  * Field Service 200 000–1 800 000 kr, Contact Center 250 000–2 000 000 kr.
  */
