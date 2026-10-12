@@ -31,3 +31,4 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
+- Buyer funnel (Sprint 6) reads only funnel_events via funnel-stats action "buyer" (admin+editor), shown by BuyerFunnelCard in /redaktion and admin; plan segment (main_area/journey_state) is auto-attached in trackFunnelEvent from local plan, so no PII or new tables are needed.
