@@ -74,11 +74,11 @@ const bcFaqsRaw = [
  },
  {
  question: "Vad kostar Business Central?",
- answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: från cirka 50 000 kr för ett startpaket med ren standard, 150 000–300 000 kr för ett mindre projekt (5–15 användare), 250 000–500 000 kr för ett mellanprojekt (15–35 användare) och från 500 000 kr för större projekt (35+ användare). Tillverkande industri hamnar oftast högre än tjänsteföretag. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
+ answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
  },
  {
  question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
- answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–500 000 kr för mindre och medelstora projekt (startpaket från cirka 50 000 kr, större projekt från 500 000 kr) beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+ answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader: snabbstart till fast pris från 50 000 kr, litet projekt ca 175 000–465 000 kr, medelstort 465 000 kr–1,2 MSEK och stort 1,2–2,9 MSEK beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
  },
  {
  question: "Hur lång tid tar Business Central implementering i Sverige?",
@@ -243,7 +243,7 @@ const BusinessCentral = () => {
  <div className="min-h-screen">
  <SEOHead 
  title="Business Central ERP – pris & partners 2026"
- description={resolvePriceTokens("Business Central ERP: licenspris från {{price:bc-essentials:short}}, implementering från 150 000 kr. Jämför partnerverifierade profiler i Sverige – köparsidig vägledning.")}
+ description={resolvePriceTokens("Business Central ERP: licenspris från {{price:bc-essentials:short}}, snabbstart från 50 000 kr. Jämför partnerverifierade profiler i Sverige – köparsidig vägledning.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central partners, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
@@ -350,7 +350,7 @@ const BusinessCentral = () => {
        ["Typ av system", "Molnbaserat ERP (affärssystem) från Microsoft"],
        ["Passar", "5–300 användare, små och medelstora bolag"],
        ["Licenspris", resolvePriceTokens("Essentials {{price:bc-essentials:exact}}, Premium {{price:bc-premium:exact}}, Team Member {{price:bc-team-members:exact}} per användare/månad exkl. moms")],
-       ["Implementeringskostnad", "Startpaket från ca 50 000 kr, normalt 150 000–500 000 kr, större projekt från 500 000 kr"],
+       ["Implementeringskostnad", "Snabbstart från 50 000 kr. Litet projekt ca 175 000–465 000 kr, medelstort 465 000 kr–1,2 MSEK, stort 1,2–2,9 MSEK (beror på bransch)"],
        ["Införandetid", "3–6 månader (2–3 månader med startpaket)"],
        ["Ingår i Premium", "Tillverkning (MRP, kapacitetsplanering) och servicehantering"],
        ["AI", "Microsoft Copilot ingår utan extra licensavgift"],
@@ -371,9 +371,9 @@ const BusinessCentral = () => {
     Vad Microsoft Dynamics 365 Business Central kostar i praktiken avgörs på den svenska marknaden av
     tre saker: antal användare och licensnivå (Essentials eller Premium), hur mycket verksamhetsanpassning
     och integration mot exempelvis lön, e-handel, EDI eller Peppol-fakturering som behövs, samt vilken
-    partner som genomför införandet. En mindre implementering hos ett svenskt bolag landar typiskt på
-    150 000–300 000 kr, medan projekt med produktion, flera bolag eller internationella dotterbolag
-    ligger i det övre spannet.
+    partner som genomför införandet. Ett litet projekt räknat på 11 600 kr per konsultdag landar på
+    ca 175 000–465 000 kr; tjänsteföretag och grossister ligger lägst och tillverkning högst. Projekt med
+    produktion, flera bolag eller internationella dotterbolag ligger i det övre spannet.
    </p>
    <p className="text-sm text-muted-foreground mt-3">
     Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför du svenska Business
