@@ -57,27 +57,27 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         size: "S",
         label: "Liten – 5–15 användare",
-        scope: "Ekonomi, order och inköp, grundläggande datamigrering, 1–2 enkla kopplingar (t.ex. bank). Paketerade startpaket med ren standard och utan lager finns från ca 50 000 kr.",
-        oneTime: "150 000 – 300 000 kr",
+        scope: "Ekonomi, order och inköp, grundläggande datamigrering, 1–2 enkla kopplingar (t.ex. bank). Snabbstart till fast pris i standardversion finns från 50 000 kr.",
+        oneTime: "175 000 – 465 000 kr (15–40 dagar)",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
         label: "Medel – 15–35 användare",
         scope: "Lager och logistik, branschapp, 2–4 integrationer och Power BI.",
-        oneTime: "250 000 – 500 000 kr",
+        oneTime: "465 000 kr – 1,2 MSEK (40–100 dagar)",
         weeks: "14–24 veckor",
       },
       {
         size: "L",
         label: "Stor – 35+ användare",
         scope: "Produktion, avancerad lagerstyrning, flera bolag/valutor, EDI och egna integrationer.",
-        oneTime: "500 000 – 1 500 000+ kr",
+        oneTime: "1,2 – 2,9 MSEK (100–250 dagar)",
         weeks: "24–40 veckor",
       },
     ],
     drivers: [
-      "Bransch: enklare tjänsteföretag (ekonomi, tid, fakturering) ligger lägst, handel och distribution i mitten, tillverkande industri (produktion, stycklistor, planering, spårbarhet) högst",
+      "Bransch: litet projekt ca 175 000–350 000 kr för tjänster, grossist och e-handel, 230 000–465 000 kr för bygg, livsmedel, mode och fältservice, 290 000–580 000 kr för tillverkning",
       "Antal användare, bolag och valutor",
       "Datamigreringens omfång och kvalitet i artiklar/kunder/leverantörer",
       "Antal integrationer (lön, bank, EDI, e-handel, WMS, CRM)",
@@ -94,9 +94,9 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     note: SHARED_NOTE,
     examples: [
       {
-        title: "Startpaket och mindre standardimplementationer",
-        scope: "Paketerad start från ca 50 000 kr, normalt mindre projekt 150 000–300 000 kr",
-        range: "50 000 – 300 000 kr",
+        title: "Snabbstart och små standardimplementationer",
+        scope: "Snabbstart till fast pris från 50 000 kr, litet traditionellt projekt ca 175 000–465 000 kr",
+        range: "50 000 – 465 000 kr",
         bullets: [
           "Startpaket: ren standard, enkla processer som fritextfakturering, inget lager",
           "Mindre projekt: 2–4 månader, ekonomi, order och inköp",

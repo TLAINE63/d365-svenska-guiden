@@ -101,7 +101,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Vad kostar ett Business Central-projekt?",
         answer:
-          "Som grov uppskattning finns startpaket med ren standard från cirka 50 000 kr. Ett mindre Business Central-projekt (5–15 användare) ligger på 150 000–300 000 kr, ett mellanprojekt (15–35 användare) på 250 000–500 000 kr och större projekt från 500 000 kr. Tillverkande industri ligger oftast högre än tjänsteföretag. Licenser tillkommer per användare och månad.",
+          "Snabbstart till fast pris finns från 50 000 kr (t.ex. Update Rapid Start och NAB Solutions Business Central Start). Ett traditionellt projekt räknat på 11 600 kr per konsultdag ligger på ca 175 000–465 000 kr för ett litet projekt (15–40 dagar), 465 000 kr–1,2 MSEK för ett medelstort (40–100 dagar) och 1,2–2,9 MSEK för ett stort (100–250 dagar). Branschen styr var i spannet ni hamnar: ett litet projekt i tjänste- eller grossistföretag ligger på ca 175 000–350 000 kr, i tillverkning ca 290 000–580 000 kr. Licenser tillkommer per användare och månad.",
       },
       {
         question: "Vad kostar ett Finance & Supply Chain Management-projekt?",

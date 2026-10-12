@@ -34,7 +34,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
       },
       {
         q: "Vad kostar ett Business Central-projekt i Sverige?",
-        a: "Licenskostnaden börjar på {{price:bc-team-members:exact}} (Team Member) och {{price:bc-essentials:amount-exact}} för Essentials. Implementationskostnaden ligger typiskt på 150 000–500 000 kr (startpaket från cirka 50 000 kr, större projekt från 500 000 kr) beroende på antal användare, integrationer och bransch-tillägg.",
+        a: "Licenskostnaden börjar på {{price:bc-team-members:exact}} (Team Member) och {{price:bc-essentials:amount-exact}} för Essentials. Implementationen finns som snabbstart till fast pris från 50 000 kr; annars ligger ett litet projekt på ca 175 000–465 000 kr och ett medelstort på 465 000 kr–1,2 MSEK, beroende på bransch, integrationer och tillägg.",
       },
       {
         q: "Vilka Business Central-partners hjälper till med migrering från NAV?",
