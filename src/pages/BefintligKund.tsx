@@ -25,7 +25,7 @@ const areas: Area[] = [
   {
     icon: Layers,
     title: "Utöka med fler applikationer",
-    text: "Många börjar med ett affärssystem eller ett CRM och bygger vidare när behoven växer. Dynamics 365-applikationerna delar data, så nästa steg kan ofta byggas på det ni redan har.",
+    text: "Många börjar med ett affärssystem eller ett CRM och bygger vidare när behoven växer. Dynamics\u00A0365\u2011applikationerna delar data, så nästa steg kan ofta byggas på det ni redan har.",
     points: [
       "Affärssystem och säljstöd: offert, order och kundhistorik i samma flöde.",
       "Kundservice och fältservice kopplat till lager, inköp och fakturering.",

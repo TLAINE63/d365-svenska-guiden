@@ -902,12 +902,12 @@ const KomIgang = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Hitta rätt Dynamics 365-lösning – Kom igång | d365.se"
-        description="Berätta var ni befinner er och vad ni behöver hjälp med, så visar vi vilken Dynamics 365-lösning som passar och vilka partners som kan er bransch. Vi står på köparens sida."
+        description="Berätta var ni befinner er och vad ni behöver hjälp med, så får ni vägledning kring relevanta lösningsområden och nästa steg. Vi står på köparens sida."
         canonicalPath="/kom-igang"
       />
       <WebPageSchema
         name="Hitta rätt Dynamics 365-lösning"
-        description="Berätta var ni befinner er och vad ni behöver hjälp med, så visar vi vilken Dynamics 365-lösning som passar och vilka partners som kan er bransch."
+        description="Berätta var ni befinner er och vad ni behöver hjälp med, så får ni vägledning kring relevanta lösningsområden och nästa steg."
         url="https://d365.se/kom-igang/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },
@@ -922,7 +922,7 @@ const KomIgang = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
-              Hitta rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning för er verksamhet
+              Hitta rätt väg för era <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-behov
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground">Berätta lite om var ni befinner er och vad ni behöver hjälp med, så anpassar vi nästa steg.</p>
           </div>

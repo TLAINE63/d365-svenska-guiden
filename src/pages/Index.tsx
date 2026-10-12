@@ -283,7 +283,7 @@ const Index = () => {
       <FAQSchema faqs={homeFaqs} />
       <NoscriptSEO
         title="Microsoft Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
-        description="d365.se är en köparsidig guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar. Du kan hitta en Microsoft-certifierad partner och göra en kostnadsfri behovsanalys. Business Central kostar från 765 kr per användare och månad."
+        description="d365.se är en köparsidig guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar. Du kan hitta och jämföra Dynamics 365-partners och göra en kostnadsfri behovsanalys. Business Central kostar från 765 kr per användare och månad."
         sections={[
           { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnplattform för affärssystem (ERP) och kundhantering (CRM). Business Central och Finance & Supply Chain Management används för ERP. Sales, Customer Service, Field Service och Customer Insights används för CRM." },
           { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Rätt partner avgör om projektet lyckas. En bra partner har erfarenhet av er bransch. Den har referenskunder av liknande storlek. Den kan också den applikation ni ska införa." },
