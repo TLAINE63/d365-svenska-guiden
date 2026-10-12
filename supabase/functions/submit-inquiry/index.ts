@@ -15,7 +15,9 @@ const Body = z.object({
   project: z.record(z.unknown()).optional().nullable(),
   include_project: z.boolean().default(true),
   privacy_ack: z.literal(true),
-  partners: z.array(z.object({ slug: z.string().trim().min(1).max(120), consent: z.boolean() })).min(1).max(3),
+  partners: z.array(z.object({ slug: z.string().trim().min(1).max(120), consent: z.boolean() })).max(3).default([]),
+  /** Rådgivning direkt med d365.se, ingen partner kontaktas. */
+  advisory: z.boolean().optional(),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100), utm_content: s(100), utm_term: s(100),
   referrer: s(500), landing_page: s(500), session_id: s(100),
 });
@@ -51,12 +53,38 @@ Deno.serve(async (req) => {
     const d = parsed.data;
     if (isFreeEmailDomain(d.email)) return json({ error: FREE_EMAIL_ERROR_SV }, 400, cors);
     const approved = [...new Set(d.partners.filter((p) => p.consent).map((p) => p.slug))];
-    if (!approved.length) return json({ error: "Välj minst en partner som ska få er förfrågan." }, 400, cors);
-
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-    const { data: partnerRows } = await sb.from("partners").select("slug, name, email, contactPerson, product_filters").in("slug", approved);
-    const partners = partnerRows || [];
-    if (!partners.length) return json({ error: "Partnern kunde inte hittas." }, 400, cors);
+
+    // Rådgivning med d365.se: inga partners kontaktas.
+    if (d.advisory && d.inquiry_type === "fraga") {
+      const { partners: _a, advisory: _b, ...restA } = d;
+      const { error: errA } = await sb.from("inquiries").insert({ ...restA, project: d.include_project ? d.project ?? null : null, source_site: siteFromOrigin(origin) });
+      if (errA) { console.error(errA); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
+      const keyA = Deno.env.get("RESEND_API_KEY");
+      if (keyA) {
+        const resend = new Resend(keyA);
+        try {
+          await resend.emails.send({
+            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Rådgivning via Min D365-plan: ${d.company}`,
+            html: `<p>${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.</p><p>Gäller: ${esc(d.help_with || "–")}<br>Meddelande: ${esc(d.message || "–")}</p><p>Kontakt: ${esc(d.email)}, ${esc(d.phone || "–")}</p>${d.include_project ? projectText(d.project) : ""}`,
+          });
+          await resend.emails.send({
+            from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan till d365.se",
+            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack, d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p><p>d365.se</p>`,
+          });
+        } catch (e) { console.error("advisory mail", e); }
+      }
+      return json({ ok: true, partners: [] }, 200, cors);
+    }
+
+    if (!approved.length) return json({ error: "Välj minst en partner som ska få er förfrågan." }, 400, cors);
+    const { data: partnerRows } = await sb.from("partners").select("slug, name, email, contactPerson, product_filters, is_featured").in("slug", approved);
+    const all = partnerRows || [];
+    // Grundprofiler får aldrig köparens uppgifter automatiskt: introduktion via d365.se.
+    const partners = all.filter((p: any) => p.is_featured === true);
+    const intros = approved.filter((s) => !partners.some((p) => p.slug === s));
+    if (intros.length) d.project = { ...(d.project || {}), introduktion_begard: intros };
+    if (!partners.length && !intros.length) return json({ error: "Partnern kunde inte hittas." }, 400, cors);
 
     const { partners: _p, ...rest } = d;
     const { data: inquiry, error } = await sb.from("inquiries").insert({ ...rest, project: d.include_project ? d.project ?? null : null, source_site: siteFromOrigin(origin) }).select("id").single();
