@@ -374,7 +374,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 </CardContent>
               </Card>
 
-              {/* Skicka underlaget till 2–5 matchande partners */}
+              {/* Skicka underlaget till upp till 3 partners som du själv väljer */}
               <SendUnderlagToPartners
                 sourcePage={`${config.canonicalPath}/resultat`}
                 assessmentType={`crm_matching_${config.key}`}

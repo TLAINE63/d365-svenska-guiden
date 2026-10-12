@@ -580,7 +580,7 @@ export default function ImplementationCalculator() {
                           : "Kartlägg vilka system som behöver integreras – det är den vanligaste kostnadsdrivaren."}
                       </li>
                       <li>
-                        Gör en kostnadsfri behovsanalys och skicka underlaget till 2–5 matchande partners
+                        Gör en kostnadsfri behovsanalys och skicka underlaget till upp till 3 partners som du själv väljer
                         så att de offererar mot samma bas.
                       </li>
                     </ol>
