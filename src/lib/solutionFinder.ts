@@ -329,7 +329,6 @@ export function buildSolutionResult(a: FinderAnswers): SolutionResult {
   const exploreAreas: SolutionResult["exploreAreas"] = [];
 
   // Kompletterande områden identifieras dynamiskt – bara vid stöd i svaren.
-  if (focus.includes("projects") || focus.includes("hr") === false && false) { /* placeholder */ }
   if (focus.includes("projects")) {
     exploreAreas.push({
       label: "Project Operations",
