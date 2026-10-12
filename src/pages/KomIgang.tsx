@@ -6,7 +6,6 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { updatePlan } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
-import { STRUCTURE_OPTIONS } from "@/lib/productRecommendation";
 import {
   AREA_OPTIONS,
   STAGE_OPTIONS,
@@ -31,7 +30,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, FileText, Users, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Loader2, FileText, RotateCcw, Sparkles } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
