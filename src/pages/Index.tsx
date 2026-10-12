@@ -299,10 +299,10 @@ const Index = () => {
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
-              Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-beslut börjar här.
+              Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
             <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
-              Oavsett var ni befinner er i processen hjälper d365.se er vidare med systemval, kostnader, utveckling av befintliga <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösningar och val av partner.
+              Oavsett var ni befinner er i processen hjälper d365.se er att förstå alternativen, bygga ert beslutsunderlag och ta nästa steg.
             </p>
             <p className="mb-6 sm:mb-8 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
               Var befinner ni er i processen?
@@ -318,10 +318,10 @@ const Index = () => {
             <div className="max-w-4xl">
               <div className="mb-8">
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
-                  Matcha er med rätt partner
+                  Hitta relevanta <span className="whitespace-nowrap">Dynamics&nbsp;365-partners</span>
                 </h2>
                 <p className="text-[13.5px] text-white/60 mb-4">
-                  Valen är frivilliga – du kan gå vidare direkt.
+                  Valen är frivilliga – ni kan gå vidare direkt.
                 </p>
 
                 {/* Hero finder: bransch + produkt → direktnavigering */}
@@ -384,7 +384,7 @@ const Index = () => {
                     to="/kom-igang/"
                     className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/80 hover:text-white transition-colors"
                   >
-                    Starta Kom igång-guiden
+                    Starta Behovsguiden
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -400,7 +400,7 @@ const Index = () => {
               <h2 id="snabb-overblick" className="mb-4 text-xl font-bold text-foreground">Snabb överblick</h2>
               <ul className="space-y-3 text-[14.5px] leading-relaxed text-muted-foreground">
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">För vem:</strong> företag som överväger ett <em>affärssystem (ERP)</em> eller ett <em>kundsystem för sälj, marknad och service (CRM)</em> från Microsoft.</span></li>
-                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> kostnadsfria verktyg, öppna listpriser och jämförelser av svenska partners.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> vägledning, beslutsunderlag, kostnadsverktyg och stöd för att jämföra lösningar och partners.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Lösningarna:</strong> för ERP Business Central och F&amp;SCM (<em>Finance &amp; Supply Chain Management</em>); för CRM Sales, Customer Service, Field Service och Customer Insights.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Urvalet:</strong> ni väljer själva upp till tre partners. Inget skickas vidare utan ert godkännande.</span></li>
               </ul>

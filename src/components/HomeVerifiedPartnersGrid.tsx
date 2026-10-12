@@ -192,7 +192,7 @@ export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeV
               Bygg er kortlista
             </h2>
             <p className="text-[15px] text-muted-foreground mt-2 max-w-2xl">
-              Markera upp till tre partners som verkar relevanta för er verksamhet. När du är klar kan du jämföra dem sida vid sida innan du bestämmer vilka du vill kontakta.
+              Markera upp till tre partners som verkar relevanta för er verksamhet. När ni är klara kan ni jämföra dem sida vid sida innan ni bestämmer vilka ni vill kontakta.
             </p>
           </div>
 
