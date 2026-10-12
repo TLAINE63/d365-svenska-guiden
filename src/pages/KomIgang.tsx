@@ -310,7 +310,8 @@ const KomIgang = () => {
   };
 
   const completeFlow = () => {
-    const ans = latest.current.answers;
+    const raw = latest.current.answers;
+    const ans = { ...raw, size: raw.size ?? deriveSize(raw) };
     const res = buildSolutionResult(ans);
     setResult(res);
     const app = res.primary?.app ?? ans.knownProduct ?? "";
