@@ -16,7 +16,7 @@
 - Publicerade artiklar, Partnernytt-inlägg och events ska förgenereras med innehållsspecifika Open Graph- och Twitter-taggar, eftersom sociala delningstjänster inte kör klient-JavaScript.
 - Branschsidornas verifierade partnerresultat renderas via ett gemensamt beslutsstödskort, så partneruppgifter, belägg och AI-bedömning hålls källmässigt åtskilda.
 - Partnermastermodellen använder en katalog, produktprofiler, gemensamma attribut/förmågor och branschlösningar; legacy är skrivspärrad och export v1.0 stabil. ERP-basval efterfrågas inte för BC/F&SCM. Power Apps, Automate, Pages och Dataverse lagras endast som Power Platform. Copilot Studio och AI-agenter lagras endast som den gemensamma förmågan `copilot-studio`. Se docs/PARTNER-MASTER-MODEL.md. Används inte för ranking/matchning.
-- Partner Review Queue: see supabase/functions/_shared/AGENTS.md; partner counts: see src/data/AGENTS.md.
+- Partner Review Queue: see supabase/functions/_shared/AGENTS.md; partner counts and BC project-cost model: see src/data/AGENTS.md.
 - Frågan om särskilda projekt och leveransformer ställs inte för någon produkt (alla partners skulle kryssa i allt); data finns kvar men visas inte.
 
 - Rollvägledningen på `/roller/` ligger under Guider och länkar endast till befintligt innehåll; den ändrar inte produktnavigationen.
@@ -31,4 +31,3 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links use public hooks to confirm published/basic profiles, preventing missing destinations.
-- Business Central project-cost figures mirror businesscentral.se's day-rate model and industry spans, kept in src/data/bcProjectEstimates.ts; both sites must show the same estimates.
