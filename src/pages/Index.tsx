@@ -400,7 +400,7 @@ const Index = () => {
               <h2 id="snabb-overblick" className="mb-4 text-xl font-bold text-foreground">Snabb överblick</h2>
               <ul className="space-y-3 text-[14.5px] leading-relaxed text-muted-foreground">
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">För vem:</strong> företag som överväger ett <em>affärssystem (ERP)</em> eller ett <em>kundsystem för sälj, marknad och service (CRM)</em> från Microsoft.</span></li>
-                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> vägledning, beslutsunderlag, kostnadsverktyg och stöd för att jämföra lösningar och partners.</span></li>
+                <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Vad ni får:</strong> kostnadsfria verktyg, öppna listpriser och jämförelser av svenska partners.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Lösningarna:</strong> för ERP Business Central och F&amp;SCM (<em>Finance &amp; Supply Chain Management</em>); för CRM Sales, Customer Service, Field Service och Customer Insights.</span></li>
                 <li className="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" /><span><strong className="text-foreground">Urvalet:</strong> ni väljer själva upp till tre partners. Inget skickas vidare utan ert godkännande.</span></li>
               </ul>
