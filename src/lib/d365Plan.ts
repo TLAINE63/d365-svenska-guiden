@@ -109,6 +109,10 @@ function subscribe(listener: () => void) {
   return () => { listeners.delete(listener); };
 }
 export function usePlanMeta() { return useSyncExternalStore(subscribe, snapshot, () => EMPTY); }
+/** Sant när planen har något sparat innehåll (behov, prioriteringar, kalkyl eller guideresultat). */
+export function hasPlanStarted(meta: PlanMeta) {
+  return Boolean(meta.area || meta.needs.length || Object.keys(meta.dimensions).length || (meta.calculations?.length ?? 0) > 0 || meta.solution);
+}
 export function clearD365Plan() {
   clearBuyerContext();
   clearProfile();
