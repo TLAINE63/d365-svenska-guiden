@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, R
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import { toast } from "sonner";
 
 export type ShortlistEntry = {
   slug: string;
@@ -23,6 +24,8 @@ interface ShortlistContextValue {
 }
 
 const STORAGE_KEY = "d365-shortlist";
+/** Kortlistan rymmer högst tre partners (samma princip som jämförelsen). */
+export const SHORTLIST_MAX = 3;
 
 const fallback: ShortlistContextValue = {
   items: [],
@@ -64,6 +67,13 @@ export const ShortlistProvider = ({ children }: { children: ReactNode }) => {
     (entry: ShortlistEntry) => {
       setItems((prev) => {
         const exists = prev.some((e) => e.slug === entry.slug);
+        if (!exists && prev.length >= SHORTLIST_MAX) {
+          toast("Ni har redan tre partners i kortlistan.", {
+            description: "Ta bort en partner för att lägga till en ny.",
+            action: { label: "Visa kortlistan", onClick: () => { window.location.href = "/kortlista/"; } },
+          });
+          return prev;
+        }
         const next = exists
           ? prev.filter((e) => e.slug !== entry.slug)
           : [...prev, { ...entry, addedAt: Date.now() }];
@@ -74,8 +84,8 @@ export const ShortlistProvider = ({ children }: { children: ReactNode }) => {
         }
         trackFunnelEvent({
           event_type: "cta_click",
-          event_name: exists ? "shortlist_remove" : "shortlist_add",
-          metadata: { partner: entry.slug, size: next.length },
+          event_name: exists ? "partner_removed_from_shortlist" : "partner_added_to_shortlist",
+          metadata: { partner: entry.slug, size: next.length, verified: entry.verified ?? false },
         });
         if (!exists) {
           trackUnderlagEvent("partner_saved", { partner: entry.slug });
