@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
+import { hasPlanStarted, usePlanMeta } from "@/lib/d365Plan";
 
 type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean };
 type NavGroup = { heading?: string; items: NavLinkItem[] };
@@ -157,10 +158,21 @@ const ItemLink = forwardRef<HTMLAnchorElement, ItemLinkProps>(({ item, ...props 
   item.href ? (
     <a ref={ref} href={item.href} {...props}>{item.label}</a>
   ) : (
-    <Link ref={ref} to={item.path!} {...props}>{item.label}</Link>
+    <Link ref={ref} to={item.path!} {...props}>{item.label}{item.path === "/underlag/" && <PlanStartedBadge />}</Link>
   )
 );
 ItemLink.displayName = "ItemLink";
+
+/** Diskret markering vid "Min D365-plan" när besökaren har en påbörjad plan sparad lokalt. */
+const PlanStartedBadge = () => {
+  const meta = usePlanMeta();
+  if (!hasPlanStarted(meta)) return null;
+  return (
+    <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-[hsl(var(--accent))] px-2 py-0.5 align-middle text-[11px] font-semibold text-white">
+      Påbörjad
+    </span>
+  );
+};
 
 const triggerClass =
   "text-sm font-medium text-white hover:text-[hsl(var(--signature))] hover:bg-transparent transition-colors px-0 focus-visible:ring-2 focus-visible:ring-[hsl(var(--signature))]";
