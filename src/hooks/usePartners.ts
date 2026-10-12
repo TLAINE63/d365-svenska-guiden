@@ -134,6 +134,8 @@ export interface DatabasePartner {
   key_differentiators_source?: string | null;
   /** Fördjupad AI-sammanfattning (flera stycken, radbrytningsseparerade). */
   ai_summary_full?: string | null;
+  /** Kort redaktionell sammanfattning från d365.se. */
+  ai_summary?: string | null;
   /** Punktlista: vilka kunder partnern passar bäst för. */
   best_fit_for?: string[] | null;
   /** Fria kompetens-/AI-taggar. */
@@ -246,6 +248,7 @@ export function usePartners() {
               key_differentiators: ((p as any).key_differentiators ?? []) as string[],
               key_differentiators_source: (p as any).key_differentiators_source ?? "partner",
               ai_summary_full: (p as any).ai_summary_full ?? null,
+              ai_summary: (p as any).ai_summary ?? null,
               best_fit_for: ((p as any).best_fit_for ?? []) as string[],
               ai_tags: ((p as any).ai_tags ?? []) as string[],
               public_profile_summary: (p as any).public_profile_summary ?? null,
@@ -320,6 +323,7 @@ export function usePartner(slug: string | undefined) {
         key_differentiators: ((data as any).key_differentiators ?? []) as string[],
         key_differentiators_source: (data as any).key_differentiators_source ?? "partner",
         ai_summary_full: (data as any).ai_summary_full ?? null,
+        ai_summary: (data as any).ai_summary ?? null,
         best_fit_for: ((data as any).best_fit_for ?? []) as string[],
         ai_tags: ((data as any).ai_tags ?? []) as string[],
         public_profile_summary: (data as any).public_profile_summary ?? null,

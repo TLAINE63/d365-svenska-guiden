@@ -239,7 +239,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "customer-service": {
     pricingModel:
-      "Customer Service prissätts per agent och månad (Professional ~480 kr, Enterprise ~1 000 kr, Premium ~1 865 kr – de två sistnämnda har 40 % kampanj­rabatt under perioden okt 2025 – jun 2026). Implementationen är en engångs­kostnad där omnikanal, kunskapsbas och Copilot är de stora drivarna.",
+      "Customer Service prissätts per agent och månad (Professional ~480 kr, Enterprise ~1 000 kr, Premium ~1 865 kr, ordinarie listpriser). Implementationen är en engångs­kostnad där omnikanal, kunskapsbas och Copilot är de stora drivarna.",
     ranges: [
       {
         size: "S",
@@ -282,7 +282,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "contact-center": {
     pricingModel:
-      "Contact Center är Microsofts AI-första molnplattform för kund­service med röst-, digital- och self-service-kanaler. Licens från ~908 kr (digital) eller ~1 050 kr (komplett) per agent/månad (40 % kampanj­rabatt okt 2025 – jun 2026). Implementationen är tyngre än ren ärende­hantering eftersom telefoni och AI-routning ska sättas upp.",
+      "Contact Center är Microsofts AI-första molnplattform för kund­service med röst-, digital- och self-service-kanaler. Licens från ~908 kr (digital) eller ~1 050 kr (komplett) per agent/månad (ordinarie listpris). Implementationen är tyngre än ren ärende­hantering eftersom telefoni och AI-routning ska sättas upp.",
     ranges: [
       {
         size: "S",
