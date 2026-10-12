@@ -1001,15 +1001,113 @@ const KomIgang = () => {
                 {/* Områdesspecifika behov */}
                 {step === "focus" && focusQ && renderMultiStep("focus", focusQ.options)}
 
-                {/* AI/Copilot – tvärgående */}
+                {/* Enkel omfattning – anpassad efter område */}
+                {step === "scope" && answers.area && answers.area !== "erp" && answers.area !== "unsure" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].options.map((opt) => {
+                      const qid = SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].id;
+                      const isSelected = answers.scope?.[qid] === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, scope: { ...(p.scope ?? {}), [qid]: opt.value } })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* ERP-omfattning: tre korta fakta i samma steg */}
+                {step === "scope" && answers.area === "erp" && (
+                  <div className="max-w-3xl mx-auto space-y-5">
+                    {ERP_SCOPE_GROUPS.map((group) => (
+                      <div key={group.key}>
+                        <p className="text-sm font-semibold text-foreground mb-2">{group.label}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          {group.options.map((opt) => {
+                            const isSelected = answers.scope?.[group.key] === opt.value;
+                            return (
+                              <button
+                                key={opt.value}
+                                onClick={() => setAnswers((p) => ({ ...p, scope: { ...(p.scope ?? {}), [group.key]: opt.value } }))}
+                                className={`w-full text-left px-3 py-2.5 rounded border transition-all min-h-[44px] ${
+                                  isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                                }`}
+                              >
+                                <span className="text-sm font-medium">{opt.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                    <div className="text-center pt-1">
+                      <Button
+                        onClick={() => { const s = latest.current.answers.scope ?? {}; setAnswers((p) => ({ ...p, size: deriveSize(p) })); advance(); }}
+                        disabled={!ERP_SCOPE_GROUPS.every((g) => answers.scope?.[g.key])}
+                        size="sm"
+                        className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
+                      >
+                        Nästa
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Extra följdfråga: projektstyrningens centralitet */}
+                {step === "projectFollowup" && (
+                  <div className="grid grid-cols-1 gap-2 max-w-2xl mx-auto">
+                    {PROJECT_FOLLOWUP.options.map((opt) => {
+                      const isSelected = answers.projectCentrality === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, projectCentrality: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* AI/Copilot – en fråga, anpassade alternativ per område */}
                 {step === "ai" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl mx-auto">
-                    {AI_QUESTION.options.map((opt) => {
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {aiOptionsFor(answers).map((opt) => {
                       const isSelected = answers.ai === opt.value;
                       return (
                         <button
                           key={opt.value}
-                          onClick={() => { setAnswers((p) => ({ ...p, ai: opt.value as FinderAnswers["ai"] })); setTimeout(advance, 250); }}
+                          onClick={() => { setAnswers((p) => ({ ...p, ai: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Införande och arbetssätt */}
+                {step === "change" && (
+                  <div className="grid grid-cols-1 gap-2 max-w-2xl mx-auto">
+                    {CHANGE_QUESTION.options.map((opt) => {
+                      const isSelected = answers.change === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, change: opt.value })); setTimeout(advance, 250); }}
                           className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
                             isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
                           }`}
