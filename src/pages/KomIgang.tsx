@@ -4,7 +4,7 @@ import { track as trackEvent } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
-import { savePlanSolution } from "@/lib/d365Plan";
+import { savePlanSolution, updatePlan } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
 import {
   AREA_OPTIONS,
@@ -325,6 +325,11 @@ const KomIgang = () => {
       explore: res.exploreAreas, isvNote: res.isvNote, aiSummary: res.aiSummary, implementationNote: res.implementationNote,
       openQuestions: res.openQuestions, nextSteps: res.nextSteps,
     }, res.needsIdentified);
+    // Synka guidens förslag till planens område och lösning (Min D365-plan)
+    const ERP_APPS = ["Business Central", "Finance", "Supply Chain", "Finance & Supply Chain", "Project Operations", "Commerce", "Human Resources"];
+    const planArea = ans.area === "erp" || ERP_APPS.some((x) => app.includes(x)) ? "erp" : app ? "crm" : undefined;
+    if (planArea) updatePlan({ area: planArea });
+    if (app) updateBuyerContext({ product: app });
     trackEvent("kom_igang_recommendation", {
       primary: res.primary?.app ?? null,
       complements: res.complements.map((c) => c.app).join(","),
@@ -474,9 +479,6 @@ const KomIgang = () => {
   const suggestedKey = showResults ? matchedPartners.slice(0, 3).map((p) => p.slug).join(",") : "";
   useEffect(() => {
     if (!suggestedKey) return;
-    matchedPartners.slice(0, 3).forEach((p) => {
-      if (!kortlista.isSaved(p.slug)) kortlista.toggle({ slug: p.slug, name: p.name, url: `/partner/${p.slug}/`, verified: true });
-    });
     trackEvent("tool_complete", { tool: "kom-igang" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedKey]);
@@ -684,8 +686,10 @@ const KomIgang = () => {
                     <div className="space-y-4">
                       <WhyTheseResults />
                       <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
-                        <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">De föreslagna partnerna är sparade i er kortlista.</p>
-                        <Button onClick={() => inquiry.open({ partners: matchedPartners.slice(0, 3).map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: selectedApp || null })}>Kontakta partners i kortlistan</Button>
+                        <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">Föreslagna partneralternativ utifrån era svar. Spara de ni vill undersöka vidare i kortlistan (max tre).</p>
+                        {kortlista.items.length > 0 && (
+                          <Button asChild variant="outline"><Link to="/kortlista/">Visa kortlistan ({kortlista.items.length})</Link></Button>
+                        )}
                       </div>
                       {matchedPartners.map((partner) => {
                         const aiMatch = getAiMatch(partner.id);
@@ -714,7 +718,7 @@ const KomIgang = () => {
                                     ))}
                                   </ul>
                                 ) : null}
-                                <PartnerCardSummary partner={partner} highlightedIndustry={answers.industry || null} />
+                                <PartnerCardSummary partner={partner} highlightedIndustry={answers.industry || null} highlightedProduct={altProductKey} productLabel={selectedApp ? applicationFilterLabel(selectedApp) : null} />
                               </div>
                             </div>
                             {partner.slug && (

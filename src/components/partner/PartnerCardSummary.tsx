@@ -12,9 +12,15 @@ function isDatabasePartner(p: CardPartner): p is DatabasePartner {
 interface PartnerCardSummaryProps {
   partner: CardPartner;
   highlightedIndustry?: string | null;
+  /** Vald produktnyckel; prioriterar partnerns egen beskrivning för produkten. */
+  highlightedProduct?: string | null;
+  productLabel?: string | null;
 }
 
-export function PartnerCardSummary({ partner, highlightedIndustry }: PartnerCardSummaryProps) {
+export function PartnerCardSummary({ partner, highlightedIndustry, highlightedProduct, productLabel }: PartnerCardSummaryProps) {
+  const productText = highlightedProduct && isDatabasePartner(partner)
+    ? (partner.product_filters as any)?.[highlightedProduct]?.productDescription?.trim() || null
+    : null;
   const data = getCardSummaryData(partner, highlightedIndustry || null);
   const fallbackText =
     (isDatabasePartner(partner) && partner.positioning_statement?.trim()) ||
@@ -42,7 +48,14 @@ export function PartnerCardSummary({ partner, highlightedIndustry }: PartnerCard
         </li>
       </ul>
 
-      {data.aiSummary ? (
+      {productText ? (
+        <div className="mt-3 p-3 rounded-lg bg-muted/50 border-l-2 border-accent">
+          <p className="text-[12px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+            Partnerns egen beskrivning{productLabel ? ` för ${productLabel}` : ""}
+          </p>
+          <p className="text-[13px] text-foreground leading-snug line-clamp-4">{productText}</p>
+        </div>
+      ) : data.aiSummary ? (
         <div className="mt-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary">
           <p className="text-[12px] font-semibold text-primary uppercase tracking-wide mb-1 flex items-center gap-1.5">
             <BrainCircuit className="w-3.5 h-3.5" />

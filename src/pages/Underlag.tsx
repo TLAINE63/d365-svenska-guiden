@@ -111,7 +111,7 @@ export default function Underlag() {
   const partnerStatus: SectionStatus = items.length && compared ? "Genomförd" : items.length ? "Påbörjad" : "Saknas";
 
   const nextStep = !lvl && !crmApps.length
-    ? { label: "Gör ett kort bedömningstest", to: apps.some((a) => a === "finance" || a === "scm") || !apps.length ? "/finance-supply-chain-management/matchningstest" : "/crm/matchningstest" }
+    ? { label: "Gör ett kort bedömningstest", to: apps.some((a) => a === "finance" || a === "scm") || (!apps.length && meta.area !== "crm") ? "/finance-supply-chain-management/matchningstest" : "/crm/matchningstest" }
     : !items.length
       ? { label: "Se partners förifyllda från ert underlag", to: `/valjdynamics365partner/?${filtersToSearch(filters)}` }
       : !compared
