@@ -228,25 +228,28 @@ const KomIgang = () => {
   // Steget får inte försvinna när det besvaras – då hoppar listan.
   const [hasPrefilledIndustry] = useState(!!initialIndustry);
 
-  // Dynamisk steglista – frågorna anpassas efter tidigare svar
+  // Dynamisk steglista – triage med 5–7 frågor, anpassade efter tidigare svar
   const steps = useMemo<StepId[]>(() => {
     const s: StepId[] = ["area", "stage"];
     if (answers.stage === "existing") {
-      s.push("existingFocus");
+      s.push("existingFocus", "ai", "change");
+      if (!hasPrefilledIndustry) s.push("industry");
       return s;
     }
     if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
       s.push("product");
       if (answers.knownProduct) s.push("productFocus");
+      s.push("ai", "change");
     } else if (answers.area) {
+      if (answers.area !== "unsure") s.push("scope");
       s.push("focus");
+      // Extra följdfråga bara när den kan ändra vägledningen
+      if (answers.area === "erp" && (answers.focus ?? []).includes("projects")) s.push("projectFollowup");
+      s.push("ai", "change");
     }
-    s.push("ai");
     if (!hasPrefilledIndustry) s.push("industry");
-    s.push("size");
-    if ((answers.area === "erp" || answers.area === "unsure") && !answers.knownProduct) s.push("structure");
     return s;
-  }, [answers.area, answers.stage, answers.knownProduct, hasPrefilledIndustry, productShortcut]);
+  }, [answers.area, answers.stage, answers.knownProduct, answers.focus, hasPrefilledIndustry, productShortcut]);
 
   const step = steps[Math.min(stepIdx, steps.length - 1)];
   const stepNum = Math.min(stepIdx, steps.length - 1) + 1;
