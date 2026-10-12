@@ -6,7 +6,6 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { updatePlan } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
-import { STRUCTURE_OPTIONS } from "@/lib/productRecommendation";
 import {
   AREA_OPTIONS,
   STAGE_OPTIONS,
@@ -14,7 +13,12 @@ import {
   KNOWN_PRODUCTS,
   FOCUS_QUESTIONS,
   PRODUCT_FOCUS_QUESTIONS,
-  AI_QUESTION,
+  SCOPE_QUESTIONS,
+  ERP_SCOPE_GROUPS,
+  PROJECT_FOLLOWUP,
+  CHANGE_QUESTION,
+  aiOptionsFor,
+  deriveSize,
   buildSolutionResult,
   type FinderAnswers,
   type SolutionResult,
@@ -26,7 +30,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, FileText, Users, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Loader2, FileText, RotateCcw, Sparkles } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
@@ -184,19 +188,20 @@ const sizeOptions: { value: string; label: string; desc: string }[] = [
 
 type StepId =
   | "area" | "stage" | "existingFocus" | "product" | "productFocus"
-  | "focus" | "ai" | "industry" | "size" | "structure";
+  | "scope" | "focus" | "projectFollowup" | "ai" | "change" | "industry";
 
 const STEP_META: Record<StepId, { label: string; sub?: string }> = {
-  area: { label: "Vad vill ni förbättra?", sub: "Välj det område som är mest aktuellt – ni behöver inte kunna produktnamnen" },
+  area: { label: "Vad vill ni framför allt förbättra?", sub: "Välj det område som är mest aktuellt – ni behöver inte kunna produktnamnen" },
   stage: { label: "Hur långt har ni kommit?", sub: "Svaret styr vilka frågor som kommer härnäst" },
   existingFocus: { label: "Vad vill ni utveckla eller komplettera?", sub: "Välj alla som stämmer" },
   product: { label: "Vilken Dynamics\u00A0365-produkt gäller det?", sub: "Vi hoppar över produktidentifieringen och fokuserar på vad ni behöver tänka på" },
   productFocus: { label: "Vad behöver ni tänka på kring lösningen?", sub: "Välj alla som är aktuella" },
+  scope: { label: "", sub: "Bara det som kan påverka vägledningen" },
   focus: { label: "", sub: "Välj alla som stämmer – ni behöver inte kunna produktnamnen" },
-  ai: { label: AI_QUESTION.text, sub: "AI är ett tvärgående behov, inte en separat produkt" },
-  industry: { label: "Vilken bransch är ni verksamma inom?", sub: "Branschen styr vilka processer och partners som är relevanta" },
-  size: { label: "Hur stor är er organisation?", sub: "Storleken påverkar vilken nivå av lösning som passar" },
-  structure: { label: "Hur ser bolagsstrukturen ut?", sub: "Flera bolag, länder eller valutor ställer andra krav" },
+  projectFollowup: { label: PROJECT_FOLLOWUP.text, sub: "Svaret avgör om Project Operations är värt att undersöka" },
+  ai: { label: "Var ser ni störst potential för AI och automation?", sub: "AI är ett tvärgående behov, inte en separat produkt" },
+  change: { label: CHANGE_QUESTION.text, sub: "Hjälper oss peka ut vad ni bör beakta i nästa fas" },
+  industry: { label: "Vilken bransch är ni verksamma inom?", sub: "Branschen styr vilka partners som är relevanta" },
 };
 
 const KomIgang = () => {
@@ -222,25 +227,28 @@ const KomIgang = () => {
   // Steget får inte försvinna när det besvaras – då hoppar listan.
   const [hasPrefilledIndustry] = useState(!!initialIndustry);
 
-  // Dynamisk steglista – frågorna anpassas efter tidigare svar
+  // Dynamisk steglista – triage med 5–7 frågor, anpassade efter tidigare svar
   const steps = useMemo<StepId[]>(() => {
     const s: StepId[] = ["area", "stage"];
     if (answers.stage === "existing") {
-      s.push("existingFocus");
+      s.push("existingFocus", "ai", "change");
+      if (!hasPrefilledIndustry) s.push("industry");
       return s;
     }
     if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
       s.push("product");
       if (answers.knownProduct) s.push("productFocus");
+      s.push("ai", "change");
     } else if (answers.area) {
+      if (answers.area !== "unsure") s.push("scope");
       s.push("focus");
+      // Extra följdfråga bara när den kan ändra vägledningen
+      if (answers.area === "erp" && (answers.focus ?? []).includes("projects")) s.push("projectFollowup");
+      s.push("ai", "change");
     }
-    s.push("ai");
     if (!hasPrefilledIndustry) s.push("industry");
-    s.push("size");
-    if ((answers.area === "erp" || answers.area === "unsure") && !answers.knownProduct) s.push("structure");
     return s;
-  }, [answers.area, answers.stage, answers.knownProduct, hasPrefilledIndustry, productShortcut]);
+  }, [answers.area, answers.stage, answers.knownProduct, answers.focus, hasPrefilledIndustry, productShortcut]);
 
   const step = steps[Math.min(stepIdx, steps.length - 1)];
   const stepNum = Math.min(stepIdx, steps.length - 1) + 1;
@@ -301,7 +309,8 @@ const KomIgang = () => {
   };
 
   const completeFlow = () => {
-    const ans = latest.current.answers;
+    const raw = latest.current.answers;
+    const ans = { ...raw, size: raw.size ?? deriveSize(raw) };
     const res = buildSolutionResult(ans);
     setResult(res);
     const app = res.primary?.app ?? ans.knownProduct ?? "";
@@ -493,7 +502,9 @@ const KomIgang = () => {
                 <p className="text-sm text-muted-foreground">
                   {result.existingCustomer
                     ? "Baserat på var ni befinner er och vad ni vill utveckla"
-                    : `Område: ${result.areaLabel} – baserat på era behov, storlek och nuläge`}
+                    : result.knownProduct
+                      ? "Baserat på er valda produkt och era svar"
+                      : `Område: ${result.areaLabel} – baserat på era behov, storlek och nuläge`}
                 </p>
               </div>
 
@@ -545,8 +556,8 @@ const KomIgang = () => {
                     {result.needsIdentified.map((n) => (
                       <span key={n} className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">{n}</span>
                     ))}
-                    {answers.ai === "yes" && (
-                      <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">AI, Copilot och agenter</span>
+                    {answers.ai && answers.ai !== "no" && (
+                      <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">AI och automation</span>
                     )}
                   </div>
                 </div>
@@ -568,6 +579,48 @@ const KomIgang = () => {
                       </Link>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Tillägg och ISV */}
+              {result.isvNote && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">Tillägg och ISV-lösningar</h2>
+                  <p className="text-sm text-muted-foreground">{result.isvNote.text}</p>
+                  <Link to={result.isvNote.path} className="mt-2 inline-block text-sm font-medium text-primary underline underline-offset-4">
+                    Utforska tilläggskatalogen →
+                  </Link>
+                </div>
+              )}
+
+              {/* AI, Copilot och agenter */}
+              {result.aiSummary && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">AI, Copilot och agenter</h2>
+                  <p className="text-sm text-muted-foreground">{result.aiSummary}</p>
+                </div>
+              )}
+
+              {/* Införande och arbetssätt */}
+              {result.implementationNote && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">Införande och arbetssätt</h2>
+                  <p className="text-sm text-muted-foreground">{result.implementationNote}</p>
+                </div>
+              )}
+
+              {/* Att undersöka vidare – ärliga osäkerheter */}
+              {result.openQuestions.length > 0 && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-2">Att undersöka vidare</h2>
+                  <ul className="space-y-2">
+                    {result.openQuestions.map((q) => (
+                      <li key={q} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{q}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
@@ -793,6 +846,7 @@ const KomIgang = () => {
   const meta = STEP_META[step];
   const focusQ = answers.area ? FOCUS_QUESTIONS[answers.area] : null;
   const productFocusQ = answers.knownProduct ? PRODUCT_FOCUS_QUESTIONS[answers.knownProduct] : null;
+  const scopeQ = answers.area === "erp" ? "Några grundläggande fakta" : answers.area && answers.area !== "unsure" ? SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].text : null;
 
   const renderMultiStep = (key: "focus" | "existingFocus" | "productFocus", options: { value: string; label: string }[]) => {
     const selected = answers[key] ?? [];
@@ -879,7 +933,7 @@ const KomIgang = () => {
               {/* Step heading */}
               <div className="text-center mb-2">
                 <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                  {step === "focus" && focusQ ? focusQ.text : step === "productFocus" && productFocusQ ? productFocusQ.text : meta.label}
+                  {step === "focus" && focusQ ? focusQ.text : step === "productFocus" && productFocusQ ? productFocusQ.text : step === "scope" && scopeQ ? scopeQ : meta.label}
                 </h2>
                 {meta.sub && (
                   <p className="text-xs sm:text-sm text-muted-foreground">{meta.sub}</p>
@@ -991,15 +1045,113 @@ const KomIgang = () => {
                 {/* Områdesspecifika behov */}
                 {step === "focus" && focusQ && renderMultiStep("focus", focusQ.options)}
 
-                {/* AI/Copilot – tvärgående */}
+                {/* Enkel omfattning – anpassad efter område */}
+                {step === "scope" && answers.area && answers.area !== "erp" && answers.area !== "unsure" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].options.map((opt) => {
+                      const qid = SCOPE_QUESTIONS[answers.area as "sales" | "marketing" | "service"].id;
+                      const isSelected = answers.scope?.[qid] === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, scope: { ...(p.scope ?? {}), [qid]: opt.value } })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* ERP-omfattning: tre korta fakta i samma steg */}
+                {step === "scope" && answers.area === "erp" && (
+                  <div className="max-w-3xl mx-auto space-y-5">
+                    {ERP_SCOPE_GROUPS.map((group) => (
+                      <div key={group.key}>
+                        <p className="text-sm font-semibold text-foreground mb-2">{group.label}</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          {group.options.map((opt) => {
+                            const isSelected = answers.scope?.[group.key] === opt.value;
+                            return (
+                              <button
+                                key={opt.value}
+                                onClick={() => setAnswers((p) => ({ ...p, scope: { ...(p.scope ?? {}), [group.key]: opt.value } }))}
+                                className={`w-full text-left px-3 py-2.5 rounded border transition-all min-h-[44px] ${
+                                  isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                                }`}
+                              >
+                                <span className="text-sm font-medium">{opt.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                    <div className="text-center pt-1">
+                      <Button
+                        onClick={() => { setAnswers((p) => ({ ...p, size: deriveSize(p) })); advance(); }}
+                        disabled={!ERP_SCOPE_GROUPS.every((g) => answers.scope?.[g.key])}
+                        size="sm"
+                        className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
+                      >
+                        Nästa
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Extra följdfråga: projektstyrningens centralitet */}
+                {step === "projectFollowup" && (
+                  <div className="grid grid-cols-1 gap-2 max-w-2xl mx-auto">
+                    {PROJECT_FOLLOWUP.options.map((opt) => {
+                      const isSelected = answers.projectCentrality === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, projectCentrality: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* AI/Copilot – en fråga, anpassade alternativ per område */}
                 {step === "ai" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl mx-auto">
-                    {AI_QUESTION.options.map((opt) => {
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {aiOptionsFor(answers).map((opt) => {
                       const isSelected = answers.ai === opt.value;
                       return (
                         <button
                           key={opt.value}
-                          onClick={() => { setAnswers((p) => ({ ...p, ai: opt.value as FinderAnswers["ai"] })); setTimeout(advance, 250); }}
+                          onClick={() => { setAnswers((p) => ({ ...p, ai: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Införande och arbetssätt */}
+                {step === "change" && (
+                  <div className="grid grid-cols-1 gap-2 max-w-2xl mx-auto">
+                    {CHANGE_QUESTION.options.map((opt) => {
+                      const isSelected = answers.change === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, change: opt.value })); setTimeout(advance, 250); }}
                           className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
                             isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
                           }`}
@@ -1055,61 +1207,6 @@ const KomIgang = () => {
                   </div>
                 )}
 
-                {/* Storlek */}
-                {step === "size" && (
-                  <div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {sizeOptions.map((opt) => {
-                        const isSelected = answers.size === opt.value;
-                        return (
-                          <button
-                            key={opt.value}
-                            onClick={() => { setAnswers((p) => ({ ...p, size: opt.value })); setTimeout(advance, 250); }}
-                            className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
-                              isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                            }`}
-                          >
-                            <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <Users className="h-4 w-4 text-primary" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
-                              <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
-                            </div>
-                            {isSelected && <Check className="h-4 w-4 text-primary flex-shrink-0" />}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <button
-                      onClick={() => { setAnswers((p) => ({ ...p, size: undefined })); advance(); }}
-                      className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
-                    >
-                      Hoppa över
-                    </button>
-                  </div>
-                )}
-
-                {/* Bolagsstruktur */}
-                {step === "structure" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
-                    {STRUCTURE_OPTIONS.map((opt) => {
-                      const isSelected = answers.structure === opt.value;
-                      return (
-                        <button
-                          key={opt.value}
-                          onClick={() => { setAnswers((p) => ({ ...p, structure: opt.value })); setTimeout(advance, 250); }}
-                          className={`w-full text-left px-3 py-3 rounded border transition-all min-h-[64px] ${
-                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                          }`}
-                        >
-                          <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
-                          <span className="text-xs text-muted-foreground">{opt.desc}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
               </div>
             </div>
           </div>
