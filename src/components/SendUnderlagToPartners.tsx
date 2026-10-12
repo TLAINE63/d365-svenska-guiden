@@ -44,7 +44,7 @@ interface Props {
   description?: string;
 }
 
-const MAX_RECIPIENTS = 5;
+const MAX_RECIPIENTS = 3;
 
 async function blobToBase64(blob: Blob): Promise<string> {
   const buf = await blob.arrayBuffer();
@@ -67,8 +67,8 @@ export const SendUnderlagToPartners = ({
   resultUrl,
   pdfBlob,
   pdfFileName,
-  heading = "Skicka underlaget till 2–5 matchande partners",
-  description = "Vi har valt ut de partners som passar bäst utifrån dina svar. Du kan avmarkera eller lägga till fler nedan – därefter skickar vi ditt underlag och rådgivningsteamet följer upp.",
+  heading = "Skicka underlaget till upp till 3 partners",
+  description = "Här är partners som matchar dina svar. Markera själv de du vill kontakta (högst 3). Underlaget skickas bara till dem du väljer, och de kontaktar dig direkt.",
 }: Props) => {
   const { toast } = useToast();
   const { data: allPartners = [] } = usePartners();
@@ -79,12 +79,12 @@ export const SendUnderlagToPartners = ({
         product: products,
         industry,
         companySize: toCompanySizeBucket(companySize),
-        limit: 5,
+        limit: 3,
       }),
     [allPartners, products, industry, companySize],
   );
 
-  const [selectedSlugs, setSelectedSlugs] = useState<string[]>(() => suggested.map((p) => p.slug));
+  const [selectedSlugs, setSelectedSlugs] = useState<string[]>([]);
   const [extraSlugs, setExtraSlugs] = useState<string[]>([]);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [form, setForm] = useState({ company: "", name: "", email: "", phone: "", message: "" });
