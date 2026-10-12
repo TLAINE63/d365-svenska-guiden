@@ -22,6 +22,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import PostHogStatsCard from "@/components/PostHogStatsCard";
 import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
+import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
@@ -246,6 +247,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="stats" className="space-y-6">
+            <BuyerFunnelCard token={token} onSessionExpired={logout} />
             <PostHogStatsCard token={token} onSessionExpired={logout} />
             <SiteTrafficStatsCard token={token} variant="full" />
             <ContentReadsCard token={token} />
