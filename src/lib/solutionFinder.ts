@@ -27,7 +27,7 @@ export interface FinderAnswers {
 
 export interface AreaOption { value: AreaKey; label: string; desc: string }
 export const AREA_OPTIONS: AreaOption[] = [
-  { value: "sales", label: "Sälj", desc: "Pipeline, offerter och kundbearbetning" },
+  { value: "sales", label: "Försäljning", desc: "Pipeline, offerter och kundbearbetning" },
   { value: "marketing", label: "Marknad & kunddata", desc: "Kampanjer, segmentering och kundresor" },
   { value: "service", label: "Kundservice & fältservice", desc: "Ärenden, kanaler och tekniker ute hos kund" },
   { value: "erp", label: "ERP & affärssystem", desc: "Ekonomi, order, lager och produktion" },
@@ -170,7 +170,7 @@ export const PRODUCT_FOCUS_QUESTIONS: Record<string, FocusQuestion> = {
       { value: "volumes", label: "Utskicksvolymer och kanaler" },
       { value: "journeys", label: "Komplexa kundresor" },
       { value: "consent", label: "Samtycke och GDPR" },
-      { value: "sales_link", label: "Överlämning av leads till sälj" },
+      { value: "sales_link", label: "Överlämning av leads till försäljning" },
     ],
   },
   "Customer Service": {
@@ -256,7 +256,7 @@ export interface SolutionResult {
 }
 
 const AREA_LABEL: Record<AreaKey, string> = {
-  sales: "Sälj",
+  sales: "Försäljning",
   marketing: "Marknad & kunddata",
   service: "Kundservice & fältservice",
   erp: "ERP & affärssystem",
@@ -449,7 +449,7 @@ export function buildSolutionResult(a: FinderAnswers): SolutionResult {
     nextSteps.push({ label: `Gör matchningstestet för ${primary.label}`, path: MATCHNINGSTEST[primary.app] });
   }
   if (area === "erp" || area === "unsure") nextSteps.push({ label: "Fördjupa med ERP-behovsanalysen", path: "/ERPbehovsanalys/" });
-  if (area === "sales" || area === "marketing") nextSteps.push({ label: "Fördjupa med behovsanalysen för sälj & marknad", path: "/CRMbehovsanalys/" });
+  if (area === "sales" || area === "marketing") nextSteps.push({ label: "Fördjupa med behovsanalysen för försäljning & marknad", path: "/CRMbehovsanalys/" });
   if (area === "service") nextSteps.push({ label: "Fördjupa med kundservice-behovsanalysen", path: "/kundservice-behovsanalys/" });
   if (a.ai === "yes" || a.ai === "explore") nextSteps.push({ label: "Utforska AI och Copilot vidare", path: "/ai-readiness/" });
 
