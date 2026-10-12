@@ -73,7 +73,7 @@ export interface FocusQuestion { id: string; text: string; options: { value: str
 export const FOCUS_QUESTIONS: Record<AreaKey, FocusQuestion> = {
   sales: {
     id: "focus_sales",
-    text: "Vad vill ni förbättra i säljarbetet?",
+    text: "Vad vill ni förbättra i försäljningen?",
     options: [
       { value: "pipeline", label: "Överblick över pipeline och prognoser" },
       { value: "leads", label: "Hantering av leads och affärsmöjligheter" },
@@ -160,7 +160,7 @@ export const PRODUCT_FOCUS_QUESTIONS: Record<string, FocusQuestion> = {
       { value: "quotes", label: "Offerter och prislistor" },
       { value: "outlook", label: "Integration med Outlook och Teams" },
       { value: "erp", label: "Koppling till affärssystemet" },
-      { value: "ai", label: "Copilot och AI i säljarbetet" },
+      { value: "ai", label: "Copilot och AI i försäljningsarbetet" },
     ],
   },
   "Customer Insights (Marketing)": {
