@@ -115,6 +115,11 @@ export function savePlanSolution(solution: Omit<PlanSolution, "savedAt">, needs:
   const done = new Set(snapshot().completedSteps || []); done.add("behovsguide");
   updatePlan({ solution: { ...solution, savedAt: new Date().toISOString().slice(0, 10) }, needs, completedSteps: [...done] });
 }
+/** Loggar en kontaktaktivitet köparen själv har skickat. */
+export function recordPlanContact(type: PlanContactType, partners: string[] = []) {
+  const c: PlanContact = { type, date: new Date().toISOString().slice(0, 10), partners: partners.slice(0, 3) };
+  updatePlan({ contacts: [c, ...(snapshot().contacts || [])].slice(0, 20) });
+}
 export function removePlanCalculation(id: string) {
   updatePlan({ calculations: (snapshot().calculations || []).filter((c) => c.id !== id) });
 }
@@ -149,6 +154,9 @@ export function planPartnerListUrl(buyer: BuyerContext, meta: PlanMeta) {
   return `/valjdynamics365partner/?${params}`;
 }
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
+  const last = meta.contacts?.[0];
+  if (last?.type === "partner") return { label: "Förbered partnersamtalen med frågorna nedan", to: "#plan-fragor" };
+  if (last?.type === "advisory" || last?.type === "intro") return { label: "Komplettera planen inför samtalet med d365.se", to: "#komplettera" };
   if (savedCount >= 2) return { label: "Jämför era partneralternativ", to: "/kortlista/" };
   if (savedCount === 1) return { label: "Lägg till fler alternativ i kortlistan", to: planPartnerListUrl(buyer, meta) };
   if (meta.solution && !meta.solution.existingCustomer && (meta.solution.primary || meta.solution.knownProduct)) return { label: "Hitta relevanta partners", to: planPartnerListUrl(buyer, meta) };
