@@ -279,6 +279,7 @@ const AppShell = () => {
           <Route path="/field-service" element={<RedirectTo to="/d365fieldservice" />} />
           <Route path="/customer-insights" element={<RedirectTo to="/d365marketing" />} />
           <Route path="/ai-mognadsanalys" element={<RedirectTo to="/ai-readiness" />} />
+          <Route path="/ai-mognad" element={<RedirectTo to="/ai-readiness" />} />
           <Route path="/dynamics365-sales" element={<RedirectTo to="/d365sales" />} />
           <Route path="/dynamics365-customer-service" element={<RedirectTo to="/d365customerservice" />} />
           <Route path="/dynamics365-customer-insights" element={<RedirectTo to="/d365marketing" />} />
