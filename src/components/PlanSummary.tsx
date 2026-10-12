@@ -56,6 +56,23 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
         ] as [boolean, string][]).map(([done, label]) => <li key={label} className={done ? "text-foreground" : "text-muted-foreground"}><span aria-hidden="true" className={done ? "text-accent" : ""}>{done ? "✓" : "□"}</span> {nowrapBrand(label)}<span className="sr-only">{done ? " (klart)" : " (återstår)"}</span></li>)}
       </ul>
       <p className="mt-3 text-sm"><span className="font-semibold">Rekommenderat nästa steg:</span> {next.label}</p>
+      {meta.solution && (() => { const sol = meta.solution; return <div className="mt-6">
+        <h3 className="font-semibold">Lösningsbild från behovsguiden <span className="text-xs font-normal text-muted-foreground">sparad {sol.savedAt}</span></h3>
+        <p className="mt-1 text-sm text-muted-foreground">{sol.existingCustomer ? "Ni är redan Dynamics-kund och undersöker vidareutveckling." : sol.knownProduct ? `Ni har valt ${sol.knownProduct} och undersöker hur lösningen bör kompletteras.` : `Ni utforskar ${sol.areaLabel}.`}</p>
+        <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+          {sol.knownProduct && <div><dt className="text-muted-foreground">Vald produkt (ert val)</dt><dd className="font-medium">{nowrapBrand(`Dynamics 365 ${sol.knownProduct}`)}</dd></div>}
+          {sol.primary && !sol.knownProduct && <div><dt className="text-muted-foreground">Huvudspår (förslag)</dt><dd className="font-medium">{nowrapBrand(`Dynamics 365 ${sol.primary.label}`)}</dd><dd className="text-muted-foreground">{sol.primary.reason}</dd></div>}
+          {sol.complements.length > 0 && <div><dt className="text-muted-foreground">Kompletteringar att undersöka</dt>{sol.complements.map((c) => <dd key={c.label} className="font-medium">{nowrapBrand(c.label)}</dd>)}</div>}
+          {sol.isvNote && <div><dt className="text-muted-foreground">Möjligt tilläggsbehov (ISV)</dt><dd>{sol.isvNote.text} <Link to={sol.isvNote.path} className="text-primary hover:underline">Se tillägg</Link></dd></div>}
+        </dl>
+        {sol.insufficient && !sol.primary && <p className="mt-2 text-sm text-muted-foreground">Underlaget räckte inte för ett produktförslag. En fördjupad behovsanalys ger ett säkrare svar.</p>}
+        {sol.aiSummary && <><h4 className="mt-4 text-sm font-semibold">AI, Copilot och agenter</h4><p className="text-sm">{nowrapBrand(sol.aiSummary)}</p></>}
+        {sol.implementationNote && <><h4 className="mt-4 text-sm font-semibold">Införande och arbetssätt</h4><p className="text-sm">{nowrapBrand(sol.implementationNote)}</p></>}
+        {sol.openQuestions.length > 0 && <><h4 className="mt-4 text-sm font-semibold">Att undersöka vidare</h4><ul className="list-disc pl-5 text-sm">{sol.openQuestions.map((q) => <li key={q}>{nowrapBrand(q)}</li>)}</ul></>}
+        {sol.nextSteps.length > 1 && <><h4 className="mt-4 text-sm font-semibold">Andra möjliga vägar</h4><ul className="text-sm">{sol.nextSteps.slice(1, 4).map((n) => <li key={n.path}><Link to={n.path} className="text-primary hover:underline">{nowrapBrand(n.label)} →</Link></li>)}</ul></>}
+        <p className="mt-3 text-sm print:hidden"><Link to="/kom-igang/?source=min-d365-plan" className="text-primary hover:underline">Gör om behovsguiden</Link></p>
+      </div>; })()}
+      {(meta.completedSteps || []).length > 0 && <p className="mt-4 text-sm"><span className="font-semibold">Genomfört:</span> {(meta.completedSteps || []).map((c) => c === "behovsguide" ? "✓ Behovsguiden" : `✓ ${c}`).join(", ")}</p>}
       <h3 className="mt-5 font-semibold">Behov och prioriteringar</h3>
       {needs.length || meta.needs.length || priorities.length ? <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">
         {Array.from(new Set([...meta.needs, ...needs])).map((need) => <li key={need}>{nowrapBrand(need)}</li>)}

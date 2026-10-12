@@ -4,7 +4,7 @@ import { track as trackEvent } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
-import { updatePlan } from "@/lib/d365Plan";
+import { savePlanSolution } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
 import {
   AREA_OPTIONS,
@@ -318,7 +318,13 @@ const KomIgang = () => {
     setResult(res);
     const app = res.primary?.app ?? ans.knownProduct ?? "";
     setSelectedProduct(app || null);
-    updatePlan({ needs: res.needsIdentified });
+    savePlanSolution({
+      areaLabel: res.areaLabel, knownProduct: res.knownProduct, existingCustomer: res.existingCustomer, insufficient: res.insufficient,
+      primary: res.primary ? { label: res.primary.label, reason: res.primary.reason } : undefined,
+      complements: res.complements.map((c) => ({ label: c.label, reason: c.reason })),
+      explore: res.exploreAreas, isvNote: res.isvNote, aiSummary: res.aiSummary, implementationNote: res.implementationNote,
+      openQuestions: res.openQuestions, nextSteps: res.nextSteps,
+    }, res.needsIdentified);
     trackEvent("kom_igang_recommendation", {
       primary: res.primary?.app ?? null,
       complements: res.complements.map((c) => c.app).join(","),
@@ -539,6 +545,11 @@ const KomIgang = () => {
                   })}
                 </div>
               )}
+
+              <p className="mb-6 text-sm text-muted-foreground">
+                ✓ Resultatet är sparat i Min D365-plan i den här webbläsaren.{" "}
+                <Link to="/underlag/" className="font-medium text-primary underline underline-offset-4" onClick={() => trackEvent("kom_igang_plan_click", {})}>Visa min D365-plan</Link>
+              </p>
 
               {/* Ärlighet när underlaget inte räcker */}
               {result.insufficient && !result.existingCustomer && (
