@@ -83,15 +83,16 @@ Deno.serve(async (req) => {
     // Grundprofiler får aldrig köparens uppgifter automatiskt: introduktion via d365.se.
     const partners = all.filter((p: any) => p.is_featured === true);
     const intros = approved.filter((s) => !partners.some((p) => p.slug === s));
-    if (intros.length) d.project = { ...(d.project || {}), introduktion_begard: intros };
     if (!partners.length && !intros.length) return json({ error: "Partnern kunde inte hittas." }, 400, cors);
+    const introNames = intros.map((s) => all.find((p) => p.slug === s)?.name || s);
+    const dbProject = d.include_project ? { ...(d.project || {}), ...(intros.length ? { introduktion_begard: intros } : {}) } : (intros.length ? { introduktion_begard: intros } : null);
 
-    const { partners: _p, ...rest } = d;
-    const { data: inquiry, error } = await sb.from("inquiries").insert({ ...rest, project: d.include_project ? d.project ?? null : null, source_site: siteFromOrigin(origin) }).select("id").single();
+    const { partners: _p, advisory: _adv, ...rest } = d;
+    const { data: inquiry, error } = await sb.from("inquiries").insert({ ...rest, project: dbProject, source_site: siteFromOrigin(origin) }).select("id").single();
     if (error || !inquiry) { console.error(error); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
 
     const tokens = new Map(partners.map((p) => [p.slug, crypto.randomUUID().replace(/-/g, "")]));
-    await sb.from("inquiry_partners").insert(partners.map((p) => ({
+    if (partners.length) await sb.from("inquiry_partners").insert(partners.map((p) => ({
       inquiry_id: inquiry.id, partner_slug: p.slug, share_consent: true,
       consent_text: `Jag godkänner att mina kontaktuppgifter och mitt projektunderlag skickas till ${p.name}.`,
       status_token: tokens.get(p.slug),
@@ -121,15 +122,24 @@ ${d.include_project ? projectText(d.project) : ""}
           });
         } catch (e) { console.error("partner mail", p.slug, e); }
       }
+      if (intros.length) {
+        try {
+          await resend.emails.send({
+            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Introduktion begärd: ${d.company}`,
+            html: `<p>${esc(d.contact_name)} på ${esc(d.company)} vill ha en introduktion till: ${esc(introNames.join(", "))} (grundprofil). Uppgifterna har INTE skickats till partnern.</p><p>Kontakt: ${esc(d.email)}, ${esc(d.phone || "–")}<br>Meddelande: ${esc(d.message || "–")}</p>${d.include_project ? projectText(d.project) : ""}`,
+          });
+        } catch (e) { console.error("intro mail", e); }
+      }
       try {
+        const parts = [names ? `Förfrågan har skickats till: ${esc(names)}.` : "", introNames.length ? `d365.se tar kontakt om introduktion till: ${esc(introNames.join(", "))}. Inga uppgifter har skickats till dem.` : ""].filter(Boolean).join(" ");
         await resend.emails.send({
           from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan via d365.se",
-          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. Den har skickats till: ${esc(names)}.</p><p>Vi hör av oss om ungefär två veckor för att höra om ni fått svar.</p><p>d365.se</p>`,
+          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p><p>d365.se</p>`,
         });
       } catch (e) { console.error("buyer mail", e); }
     } else console.error("RESEND_API_KEY missing");
 
-    return json({ ok: true, partners: partners.map((p) => p.name) }, 200, cors);
+    return json({ ok: true, partners: partners.map((p) => p.name), intros: introNames }, 200, cors);
   } catch (e) {
     console.error(e);
     return json({ error: "Något gick fel. Försök igen." }, 500, cors);
