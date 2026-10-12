@@ -104,7 +104,7 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
           phone: parsed.data.phone || null, message: parsed.data.message || null,
           help_with: advisory ? focus || null : "Partnerdialog från Min D365-plan",
           project, include_project: shared.length > 0, privacy_ack: true,
-          partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, consent: true })),
+          partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });

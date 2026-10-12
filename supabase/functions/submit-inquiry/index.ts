@@ -15,7 +15,7 @@ const Body = z.object({
   project: z.record(z.unknown()).optional().nullable(),
   include_project: z.boolean().default(true),
   privacy_ack: z.literal(true),
-  partners: z.array(z.object({ slug: z.string().trim().min(1).max(120), consent: z.boolean() })).max(3).default([]),
+  partners: z.array(z.object({ slug: z.string().trim().min(1).max(120), name: z.string().trim().max(200).optional(), consent: z.boolean() })).max(3).default([]),
   /** Rådgivning direkt med d365.se, ingen partner kontaktas. */
   advisory: z.boolean().optional(),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100), utm_content: s(100), utm_term: s(100),
@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     const partners = all.filter((p: any) => p.is_featured === true);
     const intros = approved.filter((s) => !partners.some((p) => p.slug === s));
     if (!partners.length && !intros.length) return json({ error: "Partnern kunde inte hittas." }, 400, cors);
-    const introNames = intros.map((s) => all.find((p) => p.slug === s)?.name || s);
+    const introNames = intros.map((s) => all.find((p) => p.slug === s)?.name || d.partners.find((p) => p.slug === s)?.name || s);
     const dbProject = d.include_project ? { ...(d.project || {}), ...(intros.length ? { introduktion_begard: intros } : {}) } : (intros.length ? { introduktion_begard: intros } : null);
 
     const { partners: _p, advisory: _adv, ...rest } = d;
