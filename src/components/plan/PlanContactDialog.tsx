@@ -104,7 +104,7 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
           phone: parsed.data.phone || null, message: parsed.data.message || null,
           help_with: advisory ? focus || null : "Partnerdialog från Min D365-plan",
           project, include_project: shared.length > 0, privacy_ack: true,
-          partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, consent: true })),
+          partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });
@@ -113,15 +113,18 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
       if (advisory) {
         recordPlanContact("advisory");
         trackFunnelEvent({ event_type: "engagement", event_name: "advisory_submitted", metadata: { sections: shared.length } });
-      } else {
-        const sent: string[] = data.partners || [];
-        const intros: string[] = data.intros || [];
+      }
+      // Grundprofiler finns inte alltid med namn i backend; visa kortlistans namn i stället för slug.
+      const nameOf = (s: string) => chosen.find((p) => p.slug === s || p.name === s)?.name || s;
+      const sent: string[] = (data.partners || []).map(nameOf);
+      const intros: string[] = (data.intros || []).map(nameOf);
+      if (!advisory) {
         if (sent.length) recordPlanContact("partner", sent);
         if (intros.length) recordPlanContact("intro", intros);
         if (sent.length) trackFunnelEvent({ event_type: "engagement", event_name: "partner_request_submitted", metadata: { count: sent.length, sections: shared.length } });
         if (intros.length) trackFunnelEvent({ event_type: "engagement", event_name: "basic_profile_intro_requested", metadata: { count: intros.length } });
       }
-      setDone({ partners: data.partners || [], intros: data.intros || [] });
+      setDone({ partners: sent, intros });
     } catch {
       setError("Något gick fel. Försök igen.");
     }
