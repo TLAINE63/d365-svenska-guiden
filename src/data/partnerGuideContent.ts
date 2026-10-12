@@ -87,7 +87,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
           ],
           [
             "Finance & Supply Chain Management",
-            "Enterprise. 1,5–10 miljoner kr",
+            "Enterprise. 2–15+ miljoner kr",
             "Cirka 50"
           ]
         ]
@@ -906,7 +906,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Ett par storleksordningar som ram, och som är d365.se:s bedömning av den svenska marknaden. Projekten ligger normalt på 1,5–10 miljoner kronor och löper över flera år räknat från förstudie till stabil drift. Vi bedömer att det finns i storleksordningen hundra kundkoncerner i Sverige som kör systemet eller dess föregångare, och att det tillkommer i storleksordningen femtio nya affärer per år. d365.se har identifierat fler aktörer med F&SCM-kompetens, men för större svenska flerbolags- eller internationella end-to-end-program bedömer vi att gruppen med tillräcklig kapacitet är ungefär ett tiotal. Siffrorna är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
+        "text": "Ett par storleksordningar som ram, och som är d365.se:s bedömning av den svenska marknaden. Projekten ligger normalt på 2–6 miljoner kronor (litet), 6–15 miljoner (medelstort) eller från 15 miljoner (stort) och löper över flera år räknat från förstudie till stabil drift. Vi bedömer att det finns i storleksordningen hundra kundkoncerner i Sverige som kör systemet eller dess föregångare, och att det tillkommer i storleksordningen femtio nya affärer per år. d365.se har identifierat fler aktörer med F&SCM-kompetens, men för större svenska flerbolags- eller internationella end-to-end-program bedömer vi att gruppen med tillräcklig kapacitet är ungefär ett tiotal. Siffrorna är vår marknadsbedömning, uppdaterad i september 2026, inte officiell Microsoft-statistik."
       },
       {
         "type": "p",
