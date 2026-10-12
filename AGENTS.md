@@ -6,7 +6,7 @@
 
 - Public partner lists share WhyTheseResults and PartnerSelectionFacts with explicit page context; this separates actual selection rules and registered evidence from AI assessments.
 - FitModel renders the manually maintained matrices inside native details with locally saved priority selectors; tables stay in HTML and visitor priorities never change scores, partner evidence or ranking.
-- Min D365-plan reuses buyerProfile and buyerContext, with d365Plan storing only local priorities and investigation area; this keeps existing answers and anonymous persistence intact without new server data.
+- Min D365-plan reuses buyerProfile and buyerContext, with d365Plan storing only local priorities and investigation area; keeps anonymous persistence without server data.
 - ContextualCta resolves evaluation journeys through ctaJourney before partner personalization; this prevents generic ERP/CRM and comparisons from prematurely assuming a product or partner recommendation.
 
 - Editorial guides, comparisons and industry pages use the shared EditorialSource near the title; pass only existing content dates and confirmed reviewers to avoid fabricated provenance.
@@ -31,4 +31,4 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
-- Subdirectories have their own AGENTS.md; read it before changing files there.
+- Subdirs have own AGENTS.md; read first.
