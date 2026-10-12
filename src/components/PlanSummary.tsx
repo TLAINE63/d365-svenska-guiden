@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+/** Stabil, icke-personlig nyckel för en rekommendation (sökväg utan parametrar). */
+const nbaKey = (to: string) => to.split("?")[0].replace(/[^a-z0-9#/-]/gi, "").slice(0, 60) || "okand";
 import PlanContactDialog, { type PlanContactMode } from "@/components/plan/PlanContactDialog";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +29,14 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
     .map((q) => `${q.text} ${answerLabel(q, profile[q.section][q.key])}`);
   const priorities = Object.entries(meta.dimensions);
   const [contact, setContact] = useState<PlanContactMode | null>(null);
+  // Mätning: planvisning en gång per session, rekommendation en gång per unik rekommendation och session.
+  useEffect(() => {
+    try {
+      if (!sessionStorage.getItem("plan_viewed_sent")) { sessionStorage.setItem("plan_viewed_sent", "1"); trackFunnelEvent({ event_type: "engagement", event_name: "plan_viewed", metadata: { shortlist: items.length } }); }
+      const k = `nba_seen_${nbaKey(next.to)}`;
+      if (!sessionStorage.getItem(k)) { sessionStorage.setItem(k, "1"); trackFunnelEvent({ event_type: "engagement", event_name: "next_best_action_viewed", metadata: { action_key: nbaKey(next.to), action_label: next.label, target: next.to } }); }
+    } catch { /* ignore */ }
+  }, [next.to]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <section aria-labelledby="plan-summary-title" className="mb-8 border-y border-border py-6">
       <h2 id="plan-summary-title" className="mb-3 text-xl font-semibold text-foreground">Er plan just nu</h2>
@@ -147,8 +158,8 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
         {!items.length && <p className="mt-2 text-xs text-muted-foreground print:hidden">Spara minst en partner i kortlistan för att kunna kontakta partners.</p>}
       </section>
       {contact && <PlanContactDialog mode={contact} onClose={() => setContact(null)} />}
-      <div className="mt-5 flex flex-wrap gap-3 print:hidden">
-        {next.to === "#plan-fragor" ? <Button onClick={() => document.getElementById("plan-fragor")?.scrollIntoView({ behavior: "smooth" })}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : next.to.startsWith("#") ? <Button onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
+      <div className="mt-5 flex flex-wrap gap-3 print:hidden" onClickCapture={(e) => { if ((e.target as HTMLElement).closest("[data-nba]")) trackFunnelEvent({ event_type: "cta_click", event_name: "next_best_action_clicked", metadata: { action_key: nbaKey(next.to), action_label: next.label, target: next.to } }); }}>
+        {next.to === "#plan-fragor" ? <Button data-nba onClick={() => document.getElementById("plan-fragor")?.scrollIntoView({ behavior: "smooth" })}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : next.to.startsWith("#") ? <Button data-nba onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link data-nba to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
         <Button variant="outline" onClick={onEdit}>Ändra eller komplettera svar</Button>
         <Button variant="ghost" onClick={() => { if (window.confirm("Rensa planens svar och prioriteringar? Era sparade partners finns kvar.")) clearD365Plan(); }}><RotateCcw className="h-4 w-4" />Rensa planen</Button>
       </div>

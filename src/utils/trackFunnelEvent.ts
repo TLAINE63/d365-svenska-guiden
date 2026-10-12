@@ -209,6 +209,27 @@ export interface FunnelEventPayload {
   step?: FunnelStep;
 }
 
+/**
+ * Icke-personlig segmentering från Min D365-plan (lokalt sparad):
+ * main_area = erp | sales | marketing | service | multi, journey_state = existing_customer | known_product | exploring.
+ * Läser bara strukturerade fält, aldrig fritext eller kontaktuppgifter.
+ */
+function planSegment(): { main_area?: string; journey_state?: string } {
+  try {
+    const v = JSON.parse(localStorage.getItem("d365_plan_v1") || "{}");
+    const sol = v?.solution;
+    const out: { main_area?: string; journey_state?: string } = {};
+    const label = String(sol?.areaLabel || "").toLowerCase();
+    if (label) out.main_area = /erp|affärssystem/.test(label) ? "erp" : /försäljning|sälj/.test(label) ? "sales" : /marknad/.test(label) ? "marketing" : /service/.test(label) ? "service" : "multi";
+    else if (v?.area === "erp") out.main_area = "erp";
+    else if (v?.area === "crm") out.main_area = "crm";
+    if (sol) out.journey_state = sol.existingCustomer ? "existing_customer" : sol.knownProduct ? "known_product" : "exploring";
+    return out;
+  } catch {
+    return {};
+  }
+}
+
 export function trackFunnelEvent(payload: FunnelEventPayload): void {
   try {
     if (!isTrackingAllowed()) return;
@@ -220,7 +241,8 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-funnel-event`;
     const pagePath = payload.page_path ?? window.location.pathname;
     const attribution = getAttribution();
-    const meta = (payload.metadata || {}) as Record<string, unknown>;
+    const meta = { ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
+    payload = { ...payload, metadata: meta };
     const partnerSlug = (meta.partner_slug || meta.partner) as string | undefined;
     const body = JSON.stringify({
       ...payload,

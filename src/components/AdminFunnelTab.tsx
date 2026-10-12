@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminJourneyFunnel from "@/components/AdminJourneyFunnel";
+import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import AdminEngagementMetrics from "@/components/AdminEngagementMetrics";
 import AdminPartnerInquiryStats from "@/components/AdminPartnerInquiryStats";
 import AdminCompetenceFunnel from "@/components/AdminCompetenceFunnel";
@@ -79,6 +80,7 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
 
   return (
     <div className="space-y-6">
+      <BuyerFunnelCard token={token} onSessionExpired={onSessionExpired} />
       <AdminEngagementMetrics token={token} onSessionExpired={onSessionExpired} />
       <AdminPartnerInquiryStats token={token} onSessionExpired={onSessionExpired} />
       <AdminCompetenceFunnel token={token} onSessionExpired={onSessionExpired} />

@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
       });
     }
     // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
-    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" ? ["admin", "editor"] : ["admin"]);
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
@@ -259,6 +259,128 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ metrics, leads_by_type: leadsByType }), {
         headers: { ...cors, "Content-Type": "application/json" },
       });
+    }
+
+    if (body?.action === "buyer") {
+      // Sprint 6: köparfunnel från faktiska händelser. Unika sessioner per steg, ingen persondata läses.
+      const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const sinceB = new Date(Date.now() - d * 86400000).toISOString();
+      const areaF: string | null = body?.area || null;
+      const stateF: string | null = body?.state || null;
+      const STEP_EVENTS: Record<string, string[]> = {
+        visit: ["landing"],
+        guide_started: ["kom_igang_start"],
+        guide_completed: ["kom_igang_results"],
+        plan_created: ["plan_created"],
+        plan_viewed: ["plan_viewed"],
+        deep_started: ["needs_analysis_erp", "needs_analysis_sales_marketing", "needs_analysis_customer_service", "kravspec_erp", "kravspec_sales", "kravspec_marketing", "kravspec_customer_service"],
+        partner_saved: ["partner_added_to_shortlist"],
+        compared: ["partner_comparison_started"],
+        advisory_started: ["advisory_started"],
+        partner_contact_started: ["partner_contact_started"],
+        share_preview: ["share_preview_viewed"],
+        advisory_submitted: ["advisory_submitted"],
+        partner_request_submitted: ["partner_request_submitted"],
+        intro_requested: ["basic_profile_intro_requested"],
+        nba_viewed: ["next_best_action_viewed"],
+        nba_clicked: ["next_best_action_clicked"],
+        existing_customer_page: [],
+        partner_profile: [],
+      };
+      const nameToStep = new Map<string, string>();
+      for (const [k, names] of Object.entries(STEP_EVENTS)) for (const n of names) nameToStep.set(n, k);
+      const rows: any[] = [];
+      for (let from = 0; from < 300000; from += 1000) {
+        const { data, error } = await supabase
+          .from("funnel_events")
+          .select("session_id, event_type, event_name, page_path, landing_path, traffic_source, metadata")
+          .gte("occurred_at", sinceB)
+          .not("session_id", "is", null)
+          .order("occurred_at", { ascending: true })
+          .range(from, from + 999);
+        if (error) { console.error(error); break; }
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
+      }
+      type S = { steps: Set<string>; area: string | null; state: string | null; source: string; landing: string; partners: Set<string>; deepDone: boolean };
+      const sessions = new Map<string, S>();
+      const nba = new Map<string, { label: string; viewed: Set<string>; clicked: Set<string> }>();
+      for (const r of rows) {
+        let s = sessions.get(r.session_id);
+        if (!s) { s = { steps: new Set(), area: null, state: null, source: r.traffic_source || "direct", landing: r.landing_path || "(okänd)", partners: new Set(), deepDone: false }; sessions.set(r.session_id, s); }
+        const m = (r.metadata || {}) as Record<string, any>;
+        if (typeof m.main_area === "string") s.area = m.main_area;
+        if (typeof m.journey_state === "string") s.state = m.journey_state;
+        const step = nameToStep.get(r.event_name);
+        if (step === "deep_started") { if (r.event_type === "analysis_start") s.steps.add("deep_started"); if (r.event_type === "analysis_complete") s.deepDone = true; }
+        else if (step) s.steps.add(step);
+        if (r.event_name === "partner_added_to_shortlist" && typeof m.partner === "string") s.partners.add(m.partner);
+        if (typeof r.page_path === "string" && r.page_path.startsWith("/befintlig-kund")) s.steps.add("existing_customer_page");
+        if (typeof r.page_path === "string" && r.page_path.startsWith("/partner/")) s.steps.add("partner_profile");
+        if (r.event_name === "next_best_action_viewed" || r.event_name === "next_best_action_clicked") {
+          const key = String(m.action_key || "okand").slice(0, 60);
+          let n = nba.get(key); if (!n) { n = { label: String(m.action_label || key).slice(0, 120), viewed: new Set(), clicked: new Set() }; nba.set(key, n); }
+          (r.event_name === "next_best_action_viewed" ? n.viewed : n.clicked).add(r.session_id);
+        }
+      }
+      const list = [...sessions.values()].filter((s) => (!areaF || s.area === areaF) && (!stateF || s.state === stateF));
+      const count = (k: string) => list.filter((s) => s.steps.has(k)).length;
+      const has = (s: S, k: string) => s.steps.has(k);
+      const main = [
+        { key: "visit", label: "Besök (sessioner)", count: list.length },
+        { key: "guide_started", label: "Behovsguide startad", count: count("guide_started") },
+        { key: "guide_completed", label: "Behovsguide slutförd", count: count("guide_completed") },
+        { key: "plan_created", label: "Min D365-plan skapad", count: count("plan_created") },
+        { key: "deep_started", label: "Fördjupning startad", count: count("deep_started") },
+        { key: "deep_completed", label: "Fördjupning slutförd", count: list.filter((s) => s.deepDone).length },
+        { key: "partner_saved", label: "Partner sparad", count: count("partner_saved") },
+        { key: "compared", label: "Partners jämförda", count: count("compared") },
+        { key: "dialog", label: "Rådgivning eller partnerförfrågan skickad", count: list.filter((s) => has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")).length },
+      ];
+      const seq = (keys: ((s: S) => boolean)[], labels: string[]) => {
+        let pool = list;
+        return labels.map((label, i) => { pool = pool.filter(keys[i]); return { label, count: pool.length }; });
+      };
+      const funnels = {
+        a: seq([(s) => has(s, "guide_started"), (s) => has(s, "plan_created"), (s) => has(s, "deep_started") || has(s, "plan_viewed"), (s) => has(s, "partner_saved"), (s) => has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Behovsguide", "D365-plan", "Fördjupning eller planvisning", "Partner sparad", "Dialog skickad"]),
+        b: seq([(s) => has(s, "partner_profile"), (s) => has(s, "partner_saved"), (s) => has(s, "compared"), (s) => has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Partnerprofil", "Kortlista", "Jämförelse", "Partnerförfrågan eller introduktion"]),
+        c: seq([(s) => has(s, "existing_customer_page") || s.state === "existing_customer", (s) => has(s, "plan_created"), (s) => has(s, "deep_started") || has(s, "plan_viewed"), (s) => has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Befintlig kund", "D365-plan", "Fördjupning eller planvisning", "Rådgivning eller partner"]),
+      };
+      const dropoffs = [
+        { label: "Behovsguide startad → slutförd", from: count("guide_started"), to: list.filter((s) => has(s, "guide_started") && has(s, "guide_completed")).length },
+        { label: "Plan skapad → rekommenderat steg klickat", from: count("plan_created"), to: list.filter((s) => has(s, "plan_created") && has(s, "nba_clicked")).length },
+        { label: "En partner sparad → minst två", from: list.filter((s) => s.partners.size >= 1).length, to: list.filter((s) => s.partners.size >= 2).length },
+        { label: "Minst två partners → jämförelse", from: list.filter((s) => s.partners.size >= 2).length, to: list.filter((s) => s.partners.size >= 2 && has(s, "compared")).length },
+        { label: "Delningsgranskning → skickat", from: count("share_preview"), to: list.filter((s) => has(s, "share_preview") && (has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested"))).length },
+        { label: "Rådgivning startad → skickad", from: count("advisory_started"), to: list.filter((s) => has(s, "advisory_started") && has(s, "advisory_submitted")).length },
+        { label: "Partnerkontakt startad → skickad", from: count("partner_contact_started"), to: list.filter((s) => has(s, "partner_contact_started") && (has(s, "partner_request_submitted") || has(s, "intro_requested"))).length },
+      ];
+      const conversions = {
+        advisory: count("advisory_submitted"),
+        partner_request: count("partner_request_submitted"),
+        intro: count("intro_requested"),
+      };
+      const segOf = (pick: (s: S) => string | null) => {
+        const m = new Map<string, { sessions: number; plan: number; dialog: number }>();
+        for (const s of list) {
+          const k = pick(s) || "okänt";
+          const e = m.get(k) || { sessions: 0, plan: 0, dialog: 0 };
+          e.sessions++; if (has(s, "plan_created")) e.plan++;
+          if (has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")) e.dialog++;
+          m.set(k, e);
+        }
+        return [...m.entries()].map(([key, v]) => ({ key, ...v })).sort((a, b) => b.sessions - a.sessions);
+      };
+      return new Response(JSON.stringify({
+        days: d,
+        sessions: list.length,
+        main, funnels, dropoffs, conversions,
+        nba: [...nba.entries()].map(([key, v]) => ({ key, label: v.label, viewed: v.viewed.size, clicked: v.clicked.size })).sort((a, b) => b.viewed - a.viewed),
+        by_area: segOf((s) => s.area),
+        by_state: segOf((s) => s.state),
+        by_source: segOf((s) => s.source),
+        by_landing: segOf((s) => (s.landing === "/" ? "/" : "/" + (s.landing.split("/")[1] || ""))).slice(0, 12),
+      }), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     if (body?.action === "journey") {
