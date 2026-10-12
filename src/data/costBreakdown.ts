@@ -109,11 +109,11 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mer avancerade implementationer",
         scope: "Lager, produktion och integrationer",
-        range: "250 000 – 1 500 000+ kr",
+        range: "465 000 kr – 2,9 MSEK",
         bullets: [
           "4–8 månaders projekt",
-          "Mellanprojekt (15–35 användare): 250 000–500 000 kr",
-          "Större projekt (35+ användare): från 500 000 kr",
+          "Medelstort projekt (15–35 användare): 465 000 kr – 1,2 MSEK",
+          "Större projekt (35+ användare): 1,2 – 2,9 MSEK",
           "Tillverkande industri hamnar ofta i övre delen även med få användare",
           "Flera systemintegrationer",
           "Komplex datamigration",
@@ -130,21 +130,21 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         size: "S",
         label: "Liten – 50–150 användare",
         scope: "1 bolag, standard­processer, 3–5 integrationer, en geografi.",
-        oneTime: "1 500 000 – 3 500 000 kr",
+        oneTime: "2 – 6 MSEK",
         weeks: "20–36 veckor",
       },
       {
         size: "M",
         label: "Medel – 150–500 användare",
         scope: "Flera bolag/länder, WMS eller produktion, 6–12 integrationer, master data-projekt.",
-        oneTime: "3 500 000 – 10 000 000 kr",
+        oneTime: "6 – 15 MSEK",
         weeks: "9–18 månader",
       },
       {
         size: "L",
         label: "Stor – 500+ användare",
         scope: "Global koncern, flera roll-outs, MES/EDI/avancerad lager, omfattande change-program.",
-        oneTime: "10 000 000 – 60 000 000+ kr",
+        oneTime: "Från 15 MSEK",
         weeks: "18–36 månader",
       },
     ],
@@ -167,7 +167,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mindre standardimplementationer",
         scope: "Grundläggande uppsättning med standardfunktionalitet",
-        range: "750 000 – 3 000 000 kr",
+        range: "2 – 6 MSEK",
         bullets: [
           "6–9 månaders projekt",
           "Standardprocesser med mindre anpassningar",
@@ -180,7 +180,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mer avancerade implementationer",
         scope: "Globala implementationer med hög komplexitet",
-        range: "1 500 000 – 10 000 000+ kr",
+        range: "Från 6 MSEK",
         bullets: [
           "9–18+ månaders projekt",
           "Omfattande anpassningar och utveckling",
