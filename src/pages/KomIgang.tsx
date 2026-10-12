@@ -4,9 +4,9 @@ import { track as trackEvent } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
-import { updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { updatePlan } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
-import { NEED_OPTIONS, STRUCTURE_OPTIONS } from "@/lib/productRecommendation";
+import { STRUCTURE_OPTIONS } from "@/lib/productRecommendation";
 import {
   AREA_OPTIONS,
   STAGE_OPTIONS,
@@ -205,7 +205,6 @@ const KomIgang = () => {
   const { data: partners = [] } = usePartners();
 
   const storedContext = getBuyerContext();
-  const plan = usePlanMeta();
   const initialIndustry = normalizeIndustryParam(searchParams.get("industry") || storedContext.industry || null);
   const requestedProduct = searchParams.get("product") || storedContext.product;
   const source = searchParams.get("source") || "direct";
@@ -219,6 +218,9 @@ const KomIgang = () => {
   const [productShortcut, setProductShortcut] = useState(false);
   const [stepIdx, setStepIdx] = useState(0);
   const [result, setResult] = useState<SolutionResult | null>(null);
+  // Bransch ställs bara om den inte redan är känd (URL-param eller sparad kontext).
+  // Steget får inte försvinna när det besvaras – då hoppar listan.
+  const [hasPrefilledIndustry] = useState(!!initialIndustry);
 
   // Dynamisk steglista – frågorna anpassas efter tidigare svar
   const steps = useMemo<StepId[]>(() => {
@@ -234,11 +236,11 @@ const KomIgang = () => {
       s.push("focus");
     }
     s.push("ai");
-    if (!answers.industry) s.push("industry");
+    if (!hasPrefilledIndustry) s.push("industry");
     s.push("size");
     if ((answers.area === "erp" || answers.area === "unsure") && !answers.knownProduct) s.push("structure");
     return s;
-  }, [answers.area, answers.stage, answers.knownProduct, answers.industry, productShortcut]);
+  }, [answers.area, answers.stage, answers.knownProduct, hasPrefilledIndustry, productShortcut]);
 
   const step = steps[Math.min(stepIdx, steps.length - 1)];
   const stepNum = Math.min(stepIdx, steps.length - 1) + 1;
@@ -279,35 +281,41 @@ const KomIgang = () => {
     };
   }, []);
 
+  // Ref med senaste tillståndet så att setTimeout(advance) aldrig agerar på gamla svar
+  const latest = useRef({ steps, stepIdx, answers });
+  latest.current = { steps, stepIdx, answers };
+
   const advance = () => {
+    const { steps: st, stepIdx: si } = latest.current;
     trackFunnelEvent({
       event_type: "analysis_step",
       event_name: "kom_igang_step_complete",
-      metadata: { source, step: stepNum, step_id: step },
+      metadata: { source, step: si + 1, step_id: st[si] },
     });
-    if (stepIdx >= steps.length - 1) {
+    if (si >= st.length - 1) {
       completeFlow();
     } else {
-      currentStep.current = stepNum + 1;
-      setStepIdx(stepIdx + 1);
+      currentStep.current = si + 2;
+      setStepIdx(si + 1);
     }
   };
 
   const completeFlow = () => {
-    const res = buildSolutionResult(answers);
+    const ans = latest.current.answers;
+    const res = buildSolutionResult(ans);
     setResult(res);
-    const app = res.primary?.app ?? answers.knownProduct ?? "";
+    const app = res.primary?.app ?? ans.knownProduct ?? "";
     setSelectedProduct(app || null);
     updatePlan({ needs: res.needsIdentified });
     trackEvent("kom_igang_recommendation", {
       primary: res.primary?.app ?? null,
       complements: res.complements.map((c) => c.app).join(","),
-      area: answers.area ?? null,
-      stage: answers.stage ?? null,
+      area: ans.area ?? null,
+      stage: ans.stage ?? null,
       insufficient: res.insufficient,
     });
     completed.current = true;
-    findPartners(app, answers.industry || "", answers.size || null, res);
+    findPartners(app, ans.industry || "", ans.size || null, res);
   };
 
   const findPartners = async (
@@ -364,7 +372,7 @@ const KomIgang = () => {
               application: app || "Alla",
               industry,
               companySize: size || "",
-              situation: STAGE_OPTIONS.find(o => o.value === answers.stage)?.label || "",
+              situation: STAGE_OPTIONS.find(o => o.value === latest.current.answers.stage)?.label || "",
               complexity: (res?.needsIdentified ?? []).join(", "),
             },
           },
@@ -923,7 +931,7 @@ const KomIgang = () => {
                     </div>
                     <div className="mt-4 text-center">
                       <button
-                        onClick={() => { setProductShortcut(true); setAnswers((p) => ({ ...p, stage: "know_product" })); setTimeout(advance, 50); }}
+                        onClick={() => { setProductShortcut(true); setAnswers((p) => ({ ...p, stage: "know_product" })); setTimeout(() => setStepIdx(2), 50); }}
                         className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
                       >
                         Vet ni redan vilken Dynamics&nbsp;365-produkt ni behöver? Välj direkt →

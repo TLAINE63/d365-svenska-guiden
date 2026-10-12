@@ -268,16 +268,13 @@ const PRODUCT_PAGE: Record<string, string> = {
   "Finance & SCM": "/finance-supply-chain-management/",
   Sales: "/d365sales/",
   "Customer Insights (Marketing)": "/d365marketing/",
-  "Customer Service": "/d365customers/",
+  "Customer Service": "/d365customerservice/",
   "Contact Center": "/d365contactcenter/",
   "Field Service": "/d365fieldservice/",
   "Project Operations": "/d365projectoperations/",
   Commerce: "/d365commerce/",
   "Human Resources": "/d365humanresources/",
 };
-// Korrigera stavade sökvägar mot faktiska routes
-PRODUCT_PAGE["Customer Service"] = "/d365customerservice/";
-PRODUCT_PAGE["Business Central"] = "/businesscentral/";
 
 const MATCHNINGSTEST: Record<string, string> = {
   "Business Central": "/businesscentral/matchningstest/",
