@@ -1048,7 +1048,7 @@ const KomIgang = () => {
                     ))}
                     <div className="text-center pt-1">
                       <Button
-                        onClick={() => { const s = latest.current.answers.scope ?? {}; setAnswers((p) => ({ ...p, size: deriveSize(p) })); advance(); }}
+                        onClick={() => { setAnswers((p) => ({ ...p, size: deriveSize(p) })); advance(); }}
                         disabled={!ERP_SCOPE_GROUPS.every((g) => answers.scope?.[g.key])}
                         size="sm"
                         className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white"
@@ -1163,61 +1163,6 @@ const KomIgang = () => {
                   </div>
                 )}
 
-                {/* Storlek */}
-                {step === "size" && (
-                  <div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                      {sizeOptions.map((opt) => {
-                        const isSelected = answers.size === opt.value;
-                        return (
-                          <button
-                            key={opt.value}
-                            onClick={() => { setAnswers((p) => ({ ...p, size: opt.value })); setTimeout(advance, 250); }}
-                            className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
-                              isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                            }`}
-                          >
-                            <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <Users className="h-4 w-4 text-primary" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
-                              <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
-                            </div>
-                            {isSelected && <Check className="h-4 w-4 text-primary flex-shrink-0" />}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <button
-                      onClick={() => { setAnswers((p) => ({ ...p, size: undefined })); advance(); }}
-                      className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
-                    >
-                      Hoppa över
-                    </button>
-                  </div>
-                )}
-
-                {/* Bolagsstruktur */}
-                {step === "structure" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
-                    {STRUCTURE_OPTIONS.map((opt) => {
-                      const isSelected = answers.structure === opt.value;
-                      return (
-                        <button
-                          key={opt.value}
-                          onClick={() => { setAnswers((p) => ({ ...p, structure: opt.value })); setTimeout(advance, 250); }}
-                          className={`w-full text-left px-3 py-3 rounded border transition-all min-h-[64px] ${
-                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                          }`}
-                        >
-                          <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
-                          <span className="text-xs text-muted-foreground">{opt.desc}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
               </div>
             </div>
           </div>
