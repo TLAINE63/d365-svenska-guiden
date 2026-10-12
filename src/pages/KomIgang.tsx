@@ -230,23 +230,26 @@ const KomIgang = () => {
   // Dynamisk steglista – triage med 5–7 frågor, anpassade efter tidigare svar
   const steps = useMemo<StepId[]>(() => {
     const s: StepId[] = ["area", "stage"];
+    let branch = false;
     if (answers.stage === "existing") {
-      s.push("existingFocus", "ai", "change");
-      if (!hasPrefilledIndustry) s.push("industry");
-      return s;
-    }
-    if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
+      s.push("existingFocus", "change");
+      branch = true;
+    } else if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
       s.push("product");
       if (answers.knownProduct) s.push("productFocus");
-      s.push("ai", "change");
+      s.push("change");
+      branch = true;
     } else if (answers.area) {
       if (answers.area !== "unsure") s.push("scope");
       s.push("focus");
       // Extra följdfråga bara när den kan ändra vägledningen
       if (answers.area === "erp" && (answers.focus ?? []).includes("projects")) s.push("projectFollowup");
-      s.push("ai", "change");
+      s.push("change");
+      branch = true;
     }
     if (!hasPrefilledIndustry) s.push("industry");
+    // AI/Copilot ställs alltid sist
+    if (branch) s.push("ai");
     return s;
   }, [answers.area, answers.stage, answers.knownProduct, answers.focus, hasPrefilledIndustry, productShortcut]);
 
@@ -1125,7 +1128,12 @@ const KomIgang = () => {
 
                 {/* AI/Copilot – en fråga, anpassade alternativ per område */}
                 {step === "ai" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                  <div className="max-w-3xl mx-auto">
+                  <div className="mb-4 rounded-lg border border-accent/40 bg-accent/10 px-4 py-3 text-left">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-accent">Sista frågan · Nytt ämne: AI och Copilot</p>
+                    <p className="mt-1 text-sm text-foreground">Frågan handlar inte längre om ert behovsområde, utan om hur ni ser på AI-stöd som Copilot och AI-agenter.</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {aiOptionsFor(answers).map((opt) => {
                       const isSelected = answers.ai === opt.value;
                       return (
@@ -1140,6 +1148,7 @@ const KomIgang = () => {
                         </button>
                       );
                     })}
+                  </div>
                   </div>
                 )}
 
