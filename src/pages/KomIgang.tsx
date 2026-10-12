@@ -1131,7 +1131,7 @@ const KomIgang = () => {
                   <div className="max-w-3xl mx-auto">
                   <div className="mb-4 rounded-lg border border-accent/40 bg-accent/10 px-4 py-3 text-left">
                     <p className="text-xs font-semibold uppercase tracking-wide text-accent">Sista frågan · Nytt ämne: AI och Copilot</p>
-                    <p className="mt-1 text-sm text-foreground">Nu handlar frågan inte längre om ert behovsområde, utan om hur ni ser på AI-stöd som Copilot och AI-agenter. Svaret påverkar inte produktförslaget, men vi tipsar om nästa steg.</p>
+                    <p className="mt-1 text-sm text-foreground">Frågan handlar inte längre om ert behovsområde, utan om hur ni ser på AI-stöd som Copilot och AI-agenter.</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {aiOptionsFor(answers).map((opt) => {
@@ -1148,6 +1148,7 @@ const KomIgang = () => {
                         </button>
                       );
                     })}
+                  </div>
                   </div>
                 )}
 
