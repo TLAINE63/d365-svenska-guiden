@@ -31,3 +31,4 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
+- Plan contact (advisory/partner/intro) goes through submit-inquiry from PlanContactDialog; server routes non-featured partners to d365.se intro and never emails them, and the plan logs only sent status locally, so buyer consent and "sent ≠ confirmed" hold.
