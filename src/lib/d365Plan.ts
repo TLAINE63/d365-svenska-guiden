@@ -129,7 +129,8 @@ export function planPartnerListUrl(buyer: BuyerContext, meta: PlanMeta) {
   const params = new URLSearchParams();
   const product = planProductLabel(buyer, meta);
   if (product) params.set("apps", PLAN_APP[product] || product);
-  if (buyer.industry) params.set("industry", buyer.industry);
+  const slug = industrySlugFromName(buyer.industry);
+  if (slug) params.set("industry", slug);
   params.set("source", "min-d365-plan");
   return `/valjdynamics365partner/?${params}`;
 }
