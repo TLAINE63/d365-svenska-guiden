@@ -56,7 +56,7 @@ const kostnadFaqs = [
   {
     question: "Vad kostar Finance & Supply Chain Management jämfört med Business Central?",
     answer:
-      "Finance & Supply Chain Management har både högre licenskostnad per användare och ett större implementationsprojekt, eftersom lösningen är byggd för komplexa processer, flera legala enheter och avancerad lagerstyrning. Räkna med en implementationsbudget som är två till fyra gånger så stor som ett jämförbart Business Central-projekt.",
+      "Finance & Supply Chain Management har både högre licenskostnad per användare och ett större implementationsprojekt, eftersom lösningen är byggd för komplexa processer, flera legala enheter och avancerad lagerstyrning. Räkna med 2–6 MSEK för ett litet projekt, 6–15 MSEK för ett medelstort och från 15 MSEK för ett stort, jämfört med Business Central som ofta landar under 1 MSEK.",
   },
   {
     question: "Vilka kostnader tillkommer efter go-live?",

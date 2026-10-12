@@ -3,7 +3,7 @@
  * Används av /qa/ (FAQ-sida + FAQPage-schema).
  *
  * Svaren ska vara sakliga och följa d365.se:s prisstandarder:
- * BC snabbstart från 50 000 kr, litet 175 000–465 000, medel 465 000–1,2 Mkr, stort 1,2–2,9 Mkr (11 600 kr/dag, synkat med businesscentral.se), F&SCM 1,5–10 Mkr, Sales/Customer Insights
+ * BC snabbstart från 50 000 kr, litet 175 000–465 000, medel 465 000–1,2 Mkr, stort 1,2–2,9 Mkr (11 600 kr/dag, synkat med businesscentral.se), F&SCM litet 2–6 Mkr, medel 6–15 Mkr, stort 15+ Mkr, Sales/Customer Insights
  * 100 000–1 200 000 kr, Customer Service 150 000–1 200 000 kr,
  * Field Service 200 000–1 800 000 kr, Contact Center 250 000–2 000 000 kr.
  */
@@ -106,7 +106,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Vad kostar ett Finance & Supply Chain Management-projekt?",
         answer:
-          "En grov uppskattning för Finance & Supply Chain Management är 1,5–10 Mkr. Kostnaden påverkas bland annat av antal bolag och länder, produktions- och logistikflöden, integrationer och behovet av anpassningar.",
+          "En grov uppskattning för Finance & Supply Chain Management är 2–6 Mkr för ett litet projekt, 6–15 Mkr för ett medelstort projekt och från 15 Mkr för ett stort projekt. Kostnaden påverkas bland annat av antal bolag och länder, produktions- och logistikflöden, integrationer och behovet av anpassningar.",
       },
       {
         question: "Vad kostar ett CRM-projekt i Dynamics 365?",
