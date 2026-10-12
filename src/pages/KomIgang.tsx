@@ -502,7 +502,9 @@ const KomIgang = () => {
                 <p className="text-sm text-muted-foreground">
                   {result.existingCustomer
                     ? "Baserat på var ni befinner er och vad ni vill utveckla"
-                    : `Område: ${result.areaLabel} – baserat på era behov, storlek och nuläge`}
+                    : result.knownProduct
+                      ? "Baserat på er valda produkt och era svar"
+                      : `Område: ${result.areaLabel} – baserat på era behov, storlek och nuläge`}
                 </p>
               </div>
 
