@@ -14,7 +14,12 @@ import {
   KNOWN_PRODUCTS,
   FOCUS_QUESTIONS,
   PRODUCT_FOCUS_QUESTIONS,
-  AI_QUESTION,
+  SCOPE_QUESTIONS,
+  ERP_SCOPE_GROUPS,
+  PROJECT_FOLLOWUP,
+  CHANGE_QUESTION,
+  aiOptionsFor,
+  deriveSize,
   buildSolutionResult,
   type FinderAnswers,
   type SolutionResult,
@@ -184,19 +189,20 @@ const sizeOptions: { value: string; label: string; desc: string }[] = [
 
 type StepId =
   | "area" | "stage" | "existingFocus" | "product" | "productFocus"
-  | "focus" | "ai" | "industry" | "size" | "structure";
+  | "scope" | "focus" | "projectFollowup" | "ai" | "change" | "industry";
 
 const STEP_META: Record<StepId, { label: string; sub?: string }> = {
-  area: { label: "Vad vill ni förbättra?", sub: "Välj det område som är mest aktuellt – ni behöver inte kunna produktnamnen" },
+  area: { label: "Vad vill ni framför allt förbättra?", sub: "Välj det område som är mest aktuellt – ni behöver inte kunna produktnamnen" },
   stage: { label: "Hur långt har ni kommit?", sub: "Svaret styr vilka frågor som kommer härnäst" },
   existingFocus: { label: "Vad vill ni utveckla eller komplettera?", sub: "Välj alla som stämmer" },
   product: { label: "Vilken Dynamics\u00A0365-produkt gäller det?", sub: "Vi hoppar över produktidentifieringen och fokuserar på vad ni behöver tänka på" },
   productFocus: { label: "Vad behöver ni tänka på kring lösningen?", sub: "Välj alla som är aktuella" },
+  scope: { label: "", sub: "Bara det som kan påverka vägledningen" },
   focus: { label: "", sub: "Välj alla som stämmer – ni behöver inte kunna produktnamnen" },
-  ai: { label: AI_QUESTION.text, sub: "AI är ett tvärgående behov, inte en separat produkt" },
-  industry: { label: "Vilken bransch är ni verksamma inom?", sub: "Branschen styr vilka processer och partners som är relevanta" },
-  size: { label: "Hur stor är er organisation?", sub: "Storleken påverkar vilken nivå av lösning som passar" },
-  structure: { label: "Hur ser bolagsstrukturen ut?", sub: "Flera bolag, länder eller valutor ställer andra krav" },
+  projectFollowup: { label: PROJECT_FOLLOWUP.text, sub: "Svaret avgör om Project Operations är värt att undersöka" },
+  ai: { label: "Var ser ni störst potential för AI och automation?", sub: "AI är ett tvärgående behov, inte en separat produkt" },
+  change: { label: CHANGE_QUESTION.text, sub: "Hjälper oss peka ut vad ni bör beakta i nästa fas" },
+  industry: { label: "Vilken bransch är ni verksamma inom?", sub: "Branschen styr vilka partners som är relevanta" },
 };
 
 const KomIgang = () => {
