@@ -6,7 +6,19 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { getBuyerContext, updateBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { saveProfile } from "@/lib/buyerProfile";
-import { NEED_OPTIONS, STRUCTURE_OPTIONS, SITUATION_OPTIONS, recommendProducts, type SituationKey, type StructureKey } from "@/lib/productRecommendation";
+import { NEED_OPTIONS, STRUCTURE_OPTIONS } from "@/lib/productRecommendation";
+import {
+  AREA_OPTIONS,
+  STAGE_OPTIONS,
+  EXISTING_FOCUS_OPTIONS,
+  KNOWN_PRODUCTS,
+  FOCUS_QUESTIONS,
+  PRODUCT_FOCUS_QUESTIONS,
+  AI_QUESTION,
+  buildSolutionResult,
+  type FinderAnswers,
+  type SolutionResult,
+} from "@/lib/solutionFinder";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -14,7 +26,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, HelpCircle, FileText, Users, RotateCcw } from "lucide-react";
+import { ArrowLeft, Check, Loader2, FileText, Users, RotateCcw, Sparkles } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
@@ -97,22 +109,21 @@ const normalizeIndustryParam = (raw: string | null): string => {
 };
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
-// Step 2: Product options
+// Produktikoner för resultatkortet
 const productOptions = [
-  { value: "Business Central", label: "Business Central", desc: "ERP för mindre och medelstora företag", icon: bcIcon },
-  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", desc: "ERP för större organisationer", icon: financeIcon },
-  { value: "Sales", label: "Sales", desc: "CRM för försäljning och pipeline", icon: salesIcon },
-  { value: "Customer Insights (Marketing)", label: "Customer Insights (Marketing Automation)", desc: "Marketing automation och kunddata", icon: marketingIcon },
-  { value: "Customer Service", label: "Customer Service", desc: "Ärendehantering och support", icon: csIcon },
-  { value: "Field Service", label: "Field Service", desc: "Fältservice och arbetsorder", icon: fsIcon },
-  { value: "Contact Center", label: "Contact Center", desc: "Omnikanal-kontaktcenter", icon: ccIcon },
-  { value: "Project Operations", label: "Project Operations", desc: "Projekthantering och resursplanering", icon: poIcon },
-  { value: "Commerce", label: "Commerce", desc: "Omnichannel-handel och e-handel", icon: commerceIcon },
-  { value: "Human Resources", label: "Human Resources", desc: "HR, personal och lönehantering", icon: hrIcon },
-  { value: "", label: "Vet inte ännu", desc: "Vi hjälper dig hitta rätt", icon: null },
+  { value: "Business Central", label: "Business Central", icon: bcIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management (F&O)", icon: financeIcon },
+  { value: "Sales", label: "Sales", icon: salesIcon },
+  { value: "Customer Insights (Marketing)", label: "Customer Insights (Marketing Automation)", icon: marketingIcon },
+  { value: "Customer Service", label: "Customer Service", icon: csIcon },
+  { value: "Field Service", label: "Field Service", icon: fsIcon },
+  { value: "Contact Center", label: "Contact Center", icon: ccIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+  { value: "Commerce", label: "Commerce", icon: commerceIcon },
+  { value: "Human Resources", label: "Human Resources", icon: hrIcon },
 ];
 
-// Spår baserat på vald produkt – steg 3 och 5 anpassas efter spåret
+// Spår baserat på vald produkt – styr kravspec- och fördjupningslänkar i resultatet
 type Track = "erp" | "sales" | "marketing" | "service" | "projects" | "commerce" | "hr" | "general";
 
 const getTrack = (app: string): Track => {
@@ -124,170 +135,6 @@ const getTrack = (app: string): Track => {
   if (app === "Commerce") return "commerce";
   if (app === "Human Resources") return "hr";
   return "general";
-};
-
-type Opt = { value: string; label: string; desc?: string };
-
-// Step 3: Goal options per spår
-const goalOptionsByTrack: Record<Track, Opt[]> = {
-  erp: [
-    { value: "erp-new", label: "Byta från ett äldre affärssystem" },
-    { value: "erp-first", label: "Införa vårt första riktiga affärssystem" },
-    { value: "erp-finance", label: "Snabbare bokslut och bättre ekonomistyrning" },
-    { value: "erp-supply", label: "Bättre kontroll på lager, inköp och logistik" },
-    { value: "erp-production", label: "Planera och styra produktion" },
-    { value: "erp-reporting", label: "Bättre rapportering och beslutsunderlag" },
-    { value: "erp-upgrade", label: "Uppgradera eller flytta till molnet" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  sales: [
-    { value: "sales-pipeline", label: "Få överblick över pipeline och prognoser" },
-    { value: "sales-leads", label: "Bättre hantering av leads och affärsmöjligheter" },
-    { value: "sales-quotes", label: "Snabbare offerter och avtal" },
-    { value: "sales-kam", label: "Stödja key account-arbete och kundrelationer" },
-    { value: "sales-copilot", label: "Använda AI och Copilot i säljarbetet" },
-    { value: "sales-replace", label: "Byta från Excel eller annat CRM" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  marketing: [
-    { value: "mkt-journeys", label: "Automatisera kundresor och kampanjer" },
-    { value: "mkt-data", label: "Samla kunddata på ett ställe" },
-    { value: "mkt-leads", label: "Fler och bättre kvalificerade leads till sälj" },
-    { value: "mkt-segment", label: "Bättre segmentering och personalisering" },
-    { value: "mkt-replace", label: "Byta från nuvarande marketingverktyg" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  service: [
-    { value: "svc-cases", label: "Effektivisera ärendehantering och support" },
-    { value: "svc-omni", label: "Samla kanaler (telefon, chatt, e-post)" },
-    { value: "svc-field", label: "Planera tekniker och arbetsorder i fält" },
-    { value: "svc-selfservice", label: "Självservice och kundportal" },
-    { value: "svc-copilot", label: "Använda AI och Copilot i kundservice" },
-    { value: "svc-sla", label: "Bättre uppföljning av SLA och kundnöjdhet" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  projects: [
-    { value: "prj-resources", label: "Bättre resursplanering och beläggning" },
-    { value: "prj-time", label: "Enklare tidrapportering och debitering" },
-    { value: "prj-profit", label: "Följa lönsamhet per projekt" },
-    { value: "prj-sales", label: "Koppla ihop försäljning och leverans" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  commerce: [
-    { value: "com-omni", label: "Samla butik, e-handel och lager" },
-    { value: "com-pos", label: "Nytt kassasystem i butik" },
-    { value: "com-b2b", label: "B2B-handel och kundportal" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  hr: [
-    { value: "hr-core", label: "Samla personaldata och HR-processer" },
-    { value: "hr-selfservice", label: "Självservice för chefer och medarbetare" },
-    { value: "hr-comp", label: "Förmåner, ersättning och kompetens" },
-    { value: "unsure", label: "Osäker, lite av varje behöver förbättras" },
-  ],
-  general: [
-    { value: "erp", label: "Införa eller byta affärssystem (ERP)" },
-    { value: "sales", label: "Förbättra försäljningsprocessen" },
-    { value: "marketing", label: "Införa marketing automation" },
-    { value: "service", label: "Effektivisera kundservice" },
-    { value: "contact-center", label: "Utvärdera Contact Center-lösningar" },
-    { value: "field-service", label: "Förbättra fältservice" },
-    { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
-  ],
-};
-
-const allGoalOptions: Opt[] = Object.values(goalOptionsByTrack).flat();
-
-// Step 4: Situation options
-const situationOptions = [
-  { value: "new", label: "Utvärderar nytt system" },
-  { value: "evaluate-partners", label: "Vill utvärdera partners" },
-  { value: "improve", label: "Vill vidareutveckla befintlig lösning" },
-  { value: "unsure", label: "Osäker" },
-];
-
-// Step 5: Verksamhet options per spår
-const unsureComplexity: Opt = { value: "unsure", label: "Osäker, behöver vägledning", desc: "Vi hjälper er välja rätt nivå" };
-const complexityOptionsByTrack: Record<Track, Opt[]> = {
-  erp: [
-    { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
-    { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
-    { value: "multi-entity", label: "Flera bolag eller länder", desc: "Koncern, flera juridiska enheter eller valutor" },
-    { value: "manufacturing", label: "Tillverkning", desc: "Produktion, planering och materialstyrning" },
-    { value: "logistics", label: "Avancerad lager och logistik", desc: "Flera lager, WMS eller komplexa flöden" },
-    { value: "integrations", label: "Höga krav på integrationer", desc: "E-handel, EDI, bank eller andra system" },
-    { value: "projects-erp", label: "Projekt och tidrapportering", desc: "Projektredovisning och debitering" },
-    unsureComplexity,
-  ],
-  sales: [
-    { value: "small-team", label: "Litet säljteam", desc: "Upp till cirka 10 säljare" },
-    { value: "large-team", label: "Flera säljteam eller regioner", desc: "Behov av roller, territorier och uppföljning" },
-    { value: "complex-deals", label: "Långa och komplexa affärer", desc: "Flera beslutsfattare, offerter och avtal" },
-    { value: "partner-sales", label: "Försäljning via återförsäljare", desc: "Partner- eller kanalförsäljning" },
-    { value: "erp-integration", label: "Behöver kopplas till affärssystemet", desc: "Kunder, artiklar, priser och order" },
-    { value: "marketing-link", label: "Nära samarbete med marknad", desc: "Leads och kampanjer ska hänga ihop" },
-    unsureComplexity,
-  ],
-  marketing: [
-    { value: "b2b", label: "B2B-marknadsföring", desc: "Lead-generering och säljöverlämning" },
-    { value: "b2c", label: "B2C med många kunder", desc: "Stora volymer och personalisering" },
-    { value: "many-sources", label: "Kunddata i många system", desc: "Behöver en samlad kundbild" },
-    { value: "events", label: "Event och webbinarier", desc: "Anmälningar och uppföljning" },
-    { value: "gdpr", label: "Höga krav på samtycke och GDPR", desc: "Preferenser och spårbarhet" },
-    unsureComplexity,
-  ],
-  service: [
-    { value: "b2b-support", label: "B2B-support med avtal och SLA", desc: "Serviceavtal och prioriteringar" },
-    { value: "high-volume", label: "Stora ärendevolymer", desc: "Många kontakter per dag och flera kanaler" },
-    { value: "field-teams", label: "Tekniker ute hos kund", desc: "Schemaläggning, arbetsorder och mobil app" },
-    { value: "assets", label: "Service på installerad utrustning", desc: "Anläggningsregister och förebyggande underhåll" },
-    { value: "phone", label: "Telefoni och kontaktcenter", desc: "Köer, routing och inspelning" },
-    { value: "erp-integration", label: "Behöver kopplas till affärssystemet", desc: "Artiklar, reservdelar och fakturering" },
-    unsureComplexity,
-  ],
-  projects: [
-    { value: "consulting", label: "Konsultverksamhet", desc: "Uppdrag, resurser och timdebitering" },
-    { value: "fixed-price", label: "Fastprisprojekt", desc: "Milstolpar och intäktsavräkning" },
-    { value: "many-resources", label: "Många konsulter och roller", desc: "Kompetensbaserad bemanning" },
-    { value: "multi-entity", label: "Flera bolag eller länder", desc: "Koncerngemensam resursplanering" },
-    unsureComplexity,
-  ],
-  commerce: [
-    { value: "many-stores", label: "Många butiker", desc: "Kedja med central styrning" },
-    { value: "online-first", label: "E-handel i fokus", desc: "Webbutik som huvudkanal" },
-    { value: "b2b-b2c", label: "Både B2B och B2C", desc: "Olika prislistor och flöden" },
-    unsureComplexity,
-  ],
-  hr: [
-    { value: "many-employees", label: "Många medarbetare", desc: "Behov av tydliga processer och roller" },
-    { value: "multi-country", label: "Flera länder", desc: "Olika regler och organisationer" },
-    { value: "payroll-link", label: "Koppling till lönesystem", desc: "Integration med svensk lön" },
-    unsureComplexity,
-  ],
-  general: [
-    { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
-    { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
-    { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
-    { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
-    { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
-    { value: "consulting", label: "Konsultverksamhet", desc: "Projektbaserad verksamhet med resurs- och uppdragshantering" },
-    { value: "customer-service", label: "Kundservice och ärendehantering", desc: "Support, SLA:er och ärendeflöden" },
-    { value: "sales-crm", label: "Försäljning och CRM", desc: "Pipeline, offerter och kundhantering" },
-    unsureComplexity,
-  ],
-};
-
-const allComplexityOptions: Opt[] = Object.values(complexityOptionsByTrack).flat();
-
-const trackStepLabels: Record<Track, { goal: string; complexity: string }> = {
-  erp: { goal: "Vad vill ni uppnå med affärssystemet?", complexity: "Hur ser er verksamhet ut?" },
-  sales: { goal: "Vad vill ni förbättra i säljarbetet?", complexity: "Hur ser er försäljning ut?" },
-  marketing: { goal: "Vad vill ni uppnå med marknadsföringen?", complexity: "Hur ser er marknadsföring ut?" },
-  service: { goal: "Vad vill ni förbättra i er service?", complexity: "Hur ser er serviceverksamhet ut?" },
-  projects: { goal: "Vad vill ni förbättra i projektverksamheten?", complexity: "Hur ser er projektverksamhet ut?" },
-  commerce: { goal: "Vad vill ni förbättra i handeln?", complexity: "Hur ser er handel ut?" },
-  hr: { goal: "Vad vill ni förbättra inom HR?", complexity: "Hur ser er organisation ut?" },
-  general: { goal: "Vad vill du förbättra?", complexity: "Hur ser er verksamhet ut?" },
 };
 
 const specByTrack: Partial<Record<Track, { path: string; label: string }>> = {
@@ -326,9 +173,6 @@ interface AiMatchResult {
   bullets?: string[];
 }
 
-const TOTAL_STEPS = 5;
-
-// Step 6: Company size – short, friendly labels mapped to the canonical buckets
 const sizeOptions: { value: string; label: string; desc: string }[] = [
   { value: "1-49", label: "1–49 anställda", desc: "Mindre bolag" },
   { value: "50-99", label: "50–99 anställda", desc: "SMB" },
@@ -337,6 +181,23 @@ const sizeOptions: { value: string; label: string; desc: string }[] = [
   { value: "1.000-4.999", label: "1 000–4 999 anställda", desc: "Stort företag / koncern" },
   { value: ">5.000", label: "Fler än 5 000 anställda", desc: "Global koncern" },
 ];
+
+type StepId =
+  | "area" | "stage" | "existingFocus" | "product" | "productFocus"
+  | "focus" | "ai" | "industry" | "size" | "structure";
+
+const STEP_META: Record<StepId, { label: string; sub?: string }> = {
+  area: { label: "Vad vill ni förbättra?", sub: "Välj det område som är mest aktuellt – ni behöver inte kunna produktnamnen" },
+  stage: { label: "Hur långt har ni kommit?", sub: "Svaret styr vilka frågor som kommer härnäst" },
+  existingFocus: { label: "Vad vill ni utveckla eller komplettera?", sub: "Välj alla som stämmer" },
+  product: { label: "Vilken Dynamics\u00A0365-produkt gäller det?", sub: "Vi hoppar över produktidentifieringen och fokuserar på vad ni behöver tänka på" },
+  productFocus: { label: "Vad behöver ni tänka på kring lösningen?", sub: "Välj alla som är aktuella" },
+  focus: { label: "", sub: "Välj alla som stämmer – ni behöver inte kunna produktnamnen" },
+  ai: { label: AI_QUESTION.text, sub: "AI är ett tvärgående behov, inte en separat produkt" },
+  industry: { label: "Vilken bransch är ni verksamma inom?", sub: "Branschen styr vilka processer och partners som är relevanta" },
+  size: { label: "Hur stor är er organisation?", sub: "Storleken påverkar vilken nivå av lösning som passar" },
+  structure: { label: "Hur ser bolagsstrukturen ut?", sub: "Flera bolag, länder eller valutor ställer andra krav" },
+};
 
 const KomIgang = () => {
   const navigate = useNavigate();
@@ -347,50 +208,67 @@ const KomIgang = () => {
   const plan = usePlanMeta();
   const initialIndustry = normalizeIndustryParam(searchParams.get("industry") || storedContext.industry || null);
   const requestedProduct = searchParams.get("product") || storedContext.product;
-  const requestedGoal = searchParams.get("goal");
   const source = searchParams.get("source") || "direct";
-  const initialProduct = productOptions.some((option) => option.value === requestedProduct) ? requestedProduct : null;
-  const initialStep = initialIndustry ? 2 : 1;
-
-  const [step, setStep] = useState(initialStep);
-  const [selectedIndustry, setSelectedIndustry] = useState(initialIndustry);
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(initialProduct);
-  // selectedGoals = valda behov (NeedKey)
-  const [selectedGoals, setSelectedGoals] = useState<string[]>(NEED_OPTIONS.filter((o) => plan.needs.includes(o.label)).map((o) => o.value));
-  const [selectedSituation, setSelectedSituation] = useState<SituationKey | null>(null);
-  const [selectedStructure, setSelectedStructure] = useState<StructureKey | null>(null);
-  void requestedGoal;
   const requestedSize = searchParams.get("size") || storedContext.size || null;
-  const [selectedSize, setSelectedSize] = useState<string | null>(
-    requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : null,
-  );
+
+  const [answers, setAnswers] = useState<FinderAnswers>(() => ({
+    industry: initialIndustry || undefined,
+    size: requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : undefined,
+    knownProduct: KNOWN_PRODUCTS.some((p) => p.value === requestedProduct) ? requestedProduct : undefined,
+  }));
+  const [productShortcut, setProductShortcut] = useState(false);
+  const [stepIdx, setStepIdx] = useState(0);
+  const [result, setResult] = useState<SolutionResult | null>(null);
+
+  // Dynamisk steglista – frågorna anpassas efter tidigare svar
+  const steps = useMemo<StepId[]>(() => {
+    const s: StepId[] = ["area", "stage"];
+    if (answers.stage === "existing") {
+      s.push("existingFocus");
+      return s;
+    }
+    if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
+      s.push("product");
+      if (answers.knownProduct) s.push("productFocus");
+    } else if (answers.area) {
+      s.push("focus");
+    }
+    s.push("ai");
+    if (!answers.industry) s.push("industry");
+    s.push("size");
+    if ((answers.area === "erp" || answers.area === "unsure") && !answers.knownProduct) s.push("structure");
+    return s;
+  }, [answers.area, answers.stage, answers.knownProduct, answers.industry, productShortcut]);
+
+  const step = steps[Math.min(stepIdx, steps.length - 1)];
+  const stepNum = Math.min(stepIdx, steps.length - 1) + 1;
 
   // Kom ihåg besökarens val under sessionen så resten av sajten kan anpassa sig
   useEffect(() => {
     updateBuyerContext({
-      industry: selectedIndustry || undefined,
-      product: selectedProduct === null ? undefined : selectedProduct || null,
-      size: selectedSize || undefined,
+      industry: answers.industry || undefined,
+      size: answers.size || undefined,
     });
-  }, [selectedIndustry, selectedProduct, selectedSize]);
+  }, [answers.industry, answers.size]);
   useEffect(() => {
-    const industry = STANDARD_INDUSTRIES.find((i) => i.name === selectedIndustry)?.slug;
-    if (industry || selectedSize) saveProfile({ company: { ...(industry ? { industry } : {}), ...(selectedSize ? { employees: selectedSize } : {}) } });
-    updatePlan({ needs: NEED_OPTIONS.filter((o) => selectedGoals.includes(o.value)).map((o) => o.label) });
-  }, [selectedIndustry, selectedSize, selectedGoals]);
+    const industry = STANDARD_INDUSTRIES.find((i) => i.name === answers.industry)?.slug;
+    if (industry || answers.size) saveProfile({ company: { ...(industry ? { industry } : {}), ...(answers.size ? { employees: answers.size } : {}) } });
+  }, [answers.industry, answers.size]);
+
   const [showResults, setShowResults] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
-  const currentStep = useRef(initialStep);
+  const currentStep = useRef(1);
   const completed = useRef(false);
 
   useEffect(() => {
     trackFunnelEvent({
       event_type: "analysis_start",
       event_name: "kom_igang_start",
-      metadata: { source, initial_industry: initialIndustry || null, initial_product: initialProduct },
+      metadata: { source, initial_industry: initialIndustry || null, initial_product: requestedProduct },
     });
     return () => {
       trackFunnelEvent({
@@ -401,96 +279,73 @@ const KomIgang = () => {
     };
   }, []);
 
-  const advanceTo = (nextStep: number) => {
+  const advance = () => {
     trackFunnelEvent({
       event_type: "analysis_step",
       event_name: "kom_igang_step_complete",
-      metadata: { source, step, next_step: nextStep },
+      metadata: { source, step: stepNum, step_id: step },
     });
-    currentStep.current = nextStep;
-    setStep(nextStep);
-  };
-
-  const sortedIndustries = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const ind of allIndustries) {
-      counts[ind] = partners.filter(p => p.industries?.includes(ind)).length;
+    if (stepIdx >= steps.length - 1) {
+      completeFlow();
+    } else {
+      currentStep.current = stepNum + 1;
+      setStepIdx(stepIdx + 1);
     }
-    return [...allIndustries].sort((a, b) => counts[b] - counts[a]);
-  }, [partners]);
-
-  const selectedApp = selectedProduct || "";
-  const track = getTrack(selectedApp);
-
-  const recommendation = useMemo(
-    () => recommendProducts({ needs: selectedGoals, size: selectedSize, structure: selectedStructure, situation: selectedSituation }),
-    [selectedGoals, selectedSize, selectedStructure, selectedSituation],
-  );
-
-  const stepLabels = [
-    "Vilken bransch är ni verksamma inom?",
-    "Vilka behov och områden vill ni förbättra?",
-    "Hur stor är er organisation?",
-    "Hur ser bolagsstrukturen ut?",
-    "Var står ni idag?",
-  ];
-
-  const stepSubtexts = [
-    "Branschen styr vilka processer och partners som är relevanta",
-    "Välj ett eller flera områden – ni behöver inte kunna produktnamnen",
-    "Storleken påverkar vilken nivå av lösning som passar",
-    "Flera bolag, länder eller valutor ställer andra krav",
-    "Sedan visar vi vilken Dynamics\u00A0365-lösning som passar och vilka partners som kan den",
-  ];
-
-  const showRecommendation = (situation: SituationKey) => {
-    const rec = recommendProducts({ needs: selectedGoals, size: selectedSize, structure: selectedStructure, situation });
-    const preferred = initialProduct && [rec.primary, ...rec.complements].some((r) => r?.app === initialProduct) ? initialProduct : rec.primary?.app ?? "";
-    setSelectedProduct(preferred);
-    trackEvent("kom_igang_recommendation", { primary: rec.primary?.app ?? null, complements: rec.complements.map((c) => c.app).join(",") });
-    findPartners(preferred);
   };
 
-  const findPartners = async (app: string = selectedApp) => {
+  const completeFlow = () => {
+    const res = buildSolutionResult(answers);
+    setResult(res);
+    const app = res.primary?.app ?? answers.knownProduct ?? "";
+    setSelectedProduct(app || null);
+    updatePlan({ needs: res.needsIdentified });
+    trackEvent("kom_igang_recommendation", {
+      primary: res.primary?.app ?? null,
+      complements: res.complements.map((c) => c.app).join(","),
+      area: answers.area ?? null,
+      stage: answers.stage ?? null,
+      insufficient: res.insufficient,
+    });
+    completed.current = true;
+    findPartners(app, answers.industry || "", answers.size || null, res);
+  };
+
+  const findPartners = async (
+    app: string,
+    industry: string,
+    size: string | null,
+    res: SolutionResult | null,
+  ) => {
     const productKey = app ? getProductKey(app) : null;
 
-    let result: DatabasePartner[];
+    let filtered: DatabasePartner[];
     if (!productKey) {
-      result = partners.filter(p => p.product_filters && Object.keys(p.product_filters).length > 0);
+      filtered = partners.filter(p => p.product_filters && Object.keys(p.product_filters).length > 0);
     } else {
       // HÅRDA filter: produkt är ALLTID låst. Om bransch är vald är även den låst.
-      result = partners.filter(p =>
-        matchesDbProductFilter(p, productKey, selectedIndustry || undefined)
-      );
+      filtered = partners.filter(p => matchesDbProductFilter(p, productKey, industry || undefined));
     }
 
-    // Apply soft size bonus locally so partners matching the chosen size float up
-    // even before AI rerank. Falls back to neutral when no size selected.
-    const applyLocalSizeBonus = (list: DatabasePartner[]) => {
-      if (!selectedSize || !productKey) return list;
-      return [...list].sort((a, b) => {
-        const ba = getSizeMatchBonus(a, productKey, selectedSize, null);
-        const bb = getSizeMatchBonus(b, productKey, selectedSize, null);
+    if (size && productKey) {
+      filtered = [...filtered].sort((a, b) => {
+        const ba = getSizeMatchBonus(a, productKey, size, null);
+        const bb = getSizeMatchBonus(b, productKey, size, null);
         return bb - ba;
       });
-    };
+    }
 
-    result = applyLocalSizeBonus(result);
-
-    // Limit to max 4
-    setMatchedPartners(result.slice(0, 4));
+    setMatchedPartners(filtered.slice(0, 4));
     setShowResults(true);
-    completed.current = true;
     trackFunnelEvent({
       event_type: "analysis_complete",
       event_name: "kom_igang_results",
-      metadata: { source, product: app || null, industry: selectedIndustry || null, result_count: result.length },
+      metadata: { source, product: app || null, industry: industry || null, result_count: filtered.length },
     });
 
-    if (result.length > 0) {
+    if (filtered.length > 0) {
       setIsAiLoading(true);
       try {
-        const payload = result.slice(0, 8).map(p => ({
+        const payload = filtered.slice(0, 8).map(p => ({
           id: p.id,
           name: p.name,
           description: p.description,
@@ -507,13 +362,10 @@ const KomIgang = () => {
             partners: payload,
             criteria: {
               application: app || "Alla",
-              industry: selectedIndustry,
-              companySize: selectedSize || "",
-              situation: SITUATION_OPTIONS.find(o => o.value === selectedSituation)?.label || "",
-              complexity: [
-                ...selectedGoals.map(g => NEED_OPTIONS.find(o => o.value === g)?.label),
-                STRUCTURE_OPTIONS.find(o => o.value === selectedStructure)?.label,
-              ].filter(Boolean).join(", ") || "",
+              industry,
+              companySize: size || "",
+              situation: STAGE_OPTIONS.find(o => o.value === answers.stage)?.label || "",
+              complexity: (res?.needsIdentified ?? []).join(", "),
             },
           },
         });
@@ -522,7 +374,7 @@ const KomIgang = () => {
           const matches: AiMatchResult[] = data.matches;
           setAiMatches(matches);
           const scoreMap = new Map(matches.map(m => [m.id, m.score]));
-          const sorted = [...result].sort((a, b) => (scoreMap.get(b.id) ?? 0) - (scoreMap.get(a.id) ?? 0));
+          const sorted = [...filtered].sort((a, b) => (scoreMap.get(b.id) ?? 0) - (scoreMap.get(a.id) ?? 0));
           setMatchedPartners(sorted.slice(0, 4));
         }
       } catch {
@@ -536,11 +388,11 @@ const KomIgang = () => {
   const handleBack = () => {
     if (showResults) {
       setShowResults(false);
-      currentStep.current = TOTAL_STEPS;
-      setStep(TOTAL_STEPS);
+      currentStep.current = steps.length;
+      setStepIdx(steps.length - 1);
       window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
-    } else if (step > 1) {
-      setStep(step - 1);
+    } else if (stepIdx > 0) {
+      setStepIdx(stepIdx - 1);
     } else {
       navigate(-1);
     }
@@ -549,23 +401,21 @@ const KomIgang = () => {
   const handleRestart = () => {
     clearBuyerContext();
     if (searchParams.size > 0) setSearchParams({}, { replace: true });
-    setSelectedIndustry("");
+    setAnswers({});
+    setProductShortcut(false);
+    setResult(null);
     setSelectedProduct(null);
-    setSelectedGoals([]);
-    setSelectedSituation(null);
-    setSelectedStructure(null);
-    setSelectedSize(null);
     setMatchedPartners([]);
     setAiMatches([]);
     setShowResults(false);
     currentStep.current = 1;
     completed.current = false;
-    setStep(1);
+    setStepIdx(0);
     window.scrollTo({ top: 0 });
     trackFunnelEvent({
       event_type: "analysis_step",
       event_name: "kom_igang_restart",
-      metadata: { source, step },
+      metadata: { source, step: stepNum },
     });
   };
 
@@ -580,15 +430,17 @@ const KomIgang = () => {
   useEffect(() => {
     if (!rerun) return;
     setRerun(false);
-    findPartners();
+    findPartners(selectedProduct || "", answers.industry || "", answers.size || null, result);
     window.scrollTo({ top: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rerun]);
+  const selectedApp = selectedProduct || "";
+  const track = getTrack(selectedApp);
   const altProductKey = selectedApp ? getProductKey(selectedApp) : null;
-  const altWithoutIndustry = altProductKey && selectedIndustry
+  const altWithoutIndustry = altProductKey && answers.industry
     ? partners.filter((p) => matchesDbProductFilter(p, altProductKey)).length : 0;
-  const altWithoutProduct = selectedIndustry && selectedApp
-    ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(selectedIndustry))).length : 0;
+  const altWithoutProduct = answers.industry && selectedApp
+    ? partners.filter((p) => Object.values(p.product_filters || {}).some((f: any) => f?.industries?.includes(answers.industry))).length : 0;
 
   const kortlista = useShortlist();
   useEffect(() => { trackEvent("tool_start", { tool: "kom-igang" }); }, []);
@@ -603,165 +455,251 @@ const KomIgang = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [suggestedKey]);
 
-  // Results page
-  if (showResults) {
+  const sortedIndustries = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const ind of allIndustries) {
+      counts[ind] = partners.filter(p => p.industries?.includes(ind)).length;
+    }
+    return [...allIndustries].sort((a, b) => counts[b] - counts[a]);
+  }, [partners]);
+
+  const toggleMulti = (key: "focus" | "existingFocus" | "productFocus", value: string) => {
+    setAnswers((prev) => {
+      const cur = prev[key] ?? [];
+      return { ...prev, [key]: cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value] };
+    });
+  };
+
+  // ---------------- Results page ----------------
+  if (showResults && result) {
+    const recs = [result.primary, ...result.complements].filter(Boolean) as { app: string; label: string; reason: string }[];
     return (
       <div className="min-h-screen bg-background">
-        <SEOHead webPageSchema={false} title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." canonicalPath="/kom-igang" noIndex />
+        <SEOHead webPageSchema={false} title="Er väg vidare – d365.se" description="Anpassade rekommendationer baserat på er situation och era behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-28 sm:pt-32 pb-10">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-6">
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vårt förslag utifrån era behov</h1>
-                <p className="text-sm text-muted-foreground">Baserat på bransch, behov, storlek och nuläge</p>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vårt förslag utifrån era svar</h1>
+                <p className="text-sm text-muted-foreground">
+                  {result.existingCustomer
+                    ? "Baserat på var ni befinner er och vad ni vill utveckla"
+                    : `Område: ${result.areaLabel} – baserat på era behov, storlek och nuläge`}
+                </p>
               </div>
 
-              {recommendation.primary && (
+              {/* Rekommenderad lösning */}
+              {result.primary && (
                 <div className="mb-8 rounded border-2 border-primary/30 bg-card p-5 sm:p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">Rekommenderad lösning</p>
-                  {[recommendation.primary, ...recommendation.complements].map((rec, i) => {
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                    {result.knownProduct ? "Er valda lösning" : "Rekommenderad lösning"}
+                  </p>
+                  {recs.map((rec, i) => {
                     const icon = productOptions.find((o) => o.value === rec.app)?.icon;
                     const active = selectedApp === rec.app;
                     return (
                       <div key={rec.app} className={`flex items-start gap-3 ${i > 0 ? "mt-4 pt-4 border-t border-border" : ""}`}>
                         {icon && <img src={icon} alt="" className="w-9 h-9 object-contain flex-shrink-0" />}
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs text-muted-foreground">{i === 0 ? "Huvudförslag" : "Komplement"}</p>
+                          <p className="text-xs text-muted-foreground">{i === 0 ? (result.knownProduct ? "Vald produkt" : "Huvudförslag") : "Komplement"}</p>
                           <h2 className="text-lg font-bold text-foreground"><span className="whitespace-nowrap">Dynamics&nbsp;365</span> {rec.label}</h2>
                           <p className="text-sm text-muted-foreground mt-1">{rec.reason}</p>
                         </div>
-                        {(recommendation.complements.length > 0) && (
+                        {recs.length > 1 && !result.knownProduct && (
                           <Button size="sm" variant={active ? "default" : "outline"} disabled={active}
-                            onClick={() => { setSelectedProduct(rec.app); findPartners(rec.app); trackEvent("kom_igang_switch_recommendation", { product: rec.app }); }}>
+                            onClick={() => { setSelectedProduct(rec.app); findPartners(rec.app, answers.industry || "", answers.size || null, result); trackEvent("kom_igang_switch_recommendation", { product: rec.app }); }}>
                             {active ? "Visas nedan" : "Visa partners"}
                           </Button>
                         )}
                       </div>
                     );
                   })}
-                  {recommendation.note && <p className="mt-4 text-sm text-muted-foreground">{recommendation.note}{selectedSituation === "extend" && <> <Link to="/befintlig-kund/" className="text-primary underline underline-offset-4">Se vägar för befintliga kunder →</Link></>}</p>}
                 </div>
               )}
 
-              <div className="text-center mb-6">
-                <h2 className="text-xl font-bold text-foreground">
-                  {matchedPartners.length > 0 ? `Partners för ${selectedApp ? applicationFilterLabel(selectedApp) : "Dynamics 365"}` : "Ingen exakt träff, men här är närmaste vägar"}
-                </h2>
-                {isAiLoading && (
-                  <div className="flex items-center justify-center gap-2 text-sm text-primary mt-3">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>AI rangordnar partners...</span>
+              {/* Ärlighet när underlaget inte räcker */}
+              {result.insufficient && !result.existingCustomer && (
+                <div className="mb-8 rounded border-2 border-border bg-card p-5 sm:p-6">
+                  <h2 className="text-lg font-bold text-foreground mb-2">Underlaget räcker inte riktigt ännu</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Era svar pekar åt flera håll, och vi vill inte tvinga fram en produktrekommendation utan stöd.
+                    En detaljerad behovsanalys ger ett säkrare underlag – eller ställ en fråga direkt till oss.
+                  </p>
+                </div>
+              )}
+
+              {/* Identifierade behov */}
+              {result.needsIdentified.length > 0 && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-3">Behov vi identifierat utifrån era svar</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {result.needsIdentified.map((n) => (
+                      <span key={n} className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">{n}</span>
+                    ))}
+                    {answers.ai === "yes" && (
+                      <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">AI, Copilot och agenter</span>
+                    )}
                   </div>
-                )}
+                </div>
+              )}
+
+              {/* Kompletterande områden att undersöka */}
+              {result.exploreAreas.length > 0 && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">Områden som kan vara värda att undersöka</h2>
+                  <p className="text-xs text-muted-foreground mb-3">Inte säkra rekommendationer – men era svar ger stöd för att titta närmare.</p>
+                  <div className="space-y-2">
+                    {result.exploreAreas.map((e) => (
+                      <Link key={e.label} to={e.path} className="flex items-start gap-3 rounded border border-border p-3 transition hover:border-primary">
+                        <Sparkles className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>
+                          <span className="block text-sm font-semibold text-foreground"><span className="whitespace-nowrap">Dynamics&nbsp;365</span> {e.label}</span>
+                          <span className="block text-xs text-muted-foreground">{e.reason}</span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Frågor att ta med vidare */}
+              <div className="mb-8 rounded border border-border bg-card p-5">
+                <h2 className="text-base font-semibold text-foreground mb-3">Frågor att ta med er vidare</h2>
+                <ul className="space-y-2">
+                  {result.questionsToAsk.map((q) => (
+                    <li key={q} className="flex items-start gap-2 text-sm text-foreground">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {matchedPartners.length > 0 ? (
-                <div className="space-y-4">
-                  <WhyTheseResults />
-                  <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
-                    <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">De föreslagna partnerna är sparade i er kortlista.</p>
-                    <Button onClick={() => inquiry.open({ partners: matchedPartners.slice(0, 3).map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: selectedApp || null })}>Kontakta partners i kortlistan</Button>
+              {/* Nästa steg (matchningstest / fördjupning) */}
+              {result.nextSteps.length > 0 && (
+                <div className="mb-8 rounded border-2 border-primary/20 bg-primary/5 p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-3">Relevanta nästa steg</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {result.nextSteps.map((ns) => (
+                      <Button key={ns.path + ns.label} asChild variant="outline" size="sm">
+                        <Link to={ns.path} onClick={() => trackEvent("kom_igang_next_step_click", { path: ns.path })}>{ns.label} →</Link>
+                      </Button>
+                    ))}
                   </div>
-                  {matchedPartners.map((partner, idx) => {
-                    const aiMatch = getAiMatch(partner.id);
-                    return (
-                      <div
-                        key={partner.id}
-                        className="relative rounded border-2 p-5 transition-all border-border bg-card"
-                      >
+                </div>
+              )}
 
-                        <div className="flex items-start gap-4">
-                          {partner.logo_url && (
-                            <img
-                              src={optimizedLogo(partner.logo_url)}
-                              alt={partner.name || ""}
-                              className="w-14 h-14 object-contain rounded-lg bg-white border border-border p-1 flex-shrink-0"
-                            />
-                          )}
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-lg font-bold text-foreground">{partner.name}</h3>
-                            {aiMatch?.matchReason && (
-                              <p className="text-sm text-muted-foreground mt-1">{aiMatch.matchReason}</p>
-                            )}
-                            {aiMatch?.bullets && aiMatch.bullets.length > 0 ? (
-                              <ul className="mt-2 space-y-1">
-                                {aiMatch.bullets.map((b, i) => (
-                                  <li key={i} className="flex items-start gap-2 text-sm text-foreground">
-                                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                                    <span>{b}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : null}
-
-                            <PartnerCardSummary partner={partner} highlightedIndustry={selectedIndustry || null} />
-                          </div>
-                        </div>
-
-                        {partner.slug && (
-                          <div className="mt-4 space-y-2">
-                            <PartnerDecisionActions
-                              partner={{ slug: partner.slug, name: partner.name }}
-                              product={selectedApp}
-                              industry={selectedIndustry}
-                            />
-                            <Button size="sm" variant="ghost" asChild className="w-full">
-                              <Link to={`/partner/${partner.slug}`}>{`Läs beslutsunderlaget om ${partner.name}`}</Link>
-                            </Button>
-                          </div>
-                        )}
+              {/* Partners */}
+              {!result.existingCustomer && (
+                <>
+                  <div className="text-center mb-6">
+                    <h2 className="text-xl font-bold text-foreground">
+                      {matchedPartners.length > 0 ? `Partners för ${selectedApp ? applicationFilterLabel(selectedApp) : "Dynamics 365"}` : "Ingen exakt träff, men här är närmaste vägar"}
+                    </h2>
+                    {isAiLoading && (
+                      <div className="flex items-center justify-center gap-2 text-sm text-primary mt-3">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>AI rangordnar partners...</span>
                       </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="rounded border border-border bg-card p-6 sm:p-8">
-                  <p className="text-foreground mb-1 font-semibold">
-                    Ingen partner har angett både {selectedApp ? applicationFilterLabel(selectedApp) : "vald produkt"}{selectedIndustry ? ` och ${selectedIndustry.toLowerCase()}` : ""}.
-                  </p>
-                  <p className="text-sm text-muted-foreground mb-6">
-                    Det betyder inte att ingen kan hjälpa er, bara att ingen profil täcker exakt den kombinationen ännu. Välj hur ni vill gå vidare:
-                  </p>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {altWithoutIndustry > 0 && (
-                      <button type="button" onClick={() => { setSelectedIndustry(""); setRerun(true); }}
-                        className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                        <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} {altWithoutIndustry === 1 ? "partner" : "partners"} för {selectedApp ? applicationFilterLabel(selectedApp) : ""}</span>
-                        <span className="block text-sm text-muted-foreground">Utan krav på branscherfarenhet</span>
-                      </button>
                     )}
-                    {altWithoutProduct > 0 && (
-                      <button type="button" onClick={() => { setSelectedProduct(null); setRerun(true); }}
-                        className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                        <span className="block font-semibold text-foreground">Visa {altWithoutProduct} {altWithoutProduct === 1 ? "partner" : "partners"} inom {selectedIndustry.toLowerCase()}</span>
-                        <span className="block text-sm text-muted-foreground">Med erfarenhet av andra Dynamics&nbsp;365-produkter</span>
-                      </button>
-                    )}
-                    <Link to={`/fraga/?q=${encodeURIComponent(`Vilka partners kan ${selectedApp || "Dynamics 365"}${selectedIndustry ? ` för ${selectedIndustry.toLowerCase()}` : ""}?`)}&source=kom-igang-no-results`}
-                      className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                      <span className="block font-semibold text-foreground">Fråga d365.se</span>
-                      <span className="block text-sm text-muted-foreground">Vi känner partnerna och tipsar om vem som kan hjälpa er</span>
-                    </Link>
-                    <button type="button" onClick={handleBack}
-                      className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
-                      <span className="block font-semibold text-foreground">Ändra era svar</span>
-                      <span className="block text-sm text-muted-foreground">Gå tillbaka och justera urvalet</span>
-                    </button>
                   </div>
-                </div>
+
+                  {matchedPartners.length > 0 ? (
+                    <div className="space-y-4">
+                      <WhyTheseResults />
+                      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
+                        <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">De föreslagna partnerna är sparade i er kortlista.</p>
+                        <Button onClick={() => inquiry.open({ partners: matchedPartners.slice(0, 3).map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: selectedApp || null })}>Kontakta partners i kortlistan</Button>
+                      </div>
+                      {matchedPartners.map((partner) => {
+                        const aiMatch = getAiMatch(partner.id);
+                        return (
+                          <div key={partner.id} className="relative rounded border-2 p-5 transition-all border-border bg-card">
+                            <div className="flex items-start gap-4">
+                              {partner.logo_url && (
+                                <img
+                                  src={optimizedLogo(partner.logo_url)}
+                                  alt={partner.name || ""}
+                                  className="w-14 h-14 object-contain rounded-lg bg-white border border-border p-1 flex-shrink-0"
+                                />
+                              )}
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-lg font-bold text-foreground">{partner.name}</h3>
+                                {aiMatch?.matchReason && (
+                                  <p className="text-sm text-muted-foreground mt-1">{aiMatch.matchReason}</p>
+                                )}
+                                {aiMatch?.bullets && aiMatch.bullets.length > 0 ? (
+                                  <ul className="mt-2 space-y-1">
+                                    {aiMatch.bullets.map((b, i) => (
+                                      <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                                        <span>{b}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                ) : null}
+                                <PartnerCardSummary partner={partner} highlightedIndustry={answers.industry || null} />
+                              </div>
+                            </div>
+                            {partner.slug && (
+                              <div className="mt-4 space-y-2">
+                                <PartnerDecisionActions
+                                  partner={{ slug: partner.slug, name: partner.name }}
+                                  product={selectedApp}
+                                  industry={answers.industry}
+                                />
+                                <Button size="sm" variant="ghost" asChild className="w-full">
+                                  <Link to={`/partner/${partner.slug}`}>{`Läs beslutsunderlaget om ${partner.name}`}</Link>
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="rounded border border-border bg-card p-6 sm:p-8">
+                      <p className="text-foreground mb-1 font-semibold">
+                        Ingen partner har angett både {selectedApp ? applicationFilterLabel(selectedApp) : "vald produkt"}{answers.industry ? ` och ${answers.industry.toLowerCase()}` : ""}.
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-6">
+                        Det betyder inte att ingen kan hjälpa er, bara att ingen profil täcker exakt den kombinationen ännu. Välj hur ni vill gå vidare:
+                      </p>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {altWithoutIndustry > 0 && (
+                          <button type="button" onClick={() => { setAnswers((p) => ({ ...p, industry: undefined })); setRerun(true); }}
+                            className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                            <span className="block font-semibold text-foreground">Visa {altWithoutIndustry} {altWithoutIndustry === 1 ? "partner" : "partners"} för {selectedApp ? applicationFilterLabel(selectedApp) : ""}</span>
+                            <span className="block text-sm text-muted-foreground">Utan krav på branscherfarenhet</span>
+                          </button>
+                        )}
+                        {altWithoutProduct > 0 && (
+                          <button type="button" onClick={() => { setSelectedProduct(null); setRerun(true); }}
+                            className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                            <span className="block font-semibold text-foreground">Visa {altWithoutProduct} {altWithoutProduct === 1 ? "partner" : "partners"} inom {answers.industry!.toLowerCase()}</span>
+                            <span className="block text-sm text-muted-foreground">Med erfarenhet av andra Dynamics&nbsp;365-produkter</span>
+                          </button>
+                        )}
+                        <Link to={`/fraga/?q=${encodeURIComponent(`Vilka partners kan ${selectedApp || "Dynamics 365"}${answers.industry ? ` för ${answers.industry.toLowerCase()}` : ""}?`)}&source=kom-igang-no-results`}
+                          className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                          <span className="block font-semibold text-foreground">Fråga d365.se</span>
+                          <span className="block text-sm text-muted-foreground">Vi känner partnerna och tipsar om vem som kan hjälpa er</span>
+                        </Link>
+                        <button type="button" onClick={handleBack}
+                          className="rounded border-2 border-border bg-background p-4 text-left transition hover:border-primary">
+                          <span className="block font-semibold text-foreground">Ändra era svar</span>
+                          <span className="block text-sm text-muted-foreground">Gå tillbaka och justera urvalet</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Requirements Spec CTA */}
-              {(() => {
-                const specMap: Record<string, { path: string; label: string }> = {
-                  sales: { path: "/kravspecifikation-sales/", label: "Skapa kravspec för Försäljning" },
-                  marketing: { path: "/kravspecifikation-marketing/", label: "Skapa kravspec för Marketing" },
-                  service: { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
-                  "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
-                  erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
-                };
-                const spec = specByTrack[track] ?? selectedGoals.map(g => specMap[g]).find(Boolean);
+              {!result.existingCustomer && (() => {
+                const spec = specByTrack[track];
                 if (!spec || matchedPartners.length === 0) return null;
                 return (
                   <div className="mt-8 rounded border-2 border-primary/20 bg-primary/5 p-5 text-center">
@@ -780,12 +718,12 @@ const KomIgang = () => {
                           const p = new URLSearchParams();
                           if (selectedApp === "Business Central") p.set("produkt", "bc");
                           else if (selectedApp === "Finance & SCM") p.set("produkt", "fsc");
-                          if (selectedIndustry) p.set("bransch", selectedIndustry);
-                          if (selectedSize && sizeMap[selectedSize]) p.set("storlek", sizeMap[selectedSize]);
+                          if (answers.industry) p.set("bransch", answers.industry);
+                          if (answers.size && sizeMap[answers.size]) p.set("storlek", sizeMap[answers.size]);
                           const qs = p.toString();
                           return qs ? `${spec.path}?${qs}` : spec.path;
                         })()}
-                        state={{ industry: selectedIndustry || undefined }}
+                        state={{ industry: answers.industry || undefined }}
                       >
                         <FileText className="h-4 w-4 mr-2" />
                         {spec.label}
@@ -796,7 +734,7 @@ const KomIgang = () => {
               })()}
 
               {/* Kostnad: puff till rätt kostnadsavsnitt/ROI-kalkyl för vald produkt */}
-              {(() => {
+              {!result.existingCustomer && (() => {
                 const costMap: Record<string, { path: string; label: string }> = {
                   "Business Central": { path: "/businesscentral/roi-kalkylator/", label: "Business Central" },
                   "Finance & SCM": { path: "/finance-supply-chain/roi-kalkylator/", label: "Finance & Supply Chain" },
@@ -824,35 +762,9 @@ const KomIgang = () => {
                 );
               })()}
 
-              {/* Fördjupning: frivillig detaljerad behovsanalys efter partnerbilden */}
-              {(() => {
-                const deep = [
-                  { key: "erp", label: "Affärssystem (ERP)", path: "/ERPbehovsanalys/" },
-                  { key: "crm", label: "Sälj & Marknad (CRM)", path: "/CRMbehovsanalys/" },
-                  { key: "service", label: "Kundservice", path: "/kundservice-behovsanalys/" },
-                ];
-                const match = track === "erp" ? "erp" : track === "sales" || track === "marketing" ? "crm" : track === "service" ? "service" : null;
-                const shown = match ? deep.filter((d) => d.key === match) : deep;
-                return (
-                  <div className="mt-6 rounded border border-border bg-card p-5 text-center">
-                    <h3 className="text-base font-semibold text-foreground mb-1">Vill ni gå djupare? Gör en detaljerad behovsanalys</h3>
-                    <p className="text-sm text-muted-foreground mb-4">Frivilligt. Fler frågor ger ett mer underbyggt underlag inför samtal med partners.</p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {shown.map((d) => (
-                        <Button key={d.key} asChild variant="outline">
-                          <Link to={d.path} onClick={() => trackEvent("kom_igang_deep_analysis_click", { area: d.key })}>
-                            {match ? "Starta detaljerad behovsanalys" : d.label} →
-                          </Link>
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {matchedPartners.length > 0 && <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={handleBack}>
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Ändra svar
                 </Button>
                 <Button variant="ghost" onClick={handleRestart}>
                   <RotateCcw className="mr-2 h-4 w-4" /> Börja om
@@ -860,7 +772,7 @@ const KomIgang = () => {
                 <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   <Link to="/kontakt/">Vill du ha hjälp? Kontakta oss</Link>
                 </Button>
-              </div>}
+              </div>
             </div>
           </div>
         </main>
@@ -869,16 +781,53 @@ const KomIgang = () => {
     );
   }
 
+  // ---------------- Wizard ----------------
+  const meta = STEP_META[step];
+  const focusQ = answers.area ? FOCUS_QUESTIONS[answers.area] : null;
+  const productFocusQ = answers.knownProduct ? PRODUCT_FOCUS_QUESTIONS[answers.knownProduct] : null;
+
+  const renderMultiStep = (key: "focus" | "existingFocus" | "productFocus", options: { value: string; label: string }[]) => {
+    const selected = answers[key] ?? [];
+    return (
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {options.map((opt) => {
+            const isSelected = selected.includes(opt.value);
+            return (
+              <button
+                key={opt.value}
+                onClick={() => toggleMulti(key, opt.value)}
+                className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
+                  isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                }`}
+              >
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"}`}>
+                  {isSelected && <Check className="h-3 w-3" />}
+                </div>
+                <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-4 text-center">
+          <Button onClick={advance} disabled={selected.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+            {stepIdx >= steps.length - 1 ? "Visa resultat" : "Nästa"}
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Kom igång – Hitta rätt Dynamics 365-partner | d365.se"
-        description="Sex snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        title="Hitta rätt Dynamics 365-lösning – Kom igång | d365.se"
+        description="Berätta var ni befinner er och vad ni behöver hjälp med, så visar vi vilken Dynamics 365-lösning som passar och vilka partners som kan er bransch. Vi står på köparens sida."
         canonicalPath="/kom-igang"
       />
       <WebPageSchema
-        name="Kom igång – Hitta rätt Dynamics 365-partner"
-        description="Sex snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        name="Hitta rätt Dynamics 365-lösning"
+        description="Berätta var ni befinner er och vad ni behöver hjälp med, så visar vi vilken Dynamics 365-lösning som passar och vilka partners som kan er bransch."
         url="https://d365.se/kom-igang/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },
@@ -893,9 +842,9 @@ const KomIgang = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
-              Några frågor – sedan en kortlista att gå vidare med
+              Hitta rätt <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-lösning för er verksamhet
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Vi ringar in bransch, behov och ambitionsnivå och visar vilka partners som faktiskt matchar – utan säljpåverkan.</p>
+            <p className="text-sm sm:text-base text-muted-foreground">Berätta lite om var ni befinner er och vad ni behöver hjälp med, så anpassar vi nästa steg.</p>
           </div>
         </section>
 
@@ -905,14 +854,14 @@ const KomIgang = () => {
             <div className="max-w-6xl mx-auto">
               {/* Step indicator */}
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-sm font-semibold text-foreground">Steg {step}</span>
-                <span className="text-sm text-muted-foreground">av {TOTAL_STEPS}</span>
+                <span className="text-sm font-semibold text-foreground">Steg {stepNum}</span>
+                <span className="text-sm text-muted-foreground">av {steps.length}</span>
                 <div className="flex gap-1.5 ml-3">
-                  {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+                  {steps.map((s, i) => (
                     <div
-                      key={i}
+                      key={s}
                       className={`w-2.5 h-2.5 rounded transition-colors ${
-                        i + 1 === step ? "bg-[hsl(var(--cta-orange))]" : i + 1 < step ? "bg-[hsl(var(--cta-orange))]/50" : "bg-border"
+                        i + 1 === stepNum ? "bg-[hsl(var(--cta-orange))]" : i + 1 < stepNum ? "bg-[hsl(var(--cta-orange))]/50" : "bg-border"
                       }`}
                     />
                   ))}
@@ -922,17 +871,17 @@ const KomIgang = () => {
               {/* Step heading */}
               <div className="text-center mb-2">
                 <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                  {stepLabels[step - 1]}
+                  {step === "focus" && focusQ ? focusQ.text : step === "productFocus" && productFocusQ ? productFocusQ.text : meta.label}
                 </h2>
-                {stepSubtexts[step - 1] && (
-                  <p className="text-xs sm:text-sm text-muted-foreground">{stepSubtexts[step - 1]}</p>
+                {meta.sub && (
+                  <p className="text-xs sm:text-sm text-muted-foreground">{meta.sub}</p>
                 )}
               </div>
 
               {/* Navigation buttons above content */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-4">
-                  {step > 1 && (
+                  {stepIdx > 0 && (
                     <button
                       onClick={handleBack}
                       className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -949,28 +898,123 @@ const KomIgang = () => {
                     Börja om
                   </button>
                 </div>
-                <div>
-                  {step === 2 && (
-                    <Button onClick={() => advanceTo(3)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      Nästa
-                    </Button>
-                  )}
-                </div>
               </div>
 
               <div className="min-h-[280px]">
-              {step === 1 && (
-                <div>
+                {/* Steg 1: Område */}
+                {step === "area" && (
+                  <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
+                      {AREA_OPTIONS.map((opt) => {
+                        const isSelected = answers.area === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => { setAnswers((p) => ({ ...p, area: opt.value, focus: undefined })); setTimeout(advance, 250); }}
+                            className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[64px] ${
+                              isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                            }`}
+                          >
+                            <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
+                            <span className="text-xs text-muted-foreground">{opt.desc}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <button
+                        onClick={() => { setProductShortcut(true); setAnswers((p) => ({ ...p, stage: "know_product" })); setTimeout(advance, 50); }}
+                        className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                      >
+                        Vet ni redan vilken Dynamics&nbsp;365-produkt ni behöver? Välj direkt →
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Steg 2: Hur långt har ni kommit? */}
+                {step === "stage" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {STAGE_OPTIONS.map((opt) => {
+                      const isSelected = answers.stage === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, stage: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Befintlig kund: vad vill ni utveckla? */}
+                {step === "existingFocus" && renderMultiStep("existingFocus", EXISTING_FOCUS_OPTIONS)}
+
+                {/* Genväg: vald produkt */}
+                {step === "product" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
+                    {KNOWN_PRODUCTS.map((opt) => {
+                      const icon = productOptions.find((o) => o.value === opt.value)?.icon;
+                      const isSelected = answers.knownProduct === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, knownProduct: opt.value, productFocus: undefined })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          {icon && <img src={icon} alt="" className="w-6 h-6 object-contain flex-shrink-0" />}
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Kännedom om vald produkt */}
+                {step === "productFocus" && productFocusQ && renderMultiStep("productFocus", productFocusQ.options)}
+
+                {/* Områdesspecifika behov */}
+                {step === "focus" && focusQ && renderMultiStep("focus", focusQ.options)}
+
+                {/* AI/Copilot – tvärgående */}
+                {step === "ai" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl mx-auto">
+                    {AI_QUESTION.options.map((opt) => {
+                      const isSelected = answers.ai === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => { setAnswers((p) => ({ ...p, ai: opt.value as FinderAnswers["ai"] })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-4 py-3 rounded border transition-all min-h-[52px] ${
+                            isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Bransch */}
+                {step === "industry" && (
                   <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 gap-2">
                     {sortedIndustries.map((ind) => {
-                      const isSelected = selectedIndustry === ind;
+                      const isSelected = answers.industry === ind;
                       const img = industryImages[ind];
                       return (
                         <button
                           key={ind}
                           onClick={() => {
-                            setSelectedIndustry(ind);
-                            setTimeout(() => advanceTo(2), 250);
+                            setAnswers((p) => ({ ...p, industry: ind }));
+                            setTimeout(advance, 250);
                           }}
                           className={`relative group rounded overflow-hidden border-2 transition-all aspect-[5/4] lg:aspect-[8/5] ${
                             isSelected
@@ -1001,107 +1045,63 @@ const KomIgang = () => {
                       );
                     })}
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Step 2: Behov (flerval, inga produktnamn) */}
-              {step === 2 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {NEED_OPTIONS.map((opt) => {
-                    const isSelected = selectedGoals.includes(opt.value);
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => setSelectedGoals(prev => prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value])}
-                        className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
-                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                        }`}
-                      >
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"}`}>
-                          {isSelected && <Check className="h-3 w-3" />}
-                        </div>
-                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                {/* Storlek */}
+                {step === "size" && (
+                  <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                      {sizeOptions.map((opt) => {
+                        const isSelected = answers.size === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => { setAnswers((p) => ({ ...p, size: opt.value })); setTimeout(advance, 250); }}
+                            className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
+                              isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
+                            }`}
+                          >
+                            <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <Users className="h-4 w-4 text-primary" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
+                              <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
+                            </div>
+                            {isSelected && <Check className="h-4 w-4 text-primary flex-shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <button
+                      onClick={() => { setAnswers((p) => ({ ...p, size: undefined })); advance(); }}
+                      className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                    >
+                      Hoppa över
+                    </button>
+                  </div>
+                )}
 
-              {/* Step 3: Storlek */}
-              {step === 3 && (
-                <div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {sizeOptions.map((opt) => {
-                      const isSelected = selectedSize === opt.value;
+                {/* Bolagsstruktur */}
+                {step === "structure" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
+                    {STRUCTURE_OPTIONS.map((opt) => {
+                      const isSelected = answers.structure === opt.value;
                       return (
                         <button
                           key={opt.value}
-                          onClick={() => { setSelectedSize(opt.value); setTimeout(() => advanceTo(4), 250); }}
-                          className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[58px] ${
+                          onClick={() => { setAnswers((p) => ({ ...p, structure: opt.value })); setTimeout(advance, 250); }}
+                          className={`w-full text-left px-3 py-3 rounded border transition-all min-h-[64px] ${
                             isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
                           }`}
                         >
-                          <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <Users className="h-4 w-4 text-primary" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
-                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
-                          </div>
-                          {isSelected && <Check className="h-4 w-4 text-primary flex-shrink-0" />}
+                          <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
+                          <span className="text-xs text-muted-foreground">{opt.desc}</span>
                         </button>
                       );
                     })}
                   </div>
-                  <button
-                    onClick={() => { setSelectedSize(null); advanceTo(4); }}
-                    className="mt-3 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
-                  >
-                    Hoppa över
-                  </button>
-                </div>
-              )}
-
-              {/* Step 4: Bolagsstruktur */}
-              {step === 4 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl mx-auto">
-                  {STRUCTURE_OPTIONS.map((opt) => {
-                    const isSelected = selectedStructure === opt.value;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => { setSelectedStructure(opt.value); setTimeout(() => advanceTo(5), 250); }}
-                        className={`w-full text-left px-3 py-3 rounded border transition-all min-h-[64px] ${
-                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                        }`}
-                      >
-                        <span className="text-sm sm:text-base font-semibold block">{opt.label}</span>
-                        <span className="text-xs text-muted-foreground">{opt.desc}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* Step 5: Nuläge → räknar fram rekommendation */}
-              {step === 5 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {SITUATION_OPTIONS.map((opt) => {
-                    const isSelected = selectedSituation === opt.value;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => { setSelectedSituation(opt.value); setTimeout(() => showRecommendation(opt.value), 250); }}
-                        className={`w-full text-left px-3 py-2.5 rounded border transition-all flex items-center gap-3 min-h-[52px] ${
-                          isSelected ? "border-primary bg-primary/5 text-foreground" : "border-border bg-card text-foreground hover:border-primary/30"
-                        }`}
-                      >
-                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                )}
               </div>
             </div>
           </div>
