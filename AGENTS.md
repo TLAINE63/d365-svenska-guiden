@@ -31,3 +31,4 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links use public hooks to confirm published/basic profiles, preventing missing destinations.
+- Business Central project-cost figures mirror businesscentral.se's day-rate model and industry spans, kept in src/data/bcProjectEstimates.ts; both sites must show the same estimates.
