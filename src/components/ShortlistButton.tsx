@@ -15,7 +15,7 @@ interface Props {
 
 /**
  * "Lägg till i kortlista" – beslutsstödjande CTA i aktiv utvärderingsfas.
- * Shortlisten är obegränsad och lagras lokalt hos besökaren.
+ * Kortlistan rymmer högst tre partners och lagras lokalt hos besökaren.
  */
 const ShortlistButton = ({ entry, className = "", variant = "full", cardType, productArea }: Props) => {
   const { isSaved, toggle } = useShortlist();

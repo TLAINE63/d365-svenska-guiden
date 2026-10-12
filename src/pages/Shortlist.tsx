@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useInquiry } from "@/contexts/InquiryContext";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import { track } from "@/lib/track";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { usePartners } from "@/hooks/usePartners";
 import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
 import { setAnswer, useBuyerProfile, hasAnyAnswer } from "@/lib/buyerProfile";
@@ -27,11 +28,13 @@ const Shortlist = () => {
   const navigate = useNavigate();
   const inquiry = useInquiry();
   const compare = usePartnerCompare();
+  useEffect(() => { trackFunnelEvent({ event_type: "engagement", event_name: "shortlist_viewed", metadata: { count: items.length } }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const [picked, setPicked] = useState<string[]>([]);
   useEffect(() => { setPicked((prev) => (prev.length ? prev.filter((s) => items.some((i) => i.slug === s)) : items.slice(0, 3).map((i) => i.slug))); }, [items]);
   const chosen = items.filter((i) => picked.includes(i.slug));
   const togglePick = (slug: string) => setPicked((prev) => prev.includes(slug) ? prev.filter((s) => s !== slug) : prev.length >= 3 ? prev : [...prev, slug]);
   const compareChosen = () => {
+    trackFunnelEvent({ event_type: "cta_click", event_name: "partner_comparison_started", metadata: { source: "kortlista", count: chosen.length } });
     compare.clear();
     chosen.forEach((c) => compare.toggle({ slug: c.slug, name: c.name }));
     navigate(`/jamfor-partners/?${new URLSearchParams(Object.fromEntries(chosen.map((c, i) => [["a", "b", "c"][i], c.slug])))}`);
