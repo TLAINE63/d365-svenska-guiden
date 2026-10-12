@@ -19,7 +19,7 @@ export default function EditorialAssessment({ assessment }: { assessment: Editor
             <cite className="not-italic">Redaktionen, {ORGANIZATION.name}</cite>
           </footer>
         </blockquote>
-      </div>
+      </div></div>
     </section>
   );
 }
