@@ -76,6 +76,7 @@ import OmMichaelUhman from './pages/OmMichaelUhman';
 import OwnershipAndInterests from './pages/OwnershipAndInterests';
 import Priser from './pages/Priser';
 import Kostnad from './pages/Kostnad';
+import BefintligKund from './pages/BefintligKund';
 import CrmCategoryGuide from './pages/CrmCategoryGuide';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
@@ -240,6 +241,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/agande-och-intressen', priority: '0.5', changefreq: 'yearly' },
   { path: '/priser', priority: '0.8', changefreq: 'monthly' },
   { path: '/kostnad', priority: '0.8', changefreq: 'monthly' },
+  { path: '/befintlig-kund', priority: '0.8', changefreq: 'monthly' },
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
@@ -593,6 +595,7 @@ export function render(url: string) {
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/priser" element={<Priser />} />
               <Route path="/kostnad" element={<Kostnad />} />
+              <Route path="/befintlig-kund" element={<BefintligKund />} />
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
               <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
