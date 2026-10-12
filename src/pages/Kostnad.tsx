@@ -107,7 +107,7 @@ export default function Kostnad() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Vad kostar Dynamics 365? 3-års TCO och införande"
-        description="Totalkostnad över tre år för Dynamics 365 i SEK: Business Central från ca 50 tkr, mindre projekt 150–300 tkr, Sales från ca 75 tkr. Licens, införande, förvaltning och branschens påverkan."
+        description="Totalkostnad över tre år för Dynamics 365 i SEK: Business Central från ca 50 tkr, mindre projekt från ca 175 tkr, Sales från ca 75 tkr. Licens, införande, förvaltning och branschens påverkan."
         canonicalPath="/kostnad/"
       />
 
