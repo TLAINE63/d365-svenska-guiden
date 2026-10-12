@@ -910,6 +910,7 @@ const ValjPartner = () => {
  </div>
   ) : (
    <>
+    {searchParams.get("source") === "min-d365-plan" && (selectedApplications.length > 0 || selectedIndustry) && <p className="mb-4 max-w-4xl mx-auto rounded-md border border-border bg-card p-3 text-sm text-foreground">Utifrån er D365-plan visar vi partners inom {[...selectedApplications.map(applicationFilterLabel), selectedIndustry?.toLocaleLowerCase("sv")].filter(Boolean).join(" och ").replace(/Dynamics 365/g, "Dynamics\u00a0365")}. Ordningen påverkas inte av planen och ni kan ändra filtren fritt.</p>}
     <WhyTheseResults className="mb-6 max-w-4xl mx-auto" agreementPriority criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {

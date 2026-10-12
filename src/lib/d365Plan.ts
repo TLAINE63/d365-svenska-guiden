@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { type BuyerContext, getBuyerContext, clearBuyerContext } from "@/lib/buyerContext";
 import { type BuyerProfile, clearProfile } from "@/lib/buyerProfile";
-import { deriveCompareFilters, filtersToSearch } from "@/lib/underlag";
+import { deriveCompareFilters, filtersToSearch, industrySlugFromName } from "@/lib/underlag";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export type PlanArea = "erp" | "crm" | "migration" | "partner";

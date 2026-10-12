@@ -4,17 +4,18 @@ import { Button } from "@/components/ui/button";
 import { useBuyerContext, sizeLabel, updateBuyerContext } from "@/lib/buyerContext";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useBuyerProfile } from "@/lib/buyerProfile";
-import { clearD365Plan, removePlanCalculation, planNextStep, updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { clearD365Plan, removePlanCalculation, planNextStep, planPartnerListUrl, planProductLabel, updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { UNDERLAG_QUESTIONS, answerLabel } from "@/data/underlagQuestions";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { productNextSteps } from "@/data/productNextSteps";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
   const buyer = useBuyerContext();
   const profile = useBuyerProfile();
   const meta = usePlanMeta();
-  const { items } = useShortlist();
+  const { items, remove } = useShortlist();
   const next = planNextStep(profile, buyer, meta, items.length);
   const areas = { erp: "ERP / affärssystem", crm: "CRM / kundarbete", migration: "Migration", partner: "Partnerjämförelse" };
   const scopeQuestion = UNDERLAG_QUESTIONS.find((q) => q.id === "apps");
@@ -109,9 +110,23 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
               </dl>
             </div>)}
           </>}
-          {items.length > 0 && <>
-            <h3 className="mt-5 font-semibold">Sparade partners</h3>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">{items.map((p) => <li key={p.slug}>{p.name}</li>)}</ul>
+          <h3 className="mt-5 font-semibold">Mina partneralternativ</h3>
+          <p className="mt-1 text-sm text-muted-foreground">Partners ni vill undersöka vidare (högst tre). Att spara en partner kontaktar ingen och delar inga uppgifter.</p>
+          {items.length === 0 ? <p className="mt-2 text-sm print:hidden">Inga partners sparade ännu. <Link to={planPartnerListUrl(buyer, meta)} className="text-primary hover:underline">Hitta relevanta partners →</Link></p> : <>
+            <ul className="mt-2 divide-y divide-border rounded-md border border-border">
+              {items.map((p) => <li key={p.slug} className="flex flex-wrap items-center justify-between gap-3 p-3 text-sm">
+                <div className="min-w-0"><p className="font-medium text-foreground">{p.name}</p><p className="text-xs text-muted-foreground">{p.verified ? "Verifierad partner" : "Grundprofil"}</p></div>
+                <span className="flex gap-3 text-xs print:hidden">
+                  <Link to={p.url} className="text-primary hover:underline" onClick={() => trackFunnelEvent({ event_type: "cta_click", event_name: "partner_profile_opened_from_plan", metadata: { partner: p.slug } })}>Visa partner</Link>
+                  <button type="button" className="text-muted-foreground hover:underline" onClick={() => remove(p.slug)}>Ta bort</button>
+                </span>
+              </li>)}
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-3 text-sm print:hidden">
+              {items.length >= 2 && <Link to={`/jamfor-partners/?${new URLSearchParams(Object.fromEntries(items.slice(0, 3).map((c, i) => [["a", "b", "c"][i], c.slug])))}`} onClick={() => trackFunnelEvent({ event_type: "cta_click", event_name: "partner_comparison_started", metadata: { source: "min-d365-plan", count: Math.min(items.length, 3) } })} className="font-medium text-primary hover:underline">Jämför mina partners →</Link>}
+              {items.length < 3 && <Link to={planPartnerListUrl(buyer, meta)} className="text-primary hover:underline">Lägg till fler alternativ →</Link>}
+              <Link to="/kortlista/" className="text-muted-foreground hover:underline">Öppna kortlistan</Link>
+            </div>
           </>}
         </>;
       })()}
