@@ -48,6 +48,7 @@ function firstSentences(text: string, maxSentences = 2, maxChars = 190): string 
  * Prioriterar den fördjupade analysen (mer substans) och faller tillbaka på
  * kortsammanfattning, positionering eller beskrivning.
  */
+const FIRST_PERSON = /\b(vi|vår|vårt|våra|oss)\b/i;
 export function getResultAssessment(p: CardPartner): string | null {
   const MAX_SENTENCES = 3;
   const MAX_CHARS = 360;
@@ -66,11 +67,9 @@ export function getResultAssessment(p: CardPartner): string | null {
 
   const card = getCardAiSummary(p);
   if (card) return firstSentences(card, MAX_SENTENCES, MAX_CHARS);
-  if (isDatabasePartner(p) && p.positioning_statement?.trim()) {
-    return firstSentences(p.positioning_statement.trim(), MAX_SENTENCES, MAX_CHARS);
-  }
-  if (p.description?.trim()) return firstSentences(p.description.trim(), MAX_SENTENCES, MAX_CHARS);
-  return null;
+  // Partnerns egna texter i vi-form visas aldrig under d365.se:s bedömningsrubrik
+  const own = [isDatabasePartner(p) ? p.positioning_statement?.trim() : "", p.description?.trim()].find((t) => t && !FIRST_PERSON.test(t));
+  return own ? firstSentences(own, MAX_SENTENCES, MAX_CHARS) : null;
 }
 
 

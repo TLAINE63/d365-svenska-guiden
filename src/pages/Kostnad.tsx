@@ -265,7 +265,7 @@ export default function Kostnad() {
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Vi är på köparens sida. Använd vår behovsanalys för att få en mognads­profil
-              och konkreta rekommendationer – eller låt partnerfiltret föreslå 2–4 partners
+              och konkreta rekommendationer – eller låt partnerfiltret föreslå upp till 3 partners
               som matchar ditt behov.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -279,7 +279,7 @@ export default function Kostnad() {
                 to="/valjdynamics365partner/"
                 className="inline-flex items-center px-5 py-2.5 rounded border border-border bg-card hover:bg-secondary/60 transition-colors"
               >
-                Hitta 2–4 matchande partners
+                Hitta upp till 3 matchande partners
               </Link>
             </div>
           </div>
