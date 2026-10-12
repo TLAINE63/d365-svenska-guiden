@@ -122,8 +122,8 @@ export default function QuickQuoteEstimator() {
         <p className="text-base text-muted-foreground mb-6 max-w-3xl">
           Svara på fyra frågor så räknar vi fram ett spann för både licens och
           implementation direkt på skärmen. Vill du gå vidare kan du skicka underlaget
-          till 2–5 matchande partners – du får deras svar via oss och slipper bli uppringd
-          av en säljkår.
+          till upp till 3 partners som du själv väljer. Du bestämmer vad som delas, och
+          de partners du väljer kontaktar dig direkt.
         </p>
 
         <div className="rounded border border-border bg-card p-5 sm:p-6">
@@ -291,8 +291,8 @@ export default function QuickQuoteEstimator() {
               companySize={bucket.size}
               underlagSummary={underlagSummary}
               resultUrl="https://d365.se/kostnad/"
-              heading="Skicka din offertfråga till 2–5 matchande partners"
-              description="Vi har valt ut de partners som passar din applikation, bransch och storlek. Underlaget med dina val och kostnadsspannet skickas till dem du markerar – du får svaren via oss."
+              heading="Skicka din offertfråga till upp till 3 partners"
+              description="Vi har valt ut de partners som passar din applikation, bransch och storlek. Underlaget med dina val och kostnadsspannet skickas bara till dem du själv markerar (högst 3), och de kontaktar dig direkt."
             />
           </div>
         )}

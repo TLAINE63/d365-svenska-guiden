@@ -27,7 +27,7 @@ const steps = [
   },
   {
     num: "2",
-    title: "Skicka det till 2–5 partners",
+    title: "Skicka det till upp till 3 partners",
     body: "Låt matchande partners offerera mot exakt samma underlag. Då blir svaren jämförbara.",
   },
   {

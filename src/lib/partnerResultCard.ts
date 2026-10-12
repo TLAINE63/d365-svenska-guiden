@@ -67,11 +67,12 @@ export function getResultAssessment(p: CardPartner): string | null {
 
   const card = getCardAiSummary(p);
   if (card) return firstSentences(card, MAX_SENTENCES, MAX_CHARS);
-  // Partnerns egna texter i vi-form visas aldrig under d365.se:s bedömningsrubrik
-  const own = [isDatabasePartner(p) ? p.positioning_statement?.trim() : "", p.description?.trim()].find((t) => t && !FIRST_PERSON.test(t));
-  return own ? firstSentences(own, MAX_SENTENCES, MAX_CHARS) : null;
+  // Redaktionell kortsammanfattning från d365.se. Partnerns egna marknadstexter
+  // (beskrivning/positionering, slogans) visas aldrig under d365.se:s bedömning.
+  const editorial = isDatabasePartner(p) ? p.ai_summary?.trim() : "";
+  if (editorial && !FIRST_PERSON.test(editorial)) return firstSentences(editorial, MAX_SENTENCES, MAX_CHARS);
+  return null;
 }
-
 
 function normalizeFactor(raw: string): string | null {
   let t = raw.replace(/\s+/g, " ").trim();
