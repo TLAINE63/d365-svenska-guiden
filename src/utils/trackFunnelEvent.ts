@@ -241,7 +241,7 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-funnel-event`;
     const pagePath = payload.page_path ?? window.location.pathname;
     const attribution = getAttribution();
-    const meta = { ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
+    const meta: Record<string, unknown> = { ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
     payload = { ...payload, metadata: meta };
     const partnerSlug = (meta.partner_slug || meta.partner) as string | undefined;
     const body = JSON.stringify({
