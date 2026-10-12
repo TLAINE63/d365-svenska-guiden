@@ -27,7 +27,12 @@ const MENUS: NavMenu[] = [
   {
     label: "Affärssystem / ERP",
     groups: [
-      { items: [{ label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true }] },
+      {
+        items: [
+          { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true },
+          { label: "Jämför: Business Central vs F&SCM", path: "/affarssystem/#comparison-intro" },
+        ],
+      },
       {
         heading: "Applikationer",
         items: [
