@@ -39,7 +39,7 @@ export const AREA_OPTIONS: AreaOption[] = [
   { value: "sales", label: "Försäljning", desc: "Pipeline, offerter och kundbearbetning" },
   { value: "marketing", label: "Marknad & kunddata", desc: "Kampanjer, segmentering och kundresor" },
   { value: "service", label: "Kundservice & fältservice", desc: "Ärenden, kanaler och tekniker ute hos kund" },
-  { value: "erp", label: "ERP & affärssystem", desc: "Ekonomi, order, lager och produktion" },
+  { value: "erp", label: "Affärssystem / ERP", desc: "Ekonomi, order, lager, inköp, projekt, produktion" },
   { value: "unsure", label: "Flera områden / vi är osäkra", desc: "Vi hjälper er ringa in rätt område" },
 ];
 
@@ -458,7 +458,7 @@ const AREA_LABEL: Record<AreaKey, string> = {
   sales: "Försäljning",
   marketing: "Marknad & kunddata",
   service: "Kundservice & fältservice",
-  erp: "ERP & affärssystem",
+  erp: "Affärssystem / ERP",
   unsure: "Flera områden",
 };
 
