@@ -554,8 +554,8 @@ const KomIgang = () => {
                     {result.needsIdentified.map((n) => (
                       <span key={n} className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">{n}</span>
                     ))}
-                    {answers.ai === "yes" && (
-                      <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">AI, Copilot och agenter</span>
+                    {answers.ai && answers.ai !== "no" && (
+                      <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-medium">AI och automation</span>
                     )}
                   </div>
                 </div>
@@ -577,6 +577,48 @@ const KomIgang = () => {
                       </Link>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Tillägg och ISV */}
+              {result.isvNote && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">Tillägg och ISV-lösningar</h2>
+                  <p className="text-sm text-muted-foreground">{result.isvNote.text}</p>
+                  <Link to={result.isvNote.path} className="mt-2 inline-block text-sm font-medium text-primary underline underline-offset-4">
+                    Utforska tilläggskatalogen →
+                  </Link>
+                </div>
+              )}
+
+              {/* AI, Copilot och agenter */}
+              {result.aiSummary && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">AI, Copilot och agenter</h2>
+                  <p className="text-sm text-muted-foreground">{result.aiSummary}</p>
+                </div>
+              )}
+
+              {/* Införande och arbetssätt */}
+              {result.implementationNote && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-1">Införande och arbetssätt</h2>
+                  <p className="text-sm text-muted-foreground">{result.implementationNote}</p>
+                </div>
+              )}
+
+              {/* Att undersöka vidare – ärliga osäkerheter */}
+              {result.openQuestions.length > 0 && (
+                <div className="mb-8 rounded border border-border bg-card p-5">
+                  <h2 className="text-base font-semibold text-foreground mb-2">Att undersöka vidare</h2>
+                  <ul className="space-y-2">
+                    {result.openQuestions.map((q) => (
+                      <li key={q} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{q}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
