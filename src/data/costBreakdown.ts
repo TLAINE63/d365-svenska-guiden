@@ -98,7 +98,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
         scope: "Snabbstart till fast pris från 50 000 kr, litet traditionellt projekt ca 175 000–465 000 kr",
         range: "50 000 – 465 000 kr",
         bullets: [
-          "Startpaket: ren standard, enkla processer som fritextfakturering, inget lager",
+          "Snabbstart: fast pris, standardversion, grundregister och utbildning (t.ex. Update Rapid Start, NAB Solutions Business Central Start)",
           "Mindre projekt: 2–4 månader, ekonomi, order och inköp",
           "Tjänsteföretag hamnar ofta i nedre delen av spannet",
           "Datamigration från enklare system",
