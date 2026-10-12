@@ -119,9 +119,24 @@ export function clearD365Plan() {
   updatePlan({ area: undefined, needs: [], dimensions: {}, calculations: [], solution: undefined, completedSteps: [] });
 }
 
+/** Produkt som planen faktiskt känner till: köparens val, annars guidens huvudspår. */
+export function planProductLabel(buyer: BuyerContext, meta: PlanMeta): string | null {
+  return (buyer.product as string | undefined) || meta.solution?.knownProduct || meta.solution?.primary?.label || null;
+}
+const PLAN_APP: Record<string, string> = { "Finance & SCM": "Finance", "Finance & Supply Chain": "Finance", "Finance & Supply Chain Management": "Finance", "Customer Insights": "Customer Insights (Marketing)" };
+/** Partnerurval förifyllt med planens kriterier (endast filter som partnerlistan stödjer). */
+export function planPartnerListUrl(buyer: BuyerContext, meta: PlanMeta) {
+  const params = new URLSearchParams();
+  const product = planProductLabel(buyer, meta);
+  if (product) params.set("apps", PLAN_APP[product] || product);
+  if (buyer.industry) params.set("industry", buyer.industry);
+  params.set("source", "min-d365-plan");
+  return `/valjdynamics365partner/?${params}`;
+}
 export function planNextStep(profile: BuyerProfile, buyer: BuyerContext, meta: PlanMeta, savedCount: number) {
-  if (savedCount && buyer.industry && buyer.size && (meta.area || buyer.product)) return { label: "Få hjälp att matcha rätt partner", to: "/kortlista/" };
-  if (savedCount) return { label: "Jämför era sparade partners", to: "/kortlista/" };
+  if (savedCount >= 2) return { label: "Jämför era partneralternativ", to: "/kortlista/" };
+  if (savedCount === 1) return { label: "Lägg till fler alternativ i kortlistan", to: planPartnerListUrl(buyer, meta) };
+  if (meta.solution && !meta.solution.existingCustomer && (meta.solution.primary || meta.solution.knownProduct)) return { label: "Hitta relevanta partners", to: planPartnerListUrl(buyer, meta) };
   if (meta.solution?.nextSteps[0]) return { label: meta.solution.nextSteps[0].label, to: meta.solution.nextSteps[0].path };
   if (!meta.solution && !meta.area && !buyer.product) return { label: "Starta behovsguiden", to: "/kom-igang/?source=min-d365-plan" };
   const assessed = Boolean(profile.assessment?.fscm_level || (Array.isArray(profile.assessment?.crm_apps) && profile.assessment.crm_apps.length));
