@@ -112,14 +112,14 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
       if (advisory) {
         recordPlanContact("advisory");
-        trackFunnelEvent({ event_type: "conversion", event_name: "advisory_submitted", metadata: { sections: shared.length } });
+        trackFunnelEvent({ event_type: "engagement", event_name: "advisory_submitted", metadata: { sections: shared.length } });
       } else {
         const sent: string[] = data.partners || [];
         const intros: string[] = data.intros || [];
         if (sent.length) recordPlanContact("partner", sent);
         if (intros.length) recordPlanContact("intro", intros);
-        if (sent.length) trackFunnelEvent({ event_type: "conversion", event_name: "partner_request_submitted", metadata: { count: sent.length, sections: shared.length } });
-        if (intros.length) trackFunnelEvent({ event_type: "conversion", event_name: "basic_profile_intro_requested", metadata: { count: intros.length } });
+        if (sent.length) trackFunnelEvent({ event_type: "engagement", event_name: "partner_request_submitted", metadata: { count: sent.length, sections: shared.length } });
+        if (intros.length) trackFunnelEvent({ event_type: "engagement", event_name: "basic_profile_intro_requested", metadata: { count: intros.length } });
       }
       setDone({ partners: data.partners || [], intros: data.intros || [] });
     } catch {

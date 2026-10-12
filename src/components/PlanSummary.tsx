@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import PlanContactDialog, { type PlanContactMode } from "@/components/plan/PlanContactDialog";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuyerContext, sizeLabel, updateBuyerContext } from "@/lib/buyerContext";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useBuyerProfile } from "@/lib/buyerProfile";
-import { clearD365Plan, removePlanCalculation, planNextStep, planPartnerListUrl, planProductLabel, updatePlan, usePlanMeta } from "@/lib/d365Plan";
+import { clearD365Plan, removePlanCalculation, PLAN_CONTACT_LABEL, planNextStep, planPartnerListUrl, planProductLabel, updatePlan, usePlanMeta } from "@/lib/d365Plan";
 import { UNDERLAG_QUESTIONS, answerLabel } from "@/data/underlagQuestions";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -23,6 +25,7 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
   const needs = UNDERLAG_QUESTIONS.filter((q) => ["fscm", "crm", "contact_center", "integrations", "project"].includes(q.section) && profile[q.section]?.[q.key] !== undefined)
     .map((q) => `${q.text} ${answerLabel(q, profile[q.section][q.key])}`);
   const priorities = Object.entries(meta.dimensions);
+  const [contact, setContact] = useState<PlanContactMode | null>(null);
   return (
     <section aria-labelledby="plan-summary-title" className="mb-8 border-y border-border py-6">
       <h2 id="plan-summary-title" className="mb-3 text-xl font-semibold text-foreground">Er plan just nu</h2>
@@ -88,7 +91,7 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           "Vem i organisationen äger beslutet, och vilka roller behöver vara med?",
         ];
         return <>
-          <h3 className="mt-5 font-semibold">Frågor att ta med till styrgrupp och partners</h3>
+          <h3 id="plan-fragor" className="mt-5 scroll-mt-32 font-semibold">Frågor att ta med till styrgrupp och partners</h3>
           <p className="mt-1 text-sm text-muted-foreground">Använd frågorna som checklista inför interna möten och partnersamtal.</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-foreground">
             {[...general, ...(cfg ? cfg.questions : [])].map((q) => <li key={q}>{nowrapBrand(q)}</li>)}
@@ -130,8 +133,22 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           </>}
         </>;
       })()}
+      <section aria-labelledby="plan-contact-title" className="mt-6 rounded-md border border-border p-4">
+        <h3 id="plan-contact-title" className="font-semibold">Ta nästa steg när ni är redo</h3>
+        <p className="mt-1 text-sm text-muted-foreground">Ni bestämmer själva vilka som får ert underlag. Inget skickas till någon partner utan ert godkännande, och planen behöver inte vara komplett.</p>
+        {(meta.contacts || []).length > 0 && <ul aria-label="Kontaktstatus" className="mt-3 space-y-1 text-sm">
+          {(meta.contacts || []).map((c, i) => <li key={i}><span className="text-accent" aria-hidden="true">✓</span> {PLAN_CONTACT_LABEL[c.type]}{c.partners.length ? `: ${c.partners.join(", ")}` : ""} <span className="text-xs text-muted-foreground">{c.date}</span></li>)}
+          <li className="text-xs text-muted-foreground">Skickad betyder inte att dialogen är bekräftad. Partnern eller d365.se hör av sig till er.</li>
+        </ul>}
+        <div className="mt-3 flex flex-wrap gap-3 print:hidden">
+          <Button variant="outline" onClick={() => setContact("advisory")}>Få hjälp med nästa steg</Button>
+          <Button variant="outline" onClick={() => setContact("partners")} disabled={!items.length} title={items.length ? undefined : "Spara minst en partner i kortlistan först"}>Kontakta mina valda partners</Button>
+        </div>
+        {!items.length && <p className="mt-2 text-xs text-muted-foreground print:hidden">Spara minst en partner i kortlistan för att kunna kontakta partners.</p>}
+      </section>
+      {contact && <PlanContactDialog mode={contact} onClose={() => setContact(null)} />}
       <div className="mt-5 flex flex-wrap gap-3 print:hidden">
-        {next.to.startsWith("#") ? <Button onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
+        {next.to === "#plan-fragor" ? <Button onClick={() => document.getElementById("plan-fragor")?.scrollIntoView({ behavior: "smooth" })}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : next.to.startsWith("#") ? <Button onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
         <Button variant="outline" onClick={onEdit}>Ändra eller komplettera svar</Button>
         <Button variant="ghost" onClick={() => { if (window.confirm("Rensa planens svar och prioriteringar? Era sparade partners finns kvar.")) clearD365Plan(); }}><RotateCcw className="h-4 w-4" />Rensa planen</Button>
       </div>
