@@ -4,13 +4,17 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import partnerData from "@/data/partnerData.json";
 
-type P = { slug: string; name: string; is_featured: boolean };
+type P = { slug: string; name: string; is_featured: boolean; logo_dark_bg?: boolean };
 const VERIFIED = (partnerData as P[]).filter((p) => p.is_featured).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+
+/** Logotyper gjorda för mörk bakgrund paras med ljus badge och tvärtom. */
+const defaultVariant = (s: string): "dark" | "light" =>
+  VERIFIED.find((p) => p.slug === s)?.logo_dark_bg ? "light" : "dark";
 
 /** Embeddable "Verifierad partner på d365.se" badge, only for verified partners. */
 export default function VerifiedPartnerBadgeEmbed() {
-  const [variant, setVariant] = useState<"dark" | "light">("dark");
   const [slug, setSlug] = useState(VERIFIED[0]?.slug ?? "");
+  const [variant, setVariant] = useState<"dark" | "light">(() => defaultVariant(VERIFIED[0]?.slug ?? ""));
   const file = `/badges/verifierad-partner-${variant}.svg`;
   const code = `<a href="https://d365.se/partner/${slug}/" target="_blank" rel="noopener">\n  <img src="https://d365.se${file}" alt="Verifierad Dynamics 365-partner på d365.se" width="240" height="72" />\n</a>`;
 
