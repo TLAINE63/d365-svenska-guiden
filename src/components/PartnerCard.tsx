@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import RelatedPartyBadge from "@/components/RelatedPartyBadge";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import {
@@ -420,74 +420,16 @@ const PartnerCard = ({
  </div>
  
  {/* Card Content */}
- <div className="relative flex flex-1 p-6 gap-4">
- {/* Logo column - separate on the left */}
- <div className="flex-shrink-0 relative">
- {isDatabasePartner(partner) && partner.logo_url ? (
-  <Link
+ <div className="relative flex flex-1 flex-col p-6">
+ <PartnerCardHeader
+   partner={{ name: partner.name || "Partner", logo_url: isDatabasePartner(partner) ? partner.logo_url : null, logo_dark_bg: isDatabasePartner(partner) ? partner.logo_dark_bg : false }}
+   verified={isDatabasePartner(partner) && partner.is_featured === true}
    to={cleanProfileUrl}
    onClick={handleCardClick}
-   className="block rounded-lg hover:opacity-80 transition-opacity"
-   title={`Visa ${partner.name || "partner"}s profil`}
-  >
-   <img
-    src={optimizedLogo(partner.logo_url)}
-    alt={`${partner.name} logotyp`}
-    width="72"
-    height="72"
-    loading="lazy"
-    decoding="async"
-    className={`w-[4.5rem] h-[4.5rem] object-contain rounded-lg p-2 border ${
-     partner.logo_dark_bg
-      ? 'bg-slate-700 border-slate-600 brightness-125 drop-'
-      : 'bg-white border-border/40'
-    }`}
-   />
-  </Link>
- ) : (
- <div className="w-[4.5rem] h-[4.5rem] rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center ">
- <Building2 className="w-8 h-8 text-muted-foreground/60" />
- </div>
- )}
- 
- {/* Random order indicator */}
- {showRandomIndicator && (
- <TooltipProvider delayDuration={100}>
- <Tooltip>
- <TooltipTrigger asChild>
- <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded bg-background border border-border flex items-center justify-center cursor-help hover:bg-muted transition-colors">
- <Shuffle className="w-3 h-3 text-muted-foreground" />
- </div>
- </TooltipTrigger>
- <TooltipContent 
- side="right" 
- sideOffset={8}
- className="z-[100] text-xs max-w-[200px] bg-popover text-popover-foreground border"
- >
- <p>Ordningen slumpas för rättvis exponering</p>
- </TooltipContent>
- </Tooltip>
- </TooltipProvider>
- )}
- </div>
-
- {/* Content column - aligned with name */}
+   className="-mx-6 -mt-6 mb-4 w-auto px-6 py-5 border-b border-border"
+ />
  <div className="flex flex-col flex-1 min-w-0">
- {/* Partner name */}
- <Link 
- to={cleanProfileUrl}
- onClick={handleCardClick}
- className="group/link mb-3"
- >
- <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight break-words hyphens-auto">
- {partner.name || 'Partner'}
- </h3>
- </Link>
-  <div className="flex flex-wrap items-center gap-1.5 mb-2 -mt-1">
-   {(!isDatabasePartner(partner) || partner.is_featured !== false) && <VerifiedPartnerBadge />}
-   {isDatabasePartner(partner) && (partner as any).related_party && <RelatedPartyBadge />}
-  </div>
-
+ {isDatabasePartner(partner) && (partner as any).related_party && <div className="mb-2"><RelatedPartyBadge /></div>}
   {!resultView && isDatabasePartner(partner) && partner.is_featured !== false && (() => {
    const comp = normalizeCompetencies((partner as any).extended_competencies);
    if (!hasAnyCompetency(comp)) return null;
