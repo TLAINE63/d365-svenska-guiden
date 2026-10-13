@@ -4905,9 +4905,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   {
     slug: "dynamics-365-bygg-entreprenad",
     title: "Dynamics 365 för bygg, entreprenad & installation",
-    metaTitle: "Affärssystem för byggföretag 2026 – projektredovisning & ÄTA",
+    metaTitle: "Dynamics 365 för bygg & entreprenad 2026 – BC, F&SCM & partners",
     metaDescription:
-      "Projektredovisning, ÄTA, underentreprenörer och mobil tidrapportering i Dynamics 365 för byggföretag. Se vad BC, F&SCM och Project Operations kostar – och vilka svenska partners som kan bygg.",
+      "Projektredovisning, ÄTA, kalkyl och mobil tidrapportering. Guide till Dynamics 365 för byggbolag: när passar Business Central resp. F&SCM, kostnader och verifierade partners.",
     summary:
       "Dynamics 365 (Project Operations + BC Premium eller F&SCM) stödjer projektredovisning, ÄTA, underentreprenörer och kostnadskontroll för svenska bygg-, entreprenad- och installationsbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
