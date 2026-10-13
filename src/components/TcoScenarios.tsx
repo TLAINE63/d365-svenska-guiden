@@ -32,7 +32,7 @@ const SCENARIOS: Scenario[] = [
     licenseLabel: "Sales Professional",
     users: 20,
     implLow: 75000,
-    implHigh: 225000,
+    implHigh: 300000,
     roiPath: "/d365sales/roi-kalkylator/",
   },
   {
