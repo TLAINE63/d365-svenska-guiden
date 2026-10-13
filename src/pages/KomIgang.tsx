@@ -211,7 +211,7 @@ const KomIgang = () => {
 
   const storedContext = getBuyerContext();
   const initialIndustry = normalizeIndustryParam(searchParams.get("industry") || storedContext.industry || null);
-  const requestedProduct = searchParams.get("product") || storedContext.product;
+  const requestedProduct = searchParams.get("product");
   const source = searchParams.get("source") || "direct";
   const requestedSize = searchParams.get("size") || storedContext.size || null;
 
@@ -220,7 +220,9 @@ const KomIgang = () => {
     size: requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : undefined,
     knownProduct: KNOWN_PRODUCTS.some((p) => p.value === requestedProduct) ? requestedProduct : undefined,
   }));
-  const [productShortcut, setProductShortcut] = useState(false);
+  const [productShortcut, setProductShortcut] = useState(() => KNOWN_PRODUCTS.some((p) => p.value === requestedProduct));
+  const productShortcutRef = useRef(productShortcut);
+  productShortcutRef.current = productShortcut;
   const [stepIdx, setStepIdx] = useState(0);
   const [result, setResult] = useState<SolutionResult | null>(null);
   // Bransch ställs bara om den inte redan är känd (URL-param eller sparad kontext).
@@ -234,7 +236,7 @@ const KomIgang = () => {
     if (answers.stage === "existing") {
       s.push("existingFocus", "change");
       branch = true;
-    } else if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
+    } else if (answers.stage === "know_product" || productShortcut) {
       s.push("product");
       if (answers.knownProduct) s.push("productFocus");
       s.push("change");
@@ -313,7 +315,8 @@ const KomIgang = () => {
 
   const completeFlow = () => {
     const raw = latest.current.answers;
-    const ans = { ...raw, size: raw.size ?? deriveSize(raw) };
+    const productBranch = raw.stage === "know_product" || productShortcutRef.current;
+    const ans = { ...raw, knownProduct: productBranch ? raw.knownProduct : undefined, size: raw.size ?? deriveSize(raw) };
     const res = buildSolutionResult(ans);
     setResult(res);
     const app = res.primary?.app ?? ans.knownProduct ?? "";

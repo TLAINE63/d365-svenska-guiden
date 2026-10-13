@@ -84,7 +84,9 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
       track("inquiry_submit", { partner_count: approved.length, product_area: f.product || null });
       onClose();
-      navigate(`/forfragan/tack/?${new URLSearchParams({ p: (data.partners || approved.map((p) => p.name)).join(", "), e: f.email })}`);
+      const qs = new URLSearchParams({ p: (Array.isArray(data.partners) ? data.partners : []).join(", "), e: f.email });
+      if (Array.isArray(data.intros) && data.intros.length) qs.set("i", data.intros.join(", "));
+      navigate(`/forfragan/tack/?${qs}`);
     } catch {
       setError("Något gick fel. Försök igen.");
       setSending(false);
@@ -104,7 +106,9 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
             {partners.map((p) => (
               <label key={p.slug} className="flex items-start gap-3 rounded-md border border-border p-3 text-sm cursor-pointer">
                 <Checkbox checked={!!consent[p.slug]} onCheckedChange={(v) => setConsent((s) => ({ ...s, [p.slug]: v === true }))} className="mt-0.5" />
-                <span>Jag godkänner att mina kontaktuppgifter och mitt projektunderlag skickas till {p.name}.</span>
+                <span>{p.verified === false
+                  ? <>{p.name} har en grundprofil. Jag godkänner att d365.se tar emot mina uppgifter och förmedlar en introduktion. Partnern får inte mina kontaktuppgifter direkt.</>
+                  : <>Jag godkänner att mina kontaktuppgifter och mitt projektunderlag skickas till {p.name}.</>}</span>
               </label>
             ))}
           </fieldset>
