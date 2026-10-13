@@ -25,7 +25,7 @@ export default function VerifiedPartnerBadgeEmbed() {
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Badge för verifierade partners</h2>
         <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
           Visa att er profil på d365.se är partnerverifierad. Lägg badgen i sidfoten eller på er
-          Dynamics&nbsp;365-sida, länkad till er egen profil.
+          <span className="whitespace-nowrap">Dynamics&nbsp;365-sida</span>, länkad till er egen profil.
         </p>
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div className="space-y-4">
