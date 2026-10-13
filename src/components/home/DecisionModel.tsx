@@ -24,7 +24,7 @@ const cardClass =
 const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
   <>
     <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))] lg:h-6 lg:w-6" aria-hidden="true" />
-    <span className="text-[16px] font-bold leading-tight text-primary-foreground lg:text-[20px]">{n.title}</span>
+    <span className="text-[18px] font-bold leading-tight text-primary-foreground lg:text-[24px]">{n.title}</span>
     <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[14.5px]">{n.text}</span>
     <span className="mt-auto pt-1.5 text-[13px] font-semibold text-primary-foreground lg:text-[14px] underline-offset-4 group-hover:underline">
       {n.cta} <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
