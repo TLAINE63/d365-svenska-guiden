@@ -35,9 +35,11 @@ const normalizeRecipients = (addresses: Address): Address => {
 };
 export function brandEmail<T extends BrandableEmail>(email: T): T {
   const html = email.html ?? `<p>${escapeHtml(email.text ?? "").replace(/\n/g, "<br>")}</p>`;
+  const to = normalizeRecipients(email.to);
+  const internal = (Array.isArray(to) ? to : [to]).every((a) => a.toLowerCase() === EMAIL_OWNER);
   return {
-    ...email, from: EMAIL_FROM, to: normalizeRecipients(email.to),
-    reply_to: email.reply_to ? normalizeRecipients(email.reply_to) : EMAIL_OWNER,
+    ...email, from: EMAIL_FROM, to,
+    reply_to: internal ? EMAIL_OWNER : email.reply_to ? normalizeRecipients(email.reply_to) : EMAIL_OWNER,
     ...(email.cc ? { cc: normalizeRecipients(email.cc) } : {}),
     ...(email.bcc ? { bcc: normalizeRecipients(email.bcc) } : {}),
     html: premiumEmail(html, email.subject),

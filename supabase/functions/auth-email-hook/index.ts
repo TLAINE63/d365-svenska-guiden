@@ -9,6 +9,7 @@ import { MagicLinkEmail } from '../_shared/email-templates/magic-link.tsx'
 import { RecoveryEmail } from '../_shared/email-templates/recovery.tsx'
 import { EmailChangeEmail } from '../_shared/email-templates/email-change.tsx'
 import { ReauthenticationEmail } from '../_shared/email-templates/reauthentication.tsx'
+import { premiumEmail, EMAIL_OWNER } from '../_shared/email-branding.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -129,7 +130,7 @@ async function handlePreview(req: Request): Promise<Response> {
   }
 
   const sampleData = SAMPLE_DATA[type] || {}
-  const html = await renderAsync(React.createElement(EmailTemplate, sampleData))
+  const html = premiumEmail(await renderAsync(React.createElement(EmailTemplate, sampleData)), EMAIL_SUBJECTS[type] || SITE_NAME)
 
   return new Response(html, {
     status: 200,
@@ -238,7 +239,7 @@ async function handleWebhook(req: Request): Promise<Response> {
   }
 
   // Render React Email to HTML and plain text
-  const html = await renderAsync(React.createElement(EmailTemplate, templateProps))
+  const html = premiumEmail(await renderAsync(React.createElement(EmailTemplate, templateProps)), EMAIL_SUBJECTS[emailType] || SITE_NAME)
   const text = await renderAsync(React.createElement(EmailTemplate, templateProps), {
     plainText: true,
   })
@@ -265,7 +266,8 @@ async function handleWebhook(req: Request): Promise<Response> {
       run_id,
       message_id: messageId,
       to: payload.data.email,
-      from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+      from: `Thomas Laine | ${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+      reply_to: EMAIL_OWNER,
       sender_domain: SENDER_DOMAIN,
       subject: EMAIL_SUBJECTS[emailType] || 'Notification',
       html,
