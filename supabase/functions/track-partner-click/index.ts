@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { Resend } from "https://esm.sh/resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -271,7 +271,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "D365 Guiden <info@d365.se>",
-      to: ["info@d365.se"],
+      to: ["thomas.laine@dynamicfactory.se"],
       reply_to: "info@d365.se",
       subject: `Partnerklick: ${partnerName.trim()}${filterContext?.product ? ` (${filterContext.product})` : ''}`,
       html: `

@@ -1,3 +1,4 @@
+import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
@@ -1002,14 +1003,14 @@ async function sendOne(
       "Content-Type": "application/json",
       "Authorization": `Bearer ${RESEND_API_KEY}`,
     },
-    body: JSON.stringify({
+    body: JSON.stringify(brandEmail({
       from: "D365 Guiden <info@d365.se>",
       to: recipients,
       bcc: ["info@d365.se"],
       reply_to: "info@d365.se",
       subject,
       html,
-    }),
+    })),
   });
 
   const body = await res.json();

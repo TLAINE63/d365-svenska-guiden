@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "https://esm.sh/resend@4.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -245,7 +245,7 @@ serve(async (req: Request): Promise<Response> => {
           const resend = new Resend(resendApiKey);
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+            to: ["thomas.laine@dynamicfactory.se"],
             subject: `Nytt event att granska: ${String(event.title ?? "").replace(/[\r\n]/g, " ").slice(0, 150)} (${String(partnerData?.name || invitation.partner_name || "").replace(/[\r\n]/g, " ").slice(0, 100)})`,
             html: `
               <h2>Nytt event väntar på godkännande</h2>
@@ -607,7 +607,7 @@ serve(async (req: Request): Promise<Response> => {
           
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+            to: ["thomas.laine@dynamicfactory.se"],
             subject: `Nytt event att granska: ${String(event.title ?? "").replace(/[\r\n]/g, " ").slice(0, 150)} (${String(tokenData.partners.name ?? "").replace(/[\r\n]/g, " ").slice(0, 100)})`,
             html: `
               <!DOCTYPE html>

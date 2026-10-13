@@ -1,10 +1,10 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3";
-import { Resend } from "npm:resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { inquiryCors, isInquiryOrigin, siteFromOrigin } from "../_shared/inquiry-cors.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
-const ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
+const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
 const s = (n: number) => z.string().trim().max(n).optional().nullable();
 const Body = z.object({
   inquiry_type: z.enum(["partner", "kortlista", "fraga"]),
@@ -28,29 +28,12 @@ const json = (b: unknown, status: number, cors: Record<string, string>) => new R
 const F = "font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif";
 const INK = "#15202B", MUTED = "#5B6670", LINE = "#E3E7EA", PETROL = "#0E7C86";
 
-const SIGNATURE = `<table role="presentation" width="100%" style="margin-top:28px;border-top:1px solid ${LINE}"><tr><td style="padding-top:20px;${F};font-size:14px;line-height:1.6;color:${INK}">
-Med vänliga hälsningar<br>
-<strong>Thomas&nbsp;Laine &amp; Teamet på d365.se</strong><br>
-<span style="color:${MUTED}"><a href="mailto:thomas.laine@dynamicfactory.se" style="color:${PETROL};text-decoration:none">thomas.laine@dynamicfactory.se</a> · <a href="mailto:info@d365.se" style="color:${PETROL};text-decoration:none">info@d365.se</a><br>
-<a href="tel:+46722324060" style="color:${PETROL};text-decoration:none">+46&nbsp;72&nbsp;232&nbsp;40&nbsp;60</a> · <a href="https://d365.se" style="color:${PETROL};text-decoration:none">d365.se</a></span>
-</td></tr></table>`;
+// The provider boundary appends the common signature once.
+const SIGNATURE = "";
 
 /** Premiumram för alla mejl: mörk header, vitt kort, diskret footer. */
 function layout(title: string, inner: string, preheader = ""): string {
-  return `<!doctype html><html lang="sv"><body style="margin:0;padding:0;background:#F3F1EC">
-<span style="display:none;max-height:0;overflow:hidden">${esc(preheader)}</span>
-<table role="presentation" width="100%" style="background:#F3F1EC;padding:32px 12px"><tr><td align="center">
-<table role="presentation" width="100%" style="max-width:620px;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid ${LINE}">
-<tr><td style="background:#15130F;padding:22px 32px;${F}">
-<div style="color:#FFFFFF;font-size:18px;font-weight:700;letter-spacing:.2px">d365.se</div>
-<div style="color:#B9C2C8;font-size:12px;margin-top:2px">Köparsidig vägledning för Microsoft&nbsp;Dynamics&nbsp;365</div>
-</td></tr>
-<tr><td style="padding:32px;${F};font-size:15px;line-height:1.65;color:${INK}">
-<h1 style="margin:0 0 16px;font-size:21px;line-height:1.3;color:${INK}">${title}</h1>
-${inner}
-</td></tr></table>
-<div style="${F};font-size:11px;color:#8A939A;margin-top:16px">d365.se · Personuppgiftsansvarig: Dynamic Factory</div>
-</td></tr></table></body></html>`;
+  return `<span style="display:none;max-height:0;overflow:hidden">${esc(preheader)}</span><h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;color:${INK}">${title}</h1>${inner}`;
 }
 
 const p = (t: string) => `<p style="margin:0 0 14px">${t}</p>`;

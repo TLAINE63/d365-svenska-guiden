@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "https://esm.sh/resend@4.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { computeReview, applyPartnerResponse } from "../_shared/partner-review.ts";
 
 const ALLOWED_ORIGINS = [
@@ -641,7 +641,7 @@ serve(async (req: Request): Promise<Response> => {
           
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+            to: ["thomas.laine@dynamicfactory.se"],
             subject: `Partner ${isUpdate ? "uppdaterad" : "skapad"}: ${String(submissionData.name ?? "").replace(/[\r\n]/g, " ").slice(0, 150)}`,
             html: `
               <!DOCTYPE html>

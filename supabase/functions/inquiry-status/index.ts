@@ -1,10 +1,10 @@
 // Sprint 2: partnersvar (status_token), köparuppföljning efter 14 dagar och adminstatistik per partner.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3";
-import { Resend } from "npm:resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { inquiryCors } from "../_shared/inquiry-cors.ts";
 
-const NOTIFY = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
+const NOTIFY = ["thomas.laine@dynamicfactory.se"];
 const SITE: Record<string, string> = { "d365.se": "https://d365.se", "businesscentral.se": "https://businesscentral.se" };
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const json = (b: unknown, status: number, cors: Record<string, string>) => new Response(JSON.stringify(b), { status, headers: { ...cors, "Content-Type": "application/json" } });

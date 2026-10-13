@@ -1,9 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Enhetliga sajtmejl (2026-10-13)
-- [ ] Använd verifierad sajtdomän och Thomas som avsändare och svarsmottagare
-- [ ] Samordna premiumdesign, signatur och juridisk sidfot för alla befintliga mejl
-- [ ] Bevara mottagare/samtycke, testa och driftsätt berörda mejlfunktioner
+- [x] Använd verifierad sajtdomän och Thomas som avsändare; partners behåller direktsvar till köparen
+- [x] Samordna premiumdesign, signatur och juridisk sidfot för alla befintliga mejl
+- [x] Bevara mottagare/samtycke och PDF-bilagor; sju riktade tester godkända och mejlfunktionerna driftsatta
+- Inget verkligt testutskick gjort; utseende, avsändardomän och mottagarregler verifierade utan utskick.
 
 ## Sammanhängande premiumdesign på partnerprofiler (2026-10-07)
 - [x] Behåll godkänd inledning och samordna följdsektionernas bredd, marginaler och typografi

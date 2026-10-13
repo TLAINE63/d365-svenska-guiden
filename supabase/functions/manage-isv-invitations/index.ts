@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "npm:resend@4.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { getCorsHeaders, verifyAdminJWT, json, cleanText, cleanList } from "../_shared/isvAuth.ts";
 
 const PUBLIC_BASE_URL = "https://www.d365.se";

@@ -1,3 +1,4 @@
+import { brandEmail } from "../_shared/email-branding.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
@@ -742,14 +743,14 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
-        body: JSON.stringify({
+        body: JSON.stringify(brandEmail({
           from: "D365 Guiden <info@d365.se>",
           to: [recipient],
           reply_to: "info@d365.se",
           subject,
           html: result.html,
           text: result.text,
-        }),
+        })),
       });
       const sendBody = await res.json().catch(() => ({}));
 

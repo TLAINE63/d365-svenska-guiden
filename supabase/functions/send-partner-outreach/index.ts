@@ -3,7 +3,7 @@ const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
-import { Resend } from "npm:resend@4";
+import { Resend } from "../_shared/branded-resend.ts";
 import { z } from "npm:zod@3";
 import { verifyAdminJWT } from "../_shared/isvAuth.ts";
 
