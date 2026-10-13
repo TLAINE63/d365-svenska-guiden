@@ -85,7 +85,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
       track("inquiry_submit", { partner_count: approved.length, product_area: f.product || null });
       onClose();
       const qs = new URLSearchParams({ p: (Array.isArray(data.partners) ? data.partners : []).join(", "), e: f.email });
-      if (Array.isArray(data.intros) && data.intros.length) qs.set("i", approved.filter((p) => data.intros.includes(p.slug) || data.intros.includes(p.name)).map((p) => p.name).join(", ") || data.intros.join(", "));
+      if (Array.isArray(data.intros) && data.intros.length) qs.set("i", data.intros.join(", "));
       navigate(`/forfragan/tack/?${qs}`);
     } catch {
       setError("Något gick fel. Försök igen.");

@@ -1,7 +1,7 @@
 import { createContext, lazy, ReactNode, Suspense, useCallback, useContext, useMemo, useState } from "react";
 import { track } from "@/lib/track";
 
-export type InquiryPartner = { slug: string; name: string };
+export type InquiryPartner = { slug: string; name: string; verified?: boolean };
 export type InquiryType = "partner" | "kortlista" | "fraga";
 type OpenArgs = { partners: InquiryPartner[]; type?: InquiryType; productArea?: string | null };
 
