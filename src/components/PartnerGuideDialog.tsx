@@ -1,3 +1,4 @@
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -1001,37 +1002,18 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       
                       <CardContent className="p-4">
-                        <div className="flex items-start gap-4">
-                          {/* Logo */}
-                          <div className="flex-shrink-0">
-                            {isDatabasePartner(partner) && partner.logo_url ? (
-                              <img 
-                                src={optimizedLogo(partner.logo_url)} 
-                                alt={`${partner.name} logotyp`}
-                                className={`w-12 h-12 object-contain rounded-lg p-1.5 border ${
-                                  partner.logo_dark_bg 
-                                    ? 'bg-slate-700 border-slate-600 brightness-125' 
-                                    : 'bg-white border-border/40'
-                                }`}
-                              />
-                            ) : (
-                              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center">
-                                <Building2 className="w-6 h-6 text-muted-foreground/60" />
-                              </div>
-                            )}
-                          </div>
-                          
-                          {/* Content */}
+                        <div className="flex flex-col gap-3">
+                          <PartnerCardHeader
+                            partner={{ name: partner.name || "Partner", logo_url: isDatabasePartner(partner) ? partner.logo_url : null, logo_dark_bg: isDatabasePartner(partner) ? partner.logo_dark_bg : false }}
+                            verified={isDatabasePartner(partner) && partner.is_featured === true}
+                            to={profileUrl}
+                            onClick={() => onOpenChange(false)}
+                            compact
+                            className="-mx-4 -mt-4 w-auto border-b border-border p-4"
+                          />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-2 mb-1">
                               <div className="flex items-center gap-2 min-w-0">
-                                <Link 
-                                  to={profileUrl} 
-                                  onClick={() => onOpenChange(false)}
-                                  className="font-semibold text-foreground hover:text-primary transition-colors truncate"
-                                >
-                                  {partner.name || 'Partner'}
-                                </Link>
                                 {/* Only show shuffle icon when no AI scores */}
                                 {aiMatches.length === 0 && !isAiLoading && (
                                   <TooltipProvider delayDuration={100}>

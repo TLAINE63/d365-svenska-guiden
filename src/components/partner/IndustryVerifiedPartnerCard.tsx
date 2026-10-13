@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lu
 import { Link } from "react-router-dom";
 
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
@@ -155,25 +155,8 @@ export default function IndustryVerifiedPartnerCard({
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-primary/45">
-      <header className="flex items-start gap-4 border-b border-border px-5 py-5">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md border border-border bg-background p-2">
-          {partner.logo_url ? (
-            <img
-              src={optimizedLogo(partner.logo_url)}
-              alt={`${partner.name} logotyp`}
-              loading="lazy"
-              className="max-h-11 max-w-full object-contain"
-            />
-          ) : (
-            <span className="text-center text-xs font-semibold text-foreground">{partner.name}</span>
-          )}
-        </div>
-        <div className="min-w-0 flex-1 pt-0.5">
-          <h3 className="text-xl font-bold leading-tight text-foreground">{partner.name}</h3>
-          <div className="mt-2">
-            <VerifiedPartnerBadge size="sm" />
-          </div>
-        </div>
+      <header className="border-b border-border">
+        <PartnerCardHeader partner={partner} to={profileUrl || `/partner/${partner.slug}/`} className="px-5 py-5" />
       </header>
 
       <div className="grid flex-1 grid-cols-1 divide-y divide-border lg:grid-cols-12 lg:divide-x lg:divide-y-0">

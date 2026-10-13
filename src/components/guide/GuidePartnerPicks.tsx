@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink, Users } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import ShortlistButton from "@/components/ShortlistButton";
 import { partnerWebsiteUrl } from "@/lib/track";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
@@ -77,7 +78,7 @@ const GuidePartnerPicks = ({ id = "guide-partners", heading, intro, groups, page
                     const url = partnerWebsiteUrl(p.website);
                     return (
                       <li key={p.slug} className="rounded-md border border-border p-3">
-                        <Link to={`/partner/${p.slug}/`} className="font-medium text-foreground hover:underline">{p.name}</Link>
+                        <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-3 -mt-3 w-auto border-b border-border p-3" />
                         <div className="mt-2 flex gap-2">
                           {url && (
                             <a

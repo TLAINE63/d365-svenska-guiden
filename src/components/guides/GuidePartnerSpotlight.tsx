@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import { trackPartnerEvent } from "@/utils/trackPartnerEvent";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import type { PartnerGuide } from "@/data/partnerGuides";
 
 interface Props {
@@ -66,10 +66,7 @@ const GuidePartnerSpotlight = ({ guide, className = "" }: Props) => {
             key={p.id ?? p.slug}
             className="flex flex-col rounded-lg border border-border bg-card p-4"
           >
-            <div className="flex items-start justify-between gap-3">
-              <h3 className="text-base font-semibold leading-tight">{p.name}</h3>
-              <VerifiedPartnerBadge size="sm" />
-            </div>
+            <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 mb-2 w-auto border-b border-border p-4" />
 
             {intro(p) && (
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

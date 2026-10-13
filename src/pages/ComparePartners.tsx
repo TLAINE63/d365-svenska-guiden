@@ -1,4 +1,5 @@
 import { useInquiry } from "@/contexts/InquiryContext";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { track } from "@/lib/track";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -234,32 +235,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
       <div className="relative flex flex-col items-center justify-center text-center">
-        <Link
-          to={`/partner/${partner.slug}`}
-          className="group block"
-          aria-label={`Gå till ${partner.name}s profil`}
-        >
-          {partner.logo_url && !basic ? (
-            <img
-              src={optimizedLogo(partner.logo_url)}
-              alt={`${partner.name} logotyp`}
-              width="176"
-              height="176"
-              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-lg bg-white border border-slate-100 p-2 transition-transform group-hover:scale-105"
-            />
-          ) : (
-            <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-lg bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-muted-foreground/60">{partner.name.slice(0, 2).toUpperCase()}</span>
-            </div>
-          )}
-        </Link>
-        <p className="mt-2 text-sm font-semibold text-slate-800">{partner.name}</p>
-        {!basic && (
-          <span className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--accent))]/30 bg-[hsl(var(--accent))]/10 px-2.5 py-0.5 text-[11px] font-medium text-[hsl(var(--accent))]">
-            <BadgeCheck className="w-3 h-3" />
-            Partnerverifierad profil
-          </span>
-        )}
+        <PartnerCardHeader partner={partner} to={`/partner/${partner.slug}/`} verified={!basic && partner.is_featured === true} compact className="text-left py-3 pr-6" />
         <ShortlistButton
           entry={{ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}` }}
           variant="full"
@@ -276,8 +252,8 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
 
         {/* d365.se:s bedömning – rikare kort (samma design som resultView) */}
         {!basic && (() => {
-          const assessment = getResultAssessment(partner!);
-          const evidence = getDocumentedEvidence(partner!);
+          const assessment = getResultAssessment(partner);
+          const evidence = getDocumentedEvidence(partner);
           if (!assessment && !evidence) return null;
           return (
             <div className="mt-3 w-full text-left">

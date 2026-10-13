@@ -1,7 +1,7 @@
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useMemo } from "react";
-import { optimizedLogo } from "@/lib/optimizedLogo";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { Link } from "react-router-dom";
 import { ArrowRight, GitCompare, Sparkles } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
@@ -84,38 +84,12 @@ const SuggestedPartnersCTA = ({
         <WhyTheseResults order="relevance" criteria={[industry]} explanation="Dessa partners är förslag utifrån produkt- och branschprofil. Kundstorlek och omsättning kan förbättra matchningen men bevisar inte projektlämplighet. Urvalet är begränsat, inte en fullständig marknadslista." className="mb-5" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
           {suggested.map((p) => (
-            <Link
-              key={p.slug}
-              to={`/partner/${p.slug}`}
-              className="group flex flex-col items-start gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-[hsl(var(--cta-orange))] hover:shadow-md"
-            >
-              {p.logo_url ? (
-                <img
-                  src={optimizedLogo(p.logo_url)}
-                  alt={`${p.name} logotyp`}
-                  loading="lazy"
-                  width={56}
-                  height={56}
-                  className="w-14 h-14 object-contain rounded bg-white border border-border/60 p-1 shrink-0"
-                />
-              ) : (
-                <div className="w-14 h-14 rounded bg-muted flex items-center justify-center shrink-0 text-sm font-bold text-muted-foreground">
-                  {p.name.slice(0, 2).toUpperCase()}
-                </div>
-              )}
-              <div className="min-w-0 flex-1">
-                <div className="font-semibold text-foreground truncate group-hover:text-[hsl(var(--cta-orange))]">
-                  {p.name}
-                </div>
-                <div className="text-xs text-muted-foreground line-clamp-2">
-                  {(p as any).positioning_statement ||
-                    p.description ||
-                    "Se profil för detaljer"}
-                </div>
-              </div>
+            <article key={p.slug} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary">
+              <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" />
+              <p className="text-xs text-muted-foreground line-clamp-2">{p.positioning_statement || p.description || "Se profil för detaljer"}</p>
               <PartnerSelectionFacts partner={p} productKey={Array.isArray(product) ? null : product} />
-              <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--cta-orange))] transition-transform" />
-            </Link>
+              <Link to={`/partner/${p.slug}/`} className="text-sm font-semibold text-primary">Se partnerprofil <ArrowRight className="inline h-4 w-4" /></Link>
+            </article>
           ))}
         </div>
 

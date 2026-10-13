@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -100,12 +101,8 @@ const Shortlist = () => {
                   <li key={item.slug} className="flex items-center justify-between gap-4 p-4">
                     <Checkbox checked={picked.includes(item.slug)} onCheckedChange={() => togglePick(item.slug)} aria-label={`Välj ${item.name}`} disabled={!picked.includes(item.slug) && picked.length >= 3} />
                     <div className="min-w-0 flex-1">
-                      <Link to={item.url} className="font-semibold hover:text-[hsl(var(--cta-orange))]">
-                        {item.name}
-                      </Link>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {item.verified ? "Partnerverifierad profil" : "Grundprofil"}
-                      </p>
+                      <PartnerCardHeader partner={partners.find(p => p.slug === item.slug) || { name: item.name }} to={item.url} verified={item.verified} compact className="py-2" />
+                      {!item.verified && <p className="text-xs text-muted-foreground">Grundprofil</p>}
                     </div>
                     <button
                       type="button"
@@ -136,7 +133,7 @@ const Shortlist = () => {
                       const partner = partners.find((p) => p.slug === item.slug);
                       return (
                         <div key={item.slug} className="rounded-lg border border-border bg-card p-4 space-y-3 min-w-0">
-                          <Link to={item.url} className="font-semibold hover:text-[hsl(var(--cta-orange))] break-words">{item.name}</Link>
+                          <PartnerCardHeader partner={partner || { name: item.name }} to={item.url} verified={item.verified} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" />
                           {partner ? (
                             <UnderlagMatchBox partner={partner as any} filters={filters} />
                           ) : (
