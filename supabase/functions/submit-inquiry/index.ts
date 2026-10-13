@@ -25,6 +25,12 @@ const Body = z.object({
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const json = (b: unknown, status: number, cors: Record<string, string>) => new Response(JSON.stringify(b), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
+const SIGNATURE = `<p style="margin-top:24px">Med vänliga hälsningar</p>
+<p><strong>Thomas Laine &amp; Teamet på d365.se</strong><br>
+E-post: <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a> | <a href="mailto:info@d365.se">info@d365.se</a><br>
+Telefon: <a href="tel:+46722324060">+46 72 232 40 60</a><br>
+<a href="https://d365.se">d365.se</a></p>`;
+
 function productKeys(p?: string | null): string[] {
   const v = (p || "").toLowerCase();
   if (v.includes("business central")) return ["bc"];
