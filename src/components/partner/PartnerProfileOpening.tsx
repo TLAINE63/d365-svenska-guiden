@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
-import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, ShieldCheck, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner } from "@/hooks/usePartners";
 import { useShortlist } from "@/contexts/ShortlistContext";
@@ -47,7 +47,16 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
       <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 pb-10 sm:pb-14">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5 mb-8 sm:mb-12">
           <Button asChild variant="ghost" size="sm" className="px-0 text-muted-foreground"><Link to="/alla-d365-partners/"><ArrowLeft className="h-4 w-4" />Alla partners</Link></Button>
-          <span className="flex items-center gap-2 text-xs font-semibold text-accent"><ShieldCheck className="h-4 w-4" />Partnerverifierad profil</span>
+          {partner.is_featured === true && (
+            <img
+              src={`/badges/verifierad-partner-${partner.logo_dark_bg ? "light" : "dark"}.svg`}
+              alt="Verifierad Dynamics 365-partner på d365.se"
+              width={240}
+              height={72}
+              className="h-[72px] w-[240px] max-w-full shrink-0 object-contain"
+              loading="eager"
+            />
+          )}
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-9">
           {partner.logo_url && <div className="partner-opening-logo flex h-32 w-44 shrink-0 items-center justify-center rounded-lg border border-border bg-card p-5"><img src={optimizedLogo(partner.logo_url)} alt={`${partner.name} logotyp`} className="max-h-full max-w-full object-contain" loading="eager" /></div>}
