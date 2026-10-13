@@ -25,27 +25,56 @@ const Body = z.object({
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const json = (b: unknown, status: number, cors: Record<string, string>) => new Response(JSON.stringify(b), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
-const SIGNATURE = `<p style="margin-top:24px">Med vänliga hälsningar</p>
-<p><strong>Thomas Laine &amp; Teamet på d365.se</strong><br>
-E-post: <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a> | <a href="mailto:info@d365.se">info@d365.se</a><br>
-Telefon: <a href="tel:+46722324060">+46 72 232 40 60</a><br>
-<a href="https://d365.se">d365.se</a></p>`;
+const F = "font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif";
+const INK = "#15202B", MUTED = "#5B6670", LINE = "#E3E7EA", PETROL = "#0E7C86";
 
-function productKeys(p?: string | null): string[] {
-  const v = (p || "").toLowerCase();
-  if (v.includes("business central")) return ["bc"];
-  if (/finance|supply|f&scm|f&o/.test(v)) return ["fsc"];
-  if (/sales|marketing/.test(v)) return ["sales", "crm"];
-  if (/service|contact center|field/.test(v)) return ["service", "crm"];
-  if (/crm|customer engagement/.test(v)) return ["sales", "service", "crm"];
-  return ["bc", "fsc", "sales", "service", "crm"];
+const SIGNATURE = `<table role="presentation" width="100%" style="margin-top:28px;border-top:1px solid ${LINE}"><tr><td style="padding-top:20px;${F};font-size:14px;line-height:1.6;color:${INK}">
+Med vänliga hälsningar<br>
+<strong>Thomas&nbsp;Laine &amp; Teamet på d365.se</strong><br>
+<span style="color:${MUTED}"><a href="mailto:thomas.laine@dynamicfactory.se" style="color:${PETROL};text-decoration:none">thomas.laine@dynamicfactory.se</a> · <a href="mailto:info@d365.se" style="color:${PETROL};text-decoration:none">info@d365.se</a><br>
+<a href="tel:+46722324060" style="color:${PETROL};text-decoration:none">+46&nbsp;72&nbsp;232&nbsp;40&nbsp;60</a> · <a href="https://d365.se" style="color:${PETROL};text-decoration:none">d365.se</a></span>
+</td></tr></table>`;
+
+/** Premiumram för alla mejl: mörk header, vitt kort, diskret footer. */
+function layout(title: string, inner: string, preheader = ""): string {
+  return `<!doctype html><html lang="sv"><body style="margin:0;padding:0;background:#F3F1EC">
+<span style="display:none;max-height:0;overflow:hidden">${esc(preheader)}</span>
+<table role="presentation" width="100%" style="background:#F3F1EC;padding:32px 12px"><tr><td align="center">
+<table role="presentation" width="100%" style="max-width:620px;background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid ${LINE}">
+<tr><td style="background:#15130F;padding:22px 32px;${F}">
+<div style="color:#FFFFFF;font-size:18px;font-weight:700;letter-spacing:.2px">d365.se</div>
+<div style="color:#B9C2C8;font-size:12px;margin-top:2px">Köparsidig vägledning för Microsoft&nbsp;Dynamics&nbsp;365</div>
+</td></tr>
+<tr><td style="padding:32px;${F};font-size:15px;line-height:1.65;color:${INK}">
+<h1 style="margin:0 0 16px;font-size:21px;line-height:1.3;color:${INK}">${title}</h1>
+${inner}
+</td></tr></table>
+<div style="${F};font-size:11px;color:#8A939A;margin-top:16px">d365.se · Personuppgiftsansvarig: Dynamic Factory</div>
+</td></tr></table></body></html>`;
 }
+
+const p = (t: string) => `<p style="margin:0 0 14px">${t}</p>`;
+const box = (label: string, inner: string, tone: "petrol" | "soft" = "soft") =>
+  `<table role="presentation" width="100%" style="margin:18px 0;background:${tone === "petrol" ? "#EAF5F6" : "#F7F8F9"};border-left:3px solid ${tone === "petrol" ? PETROL : "#C9D1D6"};border-radius:6px"><tr><td style="padding:14px 18px;${F};font-size:14px;line-height:1.6;color:${INK}">
+<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:${MUTED};margin-bottom:6px">${label}</div>${inner}</td></tr></table>`;
+const rows = (items: [string, unknown][]) => {
+  const r = items.filter(([, v]) => v !== null && v !== undefined && v !== "");
+  if (!r.length) return "";
+  return `<table role="presentation" width="100%" style="border-collapse:collapse">${r.map(([k, v]) =>
+    `<tr><td style="padding:5px 12px 5px 0;color:${MUTED};width:38%;vertical-align:top;${F};font-size:14px">${esc(k)}</td><td style="padding:5px 0;vertical-align:top;${F};font-size:14px;color:${INK}">${esc(v)}</td></tr>`).join("")}</table>`;
+};
 
 function projectText(project: Record<string, unknown> | null | undefined): string {
   if (!project) return "";
-  const lines = Object.entries(project).filter(([, v]) => v !== null && v !== "" && !(Array.isArray(v) && !v.length))
-    .slice(0, 30).map(([k, v]) => `${esc(k)}: ${esc(Array.isArray(v) ? v.join(", ") : typeof v === "object" ? JSON.stringify(v) : v)}`);
-  return lines.length ? `<p><strong>Projektunderlag</strong><br>${lines.join("<br>")}</p>` : "";
+  const entries = Object.entries(project).filter(([k, v]) => k !== "introduktion_begard" && v !== null && v !== "" && !(Array.isArray(v) && !v.length)).slice(0, 30);
+  if (!entries.length) return "";
+  const sections = entries.map(([k, v]) => {
+    const body = Array.isArray(v)
+      ? `<ul style="margin:0;padding-left:18px">${v.map((x) => `<li style="margin:2px 0">${esc(typeof x === "object" ? JSON.stringify(x) : x)}</li>`).join("")}</ul>`
+      : esc(typeof v === "object" ? JSON.stringify(v) : v);
+    return `<div style="margin:0 0 14px"><div style="font-weight:600;color:${INK};margin-bottom:2px">${esc(k)}</div><div style="color:#2F3A42">${body}</div></div>`;
+  }).join("");
+  return box("Sammanställning av köpresan", sections, "petrol");
 }
 
 Deno.serve(async (req) => {
