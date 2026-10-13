@@ -220,7 +220,7 @@ const KomIgang = () => {
     size: requestedSize && sizeOptions.some((o) => o.value === requestedSize) ? requestedSize : undefined,
     knownProduct: KNOWN_PRODUCTS.some((p) => p.value === requestedProduct) ? requestedProduct : undefined,
   }));
-  const [productShortcut, setProductShortcut] = useState(false);
+  const [productShortcut, setProductShortcut] = useState(() => KNOWN_PRODUCTS.some((p) => p.value === requestedProduct));
   const [stepIdx, setStepIdx] = useState(0);
   const [result, setResult] = useState<SolutionResult | null>(null);
   // Bransch ställs bara om den inte redan är känd (URL-param eller sparad kontext).
