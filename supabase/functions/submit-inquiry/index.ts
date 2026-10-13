@@ -101,11 +101,11 @@ Deno.serve(async (req) => {
         try {
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Rådgivning via Min D365-plan: ${d.company}`,
-            html: `<p>${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.</p><p>Gäller: ${esc(d.help_with || "–")}<br>Meddelande: ${esc(d.message || "–")}</p><p>Kontakt: ${esc(d.email)}, ${esc(d.phone || "–")}</p>${d.include_project ? projectText(d.project) : ""}`,
+            html: layout(`Rådgivning: ${esc(d.company)}`, p(`${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.`) + box("Kontakt och förfrågan", rows([["Namn", d.contact_name], ["Företag", d.company], ["E-post", d.email], ["Telefon", d.phone || "–"], ["Gäller", d.help_with || "–"], ["Meddelande", d.message || "–"]])) + (d.include_project ? projectText(d.project) : "")),
           });
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan till d365.se",
-            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p>${SIGNATURE}`,
+            html: layout("Tack, vi har tagit emot er förfrågan", p(`Hej ${esc(d.contact_name)},`) + p("Tack för er förfrågan. Vi har tagit emot ert underlag och återkommer personligen. Inget har skickats till någon partner.") + box("Det här händer nu", "Vi går igenom er sammanställning och hör av oss för att diskutera nästa steg i er utvärdering. Ni behöver inte göra något under tiden.") + (d.include_project ? projectText(d.project) : "") + p(`<span style="color:${MUTED};font-size:13px">Spara gärna detta mejl, sammanställningen kan användas som internt underlag.</span>`) + SIGNATURE, "Vi har tagit emot ert underlag"),
           });
         } catch (e) { console.error("advisory mail", e); }
       }
@@ -137,23 +137,23 @@ Deno.serve(async (req) => {
     const names = partners.map((p) => p.name).join(", ");
     if (key) {
       const resend = new Resend(key);
-      const body = `<p>Hej,</p>
-<p>${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)}, har skickat en förfrågan till er via d365.se och godkänt att uppgifterna delas med er.</p>
-<p>Produktområde: ${esc(d.product_area || "–")}<br>Gäller: ${esc(d.help_with || "–")}<br>Tidshorisont: ${esc(d.timeframe || "–")}<br>Meddelande: ${esc(d.message || "–")}</p>
-<p>Kontakt: ${esc(d.contact_name)}, ${esc(d.email)}, ${esc(d.phone || "–")}</p>
-${d.include_project ? projectText(d.project) : ""}
-<p>Kunden förväntar sig att ni hör av er. Vi följer upp med kunden om ungefär två veckor.</p><p>d365.se</p>`;
+      const body = p("Hej,") + p(`${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} har skickat en förfrågan till er via d365.se och godkänt att uppgifterna delas med er.`)
+        + box("Kontaktuppgifter", rows([["Namn", d.contact_name], ["Företag", d.company], ["E-post", d.email], ["Telefon", d.phone || "–"]]))
+        + box("Förfrågan", rows([["Produktområde", d.product_area || "–"], ["Gäller", d.help_with || "–"], ["Tidshorisont", d.timeframe || "–"], ["Meddelande", d.message || "–"]]))
+        + (d.include_project ? projectText(d.project) : "")
+        + p("Kunden förväntar sig att ni hör av er. Vi följer upp med kunden om ungefär två veckor.");
       for (const p of partners) {
         const pf = (p as any).product_filters || {};
         const c = productKeys(d.product_area).map((k) => pf[k]).find((x: any) => x?.contactEmail);
         const to = (c?.contactEmail || (p as any).email || "").trim();
         try {
           const base = `${siteFromOrigin(origin) === "businesscentral.se" ? "https://businesscentral.se" : "https://d365.se"}/partnersvar/${tokens.get(p.slug)}`;
-          const links = `<p><strong>Berätta gärna hur det går (ett klick, ingen inloggning):</strong><br><a href="${base}?s=kontaktad">Vi har kontaktat kunden</a><br><a href="${base}?s=offert">Vi har lämnat offert</a><br><a href="${base}?s=ej_aktuell">Inte aktuellt för oss</a></p>`;
+          const btn = (h: string, t: string) => `<a href="${h}" style="display:inline-block;margin:4px 6px 4px 0;padding:9px 14px;border:1px solid ${PETROL};border-radius:6px;color:${PETROL};text-decoration:none;font-size:13px;font-weight:600">${t}</a>`;
+          const links = box("Berätta hur det går (ett klick, ingen inloggning)", btn(`${base}?s=kontaktad`, "Vi har kontaktat kunden") + btn(`${base}?s=offert`, "Vi har lämnat offert") + btn(`${base}?s=ej_aktuell`, "Inte aktuellt för oss")) + SIGNATURE;
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: to ? [to] : ADMIN_EMAILS, cc: to ? ADMIN_EMAILS : undefined,
             reply_to: d.email, subject: `Förfrågan via d365.se: ${d.company}`,
-            html: (to ? body : `<p><strong>Partnern ${esc(p.name)} saknar e-postadress, vidarebefordra manuellt.</strong></p>${body}`) + links,
+            html: layout(`Ny förfrågan: ${esc(d.company)}`, (to ? body : p(`<strong>Partnern ${esc(p.name)} saknar e-postadress, vidarebefordra manuellt.</strong>`) + body) + links, `Förfrågan från ${d.company}`),
           });
         } catch (e) { console.error("partner mail", p.slug, e); }
       }
@@ -161,15 +161,15 @@ ${d.include_project ? projectText(d.project) : ""}
         try {
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Introduktion begärd: ${d.company}`,
-            html: `<p>${esc(d.contact_name)} på ${esc(d.company)} vill ha en introduktion till: ${esc(introNames.join(", "))} (grundprofil). Uppgifterna har INTE skickats till partnern.</p><p>Kontakt: ${esc(d.email)}, ${esc(d.phone || "–")}<br>Meddelande: ${esc(d.message || "–")}</p>${d.include_project ? projectText(d.project) : ""}`,
+            html: layout(`Introduktion begärd: ${esc(d.company)}`, p(`${esc(d.contact_name)} på ${esc(d.company)} vill ha en introduktion till: <strong>${esc(introNames.join(", "))}</strong> (grundprofil). Uppgifterna har INTE skickats till partnern.`) + box("Kontakt", rows([["Namn", d.contact_name], ["E-post", d.email], ["Telefon", d.phone || "–"], ["Meddelande", d.message || "–"]])) + (d.include_project ? projectText(d.project) : "")),
           });
         } catch (e) { console.error("intro mail", e); }
       }
       try {
-        const parts = [names ? `Förfrågan har skickats till: ${esc(names)}.` : "", introNames.length ? `d365.se tar kontakt om introduktion till: ${esc(introNames.join(", "))}. Inga uppgifter har skickats till dem.` : ""].filter(Boolean).join(" ");
+        const parts = [names ? `<div style="margin-bottom:6px"><strong>Förfrågan skickad till:</strong> ${esc(names)}</div>` : "", introNames.length ? `<div><strong>Introduktion via d365.se:</strong> ${esc(introNames.join(", "))}<br><span style="color:${MUTED}">Inga uppgifter har skickats till dem, vi tar kontakt om introduktionen.</span></div>` : ""].filter(Boolean).join("");
         await resend.emails.send({
           from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan via d365.se",
-          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p>${SIGNATURE}`,
+          html: layout("Tack, er förfrågan är skickad", p(`Hej ${esc(d.contact_name)},`) + p("Tack för er förfrågan. Här är en sammanfattning av vad som har skickats och till vem.") + box("Mottagare", parts) + (d.include_project ? projectText(d.project) : "") + box("Det här händer nu", "Partnerna tar själva kontakt med er. Vi hör av oss om ungefär två veckor för att höra hur det har gått.") + p(`<span style="color:${MUTED};font-size:13px">Spara gärna detta mejl, sammanställningen kan användas som internt underlag.</span>`) + SIGNATURE, "Er förfrågan är skickad"),
         });
       } catch (e) { console.error("buyer mail", e); }
     } else console.error("RESEND_API_KEY missing");
