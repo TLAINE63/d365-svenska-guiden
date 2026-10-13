@@ -68,7 +68,10 @@ export default function VerifiedPartnerBadgeEmbed() {
             <Button onClick={copy} size="sm">
               <Copy className="w-4 h-4 mr-2" aria-hidden="true" /> Kopiera kod
             </Button>
-            <p className="text-xs text-muted-foreground">Badgen är endast till för partners med verifierad profil.</p>
+            <p className="text-xs text-muted-foreground">
+              Badgen är endast till för partners med verifierad profil. Rätt färgvariant (mörk eller ljus)
+              väljs automatiskt utifrån partnerns logotyp, men går att ändra manuellt.
+            </p>
           </div>
         </div>
       </div>
