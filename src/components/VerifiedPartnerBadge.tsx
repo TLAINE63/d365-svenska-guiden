@@ -1,4 +1,3 @@
-import { BadgeCheck } from "lucide-react";
 import {
   PROFILE_EXPLAINER_VERIFIED,
   PROFILE_LABEL_VERIFIED,
@@ -16,6 +15,7 @@ interface VerifiedPartnerBadgeProps {
   /** Endast ikon (t.ex. bredvid logotyp i täta grid-vyer) */
   iconOnly?: boolean;
   className?: string;
+  logoDarkBg?: boolean | null;
 }
 
 /**
@@ -26,12 +26,8 @@ export default function VerifiedPartnerBadge({
   size = "sm",
   iconOnly = false,
   className = "",
+  logoDarkBg = false,
 }: VerifiedPartnerBadgeProps) {
-  const sizing =
-    size === "md"
-      ? "text-[11px] px-3 py-1.5 gap-1.5"
-      : "text-[10px] px-2 py-1 gap-1.5";
-  const iconSize = size === "md" ? "h-4 w-4" : "h-3.5 w-3.5";
 
   return (
     <TooltipProvider delayDuration={150}>
@@ -39,21 +35,16 @@ export default function VerifiedPartnerBadge({
         <TooltipTrigger asChild>
           <span
             aria-label="Partnerverifierad profil"
-            className={`group/vb relative inline-flex items-center max-w-full overflow-hidden rounded-full border border-accent/60 bg-accent text-accent-foreground font-bold uppercase tracking-[0.1em] leading-none shadow-[0_2px_10px_-2px_hsl(var(--accent)/0.55)] ring-1 ring-inset ring-white/20 ${
-              iconOnly ? "p-1.5" : sizing
-            } ${className}`}
+            className={`inline-flex max-w-full shrink-0 ${className}`}
           >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full group-hover/vb:translate-x-full transition-transform duration-[1200ms] ease-out"
+            <img
+              src={`/badges/verifierad-partner-${logoDarkBg ? "light" : "dark"}.svg`}
+              alt="Verifierad Dynamics 365-partner på d365.se"
+              width={240}
+              height={72}
+              loading="lazy"
+              className={`${size === "md" ? "w-[200px]" : iconOnly ? "w-[140px]" : "w-[160px]"} h-auto max-w-full object-contain`}
             />
-            <BadgeCheck className={`${iconSize} relative shrink-0`} aria-hidden="true" />
-            {!iconOnly && (
-              <>
-                <span className="relative hidden sm:inline">Partnerverifierad</span>
-                <span className="relative sm:hidden">Verifierad</span>
-              </>
-            )}
           </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[280px] text-xs">

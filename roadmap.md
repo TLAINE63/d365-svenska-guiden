@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Klickbara partnerkort (2026-10-13)
+- [ ] Gör namn- och logotypytor klickbara med namnet till vänster och logotypen till höger
+- [ ] Ersätt verifieringsetiketten med den nya badgen och bevara grundprofilernas status
+- [ ] Kontrollera profillänkar, övriga knappar och layout i webbläsaren
+
 ## Enhetliga sajtmejl (2026-10-13)
 - [x] Använd verifierad sajtdomän och Thomas som avsändare; partners behåller direktsvar till köparen
 - [x] Samordna premiumdesign, signatur och juridisk sidfot för alla befintliga mejl
