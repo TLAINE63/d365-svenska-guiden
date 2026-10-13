@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles, Target, AlertTriangle, ArrowRight, ChevronLeft, ChevronRight, Eye, ChevronsDownUp, ChevronsUpDown } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
+import { BadgeTools } from "@/components/partner/VerifiedPartnerBadgeEmbed";
 import { PartnerNewsSubmissionSection } from "@/components/partner-update/PartnerNewsSubmissionSection";
 import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
 import { StructuredProfileSection } from "@/components/partner-update/StructuredProfileSection";
@@ -1609,6 +1610,15 @@ const PartnerUpdate = () => {
   Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
   </p>
   </div>
+  {existingSlug && (
+  <div className="space-y-3 border-t pt-6">
+  <Label>Badge: Verifierad partner på d365.se</Label>
+  <p className="text-sm text-muted-foreground">
+  Lägg badgen på er webbplats, länkad till er profil. Den visar att profilen är verifierad när profilen är publicerad.
+  </p>
+  <BadgeTools slug={existingSlug} />
+  </div>
+  )}
   </div>
   </PremiumCollapsibleSection>
  {/* Products - main flow */}

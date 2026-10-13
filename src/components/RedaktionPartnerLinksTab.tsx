@@ -21,7 +21,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
-import { Copy, ExternalLink, FileText, Loader2, PenLine, Search, Sparkles } from "lucide-react";
+import { BadgeCheck, Copy, ExternalLink, FileText, Loader2, PenLine, Search, Sparkles } from "lucide-react";
+import { BadgeTools } from "@/components/partner/VerifiedPartnerBadgeEmbed";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -58,6 +59,7 @@ export default function RedaktionPartnerLinksTab({
   const [busyId, setBusyId] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
   const [scanId, setScanId] = useState<string | null>(null);
+  const [badgeFor, setBadgeFor] = useState<PartnerRow | null>(null);
   const [bulk, setBulk] = useState<{ done: number; total: number; current: string } | null>(null);
   const cancelBulkRef = useRef(false);
   const queryClient = useQueryClient();
@@ -405,6 +407,12 @@ export default function RedaktionPartnerLinksTab({
                           Redigera profil
                         </Button>
                         {p.is_featured && (
+                          <Button size="sm" variant="outline" onClick={() => setBadgeFor(p)} className="gap-1">
+                            <BadgeCheck className="h-3.5 w-3.5" />
+                            Badge
+                          </Button>
+                        )}
+                        {p.is_featured && (
                           <Button
                             size="sm"
                             variant="ghost"
@@ -514,6 +522,16 @@ export default function RedaktionPartnerLinksTab({
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!badgeFor} onOpenChange={(open) => !open && setBadgeFor(null)}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Badge för {badgeFor?.name}</DialogTitle>
+            <DialogDescription>Kopiera koden eller ladda ner badgen och skicka till partnern.</DialogDescription>
+          </DialogHeader>
+          {badgeFor && <BadgeTools key={badgeFor.slug} slug={badgeFor.slug} />}
         </DialogContent>
       </Dialog>
     </Card>
