@@ -33,7 +33,7 @@ const normalizeRecipients = (addresses: Address): Address => {
   const unique = [...new Set(list)];
   return Array.isArray(addresses) ? unique : unique[0] ?? EMAIL_OWNER;
 };
-export function brandEmail<T extends BrandableEmail>(email: T): T {
+export function brandEmail<T extends BrandableEmail>(email: T): T & BrandableEmail {
   const html = email.html ?? `<p>${escapeHtml(email.text ?? "").replace(/\n/g, "<br>")}</p>`;
   const to = normalizeRecipients(email.to);
   const internal = (Array.isArray(to) ? to : [to]).every((a) => a.toLowerCase() === EMAIL_OWNER);
