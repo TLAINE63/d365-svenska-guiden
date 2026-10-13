@@ -76,7 +76,7 @@ Deno.serve(async (req) => {
           });
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan till d365.se",
-            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack, d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p><p>d365.se</p>`,
+            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p>${SIGNATURE}`,
           });
         } catch (e) { console.error("advisory mail", e); }
       }
@@ -140,7 +140,7 @@ ${d.include_project ? projectText(d.project) : ""}
         const parts = [names ? `Förfrågan har skickats till: ${esc(names)}.` : "", introNames.length ? `d365.se tar kontakt om introduktion till: ${esc(introNames.join(", "))}. Inga uppgifter har skickats till dem.` : ""].filter(Boolean).join(" ");
         await resend.emails.send({
           from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan via d365.se",
-          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p><p>d365.se</p>`,
+          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p>${SIGNATURE}`,
         });
       } catch (e) { console.error("buyer mail", e); }
     } else console.error("RESEND_API_KEY missing");
