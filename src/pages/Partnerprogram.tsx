@@ -34,6 +34,7 @@ import { trackFunnelEvent, type FunnelEventType } from "@/utils/trackFunnelEvent
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import PartnerProgramBenchmark from "@/components/partner/PartnerProgramBenchmark";
 import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
+import VerifiedPartnerBadgeEmbed from "@/components/partner/VerifiedPartnerBadgeEmbed";
 
 import partnerData from "@/data/partnerData.json";
 
@@ -321,6 +322,8 @@ const Partnerprogram = () => {
 
       {/* 3. PROFILKOLL */}
       <PartnerProfileCheck initialSlug={partnerSlug} />
+
+      <VerifiedPartnerBadgeEmbed />
 
       {/* 4. FYRA HUVUDVÄRDEN */}
       <section className="py-14 md:py-20">
