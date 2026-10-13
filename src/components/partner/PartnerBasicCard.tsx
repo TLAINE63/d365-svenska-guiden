@@ -1,3 +1,4 @@
+import PartnerCardHeader from "./PartnerCardHeader";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, Mail } from "lucide-react";
@@ -96,14 +97,7 @@ export function PartnerBasicCard({
         className="group relative flex h-full flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-muted-foreground/40"
         data-basic-partner
       >
-        <h3 className="text-base font-semibold text-foreground">
-          <Link
-            to={`/basic/${partner.slug}/`}
-            className="before:absolute before:inset-0 before:content-[''] hover:text-primary focus-visible:text-primary"
-          >
-            {partner.name}
-          </Link>
-        </h3>
+        <PartnerCardHeader partner={partner} to={`/basic/${partner.slug}/`} verified={false} compact className="-mx-4 -mt-4 mb-2 w-auto border-b border-border p-4" />
         <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">
           {BASIC_PROFILE_LABEL}
         </p>
@@ -136,10 +130,10 @@ export function PartnerBasicCard({
         </dl>
         <p className="mt-2 text-[11px] text-muted-foreground">Observerade uppgifter, ej partnerverifierade. Kundstorlek, implementation och support behöver bekräftas.</p>
 
-        <span className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+        <Link to={`/basic/${partner.slug}/`} className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
           Visa grundinformation
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
-        </span>
+        </Link>
       </article>
     );
   }
