@@ -54,7 +54,10 @@ export default function VerifiedPartnerBadgeEmbed() {
             <select
               id="badge-partner"
               value={slug}
-              onChange={(e) => setSlug(e.target.value)}
+              onChange={(e) => {
+                setSlug(e.target.value);
+                setVariant(defaultVariant(e.target.value));
+              }}
               className="w-full rounded-md border bg-background px-3 py-2 text-sm"
             >
               {VERIFIED.map((p) => (
