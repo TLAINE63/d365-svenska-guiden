@@ -221,6 +221,8 @@ const KomIgang = () => {
     knownProduct: KNOWN_PRODUCTS.some((p) => p.value === requestedProduct) ? requestedProduct : undefined,
   }));
   const [productShortcut, setProductShortcut] = useState(() => KNOWN_PRODUCTS.some((p) => p.value === requestedProduct));
+  const productShortcutRef = useRef(productShortcut);
+  productShortcutRef.current = productShortcut;
   const [stepIdx, setStepIdx] = useState(0);
   const [result, setResult] = useState<SolutionResult | null>(null);
   // Bransch ställs bara om den inte redan är känd (URL-param eller sparad kontext).
@@ -313,7 +315,8 @@ const KomIgang = () => {
 
   const completeFlow = () => {
     const raw = latest.current.answers;
-    const ans = { ...raw, size: raw.size ?? deriveSize(raw) };
+    const productBranch = raw.stage === "know_product" || productShortcutRef.current;
+    const ans = { ...raw, knownProduct: productBranch ? raw.knownProduct : undefined, size: raw.size ?? deriveSize(raw) };
     const res = buildSolutionResult(ans);
     setResult(res);
     const app = res.primary?.app ?? ans.knownProduct ?? "";
