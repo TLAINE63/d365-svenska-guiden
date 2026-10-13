@@ -39,7 +39,7 @@ describe("CompareStickyCTA – regression: partner routing payload", () => {
     act(() => window.dispatchEvent(new Event("scroll")));
 
     // Open dialog (desktop button)
-    fireEvent.click(await screen.findByRole("button", { name: /be om introduktion/i }));
+    fireEvent.click(await screen.findByRole("button", { name: /be om intro till/i }));
 
     fireEvent.change(screen.getByLabelText(/Företag \*/i), { target: { value: "Kundbolaget AB" } });
     fireEvent.change(screen.getByLabelText(/Kontaktperson \*/i), { target: { value: "Anna Andersson" } });
@@ -75,7 +75,7 @@ describe("submit-lead edge function – regression: compare_partners_intro routi
   });
 
   it("skickar med reply_to = besökarens e-post och d365-adminer som CC", () => {
-    expect(src).toContain('ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"]');
+    expect(src).toContain('ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"]');
     expect(src).toMatch(/cc:\s*ADMIN_EMAILS/);
     expect(src).toMatch(/reply_to:\s*sanitizedData\.email/);
   });
