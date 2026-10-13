@@ -211,7 +211,7 @@ const KomIgang = () => {
 
   const storedContext = getBuyerContext();
   const initialIndustry = normalizeIndustryParam(searchParams.get("industry") || storedContext.industry || null);
-  const requestedProduct = searchParams.get("product") || storedContext.product;
+  const requestedProduct = searchParams.get("product");
   const source = searchParams.get("source") || "direct";
   const requestedSize = searchParams.get("size") || storedContext.size || null;
 
@@ -234,7 +234,7 @@ const KomIgang = () => {
     if (answers.stage === "existing") {
       s.push("existingFocus", "change");
       branch = true;
-    } else if (answers.stage === "know_product" || productShortcut || answers.knownProduct) {
+    } else if (answers.stage === "know_product" || productShortcut) {
       s.push("product");
       if (answers.knownProduct) s.push("productFocus");
       s.push("change");
