@@ -242,8 +242,8 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Business Central ERP – pris & partners 2026"
- description={resolvePriceTokens("Business Central ERP: licenspris från {{price:bc-essentials:short}}, snabbstart från 50 000 kr. Jämför partnerverifierade profiler i Sverige – köparsidig vägledning.")}
+ title="Business Central (Dynamics 365) – Pris, funktioner & partners 2026"
+ description={resolvePriceTokens("Vad kostar Business Central i Sverige? Se officiella licenspriser från {{price:bc-essentials:short}}, implementationskostnader (snabbstart från 50 000 kr) och jämför verifierade partners.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central partners, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
  ogImage="https://d365.se/og-business-central.png"
