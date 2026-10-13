@@ -338,6 +338,15 @@
     ]
   },
   {
+    "slug": "knowit",
+    "name": "Knowit",
+    "products": [
+      "fsc",
+      "sales",
+      "service"
+    ]
+  },
+  {
     "slug": "kpmg",
     "name": "KPMG",
     "products": [
