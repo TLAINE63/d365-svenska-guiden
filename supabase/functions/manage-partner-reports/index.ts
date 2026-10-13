@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "https://esm.sh/resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, renderCompanyBlockHtml, renderProfileCompletionHtml, chooseCta, computeMonthlyMetrics, exposuresOf, type DraftStats } from "./stats.ts";
 import { buildBasicTeaserStats, renderBasicTeaserHtml, DEFAULT_TEASER_BENEFITS, type BasicTeaserStats } from "./basicTeaser.ts";
 

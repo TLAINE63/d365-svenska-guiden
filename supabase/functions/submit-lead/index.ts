@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "https://esm.sh/resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
 // Get allowed origins for CORS
@@ -293,7 +293,7 @@ const handler = async (req: Request): Promise<Response> => {
       }
       
       // --- Partner routing: send directly to the partner's contact person ---
-      const ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
+      const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
       const isPartnerRequest =
         sanitizedData.assigned_partners.length > 0 &&
         (sanitizedData.source_type.startsWith("partner_") ||
@@ -575,7 +575,7 @@ const handler = async (req: Request): Promise<Response> => {
         
         await resend.emails.send({
           from: "D365 Guiden <info@d365.se>",
-          to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+          to: ["thomas.laine@dynamicfactory.se"],
           reply_to: sanitizedData.email,
           subject: emailSubject,
           html: `

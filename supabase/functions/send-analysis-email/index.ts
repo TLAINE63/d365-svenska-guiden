@@ -1,3 +1,4 @@
+import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -369,7 +370,7 @@ serve(async (req: Request): Promise<Response> => {
     const emailPayload: Record<string, unknown> = {
       from: "D365 Guiden <info@d365.se>",
       to: [email],
-      cc: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+      cc: ["thomas.laine@dynamicfactory.se"],
       reply_to: "thomas.laine@dynamicfactory.se",
       subject,
       html: `
@@ -451,7 +452,7 @@ serve(async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify(emailPayload),
+      body: JSON.stringify(brandEmail(emailPayload)),
     });
 
     const responseData = await emailResponse.json();
@@ -464,7 +465,7 @@ serve(async (req: Request): Promise<Response> => {
     // Send separate admin notification email
     const adminNotificationPayload = {
       from: "D365 Guiden <info@d365.se>",
-      to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+      to: ["thomas.laine@dynamicfactory.se"],
       reply_to: email, // Reply goes to customer
       subject: `Ny: Behovsanalys ${analysisType} - ${companyName.trim()}`,
       html: `
@@ -531,7 +532,7 @@ serve(async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify(adminNotificationPayload),
+      body: JSON.stringify(brandEmail(adminNotificationPayload)),
     });
 
     const adminData = await adminResponse.json();

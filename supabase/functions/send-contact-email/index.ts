@@ -1,3 +1,4 @@
+import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
@@ -187,9 +188,9 @@ serve(async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
+      body: JSON.stringify(brandEmail({
         from: "D365 Guiden <info@d365.se>",
-        to: ["info@d365.se"],
+        to: ["thomas.laine@dynamicfactory.se"],
         reply_to: email.trim(),
         subject: subject ? `[${subject}] ${safeName} - Ny förfrågan` : `[Kontaktformulär] ${safeName} - Ny förfrågan`,
         html: `
@@ -227,7 +228,7 @@ serve(async (req: Request): Promise<Response> => {
             </div>
           </div>
         `,
-      }),
+      })),
     });
 
     const responseData = await emailResponse.json();

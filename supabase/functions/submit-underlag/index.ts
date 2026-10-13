@@ -1,7 +1,7 @@
 // Skickar besökarens Dynamics 365-underlag: sparar, mejlar besökaren och en kopia till ägaren.
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3";
-import { Resend } from "npm:resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { getCorsHeaders } from "../_shared/cors.ts";
 
 const OWNER_EMAIL = "thomas.laine@dynamicfactory.se";

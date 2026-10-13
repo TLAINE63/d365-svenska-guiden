@@ -1,10 +1,10 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3";
-import { Resend } from "npm:resend@2.0.0";
+import { Resend } from "../_shared/branded-resend.ts";
 import { inquiryCors, isInquiryOrigin, siteFromOrigin } from "../_shared/inquiry-cors.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
-const ADMIN_EMAILS = ["info@d365.se", "thomas.laine@dynamicfactory.se"];
+const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
 const s = (n: number) => z.string().trim().max(n).optional().nullable();
 const Body = z.object({
   inquiry_type: z.enum(["partner", "kortlista", "fraga"]),
