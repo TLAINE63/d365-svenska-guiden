@@ -1982,7 +1982,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-28T15:22:34.659992+00:00",
+    "updated_at": "2026-10-12T20:15:28.248543+00:00",
     "industry_pitches": [
       {
         "text": "Implema AB erbjuder lösningar baserade på Microsoft Dynamics 365 för företag inom grossist- och distributionsbranschen. De har kompetens inom applikationer som Dynamics 365 Finance och Supply Chain Management, vilket stöder processer för ekonomistyrning, logistik och lagerhantering. Detta inkluderar funktionalitet för att optimera orderhantering, inköp, samt lager- och transportflöden, vilket är relevant för att möta efterfrågan på effektiva leveranskedjor och spårbarhet. \n\nFör att hantera kundinteraktioner och e-handel kan Commerce-funktionalitet implementeras. Implema kan även bistå med Dynamics 365 Project Operations för projektrelaterade processer och Human Resources för personalhantering. Deras angreppssätt fokuserar på att leverera lösningar som stödjer snabba och säkra affärsprocesser, anpassade för att möta de utmaningar som präglar den konkurrensutsatta grossist- och distributionsmarknaden. Implema har erfarenhet av att implementera affärssystem som främjar effektivitet och digitalisering.",
@@ -2068,7 +2068,7 @@
       "F&SCM": "25–100",
       "Project Operations": "<10"
     },
-    "ai_summary": "Implema arbetar främst med Dynamics 365 Finance & Supply Chain Management för medelstora och större svenska eller nordiska verksamheter med internationell verksamhet och komplexa flöden. Partnerns egen profil lyfter tjänsteproducerande företag, tillverkningsindustri samt life science/medtech, med behov av gemensamma processer för ekonomi, inköp, lager, produktion och leveranskedja.",
+    "ai_summary": "Implema är en av de större svenska Dynamics 365-partnerna med fokus på Finance & Supply Chain Management och Business Central för medelstora och större verksamheter, ofta med internationell verksamhet. Profilen passar tjänsteproducerande företag, tillverkningsindustri och life science med behov av gemensamma processer för ekonomi, inköp, lager, produktion och leveranskedja.",
     "ai_summary_generated_at": "2026-09-28T15:22:34.659992+00:00",
     "ai_profile": {
       "use_cases": [],
@@ -2087,7 +2087,7 @@
     "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
     "partner_size_tier": 2,
     "partner_size_tier_needs_review": false,
-    "ai_summary_full": null,
+    "ai_summary_full": "Implema är en av de större svenska Dynamics 365-partnerna och arbetar främst med Finance & Supply Chain Management och Business Central för medelstora och större verksamheter, ofta med internationell närvaro. Profilen passar tjänsteproducerande företag, tillverkningsindustri och life science med behov av gemensamma processer för ekonomi, inköp, lager, produktion och leveranskedja. Som större partner finns kapacitet för komplexa och fleråriga projekt, men det är värt att kontrollera vilket team som faktiskt levererar ert projekt, hur prissättningen ser ut för er omfattning och hur förvaltning och support fungerar efter driftstart. För en mindre verksamhet med standardiserade behov kan en mindre specialiserad partner ge bättre personlig kontakt och lägre kostnad.",
     "best_fit_for": [
       "Medelstora och större svenska eller nordiska verksamheter",
       "Tillverkningsindustri och life science/medtech med komplexa flöden",

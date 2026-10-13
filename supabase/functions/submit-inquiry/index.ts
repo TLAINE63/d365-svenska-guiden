@@ -25,6 +25,12 @@ const Body = z.object({
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const json = (b: unknown, status: number, cors: Record<string, string>) => new Response(JSON.stringify(b), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
+const SIGNATURE = `<p style="margin-top:24px">Med vänliga hälsningar</p>
+<p><strong>Thomas Laine &amp; Teamet på d365.se</strong><br>
+E-post: <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a> | <a href="mailto:info@d365.se">info@d365.se</a><br>
+Telefon: <a href="tel:+46722324060">+46 72 232 40 60</a><br>
+<a href="https://d365.se">d365.se</a></p>`;
+
 function productKeys(p?: string | null): string[] {
   const v = (p || "").toLowerCase();
   if (v.includes("business central")) return ["bc"];
@@ -70,7 +76,7 @@ Deno.serve(async (req) => {
           });
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan till d365.se",
-            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack, d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p><p>d365.se</p>`,
+            html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. d365.se har tagit emot ert underlag och hör av sig. Inget har skickats till någon partner.</p>${SIGNATURE}`,
           });
         } catch (e) { console.error("advisory mail", e); }
       }
@@ -134,7 +140,7 @@ ${d.include_project ? projectText(d.project) : ""}
         const parts = [names ? `Förfrågan har skickats till: ${esc(names)}.` : "", introNames.length ? `d365.se tar kontakt om introduktion till: ${esc(introNames.join(", "))}. Inga uppgifter har skickats till dem.` : ""].filter(Boolean).join(" ");
         await resend.emails.send({
           from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan via d365.se",
-          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p><p>d365.se</p>`,
+          html: `<p>Hej ${esc(d.contact_name)},</p><p>Tack för er förfrågan. ${parts}</p><p>Vi hör av oss om ungefär två veckor för att höra hur det har gått.</p>${SIGNATURE}`,
         });
       } catch (e) { console.error("buyer mail", e); }
     } else console.error("RESEND_API_KEY missing");
