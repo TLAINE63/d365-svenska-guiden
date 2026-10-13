@@ -16,16 +16,16 @@ describe("PartnerCardHeader", () => {
     expect(link.querySelector("button, a")).toBeNull();
     fireEvent.click(link);
     expect(onClick).toHaveBeenCalledOnce();
-    expect(screen.getByAltText("Verifierad Dynamics 365-partner på d365.se")).toHaveAttribute("src", "/badges/verifierad-partner-dark.svg");
+    expect(screen.getByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toHaveAttribute("src", "/badges/verifierad-partner-dark.svg");
   });
 
   it("selects the light badge for a dark-background logo", () => {
     render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, logo_dark_bg: true }} to="/partner/testpartner/" /></MemoryRouter>);
-    expect(screen.getByAltText("Verifierad Dynamics 365-partner på d365.se")).toHaveAttribute("src", "/badges/verifierad-partner-light.svg");
+    expect(screen.getByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toHaveAttribute("src", "/badges/verifierad-partner-light.svg");
   });
 
   it("does not give a basic profile a verified badge", () => {
     render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, is_featured: false }} to="/basic/testpartner/" /></MemoryRouter>);
-    expect(screen.queryByAltText("Verifierad Dynamics 365-partner på d365.se")).toBeNull();
+    expect(screen.queryByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toBeNull();
   });
 });
