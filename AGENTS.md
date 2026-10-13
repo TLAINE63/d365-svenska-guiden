@@ -31,4 +31,4 @@
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
-- Subdirs have own AGENTS.md; read first.
+- Subdirs have own AGENTS.md; read first. Partner cards share PartnerCardHeader for accessible identity links.

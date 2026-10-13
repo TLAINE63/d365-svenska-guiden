@@ -5,7 +5,7 @@ import { ArrowRight, Check, Mail, MapPin, Minus, User, Video } from "lucide-reac
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { PRODUCT_LABEL, useBasicPartners, type BasicPartner, type ProductKey } from "@/hooks/useBasicPartners";
 import { documentedProductKeys } from "@/components/partner/PartnerBasicCard";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -334,29 +334,8 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[hsl(var(--accent))]/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl" />
             <div className="relative flex flex-1 flex-col p-6 pt-7">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-3">
-                {reference?.logo_url && (
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white/95 p-2 shadow-lg ring-1 ring-white/40 backdrop-blur">
-                    <img
-                      src={optimizedLogo(reference.logo_url)}
-                      alt={`${reference.name} logotyp`}
-                      loading="lazy"
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  </div>
-                )}
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--accent))] brightness-150">
-                    Exempel på profilerad partner
-                  </p>
-                  <h3 className="mt-1 text-2xl font-semibold tracking-tight text-white">
-                    {reference?.name ?? "Referensprofil"}
-                  </h3>
-                </div>
-              </div>
-              <VerifiedPartnerBadge size="sm" />
-            </div>
+            <p className="mb-2 text-[11px] font-semibold uppercase text-accent">Exempel på profilerad partner</p>
+            {reference && <PartnerCardHeader partner={reference} to={`/partner/${reference.slug}/`} verified className="rounded-md bg-card p-4" />}
             <p className="mt-1 text-xs text-white/60">
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.

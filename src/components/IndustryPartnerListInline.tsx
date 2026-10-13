@@ -1,8 +1,7 @@
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useMemo } from "react";
-import { optimizedLogo } from "@/lib/optimizedLogo";
-import { Link } from "react-router-dom";
+import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { usePartners } from "@/hooks/usePartners";
 import { collectPartnerIndustries } from "@/lib/partnerIndustries";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -52,26 +51,7 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {matching.map((p) => (
           <li key={p.id} className="rounded-lg border border-border bg-card p-3">
-            <Link
-              to={`/partner/${p.slug}/`}
-              className="flex items-center gap-3 p-3 text-foreground transition hover:text-primary"
-            >
-              {p.logo_url ? (
-                <img
-                  src={optimizedLogo(p.logo_url)}
-                  alt={`${p.name} logotyp`}
-                  loading="lazy"
-                  className="h-10 w-10 flex-shrink-0 rounded object-contain"
-                />
-              ) : (
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-muted text-xs font-semibold text-muted-foreground">
-                  {p.name.slice(0, 2).toUpperCase()}
-                </div>
-              )}
-              <span className="text-sm font-medium text-foreground">
-                {p.name}
-              </span>
-            </Link>
+            <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-3 -mt-3 mb-3 w-auto border-b border-border p-3" />
             <PartnerSelectionFacts partner={p} />
           </li>
         ))}
