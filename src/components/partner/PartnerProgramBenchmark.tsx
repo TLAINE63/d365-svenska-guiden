@@ -335,7 +335,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             <div className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl" />
             <div className="relative flex flex-1 flex-col p-6 pt-7">
             <p className="mb-2 text-[11px] font-semibold uppercase text-accent">Exempel på profilerad partner</p>
-            {reference && <PartnerCardHeader partner={reference} to={`/partner/${reference.slug}/`} verified className="rounded-md bg-card p-4" />}
+            {reference && <PartnerCardHeader partner={{ name: reference.name || "Referensprofil", logo_url: reference.logo_url, logo_dark_bg: reference.logo_dark_bg }} to={`/partner/${reference.slug}/`} verified className="rounded-md bg-card p-4" />}
             <p className="mt-1 text-xs text-white/60">
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om
               partnerns kvalitet.
