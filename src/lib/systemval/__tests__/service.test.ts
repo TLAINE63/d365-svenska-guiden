@@ -134,7 +134,9 @@ describe("Service & kunddialog (Sprint 4)", () => {
 
   it("18. Frågebudget nära max respekteras", () => {
     const { s } = walk({ ...N("erp", "customer_service", "contact_center", "field_service"), priority: ["equal"],
+      ERP1_PROCESSER: ["finance", "sales_orders"], ERP2_EKONOMI: ["basic"],
       [SQ.SV1]: ["cases", "queues", "field_plan"], [SQ.CS1]: ["sla"], [SQ.CC1]: ["several"], [SQ.CC2]: ["queues"], [SQ.FS1]: ["parts"], [SQ.HO]: ["case_to_wo"] });
     expect(s.currentPathQuestionCount).toBeLessThanOrEqual(10);
+    expect(s.path).toContain(SQ.SV1);
   });
 });
