@@ -12,7 +12,8 @@ import type { SvcResult } from "@/lib/systemval/modules/service";
 import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import { buildSolutionMap } from "@/lib/systemval/solutionMap";
-import SolutionMapSection from "@/components/systemval/SolutionMapSection";
+import { buildSystemvalResult, type Cta } from "@/lib/systemval/result";
+import { savePlanSolution } from "@/lib/d365Plan";
 import type { PoResult } from "@/lib/systemval/modules/projectOperations";
 import DeepDialog from "@/components/systemval/DeepDialog";
 import DeepResultSection from "@/components/systemval/DeepResultSection";
@@ -71,6 +72,8 @@ export default function Systemval() {
   const svc = state.moduleResults.service as SvcResult | undefined;
   const picture = useMemo(() => (question ? null : buildSolutionPicture(state, erp)), [question, state, erp]);
   const solutionMap = useMemo(() => (picture ? buildSolutionMap(state, picture) : null), [picture, state]);
+  const result = useMemo(() => (picture && solutionMap ? buildSystemvalResult(state, picture, solutionMap) : null), [picture, solutionMap, state]);
+  const fromResult = useRef(false);
   const po = state.moduleResults.projects as PoResult | undefined;
   const summary: AnswerSummaryItem[] = useMemo(() => state.path.map((id, index) => {
     const q = getQuestion(id);
@@ -80,9 +83,29 @@ export default function Systemval() {
     const vals = state.activeAnswers[id] ?? [];
     return { index, question: resolveText(q, c), answer: vals.map((v) => opts.find((o) => o.id === v)?.label ?? v).join(", ") };
   }).filter(Boolean) as AnswerSummaryItem[], [state, input]);
+  const resultKey = result ? `${result.clarity}|${result.primaryTracks.map((t) => t.id).join(",")}|${result.primaryCTA.kind}` : "";
   useEffect(() => {
-    if (picture) trackSystemval("solution_result_shown", { primary: picture.primary.map((p) => p.id).join(","), next: picture.nextStep.kind });
-  }, [picture?.nextStep.kind, picture?.primary.map((p) => p.id).join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!result) return;
+    // Endast id:n och enumvärden, inga svarskombinationer eller personuppgifter.
+    trackSystemval("solution_result_shown", { clarity: result.clarity, primary: result.primaryTracks.map((t) => t.id).join(","), cta: result.primaryCTA.kind,
+      alternatives: result.alternativeTracks.length, complements: result.complementaryTracks.length, later: result.laterPhaseTracks.length });
+  }, [resultKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const onCta = (c: Cta, primary: boolean) => {
+    trackSystemval(primary ? "primary_cta_clicked" : "secondary_cta_clicked", { kind: c.kind, destination: c.destinationId });
+    if (c.kind === "partners") trackSystemval("partner_selection_started");
+    if (c.transfer && result) {
+      // Överför endast nödvändig sammanfattning till den lokala D365-planen.
+      savePlanSolution({
+        areaLabel: result.primaryTracks.map((t) => t.label).join(" och ") || "Systemval",
+        knownProduct: result.selectedStartingPoint?.label,
+        insufficient: result.clarity === "limited",
+        primary: result.primaryTracks[0] ? { label: result.primaryTracks[0].label, reason: result.primaryTracks[0].why[0] ?? "" } : undefined,
+        complements: [...result.complementaryTracks.map((x) => ({ label: x.label, reason: x.need })), ...result.alternativeTracks.map((a) => ({ label: a.labels.join(" eller "), reason: "Alternativ att jämföra" }))],
+        explore: [], openQuestions: result.unresolvedQuestions, nextSteps: [],
+      }, state.needs);
+      trackSystemval("plan_started");
+    }
+  };
   const deepState = useMemo(() => (picture ? deriveDeep(picture, state, deepAnswers) : null), [picture, state, deepAnswers]);
   const deepResult = useMemo(() => (picture && deepState && !deepState.next && deepState.path.length ? evaluateDeep(picture, state, erp, deepState.answers) : null), [picture, deepState, state, erp]);
   useEffect(() => { if (deepResult) { try { localStorage.setItem(HANDOVER_KEY, JSON.stringify(deepResult.handover)); } catch { /* ignore */ } } }, [deepResult]);
@@ -107,8 +130,14 @@ export default function Systemval() {
     const prev = input.answers[questionId];
     if (prev && prev.join() !== values.join()) trackSystemval("answer_changed", { question: questionId });
     if (question?.module === "erp") trackSystemval("erp_question_answered", { question: questionId });
-    setInput((prev) => answer(prev, questionId, values));
-    setCursor(pos + 1);
+    const nextInput = answer(input, questionId, values);
+    setInput(nextInput);
+    if (fromResult.current) {
+      // Ändrat svar från resultatet: hoppa till nästa obesvarade fråga eller tillbaka till omräknat resultat.
+      fromResult.current = false;
+      trackSystemval("answer_changed_from_result", { question: questionId });
+      setCursor(deriveState(nextInput).path.length);
+    } else setCursor(pos + 1);
   };
   const back = () => setCursor(Math.max(0, pos - 1));
   const restart = () => { setInput(emptyInput()); setCursor(0); setDeepAnswers({}); setDeepMode(null); };
@@ -198,18 +227,18 @@ export default function Systemval() {
             />
           )}
 
-          {!question && picture && !deepMode && (
+          {!question && picture && result && !deepMode && (
             <SolutionResultView
               onDeepen={() => { trackSystemval("deep_started"); setDeepMode({}); }}
               deepSlot={deepResult ? <DeepResultSection result={deepResult} onEdit={() => setDeepMode({ startAt: 0 })} onNextStep={(kind) => trackSystemval("next_step_clicked", { kind, deep: true })} /> : undefined}
               picture={picture}
-              mapSlot={solutionMap ? <SolutionMapSection map={solutionMap} /> : undefined}
+              result={result!}
+              onCta={onCta}
+              onWhyOpened={() => trackSystemval("why_opened")}
               erp={erp}
-              svc={svc}
               answers={summary}
-              onEdit={(i) => setCursor(i)}
+              onEdit={(i) => { fromResult.current = true; setCursor(i); }}
               onRestart={restart}
-              onNextStep={(kind) => trackSystemval("next_step_clicked", { kind })}
             />
           )}
 
@@ -262,6 +291,7 @@ export default function Systemval() {
                 deep: deepState ? { path: deepState.path, next: deepState.next, handover: deepResult?.handover ?? null } : null,
                 projects: po ? { projectOperationsSignals: po.projectOperationsSignals.map((x) => x.rule), projectLifecycleSignals: po.projectLifecycleSignals.map((x) => x.rule), resourcePlanningSignals: po.resourcePlanningSignals.map((x) => x.rule), projectErpOverlap: po.projectErpOverlap, projectSalesDependency: po.projectSalesDependency, keepExistingTool: po.keepExistingTool, preliminaryOutcome: po.preliminaryOutcome, rulesVersion: po.rulesVersion } : "Project Operations-modulen inte aktiverad",
                 solutionMap: solutionMap?.debug ?? null,
+                result: result?.debug ?? null,
                 solutions: picture ? { primary: picture.primary.map((p) => p.id), complementary: picture.complementary.map((p) => p.id), investigate: picture.investigate.map((p) => p.id), addOn: picture.addOn, nextStep: picture.nextStep.kind, signals: picture.signals.map((x) => `${x.id}:${x.kind}:${x.weight}`) } : null,
               }, null, 2)}</pre>
             </aside>
