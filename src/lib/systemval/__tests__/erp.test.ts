@@ -118,10 +118,11 @@ describe("ERP-modulen (Sprint 2)", () => {
   });
 
   it("T14 Project Operations-signal registreras separat", () => {
-    const r = walk({ ...needs("erp"), [Q.ERP1]: ["finance", "projects"], [Q.ERP2]: ["basic"], [Q.ERP8]: ["project_advanced"], change_intent: ["introduce"] });
+    const r = walk({ ...needs("erp"), [Q.ERP1]: ["finance", "projects"], [Q.ERP2]: ["basic"], [Q.ERP8]: ["project_advanced"], change_intent: ["introduce"], PO2_PROCESS: ["staffing", "delivery"] });
     log("T14", r);
     expect(r.erp.projectOperationsSignal).toBe(true);
-    expect(r.s.activeModules).toEqual(["erp"]);
+    // Sprint 5: brett projektbehov aktiverar Project Operations-modulen, ERP-modulen är oförändrad.
+    expect(r.s.activeModules).toEqual(["erp", "projects"]);
   });
 
   it("T14b enkel projektekonomi ger ingen Project Operations-signal", () => {
@@ -155,7 +156,7 @@ describe("ERP-modulen (Sprint 2)", () => {
       entry: ["problem"], problems: ["closing", "inventory", "production_manual", "project_margin"], priority: ["equal"],
       [Q.ERP1]: ["finance", "warehouse", "production", "projects", "multi_company"], [Q.ERP2]: ["multi_country", "dimensions"],
       [Q.ERP4]: ["discrete"], [Q.ERP3]: ["multi_warehouse"], [Q.ERP5]: ["unknown"], [Q.ERP8]: ["finance_unknown"],
-      change_intent: ["replace"], [Q.ERP6]: ["several"],
+      change_intent: ["replace"], [Q.ERP6]: ["several"], PO1_PROJEKTTYP: ["consulting"],
     });
     log("T17", r);
     expect(r.s.currentPathQuestionCount).toBeLessThanOrEqual(10);
