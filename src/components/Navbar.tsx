@@ -82,7 +82,7 @@ const MENUS: NavMenu[] = [
     groups: [
       {
         items: [
-          { label: "Kom igång-guiden", path: "/kom-igang/", strong: true },
+          { label: "Starta behovsguiden", path: "/kom-igang/", strong: true },
           { label: "Kunskapscenter", path: "/kunskapscenter" },
           { label: "Översikt: alla guider", path: "/guider/" },
           { label: "Välj din roll", path: "/roller/" },
