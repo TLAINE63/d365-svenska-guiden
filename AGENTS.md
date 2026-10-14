@@ -32,3 +32,4 @@
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
 - Read subdir AGENTS.md first. Partner cards share PartnerCardHeader for accessible identity links.
+- Buyer funnel in funnel-stats groups by anonymous localStorage journey_id (fallback session_id) so returning visitors count as one journey without PII.
