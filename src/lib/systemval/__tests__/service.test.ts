@@ -106,7 +106,7 @@ describe("Service & kunddialog (Sprint 4)", () => {
 
   it("13–15. Produktsnabbspår CS/CC/FS är utgångspunkt och kan utmanas", () => {
     const cs = walk({ entry: ["product"], product_start: ["cs"], [SQ.SV1]: ["cases"], [SQ.CS1]: ["sla"], [SQ.NOW]: ["email_tools"] });
-    expect(cs.asked[1]).toBe(SQ.SV1);
+    expect(cs.asked[2]).toBe(SQ.SV1);
     expect(cs.svc.tracks).toEqual(["cs"]);
     const cc = walk({ entry: ["product"], product_start: ["cc"], [SQ.SV1]: ["queues"], [SQ.CC1]: ["several"], [SQ.CC2]: ["queues"], [SQ.NOW]: ["other_crm"] });
     expect(cc.svc.tracks).toEqual(["cc"]);
