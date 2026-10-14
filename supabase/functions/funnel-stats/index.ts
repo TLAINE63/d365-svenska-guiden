@@ -331,7 +331,7 @@ Deno.serve(async (req) => {
       const count = (k: string) => list.filter((s) => s.steps.has(k)).length;
       const has = (s: S, k: string) => s.steps.has(k);
       const main = [
-        { key: "visit", label: "Besök (sessioner)", count: list.length },
+        { key: "visit", label: "Besökare (anonyma resor)", count: list.length },
         { key: "guide_started", label: "Behovsguide startad", count: count("guide_started") },
         { key: "guide_completed", label: "Behovsguide slutförd", count: count("guide_completed") },
         { key: "plan_created", label: "Min D365-plan skapad", count: count("plan_created") },
