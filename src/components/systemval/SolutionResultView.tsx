@@ -6,6 +6,18 @@ import type { SolutionPicture } from "@/lib/systemval/solutions";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
 import { EXISTING_NOTE } from "@/lib/systemval/modules/erpTexts";
 import { CLARITY_LABEL, DEP_LABEL, type Cta, type SystemvalResult } from "@/lib/systemval/result";
+import { getApplicationIcon } from "@/lib/applicationLabels";
+
+/** Produktnamn med officiell Dynamics 365-ikon. */
+function ProductLabel({ label, size = "h-6 w-6" }: { label: string; size?: string }) {
+  const icon = getApplicationIcon(label);
+  return (
+    <span className="inline-flex items-center gap-2 align-middle">
+      {icon && <img src={icon} alt="" aria-hidden className={`${size} shrink-0 object-contain`} loading="lazy" />}
+      <span>{label}</span>
+    </span>
+  );
+}
 
 export interface AnswerSummaryItem { index: number; question: string; answer: string }
 
