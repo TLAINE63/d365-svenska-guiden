@@ -153,8 +153,8 @@ export default function Systemval() {
         canonicalPath="/kom-igang/"
       />
       <Navbar />
-      <main className="flex-1 pt-24 pb-16">
-        <div className="mx-auto w-full max-w-2xl px-4">
+      <main className="flex-1 pt-32 sm:pt-36 pb-16">
+        <div className={`mx-auto w-full px-4 sm:px-6 ${question && options.length > 4 ? "max-w-5xl" : "max-w-3xl"}`}>
           <p className="text-sm font-medium text-accent mb-2">Vi står inför ett systemval</p>
 
           {question && (
@@ -164,12 +164,12 @@ export default function Systemval() {
                   Fråga {shownNumber} · {question.type === "multi" ? "Välj ett eller flera alternativ" : "Välj ett alternativ"}
                 </p>
               )}
-              <h1 id="q-title" className="text-2xl sm:text-3xl font-semibold text-foreground text-balance mb-2">
+              <h1 id="q-title" className="text-2xl sm:text-[28px] font-semibold text-foreground text-balance mb-1">
                 {ctx ? resolveText(question, ctx) : ""}
               </h1>
               {question.help && <p className="text-muted-foreground mb-4">{question.help}</p>}
 
-              <div role={question.type === "multi" ? "group" : "radiogroup"} aria-labelledby="q-title" className="mt-5 grid gap-3">
+              <div role={question.type === "multi" ? "group" : "radiogroup"} aria-labelledby="q-title" className={`mt-4 grid gap-2.5 ${options.length > 4 ? "sm:grid-cols-2" : ""}`}>
                 {options.map((o) => {
                   const selected = draft.includes(o.id);
                   return (
@@ -182,7 +182,7 @@ export default function Systemval() {
                         if (question.type === "single") { setDraft([o.id]); commit([o.id]); }
                         else setDraft((d) => toggleMulti(d, o, options));
                       }}
-                      className={`w-full text-left rounded-xl border p-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      className={`w-full text-left rounded-xl border px-4 py-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                         selected ? "border-primary bg-primary/5" : "border-border bg-card hover:border-primary/50"
                       }`}
                     >
