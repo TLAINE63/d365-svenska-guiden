@@ -31,6 +31,17 @@ const INK = "#15202B", MUTED = "#5B6670", LINE = "#E3E7EA", PETROL = "#0E7C86";
 // The provider boundary appends the common signature once.
 const SIGNATURE = "";
 
+/** Mappar formulärets fria produktområde till partnerns product_filters-nycklar (bc, fsc, sales, service). */
+function productKeys(area: string | null | undefined): string[] {
+  const a = (area || "").toLowerCase();
+  const keys: string[] = [];
+  if (/business central|\bbc\b/.test(a)) keys.push("bc");
+  if (/finance|supply chain|f&scm|fscm/.test(a)) keys.push("fsc");
+  if (/sales|försäljning|marketing|customer insights/.test(a)) keys.push("sales");
+  if (/service|contact center|field/.test(a)) keys.push("service");
+  return keys.length ? keys : ["bc", "fsc", "sales", "service"];
+}
+
 /** Premiumram för alla mejl: mörk header, vitt kort, diskret footer. */
 function layout(title: string, inner: string, preheader = ""): string {
   return `<span style="display:none;max-height:0;overflow:hidden">${esc(preheader)}</span><h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;color:${INK}">${title}</h1>${inner}`;
