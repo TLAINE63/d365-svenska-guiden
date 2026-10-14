@@ -4,6 +4,7 @@ import { ArrowRight, ChevronDown, Pencil, RotateCcw, Puzzle, Sparkles } from "lu
 import { Button } from "@/components/ui/button";
 import type { SolutionPicture } from "@/lib/systemval/solutions";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
+import type { SvcResult } from "@/lib/systemval/modules/service";
 import { DISCLAIMER, EXISTING_NOTE, PRODUCT_LABEL, driverLabel, startDiffers } from "@/lib/systemval/modules/erpTexts";
 
 export interface AnswerSummaryItem { index: number; question: string; answer: string }
@@ -11,6 +12,7 @@ export interface AnswerSummaryItem { index: number; question: string; answer: st
 interface Props {
   picture: SolutionPicture;
   erp?: ErpResult;
+  svc?: SvcResult;
   answers: AnswerSummaryItem[];
   onEdit: (index: number) => void;
   onRestart: () => void;
@@ -20,8 +22,11 @@ interface Props {
 }
 
 /** Sprint 3: preliminär lösningsbild. Visar aldrig poäng eller regel-id. */
-export default function SolutionResultView({ picture: p, erp, answers, onEdit, onRestart, onNextStep, onDeepen, deepSlot }: Props) {
+export default function SolutionResultView({ picture: p, erp, svc, answers, onEdit, onRestart, onNextStep, onDeepen, deepSlot }: Props) {
   const [why, setWhy] = useState(false);
+  const [whySvc, setWhySvc] = useState(false);
+  const svcReasons = svc ? [...new Set([...svc.customerServiceSignals, ...svc.contactCenterSignals, ...svc.fieldServiceSignals, ...svc.integrationSignals, ...svc.combinationSignals].map((x) => x.reason))] : [];
+  const CLARITY = { clear: "Tydlig riktning", multiple: "Flera möjliga vägar", limited: "Begränsat underlag" } as const;
   const start = erp?.selectedProductStartingPoint ? PRODUCT_LABEL[erp.selectedProductStartingPoint] : null;
   const driver = erp ? driverLabel(erp) : null;
 
@@ -152,6 +157,24 @@ export default function SolutionResultView({ picture: p, erp, answers, onEdit, o
           </button>
           {why && (
             <ul className="mt-3 list-disc pl-5 space-y-1 text-sm text-muted-foreground">{erp.reasons.map((t) => <li key={t}>{t}</li>)}</ul>
+          )}
+        </div>
+      )}
+
+      {svc && (
+        <div>
+          <button type="button" onClick={() => setWhySvc((v) => !v)} aria-expanded={whySvc}
+            className="flex items-center gap-2 text-left font-semibold text-foreground underline-offset-4 hover:underline">
+            Varför bedömer vi service och kunddialog så här?
+            <ChevronDown className={`h-4 w-4 transition-transform ${whySvc ? "rotate-180" : ""}`} aria-hidden />
+          </button>
+          {whySvc && (
+            <div className="mt-3 text-sm text-muted-foreground">
+              <p>Tydlighet: <span className="font-medium text-foreground">{CLARITY[svc.clarity]}</span></p>
+              {svcReasons.length > 0
+                ? <ul className="mt-2 list-disc pl-5 space-y-1">{svcReasons.map((t) => <li key={t}>{t}</li>)}</ul>
+                : <p className="mt-2">Era svar ger ännu inga tydliga behov inom service och kunddialog.</p>}
+            </div>
           )}
         </div>
       )}
