@@ -2,6 +2,9 @@ import { describe, it, expect } from "vitest";
 import { answer, deriveState, emptyInput, type DialogInput } from "../engine";
 import { Q, type ErpResult } from "../modules/erp";
 import { buildSolutionPicture } from "../solutions";
+import { SQ } from "../modules/service";
+// Sprint 4: servicefrågor besvaras konkret så att servicespåren kan bedömas.
+const SVC = { [SQ.SV1]: ["cases", "field_plan"], [SQ.CS1]: ["overview"], [SQ.FS1]: ["workorders"], [SQ.HO]: ["case_to_wo"] };
 
 function walk(script: Record<string, string[]>) {
   let i: DialogInput = emptyInput();
@@ -32,7 +35,7 @@ describe("Lösningsbild (Sprint 3)", () => {
   });
 
   it("Kundservice + tekniker: Field Service lyfts som korsbehov", () => {
-    const { p } = walk({ entry: ["problem"], problems: ["cases_email", "technicians"], priority: ["customer_service"] });
+    const { p } = walk({ entry: ["problem"], problems: ["cases_email", "technicians"], priority: ["customer_service"], ...SVC });
     expect(ids(p.primary)).toEqual(["cs"]);
     expect(ids(p.complementary)).toContain("fs");
   });
@@ -43,7 +46,7 @@ describe("Lösningsbild (Sprint 3)", () => {
   });
 
   it("AI blir aldrig en egen primär produkt", () => {
-    const { p } = walk({ entry: ["needs"], needs_areas: ["customer_service"] });
+    const { p } = walk({ entry: ["needs"], needs_areas: ["customer_service"], ...SVC });
     expect(ids(p.primary)).not.toContain("copilot");
     expect(p.aiNotes.length).toBeGreaterThan(0);
   });
@@ -58,7 +61,7 @@ describe("Lösningsbild (Sprint 3)", () => {
   it("Nästa steg varierar: jämförelse, fördjupning, plan", () => {
     const sales = walk({ entry: ["needs"], needs_areas: ["sales"] }).p;
     expect(sales.nextStep.kind).toBe("deepen_product");
-    const many = walk({ entry: ["needs"], needs_areas: ["sales", "customer_service", "field_service"], priority: ["equal"] }).p;
+    const many = walk({ entry: ["needs"], needs_areas: ["sales", "customer_service", "field_service"], priority: ["equal"], ...SVC }).p;
     expect(many.nextStep.kind).toBe("plan");
     const unsure = walk({ entry: ["needs"], needs_areas: ["erp"], [Q.ERP1]: ["unknown"] }).p;
     expect(unsure.nextStep.kind).toBe("deepen_analysis");
@@ -67,7 +70,9 @@ describe("Lösningsbild (Sprint 3)", () => {
   it("Ändrat svar räknar om lösningsbilden", () => {
     const a = walk({ entry: ["needs"], needs_areas: ["sales"] });
     expect(ids(a.p.primary)).toEqual(["sales"]);
-    const changed = deriveState(answer(a.i, "needs_areas", ["customer_service"]));
+    let ci = answer(a.i, "needs_areas", ["customer_service"]);
+    ci = answer(answer(ci, SQ.SV1, ["cases"]), SQ.CS1, ["sla"]);
+    const changed = deriveState(ci);
     const p2 = buildSolutionPicture(changed, undefined);
     expect(ids(p2.primary)).toEqual(["cs"]);
   });
