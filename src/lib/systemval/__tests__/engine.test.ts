@@ -12,7 +12,7 @@ describe("systemval dialog engine", () => {
 
   it("needs path: multi select then priority, keeps secondary needs", () => {
     const s = deriveState(run(["entry", ["needs"]], ["needs_areas", ["sales", "customer_service", "erp"]], ["priority", ["customer_service"]]));
-    expect(s.needs).toEqual(["customer_service", "sales", "erp"].sort((a, b) => ["sales", "customer_service", "erp"].indexOf(a) - ["sales", "customer_service", "erp"].indexOf(b)));
+    expect(s.needs).toEqual(["sales", "customer_service", "erp"]);
     expect(s.primaryNeed).toBe("customer_service");
     expect(s.secondaryNeeds).toEqual(["sales", "erp"]);
     expect(s.currentPathQuestionCount).toBe(2);
