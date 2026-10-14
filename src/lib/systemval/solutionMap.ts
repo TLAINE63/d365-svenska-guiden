@@ -149,7 +149,7 @@ export function buildSolutionMap(state: DialogState, p: SolutionPicture): Soluti
     bySrc.set(s.id, (bySrc.get(s.id) ?? new Set()).add(src));
   }
   for (const [id, src] of bySrc) if (src.size > 1 && all.has(id)) duplicates.push(`${id}:${[...src].join("+")}`);
-  if (svc?.integrationSignals.some((x) => x.rule === "FS_ERP") && deps.some((d) => d.key === "erp_fs")) duplicates.push("erp_fs:service+cross");
+  if (svc?.integrationSignals.length && anyErp && deps.some((d) => d.key === "erp_fs")) duplicates.push("erp_fs:service+erp");
 
   // --- Konflikter mellan moduler ---
   if (erp?.projectOperationsSignal && po && ["erp_scope", "none"].includes(po.preliminaryOutcome)) {
