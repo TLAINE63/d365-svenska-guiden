@@ -150,8 +150,7 @@ export default function Systemval() {
       <SEOHead
         title="Vi står inför ett systemval | Behovsguide | d365.se"
         description="Ett kort första samtal om era behov inför ett systemval med Dynamics 365."
-        canonicalPath="/kom-igang/systemval/"
-        noIndex
+        canonicalPath="/kom-igang/"
       />
       <Navbar />
       <main className="flex-1 pt-24 pb-16">

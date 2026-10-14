@@ -256,8 +256,9 @@ const AppShell = () => {
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<RedirectTo to="/ERPbehovsanalys" />} />
-          <Route path="/kom-igang" element={<KomIgang />} />
-          <Route path="/kom-igang/systemval" element={<Systemval />} />
+          <Route path="/kom-igang" element={<Systemval />} />
+          <Route path="/kom-igang/systemval" element={<RedirectTo to="/kom-igang/" />} />
+          <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
