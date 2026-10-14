@@ -114,6 +114,7 @@ const IndustryPage = lazy(() => import("./pages/IndustryPage"));
 const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
 const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const KomIgang = lazy(() => import("./pages/KomIgang"));
+const Systemval = lazy(() => import("./pages/Systemval"));
 const Partnerprogram = lazy(() => import("./pages/Partnerprogram"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerPerformance = lazy(() => import("./pages/PartnerPerformance"));
@@ -256,6 +257,7 @@ const AppShell = () => {
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<RedirectTo to="/ERPbehovsanalys" />} />
           <Route path="/kom-igang" element={<KomIgang />} />
+          <Route path="/kom-igang/systemval" element={<Systemval />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
