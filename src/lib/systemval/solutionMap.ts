@@ -174,7 +174,6 @@ export function buildSolutionMap(state: DialogState, p: SolutionPicture): Soluti
 
   const limited = !start.length || (erp?.preliminaryOutcome === "limited" && start.every((id) => ERP_IDS.includes(id))) || (po?.preliminaryOutcome === "limited" && state.primaryNeed === "projects");
   const clarity: MapClarity = limited ? "limited" : alternatives.length || conflicts.length || (state.prioritySetting !== "primary" && start.length > 1) ? "multiple" : "clear";
-  if (limited) start = start.filter(() => !(state.needs.length === 0));
 
   const track = (id: SolutionId): MapTrack => ({ id, label: SOLUTION_INFO[id].label, why: reason[id] ?? "" });
 
