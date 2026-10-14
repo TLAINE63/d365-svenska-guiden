@@ -455,8 +455,13 @@ const KomIgang = () => {
 
   const getAiMatch = (id: string) => aiMatches.find(m => m.id === id);
 
+  // Vid varje stegbyte (framåt och bakåt) hamnar nästa fråga högst upp i vyn
   useEffect(() => {
-    if (showResults) window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [stepIdx]);
+
+  useEffect(() => {
+    if (showResults) window.scrollTo({ top: 0, behavior: "auto" });
   }, [showResults]);
 
   // Närmaste alternativ när kombinationen saknar träffar
