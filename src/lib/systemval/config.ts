@@ -21,7 +21,7 @@ export type NeedArea =
 
 export const NEED_AREAS: { id: NeedArea; label: string }[] = [
   { id: "erp", label: "Ekonomi och affärssystem" },
-  { id: "supply_chain", label: "Inköp, lager och logistik" },
+  { id: "supply_chain", label: "Order, lager, inköp och logistik" },
   { id: "production", label: "Produktion" },
   { id: "sales", label: "Försäljning" },
   { id: "marketing", label: "Marknadsföring och kundinsikter" },
