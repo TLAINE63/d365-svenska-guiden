@@ -232,7 +232,8 @@ export function buildSystemvalResult(state: DialogState, p: SolutionPicture, m: 
   };
   let primaryCTA: Cta; let ctaReason: string;
   if (m.clarity === "limited") {
-    const anyId = (p0 ?? (p.investigate[0]?.id as SolutionId | undefined));
+    // Endast ett faktiskt huvudspår får styra till en produktspecifik analys; annars neutral behovsanalys.
+    const anyId = p0 as SolutionId | undefined;
     const md = anyId ? getDestination(`match_${anyId}`) : getDestination("needs_analysis");
     primaryCTA = md.verified && anyId ? cta(`match_${anyId}`, "Fortsätt till en mer detaljerad behovsanalys", "deepen_analysis") : cta("needs_analysis", "Fortsätt till en mer detaljerad behovsanalys", "deepen_analysis");
     ctaReason = "Begränsat underlag: fördjupning före partnerval.";

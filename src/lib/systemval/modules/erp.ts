@@ -339,7 +339,9 @@ export function erp8Area(c: DialogContext): Erp8Area | null {
     if (candidates.length === 0 && has(c, Q.ERP2, "multi_country") && !answered(c, Q.ERP5)) candidates.push("intl");
   }
   if (candidates[0]) return candidates[0];
-  if (has(c, Q.ERP1, "projects") && !erpSecondary(c) && c.questionCount < NORMAL_CEILING) return "project";
+  // Projektmodulen ställer egna frågor när projekt är ett uttalat behov; fråga då inte två gånger.
+  const poAsksItself = c.needs.includes("projects") || c.problems.includes("project_margin") || c.productStart === "po";
+  if (has(c, Q.ERP1, "projects") && !poAsksItself && !erpSecondary(c) && c.questionCount < NORMAL_CEILING) return "project";
   return null;
 }
 
