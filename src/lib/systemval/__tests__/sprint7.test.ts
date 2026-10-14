@@ -29,7 +29,7 @@ function walk(script: Record<string, string[]>, name: string) {
   const r = run(i);
   const d = r.res.debug as Record<string, unknown>;
   // Dokumentation per testväg.
-  REPORT.push({ test: name, path: r.s.activePath ?? undefined, q: r.s.currentPathQuestionCount, start: d.finalPrimaryTracks, alt: d.finalAlternativeTracks, comp: d.finalComplementaryTracks,
+  REPORT.push({ test: name, path: r.s.path, q: r.s.currentPathQuestionCount, start: d.finalPrimaryTracks, alt: d.finalAlternativeTracks, comp: d.finalComplementaryTracks,
     later: d.finalLaterPhaseTracks, deps: [...(d.finalIntegrationDependencies as string[]), ...(d.finalProcessDependencies as string[])], open: r.res.unresolvedQuestions.length,
     clarity: d.finalClarity, cta: d.selectedPrimaryCTA, dest: d.destinationId, verified: d.destinationVerified, sec: d.secondaryCTAs, transfer: (d.transferredStateFields as string[]).length > 0 });
   return { ...r, i };
@@ -57,7 +57,7 @@ const REPORT: Record<string, unknown>[] = [];
 const P = (...ids: string[]) => ({ entry: ["problem"], problems: ids });
 const PR = (id: string) => ({ entry: ["product"], product_start: [id] });
 const pass = (r: ReturnType<typeof walk>) => { checkCtas(r.res); expect(r.s.currentPathQuestionCount).toBeLessThanOrEqual(10); };
-const all = (r: ReturnType<typeof walk>) => [...tid(r), ...r.res.complementaryTracks.map((c) => c.id), ...r.res.laterPhaseTracks.map((c: { id: string }) => c.id)];
+const all = (r: ReturnType<typeof walk>) => [...tid(r), ...r.res.complementaryTracks.map((c) => c.id), ...(r.res.laterPhaseTracks as unknown as { id: string }[]).map((c) => c.id)];
 
 describe("Sprint 7: 30 testpersonas", () => {
   it("1 mindre tjänsteföretag ERP", () => { const r = walk({ ...N("erp"), ...ERP_SIMPLE }, "01"); expect(tid(r)).toEqual(["bc"]); pass(r); });
