@@ -1,5 +1,6 @@
 import type { NeedModule } from "../config";
 import { erpModule } from "./erp";
+import { serviceModule } from "./service";
 
-/** Registrerade produktmoduler. Sprint 2: endast ERP (BC kontra F&SCM). */
-export const MODULES: NeedModule[] = [erpModule];
+/** Registrerade produktmoduler: ERP (Sprint 2), Service & kunddialog (Sprint 4). */
+export const MODULES: NeedModule[] = [erpModule, serviceModule];
