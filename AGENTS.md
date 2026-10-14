@@ -32,4 +32,3 @@
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
 - ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
 - Read subdir AGENTS.md first. Partner cards share PartnerCardHeader for accessible identity links.
-- Systemval guide (/kom-igang/systemval/) is config-driven: questions/modules in src/lib/systemval/config.ts, deterministic routing in engine.ts; product modules plug into MODULES so the engine never needs rebuilding and UI holds no flow logic.
