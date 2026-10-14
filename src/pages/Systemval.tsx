@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,7 +6,10 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { CONFIG_VERSION, MAX_QUESTIONS, NEED_AREAS, PRODUCTS, PROBLEM_OPTIONS } from "@/lib/systemval/config";
-import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOptions, toggleMulti, type DialogInput } from "@/lib/systemval/engine";
+import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOptions, resolveText, toggleMulti, type DialogInput } from "@/lib/systemval/engine";
+import type { ErpResult } from "@/lib/systemval/modules/erp";
+import ErpResultView from "@/components/systemval/ErpResultView";
+import { trackSystemval } from "@/lib/systemval/analytics";
 
 const STORAGE_KEY = "d365_systemval_v1";
 
@@ -48,8 +51,28 @@ export default function Systemval() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [questionId, pos]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const erp = state.moduleResults.erp as ErpResult | undefined;
+  const tracked = useRef({ started: false, shown: "", result: "" });
+  useEffect(() => {
+    if (erp && !tracked.current.started) { tracked.current.started = true; trackSystemval("erp_module_started"); }
+    if (question?.module === "erp" && tracked.current.shown !== question.id) {
+      tracked.current.shown = question.id; trackSystemval("erp_question_shown", { question: question.id });
+    }
+    if (!question && erp) {
+      const key = `${erp.preliminaryOutcome}:${erp.clarity}`;
+      if (tracked.current.result !== key) {
+        tracked.current.result = key;
+        trackSystemval("erp_dialog_completed", { questions: state.currentPathQuestionCount });
+        trackSystemval("erp_result_shown", { outcome: erp.preliminaryOutcome, clarity: erp.clarity });
+      }
+    }
+  }, [erp, question, state.currentPathQuestionCount]);
+
   const commit = (values: string[]) => {
     if (!questionId) return;
+    const prev = input.answers[questionId];
+    if (prev && prev.join() !== values.join()) trackSystemval("answer_changed", { question: questionId });
+    if (question?.module === "erp") trackSystemval("erp_question_answered", { question: questionId });
     setInput((prev) => answer(prev, questionId, values));
     setCursor(pos + 1);
   };
@@ -80,7 +103,7 @@ export default function Systemval() {
                 </p>
               )}
               <h1 id="q-title" className="text-2xl sm:text-3xl font-semibold text-foreground text-balance mb-2">
-                {question.text}
+                {ctx ? resolveText(question, ctx) : ""}
               </h1>
               {question.help && <p className="text-muted-foreground mb-4">{question.help}</p>}
 
@@ -129,7 +152,11 @@ export default function Systemval() {
             </section>
           )}
 
-          {!question && (
+          {!question && erp && (
+            <ErpResultView result={erp} onBack={back} onRestart={restart} />
+          )}
+
+          {!question && !erp && (
             <section aria-labelledby="done-title">
               <h1 id="done-title" className="text-2xl sm:text-3xl font-semibold text-foreground mb-3">Det här har ni berättat</h1>
               <p className="text-muted-foreground mb-5">
@@ -183,7 +210,18 @@ export default function Systemval() {
                 nextQuestionId: state.nextQuestionId,
                 budgetReached: state.budgetReached,
                 activeModules: state.activeModules,
+                nextReason: state.nextReason,
                 interactionHistory: state.interactionHistory.length,
+                erp: erp ? {
+                  activated: erp.activated, activationReason: erp.activationReason, processNeeds: erp.processNeeds,
+                  financialComplexity: erp.financialComplexity, warehouseNeeds: erp.warehouseNeeds, logisticsNeeds: erp.logisticsNeeds,
+                  productionNeeds: erp.productionNeeds, companyStructure: erp.companyStructure, currentSystem: erp.currentSystem,
+                  changeIntent: erp.changeIntent, bcSignals: erp.bcSignals, financeSignals: erp.financeSignals, scmSignals: erp.scmSignals,
+                  comparisonSignals: erp.comparisonSignals, uncertainties: erp.uncertainties,
+                  unansweredDecisiveQuestions: erp.unansweredDecisiveQuestions, projectOperationsSignal: erp.projectOperationsSignal,
+                  existingSolutionInvestigation: erp.existingSolutionInvestigation, activatedRules: erp.activatedRules,
+                  preliminaryOutcome: erp.preliminaryOutcome, fscmDriver: erp.fscmDriver, clarity: erp.clarity, rulesVersion: erp.rulesVersion,
+                } : "ERP-modulen inte aktiverad",
               }, null, 2)}</pre>
             </aside>
           )}
