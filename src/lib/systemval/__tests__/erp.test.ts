@@ -156,7 +156,7 @@ describe("ERP-modulen (Sprint 2)", () => {
       entry: ["problem"], problems: ["closing", "inventory", "production_manual", "project_margin"], priority: ["equal"],
       [Q.ERP1]: ["finance", "warehouse", "production", "projects", "multi_company"], [Q.ERP2]: ["multi_country", "dimensions"],
       [Q.ERP4]: ["discrete"], [Q.ERP3]: ["multi_warehouse"], [Q.ERP5]: ["unknown"], [Q.ERP8]: ["finance_unknown"],
-      change_intent: ["replace"], [Q.ERP6]: ["several"], PO1_PROJEKTTYP: ["consulting"],
+      change_intent: ["replace"], [Q.ERP6]: ["several"], PO1_PROJEKTTYP: ["consulting"], PO2_PROCESS: ["delivery"],
     });
     log("T17", r);
     expect(r.s.currentPathQuestionCount).toBeLessThanOrEqual(10);
