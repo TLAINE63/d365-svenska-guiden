@@ -44,7 +44,7 @@ describe("systemval dialog engine", () => {
   });
 
   it("change intent is configured but not shown unless requested", () => {
-    const base = run(["entry", ["needs"]], ["needs_areas", ["erp"]]);
+    const base = run(["entry", ["needs"]], ["needs_areas", ["sales"]]);
     expect(deriveState(base).path).not.toContain("change_intent");
     expect(deriveState(base).nextQuestionId).toBeNull();
     expect(deriveState({ ...base, debugRequestCommon: ["change_intent"] }).nextQuestionId).toBe("change_intent");

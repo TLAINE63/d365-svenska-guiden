@@ -3,7 +3,7 @@
 // Produktmoduler (senare sprintar) registreras i MODULES och kan begära
 // gemensamma frågor (t.ex. förändringsavsikt) samt egna fördjupningsfrågor.
 
-export const CONFIG_VERSION = "systemval-1.0.0";
+export const CONFIG_VERSION = "systemval-2.0.0";
 export const MAX_QUESTIONS = 10;
 
 export type EntryKey = "needs" | "product" | "problem";
@@ -65,12 +65,15 @@ export interface DialogContext {
   answers: Record<string, string[]>;
   /** Gemensamma frågor som någon aktiv produktmodul har begärt. */
   requestedCommon: Set<string>;
+  /** Antal självständiga frågor på vägen hittills (för budgetstyrda hopp). */
+  questionCount: number;
 }
 
 export interface Question {
   id: string;
   module: "entry" | "common" | NeedArea | ProductKey;
-  text: string;
+  /** Statisk text eller konfigurerad mall vald utifrån kontext (aldrig fri AI). */
+  text: string | ((ctx: DialogContext) => string);
   help?: string;
   type: "single" | "multi";
   options: Option[] | ((ctx: DialogContext) => Option[]);
@@ -79,6 +82,8 @@ export interface Question {
   /** Lägre = ställs tidigare. Lika prioritet: konfigurationsordning. */
   priority: number;
   affects: string[];
+  /** Vilka bedömningar frågan kan avgöra (avgörande_för). */
+  decisiveFor?: string[];
   /** false = startvalet, räknas inte som självständig fråga. */
   countsTowardBudget: boolean;
 }
@@ -99,6 +104,7 @@ export const PROBLEM_OPTIONS: Option[] = [
   { id: "channels", label: "Kunddialogen fungerar dåligt mellan olika kanaler", needs: ["contact_center"] },
   { id: "technicians", label: "Tekniker ute hos kund saknar rätt information", needs: ["field_service"] },
   { id: "project_margin", label: "Projekt, resurser eller projektmarginaler är svåra att styra", needs: ["projects"] },
+  { id: "duplicate_entry", label: "Information registreras flera gånger i olika system", needs: ["erp"] },
   { id: "unsure", label: "Vi är osäkra", exclusive: true },
 ];
 
@@ -193,7 +199,7 @@ export const QUESTIONS: Question[] = [
   },
 ];
 
-/** Produktmoduler (tom i Sprint 1). */
+/** Produktmoduler registreras i MODULES (src/lib/systemval/modules). */
 export interface NeedModule {
   id: string;
   /** Modulen är aktiv när detta returnerar true. */
@@ -201,5 +207,6 @@ export interface NeedModule {
   /** Gemensamma frågor modulen behöver (t.ex. "change_intent"). */
   requestsCommon?: (c: DialogContext) => string[];
   questions: Question[];
+  /** Deterministisk modulbedömning utifrån aktiva svar. */
+  evaluate?: (c: DialogContext) => unknown;
 }
-export const MODULES: NeedModule[] = [];
