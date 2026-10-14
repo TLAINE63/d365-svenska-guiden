@@ -8,6 +8,7 @@ import type { DialogState } from "./engine";
 import type { ErpResult } from "./modules/erp";
 import { Q } from "./modules/erp";
 import type { SvcResult } from "./modules/service";
+import type { PoResult } from "./modules/projectOperations";
 
 export const SOLUTIONS_VERSION = "solutions-1.0.0";
 
@@ -38,7 +39,7 @@ export const SOLUTION_INFO: Record<SolutionId, { label: string; href: string; ct
 
 /** core = direkt uttryckt behov, cross = korsbehov i svaren, hint = indikation utan tillräckligt underlag. */
 type Kind = "core" | "cross" | "hint";
-interface Signal { id: SolutionId; kind: Kind; weight: number; reason: string; need?: NeedArea; fromSvc?: boolean }
+interface Signal { id: SolutionId; kind: Kind; weight: number; reason: string; need?: NeedArea; fromSvc?: boolean; fromPo?: boolean; source?: string }
 
 export interface SolutionItem { id: SolutionId; label: string; href: string; cta: string; reasons: string[]; text?: string }
 export interface NextStep { label: string; href: string; reason: string; kind: "compare" | "deepen_product" | "plan" | "partners" | "deepen_analysis" }
@@ -81,7 +82,13 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult, svcArg
   const probs = state.problems;
   const sig: Signal[] = [];
   // Servicemodulen äger bedömningen av Customer Service, Contact Center och Field Service.
-  const add = (s: Signal) => { if (!(svc && SVC_IDS.includes(s.id) && !s.fromSvc)) sig.push(s); };
+  const po = state.moduleResults.projects as PoResult | undefined;
+  // Project Operations-modulen äger bedömningen av Project Operations när den är aktiv.
+  const add = (s: Signal) => {
+    if (svc && SVC_IDS.includes(s.id) && !s.fromSvc) return;
+    if (po && s.id === "po" && !s.fromPo) return;
+    sig.push(s);
+  };
 
   // --- Kärnbehov från behov/problem ---
   for (const n of needs) {
@@ -123,6 +130,14 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult, svcArg
     for (const t of svc.investigateTracks) add({ id: t, kind: "hint", weight: 1, reason: svc.reasons[t][0] ?? "Svaren ger en indikation, men inget tydligt behov ännu.", fromSvc: true });
   }
 
+  // --- Project Operations från modulens bedömning ---
+  if (po) {
+    const rs = po.reasons.length ? po.reasons : ["Era svar om projektverksamheten pekar hit."];
+    if (po.preliminaryOutcome === "po") rs.forEach((r, j) => add({ id: "po", kind: "core", weight: j === 0 ? 3 : 0, need: "projects", reason: r, fromPo: true }));
+    else if (po.preliminaryOutcome === "erp_boundary" || po.preliminaryOutcome === "limited")
+      add({ id: "po", kind: "hint", weight: 1, reason: rs[0], fromPo: true });
+  }
+
   // --- Korsbehov mellan CRM-områden ---
   if (needs.includes("customer_service") && (needs.includes("field_service") === false) && probs.includes("technicians"))
     add({ id: "fs", kind: "cross", weight: 2, reason: "Kundservice och arbete ute hos kund behöver dela information." });
@@ -156,7 +171,16 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult, svcArg
   const erpIds = erp ? erpProducts(erp) : [];
 
   let primaryIds: SolutionId[];
-  if (state.primaryNeed) {
+  if (state.prioritySetting === "equal") {
+    // Flera lika viktiga: ett huvudspår per uttryckt behovsområde (ERP-paret räknas som ett).
+    primaryIds = [];
+    for (const n of needs) {
+      if (ERP_NEEDS.includes(n)) { if (!primaryIds.some((id) => erpIds.includes(id))) primaryIds.push(...erpIds); continue; }
+      const id = coreIds.filter((x) => coreNeedOf(x) === n).sort((a, b) => score(b) - score(a))[0];
+      if (id) primaryIds.push(id);
+    }
+    if (!primaryIds.length) primaryIds = coreIds.sort((a, b) => score(b) - score(a)).slice(0, 2);
+  } else if (state.primaryNeed) {
     const pn = state.primaryNeed;
     primaryIds = ERP_NEEDS.includes(pn) ? erpIds : coreIds.filter((id) => coreNeedOf(id) === pn).slice(0, 1);
     if (!primaryIds.length) primaryIds = coreIds.sort((a, b) => score(b) - score(a)).slice(0, 1);
