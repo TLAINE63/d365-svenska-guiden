@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronDown, Pencil, RotateCcw, Puzzle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,12 @@ interface Props {
   onEdit: (index: number) => void;
   onRestart: () => void;
   onNextStep?: (kind: string) => void;
+  onDeepen?: () => void;
+  deepSlot?: ReactNode;
 }
 
 /** Sprint 3: preliminär lösningsbild. Visar aldrig poäng eller regel-id. */
-export default function SolutionResultView({ picture: p, erp, answers, onEdit, onRestart, onNextStep }: Props) {
+export default function SolutionResultView({ picture: p, erp, answers, onEdit, onRestart, onNextStep, onDeepen, deepSlot }: Props) {
   const [why, setWhy] = useState(false);
   const start = erp?.selectedProductStartingPoint ? PRODUCT_LABEL[erp.selectedProductStartingPoint] : null;
   const driver = erp ? driverLabel(erp) : null;
@@ -132,6 +134,14 @@ export default function SolutionResultView({ picture: p, erp, answers, onEdit, o
           <Link to={p.nextStep.href} onClick={() => onNextStep?.(p.nextStep.kind)}>{p.nextStep.label}<ArrowRight className="h-4 w-4 ml-1" /></Link>
         </Button>
       </div>
+
+      {deepSlot ?? (onDeepen && (
+        <div className="rounded-xl border border-border bg-muted/50 p-5">
+          <h2 className="font-semibold text-foreground">Vill ni gå ett steg längre?</h2>
+          <p className="mt-1 text-sm text-muted-foreground">En kort, frivillig fördjupning om just era lösningsområden. Era svar följer med, och ni får förslag på vad ni bör besluta om härnäst.</p>
+          <Button variant="outline" className="mt-3" onClick={onDeepen}>Fördjupa analysen<ArrowRight className="h-4 w-4 ml-1" /></Button>
+        </div>
+      ))}
 
       {erp && erp.reasons.length > 0 && (
         <div>
