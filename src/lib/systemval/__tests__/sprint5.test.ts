@@ -182,6 +182,13 @@ describe("Sprint 5: Project Operations och lösningskarta", () => {
     expect(s.currentPathQuestionCount).toBeLessThanOrEqual(10);
   });
 
+  it("ERP-projektfunktioner och Project Operations som alternativ i gränsfall", () => {
+    const { m, po } = walk({ ...N("erp", "projects"), priority: ["erp"], ...ERP_SIMPLE, [PQ.TYPE]: ["consulting"], [PQ.SCOPE]: ["delivery", "time"], [PQ.NOW]: ["erp"] }, "alt");
+    expect(po?.preliminaryOutcome).toBe("erp_boundary");
+    expect(m.alternatives.map((a) => a.options.map((o) => o.id))).toContainEqual(["erp_projects", "po"]);
+    expect(ids(m.complements)).not.toContain("po");
+  });
+
   it("samma svar ger samma lösningskarta", () => {
     const a = walk({ ...N("erp", "projects"), priority: ["erp"], ...ERP_SIMPLE, ...PO_BROAD }, "det-a").m;
     const b = walk({ ...N("erp", "projects"), priority: ["erp"], ...ERP_SIMPLE, ...PO_BROAD }, "det-b").m;
