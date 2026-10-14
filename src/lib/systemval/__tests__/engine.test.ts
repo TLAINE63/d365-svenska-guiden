@@ -90,7 +90,7 @@ describe("systemval dialog engine", () => {
 
   it("product universe is limited and contains no AI questions", () => {
     expect(PRODUCTS.map((p) => p.label)).toEqual([
-      "Business Central", "Finance & Supply Chain Management", "Sales", "Customer Insights",
+      "Business Central", "Finance & Supply Chain Management", "Sales", "Customer Insights (Marketing)",
       "Customer Service", "Contact Center", "Field Service", "Project Operations",
     ]);
     expect(QUESTIONS.some((q) => typeof q.text === "string" && /AI|Copilot|agent/i.test(q.text))).toBe(false);

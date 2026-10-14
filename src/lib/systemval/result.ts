@@ -139,7 +139,7 @@ const INTENT_TEXT: Record<string, string> = {
   integrate: "Ni vill koppla ihop system som ska finnas kvar.",
 };
 const PRODUCT_START_LABEL: Record<string, string> = {
-  bc: "Business Central", fscm: "Finance & Supply Chain Management", sales: "Sales", ci: "Customer Insights",
+  bc: "Business Central", fscm: "Finance & Supply Chain Management", sales: "Sales", ci: "Customer Insights (Marketing)",
   cs: "Customer Service", cc: "Contact Center", fs: "Field Service", po: "Project Operations",
 };
 

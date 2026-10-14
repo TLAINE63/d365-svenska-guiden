@@ -37,7 +37,7 @@ export const PRODUCTS: { id: ProductKey; label: string }[] = [
   { id: "bc", label: "Business Central" },
   { id: "fscm", label: "Finance & Supply Chain Management" },
   { id: "sales", label: "Sales" },
-  { id: "ci", label: "Customer Insights" },
+  { id: "ci", label: "Customer Insights (Marketing)" },
   { id: "cs", label: "Customer Service" },
   { id: "cc", label: "Contact Center" },
   { id: "fs", label: "Field Service" },
