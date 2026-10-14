@@ -23,7 +23,7 @@ export const SOLUTION_INFO: Record<SolutionId, { label: string; href: string; ct
   scm: { label: `${D} Supply Chain Management`, href: "/finance-supply-chain/", cta: "Utforska Supply Chain Management" },
   fscm: { label: `${D} Finance & Supply Chain Management`, href: "/finance-supply-chain/", cta: "Utforska Finance & Supply Chain Management" },
   sales: { label: `${D} Sales`, href: "/d365sales/", cta: `Läs om ${D} Sales` },
-  ci: { label: `${D} Customer Insights`, href: "/d365marketing/", cta: "Läs om Customer Insights" },
+  ci: { label: `${D} Customer Insights (Marketing)`, href: "/d365marketing/", cta: "Läs om Customer Insights" },
   cs: { label: `${D} Customer Service`, href: "/d365customerservice/", cta: "Läs om Customer Service" },
   cc: { label: `${D} Contact Center`, href: "/d365contactcenter/", cta: "Läs om Contact Center" },
   fs: { label: `${D} Field Service`, href: "/d365fieldservice/", cta: "Läs om Field Service" },
