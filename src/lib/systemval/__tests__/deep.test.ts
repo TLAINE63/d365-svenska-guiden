@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { answer, deriveState, emptyInput, type DialogInput } from "../engine";
 import { Q, type ErpResult } from "../modules/erp";
 import { buildSolutionPicture } from "../solutions";
-import { DEEP_MAX, deriveDeep, evaluateDeep } from "../deep";
+import { DEEP_MAX, DEEP_QUESTIONS, deepContext, deriveDeep, evaluateDeep, resolveDeepOptions } from "../deep";
 
 function base(script: Record<string, string[]>) {
   let i: DialogInput = emptyInput();
@@ -12,7 +12,7 @@ function base(script: Record<string, string[]>) {
 }
 function deep(b: ReturnType<typeof base>, script: Record<string, string[]>) {
   const ans: Record<string, string[]> = {}; const asked: string[] = [];
-  for (let n = 0; n < 20; n++) { const d = deriveDeep(b.p, b.s, ans); if (!d.next) break; asked.push(d.next); ans[d.next] = script[d.next] ?? ["unknown"]; }
+  for (let n = 0; n < 20; n++) { const d = deriveDeep(b.p, b.s, ans); if (!d.next) break; asked.push(d.next); const q = DEEP_QUESTIONS.find((x) => x.id === d.next)!; const opts = resolveDeepOptions(q, deepContext(b.p, b.s, ans)).map((o) => o.id); ans[d.next] = script[d.next] ?? [opts.includes("unknown") ? "unknown" : opts[0]]; }
   return { asked, r: evaluateDeep(b.p, b.s, b.erp, deriveDeep(b.p, b.s, ans).answers) };
 }
 
