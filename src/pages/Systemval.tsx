@@ -10,9 +10,17 @@ import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOption
 import type { ErpResult } from "@/lib/systemval/modules/erp";
 import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
+import DeepDialog from "@/components/systemval/DeepDialog";
+import DeepResultSection from "@/components/systemval/DeepResultSection";
+import { DEEP_VERSION, deriveDeep, evaluateDeep } from "@/lib/systemval/deep";
 import { trackSystemval } from "@/lib/systemval/analytics";
 
 const STORAGE_KEY = "d365_systemval_v1";
+const DEEP_KEY = "d365_systemval_deep_v1";
+const HANDOVER_KEY = "d365_systemval_handover_v1";
+const loadDeep = (): Record<string, string[]> => {
+  try { const p = JSON.parse(localStorage.getItem(DEEP_KEY) ?? "null"); return p?.version === DEEP_VERSION ? p.answers : {}; } catch { return {}; }
+};
 
 const load = (): DialogInput => {
   if (typeof window === "undefined") return emptyInput();
@@ -34,6 +42,10 @@ export default function Systemval() {
   const [cursor, setCursor] = useState(0);
   const [draft, setDraft] = useState<string[]>([]);
   const [debug, setDebug] = useState(false);
+  const [deepAnswers, setDeepAnswers] = useState<Record<string, string[]>>({});
+  const [deepMode, setDeepMode] = useState<null | { startAt?: number }>(null);
+  useEffect(() => { setDeepAnswers(loadDeep()); }, []);
+  useEffect(() => { try { localStorage.setItem(DEEP_KEY, JSON.stringify({ version: DEEP_VERSION, answers: deepAnswers })); } catch { /* ignore */ } }, [deepAnswers]);
 
   useEffect(() => { const i = load(); setInput(i); setCursor(deriveState(i).path.length); }, []);
   useEffect(() => { setDebug(debugAllowed() && params.get("debug") === "1"); }, [params]);
@@ -64,6 +76,9 @@ export default function Systemval() {
   useEffect(() => {
     if (picture) trackSystemval("solution_result_shown", { primary: picture.primary.map((p) => p.id).join(","), next: picture.nextStep.kind });
   }, [picture?.nextStep.kind, picture?.primary.map((p) => p.id).join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
+  const deepState = useMemo(() => (picture ? deriveDeep(picture, state, deepAnswers) : null), [picture, state, deepAnswers]);
+  const deepResult = useMemo(() => (picture && deepState && !deepState.next && deepState.path.length ? evaluateDeep(picture, state, erp, deepState.answers) : null), [picture, deepState, state, erp]);
+  useEffect(() => { if (deepResult) { try { localStorage.setItem(HANDOVER_KEY, JSON.stringify(deepResult.handover)); } catch { /* ignore */ } } }, [deepResult]);
   const tracked = useRef({ started: false, shown: "", result: "" });
   useEffect(() => {
     if (erp && !tracked.current.started) { tracked.current.started = true; trackSystemval("erp_module_started"); }
@@ -89,7 +104,7 @@ export default function Systemval() {
     setCursor(pos + 1);
   };
   const back = () => setCursor(Math.max(0, pos - 1));
-  const restart = () => { setInput(emptyInput()); setCursor(0); };
+  const restart = () => { setInput(emptyInput()); setCursor(0); setDeepAnswers({}); setDeepMode(null); };
 
   const isEntry = questionId === "entry";
   const shownNumber = state.path.slice(0, pos).filter((id) => getQuestion(id)?.countsTowardBudget).length + 1;
@@ -164,8 +179,22 @@ export default function Systemval() {
             </section>
           )}
 
-          {!question && picture && (
+          {!question && picture && deepMode && (
+            <DeepDialog
+              picture={picture}
+              state={state}
+              answers={deepAnswers}
+              startAt={deepMode.startAt}
+              onAnswer={(id, v) => setDeepAnswers((p) => ({ ...p, [id]: v }))}
+              onExit={() => setDeepMode(null)}
+              onDone={() => { setDeepMode(null); trackSystemval("deep_completed"); }}
+            />
+          )}
+
+          {!question && picture && !deepMode && (
             <SolutionResultView
+              onDeepen={() => { trackSystemval("deep_started"); setDeepMode({}); }}
+              deepSlot={deepResult ? <DeepResultSection result={deepResult} onEdit={() => setDeepMode({ startAt: 0 })} onNextStep={(kind) => trackSystemval("next_step_clicked", { kind, deep: true })} /> : undefined}
               picture={picture}
               erp={erp}
               answers={summary}
@@ -214,6 +243,7 @@ export default function Systemval() {
                   existingSolutionInvestigation: erp.existingSolutionInvestigation, activatedRules: erp.activatedRules,
                   preliminaryOutcome: erp.preliminaryOutcome, fscmDriver: erp.fscmDriver, clarity: erp.clarity, rulesVersion: erp.rulesVersion,
                 } : "ERP-modulen inte aktiverad",
+                deep: deepState ? { path: deepState.path, next: deepState.next, handover: deepResult?.handover ?? null } : null,
                 solutions: picture ? { primary: picture.primary.map((p) => p.id), complementary: picture.complementary.map((p) => p.id), investigate: picture.investigate.map((p) => p.id), addOn: picture.addOn, nextStep: picture.nextStep.kind, signals: picture.signals.map((x) => `${x.id}:${x.kind}:${x.weight}`) } : null,
               }, null, 2)}</pre>
             </aside>
