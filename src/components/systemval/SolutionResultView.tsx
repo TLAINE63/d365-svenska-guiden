@@ -19,10 +19,11 @@ interface Props {
   onNextStep?: (kind: string) => void;
   onDeepen?: () => void;
   deepSlot?: ReactNode;
+  mapSlot?: ReactNode;
 }
 
 /** Sprint 3: preliminär lösningsbild. Visar aldrig poäng eller regel-id. */
-export default function SolutionResultView({ picture: p, erp, svc, answers, onEdit, onRestart, onNextStep, onDeepen, deepSlot }: Props) {
+export default function SolutionResultView({ picture: p, erp, svc, answers, onEdit, onRestart, onNextStep, onDeepen, deepSlot, mapSlot }: Props) {
   const [why, setWhy] = useState(false);
   const [whySvc, setWhySvc] = useState(false);
   const svcReasons = svc ? [...new Set([...svc.customerServiceSignals, ...svc.contactCenterSignals, ...svc.fieldServiceSignals, ...svc.integrationSignals, ...svc.combinationSignals].map((x) => x.reason))] : [];
@@ -73,6 +74,8 @@ export default function SolutionResultView({ picture: p, erp, svc, answers, onEd
           </div>
         </div>
       )}
+
+      {mapSlot}
 
       {p.complementary.length > 0 && (
         <div>

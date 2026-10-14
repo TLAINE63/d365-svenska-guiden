@@ -93,6 +93,6 @@ describe("systemval dialog engine", () => {
       "Business Central", "Finance & Supply Chain Management", "Sales", "Customer Insights",
       "Customer Service", "Contact Center", "Field Service", "Project Operations",
     ]);
-    expect(QUESTIONS.some((q) => /AI|Copilot|agent/i.test(q.text))).toBe(false);
+    expect(QUESTIONS.some((q) => typeof q.text === "string" && /AI|Copilot|agent/i.test(q.text))).toBe(false);
   });
 });

@@ -11,6 +11,9 @@ import type { ErpResult } from "@/lib/systemval/modules/erp";
 import type { SvcResult } from "@/lib/systemval/modules/service";
 import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
+import { buildSolutionMap } from "@/lib/systemval/solutionMap";
+import SolutionMapSection from "@/components/systemval/SolutionMapSection";
+import type { PoResult } from "@/lib/systemval/modules/projectOperations";
 import DeepDialog from "@/components/systemval/DeepDialog";
 import DeepResultSection from "@/components/systemval/DeepResultSection";
 import { DEEP_VERSION, deriveDeep, evaluateDeep } from "@/lib/systemval/deep";
@@ -67,6 +70,8 @@ export default function Systemval() {
   const erp = state.moduleResults.erp as ErpResult | undefined;
   const svc = state.moduleResults.service as SvcResult | undefined;
   const picture = useMemo(() => (question ? null : buildSolutionPicture(state, erp)), [question, state, erp]);
+  const solutionMap = useMemo(() => (picture ? buildSolutionMap(state, picture) : null), [picture, state]);
+  const po = state.moduleResults.projects as PoResult | undefined;
   const summary: AnswerSummaryItem[] = useMemo(() => state.path.map((id, index) => {
     const q = getQuestion(id);
     if (!q) return null;
@@ -198,6 +203,7 @@ export default function Systemval() {
               onDeepen={() => { trackSystemval("deep_started"); setDeepMode({}); }}
               deepSlot={deepResult ? <DeepResultSection result={deepResult} onEdit={() => setDeepMode({ startAt: 0 })} onNextStep={(kind) => trackSystemval("next_step_clicked", { kind, deep: true })} /> : undefined}
               picture={picture}
+              mapSlot={solutionMap ? <SolutionMapSection map={solutionMap} /> : undefined}
               erp={erp}
               svc={svc}
               answers={summary}
@@ -254,6 +260,8 @@ export default function Systemval() {
                   preliminaryOutcome: svc.preliminaryOutcome, clarity: svc.clarity, rulesVersion: svc.rulesVersion,
                 } : "Servicemodulen inte aktiverad",
                 deep: deepState ? { path: deepState.path, next: deepState.next, handover: deepResult?.handover ?? null } : null,
+                projects: po ? { projectOperationsSignals: po.projectOperationsSignals.map((x) => x.rule), projectLifecycleSignals: po.projectLifecycleSignals.map((x) => x.rule), resourcePlanningSignals: po.resourcePlanningSignals.map((x) => x.rule), projectErpOverlap: po.projectErpOverlap, projectSalesDependency: po.projectSalesDependency, keepExistingTool: po.keepExistingTool, preliminaryOutcome: po.preliminaryOutcome, rulesVersion: po.rulesVersion } : "Project Operations-modulen inte aktiverad",
+                solutionMap: solutionMap?.debug ?? null,
                 solutions: picture ? { primary: picture.primary.map((p) => p.id), complementary: picture.complementary.map((p) => p.id), investigate: picture.investigate.map((p) => p.id), addOn: picture.addOn, nextStep: picture.nextStep.kind, signals: picture.signals.map((x) => `${x.id}:${x.kind}:${x.weight}`) } : null,
               }, null, 2)}</pre>
             </aside>
