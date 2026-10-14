@@ -40,6 +40,7 @@ import NeedsAnalysis from './pages/NeedsAnalysis';
 import SalesMarketingNeedsAnalysis from './pages/SalesMarketingNeedsAnalysis';
 import CustomerServiceNeedsAnalysis from './pages/CustomerServiceNeedsAnalysis';
 import KomIgang from './pages/KomIgang';
+import Systemval from './pages/Systemval';
 import Branschlosningar from './pages/Branschlosningar';
 import Branscher from './pages/Branscher';
 import IndustryPage from './pages/IndustryPage';
@@ -555,7 +556,8 @@ export function render(url: string) {
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
               <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
-              <Route path="/kom-igang" element={<KomIgang />} />
+              <Route path="/kom-igang" element={<Systemval />} />
+              <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
               <Route path="/partnerprogram" element={<Partnerprogram />} />
               <Route path="/basic/:slug" element={<PartnerBasicProfile initialData={basicInitialData} />} />
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
