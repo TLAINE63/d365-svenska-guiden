@@ -48,7 +48,7 @@ describe("ERP-modulen (Sprint 2)", () => {
   });
 
   it("T4 avancerad ekonomi och operationer ger båda drivkrafterna", () => {
-    const r = walk({ ...needs("erp", "production", "supply_chain"), [Q.ERP1]: ["finance", "production", "logistics"], [Q.ERP2]: ["adv_control", "intercompany"], [Q.ERP4]: ["adv_planning", "combination"], [Q.ERP3]: ["complex_flows", "transport"], change_intent: ["consolidate"] });
+    const r = walk({ ...needs("erp", "production", "supply_chain"), [Q.ERP1]: ["finance", "production", "logistics"], [Q.ERP2]: ["adv_control", "intercompany"], [Q.ERP4]: ["adv_planning", "combination"], [Q.ERP3]: ["complex_flows", "transport"], change_intent: ["consolidate"], [Q.ERP6]: ["several"] });
     log("T4", r);
     expect(r.erp.preliminaryOutcome).toBe("fscm");
     expect(r.erp.fscmDriver).toBe("both");
