@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, RotateCcw } from "lucide-react";
-import { CONFIG_VERSION, MAX_QUESTIONS, NEED_AREAS, PRODUCTS, PROBLEM_OPTIONS } from "@/lib/systemval/config";
+import { CONFIG_VERSION, MAX_QUESTIONS } from "@/lib/systemval/config";
 import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOptions, resolveText, toggleMulti, type DialogInput } from "@/lib/systemval/engine";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
-import ErpResultView from "@/components/systemval/ErpResultView";
+import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
+import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import { trackSystemval } from "@/lib/systemval/analytics";
 
 const STORAGE_KEY = "d365_systemval_v1";
@@ -26,7 +27,6 @@ const debugAllowed = () =>
   import.meta.env.DEV ||
   (typeof window !== "undefined" && /localhost|id-preview--|lovableproject\.com/.test(window.location.hostname));
 
-const needLabel = (id: string) => NEED_AREAS.find((a) => a.id === id)?.label ?? id;
 
 export default function Systemval() {
   const [params] = useSearchParams();
@@ -52,6 +52,18 @@ export default function Systemval() {
   }, [questionId, pos]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const erp = state.moduleResults.erp as ErpResult | undefined;
+  const picture = useMemo(() => (question ? null : buildSolutionPicture(state, erp)), [question, state, erp]);
+  const summary: AnswerSummaryItem[] = useMemo(() => state.path.map((id, index) => {
+    const q = getQuestion(id);
+    if (!q) return null;
+    const c = contextFor(input, id);
+    const opts = resolveOptions(q, c);
+    const vals = state.activeAnswers[id] ?? [];
+    return { index, question: resolveText(q, c), answer: vals.map((v) => opts.find((o) => o.id === v)?.label ?? v).join(", ") };
+  }).filter(Boolean) as AnswerSummaryItem[], [state, input]);
+  useEffect(() => {
+    if (picture) trackSystemval("solution_result_shown", { primary: picture.primary.map((p) => p.id).join(","), next: picture.nextStep.kind });
+  }, [picture?.nextStep.kind, picture?.primary.map((p) => p.id).join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
   const tracked = useRef({ started: false, shown: "", result: "" });
   useEffect(() => {
     if (erp && !tracked.current.started) { tracked.current.started = true; trackSystemval("erp_module_started"); }
@@ -152,35 +164,15 @@ export default function Systemval() {
             </section>
           )}
 
-          {!question && erp && (
-            <ErpResultView result={erp} onBack={back} onRestart={restart} />
-          )}
-
-          {!question && !erp && (
-            <section aria-labelledby="done-title">
-              <h1 id="done-title" className="text-2xl sm:text-3xl font-semibold text-foreground mb-3">Det här har ni berättat</h1>
-              <p className="text-muted-foreground mb-5">
-                Det här är en sammanfattning av era svar, inte en rekommendation. Fördjupningsfrågorna för varje område läggs till stegvis.
-              </p>
-              <ul className="space-y-2 text-foreground">
-                {state.productStart && state.productStart !== "unsure" && (
-                  <li><strong>Er valda utgångspunkt:</strong> {PRODUCTS.find((p) => p.id === state.productStart)?.label}</li>
-                )}
-                {state.problems.length > 0 && (
-                  <li><strong>Problem ni känner igen:</strong> {state.problems.map((p) => PROBLEM_OPTIONS.find((o) => o.id === p)?.label).join("; ")}</li>
-                )}
-                {state.needs.length > 0 && (
-                  <li><strong>Områden:</strong> {state.needs.map(needLabel).join(", ")}</li>
-                )}
-                {state.primaryNeed && <li><strong>Viktigast att börja med:</strong> {needLabel(state.primaryNeed)}</li>}
-                {state.prioritySetting === "equal" && <li><strong>Prioritering:</strong> Flera är lika viktiga</li>}
-              </ul>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button variant="outline" onClick={back}><ArrowLeft className="h-4 w-4 mr-1" />Ändra svar</Button>
-                <Button asChild><Link to="/kom-igang/">Fortsätt i behovsguiden</Link></Button>
-                <Button variant="ghost" onClick={restart}><RotateCcw className="h-4 w-4 mr-1" />Börja om</Button>
-              </div>
-            </section>
+          {!question && picture && (
+            <SolutionResultView
+              picture={picture}
+              erp={erp}
+              answers={summary}
+              onEdit={(i) => setCursor(i)}
+              onRestart={restart}
+              onNextStep={(kind) => trackSystemval("next_step_clicked", { kind })}
+            />
           )}
 
           {debug && (
@@ -222,6 +214,7 @@ export default function Systemval() {
                   existingSolutionInvestigation: erp.existingSolutionInvestigation, activatedRules: erp.activatedRules,
                   preliminaryOutcome: erp.preliminaryOutcome, fscmDriver: erp.fscmDriver, clarity: erp.clarity, rulesVersion: erp.rulesVersion,
                 } : "ERP-modulen inte aktiverad",
+                solutions: picture ? { primary: picture.primary.map((p) => p.id), complementary: picture.complementary.map((p) => p.id), investigate: picture.investigate.map((p) => p.id), addOn: picture.addOn, nextStep: picture.nextStep.kind, signals: picture.signals.map((x) => `${x.id}:${x.kind}:${x.weight}`) } : null,
               }, null, 2)}</pre>
             </aside>
           )}
