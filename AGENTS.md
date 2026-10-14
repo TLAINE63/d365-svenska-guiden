@@ -30,6 +30,6 @@
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
 - Scope index.html critical CSS to navigation; bare CTA selectors override content styles site-wide.
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
-- ISV reseller links confirm published/basic profiles via public hooks to avoid dead links.
-- Read subdir AGENTS.md first. Partner cards share PartnerCardHeader for accessible identity links.
-- Buyer funnel in funnel-stats groups by anonymous localStorage journey_id (fallback session_id) so returning visitors count as one journey without PII.
+- ISV reseller links verify profiles via public hooks (no dead links).
+- Read subdir AGENTS.md first. Partner cards use PartnerCardHeader for identity links.
+- Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
