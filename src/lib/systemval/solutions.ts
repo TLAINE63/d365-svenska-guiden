@@ -7,6 +7,7 @@ import { NEED_AREAS, type NeedArea } from "./config";
 import type { DialogState } from "./engine";
 import type { ErpResult } from "./modules/erp";
 import { Q } from "./modules/erp";
+import type { SvcResult } from "./modules/service";
 
 export const SOLUTIONS_VERSION = "solutions-1.0.0";
 
@@ -37,7 +38,7 @@ export const SOLUTION_INFO: Record<SolutionId, { label: string; href: string; ct
 
 /** core = direkt uttryckt behov, cross = korsbehov i svaren, hint = indikation utan tillräckligt underlag. */
 type Kind = "core" | "cross" | "hint";
-interface Signal { id: SolutionId; kind: Kind; weight: number; reason: string; need?: NeedArea }
+interface Signal { id: SolutionId; kind: Kind; weight: number; reason: string; need?: NeedArea; fromSvc?: boolean }
 
 export interface SolutionItem { id: SolutionId; label: string; href: string; cta: string; reasons: string[]; text?: string }
 export interface NextStep { label: string; href: string; reason: string; kind: "compare" | "deepen_product" | "plan" | "partners" | "deepen_analysis" }
@@ -71,13 +72,16 @@ function erpProducts(erp: ErpResult): SolutionId[] {
   return [];
 }
 
-export function buildSolutionPicture(state: DialogState, erp?: ErpResult): SolutionPicture {
+export function buildSolutionPicture(state: DialogState, erp?: ErpResult, svcArg?: SvcResult): SolutionPicture {
+  const svc = svcArg ?? (state.moduleResults.service as SvcResult | undefined);
+  const SVC_IDS: SolutionId[] = ["cs", "cc", "fs"];
   const ans = state.activeAnswers;
   const has = (q: string, ...ids: string[]) => ids.some((v) => (ans[q] ?? []).includes(v));
   const needs = state.needs;
   const probs = state.problems;
   const sig: Signal[] = [];
-  const add = (s: Signal) => sig.push(s);
+  // Servicemodulen äger bedömningen av Customer Service, Contact Center och Field Service.
+  const add = (s: Signal) => { if (!(svc && SVC_IDS.includes(s.id) && !s.fromSvc)) sig.push(s); };
 
   // --- Kärnbehov från behov/problem ---
   for (const n of needs) {
@@ -107,6 +111,16 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult): Solut
     if (has(Q.ERP1, "service")) add({ id: "fs", kind: needs.includes("customer_service") ? "cross" : "hint", weight: needs.includes("customer_service") ? 2 : 1, reason: "Service och eftermarknad ska hållas ihop med affärssystemet." });
     if (has(Q.ERP2, "adv_control", "dimensions")) add({ id: "powerbi", kind: "hint", weight: 1, reason: "Avancerad uppföljning kan behöva rapportering och analys utöver standard." });
     if (has(Q.ERP3, "high_volume") || has(Q.ERP6, "several")) add({ id: "fabric", kind: "hint", weight: 1, reason: "Stora datamängder eller flera system kan kräva en gemensam dataplattform." });
+  }
+
+  // --- Service & kunddialog från modulens bedömning ---
+  if (svc) {
+    const NEED: Record<string, NeedArea> = { cs: "customer_service", cc: "contact_center", fs: "field_service" };
+    svc.tracks.forEach((t, i) => {
+      const rs = svc.reasons[t].length ? [...new Set(svc.reasons[t])] : ["Era svar om servicearbetet pekar hit."];
+      rs.forEach((r, j) => add({ id: t, kind: "core", weight: j === 0 ? (i === 0 ? 4 : 3) : 0, need: NEED[t], reason: r, fromSvc: true }));
+    });
+    for (const t of svc.investigateTracks) add({ id: t, kind: "hint", weight: 1, reason: svc.reasons[t][0] ?? "Svaren ger en indikation, men inget tydligt behov ännu.", fromSvc: true });
   }
 
   // --- Korsbehov mellan CRM-områden ---
@@ -192,11 +206,12 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult): Solut
   const oq: string[] = [];
   const push = (s?: string) => { if (s && !oq.includes(s) && oq.length < 4) oq.push(s); };
   erp?.openQuestions.slice(0, 2).forEach(push);
+  svc?.openQuestions.slice(0, 2).forEach(push);
   const all = new Set([...primaryIds, ...complementary]);
   const hasErp = erpIds.length > 0 || !!erp;
   if (hasErp && (all.has("sales") || all.has("ci"))) push("Behöver säljorganisationen ett separat CRM, eller kan behoven hanteras inom den övriga lösningen?");
-  if (all.has("cs") && all.has("cc")) push("Vilka kanaler hör kunderna av sig i idag, och vilka ska ingå från start?");
-  if (all.has("fs")) push("Hur planeras och följs arbetet ute hos kund upp idag?");
+  if (!svc && all.has("cs") && all.has("cc")) push("Vilka kanaler hör kunderna av sig i idag, och vilka ska ingå från start?");
+  if (!svc && all.has("fs")) push("Hur planeras och följs arbetet ute hos kund upp idag?");
   if (all.has("po")) push("Hur stor del av verksamheten är projektbaserad, och hur följs projekten upp idag?");
   if (all.has("ci") && all.has("sales")) push("Hur ska ansvaret mellan marknad och försäljning se ut när ett lead lämnas över?");
   if (addOnAreas.length) push(`Hur långt räcker standardfunktionerna för ${list(addOnAreas)}?`);
@@ -220,11 +235,16 @@ export function buildSolutionPicture(state: DialogState, erp?: ErpResult): Solut
     else if (erp.preliminaryOutcome === "bc") parts.push("Affärssystemsbehoven verkar kunna hanteras i ett sammanhållet affärssystem.");
     else parts.push("Underlaget om affärssystemet behöver fördjupas innan ett spår kan pekas ut.");
   }
+  if (svc) {
+    if (svc.clarity === "limited") parts.push("Underlaget om servicearbetet räcker ännu inte för att peka ut ett spår.");
+    else if (svc.keepExistingCrm) parts.push("Kanalhanteringen verkar kunna förbättras med Contact Center samtidigt som ert befintliga CRM behålls.");
+    else if (svc.tracks.length > 1) parts.push("Servicebehoven omfattar flera separata delar som kan behöva olika lösningsområden.");
+  }
   const crossNames = complementary.filter((id) => byId.get(id)!.some((s) => s.kind === "cross")).map((id) => SOLUTION_INFO[id].label.replace(`${D} `, ""));
   if (crossNames.length) parts.push(`Svaren visar också behov som berör ${list(crossNames)}.`);
 
   // --- Nästa steg ---
-  const limited = (erp?.preliminaryOutcome === "limited") || (!primaryIds.length);
+  const limited = (erp?.preliminaryOutcome === "limited") || (!primaryIds.length) || (!!svc && svc.clarity === "limited" && !erp);
   const breadth = primaryIds.length + complementary.length;
   const p0 = primaryIds[0];
   const MATCH: Partial<Record<SolutionId, string>> = {

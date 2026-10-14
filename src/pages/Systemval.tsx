@@ -8,6 +8,7 @@ import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { CONFIG_VERSION, MAX_QUESTIONS } from "@/lib/systemval/config";
 import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOptions, resolveText, toggleMulti, type DialogInput } from "@/lib/systemval/engine";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
+import type { SvcResult } from "@/lib/systemval/modules/service";
 import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import DeepDialog from "@/components/systemval/DeepDialog";
@@ -64,6 +65,7 @@ export default function Systemval() {
   }, [questionId, pos]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const erp = state.moduleResults.erp as ErpResult | undefined;
+  const svc = state.moduleResults.service as SvcResult | undefined;
   const picture = useMemo(() => (question ? null : buildSolutionPicture(state, erp)), [question, state, erp]);
   const summary: AnswerSummaryItem[] = useMemo(() => state.path.map((id, index) => {
     const q = getQuestion(id);
@@ -197,6 +199,7 @@ export default function Systemval() {
               deepSlot={deepResult ? <DeepResultSection result={deepResult} onEdit={() => setDeepMode({ startAt: 0 })} onNextStep={(kind) => trackSystemval("next_step_clicked", { kind, deep: true })} /> : undefined}
               picture={picture}
               erp={erp}
+              svc={svc}
               answers={summary}
               onEdit={(i) => setCursor(i)}
               onRestart={restart}
@@ -243,6 +246,13 @@ export default function Systemval() {
                   existingSolutionInvestigation: erp.existingSolutionInvestigation, activatedRules: erp.activatedRules,
                   preliminaryOutcome: erp.preliminaryOutcome, fscmDriver: erp.fscmDriver, clarity: erp.clarity, rulesVersion: erp.rulesVersion,
                 } : "ERP-modulen inte aktiverad",
+                service: svc ? {
+                  customerServiceSignals: svc.customerServiceSignals, contactCenterSignals: svc.contactCenterSignals,
+                  fieldServiceSignals: svc.fieldServiceSignals, integrationSignals: svc.integrationSignals,
+                  combinationSignals: svc.combinationSignals, uncertainties: svc.uncertainties, activatedRules: svc.activatedRules,
+                  nextQuestion: state.nextQuestionId, reasonForNextQuestion: state.nextReason,
+                  preliminaryOutcome: svc.preliminaryOutcome, clarity: svc.clarity, rulesVersion: svc.rulesVersion,
+                } : "Servicemodulen inte aktiverad",
                 deep: deepState ? { path: deepState.path, next: deepState.next, handover: deepResult?.handover ?? null } : null,
                 solutions: picture ? { primary: picture.primary.map((p) => p.id), complementary: picture.complementary.map((p) => p.id), investigate: picture.investigate.map((p) => p.id), addOn: picture.addOn, nextStep: picture.nextStep.kind, signals: picture.signals.map((x) => `${x.id}:${x.kind}:${x.weight}`) } : null,
               }, null, 2)}</pre>
