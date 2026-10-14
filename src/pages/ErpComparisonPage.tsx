@@ -172,7 +172,7 @@ const ErpComparisonPage = () => {
         <ContextualCta
           eyebrow={`${data.productShort} eller ${data.competitor}`}
           heading="Pröva alternativen mot era verkliga behov"
-          text={`Jämförelsen visar skillnaderna. Kom igång-guiden väger dessutom in er bransch, situation och organisation innan ni väljer väg.`}
+          text={`Jämförelsen visar skillnaderna. Behovsguiden väger dessutom in er bransch, situation och organisation innan ni väljer väg.`}
           product={data.productShort}
           source={`comparison:${data.slug}`}
           secondaryLabel={`Läs mer om ${data.productShort}`}
