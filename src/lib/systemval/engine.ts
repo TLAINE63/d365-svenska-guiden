@@ -5,7 +5,6 @@
 import {
   CONFIG_VERSION,
   MAX_QUESTIONS,
-  MODULES,
   PROBLEM_OPTIONS,
   QUESTIONS,
   type DialogContext,
@@ -16,6 +15,7 @@ import {
   type ProductKey,
   type Question,
 } from "./config";
+import { MODULES } from "./modules";
 
 export interface HistoryEvent {
   questionId: string;
@@ -62,6 +62,10 @@ export interface DialogState {
   nextQuestionId: string | null;
   budgetReached: boolean;
   activeModules: string[];
+  /** Resultat från aktiva modulers evaluate(), per modul-id. */
+  moduleResults: Record<string, unknown>;
+  /** Varför nästa fråga valdes (debug). */
+  nextReason: string | null;
   interactionHistory: HistoryEvent[];
   result: FutureResult;
 }
@@ -72,12 +76,16 @@ function allQuestions(modules: NeedModule[]): Question[] {
   return [...QUESTIONS, ...modules.flatMap((m) => m.questions)];
 }
 
+export function resolveText(q: Question, ctx: DialogContext): string {
+  return typeof q.text === "function" ? q.text(ctx) : q.text;
+}
+
 export function resolveOptions(q: Question, ctx: DialogContext): Option[] {
   return typeof q.options === "function" ? q.options(ctx) : q.options;
 }
 
 /** Bygg kontext enbart från svar på aktuell väg. */
-function buildContext(known: Record<string, string[]>, modules: NeedModule[], debugCommon: string[]): DialogContext {
+function buildContext(known: Record<string, string[]>, modules: NeedModule[], debugCommon: string[], questionCount = 0): DialogContext {
   const entry = known.entry?.[0] as EntryKey | undefined;
   const productStart = known.product_start?.[0] as DialogContext["productStart"];
   const problems = (known.problems ?? []).filter((p) => p !== "unsure");
@@ -96,6 +104,7 @@ function buildContext(known: Record<string, string[]>, modules: NeedModule[], de
     entry, needs, primaryNeed, prioritySetting, productStart, problems,
     answers: known,
     requestedCommon: new Set(debugCommon),
+    questionCount,
   };
   for (const m of modules) if (m.activeIf(ctx)) m.requestsCommon?.(ctx).forEach((q) => ctx.requestedCommon.add(q));
   return ctx;
@@ -117,6 +126,7 @@ export function deriveState(input: DialogInput, modules: NeedModule[] = MODULES)
   let next: string | null = null;
   let count = 0;
   let budgetReached = false;
+  let nextReason: string | null = null;
 
   const order = allQuestions(modules);
   // Iterativ routing: välj nästa relevanta fråga utifrån det som är känt hittills.
@@ -130,11 +140,15 @@ export function deriveState(input: DialogInput, modules: NeedModule[] = MODULES)
     if (!q) break;
     if (q.countsTowardBudget && count >= MAX_QUESTIONS) { budgetReached = true; break; }
     const ans = input.answers[q.id];
-    if (!validAnswer(q, ans, ctx)) { next = q.id; break; }
+    if (!validAnswer(q, ans, ctx)) {
+      next = q.id;
+      nextReason = `${q.id}: lägst prioritet (${q.priority}) bland ${candidates.length} relevanta kandidater [${candidates.map((c) => c.id).join(", ")}], modul ${q.module}`;
+      break;
+    }
     path.push(q.id);
     if (q.countsTowardBudget) count++;
     known[q.id] = ans!;
-    ctx = buildContext(known, modules, debugCommon);
+    ctx = buildContext(known, modules, debugCommon, count);
   }
 
   const inactive: Record<string, string[]> = {};
@@ -156,6 +170,8 @@ export function deriveState(input: DialogInput, modules: NeedModule[] = MODULES)
     nextQuestionId: next,
     budgetReached,
     activeModules: modules.filter((m) => m.activeIf(ctx)).map((m) => m.id),
+    moduleResults: Object.fromEntries(modules.filter((m) => m.activeIf(ctx) && m.evaluate).map((m) => [m.id, m.evaluate!(ctx)])),
+    nextReason,
     interactionHistory: input.interactionHistory,
     result: { needsInterpretation: null, mainTrack: [], alternatives: [], complements: [], laterPhase: [], openQuestions: [], recommendedNextStep: null },
   };
@@ -165,8 +181,13 @@ export function deriveState(input: DialogInput, modules: NeedModule[] = MODULES)
 export function contextFor(input: DialogInput, questionId: string, modules: NeedModule[] = MODULES): DialogContext {
   const state = deriveState(input, modules);
   const known: Record<string, string[]> = {};
-  for (const id of state.path) { if (id === questionId) break; known[id] = state.activeAnswers[id]; }
-  return buildContext(known, modules, input.debugRequestCommon ?? []);
+  let n = 0;
+  for (const id of state.path) {
+    if (id === questionId) break;
+    known[id] = state.activeAnswers[id];
+    if (getQuestion(id, modules)?.countsTowardBudget) n++;
+  }
+  return buildContext(known, modules, input.debugRequestCommon ?? [], n);
 }
 
 export function answer(input: DialogInput, questionId: string, values: string[]): DialogInput {
