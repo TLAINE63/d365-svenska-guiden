@@ -6,6 +6,18 @@ import type { SolutionPicture } from "@/lib/systemval/solutions";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
 import { EXISTING_NOTE } from "@/lib/systemval/modules/erpTexts";
 import { CLARITY_LABEL, DEP_LABEL, type Cta, type SystemvalResult } from "@/lib/systemval/result";
+import { getApplicationIcon } from "@/lib/applicationLabels";
+
+/** Produktnamn med officiell Dynamics 365-ikon. */
+function ProductLabel({ label, size = "h-6 w-6" }: { label: string; size?: string }) {
+  const icon = getApplicationIcon(label);
+  return (
+    <span className="inline-flex items-center gap-2 align-middle">
+      {icon && <img src={icon} alt="" aria-hidden className={`${size} shrink-0 object-contain`} loading="lazy" />}
+      <span>{label}</span>
+    </span>
+  );
+}
 
 export interface AnswerSummaryItem { index: number; question: string; answer: string }
 
@@ -55,7 +67,7 @@ export default function SolutionResultView({ picture: p, result: r, erp, answers
           <div className={`mt-3 grid gap-4 ${r.primaryTracks.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {r.primaryTracks.map((t) => (
               <article key={t.id} className="flex flex-col rounded-xl border border-primary/40 bg-primary/5 p-5">
-                <h3 className="text-lg font-semibold text-foreground text-balance">{t.label}</h3>
+                <h3 className="text-lg font-semibold text-foreground text-balance"><ProductLabel label={t.label} size="h-7 w-7" /></h3>
                 {t.explanation && <p className="mt-1 text-sm text-muted-foreground">{t.explanation}</p>}
                 {t.why.length > 0 && (
                   <>
@@ -76,7 +88,14 @@ export default function SolutionResultView({ picture: p, result: r, erp, answers
           <div className="mt-3 grid gap-3">
             {r.alternativeTracks.map((a) => (
               <article key={a.labels.join("|")} className="rounded-xl border border-border bg-card p-4">
-                <h3 className="font-semibold text-foreground text-balance">{a.labels.join(" eller ")}</h3>
+                <h3 className="font-semibold text-foreground text-balance">
+                  {a.labels.map((l, i) => (
+                    <span key={l}>
+                      {i > 0 && " eller "}
+                      <ProductLabel label={l} />
+                    </span>
+                  ))}
+                </h3>
                 <p className="mt-1 text-sm text-muted-foreground">{a.whyBoth}</p>
                 <p className="mt-2 text-sm font-medium text-foreground">Skillnader att utreda</p>
                 <ul className="mt-1 list-disc pl-5 space-y-1 text-sm text-muted-foreground">{a.differences.map((d) => <li key={d}>{d}</li>)}</ul>
@@ -93,7 +112,7 @@ export default function SolutionResultView({ picture: p, result: r, erp, answers
           <div className="mt-3 grid gap-3">
             {[...r.complementaryTracks, ...(more ? r.moreTracks : [])].map((c) => (
               <article key={c.id} className="rounded-xl border border-border bg-card p-4">
-                <h3 className="font-semibold text-foreground">{c.label}</h3>
+                <h3 className="font-semibold text-foreground"><ProductLabel label={c.label} /></h3>
                 <p className="mt-1 text-sm text-muted-foreground">{c.need} {c.whyNotMain} {c.timing}</p>
               </article>
             ))}
