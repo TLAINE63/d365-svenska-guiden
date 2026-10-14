@@ -69,7 +69,7 @@ const OmOss = () => {
             <ul className="space-y-2.5 text-[15px] text-muted-foreground leading-relaxed list-none">
               <li className="flex gap-2.5">
                 <span className="text-[hsl(var(--cta-orange))] font-bold">1.</span>
-                Beskriv vad ni behöver, i guiden Kom igång eller i kompetenssökningen.
+                Beskriv vad ni behöver, i behovsguiden eller i kompetenssökningen.
               </li>
               <li className="flex gap-2.5">
                 <span className="text-[hsl(var(--cta-orange))] font-bold">2.</span>
@@ -146,7 +146,7 @@ const OmOss = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                <Link to="/kom-igang/">Kom igång</Link>
+                <Link to="/kom-igang/">Starta behovsguiden</Link>
               </Button>
               <Button asChild variant="outline">
                 <Link to="/kontakt/">Kontakta oss</Link>

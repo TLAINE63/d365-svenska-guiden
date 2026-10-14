@@ -32,7 +32,7 @@ const ContextualCta = ({
   eyebrow = "Nästa steg",
   heading,
   text,
-  primaryLabel = "Starta Kom igång-guiden",
+  primaryLabel = "Starta behovsguiden",
   secondaryLabel,
   secondaryTo,
   industry,
