@@ -109,7 +109,7 @@ export default function Systemval() {
   const deepState = useMemo(() => (picture ? deriveDeep(picture, state, deepAnswers) : null), [picture, state, deepAnswers]);
   const deepResult = useMemo(() => (picture && deepState && !deepState.next && deepState.path.length ? evaluateDeep(picture, state, erp, deepState.answers) : null), [picture, deepState, state, erp]);
   useEffect(() => { if (deepResult) { try { localStorage.setItem(HANDOVER_KEY, JSON.stringify(deepResult.handover)); } catch { /* ignore */ } } }, [deepResult]);
-  const tracked = useRef({ started: false, shown: "", result: "" });
+  const tracked = useRef({ started: false, guide: false, shown: "", result: "" });
   useEffect(() => {
     if (erp && !tracked.current.started) { tracked.current.started = true; trackSystemval("erp_module_started"); }
     if (question?.module === "erp" && tracked.current.shown !== question.id) {
@@ -127,6 +127,7 @@ export default function Systemval() {
 
   const commit = (values: string[]) => {
     if (!questionId) return;
+    if (!tracked.current.guide) { tracked.current.guide = true; trackSystemval("guide_started"); }
     const prev = input.answers[questionId];
     if (prev && prev.join() !== values.join()) trackSystemval("answer_changed", { question: questionId });
     if (question?.module === "erp") trackSystemval("erp_question_answered", { question: questionId });

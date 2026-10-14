@@ -269,8 +269,9 @@ Deno.serve(async (req) => {
       const stateF: string | null = body?.state || null;
       const STEP_EVENTS: Record<string, string[]> = {
         visit: ["landing"],
-        guide_started: ["kom_igang_start"],
-        guide_completed: ["kom_igang_results"],
+        guide_started: ["kom_igang_start", "systemval_guide_started"],
+        guide_to_plan: ["systemval_plan_transfer"],
+        guide_completed: ["kom_igang_results", "systemval_result"],
         plan_created: ["plan_created"],
         plan_viewed: ["plan_viewed"],
         deep_started: ["needs_analysis_erp", "needs_analysis_sales_marketing", "needs_analysis_customer_service", "kravspec_erp", "kravspec_sales", "kravspec_marketing", "kravspec_customer_service"],
@@ -306,8 +307,11 @@ Deno.serve(async (req) => {
       const sessions = new Map<string, S>();
       const nba = new Map<string, { label: string; viewed: Set<string>; clicked: Set<string> }>();
       for (const r of rows) {
-        let s = sessions.get(r.session_id);
-        if (!s) { s = { steps: new Set(), area: null, state: null, source: r.traffic_source || "direct", landing: r.landing_path || "(okänd)", partners: new Set(), deepDone: false }; sessions.set(r.session_id, s); }
+        const m0 = (r.metadata || {}) as Record<string, any>;
+        // Gruppera per anonym resa (återkommande besök) när den finns, annars per session.
+        const jk = typeof m0.journey_id === "string" && m0.journey_id ? m0.journey_id : r.session_id;
+        let s = sessions.get(jk);
+        if (!s) { s = { steps: new Set(), area: null, state: null, source: r.traffic_source || "direct", landing: r.landing_path || "(okänd)", partners: new Set(), deepDone: false }; sessions.set(jk, s); }
         const m = (r.metadata || {}) as Record<string, any>;
         if (typeof m.main_area === "string") s.area = m.main_area;
         if (typeof m.journey_state === "string") s.state = m.journey_state;
@@ -344,6 +348,7 @@ Deno.serve(async (req) => {
       const funnels = {
         a: seq([(s) => has(s, "guide_started"), (s) => has(s, "plan_created"), (s) => has(s, "deep_started") || has(s, "plan_viewed"), (s) => has(s, "partner_saved"), (s) => has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Behovsguide", "D365-plan", "Fördjupning eller planvisning", "Partner sparad", "Dialog skickad"]),
         b: seq([(s) => has(s, "partner_profile"), (s) => has(s, "partner_saved"), (s) => has(s, "compared"), (s) => has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Partnerprofil", "Kortlista", "Jämförelse", "Partnerförfrågan eller introduktion"]),
+        d: seq([(s) => has(s, "guide_started"), (s) => has(s, "guide_completed"), (s) => has(s, "guide_to_plan") || has(s, "plan_created") || has(s, "plan_viewed"), (s) => has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Startade behovsguiden", "Fick resultat", "Gick till Min D365-plan", "Kontaktade en partner"]),
         c: seq([(s) => has(s, "existing_customer_page") || s.state === "existing_customer", (s) => has(s, "plan_created"), (s) => has(s, "deep_started") || has(s, "plan_viewed"), (s) => has(s, "advisory_submitted") || has(s, "partner_request_submitted") || has(s, "intro_requested")], ["Befintlig kund", "D365-plan", "Fördjupning eller planvisning", "Rådgivning eller partner"]),
       };
       const dropoffs = [
@@ -407,7 +412,10 @@ Deno.serve(async (req) => {
       // Session attributes come from its first event
       const sessions = new Map<string, { landing: string; source: string; device: string; tools: Set<string>; steps: Set<string> }>();
       for (const r of rows) {
-        let s = sessions.get(r.session_id);
+        const m0 = (r.metadata || {}) as Record<string, any>;
+        // Gruppera per anonym resa (återkommande besök) när den finns, annars per session.
+        const jk = typeof m0.journey_id === "string" && m0.journey_id ? m0.journey_id : r.session_id;
+        let s = sessions.get(jk);
         if (!s) {
           s = { landing: r.landing_path || "(okänd)", source: r.traffic_source || "direct", device: r.device || "desktop", tools: new Set(), steps: new Set() };
           sessions.set(r.session_id, s);
