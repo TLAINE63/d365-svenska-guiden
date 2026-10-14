@@ -230,6 +230,16 @@ function planSegment(): { main_area?: string; journey_state?: string } {
   }
 }
 
+/** Anonymt slumpat resa-id i webbläsaren (ingen PII) så att en köpare som återvänder senare räknas som samma resa. */
+function getJourneyId(): string | null {
+  try {
+    const k = "d365_journey_id";
+    let id = localStorage.getItem(k);
+    if (!id) { id = `j-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`; localStorage.setItem(k, id); }
+    return id;
+  } catch { return null; }
+}
+
 export function trackFunnelEvent(payload: FunnelEventPayload): void {
   try {
     if (!isTrackingAllowed()) return;
@@ -241,7 +251,7 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-funnel-event`;
     const pagePath = payload.page_path ?? window.location.pathname;
     const attribution = getAttribution();
-    const meta: Record<string, unknown> = { ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
+    const meta: Record<string, unknown> = { journey_id: getJourneyId(), ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
     payload = { ...payload, metadata: meta };
     const partnerSlug = (meta.partner_slug || meta.partner) as string | undefined;
     const body = JSON.stringify({

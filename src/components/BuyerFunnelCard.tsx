@@ -12,7 +12,7 @@ interface Seg { key: string; sessions: number; plan: number; dialog: number }
 interface Data {
   sessions: number;
   main: Step[];
-  funnels: { a: Step[]; b: Step[]; c: Step[] };
+  funnels: { a: Step[]; b: Step[]; c: Step[]; d?: Step[] };
   dropoffs: { label: string; from: number; to: number }[];
   conversions: { advisory: number; partner_request: number; intro: number };
   nba: { key: string; label: string; viewed: number; clicked: number }[];
@@ -114,6 +114,13 @@ export default function BuyerFunnelCard({ token, onSessionExpired }: { token: st
               <div className="rounded border border-border p-3"><div className="text-muted-foreground">Introduktion till grundprofil begärd</div><div className="text-2xl font-semibold tabular-nums">{data.conversions.intro}</div></div>
             </div>
             <p className="text-xs text-muted-foreground">Bekräftade partnerdialoger och kvalificerade affärsmöjligheter visas inte, eftersom sajten ännu inte kan verifiera dem. Siffrorna ovan är närmaste verifierbara steg.</p>
+
+            {data.funnels.d && (
+              <div className="rounded border border-border p-4">
+                <Funnel title="Behovsguide → Min D365-plan → partnerkontakt" steps={data.funnels.d} />
+                <p className="mt-2 text-xs text-muted-foreground">Räknar anonyma besökare (samma webbläsare även vid återbesök från 2026-10-14). Partnerkontakt = förfrågan till verifierad partner eller introduktion till grundprofil.</p>
+              </div>
+            )}
 
             <Funnel title="Huvudfunnel (varje steg räknas oberoende av ordning)" steps={data.main} />
 
