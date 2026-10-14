@@ -167,7 +167,7 @@ export function buildSystemvalResult(state: DialogState, p: SolutionPicture, m: 
   const alternativeIds = new Set(m.alternatives.flatMap((a) => a.options.map((o) => o.id)));
   const primaryTracks: TrackCard[] = startIds.filter((id) => !(m.alternatives.some((a) => a.need === "affärssystem") && alternativeIds.has(id))).map((id) => ({
     id, label: SOLUTION_INFO[id].label, explanation: EXPLAIN[id] ?? "",
-    why: byId.get(id)?.reasons ?? [], validate: VALIDATE[id] ?? "",
+    why: byId.get(id)?.reasons ?? [], validate: (VALIDATE[id] ?? "").replace(/^Validera /, "").replace(/^./, (c) => c.toUpperCase()),
   }));
 
   // C. Alternativ
