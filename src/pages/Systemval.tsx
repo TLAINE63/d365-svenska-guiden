@@ -189,7 +189,6 @@ export default function Systemval() {
           {!question && picture && deepMode && (
             <DeepDialog
               picture={picture}
-              mapSlot={solutionMap ? <SolutionMapSection map={solutionMap} /> : undefined}
               state={state}
               answers={deepAnswers}
               startAt={deepMode.startAt}
@@ -204,6 +203,7 @@ export default function Systemval() {
               onDeepen={() => { trackSystemval("deep_started"); setDeepMode({}); }}
               deepSlot={deepResult ? <DeepResultSection result={deepResult} onEdit={() => setDeepMode({ startAt: 0 })} onNextStep={(kind) => trackSystemval("next_step_clicked", { kind, deep: true })} /> : undefined}
               picture={picture}
+              mapSlot={solutionMap ? <SolutionMapSection map={solutionMap} /> : undefined}
               erp={erp}
               svc={svc}
               answers={summary}
