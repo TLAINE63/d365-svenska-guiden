@@ -40,7 +40,11 @@ export default function Redaktion() {
   async function handleCreateAccount() {
     setCreating(true);
     const { data, error } = await supabase.functions.invoke("editor-bootstrap", {
-      body: { adminPassword, email: form.email, password: form.password },
+      body: {
+        adminToken: typeof window !== "undefined" ? window.sessionStorage.getItem("admin_token") : null,
+        email: form.email,
+        password: form.password,
+      },
     });
     setCreating(false);
     if (error || (data as { error?: string } | null)?.error) {
