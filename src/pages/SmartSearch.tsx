@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { localSearch } from "@/lib/localSearchFallback";
 
 type SourceType = "redaktionellt" | "bedomning" | "partner" | "publikt";
 
@@ -78,10 +79,26 @@ export default function SmartSearch() {
     setLoading(true);
     setResult(null);
     setParams({ q });
-    const { data, error } = await supabase.functions.invoke("smart-search", { body: { query: q } });
+    let data: any = null;
+    let failed = false;
+    try {
+      const res = await supabase.functions.invoke("smart-search", { body: { query: q } });
+      data = res.data;
+      failed = !!res.error || !!data?.error || !data?.primary;
+    } catch {
+      failed = true;
+    }
     setLoading(false);
-    if (error || (data as any)?.error) {
-      toast({ title: "Kunde inte svara", description: (data as any)?.error || error?.message || "Försök igen", variant: "destructive" });
+    if (failed) {
+      const local = localSearch(q);
+      if (local) {
+        setResult(local);
+        return;
+      }
+      toast({
+        title: "Vi kan hjälpa er vidare",
+        description: "Det fria svaret är inte tillgängligt just nu. Prova ett produkt-, partner- eller tilläggsnamn, eller kontakta oss.",
+      });
       return;
     }
     setResult(data as SearchResult);
