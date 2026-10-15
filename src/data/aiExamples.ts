@@ -11,6 +11,7 @@ export type AiApplication = "bc" | "sales" | "service" | "finance" | "scm" | "fi
 export type AiType = "copilot" | "copilot-chat" | "inbyggd" | "agent" | "mcp";
 export type AiRole =
   | "cfo" | "ekonom" | "saljare" | "saljchef" | "kundservice" | "inkopare" | "projektledare" | "servicepersonal" | "supplychain";
+export type EditorialStatus = "VERIFIED" | "USE_CASE" | "REVIEW" | "DRAFT";
 export type AutomationLevel = "fraga" | "assistans" | "handling" | "automatisering";
 
 export interface AiExample {
@@ -36,6 +37,15 @@ export interface AiExample {
   sourceName?: string;
   verified: boolean;
   lastVerified?: string;
+  /** Intern redaktionell status. Endast VERIFIED publiceras för besökare. */
+  status: EditorialStatus;
+  /** Hur man kommer åt funktionen när det inte är en fråga (inbyggd funktion/agent). */
+  howToStart?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  imageSource?: string;
+  imageSourceUrl?: string;
   ctaType: "produkt" | "losning" | "partner";
   ctaUrl: string;
 }
@@ -88,7 +98,7 @@ const CS_COPILOT = { sourceName: "Microsoft Learn: Använd Copilot-funktioner i 
 const TRAD_FIND = ["Meny", "Lista", "Filter", "Post", "Granska", "Åtgärd"];
 const AI_FIND = ["Behov", "Fråga", "AI hjälper", "Du granskar", "Nästa steg"];
 
-type Base = Omit<AiExample, "id" | "verified" | "traditionalWorkflow" | "aiWorkflow"> &
+type Base = Omit<AiExample, "id" | "verified" | "status" | "traditionalWorkflow" | "aiWorkflow"> & { status?: EditorialStatus } &
   Partial<Pick<AiExample, "traditionalWorkflow" | "aiWorkflow">>;
 
 const ex = (e: Base): AiExample => ({
@@ -97,16 +107,19 @@ const ex = (e: Base): AiExample => ({
   ...e,
   id: e.slug,
   verified: false,
+  status: e.status ?? "REVIEW",
 });
 
 /** Verifierat exempel: kräver källa från Microsoft och granskningsdatum. */
 const vx = (e: Base & { sourceUrl: string; sourceName: string }): AiExample => ({
   ...ex(e),
   verified: true,
+  status: "VERIFIED",
   lastVerified: VERIFIED_AT,
 });
 
-export const AI_EXAMPLES: AiExample[] = [
+/** Alla poster inklusive ej publiceringsklara (intern QA). */
+export const ALL_AI_EXAMPLES: AiExample[] = [
   // BUSINESS CENTRAL (verifierade mot Microsoft Learn)
   vx({
     slug: "bc-hitta-faktura", title: "Hitta den senaste fakturan från en kund eller leverantör", application: "bc", category: "hitta",
@@ -232,7 +245,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi får många förfrågningar per e-post som skrivs in manuellt.",
     traditionalWorkflow: ["Läs e-post", "Hitta kunden", "Skapa offert", "Skriv rader", "Kontrollera", "Svara"],
     aiWorkflow: ["Förfrågan kommer in", "Agenten skapar utkast", "Du granskar", "Godkänn och skicka"],
-    promptExamples: ["(Kundens mejl) Vi vill beställa 20 st av artikel 1896-S till nästa vecka."],
+    howToStart: "Vi vill beställa 20 st av artikel 1896-S till nästa vecka.", promptExamples: [],
     whatHappens: "Agenten bevakar en brevlåda, identifierar kund och artiklar, kontrollerar tillgänglighet och skapar offert- eller orderutkast. Steg som kräver granskning stannar tills en användare godkänner.",
     humanResponsibility: "Du godkänner utkast och svar och bestämmer vilka behörigheter agenten har.",
     efficiencyBenefit: "Manuell inskrivning av förfrågningar minskar och granskning blir huvudmomentet.",
@@ -408,7 +421,8 @@ export const AI_EXAMPLES: AiExample[] = [
     automationLevel: "fraga", relatedExamples: ["bc-hitta-kundinformation", "fscm-hitta-lager"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
-  vx({
+  ex({
+    status: "REVIEW", // dublett av bc-sales-order-agent
     slug: "bc-agent-repetitiv", title: "Från repetitiv process till agent", application: "bc", category: "automatisera",
     businessArea: "Order", role: ["saljare", "inkopare"], aiType: "agent", sourceName: "Microsoft Learn: Sales Order Agent", sourceUrl: `${ML}/business-central/sales-order-agent`,
     summary: "Låt en agent ta fram förslag på order från inkommande förfrågningar som du godkänner.",
@@ -475,6 +489,7 @@ export const AI_EXAMPLES: AiExample[] = [
   }),
   // FINANCE / SCM
   ex({
+    status: "REVIEW", // dublett av finance-fraga-data, saknar källa
     slug: "finance-hitta-ekonomisk-information", title: "Hitta ekonomisk information", application: "finance", category: "hitta",
     businessArea: "Ekonomi", role: ["cfo", "ekonom"], aiType: "copilot-chat",
     summary: "Få fram saldon och transaktioner genom att fråga.",
@@ -547,7 +562,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "En kund hör av sig om sitt konto och jag vill snabbt förstå läget innan jag svarar.",
     traditionalWorkflow: ["Öppna kundsidan", "Gå igenom flikar", "Öppna transaktioner", "Samla information", "Bedöma"],
     aiWorkflow: ["Öppna kundsidan", "Läs AI-sammanfattningen", "Granska detaljer vid behov", "Agera"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattningen visas när du öppnar kunden."],
+    howToStart: "Sammanfattningen visas när du öppnar kunden.", promptExamples: [],
     whatHappens: "Sammanfattning på kundsidan visar en AI-genererad text högst upp på kundsidan när den öppnas.",
     humanResponsibility: "Du kontrollerar siffrorna i de underliggande uppgifterna innan du lämnar besked eller fattar beslut.",
     efficiencyBenefit: "Snabbare orientering i kundens läge, men detaljerna finns kvar att granska.",
@@ -562,7 +577,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag ska kontakta kunder med förfallna fakturor och vill vara påläst och få ett första utkast.",
     traditionalWorkflow: ["Öppna arbetsytan", "Gå igenom fakturor", "Sammanställ läget", "Skriv påminnelse", "Skicka"],
     aiWorkflow: ["Läs sammanfattningen", "Generera brevutkast", "Redigera", "Skicka"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattning och påminnelsebrev skapas i arbetsytan Inkassosamordnare."],
+    howToStart: "Sammanfattning och påminnelsebrev skapas i arbetsytan Inkassosamordnare.", promptExamples: [],
     whatHappens: "I arbetsytan för inkassosamordnare visas en AI-genererad sammanfattning, och ett påminnelsebrev med AI-genererad text kan skapas.",
     humanResponsibility: "Du granskar brevets innehåll och ton och beslutar om kontakt och eventuella åtgärder.",
     efficiencyBenefit: "Mindre tid på att sammanställa läget och skriva brev från början.",
@@ -577,7 +592,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "En leverantörsfaktura har fastnat i attest och jag vill förstå varför.",
     traditionalWorkflow: ["Öppna dokumentet", "Öppna arbetsflödeshistorik", "Läs rad för rad", "Tolka", "Följ upp"],
     aiWorkflow: ["Öppna historiken", "Läs sammanfattningen", "Följ upp med rätt person"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattningen visas på sidan Arbetsflödeshistorik."],
+    howToStart: "Sammanfattningen visas på sidan Arbetsflödeshistorik.", promptExamples: [],
     whatHappens: "På sidan för arbetsflödeshistorik visas en AI-genererad sammanfattning av historiken för dokumentet.",
     humanResponsibility: "Du avgör vad som ska göras och tar kontakt med den som behöver agera.",
     efficiencyBenefit: "Snabbare att förstå långa attestkedjor.",
@@ -622,7 +637,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag vill börja dagen med det som är viktigast, utan att gå igenom flera arbetsytor.",
     traditionalWorkflow: ["Öppna arbetsytor", "Gå igenom listor", "Prioritera själv", "Agera"],
     aiWorkflow: ["Öppna startsidan", "Se prioriterat arbete", "Granska agentförslag", "Agera"],
-    promptExamples: ["(Startsida) Arbetsuppgifter och agentaktiviteter visas samlat."],
+    howToStart: "Arbetsuppgifter och agentaktiviteter visas samlat.", promptExamples: [],
     whatHappens: "Immersive Home (förhandsversion klar för produktion) är en startsida som anpassar sig efter ditt viktigaste arbete och länkar till verktyg för att följa och arbeta med AI-agenter.",
     humanResponsibility: "Du prioriterar och beslutar. Funktionen kräver version 10.0.44 eller senare och att den aktiveras.",
     efficiencyBenefit: "Mindre navigering mellan arbetsytor för att hitta nästa uppgift.",
@@ -637,7 +652,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Avstämningen skjuts till periodens slut och tar mycket tid.",
     traditionalWorkflow: ["Kör rapporter", "Jämför reskontra och huvudbok", "Hitta avvikelser", "Utred", "Korrigera"],
     aiWorkflow: ["Agenten lyfter avvikelser", "Läs föreslagen åtgärd", "Du beslutar", "Logg sparas"],
-    promptExamples: ["(Agent) Avvikelser och föreslagna åtgärder visas i arbetsytan för kontoavstämning."],
+    howToStart: "Avvikelser och föreslagna åtgärder visas i arbetsytan för kontoavstämning.", promptExamples: [],
     whatHappens: "Account Reconciliation Agent (förhandsversion klar för produktion) lyfter avvikelser i arbetsytan för kontoavstämning och föreslår åtgärder. Varje avvikelse loggas med historik över vad användare och agent gjort.",
     humanResponsibility: "Du beslutar om korrigeringar och ansvarar för bokslutet.",
     efficiencyBenefit: "Avstämning kan göras löpande i stället för att samlas till periodens slut.",
@@ -652,7 +667,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi vill att en egen agent ska kunna arbeta med data i affärssystemet, inte bara läsa en export.",
     traditionalWorkflow: ["Specificera integration", "Bygg API-anrop", "Testa", "Förvalta"],
     aiWorkflow: ["Definiera agentens uppgift", "Anslut via MCP", "Begränsa behörigheter", "Följ upp"],
-    promptExamples: ["(Utvecklare) Agenten anropar affärslogik via MCP-servern."],
+    howToStart: "Agenten anropar affärslogik via MCP-servern.", promptExamples: [],
     whatHappens: "Dynamics 365 ERP MCP-servern ger agenter ett ramverk för att utföra dataoperationer och använda affärslogiken i ekonomi- och driftapparna.",
     humanResponsibility: "Ni bestämmer vad agenten får göra, med vilka behörigheter, och följer upp resultatet. Det här kräver utvecklarkompetens.",
     efficiencyBenefit: "Agenter kan arbeta med affärslogiken i stället för med egenbyggda integrationer.",
@@ -668,7 +683,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Leverantörer ändrar datum och antal efter bekräftelse, och jag vill se vad som påverkar oss.",
     traditionalWorkflow: ["Lista order", "Jämför versioner", "Bedöm påverkan", "Kontakta berörda", "Uppdatera"],
     aiWorkflow: ["Öppna arbetsytan", "AI lyfter ändringarna", "Bedöm påverkan", "Agera"],
-    promptExamples: ["(Inbyggd funktion) Arbetsytan visar bekräftade inköpsorder med ändringar."],
+    howToStart: "Arbetsytan visar bekräftade inköpsorder med ändringar.", promptExamples: [],
     whatHappens: "I arbetsytan för bekräftade inköpsorder med ändringar hjälper inbyggda AI-funktioner användaren att förstå och reagera på ändringarna.",
     humanResponsibility: "Du bedömer konsekvenser för produktion och leverans och beslutar om åtgärd.",
     efficiencyBenefit: "Mindre manuell jämförelse av orderversioner.",
@@ -698,7 +713,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Som lagerchef vill jag se om vi hinner med dagens arbete och var det kan uppstå köer.",
     traditionalWorkflow: ["Öppna arbetslistor", "Räkna plockrader", "Kolla inleveranser", "Kolla bemanning", "Bedöma"],
     aiWorkflow: ["Öppna insikterna", "Läs sammanställningen", "Bedöm", "Fördela personal"],
-    promptExamples: ["(Inbyggd funktion) Arbetsbelastningsinsikter med Copilot."],
+    howToStart: "Arbetsbelastningsinsikter med Copilot.", promptExamples: [],
     whatHappens: "Funktionen ger insikter om tillgängligt arbete, plockrader och inleveransrader, information om tillgänglig personal samt Copilot-genererade insikter om väntande lagerarbete.",
     humanResponsibility: "Du fördelar personal och prioriterar arbetet.",
     efficiencyBenefit: "Mindre manuell sammanställning av lagerläget.",
@@ -759,7 +774,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Utrustningen har haft problem tidigare och jag vill förstå vad som gjorts.",
     traditionalWorkflow: ["Öppna posten", "Scrolla i tidslinjen", "Läs anteckningar", "Sammanfatta"],
     aiWorkflow: ["Öppna posten", "Läs höjdpunkterna", "Granska detaljer"],
-    promptExamples: ["(Inbyggd funktion) Höjdpunkter visas överst i tidslinjen."],
+    howToStart: "Höjdpunkter visas överst i tidslinjen.", promptExamples: [],
     whatHappens: "Höjdpunkter i tidslinjen lyfter fram viktiga händelser så att du snabbt förstår postens historik och status.",
     humanResponsibility: "Du läser de underliggande anteckningarna när detaljerna är avgörande.",
     efficiencyBenefit: "Snabbare orientering i lång historik.",
@@ -789,7 +804,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi har checklistor på papper och PDF som behöver bli digitala inspektioner.",
     traditionalWorkflow: ["Läs checklistan", "Skapa mall", "Lägg till frågor en och en", "Testa", "Publicera"],
     aiWorkflow: ["Ladda upp dokumentet", "Copilot skapar utkast", "Redigera", "Publicera"],
-    promptExamples: ["(Uppladdning) Skapa en inspektionsmall från den här checklistan."],
+    howToStart: "Skapa en inspektionsmall från den här checklistan.", promptExamples: [],
     whatHappens: "Copilot omvandlar uppladdade PDF:er eller bilder till utkast till inspektionsmallar som du kan redigera, publicera och lägga till på arbetsordrar.",
     humanResponsibility: "Du granskar att alla kontrollpunkter kom med korrekt innan mallen publiceras.",
     efficiencyBenefit: "Mindre manuell uppbyggnad av mallar från befintliga checklistor.",
@@ -865,7 +880,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi missar tidrapporter, vilket försenar faktureringen.",
     traditionalWorkflow: ["Påminn medarbetare", "Medarbetare fyller i", "Kontrollera", "Jaga saknade"],
     aiWorkflow: ["Agenten skapar utkast", "Medarbetaren granskar", "Skicka in"],
-    promptExamples: ["(Agent) Utkast till tidrader skapas automatiskt."],
+    howToStart: "Utkast till tidrader skapas automatiskt.", promptExamples: [],
     whatHappens: "Time Entry Agent (förhandsversion klar för produktion) skapar automatiskt utkast till tidrader utifrån projekttilldelningar, resursbokningar och historiska mönster.",
     humanResponsibility: "Medarbetaren granskar och skickar in. Ni bestämmer hur agenten används.",
     efficiencyBenefit: "Färre missade tidrapporter och mindre manuell inmatning.",
@@ -880,7 +895,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Kvitton samlas på hög och utläggsrapporterna blir sena.",
     traditionalWorkflow: ["Spara kvitton", "Skriv av belopp", "Skapa utlägg", "Gruppera", "Skicka rapport"],
     aiWorkflow: ["Vidarebefordra kvitto", "Agenten skapar utlägg", "Granska rapporten", "Skicka"],
-    promptExamples: ["(Agent) Kvitton vidarebefordras till en angiven brevlåda."],
+    howToStart: "Kvitton vidarebefordras till en angiven brevlåda.", promptExamples: [],
     whatHappens: "Expense Agent (förhandsversion klar för produktion) läser ut kvittodata, skapar utlägg, delar upp komplexa kvitton och grupperar dem till rapporter per resa eller projekt.",
     humanResponsibility: "Du granskar utläggen och ansvarar för att de följer era regler.",
     efficiencyBenefit: "Mindre avskrivning av kvitton för hand.",
@@ -895,7 +910,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag lägger mycket tid på att attestera tid och utlägg som nästan alltid är korrekta.",
     traditionalWorkflow: ["Öppna attestlistan", "Granska rad för rad", "Godkänn eller avvisa"],
     aiWorkflow: ["Agenten förgranskar", "Du fokuserar på avvikelser", "Beslut"],
-    promptExamples: ["(Agent) Inkommande tid, utlägg och material förgranskas."],
+    howToStart: "Inkommande tid, utlägg och material förgranskas.", promptExamples: [],
     whatHappens: "Approvals Agent (förhandsversion klar för produktion) använder en Copilot Studio-agent för att göra en första granskning av inkommande tid-, utläggs- och materialtransaktioner.",
     humanResponsibility: "Du ansvarar fortfarande för attesten och bestämmer reglerna för agenten.",
     efficiencyBenefit: "Mer tid för avvikelserna, mindre för rutinfallen.",
@@ -903,6 +918,9 @@ export const AI_EXAMPLES: AiExample[] = [
     ctaType: "partner", ctaUrl: "/agents/",
   }),
 ];
+
+/** Publicerade exempel: endast verifierade mot produktkälla. */
+export const AI_EXAMPLES: AiExample[] = ALL_AI_EXAMPLES.filter((e) => e.status === "VERIFIED");
 
 export const getExampleBySlug = (slug: string) => AI_EXAMPLES.find((e) => e.slug === slug);
 export const getExamplesForApplication = (app: AiApplication) => AI_EXAMPLES.filter((e) => e.application === app);
@@ -919,10 +937,16 @@ export function filterExamples(opts: { categories?: AiCategory[]; applications?:
   );
 }
 
-export function getRelatedExamples(ex: AiExample, max = 4): AiExample[] {
-  const explicit = (ex.relatedExamples ?? []).map(getExampleBySlug).filter(Boolean) as AiExample[];
-  const fill = AI_EXAMPLES.filter(
-    (e) => e.slug !== ex.slug && !explicit.includes(e) && (e.application === ex.application || e.category === ex.category),
-  );
-  return [...explicit, ...fill].slice(0, max);
+export function getRelatedExamples(ex: AiExample, max = 3): AiExample[] {
+  const out: AiExample[] = [];
+  const add = (list: AiExample[]) => { for (const e of list) if (out.length < max && e.slug !== ex.slug && !out.includes(e)) out.push(e); };
+  add((ex.relatedExamples ?? []).map(getExampleBySlug).filter(Boolean) as AiExample[]);
+  add(AI_EXAMPLES.filter((e) => e.application === ex.application));
+  add(AI_EXAMPLES.filter((e) => e.role.some((r) => ex.role.includes(r))));
+  add(AI_EXAMPLES.filter((e) => e.category === ex.category));
+  return out;
 }
+
+/** Produktlänkens text, med fullständigt produktnamn. */
+export const productCtaLabel = (app: AiApplication) =>
+  app === "bc" ? "Läs mer om Business Central" : `Läs mer om ${D} ${getApplication(app).label.replace(`${D} `, "")}`;
