@@ -5470,15 +5470,6 @@ export type Database = {
     Functions: {
       bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
-      delete_email: {
-        Args: { message_id: number; queue_name: string }
-        Returns: boolean
-      }
-      email_queue_dispatch: { Args: never; Returns: undefined }
-      enqueue_email: {
-        Args: { payload: Json; queue_name: string }
-        Returns: number
-      }
       get_all_partner_names: {
         Args: never
         Returns: {
@@ -5498,27 +5489,10 @@ export type Database = {
         Returns: boolean
       }
       inquiry_followup_dispatch: { Args: never; Returns: number }
-      move_to_dlq: {
-        Args: {
-          dlq_name: string
-          message_id: number
-          payload: Json
-          source_queue: string
-        }
-        Returns: number
-      }
       partner_report_autogen_dispatch: { Args: never; Returns: undefined }
       partner_report_monthly_dispatch: {
         Args: { target_month?: string }
         Returns: undefined
-      }
-      read_email_batch: {
-        Args: { batch_size: number; queue_name: string; vt: number }
-        Returns: {
-          message: Json
-          msg_id: number
-          read_ct: number
-        }[]
       }
       report_cron_secret: { Args: never; Returns: string }
       search_perf_dispatch: { Args: { payload: Json }; Returns: number }
