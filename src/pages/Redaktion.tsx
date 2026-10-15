@@ -34,7 +34,6 @@ export default function Redaktion() {
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showSetup, setShowSetup] = useState(false);
-  const [adminPassword, setAdminPassword] = useState("");
   const [creating, setCreating] = useState(false);
 
   async function handleCreateAccount() {
@@ -53,7 +52,6 @@ export default function Redaktion() {
     }
     toast.success("Kontot är klart, logga in med din e-post och ditt lösenord");
     setShowSetup(false);
-    setAdminPassword("");
   }
 
   const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
