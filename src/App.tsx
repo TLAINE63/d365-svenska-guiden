@@ -209,6 +209,10 @@ const AppShell = () => {
           <Route path="/agents" element={<Agents />} />
           <Route path="/aioversikt" element={<AIOverview />} />
           <Route path="/ai/exempel" element={<AiExempel />} />
+          <Route path="/ai/exempel/bc-agent-repetitiv" element={<RedirectTo to="/ai/exempel/bc-sales-order-agent/" />} />
+          <Route path="/ai/exempel/finance-hitta-ekonomisk-information" element={<RedirectTo to="/ai/exempel/finance-fraga-data/" />} />
+          <Route path="/ai/exempel/fscm-forsta-affarsdata" element={<RedirectTo to="/ai/exempel/" />} />
+          <Route path="/ai/exempel/fscm-analysera-data" element={<RedirectTo to="/ai/exempel/scm-efterfragan/" />} />
           <Route path="/ai/exempel/:slug" element={<AiExempelDetalj />} />
           <Route path="/ai-oversikt" element={<RedirectTo to="/aioversikt" />} />
           <Route path="/ai-readiness" element={<AIReadiness />} />

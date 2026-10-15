@@ -514,7 +514,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   ex({
-    slug: "scm-efterfragan", title: "Analysera data", application: "scm", category: "analysera",
+    slug: "fscm-analysera-data", title: "Analysera data", application: "scm", category: "analysera",
     businessArea: "Supply chain", role: ["inkopare"], aiType: "copilot-chat",
     summary: "Hitta mönster i leveranser och leverantörsprestanda.",
     userGoal: "Jag vill veta vilka leverantörer som ofta levererar sent.",
