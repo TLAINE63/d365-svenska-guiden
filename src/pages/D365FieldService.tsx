@@ -1,3 +1,4 @@
+import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -326,6 +327,7 @@ const D365FieldService = () => {
       <ProductIsvSection product="Field Service" />
 
       </main>
+      <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
       <ContextualCta source="next-step:d365fieldservice" heading="Passar Field Service er serviceverksamhet?" text="Pröva behovet mot er planering, era tekniker och ert affärssystem innan ni väljer partner." primaryLabel="Få hjälp att hitta rätt partner" product="Field Service" links={[{ label: "Hur väljer ni fältservicesystem?", to: "/faltservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />

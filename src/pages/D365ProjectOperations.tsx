@@ -1,3 +1,4 @@
+import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import StandardProductSections from "@/components/product/StandardProductSections";
@@ -116,6 +117,7 @@ const D365ProjectOperations = () => {
       <ProductIsvSection product="Project Operations" />
 
       </main>
+      <AiExamplesEntry apps={["projectops"]} label={"Se hur AI förändrar arbetet i Project Operations"} source="d365projectoperations" />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
