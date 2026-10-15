@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { Fragment, useEffect, useMemo, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { trackAi } from "@/lib/aiLibraryTracking";
 import { ArrowRight, X } from "lucide-react";
@@ -187,7 +187,21 @@ const AiExempel = () => {
 
           {results.length ? (
             <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {results.map((e) => <AiExampleCard key={e.id} example={e} />)}
+              {results.map((e, i) => (
+                <Fragment key={e.id}>
+                  <AiExampleCard example={e} />
+                  {i === 5 && results.length > 6 && (
+                    <nav aria-label="Fortsätt utforska" className="rounded-xl border border-dashed border-border bg-muted/30 p-5 sm:col-span-2 lg:col-span-3">
+                      <p className="text-sm font-semibold text-foreground">Fortsätt utforska</p>
+                      <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                        <li><Link to="/aioversikt/" onClick={() => trackAi("ai_ai_hub_click", null, { cta_destination: "/aioversikt/" })} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>AI i Dynamics&nbsp;365</Link></li>
+                        {apps.length === 1 && <li><Link to={getApplication(apps[0]).productUrl} onClick={() => trackAi("ai_product_content_click", null, { application: apps[0], cta_destination: getApplication(apps[0]).productUrl })} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Läs om {getApplication(apps[0]).label}</Link></li>}
+                        <li><Link to="/valjdynamics365partner/" onClick={() => trackAi("ai_partner_cta_click", null, { cta_destination: "/valjdynamics365partner/" })} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Hitta en Dynamics&nbsp;365-partner</Link></li>
+                      </ul>
+                    </nav>
+                  )}
+                </Fragment>
+              ))}
             </div>
           ) : (
             <div className="mt-4 rounded-xl border border-border bg-card p-6">

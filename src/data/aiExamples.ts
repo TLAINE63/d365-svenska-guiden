@@ -938,12 +938,18 @@ export function filterExamples(opts: { categories?: AiCategory[]; applications?:
 }
 
 export function getRelatedExamples(ex: AiExample, max = 3): AiExample[] {
+  // Progression: redaktionella kopplingar, sedan nästa arbetsmoment i samma app (helst samma roll), sedan samma app, sedan samma roll.
   const out: AiExample[] = [];
   const add = (list: AiExample[]) => { for (const e of list) if (out.length < max && e.slug !== ex.slug && !out.includes(e)) out.push(e); };
+  const lvl = (e: AiExample) => AI_CATEGORIES.findIndex((c) => c.key === e.category);
+  const me = lvl(ex);
+  const shares = (e: AiExample) => e.role.some((r) => ex.role.includes(r));
+  const sameApp = AI_EXAMPLES.filter((e) => e.application === ex.application);
+  const byStep = (list: AiExample[]) => [...list].sort((a, b) => (Number(shares(b)) - Number(shares(a))) || (lvl(a) - lvl(b)) || a.slug.localeCompare(b.slug));
   add((ex.relatedExamples ?? []).map(getExampleBySlug).filter(Boolean) as AiExample[]);
-  add(AI_EXAMPLES.filter((e) => e.application === ex.application));
-  add(AI_EXAMPLES.filter((e) => e.role.some((r) => ex.role.includes(r))));
-  add(AI_EXAMPLES.filter((e) => e.category === ex.category));
+  add(byStep(sameApp.filter((e) => lvl(e) > me)));
+  add(byStep(sameApp));
+  add(byStep(AI_EXAMPLES.filter(shares)));
   return out;
 }
 

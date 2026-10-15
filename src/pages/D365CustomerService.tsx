@@ -1,3 +1,4 @@
+import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -385,6 +386,7 @@ const D365CustomerService = () => {
 <FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
 </main>
       <BasicProfilesDirectory products={["service"]} />
+      <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
       <ContextualCta source="next-step:d365customerservice" heading="Bedöm ert kundservicebehov" text="Gör en kort behovsanalys för kundservice och se partners som har infört Customer Service hos liknande verksamheter." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Service" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />
