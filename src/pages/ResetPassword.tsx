@@ -35,7 +35,8 @@ export default function ResetPassword() {
       return;
     }
     toast.success("Lösenordet är uppdaterat");
-    navigate("/redaktion");
+    const next = new URLSearchParams(window.location.search).get("next");
+    navigate(next && next.startsWith("/") && !next.startsWith("//") ? next : "/redaktion");
   }
 
   return (

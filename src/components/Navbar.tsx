@@ -226,6 +226,7 @@ const Navbar = () => {
             <Link to="/kunskapscenter" className={utilityLink}>Kunskapscenter</Link>
             <Link to="/partnernytt/" className={utilityLink}>Partnernytt</Link>
             <Link to="/kontakt/" className={utilityLink}>Kontakt</Link>
+            <Link to="/konto/" className={utilityLink}>Mitt konto</Link>
             <RegionLanguageSwitcher />
           </div>
         </div>
@@ -301,6 +302,7 @@ const Navbar = () => {
                   <SheetClose asChild><Link to="/kunskapscenter" className={mobileLink}>Kunskapscenter</Link></SheetClose>
                   <SheetClose asChild><Link to="/partnernytt/" className={mobileLink}>Partnernytt</Link></SheetClose>
                   <SheetClose asChild><Link to="/kontakt/" className={mobileLink}>Kontakt</Link></SheetClose>
+                  <SheetClose asChild><Link to="/konto/" className={mobileLink}>Mitt konto</Link></SheetClose>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-border">
                   <span className="text-sm font-medium text-muted-foreground">Välj land / språk</span>

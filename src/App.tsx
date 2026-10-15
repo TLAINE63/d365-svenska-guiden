@@ -121,6 +121,7 @@ const PartnerPerformance = lazy(() => import("./pages/PartnerPerformance"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
 const AskAi = lazy(() => import("./pages/AskAi"));
+const Konto = lazy(() => import("./pages/Konto"));
 const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
 const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
 const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
@@ -333,6 +334,7 @@ const AppShell = () => {
           <Route path="/AIsok" element={<RedirectTo to="/fraga" />} />
           <Route path="/sok" element={<RedirectTo to="/fraga" />} />
           <Route path="/fraga-ai" element={<AskAi />} />
+          <Route path="/konto" element={<Konto />} />
           <Route path="/search" element={<RedirectTo to="/fraga" />} />
           <Route path="/våratjänster" element={<RedirectTo to="/" />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />

@@ -74,7 +74,7 @@ export default function Konto() {
               Min D365-plan, kortlistan och sparade kalkyler sparas nu på ditt konto och finns kvar när du kommer tillbaka, även från en annan enhet. Ingen partner ser dina uppgifter.
             </p>
             <div className="flex flex-wrap gap-2">
-              <Button asChild><Link to="/min-d365-plan/">Till Min D365-plan</Link></Button>
+              <Button asChild><Link to="/underlag/">Till Min D365-plan</Link></Button>
               <Button variant="outline" onClick={logout}>Logga ut</Button>
             </div>
           </Card>
