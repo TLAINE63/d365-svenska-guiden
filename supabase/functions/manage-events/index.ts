@@ -885,7 +885,7 @@ serve(async (req: Request): Promise<Response> => {
             `,
           });
           
-          console.log("Partner notification sent for event:", eventData.title, "to:", partnerEmail);
+          console.log("Partner notification sent for event:", eventData.title);
           const emailSubject = isApproved 
             ? `Ditt event "${eventData.title}" har godkänts! 🎉`
             : `Ditt event "${eventData.title}" kunde inte godkännas`;
@@ -1104,7 +1104,7 @@ D365.se`;
           html: emailHtml,
         });
 
-        console.log("Event portal link emailed to:", recipientEmail, "for partner:", partner.name);
+        console.log("Event portal link emailed for partner:", partner.name);
         await supabase.from("email_send_log").insert({
           recipient_email: recipientEmail,
           template_name: "event_portal_link",
@@ -1269,7 +1269,7 @@ D365.se`;
           html: emailHtml,
         });
 
-        console.log("Performance report link emailed to:", recipientEmail, "for partner:", partner.name);
+        console.log("Performance report link emailed for partner:", partner.name);
         await supabase.from("email_send_log").insert({
           recipient_email: recipientEmail,
           template_name: "partner_performance_link",
@@ -1431,7 +1431,7 @@ D365.se`;
           });
 
           sent++;
-          console.log("Event invitation sent to:", recipientEmail, "for:", partner.name);
+          console.log("Event invitation sent for:", partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: recipientEmail!,
             template_name: "event_portal_bulk",

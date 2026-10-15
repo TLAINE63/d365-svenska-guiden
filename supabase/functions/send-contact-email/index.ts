@@ -180,7 +180,7 @@ serve(async (req: Request): Promise<Response> => {
     const safePhone = phone ? sanitizeHtml(phone.trim()) : "Ej angivet";
     const safeDescription = sanitizeHtml(description.trim());
 
-    console.log("Sending contact email from:", safeName, safeEmail);
+    console.log("Sending contact email");
 
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
