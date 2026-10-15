@@ -24,7 +24,7 @@
 - Sökprestanda hämtas dagligen från Search Console (primär) och Bing via `search-performance` (`search_perf_daily`), grupperat efter `serp_watch_phrases` (omatchat = "Övrigt"); konkurrenter endast via manuella Semrush-CSV:er (`competitor_csv_*`), eftersom Semrush API kräver Business-plan och inte schemaläggs.
 - Central page copy (d365.se description, ownership texts, founders/contact) lives in the site_texts textbank, edited in /redaktion via the site-texts function and snapshotted to src/data/siteTexts.json at build with defaults in siteTextDefaults.ts; keeps all pages consistent and SSG-safe.
 
-- CRM pages lead with the buyer problem (BuyerFitSection from crmBuyerFit.ts, generic guides in crmCategoryGuides.ts) before Microsoft product detail; CRM market figures are computed at build by scripts/generate-crm-market-data.mjs from published partners only, so numbers stay sourced and SSG-safe.
+- CRM page and market-data rules: see src/data/AGENTS.md.
 
 - Published partner profiles share the opening's scoped palette/type tokens and 72rem content grid throughout; continuation hooks flatten section frames only within the profile, preserving shared cards, basic profiles, ranking, facts and action contexts.
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
@@ -33,3 +33,4 @@
 - ISV reseller links verify profiles via public hooks (no dead links).
 - Read subdir AGENTS.md first. Partner cards use PartnerCardHeader for identity links.
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
+- Optional buyer accounts mirror the localStorage keys in src/lib/accountSync.ts to buyer_saved_state (own-row RLS); server wins on login, so tools stay account-unaware.
