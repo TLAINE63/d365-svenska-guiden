@@ -811,6 +811,12 @@ const AIOverview = () => {
 
  <ProductDeepDiveLink product="Microsoft Agents – Dynamics 365" label="AI-agenter" />
 
+ <section className="container mx-auto max-w-5xl px-4 py-10">
+ <Link to="/ai/exempel/" className="block rounded-xl border border-border bg-card p-6 hover:border-primary/40">
+ <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Så förändras arbetet</p>
+ <p className="mt-2 inline-flex items-center gap-1 text-lg font-semibold text-primary">Se exempel: Sluta leta. Börja fråga. <ArrowRight className="h-4 w-4" /></p>
+ </Link>
+ </section>
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
  <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />
  <Footer />
