@@ -45,7 +45,7 @@ const AiExempel = () => {
   const setApps = setter<AiApplication>("app", "ai_application_filter");
   const setRoles = setter<AiRole>("roll", "ai_role_filter");
   const setTypes = setter<AiType>("typ", "ai_type_filter");
-  useEffect(() => { trackAi("ai_library_view"); }, []);
+  useEffect(() => { trackAi("ai_library_view"); if (window.location.hash === "#exempel") setTimeout(() => document.getElementById("exempel")?.scrollIntoView(), 50); }, []);
   useEffect(() => { try { sessionStorage.setItem("ai_library_filters", params.toString()); } catch { /* */ } }, [params]);
   const results = useMemo(() => filterExamples({ categories: cats, applications: apps, roles, aiTypes: types }), [params]); // eslint-disable-line react-hooks/exhaustive-deps
   const zeroKey = useRef("");
