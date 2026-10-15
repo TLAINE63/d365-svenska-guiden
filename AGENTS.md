@@ -33,3 +33,4 @@
 - ISV reseller links verify profiles via public hooks (no dead links).
 - Read subdir AGENTS.md first. Partner cards use PartnerCardHeader for identity links.
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
+- Optional buyer accounts (/konto/) mirror the existing localStorage keys listed in src/lib/accountSync.ts to buyer_saved_state (own-row RLS); anonymous local use stays the default and server data wins on login, so no tool needs account-aware code.
