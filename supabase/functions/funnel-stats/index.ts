@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
       });
     }
     // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
-    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" ? ["admin", "editor"] : ["admin"]);
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
@@ -259,6 +259,40 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ metrics, leads_by_type: leadsByType }), {
         headers: { ...cors, "Content-Type": "application/json" },
       });
+    }
+
+    if (body?.action === "ai_library") {
+      // Sprint 8: AI-exempelbibliotekets uppföljning. Endast faktiska händelser, inga uppskattningar, ingen persondata.
+      const month: string | null = typeof body?.month === "string" && /^\d{4}-\d{2}$/.test(body.month) ? body.month : null;
+      const start = month ? new Date(`${month}-01T00:00:00Z`) : new Date(Date.now() - 30 * 86400000);
+      const end = month ? new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1)) : new Date();
+      const rows: any[] = [];
+      for (let from = 0; from < 200000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, session_id, metadata, traffic_source").eq("event_type", "ai_library").gte("occurred_at", start.toISOString()).lt("occurred_at", end.toISOString()).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
+      }
+      const inc = (m: Record<string, number>, k?: string | null) => { if (k) m[k] = (m[k] || 0) + 1; };
+      const events: Record<string, number> = {};
+      const sessions = new Set<string>();
+      const byExample: Record<string, Record<string, number>> = {};
+      const filters: Record<string, Record<string, number>> = { category: {}, application: {}, role: {}, ai_type: {} };
+      const zero: Record<string, number> = {};
+      const entries: Record<string, number> = {};
+      const sources: Record<string, number> = {};
+      for (const r of rows) {
+        const m = r.metadata || {};
+        inc(events, r.event_name);
+        if (r.session_id) sessions.add(r.session_id);
+        if (r.event_name === "ai_library_view") inc(sources, r.traffic_source || "okänt");
+        if (m.example_id) { byExample[m.example_id] ??= {}; inc(byExample[m.example_id], r.event_name); }
+        const fk = { ai_category_filter: "category", ai_application_filter: "application", ai_role_filter: "role", ai_type_filter: "ai_type" }[r.event_name as string];
+        if (fk) for (const v of String(m[fk] || "").split(",")) inc(filters[fk], v || null);
+        if (r.event_name === "ai_zero_results") inc(zero, String(m.filters || "").slice(0, 200));
+        if (r.event_name === "ai_library_entry_click") inc(entries, String(m.source_page || "okänt"));
+      }
+      return new Response(JSON.stringify({ period: { start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10) }, total: rows.length, sessions: sessions.size, events, byExample, filters, zero, entries, sources }), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     if (body?.action === "buyer") {

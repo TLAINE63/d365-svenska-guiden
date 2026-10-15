@@ -11,7 +11,9 @@ export type AiApplication = "bc" | "sales" | "service" | "finance" | "scm" | "fi
 export type AiType = "copilot" | "copilot-chat" | "inbyggd" | "agent" | "mcp";
 export type AiRole =
   | "cfo" | "ekonom" | "saljare" | "saljchef" | "kundservice" | "inkopare" | "projektledare" | "servicepersonal" | "supplychain";
-export type EditorialStatus = "VERIFIED" | "USE_CASE" | "REVIEW" | "DRAFT";
+export type EditorialStatus = "DRAFT" | "REVIEW" | "USE_CASE" | "VERIFIED" | "PUBLISHED" | "UPDATE_NEEDED" | "ARCHIVED";
+/** Produktstatus enligt källan. Endast "preview" visas publikt. */
+export type ProductStatus = "preview" | "ga" | "retired" | "unknown";
 export type AutomationLevel = "fraga" | "assistans" | "handling" | "automatisering";
 
 export interface AiExample {
@@ -37,8 +39,18 @@ export interface AiExample {
   sourceName?: string;
   verified: boolean;
   lastVerified?: string;
-  /** Intern redaktionell status. Endast VERIFIED publiceras för besökare. */
+  /** Intern redaktionell status. VERIFIED, PUBLISHED och UPDATE_NEEDED visas för besökare. */
   status: EditorialStatus;
+  /** Internt: nästa granskning (default lastVerified + 90 dagar). */
+  nextReviewDate?: string;
+  /** Internt, visas aldrig publikt. */
+  verifiedBy?: string;
+  /** Produktstatus enligt källan; "unknown" om källan inte anger. */
+  productStatus?: ProductStatus;
+  updateReason?: string;
+  archivedAt?: string;
+  /** Ersättande sida om exemplet arkiverats. */
+  replacementUrl?: string;
   /** Hur man kommer åt funktionen när det inte är en fråga (inbyggd funktion/agent). */
   howToStart?: string;
   imageUrl?: string;
@@ -101,6 +113,8 @@ const AI_FIND = ["Behov", "Fråga", "AI hjälper", "Du granskar", "Nästa steg"]
 type Base = Omit<AiExample, "id" | "verified" | "status" | "traditionalWorkflow" | "aiWorkflow"> & { status?: EditorialStatus } &
   Partial<Pick<AiExample, "traditionalWorkflow" | "aiWorkflow">>;
 
+const addDays = (d: string, n: number) => new Date(Date.parse(d) + n * 86400000).toISOString().slice(0, 10);
+
 const ex = (e: Base): AiExample => ({
   traditionalWorkflow: TRAD_FIND,
   aiWorkflow: AI_FIND,
@@ -116,6 +130,10 @@ const vx = (e: Base & { sourceUrl: string; sourceName: string }): AiExample => (
   verified: true,
   status: "VERIFIED",
   lastVerified: VERIFIED_AT,
+  nextReviewDate: e.nextReviewDate ?? addDays(VERIFIED_AT, 90),
+  verifiedBy: e.verifiedBy ?? "Redaktionen d365.se",
+  // Förhandsversion endast när den verifierade källtexten själv anger det.
+  productStatus: e.productStatus ?? (/förhandsversion|preview/i.test(`${e.whatHappens} ${e.summary}`) ? "preview" : "unknown"),
 });
 
 /** Alla poster inklusive ej publiceringsklara (intern QA). */
@@ -920,7 +938,22 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
 ];
 
 /** Publicerade exempel: endast verifierade mot produktkälla. */
-export const AI_EXAMPLES: AiExample[] = ALL_AI_EXAMPLES.filter((e) => e.status === "VERIFIED");
+export const PUBLIC_STATUSES: EditorialStatus[] = ["VERIFIED", "PUBLISHED", "UPDATE_NEEDED"];
+export const AI_EXAMPLES: AiExample[] = ALL_AI_EXAMPLES.filter((e) => PUBLIC_STATUSES.includes(e.status) && !!e.sourceUrl && !!e.lastVerified);
+
+/** Intern förvaltning: exempel som behöver granskas (datum passerat, saknat datum eller markerade). */
+export function getReviewQueue(today = new Date().toISOString().slice(0, 10)) {
+  return ALL_AI_EXAMPLES.flatMap((e) => {
+    const reasons: string[] = [];
+    if (e.status === "UPDATE_NEEDED") reasons.push(e.updateReason ?? "Markerad för uppdatering");
+    if (PUBLIC_STATUSES.includes(e.status)) {
+      if (!e.lastVerified) reasons.push("Saknar verifieringsdatum");
+      if (e.nextReviewDate && e.nextReviewDate <= today) reasons.push(`Granskning förfallen (${e.nextReviewDate})`);
+      if (!e.sourceUrl) reasons.push("Saknar källa");
+    }
+    return reasons.length ? [{ slug: e.slug, title: e.title, status: e.status, reasons }] : [];
+  });
+}
 
 export const getExampleBySlug = (slug: string) => AI_EXAMPLES.find((e) => e.slug === slug);
 export const getExamplesForApplication = (app: AiApplication) => AI_EXAMPLES.filter((e) => e.application === app);

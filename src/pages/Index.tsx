@@ -1,5 +1,5 @@
 import { track } from "@/lib/track";
-import { trackFunnelEvent } from "@/lib/funnelTracking";
+import { trackAi } from "@/lib/aiLibraryTracking";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
@@ -843,7 +843,7 @@ const Index = () => {
                           <p>• <strong>Customer Service:</strong> Föreslår svar och hämtar kunskapsartiklar under pågående ärende.</p>
                           <p>• <strong>Business Central & F&SCM:</strong> Automatiserar bokföring, prognoser och inköpsförslag.</p>
                           <p className="pt-1">
-                            → <Link to="/ai/exempel/" onClick={() => trackFunnelEvent("ai_library_entry_click", { source_page: "startsida", cta_destination: "/ai/exempel/" })} className="text-primary hover:underline font-semibold">Se konkreta AI-exempel för Dynamics&nbsp;365</Link>, läs mer i vår <Link to="/aioversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-readiness/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
+                            → <Link to="/ai/exempel/" onClick={() => trackAi("ai_library_entry_click", null, { source_page: "startsida", cta_destination: "/ai/exempel/" })} className="text-primary hover:underline font-semibold">Se konkreta AI-exempel för Dynamics&nbsp;365</Link>, läs mer i vår <Link to="/aioversikt/" className="text-primary hover:underline font-semibold">AI-översikt</Link> eller gör en <Link to="/ai-readiness/" className="text-primary hover:underline font-semibold">AI-mognadsanalys</Link>.
                           </p>
                         </div>
                         <VideoComingSoon />
