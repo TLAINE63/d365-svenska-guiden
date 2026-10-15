@@ -4,7 +4,6 @@ import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
-import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
