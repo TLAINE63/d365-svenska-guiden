@@ -1,3 +1,4 @@
+import { verifyAdminJWT } from "../_shared/isvAuth.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.4";
 
 const ALLOWED_ORIGINS = [
@@ -59,11 +60,15 @@ Deno.serve(async (req: Request): Promise<Response> => {
       return json({ error: "Ange en giltig e-post och ett lösenord på minst 10 tecken" }, 200);
     }
 
-    const ADMIN_PASSWORD = (Deno.env.get("PARTNER_ADMIN_PASSWORD") || "").trim();
-    if (!ADMIN_PASSWORD || adminPassword !== ADMIN_PASSWORD) {
-      console.log(`editor-bootstrap: invalid admin password from ${ip}`);
-      return json({ error: "Ogiltigt adminlösenord" }, 200);
+    // Only a signed-in admin (admin token from the admin login) may create editors.
+    const authHeader = req.headers.get("authorization") || "";
+    const adminToken = typeof body.adminToken === "string" ? body.adminToken : "";
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+    if (!adminToken || !(await verifyAdminJWT(adminToken, serviceKey, ["admin"]))) {
+      console.log("editor-bootstrap: rejected, no valid admin session");
+      return json({ error: "Logga in som admin först" }, 401);
     }
+    void authHeader; void adminPassword;
 
     const admin = createClient(
       Deno.env.get("SUPABASE_URL")!,
