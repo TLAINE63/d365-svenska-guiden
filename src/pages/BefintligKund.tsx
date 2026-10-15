@@ -101,10 +101,11 @@ const BefintligKund = () => (
               <ul className="list-disc pl-5 space-y-1.5 text-sm text-muted-foreground mb-5">
                 {points.map((p) => <li key={p}>{p}</li>)}
               </ul>
-              <ul className="mt-auto space-y-2">
-                {links.map((l) => (
+              <p className="mt-auto text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Nästa steg</p>
+              <ul className="space-y-2">
+                {links.map((l, i) => (
                   <li key={l.href}>
-                    <Link to={l.href} className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
+                    <Link to={l.href} className={i === 0 ? "inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90" : "inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"}>
                       {nowrapBrand(l.label)} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
                     </Link>
                   </li>

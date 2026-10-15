@@ -50,6 +50,20 @@ export default function SolutionResultView({ picture: p, result: r, erp, answers
         <p className="mt-2 text-sm text-muted-foreground">{r.clarityText}</p>
       </header>
 
+      <div className="rounded-xl border border-primary/40 bg-primary/5 p-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Vad ni har kommit fram till</p>
+        <p className="mt-1 text-foreground">
+          {r.primaryTracks.length > 0
+            ? <>Främst att utvärdera: <span className="font-semibold">{r.primaryTracks.map((t) => t.label).join(" och ")}</span>.</>
+            : "Underlaget räcker ännu inte för att peka ut ett huvudspår."}
+        </p>
+        <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Nästa steg</p>
+        <Button asChild className="mt-2 w-full sm:w-auto">
+          <Link to={r.primaryCTA.route} onClick={() => onCta?.(r.primaryCTA, true)}>{r.primaryCTA.label}<ArrowRight className="h-4 w-4 ml-1" /></Link>
+        </Button>
+        {r.primaryCTA.transfer && <p className="mt-2 text-xs text-muted-foreground">Er sammanfattning sparas lokalt i er webbläsare, utan kontaktuppgifter.</p>}
+      </div>
+
       <div>
         <h2 className={H2}>Så tolkar vi ert behov</h2>
         <p className="mt-2 text-muted-foreground">{r.needsInterpretation}</p>
@@ -170,25 +184,26 @@ export default function SolutionResultView({ picture: p, result: r, erp, answers
         <Button asChild className="mt-3 w-full sm:w-auto">
           <Link to={r.primaryCTA.route} onClick={() => onCta?.(r.primaryCTA, true)}>{r.primaryCTA.label}<ArrowRight className="h-4 w-4 ml-1" /></Link>
         </Button>
-        {r.primaryCTA.transfer && <p className="mt-2 text-xs text-muted-foreground">Er sammanfattning sparas lokalt i er webbläsare, utan kontaktuppgifter.</p>}
-        {r.secondaryCTAs.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
-            {r.secondaryCTAs.map((c) => (
-              <Link key={c.destinationId} to={c.route} onClick={() => onCta?.(c, false)} className="inline-flex items-center text-sm font-medium text-primary underline-offset-4 hover:underline">
-                {c.label}<ArrowRight className="h-3.5 w-3.5 ml-1" />
-              </Link>
-            ))}
+        {(r.secondaryCTAs.length > 0 || (!deepSlot && onDeepen)) && (
+          <div className="mt-4 border-t border-border pt-3">
+            <p className="text-xs text-muted-foreground">Andra vägar vidare</p>
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+              {r.secondaryCTAs.map((c) => (
+                <Link key={c.destinationId} to={c.route} onClick={() => onCta?.(c, false)} className="inline-flex items-center text-sm font-medium text-primary underline-offset-4 hover:underline">
+                  {c.label}<ArrowRight className="h-3.5 w-3.5 ml-1" />
+                </Link>
+              ))}
+              {!deepSlot && onDeepen && (
+                <button type="button" onClick={onDeepen} className="inline-flex items-center text-sm font-medium text-primary underline-offset-4 hover:underline">
+                  Fördjupa analysen med några frågor till<ArrowRight className="h-3.5 w-3.5 ml-1" />
+                </button>
+              )}
+            </div>
           </div>
         )}
       </div>
 
-      {deepSlot ?? (onDeepen && (
-        <div className="rounded-xl border border-border bg-muted/50 p-5">
-          <h2 className="font-semibold text-foreground">Vill ni gå ett steg längre?</h2>
-          <p className="mt-1 text-sm text-muted-foreground">En kort, frivillig fördjupning om just era lösningsområden. Era svar följer med.</p>
-          <Button variant="outline" className="mt-3" onClick={onDeepen}>Fördjupa analysen<ArrowRight className="h-4 w-4 ml-1" /></Button>
-        </div>
-      ))}
+      {deepSlot}
 
       {r.methodologyExplanation.length > 0 && (
         <div>

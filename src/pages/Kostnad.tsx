@@ -4,7 +4,6 @@ import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
-import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -259,28 +258,25 @@ export default function Kostnad() {
 
 
         <section className="py-8 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-              Så går du vidare med kostnadsunderlaget
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6">
-              Vi är på köparens sida. Använd vår behovsanalys för att få en mognads­profil
-              och konkreta rekommendationer – eller låt partnerfiltret föreslå upp till 3 partners
-              som matchar ditt behov.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <div className="rounded-xl border border-primary/40 bg-card p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Nästa steg</p>
+              <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-foreground mb-3">
+                Ta med kostnadsbilden in i ert beslutsunderlag
+              </h2>
+              <p className="text-base text-muted-foreground mb-6">
+                Ni vet nu ungefär vad licens, införande och förvaltning kostar. Samla behov och prioriteringar i Din Dynamics-utvärdering, så blir det enklare att jämföra offerter och partners.
+              </p>
               <Link
-                to="/beslutsmognad/"
-                className="inline-flex items-center px-5 py-2.5 rounded bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                to="/underlag/"
+                className="inline-flex items-center px-5 py-2.5 rounded bg-primary text-primary-foreground hover:opacity-90 transition-opacity font-semibold"
               >
-                Skapa en behovsanalys
+                Skapa ert beslutsunderlag
               </Link>
-              <Link
-                to="/valjdynamics365partner/"
-                className="inline-flex items-center px-5 py-2.5 rounded border border-border bg-card hover:bg-secondary/60 transition-colors"
-              >
-                Hitta upp till 3 matchande partners
-              </Link>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Vet ni redan vad ni behöver?{" "}
+                <Link to="/valjdynamics365partner/" className="font-medium text-primary hover:underline">Hitta upp till 3 matchande partners</Link>
+              </p>
             </div>
           </div>
         </section>
@@ -304,8 +300,6 @@ export default function Kostnad() {
         </section>
 
         <CostContactForm />
-      
-<FunnelCTA stage="early" guide="erp" source="/kostnad/" />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
       </main>
