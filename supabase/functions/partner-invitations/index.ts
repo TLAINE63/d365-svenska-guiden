@@ -1020,7 +1020,7 @@ D365.se`;
               html: fullHtml,
             });
             
-            console.log("Invitation email sent to:", email, emailResponse);
+            console.log("Invitation email sent");
             emailSent = true;
             await supabase.from("email_send_log").insert({
               recipient_email: email,
@@ -1421,7 +1421,7 @@ D365.se`;
           });
 
           sent++;
-          console.log("Reminder sent to:", inv.email, inv.partner_name);
+          console.log("Reminder sent for:", inv.partner_name);
           await supabase.from("email_send_log").insert({
             recipient_email: inv.email,
             template_name: "partner_reminder",
@@ -1432,7 +1432,7 @@ D365.se`;
         } catch (sendErr: any) {
           failed++;
           errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
-          console.error("Reminder send error:", inv.email, sendErr);
+          console.error("Reminder send error:", sendErr);
           await supabase.from("email_send_log").insert({
             recipient_email: inv.email,
             template_name: "partner_reminder",
@@ -1607,7 +1607,7 @@ D365.se`;
                 html: fullHtml,
               });
               sent++;
-              console.log("Bulk invitation sent to:", inv.email, inv.partner_name);
+              console.log("Bulk invitation sent for:", inv.partner_name);
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
@@ -1618,7 +1618,7 @@ D365.se`;
             } catch (sendErr: any) {
               failed++;
               errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
-              console.error("Bulk send error:", inv.email, sendErr);
+              console.error("Bulk send error:", sendErr);
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
@@ -1807,7 +1807,7 @@ D365.se`;
           await resend.emails.send(emailOptions);
 
           sent++;
-          console.log("Agreement email sent to:", email, partner.name);
+          console.log("Agreement email sent for:", partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: email,
             template_name: "partner_agreement",
@@ -1826,7 +1826,7 @@ D365.se`;
         } catch (sendErr: any) {
           failed++;
           errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
-          console.error("Agreement send error:", partner.email, sendErr);
+          console.error("Agreement send error:", sendErr);
           await supabase.from("email_send_log").insert({
             recipient_email: partner.email,
             template_name: "partner_agreement",
@@ -1998,7 +1998,7 @@ D365.se`;
           await resend.emails.send(emailOptions);
 
           sent++;
-          console.log("Prospect agreement email sent to:", email, partner.name);
+          console.log("Prospect agreement email sent for:", partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: email,
             template_name: "partner_prospect_agreement",
@@ -2009,7 +2009,7 @@ D365.se`;
         } catch (sendErr: any) {
           failed++;
           errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
-          console.error("Prospect agreement send error:", partner.email, sendErr);
+          console.error("Prospect agreement send error:", sendErr);
           await supabase.from("email_send_log").insert({
             recipient_email: partner.email,
             template_name: "partner_prospect_agreement",
@@ -2115,7 +2115,7 @@ D365.se`;
           { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       } catch (sendErr: any) {
-        console.error("Cold pitch send error:", email, sendErr);
+        console.error("Cold pitch send error:", sendErr);
         await supabase.from("email_send_log").insert({
           recipient_email: email,
           template_name: "partner_cold_pitch",
@@ -2267,7 +2267,7 @@ D365.se`;
           });
 
           sent++;
-          console.log("Profile refresh email sent to:", email, partner.name);
+          console.log("Profile refresh email sent for:", partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: email,
             template_name: "partner_profile_refresh",
@@ -2278,7 +2278,7 @@ D365.se`;
         } catch (sendErr: any) {
           failed++;
           errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
-          console.error("Profile refresh send error:", partner.email, sendErr);
+          console.error("Profile refresh send error:", sendErr);
           await supabase.from("email_send_log").insert({
             recipient_email: partner.email,
             template_name: "partner_profile_refresh",
@@ -2498,7 +2498,7 @@ d365.se`;
           });
 
           sent++;
-          console.log("Sales pitch email sent to:", email, partner.name);
+          console.log("Sales pitch email sent for:", partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: email,
             template_name: "partner_sales_pitch",
@@ -2523,7 +2523,7 @@ d365.se`;
         } catch (sendErr: any) {
           failed++;
           errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
-          console.error("Sales pitch send error:", partner.email, sendErr);
+          console.error("Sales pitch send error:", sendErr);
           await supabase.from("email_send_log").insert({
             recipient_email: partner.email,
             template_name: "partner_sales_pitch",

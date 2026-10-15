@@ -273,7 +273,7 @@ const handler = async (req: Request): Promise<Response> => {
                 metadata: { lead_id: id, company_name: lead.company_name },
               });
             } catch (sendErr: any) {
-              console.error("Lead forward email error:", partnerEmail, sendErr);
+              console.error("Lead forward email error:", sendErr);
               await supabase.from("email_send_log").insert({
                 recipient_email: partnerEmail,
                 template_name: "lead_forward",

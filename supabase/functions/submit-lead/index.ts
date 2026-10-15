@@ -139,7 +139,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Block free/personal/disposable email domains (gmail, hotmail, live, etc.)
     if (isFreeEmailDomain(data.email)) {
-      console.log(`Blocked free email domain submission: ${data.email}`);
+      console.log("Blocked free email domain submission");
       return new Response(
         JSON.stringify({ error: FREE_EMAIL_ERROR_SV }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -285,7 +285,7 @@ const handler = async (req: Request): Promise<Response> => {
             attachments,
           });
           
-          console.log("Customer email with PDF sent to:", sanitizedData.email);
+          console.log("Customer email with PDF sent");
         } catch (customerEmailError) {
           console.error("Customer email failed:", customerEmailError);
           // Continue with admin notification even if customer email fails

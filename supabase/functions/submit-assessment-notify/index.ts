@@ -57,7 +57,7 @@ serve(async (req: Request) => {
     }
 
     if (isFreeEmailDomain(body.contact_email)) {
-      console.log(`Blocked free email domain submission: ${body.contact_email}`);
+      console.log("Blocked free email domain submission");
       return new Response(JSON.stringify({ error: FREE_EMAIL_ERROR_SV }), {
         status: 400,
         headers: { ...cors, "Content-Type": "application/json" },
