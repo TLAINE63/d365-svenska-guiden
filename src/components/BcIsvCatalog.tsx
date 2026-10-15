@@ -125,29 +125,30 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
     <button
       type="button"
       onClick={onOpen}
-      className="text-left group relative bg-card border border-border rounded-xl hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
+      className="text-left group relative bg-card border border-border rounded-xl hover:border-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
     >
-      {/* Premium header */}
-      <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent px-7 pt-7 pb-5 border-b border-border/60">
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary opacity-80 group-hover:opacity-100 transition-opacity" />
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 shrink-0 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center font-['Playfair_Display'] text-lg font-semibold text-primary">
+      {/* Premium header – mörk gradient med glaseffekt */}
+      <div className="relative px-7 pt-7 pb-6 bg-[linear-gradient(135deg,hsl(30_14%_9%)_0%,hsl(24_20%_13%)_55%,hsl(14_60%_18%)_100%)]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.25),transparent_60%)]" />
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-[linear-gradient(90deg,hsl(var(--primary)),hsl(var(--primary-glow)))]" />
+        <div className="relative flex items-start gap-4">
+          <div className="w-12 h-12 shrink-0 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm shadow-lg flex items-center justify-center font-['Playfair_Display'] text-lg font-semibold text-white">
             {initials}
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 truncate">
               {s.vendor}
             </p>
-            <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+            <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-white leading-tight group-hover:text-[hsl(var(--primary-glow))] transition-colors">
               {s.name}
             </h3>
           </div>
         </div>
-        <div className="flex flex-wrap gap-1.5 mt-4">
-          <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${DELIVERY_BADGE[model(s)]}`}>
+        <div className="relative flex flex-wrap gap-1.5 mt-4">
+          <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/25 bg-white/10 text-white backdrop-blur-sm">
             {deliveryText(s)}
           </span>
-          <span className="px-2 py-0.5 text-[11px] font-medium bg-background text-foreground border border-border rounded">
+          <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/15 bg-white/5 text-white/80">
             {s.category}
           </span>
         </div>
