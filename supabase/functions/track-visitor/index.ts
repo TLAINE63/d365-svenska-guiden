@@ -134,17 +134,24 @@ Deno.serve(async (req) => {
       // Find the most recent row for this session + page and update it
       const { data: existing } = await supabase
         .from("visitor_analytics")
-        .select("id")
-        .eq("session_id", session_id)
-        .eq("page_path", page_path)
+        .select("id, time_on_page_seconds")
+        .eq("session_id", String(session_id).slice(0, 100))
+        .eq("page_path", String(page_path).slice(0, 500))
+        // Only the visit that is still in progress may be updated (last 30 min)
+        .gte("visited_at", new Date(Date.now() - 30 * 60 * 1000).toISOString())
         .order("visited_at", { ascending: false })
         .limit(1);
 
-      if (existing && existing.length > 0) {
+      const newSeconds = Number(time_on_page_seconds);
+      if (
+        existing && existing.length > 0 &&
+        Number.isFinite(newSeconds) && newSeconds >= 0 &&
+        newSeconds >= (existing[0].time_on_page_seconds ?? 0)
+      ) {
         await supabase
           .from("visitor_analytics")
           .update({
-            time_on_page_seconds: Math.min(time_on_page_seconds, 600),
+            time_on_page_seconds: Math.min(Math.round(newSeconds), 600),
             is_bounce: false,
           })
           .eq("id", existing[0].id);
