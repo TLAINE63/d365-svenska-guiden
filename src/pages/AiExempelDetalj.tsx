@@ -49,7 +49,11 @@ const AiExempelDetalj = () => {
           <p className="mt-3 text-lg text-muted-foreground">{ex.summary}</p>
 
           <Section letter="A" title="Vad vill du göra?"><p className="text-lg italic">"{ex.userGoal}"</p></Section>
-          <Section letter="B" title="Så arbetade du tidigare, så kan du arbeta med AI">
+          <Section letter="B" title="Så arbetade du tidigare">
+            <p>Den traditionella arbetsgången: {ex.traditionalWorkflow.join(" → ")}.</p>
+          </Section>
+          <Section letter="C" title="Så kan du arbeta med AI">
+            <p className="mb-4">Med AI börjar du i uppgiften i stället för i menyn: {ex.aiWorkflow.join(" → ")}.</p>
             <BeforeAfterWorkflow traditional={ex.traditionalWorkflow} ai={ex.aiWorkflow} />
           </Section>
           <Section letter="D" title="Exempel på vad du kan fråga">
