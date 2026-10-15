@@ -9,6 +9,7 @@ import NotFound from "@/pages/NotFound";
 import BeforeAfterWorkflow from "@/components/ai-examples/BeforeAfterWorkflow";
 import AiExampleCard from "@/components/ai-examples/AiExampleCard";
 import AiTypeBadge from "@/components/ai-examples/AiTypeBadge";
+import { BC_TEST_URL } from "@/lib/underlag";
 import { AI_CATEGORIES, AI_TYPES, getApplication, getCategory, getExampleBySlug, getRelatedExamples, productCtaLabel } from "@/data/aiExamples";
 
 const focus = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -33,6 +34,13 @@ const AiExempelDetalj = () => {
   const copy = async (text: string) => {
     try { await navigator.clipboard.writeText(text); setCopied(true); trackAi("ai_prompt_copy", ex); setTimeout(() => setCopied(false), 2500); } catch { /* */ }
   };
+  const libTo = `/ai/exempel/?app=${ex.application}#exempel`;
+  const partnerKey: Partial<Record<string, string>> = { sales: "sales", service: "customer_service", fieldservice: "field_service", finance: "fscm", scm: "fscm" };
+  const partnerTo = partnerKey[ex.application] ? `/valjdynamics365partner/?product=${partnerKey[ex.application]}` : "/valjdynamics365partner/";
+  const tech: { label: string; to: string }[] = isAgent
+    ? [{ label: "Vad är en AI-agent i Dynamics\u00A0365?", to: "/agents/" }, { label: "AI i Dynamics\u00A0365: översikt", to: "/aioversikt/" }]
+    : [{ label: "Vad är Copilot i Dynamics\u00A0365?", to: "/copilot/" }, { label: "AI i Dynamics\u00A0365: översikt", to: "/aioversikt/" }];
+  const shortAnswer = `Ja. ${ex.summary} Det gäller ${app.label}${ex.application === "sales" ? "" : " i Dynamics\u00A0365"} och sker med ${AI_TYPES[ex.aiType].label.toLowerCase()}. Du granskar och ansvarar själv för resultatet.`;
   const t = (ev: Parameters<typeof trackAi>[0], dest: string) => () => trackAi(ev, ex, { cta_destination: dest });
   const app = getApplication(ex.application);
   const level = AI_CATEGORIES.findIndex((c) => c.key === ex.category);
@@ -62,7 +70,10 @@ const AiExempelDetalj = () => {
             <AiTypeBadge type={ex.aiType} />
           </div>
           <h1 className="mt-4 text-3xl font-bold text-foreground md:text-4xl">{ex.title}</h1>
-          <p className="mt-3 text-lg text-muted-foreground">{ex.summary}</p>
+          <section aria-labelledby="kort-svar" className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
+            <h2 id="kort-svar" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Kort svar</h2>
+            <p className="mt-1 text-foreground">{shortAnswer}</p>
+          </section>
 
           <Section id="vad" title="Vad vill du göra?"><p className="text-lg italic text-foreground">"{ex.userGoal}"</p></Section>
 
@@ -151,17 +162,31 @@ const AiExempelDetalj = () => {
             </dl>
           </section>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-card p-5">
-            <Link to="/ai/exempel/" className={`inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 ${focus}`}>Se fler exempel <ArrowRight className="h-4 w-4" aria-hidden /></Link>
-            {isAgent
-              ? <Link to="/agents/" onClick={t("ai_ai_hub_click", "/agents/")} className={`rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>Utforska AI-agenter i Dynamics&nbsp;365</Link>
-              : <Link to={app.productUrl} onClick={t("ai_product_content_click", app.productUrl)} className={`rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>{productCtaLabel(ex.application).replace("Dynamics 365", "Dynamics\u00A0365")}</Link>}
-          </div>
+          <section aria-labelledby="tekniken" className="border-t border-border py-6">
+            <h2 id="tekniken" className="text-base font-semibold text-foreground">Förstå tekniken</h2>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              {tech.map((l) => <li key={l.to}><Link to={l.to} onClick={t("ai_ai_hub_click", l.to)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>{l.label}</Link></li>)}
+            </ul>
+          </section>
 
-          <p className="mt-10 text-sm text-muted-foreground">
-            Vill du se hur det här kan fungera hos er?{" "}
-            <Link to="/valjdynamics365partner/" onClick={t("ai_partner_cta_click", "/valjdynamics365partner/")} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Hitta en Dynamics&nbsp;365-partner</Link>
-          </p>
+          <section aria-labelledby="nasta-steg" className="rounded-xl border border-border bg-card p-5">
+            <h2 id="nasta-steg" className="text-lg font-semibold text-foreground">Nästa steg för dig</h2>
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link to={libTo} onClick={t("ai_related_example_click", libTo)} className={`inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 ${focus}`}>Se fler exempel för {app.label.replace("Dynamics 365 ", "")} <ArrowRight className="h-4 w-4" aria-hidden /></Link>
+              {ex.application === "bc"
+                ? <a href="https://businesscentral.se/" target="_blank" rel="noopener" onClick={t("ai_product_content_click", "https://businesscentral.se/")} className={`rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>Fördjupa dig i Business Central på businesscentral.se</a>
+                : <Link to={app.productUrl} onClick={t("ai_product_content_click", app.productUrl)} className={`rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>{productCtaLabel(ex.application).replace("Dynamics 365", "Dynamics\u00A0365")}</Link>}
+            </div>
+          </section>
+
+          <section aria-labelledby="partner" className="mt-10 border-t border-border pt-6">
+            <h2 id="partner" className="text-base font-semibold text-foreground">Vill du använda detta i din verksamhet?</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Hitta en Dynamics&nbsp;365-partner med rätt kompetens för din applikation och ditt behov.</p>
+            <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <Link to={partnerTo} onClick={t("ai_partner_cta_click", partnerTo)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Hitta rätt partner</Link>
+              {ex.application === "bc" && <a href={BC_TEST_URL} target="_blank" rel="noopener" onClick={t("ai_product_content_click", BC_TEST_URL)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Utvärderar du Business Central?</a>}
+            </div>
+          </section>
         </article>
       </main>
       <Footer />

@@ -1,4 +1,5 @@
 import { track } from "@/lib/track";
+import { trackFunnelEvent } from "@/lib/funnelTracking";
 import { Suspense, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
