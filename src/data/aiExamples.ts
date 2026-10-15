@@ -438,7 +438,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
   }),
   // SALES
   vx({
-    slug: "sales-hitta-kundinformation", title: "Hitta kundinformation", application: "sales", category: "hitta",
+    slug: "sales-hitta-kundinformation", title: "Hitta senaste kundaktiviteter", application: "sales", category: "hitta",
     businessArea: "Försäljning", role: ["saljare"], aiType: "copilot-chat", ...SALES_INFO,
     summary: "Få senaste aktiviteter, kontakter och affärer för en kund på ett ställe.",
     userGoal: "Jag vill veta vad som hänt med kunden sedan jag senast pratade med dem.",
@@ -631,7 +631,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
   }),
   vx({
     slug: "finance-hem", title: "Se vilka arbetsuppgifter som behöver uppmärksamhet", application: "finance", category: "agera",
-    businessArea: "Ekonomi", role: ["ekonom", "cfo"], aiType: "agent",
+    businessArea: "Ekonomi", role: ["ekonom", "cfo"], aiType: "copilot",
     sourceName: "Microsoft Learn: Immersive Home", sourceUrl: `${ML}/fin-ops-core/fin-ops/copilot/immersive-home`,
     summary: "En startsida som lyfter fram ditt viktigaste arbete och samlar agenternas uppgifter.",
     userGoal: "Jag vill börja dagen med det som är viktigast, utan att gå igenom flera arbetsytor.",

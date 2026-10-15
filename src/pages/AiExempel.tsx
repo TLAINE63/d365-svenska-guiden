@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useRef } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { trackAi } from "@/lib/aiLibraryTracking";
 import { ArrowRight, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -29,18 +30,33 @@ const chip = (active: boolean) =>
   }`;
 
 const AiExempel = () => {
-  const [cats, setCats] = useState<AiCategory[]>([]);
-  const [apps, setApps] = useState<AiApplication[]>([]);
-  const [roles, setRoles] = useState<AiRole[]>([]);
-  const [types, setTypes] = useState<AiType[]>([]);
-  const results = useMemo(() => filterExamples({ categories: cats, applications: apps, roles, aiTypes: types }), [cats, apps, roles, types]);
+  const [params, setParams] = useSearchParams();
+  const read = <T,>(k: string) => (params.get(k)?.split(",").filter(Boolean) ?? []) as T[];
+  const cats = read<AiCategory>("kategori"), apps = read<AiApplication>("app"), roles = read<AiRole>("roll"), types = read<AiType>("typ");
+  const setter = <T extends string>(k: string, ev: "ai_category_filter" | "ai_application_filter" | "ai_role_filter" | "ai_type_filter") =>
+    (u: T[] | ((l: T[]) => T[])) => {
+      const next = typeof u === "function" ? u(read<T>(k)) : u;
+      const np = new URLSearchParams(params);
+      next.length ? np.set(k, next.join(",")) : np.delete(k);
+      setParams(np, { replace: true, preventScrollReset: true });
+      if (next.length) trackAi(ev, null, { [ev === "ai_category_filter" ? "category" : ev === "ai_application_filter" ? "application" : ev === "ai_role_filter" ? "role" : "ai_type"]: next.join(",") });
+    };
+  const setCats = setter<AiCategory>("kategori", "ai_category_filter");
+  const setApps = setter<AiApplication>("app", "ai_application_filter");
+  const setRoles = setter<AiRole>("roll", "ai_role_filter");
+  const setTypes = setter<AiType>("typ", "ai_type_filter");
+  useEffect(() => { trackAi("ai_library_view"); if (window.location.hash === "#exempel") setTimeout(() => document.getElementById("exempel")?.scrollIntoView(), 50); }, []);
+  useEffect(() => { try { sessionStorage.setItem("ai_library_filters", params.toString()); } catch { /* */ } }, [params]);
+  const results = useMemo(() => filterExamples({ categories: cats, applications: apps, roles, aiTypes: types }), [params]); // eslint-disable-line react-hooks/exhaustive-deps
+  const zeroKey = useRef("");
+  useEffect(() => { const k = params.toString(); if (!results.length && k !== zeroKey.current) { zeroKey.current = k; trackAi("ai_zero_results", null, { filters: k }); } }, [results.length, params]);
   const active = [
     ...cats.map((c) => ({ key: `c-${c}`, label: getCategory(c).label, off: () => setCats((l) => l.filter((x) => x !== c)) })),
     ...apps.map((a) => ({ key: `a-${a}`, label: getApplication(a).label, off: () => setApps((l) => l.filter((x) => x !== a)) })),
     ...roles.map((r) => ({ key: `r-${r}`, label: AI_ROLES[r], off: () => setRoles((l) => l.filter((x) => x !== r)) })),
     ...types.map((t) => ({ key: `t-${t}`, label: AI_TYPES[t].label, off: () => setTypes((l) => l.filter((x) => x !== t)) })),
   ];
-  const clear = () => { setCats([]); setApps([]); setRoles([]); setTypes([]); };
+  const clear = () => setParams(new URLSearchParams(), { replace: true, preventScrollReset: true });
   const goToExamples = () => document.getElementById("exempel")?.scrollIntoView({ behavior: "smooth", block: "start" });
   const moreCount = roles.length + types.length;
 
@@ -67,7 +83,7 @@ const AiExempel = () => {
             <button type="button" onClick={goToExamples} className={`inline-flex items-center gap-1 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 ${focus}`}>
               Se hur du kan arbeta smartare <ArrowRight className="h-4 w-4" aria-hidden />
             </button>
-            <Link to="/aioversikt/" className={`inline-flex items-center gap-1 rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>
+            <Link to="/aioversikt/" onClick={() => trackAi("ai_ai_hub_click", null, { cta_destination: "/aioversikt/" })} className={`inline-flex items-center gap-1 rounded-sm text-sm font-medium text-primary hover:underline ${focus}`}>
               Utforska AI i Dynamics&nbsp;365
             </Link>
           </div>
@@ -175,10 +191,12 @@ const AiExempel = () => {
             </div>
           ) : (
             <div className="mt-4 rounded-xl border border-border bg-card p-6">
-              <p className="font-semibold text-foreground">Vi kan hjälpa er vidare</p>
-              <p className="mt-1 text-sm text-muted-foreground">Inga exempel matchar ännu den kombinationen. Ta bort ett filter eller utforska AI i Dynamics&nbsp;365.</p>
-              <button type="button" onClick={clear} className={`mt-3 rounded-sm text-sm font-medium text-primary underline ${focus}`}>Rensa filter</button>
-            </div>
+              <p className="font-semibold text-foreground">Inga exempel matchar dina val just nu.</p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                {active.length > 1 && <button type="button" onClick={active[active.length - 1].off} className={`rounded-sm text-sm font-medium text-primary underline ${focus}`}>Ta bort senaste filtret ({active[active.length - 1].label})</button>}
+                <button type="button" onClick={clear} className={`rounded-sm text-sm font-medium text-primary underline ${focus}`}>Visa alla exempel</button>
+              </div>
+              </div>
           )}
 
           <p className="mt-6 text-xs text-muted-foreground">
@@ -190,7 +208,7 @@ const AiExempel = () => {
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold text-foreground">Så fungerar tekniken</h2>
             <p className="mt-1 text-sm text-muted-foreground">Exemplen visar hur arbetet förändras. I AI-översikten förklarar vi Copilot, agenter och utvecklingen.</p>
-            <Link to="/aioversikt/" className={`mt-3 inline-flex items-center gap-1 rounded-sm font-semibold text-primary hover:underline ${focus}`}>Utforska AI i Dynamics&nbsp;365 <ArrowRight className="h-4 w-4" aria-hidden /></Link>
+            <Link to="/aioversikt/" onClick={() => trackAi("ai_ai_hub_click", null, { cta_destination: "/aioversikt/" })} className={`mt-3 inline-flex items-center gap-1 rounded-sm font-semibold text-primary hover:underline ${focus}`}>Utforska AI i Dynamics&nbsp;365 <ArrowRight className="h-4 w-4" aria-hidden /></Link>
           </div>
         </section>
       </main>
