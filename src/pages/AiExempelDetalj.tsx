@@ -95,6 +95,7 @@ const AiExempelDetalj = () => {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-card p-5">
             <Link to="/ai/exempel/" className="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Se fler exempel <ArrowRight className="h-4 w-4" /></Link>
             <Link to={app.productUrl} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">Läs mer om <span className="whitespace-nowrap">{app.label}</span></Link>
+            {(ex.aiType === "agent" || ex.aiType === "mcp") && <Link to="/agents/" className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">Läs om AI-agenter</Link>}
           </div>
 
           <section className="pt-10">
