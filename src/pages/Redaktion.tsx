@@ -34,13 +34,16 @@ export default function Redaktion() {
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showSetup, setShowSetup] = useState(false);
-  const [adminPassword, setAdminPassword] = useState("");
   const [creating, setCreating] = useState(false);
 
   async function handleCreateAccount() {
     setCreating(true);
     const { data, error } = await supabase.functions.invoke("editor-bootstrap", {
-      body: { adminPassword, email: form.email, password: form.password },
+      body: {
+        adminToken: typeof window !== "undefined" ? window.sessionStorage.getItem("admin_token") : null,
+        email: form.email,
+        password: form.password,
+      },
     });
     setCreating(false);
     if (error || (data as { error?: string } | null)?.error) {
@@ -49,7 +52,6 @@ export default function Redaktion() {
     }
     toast.success("Kontot är klart, logga in med din e-post och ditt lösenord");
     setShowSetup(false);
-    setAdminPassword("");
   }
 
   const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
@@ -158,18 +160,9 @@ export default function Redaktion() {
               ) : (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Fyll i e-post och lösenord ovan, och ange adminlösenordet här för att skapa
-                    kontot.
+                    Fyll i e-post och lösenord ovan. Nya redaktörskonton kan bara skapas när du
+                    är inloggad som admin i samma webbläsare.
                   </p>
-                  <div className="space-y-2">
-                    <Label htmlFor="setup-admin">Adminlösenord</Label>
-                    <Input
-                      id="setup-admin"
-                      type="password"
-                      value={adminPassword}
-                      onChange={(e) => setAdminPassword(e.target.value)}
-                    />
-                  </div>
                   <Button
                     type="button"
                     variant="secondary"
