@@ -498,7 +498,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
     whatHappens: "Exempel på användningsfall: relevanta transaktioner hämtas och presenteras.",
     humanResponsibility: "Du kontrollerar period, bolag och dimensioner.",
     efficiencyBenefit: "Färre steg i förfrågningar som tidigare krävde rätt vy och filter.",
-    automationLevel: "fraga", relatedExamples: ["fscm-forsta-affarsdata", "fscm-analysera-data"],
+    automationLevel: "fraga", relatedExamples: ["fscm-forsta-affarsdata", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   ex({
@@ -510,11 +510,11 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
     whatHappens: "Exempel på användningsfall: de största bidragande posterna lyfts fram.",
     humanResponsibility: "Du tolkar orsaken och beslutar om åtgärd.",
     efficiencyBenefit: "Mindre manuell nedbrytning av avvikelser.",
-    automationLevel: "assistans", relatedExamples: ["finance-hitta-ekonomisk-information", "fscm-analysera-data"],
+    automationLevel: "assistans", relatedExamples: ["finance-hitta-ekonomisk-information", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   ex({
-    slug: "fscm-analysera-data", title: "Analysera data", application: "scm", category: "analysera",
+    slug: "scm-efterfragan", title: "Analysera data", application: "scm", category: "analysera",
     businessArea: "Supply chain", role: ["inkopare"], aiType: "copilot-chat",
     summary: "Hitta mönster i leveranser och leverantörsprestanda.",
     userGoal: "Jag vill veta vilka leverantörer som ofta levererar sent.",
@@ -536,7 +536,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
     whatHappens: "AI-sammanfattningar med Copilot visar en överblick av det viktigaste på sidan, till exempel antal artiklar i ett lager eller rader på en inköpsorder.",
     humanResponsibility: "Du lovar leveransdatum utifrån er planering.",
     efficiencyBenefit: "Du ser det viktigaste på sidan direkt i stället för att räkna rader och saldon själv.",
-    automationLevel: "fraga", relatedExamples: ["bc-hitta-order", "fscm-analysera-data"],
+    automationLevel: "fraga", relatedExamples: ["bc-hitta-order", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   vx({
@@ -550,7 +550,7 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
     whatHappens: "Agenten för leverantörskommunikation (förhandsversion klar för produktion) följer upp med leverantörer och föreslår uppdateringar av inköpsorder enligt regler som ni själva bestämmer.",
     humanResponsibility: "Du bestämmer vilka steg agenten får ta och följer upp utfallet.",
     efficiencyBenefit: "Uppföljningen med leverantörer enligt era regler behöver inte startas manuellt för varje order.",
-    automationLevel: "automatisering", relatedExamples: ["bc-agent-repetitiv", "fscm-analysera-data"],
+    automationLevel: "automatisering", relatedExamples: ["bc-sales-order-agent", "scm-efterfragan"],
     ctaType: "partner", ctaUrl: "/agents/",
   }),
   // SPRINT 3: FINANCE (verifierade)
