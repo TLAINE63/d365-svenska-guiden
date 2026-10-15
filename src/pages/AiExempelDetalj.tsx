@@ -68,6 +68,7 @@ const AiExempelDetalj = () => {
             </span>
             <span className="rounded-full bg-secondary px-2.5 py-0.5 font-medium text-secondary-foreground">{getCategory(ex.category).label}</span>
             <AiTypeBadge type={ex.aiType} />
+            {ex.productStatus === "preview" && <span className="rounded-full border border-border px-2.5 py-0.5 font-medium text-foreground">Förhandsversion</span>}
           </div>
           <h1 className="mt-4 text-3xl font-bold text-foreground md:text-4xl">{ex.title}</h1>
           <section aria-labelledby="kort-svar" className="mt-5 rounded-xl border border-border bg-muted/40 p-4">

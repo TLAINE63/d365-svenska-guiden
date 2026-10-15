@@ -44,7 +44,8 @@ export type FunnelEventType =
   | "engagement"
   | "competence"
   | "role_guidance"
-  | "underlag";
+  | "underlag"
+  | "ai_library";
 
 /** Fasta steg i köparresan. */
 export type FunnelStep =
