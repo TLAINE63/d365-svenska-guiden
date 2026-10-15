@@ -162,18 +162,9 @@ export default function Redaktion() {
               ) : (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Fyll i e-post och lösenord ovan, och ange adminlösenordet här för att skapa
-                    kontot.
+                    Fyll i e-post och lösenord ovan. Nya redaktörskonton kan bara skapas när du
+                    är inloggad som admin i samma webbläsare.
                   </p>
-                  <div className="space-y-2">
-                    <Label htmlFor="setup-admin">Adminlösenord</Label>
-                    <Input
-                      id="setup-admin"
-                      type="password"
-                      value={adminPassword}
-                      onChange={(e) => setAdminPassword(e.target.value)}
-                    />
-                  </div>
                   <Button
                     type="button"
                     variant="secondary"
