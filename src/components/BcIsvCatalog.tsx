@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { X, ArrowRight, Search } from "lucide-react";
+import { X, ArrowRight, Search, Check, Building2, Globe, Users } from "lucide-react";
 import {
   CATEGORIES,
   DELIVERY_MODELS,
@@ -115,64 +115,114 @@ function FilterRow<T extends string>({
   );
 }
 
-const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => (
-  <button
-    type="button"
-    onClick={onOpen}
-    className="text-left group relative bg-gradient-to-b from-card to-muted/20 border border-border hover:border-primary/40 hover:shadow-lg transition-all duration-300 flex flex-col p-7 overflow-hidden"
-  >
-    {/* Top accent bar */}
-    <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary opacity-80 group-hover:opacity-100 transition-opacity" />
-
-    <div className="mb-5 min-w-0">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/80 mb-1.5 truncate">
-        {s.vendor}
-      </p>
-      <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
-        {s.name}
-      </h3>
-    </div>
-
-    <div className="flex flex-wrap gap-1.5 mb-5">
-      <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${DELIVERY_BADGE[model(s)]}`}>
-        {deliveryText(s)}
-      </span>
-      <span className="px-2 py-0.5 text-[11px] font-medium bg-muted/60 text-foreground border border-border rounded">
-        {s.category}
-      </span>
-      {ceApps(s).slice(0, 3).map((a) => (
-        <span
-          key={a}
-          className="px-2 py-0.5 text-[11px] font-medium bg-[hsl(var(--accent-light))] text-accent border border-accent/30 rounded"
-        >
-          {CE_APP_LABEL[a]}
-        </span>
-      ))}
-    </div>
-
-    <p className="text-sm text-muted-foreground leading-relaxed mb-6 line-clamp-3 flex-1">
-      {s.shortDescription}
-    </p>
-
-    <div className="mt-auto border-t border-border/60 pt-4">
-      <div className="flex flex-wrap gap-1.5 mb-4 min-h-[18px]">
-        {s.tags.slice(0, 4).map((t) => (
-          <span
-            key={t}
-            className="text-[10px] text-muted-foreground bg-muted/40 px-1.5 py-0.5 border border-border/60 rounded-sm"
-          >
-            #{t}
+const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => {
+  const products = solutionProducts(s);
+  const industries = (s.industryFocus?.length ? s.industryFocus : s.industries) || [];
+  const partnerCount = (s.partnerSlugs?.length || 0) || s.partnersSE?.length || 0;
+  const useCases = (s.useCases || []).slice(0, 3);
+  const initials = s.vendor.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="text-left group relative bg-card border border-border rounded-xl hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
+    >
+      {/* Premium header */}
+      <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent px-7 pt-7 pb-5 border-b border-border/60">
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary opacity-80 group-hover:opacity-100 transition-opacity" />
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 shrink-0 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center font-['Playfair_Display'] text-lg font-semibold text-primary">
+            {initials}
+          </div>
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
+              {s.vendor}
+            </p>
+            <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-foreground leading-tight group-hover:text-primary transition-colors">
+              {s.name}
+            </h3>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-1.5 mt-4">
+          <span className={`px-2 py-0.5 text-[11px] font-medium rounded border ${DELIVERY_BADGE[model(s)]}`}>
+            {deliveryText(s)}
           </span>
-        ))}
+          <span className="px-2 py-0.5 text-[11px] font-medium bg-background text-foreground border border-border rounded">
+            {s.category}
+          </span>
+        </div>
       </div>
 
-      <span className="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
-        Visa lösningen
-        <ArrowRight className="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-      </span>
-    </div>
-  </button>
-);
+      <div className="px-7 py-5 flex flex-col flex-1 gap-4">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.shortDescription}</p>
+
+        {useCases.length > 0 && (
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-1.5">Används till</p>
+            <ul className="space-y-1">
+              {useCases.map((u) => (
+                <li key={u} className="flex gap-2 text-xs text-foreground leading-snug">
+                  <Check className="w-3.5 h-3.5 mt-0.5 shrink-0 text-accent" />
+                  <span className="line-clamp-2">{u}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {s.bestFor && (
+          <div className="rounded-lg bg-muted/40 border border-border/60 px-3 py-2.5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-0.5">Passar bäst för</p>
+            <p className="text-xs text-foreground leading-snug line-clamp-2">{s.bestFor}</p>
+          </div>
+        )}
+
+        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+          <div className="col-span-2 flex flex-wrap gap-1">
+            {[...products, ...ceApps(s).map((a) => CE_APP_LABEL[a])]
+              .filter((v, i, arr) => arr.indexOf(v) === i)
+              .slice(0, 4)
+              .map((p) => (
+                <span key={p} className="px-2 py-0.5 text-[11px] font-medium bg-[hsl(var(--accent-light))] text-accent border border-accent/30 rounded whitespace-nowrap">
+                  {p}
+                </span>
+              ))}
+          </div>
+          {industries.length > 0 && (
+            <div className="flex items-start gap-1.5 col-span-2 text-muted-foreground">
+              <Building2 className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+              <span className="line-clamp-1">{industries.slice(0, 3).join(", ")}</span>
+            </div>
+          )}
+          {s.geo?.length > 0 && (
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Globe className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">{s.geo.join(", ")}</span>
+            </div>
+          )}
+          {partnerCount > 0 && (
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Users className="w-3.5 h-3.5 shrink-0" />
+              <span>{partnerCount} {partnerCount === 1 ? "partner" : "partners"} i Sverige</span>
+            </div>
+          )}
+        </dl>
+
+        <div className="mt-auto pt-4 border-t border-border/60 flex items-center justify-between gap-2">
+          <span className="inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
+            Visa lösningen
+            <ArrowRight className="ml-1.5 w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+          {(s.vendorUpdatedAt || s.verifiedAt) && (
+            <span className="text-[10px] text-muted-foreground">
+              Uppdaterad {(s.vendorUpdatedAt || s.verifiedAt || "").slice(0, 10)}
+            </span>
+          )}
+        </div>
+      </div>
+    </button>
+  );
+};
 
 /** Återförsäljare/partners som ISV:n själv angett (slugs mot partnerdatabasen). */
 export const IsvResellers = ({ slugs }: { slugs: string[] }) => {
