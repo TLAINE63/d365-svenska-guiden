@@ -11,6 +11,7 @@ export type AiApplication = "bc" | "sales" | "service" | "finance" | "scm" | "fi
 export type AiType = "copilot" | "copilot-chat" | "inbyggd" | "agent" | "mcp";
 export type AiRole =
   | "cfo" | "ekonom" | "saljare" | "saljchef" | "kundservice" | "inkopare" | "projektledare" | "servicepersonal" | "supplychain";
+export type EditorialStatus = "VERIFIED" | "USE_CASE" | "REVIEW" | "DRAFT";
 export type AutomationLevel = "fraga" | "assistans" | "handling" | "automatisering";
 
 export interface AiExample {
@@ -36,6 +37,15 @@ export interface AiExample {
   sourceName?: string;
   verified: boolean;
   lastVerified?: string;
+  /** Intern redaktionell status. Endast VERIFIED publiceras för besökare. */
+  status: EditorialStatus;
+  /** Hur man kommer åt funktionen när det inte är en fråga (inbyggd funktion/agent). */
+  howToStart?: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  imageSource?: string;
+  imageSourceUrl?: string;
   ctaType: "produkt" | "losning" | "partner";
   ctaUrl: string;
 }
@@ -88,7 +98,7 @@ const CS_COPILOT = { sourceName: "Microsoft Learn: Använd Copilot-funktioner i 
 const TRAD_FIND = ["Meny", "Lista", "Filter", "Post", "Granska", "Åtgärd"];
 const AI_FIND = ["Behov", "Fråga", "AI hjälper", "Du granskar", "Nästa steg"];
 
-type Base = Omit<AiExample, "id" | "verified" | "traditionalWorkflow" | "aiWorkflow"> &
+type Base = Omit<AiExample, "id" | "verified" | "status" | "traditionalWorkflow" | "aiWorkflow"> & { status?: EditorialStatus } &
   Partial<Pick<AiExample, "traditionalWorkflow" | "aiWorkflow">>;
 
 const ex = (e: Base): AiExample => ({
@@ -97,16 +107,19 @@ const ex = (e: Base): AiExample => ({
   ...e,
   id: e.slug,
   verified: false,
+  status: e.status ?? "REVIEW",
 });
 
 /** Verifierat exempel: kräver källa från Microsoft och granskningsdatum. */
 const vx = (e: Base & { sourceUrl: string; sourceName: string }): AiExample => ({
   ...ex(e),
   verified: true,
+  status: "VERIFIED",
   lastVerified: VERIFIED_AT,
 });
 
-export const AI_EXAMPLES: AiExample[] = [
+/** Alla poster inklusive ej publiceringsklara (intern QA). */
+export const ALL_AI_EXAMPLES: AiExample[] = [
   // BUSINESS CENTRAL (verifierade mot Microsoft Learn)
   vx({
     slug: "bc-hitta-faktura", title: "Hitta den senaste fakturan från en kund eller leverantör", application: "bc", category: "hitta",
@@ -132,7 +145,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Visa order 101005.", "Hitta dokumentet med externt dokumentnummer INV-2231."],
     whatHappens: "Copilot-chatten söker bland posterna i Business Central och returnerar matchande poster som du kan öppna.",
     humanResponsibility: "Du bedömer om träffen är rätt dokument, särskilt om flera poster har liknande nummer.",
-    efficiencyBenefit: "Färre försök i olika listor när du bara har ett nummer att gå på.",
+    efficiencyBenefit: "Du behöver inte gissa vilken dokumenttyp numret hör till och prova lista för lista.",
     automationLevel: "fraga", relatedExamples: ["bc-hitta-faktura", "bc-forsta-falt", "bc-sales-order-agent"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
@@ -146,7 +159,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Hur krediterar jag en bokförd försäljningsfaktura?", "Hur fungerar periodavslut i Business Central?"],
     whatHappens: "Copilot-chatten kan svara på frågor om hur Business Central fungerar, med stöd i Microsofts dokumentation.",
     humanResponsibility: "Du utför och bokför själv och följer era egna rutiner, som kan skilja sig från standardbeskrivningen.",
-    efficiencyBenefit: "Mindre letande i dokumentation för moment du gör några gånger per år.",
+    efficiencyBenefit: "Du kan fråga direkt i systemet i stället för att söka upp rätt avsnitt i dokumentationen.",
     automationLevel: "fraga", relatedExamples: ["bc-forsta-falt", "bc-hitta-faktura", "bc-bankavstamning"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
@@ -160,7 +173,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vad används fältet Lagerbokföringsmall till?", "Vad betyder Kostnadsmetod på artikelkortet?"],
     whatHappens: "Copilot-chatten kan förklara fält och begrepp i Business Central utifrån dokumentationen.",
     humanResponsibility: "Ändringar av inställningar beslutar du, gärna tillsammans med den som ansvarar för systemet.",
-    efficiencyBenefit: "Färre frågor till nyckelanvändare om grundläggande begrepp.",
+    efficiencyBenefit: "Du får en förklaring av fältet där du står, i stället för att leta i hjälpen eller fråga en kollega.",
     automationLevel: "fraga", relatedExamples: ["bc-forsta-process", "bc-hitta-dokumentnummer", "bc-analysera-lista"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
@@ -190,7 +203,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Visa per kvartal i stället för per månad.", "Ta bara med kunder i Sverige."],
     whatHappens: "Copilot kan ändra en analysflik som redan finns utifrån en beskrivning av vad som ska ändras.",
     humanResponsibility: "Du kontrollerar att analysen fortfarande visar det du menar efter ändringen.",
-    efficiencyBenefit: "Mindre tid på att hitta rätt inställning i analysläget.",
+    efficiencyBenefit: "Du kan beskriva ändringen i stället för att leta upp rätt inställning och dra om fält.",
     automationLevel: "assistans", relatedExamples: ["bc-analysera-lista", "bc-bankavstamning", "bc-forsta-falt"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
@@ -220,7 +233,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Stäm av bankkontot med Copilot.", "Föreslå konton för de rader som inte matchade."],
     whatHappens: "Copilot föreslår matchningar för bankrader och kan föreslå konton för rader utan motsvarande post. Förslagen visas för granskning innan något sparas.",
     humanResponsibility: "Du granskar varje förslag och beslutar vad som ska bokföras.",
-    efficiencyBenefit: "Mindre manuell matchning av rader som standardregeln inte klarar.",
+    efficiencyBenefit: "Du granskar föreslagna matchningar i stället för att leta upp motposten till varje omatchad rad själv.",
     automationLevel: "handling", relatedExamples: ["bc-analysera-lista", "bc-forsta-process", "bc-sales-order-agent"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
@@ -232,7 +245,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi får många förfrågningar per e-post som skrivs in manuellt.",
     traditionalWorkflow: ["Läs e-post", "Hitta kunden", "Skapa offert", "Skriv rader", "Kontrollera", "Svara"],
     aiWorkflow: ["Förfrågan kommer in", "Agenten skapar utkast", "Du granskar", "Godkänn och skicka"],
-    promptExamples: ["(Kundens mejl) Vi vill beställa 20 st av artikel 1896-S till nästa vecka."],
+    howToStart: "Vi vill beställa 20 st av artikel 1896-S till nästa vecka.", promptExamples: [],
     whatHappens: "Agenten bevakar en brevlåda, identifierar kund och artiklar, kontrollerar tillgänglighet och skapar offert- eller orderutkast. Steg som kräver granskning stannar tills en användare godkänner.",
     humanResponsibility: "Du godkänner utkast och svar och bestämmer vilka behörigheter agenten har.",
     efficiencyBenefit: "Manuell inskrivning av förfrågningar minskar och granskning blir huvudmomentet.",
@@ -250,7 +263,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Sammanfatta det här leadet.", "Vad vet vi om det här företaget?"],
     whatHappens: "Copilot i Sales kan sammanfatta ett lead utifrån uppgifterna och aktiviteterna som finns registrerade.",
     humanResponsibility: "Du bedömer om leadet är relevant och hur du tar kontakt.",
-    efficiencyBenefit: "Mindre läsning av fält och historik före första kontakten.",
+    efficiencyBenefit: "Du läser en sammanfattning i stället för att gå igenom fält och tidslinje innan första kontakten.",
     automationLevel: "assistans", relatedExamples: ["sales-sammanfatta-opportunity", "sales-forbered-kundkontakt", "sales-uppgifter-uppmarksamhet"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -264,7 +277,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Sammanfatta den här affärsmöjligheten.", "Vilka är de viktigaste kontakterna?"],
     whatHappens: "Copilot sammanfattar affärsmöjligheten utifrån posten och dess relaterade aktiviteter.",
     humanResponsibility: "Sammanfattningen är ett stöd. Viktiga detaljer verifierar du med kollega eller kund.",
-    efficiencyBenefit: "Överlämningar kräver mindre genomläsning av historik.",
+    efficiencyBenefit: "Du kan börja med en sammanfattning av affären i stället för att läsa hela historiken.",
     automationLevel: "assistans", relatedExamples: ["sales-forandring-affar", "sales-sammanfatta-lead", "sales-forbered-kundkontakt"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -278,7 +291,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vad är nytt på den här affären?", "Vad har ändrats den senaste veckan?"],
     whatHappens: "Copilot kan visa vad som uppdaterats på en post, till exempel ändrade fält och nya aktiviteter.",
     humanResponsibility: "Du bedömer om förändringarna påverkar prognos och prioritering.",
-    efficiencyBenefit: "Genomgångar kan fokusera på det som ändrats.",
+    efficiencyBenefit: "Du ser vad som ändrats utan att jämföra fält och tidslinje själv.",
     automationLevel: "fraga", relatedExamples: ["sales-sammanfatta-opportunity", "sales-uppgifter-uppmarksamhet", "sales-forbered-kundkontakt"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -308,7 +321,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vad har hänt med mina affärer sedan i går?", "Vilka av mina affärer har uppdaterats?"],
     whatHappens: "Copilot kan lyfta fram uppdateringar på affärer och konton du följer, så att du ser var något har hänt.",
     humanResponsibility: "Prioriteringen och uppföljningen är fortfarande ditt beslut.",
-    efficiencyBenefit: "Mindre tid på att själv gå igenom listor för att hitta förändringar.",
+    efficiencyBenefit: "Du får en lista över uppdaterade poster i stället för att öppna affär för affär.",
     automationLevel: "assistans", relatedExamples: ["sales-forandring-affar", "sales-forbered-kundkontakt", "sales-sammanfatta-lead"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -323,7 +336,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Sammanfatta ärendet.", "Vad har kunden redan fått för svar?"],
     whatHappens: "Copilot kan sammanfatta ett ärende med de viktigaste uppgifterna, som kund, problem och vad som gjorts.",
     humanResponsibility: "Du läser det som är avgörande innan du lovar något till kunden.",
-    efficiencyBenefit: "Mindre läsning vid överlämning mellan handläggare.",
+    efficiencyBenefit: "Du kan börja med en sammanfattning av ärendet i stället för att läsa all historik vid en överlämning.",
     automationLevel: "assistans", relatedExamples: ["service-sammanfatta-konversation", "service-nasta-steg", "service-skapa-svar"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -337,7 +350,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Sammanfatta konversationen.", "Vad vill kunden ha hjälp med?"],
     whatHappens: "Copilot kan sammanfatta en konversation med kundens fråga, vad som hänt och vad som återstår.",
     humanResponsibility: "Du stämmer av med kunden om något i sammanfattningen är oklart.",
-    efficiencyBenefit: "Kunden slipper upprepa sig och du kommer snabbare in i ärendet.",
+    efficiencyBenefit: "Du behöver inte läsa hela chatten för att förstå vad kunden redan har berättat.",
     automationLevel: "assistans", relatedExamples: ["service-sammanfatta-arende", "service-hitta-kunskap", "service-skapa-svar"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -351,7 +364,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Hur återställer kunden sin router?", "Vad gäller vid retur efter 30 dagar?"],
     whatHappens: "Du kan ställa frågor till Copilot, som svarar utifrån kunskapskällor som organisationen har gett åtkomst till och visar vilka källor svaret bygger på.",
     humanResponsibility: "Du avgör om svaret passar kundens situation och kontrollerar källan vid osäkerhet.",
-    efficiencyBenefit: "Mindre sökande med rätt sökord i kunskapsbasen.",
+    efficiencyBenefit: "Du ställer frågan med egna ord i stället för att gissa rätt sökord i kunskapsbasen.",
     automationLevel: "fraga", relatedExamples: ["service-skapa-svar", "service-nasta-steg", "service-sammanfatta-konversation"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -365,7 +378,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Hur kan jag lösa det här ärendet?", "Vilka steg ska kunden prova först?"],
     whatHappens: "Copilot kan föreslå lösningssteg utifrån ärendet och tillgängliga kunskapskällor.",
     humanResponsibility: "Du väljer åtgärd och ansvarar för vad som lovas kunden.",
-    efficiencyBenefit: "Snabbare väg till en trolig lösning utan att först eskalera.",
+    efficiencyBenefit: "Du får förslag på lösningssteg att bedöma i stället för att söka fram dem själv.",
     automationLevel: "assistans", relatedExamples: ["service-hitta-kunskap", "service-skapa-svar", "service-sammanfatta-arende"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -379,7 +392,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Skriv ett vänligt svar med instruktionerna från artikeln.", "Gör svaret kortare."],
     whatHappens: "Copilot kan skriva utkast till e-post och svar i konversationer utifrån ärendets sammanhang.",
     humanResponsibility: "Du kontrollerar ton, fakta och vad som utlovas, och det är du som skickar.",
-    efficiencyBenefit: "Första versionen behöver inte skrivas från början.",
+    efficiencyBenefit: "Du får ett första utkast att granska i stället för att skriva svaret från början.",
     automationLevel: "assistans", relatedExamples: ["service-nasta-steg", "service-hitta-kunskap", "bc-skapa-produkttext"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -404,11 +417,12 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilken status har order 1045?", "Vilka order till Nordbygg är inte levererade än?"],
     whatHappens: "Copilot i Business Central besvarar frågor om er data, till exempel order, och visar träffar som du kan öppna.",
     humanResponsibility: "Du lämnar besked till kunden och kontrollerar leveransdatum vid osäkerhet.",
-    efficiencyBenefit: "Kortare väg från fråga till svar i kundsamtalet.",
+    efficiencyBenefit: "Du kan fråga efter ordern i stället för att leta upp den i listan medan kunden väntar.",
     automationLevel: "fraga", relatedExamples: ["bc-hitta-kundinformation", "fscm-hitta-lager"],
     ctaType: "produkt", ctaUrl: "/businesscentral/",
   }),
-  vx({
+  ex({
+    status: "REVIEW", // dublett av bc-sales-order-agent
     slug: "bc-agent-repetitiv", title: "Från repetitiv process till agent", application: "bc", category: "automatisera",
     businessArea: "Order", role: ["saljare", "inkopare"], aiType: "agent", sourceName: "Microsoft Learn: Sales Order Agent", sourceUrl: `${ML}/business-central/sales-order-agent`,
     summary: "Låt en agent ta fram förslag på order från inkommande förfrågningar som du godkänner.",
@@ -431,7 +445,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vad har hänt med Nordbygg de senaste 30 dagarna?"],
     whatHappens: "Copilot i Sales kan sammanfatta konton, leads och affärsmöjligheter och visa senaste nyheter om kunden.",
     humanResponsibility: "Du bedömer vad som är relevant och kompletterar med det du vet.",
-    efficiencyBenefit: "Mindre klickande mellan tidslinje, kontakter och affärer.",
+    efficiencyBenefit: "Du kan be om en sammanfattning av kontot i stället för att klicka mellan tidslinje, kontakter och affärer.",
     automationLevel: "fraga", relatedExamples: ["sales-forbered-kundkontakt", "sales-sammanfatta-opportunity"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -445,7 +459,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka affärer med stängning i kvartalet saknar aktivitet senaste 14 dagarna?"],
     whatHappens: "Copilot i Sales kan ge information om din pipeline via färdiga frågor eller naturligt språk. Hur detaljerade urval som stöds beror på data och konfiguration.",
     humanResponsibility: "Prognos och prioritering är fortfarande säljchefens beslut.",
-    efficiencyBenefit: "Ad hoc-frågor kräver inte en ny rapport.",
+    efficiencyBenefit: "Enkla frågor om pipelinen kan ställas direkt i stället för att bygga en ny vy eller rapport.",
     automationLevel: "assistans", relatedExamples: ["sales-uppgifter-uppmarksamhet", "bc-analysera-lista"],
     ctaType: "produkt", ctaUrl: "/d365sales/",
   }),
@@ -457,7 +471,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka tidigare ärenden har kunden haft om samma produkt?"],
     whatHappens: "Copilot i Customer Service kan svara på frågor om ärendets data och visa sammanfattningar av ärendet och tidigare konversationer.",
     humanResponsibility: "Du kontrollerar identitet och behörighet enligt era rutiner.",
-    efficiencyBenefit: "Kortare väntetid för kunden medan du letar.",
+    efficiencyBenefit: "Du kan fråga om ärendets data i stället för att leta i flera flikar medan kunden väntar.",
     automationLevel: "fraga", relatedExamples: ["service-hitta-kunskap", "sales-hitta-kundinformation"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
@@ -469,12 +483,13 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vad har hänt i ärendet i kronologisk ordning?"],
     whatHappens: "Copilot kan sammanfatta ärendet och tidigare konversationer, och du kan ställa frågor om ärendets data.",
     humanResponsibility: "Du bedömer orsak och lämplig åtgärd.",
-    efficiencyBenefit: "Snabbare orientering i eskalerade ärenden.",
+    efficiencyBenefit: "Du får en sammanfattning som utgångspunkt i stället för att läsa tidslinjen från början.",
     automationLevel: "fraga", relatedExamples: ["service-sammanfatta-arende", "service-nasta-steg"],
     ctaType: "produkt", ctaUrl: "/d365customerservice/",
   }),
   // FINANCE / SCM
   ex({
+    status: "REVIEW", // dublett av finance-fraga-data, saknar källa
     slug: "finance-hitta-ekonomisk-information", title: "Hitta ekonomisk information", application: "finance", category: "hitta",
     businessArea: "Ekonomi", role: ["cfo", "ekonom"], aiType: "copilot-chat",
     summary: "Få fram saldon och transaktioner genom att fråga.",
@@ -483,7 +498,7 @@ export const AI_EXAMPLES: AiExample[] = [
     whatHappens: "Exempel på användningsfall: relevanta transaktioner hämtas och presenteras.",
     humanResponsibility: "Du kontrollerar period, bolag och dimensioner.",
     efficiencyBenefit: "Färre steg i förfrågningar som tidigare krävde rätt vy och filter.",
-    automationLevel: "fraga", relatedExamples: ["fscm-forsta-affarsdata", "fscm-analysera-data"],
+    automationLevel: "fraga", relatedExamples: ["fscm-forsta-affarsdata", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   ex({
@@ -495,7 +510,7 @@ export const AI_EXAMPLES: AiExample[] = [
     whatHappens: "Exempel på användningsfall: de största bidragande posterna lyfts fram.",
     humanResponsibility: "Du tolkar orsaken och beslutar om åtgärd.",
     efficiencyBenefit: "Mindre manuell nedbrytning av avvikelser.",
-    automationLevel: "assistans", relatedExamples: ["finance-hitta-ekonomisk-information", "fscm-analysera-data"],
+    automationLevel: "assistans", relatedExamples: ["finance-hitta-ekonomisk-information", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   ex({
@@ -520,8 +535,8 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Hur mycket av artikel A-200 finns i lager och vad är på väg in?"],
     whatHappens: "AI-sammanfattningar med Copilot visar en överblick av det viktigaste på sidan, till exempel antal artiklar i ett lager eller rader på en inköpsorder.",
     humanResponsibility: "Du lovar leveransdatum utifrån er planering.",
-    efficiencyBenefit: "Färre vyer att gå igenom för en leveransbedömning.",
-    automationLevel: "fraga", relatedExamples: ["bc-hitta-order", "fscm-analysera-data"],
+    efficiencyBenefit: "Du ser det viktigaste på sidan direkt i stället för att räkna rader och saldon själv.",
+    automationLevel: "fraga", relatedExamples: ["bc-hitta-order", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
   vx({
@@ -534,8 +549,8 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka inköpsorder saknar bekräftelse från leverantören?"],
     whatHappens: "Agenten för leverantörskommunikation (förhandsversion klar för produktion) följer upp med leverantörer och föreslår uppdateringar av inköpsorder enligt regler som ni själva bestämmer.",
     humanResponsibility: "Du bestämmer vilka steg agenten får ta och följer upp utfallet.",
-    efficiencyBenefit: "Bevakning som tidigare var manuell kan ske löpande.",
-    automationLevel: "automatisering", relatedExamples: ["bc-agent-repetitiv", "fscm-analysera-data"],
+    efficiencyBenefit: "Uppföljningen med leverantörer enligt era regler behöver inte startas manuellt för varje order.",
+    automationLevel: "automatisering", relatedExamples: ["bc-sales-order-agent", "scm-efterfragan"],
     ctaType: "partner", ctaUrl: "/agents/",
   }),
   // SPRINT 3: FINANCE (verifierade)
@@ -547,10 +562,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "En kund hör av sig om sitt konto och jag vill snabbt förstå läget innan jag svarar.",
     traditionalWorkflow: ["Öppna kundsidan", "Gå igenom flikar", "Öppna transaktioner", "Samla information", "Bedöma"],
     aiWorkflow: ["Öppna kundsidan", "Läs AI-sammanfattningen", "Granska detaljer vid behov", "Agera"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattningen visas när du öppnar kunden."],
+    howToStart: "Sammanfattningen visas när du öppnar kunden.", promptExamples: [],
     whatHappens: "Sammanfattning på kundsidan visar en AI-genererad text högst upp på kundsidan när den öppnas.",
     humanResponsibility: "Du kontrollerar siffrorna i de underliggande uppgifterna innan du lämnar besked eller fattar beslut.",
-    efficiencyBenefit: "Snabbare orientering i kundens läge, men detaljerna finns kvar att granska.",
+    efficiencyBenefit: "Du får en överblick över kunden direkt när sidan öppnas, i stället för att gå igenom flikarna först.",
     automationLevel: "assistans", relatedExamples: ["finance-indrivning", "finance-fraga-data", "finance-attestflode"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -562,10 +577,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag ska kontakta kunder med förfallna fakturor och vill vara påläst och få ett första utkast.",
     traditionalWorkflow: ["Öppna arbetsytan", "Gå igenom fakturor", "Sammanställ läget", "Skriv påminnelse", "Skicka"],
     aiWorkflow: ["Läs sammanfattningen", "Generera brevutkast", "Redigera", "Skicka"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattning och påminnelsebrev skapas i arbetsytan Inkassosamordnare."],
+    howToStart: "Sammanfattning och påminnelsebrev skapas i arbetsytan Inkassosamordnare.", promptExamples: [],
     whatHappens: "I arbetsytan för inkassosamordnare visas en AI-genererad sammanfattning, och ett påminnelsebrev med AI-genererad text kan skapas.",
     humanResponsibility: "Du granskar brevets innehåll och ton och beslutar om kontakt och eventuella åtgärder.",
-    efficiencyBenefit: "Mindre tid på att sammanställa läget och skriva brev från början.",
+    efficiencyBenefit: "Du får en sammanfattning och ett brevutkast att granska i stället för att börja från tomt.",
     automationLevel: "assistans", relatedExamples: ["finance-forsta-kund", "finance-avstamning-agent", "finance-hem"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -577,10 +592,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "En leverantörsfaktura har fastnat i attest och jag vill förstå varför.",
     traditionalWorkflow: ["Öppna dokumentet", "Öppna arbetsflödeshistorik", "Läs rad för rad", "Tolka", "Följ upp"],
     aiWorkflow: ["Öppna historiken", "Läs sammanfattningen", "Följ upp med rätt person"],
-    promptExamples: ["(Inbyggd funktion) Sammanfattningen visas på sidan Arbetsflödeshistorik."],
+    howToStart: "Sammanfattningen visas på sidan Arbetsflödeshistorik.", promptExamples: [],
     whatHappens: "På sidan för arbetsflödeshistorik visas en AI-genererad sammanfattning av historiken för dokumentet.",
     humanResponsibility: "Du avgör vad som ska göras och tar kontakt med den som behöver agera.",
-    efficiencyBenefit: "Snabbare att förstå långa attestkedjor.",
+    efficiencyBenefit: "Du läser en sammanfattning i stället för att tolka arbetsflödeshistoriken rad för rad.",
     automationLevel: "assistans", relatedExamples: ["finance-forsta-kund", "finance-hem", "finance-hjalp"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -595,7 +610,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Hur skapar jag en ny leverantör?", "Hur fungerar periodavslut här?"],
     whatHappens: "Copilot i sidopanelen svarar på frågor och behov som du skriver direkt i appen.",
     humanResponsibility: "Du följer era egna rutiner och kontrollerar att svaret passar er konfiguration.",
-    efficiencyBenefit: "Mindre letande i dokumentation för moment som görs sällan.",
+    efficiencyBenefit: "Du kan fråga direkt i appen i stället för att söka upp rätt avsnitt i dokumentationen.",
     automationLevel: "fraga", relatedExamples: ["finance-fraga-data", "finance-attestflode", "bc-forsta-process"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -610,7 +625,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka leverantörsfakturor förfaller den här veckan?", "Vilka är våra största kunder i år?"],
     whatHappens: "En agent besvarar frågor utifrån den strukturerade data i ekonomi- och driftapparna som du har behörighet till.",
     humanResponsibility: "Du kontrollerar urval och period innan du använder svaret som underlag.",
-    efficiencyBenefit: "Färre steg för enkla frågor som annars kräver rätt vy och filter.",
+    efficiencyBenefit: "Du kan beskriva vad du söker i stället för att först hitta rätt vy och sätta filter.",
     automationLevel: "fraga", relatedExamples: ["finance-forsta-kund", "finance-hjalp", "finance-hem"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -622,10 +637,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag vill börja dagen med det som är viktigast, utan att gå igenom flera arbetsytor.",
     traditionalWorkflow: ["Öppna arbetsytor", "Gå igenom listor", "Prioritera själv", "Agera"],
     aiWorkflow: ["Öppna startsidan", "Se prioriterat arbete", "Granska agentförslag", "Agera"],
-    promptExamples: ["(Startsida) Arbetsuppgifter och agentaktiviteter visas samlat."],
+    howToStart: "Arbetsuppgifter och agentaktiviteter visas samlat.", promptExamples: [],
     whatHappens: "Immersive Home (förhandsversion klar för produktion) är en startsida som anpassar sig efter ditt viktigaste arbete och länkar till verktyg för att följa och arbeta med AI-agenter.",
     humanResponsibility: "Du prioriterar och beslutar. Funktionen kräver version 10.0.44 eller senare och att den aktiveras.",
-    efficiencyBenefit: "Mindre navigering mellan arbetsytor för att hitta nästa uppgift.",
+    efficiencyBenefit: "Ditt prioriterade arbete och agenternas uppgifter visas på ett ställe i stället för i flera arbetsytor.",
     automationLevel: "handling", relatedExamples: ["finance-avstamning-agent", "finance-fraga-data", "finance-indrivning"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -637,7 +652,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Avstämningen skjuts till periodens slut och tar mycket tid.",
     traditionalWorkflow: ["Kör rapporter", "Jämför reskontra och huvudbok", "Hitta avvikelser", "Utred", "Korrigera"],
     aiWorkflow: ["Agenten lyfter avvikelser", "Läs föreslagen åtgärd", "Du beslutar", "Logg sparas"],
-    promptExamples: ["(Agent) Avvikelser och föreslagna åtgärder visas i arbetsytan för kontoavstämning."],
+    howToStart: "Avvikelser och föreslagna åtgärder visas i arbetsytan för kontoavstämning.", promptExamples: [],
     whatHappens: "Account Reconciliation Agent (förhandsversion klar för produktion) lyfter avvikelser i arbetsytan för kontoavstämning och föreslår åtgärder. Varje avvikelse loggas med historik över vad användare och agent gjort.",
     humanResponsibility: "Du beslutar om korrigeringar och ansvarar för bokslutet.",
     efficiencyBenefit: "Avstämning kan göras löpande i stället för att samlas till periodens slut.",
@@ -652,7 +667,7 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi vill att en egen agent ska kunna arbeta med data i affärssystemet, inte bara läsa en export.",
     traditionalWorkflow: ["Specificera integration", "Bygg API-anrop", "Testa", "Förvalta"],
     aiWorkflow: ["Definiera agentens uppgift", "Anslut via MCP", "Begränsa behörigheter", "Följ upp"],
-    promptExamples: ["(Utvecklare) Agenten anropar affärslogik via MCP-servern."],
+    howToStart: "Agenten anropar affärslogik via MCP-servern.", promptExamples: [],
     whatHappens: "Dynamics 365 ERP MCP-servern ger agenter ett ramverk för att utföra dataoperationer och använda affärslogiken i ekonomi- och driftapparna.",
     humanResponsibility: "Ni bestämmer vad agenten får göra, med vilka behörigheter, och följer upp resultatet. Det här kräver utvecklarkompetens.",
     efficiencyBenefit: "Agenter kan arbeta med affärslogiken i stället för med egenbyggda integrationer.",
@@ -668,10 +683,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Leverantörer ändrar datum och antal efter bekräftelse, och jag vill se vad som påverkar oss.",
     traditionalWorkflow: ["Lista order", "Jämför versioner", "Bedöm påverkan", "Kontakta berörda", "Uppdatera"],
     aiWorkflow: ["Öppna arbetsytan", "AI lyfter ändringarna", "Bedöm påverkan", "Agera"],
-    promptExamples: ["(Inbyggd funktion) Arbetsytan visar bekräftade inköpsorder med ändringar."],
+    howToStart: "Arbetsytan visar bekräftade inköpsorder med ändringar.", promptExamples: [],
     whatHappens: "I arbetsytan för bekräftade inköpsorder med ändringar hjälper inbyggda AI-funktioner användaren att förstå och reagera på ändringarna.",
     humanResponsibility: "Du bedömer konsekvenser för produktion och leverans och beslutar om åtgärd.",
-    efficiencyBenefit: "Mindre manuell jämförelse av orderversioner.",
+    efficiencyBenefit: "Ändringarna lyfts fram i en arbetsyta i stället för att du jämför orderversioner själv.",
     automationLevel: "handling", relatedExamples: ["fscm-automatisera", "fscm-hitta-lager", "scm-efterfragan"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -686,7 +701,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka förändringar finns jämfört med förra planen?", "Var finns avvikelser i prognosen?"],
     whatHappens: "I Demand planning kan du välja bland fördefinierade frågor för att analysera förändringar, trender, avvikelser och träffsäkerhet i efterfrågeplaner.",
     humanResponsibility: "Du bedömer om avvikelserna är verkliga och beslutar om planen ska ändras.",
-    efficiencyBenefit: "Snabbare första analys av planen före manuell fördjupning.",
+    efficiencyBenefit: "Du kan börja med färdiga analysfrågor i stället för att exportera och jämföra planversioner.",
     automationLevel: "assistans", relatedExamples: ["scm-lagerarbete", "fscm-hitta-lager", "scm-bekraftade-inkopsorder"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -698,10 +713,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Som lagerchef vill jag se om vi hinner med dagens arbete och var det kan uppstå köer.",
     traditionalWorkflow: ["Öppna arbetslistor", "Räkna plockrader", "Kolla inleveranser", "Kolla bemanning", "Bedöma"],
     aiWorkflow: ["Öppna insikterna", "Läs sammanställningen", "Bedöm", "Fördela personal"],
-    promptExamples: ["(Inbyggd funktion) Arbetsbelastningsinsikter med Copilot."],
+    howToStart: "Arbetsbelastningsinsikter med Copilot.", promptExamples: [],
     whatHappens: "Funktionen ger insikter om tillgängligt arbete, plockrader och inleveransrader, information om tillgänglig personal samt Copilot-genererade insikter om väntande lagerarbete.",
     humanResponsibility: "Du fördelar personal och prioriterar arbetet.",
-    efficiencyBenefit: "Mindre manuell sammanställning av lagerläget.",
+    efficiencyBenefit: "Arbetsläget sammanställs åt dig i stället för att du räknar ihop det från flera listor.",
     automationLevel: "assistans", relatedExamples: ["fscm-hitta-lager", "scm-efterfragan", "scm-bekraftade-inkopsorder"],
     ctaType: "produkt", ctaUrl: "/finance-supply-chain/",
   }),
@@ -717,7 +732,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Sammanfatta arbetsordern.", "Vad är status och nästa steg?"],
     whatHappens: "Copilot skapar en sammanfattning av arbetsordern med status, prioritet, relaterade aktiviteter och rekommenderade nästa steg.",
     humanResponsibility: "Du kontrollerar säkerhetsinformation och detaljer på plats och bedömer vad som behöver göras.",
-    efficiencyBenefit: "Mindre läsning av arbetsorderns alla delar innan besöket.",
+    efficiencyBenefit: "Du läser en sammanfattning i stället för att gå igenom arbetsorderns alla delar före besöket.",
     automationLevel: "assistans", relatedExamples: ["fs-servicehistorik", "fs-uppdatera-arbetsorder", "fs-fraga-data"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -732,7 +747,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Jag är klar, bytte filter och packning, tog en timme.", "Sätt bokningen som slutförd."],
     whatHappens: "I mobilappen kan du med tal eller text be Copilot föreslå och uppdatera fält som bokningsstatus, tider, uppgifter och rader (förhandsversion).",
     humanResponsibility: "Du granskar förslagen innan de sparas och ansvarar för att rapporten stämmer.",
-    efficiencyBenefit: "Mindre inmatning i mobilen efter avslutat jobb.",
+    efficiencyBenefit: "Du beskriver vad du gjort och granskar förslagen i stället för att fylla i fält för fält i mobilen.",
     automationLevel: "handling", relatedExamples: ["fs-forbered-besok", "fs-inspektionsmall", "fs-servicehistorik"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -747,7 +762,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka öppna arbetsordrar har Contoso?", "Vilka bokningar har jag i dag?"],
     whatHappens: "Copilot i Field Service webbapp besvarar frågor på naturligt språk om data i systemet och har ett bibliotek med fördefinierade frågor.",
     humanResponsibility: "Du kontrollerar att svaret gäller rätt kund och tidsperiod.",
-    efficiencyBenefit: "Färre steg för vanliga frågor om kunder och arbetsordrar.",
+    efficiencyBenefit: "Du kan ställa frågan i stället för att bygga en vy för att hitta svaret.",
     automationLevel: "fraga", relatedExamples: ["fs-planera-vy", "fs-forbered-besok", "fs-servicehistorik"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -759,10 +774,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Utrustningen har haft problem tidigare och jag vill förstå vad som gjorts.",
     traditionalWorkflow: ["Öppna posten", "Scrolla i tidslinjen", "Läs anteckningar", "Sammanfatta"],
     aiWorkflow: ["Öppna posten", "Läs höjdpunkterna", "Granska detaljer"],
-    promptExamples: ["(Inbyggd funktion) Höjdpunkter visas överst i tidslinjen."],
+    howToStart: "Höjdpunkter visas överst i tidslinjen.", promptExamples: [],
     whatHappens: "Höjdpunkter i tidslinjen lyfter fram viktiga händelser så att du snabbt förstår postens historik och status.",
     humanResponsibility: "Du läser de underliggande anteckningarna när detaljerna är avgörande.",
-    efficiencyBenefit: "Snabbare orientering i lång historik.",
+    efficiencyBenefit: "Du får de viktigaste händelserna som punktlista i stället för att läsa hela tidslinjen.",
     automationLevel: "assistans", relatedExamples: ["fs-forbered-besok", "fs-fraga-data", "service-sammanfatta-arende"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -777,7 +792,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Visa obokade arbetsordrar med hög prioritet i region Väst."],
     whatHappens: "Du kan hitta, filtrera och sortera poster i en vy utan avancerade filterverktyg.",
     humanResponsibility: "Du kontrollerar att filtret blev rätt och gör själva planeringen.",
-    efficiencyBenefit: "Mindre tid på att bygga filter för tillfälliga urval.",
+    efficiencyBenefit: "Du beskriver urvalet i stället för att bygga ett avancerat filter.",
     automationLevel: "fraga", relatedExamples: ["fs-fraga-data", "fs-forbered-besok", "fs-uppdatera-arbetsorder"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -789,10 +804,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi har checklistor på papper och PDF som behöver bli digitala inspektioner.",
     traditionalWorkflow: ["Läs checklistan", "Skapa mall", "Lägg till frågor en och en", "Testa", "Publicera"],
     aiWorkflow: ["Ladda upp dokumentet", "Copilot skapar utkast", "Redigera", "Publicera"],
-    promptExamples: ["(Uppladdning) Skapa en inspektionsmall från den här checklistan."],
+    howToStart: "Skapa en inspektionsmall från den här checklistan.", promptExamples: [],
     whatHappens: "Copilot omvandlar uppladdade PDF:er eller bilder till utkast till inspektionsmallar som du kan redigera, publicera och lägga till på arbetsordrar.",
     humanResponsibility: "Du granskar att alla kontrollpunkter kom med korrekt innan mallen publiceras.",
-    efficiencyBenefit: "Mindre manuell uppbyggnad av mallar från befintliga checklistor.",
+    efficiencyBenefit: "Du utgår från ett utkast som skapats från checklistan i stället för att lägga in frågorna en och en.",
     automationLevel: "assistans", relatedExamples: ["fs-uppdatera-arbetsorder", "fs-forbered-besok", "bc-skapa-produkttext"],
     ctaType: "produkt", ctaUrl: "/d365fieldservice/",
   }),
@@ -808,7 +823,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Skapa en uppgiftsplan för införande av nytt affärssystem på ett mellanstort bolag."],
     whatHappens: "Copilot för projekt kan utifrån projektets namn och beskrivning ta fram en preliminär uppgiftsplan med föreslagen varaktighet och insats per uppgift.",
     humanResponsibility: "Du granskar planen och anpassar den efter verkliga förutsättningar och resurser.",
-    efficiencyBenefit: "Första versionen av planen går fortare att få fram.",
+    efficiencyBenefit: "Du utgår från ett förslag på uppgifter med tid och insats i stället för ett tomt projekt.",
     automationLevel: "assistans", relatedExamples: ["po-status-risk", "po-tidrapport", "po-attest-agent"],
     ctaType: "produkt", ctaUrl: "/d365projectoperations/",
   }),
@@ -823,7 +838,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Vilka risker finns i projektet?", "Skapa en statusrapport för projektet."],
     whatHappens: "Copilot för projekt har funktioner för riskbedömning och statusrapporter för projekt, samt en chattliknande upplevelse.",
     humanResponsibility: "Microsoft anger att innehållet ska granskas för lämplighet, korrekthet och fullständighet. Du ansvarar för rapporten.",
-    efficiencyBenefit: "Underlaget till statusrapporten behöver inte sammanställas helt manuellt.",
+    efficiencyBenefit: "Du får ett utkast till riskbedömning och statusrapport att granska och komplettera.",
     automationLevel: "assistans", relatedExamples: ["po-projektplan", "po-hitta-vy", "po-attest-agent"],
     ctaType: "produkt", ctaUrl: "/d365projectoperations/",
   }),
@@ -838,7 +853,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Visa mina projekt med slutdatum i det här kvartalet."],
     whatHappens: "Funktionen hjälper dig att hitta och avgränsa data i en vy med naturligt språk, utan komplexa filteralternativ.",
     humanResponsibility: "Du kontrollerar att urvalet blev rätt.",
-    efficiencyBenefit: "Mindre tid på tillfälliga filter.",
+    efficiencyBenefit: "Du beskriver urvalet i stället för att bygga ett filter.",
     automationLevel: "fraga", relatedExamples: ["po-status-risk", "po-projektplan", "fs-planera-vy"],
     ctaType: "produkt", ctaUrl: "/d365projectoperations/",
   }),
@@ -853,7 +868,7 @@ export const AI_EXAMPLES: AiExample[] = [
     promptExamples: ["Fyll i min tid för veckan utifrån mina bokningar."],
     whatHappens: "Copilot i tidsregistrering ger projektmedlemmar ett effektivare sätt att hantera aktiviteterna kring veckans tidrapporter.",
     humanResponsibility: "Du ansvarar för att rapporterad tid stämmer innan den skickas.",
-    efficiencyBenefit: "Mindre manuell inmatning av återkommande tidrader.",
+    efficiencyBenefit: "Du granskar och justerar förslag i stället för att fylla i rad för rad.",
     automationLevel: "handling", relatedExamples: ["po-tid-agent", "po-attest-agent", "po-utlagg-agent"],
     ctaType: "produkt", ctaUrl: "/d365projectoperations/",
   }),
@@ -865,10 +880,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Vi missar tidrapporter, vilket försenar faktureringen.",
     traditionalWorkflow: ["Påminn medarbetare", "Medarbetare fyller i", "Kontrollera", "Jaga saknade"],
     aiWorkflow: ["Agenten skapar utkast", "Medarbetaren granskar", "Skicka in"],
-    promptExamples: ["(Agent) Utkast till tidrader skapas automatiskt."],
+    howToStart: "Utkast till tidrader skapas automatiskt.", promptExamples: [],
     whatHappens: "Time Entry Agent (förhandsversion klar för produktion) skapar automatiskt utkast till tidrader utifrån projekttilldelningar, resursbokningar och historiska mönster.",
     humanResponsibility: "Medarbetaren granskar och skickar in. Ni bestämmer hur agenten används.",
-    efficiencyBenefit: "Färre missade tidrapporter och mindre manuell inmatning.",
+    efficiencyBenefit: "Medarbetaren granskar ett utkast i stället för att fylla i tidraderna från början.",
     automationLevel: "automatisering", relatedExamples: ["po-tidrapport", "po-attest-agent", "po-utlagg-agent"],
     ctaType: "partner", ctaUrl: "/agents/",
   }),
@@ -880,10 +895,10 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Kvitton samlas på hög och utläggsrapporterna blir sena.",
     traditionalWorkflow: ["Spara kvitton", "Skriv av belopp", "Skapa utlägg", "Gruppera", "Skicka rapport"],
     aiWorkflow: ["Vidarebefordra kvitto", "Agenten skapar utlägg", "Granska rapporten", "Skicka"],
-    promptExamples: ["(Agent) Kvitton vidarebefordras till en angiven brevlåda."],
+    howToStart: "Kvitton vidarebefordras till en angiven brevlåda.", promptExamples: [],
     whatHappens: "Expense Agent (förhandsversion klar för produktion) läser ut kvittodata, skapar utlägg, delar upp komplexa kvitton och grupperar dem till rapporter per resa eller projekt.",
     humanResponsibility: "Du granskar utläggen och ansvarar för att de följer era regler.",
-    efficiencyBenefit: "Mindre avskrivning av kvitton för hand.",
+    efficiencyBenefit: "Du granskar utlägg som skapats från kvittot i stället för att skriva av beloppen själv.",
     automationLevel: "automatisering", relatedExamples: ["po-attest-agent", "po-tid-agent", "finance-avstamning-agent"],
     ctaType: "partner", ctaUrl: "/agents/",
   }),
@@ -895,14 +910,17 @@ export const AI_EXAMPLES: AiExample[] = [
     userGoal: "Jag lägger mycket tid på att attestera tid och utlägg som nästan alltid är korrekta.",
     traditionalWorkflow: ["Öppna attestlistan", "Granska rad för rad", "Godkänn eller avvisa"],
     aiWorkflow: ["Agenten förgranskar", "Du fokuserar på avvikelser", "Beslut"],
-    promptExamples: ["(Agent) Inkommande tid, utlägg och material förgranskas."],
+    howToStart: "Inkommande tid, utlägg och material förgranskas.", promptExamples: [],
     whatHappens: "Approvals Agent (förhandsversion klar för produktion) använder en Copilot Studio-agent för att göra en första granskning av inkommande tid-, utläggs- och materialtransaktioner.",
     humanResponsibility: "Du ansvarar fortfarande för attesten och bestämmer reglerna för agenten.",
-    efficiencyBenefit: "Mer tid för avvikelserna, mindre för rutinfallen.",
+    efficiencyBenefit: "Rutinfallen förgranskas så att din attest kan fokusera på det som avviker.",
     automationLevel: "automatisering", relatedExamples: ["po-tid-agent", "po-utlagg-agent", "po-status-risk"],
     ctaType: "partner", ctaUrl: "/agents/",
   }),
 ];
+
+/** Publicerade exempel: endast verifierade mot produktkälla. */
+export const AI_EXAMPLES: AiExample[] = ALL_AI_EXAMPLES.filter((e) => e.status === "VERIFIED");
 
 export const getExampleBySlug = (slug: string) => AI_EXAMPLES.find((e) => e.slug === slug);
 export const getExamplesForApplication = (app: AiApplication) => AI_EXAMPLES.filter((e) => e.application === app);
@@ -919,10 +937,16 @@ export function filterExamples(opts: { categories?: AiCategory[]; applications?:
   );
 }
 
-export function getRelatedExamples(ex: AiExample, max = 4): AiExample[] {
-  const explicit = (ex.relatedExamples ?? []).map(getExampleBySlug).filter(Boolean) as AiExample[];
-  const fill = AI_EXAMPLES.filter(
-    (e) => e.slug !== ex.slug && !explicit.includes(e) && (e.application === ex.application || e.category === ex.category),
-  );
-  return [...explicit, ...fill].slice(0, max);
+export function getRelatedExamples(ex: AiExample, max = 3): AiExample[] {
+  const out: AiExample[] = [];
+  const add = (list: AiExample[]) => { for (const e of list) if (out.length < max && e.slug !== ex.slug && !out.includes(e)) out.push(e); };
+  add((ex.relatedExamples ?? []).map(getExampleBySlug).filter(Boolean) as AiExample[]);
+  add(AI_EXAMPLES.filter((e) => e.application === ex.application));
+  add(AI_EXAMPLES.filter((e) => e.role.some((r) => ex.role.includes(r))));
+  add(AI_EXAMPLES.filter((e) => e.category === ex.category));
+  return out;
 }
+
+/** Produktlänkens text, med fullständigt produktnamn. */
+export const productCtaLabel = (app: AiApplication) =>
+  app === "bc" ? "Läs mer om Business Central" : `Läs mer om ${D} ${getApplication(app).label.replace(`${D} `, "")}`;
