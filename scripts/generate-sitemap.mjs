@@ -33,6 +33,7 @@ const STATIC_ROUTES = [
   { path: "/copilot/", changefreq: "monthly", priority: "0.8" },
   { path: "/agents/", changefreq: "monthly", priority: "0.8" },
   { path: "/aioversikt/", changefreq: "monthly", priority: "0.8" },
+  { path: "/ai/exempel/", changefreq: "monthly", priority: "0.7" },
   { path: "/ai-readiness/", changefreq: "monthly", priority: "0.8" },
   { path: "/qa/", changefreq: "weekly", priority: "0.7" },
   { path: "/kontakt/", changefreq: "monthly", priority: "0.7" },
