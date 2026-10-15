@@ -269,14 +269,12 @@ export default function QuickQuoteEstimator() {
                 method="Spannet är ±25 % kring en medelnivå och förutsätter svenskt konsultpris om 1 350 kr/timme. Din partners offert kan avvika – använd spannet som sanity-check, inte som pris."
               />
 
-              <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                <Link
-                  to="/implementationskalkylator/"
-                  className="inline-flex items-center px-4 py-2 rounded border border-border bg-card hover:bg-secondary/60 transition-colors"
-                >
-                  Gå djupare i kalkylatorn <ArrowRight className="w-4 h-4 ml-1.5" aria-hidden="true" />
+              <p className="mt-4 text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Nästa steg:</span> välj nedan upp till 3 partners som får ert underlag och kan ge en riktig offert.{" "}
+                <Link to="/implementationskalkylator/" className="font-medium text-primary hover:underline">
+                  Eller räkna mer detaljerat i kalkylatorn
                 </Link>
-              </div>
+              </p>
             </div>
           )}
         </div>

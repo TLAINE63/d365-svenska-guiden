@@ -912,6 +912,10 @@ const ValjPartner = () => {
    <>
     {searchParams.get("source") === "min-d365-plan" && (selectedApplications.length > 0 || selectedIndustry) && <p className="mb-4 max-w-4xl mx-auto rounded-md border border-border bg-card p-3 text-sm text-foreground">Utifrån er D365-plan visar vi partners inom {[...selectedApplications.map(applicationFilterLabel), selectedIndustry?.toLocaleLowerCase("sv")].filter(Boolean).join(" och ").replace(/Dynamics 365/g, "Dynamics\u00a0365")}. Ordningen påverkas inte av planen och ni kan ändra filtren fritt.</p>}
     <WhyTheseResults className="mb-6 max-w-4xl mx-auto" agreementPriority criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
+    <div className="mb-6 max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 p-4">
+      <p className="text-sm text-foreground"><span className="font-semibold">Nästa steg:</span> spara 1–3 partners i kortlistan och jämför dem innan ni tar kontakt.</p>
+      <Button asChild size="sm"><Link to="/kortlista/">Gå till kortlistan <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>
+    </div>
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Determine which product key to use for this partner
