@@ -40,7 +40,7 @@ const AiExempelDetalj = () => {
   const tech: { label: string; to: string }[] = isAgent
     ? [{ label: "Vad är en AI-agent i Dynamics\u00A0365?", to: "/agents/" }, { label: "AI i Dynamics\u00A0365: översikt", to: "/aioversikt/" }]
     : [{ label: "Vad är Copilot i Dynamics\u00A0365?", to: "/copilot/" }, { label: "AI i Dynamics\u00A0365: översikt", to: "/aioversikt/" }];
-  const shortAnswer = `Ja. ${ex.summary} Det gäller ${app.label}${ex.application === "sales" ? "" : " i Dynamics\u00A0365"} och sker med ${AI_TYPES[ex.aiType].label.toLowerCase()}. Du granskar och ansvarar själv för resultatet.`;
+  const shortAnswer = `Ja, AI kan hjälpa till med detta i ${app.label}${app.label.startsWith("Dynamics") ? "" : " (Dynamics\u00A0365)"}. ${ex.summary} Typ av AI: ${AI_TYPES[ex.aiType].label}. Du granskar och ansvarar själv för resultatet.`;
   const t = (ev: Parameters<typeof trackAi>[0], dest: string) => () => trackAi(ev, ex, { cta_destination: dest });
   const app = getApplication(ex.application);
   const level = AI_CATEGORIES.findIndex((c) => c.key === ex.category);
