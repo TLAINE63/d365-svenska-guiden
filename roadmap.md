@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Konton och AI-assistent (2026-10-15)
+- [x] Testa /fraga/ med fri fråga – AI-svar visas igen
+- [ ] Registrering/inloggning för köpare och spara deras data (väntar på svar om omfattning)
+- [ ] AI-assistent som svarar på frågor om sajten (finns på /fraga-ai/; väntar på svar om placering)
+
 ## Klickbara partnerkort (2026-10-13)
 - [ ] Gör namn- och logotypytor klickbara med namnet till vänster och logotypen till höger
 - [ ] Ersätt verifieringsetiketten med den nya badgen och bevara grundprofilernas status
