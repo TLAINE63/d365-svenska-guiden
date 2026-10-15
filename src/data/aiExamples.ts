@@ -526,7 +526,7 @@ export const AI_EXAMPLES: AiExample[] = [
   }),
   vx({
     slug: "fscm-automatisera", title: "Identifiera arbetsmoment som kan automatiseras", application: "scm", category: "automatisera",
-    businessArea: "Supply chain", role: ["inkopare", "cfo"], aiType: "agent", sourceName: "Microsoft Learn: Agent för leverantörskommunikation", sourceUrl: `${ML}/supply-chain/procurement/supplier-com-agent-setup`,
+    businessArea: "Supply chain", role: ["inkopare", "cfo"], aiType: "agent", sourceName: "Microsoft Learn: Översikt över Copilot i ekonomi- och driftappar (agent för leverantörskommunikation)", sourceUrl: `${ML}/fin-ops-core/fin-ops/copilot/copilot-for-finance-operations`,
     summary: "Se vilka återkommande moment som kan bli flöden eller agenter.",
     userGoal: "Vi lägger mycket tid på manuell uppföljning av inköpsorder.",
     traditionalWorkflow: ["Lista order", "Kontrollera", "Mejla leverantör", "Uppdatera", "Följ upp"],
