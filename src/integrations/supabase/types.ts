@@ -242,6 +242,24 @@ export type Database = {
         }
         Relationships: []
       }
+      buyer_saved_state: {
+        Row: {
+          data: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          data?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          data?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       buyer_tool_events: {
         Row: {
           company_size: string | null
