@@ -23,8 +23,6 @@ const AiExempelDetalj = () => {
   if (!ex) return <NotFound />;
   const app = getApplication(ex.application);
   const level = AUTOMATION_STEPS.findIndex((s) => s.key === ex.automationLevel);
-  const ctaLabel = ex.ctaType === "partner" ? "Hitta en Dynamics-partner" : `Läs mer om ${app.label}`;
-  const ctaUrl = ex.ctaType === "partner" ? "/valjdynamics365partner/" : app.productUrl;
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,6 +43,7 @@ const AiExempelDetalj = () => {
             <span className="rounded-full bg-secondary px-2.5 py-0.5 font-medium text-secondary-foreground">{getCategory(ex.category).label}</span>
             <span className="rounded-full border border-border px-2.5 py-0.5 text-muted-foreground" title={AI_TYPES[ex.aiType].text}>{AI_TYPES[ex.aiType].label}</span>
           </div>
+          {!ex.verified && <p className="mt-3 inline-flex rounded-full border border-dashed border-border px-2.5 py-0.5 text-xs text-muted-foreground">Exempel på användningsfall</p>}
           <h1 className="mt-4 text-3xl font-bold text-foreground md:text-4xl">{ex.title}</h1>
           <p className="mt-3 text-lg text-muted-foreground">{ex.summary}</p>
 
@@ -67,13 +66,13 @@ const AiExempelDetalj = () => {
             </div>
           </Section>
           <Section letter="E" title="Vad händer?"><p>{ex.whatHappens}</p></Section>
-          <Section letter="F" title="Vad behöver du fortfarande göra själv?">
+          <Section letter="F" title="Du har fortfarande kontrollen">
             <div className="flex items-start gap-3 rounded-xl border border-accent/30 bg-accent/5 p-4">
               <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden />
               <p className="text-foreground">{ex.humanResponsibility}</p>
             </div>
           </Section>
-          <Section letter="G" title="Varför är arbetssättet effektivare?"><p>{ex.efficiencyBenefit}</p></Section>
+          <Section letter="G" title="Vad förändras?"><p>{ex.efficiencyBenefit}</p></Section>
           <Section letter="H" title="Nästa nivå">
             <ol className="flex flex-wrap gap-2">
               {AUTOMATION_STEPS.map((s, i) => (
@@ -93,17 +92,21 @@ const AiExempelDetalj = () => {
             )}
           </div>
 
-          <div className="flex flex-wrap gap-3 rounded-xl border border-border bg-card p-5">
-            <Link to={ctaUrl} className="inline-flex items-center gap-1 font-semibold text-primary">{ctaLabel} <ArrowRight className="h-4 w-4" /></Link>
-            <Link to="/aioversikt/" className="inline-flex items-center gap-1 text-muted-foreground hover:text-primary">Utforska AI i Dynamics&nbsp;365</Link>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-border bg-card p-5">
+            <Link to="/ai/exempel/" className="inline-flex items-center gap-1 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Se fler exempel <ArrowRight className="h-4 w-4" /></Link>
+            <Link to={app.productUrl} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">Läs mer om <span className="whitespace-nowrap">{app.label}</span></Link>
           </div>
 
           <section className="pt-10">
             <h2 className="text-xl font-bold text-foreground"><span className="mr-3 text-sm font-semibold text-accent">I</span>Relaterade exempel</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {getRelatedExamples(ex).map((r) => <AiExampleCard key={r.id} example={r} />)}
+              {getRelatedExamples(ex, 3).map((r) => <AiExampleCard key={r.id} example={r} />)}
             </div>
           </section>
+          <p className="mt-10 text-sm text-muted-foreground">
+            Vill du se hur det här kan fungera hos er?{" "}
+            <Link to="/valjdynamics365partner/" className="font-medium text-primary hover:underline">Hitta rätt Dynamics&nbsp;365-partner</Link>
+          </p>
         </article>
       </main>
       <Footer />
