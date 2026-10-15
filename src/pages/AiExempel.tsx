@@ -46,6 +46,7 @@ const AiExempel = () => {
   const setRoles = setter<AiRole>("roll", "ai_role_filter");
   const setTypes = setter<AiType>("typ", "ai_type_filter");
   useEffect(() => { trackAi("ai_library_view"); }, []);
+  useEffect(() => { try { sessionStorage.setItem("ai_library_filters", params.toString()); } catch { /* */ } }, [params]);
   const results = useMemo(() => filterExamples({ categories: cats, applications: apps, roles, aiTypes: types }), [params]); // eslint-disable-line react-hooks/exhaustive-deps
   const zeroKey = useRef("");
   useEffect(() => { const k = params.toString(); if (!results.length && k !== zeroKey.current) { zeroKey.current = k; trackAi("ai_zero_results", null, { filters: k }); } }, [results.length, params]);
