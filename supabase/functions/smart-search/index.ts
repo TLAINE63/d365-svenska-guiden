@@ -229,13 +229,20 @@ Returnera JSON:
         const slug = path.split('/')[2];
         if (partnerSlugs.has(slug)) return path;
       }
+      if (path.startsWith('/basic/')) {
+        const slug = path.split('/')[2];
+        if (basicSlugs.has(slug)) return path;
+      }
       // AI gav t.ex. "/norteam" – mappa mot partner-slug
       const maybeSlug = path.replace(/^\//, '').split('/')[0];
       if (partnerSlugs.has(maybeSlug)) return `/partner/${maybeSlug}`;
+      if (basicSlugs.has(maybeSlug)) return `/basic/${maybeSlug}`;
       // Eller mappa via label
       if (label) {
         const slug = partnerNameToSlug.get(label.toLowerCase());
         if (slug) return `/partner/${slug}`;
+        const basicSlug = basicNameToSlug.get(label.toLowerCase());
+        if (basicSlug) return `/basic/${basicSlug}`;
       }
       return null;
     };
