@@ -94,6 +94,33 @@ Deno.serve(async (req) => {
 
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
+    // Grundpartners (ej partnerverifierade) – observerad data från publika källor.
+    let basicList = '';
+    let basicSlugs = new Set<string>();
+    let basicNameToSlug = new Map<string, string>();
+    try {
+      const basicRes = await fetch(
+        `${supabaseUrl}/rest/v1/partners_basic_public?select=slug,name,observed_products,observed_industries,observed_locations,extended_summary&order=name.asc&limit=300`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      );
+      if (basicRes.ok) {
+        const basics = await basicRes.json();
+        if (Array.isArray(basics) && basics.length) {
+          basicSlugs = new Set(basics.map((b: any) => b.slug));
+          basicNameToSlug = new Map(basics.map((b: any) => [String(b.name).toLowerCase(), b.slug]));
+          const prodLabel: Record<string, string> = { bc: 'Business Central', fsc: 'Finance & Supply Chain', sales: 'Sales & Marketing', service: 'Service' };
+          basicList = basics.map((b: any) => {
+            const prods = Object.keys(b.observed_products || {}).filter((k) => b.observed_products[k] === true).map((k) => prodLabel[k] || k).join(', ');
+            const inds = Array.from(new Set(Object.values(b.observed_industries || {}).flat())).slice(0, 4).join(', ');
+            const sum = (b.extended_summary || '').replace(/\s+/g, ' ').trim().substring(0, 160);
+            return `- /basic/${b.slug} | ${b.name} | produkter: ${prods || 'okänt'}${inds ? ` | branscher: ${inds}` : ''}${sum ? ` | ${sum}` : ''}`;
+          }).join('\n');
+        }
+      }
+    } catch (e) {
+      console.error('smart-search: kunde inte hämta grundpartners', e);
+    }
+
     const isvBlock = await buildIsvContextBlock();
     const competenceBlock = await buildCompetenceContextBlock();
 
@@ -104,7 +131,8 @@ Svara ALLTID på svenska och ALLTID i giltig JSON.
 VIKTIGA REGLER OM PARTNERS:
 - Hitta ALDRIG på fakta om partners. Använd ENDAST information som finns i listan PARTNERS nedan.
 - Påstå ALDRIG att en partner har bytt namn, blivit uppköpt, fusionerat eller "numera heter" något annat – även om du tror dig veta det från träningsdata. Sådana påståenden kan vara felaktiga.
-- Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
+- Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: kontrollera listan GRUNDPARTNERS. Om företaget finns där: länka till dess grundprofil (/basic/<slug>) och nämn att uppgifterna är sammanställda av d365.se utifrån publika källor och inte bekräftade av partnern. Om företaget inte finns i någon av listorna: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
+- GRUNDPARTNERS är inte partnerverifierade. Presentera dem aldrig som verifierade eller rekommenderade – bara som observerade aktörer med egen grundprofil.
 - Använd ALDRIG ordet "oberoende" om d365.se.
 
 VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
@@ -139,6 +167,9 @@ ${routeList}
 
 PARTNERS (sorterade efter fördjupningsrelevans mot frågan. Fältet "fördjupning" är en extern research-sammanställning om partnern, AI-aggregerad från publika källor som d365.se, allabolag.se m.fl. – använd den ENBART som bakgrundskälla. Vikt: HÖG = låt den styra svar och val av partner-länk starkt; MEDEL = använd som stödjande signal; LÅG/INGEN = använd endast om inget annat matchar. Citera aldrig ordagrant, referera aldrig till "fördjupningen" i svaret, och lita inte blint på specifika siffror, kundnamn eller certifieringar):
 ${partnerList}
+
+GRUNDPARTNERS (ej partnerverifierade – observerade uppgifter sammanställda av d365.se utifrån publika källor. Länka till /basic/<slug> och ange alltid att uppgifterna inte är bekräftade av partnern):
+${basicList || '(inga)'}
 
 ${isvBlock}
 
@@ -198,13 +229,20 @@ Returnera JSON:
         const slug = path.split('/')[2];
         if (partnerSlugs.has(slug)) return path;
       }
+      if (path.startsWith('/basic/')) {
+        const slug = path.split('/')[2];
+        if (basicSlugs.has(slug)) return path;
+      }
       // AI gav t.ex. "/norteam" – mappa mot partner-slug
       const maybeSlug = path.replace(/^\//, '').split('/')[0];
       if (partnerSlugs.has(maybeSlug)) return `/partner/${maybeSlug}`;
+      if (basicSlugs.has(maybeSlug)) return `/basic/${maybeSlug}`;
       // Eller mappa via label
       if (label) {
         const slug = partnerNameToSlug.get(label.toLowerCase());
         if (slug) return `/partner/${slug}`;
+        const basicSlug = basicNameToSlug.get(label.toLowerCase());
+        if (basicSlug) return `/basic/${basicSlug}`;
       }
       return null;
     };
