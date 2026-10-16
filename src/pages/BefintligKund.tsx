@@ -88,7 +88,7 @@ const BefintligKund = () => (
             {nowrapBrand("Har ni redan Dynamics 365? Så bygger ni vidare")}
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            {nowrapBrand("Den största nyttan kommer ofta efter första införandet. Här finns fyra vanliga vägar vidare: fler applikationer, AI, förvaltning och spetskompetens.")}
+            {nowrapBrand("Den största nyttan kommer ofta efter första införandet. Här finns fyra vanliga vägar vidare: fler applikationer inom ERP eller CRM, AI, förvaltning och spetskompetens.")}
           </p>
         </header>
 
