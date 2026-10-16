@@ -300,7 +300,7 @@ const Index = () => {
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
-              Rätt <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
+              Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
             <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
               Oavsett var ni befinner er i processen hjälper d365.se er att förstå alternativen, bygga ert beslutsunderlag och ta nästa steg.
