@@ -97,6 +97,31 @@ Deno.serve(async (req) => {
       console.error('Failed to load partners for ai-chat', e);
     }
 
+    // Grundpartners (ej partnerverifierade) – observerad data från publika källor.
+    let basicBlock = '';
+    try {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const basicRes = await fetch(
+        `${supabaseUrl}/rest/v1/partners_basic_public?select=slug,name,observed_products,observed_industries,extended_summary&order=name.asc&limit=300`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      );
+      if (basicRes.ok) {
+        const basics = await basicRes.json();
+        if (Array.isArray(basics) && basics.length) {
+          const prodLabel: Record<string, string> = { bc: 'Business Central', fsc: 'Finance & Supply Chain', sales: 'Sales & Marketing', service: 'Service' };
+          basicBlock = '\n\nGRUNDPARTNERLISTA (ej partnerverifierade – observerade uppgifter sammanställda av d365.se utifrån publika källor. Använd när användaren frågar efter en namngiven partner som inte finns i PARTNERLISTAN. Länka till /basic/<slug> i samma "Matchade partners:"-punktlista och ange att uppgifterna inte är bekräftade av partnern. Presentera dem aldrig som verifierade eller rekommenderade):\n' +
+            basics.map((b: any) => {
+              const prods = Object.keys(b.observed_products || {}).filter((k) => b.observed_products[k] === true).map((k) => prodLabel[k] || k).join(', ');
+              const sum = (b.extended_summary || '').replace(/\s+/g, ' ').trim().substring(0, 160);
+              return `- ${b.name} → /basic/${b.slug} | produkter: ${prods || 'okänt'}${sum ? ` | ${sum}` : ''}`;
+            }).join('\n');
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load basic partners for ai-chat', e);
+    }
+
     const isvBlock = await buildIsvContextBlock();
     const competenceBlock = await buildCompetenceContextBlock();
 
