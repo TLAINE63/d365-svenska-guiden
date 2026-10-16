@@ -14,8 +14,8 @@ const NODES: {
 }[] = [
   { icon: ClipboardCheck, title: "Hitta rätt lösning", text: "Få vägledning kring vilka Dynamics\u00A0365-lösningar som är relevanta för era behov.", cta: "Starta behovsguiden", to: "/kom-igang/?source=startsida" },
   { icon: ArrowLeftRight, title: "Räkna på kostnaden för Dynamics\u00A0365", text: "Se införandekostnad, löpande kostnader och 3-års TCO.", cta: "Beräkna er kostnad", to: "/kostnad/" },
-  { icon: LayoutGrid, title: "Redan Dynamics\u00A0365\u2011kund", text: "Utöka, uppgradera, använd AI eller byt partner.", cta: "Se era alternativ", to: "/befintlig-kund/" },
-  { icon: Users, title: "Hitta rätt Dynamics\u00A0365\u2011partner", text: "Filtrera efter lösning, bransch och kompetens.", cta: "Hitta partners", to: "/valjdynamics365partner/" },
+  { icon: LayoutGrid, title: "Redan Dynamics\u00A0365-kund", text: "Utöka, uppgradera, använd AI eller byt partner.", cta: "Se era alternativ", to: "/befintlig-kund/" },
+  { icon: Users, title: "Hitta rätt Dynamics\u00A0365-partner", text: "Filtrera efter lösning, bransch och kompetens.", cta: "Hitta partners", to: "/valjdynamics365partner/" },
 ];
 
 const cardClass =
