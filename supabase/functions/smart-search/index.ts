@@ -131,7 +131,8 @@ Svara ALLTID på svenska och ALLTID i giltig JSON.
 VIKTIGA REGLER OM PARTNERS:
 - Hitta ALDRIG på fakta om partners. Använd ENDAST information som finns i listan PARTNERS nedan.
 - Påstå ALDRIG att en partner har bytt namn, blivit uppköpt, fusionerat eller "numera heter" något annat – även om du tror dig veta det från träningsdata. Sådana påståenden kan vara felaktiga.
-- Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
+- Om användaren söker efter ett företagsnamn som INTE finns i listan PARTNERS: kontrollera listan GRUNDPARTNERS. Om företaget finns där: länka till dess grundprofil (/basic/<slug>) och nämn att uppgifterna är sammanställda av d365.se utifrån publika källor och inte bekräftade av partnern. Om företaget inte finns i någon av listorna: säg neutralt att företaget inte finns med i vår partnerkatalog på d365.se och hänvisa till partnerguiden (/valjdynamics365partner). Spekulera INTE om varför, och föreslå INTE ett annat företag som "ersättare".
+- GRUNDPARTNERS är inte partnerverifierade. Presentera dem aldrig som verifierade eller rekommenderade – bara som observerade aktörer med egen grundprofil.
 - Använd ALDRIG ordet "oberoende" om d365.se.
 
 VIKTIGA REGLER OM ISV-/TILLÄGGSLÖSNINGAR:
