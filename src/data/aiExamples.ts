@@ -937,6 +937,27 @@ export const ALL_AI_EXAMPLES: AiExample[] = [
   }),
 ];
 
+// Officiella skärmbilder från Microsoft Learn (samma artikel som exemplets källa).
+import imgBcBank from "@/assets/ai-examples/bc-bankavstamning.webp.asset.json";
+import imgSalesPrep from "@/assets/ai-examples/sales-forbered-kundkontakt.webp.asset.json";
+import imgFinHelp from "@/assets/ai-examples/finance-hjalp.webp.asset.json";
+import imgScmDemand from "@/assets/ai-examples/scm-efterfragan.webp.asset.json";
+import imgFsUpdate from "@/assets/ai-examples/fs-uppdatera-arbetsorder.webp.asset.json";
+import imgPoApprove from "@/assets/ai-examples/po-attest-agent.webp.asset.json";
+
+const MS_IMAGES: Record<string, { url: string; alt: string; caption: string }> = {
+  "bc-bankavstamning": { url: imgBcBank.url, alt: "Copilot föreslår matchningar i fönstret för bankavstämning i Business Central", caption: "Copilot föreslår matchningar mellan bankrader och bokförda poster." },
+  "sales-forbered-kundkontakt": { url: imgSalesPrep.url, alt: "Copilot i Sales visar mötesförberedelse i sidopanelen", caption: "Copilot sammanställer underlag inför ett kundmöte." },
+  "finance-hjalp": { url: imgFinHelp.url, alt: "Copilots hjälppanel i ekonomi- och driftappar", caption: "Copilot förklarar ett arbetsflöde direkt i appen." },
+  "scm-efterfragan": { url: imgScmDemand.url, alt: "Copilot svarar på frågor om en efterfrågeplan", caption: "Copilot analyserar efterfrågeplanen och svarar på frågor." },
+  "fs-uppdatera-arbetsorder": { url: imgFsUpdate.url, alt: "Copilot i Field Service mobilapp med val för att sammanfatta och uppdatera arbetsorder", caption: "Teknikern uppdaterar arbetsordern med hjälp av Copilot i mobilen." },
+  "po-attest-agent": { url: imgPoApprove.url, alt: "Lista med tidsposter som Approvals Agent har granskat", caption: "Agenten klassar tidsposter, du godkänner eller avvisar." },
+};
+for (const e of ALL_AI_EXAMPLES) {
+  const img = MS_IMAGES[e.slug];
+  if (img) Object.assign(e, { imageUrl: img.url, imageAlt: img.alt, imageCaption: img.caption, imageSource: "Microsoft Learn", imageSourceUrl: e.sourceUrl });
+}
+
 /** Publicerade exempel: endast verifierade mot produktkälla. */
 export const PUBLIC_STATUSES: EditorialStatus[] = ["VERIFIED", "PUBLISHED", "UPDATE_NEEDED"];
 export const AI_EXAMPLES: AiExample[] = ALL_AI_EXAMPLES.filter((e) => PUBLIC_STATUSES.includes(e.status) && !!e.sourceUrl && !!e.lastVerified);
