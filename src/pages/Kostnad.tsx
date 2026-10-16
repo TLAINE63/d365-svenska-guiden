@@ -135,7 +135,7 @@ export default function Kostnad() {
               din partner) och <strong>löpande kostnader</strong> efter go-live
               (förvaltning, vidareutveckling, AI-konsumtion). Här är typiska intervall för
               svenska införanden – använd dem som sanity-check mot partner­offerterna, inte
-              som facit.
+              som facit. Intervallen gäller både affärssystem (ERP) och CRM-lösningar.
             </p>
             <SourceNote
               className="mb-6"

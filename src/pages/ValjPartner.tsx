@@ -619,7 +619,7 @@ const ValjPartner = () => {
  
   <ProductHero
   title="Hitta Dynamics 365-partners som matchar dina behov"
-  subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation, bransch, metodik, team, kemi och ansvar efter go-live."
+  subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation (affärssystem/ERP eller CRM), bransch, metodik, team, kemi och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}

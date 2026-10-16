@@ -932,7 +932,7 @@ const KomIgang = () => {
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
               Hitta rätt väg för era <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-behov
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">Berätta lite om var ni befinner er och vad ni behöver hjälp med, så anpassar vi nästa steg.</p>
+            <p className="text-sm sm:text-base text-muted-foreground">Berätta om var ni befinner er och om ni behöver affärssystem (ERP) eller CRM (säljstöd, marketing automation, kundservice), så anpassar vi nästa steg.</p>
           </div>
         </section>
 
