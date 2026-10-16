@@ -94,6 +94,33 @@ Deno.serve(async (req) => {
 
     const routeList = ROUTES.map(r => `- ${r.path} | ${r.label}`).join('\n');
 
+    // Grundpartners (ej partnerverifierade) – observerad data från publika källor.
+    let basicList = '';
+    let basicSlugs = new Set<string>();
+    let basicNameToSlug = new Map<string, string>();
+    try {
+      const basicRes = await fetch(
+        `${supabaseUrl}/rest/v1/partners_basic_public?select=slug,name,observed_products,observed_industries,observed_locations,extended_summary&order=name.asc&limit=300`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      );
+      if (basicRes.ok) {
+        const basics = await basicRes.json();
+        if (Array.isArray(basics) && basics.length) {
+          basicSlugs = new Set(basics.map((b: any) => b.slug));
+          basicNameToSlug = new Map(basics.map((b: any) => [String(b.name).toLowerCase(), b.slug]));
+          const prodLabel: Record<string, string> = { bc: 'Business Central', fsc: 'Finance & Supply Chain', sales: 'Sales & Marketing', service: 'Service' };
+          basicList = basics.map((b: any) => {
+            const prods = Object.keys(b.observed_products || {}).filter((k) => b.observed_products[k] === true).map((k) => prodLabel[k] || k).join(', ');
+            const inds = Array.from(new Set(Object.values(b.observed_industries || {}).flat())).slice(0, 4).join(', ');
+            const sum = (b.extended_summary || '').replace(/\s+/g, ' ').trim().substring(0, 160);
+            return `- /basic/${b.slug} | ${b.name} | produkter: ${prods || 'okänt'}${inds ? ` | branscher: ${inds}` : ''}${sum ? ` | ${sum}` : ''}`;
+          }).join('\n');
+        }
+      }
+    } catch (e) {
+      console.error('smart-search: kunde inte hämta grundpartners', e);
+    }
+
     const isvBlock = await buildIsvContextBlock();
     const competenceBlock = await buildCompetenceContextBlock();
 
