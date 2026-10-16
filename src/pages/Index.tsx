@@ -1,6 +1,6 @@
 import { track } from "@/lib/track";
 import { trackAi } from "@/lib/aiLibraryTracking";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import CountUp from "@/components/CountUp";
-import { useSiteTrafficStats } from "@/hooks/useSiteTrafficStats";
+import { supabase } from "@/integrations/supabase/client";
 import { OrganizationSchema, WebSiteSchema, FAQSchema } from "@/components/StructuredData";
 import {
   Users,
@@ -149,8 +149,19 @@ const Index = () => {
   // Partnerantal från byggtidens data: identiskt i förrenderad HTML och efter hydrering.
   const isvSolutionCount = useIsvSolutions().length;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
-  const traffic = useSiteTrafficStats(null, true, "public");
-  const visitorCount = traffic.totals.d30.uniqueVisitors;
+  const [visitorCount, setVisitorCount] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    supabase.functions
+      .invoke("public-visitor-count", { body: {} })
+      .then(({ data }) => {
+        if (!cancelled && data?.uniqueVisitors30d > 0) setVisitorCount(data.uniqueVisitors30d);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
