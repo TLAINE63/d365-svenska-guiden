@@ -8,6 +8,8 @@ import DecisionModel from "@/components/home/DecisionModel";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
+import CountUp from "@/components/CountUp";
+import { useSiteTrafficStats } from "@/hooks/useSiteTrafficStats";
 import { OrganizationSchema, WebSiteSchema, FAQSchema } from "@/components/StructuredData";
 import {
   Users,
@@ -147,6 +149,8 @@ const Index = () => {
   // Partnerantal från byggtidens data: identiskt i förrenderad HTML och efter hydrering.
   const isvSolutionCount = useIsvSolutions().length;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
+  const traffic = useSiteTrafficStats(null, true, "public");
+  const visitorCount = traffic.totals.d30.uniqueVisitors;
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
