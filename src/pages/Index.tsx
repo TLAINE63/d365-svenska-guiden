@@ -1,6 +1,6 @@
 import { track } from "@/lib/track";
 import { trackAi } from "@/lib/aiLibraryTracking";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,8 @@ import DecisionModel from "@/components/home/DecisionModel";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
+import CountUp from "@/components/CountUp";
+import { supabase } from "@/integrations/supabase/client";
 import { OrganizationSchema, WebSiteSchema, FAQSchema } from "@/components/StructuredData";
 import {
   Users,
@@ -147,6 +149,19 @@ const Index = () => {
   // Partnerantal från byggtidens data: identiskt i förrenderad HTML och efter hydrering.
   const isvSolutionCount = useIsvSolutions().length;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
+  const [visitorCount, setVisitorCount] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    supabase.functions
+      .invoke("public-visitor-count", { body: {} })
+      .then(({ data }) => {
+        if (!cancelled && data?.uniqueVisitors30d > 0) setVisitorCount(data.uniqueVisitors30d);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const verifiedPartnerCount = VERIFIED_PARTNER_COUNT_FALLBACK;
 
   const heroProducts: { value: string; label: string; path: string; hasPartnerFilter?: boolean }[] = [
@@ -366,17 +381,24 @@ const Index = () => {
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                   <ul className="grid gap-2 pt-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
-                    {[
-                      `${identifiedPartnerCount} kartlagda Dynamics 365-partners`,
-                      `${HERO_INDUSTRIES.length} branscher`,
-                      `${isvSolutionCount} tilläggslösningar i ISV-katalogen`,
-                      "40+ års erfarenhet av ERP- och Dynamics-val",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                      <span><CountUp value={identifiedPartnerCount} className="tabular-nums" /> kartlagda Dynamics 365-partners</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                      <span><CountUp value={isvSolutionCount} className="tabular-nums" /> tilläggslösningar i ISV-katalogen</span>
+                    </li>
+                    {visitorCount > 0 && (
+                      <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                        <span>{item}</span>
+                        <span><CountUp value={visitorCount} className="tabular-nums" /> besökare den senaste månaden</span>
                       </li>
-                    ))}
+                    )}
+                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                      <span>{HERO_INDUSTRIES.length} branscher</span>
+                    </li>
                   </ul>
                 </div>
 
