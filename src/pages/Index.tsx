@@ -311,13 +311,13 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex min-h-[100svh] items-center overflow-hidden border-b border-[hsl(var(--line-dark))] py-24 sm:pt-28 sm:pb-16"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex min-h-[100svh] items-center overflow-hidden border-b border-[hsl(var(--line-dark))] py-24 sm:pt-40 sm:pb-16"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
-            <p className="mb-5 sm:mb-7 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
+            <p className="mb-5 sm:mb-7 max-w-2xl sm:max-w-3xl lg:max-w-4xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
               Oavsett var ni befinner er i processen hjälper d365.se er att förstå alternativen, bygga ert beslutsunderlag och ta nästa steg. Guiden täcker Dynamics&nbsp;365 både som affärssystem (ERP) och som CRM-lösningar: säljstöd, marketing automation, kundservice och fältservice.
             </p>
             <ul className="mb-5 sm:mb-7 grid max-w-4xl gap-x-5 gap-y-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
