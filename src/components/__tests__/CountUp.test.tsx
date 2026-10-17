@@ -42,6 +42,25 @@ describe("CountUp", () => {
     expect(renderToString(<CountUp value={72} />)).toContain("72");
   });
 
+  it("never counts below zero when the first frame timestamp precedes the start", () => {
+    const { container } = render(<CountUp value={60} durationMs={1000} />);
+    act(() => reveal());
+    tick(-5);
+    expect(container.textContent).toBe("0");
+  });
+
+  it("starts at once when the number is already on screen", () => {
+    const rect = { top: 120, bottom: 150 } as DOMRect;
+    const spy = vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(rect);
+    const { container } = render(<CountUp value={60} durationMs={1000} />);
+    expect(frames.size).toBe(1);
+    tick(500);
+    expect(container.textContent).toBe("53");
+
+    spy.mockRestore();
+  });
+
+
   it("reaches a new catalog count received during the initial animation", () => {
     const { container, rerender } = render(<CountUp value={60} durationMs={1000} />);
     act(() => reveal());

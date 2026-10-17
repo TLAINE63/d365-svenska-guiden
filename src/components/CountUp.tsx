@@ -41,7 +41,8 @@ const CountUp = ({ value, durationMs = 1600, suffix = "", className = "" }: Prop
       updateDisplay(from);
       const t0 = performance.now();
       const tick = (now: number) => {
-        const p = Math.min(1, (now - t0) / durationMs);
+        // A frame timestamp can land slightly before t0; clamp so the count never goes negative.
+        const p = Math.max(0, Math.min(1, (now - t0) / durationMs));
         const eased = 1 - Math.pow(1 - p, 3);
         updateDisplay(Math.round(from + eased * (value - from)));
         if (p < 1) frameId = requestAnimationFrame(tick);
@@ -52,17 +53,22 @@ const CountUp = ({ value, durationMs = 1600, suffix = "", className = "" }: Prop
     if (started.current || !("IntersectionObserver" in window)) {
       start();
     } else {
-      updateDisplay(value);
-      observer = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            observer?.disconnect();
-            start();
-          }
-        },
-        { threshold: 0.4 },
-      );
-      observer.observe(el);
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        // Already on screen: begin before the observer's first callback.
+        start();
+      } else {
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((e) => e.isIntersecting)) {
+              observer?.disconnect();
+              start();
+            }
+          },
+          { threshold: 0, rootMargin: "0px 0px -8% 0px" },
+        );
+        observer.observe(el);
+      }
     }
     return () => {
       observer?.disconnect();
