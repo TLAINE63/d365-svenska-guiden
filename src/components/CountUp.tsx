@@ -12,47 +12,62 @@ interface Props {
  * syns i viewport. Respekterar prefers-reduced-motion (visar slutvärdet direkt).
  */
 const CountUp = ({ value, durationMs = 1600, suffix = "", className = "" }: Props) => {
-  const [display, setDisplay] = useState(0);
+  // Keep real counts in server-rendered HTML; animation begins on visibility.
+  const [display, setDisplay] = useState(value);
+  const displayedValue = useRef(value);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || started.current) return;
+    if (!el) return;
+
+    let frameId: number | undefined;
+    let observer: IntersectionObserver | undefined;
+    const updateDisplay = (next: number) => {
+      displayedValue.current = next;
+      setDisplay(next);
+    };
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || value <= 0) {
-      setDisplay(value);
+    if (reduced || value <= 0 || durationMs <= 0) {
+      updateDisplay(value);
       return;
     }
 
     const start = () => {
-      if (started.current) return;
+      const from = started.current ? displayedValue.current : 0;
       started.current = true;
+      updateDisplay(from);
       const t0 = performance.now();
       const tick = (now: number) => {
         const p = Math.min(1, (now - t0) / durationMs);
         const eased = 1 - Math.pow(1 - p, 3);
-        setDisplay(Math.round(eased * value));
-        if (p < 1) requestAnimationFrame(tick);
+        updateDisplay(Math.round(from + eased * (value - from)));
+        if (p < 1) frameId = requestAnimationFrame(tick);
       };
-      requestAnimationFrame(tick);
+      frameId = requestAnimationFrame(tick);
     };
 
-    if ("IntersectionObserver" in window) {
-      const obs = new IntersectionObserver(
+    if (started.current || !("IntersectionObserver" in window)) {
+      start();
+    } else {
+      updateDisplay(value);
+      observer = new IntersectionObserver(
         (entries) => {
           if (entries.some((e) => e.isIntersecting)) {
-            obs.disconnect();
+            observer?.disconnect();
             start();
           }
         },
         { threshold: 0.4 },
       );
-      obs.observe(el);
-      return () => obs.disconnect();
+      observer.observe(el);
     }
-    start();
+    return () => {
+      observer?.disconnect();
+      if (frameId !== undefined) cancelAnimationFrame(frameId);
+    };
   }, [value, durationMs]);
 
   return (
