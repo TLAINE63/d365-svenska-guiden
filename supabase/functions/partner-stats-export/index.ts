@@ -56,13 +56,15 @@ Deno.serve(async (req) => {
   try {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
 
-    const [views, exposures, comparisons, clicks, partners] = await Promise.all([
+    const [views, exposures, comparisons, clicks, outbound, partners] = await Promise.all([
       fetchAll(sb, "partner_profile_views", "partner_slug,view_type,viewed_at", "viewed_at", since,
         (q) => q.in("view_type", ["profile_visit", "card_click"])),
       fetchAll(sb, "partner_filter_exposures", "partner_slug,viewed_at", "viewed_at", since),
       fetchAll(sb, "partner_engagement_events", "partner_slug,occurred_at", "occurred_at", since,
         (q) => q.eq("event_name", "partner_comparison_impression")),
       fetchAll(sb, "partner_clicks", "partner_name,clicked_at", "clicked_at", since),
+      fetchAll(sb, "partner_tracking_events", "partner_slug,created_at", "created_at", since,
+        (q) => q.eq("event_name", "partner_outbound_click")),
       sb.from("partners").select("name,slug").then((r: any) => { if (r.error) throw new Error(r.error.message); return r.data ?? []; }),
     ]);
 
@@ -85,6 +87,7 @@ Deno.serve(async (req) => {
     for (const e of exposures) bump(e.partner_slug, e.viewed_at, "card_impressions");
     for (const c of comparisons) bump(c.partner_slug, c.occurred_at, "comparison_impressions");
     for (const c of clicks) bump(nameToSlug.get(String(c.partner_name ?? "").trim().toLowerCase()), c.clicked_at, "website_clicks");
+    for (const o of outbound) bump(o.partner_slug, o.created_at, "website_clicks");
 
     const out = [...rows.values()].sort((a, b) => a.date.localeCompare(b.date) || a.slug.localeCompare(b.slug));
     return json({ from, to: today, timezone: "Europe/Stockholm", rows: out });
