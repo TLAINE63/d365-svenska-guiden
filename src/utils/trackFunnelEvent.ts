@@ -1,3 +1,4 @@
+import { forwardFunnelEvent } from "@/lib/siJourney";
 /**
  * Fire-and-forget funnel event tracker.
  * Used to measure where visitors drop off in the conversion funnel
