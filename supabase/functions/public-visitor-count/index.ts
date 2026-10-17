@@ -1,5 +1,5 @@
 // Publik besöksräknare för startsidans hero.
-// Returnerar ENBART antalet unika besökare senaste 30 dagarna – ingen annan data.
+// Returnerar ENBART antalet besökare totalt sedan start – ingen annan data.
 // Unik besökare = anonymiserad IP + dag (fallback: session-id + dag), samma
 // definition som i site-traffic-stats. Alla besökare räknas (inget undantag).
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
@@ -15,14 +15,12 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const visitors = new Set<string>();
     const pageSize = 1000;
-    for (let from = 0; from < 200000; from += pageSize) {
+    for (let from = 0; from < 1000000; from += pageSize) {
       const { data, error } = await supabase
         .from("visitor_analytics")
         .select("session_id, visited_at, ip_anonymized")
-        .gte("visited_at", since)
         .order("visited_at", { ascending: false })
         .range(from, from + pageSize - 1);
       if (error) {
@@ -41,7 +39,7 @@ Deno.serve(async (req) => {
       if (data.length < pageSize) break;
     }
 
-    return new Response(JSON.stringify({ uniqueVisitors30d: visitors.size }), {
+    return new Response(JSON.stringify({ uniqueVisitorsTotal: visitors.size }), {
       headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
     });
   } catch (e) {

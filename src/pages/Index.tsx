@@ -155,7 +155,7 @@ const Index = () => {
     supabase.functions
       .invoke("public-visitor-count", { body: {} })
       .then(({ data }) => {
-        if (!cancelled && data?.uniqueVisitors30d > 0) setVisitorCount(data.uniqueVisitors30d);
+        if (!cancelled && data?.uniqueVisitorsTotal > 0) setVisitorCount(data.uniqueVisitorsTotal);
       })
       .catch(() => {});
     return () => {
@@ -332,7 +332,7 @@ const Index = () => {
               {visitorCount > 0 && (
                 <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                  <span><CountUp value={visitorCount} className="tabular-nums" /> besökare den senaste månaden</span>
+                  <span><CountUp value={visitorCount} className="tabular-nums" /> besökare</span>
                 </li>
               )}
               <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
