@@ -1,3 +1,4 @@
+import { trackJourney } from "@/lib/siJourney";
 import { useInquiry } from "@/contexts/InquiryContext";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { track } from "@/lib/track";
@@ -1397,6 +1398,7 @@ const ComparePartners = () => {
   const comparisonProductKey = productFilters.join(",");
   useEffect(() => {
     if (isLoading || comparedPartners.length < 2) return;
+    trackJourney({ type: "comparison_view", meta: { partners: comparedPartners.map((p) => p.slug) } });
     trackPartnerImpression(
       "partner_comparison_impression",
       comparedPartners.map((p) => ({ slug: p.slug, id: p.id })),
