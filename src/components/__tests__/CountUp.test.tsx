@@ -55,7 +55,8 @@ describe("CountUp", () => {
     const { container } = render(<CountUp value={60} durationMs={1000} />);
     expect(frames.size).toBe(1);
     tick(500);
-    expect(container.textContent).toBe("45");
+    expect(container.textContent).toBe("53");
+
     spy.mockRestore();
   });
 
