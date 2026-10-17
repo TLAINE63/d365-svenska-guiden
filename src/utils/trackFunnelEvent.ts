@@ -254,6 +254,7 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
     const attribution = getAttribution();
     const meta: Record<string, unknown> = { journey_id: getJourneyId(), ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
     payload = { ...payload, metadata: meta };
+    forwardFunnelEvent(String(payload.event_type), String(payload.event_name), meta);
     const partnerSlug = (meta.partner_slug || meta.partner) as string | undefined;
     const body = JSON.stringify({
       ...payload,

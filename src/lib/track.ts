@@ -1,5 +1,6 @@
 // Gemensam mätning mot backendfunktionen track-event (delas med businesscentral.se).
 // Fel får aldrig påverka sidan.
+import { trackJourney } from "@/lib/siJourney";
 const SESSION_KEY = "d365_session";
 const SOURCE_KEY = "d365_source";
 
@@ -39,6 +40,8 @@ export function track(eventName: string, metadata?: Record<string, unknown> | nu
       if (sessionStorage.getItem(k)) return;
       sessionStorage.setItem(k, "1");
     }
+    if (eventName === "partner_profile_view" && partnerSlug) trackJourney({ type: "partner_view", meta: { partner: partnerSlug } });
+    else if (eventName === "partner_outbound_click" && partnerSlug) trackJourney({ type: "partner_click", meta: { partner: partnerSlug } });
     const src = getTrackSource();
     fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-event`, {
       method: "POST", keepalive: true,
