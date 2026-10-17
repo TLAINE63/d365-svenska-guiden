@@ -76,3 +76,6 @@ project_id = "vnvphfrrmoaskiwlspeo"
 
 [functions.preview-transactional-email]
 verify_jwt = false
+
+[functions.partner-stats-export]
+verify_jwt = false
