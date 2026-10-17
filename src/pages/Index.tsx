@@ -317,10 +317,31 @@ const Index = () => {
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
-            <p className="mb-9 sm:mb-12 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
+            <p className="mb-5 sm:mb-7 max-w-2xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
               Oavsett var ni befinner er i processen hjälper d365.se er att förstå alternativen, bygga ert beslutsunderlag och ta nästa steg. Guiden täcker Dynamics&nbsp;365 både som affärssystem (ERP) och som CRM-lösningar: säljstöd, marketing automation, kundservice och fältservice.
             </p>
-            <p className="mb-6 sm:mb-8 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
+            <ul className="mb-5 sm:mb-7 grid max-w-4xl gap-x-5 gap-y-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
+              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={identifiedPartnerCount} className="tabular-nums" /> kartlagda Dynamics 365-partners</span>
+              </li>
+              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={isvSolutionCount} className="tabular-nums" /> tilläggslösningar i ISV-katalogen</span>
+              </li>
+              {visitorCount > 0 && (
+                <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                  <span><CountUp value={visitorCount} className="tabular-nums" /> besökare den senaste månaden</span>
+                </li>
+              )}
+              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span>{HERO_INDUSTRIES.length} branscher</span>
+              </li>
+            </ul>
+            <p className="mb-4 sm:mb-6 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
+
               Var befinner ni er i processen?
               <span className="mt-1.5 block font-normal text-[13px] sm:text-[14px] lg:text-[15px] text-primary-foreground/80">Välj det alternativ som bäst motsvarar er situation.</span>
             </p>
@@ -380,26 +401,6 @@ const Index = () => {
                     Visa matchande partners
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                  <ul className="grid gap-2 pt-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
-                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                      <span><CountUp value={identifiedPartnerCount} className="tabular-nums" /> kartlagda Dynamics 365-partners</span>
-                    </li>
-                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                      <span><CountUp value={isvSolutionCount} className="tabular-nums" /> tilläggslösningar i ISV-katalogen</span>
-                    </li>
-                    {visitorCount > 0 && (
-                      <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                        <span><CountUp value={visitorCount} className="tabular-nums" /> besökare den senaste månaden</span>
-                      </li>
-                    )}
-                    <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                      <span>{HERO_INDUSTRIES.length} branscher</span>
-                    </li>
-                  </ul>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
