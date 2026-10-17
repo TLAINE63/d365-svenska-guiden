@@ -6,7 +6,7 @@
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
   "updated": "2026-10-17",
-  "count": 16,
+  "count": 19,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -323,6 +323,49 @@
         "Europa",
         "Globalt"
       ],
+      "related_party": false
+    },
+    {
+      "name": "Texus",
+      "slug": "texus",
+      "url": "https://d365.se/partner/texus/",
+      "website": "https://texus.se",
+      "description": null,
+      "products": [],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "United Hours",
+      "slug": "united-hours",
+      "url": "https://d365.se/partner/united-hours/",
+      "website": "https://www.unitedhours.se/sv",
+      "description": null,
+      "products": [],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [
+        "Sverige"
+      ],
+      "related_party": false
+    },
+    {
+      "name": "Update Affärssystem AB",
+      "slug": "update-affarssystem-ab",
+      "url": "https://d365.se/partner/update-affarssystem-ab/",
+      "website": "https://update.se",
+      "description": null,
+      "products": [],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [],
       "related_party": false
     },
     {

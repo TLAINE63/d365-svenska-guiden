@@ -70,6 +70,21 @@
     "description": "Sirocco Group är en konsult- och utvecklingsbyrå med verksamhet i Stockholm. Företaget arbetar med Microsoft Dynamics 365-applikationer inom Sales, Customer Insights (Marketing), Customer Service, Fie"
   },
   {
+    "slug": "texus",
+    "name": "Texus",
+    "description": ""
+  },
+  {
+    "slug": "united-hours",
+    "name": "United Hours",
+    "description": ""
+  },
+  {
+    "slug": "update-affarssystem-ab",
+    "name": "Update Affärssystem AB",
+    "description": ""
+  },
+  {
     "slug": "vivicta",
     "name": "Vivicta",
     "description": "Vårt Dynamics 365‑erbjudande\nVi erbjuder ett helhetsåtagande inom Microsoft Dynamics 365 – från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Med djup verksamhet"

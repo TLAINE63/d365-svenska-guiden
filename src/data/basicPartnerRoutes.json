@@ -516,13 +516,6 @@
     ]
   },
   {
-    "slug": "texus",
-    "name": "Texus",
-    "products": [
-      "fsc"
-    ]
-  },
-  {
     "slug": "thinknine",
     "name": "Thinknine",
     "products": [
@@ -535,20 +528,6 @@
     "products": [
       "bc",
       "fsc"
-    ]
-  },
-  {
-    "slug": "united-hours",
-    "name": "United Hours",
-    "products": [
-      "fsc"
-    ]
-  },
-  {
-    "slug": "update-affarssystem-ab",
-    "name": "Update Affärssystem AB",
-    "products": [
-      "bc"
     ]
   },
   {
