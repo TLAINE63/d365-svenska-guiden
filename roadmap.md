@@ -1,5 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## F&SCM-pilot: köparrelevans (2026-10-18)
+- [x] Visa upp till tre verkliga produktkopplade kundexempel i befintliga partnerkort, utan platshållare
+- [x] Verifiera F&SCM-stöd och visa ett relevant urval ur den sammanslagna ISV-katalogen
+- [x] Samla sidans avslutning till en huvudväg med jämförelse och kostnad som sekundära vägar
+- [x] Testa regler och kontrollera verkliga länkar samt mobil/dator utan publicering
+Verifierat: fyra befintliga kataloglösningar, Fellowminds tre länkade exempel och Vivictas tre olänkade namn (ojämna namn/länklistor), Implemas platshållare dolda. 17 tester godkända. Appdetaljer och partnernästa steg kontrollerade i webbläsaren, rätt F&SCM-destination även i katalogen. Mobil 390 px utan överbredd, inga runtimefel och automatisk byggkontroll godkänd. Partneruppgifter och ranking oförändrade; ingen publicering.
+
 ## Site Intelligence v2 (2026-10-18)
 - [x] Installera oförändrat SDK och register i testläge med statistiksamtycke och Do Not Track
 - [x] Koppla sidvisning, partnerkort/profiler, jämförelser, vidareklick, formulär och engagerad session utan ändrad äldre statistik

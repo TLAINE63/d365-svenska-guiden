@@ -23,6 +23,7 @@ import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
+import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
@@ -226,7 +227,8 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
 };
 
 /** Återförsäljare/partners som ISV:n själv angett (slugs mot partnerdatabasen). */
-export const IsvResellers = ({ slugs }: { slugs: string[] }) => {
+export const IsvResellers = ({ slugs, products }: { slugs: string[]; products?: string[] }) => {
+  const destination = isvPartnerDestination(products);
   const { data: partners = [] } = useAllPartnerNames();
   const { data: basicPartners = [] } = useBasicPartners();
   if (!slugs.length) {
@@ -235,8 +237,8 @@ export const IsvResellers = ({ slugs }: { slugs: string[] }) => {
         <h4 className="font-semibold text-foreground mb-1">Återförsäljare / partners</h4>
         <p className="text-sm text-muted-foreground">
           Leverantören har inte angett några partners ännu. Söker ni en partner som kan hjälpa er att införa tillägget?{" "}
-          <Link to="/valjdynamics365partner/?product=bc" className="text-primary underline underline-offset-2">
-            Hitta verifierade Business Central-partners →
+          <Link to={destination.to} className="text-primary underline underline-offset-2">
+            {destination.label} →
           </Link>
         </p>
       </section>
@@ -394,7 +396,7 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 </ul>
               </section>
             )}
-            <IsvResellers slugs={s.partnerSlugs || []} />
+            <IsvResellers slugs={s.partnerSlugs || []} products={solutionProducts(s)} />
             <section className="flex flex-wrap gap-1.5 pt-2 border-t border-border">
               {s.tags.map((t) => (
                 <span key={t} className="text-[10px] bg-muted text-muted-foreground px-2 py-0.5 rounded">
@@ -424,8 +426,8 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
               );
             })()}
             <div className="pt-3">
-              <Button asChild variant="outline" className="w-full">
-                <Link to="/valjdynamics365partner/">Hitta BC-partner som arbetar med liknande tillägg →</Link>
+              <Button asChild variant="outline" className="w-full h-auto min-h-10 whitespace-normal">
+                <Link to={isvPartnerDestination(solutionProducts(s)).to}>{isvPartnerDestination(solutionProducts(s)).label} →</Link>
               </Button>
             </div>
           </div>

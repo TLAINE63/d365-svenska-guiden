@@ -13,6 +13,7 @@ import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { useInquiry } from "@/contexts/InquiryContext";
 import { track } from "@/lib/track";
+import { productCustomerExamples } from "@/lib/productCustomerExamples";
 import {
   getDocumentedEvidence,
   getRelevanceFactors,
@@ -28,6 +29,7 @@ interface IndustryVerifiedPartnerCardProps {
   geography?: string | null;
   companySize?: string | null;
   revenue?: string | null;
+  showCustomerExamples?: boolean;
 }
 
 function firstUsefulSentence(text?: string | null, maxChars = 230): string | null {
@@ -108,11 +110,13 @@ export default function IndustryVerifiedPartnerCard({
   geography,
   companySize,
   revenue,
+  showCustomerExamples = false,
 }: IndustryVerifiedPartnerCardProps) {
   const [contactOpen, setContactOpen] = useState(false);
   const kortlista = useShortlist();
   const inquiry = useInquiry();
   const productFilter = selectedProductFilter(partner, productKey);
+  const customerExamples = showCustomerExamples ? productCustomerExamples(productFilter) : [];
   const partnerRelevance = partnerProvidedRelevance(partner, industry, productKey);
   const documentedEvidence = getDocumentedEvidence(partner, {
     productKey,
@@ -198,6 +202,20 @@ export default function IndustryVerifiedPartnerCard({
           )}
 
           <PartnerSelectionFacts partner={partner} productKey={productKey} />
+
+          {customerExamples.length > 0 && (
+            <section>
+              <h4 className="mb-2 text-xs font-semibold text-foreground">Kundexempel för {productLabel}</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {customerExamples.map(({ name, url }) => (
+                  <li key={name}>
+                    {url ? <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{keepDynamics365Together(name)}</a> : <span className="text-foreground">{keepDynamics365Together(name)}</span>}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Registrerat av partnern för detta produktområde, inte belägg för en viss bransch. Be om en referens med liknande processer och omfattning som era.</p>
+            </section>
+          )}
 
           <div className="flex flex-wrap gap-1.5">
             <p className="w-full text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
