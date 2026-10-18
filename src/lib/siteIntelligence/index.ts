@@ -1,7 +1,7 @@
 import connection from './package.json';
 import routes from './providerRoutes.json';
 import { createTrackingService } from './sdk/tracking-service';
-import type { CommonEvent } from './sdk/tracking-contract';
+import { containsPersonalData, type CommonEvent } from './sdk/tracking-contract';
 const providers: Record<string, { provider_id: string; provider_type: 'dynamics_partner' }> = routes as Record<string, { provider_id: string; provider_type: 'dynamics_partner' }>;
 export function analyticsConsentGranted(): boolean {
   try { return typeof window !== 'undefined' && navigator.doNotTrack !== '1' && JSON.parse(localStorage.getItem('cookie-consent-v2') || 'null')?.statistics === true; } catch { return false; }
@@ -36,6 +36,7 @@ export function pageType(path: string): CommonEvent['page_type'] {
 export function sendEvent(name: string, parameters: Partial<CommonEvent> = {}): void {
   try {
     if (!analyticsConsentGranted() || /^\/(admin|redaktion)(\/|$)/.test(window.location.pathname)) return;
+    if (containsPersonalData(decodeURIComponent(window.location.pathname))) return;
     void tracker().trackEvent(name, { page_type: pageType(window.location.pathname), ...parameters }).catch(() => {});
     if (connection.engagement.interaction_events.includes(name)) void tracker().observeEngagement({ page_type: pageType(window.location.pathname), interaction_event: name }).catch(() => {});
   } catch { /* silent */ }
@@ -52,7 +53,8 @@ export function trackPage(): void {
   } catch { /* silent */ }
 }
 export function trackConfirmedForm(formId: string): void {
-  if (/^[a-zA-Z0-9_-]{1,128}$/.test(formId)) sendEvent('lead_submit', { form_id: formId, lead_type: 'provider_contact', submission_status: 'confirmed' });
+  const leadType = formId === 'general_contact' ? 'general_contact' : formId === 'underlag_sent' ? 'guide_request' : 'provider_contact';
+  if (/^[a-zA-Z0-9_-]{1,128}$/.test(formId)) sendEvent('lead_submit', { form_id: formId, lead_type: leadType, submission_status: 'confirmed' });
 }
 export function installTracking(): () => void {
   if (typeof window === 'undefined') return () => {};
@@ -74,7 +76,7 @@ export function installTracking(): () => void {
   };
   const interval = window.setInterval(() => {
     try {
-      if (!analyticsConsentGranted() || document.visibilityState !== 'visible' || /^\/(admin|redaktion)(\/|$)/.test(window.location.pathname)) return;
+      if (!analyticsConsentGranted() || document.visibilityState !== 'visible' || containsPersonalData(decodeURIComponent(window.location.pathname)) || /^\/(admin|redaktion)(\/|$)/.test(window.location.pathname)) return;
       void tracker().observeEngagement({ page_type: pageType(window.location.pathname), active_seconds: 1 }).catch(() => {});
     } catch { /* silent */ }
   }, 1000);

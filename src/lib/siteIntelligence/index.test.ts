@@ -44,6 +44,23 @@ describe('Site Intelligence v2 privacy contract', () => {
     const m = await setup(true); vi.mocked(fetch).mockRejectedValue(new Error('offline'));
     expect(() => m.sendEvent('download')).not.toThrow(); await Promise.resolve();
   });
+  it('blocks personal information in page paths before tracking identity creation', async () => {
+    const m = await setup(true); window.history.replaceState({}, '', '/contact/private%40example.test/');
+    m.sendEvent('download'); expect(fetch).not.toHaveBeenCalled();
+    expect(localStorage.getItem('portfolio_tracking_d365_se')).toBeNull();
+  });
+  it('records a form start on input, not opening, and never records account forms', async () => {
+    const m = await setup(true); const cleanup = m.installTracking(); vi.mocked(fetch).mockClear();
+    document.body.innerHTML = '<form><input type="email" /></form><form><input type="email" /><input type="password" /></form>';
+    expect(fetch).not.toHaveBeenCalled();
+    const inputs = document.querySelectorAll('input[type="email"]');
+    inputs[1].dispatchEvent(new Event('input', { bubbles: true })); expect(fetch).not.toHaveBeenCalled();
+    inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+    inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+    const events = vi.mocked(fetch).mock.calls.map(c => JSON.parse(c[1]?.body as string).events[0]);
+    expect(events.filter(e => e.event_name === 'lead_start')).toHaveLength(1);
+    expect(events.filter(e => e.event_name === 'lead_submit')).toHaveLength(0); cleanup();
+  });
   it('tracks engagement at the supplied 30 visible seconds threshold', async () => {
     const m = await setup(true); vi.useFakeTimers();
     Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });
