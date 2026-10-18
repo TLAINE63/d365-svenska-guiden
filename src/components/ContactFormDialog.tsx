@@ -24,6 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "@/lib/validateBusinessEmail";
+import { trackConfirmedForm } from "@/lib/siteIntelligence";
 
 const formSchema = z.object({
  name: z.string().trim().min(2, {
@@ -104,6 +105,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
  }
 
  console.log("Email sent successfully:", data);
+ if (data?.success === true || data?.ok === true) trackConfirmedForm("general_contact");
 
  toast({
  title: "Tack för din förfrågan!",

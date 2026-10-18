@@ -12,6 +12,10 @@ function tracker() {
   return service;
 }
 export function providerForSlug(slug: string) { return providers[slug]; }
+export function providerForName(name: string) {
+  const match = connection.providers.find(p => p.name.trim().toLowerCase() === name.trim().toLowerCase());
+  return match ? { provider_id: match.provider_key, provider_type: 'dynamics_partner' as const } : undefined;
+}
 export function pageType(path: string): CommonEvent['page_type'] {
   if (path === '/') return 'home';
   if (/^\/(partner|basic)\//.test(path)) return 'partner_profile';
@@ -22,7 +26,7 @@ export function pageType(path: string): CommonEvent['page_type'] {
   if (/licens/.test(path)) return 'licensing';
   if (/pris/.test(path)) return 'pricing';
   if (/partners|valjdynamics365partner/.test(path)) return 'partner_directory';
-  if (/^\/dynamics-365|^\/(business-central|finance-supply-chain|crm)\/?$/.test(path)) return 'product';
+  if (/^\/(businesscentral|finance-supply-chain|crm|d365sales|d365marketing|d365customerservice|d365fieldservice|d365contactcenter|d365projectoperations|d365humanresources|d365commerce)\/?$/.test(path)) return 'product';
   if (/kunskapscenter|nyheter|partnernytt|artikel|ai\/exempel/.test(path)) return 'article';
   if (/kom-igang|test/.test(path)) return 'wizard';
   if (/guide|underlag/.test(path)) return 'guide';
@@ -58,7 +62,7 @@ export function installTracking(): () => void {
       if (!analyticsConsentGranted()) return;
       const target = event.target;
       const form = target instanceof HTMLElement ? target.closest('form') : null;
-      if (!form || forms.has(form) || !form.querySelector('input[type="email"]')) return;
+      if (!form || forms.has(form) || form.querySelector('input[type="password"]') || !form.querySelector('input[type="email"]') || /^\/konto/.test(window.location.pathname)) return;
       forms.add(form); sendEvent('lead_start');
     } catch { /* silent */ }
   };

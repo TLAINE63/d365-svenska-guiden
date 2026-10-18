@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
+import { sendEvent, providerForName } from "@/lib/siteIntelligence";
 
 interface UTMParams {
   application?: string;
@@ -61,6 +62,8 @@ export const trackPartnerClick = async (
 ) => {
   if (typeof window !== "undefined" && isExcludedFromTracking()) return;
   try {
+    const provider = providerForName(partnerName);
+    if (provider) sendEvent("outbound_provider_click", { ...provider, destination_type: "provider_website", link_placement: "other" });
     const response = await supabase.functions.invoke("track-partner-click", {
       body: {
         partnerName,
