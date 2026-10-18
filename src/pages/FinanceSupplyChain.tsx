@@ -5,14 +5,12 @@ import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import EditorialAssessment from "@/components/EditorialAssessment";
-import ContextualCta from "@/components/ContextualCta";
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
-import PageOfferBanner from "@/components/PageOfferBanner";
 import StandardProductSections from "@/components/product/StandardProductSections";
 import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
@@ -24,7 +22,6 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
@@ -572,6 +569,14 @@ const FinanceSupplyChain = () => {
       <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain Management (F&O)" />
 
 
+      <ProductIsvSection
+        product="Finance & Supply Chain Management"
+        limit={4}
+        reviewedFscmSelection
+        title="Vilka tillägg kan vara värda att undersöka?"
+        description="Börja med vad standardfunktionerna täcker. Här är fyra befintliga kataloglösningar med kontrollerat stöd för Finance eller Supply Chain Management, för olika behov. Kontrollera version, integrationsansvar och kostnad med leverantören innan ni väljer."
+      />
+
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
  <div className="container mx-auto px-4 sm:px-6">
@@ -685,6 +690,7 @@ const FinanceSupplyChain = () => {
  geography={selectedGeography}
  companySize={selectedCompanySize}
  revenue={selectedRevenue}
+ showCustomerExamples
  />
  );
  })}
@@ -773,43 +779,11 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
- {/* CTA Section */}
- <section className="py-10 bg-secondary/50">
- <div className="container mx-auto px-4">
- <div className="max-w-3xl mx-auto text-center">
- <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Rådgivning inför val av Finance & Supply Chain Management (F&O)
- </h2>
- <p className="text-lg text-muted-foreground mb-8">
- Kontakta oss för en kostnadsfri konsultation
- </p>
- <ContactFormDialog>
- <Button className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground h-14 sm:h-16 rounded" size="lg">
- Boka in en kostnadsfri rådgivning
- </Button>
- </ContactFormDialog>
- </div>
- </div>
- </section>
-
- <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
- <section className="py-8">
-   <div className="container mx-auto px-4 max-w-6xl">
-     <PageOfferBanner />
-   </div>
- </section>
-      <ProductIsvSection
-        product="Finance & Supply Chain Management"
-        limit={9}
-        description="Ekosystemet runt Finance & Supply Chain Management är stort – från leverantörsfakturor och anläggningsunderhåll till EDI, frakt och branschpaket. Här är ett brett urval; hela katalogen med filter för kategori, leveransform och bransch finns i Kunskapscentret."
-      />
-
-
- <ContextualCta source="next-step:finance-supply-chain" heading="Så går du vidare med Finance & Supply Chain Management (F&O)" text="Nästa steg är att se vilka partners som har gjort liknande projekt i er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Finance & Supply Chain" links={[{ label: "Jämför relevanta partners", to: "/finance-supply-chain-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Så väljer ni Finance & Supply Chain Management (F&O)-partner", to: "/guider/valja-finance-supply-chain-partner/" }]} />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod variant="product" />
+ <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       </main>
  <BasicProfilesDirectory products={["fsc"]} />
  <Footer />
