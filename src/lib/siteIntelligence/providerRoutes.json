@@ -1,0 +1,350 @@
+{
+  "4ps-sweden": {
+    "provider_id": "partner_8f2ffd64-dd72-4251-a796-fff70e1ec82b",
+    "provider_type": "dynamics_partner"
+  },
+  "adbriq": {
+    "provider_id": "partner_3591a237-ba6a-426a-9ca4-6682cc768a00",
+    "provider_type": "dynamics_partner"
+  },
+  "b3-consulting-group": {
+    "provider_id": "partner_568e7ed9-b06e-4b29-b753-c426fbfe9417",
+    "provider_type": "dynamics_partner"
+  },
+  "bisqo": {
+    "provider_id": "partner_05f22abc-54bf-4821-9f9d-0c5873ad319b",
+    "provider_type": "dynamics_partner"
+  },
+  "crm-konsulterna": {
+    "provider_id": "partner_99789bfe-1d06-4f85-9927-45666d98f86d",
+    "provider_type": "dynamics_partner"
+  },
+  "fellowmind": {
+    "provider_id": "partner_20336c63-cafc-46c7-b788-6a171b8a1af3",
+    "provider_type": "dynamics_partner"
+  },
+  "implema": {
+    "provider_id": "partner_7efb1beb-6296-4345-be26-f6207479ba47",
+    "provider_type": "dynamics_partner"
+  },
+  "inbiz": {
+    "provider_id": "partner_4d2c236f-519b-4c24-a1ca-8fc38e5c24a4",
+    "provider_type": "dynamics_partner"
+  },
+  "modia": {
+    "provider_id": "partner_f45f01c9-f871-4b27-bf4e-2efd5cca3250",
+    "provider_type": "dynamics_partner"
+  },
+  "nab-solutions": {
+    "provider_id": "partner_dd4a8386-39fb-4b6e-92ac-7dbc300c83f8",
+    "provider_type": "dynamics_partner"
+  },
+  "nexer": {
+    "provider_id": "partner_df535d16-058d-4297-9aa1-ae268d152caa",
+    "provider_type": "dynamics_partner"
+  },
+  "norra-commerce-partner": {
+    "provider_id": "partner_683ef989-bea8-453f-b15f-ed1f876f08f9",
+    "provider_type": "dynamics_partner"
+  },
+  "point-taken": {
+    "provider_id": "partner_b0792d0a-1ec1-48c7-bbc3-a4ce5183022e",
+    "provider_type": "dynamics_partner"
+  },
+  "sirocco-group": {
+    "provider_id": "partner_0c316e3f-cba5-422c-a0ab-12745c621db8",
+    "provider_type": "dynamics_partner"
+  },
+  "texus": {
+    "provider_id": "partner_86de0915-d135-4168-819a-1ab812866e82",
+    "provider_type": "dynamics_partner"
+  },
+  "united-hours": {
+    "provider_id": "partner_40072e8e-d3b1-4f61-bb52-afd241356577",
+    "provider_type": "dynamics_partner"
+  },
+  "update-affarssystem-ab": {
+    "provider_id": "partner_58127527-2619-4ca8-b1b6-5c363e2f661b",
+    "provider_type": "dynamics_partner"
+  },
+  "vivicta": {
+    "provider_id": "partner_c157a377-11f5-42a7-aea0-15c6c5f48f0b",
+    "provider_type": "dynamics_partner"
+  },
+  "yellow-solution": {
+    "provider_id": "partner_de4f5dcf-32e1-4e9b-9b1e-c76242a99b15",
+    "provider_type": "dynamics_partner"
+  },
+  "accenture": {
+    "provider_id": "partner_fd3a0537-e263-4390-b394-7ae496bf07c9",
+    "provider_type": "dynamics_partner"
+  },
+  "accigo": {
+    "provider_id": "partner_bfd63ec9-db10-483d-b27b-80b03ce67ad9",
+    "provider_type": "dynamics_partner"
+  },
+  "active-business-solutions": {
+    "provider_id": "partner_9d5d5d5e-5989-468f-88ee-492c71cf7f18",
+    "provider_type": "dynamics_partner"
+  },
+  "acumant": {
+    "provider_id": "partner_aae615bb-9dab-4346-b4e4-46131ce1234b",
+    "provider_type": "dynamics_partner"
+  },
+  "aperit": {
+    "provider_id": "partner_4e08f00e-17c0-4988-96c6-a064e945a176",
+    "provider_type": "dynamics_partner"
+  },
+  "apx-core-solutions": {
+    "provider_id": "partner_b2724191-7a55-4261-bc6a-16aeb5a33ac9",
+    "provider_type": "dynamics_partner"
+  },
+  "avanade": {
+    "provider_id": "partner_395b3f5b-c1e5-4087-a5a3-e5ffdcb052de",
+    "provider_type": "dynamics_partner"
+  },
+  "avega": {
+    "provider_id": "partner_236c92de-83c5-400a-8368-aadcec2cd72a",
+    "provider_type": "dynamics_partner"
+  },
+  "azets": {
+    "provider_id": "partner_a67c5848-35b9-4a6a-82ed-fbbc2c3267e4",
+    "provider_type": "dynamics_partner"
+  },
+  "basecloud": {
+    "provider_id": "partner_46113880-768d-4075-b13a-07249437712b",
+    "provider_type": "dynamics_partner"
+  },
+  "be-terna": {
+    "provider_id": "partner_ebb3a406-1671-4857-8933-87f6d0db3e02",
+    "provider_type": "dynamics_partner"
+  },
+  "bedege": {
+    "provider_id": "partner_271c1ca1-d98f-4537-9e34-d09d28f0f9b9",
+    "provider_type": "dynamics_partner"
+  },
+  "birdie-cloud": {
+    "provider_id": "partner_bab2f2e4-272d-40b9-81c2-d65548db520d",
+    "provider_type": "dynamics_partner"
+  },
+  "brain-accounting": {
+    "provider_id": "partner_50ab146d-98de-43e2-bd44-de761f98e867",
+    "provider_type": "dynamics_partner"
+  },
+  "exsitec": {
+    "provider_id": "partner_a900a483-7f66-4f8c-867b-86a45b22bb7e",
+    "provider_type": "dynamics_partner"
+  },
+  "capgemini": {
+    "provider_id": "partner_e8c999b4-84a9-4322-8271-b3bab15bf417",
+    "provider_type": "dynamics_partner"
+  },
+  "cegeka": {
+    "provider_id": "partner_347b70cb-b5f7-484d-a443-434cf4272727",
+    "provider_type": "dynamics_partner"
+  },
+  "cepheo": {
+    "provider_id": "partner_6f5eb69f-b17b-49ca-8ba0-d83d03b16fcc",
+    "provider_type": "dynamics_partner"
+  },
+  "cgi": {
+    "provider_id": "partner_5c6084d7-4a9a-4225-85e0-7648f994381b",
+    "provider_type": "dynamics_partner"
+  },
+  "columbus-sweden-ab": {
+    "provider_id": "partner_024172c6-c493-4414-b326-d1439fb822fb",
+    "provider_type": "dynamics_partner"
+  },
+  "compago": {
+    "provider_id": "partner_0d52c4b3-ddc2-4dc0-9557-1232e1387a0e",
+    "provider_type": "dynamics_partner"
+  },
+  "consid": {
+    "provider_id": "partner_bab4f204-fcd3-486f-939a-d3898c49184c",
+    "provider_type": "dynamics_partner"
+  },
+  "cosmo-consult": {
+    "provider_id": "partner_89fa6d9b-7816-4932-b003-9254689e918b",
+    "provider_type": "dynamics_partner"
+  },
+  "dizparc": {
+    "provider_id": "partner_cc03287a-7f33-437a-bf3b-ab77f5a6fc4e",
+    "provider_type": "dynamics_partner"
+  },
+  "dynamicskonsult": {
+    "provider_id": "partner_2021103a-04d3-4239-a0b9-fa115a86b78c",
+    "provider_type": "dynamics_partner"
+  },
+  "ecit-sverige-ab": {
+    "provider_id": "partner_2bb7be9b-64c2-4964-8231-50b66ff7a5b5",
+    "provider_type": "dynamics_partner"
+  },
+  "effekt": {
+    "provider_id": "partner_99b5dec6-0de3-45e7-825a-e5c7f69c4528",
+    "provider_type": "dynamics_partner"
+  },
+  "eg-sverige": {
+    "provider_id": "partner_ca3d9f35-c7f9-4854-b419-46050157a74a",
+    "provider_type": "dynamics_partner"
+  },
+  "engage-group": {
+    "provider_id": "partner_edd73dfd-9fdd-4597-b77a-23be47a70324",
+    "provider_type": "dynamics_partner"
+  },
+  "enqore-ab": {
+    "provider_id": "partner_1a9fedad-3e8e-4af1-852d-f755bc6ae37d",
+    "provider_type": "dynamics_partner"
+  },
+  "navipro-ab": {
+    "provider_id": "partner_74832163-d32c-4310-9f69-544b33d8b35e",
+    "provider_type": "dynamics_partner"
+  },
+  "ey": {
+    "provider_id": "partner_fe4c0eb9-76ab-4973-90ce-513817480177",
+    "provider_type": "dynamics_partner"
+  },
+  "forefront-group": {
+    "provider_id": "partner_4b1e1e72-f610-4e31-b3dd-71e7d6404381",
+    "provider_type": "dynamics_partner"
+  },
+  "fourone": {
+    "provider_id": "partner_35bf11ef-ff7e-4309-b6b0-ceecac83eab5",
+    "provider_type": "dynamics_partner"
+  },
+  "fujitsu": {
+    "provider_id": "partner_5949bfd7-374d-44ef-a00d-f912764d7d10",
+    "provider_type": "dynamics_partner"
+  },
+  "hay-it": {
+    "provider_id": "partner_c672aac0-510e-463e-84cf-ccad2a0f4b6f",
+    "provider_type": "dynamics_partner"
+  },
+  "hcl": {
+    "provider_id": "partner_3fbd7013-7f3b-4950-9cfd-a01757c8a3d4",
+    "provider_type": "dynamics_partner"
+  },
+  "hso": {
+    "provider_id": "partner_9476f7a8-8ae0-4439-b1c9-d53634e1a516",
+    "provider_type": "dynamics_partner"
+  },
+  "innofactor": {
+    "provider_id": "partner_6f9cc7b6-6968-440e-a8dd-46054754ad19",
+    "provider_type": "dynamics_partner"
+  },
+  "invid": {
+    "provider_id": "partner_328fda32-0096-4ad6-88c5-5bc9721d713e",
+    "provider_type": "dynamics_partner"
+  },
+  "it-stod-ab": {
+    "provider_id": "partner_91796f1b-170b-47c8-91d4-cc8922b1f12a",
+    "provider_type": "dynamics_partner"
+  },
+  "jma-maskindata": {
+    "provider_id": "partner_d9825dd7-b213-4390-b701-b945ffa2addc",
+    "provider_type": "dynamics_partner"
+  },
+  "knowit": {
+    "provider_id": "partner_85364742-1d3d-47e6-a34f-f169e8e38f10",
+    "provider_type": "dynamics_partner"
+  },
+  "kpmg": {
+    "provider_id": "partner_e653e953-aaf6-48d2-8fe2-c42aa82c218e",
+    "provider_type": "dynamics_partner"
+  },
+  "langate": {
+    "provider_id": "partner_fc7ca84a-d453-4f3f-8be6-ad54539ee0f4",
+    "provider_type": "dynamics_partner"
+  },
+  "mavrix": {
+    "provider_id": "partner_2fa87373-0881-4fb1-bfc3-ef2a4c485d0c",
+    "provider_type": "dynamics_partner"
+  },
+  "midpoint-ab": {
+    "provider_id": "partner_3fefe380-59b5-4e63-a8c0-ddc4fc2530f1",
+    "provider_type": "dynamics_partner"
+  },
+  "navcite": {
+    "provider_id": "partner_ea2179df-926f-488f-87d2-6f5b393c0020",
+    "provider_type": "dynamics_partner"
+  },
+  "navet-ab": {
+    "provider_id": "partner_496616be-bb15-47cc-bdfe-101ab127b741",
+    "provider_type": "dynamics_partner"
+  },
+  "nemely": {
+    "provider_id": "partner_c80ab924-7f63-4634-874c-d528f02150cf",
+    "provider_type": "dynamics_partner"
+  },
+  "next365-group": {
+    "provider_id": "partner_48780caf-7d12-4fc5-9a98-264a8e4d85d3",
+    "provider_type": "dynamics_partner"
+  },
+  "norrminds": {
+    "provider_id": "partner_056c8a55-03e5-4705-99c7-97a5e59f08c6",
+    "provider_type": "dynamics_partner"
+  },
+  "norteam": {
+    "provider_id": "partner_f3f9be23-0dc2-4fb1-82b7-4fdfd539dbde",
+    "provider_type": "dynamics_partner"
+  },
+  "pwc": {
+    "provider_id": "partner_1125d529-180c-42e1-8fb9-f717e7984eba",
+    "provider_type": "dynamics_partner"
+  },
+  "regentor": {
+    "provider_id": "partner_d52c6eec-18f4-418a-be95-b9c345d1980b",
+    "provider_type": "dynamics_partner"
+  },
+  "releye": {
+    "provider_id": "partner_d3635e50-da96-446f-9e13-13df8e8d7be4",
+    "provider_type": "dynamics_partner"
+  },
+  "sa-global": {
+    "provider_id": "partner_7c1023be-3e4e-4175-a8f0-0bbdbda290e3",
+    "provider_type": "dynamics_partner"
+  },
+  "sandbox-republic": {
+    "provider_id": "partner_2bbf3627-fe15-446e-bde1-cd2dd7b2e102",
+    "provider_type": "dynamics_partner"
+  },
+  "sherpas-group-ab": {
+    "provider_id": "partner_b375698a-cd8d-4b4c-812d-832ccf14bff4",
+    "provider_type": "dynamics_partner"
+  },
+  "sii-sverige": {
+    "provider_id": "partner_f4f3071d-5d20-44f3-b85d-bced44e0b206",
+    "provider_type": "dynamics_partner"
+  },
+  "softronic": {
+    "provider_id": "partner_18106a0a-5f10-4377-bbcf-da0110764a36",
+    "provider_type": "dynamics_partner"
+  },
+  "sogeti": {
+    "provider_id": "partner_f79bdb25-a43c-48ce-b52b-77e063ee5c50",
+    "provider_type": "dynamics_partner"
+  },
+  "sopra-steria": {
+    "provider_id": "partner_deba962e-f5a7-48f3-a851-2bde510f460f",
+    "provider_type": "dynamics_partner"
+  },
+  "sundet-crm": {
+    "provider_id": "partner_cebaf59e-c237-4a8a-a2e5-8e739f727852",
+    "provider_type": "dynamics_partner"
+  },
+  "thinknine": {
+    "provider_id": "partner_f9b40552-cf22-436b-ad68-2e14e04e4d2c",
+    "provider_type": "dynamics_partner"
+  },
+  "transformant": {
+    "provider_id": "partner_f4b91bc7-9fa0-4ddb-baa3-17a91591a5b0",
+    "provider_type": "dynamics_partner"
+  },
+  "future-it-partner": {
+    "provider_id": "partner_1a62fbda-6c02-4fa1-9d68-fbb1f7181274",
+    "provider_type": "dynamics_partner"
+  },
+  "xlent": {
+    "provider_id": "partner_7bb58e31-cac7-4683-a96c-1df59ca08e46",
+    "provider_type": "dynamics_partner"
+  }
+}

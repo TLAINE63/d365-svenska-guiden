@@ -1,0 +1,1117 @@
+{
+  "site": {
+    "id": "0547ad58-9227-47f4-870c-2e8816d74c51",
+    "domain": "d365.se",
+    "site_key": "d365_se",
+    "tracking_hostname": "d365.se",
+    "tracking_path_prefix": "/"
+  },
+  "registry": [
+    {
+      "event_key": "alternative_view",
+      "active": true,
+      "required_parameters": [
+        "primary_entity_id",
+        "alternative_entity_id",
+        "alternative_category"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "buyer_next_step_click",
+      "active": true,
+      "required_parameters": [
+        "next_step_type",
+        "current_journey_stage",
+        "intended_next_journey_stage"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "calculator_complete",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "calculator_start",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "comparison_complete",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "comparison_type",
+        "primary_entity_id",
+        "compared_entity_ids",
+        "completion_method"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "comparison_interaction",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "comparison_type",
+        "interaction_type",
+        "user_initiated"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "comparison_result_click",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "selected_entity_id",
+        "destination_type"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "comparison_start",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "comparison_type",
+        "primary_entity_id",
+        "compared_entity_ids",
+        "start_method"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "comparison_view",
+      "active": true,
+      "required_parameters": [
+        "comparison_type",
+        "primary_entity_id",
+        "compared_entity_ids"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "cta_click",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "demo_booking",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "download",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "engaged_content_view",
+      "active": true,
+      "required_parameters": [
+        "content_id",
+        "page_type",
+        "engaged_time_seconds",
+        "max_scroll_percent"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "engaged_session",
+      "active": true,
+      "required_parameters": [
+        "engagement_reason",
+        "engaged_time_seconds",
+        "page_view_count"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "guide_complete",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "guide_start",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "internal_link_click",
+      "active": true,
+      "required_parameters": [
+        "link_url",
+        "link_context"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "internal_search",
+      "active": true,
+      "required_parameters": [
+        "search_term_normalized",
+        "result_count"
+      ],
+      "journey_stage_v2": "discovery"
+    },
+    {
+      "event_key": "journey_step",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "journey_step_reached",
+      "active": true,
+      "required_parameters": [
+        "journey_stage",
+        "triggering_event_name"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "lead_start",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "lead_submit",
+      "active": true,
+      "required_parameters": [
+        "lead_type",
+        "form_id",
+        "submission_status"
+      ],
+      "journey_stage_v2": "conversion"
+    },
+    {
+      "event_key": "multiple_comparisons_viewed",
+      "active": true,
+      "required_parameters": [
+        "comparison_ids",
+        "comparison_count"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "multiple_products_viewed",
+      "active": true,
+      "required_parameters": [
+        "product_ids",
+        "product_count"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "multiple_providers_viewed",
+      "active": true,
+      "required_parameters": [
+        "provider_ids",
+        "provider_count"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "outbound_provider_click",
+      "active": true,
+      "required_parameters": [
+        "provider_id",
+        "provider_type",
+        "destination_type",
+        "link_placement"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "page_view",
+      "active": true,
+      "required_parameters": [
+        "page_type"
+      ],
+      "journey_stage_v2": "discovery"
+    },
+    {
+      "event_key": "partner_comparison",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "partner_list_view",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "partner_outbound_click",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "partner_profile_view",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "pricing_view",
+      "active": true,
+      "required_parameters": [
+        "pricing_type"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "product_view",
+      "active": true,
+      "required_parameters": [
+        "product_id",
+        "page_type"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "provider_comparison_complete",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "provider_ids",
+        "provider_type",
+        "completion_method"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "provider_comparison_interaction",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "provider_ids",
+        "provider_type",
+        "interaction_type",
+        "user_initiated"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "provider_comparison_start",
+      "active": true,
+      "required_parameters": [
+        "comparison_id",
+        "provider_ids",
+        "provider_type",
+        "start_method"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "provider_profile_view",
+      "active": true,
+      "required_parameters": [
+        "provider_id",
+        "provider_type"
+      ],
+      "journey_stage_v2": "selection"
+    },
+    {
+      "event_key": "repeated_product_view",
+      "active": true,
+      "required_parameters": [
+        "product_id",
+        "view_count"
+      ],
+      "journey_stage_v2": "consideration"
+    },
+    {
+      "event_key": "scroll_depth",
+      "active": true,
+      "required_parameters": [
+        "scroll_percent",
+        "page_type"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "tool_use",
+      "active": true,
+      "required_parameters": [],
+      "journey_stage_v2": null
+    },
+    {
+      "event_key": "wizard_complete",
+      "active": true,
+      "required_parameters": [
+        "wizard_id",
+        "wizard_type",
+        "total_steps",
+        "completed_steps",
+        "result_type"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "wizard_start",
+      "active": true,
+      "required_parameters": [
+        "wizard_id",
+        "wizard_type",
+        "total_steps"
+      ],
+      "journey_stage_v2": "research"
+    },
+    {
+      "event_key": "wizard_step_complete",
+      "active": true,
+      "required_parameters": [
+        "wizard_id",
+        "wizard_type",
+        "step_id",
+        "selected_option_ids"
+      ],
+      "journey_stage_v2": "research"
+    }
+  ],
+  "configuration": [
+    {
+      "key": "engagement",
+      "value": {
+        "active_seconds": 30,
+        "requires_consent": true,
+        "interaction_events": [
+          "comparison_view",
+          "outbound_provider_click",
+          "lead_submit"
+        ],
+        "relevant_page_views": 2,
+        "content_active_seconds": 30,
+        "content_scroll_percent": 50,
+        "session_timeout_minutes": 30
+      }
+    },
+    {
+      "key": "journey",
+      "value": {
+        "completion": {
+          "default": {
+            "criteria": 3,
+            "interactions": 2,
+            "active_seconds": 30,
+            "scroll_percent": 75
+          }
+        },
+        "small_cell": 3,
+        "repeat_seconds": 30,
+        "multiple_products": 2,
+        "multiple_providers": 2,
+        "multiple_comparisons": 2
+      }
+    }
+  ],
+  "products": [
+    {
+      "product_key": "business_central",
+      "name": "Business Central"
+    },
+    {
+      "product_key": "finance",
+      "name": "Finance"
+    },
+    {
+      "product_key": "supply_chain_management",
+      "name": "Supply Chain Management"
+    },
+    {
+      "product_key": "finance_scm",
+      "name": "Finance Scm"
+    },
+    {
+      "product_key": "sales",
+      "name": "Sales"
+    },
+    {
+      "product_key": "customer_service",
+      "name": "Customer Service"
+    },
+    {
+      "product_key": "customer_insights",
+      "name": "Customer Insights"
+    },
+    {
+      "product_key": "field_service",
+      "name": "Field Service"
+    },
+    {
+      "product_key": "project_operations",
+      "name": "Project Operations"
+    },
+    {
+      "product_key": "commerce",
+      "name": "Commerce"
+    },
+    {
+      "product_key": "human_resources",
+      "name": "Human Resources"
+    },
+    {
+      "product_key": "power_bi",
+      "name": "Power Bi"
+    },
+    {
+      "product_key": "power_apps",
+      "name": "Power Apps"
+    },
+    {
+      "product_key": "power_automate",
+      "name": "Power Automate"
+    },
+    {
+      "product_key": "copilot_studio",
+      "name": "Copilot Studio"
+    },
+    {
+      "product_key": "power_platform",
+      "name": "Power Platform"
+    },
+    {
+      "product_key": "fp_and_a",
+      "name": "FP&A"
+    },
+    {
+      "product_key": "other_erp",
+      "name": "Other Erp"
+    },
+    {
+      "product_key": "other_crm",
+      "name": "Other Crm"
+    },
+    {
+      "product_key": "other_fp_and_a",
+      "name": "Other FP&A"
+    }
+  ],
+  "topics": [
+    {
+      "topic_key": null,
+      "name": "BC Copilot & AI"
+    },
+    {
+      "topic_key": null,
+      "name": "BC Branschlösningar"
+    },
+    {
+      "topic_key": null,
+      "name": "BC vs Alternativ"
+    },
+    {
+      "topic_key": null,
+      "name": "BC Konsult & Partner"
+    },
+    {
+      "topic_key": null,
+      "name": "BC Implementation"
+    },
+    {
+      "topic_key": null,
+      "name": "BC Pris & Licens"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Partner & Konsult"
+    },
+    {
+      "topic_key": null,
+      "name": "Power Platform"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 CRM / Sales / Service"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Finance & SCM"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Översikt & Val"
+    },
+    {
+      "topic_key": null,
+      "name": "AI i Ekonomi"
+    },
+    {
+      "topic_key": null,
+      "name": "CFO & Ledning"
+    },
+    {
+      "topic_key": null,
+      "name": "Budget & Prognos"
+    },
+    {
+      "topic_key": null,
+      "name": "FP&A System & Verktyg"
+    },
+    {
+      "topic_key": null,
+      "name": "FP&A Metodik & Process"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Comparisons (EN)"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Implementation (EN)"
+    },
+    {
+      "topic_key": null,
+      "name": "D365 Licensing (EN)"
+    },
+    {
+      "topic_key": "price",
+      "name": "Price"
+    },
+    {
+      "topic_key": "licensing",
+      "name": "Licensing"
+    },
+    {
+      "topic_key": "implementation",
+      "name": "Implementation"
+    },
+    {
+      "topic_key": "implementation_cost",
+      "name": "Implementation Cost"
+    },
+    {
+      "topic_key": "partner_selection",
+      "name": "Partner Selection"
+    },
+    {
+      "topic_key": "product_comparison",
+      "name": "Product Comparison"
+    },
+    {
+      "topic_key": "migration",
+      "name": "Migration"
+    },
+    {
+      "topic_key": "upgrade",
+      "name": "Upgrade"
+    },
+    {
+      "topic_key": "integration",
+      "name": "Integration"
+    },
+    {
+      "topic_key": "ai_copilot",
+      "name": "Ai Copilot"
+    },
+    {
+      "topic_key": "reporting_bi",
+      "name": "Reporting Bi"
+    },
+    {
+      "topic_key": "budgeting",
+      "name": "Budgeting"
+    },
+    {
+      "topic_key": "forecasting",
+      "name": "Forecasting"
+    },
+    {
+      "topic_key": "consolidation",
+      "name": "Consolidation"
+    },
+    {
+      "topic_key": "scenario_planning",
+      "name": "Scenario Planning"
+    },
+    {
+      "topic_key": "security",
+      "name": "Security"
+    },
+    {
+      "topic_key": "industry_solution",
+      "name": "Industry Solution"
+    },
+    {
+      "topic_key": "support",
+      "name": "Support"
+    },
+    {
+      "topic_key": "change_management",
+      "name": "Change Management"
+    },
+    {
+      "topic_key": "data_migration",
+      "name": "Data Migration"
+    }
+  ],
+  "providers": [
+    {
+      "provider_key": "partner_7efb1beb-6296-4345-be26-f6207479ba47",
+      "provider_type": "dynamics_partner",
+      "name": "Implema AB"
+    },
+    {
+      "provider_key": "partner_99789bfe-1d06-4f85-9927-45666d98f86d",
+      "provider_type": "dynamics_partner",
+      "name": "CRMK (CRM-Konsulterna)"
+    },
+    {
+      "provider_key": "partner_683ef989-bea8-453f-b15f-ed1f876f08f9",
+      "provider_type": "dynamics_partner",
+      "name": "Norra Commerce Partner"
+    },
+    {
+      "provider_key": "partner_4d2c236f-519b-4c24-a1ca-8fc38e5c24a4",
+      "provider_type": "dynamics_partner",
+      "name": "InBiz"
+    },
+    {
+      "provider_key": "partner_dd4a8386-39fb-4b6e-92ac-7dbc300c83f8",
+      "provider_type": "dynamics_partner",
+      "name": "NAB Solutions"
+    },
+    {
+      "provider_key": "partner_568e7ed9-b06e-4b29-b753-c426fbfe9417",
+      "provider_type": "dynamics_partner",
+      "name": "B3 Elevate"
+    },
+    {
+      "provider_key": "partner_de4f5dcf-32e1-4e9b-9b1e-c76242a99b15",
+      "provider_type": "dynamics_partner",
+      "name": "Yellow Solution AB"
+    },
+    {
+      "provider_key": "partner_86de0915-d135-4168-819a-1ab812866e82",
+      "provider_type": "dynamics_partner",
+      "name": "Texus"
+    },
+    {
+      "provider_key": "partner_58127527-2619-4ca8-b1b6-5c363e2f661b",
+      "provider_type": "dynamics_partner",
+      "name": "Update Affärssystem AB"
+    },
+    {
+      "provider_key": "partner_20336c63-cafc-46c7-b788-6a171b8a1af3",
+      "provider_type": "dynamics_partner",
+      "name": "Fellowmind"
+    },
+    {
+      "provider_key": "partner_40072e8e-d3b1-4f61-bb52-afd241356577",
+      "provider_type": "dynamics_partner",
+      "name": "United Hours"
+    },
+    {
+      "provider_key": "partner_df535d16-058d-4297-9aa1-ae268d152caa",
+      "provider_type": "dynamics_partner",
+      "name": "Nexer"
+    },
+    {
+      "provider_key": "partner_3591a237-ba6a-426a-9ca4-6682cc768a00",
+      "provider_type": "dynamics_partner",
+      "name": "adbriq"
+    },
+    {
+      "provider_key": "partner_05f22abc-54bf-4821-9f9d-0c5873ad319b",
+      "provider_type": "dynamics_partner",
+      "name": "Bisqo AB"
+    },
+    {
+      "provider_key": "partner_f45f01c9-f871-4b27-bf4e-2efd5cca3250",
+      "provider_type": "dynamics_partner",
+      "name": "Modia"
+    },
+    {
+      "provider_key": "partner_b0792d0a-1ec1-48c7-bbc3-a4ce5183022e",
+      "provider_type": "dynamics_partner",
+      "name": "Point Taken"
+    },
+    {
+      "provider_key": "partner_236c92de-83c5-400a-8368-aadcec2cd72a",
+      "provider_type": "dynamics_partner",
+      "name": "Avega"
+    },
+    {
+      "provider_key": "partner_0c316e3f-cba5-422c-a0ab-12745c621db8",
+      "provider_type": "dynamics_partner",
+      "name": "Sirocco Group"
+    },
+    {
+      "provider_key": "partner_c157a377-11f5-42a7-aea0-15c6c5f48f0b",
+      "provider_type": "dynamics_partner",
+      "name": "Vivicta"
+    },
+    {
+      "provider_key": "partner_8f2ffd64-dd72-4251-a796-fff70e1ec82b",
+      "provider_type": "dynamics_partner",
+      "name": "4PS Construction Software AB"
+    },
+    {
+      "provider_key": "partner_b375698a-cd8d-4b4c-812d-832ccf14bff4",
+      "provider_type": "dynamics_partner",
+      "name": "Sherpas Group AB"
+    },
+    {
+      "provider_key": "partner_ebb3a406-1671-4857-8933-87f6d0db3e02",
+      "provider_type": "dynamics_partner",
+      "name": "BE-terna"
+    },
+    {
+      "provider_key": "partner_0d52c4b3-ddc2-4dc0-9557-1232e1387a0e",
+      "provider_type": "dynamics_partner",
+      "name": "Compago"
+    },
+    {
+      "provider_key": "partner_e8c999b4-84a9-4322-8271-b3bab15bf417",
+      "provider_type": "dynamics_partner",
+      "name": "Capgemini"
+    },
+    {
+      "provider_key": "partner_1a9fedad-3e8e-4af1-852d-f755bc6ae37d",
+      "provider_type": "dynamics_partner",
+      "name": "Enqore AB"
+    },
+    {
+      "provider_key": "partner_271c1ca1-d98f-4537-9e34-d09d28f0f9b9",
+      "provider_type": "dynamics_partner",
+      "name": "Bedege AB"
+    },
+    {
+      "provider_key": "partner_99b5dec6-0de3-45e7-825a-e5c7f69c4528",
+      "provider_type": "dynamics_partner",
+      "name": "Effekt"
+    },
+    {
+      "provider_key": "partner_fc7ca84a-d453-4f3f-8be6-ad54539ee0f4",
+      "provider_type": "dynamics_partner",
+      "name": "Langate System AB"
+    },
+    {
+      "provider_key": "partner_bab4f204-fcd3-486f-939a-d3898c49184c",
+      "provider_type": "dynamics_partner",
+      "name": "Consid"
+    },
+    {
+      "provider_key": "partner_89fa6d9b-7816-4932-b003-9254689e918b",
+      "provider_type": "dynamics_partner",
+      "name": "COSMO CONSULT"
+    },
+    {
+      "provider_key": "partner_35bf11ef-ff7e-4309-b6b0-ceecac83eab5",
+      "provider_type": "dynamics_partner",
+      "name": "FourOne"
+    },
+    {
+      "provider_key": "partner_1a62fbda-6c02-4fa1-9d68-fbb1f7181274",
+      "provider_type": "dynamics_partner",
+      "name": "Upheads AB"
+    },
+    {
+      "provider_key": "partner_2bbf3627-fe15-446e-bde1-cd2dd7b2e102",
+      "provider_type": "dynamics_partner",
+      "name": "Sandbox Republic"
+    },
+    {
+      "provider_key": "partner_74832163-d32c-4310-9f69-544b33d8b35e",
+      "provider_type": "dynamics_partner",
+      "name": "Evidi"
+    },
+    {
+      "provider_key": "partner_edd73dfd-9fdd-4597-b77a-23be47a70324",
+      "provider_type": "dynamics_partner",
+      "name": "Engage Group"
+    },
+    {
+      "provider_key": "partner_d3635e50-da96-446f-9e13-13df8e8d7be4",
+      "provider_type": "dynamics_partner",
+      "name": "Releye"
+    },
+    {
+      "provider_key": "partner_d9825dd7-b213-4390-b701-b945ffa2addc",
+      "provider_type": "dynamics_partner",
+      "name": "JMA Maskindata"
+    },
+    {
+      "provider_key": "partner_cebaf59e-c237-4a8a-a2e5-8e739f727852",
+      "provider_type": "dynamics_partner",
+      "name": "Sundet CRM"
+    },
+    {
+      "provider_key": "partner_c672aac0-510e-463e-84cf-ccad2a0f4b6f",
+      "provider_type": "dynamics_partner",
+      "name": "Hay IT"
+    },
+    {
+      "provider_key": "partner_395b3f5b-c1e5-4087-a5a3-e5ffdcb052de",
+      "provider_type": "dynamics_partner",
+      "name": "Avanade"
+    },
+    {
+      "provider_key": "partner_496616be-bb15-47cc-bdfe-101ab127b741",
+      "provider_type": "dynamics_partner",
+      "name": "Navet AB"
+    },
+    {
+      "provider_key": "partner_91796f1b-170b-47c8-91d4-cc8922b1f12a",
+      "provider_type": "dynamics_partner",
+      "name": "IT Stöd AB"
+    },
+    {
+      "provider_key": "partner_1125d529-180c-42e1-8fb9-f717e7984eba",
+      "provider_type": "dynamics_partner",
+      "name": "PWC"
+    },
+    {
+      "provider_key": "partner_fe4c0eb9-76ab-4973-90ce-513817480177",
+      "provider_type": "dynamics_partner",
+      "name": "EY"
+    },
+    {
+      "provider_key": "partner_4e08f00e-17c0-4988-96c6-a064e945a176",
+      "provider_type": "dynamics_partner",
+      "name": "Aperit"
+    },
+    {
+      "provider_key": "partner_fd3a0537-e263-4390-b394-7ae496bf07c9",
+      "provider_type": "dynamics_partner",
+      "name": "Accenture"
+    },
+    {
+      "provider_key": "partner_cc03287a-7f33-437a-bf3b-ab77f5a6fc4e",
+      "provider_type": "dynamics_partner",
+      "name": "Dizparc"
+    },
+    {
+      "provider_key": "partner_7c1023be-3e4e-4175-a8f0-0bbdbda290e3",
+      "provider_type": "dynamics_partner",
+      "name": "SA Global"
+    },
+    {
+      "provider_key": "partner_9d5d5d5e-5989-468f-88ee-492c71cf7f18",
+      "provider_type": "dynamics_partner",
+      "name": "Active Business Solutions"
+    },
+    {
+      "provider_key": "partner_ca3d9f35-c7f9-4854-b419-46050157a74a",
+      "provider_type": "dynamics_partner",
+      "name": "EG Sverige"
+    },
+    {
+      "provider_key": "partner_f4b91bc7-9fa0-4ddb-baa3-17a91591a5b0",
+      "provider_type": "dynamics_partner",
+      "name": "Transformant"
+    },
+    {
+      "provider_key": "partner_a67c5848-35b9-4a6a-82ed-fbbc2c3267e4",
+      "provider_type": "dynamics_partner",
+      "name": "Azets"
+    },
+    {
+      "provider_key": "partner_3fbd7013-7f3b-4950-9cfd-a01757c8a3d4",
+      "provider_type": "dynamics_partner",
+      "name": "HCL"
+    },
+    {
+      "provider_key": "partner_e653e953-aaf6-48d2-8fe2-c42aa82c218e",
+      "provider_type": "dynamics_partner",
+      "name": "KPMG"
+    },
+    {
+      "provider_key": "partner_bab2f2e4-272d-40b9-81c2-d65548db520d",
+      "provider_type": "dynamics_partner",
+      "name": "Birdie Cloud"
+    },
+    {
+      "provider_key": "partner_f79bdb25-a43c-48ce-b52b-77e063ee5c50",
+      "provider_type": "dynamics_partner",
+      "name": "Sogeti"
+    },
+    {
+      "provider_key": "partner_9476f7a8-8ae0-4439-b1c9-d53634e1a516",
+      "provider_type": "dynamics_partner",
+      "name": "HSO"
+    },
+    {
+      "provider_key": "partner_aae615bb-9dab-4346-b4e4-46131ce1234b",
+      "provider_type": "dynamics_partner",
+      "name": "Acumant"
+    },
+    {
+      "provider_key": "partner_5949bfd7-374d-44ef-a00d-f912764d7d10",
+      "provider_type": "dynamics_partner",
+      "name": "Fujitsu"
+    },
+    {
+      "provider_key": "partner_6f5eb69f-b17b-49ca-8ba0-d83d03b16fcc",
+      "provider_type": "dynamics_partner",
+      "name": "Cepheo"
+    },
+    {
+      "provider_key": "partner_f9b40552-cf22-436b-ad68-2e14e04e4d2c",
+      "provider_type": "dynamics_partner",
+      "name": "Thinknine"
+    },
+    {
+      "provider_key": "partner_6f9cc7b6-6968-440e-a8dd-46054754ad19",
+      "provider_type": "dynamics_partner",
+      "name": "Innofactor"
+    },
+    {
+      "provider_key": "partner_b2724191-7a55-4261-bc6a-16aeb5a33ac9",
+      "provider_type": "dynamics_partner",
+      "name": "APX Core Solutions"
+    },
+    {
+      "provider_key": "partner_bfd63ec9-db10-483d-b27b-80b03ce67ad9",
+      "provider_type": "dynamics_partner",
+      "name": "Accigo"
+    },
+    {
+      "provider_key": "partner_5c6084d7-4a9a-4225-85e0-7648f994381b",
+      "provider_type": "dynamics_partner",
+      "name": "CGI"
+    },
+    {
+      "provider_key": "partner_50ab146d-98de-43e2-bd44-de761f98e867",
+      "provider_type": "dynamics_partner",
+      "name": "Brain Accounting"
+    },
+    {
+      "provider_key": "partner_c80ab924-7f63-4634-874c-d528f02150cf",
+      "provider_type": "dynamics_partner",
+      "name": "Nemely AB"
+    },
+    {
+      "provider_key": "partner_f4f3071d-5d20-44f3-b85d-bced44e0b206",
+      "provider_type": "dynamics_partner",
+      "name": "SII Sverige"
+    },
+    {
+      "provider_key": "partner_2bb7be9b-64c2-4964-8231-50b66ff7a5b5",
+      "provider_type": "dynamics_partner",
+      "name": "ECIT Sverige AB"
+    },
+    {
+      "provider_key": "partner_7bb58e31-cac7-4683-a96c-1df59ca08e46",
+      "provider_type": "dynamics_partner",
+      "name": "Xlent"
+    },
+    {
+      "provider_key": "partner_4b1e1e72-f610-4e31-b3dd-71e7d6404381",
+      "provider_type": "dynamics_partner",
+      "name": "Forefront Group"
+    },
+    {
+      "provider_key": "partner_d52c6eec-18f4-418a-be95-b9c345d1980b",
+      "provider_type": "dynamics_partner",
+      "name": "Regentor"
+    },
+    {
+      "provider_key": "partner_2021103a-04d3-4239-a0b9-fa115a86b78c",
+      "provider_type": "dynamics_partner",
+      "name": "Dynamicskonsult"
+    },
+    {
+      "provider_key": "partner_3fefe380-59b5-4e63-a8c0-ddc4fc2530f1",
+      "provider_type": "dynamics_partner",
+      "name": "Midpoint AB"
+    },
+    {
+      "provider_key": "partner_ea2179df-926f-488f-87d2-6f5b393c0020",
+      "provider_type": "dynamics_partner",
+      "name": "Navcite"
+    },
+    {
+      "provider_key": "partner_2fa87373-0881-4fb1-bfc3-ef2a4c485d0c",
+      "provider_type": "dynamics_partner",
+      "name": "Mavrix"
+    },
+    {
+      "provider_key": "partner_48780caf-7d12-4fc5-9a98-264a8e4d85d3",
+      "provider_type": "dynamics_partner",
+      "name": "Next365 Group"
+    },
+    {
+      "provider_key": "partner_85364742-1d3d-47e6-a34f-f169e8e38f10",
+      "provider_type": "dynamics_partner",
+      "name": "Knowit"
+    },
+    {
+      "provider_key": "partner_f3f9be23-0dc2-4fb1-82b7-4fdfd539dbde",
+      "provider_type": "dynamics_partner",
+      "name": "Norteam AB"
+    },
+    {
+      "provider_key": "partner_347b70cb-b5f7-484d-a443-434cf4272727",
+      "provider_type": "dynamics_partner",
+      "name": "Cegeka"
+    },
+    {
+      "provider_key": "partner_024172c6-c493-4414-b326-d1439fb822fb",
+      "provider_type": "dynamics_partner",
+      "name": "Columbus Sweden AB"
+    },
+    {
+      "provider_key": "partner_a900a483-7f66-4f8c-867b-86a45b22bb7e",
+      "provider_type": "dynamics_partner",
+      "name": "BrightCom"
+    },
+    {
+      "provider_key": "partner_18106a0a-5f10-4377-bbcf-da0110764a36",
+      "provider_type": "dynamics_partner",
+      "name": "Softronic"
+    },
+    {
+      "provider_key": "partner_deba962e-f5a7-48f3-a851-2bde510f460f",
+      "provider_type": "dynamics_partner",
+      "name": "Sopra Steria"
+    },
+    {
+      "provider_key": "partner_328fda32-0096-4ad6-88c5-5bc9721d713e",
+      "provider_type": "dynamics_partner",
+      "name": "Invid"
+    },
+    {
+      "provider_key": "partner_056c8a55-03e5-4705-99c7-97a5e59f08c6",
+      "provider_type": "dynamics_partner",
+      "name": "Norrminds"
+    },
+    {
+      "provider_key": "partner_46113880-768d-4075-b13a-07249437712b",
+      "provider_type": "dynamics_partner",
+      "name": "Basecloud"
+    }
+  ],
+  "content": [],
+  "comparisons": [],
+  "entities": [],
+  "exportedAt": "2026-10-18T20:04:19.555Z",
+  "endpoint": "https://sajt-analys.lovable.app/api/public/track-journey",
+  "environment": "test",
+  "engagement": {
+    "active_seconds": 30,
+    "requires_consent": true,
+    "interaction_events": [
+      "comparison_view",
+      "outbound_provider_click",
+      "lead_submit"
+    ],
+    "relevant_page_views": 2,
+    "content_active_seconds": 30,
+    "content_scroll_percent": 50,
+    "session_timeout_minutes": 30
+  }
+}
