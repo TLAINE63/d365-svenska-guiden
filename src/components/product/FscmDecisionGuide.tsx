@@ -13,7 +13,7 @@ const PATHS = [
     Icon: Scale,
     who: "Osäker på produktvalet",
     title: "Jämför Business Central och Finance/SCM",
-    to: "/affarssystem/",
+    to: "/affarssystem/#comparison",
     primary: false,
   },
   {
@@ -91,17 +91,17 @@ export default function FscmDecisionGuide() {
         <p className="text-sm md:text-base text-muted-foreground mb-5 max-w-3xl">
           {nb("Finance hanterar ekonomi och finansiell styrning. Supply Chain Management hanterar produktion, lager, inköp och logistik. Välj den väg som passar ert läge.")}
         </p>
-        <div className="grid gap-3 md:grid-cols-3 mb-10">
+        <div className="grid gap-2 sm:gap-3 md:grid-cols-3 mb-7 sm:mb-10">
           {PATHS.map(({ key, Icon, who, title, to, primary }) => (
             <Link
               key={key}
               to={to}
               onClick={() => onPath(key, to, "top")}
-              className={`group flex flex-col rounded-lg border p-4 transition-colors ${
+              className={`group flex flex-col rounded-lg border px-4 py-3 sm:p-4 transition-colors ${
                 primary ? "border-primary bg-primary/5 hover:bg-primary/10" : "border-border bg-card hover:bg-secondary/50"
               }`}
             >
-              <Icon className="h-5 w-5 text-accent mb-2" aria-hidden />
+              <Icon className="hidden sm:block h-5 w-5 text-accent mb-2" aria-hidden />
               <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">{who}</span>
               <span className="font-semibold text-foreground inline-flex items-center gap-1.5">
                 {title} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -114,11 +114,11 @@ export default function FscmDecisionGuide() {
         <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
           Utgå från behov och komplexitet, inte från omsättning eller antal anställda.
         </p>
-        <div className="grid gap-3 md:grid-cols-3 mb-10">
+        <div className="grid gap-2 sm:gap-3 md:grid-cols-3 mb-7 sm:mb-10">
           {FIT.map((col) => (
-            <div key={col.title} className="rounded-lg border border-border bg-card p-4">
+            <div key={col.title} className="rounded-lg border border-border bg-card px-4 py-3 sm:p-4">
               <h3 className="font-semibold text-foreground mb-2">{col.title}</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5 sm:space-y-2">
                 {col.items.map((it) => (
                   <li key={it} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" aria-hidden />
@@ -130,7 +130,7 @@ export default function FscmDecisionGuide() {
           ))}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-7 md:gap-6 md:grid-cols-2">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">När passar det mindre bra?</h2>
             <p className="text-sm text-muted-foreground mb-3">Frågor att ställa innan ni går vidare:</p>
@@ -143,8 +143,8 @@ export default function FscmDecisionGuide() {
               ))}
             </ul>
             <Link
-              to="/affarssystem/"
-              onClick={() => onPath("compare", "/affarssystem/", "less-fit")}
+              to="/affarssystem/#comparison"
+              onClick={() => onPath("compare", "/affarssystem/#comparison", "less-fit")}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
             >
               Jämför med Business Central <ArrowRight className="h-3.5 w-3.5" aria-hidden />
