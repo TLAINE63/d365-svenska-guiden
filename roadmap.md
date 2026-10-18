@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Site Intelligence v2 (2026-10-18)
+- [ ] Installera oförändrat SDK och register i testläge med statistiksamtycke och Do Not Track
+- [ ] Koppla sidvisning, partnerkort/profiler, jämförelser, vidareklick, formulär och engagerad session utan ändrad äldre statistik
+- [ ] Verifiera samtycke, återkallande, dataminimering och verkligt flöde; dokumentera täckning och mottagarkontroll
+
 ## Konton och AI-assistent (2026-10-15)
 - [x] Testa /fraga/ med fri fråga – AI-svar visas igen
 - [x] Frivilligt konto på /konto/ (e-post) som sparar Min D365-plan, kortlista och kalkyler mellan enheter
