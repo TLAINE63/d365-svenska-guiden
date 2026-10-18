@@ -30,7 +30,11 @@
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
 - Scope index.html critical CSS to navigation (bare CTA selectors leak site-wide).
 - Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
-- ISV reseller links verify profiles via public hooks (no dead links).
-- Read subdir AGENTS.md first. Partner cards use PartnerCardHeader for identity links.
+- ISV reseller links verify profiles via public hooks.
+- Read subdir AGENTS.md; PartnerCardHeader links identities.
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
 - Optional buyer accounts mirror the localStorage keys in src/lib/accountSync.ts to buyer_saved_state (own-row RLS); server wins on login, so tools stay account-unaware.
+
+<!-- LOVABLE:BEGIN -->
+- Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
+<!-- LOVABLE:END -->

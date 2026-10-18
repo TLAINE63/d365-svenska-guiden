@@ -1,3 +1,4 @@
+import { sendEvent, providerForSlug, trackConfirmedForm } from "@/lib/siteIntelligence";
 import { supabase } from "@/integrations/supabase/client";
 import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
 
@@ -182,6 +183,11 @@ export const trackPartnerEvent = (input: PartnerEventInput): void => {
   if (typeof window === "undefined") return;
   if (isExcludedFromTracking()) return;
   if (!input?.partnerSlug || !input?.event) return;
+  if (["partner_list_impression", "partner_filter_impression", "partner_match_impression"].includes(input.event)) {
+    const provider = providerForSlug(input.partnerSlug);
+    if (provider) sendEvent("partner_list_view", { ...provider, view_context: "partner_card" });
+  }
+  if (input.event === "formular_skickat" && typeof input.metadata?.form_id === "string") trackConfirmedForm(input.metadata.form_id);
   enqueue({
     event_name: input.event,
     partner_slug: input.partnerSlug,
