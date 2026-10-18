@@ -36,9 +36,9 @@ export default function ProductPartnerNewsSection({ productArea, productLabel, c
           ))}
         </div>
         <div className="mt-8 flex justify-center">
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" className="h-auto min-h-10 max-w-full whitespace-normal text-left">
             <Link to={`/partnernytt/?produkt=${productArea}`} className="inline-flex items-center gap-1">
-              Visa allt partnernytt för {productLabel} <ArrowRight className="w-4 h-4" />
+              <span>Visa allt partnernytt för {productLabel}</span> <ArrowRight className="w-4 h-4 shrink-0" />
             </Link>
           </Button>
         </div>
