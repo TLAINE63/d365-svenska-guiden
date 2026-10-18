@@ -1,9 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Site Intelligence v2 (2026-10-18)
-- [ ] Installera oförändrat SDK och register i testläge med statistiksamtycke och Do Not Track
-- [ ] Koppla sidvisning, partnerkort/profiler, jämförelser, vidareklick, formulär och engagerad session utan ändrad äldre statistik
-- [ ] Verifiera samtycke, återkallande, dataminimering och verkligt flöde; dokumentera täckning och mottagarkontroll
+- [x] Installera oförändrat SDK och register i testläge med statistiksamtycke och Do Not Track
+- [x] Koppla sidvisning, partnerkort/profiler, jämförelser, vidareklick, formulär och engagerad session utan ändrad äldre statistik
+- [x] Verifiera samtycke, återkallande, dataminimering och verkligt partnerklick; nio tester godkända, täckning dokumenterad i docs/SITE-INTELLIGENCE-V2-INSTALLATION.md
+- [ ] Extern mottagarkontroll och replay: Site Intelligence svarar 403 från localhost, testorigin måste tillåtas eller kontroll göras från tillåten origin
 
 ## Konton och AI-assistent (2026-10-15)
 - [x] Testa /fraga/ med fri fråga – AI-svar visas igen
