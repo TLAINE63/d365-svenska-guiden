@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Puzzle, ArrowRight } from "lucide-react";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import type { IsvSolution } from "@/data/bcIsvSolutions";
+import { FSCM_ISV_EVIDENCE, selectFscmIsvs } from "@/lib/fscmIsvSelection";
+import { Button } from "@/components/ui/button";
 
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
@@ -17,6 +19,7 @@ interface ProductIsvSectionProps {
   /** Antal lösningar som visas som smakprov. */
   limit?: number;
   className?: string;
+  reviewedFscmSelection?: boolean;
 }
 
 /** Intern prioritering – exponeras aldrig som kvalitetsmärkning i gränssnittet. */
@@ -63,6 +66,7 @@ const ProductIsvSection = ({
   description,
   limit = 6,
   className = "",
+  reviewedFscmSelection = false,
 }: ProductIsvSectionProps) => {
   const all = useIsvSolutions();
 
@@ -72,8 +76,8 @@ const ProductIsvSection = ({
   );
 
   const catalogUrl = `/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}`;
-  const shown = useMemo(() => diversify(solutions, limit), [solutions, limit]);
-  const hasSolutions = solutions.length > 0;
+  const shown = useMemo(() => reviewedFscmSelection ? selectFscmIsvs(solutions).slice(0, limit) : diversify(solutions, limit), [solutions, limit, reviewedFscmSelection]);
+  const hasSolutions = shown.length > 0;
 
 
   // Visa bara sektionen om det finns minst en ISV-lösning för produkten
@@ -95,27 +99,27 @@ const ProductIsvSection = ({
                 `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`}
             </p>
           </div>
+          <Button asChild variant="outline" className="h-auto min-h-10 whitespace-normal text-left">
           <Link
             to={catalogUrl}
-            className="inline-flex items-center gap-2 shrink-0 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition"
           >
             {`Se alla tillägg för ${product}`}
             <ArrowRight className="w-4 h-4" />
           </Link>
+          </Button>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={`grid sm:grid-cols-2 ${reviewedFscmSelection ? "" : "lg:grid-cols-3"} gap-4`}>
           {shown.map((s) => (
-            <Link
+            <article
               key={s.id}
-              to={`/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}&losning=${encodeURIComponent(s.id)}`}
               className="group block rounded-lg border border-border bg-card p-5 hover:border-primary/50 hover:shadow-sm transition"
             >
               <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
                 {s.vendor}
               </div>
               <h3 className="text-base font-bold text-foreground group-hover:text-primary transition">
-                {s.name}
+                <Link to={`/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}&losning=${encodeURIComponent(s.id)}`}>{s.name}</Link>
               </h3>
               <div className="mt-2 inline-block text-[11px] font-medium px-2 py-0.5 rounded border border-border text-muted-foreground">
                 {s.category}
@@ -123,10 +127,18 @@ const ProductIsvSection = ({
               <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
                 {s.shortDescription}
               </p>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-4">
+              {reviewedFscmSelection && (
+                <div className="mt-3 space-y-2 text-sm">
+                  <p className="font-medium text-foreground">{FSCM_ISV_EVIDENCE[s.id]?.area}</p>
+                  {s.bestFor && <p className="text-muted-foreground"><span className="font-medium text-foreground">Undersök när: </span>{s.bestFor.replace(/Dynamics 365/g, "Dynamics\u00a0365")}</p>}
+                  {s.considerations && <p className="text-muted-foreground"><span className="font-medium text-foreground">Kontrollera: </span>{s.considerations.replace(/Dynamics 365/g, "Dynamics\u00a0365")}</p>}
+                  <a href={FSCM_ISV_EVIDENCE[s.id]?.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-muted-foreground underline underline-offset-4">Källa för produktstöd, kontrollerad 2026-10-18</a>
+                </div>
+              )}
+              <Link to={`/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}&losning=${encodeURIComponent(s.id)}`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-4">
                 Visa lösningen <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </Link>
+              </Link>
+            </article>
           ))}
         </div>
       </div>
