@@ -1,5 +1,6 @@
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
+import FscmDecisionGuide from "@/components/product/FscmDecisionGuide";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -250,6 +251,7 @@ const FinanceSupplyChain = () => {
  <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="fscm" />
+  <FscmDecisionGuide />
 
 
 
