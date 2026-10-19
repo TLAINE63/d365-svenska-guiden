@@ -28,6 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { readServiceKravPrefill } from "@/lib/serviceChainLinks";
 
 const serviceTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
@@ -78,9 +79,12 @@ const RequirementsSpecCustomerService = () => {
   }, [step]);
 
 
+  const [testPrefill] = useState(() => readServiceKravPrefill(typeof window === "undefined" ? "" : window.location.search));
+  const fromTest = !!testPrefill.size || testPrefill.areas.length > 0;
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
-  const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const [companySize, setCompanySize] = useState<string>(testPrefill.size ?? "");
+  const [selectedAreas, setSelectedAreas] = useState<string[]>(testPrefill.areas);
+  const goNext = () => setStep((s) => (s === 1 && fromTest && companySize ? 3 : s + 1));
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
   useEffect(() => {
@@ -260,7 +264,7 @@ const RequirementsSpecCustomerService = () => {
                 <div className="flex items-center gap-3">
                   <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
                   {step < 3 ? (
-                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                    <Button onClick={goNext} size="sm" disabled={!canProceed()}>
                       Nästa <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   ) : (
@@ -274,6 +278,14 @@ const RequirementsSpecCustomerService = () => {
             </div>
           )}
 
+          {fromTest && step !== 4 && (
+            <div className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
+              Förifyllt från ditt matchningstest{companySize ? `: ${companySize} medarbetare` : ""}, {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
+              {step === 3 && (
+                <button type="button" onClick={() => setStep(2)} className="ml-2 font-medium text-primary underline underline-offset-4">Ändra storlek</button>
+              )}
+            </div>
+          )}
           {step === 1 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Välj bransch</h2>
@@ -534,7 +546,7 @@ ${
               </Button>
 
               {step < 3 ? (
-                <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
+                <Button onClick={goNext} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (

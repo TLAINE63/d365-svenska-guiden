@@ -1,0 +1,22 @@
+import { describe, it, expect } from "vitest";
+import { serviceChainLinks, readServiceKravPrefill, readServiceRoiPrefill, serviceAreasFromAnswers } from "@/lib/serviceChainLinks";
+
+describe("serviceChainLinks", () => {
+  it("ärendehantering alltid med", () => {
+    expect(serviceAreasFromAnswers({})).toEqual(["case_mgmt"]);
+  });
+  it("telefoni ger kontaktcenter, portal ger självservice", () => {
+    const a = serviceAreasFromAnswers({ cs3: "yes", cs9: "yes" });
+    expect(a).toContain("contact_center");
+    expect(a).toContain("self_service");
+  });
+  it("hög volym ger 50 handläggare och storlek 51–100", () => {
+    const l = serviceChainLinks({ cs1: "3", cs10: "yes" }, "strong");
+    const roi = readServiceRoiPrefill(l.roi.split("?")[1]);
+    expect(roi).toEqual({ agents: 50, integrations: 1 });
+    expect(readServiceKravPrefill(l.kravspec.split("?")[1]).size).toBe("51–100");
+  });
+  it("okända områden filtreras bort", () => {
+    expect(readServiceKravPrefill("omraden=case_mgmt,hack").areas).toEqual(["case_mgmt"]);
+  });
+});

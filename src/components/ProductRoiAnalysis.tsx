@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
+import { readServiceRoiPrefill } from "@/lib/serviceChainLinks";
 import {
   Calculator,
   Info,
@@ -54,14 +55,17 @@ export default function ProductRoiAnalysis({
   const priceMap = usePriceMap();
 
   const [companyName, setCompanyName] = useState("");
+  const [csPrefill] = useState(() =>
+    typeof window === "undefined" || productKey !== "customer-service" ? {} : readServiceRoiPrefill(window.location.search)
+  );
   const [counts, setCounts] = useState<Record<string, number>>(() =>
-    Object.fromEntries(cfg.licenseLines.map((l) => [l.skuKey, l.defaultCount]))
+    Object.fromEntries(cfg.licenseLines.map((l, i) => [l.skuKey, i === 0 && csPrefill.agents ? csPrefill.agents : l.defaultCount]))
   );
   const [prefill] = useState(() => (typeof window === "undefined" ? {} : readRoiPrefill(window.location.search)));
   const [revenue, setRevenue] = useState(prefill.revenue ?? cfg.defaultRevenue);
   const [complexity, setComplexity] = useState<Complexity>(prefill.complexity ?? "Medel");
   const [manualPct, setManualPct] = useState(60);
-  const [integrations, setIntegrations] = useState(cfg.defaultIntegrations);
+  const [integrations, setIntegrations] = useState(csPrefill.integrations ?? cfg.defaultIntegrations);
   const [currentItCost, setCurrentItCost] = useState(cfg.defaultCurrentItCost);
   const [enabled, setEnabled] = useState<string[]>(() =>
     defaultEnabledDrivers(productKey)
