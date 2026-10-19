@@ -147,7 +147,11 @@ const Index = () => {
   const navigate = useNavigate();
 
   // Partnerantal från byggtidens data: identiskt i förrenderad HTML och efter hydrering.
-  const isvSolutionCount = useIsvSolutions().length;
+  // Senast kända antal publicerade tillägg (2026-10-19) som startvärde, så räknaren
+  // snurrar 0 → slutvärde i ett svep i stället för att stanna vid kodkatalogens antal.
+  const ISV_COUNT_BASELINE = 219;
+  const loadedIsvCount = useIsvSolutions().length;
+  const isvSolutionCount = loadedIsvCount > 64 ? loadedIsvCount : ISV_COUNT_BASELINE;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
   const [visitorCount, setVisitorCount] = useState(0);
   useEffect(() => {
@@ -337,7 +341,7 @@ const Index = () => {
               )}
               <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span>{HERO_INDUSTRIES.length} branscher</span>
+                <span><CountUp value={HERO_INDUSTRIES.length} className="tabular-nums" /> branscher</span>
               </li>
             </ul>
             <p className="mb-4 sm:mb-6 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
