@@ -99,3 +99,39 @@ export function fieldChainLinks(a: Answers, level: ServiceLevel) {
     partners: "/dynamics-365-crm-partners-sverige/",
   };
 }
+
+/** cc5 (antal agenter 0–3) till indikativt antal Contact Center-licenser. */
+export const AGENTS_FROM_CC5: Record<string, number> = { "0": 10, "1": 40, "2": 120, "3": 250 };
+/** cc5 till kravspecens storleksval. */
+export const TEAM_FROM_CC5: Record<string, string> = { "0": "11–20", "1": "21–50", "2": "100+", "3": "100+" };
+
+/** Områden för Contact Center. Kontaktcenter och kanaler är alltid med. */
+export function contactAreasFromAnswers(a: Answers): string[] {
+  const out = ["contact_center", "channels"];
+  if (a.cc3 === "yes" || hi(a.cc1)) out.push("queues_routing");
+  if (a.cc6 === "yes") out.push("scheduling");
+  if (a.cc9 === "yes") out.push("self_service");
+  if (a.cc10 === "yes") out.push("copilot_ai");
+  if (a.cc11 === "yes") out.push("case_mgmt", "integration_cs");
+  if (a.cc7 === "yes" || hi(a.cc8) || hi(a.cc12)) out.push("analytics_cs");
+  return out;
+}
+
+export function contactChainLinks(a: Answers, level: ServiceLevel) {
+  const roi = new URLSearchParams();
+  const agents = AGENTS_FROM_CC5[String(a.cc5 ?? "")];
+  if (agents) roi.set("agenter", String(agents));
+  roi.set("komplexitet", COMPLEXITY_FROM_LEVEL[level]);
+  roi.set("integrationer", String(a.cc11 === "yes" ? 1 : 0));
+
+  const krav = new URLSearchParams();
+  const team = TEAM_FROM_CC5[String(a.cc5 ?? "")];
+  if (team) krav.set("storlek", team);
+  krav.set("omraden", contactAreasFromAnswers(a).join(","));
+
+  return {
+    roi: `/d365contactcenter/roi-kalkylator/?${roi}`,
+    kravspec: `/kravspecifikation-kundservice/?${krav}`,
+    partners: "/dynamics-365-crm-partners-sverige/",
+  };
+}
