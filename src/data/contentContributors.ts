@@ -2,7 +2,7 @@
  * Registered people and their explicit relation to specific pages.
  * Never infer authorship or review: a page shows an expert only when listed in PAGE_CONTRIBUTIONS.
  */
-export type ContributionRole = "Skriven av" | "Expertkommentar" | "Faktagranskad av";
+export type ContributionRole = "Författare" | "Skriven av" | "Expertkommentar" | "Faktagranskad av";
 
 export interface ContentContributor {
   id: string;
@@ -38,10 +38,17 @@ export interface PageContribution {
   role: ContributionRole;
   /** YYYY-MM-DD, only when the date is confirmed. */
   date?: string;
+  /** Page-specific title, overrides the contributor's default title. */
+  title?: string;
 }
 
 /** Path (without trailing slash) -> confirmed contributions. Empty until the editor registers them. */
-export const PAGE_CONTRIBUTIONS: Record<string, PageContribution[]> = {};
+export const PAGE_CONTRIBUTIONS: Record<string, PageContribution[]> = {
+  // Bekräftat av Thomas Laine 2026-10-19.
+  "/finance-supply-chain": [
+    { contributorId: "thomas-laine", role: "Författare", date: "2026-09-24", title: "Redaktör och affärsrådgivare" },
+  ],
+};
 
 export function contributionsFor(path: string): Array<PageContribution & { person: ContentContributor }> {
   const key = path.replace(/\/+$/, "") || "/";
