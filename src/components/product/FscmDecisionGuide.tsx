@@ -68,13 +68,6 @@ const LESS_FIT = [
   "Skulle ett enklare affärssystem, till exempel Business Central, täcka de funktionella kraven?",
 ];
 
-const NEEDS = [
-  { need: "Ekonomi och finansiell styrning", answer: "Finance" },
-  { need: "Produktion", answer: "Supply Chain Management" },
-  { need: "Lager och warehouse management", answer: "Supply Chain Management" },
-  { need: "Inköp och supply chain", answer: "Supply Chain Management" },
-  { need: "Kombinerade globala ERP-behov", answer: "Finance och Supply Chain Management" },
-];
 
 const nb = (s: string) => s.replace(/Dynamics 365/g, "Dynamics\u00A0365");
 
@@ -89,7 +82,7 @@ export default function FscmDecisionGuide() {
           Var befinner ni er i beslutet?
         </h2>
         <p className="text-sm md:text-base text-muted-foreground mb-5 max-w-3xl">
-          {nb("Finance hanterar ekonomi och finansiell styrning. Supply Chain Management hanterar produktion, lager, inköp och logistik. Välj den väg som passar ert läge.")}
+          {nb("Finance hanterar ekonomi och finansiell styrning. Supply Chain Management hanterar produktion, lager, inköp och logistik. Tre steg: matcha produkten, bygg beslutsunderlaget, matcha partnern.")}
         </p>
         <div className="grid gap-2 sm:gap-3 md:grid-cols-3 mb-7 sm:mb-10">
           {PATHS.map(({ key, Icon, who, title, to, primary }) => (
