@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { contributionsFor } from "@/data/contentContributors";
 import { editorialDate } from "@/components/EditorialSource";
 import { ORGANIZATION } from "@/data/organization";
+import { pageReviewDate } from "@/data/pageReviewDates";
 
 /** Shows only explicitly registered contributors for the page; renders nothing otherwise. */
 export default function ExpertCard({ path }: { path: string }) {
@@ -11,7 +12,7 @@ export default function ExpertCard({ path }: { path: string }) {
     <section aria-label="Medverkande experter" className="container mx-auto max-w-5xl px-4 sm:px-6 py-6">
       <div className="grid gap-4 sm:grid-cols-2">
         {items.map(({ person, role, date, title }) => {
-          const d = editorialDate(date);
+          const d = editorialDate(date) ?? editorialDate(pageReviewDate(path));
           return (
             <article key={`${person.id}-${role}`} className="rounded-lg border border-border bg-card p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{role}</p>

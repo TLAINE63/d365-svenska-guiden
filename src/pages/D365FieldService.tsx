@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -104,6 +105,7 @@ const D365FieldService = () => {
       />
 
       <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/d365fieldservice" />
       <FieldServiceDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Field Service">

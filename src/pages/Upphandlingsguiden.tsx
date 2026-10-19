@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
 import Navbar from "@/components/Navbar";
@@ -321,6 +322,7 @@ const Upphandlingsguiden = () => {
  </div>
  </section>
  <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/upphandlingsguiden" />
  <SourcesAndMethod />
  </main>
  <Footer />

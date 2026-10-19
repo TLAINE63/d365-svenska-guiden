@@ -3,7 +3,10 @@ import { contributionsFor, PAGE_CONTRIBUTIONS } from "@/data/contentContributors
 
 describe("content contributors", () => {
   it("never assigns an expert to a page that has no registered contribution", () => {
-    expect(contributionsFor("/d365sales/")).toEqual([]);
+    expect(contributionsFor("/om-oss/")).toEqual([]);
+  });
+  it("credits Thomas Laine as author of Business Central", () => {
+    expect(contributionsFor("/businesscentral/")[0].person.name).toBe("Thomas Laine");
   });
   it("credits Thomas Laine as author of F&SCM, reviewed 2026-09-24", () => {
     const [c] = contributionsFor("/finance-supply-chain/");

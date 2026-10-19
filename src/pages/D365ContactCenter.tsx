@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -100,6 +101,7 @@ const D365ContactCenter = () => {
       />
 
       <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/d365contactcenter" />
       <ContactCenterDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Contact Center">
