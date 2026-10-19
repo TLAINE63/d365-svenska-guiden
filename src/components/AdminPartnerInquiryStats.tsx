@@ -20,7 +20,7 @@ function toCsv(p: Partner, month: string) {
     const r = p.sites[k];
     return [month, label, r.views, r.website, r.contact, r.shortlist, r.inquiries, pct(r), dist(r.products), dist(r.industries), dist(r.sizes)];
   });
-  return [head, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\n");
+  return [head, ...rows].map((r) => r.map((c) => { let v = String(c); if (/^[=+\-@\t\r]/.test(v)) v = `'${v}`; return `"${v.replace(/"/g, '""')}"`; }).join(";")).join("\n");
 }
 
 export default function AdminPartnerInquiryStats({ token, onSessionExpired }: { token: string | null; onSessionExpired?: () => void }) {
