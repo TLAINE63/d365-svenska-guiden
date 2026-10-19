@@ -64,3 +64,38 @@ export function readServiceKravPrefill(search: string) {
   const areas = [...new Set((sp.get("omraden") ?? "").split(",").filter((id) => SERVICE_AREA_IDS.includes(id)))];
   return { size, areas };
 }
+
+/** fs1 (antal tekniker 0–3) till indikativt antal Field Service-licenser. */
+export const TECHS_FROM_FS1: Record<string, number> = { "0": 5, "1": 20, "2": 60, "3": 150 };
+/** fs1 till kravspecens storleksval. */
+export const TEAM_FROM_FS1: Record<string, string> = { "0": "6–10", "1": "21–50", "2": "51–100", "3": "100+" };
+
+/** Områden för Field Service. Fältservice och schemaläggning är alltid med. */
+export function fieldAreasFromAnswers(a: Answers): string[] {
+  const out = ["field_service", "scheduling"];
+  if (a.fs7 === "yes") out.push("sla_entitlements");
+  if (a.fs9 === "yes") out.push("case_mgmt");
+  if (a.fs11 === "yes") out.push("copilot_ai");
+  if (hi(a.fs12)) out.push("analytics_cs");
+  if (hi(a.fs4) || a.fs10 === "yes") out.push("integration_cs");
+  return out;
+}
+
+export function fieldChainLinks(a: Answers, level: ServiceLevel) {
+  const roi = new URLSearchParams();
+  const techs = TECHS_FROM_FS1[String(a.fs1 ?? "")];
+  if (techs) roi.set("agenter", String(techs));
+  roi.set("komplexitet", COMPLEXITY_FROM_LEVEL[level]);
+  roi.set("integrationer", String((hi(a.fs4) ? 1 : 0) + (a.fs10 === "yes" ? 1 : 0)));
+
+  const krav = new URLSearchParams();
+  const team = TEAM_FROM_FS1[String(a.fs1 ?? "")];
+  if (team) krav.set("storlek", team);
+  krav.set("omraden", fieldAreasFromAnswers(a).join(","));
+
+  return {
+    roi: `/d365fieldservice/roi-kalkylator/?${roi}`,
+    kravspec: `/kravspecifikation-kundservice/?${krav}`,
+    partners: "/dynamics-365-crm-partners-sverige/",
+  };
+}

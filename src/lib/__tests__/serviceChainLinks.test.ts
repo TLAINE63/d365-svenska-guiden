@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { serviceChainLinks, readServiceKravPrefill, readServiceRoiPrefill, serviceAreasFromAnswers } from "@/lib/serviceChainLinks";
+import { fieldChainLinks, fieldAreasFromAnswers, serviceChainLinks, readServiceKravPrefill, readServiceRoiPrefill, serviceAreasFromAnswers } from "@/lib/serviceChainLinks";
 
 describe("serviceChainLinks", () => {
   it("ärendehantering alltid med", () => {
@@ -18,5 +18,14 @@ describe("serviceChainLinks", () => {
   });
   it("okända områden filtreras bort", () => {
     expect(readServiceKravPrefill("omraden=case_mgmt,hack").areas).toEqual(["case_mgmt"]);
+  });
+  it("Field Service: fältservice och schemaläggning alltid med", () => {
+    expect(fieldAreasFromAnswers({})).toEqual(["field_service", "scheduling"]);
+  });
+  it("Field Service: över 100 tekniker ger 150 licenser och storlek 100+", () => {
+    const l = fieldChainLinks({ fs1: "3", fs10: "yes" }, "strong");
+    expect(l.roi.startsWith("/d365fieldservice/roi-kalkylator/")).toBe(true);
+    expect(readServiceRoiPrefill(l.roi.split("?")[1])).toEqual({ agents: 150, integrations: 1 });
+    expect(readServiceKravPrefill(l.kravspec.split("?")[1]).size).toBe("100+");
   });
 });

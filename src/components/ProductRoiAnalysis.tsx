@@ -56,7 +56,7 @@ export default function ProductRoiAnalysis({
 
   const [companyName, setCompanyName] = useState("");
   const [csPrefill] = useState(() =>
-    typeof window === "undefined" || productKey !== "customer-service" ? {} : readServiceRoiPrefill(window.location.search)
+    typeof window === "undefined" || (productKey !== "customer-service" && productKey !== "field-service") ? {} : readServiceRoiPrefill(window.location.search)
   );
   const [counts, setCounts] = useState<Record<string, number>>(() =>
     Object.fromEntries(cfg.licenseLines.map((l, i) => [l.skuKey, i === 0 && csPrefill.agents ? csPrefill.agents : l.defaultCount]))
