@@ -36,6 +36,7 @@ import {
 import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
+import { readSalesRoiPrefill } from "@/lib/salesChainLinks";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -91,7 +92,9 @@ const parseNum = (s: string): number => {
 export default function SalesRoiCalculator() {
   const priceMap = usePriceMap();
   const { data: partners = [] } = usePartners();
-  const [v, setV] = useState<Inputs>(DEFAULTS);
+  const [v, setV] = useState<Inputs>(() =>
+    typeof window === "undefined" ? DEFAULTS : { ...DEFAULTS, ...readSalesRoiPrefill(window.location.search) },
+  );
   const [showAssumptions, setShowAssumptions] = useState(false);
 
   useEffect(() => {

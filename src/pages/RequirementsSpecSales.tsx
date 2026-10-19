@@ -28,6 +28,7 @@ import { invokeWithRetry } from "@/utils/invokeWithRetry";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
+import { readSalesKravPrefill } from "@/lib/salesChainLinks";
 
 const salesTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
@@ -74,9 +75,13 @@ const RequirementsSpecSales = () => {
   }, [step]);
 
 
+  const [testPrefill] = useState(() =>
+    typeof window === "undefined" ? { size: undefined, areas: [] as string[] } : readSalesKravPrefill(window.location.search),
+  );
+  const fromTest = testPrefill.areas.length > 0;
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
-  const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const [companySize, setCompanySize] = useState<string>(testPrefill.size ?? "");
+  const [selectedAreas, setSelectedAreas] = useState<string[]>(testPrefill.areas);
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
   useEffect(() => {
@@ -268,6 +273,18 @@ const RequirementsSpecSales = () => {
             </div>
           )}
 
+          {fromTest && step < 4 && (
+            <div className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
+              Förifyllt från ditt matchningstest: {companySize ? `${companySize} säljare/användare • ` : ""}
+              {selectedAreas.length} funktionsområden förkryssade. {step === 1 ? "Välj bransch, sedan går du direkt till områdena." : "Allt går att ändra."}
+              {step === 3 && (
+                <Button variant="link" size="sm" className="px-1 h-auto" onClick={() => setStep(1)}>
+                  Ändra bransch eller storlek
+                </Button>
+              )}
+            </div>
+          )}
+
           {/* Step 1: Industry */}
           {step === 1 && (
             <div className="space-y-6">
@@ -279,7 +296,10 @@ const RequirementsSpecSales = () => {
                 {allIndustries.map((ind) => (
                   <button
                     key={ind}
-                    onClick={() => setIndustry(ind)}
+                    onClick={() => {
+                      setIndustry(ind);
+                      if (fromTest && companySize) setStep(3);
+                    }}
                     className={`p-3 rounded-lg border text-left text-sm transition-all ${
                       industry === ind
                         ? "border-primary bg-primary/10 text-primary font-medium"

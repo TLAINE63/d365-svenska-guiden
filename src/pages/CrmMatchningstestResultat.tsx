@@ -31,6 +31,7 @@ import { trackFunnelEvent, trackFunnelEventOnce } from "@/lib/funnelTracking";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
+import { salesChainLinks } from "@/lib/salesChainLinks";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -365,6 +366,39 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   </CardContent>
                 </Card>
               )}
+
+              {config.key === "sales" && score.level !== "oversized" && (() => {
+                const links = salesChainLinks(answers, score.level);
+                const steps = [
+                  { n: 2, title: "Uppskatta investering och licenser", body: "Kalkylatorn startar med antal säljare, licensnivå och komplexitet från dina svar.", to: links.roi, key: "roi" },
+                  { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med teamstorlek och funktionsområden förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
+                  { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Sales.", to: links.partners, key: "partners" },
+                ];
+                return (
+                  <Card>
+                    <CardContent className="p-6 sm:p-8">
+                      <h3 className="text-lg font-semibold text-foreground mb-4">Gå vidare med dina svar</h3>
+                      <ol className="space-y-3">
+                        {steps.map((s) => (
+                          <li key={s.key}>
+                            <Link
+                              to={s.to}
+                              onClick={() => trackFunnelEvent("sales_chain_click", { product_key: "sales", step: s.key, level: score.level })}
+                              className="flex gap-3 rounded-lg border border-border p-4 hover:border-primary/50"
+                            >
+                              <span className="font-semibold text-primary">{s.n}.</span>
+                              <span>
+                                <span className="block font-medium text-foreground">{s.title}</span>
+                                <span className="block text-sm text-muted-foreground">{s.body}</span>
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </CardContent>
+                  </Card>
+                );
+              })()}
 
               {/* Nästa steg */}
               <Card className="border-primary/30 bg-primary/[0.03]">
