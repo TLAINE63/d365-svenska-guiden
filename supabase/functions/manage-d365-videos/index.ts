@@ -53,8 +53,12 @@ async function resolveChannelId(input: string): Promise<string | null> {
   else if (!value.startsWith("http")) url = `https://www.youtube.com/@${value.replace(/^\/+/, "")}`;
 
   try {
-    const res = await fetch(url, {
+    // Endast YouTube får hämtas här.
+    const u = new URL(url);
+    if (u.protocol !== "https:" || !/^(www\.|m\.)?youtube\.com$/i.test(u.hostname)) return null;
+    const res = await fetch(u.toString(), {
       headers: { "User-Agent": "Mozilla/5.0 (compatible; d365.se-video-ingest/1.0)" },
+      redirect: "error",
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return null;
