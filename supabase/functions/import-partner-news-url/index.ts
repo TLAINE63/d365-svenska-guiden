@@ -1,3 +1,4 @@
+import { safeFetch } from "../_shared/safe-fetch.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { z } from "https://esm.sh/zod@3.23.8";
 
@@ -244,12 +245,11 @@ serve(async (req) => {
 
     if (url && !pasted) {
       try {
-        const res = await fetch(url, {
+        const res = await safeFetch(url, {
           headers: {
             "User-Agent": "Mozilla/5.0 (compatible; d365.se-news-import/1.0; +https://d365.se)",
             Accept: "text/html,application/xhtml+xml",
           },
-          redirect: "follow",
           signal: AbortSignal.timeout(20000),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
