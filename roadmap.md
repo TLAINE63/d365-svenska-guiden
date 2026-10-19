@@ -1,9 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## F&SCM-pilot: laddning och mobilläsbarhet (2026-10-19)
-- [ ] Kontrollera sidans laddning, stabilitet och mobilöverbredd
-- [ ] Kontrollera kort svar, snabbfakta, källor och tre huvudvägar i webbläsaren
-- [ ] Dokumentera resultat utan publicering eller obekräftade expertuppgifter
+- [x] Kontrollera sidans laddning, stabilitet och mobilöverbredd
+- [x] Kontrollera kort svar, snabbfakta, källor och tre huvudvägar i webbläsaren
+- [x] Dokumentera resultat utan publicering eller obekräftade expertuppgifter
+Verifierat: mobil 390 px och dator 1280 px utan överbredd eller runtimefel, inga trasiga laddade bilder efter skrollning. Alla tre huvudknappar visar rätt destinationssida efter avslutat sidbyte. Lokal indikativ LCP 1,65/1,46 sekunder och CLS under 0,001, inte produktions-CWV. Dokumenterat i docs/FSCM-MOBILE-QA-2026-10-19.md; inga sidändringar behövdes och inget publicerades.
 
 ## Business Central: komplett basresa (2026-10-19)
 - [x] Inventera och återanvänd befintliga tester, jämförelser, kostnadsverktyg och partnerfunktioner
