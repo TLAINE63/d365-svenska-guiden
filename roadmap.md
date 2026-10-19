@@ -1,10 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Customer Service: köparresa (2026-10-19)
-- [ ] Tydliggör ärendehantering, kontaktcenter, självservice och kombinationer tidigt
-- [ ] Samla tre ingångar och befintliga behovs-, krav-, kostnads- och partnervägar
-- [ ] Ta bort upprepningar och samla avslutningen utan ändrad partnerdata
-- [ ] Kontrollera länkar och verkligt flöde på dator och mobil, utan publicering
+- [x] Tydliggör ärendehantering, kontaktcenter, självservice och kombinationer tidigt
+- [x] Samla tre ingångar och befintliga behovs-, krav-, kostnads- och partnervägar
+- [x] Ta bort upprepningar och samla avslutningen utan ändrad partnerdata
+- [x] Kontrollera länkar och verkligt flöde på dator och mobil, utan publicering
 
 ## F&SCM-pilot: köparrelevans (2026-10-18)
 - [x] Visa upp till tre verkliga produktkopplade kundexempel i befintliga partnerkort, utan platshållare
