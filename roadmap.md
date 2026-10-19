@@ -268,3 +268,9 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 ## Fas 0 (2026-10-10) – klar
 - Gemensam källa för partnerantal (startsida, partnerlista, marknadsrapport). 
 - Kvar till fas 1: gemensam bransch-/produkttaxonomi; rapportens produkt-/branschsiffror är fortfarande manuella.
+
+## Sales-sidan: kundresa (2026-10-19)
+- [x] Tre köparlägen i Hero och beslutsblock (analysera behov / bygg underlag / hitta partner)
+- [x] "Bygg ert CRM-beslutsunderlag": behov, krav, kostnad, utvärdering
+- [x] Rensat dubbla introtexter, standardavsnitt och konkurrerande CTA-block
+- [ ] Framtida innehåll (förslag): jämförelse Sales mot Microsofts enklare alternativ saknas – kräver beslut
