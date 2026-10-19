@@ -468,7 +468,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  </Card>
  )}
 
- {score.level !== "oversized" && (() => { const chain = fscmChainLinks(answersFromProfile(), score.level, getBuyerProfile()); return (
+ {score.level !== "oversized" && (() => { const chain = fscmChainLinks(answers, score.level, getBuyerProfile()); return (
  <Card className="border-primary/40">
  <CardContent className="p-6 sm:p-8">
  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Steg 1 klart: matcha produkt</p>
@@ -476,7 +476,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  <ol className="grid gap-3 sm:grid-cols-3">
  {[
  { step: 2, title: "Uppskatta investering och licenser", desc: "TCO/ROI-kalkyl, förifylld med omsättning och komplexitet från testet.", to: chain.roi },
- { step: 3, title: "Ta fram en kravbild", desc: "Kravspecifikation, förifylld med er bransch.", to: chain.kravspec },
+ { step: 3, title: "Ta fram en kravbild", desc: "Kravspecifikation, förifylld med bransch, storlek och de områden era svar pekar på.", to: chain.kravspec },
  { step: 4, title: "Välj ut passande partners", desc: "Partnerlistan förifylls med era svar.", to: chain.partners },
  ].map((s) => (
  <li key={s.step}>
