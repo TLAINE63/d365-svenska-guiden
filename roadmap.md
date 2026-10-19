@@ -273,4 +273,4 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] Tre köparlägen i Hero och beslutsblock (analysera behov / bygg underlag / hitta partner)
 - [x] "Bygg ert CRM-beslutsunderlag": behov, krav, kostnad, utvärdering
 - [x] Rensat dubbla introtexter, standardavsnitt och konkurrerande CTA-block
-- [ ] Flaggat framtida innehåll: saknade jämförelser (t.ex. Sales vs enklare CRM) – kräver beslut
+- [ ] Framtida innehåll (förslag): jämförelse Sales mot Microsofts enklare alternativ saknas – kräver beslut
