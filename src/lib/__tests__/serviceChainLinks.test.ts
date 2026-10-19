@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { fieldChainLinks, fieldAreasFromAnswers, serviceChainLinks, readServiceKravPrefill, readServiceRoiPrefill, serviceAreasFromAnswers } from "@/lib/serviceChainLinks";
+import { contactChainLinks, contactAreasFromAnswers, fieldChainLinks, fieldAreasFromAnswers, serviceChainLinks, readServiceKravPrefill, readServiceRoiPrefill, serviceAreasFromAnswers } from "@/lib/serviceChainLinks";
 
 describe("serviceChainLinks", () => {
   it("ärendehantering alltid med", () => {
@@ -26,6 +26,15 @@ describe("serviceChainLinks", () => {
     const l = fieldChainLinks({ fs1: "3", fs10: "yes" }, "strong");
     expect(l.roi.startsWith("/d365fieldservice/roi-kalkylator/")).toBe(true);
     expect(readServiceRoiPrefill(l.roi.split("?")[1])).toEqual({ agents: 150, integrations: 1 });
+    expect(readServiceKravPrefill(l.kravspec.split("?")[1]).size).toBe("100+");
+  });
+  it("Contact Center: kontaktcenter och kanaler alltid med", () => {
+    expect(contactAreasFromAnswers({})).toEqual(["contact_center", "channels"]);
+  });
+  it("Contact Center: över 200 agenter ger 250 licenser och storlek 100+", () => {
+    const l = contactChainLinks({ cc5: "3", cc11: "yes" }, "strong");
+    expect(l.roi.startsWith("/d365contactcenter/roi-kalkylator/")).toBe(true);
+    expect(readServiceRoiPrefill(l.roi.split("?")[1])).toEqual({ agents: 250, integrations: 1 });
     expect(readServiceKravPrefill(l.kravspec.split("?")[1]).size).toBe("100+");
   });
 });

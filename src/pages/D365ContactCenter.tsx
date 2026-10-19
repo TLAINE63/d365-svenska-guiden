@@ -1,5 +1,4 @@
 import ProductNextSteps from "@/components/product/ProductNextSteps";
-import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -7,8 +6,6 @@ import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { contactCenterRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -17,13 +14,12 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiCta from "@/components/ProductRoiCta";
 import { ArrowRight, FileText } from "lucide-react";
+import ContactCenterDecisionGuide, { trackContactJourney } from "@/components/product/ContactCenterDecisionGuide";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import { Link } from "react-router-dom";
@@ -97,23 +93,16 @@ const D365ContactCenter = () => {
       <ProductHero
         icon={ContactCenterIcon}
         eyebrow="Dynamics 365 Contact Center"
-        title="Contact Center."
-        titleAccent="Omnichannel är inte plug-and-play. Partnervalet avgör projektframgången."
-        subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma – men hur partnern designar röstflöden, automatiseringen och anpassningarna till dina branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför du partners som faktiskt levererat Contact Center i din bransch och samtalsvolym."
-        primary={{
-          label: "Jämför CRM-partners",
-          to: "/dynamics-365-crm-partners-sverige/",
-        }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
-        tertiary={{
-          label: "Gör en estimerad TCO/ROI-kalkyl",
-          to: "/d365contactcenter/roi-kalkylator/",
-        }}
-        quaternary={{
-          label: "Filtrera fram en passande Contact Center-partner",
-          href: "#partners",
-        }}
+        title="Dynamics 365 Contact Center"
+        titleAccent="Vilket stöd behöver ert kontaktcenter?"
+        subhead="Börja med era kanaler, volymer och agenternas vardag. Bedöm om Contact Center passar eller om Customer Service räcker, ta fram krav och kostnadsbild och hitta partners med kontaktcentererfarenhet."
+        primary={{ label: "Analysera vårt behov", to: "/d365contactcenter/matchningstest/", onClick: () => trackContactJourney("assess", "/d365contactcenter/matchningstest/", "hero") }}
+        secondary={{ label: "Bygg vårt beslutsunderlag", href: "#contact-beslutsunderlag", icon: FileText }}
+        tertiary={{ label: "Hitta rätt Contact Center-partner", href: "#partners" }}
       />
+
+      <EditorialSource sourceType="Köpguide" />
+      <ContactCenterDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Contact Center">
         <p>
@@ -135,29 +124,6 @@ const D365ContactCenter = () => {
       <BuyerFitSection fitKey="contact" />
       <EditorialAssessment assessment="contact" />
 
-
-      {/* Introduction Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-
-      <StandardProductSections productName="Contact Center" data={PRODUCT_STANDARD_SECTIONS["contact-center"]} />
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Contact Center
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              Nästa generations kontaktcenter
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Dynamics 365 Contact Center är en modern, AI-driven kontaktcenterlösning som samlar alla kundkommunikationskanaler i ett enhetligt gränssnitt. Med intelligent routing, realtidsanalys och sömlös integration med Microsoft Teams får ditt team verktyg för att leverera exceptionell service.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Lösningen inkluderar virtuella agenter som kan hantera enkla ärenden automatiskt, frigör mänskliga agenter för mer komplexa interaktioner, och ger chefer insyn i prestanda och kundnöjdhet i realtid.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
@@ -295,41 +261,19 @@ const D365ContactCenter = () => {
       <CostBreakdown product="contact-center" />
       <ComparisonQuickLinks productKeys="contact-center" />
 
-      <ProductRoiCta productKey="contact-center" />
 
       <ProductDeepDiveLink product="Dynamics 365 Contact Center" label="Contact Center" />
 
       <ProductPartnerNewsSection productArea="crm-service" productLabel="Contact Center" />
 
+      <ProductIsvSection product="Contact Center" />
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" showUnprofiledList={false} />
 
-      {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-contact-center">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att modernisera ditt kontaktcenter?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och rätt partner med oss så hjälper vi dig bygga ett framtidssäkert kontaktcenter.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg"
-              className="bg-white text-contact-center hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
-            >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-        </div>
-      </section>
-
-      <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
-      <ProductIsvSection product="Contact Center" />
 
       </main>
-      <ContextualCta source="next-step:d365contactcenter" heading="Behöver ni ett kontaktcenter eller ett kundservicesystem?" text="Börja med behovet: telefoni och köer, eller ärendehantering. Guiden hjälper er reda ut det och visar partners med kontaktcentererfarenhet." primaryLabel="Få hjälp att hitta rätt partner" product="Contact Center" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
-      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />
+      <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
       <Footer />
     </div>
   );

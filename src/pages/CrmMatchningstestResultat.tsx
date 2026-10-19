@@ -32,7 +32,7 @@ import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { salesChainLinks } from "@/lib/salesChainLinks";
-import { serviceChainLinks, fieldChainLinks } from "@/lib/serviceChainLinks";
+import { serviceChainLinks, fieldChainLinks, contactChainLinks } from "@/lib/serviceChainLinks";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -368,11 +368,16 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 </Card>
               )}
 
-              {(config.key === "sales" || config.key === "customer-service" || config.key === "field-service") && score.level !== "oversized" && (() => {
+              {(config.key === "sales" || config.key === "customer-service" || config.key === "field-service" || config.key === "contact-center") && score.level !== "oversized" && (() => {
                 const isFs = config.key === "field-service";
+                const isCc = config.key === "contact-center";
                 const isCs = config.key === "customer-service";
-                const links = isFs ? fieldChainLinks(answers, score.level) : isCs ? serviceChainLinks(answers, score.level) : salesChainLinks(answers, score.level);
-                const steps = isFs ? [
+                const links = isCc ? contactChainLinks(answers, score.level) : isFs ? fieldChainLinks(answers, score.level) : isCs ? serviceChainLinks(answers, score.level) : salesChainLinks(answers, score.level);
+                const steps = isCc ? [
+                  { n: 2, title: "Uppskatta investering och licenser", body: "Kalkylatorn startar med antal agenter, integrationer och komplexitet från dina svar.", to: links.roi, key: "roi" },
+                  { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med storlek och områden som kanaler, köer och telefoni förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
+                  { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Contact Center.", to: links.partners, key: "partners" },
+                ] : isFs ? [
                   { n: 2, title: "Uppskatta investering och licenser", body: "Kalkylatorn startar med antal tekniker, integrationer och komplexitet från dina svar.", to: links.roi, key: "roi" },
                   { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med storlek och områden som fältservice och schemaläggning förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
                   { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Field Service.", to: links.partners, key: "partners" },
@@ -385,7 +390,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                   { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med teamstorlek och funktionsområden förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
                   { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Sales.", to: links.partners, key: "partners" },
                 ];
-                const eventName = isFs ? "field_chain_click" : isCs ? "service_chain_click" : "sales_chain_click";
+                const eventName = isCc ? "contact_chain_click" : isFs ? "field_chain_click" : isCs ? "service_chain_click" : "sales_chain_click";
                 return (
                   <Card>
                     <CardContent className="p-6 sm:p-8">
