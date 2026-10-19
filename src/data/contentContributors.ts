@@ -43,11 +43,21 @@ export interface PageContribution {
 }
 
 /** Path (without trailing slash) -> confirmed contributions. Empty until the editor registers them. */
+const thomasAuthor = (date?: string): PageContribution[] => [
+  { contributorId: "thomas-laine", role: "Författare", date, title: "Redaktör och affärsrådgivare" },
+];
+
+// Bekräftat av Thomas Laine 2026-10-19. Utan eget datum används sidans registrerade granskningsdatum (pageReviewDates).
 export const PAGE_CONTRIBUTIONS: Record<string, PageContribution[]> = {
-  // Bekräftat av Thomas Laine 2026-10-19.
-  "/finance-supply-chain": [
-    { contributorId: "thomas-laine", role: "Författare", date: "2026-09-24", title: "Redaktör och affärsrådgivare" },
-  ],
+  "/finance-supply-chain": thomasAuthor("2026-09-24"),
+  ...Object.fromEntries(
+    [
+      "/businesscentral", "/affarssystem", "/crm", "/d365sales", "/d365marketing",
+      "/d365customerservice", "/d365fieldservice", "/d365contactcenter",
+      "/d365projectoperations", "/d365humanresources", "/d365commerce",
+      "/kostnad", "/priser", "/upphandlingsguiden", "/befintlig-kund",
+    ].map((p) => [p, thomasAuthor()]),
+  ),
 };
 
 export function contributionsFor(path: string): Array<PageContribution & { person: ContentContributor }> {
