@@ -1,6 +1,5 @@
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
-import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -8,24 +7,19 @@ import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { fieldServiceRelatedPages } from "@/components/RelatedPages";
-import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiCta from "@/components/ProductRoiCta";
-import { ArrowRight, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FileText } from "lucide-react";
+import FieldServiceDecisionGuide, { trackFieldJourney } from "@/components/product/FieldServiceDecisionGuide";
 import { useEffect } from "react";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import SEOHead from "@/components/SEOHead";
@@ -101,22 +95,16 @@ const D365FieldService = () => {
       <ProductHero
         icon={FieldServiceIcon}
         eyebrow="Dynamics 365 Field Service"
-        title="Dynamics 365 Field Service – planering, mobilitet och integration med ERP"
-        subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som kan höja andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför du partners som faktiskt levererat Field Service i din bransch."
-        primary={{
-          label: "Jämför CRM-partners",
-          to: "/dynamics-365-crm-partners-sverige/",
-        }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
-        tertiary={{
-          label: "Gör en estimerad TCO/ROI-kalkyl",
-          to: "/d365fieldservice/roi-kalkylator/",
-        }}
-        quaternary={{
-          label: "Filtrera fram en passande Field Service-partner",
-          href: "#partners",
-        }}
+        title="Dynamics 365 Field Service"
+        titleAccent="Vilket stöd behöver er fältservice?"
+        subhead="Börja med era tekniker, arbetsorder och serviceavtal. Bedöm om Field Service passar, ta fram krav och kostnadsbild och hitta partners som kan planering, mobilitet och integration."
+        primary={{ label: "Analysera vårt behov", to: "/d365fieldservice/matchningstest/", onClick: () => trackFieldJourney("assess", "/d365fieldservice/matchningstest/", "hero") }}
+        secondary={{ label: "Bygg vårt beslutsunderlag", href: "#field-beslutsunderlag", icon: FileText }}
+        tertiary={{ label: "Hitta rätt Field Service-partner", href: "#partners" }}
       />
+
+      <EditorialSource sourceType="Köpguide" />
+      <FieldServiceDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Field Service">
         <p>
@@ -135,29 +123,6 @@ const D365FieldService = () => {
       <BuyerFitSection fitKey="field" />
       <EditorialAssessment assessment="field" />
 
-
-      {/* Introduction Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-
-      <StandardProductSections productName="Field Service" data={PRODUCT_STANDARD_SECTIONS["field-service"]} />
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Field Service
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              Intelligent fältservicehantering
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Dynamics 365 Field Service hjälper organisationer att leverera proaktiv service på plats genom intelligent schemaläggning, resursoptimering och mobila verktyg för fälttekniker.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Med IoT-integration kan du övergå från reaktiv till prediktiv service – identifiera och lösa problem innan de uppstår. Fälttekniker får all information de behöver i mobilen, inklusive arbetsorder, kundhistorik och kunskapsartiklar.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
@@ -295,42 +260,20 @@ const D365FieldService = () => {
       <CostBreakdown product="field-service" />
       <ComparisonQuickLinks productKeys="field-service" />
 
-      <ProductRoiCta productKey="field-service" />
 
       <ProductDeepDiveLink product="Dynamics 365 Field Service" label="Field Service" />
 
       <ProductPartnerNewsSection productArea="crm-service" productLabel="Field Service" />
 
+      <ProductIsvSection product="Field Service" />
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
-      {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-field-service">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att optimera din fältservice?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och rätt partner med oss så hjälper vi dig effektivisera din fältserviceverksamhet.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg"
-              className="bg-white text-field-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
-            >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-        </div>
-      </section>
-
-      <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
-      <ProductIsvSection product="Field Service" />
 
       </main>
       <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
-      <ContextualCta source="next-step:d365fieldservice" heading="Passar Field Service er serviceverksamhet?" text="Pröva behovet mot er planering, era tekniker och ert affärssystem innan ni väljer partner." primaryLabel="Få hjälp att hitta rätt partner" product="Field Service" links={[{ label: "Hur väljer ni fältservicesystem?", to: "/faltservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
-      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />
+      <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
       <Footer />
     </div>
   );
