@@ -1,5 +1,12 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Business Central: komplett basresa (2026-10-19)
+- [x] Inventera och återanvänd befintliga tester, jämförelser, kostnadsverktyg och partnerfunktioner
+- [x] Samla förståelse, passform, jämförelse, kostnad och partner i en tydlig sidordning
+- [x] Lägg businesscentral.se som frivillig fördjupning längre ned och samla avslutningen
+- [x] Återanvänd anonym mätning och verifiera egna köpresesteg på dator och mobil utan publicering
+Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till #comparison, egen kalkyl med ändrat antal användare och sparknapp samt egen partnerlista. Dator 1280 px och mobil 390 px utan överbredd eller runtimefel. 21 riktade tester godkända, automatisk byggkontroll godkänd. Inga partneruppgifter, ranking eller SEO-adresser ändrade. Inget publicerat; mottagning av nya händelser i den externa portalen inte liveverifierad, förhandsvisningsorigin nekas fortfarande.
+
 ## Customer Service: köparresa (2026-10-19)
 - [x] Tydliggör ärendehantering, kontaktcenter, självservice och kombinationer tidigt
 - [x] Samla tre ingångar och befintliga behovs-, krav-, kostnads- och partnervägar
