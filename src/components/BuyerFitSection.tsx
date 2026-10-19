@@ -14,7 +14,7 @@ export default function BuyerFitSection({ fitKey }: { fitKey: CrmBuyerFitKey }) 
             <h2 className="mb-3 text-base font-semibold text-foreground">När passar lösningen?</h2>
             <ul className="space-y-2 text-sm text-foreground/85">
               {f.fits.map((t) => (
-                <li key={t} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />{nowrapBrand(t)}</li>
+                <li key={t} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden /><span>{nowrapBrand(t)}</span></li>
               ))}
             </ul>
           </div>
@@ -22,7 +22,7 @@ export default function BuyerFitSection({ fitKey }: { fitKey: CrmBuyerFitKey }) 
             <h2 className="mb-3 text-base font-semibold text-foreground">När passar den inte?</h2>
             <ul className="space-y-2 text-sm text-foreground/85">
               {f.notFits.map((t) => (
-                <li key={t} className="flex gap-2"><X className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />{nowrapBrand(t)}</li>
+                <li key={t} className="flex gap-2"><X className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden /><span>{nowrapBrand(t)}</span></li>
               ))}
             </ul>
           </div>

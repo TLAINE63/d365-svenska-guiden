@@ -1,5 +1,4 @@
 import ProductNextSteps from "@/components/product/ProductNextSteps";
-import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
@@ -7,24 +6,19 @@ import ProductIsvSection from "@/components/ProductIsvSection";
 import EditorialSource from "@/components/EditorialSource";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { marketingRelatedPages } from "@/components/RelatedPages";
-import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiCta from "@/components/ProductRoiCta";
-import { ArrowRight, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FileText } from "lucide-react";
+import InsightsDecisionGuide from "@/components/product/InsightsDecisionGuide";
 import { useEffect } from "react";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import SEOHead from "@/components/SEOHead";
@@ -110,57 +104,25 @@ const D365Marketing = () => {
         icon={MarketingIcon}
         eyebrow="Dynamics 365 Customer Insights"
         title="Customer Insights – Journeys & Data."
-        titleAccent="Två samverkande moduler. Välj partner med omsorg."
-        subhead="Microsoft levererar plattformen och AI-segmenteringen. Partnern hjälper dig att skapa datamodellen, integrationerna och de poängregler som faktiskt avgör om leads får rätt mejl vid rätt tid. Det är där projekt med marketing automation vinns eller förloras. Här jämför du partners som faktiskt levererat den här typen av flöden i din typ av verksamhet."
-        primary={{
-          label: "Jämför CRM-partners",
-          to: "/dynamics-365-crm-partners-sverige/",
-        }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
-        tertiary={{
-          label: "Gör en estimerad TCO/ROI-kalkyl",
-          to: "/d365marketing/roi-kalkylator/",
-        }}
-        quaternary={{
-          label: "Filtrera fram en passande Customer Insights-partner",
-          href: "#partners",
-        }}
+        titleAccent="Behöver ni marketing automation, kunddataplattform eller båda?"
+        subhead="Börja i ert problem: kunddata i flera system, marknad och sälj som behöver samma kundbild eller kundresor som inte fungerar. Här får ni hjälp att bedöma behovet, jämföra alternativ, ta fram krav och kostnadsbild och hitta partners."
+        primary={{ label: "Analysera vårt behov", to: "/d365marketing/matchningstest/" }}
+        secondary={{ label: "Bygg vårt beslutsunderlag", href: "#ci-beslutsunderlag", icon: FileText }}
+        tertiary={{ label: "Hitta rätt partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
 
+      <BuyerFitSection fitKey="insights" />
+      <EditorialAssessment assessment="insights" />
+      <InsightsDecisionGuide />
       <ShortAnswer title="Vad är Dynamics 365 Customer Insights">
         <p>Dynamics 365 Customer Insights är Microsofts moderna marknads- och kunddataplattform och består av två tätt integrerade delar som tillsammans täcker både datasidan och aktiveringssidan av modern marknadsföring.</p>
         <p><strong>Customer Insights – Data</strong> är en kraftfull Customer Data Platform (CDP) som samlar och förenar kunddata från CRM, ERP, webb, e-handel, lojalitetsprogram och tredjepartskällor till en gemensam, AI-berikad kundprofil med segment, livstidsvärde och nästa-bästa-åtgärd.</p>
         <p><strong>Customer Insights – Journeys</strong> är en automationsmotor för marknadsföring som orkestrerar personaliserade kundresor i realtid över e-post, SMS, push, Teams, webb och annonskanaler.</p>
         <p>Plattformen vänder sig till både B2B- och B2C-organisationer som vill gå från spridda utskick och magkänsla till datadriven marknadsföring där rätt budskap når rätt person i rätt kanal vid rätt tillfälle.</p>
-        <p>Inbyggd Copilot och autonoma marknadsagenter låter marknadsförare beskriva ett segment eller en kampanj i klartext och få färdiga målgrupper, ämnesrader, innehåll och kundresor genererade på sekunder – i stället för att lägga dagar på manuell segmentering och utkast.</p>
         <p>Genom djup integration med Dynamics 365 Sales, Customer Service, Dataverse, Fabric och Microsoft 365 ser sälj, marknad och service samma kundbild. Men datamodell, källsystem och integrationer som partnern sätter upp är det som faktiskt avgör om plattformen blir en sann tillväxtmotor eller bara ännu ett verktyg.</p>
       </ShortAnswer>
-      <BuyerFitSection fitKey="insights" />
-      <EditorialAssessment assessment="insights" />
 
 
-      {/* Introduction Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-
-      <StandardProductSections productName="Customer Insights" data={PRODUCT_STANDARD_SECTIONS["customer-insights"]} />
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Customer Insights
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              Marknadsföringsautomation på nästa nivå
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Dynamics 365 Customer Insights (tidigare Marketing) är en kraftfull plattform för marknadsföringsautomation som hjälper dig att skapa personliga kundresor, generera kvalificerade leads och mäta kampanjresultat i realtid.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Med inbyggd AI och dataanalys kan du segmentera din kundbas, skapa riktade kampanjer och följa upp varje interaktion för att maximera konvertering och kundengagemang.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
@@ -298,41 +260,22 @@ const D365Marketing = () => {
       <CostBreakdown product="marketing" />
       <ComparisonQuickLinks productKeys="customer-insights" />
 
-      <ProductRoiCta productKey="customer-insights" />
 
       <ProductDeepDiveLink product="Dynamics 365 Customer Insights" label="Customer Insights" />
 
       <ProductPartnerNewsSection productArea="crm" productLabel="Marketing" />
 
-      <ApplicationPartners applicationFilter="Customer Insights (Marketing)" pageSource="D365 Marketing" />
-
-      {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-marketing">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att revolutionera din marknadsföring?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och rätt partner med oss så hjälper vi dig skapa personliga kundresor som konverterar.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg"
-              className="bg-white text-marketing hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
-            >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-        </div>
-      </section>
-
-      <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
-      <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
+      <ApplicationPartners applicationFilter="Customer Insights (Marketing)" pageSource="D365 Marketing" />
+
+
+      <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
+
       </main>
-      <ContextualCta source="next-step:d365marketing" heading="Behöver ni marketing automation, CDP eller båda?" text="Gör en kort behovsanalys för sälj och marknad och se vilka partners som har infört Customer Insights." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Insights" links={[{ label: "Gör behovsanalys för sälj och marknad", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
       <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />
+      <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
       <Footer />
     </div>
   );
