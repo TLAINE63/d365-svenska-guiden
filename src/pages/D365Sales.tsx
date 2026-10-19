@@ -239,60 +239,19 @@ const D365Sales = () => {
         </div>
       </section>
 
-      {/* Implementation Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
-              Hur lång tid tar en implementation och vad ligger kostnaden på?
-            </h2>
-            <div className="bg-card rounded p-6 sm:p-8 border border-border ">
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">⏱️ Tidsåtgång</h3>
-                  <p className="text-muted-foreground mb-4">
-                    En typisk implementation av Dynamics 365 Sales tar <strong>2-4 månader</strong> beroende på komplexitet och antal användare.
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Liten implementation (5-15 användare):</strong> 6-10 veckor</li>
-                    <li>• <strong>Medelstor (15-50 användare):</strong> 4-8 månader</li>
-                    <li>• <strong>Stor (50+ användare):</strong> 7-15 månader</li>
-                    <li>• <strong>Omfattande (Många användare, flera verksamhetsområden/bolag/länder och rikligt med integrationer):</strong> 12-24 månader</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">💰 Kostnad</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Implementationskostnaden varierar beroende på anpassningar, integrationer och datamigrering.
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Liten implementation:</strong> 75 000 - 200 000 kr</li>
-                    <li>• <strong>Medelstor:</strong> 200 000 - 450 000 kr</li>
-                    <li>• <strong>Stor med anpassningar:</strong> 450 000 - 1 200 000 kr</li>
-                    <li>• <strong>Omfattande:</strong> &gt; 800 000 kr - ...</li>
-                  </ul>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mt-6 italic">
-                * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Partners Section */}
       <BuyerManual product="sales" />
       <CostBreakdown product="sales" />
       <ComparisonQuickLinks productKeys="sales" />
 
-      {/* CTA till TCO/ROI-kalkylator i Kunskapscentret */}
-      <ProductRoiCta productKey="sales" />
 
 
       <ProductDeepDiveLink product="Dynamics 365 Sales" label="Sales" />
 
       <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
+
+      <ProductIsvSection product="Sales" />
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
@@ -300,9 +259,7 @@ const D365Sales = () => {
         <UnprofiledPartnersList variant="teaser" showSeeAllLink />
       </div>
 
-<ProductNextSteps product="sales" pageSource="D365 Sales" />
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
-      <ProductIsvSection product="Sales" />
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod variant="product" />
