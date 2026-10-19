@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { readRoiPrefill } from "@/lib/fscmChainLinks";
 import {
   Calculator,
   Info,
@@ -56,8 +57,9 @@ export default function ProductRoiAnalysis({
   const [counts, setCounts] = useState<Record<string, number>>(() =>
     Object.fromEntries(cfg.licenseLines.map((l) => [l.skuKey, l.defaultCount]))
   );
-  const [revenue, setRevenue] = useState(cfg.defaultRevenue);
-  const [complexity, setComplexity] = useState<Complexity>("Medel");
+  const [prefill] = useState(() => (typeof window === "undefined" ? {} : readRoiPrefill(window.location.search)));
+  const [revenue, setRevenue] = useState(prefill.revenue ?? cfg.defaultRevenue);
+  const [complexity, setComplexity] = useState<Complexity>(prefill.complexity ?? "Medel");
   const [manualPct, setManualPct] = useState(60);
   const [integrations, setIntegrations] = useState(cfg.defaultIntegrations);
   const [currentItCost, setCurrentItCost] = useState(cfg.defaultCurrentItCost);

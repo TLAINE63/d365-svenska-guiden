@@ -16,6 +16,7 @@ import { addScopeApps, getBuyerProfile, saveProfile, setAnswer } from "@/lib/buy
 import { BC_TEST_URL, deriveCompareFilters, filtersToSearch, FSCM_LEVEL_TEXT, type FscmLevel } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { fscmChainLinks } from "@/lib/fscmChainLinks";
 
 // Koppling mellan testets frågor och det anonyma underlaget (båda riktningarna).
 const INDUSTRY_TO_SLUG: Record<string, string> = { tillverkning: "tillverkning", grossist: "grossist-distribution", detaljhandel: "retail-ehandel" };
@@ -467,16 +468,16 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  </Card>
  )}
 
- {score.level !== "oversized" && (
+ {score.level !== "oversized" && (() => { const chain = fscmChainLinks(answersFromProfile(), score.level, getBuyerProfile()); return (
  <Card className="border-primary/40">
  <CardContent className="p-6 sm:p-8">
  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Steg 1 klart: matcha produkt</p>
  <h3 className="text-lg font-semibold text-foreground mb-4">Nästa steg i utvärderingen</h3>
  <ol className="grid gap-3 sm:grid-cols-3">
  {[
- { step: 2, title: "Uppskatta investering och licenser", desc: "TCO/ROI-kalkyl för F&SCM.", to: "/finance-supply-chain/roi-kalkylator/" },
- { step: 3, title: "Ta fram en kravbild", desc: "Kravspecifikation att dela internt och med partners.", to: "/kravspecifikation/" },
- { step: 4, title: "Välj ut passande partners", desc: "Partnerlistan förifylls med era svar.", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(getBuyerProfile()))}` },
+ { step: 2, title: "Uppskatta investering och licenser", desc: "TCO/ROI-kalkyl, förifylld med omsättning och komplexitet från testet.", to: chain.roi },
+ { step: 3, title: "Ta fram en kravbild", desc: "Kravspecifikation, förifylld med er bransch.", to: chain.kravspec },
+ { step: 4, title: "Välj ut passande partners", desc: "Partnerlistan förifylls med era svar.", to: chain.partners },
  ].map((s) => (
  <li key={s.step}>
  <Link
@@ -493,7 +494,7 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  </ol>
  </CardContent>
  </Card>
- )}
+ ); })()}
 
  <Card>
  <CardContent className="p-6 sm:p-8">
