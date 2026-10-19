@@ -19,7 +19,7 @@
 - Partner Review Queue: see supabase/functions/_shared/AGENTS.md; partner counts and BC project-cost model: see src/data/AGENTS.md.
 - Frågan om särskilda projekt och leveransformer ställs inte för någon produkt (alla partners skulle kryssa i allt); data finns kvar men visas inte.
 
-- Rollvägledningen på `/roller/` ligger under Guider och länkar endast till befintligt innehåll; den ändrar inte produktnavigationen.
+- `/roller/` ligger under Guider, länkar bara till befintligt innehåll och ändrar inte produktnavigationen.
 - businesscentral.se läser BC-fält live från den publika vyn `bc_partners_v1` (schema 1.0, inga kontaktuppgifter, COSMO aldrig som branschlösning); källan sätts automatiskt (partner/redaktion), eftersom manuella verifieringsfält togs bort.
 - Sökprestanda hämtas dagligen från Search Console (primär) och Bing via `search-performance` (`search_perf_daily`), grupperat efter `serp_watch_phrases` (omatchat = "Övrigt"); konkurrenter endast via manuella Semrush-CSV:er (`competitor_csv_*`), eftersom Semrush API kräver Business-plan och inte schemaläggs.
 - Central page copy (d365.se description, ownership texts, founders/contact) lives in the site_texts textbank, edited in /redaktion via the site-texts function and snapshotted to src/data/siteTexts.json at build with defaults in siteTextDefaults.ts; keeps all pages consistent and SSG-safe.
@@ -28,10 +28,9 @@
 
 - Published partner profiles share the opening's scoped palette/type tokens and 72rem content grid throughout; continuation hooks flatten section frames only within the profile, preserving shared cards, basic profiles, ranking, facts and action contexts.
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
-- Scope index.html critical CSS to navigation (bare CTA selectors leak site-wide).
-- Navbar.tsx MENUS drives main nav (ERP/CRM share group structure for parity); nav CTA inline CSS targets `a[data-nav-cta]`.
-- ISV reseller links verify profiles via public hooks.
-- Read subdir AGENTS.md; PartnerCardHeader links identities.
+- Scope index.html critical CSS to nav (bare CTA selectors leak).
+- Navbar.tsx MENUS drives main nav (ERP/CRM parity); nav CTA CSS targets `a[data-nav-cta]`.
+- Read subdir AGENTS.md.
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
 - Optional buyer accounts mirror the localStorage keys in src/lib/accountSync.ts to buyer_saved_state (own-row RLS); server wins on login, so tools stay account-unaware.
 

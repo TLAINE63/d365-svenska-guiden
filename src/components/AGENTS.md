@@ -5,3 +5,5 @@
 - Public partner cards use PartnerCardHeader for a native link across the identity area, name left and logo right; keep actions outside it and reuse downloadable SVGs through VerifiedPartnerBadge.
 
 - Customer Service uses ServiceDecisionGuide and a product-specific shared ProductNextSteps ending with existing tools and partner anchors; page navigation stays separate from scoring and partner data.
+- ExpertCard renders only contributors explicitly registered in src/data/contentContributors.ts; FactBox holds citation-friendly facts, so no fabricated expertise.
+- ISV reseller links verify profiles via public hooks.
