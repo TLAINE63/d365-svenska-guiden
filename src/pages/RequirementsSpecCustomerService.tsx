@@ -278,6 +278,14 @@ const RequirementsSpecCustomerService = () => {
             </div>
           )}
 
+          {fromTest && step !== 4 && (
+            <div className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
+              Förifyllt från ditt matchningstest{companySize ? `: ${companySize} medarbetare` : ""}, {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
+              {step === 3 && (
+                <button type="button" onClick={() => setStep(2)} className="ml-2 font-medium text-primary underline underline-offset-4">Ändra storlek</button>
+              )}
+            </div>
+          )}
           {step === 1 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Välj bransch</h2>
