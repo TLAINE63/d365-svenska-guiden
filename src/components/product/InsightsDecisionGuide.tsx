@@ -45,7 +45,7 @@ export default function InsightsDecisionGuide() {
     <section aria-labelledby="ci-decision-heading" className="py-8 sm:py-10 bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         <h2 id="ci-decision-heading" className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-          Behöver ni marketing automation, kunddataplattform eller båda?
+          Journeys, Data eller båda?
         </h2>
         <p className="text-sm md:text-base text-muted-foreground mb-5 max-w-3xl">
           Det är det första vägvalet. Behöver ni främst nyhetsbrev och enkla flöden kan ett enklare marketing automation-verktyg räcka.
