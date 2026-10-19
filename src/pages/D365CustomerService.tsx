@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -114,6 +115,7 @@ const D365CustomerService = () => {
       />
 
       <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/d365customerservice" />
       <ServiceDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Service">

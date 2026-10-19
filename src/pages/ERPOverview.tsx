@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import KeyTakeaways from "@/components/guide/KeyTakeaways";
 import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -505,6 +506,7 @@ const ERPOverview = () => {
 />
 <ContextualCta source="next-step:erp" heading="Så går du vidare med ert ERP-val" text="Om ni är osäkra på vilket affärssystem som passar, börja med behovsanalysen. Vet ni redan, gå direkt till partnerlistan." primaryLabel="Få rekommenderad partnerlista" goal="erp" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }]} />
 <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/affarssystem" />
 <SourcesAndMethod />
       </main>
  <Footer />

@@ -1,3 +1,4 @@
+import ExpertCard from "@/components/ExpertCard";
 import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Sparkles, LifeBuoy, Target } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -126,6 +127,7 @@ const BefintligKund = () => (
         </section>
 
         <EditorialSource sourceType="Köpguide" />
+<ExpertCard path="/befintlig-kund" />
       </div>
     </main>
     <Footer />
