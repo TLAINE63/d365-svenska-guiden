@@ -1,4 +1,5 @@
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
+import SalesDecisionGuide from "@/components/product/SalesDecisionGuide";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
@@ -6,13 +7,10 @@ import EditorialSource from "@/components/EditorialSource";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
-import ContextualCta from "@/components/ContextualCta";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { salesRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -131,19 +129,9 @@ const D365Sales = () => {
         title="Dynamics 365 Sales."
         titleAccent="Verktyget är en sak. Partnern som sätter dina säljprocesser är en annan."
         subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt din specifika modell avgör om det blir din pipeline eller bara ett dyrt CRM. Här jämför du partners som faktiskt levererat Sales i din typ av verksamhet."
-        primary={{
-          label: "Jämför CRM-partners",
-          to: "/dynamics-365-crm-partners-sverige/",
-        }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
-        tertiary={{
-          label: "Gör en estimerad TCO/ROI-kalkyl",
-          to: "/d365sales/roi-kalkylator/",
-        }}
-        quaternary={{
-          label: "Filtrera fram en passande Sales-partner",
-          href: "#partners",
-        }}
+        primary={{ label: "Analysera vårt CRM-behov", to: "/d365sales/matchningstest/" }}
+        secondary={{ label: "Bygg vårt beslutsunderlag", href: "#crm-beslutsunderlag", icon: FileText }}
+        tertiary={{ label: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
 
       <ShortAnswer title="Vad är Dynamics 365 Sales">
@@ -155,30 +143,8 @@ const D365Sales = () => {
       </ShortAnswer>
       <BuyerFitSection fitKey="sales" />
       <EditorialAssessment assessment="sales" />
+      <SalesDecisionGuide />
 
-
-      {/* Introduction Section */}
-      <section className="pt-0 pb-8 sm:pb-12 md:pb-12 bg-background">
-
-      <StandardProductSections productName="Sales" data={PRODUCT_STANDARD_SECTIONS["sales"]} />
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Sales
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              Intelligent CRM för moderna säljteam
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Dynamics 365 Sales hjälper ditt säljteam att bygga starkare kundrelationer, öka produktiviteten och stänga fler affärer snabbare. Med AI-drivna insikter via Microsoft Copilot får säljarna vägledning i rätt tid för att prioritera rätt leads och möjligheter.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Plattformen integreras sömlöst med Microsoft 365, Teams och Outlook, vilket gör det enkelt för säljare att arbeta effektivt utan att byta mellan olika system.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
@@ -334,34 +300,13 @@ const D365Sales = () => {
         <UnprofiledPartnersList variant="teaser" showSeeAllLink />
       </div>
 
-      {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-sales">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att ta din försäljning till nästa nivå?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och rätt partner med oss så hjälper vi dig hitta rätt CRM-lösning för ditt företag.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg"
-              className="bg-white text-sales hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
-            >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-        </div>
-      </section>
-
-      <ProductNextSteps product="sales" pageSource="D365 Sales" />
+<ProductNextSteps product="sales" pageSource="D365 Sales" />
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Sales" />
-
-      
-<ContextualCta source="next-step:d365sales" heading="Bedöm om Dynamics 365 Sales passar ert behov" text="Gör en kort behovsanalys och se vilka partners som har infört Sales hos företag som liknar ert." primaryLabel="Bedöm om Dynamics 365 Sales passar ert behov" product="Sales" links={[{ label: "Gör behovsanalys för sälj", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Skapa kravspecifikation för Sales", to: "/kravspecifikation-sales/" }, { label: "Räkna på kostnaden", to: "/d365sales/roi-kalkylator/" }]} />
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />
 <EditorialSource sourceType="Köpguide" />
 <SourcesAndMethod variant="product" />
+      <ProductNextSteps product="sales" pageSource="D365 Sales" />
 </main>
       <BasicProfilesDirectory products={["sales"]} />
       <Footer />
