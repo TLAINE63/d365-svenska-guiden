@@ -30,6 +30,7 @@ import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { toCompanySizeBucket } from "@/lib/companySizeBucket";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { buildCompareUrl } from "@/lib/compareUrl";
+import { readKravAreas } from "@/lib/fscmChainLinks";
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
@@ -89,7 +90,9 @@ const RequirementsSpec = () => {
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>(prefilledSize);
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const prefilledAreas = readKravAreas(location.search);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>(prefilledAreas);
+  const fromTest = prefilledAreas.length > 0;
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
   useEffect(() => {
@@ -341,8 +344,21 @@ const RequirementsSpec = () => {
           {/* Step 3: Areas */}
           {step === 3 && (
             <div className="space-y-6">
+              {fromTest && (
+                <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-sm text-foreground">
+                    <span className="font-medium">Förifyllt från ditt matchningstest:</span>{" "}
+                    {[industry, companySize && `${companySize} medarbetare`].filter(Boolean).join(" · ")}
+                  </p>
+                  <Button variant="outline" size="sm" onClick={() => setStep(1)}>Ändra bransch eller storlek</Button>
+                </div>
+              )}
               <h2 className="text-xl font-semibold text-foreground">Vilka funktionsområden är relevanta?</h2>
-              <p className="text-sm text-muted-foreground">Välj de områden du vill inkludera i kravspecifikationen.</p>
+              <p className="text-sm text-muted-foreground">
+                {fromTest
+                  ? "Vi har markerat de områden som dina svar pekar på. Lägg till eller ta bort och klicka sedan Generera."
+                  : "Välj de områden du vill inkludera i kravspecifikationen."}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {areaOptions
                   .filter((area) => !(isServicesIndustry(industry) && ["lager", "produktion", "transport"].includes(area.id)))
