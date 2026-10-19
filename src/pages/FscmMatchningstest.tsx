@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { addScopeApps, getBuyerProfile, saveProfile, setAnswer } from "@/lib/buyerProfile";
 import { BC_TEST_URL, deriveCompareFilters, filtersToSearch, FSCM_LEVEL_TEXT, type FscmLevel } from "@/lib/underlag";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Koppling mellan testets frågor och det anonyma underlaget (båda riktningarna).
 const INDUSTRY_TO_SLUG: Record<string, string> = { tillverkning: "tillverkning", grossist: "grossist-distribution", detaljhandel: "retail-ehandel" };
@@ -462,6 +463,34 @@ const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
  <Button asChild variant="outline">
  <a href={BC_TEST_URL} target="_blank" rel="noopener">Utvärdera Business Central på businesscentral.se</a>
  </Button>
+ </CardContent>
+ </Card>
+ )}
+
+ {score.level !== "oversized" && (
+ <Card className="border-primary/40">
+ <CardContent className="p-6 sm:p-8">
+ <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">Steg 1 klart: matcha produkt</p>
+ <h3 className="text-lg font-semibold text-foreground mb-4">Nästa steg i utvärderingen</h3>
+ <ol className="grid gap-3 sm:grid-cols-3">
+ {[
+ { step: 2, title: "Uppskatta investering och licenser", desc: "TCO/ROI-kalkyl för F&SCM.", to: "/finance-supply-chain/roi-kalkylator/" },
+ { step: 3, title: "Ta fram en kravbild", desc: "Kravspecifikation att dela internt och med partners.", to: "/kravspecifikation/" },
+ { step: 4, title: "Välj ut passande partners", desc: "Partnerlistan förifylls med era svar.", to: `/valjdynamics365partner/?${filtersToSearch(deriveCompareFilters(getBuyerProfile()))}` },
+ ].map((s) => (
+ <li key={s.step}>
+ <Link
+ to={s.to}
+ onClick={() => trackFunnelEvent({ event_type: "journey", event_name: "fscm_chain_click", metadata: { tool: "fscm-chain", chain_step: s.step, from: "matchningstest", level: LEVEL_MAP[score.level] } })}
+ className="group flex h-full flex-col rounded-lg border border-border bg-card p-4 hover:bg-secondary/50 transition-colors"
+ >
+ <span className="text-xs font-medium text-muted-foreground mb-1">Steg {s.step}</span>
+ <span className="font-semibold text-foreground inline-flex items-center gap-1.5">{s.title} <ArrowRight className="h-4 w-4" aria-hidden /></span>
+ <span className="text-sm text-muted-foreground mt-1">{s.desc}</span>
+ </Link>
+ </li>
+ ))}
+ </ol>
  </CardContent>
  </Card>
  )}
