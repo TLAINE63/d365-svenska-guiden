@@ -38,3 +38,4 @@
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
+- GEO pilot (F&SCM): FactBox for citation-friendly facts, SourcesAndMethod externalSources for Microsoft primary sources, ExpertCard renders only contributors explicitly registered in src/data/contentContributors.ts; avoids fabricated E-E-A-T signals.

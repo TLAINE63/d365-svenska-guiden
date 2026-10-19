@@ -212,7 +212,7 @@ const FinanceSupplyChain = () => {
    title="Snabbfakta om Finance & Supply Chain Management"
    facts={[
     { label: "Vad det är", value: "Microsofts enterprise-ERP för ekonomi, supply chain, tillverkning och lager." },
-    { label: "Licenspris (lista)", value: "Finance och Supply Chain Management: 2 007,30 kr per användare och månad vardera." },
+    { label: "Licenspris (lista)", value: "Finance och Supply Chain Management: 2\u00A0007,30\u00A0kr per användare och månad vardera." },
     { label: "Typiskt projekt", value: "Litet 2–6 MSEK, medelstort 6–15 MSEK, stort från 15 MSEK (d365.se:s bedömning)." },
     { label: "Typisk införandetid", value: "9–24 månader. Finance för ett bolag kan gå på 6–9 månader (d365.se:s bedömning)." },
     { label: "Passar för", value: "Flera juridiska bolag, flera valutor, tillverkning, avancerat lager (WMS) och hög regelefterlevnad." },
