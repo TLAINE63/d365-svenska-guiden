@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## F&SCM-pilot: laddning och mobilläsbarhet (2026-10-19)
+- [ ] Kontrollera sidans laddning, stabilitet och mobilöverbredd
+- [ ] Kontrollera kort svar, snabbfakta, källor och tre huvudvägar i webbläsaren
+- [ ] Dokumentera resultat utan publicering eller obekräftade expertuppgifter
+
 ## Business Central: komplett basresa (2026-10-19)
 - [x] Inventera och återanvänd befintliga tester, jämförelser, kostnadsverktyg och partnerfunktioner
 - [x] Samla förståelse, passform, jämförelse, kostnad och partner i en tydlig sidordning
