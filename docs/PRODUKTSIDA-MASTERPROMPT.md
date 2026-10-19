@@ -808,7 +808,7 @@ Efter implementation ska följande vara uppfyllt:
 • CTA:er konkurrerar inte i onödan
 • jämförelser är enkla att hitta
 • produkten framställs inte automatiskt som rätt för alla
-• d365.se:s oberoende bedömning är tydlig
+• d365.se:s köparsidiga bedömning är tydlig
 • inga obelagda fakta har skapats
 • inga fiktiva partnerpåståenden har skapats
 • sidan fungerar responsivt på mobil och desktop
