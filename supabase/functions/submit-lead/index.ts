@@ -364,9 +364,9 @@ const handler = async (req: Request): Promise<Response> => {
                     <h2 style="color: white; margin: 0; font-size: 20px;">Ny ${requestLabel.toLowerCase()} via d365.se</h2>
                   </div>
                   <div style="background:#ffffff; padding: 24px; border: 1px solid #e5e7eb; border-top:none;">
-                    <p style="margin:0 0 16px 0;">Hej${toName ? ` ${toName.split(" ")[0]}` : ""},</p>
+                    <p style="margin:0 0 16px 0;">Hej${toName ? ` ${sanitizeInput(toName.split(" ")[0])}` : ""},</p>
                     <p style="margin:0 0 16px 0;">
-                      En besökare på <a href="https://www.d365.se" style="color:#D64A1F;">d365.se</a> har skickat en ${requestLabel.toLowerCase()} till <strong>${p.name}</strong>${sanitizedData.selected_product ? ` gällande <strong>${sanitizedData.selected_product}</strong>` : ""}.
+                      En besökare på <a href="https://www.d365.se" style="color:#D64A1F;">d365.se</a> har skickat en ${requestLabel.toLowerCase()} till <strong>${sanitizeInput(String(p.name ?? ""))}</strong>${sanitizedData.selected_product ? ` gällande <strong>${sanitizedData.selected_product}</strong>` : ""}.
                       d365.se är kopierad (CC/BCC) på detta mejl för uppföljning och dialogen kring förfrågan.
                       Svara direkt till kunden genom att klicka på "Svara" – då går mejlet till ${sanitizedData.email}.
                     </p>
@@ -395,7 +395,7 @@ const handler = async (req: Request): Promise<Response> => {
               `,
             });
             partnerEmailSentCount++;
-            notifiedPartnerNames.push((p as any).name || p.slug);
+            notifiedPartnerNames.push(sanitizeInput(String((p as any).name || p.slug)));
 
             const providerMessageId = (sendResult as any)?.data?.id || null;
             const logMetadata = {
