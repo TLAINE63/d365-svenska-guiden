@@ -28,6 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
 import { allIndustries } from "@/data/partners";
 import { isServicesIndustry } from "@/lib/industryFilters";
+import { readServiceKravPrefill } from "@/lib/serviceChainLinks";
 
 const serviceTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
@@ -78,9 +79,12 @@ const RequirementsSpecCustomerService = () => {
   }, [step]);
 
 
+  const [testPrefill] = useState(() => readServiceKravPrefill(typeof window === "undefined" ? "" : window.location.search));
+  const fromTest = !!testPrefill.size || testPrefill.areas.length > 0;
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
-  const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const [companySize, setCompanySize] = useState<string>(testPrefill.size ?? "");
+  const [selectedAreas, setSelectedAreas] = useState<string[]>(testPrefill.areas);
+  const goNext = () => setStep((s) => (s === 1 && fromTest && companySize ? 3 : s + 1));
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
   useEffect(() => {
