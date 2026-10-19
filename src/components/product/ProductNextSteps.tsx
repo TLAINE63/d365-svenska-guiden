@@ -44,6 +44,26 @@ const ProductNextSteps = ({ product, pageSource }: Props) => {
 
   const name = <span className="whitespace-nowrap">{cfg.label}</span>;
 
+  if (product === "customer-service") {
+    return (
+      <section aria-labelledby="next-steps-heading" className="border-t border-border bg-secondary/40 py-8 sm:py-12">
+        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 id="next-steps-heading" className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Vad behöver ni inför nästa beslut?</h2>
+          <p className="mb-5 max-w-3xl text-muted-foreground">Bedöm om Customer Service passar, förbered ert underlag eller undersök partners med registrerad kompetens för produkten.</p>
+          <Button asChild size="lg" className="h-auto min-h-11 whitespace-normal text-left">
+            <Link to="/d365customerservice/matchningstest/" onClick={() => track("service_journey_cta", { path: "assess", position: "bottom" }, null, "service")}>Analysera vårt behov<ArrowRight className="h-4 w-4 shrink-0" aria-hidden /></Link>
+          </Button>
+          <div className="mt-5 flex flex-col gap-3 text-sm sm:flex-row sm:gap-8">
+            <a href="#service-beslutsunderlag" className="text-foreground underline underline-offset-4">Bygg vårt beslutsunderlag</a>
+            <a href="#partners" className="text-foreground underline underline-offset-4">Hitta rätt Customer Service-partner</a>
+          </div>
+          <h3 className="mb-3 mt-8 font-semibold text-foreground">Tre frågor att ställa innan ni väljer partner</h3>
+          <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">{cfg.questions.map((question) => <li key={question}>{question}</li>)}</ol>
+        </div>
+      </section>
+    );
+  }
+
   if (product === "finance-supply-chain") {
     const onPath = (path: string, to: string) => track("fscm_pilot_cta", { path, to, position: "bottom" }, null, "fscm");
     return (

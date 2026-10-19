@@ -1,33 +1,24 @@
+import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
-import ContextualCta from "@/components/ContextualCta";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import BuyerFitSection from "@/components/BuyerFitSection";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import EditorialSource from "@/components/EditorialSource";
 import ProductIsvSection from "@/components/ProductIsvSection";
-import FunnelCTA from "@/components/FunnelCTA";
 import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { customerServiceRelatedPages } from "@/components/RelatedPages";
-import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
-import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
-import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiCta from "@/components/ProductRoiCta";
-import { ArrowRight, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FileText } from "lucide-react";
 import { useEffect } from "react";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import SEOHead from "@/components/SEOHead";
@@ -37,7 +28,7 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 const customerServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Kundservice", url: "https://d365.se/d365customerservice" },
-  { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365customerservice" },
+  { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365customerservice" },
 ];
 import {
   Accordion,
@@ -48,14 +39,14 @@ import {
 
 // Customer Service FAQs for schema
 const customerServiceFaqs = [
-  { question: "Vad kostar Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service finns i två licensnivåer: Professional kostar 478 kr/kundservicemedarbetare/mån och Enterprise kostar 1 004 kr/mån. Enterprise inkluderar Copilot AI, omnikanalstöd och avancerad analys. Implementeringskostnad för ett standardprojekt ligger typiskt på 150 000–400 000 kr." },
-  { question: "Vad är Dynamics 365 Customer Service och hur används det?", answer: "Microsoft Dynamics 365 Customer Service är ett molnbaserat ärendehanteringssystem (helpdesk/kundservice-system) för kundservicemedarbetare. Det samlar ärenden från alla kanaler – e-post, chatt, telefon, sociala medier och portal – i ett enhetligt gränssnitt med inbyggd AI via Microsoft Copilot." },
-  { question: "Är Dynamics 365 Customer Service ett bra helpdesk-system för Microsoft-miljöer?", answer: "Ja, Dynamics 365 Customer Service är Microsofts egna helpdesk och kundserviceplattform och integreras nativt med Microsoft 365 (Outlook, Teams), Azure och Power Platform. Det är ett ledande alternativ till Zendesk och ServiceNow för organisationer som redan använder Microsoft-ekosystemet." },
+  { question: "Vad kostar Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service finns i två licensnivåer: Professional kostar 478 kr/kundservicemedarbetare/mån och Enterprise kostar 1 004 kr/mån. Enterprise inkluderar Copilot AI, omnikanalstöd och avancerad analys. Implementeringskostnad för ett standardprojekt ligger typiskt på 150 000–400 000 kr." },
+  { question: "Vad är Dynamics 365 Customer Service och hur används det?", answer: "Microsoft Dynamics 365 Customer Service är ett molnbaserat ärendehanteringssystem (helpdesk/kundservice-system) för kundservicemedarbetare. Det samlar ärenden från alla kanaler – e-post, chatt, telefon, sociala medier och portal – i ett enhetligt gränssnitt med inbyggd AI via Microsoft Copilot." },
+  { question: "Är Dynamics 365 Customer Service ett bra helpdesk-system för Microsoft-miljöer?", answer: "Ja, Dynamics 365 Customer Service är Microsofts egna helpdesk och kundserviceplattform och integreras nativt med Microsoft 365 (Outlook, Teams), Azure och Power Platform. Det är ett ledande alternativ till Zendesk och ServiceNow för organisationer som redan använder Microsoft-ekosystemet." },
   { question: "Vad är skillnaden mellan Customer Service Professional och Enterprise?", answer: "Professional (478 kr/mån) inkluderar ärendehantering, kunskapsdatabas och SLA-hantering via e-post och chatt. Enterprise (1 004 kr/mån) lägger till Copilot AI, multisessions-gränssnitt, omnikanalstöd (telefon, SMS, sociala medier), enhetlig dirigering, avancerad analys och kundsjälvbetjäningsportaler." },
-  { question: "Hur fungerar Microsoft Copilot i Dynamics 365 Customer Service?", answer: "Copilot i Customer Service analyserar kundärenden och föreslår automatiskt lösningar från kunskapsdatabasen, sammanfattar konversationshistorik, ger realtidscoaching till kundservicemedarbetare och kan generera svarsutkast. Det minskar genomsnittlig hanteringstid (AHT) och förbättrar kundnöjdhet (CSAT)." },
-  { question: "Vilka kanaler stöds i Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service stöder ärendehantering via e-post och chatt i Professional-planen. Med Enterprise-planen och Omnichannel-tillägget tillkommer telefoni, SMS, WhatsApp, Facebook Messenger och Twitter/X – allt samordnat i ett enhetligt agentkokpit." },
-  { question: "Kan vi skapa självbetjäningsportaler med Dynamics 365 Customer Service?", answer: "Ja, med Enterprise-licensen kan du bygga kundportaler via Power Pages där kunder kan logga in, följa sina ärenden, söka i kunskapsdatabasen och skapa nya supportärenden – vilket minskar behovet av direktkontakt med kundservicemedarbetare." },
-  { question: "Hur lång tid tar det att implementera Dynamics 365 Customer Service?", answer: "En standardimplementering med ärendehantering och e-postkanal tar 2–4 månader. Fullständig omnikanalimplementering med telefoni, Copilot och portaler tar 4–8 månader. En erfaren Microsoft-partner är avgörande för att säkerställa korrekt konfiguration och adoption bland kundservicemedarbetare." },
+  { question: "Hur fungerar Microsoft Copilot i Dynamics 365 Customer Service?", answer: "Copilot i Customer Service analyserar kundärenden och föreslår automatiskt lösningar från kunskapsdatabasen, sammanfattar konversationshistorik, ger realtidscoaching till kundservicemedarbetare och kan generera svarsutkast. Det minskar genomsnittlig hanteringstid (AHT) och förbättrar kundnöjdhet (CSAT)." },
+  { question: "Vilka kanaler stöds i Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service stöder ärendehantering via e-post och chatt i Professional-planen. Med Enterprise-planen och Omnichannel-tillägget tillkommer telefoni, SMS, WhatsApp, Facebook Messenger och Twitter/X – allt samordnat i ett enhetligt agentkokpit." },
+  { question: "Kan vi skapa självbetjäningsportaler med Dynamics 365 Customer Service?", answer: "Ja, med Enterprise-licensen kan du bygga kundportaler via Power Pages där kunder kan logga in, följa sina ärenden, söka i kunskapsdatabasen och skapa nya supportärenden – vilket minskar behovet av direktkontakt med kundservicemedarbetare." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365 Customer Service?", answer: "En standardimplementering med ärendehantering och e-postkanal tar 2–4 månader. Fullständig omnikanalimplementering med telefoni, Copilot och portaler tar 4–8 månader. En erfaren Microsoft-partner är avgörande för att säkerställa korrekt konfiguration och adoption bland kundservicemedarbetare." },
 ];
 
 const D365CustomerService = () => {
@@ -98,13 +89,13 @@ const D365CustomerService = () => {
         title="Customer Service – pris, omnikanal & partner"
         description="Helpdesk och ärendehantering med Copilot AI och omnikanal (e-post, chatt, telefon, SMS): pris från 478 kr/mån och svenska Microsoft-partners."
         canonicalPath="/d365customerservice"
-        keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
+        keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
         ogImage="https://d365.se/og-customer-service.png"
       />
       <FAQSchema faqs={customerServiceFaqs} />
       <ServiceSchema 
-        name="Microsoft Dynamics 365 Customer Service – Helpdesk & Ärendehantering"
-        description="Molnbaserat kundservicesystem och helpdesk med inbyggd Copilot AI, omnikanalstöd (e-post, chatt, telefon, SMS) och självbetjäningsportaler. Licenspriser från 478 kr/kundservicemedarbetare/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        name="Microsoft Dynamics 365 Customer Service – Helpdesk & Ärendehantering"
+        description="Molnbaserat kundservicesystem och helpdesk med inbyggd Copilot AI, omnikanalstöd (e-post, chatt, telefon, SMS) och självbetjäningsportaler. Licenspriser från 478 kr/kundservicemedarbetare/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
@@ -113,71 +104,36 @@ const D365CustomerService = () => {
       {/* Header */}
       <ProductHero
         icon={CustomerServiceIcon}
-        eyebrow="Dynamics 365 Customer Service"
-        title="Dynamics 365 Customer Service – ärendehantering, kanaler och partner"
-        subhead="En e-handelssupport med 5 000 ärenden i veckan behöver något annat än en B2B-organisation med 200 komplexa ärenden. Funktionerna är desamma – men hur partnern designar ärendefördelning, kunskapsbas och självservice avgör om systemet sänker handläggningstiden eller bara flyttar admin mellan avdelningar. Här jämför du partners som faktiskt levererat Customer Service i din volym och din bransch."
-        primary={{
-          label: "Jämför CRM-partners",
-          to: "/dynamics-365-crm-partners-sverige/",
-        }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
-        tertiary={{
-          label: "Gör en estimerad TCO/ROI-kalkyl",
-          to: "/d365customerservice/roi-kalkylator/",
-        }}
-        quaternary={{
-          label: "Filtrera fram en passande Customer Service-partner",
-          href: "#partners",
-        }}
+        eyebrow="Dynamics 365 Customer Service"
+        title="Dynamics 365 Customer Service"
+        titleAccent="Vilket stöd behöver er kundservice?"
+        subhead="Börja med era ärenden, kanaler och kundernas behov. Bedöm om Customer Service passar, jämför alternativ och ta fram krav och kostnadsbild innan ni undersöker partners."
+        primary={{ label: "Analysera vårt behov", to: "/d365customerservice/matchningstest/", onClick: () => trackServiceJourney("assess", "/d365customerservice/matchningstest/", "hero") }}
+        secondary={{ label: "Bygg vårt beslutsunderlag", href: "#service-beslutsunderlag", icon: FileText }}
+        tertiary={{ label: "Hitta rätt Customer Service-partner", href: "#partners" }}
       />
 
-      <ShortAnswer title="Vad är Dynamics 365 Customer Service">
+      <EditorialSource sourceType="Köpguide" />
+      <ServiceDecisionGuide />
+
+      <ShortAnswer title="Vad är Dynamics 365 Customer Service">
         <p>
-          Dynamics 365 Customer Service är Microsofts moderna plattform för kundservice och support – byggd för organisationer som vill leverera snabb, träffsäker och personlig hjälp oavsett om kunden hör av sig via telefon, chatt, e-post, webbformulär, sociala medier eller självbetjäningsportal.
+          Dynamics 365 Customer Service är Microsofts plattform för kundservice och support. Den samlar kundärenden, historik, kunskapsbas och uppföljning av serviceåtaganden så att handläggare kan arbeta med samma information.
         </p>
         <p>
-          Plattformen samlar hela ärendelivscykeln på ett ställe: intelligent ärendefördelning baserad på kompetens och tillgänglighet, SLA- och rättighetsuppföljning, en gemensam kunskapsbas som både handläggare och kunder kan söka i, samt en 360°-vy av kundens hela historik från alla kanaler.
-        </p>
-        <p>
-          Inbyggd Copilot och autonoma serviceagenter sammanfattar långa ärendetrådar på sekunder, föreslår svar baserat på kunskapsbasen, dirigerar enkla ärenden automatiskt och hjälper handläggaren att avsluta samtal snabbare med högre kvalitet – vilket frigör tid till de komplexa fallen där människan gör störst skillnad.
-        </p>
-        <p>
-          Lösningen passar lika väl volymdriven konsumentsupport som komplex B2B-service med avtalsstyrning, och växer sömlöst tillsammans med Dynamics 365 Sales, Field Service och Contact Center i samma datamodell. Men hur partnern designar ärendeflöden, SLA:er, kunskapsstruktur och Copilot-funktioner avgör om handläggningstiden faktiskt sjunker och kundnöjdheten lyfter.
+          Behov av telefoni, fler kanaler och självservice ska bedömas tillsammans med ärendeflödet. Kontrollera vilka licenser, tillägg och integrationer som behövs för just er lösning, i stället för att utgå från att allt ingår. Copilot och automatisering behöver tillförlitlig information och tydliga kontrollpunkter.
         </p>
       </ShortAnswer>
       <BuyerFitSection fitKey="service" />
       <EditorialAssessment assessment="service" />
 
 
-      {/* Introduction Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-
-      <StandardProductSections productName="Customer Service" data={PRODUCT_STANDARD_SECTIONS["customer-service"]} />
-
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Microsoft Dynamics 365 Customer Service
-            </h2>
-            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
-              Intelligent ärendehantering för nöjdare kunder
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Dynamics 365 Customer Service ger ditt supportteam verktyg för att hantera kundärenden effektivt, bygga upp en omfattande kunskapsdatabas och leverera konsekvent service oavsett kanal.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Med AI-drivna funktioner som Microsoft Copilot får dina agenter realtidshjälp med att hitta rätt information, formulera svar och lösa ärenden snabbare – vilket leder till högre kundnöjdhet och lägre kostnader.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
-              Se Dynamics 365 Customer Service i aktion
+              Se Dynamics 365 Customer Service i aktion
             </h2>
             <VideoCard
               title="Customer Service och Support"
@@ -194,7 +150,7 @@ const D365CustomerService = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
-              Vanliga frågor om Dynamics 365 Customer Service
+              Vanliga frågor om Dynamics 365 Customer Service
             </h2>
             
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
@@ -245,7 +201,7 @@ const D365CustomerService = () => {
                   ❓ Vilka kanaler stöds för kundkommunikation?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 space-y-4">
-                  <p>Dynamics 365 Customer Service stöder kommunikation via:</p>
+                  <p>Dynamics 365 Customer Service stöder kommunikation via:</p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>📧 E-post</li>
                     <li>💬 Chatt</li>
@@ -306,90 +262,27 @@ const D365CustomerService = () => {
         </div>
       </section>
 
-      {/* Implementation Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
-              Hur lång tid tar en implementation och vad ligger kostnaden på?
-            </h2>
-            <div className="bg-card rounded p-6 sm:p-8 border border-border ">
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">⏱️ Tidsåtgång</h3>
-                  <p className="text-muted-foreground mb-4">
-                    En typisk implementation av Customer Service tar <strong>2-4 månader</strong> beroende på ärendevolym och kanaler.
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Grundläggande ärendehantering:</strong> 6-10 veckor</li>
-                    <li>• <strong>Med kunskapsbas och portal:</strong> 4-6 månader</li>
-                    <li>• <strong>Omnikanal implementation:</strong> 8-12 månader</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">💰 Kostnad</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Implementationskostnaden beror på antal supportagenter, kanaler och integrationsbehov.
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• <strong>Grundläggande:</strong> 150 000 - 350 000 kr</li>
-                    <li>• <strong>Med kunskapsbas:</strong> 350 000 - 700 000 kr</li>
-                    <li>• <strong>Komplett omnikanal:</strong> 700 000 - 1 500 000 kr</li>
-                  </ul>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground mt-6 italic">
-                * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <BuyerManual product="customer-service" />
       <CostBreakdown product="customer-service" />
-      <ComparisonQuickLinks productKeys="customer-service" />
 
-      <ProductRoiCta productKey="customer-service" />
 
-      <ProductDeepDiveLink product="Dynamics 365 Customer Service" label="Customer Service" />
+      <ProductDeepDiveLink product="Dynamics 365 Customer Service" label="Customer Service" />
 
       <ProductPartnerNewsSection productArea="crm-service" productLabel="Customer Service" />
 
+
+
+      <ProductIsvSection product="Customer Service" />
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
-      {/* CTA Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-customer-service">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att förbättra din kundservice?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och rätt partner med oss så hjälper vi dig skapa en kundservicetlösning som överträffar förväntningar.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg"
-              className="bg-white text-customer-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded"
-            >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-        </div>
-      </section>
-
-      <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
-      <ProductIsvSection product="Customer Service" />
 
       
-<FunnelCTA stage="early" guide="crm" source="/d365customerservice/" />
+
 </main>
       <BasicProfilesDirectory products={["service"]} />
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
-      <ContextualCta source="next-step:d365customerservice" heading="Bedöm ert kundservicebehov" text="Gör en kort behovsanalys för kundservice och se partners som har infört Customer Service hos liknande verksamheter." primaryLabel="Få hjälp att hitta rätt partner" product="Customer Service" links={[{ label: "Bedöm ert kundservicebehov", to: "/kundservice-behovsanalys/" }, { label: "Hur väljer ni kundservicesystem?", to: "/kundservicesystem/" }, { label: "Jämför CRM-partners för ert behov", to: "/dynamics-365-crm-partners-sverige/" }]} />
-      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod variant="product" />
+      <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
       <Footer />
     </div>
   );
