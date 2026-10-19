@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Compass, FileText, Users, ClipboardList, Calculator, Scale } from "lucide-react";
+import { AlertCircle, ArrowRight, Compass, FileText, Users, ClipboardList, Calculator, Scale } from "lucide-react";
 import { track } from "@/lib/track";
 
 /**
@@ -11,6 +11,15 @@ const PATHS = [
   { key: "build", Icon: FileText, who: "Vi utvärderar Dynamics\u00A0365 Sales", title: "Bygg vårt beslutsunderlag", to: "#crm-beslutsunderlag", primary: false },
   { key: "match", Icon: Users, who: "Vi vet vad vi behöver", title: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/", primary: false },
 ] as const;
+
+const PROBLEMS = [
+  "Kundinformationen ligger utspridd i mejl, Excel och olika system.",
+  "Säljpipelinen är svår att överblicka.",
+  "Säljprocessen skiljer sig mellan säljarna.",
+  "Uppföljningen sker manuellt och faller mellan stolarna.",
+  "Ledningen saknar en pipeline och prognos att lita på.",
+  "CRM och affärssystemet fungerar dåligt tillsammans.",
+];
 
 const BUILD = [
   { key: "behov", Icon: Compass, label: "Behov", q: "Vad behöver säljorganisationen faktiskt?", cta: "Gör CRM-behovsanalysen", to: "/CRMbehovsanalys/" },
@@ -27,8 +36,20 @@ export default function SalesDecisionGuide() {
     <section aria-labelledby="sales-decision-heading" className="py-8 sm:py-10 bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         <h2 id="sales-decision-heading" className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
-          Är Dynamics&nbsp;365 Sales rätt CRM för oss?
+          Behöver vi byta eller förbättra vårt CRM?
         </h2>
+        <p className="text-sm md:text-base text-muted-foreground mb-4 max-w-3xl">
+          Känner ni igen flera av de här problemen är det värt att se över säljstödet. Det betyder inte automatiskt att Dynamics&nbsp;365 Sales är svaret, ibland räcker ett enklare CRM eller ett bättre arbetssätt.
+        </p>
+        <ul className="grid gap-2 sm:grid-cols-2 mb-8 max-w-4xl">
+          {PROBLEMS.map((p) => (
+            <li key={p} className="flex items-start gap-2 text-sm text-foreground">
+              <AlertCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" aria-hidden />
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Är Dynamics&nbsp;365 Sales rätt väg för oss?</h2>
         <p className="text-sm md:text-base text-muted-foreground mb-5 max-w-3xl">
           Börja där ni befinner er. Ni behöver inte gå igenom alla steg.
         </p>

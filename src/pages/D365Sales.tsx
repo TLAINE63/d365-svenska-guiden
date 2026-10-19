@@ -127,13 +127,14 @@ const D365Sales = () => {
         icon={SalesIcon}
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
-        titleAccent="Verktyget är en sak. Partnern som sätter dina säljprocesser är en annan."
-        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma – men hur partnern bygger Sales runt din specifika modell avgör om det blir din pipeline eller bara ett dyrt CRM. Här jämför du partners som faktiskt levererat Sales i din typ av verksamhet."
+        titleAccent="Behöver ni byta eller förbättra ert CRM, och är Sales rätt väg?"
+        subhead={"Börja i säljorganisationens problem, inte i funktionslistan. Här får ni hjälp att bedöma behovet, jämföra alternativ, ta fram en kravbild och hitta partners som kan Dynamics\u00A0365 Sales."}
         primary={{ label: "Analysera vårt CRM-behov", to: "/d365sales/matchningstest/" }}
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#crm-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
 
+      <SalesDecisionGuide />
       <ShortAnswer title="Vad är Dynamics 365 Sales">
         <p>Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess.</p>
         <p>Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang.</p>
@@ -143,7 +144,6 @@ const D365Sales = () => {
       </ShortAnswer>
       <BuyerFitSection fitKey="sales" />
       <EditorialAssessment assessment="sales" />
-      <SalesDecisionGuide />
 
 
       {/* Video Section */}
