@@ -245,8 +245,6 @@ const D365Sales = () => {
       <CostBreakdown product="sales" />
       <ComparisonQuickLinks productKeys="sales" />
 
-      {/* CTA till TCO/ROI-kalkylator i Kunskapscentret */}
-      <ProductRoiCta productKey="sales" />
 
 
       <ProductDeepDiveLink product="Dynamics 365 Sales" label="Sales" />
