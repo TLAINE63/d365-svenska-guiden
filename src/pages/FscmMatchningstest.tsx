@@ -274,7 +274,7 @@ const FscmMatchningstest = () => {
  onFinish={() => setShowResult(true)}
  />
  ) : score ? (
- <ResultView score={score} onRestart={restart} onBack={() => setShowResult(false)} />
+ <ResultView score={score} answers={answers} onRestart={restart} onBack={() => setShowResult(false)} />
  ) : null}
  </div>
  </main>
@@ -399,7 +399,7 @@ interface ResultViewProps {
  onBack: () => void;
 }
 
-const ResultView = ({ score, onRestart, onBack }: ResultViewProps) => {
+const ResultView = ({ score, answers, onRestart, onBack }: ResultViewProps & { answers: Answers }) => {
  const level = LEVEL_COPY[score.level];
  const tops = topProfiles(score, 3);
  const strongest = tops[0]?.key;
