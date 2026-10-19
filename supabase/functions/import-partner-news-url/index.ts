@@ -1,3 +1,4 @@
+import { safeFetch } from "../_shared/safe-fetch.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { z } from "https://esm.sh/zod@3.23.8";
 
