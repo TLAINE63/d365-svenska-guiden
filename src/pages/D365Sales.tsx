@@ -128,7 +128,7 @@ const D365Sales = () => {
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
         titleAccent="Behöver ni byta eller förbättra ert CRM, och är Sales rätt väg?"
-        subhead="Börja i säljorganisationens problem, inte i funktionslistan. Här får ni hjälp att bedöma behovet, jämföra alternativ, ta fram en kravbild och hitta partners som kan Dynamics\u00A0365 Sales."
+        subhead={"Börja i säljorganisationens problem, inte i funktionslistan. Här får ni hjälp att bedöma behovet, jämföra alternativ, ta fram en kravbild och hitta partners som kan Dynamics\u00A0365 Sales."}
         primary={{ label: "Analysera vårt CRM-behov", to: "/d365sales/matchningstest/" }}
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#crm-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/" }}
