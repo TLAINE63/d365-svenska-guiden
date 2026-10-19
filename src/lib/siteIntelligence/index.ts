@@ -8,7 +8,7 @@ export function analyticsConsentGranted(): boolean {
 }
 let service: ReturnType<typeof createTrackingService> | undefined;
 function tracker() {
-  service ??= createTrackingService({ endpoint: connection.endpoint, siteId: connection.site.site_key, registry: connection.registry, environment: 'test', config: connection.engagement, consent: analyticsConsentGranted });
+  service ??= createTrackingService({ endpoint: connection.endpoint, siteId: connection.site.site_key, registry: connection.registry, environment: 'production', config: connection.engagement, consent: analyticsConsentGranted });
   return service;
 }
 export function providerForSlug(slug: string) { return providers[slug]; }
