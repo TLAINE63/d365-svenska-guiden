@@ -13,7 +13,6 @@ import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
-import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -128,38 +127,6 @@ const FinanceSupplyChain = () => {
  }, [partners]);
 
 
- const fscVideos = [
- {
- title: "Introduktion till Dynamics 365 Finance",
- description: "Maximera insynen i ekonomin och lönsamheten med generativ AI och automatisering",
- videoId: "O5yecO8A_9Q",
- uploadDate: "2025-01-23",
- },
- {
- title: "Supply Chain Management Översikt",
- description: "Den flexibla, samarbetsbaserade, anslutna plattformen som drivs av Microsoft Copilot för att bättre navigera i störningar.",
- videoId: "jC1EaSrB-Ak",
- uploadDate: "2025-03-13",
- },
- {
- title: "Dynamics 365 Human Resources",
- description: "Skapa en arbetsplats där människor och verksamhet kan växa",
- videoId: "LKmtKeN2hwk",
- uploadDate: "2019-12-05",
- },
- {
- title: "Dynamics 365 Commerce",
- description: "Leverera enhetliga, personliga och smidiga köpupplevelser med flera kanaler för kunder och partners.",
- videoId: "2URyNIGX2Js",
- uploadDate: "2021-10-28",
- },
- {
- title: "Dynamics 365 Finance & Supply Chain Management (F&O)",
- description: "Se hur Finance & Supply Chain Management (F&O) kan optimera din verksamhet",
- videoId: "7lbGGMvL-GU",
- uploadDate: "2025-09-04",
- },
- ];
 
  const fscPricingPlans = [
  {
