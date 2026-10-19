@@ -264,7 +264,7 @@ const RequirementsSpecCustomerService = () => {
                 <div className="flex items-center gap-3">
                   <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
                   {step < 3 ? (
-                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                    <Button onClick={goNext} size="sm" disabled={!canProceed()}>
                       Nästa <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   ) : (
@@ -538,7 +538,7 @@ ${
               </Button>
 
               {step < 3 ? (
-                <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
+                <Button onClick={goNext} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
