@@ -32,6 +32,7 @@ import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { salesChainLinks } from "@/lib/salesChainLinks";
+import { serviceChainLinks } from "@/lib/serviceChainLinks";
 
 interface Props {
   productKey: ProductConfig["key"];
@@ -367,13 +368,19 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 </Card>
               )}
 
-              {config.key === "sales" && score.level !== "oversized" && (() => {
-                const links = salesChainLinks(answers, score.level);
-                const steps = [
+              {(config.key === "sales" || config.key === "customer-service") && score.level !== "oversized" && (() => {
+                const isCs = config.key === "customer-service";
+                const links = isCs ? serviceChainLinks(answers, score.level) : salesChainLinks(answers, score.level);
+                const steps = isCs ? [
+                  { n: 2, title: "Uppskatta investering och licenser", body: "Kalkylatorn startar med antal handläggare, integrationer och komplexitet från dina svar.", to: links.roi, key: "roi" },
+                  { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med teamstorlek och funktionsområden förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
+                  { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Customer Service.", to: links.partners, key: "partners" },
+                ] : [
                   { n: 2, title: "Uppskatta investering och licenser", body: "Kalkylatorn startar med antal säljare, licensnivå och komplexitet från dina svar.", to: links.roi, key: "roi" },
                   { n: 3, title: "Ta fram en kravbild", body: "Kravspecen startar med teamstorlek och funktionsområden förkryssade. Du väljer bara bransch.", to: links.kravspec, key: "kravspec" },
                   { n: 4, title: "Välj ut passande partners", body: "Jämför partners som arbetar med Dynamics\u00A0365 Sales.", to: links.partners, key: "partners" },
                 ];
+                const eventName = isCs ? "service_chain_click" : "sales_chain_click";
                 return (
                   <Card>
                     <CardContent className="p-6 sm:p-8">
@@ -383,7 +390,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                           <li key={s.key}>
                             <Link
                               to={s.to}
-                              onClick={() => trackFunnelEvent("sales_chain_click", { product_key: "sales", step: s.key, level: score.level })}
+                              onClick={() => trackFunnelEvent(eventName, { product_key: config.key, step: s.key, level: score.level })}
                               className="flex gap-3 rounded-lg border border-border p-4 hover:border-primary/50"
                             >
                               <span className="font-semibold text-primary">{s.n}.</span>
