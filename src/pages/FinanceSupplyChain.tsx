@@ -11,8 +11,6 @@ import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
 import { useIndustryDeepLink } from "@/hooks/useIndustryDeepLink";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -227,17 +225,13 @@ const FinanceSupplyChain = () => {
         title="När passar Finance & Supply Chain Management (F&O)?"
   subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot dina befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför du partners som levererat F&SCM i din bransch."
   primary={{
-    label: "Jämför F&SCM-partners",
-    to: "/finance-supply-chain-partners-sverige/",
+    label: "1. Matcha produkt: gör matchningstestet",
+    to: "/finance-supply-chain-management/matchningstest/",
   }}
-  secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
+  secondary={{ label: "2. Bygg beslutsunderlag: TCO/ROI-kalkyl", to: "/finance-supply-chain/roi-kalkylator/", icon: FileText }}
   tertiary={{
-    label: "Gör en estimerad TCO/ROI-kalkyl",
-    to: "/finance-supply-chain/roi-kalkylator/",
-  }}
-  quaternary={{
-    label: "Filtrera fram en passande F&SCM-partner",
-    href: "#partners",
+    label: "3. Matcha partner: jämför F&SCM-partners",
+    to: "/finance-supply-chain-partners-sverige/",
   }}
   />
   <ShortAnswer>
@@ -249,39 +243,6 @@ const FinanceSupplyChain = () => {
  </ShortAnswer>
   <EditorialAssessment assessment="fscm" />
   <FscmDecisionGuide />
-
-
-
-  
-
- {/* Matchningstest CTA */}
- <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
-   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
-       <div>
-         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
-           Matchningstest
-         </p>
-         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Vad avgör valet av Finance &amp; Supply Chain Management (F&O)?
-         </h2>
-         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           Ett funktionsorienterat test som tittar på vilka konkreta behov du har – inte ett mognadsbetyg.
-           Testet är ärligt även när svaret är att F&amp;SCM är överdimensionerat för dig. Då pekar vi i stället
-           på Business Central eller andra alternativ.
-         </p>
-       </div>
-       <Link
-         to="/finance-supply-chain-management/matchningstest/"
-         className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap"
-       >
-         Starta matchningstestet →
-       </Link>
-     </div>
-   </div>
- </section>
-
- <StandardProductSections productName="Finance & Supply Chain Management" data={PRODUCT_STANDARD_SECTIONS["finance-supply-chain"]} />
 
  {/* FAQ Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">

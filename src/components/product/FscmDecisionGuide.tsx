@@ -9,28 +9,28 @@ import { track } from "@/lib/track";
  */
 const PATHS = [
   {
-    key: "compare",
+    key: "matchtest",
     Icon: Scale,
-    who: "Osäker på produktvalet",
-    title: "Jämför Business Central och Finance/SCM",
-    to: "/affarssystem/#comparison",
-    primary: false,
+    who: "1. Matcha produkt",
+    title: "Osäker? Gör matchningstestet",
+    to: "/finance-supply-chain-management/matchningstest/",
+    primary: true,
   },
   {
     key: "cost",
     Icon: Calculator,
-    who: "Vill förstå investeringen",
-    title: "Se kostnadsbilden",
-    to: "/kostnad/",
+    who: "2. Bygg beslutsunderlag",
+    title: "Räkna TCO/ROI och ta fram kravbild",
+    to: "/finance-supply-chain/roi-kalkylator/",
     primary: false,
   },
   {
     key: "partner",
     Icon: Users,
-    who: "Har ett definierat behov",
-    title: "Hitta rätt partner",
+    who: "3. Matcha partner",
+    title: "Jämför F&SCM-partners",
     to: "/finance-supply-chain-partners-sverige/",
-    primary: true,
+    primary: false,
   },
 ] as const;
 
@@ -68,13 +68,6 @@ const LESS_FIT = [
   "Skulle ett enklare affärssystem, till exempel Business Central, täcka de funktionella kraven?",
 ];
 
-const NEEDS = [
-  { need: "Ekonomi och finansiell styrning", answer: "Finance" },
-  { need: "Produktion", answer: "Supply Chain Management" },
-  { need: "Lager och warehouse management", answer: "Supply Chain Management" },
-  { need: "Inköp och supply chain", answer: "Supply Chain Management" },
-  { need: "Kombinerade globala ERP-behov", answer: "Finance och Supply Chain Management" },
-];
 
 const nb = (s: string) => s.replace(/Dynamics 365/g, "Dynamics\u00A0365");
 
@@ -89,7 +82,7 @@ export default function FscmDecisionGuide() {
           Var befinner ni er i beslutet?
         </h2>
         <p className="text-sm md:text-base text-muted-foreground mb-5 max-w-3xl">
-          {nb("Finance hanterar ekonomi och finansiell styrning. Supply Chain Management hanterar produktion, lager, inköp och logistik. Välj den väg som passar ert läge.")}
+          {nb("Finance hanterar ekonomi och finansiell styrning. Supply Chain Management hanterar produktion, lager, inköp och logistik. Tre steg: matcha produkten, bygg beslutsunderlaget, matcha partnern.")}
         </p>
         <div className="grid gap-2 sm:gap-3 md:grid-cols-3 mb-7 sm:mb-10">
           {PATHS.map(({ key, Icon, who, title, to, primary }) => (
@@ -130,18 +123,18 @@ export default function FscmDecisionGuide() {
           ))}
         </div>
 
-        <div className="grid gap-7 md:gap-6 md:grid-cols-2">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">När passar det mindre bra?</h2>
-            <p className="text-sm text-muted-foreground mb-3">Frågor att ställa innan ni går vidare:</p>
-            <ul className="space-y-2 mb-4">
-              {LESS_FIT.map((q) => (
-                <li key={q} className="flex items-start gap-2 text-sm text-foreground">
-                  <AlertTriangle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" aria-hidden />
-                  <span>{q}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="max-w-3xl">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">När passar det mindre bra?</h2>
+          <p className="text-sm text-muted-foreground mb-3">Frågor att ställa innan ni går vidare:</p>
+          <ul className="space-y-2 mb-4">
+            {LESS_FIT.map((q) => (
+              <li key={q} className="flex items-start gap-2 text-sm text-foreground">
+                <AlertTriangle className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" aria-hidden />
+                <span>{q}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
             <Link
               to="/affarssystem/#comparison"
               onClick={() => onPath("compare", "/affarssystem/#comparison", "less-fit")}
@@ -149,23 +142,12 @@ export default function FscmDecisionGuide() {
             >
               Jämför med Business Central <ArrowRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
-          </div>
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">Vad behöver vi?</h2>
-            <dl className="divide-y divide-border rounded-lg border border-border bg-card">
-              {NEEDS.map((n) => (
-                <div key={n.need} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-                  <dt className="text-foreground">{n.need}</dt>
-                  <dd className="font-medium text-accent text-right">{n.answer}</dd>
-                </div>
-              ))}
-            </dl>
             <Link
               to="/finance-supply-chain-management/matchningstest/"
-              onClick={() => onPath("matchtest", "/finance-supply-chain-management/matchningstest/", "needs")}
-              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              onClick={() => onPath("matchtest", "/finance-supply-chain-management/matchningstest/", "less-fit")}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
             >
-              Osäker? Gör matchningstestet <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              Låt matchningstestet avgöra <ArrowRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>
         </div>
