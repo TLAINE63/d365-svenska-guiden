@@ -395,7 +395,7 @@ const handler = async (req: Request): Promise<Response> => {
               `,
             });
             partnerEmailSentCount++;
-            notifiedPartnerNames.push((p as any).name || p.slug);
+            notifiedPartnerNames.push(sanitizeInput(String((p as any).name || p.slug)));
 
             const providerMessageId = (sendResult as any)?.data?.id || null;
             const logMetadata = {
