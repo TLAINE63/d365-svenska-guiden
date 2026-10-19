@@ -16,6 +16,9 @@ import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
+import FactBox from "@/components/FactBox";
+import ExpertCard from "@/components/ExpertCard";
+import { fscmSources } from "@/lib/guideSources";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
@@ -61,11 +64,11 @@ import EditorialSource from "@/components/EditorialSource";
 // Finance & Supply Chain FAQs for schema
 const fscFaqs = [
  { question: "Vad kostar Dynamics 365 Finance och Supply Chain Management?", answer: "Dynamics 365 Finance kostar 2 007,30 kr per användare och månad. Supply Chain Management kostar lika mycket – 2 007,30 kr per användare/mån. Human Resources kostar 1 290,40 kr/mån. Implementeringskostnader varierar med komplexitet, antal juridiska entiteter och anpassningsbehov: ett litet projekt ligger på 2–6 miljoner kronor, ett medelstort på 6–15 miljoner och ett stort på från 15 miljoner kronor." },
- { question: "Dynamics 365 Finance & Supply Chain Management (F&O) vs SAP S/4HANA – vilket ERP ska jag välja?", answer: "Dynamics 365 Finance & Supply Chain Management (F&O) är optimalt för organisationer i Microsoft-ekosystemet med ett starkt behov av Office 365/Teams-integration och lägre total ägandekostnad. SAP S/4HANA är branschledande inom tung processindustri och kemi. Dynamics 365 Finance & Supply Chain Management har fördelen av inbyggd Copilot AI, snabbare implementationstider och lägre licenspriser. För nordiska medelstora till stora tillverkningsföretag är Dynamics 365 Finance & Supply Chain Management ofta det starkare alternativet." },
+ { question: "Dynamics 365 Finance & Supply Chain Management (F&O) vs SAP S/4HANA – vilket ERP ska jag välja?", answer: "Det beror på er processkarta, ert befintliga ekosystem och tillgången på partners i er bransch. Båda är enterprise-ERP för komplexa organisationer. F&SCM ligger nära Microsoft 365, Power Platform och Azure, vilket kan förenkla integration för organisationer som redan använder dem. SAP S/4HANA har en stark position i bland annat tung processindustri. Jämför licens, införande och partnerkapacitet för just ert scope innan ni väljer." },
  { question: "Vad är skillnaden mellan Dynamics 365 Finance & Supply Chain Management (F&O) och Business Central?", answer: "Business Central riktar sig till SMB-segmentet (upp till ca 300 användare) med fokus på enkelhet och lägre pris (från 765 kr/mån). Finance & Supply Chain Management (F&O) är enterprise-lösningen för komplexa globala organisationer med flera juridiska entiteter, avancerad tillverkning och supply chain. F&SCM har betydligt djupare funktionalitet inom ekonomi, lagerstyrning (WMS), produktionsplanering (MRP/MPS) och global compliance." },
  { question: "Hur lång tid tar det att implementera Dynamics 365 Finance & Supply Chain Management (F&O)?", answer: "En typisk F&SCM-implementation tar 9–24 månader beroende på komplexitet. En Dynamics 365 Finance-only-implementation för en juridisk entitet kan göras på 6–9 månader. Komplett Finance + SCM med tillverkning och WMS för en global organisation tar 18–36 månader. Vi rekommenderar alltid en fasad implementation för att minimera risker och leverera värde snabbt." },
  { question: "Vilka branscher passar Dynamics 365 Finance & Supply Chain Management (F&O) bäst för?", answer: "F&SCM är optimalt för: tillverkning (diskret och processindustri), grossist och distribution, läkemedel och life science, livsmedel och dryck, detaljhandel med komplex supply chain, offentlig sektor och statliga organisationer samt internationella koncerner med flera bolag och valutor. Lösningen har inbyggd branschfunktionalitet och ett rikt ekosystem av ISV-tillägg." },
- { question: "Hur fungerar Copilot AI i Dynamics 365 Finance & Supply Chain Management (F&O)?", answer: "Copilot i Finance analyserar ekonomidata och identifierar avvikelser, föreslår matchning av bankposter, genererar finansiella rapporter och sammanfattar avvikelser. Copilot i Supply Chain varnar för leveransrisker, optimerar inköpsplaner, identifierar flaskhalsar i produktionen och föreslår omplaneringar vid störningar. Copilot är inkluderat utan extra kostnad i F&SCM-licensen." },
+ { question: "Hur fungerar Copilot AI i Dynamics 365 Finance & Supply Chain Management (F&O)?", answer: "Copilot hjälper användare att sammanfatta, söka och agera på data direkt i Finance och Supply Chain Management, till exempel i inköp, leverantörshantering och ekonomiska avvikelser. Vilka funktioner som ingår och om de kräver extra licens eller kapacitet styrs av Microsofts aktuella villkor, så kontrollera det för ert scope." },
  { question: "Hur flexibelt och anpassningsbart är Dynamics 365 Finance & Supply Chain Management?", answer: "F&SCM är mycket flexibelt och anpassas via tre nivåer: (1) Konfiguration via parameterinställningar utan kod, (2) Utökning via Power Platform och low-code, (3) Specialutveckling i X++ för komplexa anpassningar. Det finns ett rikt ISV-ekosystem med hundratals branschlösningar på Microsoft Marketplace. Alla anpassningar separeras från kärnkoden för enklare uppgradering." },
  { question: "Kan Dynamics 365 Finance & Supply Chain Management integreras med befintliga system och tredjepartsprogram?", answer: "Ja, F&SCM har robusta integrationsmöjligheter via OData-API:er, Azure Service Bus, Logic Apps och Power Automate. Färdiga kopplingar finns för populära system som Salesforce, Shopify, Amazon och EDI-nätverk. Integration med produktionssystem (MES, SCADA), WMS-system, 3PL-providers och bankgiro/autogiro är välbeprövade scenarier." },
 ];
@@ -202,12 +205,23 @@ const FinanceSupplyChain = () => {
   }}
   />
   <ShortAnswer>
- <p>Dynamics 365 Finance & Supply Chain Management är Microsofts enterprise-affärssystem för större och internationella organisationer med avancerad ekonomi, supply chain, flera juridiska bolag, flera valutor och hög grad av regelefterlevnad.</p>
- <p>Plattformen täcker hela värdekedjan: global ekonomistyrning och konsolidering, avancerad tillverkning med MRP/MPS, lager- och warehouse management (WMS), inköp, transportplanering samt finansiell rapportering enligt lokala regelverk i fler än 40 länder.</p>
- <p>Genom de tillhörande modulerna kan du bygga ut lösningen efter verksamhetens behov: <strong>Dynamics 365 Commerce</strong> hanterar omnikanal-handel med integrerad POS, e-handel och clienteling för retail- och B2B-verksamheter. <strong>Dynamics 365 Human Resources</strong> ger stöd för medarbetarregister, kompetens och organisationsstruktur i större bolag. <strong>Dynamics 365 Project Operations</strong> binder ihop projektförsäljning, resursplanering, tidrapportering och projektredovisning i samma plattform.</p>
- <p>Inbyggd Copilot och autonoma agenter automatiserar repetitiva flöden – från leverantörsavstämning och prognoser till kund- och projektkommunikation – så att medarbetarna kan lägga tiden på analys och beslut i stället för manuellt arbete.</p>
- <p>Hela sviten bygger på Microsofts moln med Power Platform, Fabric och Azure i botten, vilket gör F&SCM till ett tryggt val för organisationer med höga krav på skalbarhet, integration och styrning.</p>
+ <p>Dynamics 365 Finance & Supply Chain Management är Microsofts affärssystem för större och internationella organisationer. Det passar när ni har avancerad ekonomi, flera bolag och valutor, tillverkning eller komplex logistik.</p>
+ <p>Mindre organisationer med enklare processer klarar sig ofta med Business Central. Skillnaden ligger i komplexitet, inte bara i antal användare.</p>
  </ShortAnswer>
+  <FactBox
+   title="Snabbfakta om Finance & Supply Chain Management"
+   facts={[
+    { label: "Vad det är", value: "Microsofts enterprise-ERP för ekonomi, supply chain, tillverkning och lager." },
+    { label: "Licenspris (lista)", value: "Finance och Supply Chain Management: 2 007,30 kr per användare och månad vardera." },
+    { label: "Typiskt projekt", value: "Litet 2–6 MSEK, medelstort 6–15 MSEK, stort från 15 MSEK (d365.se:s bedömning)." },
+    { label: "Typisk införandetid", value: "9–24 månader. Finance för ett bolag kan gå på 6–9 månader (d365.se:s bedömning)." },
+    { label: "Passar för", value: "Flera juridiska bolag, flera valutor, tillverkning, avancerat lager (WMS) och hög regelefterlevnad." },
+    { label: "Passar mindre bra för", value: "Små bolag med enkla processer och begränsad budget. Jämför då med Business Central." },
+    { label: "Vanliga tillägg", value: "Commerce, Human Resources och Project Operations på samma plattform." },
+    { label: "Alternativ att jämföra", value: <><Link to="/affarssystem/#comparison" className="text-primary underline underline-offset-4">Business Central</Link>, <Link to="/jamfor/fscm-vs-sap-s4hana/" className="text-primary underline underline-offset-4">SAP S/4HANA</Link>, <Link to="/jamfor/fscm-vs-infor-m3/" className="text-primary underline underline-offset-4">Infor M3</Link></> },
+   ]}
+   note="Priser enligt Microsofts listpris. Projektkostnad och tid är d365.se:s redaktionella spann, inte Microsoft-uppgifter. Källor längst ned på sidan."
+  />
   <EditorialAssessment assessment="fscm" />
   <FscmDecisionGuide />
 
@@ -692,7 +706,8 @@ const FinanceSupplyChain = () => {
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <EditorialSource sourceType="Köpguide" />
-<SourcesAndMethod variant="product" />
+<ExpertCard path="/finance-supply-chain" />
+<SourcesAndMethod variant="product" externalSources={fscmSources} />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       </main>
  <BasicProfilesDirectory products={["fsc"]} />

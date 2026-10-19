@@ -32,3 +32,9 @@ export function getArticleMicrosoftSources(content: ReactNode): GuideSource[] {
   visit(content);
   return [...result.values()];
 }
+/** Microsoft primary sources for F&SCM product facts. No source dates are stated, since none were confirmed. */
+export const fscmSources: GuideSource[] = [
+  { name: "Microsoft Learn: Dynamics 365 Finance", href: "https://learn.microsoft.com/sv-se/dynamics365/finance/", supports: "Produktomfång för ekonomi: redovisning, konsolidering, budget och flera juridiska enheter." },
+  { name: "Microsoft Learn: Dynamics 365 Supply Chain Management", href: "https://learn.microsoft.com/sv-se/dynamics365/supply-chain/", supports: "Produktomfång för lager, tillverkning, planering, inköp och transport." },
+  ...priceSources,
+];
