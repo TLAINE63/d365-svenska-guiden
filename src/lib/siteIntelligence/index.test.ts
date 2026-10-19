@@ -16,16 +16,28 @@ describe('Site Intelligence v2 privacy contract', () => {
     expect(fetch).not.toHaveBeenCalled();
     expect(localStorage.getItem('portfolio_tracking_d365_se')).toBeNull();
   });
-  it('always sends test environment and exact site key after consent', async () => {
+  it('always sends production environment and exact site key after consent', async () => {
     const m = await setup(true); m.trackPage();
     const event = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string).events[0];
-    expect(event.environment).toBe('test'); expect(event.site_id).toBe('d365_se');
+    expect(event.environment).toBe('production'); expect(event.site_id).toBe('d365_se');
     expect(event.page_type).toBe('home'); expect(event.consent).toBe('granted');
   });
   it('respects Do Not Track even when consent is granted', async () => {
     const m = await setup(true); Object.defineProperty(navigator, 'doNotTrack', { value: '1', configurable: true });
     m.trackPage(); expect(fetch).not.toHaveBeenCalled();
     expect(localStorage.getItem('portfolio_tracking_d365_se')).toBeNull();
+  });
+  it('records BC journey actions in production without carrying query or fragment data', async () => {
+    const m = await setup(true);
+    window.history.replaceState({}, '', '/businesscentral/?company=private#pricing');
+    m.sendEvent('cta_click', { cta_type: 'bc_cost', page_type: 'product' });
+    const event = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string).events[0];
+    expect(event.event_name).toBe('cta_click');
+    expect(event.cta_type).toBe('bc_cost');
+    expect(event.environment).toBe('production');
+    expect(event.page_path).toBe('/businesscentral/');
+    expect(event.page_url).not.toContain('private');
+    expect(event.page_url).not.toContain('#');
   });
   it('stops immediately when consent is withdrawn', async () => {
     const m = await setup(true); const cleanup = m.installTracking();

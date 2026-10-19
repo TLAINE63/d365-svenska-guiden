@@ -1,19 +1,17 @@
+import BcDecisionGuide, { BcOptionalDeepDive, BcNextSteps } from "@/components/product/BcDecisionGuide";
+import { nowrapBrand } from "@/lib/nowrapBrand";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { sendEvent } from "@/lib/siteIntelligence";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
-import ProductNextSteps from "@/components/product/ProductNextSteps";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import EditorialAssessment from "@/components/EditorialAssessment";
-import ContextualCta from "@/components/ContextualCta";
 import BcSiteHandoff from "@/components/BcSiteHandoff";
 import ProductIsvSection from "@/components/ProductIsvSection";
-import FunnelCTA from "@/components/FunnelCTA";
-import ProductDeepDiveLink from "@/components/ProductDeepDiveLink";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
 import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
-import PageOfferBanner from "@/components/PageOfferBanner";
 import { Button } from "@/components/ui/button";
-import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
@@ -22,25 +20,19 @@ import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
-import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
 import SearchResultSummary from "@/components/partner/SearchResultSummary";
-import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
-import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
-import ProductRoiCta from "@/components/ProductRoiCta";
 
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import SEOHead from "@/components/SEOHead";
 import ProductHero from "@/components/ProductHero";
-import StandardProductSections from "@/components/product/StandardProductSections";
-import { PRODUCT_STANDARD_SECTIONS } from "@/data/productStandardSections";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
@@ -50,7 +42,6 @@ const bcBreadcrumbs = [
  { name: "Business Central", url: "https://d365.se/businesscentral" },
 ];
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
@@ -71,14 +62,14 @@ import EditorialSource from "@/components/EditorialSource";
 const bcFaqsRaw = [
  {
  question: "Vad är Business Central?",
- answer: "Microsoft Dynamics 365 Business Central är Microsofts molnbaserade affärssystem (ERP) för mindre och medelstora företag. Det samlar redovisning, kund- och leverantörsreskontra, order och fakturering, lager, inköp, projekt och – med Premium – tillverkning och service i en gemensam databas. Business Central är efterföljaren till Dynamics NAV (Navision) och integreras direkt med Outlook, Excel, Teams och Power BI. Copilot ingår i licensen."
+ answer: "Microsoft Dynamics 365 Business Central är Microsofts molnbaserade affärssystem (ERP) för mindre och medelstora företag. Det samlar redovisning, kund- och leverantörsreskontra, order och fakturering, lager, inköp, projekt och – med Premium – tillverkning och service i en gemensam databas. Business Central är efterföljaren till Dynamics NAV (Navision) och integreras direkt med Outlook, Excel, Teams och Power BI. Copilot ingår i licensen."
  },
  {
  question: "Vad kostar Business Central?",
  answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
  },
  {
- question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
+ question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
  answer: "Business Central pris Sverige 2026: Team Member {{price:bc-team-members:exact}}, Essentials {{price:bc-essentials:exact}} och Premium {{price:bc-premium:exact}} (Microsofts officiella listpris exkl. moms). Utöver licensen tillkommer implementeringskostnader: snabbstart till fast pris från 50 000 kr, litet projekt ca 175 000–465 000 kr, medelstort 465 000 kr–1,2 MSEK och stort 1,2–2,9 MSEK beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
  },
  {
@@ -87,7 +78,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Vilket företag passar Business Central bäst för?",
- answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige och används brett inom tillverkning, grossist & distribution, konsultbolag och bygg, entreprenad & installation."
+ answer: "Microsoft Dynamics 365 Business Central är främst avsett för mindre och medelstora företag som behöver samla ekonomi, lager, försäljning, inköp och projekt. Med Premium ingår även tillverkning och servicehantering. Passformen avgörs av processer, komplexitet, integrationer och branschkrav, inte av en absolut gräns för antal användare."
  },
  {
  question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
@@ -95,15 +86,15 @@ const bcFaqsRaw = [
  },
  {
  question: "Business Central vs Fortnox – vilket ska jag välja?",
- answer: "Fortnox passar nystartade och mycket små bolag (1–10 anst.) med enkel bokföring. Business Central passar dig som vuxit ur Fortnox och behöver lager, projektstyrning, produktion eller avancerad rapportering. Viktiga skillnader: Business Central ger djupare Microsoft 365-integration (Outlook, Teams, Power BI), inbyggd Copilot AI, obegränsad skalning och globalt stöd för flera valutor och juridiska enheter – funktioner Fortnox saknar."
+ answer: "Om behovet främst gäller bokföring och fakturering kan ett enklare ekonomisystem räcka. Business Central är värt att undersöka när ekonomi behöver hänga ihop med inköp, lager, projekt eller produktion. Jämför vilka funktioner som ingår i respektive lösning, vilka tillägg som behövs och vad hela införandet och förvaltningen kostar."
  },
  {
  question: "Hur fungerar Business Central med Microsoft 365 och Copilot AI?",
- answer: "Business Central integreras nativt med Outlook, Excel och Teams. Microsoft Copilot är inbyggd utan extra licensavgift och kan automatisera uppgifter, generera produktbeskrivningar, hjälpa med bankavstämning och analysera data. Det är också enkelt att koppla ihop med e-handel (inbyggd Shopify-koppling), Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace."
+ answer: "Business Central integreras nativt med Outlook, Excel och Teams. Microsoft Copilot är inbyggd utan extra licensavgift och kan automatisera uppgifter, generera produktbeskrivningar, hjälpa med bankavstämning och analysera data. Det är också enkelt att koppla ihop med e-handel (inbyggd Shopify-koppling), Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace."
  },
  {
  question: "Behöver man en partner för att implementera Business Central?",
- answer: "Ja, Business Central implementeras alltid via Microsoft-certifierade partners (Solutions Partner for Business Applications). Valet av partner är avgörande för projektets framgång – en erfaren partner med branschkännedom halverar typiskt implementationstiden. På d365.se kan du filtrera och jämföra Business Central-partners baserat på bransch och geografi kostnadsfritt."
+ answer: "Business Central införs normalt med hjälp av en Microsoft-partner. Jämför dokumenterad erfarenhet av era processer, bransch, projektomfattning och förvaltning. På d365.se kan du filtrera och jämföra Business Central-partners innan du själv väljer vilka du vill kontakta."
  },
  {
  question: "Kan Business Central hantera tillverkning och produktion?",
@@ -129,6 +120,35 @@ const geographyFilters = [
 ];
 
 const BusinessCentral = () => {
+ useEffect(() => {
+  const main = document.getElementById("bc-buyer-journey");
+  if (!main) return;
+  const onClick = (event: MouseEvent) => {
+   const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+   if (!(anchor instanceof HTMLAnchorElement)) return;
+   const target = new URL(anchor.href, window.location.origin);
+   const path = target.pathname;
+   const action = target.hostname === "businesscentral.se" ? "specialist_deep_dive"
+    : path.includes("matchningstest") || path.includes("kom-igang") ? "assess"
+    : path.includes("roi-kalkylator") || target.hash === "#pricing" ? "cost"
+    : path.includes("affarssystem") || path.includes("jamfor/") || target.hash === "#bc-jamforelse" ? "compare"
+    : path.includes("kravspecifikation") ? "requirements"
+    : path.includes("partners-sverige") ? "partner_discovery"
+    : target.hash === "#bc-passform" ? "assess_section" : null;
+   if (!action) return;
+   trackFunnelEvent({ event_type: "cta_click", event_name: "bc_journey_cta", metadata: { product: "business-central", action, target: path } });
+   sendEvent("cta_click", { cta_type: `bc_${action}`, page_type: "product" });
+  };
+  main.addEventListener("click", onClick);
+  const section = document.getElementById("partners");
+  const observer = typeof IntersectionObserver === "undefined" ? null : new IntersectionObserver((entries) => {
+   if (!entries.some(entry => entry.isIntersecting)) return;
+   trackFunnelEvent({ event_type: "content_view", event_name: "bc_partner_section_view", metadata: { product: "business-central" } });
+   observer?.disconnect();
+  });
+  if (section) observer?.observe(section);
+  return () => { main.removeEventListener("click", onClick); observer?.disconnect(); };
+ }, []);
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
@@ -176,33 +196,6 @@ const BusinessCentral = () => {
  return getProductIndustries(partners, 'bc', allIndustries);
  }, [partners]);
 
- const bcVideos = [
- {
- title: "Business Central för Mindre och Medelstora Företag",
- description: "Komplett affärslösning för växande företag",
- videoId: "X7B99e3mNfI",
- uploadDate: "2024-08-13",
- },
- {
- title: "Business Central - Höstrelease 2025",
- description: "Utforska funktioner och möjligheter",
- videoId: "UIL8ej7mSKQ",
- uploadDate: "2025-09-16",
- },
- {
- title: "Business Central Demo",
- description: "Automatised orderhantering med Copilot",
- videoId: "7QJeTXzZaEk",
- uploadDate: "2025-09-16",
- },
- {
- title: "Business Central Demo",
- description: "Exempel på Copilot",
- videoId: "ayXdXFyFEjY",
- uploadDate: "2023-12-08",
- },
- ];
-
  const bcPricingPlans = [
  {
  title: "Business Central Team Member",
@@ -243,7 +236,7 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Business Central (Dynamics 365) – Pris, funktioner & partners 2026"
+ title="Business Central (Dynamics 365) – Pris, funktioner & partners 2026"
  description={resolvePriceTokens("Vad kostar Business Central i Sverige? Se officiella licenspriser från {{price:bc-essentials:short}}, implementationskostnader (snabbstart från 50 000 kr) och jämför verifierade partners.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central partners, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
@@ -251,8 +244,8 @@ const BusinessCentral = () => {
  />
  <FAQSchema faqs={bcFaqs} />
  <ServiceSchema 
- name="Microsoft Dynamics 365 Business Central"
- description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ name="Microsoft Dynamics 365 Business Central"
+ description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={bcBreadcrumbs} />
  <script
@@ -263,7 +256,7 @@ const BusinessCentral = () => {
        "@type": "WebPage",
        "@id": "https://d365.se/businesscentral/#webpage",
        url: "https://d365.se/businesscentral/",
-       name: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+       name: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
        primaryImageOfPage: {
          "@type": "ImageObject",
          "@id": "https://d365.se/businesscentral/#primaryimage",
@@ -271,7 +264,7 @@ const BusinessCentral = () => {
          contentUrl: "https://d365.se/og-business-central.png",
          width: 1200,
          height: 630,
-         caption: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
+         caption: "Dynamics 365 Business Central – pris, funktioner och partners i Sverige",
        },
        image: {
          "@id": "https://d365.se/businesscentral/#primaryimage",
@@ -280,276 +273,59 @@ const BusinessCentral = () => {
    }}
  />
  <Navbar />
- <main>
+ <main id="bc-buyer-journey">
 
  
  {/* Hero */}
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="När passar Dynamics 365 Business Central och hur väljer ni partner?"
-  subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot dina befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför du partners som faktiskt levererat Business Central i din bransch."
-  primary={{
-    label: "Jämför Business Central-partners",
-    to: "/business-central-partners-sverige/",
-  }}
-  secondary={{
-  label: "Generera en kravspecifikation",
-  to: "/kravspecifikation/?produkt=bc",
-  icon: FileText,
-  }}
-  tertiary={{
-  label: "Gör en estimerad TCO/ROI-kalkyl",
-  to: "/businesscentral/roi-kalkylator/",
-  }}
-  quaternary={{
-  label: "Filtrera fram en passande Business Central-partner",
-  href: "#partners",
-  }}
+  title="När passar Microsoft Dynamics 365 Business Central er verksamhet?"
+  subhead="Förstå vad Business Central kan lösa, bedöm era behov och jämför alternativen. Här kan ni räkna på kostnaden och hitta partners med relevant erfarenhet, i den ordning som passar ert beslut."
+  primary={{ label: "Passar Business Central oss?", href: "#bc-passform" }}
+  secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
+  tertiary={{ label: "Jämför Business Central med andra affärssystem", href: "#bc-jamforelse" }}
     />
-  <ShortAnswer title="Vad är Dynamics 365 Business Central?">
+  <EditorialSource sourceType="Köpguide" />
+  <ShortAnswer title="Vad är Dynamics 365 Business Central?">
  <p><strong>Dynamics{"\u00A0"}365 Business Central är Microsofts molnbaserade ERP-system (affärssystem) för mindre och medelstora företag</strong> som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
- <p>Inbyggd AI via <strong>Microsoft Copilot</strong> och nya autonoma agenter automatiserar repetitiva uppgifter direkt i systemet. Det kan handla om orderregistrering, produktbeskrivningar, försäljnings- och kundtjänstflöden eller leverantörsavstämningar – moment som tidigare krävt manuell handpåläggning kan nu hanteras med stöd av AI inifrån affärssystemet.</p>
- <p>Genom Microsoft Marketplace finns dessutom <strong>över 7 000 certifierade tilläggsappar</strong> som ger djup branschanpassning utan kostsam specialutveckling – oavsett om du är inom tillverkning, handel, tjänster eller bygg. Det gör att lösningen kan formas efter din verksamhet snarare än tvärtom.</p>
- <p>Business Central är tillgängligt i över 160 länder med lokaliseringar från Microsoft och partners, vilket gör det till ett tryggt val även för bolag med internationella ambitioner eller dotterbolag i flera länder.</p>
+ <p>Essentials täcker ekonomi, inköp, lager, försäljning och projekt. Premium lägger till tillverkning och servicehantering. Branschkrav kan kräva tillägg från Microsoft Marketplace. Kontrollera vad som ingår i standard och vad som behöver kompletteras innan ni väljer partner.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="bc" />
 
       <BcSiteHandoff />
-      <section className="py-6 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-lg border border-border bg-muted/30 p-5">
-            <div className="flex-1">
-              <h2 className="text-lg font-semibold text-foreground">Kommer ni från Navision eller Dynamics NAV?</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Börja med att förstå hur komplex vägen till Business Central kan bli.</p>
-            </div>
-            <Link to="/nav-till-business-central/" className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted">Gör NAV-testet</Link>
-          </div>
+      <BcDecisionGuide />
+ {/* Pricing Section */}
+ <section id="pricing" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="text-center mb-10 sm:mb-12 md:mb-16">
+ <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+ Vad kostar Business Central?
+ </h2>
+ <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+ Licenser: Essentials eller Premium, kompletterat med Team Member för begränsade behov.
+ </p>
+ </div>
+ <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+ {bcPricingPlans.map((plan, index) => (
+ <PricingCard key={index} {...plan} />
+ ))}
+ </div>
+ <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
+ Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
+ </p>
+ </div>
+ </section>
+
+      <CostBreakdown product="business-central" heading="Vad kostar införande och förvaltning?" />
+      <section className="bg-background pb-8 sm:pb-12">
+        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <p className="mb-4 max-w-3xl text-sm text-muted-foreground">Skilj på licenser, införande, tillägg och anpassningar, integrationer samt löpande förvaltning. Kalkylen är en uppskattning utifrån era antaganden, inte en offert.</p>
+          <Button asChild className="h-auto min-h-11 whitespace-normal"><Link to="/businesscentral/roi-kalkylator/">Beräkna kostnaden <ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link></Button>
         </div>
       </section>
 
 
-
-
-
-
- 
-
- {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
- <section className="py-10 sm:py-12 bg-background">
-  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-   <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-    Vad avgör valet av Business Central?
-   </h2>
-   <p className="text-muted-foreground mb-6 text-sm sm:text-base">
-    Det som flest frågar om innan de jämför Business Central med andra affärssystem.
-   </p>
-   <div className="overflow-x-auto rounded-lg border border-border">
-    <table className="w-full text-sm">
-     <tbody>
-      {[
-       ["Typ av system", "Molnbaserat ERP (affärssystem) från Microsoft"],
-       ["Passar", "5–300 användare, små och medelstora bolag"],
-       ["Licenspris", resolvePriceTokens("Essentials {{price:bc-essentials:exact}}, Premium {{price:bc-premium:exact}}, Team Member {{price:bc-team-members:exact}} per användare/månad exkl. moms")],
-       ["Implementeringskostnad", "Snabbstart från 50 000 kr. Litet projekt ca 175 000–465 000 kr, medelstort 465 000 kr–1,2 MSEK, stort 1,2–2,9 MSEK (beror på bransch)"],
-       ["Införandetid", "3–6 månader (2–3 månader med startpaket)"],
-       ["Ingår i Premium", "Tillverkning (MRP, kapacitetsplanering) och servicehantering"],
-       ["AI", "Microsoft Copilot ingår utan extra licensavgift"],
-       ["Vanliga alternativ", "Dynamics 365 Finance & Supply Chain Management (F&O), Fortnox, Visma, Monitor"],
-       ["Införs av", "Microsoft-certifierad partner – jämför partners nedan"],
-      ].map(([label, value]) => (
-       <tr key={label} className="border-b border-border last:border-0">
-        <th scope="row" className="text-left align-top font-medium text-foreground py-3 px-4 w-[42%] bg-muted/30">
-         {label}
-        </th>
-        <td className="py-3 px-4 text-muted-foreground">{value}</td>
-       </tr>
-      ))}
-     </tbody>
-    </table>
-   </div>
-   <p className="text-sm text-muted-foreground mt-4">
-    Vad Microsoft Dynamics 365 Business Central kostar i praktiken avgörs på den svenska marknaden av
-    tre saker: antal användare och licensnivå (Essentials eller Premium), hur mycket verksamhetsanpassning
-    och integration mot exempelvis lön, e-handel, EDI eller Peppol-fakturering som behövs, samt vilken
-    partner som genomför införandet. Ett litet projekt räknat på 11 600 kr per konsultdag landar på
-    ca 175 000–465 000 kr; tjänsteföretag och grossister ligger lägst och tillverkning högst. Projekt med
-    produktion, flera bolag eller internationella dotterbolag ligger i det övre spannet.
-   </p>
-   <p className="text-sm text-muted-foreground mt-3">
-    Införandet görs alltid av en Microsoft-certifierad partner. På d365.se jämför du svenska Business
-    Central-partners på dokumenterad branscherfarenhet, kundstorlek och kontorsorter – och ser vilka som
-    har levererat i just din bransch innan du tar kontakt.
-   </p>
-   <p className="text-sm text-muted-foreground mt-3">
-    Vill du ställa Business Central mot ett större ERP-system? Läs{" "}
-    <Link to="/affarssystem/" className="text-primary underline underline-offset-2">
-     jämförelsen mellan Business Central och Finance &amp; Supply Chain
-    </Link>{" "}
-    eller se{" "}
-    <Link to="/kostnad/" className="text-primary underline underline-offset-2">
-     vad ett affärssystem kostar
-    </Link>.
-   </p>
-
-   <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
-    Jämförelse med andra affärssystem
-   </h3>
-   <p className="text-muted-foreground mb-4 text-sm sm:text-base">
-    De alternativ som svenska köpare oftast ställer mot Business Central – och vad som skiljer dem åt
-    i praktiken.
-   </p>
-   <div className="overflow-x-auto rounded-lg border border-border">
-    <table className="w-full text-sm">
-     <thead>
-      <tr className="bg-muted/40">
-       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">System</th>
-       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar typiskt</th>
-       <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Skillnad mot Business Central</th>
-      </tr>
-     </thead>
-     <tbody>
-      {[
-       [
-        "Fortnox",
-        "1–20 användare, redovisning och fakturering",
-        "Standardiserat ekonomisystem snarare än ERP – saknar djup lager-, produktions- och projektstyrning samt tyngre integrationsmöjligheter.",
-       ],
-       [
-        "Visma.net / Visma Business",
-        "10–150 användare, ekonomi och distribution",
-        "Starkt på svensk ekonomi och lön, men mindre integrerat med Microsoft 365, Power Platform och Copilot än Business Central.",
-       ],
-       [
-        "Monitor ERP",
-        "Tillverkande bolag, 20–200 användare",
-        "Djup verkstadsfunktionalitet i standard; Business Central täcker bredare verksamhet (ekonomi, handel, projekt) och byggs ut via appar från Microsoft Marketplace.",
-       ],
-       [
-        "Dynamics 365 Finance & Supply Chain Management (F&O)",
-        "Från ca 300 användare, koncern och global drift",
-        "Samma Microsoft-plattform men tyngre: fler legala enheter, avancerad supply chain – och högre licens- och införandekostnad.",
-       ],
-       [
-        "SAP Business One / S/4HANA",
-        "Internationella koncerner och komplexa flöden",
-        "Bredare global processtandard, men dyrare införande och svagare koppling till Microsoft 365-verktygen många svenska bolag redan använder.",
-       ],
-      ].map(([system, fit, diff]) => (
-       <tr key={system} className="border-b border-border last:border-0 align-top">
-        <th scope="row" className="text-left font-medium text-foreground py-3 px-4 w-[22%] bg-muted/20">
-         {system}
-        </th>
-        <td className="py-3 px-4 text-muted-foreground w-[26%]">{fit}</td>
-        <td className="py-3 px-4 text-muted-foreground">{diff}</td>
-       </tr>
-      ))}
-     </tbody>
-    </table>
-   </div>
-    <p className="text-sm text-muted-foreground mt-4">
-     Valet av system avgör ramarna – valet av partner avgör resultatet. Se{" "}
-     <Link to="/jamfor-partners/" className="text-primary underline underline-offset-2">
-      jämförelsen av Business Central-partners
-     </Link>{" "}
-     innan du går vidare.
-    </p>
-
-    <h3 className="text-xl sm:text-2xl font-bold text-foreground mt-10 mb-3">
-     Business Central-licenser: Essentials, Premium och Team Member
-    </h3>
-    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
-     Tre licensnivåer, pris per användare och månad (Microsofts listpris exkl. moms). Du väljer
-     Essentials <em>eller</em> Premium för hela bolaget – nivåerna kan inte blandas i samma miljö –
-     men Team Member kan kombineras med båda.
-    </p>
-    <div className="overflow-x-auto rounded-lg border border-border">
-     <table className="w-full text-sm">
-      <thead>
-       <tr className="bg-muted/40">
-        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Licens</th>
-        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Pris per användare/månad</th>
-        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Passar</th>
-        <th scope="col" className="text-left font-medium text-foreground py-3 px-4">Ingår</th>
-       </tr>
-      </thead>
-      <tbody>
-       {[
-        [
-         "Team Member",
-         resolvePriceTokens("{{price:bc-team-members:exact}}"),
-         "Användare med begränsade behov",
-         "Läsåtkomst i alla moduler, godkännanden, tidrapportering och enkla registreringar.",
-        ],
-        [
-         "Essentials",
-         resolvePriceTokens("{{price:bc-essentials:exact}}"),
-         "De flesta små och medelstora bolag",
-         "Ekonomi och redovisning, försäljning, inköp, lager, projekt och kund-/leverantörsreskontra.",
-        ],
-        [
-         "Premium",
-         resolvePriceTokens("{{price:bc-premium:exact}}"),
-         "Tillverkande och serviceintensiva bolag",
-         "Allt i Essentials plus tillverkning (produktionsorder, MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt).",
-        ],
-       ].map(([license, price, fit, includes]) => (
-        <tr key={license} className="border-b border-border last:border-0 align-top">
-         <th scope="row" className="text-left font-medium text-foreground py-3 px-4 bg-muted/20">
-          {license}
-         </th>
-         <td className="py-3 px-4 text-foreground font-medium whitespace-nowrap">{price}</td>
-         <td className="py-3 px-4 text-muted-foreground">{fit}</td>
-         <td className="py-3 px-4 text-muted-foreground">{includes}</td>
-        </tr>
-       ))}
-      </tbody>
-     </table>
-    </div>
-    <p className="text-sm text-muted-foreground mt-4">
-     Räkna på hela kostnaden – licenser, implementering och förvaltning – i{" "}
-     <Link to="/implementationskalkylator/" className="text-primary underline underline-offset-2">
-      implementationskalkylatorn
-     </Link>{" "}
-     eller se den samlade{" "}
-     <Link to="/kostnad/" className="text-primary underline underline-offset-2">
-      pris- och kostnadsguiden för Dynamics 365
-     </Link>.
-    </p>
-
-   </div>
-  </section>
-
-
-
-
- {/* Matchningstest CTA */}
- <section className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20">
-   <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
-       <div>
-         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
-           Matchningstest
-         </p>
-         <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold text-white leading-snug mb-2">
-           Matchar Business Central dina behov?
-         </h2>
-         <p className="text-white/75 text-sm sm:text-base max-w-2xl leading-relaxed">
-           20–25 frågor – först generella, sedan branschspecifika. Resultatet visar vad som ingår i BC i
-           standard, vad som kräver Premium, konfiguration eller ISV-tillägg, och vad som ligger utanför BC.
-         </p>
-       </div>
-        <Link
-          to="/businesscentral/matchningstest/"
-          className="inline-flex items-center justify-center rounded-md px-7 py-4 text-base sm:text-lg font-semibold bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] transition-colors whitespace-nowrap shadow-lg shadow-black/20 hover:-translate-y-0.5 transition-transform"
-        >
-          Starta matchningstestet →
-        </Link>
-     </div>
-   </div>
- </section>
-
-  <StandardProductSections productName="Business Central" data={PRODUCT_STANDARD_SECTIONS["business-central"]} />
 
   {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
   <section className="py-10 sm:py-12 bg-background">
@@ -590,7 +366,7 @@ const BusinessCentral = () => {
     <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
      Branschkännedomen hos partnern avgör hur väl systemet speglar dina processer. Se{" "}
      <Link to="/branscher/bygg-entreprenad/" className="text-primary underline underline-offset-2">
-      Dynamics 365-partners inom bygg, entreprenad och installation
+      Dynamics 365-partners inom bygg, entreprenad och installation
      </Link>{" "}
      och jämför deras kundexempel innan du tar kontakt.
     </p>
@@ -602,16 +378,16 @@ const BusinessCentral = () => {
   <div className="container mx-auto px-4 sm:px-6">
   <div className="max-w-4xl mx-auto">
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
-  Vanliga frågor om Dynamics 365 Business Central
+  Vanliga frågor om Dynamics 365 Business Central
   </h2>
   <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
   {bcFaqs.map((faq, idx) => (
   <AccordionItem key={idx} value={`faq-${idx}`} className="bg-card rounded-lg px-4 sm:px-6 border border-border">
   <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
-  {faq.question}
+  {nowrapBrand(faq.question)}
   </AccordionTrigger>
   <AccordionContent className="text-muted-foreground pb-6">
-  <p style={{ whiteSpace: "pre-wrap" }} className="leading-relaxed">{faq.answer}</p>
+  <p style={{ whiteSpace: "pre-wrap" }} className="leading-relaxed">{nowrapBrand(faq.answer)}</p>
   </AccordionContent>
   </AccordionItem>
   ))}
@@ -621,195 +397,23 @@ const BusinessCentral = () => {
   </section>
 
 
- {/* AI & Agents Section for Business Central */}
- <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
- <div className="text-center mb-8 sm:mb-10">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- AI och agenter i Dynamics 365 Business Central
- </h2>
- <p className="text-lg text-muted-foreground">
- Copilot hjälper dig, Agenter arbetar för dig
- </p>
- </div>
-
- <div className="space-y-6">
- {/* Copilot Features */}
- <div className="bg-card rounded p-6 sm:p-8 border border-border">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">👤</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot i Business Central</h3>
- <p className="text-muted-foreground mb-4">
- Din AI-assistent för dagliga uppgifter
- </p>
- </div>
- </div>
- <div className="grid sm:grid-cols-2 gap-4 text-sm">
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Generera produktbeskrivningar automatiskt</li>
- <li>• Analysera banktransaktioner med AI</li>
- <li>• Skapa försäljningsrader från dokument</li>
- <li>• Intelligenta inköpsförslag</li>
- </ul>
- </div>
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Hjälper med e-postutkast</li>
- <li>• Föreslår kontouppställningar</li>
- <li>• Ger insikter i realtid</li>
- <li>• Stöttar användare i arbetsflöden</li>
- </ul>
- </div>
- </div>
- </div>
-
- {/* Agents Features */}
- <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 sm:p-8 border-2 border-primary/30">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">⚡</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-foreground mb-2">Agenter i Business Central</h3>
- <p className="text-muted-foreground mb-4">
- Autonoma AI-system som arbetar självständigt 24/7
- </p>
- </div>
- </div>
- <div className="space-y-4">
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📦</span> Inventory Management Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Övervakar lagernivåer kontinuerligt, skapar automatiskt inköpsorder baserat på säkerhetslager och prognoser, 
- och förhandlar priser med leverantörer enligt dina affärsregler
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>💰</span> Finance Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Automatiserar fakturahantering, utför bankavstämningar, processar betalningar och leverantörsreskontra, 
- samt identifierar och flaggar avvikelser för granskning
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📊</span> Production Planning Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Optimerar produktionsplanering baserat på order, lager och kapacitet. Schemalägger automatiskt 
- produktionsorder och koordinerar med leverantörer för material
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>💼</span> Customer Service Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Hanterar kundförfrågningar om orderstatus, fakturauppgifter och leveransinformation autonomt. 
- Eskalerar komplexa ärenden till rätt person med fullständig kontext
- </p>
- </div>
- </div>
- </div>
- </div>
-
- <div className="mt-8 text-center">
- <Button asChild size="lg" variant="outline">
- <Link to="/agents/">
- Upptäck fler Agenter-användningsområden
- <span className="ml-2">→</span>
- </Link>
- </Button>
- </div>
- </div>
- </div>
- </section>
-
-
-
- {/* Pricing Section */}
- <section id="pricing" className="py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
- <div className="text-center mb-10 sm:mb-12 md:mb-16">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Dynamics 365 Business Central – Essentials vs Premium
- </h2>
- <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
- Vilken licens passar bäst för ditt företag?
- </p>
- </div>
- <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
- {bcPricingPlans.map((plan, index) => (
- <PricingCard key={index} {...plan} />
- ))}
- </div>
- <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
- Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
- </p>
- </div>
- </section>
-
-      <BuyerManual product="business-central" />
-      <CostBreakdown product="business-central" />
-
-      <ComparisonQuickLinks productKeys="bc" />
-
-      {/* CTA till TCO/ROI-kalkylator i Kunskapscentret */}
-      <ProductRoiCta productKey="business-central" />
-
-
-
-
-      <ProductDeepDiveLink product="Business Central" label="Business Central" />
-      <RelevantVideosSection productGroups={["business-central"]} title="Videor om Business Central" />
-
-      {/* Videos Section */}
-      <section id="videos" className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Videoguider om Business Central
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-              Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {bcVideos.map((video, index) => (
-              <VideoCard key={index} {...video} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-
       <ProductPartnerNewsSection productArea="business-central" productLabel="Business Central" />
 
 
+
+      <ProductIsvSection product="Business Central" />
 
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
- Dynamics 365 Business Central-partners i Sverige
+ Hitta rätt Business Central-partner
  </h2>
  <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
- Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+ Jämför erfarenhet av era processer, branschkompetens, införandemetod och support efter driftstart. Be om kundreferenser med liknande omfattning och kontrollera vilka tillägg och integrationer partnern föreslår, och varför.
  </p>
- <p className="text-sm text-muted-foreground max-w-4xl mx-auto mt-3">
- Så gör du: klicka på ett kort för att läsa mer, kryssa i <span className="font-medium text-foreground">Jämför</span> för att ställa upp till tre partner sida vid sida, eller gå vidare och kontakta de partners du själv väljer.
- </p>
+ <div className="mt-5"><Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal"><Link to="/business-central-partners-sverige/">Hitta Business Central-partner <ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link></Button></div>
  </div>
 
  {/* Industry Filter */}
@@ -990,44 +594,12 @@ const BusinessCentral = () => {
  </div>
  </section>
 
- {/* CTA Section */}
- <section className="py-10 bg-background">
- <div className="container mx-auto px-4">
- <div className="max-w-3xl mx-auto text-center">
- <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Rådgivning inför val av Business Central
- </h2>
- <p className="text-lg text-muted-foreground mb-8">
- Kontakta oss för en kostnadsfri konsultation
- </p>
- <ContactFormDialog>
- <Button className="bg-business-central hover:bg-business-central/90 text-business-central-foreground h-14 sm:h-16 rounded" size="lg">
- Boka in en kostnadsfri rådgivning
- </Button>
- </ContactFormDialog>
- </div>
- </div>
-      </section>
-
-
-
-
-
-
- <ProductNextSteps product="business-central" pageSource="Business Central" />
-      <RelatedPages pages={bcRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
- <section className="py-8">
-   <div className="container mx-auto px-4 max-w-6xl">
-     <PageOfferBanner />
-   </div>
- </section>
- <ProductIsvSection product="Business Central" />
-
- 
-<ContextualCta source="next-step:businesscentral" heading="Så går du vidare med Business Central" text="Nästa steg är att hitta partners med erfarenhet av er bransch och storlek. Guiden tar sex frågor." primaryLabel="Få rekommenderad partnerlista" product="Business Central" links={[{ label: "Jämför relevanta partners", to: "/business-central-partners-sverige/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Räkna på kostnaden", to: "/business-central/roi-kalkylator/" }]} />
-      <AiExamplesEntry apps={["bc"]} label={"Se konkreta AI-exempel för Business Central"} source="businesscentral" />
-<EditorialSource sourceType="Köpguide" />
-<SourcesAndMethod variant="product" />
+      <RelevantVideosSection productGroups={["business-central"]} title="Videor om Business Central" />
+      <AiExamplesEntry apps={["bc"]} label="Se konkreta AI-exempel för Business Central" source="businesscentral" />
+      <RelatedPages pages={bcRelatedPages.map(page => ({ ...page, description: page.description.replace(/Dynamics 365/g, "Dynamics\u00a0365"), href: page.href === "/affarssystem/" ? "/affarssystem/#comparison" : page.href === "/valjdynamics365partner/" ? "/business-central-partners-sverige/" : page.href }))} heading="Fördjupning om produktval, kostnad och partner" />
+      <BcOptionalDeepDive />
+      <SourcesAndMethod variant="product" />
+      <BcNextSteps />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
  <Footer />
