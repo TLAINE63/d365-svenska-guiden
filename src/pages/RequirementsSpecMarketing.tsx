@@ -301,8 +301,15 @@ const RequirementsSpecMarketing = () => {
 
           {step === 3 && (
             <div className="space-y-6">
+              {fromCalc && (
+                <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
+                  Förifyllt från din kostnadskalkyl: {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
+                </div>
+              )}
               <h2 className="text-xl font-semibold text-foreground">Vilka funktionsområden är relevanta?</h2>
-              <p className="text-sm text-muted-foreground">Välj de områden du vill inkludera i kravspecifikationen.</p>
+              <p className="text-sm text-muted-foreground">
+                {fromCalc ? "Vi har markerat de områden som din kalkyl pekar på. Lägg till eller ta bort och gå sedan vidare." : "Välj de områden du vill inkludera i kravspecifikationen."}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {areaOptions.map((area) => {
                   const Icon = area.icon;
