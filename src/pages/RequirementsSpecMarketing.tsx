@@ -76,7 +76,7 @@ const RequirementsSpecMarketing = () => {
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
-  useKravProfileSync({ product: "marketing", industries: allIndustries, sizes: [] as string[], areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
+  useKravProfileSync({ product: "marketing", industries: allIndustries, sizes: companySizes, areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
