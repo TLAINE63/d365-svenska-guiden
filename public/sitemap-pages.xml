@@ -229,6 +229,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://d365.se/guider/optimera-dynamics-365/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/guider/dynamics-365-support-forvaltning/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/vad-ar-dynamics-365/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://d365.se/guider/valja-dynamics-365-partner/</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>

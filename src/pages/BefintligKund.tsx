@@ -98,6 +98,23 @@ const BefintligKund = () => (
 
         <ExistingCustomerDiagnosis />
 
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold text-foreground mb-4">Fyra vanliga vägar för befintliga kunder</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { t: "Byta Dynamics\u00A0365-partner", d: "Utvärdera, minska beroendet eller byta.", h: "/guider/byta-dynamics-partner/" },
+              { t: "Second opinion", d: "Köparsidig bedömning av lösning, offert eller partner.", h: "/second-opinion/" },
+              { t: "Optimera och felsöka", d: "Prestanda, anpassningar, integrationer och användning.", h: "/guider/optimera-dynamics-365/" },
+              { t: "Support och förvaltning", d: "Vad avtalet ska omfatta och hur ansvaret fördelas.", h: "/guider/dynamics-365-support-forvaltning/" },
+            ].map((x) => (
+              <Link key={x.h} to={x.h} className="group rounded-lg border border-border bg-card p-5 hover:border-primary transition-colors">
+                <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary">{x.t}</h3>
+                <p className="text-sm text-muted-foreground">{x.d}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <div className="grid gap-6 md:grid-cols-2">
           {areas.map(({ icon: Icon, title, text, points, links }) => (
             <section key={title} className="rounded-lg border border-border bg-card p-6 flex flex-col">
