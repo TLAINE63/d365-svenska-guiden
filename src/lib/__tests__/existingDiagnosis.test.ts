@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { diagnose, partnerHref } from "../existingDiagnosis";
+import { diagnose, partnerHref, secondOpinionContext } from "../existingDiagnosis";
 
 describe("existing customer diagnosis", () => {
   it("unsure cause leads to second opinion first", () => {
