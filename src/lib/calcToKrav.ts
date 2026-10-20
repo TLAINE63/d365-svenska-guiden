@@ -180,14 +180,14 @@ export type KravPartnerTarget = "compare" | "all_partners" | "profile" | "send_u
 export function createKravJourney(krav: KravTarget) {
   const fired = new Set<string>();
   const src = () => (typeof window === "undefined" ? "direct" : kravSource(window.location.search));
-  const once = (name: string, metadata: Record<string, unknown>) => {
-    if (fired.has(name)) return;
-    fired.add(name);
-    trackFunnelEvent({ event_type: "journey", event_name: name, metadata: { kravspec: krav, source: src(), ...metadata } });
+  const once = (key: string, name: string, metadata: Record<string, unknown>) => {
+    if (fired.has(key)) return;
+    fired.add(key);
+    trackFunnelEvent({ event_type: "journey", event_name: name, metadata: { tool: `kravspec-${krav}`, kravspec: krav, source: src(), ...metadata } });
   };
   return {
-    started: () => once("kravspec_started", {}),
-    completed: (areaCount: number) => once("kravspec_completed", { area_count: areaCount }),
-    toPartners: (target: KravPartnerTarget) => once(`kravspec_to_partners:${target}`, { target }),
+    started: () => once("started", "krav_started", {}),
+    completed: (areaCount: number) => once("completed", "krav_completed", { area_count: areaCount }),
+    toPartners: (target: KravPartnerTarget) => once(`partners:${target}`, "krav_to_partners", { target }),
   };
 }
