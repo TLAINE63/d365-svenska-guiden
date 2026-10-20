@@ -1,5 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
-import { createKravJourney, prefillSourceText, readPrefillAreas } from "@/lib/calcToKrav";
+import { createKravJourney, readPrefillAreas } from "@/lib/calcToKrav";
 import { useState, useEffect } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
