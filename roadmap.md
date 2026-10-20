@@ -297,7 +297,7 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 ## Fas 2: sammanhängande beslutssystem (2026-10-20)
 - [x] Steg 1: kravspecar minns bransch, storlek och områden via köparprofilen
 - [x] Steg 2: Systemval förs vidare till produktsidor och kalkylatorer
-- [ ] Steg 3: konkurrentjämförelser leder till test/kalkyl (väntar på klartecken)
+- [x] Steg 3: konkurrentjämförelser leder till test/kalkyl
 - [ ] Steg 4: kalkylator vidare till kravspec
 - [ ] Steg 5: diagnos på Befintlig kund
 - [ ] Steg 6: tydligare matchningsskäl i partnerkatalog och kortlista

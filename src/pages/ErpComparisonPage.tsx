@@ -10,9 +10,11 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import ContextualCta from "@/components/ContextualCta";
 import EditorialSource from "@/components/EditorialSource";
+import { Button } from "@/components/ui/button";
+import { COMPARISON_NEXT } from "@/lib/ctaJourney";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import {
   PRODUCT_COMPARISONS,
-  PRODUCT_META,
   getErpComparison,
 } from "@/data/erpComparisons";
 
@@ -24,7 +26,9 @@ const ErpComparisonPage = () => {
     return <Navigate to="/jamfor/" replace />;
   }
 
-  const meta = PRODUCT_META[data.productKey];
+  const next = COMPARISON_NEXT[data.productKey];
+  const trackNext = (event_name: string, target: string) =>
+    trackFunnelEvent({ event_type: "cta_click", event_name, metadata: { source: `comparison:${data.slug}`, product: data.productKey, target } });
 
   const breadcrumbs = [
     { name: "Hem", url: "/" },
@@ -104,7 +108,7 @@ const ErpComparisonPage = () => {
             <div className="mt-3 rounded-lg border border-primary/30 bg-primary/5 p-4 flex gap-3">
               <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Tilläggsapplikationer breddar bilden.</strong> Dynamics 365 kompletteras av tusentals certifierade appar via <a href="https://www.microsoft.com/en-us/marketplace" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Microsoft Marketplace</a> som ger djupare funktionalitet inom specifika områden och branscher (t.ex. tillverkning, handel, fastighet, life science, projektverksamhet). En funktion som saknas i standard finns ofta som en branschbeprövad tilläggsapp. <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-medium">Ta en dialog med en Dynamics 365-partner</Link> för att se vilka tillägg som matchar just dina krav.
+                <strong className="text-foreground">Tilläggsapplikationer breddar bilden.</strong> Dynamics&nbsp;365 kompletteras av tusentals certifierade appar via <a href="https://www.microsoft.com/en-us/marketplace" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Microsoft Marketplace</a> som ger djupare funktionalitet inom specifika områden och branscher (t.ex. tillverkning, handel, fastighet, life science, projektverksamhet). En funktion som saknas i standard finns ofta som en branschbeprövad tilläggsapp. <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-primary hover:underline font-medium">Utforska tilläggslösningarna</Link> för att se vilka som kan matcha just era krav.
               </p>
             </div>
           </div>
@@ -172,11 +176,11 @@ const ErpComparisonPage = () => {
         <ContextualCta
           eyebrow={`${data.productShort} eller ${data.competitor}`}
           heading="Pröva alternativen mot era verkliga behov"
-          text={`Jämförelsen visar skillnaderna. Behovsguiden väger dessutom in er bransch, situation och organisation innan ni väljer väg.`}
+          text={`Jämförelsen visar skillnaderna. Matchningstestet prövar ${next.short} mot er verksamhet, och kalkylatorn visar vad det kan kosta.`}
           product={data.productShort}
-          source={`comparison:${data.slug}`}
-          secondaryLabel={`Läs mer om ${data.productShort}`}
-          secondaryTo={data.productPath}
+          source={`comparison:${data.productKey}:${data.slug}`}
+          secondaryLabel="Räkna på kostnaden"
+          secondaryTo={next.calc}
         />
 
         {/* WHEN NOT */}
@@ -239,26 +243,22 @@ const ErpComparisonPage = () => {
                 Så går du vidare med {nowrapBrand(data.productShort)}
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Starta en behovsanalys, räkna fram TCO eller utforska {data.productShort}-sidan med
-                priser, funktioner och partners.
+                Pröva först om {nowrapBrand(next.short)} passar er verksamhet och vad det kan kosta.
+                Partnerval blir enklare när ni vet vad ni behöver.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
-                {meta.ctaPrimary && (
-                  <Link
-                    to={meta.ctaPrimary.url}
-                    className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white font-medium px-5 py-2.5"
-                  >
-                    {meta.ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+                <Button asChild size="lg" className="font-medium">
+                  <Link to={next.test} onClick={() => trackNext("comparison_to_test", next.test)}>
+                    Gör matchningstestet <ArrowRight className="h-4 w-4" />
                   </Link>
-                )}
-                {meta.ctaSecondary && (
-                  <Link
-                    to={meta.ctaSecondary.url}
-                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"
-                  >
-                    {meta.ctaSecondary.label}
-                  </Link>
-                )}
+                </Button>
+                <Link
+                  to={next.calc}
+                  onClick={() => trackNext("comparison_to_calc", next.calc)}
+                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"
+                >
+                  Räkna på kostnaden
+                </Link>
                 <Link
                   to={data.productPath}
                   className="inline-flex items-center gap-2 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-medium px-5 py-2.5"

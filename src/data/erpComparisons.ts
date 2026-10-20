@@ -54,8 +54,6 @@ interface ProductMeta {
   short: string;
   path: string;
   breadcrumb: string;
-  ctaPrimary?: { label: string; url: string };
-  ctaSecondary?: { label: string; url: string };
 }
 
 export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
@@ -64,54 +62,42 @@ export const PRODUCT_META: Record<ProductKey, ProductMeta> = {
     short: "Business Central",
     path: "/businesscentral/",
     breadcrumb: "Business Central",
-    ctaPrimary: { label: "Matchningstest", url: "/businesscentral/matchningstest/" },
-    ctaSecondary: { label: "ROI/TCO-kalkylator", url: "/businesscentral/roi-kalkylator/" },
   },
   fscm: {
     name: "Dynamics 365 Finance & Supply Chain Management",
     short: "Finance & Supply Chain Management (F&O)",
     path: "/finance-supply-chain/",
     breadcrumb: "Finance & Supply Chain Management (F&O)",
-    ctaPrimary: { label: "Behovsanalys ERP", url: "/ERPbehovsanalys/" },
-    ctaSecondary: { label: "Kravspec ERP", url: "/kravspecifikation/" },
   },
   sales: {
     name: "Dynamics 365 Sales",
     short: "D365 Sales",
     path: "/d365sales/",
     breadcrumb: "Sales",
-    ctaPrimary: { label: "Behovsanalys CRM", url: "/CRMbehovsanalys/" },
-    ctaSecondary: { label: "ROI-kalkylator Sales", url: "/d365sales/roi-kalkylator/" },
   },
   "customer-service": {
     name: "Dynamics 365 Customer Service",
     short: "D365 Customer Service",
     path: "/d365customerservice/",
     breadcrumb: "Customer Service",
-    ctaPrimary: { label: "Behovsanalys Kundservice", url: "/kundservice-behovsanalys/" },
-    ctaSecondary: { label: "Kravspec Kundservice", url: "/kravspecifikation-kundservice/" },
   },
   "customer-insights": {
     name: "Dynamics 365 Customer Insights",
     short: "Customer Insights",
     path: "/d365marketing/",
     breadcrumb: "Customer Insights",
-    ctaPrimary: { label: "Behovsanalys CRM", url: "/CRMbehovsanalys/" },
-    ctaSecondary: { label: "Kravspec Marknad", url: "/kravspecifikation-marketing/" },
   },
   "contact-center": {
     name: "Dynamics 365 Contact Center",
     short: "D365 Contact Center",
     path: "/d365contactcenter/",
     breadcrumb: "Contact Center",
-    ctaPrimary: { label: "Behovsanalys Kundservice", url: "/kundservice-behovsanalys/" },
   },
   "field-service": {
     name: "Dynamics 365 Field Service",
     short: "D365 Field Service",
     path: "/d365fieldservice/",
     breadcrumb: "Field Service",
-    ctaPrimary: { label: "Behovsanalys Service", url: "/kundservice-behovsanalys/" },
   },
 };
 
