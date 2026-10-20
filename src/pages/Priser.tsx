@@ -121,6 +121,7 @@ export default function Priser() {
             <p className="text-base sm:text-lg text-muted-foreground">
               Officiella listpriser för Dynamics 365 (SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling – och utgör bara en del av totalkostnaden. Implementation, integration och förvaltning står normalt för en betydligt större andel över tid.
             </p>
+            <p className="mt-3 text-sm text-muted-foreground">Den här sidan visar licenspriser. Vill ni se hela kostnaden med införande och förvaltning? <Link to="/kostnad/" className="font-medium text-primary hover:underline">Se kostnadsguiden</Link></p>
           </div>
         </section>
 
