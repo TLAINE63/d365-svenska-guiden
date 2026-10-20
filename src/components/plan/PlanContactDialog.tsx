@@ -50,9 +50,12 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export default function PlanContactDialog({ mode, onClose }: { mode: PlanContactMode; onClose: () => void }) {
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; metadata?: Record<string, unknown> }
+
+export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
   const { items } = useShortlist();
-  const sections = usePlanSections();
+  const planSections = usePlanSections();
+  const sections = topic?.extra ? [topic.extra, ...planSections] : planSections;
   const [excluded, setExcluded] = useState<Record<string, boolean>>({});
   const [picked, setPicked] = useState<Record<string, boolean>>({});
   const [focus, setFocus] = useState("");
@@ -64,7 +67,7 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
   const advisory = mode === "advisory";
 
   useEffect(() => {
-    trackFunnelEvent({ event_type: "engagement", event_name: advisory ? "advisory_started" : "partner_contact_started", metadata: { shortlist: items.length } });
+    trackFunnelEvent({ event_type: "engagement", event_name: topic ? topic.startEvent : advisory ? "advisory_started" : "partner_contact_started", metadata: { shortlist: items.length, ...topic?.metadata } });
     if (sections.length) trackFunnelEvent({ event_type: "engagement", event_name: "share_preview_viewed", metadata: { mode, sections: sections.length } });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -102,7 +105,7 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
           inquiry_type: advisory ? "fraga" : "kortlista", advisory,
           contact_name: parsed.data.name, email: parsed.data.email, company: parsed.data.company,
           phone: parsed.data.phone || null, message: parsed.data.message || null,
-          help_with: advisory ? focus || null : "Partnerdialog från Min D365-plan",
+          help_with: topic ? [topic.helpWith, focus].filter(Boolean).join(": ") : advisory ? focus || null : "Partnerdialog från Min D365-plan",
           project, include_project: shared.length > 0, privacy_ack: true,
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           ...getTrackSource(), session_id: getTrackSession(),
@@ -112,7 +115,7 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
       if (advisory) {
         recordPlanContact("advisory");
-        trackFunnelEvent({ event_type: "engagement", event_name: "advisory_submitted", metadata: { sections: shared.length } });
+        trackFunnelEvent({ event_type: "engagement", event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata } });
       }
       // Grundprofiler finns inte alltid med namn i backend; visa kortlistans namn i stället för slug.
       const nameOf = (s: string) => chosen.find((p) => p.slug === s || p.name === s)?.name || s;
@@ -145,14 +148,14 @@ export default function PlanContactDialog({ mode, onClose }: { mode: PlanContact
               {done.intros.length > 0 && <li>Introduktion begärd via d365.se för: <strong>{done.intros.join(", ")}</strong>. Era uppgifter har inte skickats till dem.</li>}
             </ul>}
             <p className="text-sm text-muted-foreground">Det här är en skickad förfrågan, ingen bekräftad dialog. Status syns i Min D365-plan. Inget skickas till andra partners utan ert godkännande.</p>
-            <Button onClick={onClose}>Tillbaka till planen</Button>
+            <Button onClick={onClose}>{topic ? "Stäng" : "Tillbaka till planen"}</Button>
           </div>
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle>{advisory ? "Få hjälp med nästa steg" : "Kontakta mina valda partners"}</DialogTitle>
+              <DialogTitle>{topic ? topic.title : advisory ? "Få hjälp med nästa steg" : "Kontakta mina valda partners"}</DialogTitle>
               <DialogDescription>
-                {advisory
+                {topic ? topic.description : advisory
                   ? "d365.se går igenom ert underlag och hjälper er vidare. Ingen partner kontaktas."
                   : "Välj vilka av era sparade partners som ska få ert underlag. Ni bestämmer själva, och inget skickas till andra partners."}
               </DialogDescription>
