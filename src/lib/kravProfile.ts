@@ -56,7 +56,8 @@ export function useKravProfileSync(a: SyncArgs) {
     if (!a.companySize && r.size) a.setCompanySize(r.size);
     if (!a.areas.length && r.areas.length) a.setAreas(r.areas);
     if (a.step === 1 && ind) a.setStep(size ? 3 : 2);
-    ready.current = true;
+    const t = window.setTimeout(() => { ready.current = true; }, 0);
+    return () => window.clearTimeout(t);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
