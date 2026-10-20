@@ -1,3 +1,4 @@
+import { useKravProfileSync } from "@/lib/kravProfile";
 import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -84,6 +85,7 @@ const RequirementsSpecCustomerService = () => {
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>(testPrefill.size ?? "");
   const [selectedAreas, setSelectedAreas] = useState<string[]>(testPrefill.areas);
+  useKravProfileSync({ product: "service", industries: allIndustries, sizes: serviceTeamSizes, areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
   const goNext = () => setStep((s) => (s === 1 && fromTest && companySize ? 3 : s + 1));
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);

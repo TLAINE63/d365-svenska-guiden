@@ -37,3 +37,4 @@
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
+- Requirement specs (ERP/Sales/Service/Marketing) restore and save industry, size and areas via useKravProfileSync in src/lib/kravProfile.ts; URL/test prefill wins, profile is the fallback, so context survives any entry path.
