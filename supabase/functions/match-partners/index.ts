@@ -161,14 +161,18 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { partners, criteria }: { partners: PartnerInput[]; criteria: UserCriteria } = await req.json();
+    const body = await req.json().catch(() => null) as { partners?: unknown; criteria?: unknown } | null;
+    const rawPartners = Array.isArray(body?.partners) ? body!.partners as any[] : null;
+    const rawCriteria = body?.criteria && typeof body.criteria === 'object' ? body.criteria as Record<string, unknown> : null;
 
-    if (!partners || !criteria) {
+    if (!rawPartners || !rawCriteria || rawPartners.length === 0 || rawPartners.length > 40) {
       return new Response(
         JSON.stringify({ error: 'Missing partners or criteria' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    const criteria = sanitizeCriteria(rawCriteria);
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -177,7 +181,22 @@ Deno.serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-    // Fetch internal AI knowledge for all partners in this batch (service-role, never returned to client).
+
+    // Only published (featured) partners can be ranked. Partner data is always loaded
+    // server-side so callers cannot inject text or pick unpublished partners whose
+    // internal matching knowledge would otherwise be read.
+    const requestedIds = [...new Set(rawPartners
+      .map((p) => (p && typeof p.id === 'string' ? p.id : ''))
+      .filter((id) => UUID_RE.test(id)))];
+    const partners = await fetchPublishedPartners(requestedIds);
+    if (partners.length === 0) {
+      return new Response(
+        JSON.stringify({ matches: [] }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Fetch internal AI knowledge for published partners only (service-role, never returned to client).
     const partnerIds = partners.map(p => p.id);
     const knowledgeMap = await fetchPartnerAiKnowledge(partnerIds);
     const extendedMap = await fetchPartnerExtendedContent(partnerIds);
