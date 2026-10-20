@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import ExpertCard from "@/components/ExpertCard";
 import BcDecisionGuide, { BcOptionalDeepDive, BcNextSteps } from "@/components/product/BcDecisionGuide";
@@ -298,6 +299,7 @@ const BusinessCentral = () => {
   <EditorialAssessment assessment="bc" />
 
       <BcSiteHandoff />
+      <SystemvalHandoffNote page="bc" />
       <BcDecisionGuide />
  {/* Pricing Section */}
  <section id="pricing" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">

@@ -19,6 +19,7 @@ import DeepDialog from "@/components/systemval/DeepDialog";
 import DeepResultSection from "@/components/systemval/DeepResultSection";
 import { DEEP_VERSION, deriveDeep, evaluateDeep } from "@/lib/systemval/deep";
 import { trackSystemval } from "@/lib/systemval/analytics";
+import { clearSystemvalContext, saveSystemvalContext, toSystemvalContext } from "@/lib/systemvalHandoff";
 
 const STORAGE_KEY = "d365_systemval_v1";
 const DEEP_KEY = "d365_systemval_deep_v1";
@@ -109,6 +110,8 @@ export default function Systemval() {
   const deepState = useMemo(() => (picture ? deriveDeep(picture, state, deepAnswers) : null), [picture, state, deepAnswers]);
   const deepResult = useMemo(() => (picture && deepState && !deepState.next && deepState.path.length ? evaluateDeep(picture, state, erp, deepState.answers) : null), [picture, deepState, state, erp]);
   useEffect(() => { if (deepResult) { try { localStorage.setItem(HANDOVER_KEY, JSON.stringify(deepResult.handover)); } catch { /* ignore */ } } }, [deepResult]);
+  // Kort sammanfattning till produktsidor och kalkylatorer (inga svarskombinationer).
+  useEffect(() => { if (result) saveSystemvalContext(toSystemvalContext(result, deepResult?.handover ?? null)); }, [resultKey, deepResult]); // eslint-disable-line react-hooks/exhaustive-deps
   const tracked = useRef({ started: false, guide: false, shown: "", result: "" });
   useEffect(() => {
     if (erp && !tracked.current.started) { tracked.current.started = true; trackSystemval("erp_module_started"); }
@@ -141,7 +144,7 @@ export default function Systemval() {
     } else setCursor(pos + 1);
   };
   const back = () => setCursor(Math.max(0, pos - 1));
-  const restart = () => { setInput(emptyInput()); setCursor(0); setDeepAnswers({}); setDeepMode(null); };
+  const restart = () => { setInput(emptyInput()); setCursor(0); setDeepAnswers({}); setDeepMode(null); clearSystemvalContext(); };
 
   const isEntry = questionId === "entry";
   const shownNumber = state.path.slice(0, pos).filter((id) => getQuestion(id)?.countsTowardBudget).length + 1;

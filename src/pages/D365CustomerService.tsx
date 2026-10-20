@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import ExpertCard from "@/components/ExpertCard";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
@@ -118,6 +119,7 @@ const D365CustomerService = () => {
       <EditorialSource sourceType="Köpguide" />
 <PartnerSwitchCta />
 <ExpertCard path="/d365customerservice" />
+      <SystemvalHandoffNote page="cs" />
       <ServiceDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Customer Service">

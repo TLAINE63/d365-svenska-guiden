@@ -9,6 +9,7 @@ export const SYNCED_KEYS = [
   "d365-kalkylator-utkast-v1",
   "d365_buyer_context_v1",
   "d365_buyer_profile_v1",
+  "d365_systemval_context_v1",
 ] as const;
 
 const PULLED_FLAG = "d365_account_pulled";

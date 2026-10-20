@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductIsvSection from "@/components/ProductIsvSection";
@@ -91,6 +92,7 @@ const D365ProjectOperations = () => {
         </div>
       </section>
 
+      <SystemvalHandoffNote page="po" />
       <BuyerManual product="project-operations" />
       <CostBreakdown product="project-operations" />
 
