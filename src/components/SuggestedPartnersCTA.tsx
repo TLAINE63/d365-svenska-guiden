@@ -88,7 +88,7 @@ const SuggestedPartnersCTA = ({
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
           {suggested.map((p) => (
             <article key={p.slug} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary">
-              <div onClickCapture={() => onAction?.("profile")}><PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" /></div>
+              <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" />
               <p className="text-xs text-muted-foreground line-clamp-2">{p.positioning_statement || p.description || "Se profil för detaljer"}</p>
               <PartnerSelectionFacts partner={p} productKey={Array.isArray(product) ? null : product} />
               <Link to={`/partner/${p.slug}/`} onClick={() => onAction?.("profile")} className="text-sm font-semibold text-primary">Se partnerprofil <ArrowRight className="inline h-4 w-4" /></Link>
