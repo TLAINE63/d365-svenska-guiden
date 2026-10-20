@@ -59,7 +59,6 @@ const areas: Area[] = [
     ],
     links: [
       { label: "Kompetensområden hos partners", href: "/kompetens/" },
-      { label: "Funderar ni på att byta partner?", href: "/guider/byta-dynamics-partner/" },
     ],
   },
   {
@@ -118,6 +117,28 @@ const BefintligKund = () => (
             </section>
           ))}
         </div>
+
+        <section className="mt-12 rounded-lg border border-border bg-card p-6 sm:p-8">
+          <h2 className="text-2xl font-bold text-foreground mb-2">Funderar ni på att byta partner eller minska partnerberoendet?</h2>
+          <p className="text-muted-foreground mb-6 max-w-3xl">
+            {nowrapBrand("Att vara missnöjd med partnern betyder inte att ni måste byta system. Dynamics 365-lösningen och era data finns kvar, det som byts är vem som förvaltar och utvecklar den.")}
+          </p>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            {[
+              { t: "Utvärdera", d: "Hitta orsakerna till friktionen innan ni agerar." },
+              { t: "Minska beroendet", d: "Säkra dokumentation, adminåtkomst, kod och licenser." },
+              { t: "Byta partner", d: "Så fungerar uppsägning, överlämning och ny partner i praktiken." },
+            ].map((x) => (
+              <div key={x.t} className="rounded-md border border-border bg-secondary/40 p-4">
+                <h3 className="font-semibold text-foreground mb-1">{x.t}</h3>
+                <p className="text-sm text-muted-foreground">{x.d}</p>
+              </div>
+            ))}
+          </div>
+          <Link to="/guider/byta-dynamics-partner/" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
+            Till guiden och partnerbytesanalysen <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </section>
 
         <section className="mt-12 rounded-lg border border-border bg-secondary/40 p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-foreground mb-2">Samla era behov innan ni pratar med en partner</h2>

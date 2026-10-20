@@ -9,14 +9,19 @@
     "website": "https://www.4ps.se/",
     "email": "anders.ostby@4ps.se",
     "contact_person": "Anders Östby",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": "+46 10 540 00 00",
     "applications": [
       "Business Central"
     ],
     "industries": [],
     "secondary_industries": [],
-    "geography": [],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Europa",
+      "Globalt"
+    ],
     "product_filters": {
       "bc": {
         "ranking": 1,
@@ -36,7 +41,7 @@
         "companySize": [
           "100-249",
           "250-999",
-          "1.000-4.999"
+          "50-99"
         ],
         "contactName": "Anders Östby",
         "contactEmail": "anders.ostby@4ps.se",
@@ -120,7 +125,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-25T06:26:13.243233+00:00",
+    "updated_at": "2026-10-20T08:39:23.455459+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -160,7 +165,7 @@
       "Business Central": "100+"
     },
     "ai_summary": "4PS är en specialiserad Dynamics 365 Business Central-partner för bygg-, installations-, service- och entreprenadverksamheter. Kärnan är 4PS Construct, en branschlösning som samlar bland annat projekt, ekonomi, kalkyl, inköp, resursplanering och fältservice i Business Central.",
-    "ai_summary_generated_at": "2026-06-29T16:18:46.838+00:00",
+    "ai_summary_generated_at": "2026-10-20T08:39:23.276+00:00",
     "ai_profile": {
       "use_cases": [
         "readiness",
@@ -192,7 +197,7 @@
       "ai_experience_summary_generated_at": "2026-07-03T14:03:29.767Z"
     },
     "extended_content": "4PS är en vertikal Business Central-/ISV-partner för bygg, installation, service och entreprenad, med den egna branschlösningen 4PS Construct byggd ovanpå Business Central. Sedan 2023 ägs 4PS Group av Hilti, vilket ger en stark internationell produktgrupp bakom en relativt liten svensk juridisk enhet. Precis som Adbriq är 4PS en renodlad vertikal specialist snarare än en generell BC-partner, men här är branschen bygg/entreprenad i stället för fashion, och skalan bakom (Hilti-koncernen) betydligt större.\n\nAktiva produktområden: Business Central som huvudplattform genom 4PS Construct, med fokus på branschspecifik construction ERP snarare än generell BC-implementation. Sekundärt: Power Platform, AI-readiness, dashboards, rapportering, mobil/field-processer och integrationsnära flöden. CRM och fältservice förekommer som funktionalitet inom 4PS Construct men ska inte tolkas som fristående D365 CE/Field Service-erbjudande. Viktig avgränsning: F&SCM, fristående CE/CRM, Customer Service, Field Service, Contact Center, Commerce, HR och Project Operations är inte verifierade som självständiga d365.se-filter.\n\nTydliga styrkor: Egen vertikal IP/ISV-lösning (4PS Construct) med end-to-end-processer från anbud till eftermarknad, stark branschspecialisering inom bygg och installation, samt Hilti-ägande som ger internationell finansiell stabilitet och produktutveckling. Microsoft Inner Circle 2025/2026-status stärker Microsoft-närheten ytterligare. Stark förvaltningskapacitet som branschprodukt-/plattformspartner: 4PS designar, bygger, implementerar och underhåller programvaran själva.\n\nRäckvidd och segment: Huvudkontor i Göteborg, med d365.se-kontor även i Norrköping. Den svenska enheten är dock liten: 4 618 KSEK omsättning och 16 anställda 2024 enligt Bolagsfakta, vilket inte ska tolkas som koncernens storlek. 4PS Group anger globalt över 400 software engineers/application consultants och över 450 kunder. Segment: medelstora till större bygg-, installations- och serviceföretag (d365.se anger 100–4 999 anställda som relevant kundstorlek). Branschfokus: bygg, entreprenad & installation, installationsteknik samt service/underhåll.\n\nPassar bäst: Bygg-, entreprenad-, installations- och serviceföretag som behöver en branschspecifik ERP-lösning på Business Central, kunder där projektlönsamhet, marginalkontroll, resursplanering och realtidsöversikt är centrala frågor, samt organisationer som tycker standard-BC kräver för mycket anpassning för bygg- och serviceprocesser. Mindre lämplig för mycket små företag som bara behöver enkel ekonomilösning, kunder som söker ren F&SCM, CRM/CE eller andra fristående Dynamics 365-lösningar utan byggkoppling, organisationer utanför bygg/installation/entreprenad, samt kunder där lägsta pris väger tyngre än branschfunktionalitet.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst skalan: den svenska juridiska enhetens omsättning (4 618 KSEK, 16 anställda) speglar bara den svenska etableringen och ska inte förväxlas med den internationella 4PS/Hilti-gruppens storlek — håll dessa åtskilda i publik text.\n\nSedan etableringsår i Sverige: 4PS grundades 2000 i Nederländerna, men exakt etableringsår för den svenska juridiska enheten bör verifieras separat.\n\nSlutligen kontaktpersonen: Anders Östby anges enligt d365.se, men e-post och telefon bör verifieras innan publik eller operativ användning, liksom vilka kontor (Sverige vs 4PS Group/Hilti-resurs) som ansvarar för vad.\n\nSammanfattning: En vertikal produkt-/ISV-partner för bygg och installation med stark internationell produktutveckling via Hilti-ägandet, men en relativt liten svensk juridisk enhet. Rätt jämförelsegrupp är andra BC-vertikaler och branschpaket med bygg-/entreprenadfokus, med rena CRM-specialister och globala SI:er utan bygg-ERP-fokus som lägre relevans i jämförelsen.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "extended_content_updated_at": "2026-10-20T08:39:23.276+00:00",
     "partner_size_tier": 3,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": "4PS skiljer sig från en generell Business Central-partner genom ett tydligt vertikalt fokus. 4PS Construct är utvecklat specifikt för projektorienterade verksamheter inom bygg, installation, service och närliggande områden och täcker processer från kalkyl och upphandling till projektstyrning, resurser och service. Det gör partnern särskilt relevant när branschfunktionalitet väger tyngre än en generell ERP-implementation.\nPå d365.se anges företag med cirka 100–4 999 anställda som huvudsakligt segment och lösningen kan användas internationellt. AI-underlaget är främst kopplat till AI-readiness, Copilot och rådgivning snarare än avancerad kundspecifik AI-utveckling.",
@@ -218,11 +223,7 @@
       "Copilot",
       "AI-readiness"
     ],
-    "extended_competencies": {
-      "copilot_ai": null,
-      "power_platform": null,
-      "copilot_studio_agents": null
-    },
+    "extended_competencies": {},
     "team_size_per_app": {},
     "key_differentiators": [
       "Branschlösningen 4PS Construct är byggd på Dynamics 365 Business Central",
@@ -2616,7 +2617,7 @@
     "website": "https://nabsolutions.com/",
     "email": "Gustav.stigenius@nabsolutions.se",
     "contact_person": "Gustav Stigenius",
-    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nab-solutions-contact.jpeg?t=1776406369128",
+    "contact_photo_url": "",
     "phone": "+46 723 57 25 70",
     "applications": [
       "Business Central",
@@ -2626,21 +2627,9 @@
       "Field Service",
       "Contact Center"
     ],
-    "industries": [
-      "Grossist & Distribution",
-      "Tillverkningsindustri"
-    ],
-    "secondary_industries": [
-      "Life Science / Medtech",
-      "Konsulttjänster"
-    ],
-    "geography": [
-      "Sverige",
-      "Norden",
-      "Globalt",
-      "Globalt",
-      "Europa"
-    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 1,
@@ -2837,7 +2826,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=NAB+Solutions+Växjö",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-09-24T14:54:55.815923+00:00",
+    "updated_at": "2026-10-19T15:34:02.627696+00:00",
     "industry_pitches": [
       {
         "text": "NAB Solutions erbjuder lösningar baserade på Microsoft Dynamics 365 för den svenska finans- och försäkringsbranschen. Partnern levererar systemstöd som adresserar branschens krav på digitalisering, effektivisering av processer och hantering av höga kundförväntningar. Med erfarenhet av Dynamics 365 Business Central kan de bidra till modernisering av kärnsystem för finansiell styrning.\n\nFör att möta behovet av förbättrade kundrelationer och personaliserade upplevelser implementerar NAB Solutions applikationer som Dynamics 365 Sales, Customer Service och Customer Insights (Marketing). Dessa lösningar kan stödja försäljningsprocesser, kundsupport och datadriven marknadsföring, vilket är relevant för företag som vill förstärka sin position i en konkurrensutsatt marknad. De arbetar även med Contact Center-lösningar för att effektivisera kundkommunikationen. Partnern har sedan 2001 fokuserat på Microsofts produkter och bistår företag med digitalisering.",
@@ -2884,8 +2873,14 @@
     ],
     "agreement_signed": true,
     "related_party": false,
-    "positioning_statement": "Passar särskilt grossist- och uthyrningsföretag som behöver en anpassningsbar affärslösning i Norden.",
-    "delivery_profile": {},
+    "positioning_statement": "Vi är valet när ditt grossist- eller uthyrningsföretag behöver en anpassningsbar affärslösning i Norden.",
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
     "team_size_sweden": "50+",
     "implementations_done": null,
     "not_a_fit": [
@@ -2893,7 +2888,14 @@
       "Koncerner där F&SCM är kärnan i en global ERP-standardisering",
       "Projekt som huvudsakligen handlar om avancerad Azure AI-utveckling"
     ],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Sales": "10–25",
+      "Field Service": "<10",
+      "Contact Center": "<10",
+      "Business Central": "100+",
+      "Customer Service": "<10",
+      "Customer Insights (Marketing)": "<10"
+    },
     "ai_summary": "NAB Solutions har Business Central som kärnområde men arbetar även med Dynamics 365-applikationer för försäljning, marknad och service. Partnern har lång erfarenhet av Microsofts ERP-plattform och arbetar bland annat med grossist/distribution, tillverkning och uthyrningsverksamhet.",
     "ai_summary_generated_at": "2026-06-29T16:18:59.433+00:00",
     "ai_profile": {
@@ -2971,7 +2973,7 @@
       "Erfarenhet från grossist/distribution, tillverkning och uthyrningsverksamhet",
       "Fem kontorsorter och över 50 medarbetare i Sverige"
     ],
-    "key_differentiators_source": "d365",
+    "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att NAB Solutions är en svensk partner med lång specialisering inom Business Central, med rötter i Navision/NAV sedan 2001. Företaget har en tydlig inriktning mot SMB- och midmarket-segmentet och erbjuder en bred tilläggsportfölj.\n\nInnehållet indikerar att NAB Solutions har kontor på flera orter i Sverige, inklusive Växjö, Stockholm, Göteborg, Malmö och Umeå. Partnern uppvisar kompetens inom Microsoft Dynamics 365, inklusive Business Central samt delar av Customer Engagement-sviten som Sales, Customer Service och Customer Insights. Även Power Platform, Power BI, Microsoft 365 samt AI- och Copilot-lösningar framhålls.\n\nFöretaget arbetar bland annat med branscher som grossist och distribution, tillverkningsindustri, finans och försäkring. En växande position inom AI/Copilot och stark kompetens inom NAV-till-Business Central-migreringar samt förvaltning framgår av observationsunderlaget.",
     "public_focus_tags": [
       "Business Central",
