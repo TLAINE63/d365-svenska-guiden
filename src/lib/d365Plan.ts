@@ -3,6 +3,7 @@ import { type BuyerContext, getBuyerContext, clearBuyerContext } from "@/lib/buy
 import { type BuyerProfile, clearProfile } from "@/lib/buyerProfile";
 import { deriveCompareFilters, filtersToSearch, industrySlugFromName } from "@/lib/underlag";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { clearSystemvalContext } from "@/lib/systemvalHandoff";
 
 export type PlanArea = "erp" | "crm" | "migration" | "partner";
 export type PlanPriority = "important" | "investigate";
@@ -135,6 +136,7 @@ export function hasPlanStarted(meta: PlanMeta) {
 export function clearD365Plan() {
   clearBuyerContext();
   clearProfile();
+  clearSystemvalContext();
   updatePlan({ area: undefined, needs: [], dimensions: {}, calculations: [], solution: undefined, completedSteps: [] });
 }
 

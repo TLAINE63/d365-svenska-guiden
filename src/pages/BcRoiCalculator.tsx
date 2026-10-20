@@ -33,6 +33,7 @@ import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/b
 import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
+import { readCalcPrefill } from "@/lib/systemvalHandoff";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -102,6 +103,9 @@ export default function BcRoiCalculator() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Förifyllning från Systemval-länken efter mount (SSG-säkert); okända värden ignoreras.
+    const pre = readCalcPrefill(window.location.search);
+    if (pre.complexity || pre.integrations !== undefined) setV((prev) => ({ ...prev, ...pre }));
   }, []);
 
   const update = <K extends keyof Inputs>(k: K, val: Inputs[K]) =>
