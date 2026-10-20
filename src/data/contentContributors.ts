@@ -57,6 +57,7 @@ export const PAGE_CONTRIBUTIONS: Record<string, PageContribution[]> = {
       "/d365projectoperations", "/d365humanresources", "/d365commerce",
       "/kostnad", "/priser", "/upphandlingsguiden", "/befintlig-kund",
       "/guider/byta-dynamics-partner", "/second-opinion",
+      "/guider/optimera-dynamics-365", "/guider/dynamics-365-support-forvaltning", "/vad-ar-dynamics-365",
     ].map((p) => [p, thomasAuthor()]),
   ),
 };

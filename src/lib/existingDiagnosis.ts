@@ -106,10 +106,10 @@ export function diagnose(a: DxAnswers): DxResult | null {
   switch (a.symptom) {
     case "slow_or_manual":
       return { need: "optimize", title: "Optimera den befintliga lösningen", why: "Problemet verkar ligga i hur lösningen används och är uppsatt, inte i att ni behöver ett nytt system.", steps: [
-        { label: "Läs om förvaltning och vidareutveckling", href: "/kompetens/", kind: "content" }, so("optimize"), partner() ] };
+        { label: "Läs guiden om att optimera Dynamics\u00A0365", href: "/guider/optimera-dynamics-365/", kind: "content" }, so("optimize"), partner() ] };
     case "support_issues":
       return { need: "support", title: "Support och löpande förvaltning", why: "Det handlar om supportnivå, uppdateringar och ansvar efter driftstart.", steps: [
-        { label: "Se vad som ingår i förvaltning", href: "/kompetens/", kind: "content" }, partner("Hitta partner för förvaltning") ] };
+        { label: "Se vad som ingår i support och förvaltning", href: "/guider/dynamics-365-support-forvaltning/", kind: "content" }, partner("Hitta partner för förvaltning") ] };
     case "unsure_cause":
       return { need: "second_opinion", title: "Second opinion", why: "När orsaken är oklar är en extern bedömning av lösning, implementation och förvaltning ofta rätt första steg, innan ni byter något.", steps: [
         so("second_opinion"), { label: "Läs partnerbytesguiden (utvärdera först)", href: "/guider/byta-dynamics-partner/", kind: "content" } ] };

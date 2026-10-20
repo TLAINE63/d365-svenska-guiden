@@ -83,6 +83,9 @@ import Kostnad from './pages/Kostnad';
 import BefintligKund from './pages/BefintligKund';
 import BytaPartner from './pages/BytaPartner';
 import SecondOpinion from './pages/SecondOpinion';
+import OptimeraDynamics365 from './pages/OptimeraDynamics365';
+import SupportForvaltning from './pages/SupportForvaltning';
+import VadArDynamics365 from './pages/VadArDynamics365';
 import CrmCategoryGuide from './pages/CrmCategoryGuide';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
@@ -252,6 +255,9 @@ export const routes: PrerenderRoute[] = [
   { path: '/befintlig-kund', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/byta-dynamics-partner', priority: '0.8', changefreq: 'monthly' },
   { path: '/second-opinion', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guider/optimera-dynamics-365', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guider/dynamics-365-support-forvaltning', priority: '0.8', changefreq: 'monthly' },
+  { path: '/vad-ar-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
@@ -612,6 +618,9 @@ export function render(url: string) {
               <Route path="/befintlig-kund" element={<BefintligKund />} />
               <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
               <Route path="/second-opinion" element={<SecondOpinion />} />
+              <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
+              <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
+              <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />
               <Route path="/byta-partner" element={<Navigate to="/guider/byta-dynamics-partner/" replace />} />
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
