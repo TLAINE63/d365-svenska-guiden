@@ -293,3 +293,12 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] "Bygg ert CRM-beslutsunderlag": behov, krav, kostnad, utvärdering
 - [x] Rensat dubbla introtexter, standardavsnitt och konkurrerande CTA-block
 - [ ] Framtida innehåll (förslag): jämförelse Sales mot Microsofts enklare alternativ saknas – kräver beslut
+
+## Fas 2: sammanhängande beslutssystem (2026-10-20)
+- [x] Steg 1: kravspecar minns bransch, storlek och områden via köparprofilen
+- [x] Steg 2: Systemval förs vidare till produktsidor och kalkylatorer
+- [ ] Steg 3: konkurrentjämförelser leder till test/kalkyl (väntar på klartecken)
+- [ ] Steg 4: kalkylator vidare till kravspec
+- [ ] Steg 5: diagnos på Befintlig kund
+- [ ] Steg 6: tydligare matchningsskäl i partnerkatalog och kortlista
+- [ ] Steg 7: Second opinion och förvaltningsguide
