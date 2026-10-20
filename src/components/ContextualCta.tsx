@@ -71,7 +71,7 @@ const ContextualCta = ({
   const chips = usePersonal ? [ctx.industry, sizeLabel(ctx.size), shortProductName(ctx.product)].filter(Boolean) : [];
 
   if (journey) primaryLabel = journey.label;
-  if (journey && journey.area !== "partner") {
+  if (journey && journey.area !== "partner" && !journey.keepCopy) {
     heading = journey.area === "migration" ? "Vad behöver ni utreda inför migrationen?" : "Pröva alternativen mot er situation";
     text = "Börja med era processer, behov och förutsättningar. Samla det ni vet i er plan innan ni väljer lösning eller partner.";
   }
