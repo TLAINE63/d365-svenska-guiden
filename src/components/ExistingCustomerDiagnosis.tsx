@@ -80,7 +80,7 @@ export default function ExistingCustomerDiagnosis() {
             {result.steps.map((s, i) => (
               <li key={s.href + s.label}>
                 <Link to={s.href}
-                  onClick={() => track(`befintlig_diagnos_to_${s.kind}`, { need: result.need, target: s.href })}
+                  onClick={() => { track(`befintlig_diagnos_to_${s.kind}`, { need: result.need, target: s.href }); if (s.kind === "second_opinion") track("diagnos_to_second_opinion", { need: result.need, known_product: Boolean(product) }); }}
                   className={i === 0 ? "inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90" : "inline-flex items-center gap-1.5 rounded-md border border-border px-4 py-2 text-sm font-medium text-primary hover:bg-background"}>
                   {nowrapBrand(s.label)} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
                 </Link>

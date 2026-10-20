@@ -141,6 +141,9 @@ const BefintligKund = () => (
           <Link to="/guider/byta-dynamics-partner/" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
             Till guiden och partnerbytesanalysen <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
+          <Link to="/second-opinion/" className="ml-0 sm:ml-3 mt-3 sm:mt-0 inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm font-semibold text-primary hover:bg-secondary">
+            Osäkra? Be om en second opinion först <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </section>
 
         <section className="mt-12 rounded-lg border border-border bg-secondary/40 p-6 sm:p-8">

@@ -5,6 +5,7 @@
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/byta-dynamics-partner/": "2026-10-20",
+  "/second-opinion/": "2026-10-20",
   "/befintlig-kund/": "2026-10-20",
   "/businesscentral/": "2026-10-05",
   "/finance-supply-chain/": "2026-10-05",
