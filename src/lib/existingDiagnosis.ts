@@ -10,7 +10,8 @@ export type DxNeed =
   | "switch_partner"
   | "extend"
   | "ai"
-  | "specialist";
+  | "specialist"
+  | "partner_review";
 
 export type DxSymptom =
   | "slow_or_manual" // systemet används inte fullt ut, manuella moment
@@ -86,24 +87,36 @@ export function partnerHref(product?: string | null): string {
   return `/valjdynamics365partner/${q}`;
 }
 
-const SECOND_OPINION: DxStep = { label: "Be om en second opinion", href: "/kontakt/", kind: "second_opinion" };
+const SO_LABELS: Partial<Record<DxNeed, string>> = {
+  optimize: "Lösningen används inte fullt ut",
+  second_opinion: "Oklart vad som orsakar problemen",
+  partner_review: "Missnöje med partnern, inte taget upp ännu",
+};
+type SoNeed = "optimize" | "second_opinion" | "partner_review";
+const so = (need: SoNeed): DxStep => ({ label: "Be om en second opinion", href: `/second-opinion/?kalla=diagnos&behov=${need}`, kind: "second_opinion" });
+
+/** Läser behovet som diagnosen skickade med; okända värden ignoreras (ingen gissning). */
+export function secondOpinionContext(need: string | null): { need: string; label: string } | null {
+  const label = need ? SO_LABELS[need as DxNeed] : undefined;
+  return need && label ? { need, label } : null;
+}
 
 export function diagnose(a: DxAnswers): DxResult | null {
   const partner = (label = "Hitta partner med rätt kompetens"): DxStep => ({ label, href: partnerHref(a.knownProduct), kind: "partner" });
   switch (a.symptom) {
     case "slow_or_manual":
       return { need: "optimize", title: "Optimera den befintliga lösningen", why: "Problemet verkar ligga i hur lösningen används och är uppsatt, inte i att ni behöver ett nytt system.", steps: [
-        { label: "Läs om förvaltning och vidareutveckling", href: "/kompetens/", kind: "content" }, SECOND_OPINION, partner() ] };
+        { label: "Läs om förvaltning och vidareutveckling", href: "/kompetens/", kind: "content" }, so("optimize"), partner() ] };
     case "support_issues":
       return { need: "support", title: "Support och löpande förvaltning", why: "Det handlar om supportnivå, uppdateringar och ansvar efter driftstart.", steps: [
         { label: "Se vad som ingår i förvaltning", href: "/kompetens/", kind: "content" }, partner("Hitta partner för förvaltning") ] };
     case "unsure_cause":
       return { need: "second_opinion", title: "Second opinion", why: "När orsaken är oklar är en extern bedömning av lösning, implementation och förvaltning ofta rätt första steg, innan ni byter något.", steps: [
-        SECOND_OPINION, { label: "Läs partnerbytesguiden (utvärdera först)", href: "/guider/byta-dynamics-partner/", kind: "content" } ] };
+        so("second_opinion"), { label: "Läs partnerbytesguiden (utvärdera först)", href: "/guider/byta-dynamics-partner/", kind: "content" } ] };
     case "partner_issue":
       if (a.partnerTalked === "no")
         return { need: "second_opinion", title: "Utvärdera samarbetet först", why: "Ni har inte tagit upp problemen med partnern ännu. Det kan ibland lösas utan byte; en second opinion ger underlag för samtalet.", steps: [
-          { label: "Till partnerbytesguiden", href: "/guider/byta-dynamics-partner/", kind: "content" }, SECOND_OPINION ] };
+          { label: "Till partnerbytesguiden", href: "/guider/byta-dynamics-partner/", kind: "content" }, so("partner_review") ] };
       if (a.partnerTalked !== "yes") return null;
       return { need: "switch_partner", title: "Byta Dynamics\u00A0365-partner", why: "Problemen kvarstår trots dialog. Lösningen och era data finns kvar, det som byts är vem som förvaltar den.", steps: [
         { label: "Gör partnerbytesanalysen", href: "/guider/byta-dynamics-partner/", kind: "content" }, partner("Hitta ny partner") ] };

@@ -43,6 +43,7 @@ const STATIC_ROUTES = [
   { path: "/kompetens/", changefreq: "monthly", priority: "0.8" },
   { path: "/befintlig-kund/", changefreq: "monthly", priority: "0.7" },
   { path: "/guider/byta-dynamics-partner/", changefreq: "monthly", priority: "0.8" },
+  { path: "/second-opinion/", changefreq: "monthly", priority: "0.8" },
   { path: "/guider/valja-dynamics-365-partner/", changefreq: "monthly", priority: "0.9" },
   { path: "/guider/valja-business-central-partner/", changefreq: "monthly", priority: "0.9" },
   { path: "/guider/valja-finance-supply-chain-partner/", changefreq: "monthly", priority: "0.9" },

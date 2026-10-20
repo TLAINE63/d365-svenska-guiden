@@ -1,5 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Second opinion (2026-10-20)
+- [x] Egen sida /second-opinion/ med befintligt rådgivningsformulär, diagnoskontext och anonym mätning
+- [ ] Samlad end-to-end-QA av båda huvudresorna inkl. slutförd kravspec → partner, före publicering
+
 ## F&SCM-pilot: laddning och mobilläsbarhet (2026-10-19)
 - [x] Kontrollera sidans laddning, stabilitet och mobilöverbredd
 - [x] Kontrollera kort svar, snabbfakta, källor och tre huvudvägar i webbläsaren

@@ -82,6 +82,7 @@ import Priser from './pages/Priser';
 import Kostnad from './pages/Kostnad';
 import BefintligKund from './pages/BefintligKund';
 import BytaPartner from './pages/BytaPartner';
+import SecondOpinion from './pages/SecondOpinion';
 import CrmCategoryGuide from './pages/CrmCategoryGuide';
 import ImplementationCalculator from './pages/ImplementationCalculator';
 import Upphandlingsguiden from './pages/Upphandlingsguiden';
@@ -250,6 +251,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/kostnad', priority: '0.8', changefreq: 'monthly' },
   { path: '/befintlig-kund', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/byta-dynamics-partner', priority: '0.8', changefreq: 'monthly' },
+  { path: '/second-opinion', priority: '0.8', changefreq: 'monthly' },
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
@@ -609,6 +611,7 @@ export function render(url: string) {
               <Route path="/kostnad" element={<Kostnad />} />
               <Route path="/befintlig-kund" element={<BefintligKund />} />
               <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
+              <Route path="/second-opinion" element={<SecondOpinion />} />
               <Route path="/byta-partner" element={<Navigate to="/guider/byta-dynamics-partner/" replace />} />
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
               <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />

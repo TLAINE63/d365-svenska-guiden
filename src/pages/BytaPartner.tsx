@@ -223,6 +223,7 @@ const BytaPartner = () => {
           <section className="mb-10">
             <h2 className="text-xl font-bold text-foreground mb-3">Vidare läsning</h2>
             <ul className="space-y-2 text-sm">
+              <li><Link className="text-primary hover:underline" to="/second-opinion/">{nowrapBrand("Second opinion: få en extern bedömning innan ni byter")}</Link></li>
               <li><Link className="text-primary hover:underline" to="/befintlig-kund/">{nowrapBrand("Redan Dynamics 365-kund: utöka, AI och förvaltning")}</Link></li>
               <li><Link className="text-primary hover:underline" to="/guider/valja-business-central-partner/">Välja Business Central-partner</Link></li>
               <li><Link className="text-primary hover:underline" to="/kompetens/">Kompetensområden hos partners</Link></li>
