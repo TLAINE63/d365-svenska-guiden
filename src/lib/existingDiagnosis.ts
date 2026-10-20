@@ -86,7 +86,7 @@ export function partnerHref(product?: string | null): string {
   return `/valjdynamics365partner/${q}`;
 }
 
-const SECOND_OPINION: DxStep = { label: "Be om en second opinion", href: "/kontakt/?amne=second-opinion", kind: "second_opinion" };
+const SECOND_OPINION: DxStep = { label: "Be om en second opinion", href: "/kontakt/", kind: "second_opinion" };
 
 export function diagnose(a: DxAnswers): DxResult | null {
   const partner = (label = "Hitta partner med rätt kompetens"): DxStep => ({ label, href: partnerHref(a.knownProduct), kind: "partner" });
@@ -112,7 +112,7 @@ export function diagnose(a: DxAnswers): DxResult | null {
       const href = a.newArea === "erp" ? "/affarssystem/" : a.newArea === "crm" ? "/crm/" : "/kom-igang/";
       const label = a.newArea === "unknown" ? "Ta reda på vilken applikation som passar" : a.newArea === "erp" ? "Utforska ERP i Dynamics\u00A0365" : "Utforska CRM i Dynamics\u00A0365";
       return { need: "extend", title: "Utöka med fler applikationer", why: "Nya behov kan ofta byggas på den data ni redan har i Dynamics\u00A0365.", steps: [
-        { label, href, kind: "content" }, { label: "Se tilläggslösningar", href: "/d365-tillagg/", kind: "content" } ] };
+        { label, href, kind: "content" }, { label: "Se tilläggslösningar", href: "/kunskapscenter/dynamics-365-tillagg/", kind: "content" } ] };
     }
     case "ai_automation":
       return { need: "ai", title: "Power Platform, Copilot och AI", why: "Börja med en konkret arbetsuppgift där tid eller kvalitet går att mäta.", steps: [

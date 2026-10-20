@@ -1,4 +1,5 @@
 import ExpertCard from "@/components/ExpertCard";
+import ExistingCustomerDiagnosis from "@/components/ExistingCustomerDiagnosis";
 import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Sparkles, LifeBuoy, Target } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -94,6 +95,8 @@ const BefintligKund = () => (
             {nowrapBrand("Den största nyttan kommer ofta efter första införandet. Här finns fyra vanliga vägar vidare: fler applikationer inom ERP eller CRM, AI, förvaltning och spetskompetens.")}
           </p>
         </header>
+
+        <ExistingCustomerDiagnosis />
 
         <div className="grid gap-6 md:grid-cols-2">
           {areas.map(({ icon: Icon, title, text, points, links }) => (
