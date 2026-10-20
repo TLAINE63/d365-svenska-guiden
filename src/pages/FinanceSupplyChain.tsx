@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -224,6 +225,7 @@ const FinanceSupplyChain = () => {
    note="Priser enligt Microsofts listpris. Projektkostnad och tid är d365.se:s redaktionella spann, inte Microsoft-uppgifter. Källor längst ned på sidan."
   />
   <EditorialAssessment assessment="fscm" />
+  <SystemvalHandoffNote page="fscm" />
   <FscmDecisionGuide />
 
  {/* FAQ Section */}

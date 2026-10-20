@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ExpertCard from "@/components/ExpertCard";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -114,6 +115,7 @@ const D365Marketing = () => {
 
       <BuyerFitSection fitKey="insights" />
       <EditorialAssessment assessment="insights" />
+      <SystemvalHandoffNote page="ci" />
       <InsightsDecisionGuide />
       <ShortAnswer title="Vad är Dynamics 365 Customer Insights">
         <p>Dynamics 365 Customer Insights är Microsofts moderna marknads- och kunddataplattform och består av två tätt integrerade delar som tillsammans täcker både datasidan och aktiveringssidan av modern marknadsföring.</p>

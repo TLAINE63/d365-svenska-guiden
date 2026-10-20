@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
@@ -136,6 +137,7 @@ const D365Sales = () => {
         tertiary={{ label: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
 
+      <SystemvalHandoffNote page="sales" />
       <SalesDecisionGuide />
       <ShortAnswer title="Vad är Dynamics 365 Sales">
         <p>Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess.</p>

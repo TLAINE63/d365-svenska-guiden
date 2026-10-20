@@ -1,3 +1,4 @@
+import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ExpertCard from "@/components/ExpertCard";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -102,6 +103,7 @@ const D365ContactCenter = () => {
 
       <EditorialSource sourceType="Köpguide" />
 <ExpertCard path="/d365contactcenter" />
+      <SystemvalHandoffNote page="cc" />
       <ContactCenterDecisionGuide />
 
       <ShortAnswer title="Vad är Dynamics 365 Contact Center">
