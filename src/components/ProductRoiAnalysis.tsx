@@ -568,6 +568,15 @@ export default function ProductRoiAnalysis({
           />
         </div>
 
+        {kravNext && (
+          <CalcToKravNext
+            className="mt-10"
+            product={productKey}
+            drivers={enabled}
+            integrations={integrations}
+            users={KRAV_USERS_PRODUCTS.includes(productKey) ? totalUsers : undefined}
+          />
+        )}
       </div>
     </section>
   );
