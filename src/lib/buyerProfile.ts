@@ -14,6 +14,8 @@ export type ProfileValue = string | number | boolean | string[];
 export type BuyerProfile = Record<SectionKey, Record<string, ProfileValue>>;
 
 const ID_KEY = "d365_buyer_id";
+/** Hemlig ägarnyckel för serverkopian; lämnar aldrig webbläsaren utom till buyer-profile. */
+const TOKEN_KEY = "d365_buyer_owner_token";
 const CACHE_KEY = "d365_buyer_profile_v1";
 
 export const emptyProfile = (): BuyerProfile =>
@@ -21,18 +23,30 @@ export const emptyProfile = (): BuyerProfile =>
 
 const isBrowser = () => typeof window !== "undefined";
 
-export function getBuyerId(): string | null {
+/** true när ett nytt id/nyckelpar skapats och serverkopian behöver hela den lokala profilen. */
+let needsFullSync = false;
+
+function getCredentials(): { buyer_id: string; owner_token: string } | null {
   if (!isBrowser()) return null;
   try {
     let id = localStorage.getItem(ID_KEY);
-    if (!id) {
+    let token = localStorage.getItem(TOKEN_KEY);
+    if (!id || !token) {
+      // Äldre id utan ägarnyckel ersätts, eftersom deras serverkopia inte kan ägas säkert.
       id = crypto.randomUUID();
+      token = `${crypto.randomUUID()}${crypto.randomUUID()}`.replace(/-/g, "");
       localStorage.setItem(ID_KEY, id);
+      localStorage.setItem(TOKEN_KEY, token);
+      needsFullSync = true;
     }
-    return id;
+    return { buyer_id: id, owner_token: token };
   } catch {
     return null;
   }
+}
+
+export function getBuyerId(): string | null {
+  return getCredentials()?.buyer_id ?? null;
 }
 
 let state: BuyerProfile = emptyProfile();
