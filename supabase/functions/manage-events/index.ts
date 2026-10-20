@@ -669,16 +669,16 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      // Verify token
+      // Verify token and that the partner still has event-portal access (featured)
       const { data: tokenData, error: tokenError } = await supabase
         .from("partner_event_tokens")
-        .select("partner_id")
+        .select("partner_id, partners:partner_id (id, is_featured)")
         .eq("token", token)
         .single();
 
-      if (tokenError || !tokenData) {
+      if (tokenError || !tokenData || !(tokenData as any).partners?.is_featured) {
         return new Response(
-          JSON.stringify({ error: "Ogiltig länk" }),
+          JSON.stringify({ error: "Ogiltig länk eller otillräckliga rättigheter" }),
           { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }

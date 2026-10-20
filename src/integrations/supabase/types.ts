@@ -206,6 +206,7 @@ export type Database = {
           fscm: Json
           id: string
           integrations: Json
+          owner_token_hash: string | null
           project: Json
           scope: Json
           updated_at: string
@@ -221,6 +222,7 @@ export type Database = {
           fscm?: Json
           id?: string
           integrations?: Json
+          owner_token_hash?: string | null
           project?: Json
           scope?: Json
           updated_at?: string
@@ -236,6 +238,7 @@ export type Database = {
           fscm?: Json
           id?: string
           integrations?: Json
+          owner_token_hash?: string | null
           project?: Json
           scope?: Json
           updated_at?: string

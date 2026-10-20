@@ -1,0 +1,1 @@
+ALTER TABLE public.buyer_profiles ADD COLUMN IF NOT EXISTS owner_token_hash text;

@@ -146,6 +146,64 @@ interface PartnerMatch {
   bullets?: string[]; // 2-4 korta konkreta motiveringar
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// Load the public matching fields for published (is_featured) partners, preserving request order.
+async function fetchPublishedPartners(ids: string[]): Promise<PartnerInput[]> {
+  const url = Deno.env.get('SUPABASE_URL');
+  const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  if (!url || !key || ids.length === 0) return [];
+  const admin = createClient(url, key, { auth: { persistSession: false } });
+  const { data, error } = await admin
+    .from('partners')
+    .select('id, name, description, applications, industries, geography, product_filters, office_cities, platform_capabilities, partner_size_tier, partner_size_tier_needs_review')
+    .in('id', ids)
+    .eq('is_featured', true);
+  if (error) {
+    console.error('partners fetch error:', error.message);
+    return [];
+  }
+  const byId = new Map((data || []).map((r: any) => [r.id as string, r]));
+  return ids.map((id) => byId.get(id)).filter(Boolean).map((r: any) => ({
+    ...r,
+    applications: r.applications || [],
+    industries: r.industries || [],
+    geography: r.geography || [],
+    product_filters: r.product_filters || {},
+  })) as PartnerInput[];
+}
+
+const strArr = (v: unknown, maxItems = 10, maxLen = 80): string[] =>
+  Array.isArray(v) ? v.filter((x) => typeof x === 'string').slice(0, maxItems).map((x) => sanitizeUntrusted(x, maxLen)) : [];
+
+// Visitor-supplied criteria are untrusted: strip control chars, cap length and allow-list enums.
+function sanitizeCriteria(c: Record<string, unknown>): UserCriteria {
+  const pk = typeof c.productKey === 'string' && /^[a-z_]{1,20}$/.test(c.productKey) ? c.productKey : '';
+  const oneOf = <T extends string>(v: unknown, allowed: readonly T[]): T | undefined =>
+    typeof v === 'string' && (allowed as readonly string[]).includes(v) ? (v as T) : undefined;
+  const ext: Record<string, string> = {};
+  if (c.extendedCompetencies && typeof c.extendedCompetencies === 'object' && !Array.isArray(c.extendedCompetencies)) {
+    for (const [k, v] of Object.entries(c.extendedCompetencies as Record<string, unknown>).slice(0, 10)) {
+      if (typeof v === 'string') ext[sanitizeUntrusted(k, 60)] = sanitizeUntrusted(v, 60);
+    }
+  }
+  return {
+    application: sanitizeUntrusted(c.application, 80) || 'Alla',
+    productKey: pk,
+    industry: sanitizeUntrusted(c.industry, 80),
+    geography: sanitizeUntrusted(c.geography, 80),
+    companySize: sanitizeUntrusted(c.companySize, 40),
+    revenue: sanitizeUntrusted(c.revenue, 40) || undefined,
+    workload: sanitizeUntrusted(c.workload, 80) || undefined,
+    preferCrmOnly: c.preferCrmOnly === true,
+    aiInterest: oneOf(c.aiInterest, ['high', 'medium', 'none'] as const),
+    localPreference: oneOf(c.localPreference, ['very', 'somewhat', 'not'] as const),
+    platformNeeds: strArr(c.platformNeeds),
+    extendedCompetencies: Object.keys(ext).length ? ext : undefined,
+    additionalApps: strArr(c.additionalApps),
+  };
+}
+
 Deno.serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
   if (req.method === 'OPTIONS') {
@@ -161,14 +219,18 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { partners, criteria }: { partners: PartnerInput[]; criteria: UserCriteria } = await req.json();
+    const body = await req.json().catch(() => null) as { partners?: unknown; criteria?: unknown } | null;
+    const rawPartners = Array.isArray(body?.partners) ? body!.partners as any[] : null;
+    const rawCriteria = body?.criteria && typeof body.criteria === 'object' ? body.criteria as Record<string, unknown> : null;
 
-    if (!partners || !criteria) {
+    if (!rawPartners || !rawCriteria || rawPartners.length === 0 || rawPartners.length > 40) {
       return new Response(
         JSON.stringify({ error: 'Missing partners or criteria' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    const criteria = sanitizeCriteria(rawCriteria);
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -177,7 +239,22 @@ Deno.serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-    // Fetch internal AI knowledge for all partners in this batch (service-role, never returned to client).
+
+    // Only published (featured) partners can be ranked. Partner data is always loaded
+    // server-side so callers cannot inject text or pick unpublished partners whose
+    // internal matching knowledge would otherwise be read.
+    const requestedIds = [...new Set(rawPartners
+      .map((p) => (p && typeof p.id === 'string' ? p.id : ''))
+      .filter((id) => UUID_RE.test(id)))];
+    const partners = await fetchPublishedPartners(requestedIds);
+    if (partners.length === 0) {
+      return new Response(
+        JSON.stringify({ matches: [] }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Fetch internal AI knowledge for published partners only (service-role, never returned to client).
     const partnerIds = partners.map(p => p.id);
     const knowledgeMap = await fetchPartnerAiKnowledge(partnerIds);
     const extendedMap = await fetchPartnerExtendedContent(partnerIds);
@@ -384,20 +461,34 @@ Svara med JSON i EXAKT detta format (inga andra fält):
     const content = aiData.choices?.[0]?.message?.content || '';
 
     // Parse AI response - strip markdown code blocks if present
-    let parsed: { matches: PartnerMatch[] };
+    let parsed: { matches?: unknown };
     try {
       const jsonStr = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
       parsed = JSON.parse(jsonStr);
     } catch (e) {
       console.error('Failed to parse AI response:', content);
       return new Response(
-        JSON.stringify({ error: 'Failed to parse AI response', raw: content }),
+        JSON.stringify({ error: 'Failed to parse AI response' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
+    // Return only the expected, length-capped fields for partners that were actually ranked,
+    // so internal matching knowledge can never be echoed back in bulk.
+    const allowed = new Set(partnerIds);
+    const matches: PartnerMatch[] = (Array.isArray(parsed?.matches) ? parsed.matches : [])
+      .filter((m: any) => m && typeof m.id === 'string' && allowed.has(m.id))
+      .map((m: any) => ({
+        id: m.id,
+        score: Math.max(0, Math.min(100, Number(m.score) || 0)),
+        matchReason: typeof m.matchReason === 'string' ? m.matchReason.slice(0, 200) : '',
+        bullets: Array.isArray(m.bullets)
+          ? m.bullets.filter((b: unknown) => typeof b === 'string').slice(0, 4).map((b: string) => b.slice(0, 120))
+          : [],
+      }));
+
     return new Response(
-      JSON.stringify(parsed),
+      JSON.stringify({ matches }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
