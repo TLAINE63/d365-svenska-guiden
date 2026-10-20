@@ -120,9 +120,12 @@ export function saveProfile(patch: Partial<Record<SectionKey, Record<string, Pro
       size: typeof patch.company.employees === "string" ? patch.company.employees : patch.company.employees === null ? null : undefined,
     });
   }
-  const buyer_id = getBuyerId();
-  if (!buyer_id) return;
-  void supabase.functions.invoke("buyer-profile", { body: { action: "save", buyer_id, patch } }).catch(() => {});
+  const creds = getCredentials();
+  if (!creds) return;
+  // Nytt id/nyckelpar: skicka hela den lokala profilen så serverkopian blir komplett.
+  const body = needsFullSync ? { ...state } : patch;
+  needsFullSync = false;
+  void supabase.functions.invoke("buyer-profile", { body: { action: "save", ...creds, patch: body } }).catch(() => {});
 }
 
 export function setAnswer(section: SectionKey, key: string, value: ProfileValue | null) {
@@ -130,10 +133,11 @@ export function setAnswer(section: SectionKey, key: string, value: ProfileValue 
 }
 
 export function clearProfile() {
-  const buyer_id = getBuyerId();
+  const creds = getCredentials();
   state = emptyProfile();
   emit();
-  if (buyer_id) void supabase.functions.invoke("buyer-profile", { body: { action: "clear", buyer_id } }).catch(() => {});
+  needsFullSync = false;
+  if (creds) void supabase.functions.invoke("buyer-profile", { body: { action: "clear", ...creds } }).catch(() => {});
 }
 
 export function hasAnyAnswer(p: BuyerProfile): boolean {
