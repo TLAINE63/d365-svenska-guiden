@@ -38,3 +38,4 @@
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
 - Requirement specs (ERP/Sales/Service/Marketing) restore and save industry, size and areas via useKravProfileSync in src/lib/kravProfile.ts; URL/test prefill wins, profile is the fallback, so context survives any entry path.
+- Systemval hands off to product pages and calculators only via a short local summary (src/lib/systemvalHandoff.ts, track ids/clarity/complexity/integration count) rendered by SystemvalHandoffNote after mount; calculators receive only URL params they already read, so no raw answers leave the guide.
