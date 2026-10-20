@@ -23,6 +23,8 @@ interface Props {
   /** Ingress under rubriken. */
   intro?: string;
   className?: string;
+  /** Anropas när besökaren går vidare till jämförelse, alla partners eller en profil (anonym mätning). */
+  onAction?: (target: "compare" | "all_partners" | "profile") => void;
 }
 
 /**
@@ -38,6 +40,7 @@ const SuggestedPartnersCTA = ({
   heading = "Föreslagna partners att kontakta",
   intro,
   className = "",
+  onAction,
 }: Props) => {
   const { data: partners = [], isLoading } = usePartners();
 
@@ -85,10 +88,10 @@ const SuggestedPartnersCTA = ({
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
           {suggested.map((p) => (
             <article key={p.slug} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary">
-              <PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" />
+              <div onClickCapture={() => onAction?.("profile")}><PartnerCardHeader partner={p} to={`/partner/${p.slug}/`} compact className="-mx-4 -mt-4 w-auto border-b border-border p-4" /></div>
               <p className="text-xs text-muted-foreground line-clamp-2">{p.positioning_statement || p.description || "Se profil för detaljer"}</p>
               <PartnerSelectionFacts partner={p} productKey={Array.isArray(product) ? null : product} />
-              <Link to={`/partner/${p.slug}/`} className="text-sm font-semibold text-primary">Se partnerprofil <ArrowRight className="inline h-4 w-4" /></Link>
+              <Link to={`/partner/${p.slug}/`} onClick={() => onAction?.("profile")} className="text-sm font-semibold text-primary">Se partnerprofil <ArrowRight className="inline h-4 w-4" /></Link>
             </article>
           ))}
         </div>
@@ -99,13 +102,13 @@ const SuggestedPartnersCTA = ({
             size="lg"
             className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white"
           >
-            <Link to={compareUrl} aria-label={`Jämför ${suggested.map((p) => p.name).join(", ")} sida vid sida`}>
+            <Link to={compareUrl} onClick={() => onAction?.("compare")} aria-label={`Jämför ${suggested.map((p) => p.name).join(", ")} sida vid sida`}>
               <GitCompare className="w-4 h-4 mr-2" />
               Jämför dessa {suggested.length} sida vid sida
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg">
-<Link to="/valjdynamics365partner/#alla-partners-rubrik">
+<Link to="/valjdynamics365partner/#alla-partners-rubrik" onClick={() => onAction?.("all_partners")}>
               Se alla partners
               <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
