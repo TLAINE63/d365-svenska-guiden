@@ -1,3 +1,4 @@
+import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import FscmDecisionGuide from "@/components/product/FscmDecisionGuide";
@@ -706,6 +707,7 @@ const FinanceSupplyChain = () => {
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <EditorialSource sourceType="Köpguide" />
+<PartnerSwitchCta />
 <ExpertCard path="/finance-supply-chain" />
 <SourcesAndMethod variant="product" externalSources={fscmSources} />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />

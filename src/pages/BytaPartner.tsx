@@ -19,7 +19,7 @@ const breadcrumbs = [
   { name: "Guider", url: "/guider/" },
   { name: "Byta Dynamics 365-partner", url: PATH },
 ];
-const track = (event_name: string, step?: "tool_start" | "tool_result" | "cta_click", metadata?: Record<string, unknown>) =>
+const track = (event_name: string, step?: "landing" | "tool_start" | "tool_result" | "cta_click", metadata?: Record<string, unknown>) =>
   trackFunnelEvent({ event_type: "engagement", event_name, page_path: PATH, step, metadata });
 
 const paths = [

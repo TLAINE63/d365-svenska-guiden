@@ -1,3 +1,4 @@
+import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import ExpertCard from "@/components/ExpertCard";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
@@ -115,6 +116,7 @@ const D365CustomerService = () => {
       />
 
       <EditorialSource sourceType="Köpguide" />
+<PartnerSwitchCta />
 <ExpertCard path="/d365customerservice" />
       <ServiceDecisionGuide />
 
