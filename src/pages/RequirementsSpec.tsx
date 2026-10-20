@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { createKravJourney, prefillSourceText, readPrefillAreas } from "@/lib/calcToKrav";
 import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -61,6 +62,8 @@ const areaOptions = [
 
 const RequirementsSpec = () => {
   const { toast } = useToast();
+  // Anonym mätning: startad, slutförd och vidare till partnerurval/förfrågan.
+  const [kj] = useState(() => createKravJourney("erp"));
   const { data: partnersList = [] } = usePartners();
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -146,6 +149,8 @@ const RequirementsSpec = () => {
     try {
       const data = await invokeWithRetry("generate-requirements", { product: "erp", industry, companySize, areas: selectedAreas });
       setResult(data);
+      kj.started();
+      kj.completed(selectedAreas.length);
       setStep(4);
     } catch (err: any) {
       console.error("Generation error:", err);
@@ -279,7 +284,7 @@ const RequirementsSpec = () => {
                 <div className="flex items-center gap-3">
                   <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
                   {step < 3 ? (
-                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                    <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} size="sm" disabled={!canProceed()}>
                       Nästa <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   ) : (
@@ -349,7 +354,7 @@ const RequirementsSpec = () => {
               {fromTest && (
                 <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 flex flex-wrap items-center justify-between gap-3">
                   <p className="text-sm text-foreground">
-                    <span className="font-medium">Förifyllt från ditt matchningstest:</span>{" "}
+                    <span className="font-medium">{prefillSourceText(location.search)}:</span>{" "}
                     {[industry, companySize && `${companySize} medarbetare`].filter(Boolean).join(" · ")}
                   </p>
                   <Button variant="outline" size="sm" onClick={() => setStep(1)}>Ändra bransch eller storlek</Button>
@@ -537,6 +542,7 @@ const RequirementsSpec = () => {
               />
 
               <SendUnderlagToPartners
+                onSent={() => kj.toPartners("send_underlag")}
                 sourcePage="/kravspecifikation"
                 assessmentType="kravspec_erp"
                 products={productKeys}
@@ -570,7 +576,7 @@ const RequirementsSpec = () => {
               </Button>
 
               {step < 3 ? (
-                <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
+                <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
@@ -587,7 +593,7 @@ const RequirementsSpec = () => {
         </div>
       </main>
       <RelatedPages heading="Nästa steg i ERP-köpresan" pages={requirementsErpRelatedPages} />
-      {result && <SuggestedPartnersCTA product={productKeys} industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
+      {result && <SuggestedPartnersCTA onAction={kj.toPartners} product={productKeys} industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

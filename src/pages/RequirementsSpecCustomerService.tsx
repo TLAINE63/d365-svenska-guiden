@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { createKravJourney, prefillSourceText, readPrefillAreas } from "@/lib/calcToKrav";
 import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -62,9 +63,11 @@ const areaOptions = [
 
 const RequirementsSpecCustomerService = () => {
   const { toast } = useToast();
+  // Anonym mätning: startad, slutförd och vidare till partnerurval/förfrågan.
+  const [kj] = useState(() => createKravJourney("service"));
   const { data: partnersList = [] } = usePartners();
   const location = useLocation();
-  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
+  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry || new URLSearchParams(location.search).get("bransch") || undefined;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
   const [step, setStep] = useState(isValidPrefill ? 2 : 1);
   const totalSteps = 4;
@@ -86,7 +89,7 @@ const RequirementsSpecCustomerService = () => {
   const [companySize, setCompanySize] = useState<string>(testPrefill.size ?? "");
   const [selectedAreas, setSelectedAreas] = useState<string[]>(testPrefill.areas);
   useKravProfileSync({ product: "service", industries: allIndustries, sizes: serviceTeamSizes, areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
-  const goNext = () => setStep((s) => (s === 1 && fromTest && companySize ? 3 : s + 1));
+  const goNext = () => { kj.started(); setStep((s) => (s === 1 && fromTest && companySize ? 3 : s + 1)); };
 
   const buyerRun = useRef<ReturnType<typeof startBuyerToolRun> | null>(null);
   useEffect(() => {
@@ -137,6 +140,8 @@ const RequirementsSpecCustomerService = () => {
     try {
       const data = await invokeWithRetry("generate-requirements", { product: "customer_service", industry, companySize, areas: selectedAreas });
       setResult(data);
+      kj.started();
+      kj.completed(selectedAreas.length);
       setStep(4);
     } catch (err: any) {
       console.error("Generation error:", err);
@@ -282,7 +287,7 @@ const RequirementsSpecCustomerService = () => {
 
           {fromTest && step !== 4 && (
             <div className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
-              Förifyllt från ditt matchningstest{companySize ? `: ${companySize} medarbetare` : ""}, {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
+              {prefillSourceText(location.search)}{companySize ? `: ${companySize} medarbetare` : ""}, {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
               {step === 3 && (
                 <button type="button" onClick={() => setStep(2)} className="ml-2 font-medium text-primary underline underline-offset-4">Ändra storlek</button>
               )}
@@ -511,6 +516,7 @@ const RequirementsSpecCustomerService = () => {
               />
 
               <SendUnderlagToPartners
+                onSent={() => kj.toPartners("send_underlag")}
                 sourcePage="/kravspecifikation-kundservice"
                 assessmentType={"kravspec_customer_service"}
                 products={["service"]}
@@ -565,7 +571,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i Customer Service-köpresan" pages={requirementsCsRelatedPages} />
-      {result && <SuggestedPartnersCTA product="service" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
+      {result && <SuggestedPartnersCTA onAction={kj.toPartners} product="service" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );
