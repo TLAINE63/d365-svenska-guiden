@@ -299,6 +299,6 @@ Verifiering: fem faktatester passerar; automatisk byggkontroll godkänd. Webblä
 - [x] Steg 2: Systemval förs vidare till produktsidor och kalkylatorer
 - [x] Steg 3: konkurrentjämförelser leder till test/kalkyl
 - [x] Steg 4: kalkylator vidare till kravspec (förifylld per produktområde, mätning kalkyl → krav → partner)
-- [ ] Steg 5: diagnos på Befintlig kund
+- [x] Steg 5: diagnos på Befintlig kund
 - [ ] Steg 6: tydligare matchningsskäl i partnerkatalog och kortlista
 - [ ] Steg 7: Second opinion och förvaltningsguide
