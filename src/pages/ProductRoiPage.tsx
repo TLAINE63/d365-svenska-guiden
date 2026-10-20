@@ -113,7 +113,7 @@ export default function ProductRoiPage({ productKey }: Props) {
         </section>
 
         <div id="kalkyl">
-          <ProductRoiAnalysis productKey={productKey} />
+          <ProductRoiAnalysis productKey={productKey} kravNext />
         </div>
 
         {/* ANTAGANDEN */}

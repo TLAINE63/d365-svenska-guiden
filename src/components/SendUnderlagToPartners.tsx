@@ -42,6 +42,8 @@ interface Props {
   pdfFileName?: string;
   heading?: string;
   description?: string;
+  /** Anropas när underlaget har skickats (anonym mätning i köpresan). */
+  onSent?: () => void;
 }
 
 const MAX_RECIPIENTS = 3;
@@ -68,6 +70,7 @@ export const SendUnderlagToPartners = ({
   pdfBlob,
   pdfFileName,
   heading = "Skicka underlaget till upp till 3 partners",
+  onSent,
   description = "Här är partners som matchar dina svar. Markera själv de du vill kontakta (högst 3). Underlaget skickas bara till dem du väljer, och de kontaktar dig direkt.",
 }: Props) => {
   const { toast } = useToast();
@@ -183,6 +186,7 @@ export const SendUnderlagToPartners = ({
       const delivered = (data?.delivered as number) ?? allChosen.length;
       const total = (data?.total as number) ?? allChosen.length;
       setSent({ delivered, total });
+      onSent?.();
       trackFunnelEvent("underlag_forward_submit", {
         assessment_type: assessmentType,
         num_partners: allChosen.length,

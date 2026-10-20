@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
 import { readServiceRoiPrefill } from "@/lib/serviceChainLinks";
+import CalcToKravNext from "@/components/CalcToKravNext";
+import type { CalcProduct } from "@/lib/calcToKrav";
 import {
   Calculator,
   Info,
@@ -32,7 +34,12 @@ interface Props {
   /** Anchor-id, default "roi-tco". */
   id?: string;
   className?: string;
+  /** Visa nästa steg till kravspecifikationen med kalkylens val förifyllda (kalkylatorsidan). */
+  kravNext?: boolean;
 }
+
+/** Produkter där kalkylens användarantal motsvarar kravspecens storleksfråga. */
+const KRAV_USERS_PRODUCTS: ProductRoiKey[] = ["sales", "customer-service", "contact-center", "field-service"];
 
 const fmtSek = (n: number) =>
   new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(
@@ -50,6 +57,7 @@ export default function ProductRoiAnalysis({
   productKey,
   id = "roi-tco",
   className = "",
+  kravNext = false,
 }: Props) {
   const cfg = PRODUCT_ROI_CONFIGS[productKey];
   const priceMap = usePriceMap();
@@ -568,6 +576,15 @@ export default function ProductRoiAnalysis({
           />
         </div>
 
+        {kravNext && (
+          <CalcToKravNext
+            className="mt-10"
+            product={(productKey === "business-central" ? "bc" : productKey) as CalcProduct}
+            drivers={enabled}
+            integrations={integrations}
+            users={KRAV_USERS_PRODUCTS.includes(productKey) ? totalUsers : undefined}
+          />
+        )}
       </div>
     </section>
   );

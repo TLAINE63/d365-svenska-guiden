@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { createKravJourney, prefillSourceText } from "@/lib/calcToKrav";
 import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -58,11 +59,14 @@ const areaOptions = [
 
 const RequirementsSpecSales = () => {
   const { toast } = useToast();
+  // Anonym mätning: startad, slutförd och vidare till partnerurval/förfrågan.
+  const [kj] = useState(() => createKravJourney("sales"));
   const { data: partnersList = [] } = usePartners();
   const location = useLocation();
-  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
+  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry || new URLSearchParams(location.search).get("bransch") || undefined;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
-  const [step, setStep] = useState(isValidPrefill ? 2 : 1);
+  // Känd bransch och storlek (från test eller kalkyl) hoppar direkt till funktionsområdena.
+  const [step, setStep] = useState(isValidPrefill ? (readSalesKravPrefill(location.search).size ? 3 : 2) : 1);
   const totalSteps = 4;
 
   useEffect(() => {
@@ -135,6 +139,8 @@ const RequirementsSpecSales = () => {
     try {
       const data = await invokeWithRetry("generate-requirements", { product: "sales", industry, companySize, areas: selectedAreas });
       setResult(data);
+      kj.started();
+      kj.completed(selectedAreas.length);
       setStep(4);
     } catch (err: any) {
       console.error("Generation error:", err);
@@ -261,7 +267,7 @@ const RequirementsSpecSales = () => {
                 <div className="flex items-center gap-3">
                   <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
                   {step < 3 ? (
-                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                    <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} size="sm" disabled={!canProceed()}>
                       Nästa <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   ) : (
@@ -277,7 +283,7 @@ const RequirementsSpecSales = () => {
 
           {fromTest && step < 4 && (
             <div className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
-              Förifyllt från ditt matchningstest: {companySize ? `${companySize} säljare/användare • ` : ""}
+              {prefillSourceText(location.search)}: {companySize ? `${companySize} säljare/användare • ` : ""}
               {selectedAreas.length} funktionsområden förkryssade. {step === 1 ? "Välj bransch, sedan går du direkt till områdena." : "Allt går att ändra."}
               {step === 3 && (
                 <Button variant="link" size="sm" className="px-1 h-auto" onClick={() => setStep(1)}>
@@ -515,6 +521,7 @@ const RequirementsSpecSales = () => {
               />
 
               <SendUnderlagToPartners
+                onSent={() => kj.toPartners("send_underlag")}
                 sourcePage="/kravspecifikation-sales"
                 assessmentType={"kravspec_sales"}
                 products={["sales"]}
@@ -553,7 +560,7 @@ ${
               </Button>
 
               {step < 3 ? (
-                <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
+                <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
@@ -570,7 +577,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i CRM-köpresan" pages={requirementsCrmRelatedPages} />
-      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
+      {result && <SuggestedPartnersCTA onAction={kj.toPartners} product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

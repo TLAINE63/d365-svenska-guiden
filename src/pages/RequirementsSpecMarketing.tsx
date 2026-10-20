@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { createKravJourney, readPrefillAreas } from "@/lib/calcToKrav";
 import { useState, useEffect } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -55,9 +56,11 @@ const areaOptions = [
 
 const RequirementsSpecMarketing = () => {
   const { toast } = useToast();
+  // Anonym mätning: startad, slutförd och vidare till partnerurval/förfrågan.
+  const [kj] = useState(() => createKravJourney("marketing"));
   const { data: partnersList = [] } = usePartners();
   const location = useLocation();
-  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
+  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry || new URLSearchParams(location.search).get("bransch") || undefined;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
   const [step, setStep] = useState(isValidPrefill ? 2 : 1);
   const totalSteps = 4;
@@ -75,7 +78,8 @@ const RequirementsSpecMarketing = () => {
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>(() => readPrefillAreas(location.search, areaOptions.map((o) => o.id)));
+  const fromCalc = new URLSearchParams(location.search).get("kalla") === "kalkyl" && selectedAreas.length > 0;
   useKravProfileSync({ product: "marketing", industries: allIndustries, sizes: companySizes, areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
 
   const [isGenerating, setIsGenerating] = useState(false);
@@ -107,6 +111,8 @@ const RequirementsSpecMarketing = () => {
     try {
       const data = await invokeWithRetry("generate-requirements", { product: "marketing", industry, companySize, areas: selectedAreas });
       setResult(data);
+      kj.started();
+      kj.completed(selectedAreas.length);
       setStep(4);
     } catch (err: any) {
       console.error("Generation error:", err);
@@ -234,7 +240,7 @@ const RequirementsSpecMarketing = () => {
                 <div className="flex items-center gap-3">
                   <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
                   {step < 3 ? (
-                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                    <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} size="sm" disabled={!canProceed()}>
                       Nästa <ArrowRight className="ml-1 h-4 w-4" />
                     </Button>
                   ) : (
@@ -295,8 +301,15 @@ const RequirementsSpecMarketing = () => {
 
           {step === 3 && (
             <div className="space-y-6">
+              {fromCalc && (
+                <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
+                  Förifyllt från din kostnadskalkyl: {selectedAreas.length} funktionsområden förkryssade. Du kan ändra allt.
+                </div>
+              )}
               <h2 className="text-xl font-semibold text-foreground">Vilka funktionsområden är relevanta?</h2>
-              <p className="text-sm text-muted-foreground">Välj de områden du vill inkludera i kravspecifikationen.</p>
+              <p className="text-sm text-muted-foreground">
+                {fromCalc ? "Vi har markerat de områden som din kalkyl pekar på. Lägg till eller ta bort och gå sedan vidare." : "Välj de områden du vill inkludera i kravspecifikationen."}
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {areaOptions.map((area) => {
                   const Icon = area.icon;
@@ -469,6 +482,7 @@ const RequirementsSpecMarketing = () => {
               />
 
               <SendUnderlagToPartners
+                onSent={() => kj.toPartners("send_underlag")}
                 sourcePage="/kravspecifikation-marketing"
                 assessmentType={"kravspec_marketing"}
                 products={["sales"]}
@@ -506,7 +520,7 @@ ${
               </Button>
 
               {step < 3 ? (
-                <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
+                <Button onClick={() => { kj.started(); setStep((s) => s + 1); }} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
@@ -523,7 +537,7 @@ ${
         </div>
       </main>
       <RelatedPages heading="Nästa steg i CRM-köpresan" pages={requirementsCrmRelatedPages} />
-      {result && <SuggestedPartnersCTA product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
+      {result && <SuggestedPartnersCTA onAction={kj.toPartners} product="sales" industry={result.industry || industry} companySize={toCompanySizeBucket(companySize)} />}
       <Footer />
     </>
   );

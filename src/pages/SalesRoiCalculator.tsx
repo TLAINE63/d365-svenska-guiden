@@ -37,6 +37,7 @@ import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { readSalesRoiPrefill } from "@/lib/salesChainLinks";
+import CalcToKravNext from "@/components/CalcToKravNext";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -698,24 +699,14 @@ export default function SalesRoiCalculator() {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* CTA: kalkyl → Sales-kravspecifikation med det besökaren redan angett */}
         <section className="py-10">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Nästa steg</h2>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Validera kalkylen i en kort dialog med två–tre relevanta partners. Eller fördjupa underlaget genom en behovsanalys för sälj & marknad.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                <Link to="/CRMbehovsanalys/">Starta en behovsanalys för CRM</Link>
-              </Button>
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <CalcToKravNext product="sales" drivers={v.enabledDrivers} integrations={v.integrations} users={v.sellers + v.salesOps} calcIndustry={v.industry}>
               <Button asChild variant="outline" size="lg">
-                <Link to="/kravspecifikation/">Generera en kravspecifikation</Link>
+                <Link to="/d365sales/matchningstest/">Gör matchningstestet först</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/d365sales/#partners">Hitta Sales-partners</Link>
-              </Button>
-            </div>
+            </CalcToKravNext>
           </div>
         </section>
       </main>
