@@ -65,7 +65,8 @@ const RequirementsSpecSales = () => {
   const location = useLocation();
   const prefilledIndustry = (location.state as { industry?: string } | null)?.industry || new URLSearchParams(location.search).get("bransch") || undefined;
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
-  const [step, setStep] = useState(isValidPrefill ? 2 : 1);
+  // Känd bransch och storlek (från test eller kalkyl) hoppar direkt till funktionsområdena.
+  const [step, setStep] = useState(isValidPrefill ? (readSalesKravPrefill(location.search).size ? 3 : 2) : 1);
   const totalSteps = 4;
 
   useEffect(() => {
