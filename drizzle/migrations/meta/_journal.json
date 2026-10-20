@@ -22,6 +22,13 @@
       "when": 1792072277035,
       "tag": "0002_buyer_saved_state",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792513170309,
+      "tag": "0003_buyer_profiles_owner_token",
+      "breakpoints": true
     }
   ]
 }
