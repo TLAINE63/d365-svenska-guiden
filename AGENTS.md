@@ -6,7 +6,6 @@
 
 - Public partner lists share WhyTheseResults and PartnerSelectionFacts with explicit page context; this separates actual selection rules and registered evidence from AI assessments.
 - FitModel renders the manually maintained matrices inside native details with locally saved priority selectors; tables stay in HTML and visitor priorities never change scores, partner evidence or ranking.
-- Min D365-plan reuses buyerProfile and buyerContext, with d365Plan storing only local priorities and investigation area; keeps anonymous persistence without server data.
 - ContextualCta resolves evaluation journeys through ctaJourney before partner personalization to avoid premature product/partner assumptions.
 
 - Editorial guides, comparisons and industry pages use the shared EditorialSource near the title; pass only existing content dates and confirmed reviewers to avoid fabricated provenance.
@@ -30,12 +29,9 @@
 - Köparförfrågningar går via submit-inquiry (tabeller inquiries/inquiry_partners) och partnerhändelser via track-event (partner_tracking_events, eftersom partner_events redan är eventkalendern); båda delas med businesscentral.se via source_site.
 - Scope index.html critical CSS to nav (bare CTA selectors leak).
 - Navbar.tsx MENUS drives main nav (ERP/CRM parity); nav CTA CSS targets `a[data-nav-cta]`.
-- Read subdir AGENTS.md.
+- Read subdir AGENTS.md (src/lib: buyer context, plan, accounts, kravspec and Systemval handoff).
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
-- Optional buyer accounts mirror the localStorage keys in src/lib/accountSync.ts to buyer_saved_state (own-row RLS); server wins on login, so tools stay account-unaware.
 
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
-- Requirement specs (ERP/Sales/Service/Marketing) restore and save industry, size and areas via useKravProfileSync in src/lib/kravProfile.ts; URL/test prefill wins, profile is the fallback, so context survives any entry path.
-- Systemval hands off to product pages and calculators only via a short local summary (src/lib/systemvalHandoff.ts, track ids/clarity/complexity/integration count) rendered by SystemvalHandoffNote after mount; calculators receive only URL params they already read, so no raw answers leave the guide.
