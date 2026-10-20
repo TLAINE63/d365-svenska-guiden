@@ -57,7 +57,10 @@ const areas: Area[] = [
       "Finns tydlig supportnivå och kontaktväg för era användare?",
       "Finns en plan för vidareutveckling, inte bara felrättning?",
     ],
-    links: [{ label: "Kompetensområden hos partners", href: "/kompetens/" }],
+    links: [
+      { label: "Kompetensområden hos partners", href: "/kompetens/" },
+      { label: "Funderar ni på att byta partner?", href: "/guider/byta-dynamics-partner/" },
+    ],
   },
   {
     icon: Target,

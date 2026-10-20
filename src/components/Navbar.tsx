@@ -136,6 +136,7 @@ const MENUS: NavMenu[] = [
           { label: "Jämför partners", path: "/jamfor-partners/" },
           { label: "Min kortlista", path: "/kortlista/" },
           { label: "Hitta kompetens", path: "/kompetens/" },
+          { label: "Byta partner?", path: "/guider/byta-dynamics-partner/" },
           { label: "Partnernytt", path: "/partnernytt/" },
         ],
       },
