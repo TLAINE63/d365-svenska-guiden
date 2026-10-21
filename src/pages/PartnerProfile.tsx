@@ -429,7 +429,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  }).value;
  const seoDescription = buildMetaDescription([
  seoProduct
- ? `${partner.name} som ${seoProduct}-partner i Sverige: kompetenser, branscher, kundexempel och kontaktväg via d365.se. Jämför med andra partners innan ni väljer.`
+ ? `${partner.name} som ${seoProduct}-partner i Sverige: kompetenser, branscher, kundexempel och kontaktväg via d365.se. Jämför innan ni väljer.`
  : undefined,
  partner.description,
  seoApps
