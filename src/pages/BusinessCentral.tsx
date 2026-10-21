@@ -332,7 +332,7 @@ const BusinessCentral = () => {
 
   {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
   <section className="py-10 sm:py-12 bg-background">
-   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
      När passar Business Central i er verksamhet?
     </h2>
