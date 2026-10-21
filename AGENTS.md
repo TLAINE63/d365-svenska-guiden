@@ -35,3 +35,4 @@
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
+- SEO titles are shortened in src/lib/seoTitle.ts (drop trailing sub-title at a separator, then drop brand suffix, ellipsis last); the prerender safety net leaves Helmet (data-rh) titles alone and decodes entities first, so titles are never cut twice or mid-"&amp;".
