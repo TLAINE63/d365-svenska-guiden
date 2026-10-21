@@ -5,8 +5,8 @@
   "url": "https://d365.se/partner-data.json",
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
-  "updated": "2026-10-20",
-  "count": 19,
+  "updated": "2026-10-21",
+  "count": 20,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -115,6 +115,21 @@
         "Norden",
         "Europa"
       ],
+      "related_party": false
+    },
+    {
+      "name": "Dizparc Everest AB",
+      "slug": "dizparc",
+      "url": "https://d365.se/partner/dizparc/",
+      "website": "https://dizparc.se/tjanster/affarssystem-och-insikter/dynamics-365-business-central",
+      "description": "Hos Dizparc hittar du ett stort gäng experter med specialistkunskap och både lång och bred erfarenhet av att arbeta med Microsoft Business Central. Oavsett om du står i startgroparna att implementera ett helt nytt affärssystem eller utveckla det du redan har kan vi med vår goda verksamhetskunskap inom områden som ekonomi, försäljning, produktion, lager/logistik och inköp hjälpa dig att ro just ditt projekt i land med hög kvalitet och leveranssäkerhet.\n\nVår breda erfarenhet av närliggande och integrerade applikationer kommer väl till pass på resan mot en skräddarsydd lösning som matchar just din verksamhets behov - både på kort och lång sikt. Vi tror på långsiktiga relationer och många av våra kunder har vi arbetat med och följt på deras digitaliseringsresor under lång tid.",
+      "products": [
+        "Business Central"
+      ],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [],
       "related_party": false
     },
     {
