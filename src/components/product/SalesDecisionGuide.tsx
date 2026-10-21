@@ -75,7 +75,7 @@ export default function SalesDecisionGuide() {
           })}
         </div>
 
-        <h2 id="crm-beslutsunderlag" className="scroll-mt-24 text-xl sm:text-2xl font-bold text-foreground mb-2">
+        <h2 id="crm-beslutsunderlag" className="scroll-mt-32 border-t border-border pt-8 text-xl sm:text-2xl font-bold text-foreground mb-2">
           Bygg ert CRM-beslutsunderlag
         </h2>
         <p className="text-sm text-muted-foreground mb-4 max-w-3xl">

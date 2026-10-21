@@ -38,7 +38,7 @@ export default function FieldServiceDecisionGuide() {
         </div>
         <h3 className="mb-2 font-semibold text-foreground">När passar Field Service mindre bra?</h3>
         <p className="mb-8 max-w-3xl text-sm text-muted-foreground">Med ett fåtal tekniker, enkel planering och inget behov av koppling till kundservice eller affärssystem räcker ofta ett enklare planeringsverktyg eller funktionerna i ert affärssystem. Matchningstestet visar ärligt om lösningen sannolikt är överdimensionerad för er.</p>
-        <h2 id="field-beslutsunderlag" className="mb-3 scroll-mt-24 text-xl font-bold text-foreground sm:text-2xl">Bygg ert beslutsunderlag för fältservice</h2>
+        <h2 id="field-beslutsunderlag" className="mb-3 scroll-mt-32 border-t border-border pt-8 text-xl font-bold text-foreground sm:text-2xl">Bygg ert beslutsunderlag för fältservice</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {BUILD.map(({ key, Icon, label, question, cta, to }) => (
             <Link key={key} to={to} onClick={() => trackFieldJourney(key, to, "build")} className="group flex flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:bg-secondary/50">
