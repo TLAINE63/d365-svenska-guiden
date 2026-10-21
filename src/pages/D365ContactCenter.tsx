@@ -100,9 +100,6 @@ const D365ContactCenter = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#contact-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Contact Center-partner", href: "#partners" }}
       />
-
-      <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/d365contactcenter" />
       <SystemvalHandoffNote page="cc" />
       <ContactCenterDecisionGuide />
 
@@ -276,6 +273,8 @@ const D365ContactCenter = () => {
       </main>
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
+      <EditorialSource sourceType="Köpguide" />
+      <ExpertCard path="/d365contactcenter" />
       <Footer />
     </div>
   );

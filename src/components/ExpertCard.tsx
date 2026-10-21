@@ -9,7 +9,7 @@ export default function ExpertCard({ path }: { path: string }) {
   const items = contributionsFor(path);
   if (!items.length) return null;
   return (
-    <section aria-label="Medverkande experter" className="container mx-auto max-w-5xl px-4 sm:px-6 py-6">
+    <section aria-label="Medverkande experter" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
       <div className="grid gap-4 sm:grid-cols-2">
         {items.map(({ person, role, date, title }) => {
           const d = editorialDate(date) ?? editorialDate(pageReviewDate(path));
