@@ -103,7 +103,7 @@ export default function Beslutsmognadsindex() {
 
       <main>
         {/* Hero */}
-        <section className="max-w-[720px] mx-auto px-6 pt-24 pb-12 text-center">
+        <section className="max-w-[720px] mx-auto px-6 pt-24 lg:pt-32 pb-12 text-center">
           <p className="font-bm-display italic text-bm-ink-muted text-base mb-6">
             En studie från d365.se
           </p>

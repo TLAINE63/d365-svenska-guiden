@@ -24,7 +24,7 @@ export default function BeslutsmognadTack() {
       </Helmet>
       <TopBar />
 
-      <main className="max-w-[720px] mx-auto px-6 pt-24 pb-12 text-center">
+      <main className="max-w-[720px] mx-auto px-6 pt-24 lg:pt-32 pb-12 text-center">
         <p className="font-bm-display italic text-bm-ink-muted text-base mb-6">Tack.</p>
         <h1
           className="font-bm-display text-bm-ink leading-tight tracking-tight mb-8"

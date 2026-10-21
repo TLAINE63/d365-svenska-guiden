@@ -254,7 +254,7 @@ const RequirementsSpec = () => {
       />
       <Navbar />
       <main className="min-h-screen bg-background pb-12">
-        <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecErp})` }}>
+        <div className="relative bg-cover bg-center pt-24 lg:pt-32 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecErp})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded text-sm font-medium mb-4">
