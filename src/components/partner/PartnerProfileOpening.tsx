@@ -69,11 +69,17 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
-        {(email || phone || website) && <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
+        {(name || photo || email || phone || website) && <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-5">
+          {photo && <img src={photo} alt={name ? `Foto av ${name}` : "Partnerns kontaktperson"} className="h-24 w-24 sm:h-28 sm:w-28 shrink-0 rounded-lg object-cover border border-border" loading="eager" />}
+          <div className="min-w-0">
+            {name && <div className="mb-2"><p className="text-xs text-muted-foreground">{product ? nowrapBrand(`Kontakt för ${product}`) : "Partnerns kontaktperson"}</p><p className="text-base font-semibold break-words">{name}</p></div>}
+            {(email || phone || website) && <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
           {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 break-all" onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)}>{email}</a></li>}
           {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-4" onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)}>{phone}</a></li>}
           {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
-        </ul>}
+            </ul>}
+          </div>
+        </div>}
         <div className="partner-opening-actions mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
           <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om kontakt<ArrowRight className="h-4 w-4" /></Button>
           {saved ? (
@@ -89,11 +95,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
         </div>
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
-          {(name || video) && <div className="flex min-w-0 items-center gap-3 sm:max-w-sm">
-            {photo && <img src={photo} alt={name ? `Foto av ${name}` : "Partnerns kontaktperson"} className="h-12 w-12 rounded object-cover" loading="lazy" />}
-            {name && <div className="min-w-0"><p className="text-xs text-muted-foreground">{product ? nowrapBrand(`Kontakt för ${product}`) : "Partnerns kontaktperson"}</p><p className="text-sm font-semibold break-words">{name}</p></div>}
-            {video && <Button variant="outline" size="icon" onClick={onVideo} aria-label={`Spela introduktionsvideo från ${partner.name}`} title="Spela introduktionsvideo"><Play className="h-4 w-4" /></Button>}
-          </div>}
+          {video && <Button variant="outline" size="sm" onClick={onVideo} aria-label={`Spela introduktionsvideo från ${partner.name}`}><Play className="h-4 w-4" />Introduktionsvideo</Button>}
         </div>
       </div>
     </header>
