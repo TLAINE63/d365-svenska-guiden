@@ -115,10 +115,6 @@ const D365CustomerService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#service-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Customer Service-partner", href: "#partners" }}
       />
-
-      <EditorialSource sourceType="Köpguide" />
-<PartnerSwitchCta />
-<ExpertCard path="/d365customerservice" />
       <SystemvalHandoffNote page="cs" />
       <ServiceDecisionGuide />
 
@@ -289,6 +285,9 @@ const D365CustomerService = () => {
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
+      <EditorialSource sourceType="Köpguide" />
+      <PartnerSwitchCta />
+      <ExpertCard path="/d365customerservice" />
       <Footer />
     </div>
   );

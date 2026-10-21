@@ -289,9 +289,6 @@ const BusinessCentral = () => {
   secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
   tertiary={{ label: "Jämför Business Central med andra affärssystem", href: "#bc-jamforelse" }}
     />
-  <EditorialSource sourceType="Köpguide" />
-<PartnerSwitchCta />
-<ExpertCard path="/businesscentral" />
   <ShortAnswer title="Vad är Dynamics 365 Business Central?">
  <p><strong>Dynamics{"\u00A0"}365 Business Central är Microsofts molnbaserade ERP-system (affärssystem) för mindre och medelstora företag</strong> som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
  <p>Essentials täcker ekonomi, inköp, lager, försäljning och projekt. Premium lägger till tillverkning och servicehantering. Branschkrav kan kräva tillägg från Microsoft Marketplace. Kontrollera vad som ingår i standard och vad som behöver kompletteras innan ni väljer partner.</p>
@@ -608,6 +605,9 @@ const BusinessCentral = () => {
       <BcNextSteps />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
+      <EditorialSource sourceType="Köpguide" />
+      <PartnerSwitchCta />
+      <ExpertCard path="/businesscentral" />
  <Footer />
  </div>
  );

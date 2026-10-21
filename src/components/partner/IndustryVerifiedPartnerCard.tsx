@@ -1,11 +1,12 @@
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Lightbulb, Mail, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -156,119 +157,163 @@ export default function IndustryVerifiedPartnerCard({
     ? `Kundstorlek: ${productFilter.companySize.slice(0, 3).join(" · ")}`
     : null;
 
-  const isSaved = kortlista.isSaved(partner.slug);
-  const relevanceText = partnerRelevance || documentedEvidence;
-
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors duration-200 hover:border-primary/45">
+    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-primary/45">
       <header className="border-b border-border">
-        <PartnerCardHeader partner={partner} to={profileUrl || `/partner/${partner.slug}/`} className="px-6 py-5">
-          {applications.length > 0 && (
-            <p className="mt-3 text-sm leading-snug text-muted-foreground">
-              {applications.slice(0, 3).map(keepDynamics365Together).join(" · ")}
-              {applications.length > 3 ? ` · +${applications.length - 3}` : ""}
-            </p>
-          )}
-          {partner.geography?.length > 0 && (
-            <p className="mt-1 text-xs text-muted-foreground">
-              Leverans: {partner.geography.slice(0, 3).join(" · ")}
-            </p>
-          )}
-        </PartnerCardHeader>
+        <PartnerCardHeader partner={partner} to={profileUrl || `/partner/${partner.slug}/`} className="px-5 py-5" />
       </header>
 
-      <div className="flex-1 space-y-6 px-6 py-6">
-        {(relevanceText || proofPoints.length > 0) && (
+      <div className="grid flex-1 grid-cols-1 divide-y divide-border lg:grid-cols-12 lg:divide-x lg:divide-y-0">
+        <div className="space-y-5 p-5 lg:col-span-7">
           <section>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-              <h4 className="text-sm font-semibold text-foreground">
+            <div className="mb-3 flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-accent" aria-hidden />
+              <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
                 {industry ? `Varför relevant för ${industry}` : "Partnerns inriktning"}
               </h4>
-              {relevanceText && <span className="text-xs text-muted-foreground">{sourceLabel}</span>}
             </div>
-            {relevanceText && (
-              <p className="mt-2 text-sm leading-relaxed text-foreground/85">
-                {keepDynamics365Together(relevanceText)}
-              </p>
+
+            {(partnerRelevance || documentedEvidence) && (
+              <div className="rounded-md border-l-4 border-l-accent bg-muted/45 p-3.5">
+                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.1em] text-accent">
+                  {sourceLabel}
+                </p>
+                <p className="text-[13px] font-medium leading-relaxed text-foreground/90">
+                  {keepDynamics365Together(partnerRelevance || documentedEvidence || "")}
+                </p>
+              </div>
             )}
-            {proofPoints.length > 0 && (
-              <ul className="mt-3 space-y-1.5">
+          </section>
+
+          {proofPoints.length > 0 && (
+            <section>
+              <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                Särskilda styrkor
+              </h4>
+              <ul className="space-y-2">
                 {proofPoints.map((point) => (
-                  <li key={point} className="flex items-start gap-2 text-sm leading-snug text-foreground/80">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
+                  <li key={point} className="flex items-start gap-2 text-xs leading-snug text-foreground/80">
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
                     <span>{keepDynamics365Together(point)}</span>
                   </li>
                 ))}
               </ul>
+            </section>
+          )}
+
+          <PartnerSelectionFacts partner={partner} productKey={productKey} />
+
+          {customerExamples.length > 0 && (
+            <section>
+              <h4 className="mb-2 text-xs font-semibold text-foreground">Kundexempel för {productLabel}</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {customerExamples.map(({ name, url }) => (
+                  <li key={name}>
+                    {url ? <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{keepDynamics365Together(name)}</a> : <span className="text-foreground">{keepDynamics365Together(name)}</span>}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Registrerat av partnern för detta produktområde, inte belägg för en viss bransch. Be om en referens med liknande processer och omfattning som era.</p>
+            </section>
+          )}
+
+          <div className="flex flex-wrap gap-1.5">
+            <p className="w-full text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+              Produkter de levererar
+            </p>
+            {applications.slice(0, 4).map((application) => (
+              <Badge
+                key={application}
+                variant="outline"
+                className="whitespace-normal border-border bg-background px-2 py-0.5 text-[10px] font-semibold leading-snug text-foreground/75"
+              >
+                {application}
+              </Badge>
+            ))}
+            {applications.length > 4 && (
+              <Badge variant="outline" className="border-border px-2 py-0.5 text-[10px] text-muted-foreground">
+                +{applications.length - 4}
+              </Badge>
             )}
-          </section>
-        )}
-
-        <PartnerSelectionFacts partner={partner} productKey={productKey} />
-
-        {customerExamples.length > 0 && (
-          <section>
-            <h4 className="mb-2 text-sm font-semibold text-foreground">Kundexempel för {productLabel}</h4>
-            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-              {customerExamples.map(({ name, url }) => (
-                <li key={name}>
-                  {url ? <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{keepDynamics365Together(name)}</a> : <span className="text-foreground">{keepDynamics365Together(name)}</span>}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Registrerat av partnern för detta produktområde, inte belägg för en viss bransch. Be om en referens med liknande processer och omfattning som era.</p>
-          </section>
-        )}
-
-        <section className="rounded-md bg-muted/40 p-4">
-          <div className="mb-2 flex items-center gap-2">
-            <Lightbulb className="h-4 w-4 text-warning" aria-hidden />
-            <h4 className="text-sm font-semibold text-foreground">d365.se:s bedömning</h4>
           </div>
-          <p className="text-sm leading-relaxed text-foreground/80">
-            {assessment
-              ? keepDynamics365Together(assessment)
-              : "Öppna profilen för att granska partnerns fullständiga underlag."}
-          </p>
-          {(checkPoint || sizeLabel) && (
-            <p className="mt-3 text-sm leading-snug text-foreground/80">
-              <span className="font-semibold text-foreground">Kontrollera särskilt: </span>
-              {keepDynamics365Together(checkPoint || sizeLabel || "")}
+        </div>
+
+        <aside className="flex flex-col bg-muted/30 p-5 lg:col-span-5">
+          <div className="mb-3 flex items-center gap-2">
+            <Lightbulb className="h-4 w-4 text-warning" aria-hidden />
+            <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+              d365.se:s bedömning
+            </h4>
+          </div>
+          {assessment ? (
+            <p className="text-[13px] italic leading-relaxed text-foreground/75">
+              {keepDynamics365Together(assessment)}
+            </p>
+          ) : (
+            <p className="text-[13px] leading-relaxed text-muted-foreground">
+              Öppna profilen för att granska partnerns fullständiga underlag.
             </p>
           )}
-          {assessment && (
-            <EditorialReviewNote slug={partner.slug} className="mt-3 text-xs leading-snug text-muted-foreground" />
+
+          {(checkPoint || sizeLabel) && (
+            <div className="mt-4 border-t border-border pt-4">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+                Kontrollera särskilt
+              </p>
+              <p className="text-xs leading-snug text-foreground/75">
+                {keepDynamics365Together(checkPoint || sizeLabel || "")}
+              </p>
+            </div>
           )}
-        </section>
+
+          {assessment && (
+            <EditorialReviewNote
+              slug={partner.slug}
+              className="mt-auto pt-5 text-[10px] leading-snug text-muted-foreground"
+            />
+          )}
+        </aside>
       </div>
 
-      <footer className="space-y-2 border-t border-border px-6 py-4">
-        <Button asChild className="w-full font-bold">
+      <footer className="bg-[hsl(var(--hero-dark))] px-5 py-4">
+        <div className="mb-3 flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold text-[hsl(var(--border-on-dark))]">
+            {industry || "Partnerverifierad profil"}
+          </p>
+          {partner.geography?.length > 0 && (
+            <p className="mt-0.5 truncate text-[10px] text-[hsl(var(--muted-dark))]">
+              Leverans: {partner.geography.slice(0, 3).join(" · ")}
+            </p>
+          )}
+        </div>
+        </div>
+        <Button asChild className="mb-2.5 w-full font-bold">
           <Link to={profileUrl || `/partner/${partner.slug}/`}>
             Se partnerprofil
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </Button>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => { kortlista.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true }); track(isSaved ? "shortlist_remove" : "shortlist_add", null, partner.slug); }}
-          aria-pressed={isSaved}
-          className="whitespace-normal"
-        >
-          <Star className={`h-4 w-4 ${isSaved ? "fill-current text-primary" : ""}`} aria-hidden />
-          {isSaved ? "I kortlistan" : "Lägg till i kortlista"}
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner" })}
-          className="whitespace-normal"
-        >
-          <Mail className="h-4 w-4" aria-hidden />
-          Be om kontakt
-        </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => { kortlista.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true }); track(kortlista.isSaved(partner.slug) ? "shortlist_remove" : "shortlist_add", null, partner.slug); }}
+            aria-pressed={kortlista.isSaved(partner.slug)}
+            className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
+          >
+            <Star className={`h-4 w-4 ${kortlista.isSaved(partner.slug) ? "fill-current text-primary" : ""}`} aria-hidden />
+            {kortlista.isSaved(partner.slug) ? "I kortlistan" : "Lägg till i kortlista"}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner" })}
+            className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
+          >
+            <Mail className="h-4 w-4" aria-hidden />
+            Be om kontakt
+          </Button>
         </div>
       </footer>
       <PartnerRequestDialog

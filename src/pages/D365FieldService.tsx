@@ -104,9 +104,6 @@ const D365FieldService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#field-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Field Service-partner", href: "#partners" }}
       />
-
-      <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/d365fieldservice" />
       <SystemvalHandoffNote page="fs" />
       <FieldServiceDecisionGuide />
 
@@ -278,6 +275,8 @@ const D365FieldService = () => {
       <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
+      <EditorialSource sourceType="Köpguide" />
+      <ExpertCard path="/d365fieldservice" />
       <Footer />
     </div>
   );
