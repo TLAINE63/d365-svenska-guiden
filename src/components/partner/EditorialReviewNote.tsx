@@ -15,7 +15,7 @@ const EditorialReviewNote = ({ slug, className = "" }: Props) => {
     const date = editorialReviewedDate(slug);
     return (
       <p className={className}>
-        Redaktionellt granskad av D365.SE{date ? ` ${date}` : ""}. Bedömningen är oberoende och
+        Redaktionellt granskad av D365.SE{date ? ` ${date}` : ""}. Bedömningen är d365.se:s egen och
         inte godkänd av partnern. AI har använts som stöd vid sammanställningen.
       </p>
     );
