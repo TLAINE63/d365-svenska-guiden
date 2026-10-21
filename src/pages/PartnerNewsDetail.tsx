@@ -57,7 +57,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="pt-24">
+        <main className="pt-24 lg:pt-32">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-12">
             <p className="text-center text-muted-foreground">Laddar artikel…</p>
           </div>
@@ -76,7 +76,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
           canonicalPath="/partnernytt/"
         />
         <Navbar />
-        <main className="pt-24">
+        <main className="pt-24 lg:pt-32">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-12 text-center">
             <h1 className="text-2xl font-bold text-foreground mb-3">Artikeln hittades inte</h1>
             <p className="text-muted-foreground mb-6">
@@ -180,7 +180,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
 
       <Navbar />
 
-      <main className="pt-24">
+      <main className="pt-24 lg:pt-32">
         <section className="bg-[hsl(var(--hero-dark))] text-white py-12 border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <Link

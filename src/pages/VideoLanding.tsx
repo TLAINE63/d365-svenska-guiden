@@ -50,7 +50,7 @@ const VideoLanding = () => {
 
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="pt-24 pb-12">
+        <main className="pt-24 lg:pt-32 pb-12">
           <article className="container mx-auto px-4 max-w-3xl">
             <Link
               to="/kunskapscenter"

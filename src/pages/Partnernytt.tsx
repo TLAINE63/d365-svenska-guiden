@@ -129,7 +129,7 @@ export default function Partnernytt() {
         }))}
       />
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24 lg:pt-32">
         <section className="bg-[hsl(var(--hero-dark))] text-white py-14">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <h1 className="text-3xl sm:text-4xl font-bold">Aktuellt från Dynamics 365-partners</h1>

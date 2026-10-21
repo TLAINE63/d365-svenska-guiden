@@ -69,7 +69,7 @@ const PartnerExtendedContent = () => {
       />
       <Navbar />
 
-      <main className="container mx-auto px-4 sm:px-6 pt-24 pb-16 max-w-3xl">
+      <main className="container mx-auto px-4 sm:px-6 pt-24 lg:pt-32 pb-16 max-w-3xl">
         <Link
           to={`/partner/${partner.slug}/`}
           className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
