@@ -1,6 +1,5 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
-import ExpertCard from "@/components/ExpertCard";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -285,9 +284,8 @@ const D365CustomerService = () => {
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
-      <EditorialSource sourceType="Köpguide" />
       <PartnerSwitchCta />
-      <ExpertCard path="/d365customerservice" />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

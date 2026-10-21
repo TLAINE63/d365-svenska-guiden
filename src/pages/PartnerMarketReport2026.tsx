@@ -448,9 +448,9 @@ export default function PartnerMarketReport2026() {
             </div>
           </div>
         </section>
-      <EditorialSource sourceType="Marknadsöversikt" updatedAt={reportUpdated} />
       <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
+      <EditorialSource sourceType="Marknadsöversikt" updatedAt={reportUpdated} />
       <Footer />
     </div>
   );

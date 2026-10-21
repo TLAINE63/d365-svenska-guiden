@@ -1,5 +1,4 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
-import ExpertCard from "@/components/ExpertCard";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -274,7 +273,6 @@ const D365ContactCenter = () => {
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
       <EditorialSource sourceType="Köpguide" />
-      <ExpertCard path="/d365contactcenter" />
       <Footer />
     </div>
   );

@@ -1,5 +1,4 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
-import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -276,7 +275,6 @@ const D365FieldService = () => {
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
       <EditorialSource sourceType="Köpguide" />
-      <ExpertCard path="/d365fieldservice" />
       <Footer />
     </div>
   );

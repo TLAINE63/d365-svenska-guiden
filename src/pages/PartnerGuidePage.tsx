@@ -230,11 +230,11 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             <p className="text-[15px] leading-relaxed text-muted-foreground">{content.about}</p>
           </section>
         </article>
-      <EditorialSource sourceType="Partnerguide" />
       <SourcesAndMethod variant="partners" partnerEvidence={partnerSources} />
       </main>
 
       <StickyPartnerCTA to={partnerListUrl} source={path} />
+      <EditorialSource sourceType="Partnerguide" />
       <Footer />
     </>
   );

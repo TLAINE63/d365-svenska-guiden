@@ -1,5 +1,4 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
-import ExpertCard from "@/components/ExpertCard";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
@@ -276,10 +275,9 @@ const D365Marketing = () => {
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 
       </main>
-      <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/d365marketing" />
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

@@ -19,7 +19,6 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import FactBox from "@/components/FactBox";
-import ExpertCard from "@/components/ExpertCard";
 import { fscmSources } from "@/lib/guideSources";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
@@ -708,13 +707,12 @@ const FinanceSupplyChain = () => {
 
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
-<EditorialSource sourceType="Köpguide" />
 <PartnerSwitchCta />
-<ExpertCard path="/finance-supply-chain" />
 <SourcesAndMethod variant="product" externalSources={fscmSources} />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       </main>
  <BasicProfilesDirectory products={["fsc"]} />
+      <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>
  );

@@ -1,6 +1,5 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
-import ExpertCard from "@/components/ExpertCard";
 import BcDecisionGuide, { BcOptionalDeepDive, BcNextSteps } from "@/components/product/BcDecisionGuide";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -605,9 +604,8 @@ const BusinessCentral = () => {
       <BcNextSteps />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
-      <EditorialSource sourceType="Köpguide" />
       <PartnerSwitchCta />
-      <ExpertCard path="/businesscentral" />
+      <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>
  );

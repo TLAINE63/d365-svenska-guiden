@@ -1,6 +1,7 @@
 import { ORGANIZATION } from "@/data/organization";
 import { cn } from "@/lib/utils";
-import { useInRouterContext, useLocation } from "react-router-dom";
+import { Link, useInRouterContext, useLocation } from "react-router-dom";
+import { contributionsFor } from "@/data/contentContributors";
 import { pageReviewDate } from "@/data/pageReviewDates";
 
 export type EditorialSourceType =
@@ -47,48 +48,76 @@ function EditorialSourceInner({
 }: Props & { path: string }) {
   const date = editorialDate(updatedAt) ?? editorialDate(pageReviewDate(path));
   const dark = tone === "dark";
+  const authors = dark ? [] : contributionsFor(path);
+  const meta = (
+    <dl className={cn("mt-2 flex flex-wrap gap-x-4 gap-y-1", !authors.length && !dark && "justify-center")}>
+      <div className="flex flex-wrap gap-x-1">
+        <dt>Utgivare:</dt>
+        <dd itemScope itemType="https://schema.org/Organization" itemID={`${ORGANIZATION.url}/#organization`}>
+          <meta itemProp="url" content={ORGANIZATION.url} />
+          <span itemProp="name">{ORGANIZATION.name.toUpperCase()}</span>
+        </dd>
+      </div>
+      <div className="flex flex-wrap gap-x-1">
+        <dt>Källtyp:</dt><dd>{sourceType}</dd>
+      </div>
+      {date && (
+        <div className="flex flex-wrap gap-x-1">
+          <dt>Senast uppdaterad:</dt>
+          <dd><time dateTime={date}>{date}</time></dd>
+        </div>
+      )}
+      {reviewedBy?.trim() && (
+        <div className="flex flex-wrap gap-x-1">
+          <dt>Granskad av:</dt><dd>{reviewedBy.trim()}</dd>
+        </div>
+      )}
+    </dl>
+  );
+  const intro = (
+    <>
+      <p className={cn("text-xs font-semibold uppercase tracking-wide", dark ? "text-primary-foreground" : "text-foreground")}>
+        {ORGANIZATION.name.toUpperCase()} {sourceType}
+      </p>
+      <p className="mt-1 text-xs">
+        Av d365.se-redaktionen. d365.se är en svensk köparsidig kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{" "}
+        <span className="whitespace-nowrap">Dynamics&nbsp;365</span> och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft.
+      </p>
+    </>
+  );
+  if (dark) {
+    return (
+      <aside aria-label="Avsändare och innehållskälla" data-editorial-source={sourceType}
+        className={cn("my-3 border-b border-primary-foreground/20 pb-2 text-xs leading-relaxed text-primary-foreground/80", className)}>
+        {intro}{meta}
+      </aside>
+    );
+  }
   return (
     <aside
       aria-label="Avsändare och innehållskälla"
       data-editorial-source={sourceType}
-      className={cn(
-        "text-xs leading-relaxed",
-        dark
-          ? "my-3 border-b border-primary-foreground/20 pb-2 text-primary-foreground/80"
-          : "mx-auto my-10 w-full max-w-3xl border-t border-border px-4 pt-6 text-center text-muted-foreground sm:px-6 [&_dl]:justify-center [&_p]:mx-auto",
-        className,
-      )}
+      className={cn("container mx-auto my-12 max-w-6xl px-4 sm:px-6", className)}
     >
-      <p className={cn("text-xs font-semibold", dark ? "text-primary-foreground" : "text-foreground")}>
-        {ORGANIZATION.name.toUpperCase()} {sourceType}
-      </p>
-      <p className="mt-1 max-w-3xl text-xs">
-        Av d365.se-redaktionen. d365.se är en svensk köparsidig kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{" "}
-        <span className="whitespace-nowrap">Dynamics&nbsp;365</span> och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft.
-      </p>
-      <dl className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
-        <div className="flex flex-wrap gap-x-1">
-          <dt>Utgivare:</dt>
-          <dd itemScope itemType="https://schema.org/Organization" itemID={`${ORGANIZATION.url}/#organization`}>
-            <meta itemProp="url" content={ORGANIZATION.url} />
-            <span itemProp="name">{ORGANIZATION.name.toUpperCase()}</span>
-          </dd>
-        </div>
-        <div className="flex flex-wrap gap-x-1">
-          <dt>Källtyp:</dt><dd>{sourceType}</dd>
-        </div>
-        {date && (
-          <div className="flex flex-wrap gap-x-1">
-            <dt>Senast uppdaterad:</dt>
-            <dd><time dateTime={date}>{date}</time></dd>
+      <div className={cn(
+        "rounded-lg border border-border bg-card p-6 text-xs leading-relaxed text-muted-foreground",
+        authors.length ? "grid gap-6 md:grid-cols-2 md:gap-10" : "mx-auto max-w-3xl text-center",
+      )}>
+        {authors.map(({ person, role, title }) => (
+          <div key={`${person.id}-${role}`}>
+            <p className="text-xs font-semibold uppercase tracking-wide text-foreground">{role}</p>
+            <p className="mt-1 text-base font-semibold text-foreground">{person.name}</p>
+            <p className="text-sm">{title ?? person.title}</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/90">{person.bio}</p>
+            <Link to={person.profilePath} className="mt-2 inline-block text-sm text-primary underline underline-offset-4">Läs mer om {person.name}</Link>
           </div>
-        )}
-        {reviewedBy?.trim() && (
-          <div className="flex flex-wrap gap-x-1">
-            <dt>Granskad av:</dt><dd>{reviewedBy.trim()}</dd>
-          </div>
-        )}
-      </dl>
+        ))}
+        <div className={cn(authors.length && "md:border-l md:border-border md:pl-10")}>
+          {intro}
+          <p className="mt-2 text-xs">Redaktion: {ORGANIZATION.name} ({ORGANIZATION.parentName})</p>
+          {meta}
+        </div>
+      </div>
     </aside>
   );
 }

@@ -1,4 +1,3 @@
-import ExpertCard from "@/components/ExpertCard";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -159,8 +158,6 @@ export default function Priser() {
             </div>
           </div>
         </section>
-      <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/priser" />
       <SourcesAndMethod externalSources={priceSources} />
       </main>
 
@@ -169,6 +166,7 @@ export default function Priser() {
           <PageOfferBanner />
         </div>
       </section>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );
