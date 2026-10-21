@@ -50,7 +50,7 @@ const AiExempelDetalj = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${ex.title} med AI i ${app.label}`}
+        title={`${ex.title} – AI i ${app.label}`}
         description={`${ex.summary} ${ex.whatHappens}`.slice(0, 158)}
         canonicalPath={`/ai/exempel/${ex.slug}/`}
         ogType="article"

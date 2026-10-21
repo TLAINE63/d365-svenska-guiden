@@ -4,7 +4,7 @@ import { resolve, join } from 'path';
 import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'fs';
 import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
-import { buildSeoTitle, truncateSeoTitle } from './src/lib/seoTitle';
+import { buildSeoTitle, truncateEncodedSeoTitle, encodeHtmlText } from './src/lib/seoTitle';
 
 /**
  * Vite plugin that prerenders static HTML for all defined routes after the
@@ -196,17 +196,28 @@ export default function prerenderPlugin(): Plugin {
             const helmetHasUsefulTitle =
               head.title && !head.title.includes('></title>') && head.title.includes('</title>');
             if (route.meta && !helmetHasUsefulTitle) {
-              const metaTitle = buildSeoTitle(route.meta.title);
+              const metaTitle = encodeHtmlText(buildSeoTitle(route.meta.title));
+              const metaDesc = encodeHtmlText(route.meta.description);
               const trailing = route.path.endsWith('/') ? route.path : route.path + '/';
               const isArticle = route.path.startsWith('/artiklar/') || route.path.startsWith('/kunskapscenter/');
+              const ogImage = 'https://d365.se/og-default.png';
               const customHead = [
                 `<title>${metaTitle}</title>`,
-                `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
+                `<meta name="description" content="${metaDesc}" />`,
                 `<link rel="canonical" href="https://d365.se${trailing}" />`,
                 `<meta property="og:title" content="${metaTitle}" />`,
-                `<meta property="og:description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
+                `<meta property="og:description" content="${metaDesc}" />`,
                 `<meta property="og:url" content="https://d365.se${trailing}" />`,
                 `<meta property="og:type" content="${isArticle ? 'article' : 'website'}" />`,
+                `<meta property="og:image" content="${ogImage}" />`,
+                `<meta property="og:image:width" content="1200" />`,
+                `<meta property="og:image:height" content="630" />`,
+                `<meta property="og:site_name" content="d365.se" />`,
+                `<meta property="og:locale" content="sv_SE" />`,
+                `<meta name="twitter:card" content="summary_large_image" />`,
+                `<meta name="twitter:title" content="${metaTitle}" />`,
+                `<meta name="twitter:description" content="${metaDesc}" />`,
+                `<meta name="twitter:image" content="${ogImage}" />`,
               ].join('\n    ');
               headTags = customHead;
             }
@@ -216,18 +227,22 @@ export default function prerenderPlugin(): Plugin {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
             }
 
-            // Säkerhetsnät: trunkera alla titlar som ändå blivit för långa
+            // Säkerhetsnät: förkorta titlar som ändå blivit för långa.
+            // Helmet-taggar (data-rh) har redan förkortats av SEOHead med
+            // sidans eventuella titleMaxLength och lämnas orörda. Övriga
+            // avkodas före mätning så att "&amp;" inte räknas som fem tecken
+            // eller kapas mitt i entiteten.
             page = page.replace(
               /<title([^>]*)>([\s\S]*?)<\/title>/gi,
-              (_m, attrs, inner) => `<title${attrs}>${truncateSeoTitle(inner)}</title>`
+              (m, attrs, inner) => (/data-rh/.test(attrs) ? m : `<title${attrs}>${truncateEncodedSeoTitle(inner)}</title>`)
             );
             page = page.replace(
               /(<meta\s+property="og:title"\s+content=")([^"]*)("\s*\/?>)/gi,
-              (_m, pre, val, post) => `${pre}${truncateSeoTitle(val)}${post}`
+              (_m, pre, val, post) => `${pre}${truncateEncodedSeoTitle(val)}${post}`
             );
             page = page.replace(
               /(<meta\s+name="twitter:title"\s+content=")([^"]*)("\s*\/?>)/gi,
-              (_m, pre, val, post) => `${pre}${truncateSeoTitle(val)}${post}`
+              (_m, pre, val, post) => `${pre}${truncateEncodedSeoTitle(val)}${post}`
             );
 
             // Inject rendered HTML into the root div
