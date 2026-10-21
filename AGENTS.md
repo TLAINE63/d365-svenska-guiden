@@ -31,8 +31,8 @@
 - Navbar.tsx MENUS drives main nav (ERP/CRM parity); nav CTA CSS targets `a[data-nav-cta]`.
 - Read subdir AGENTS.md (src/lib: buyer context, plan, accounts, kravspec and Systemval handoff).
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
+- SEO titles are shortened in src/lib/seoTitle.ts (drop trailing sub-title at a separator, then drop brand suffix, ellipsis last); the prerender safety net leaves Helmet (data-rh) titles alone and decodes entities first, so titles are never cut twice or mid-"&amp;".
 
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
-- SEO titles are shortened in src/lib/seoTitle.ts (drop trailing sub-title at a separator, then drop brand suffix, ellipsis last); the prerender safety net leaves Helmet (data-rh) titles alone and decodes entities first, so titles are never cut twice or mid-"&amp;".
