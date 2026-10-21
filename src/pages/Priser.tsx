@@ -95,8 +95,8 @@ export default function Priser() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 licenspriser 2026 – prislista i SEK"
-        description="Aktuella licenspriser för Dynamics 365 i SEK per användare och månad: Business Central, Finance & Supply Chain Management, Sales, Customer Service med flera."
+        title="Dynamics 365 pris 2026 – licenser & prislista i SEK"
+        description="Vad kostar Dynamics 365? Aktuellt pris per användare och månad i SEK för Business Central, Finance & SCM, Sales, Customer Service med flera."
         canonicalPath="/priser/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -114,7 +114,7 @@ export default function Priser() {
               <span aria-current="page">Prislista</span>
             </nav>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {nowrapBrand("Vad kostar Dynamics 365-licenser och vad ingår i listpriset?")}
+              {nowrapBrand("Dynamics 365 pris: vad kostar licenserna och vad ingår?")}
             </h1>
             <h2 className="text-xl font-bold mb-3">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground">

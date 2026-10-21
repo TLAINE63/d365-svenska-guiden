@@ -587,8 +587,8 @@ const ValjPartner = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Dynamics 365-partner & konsult i Sverige – jämför"
- description="Jämför Microsoft Dynamics 365-partners och konsulter i Sverige för Business Central, Finance & SCM, Sales, Customer Service och Field Service."
+ title="Microsoft Dynamics-partner i Sverige – jämför"
+ description="Hitta och jämför Microsoft Dynamics-partners och Dynamics 365-konsulter i Sverige för Business Central, Finance & SCM, Sales, Customer Service och Field Service."
  canonicalPath="/valjdynamics365partner"
  keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"
@@ -619,7 +619,7 @@ const ValjPartner = () => {
  />
  
   <ProductHero
-  title="Hitta Dynamics 365-partners som matchar dina behov"
+  title="Hitta rätt Microsoft Dynamics 365-partner för era behov"
   subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation (affärssystem/ERP eller CRM), bransch, metodik, team, kemi och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
