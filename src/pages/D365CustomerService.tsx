@@ -1,6 +1,5 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
-import ExpertCard from "@/components/ExpertCard";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -287,7 +286,6 @@ const D365CustomerService = () => {
       <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
       <EditorialSource sourceType="Köpguide" />
       <PartnerSwitchCta />
-      <ExpertCard path="/d365customerservice" />
       <Footer />
     </div>
   );

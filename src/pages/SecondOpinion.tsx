@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import GuideBreadcrumb from "@/components/guides/GuideBreadcrumb";
 import EditorialSource from "@/components/EditorialSource";
-import ExpertCard from "@/components/ExpertCard";
 import { Button } from "@/components/ui/button";
 import PlanContactDialog, { type ContactTopic } from "@/components/plan/PlanContactDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -142,7 +141,6 @@ const SecondOpinion = () => {
           </section>
 
           <EditorialSource sourceType="Köpguide" />
-          <ExpertCard path="/second-opinion" />
         </div>
       </main>
       <Footer />

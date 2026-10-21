@@ -1,6 +1,5 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
-import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import SalesDecisionGuide from "@/components/product/SalesDecisionGuide";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -267,7 +266,6 @@ const D365Sales = () => {
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />
 <EditorialSource sourceType="Köpguide" />
 <PartnerSwitchCta />
-<ExpertCard path="/d365sales" />
 <SourcesAndMethod variant="product" />
       <ProductNextSteps product="sales" pageSource="D365 Sales" />
 </main>

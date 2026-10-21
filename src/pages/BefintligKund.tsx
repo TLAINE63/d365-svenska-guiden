@@ -1,4 +1,3 @@
-import ExpertCard from "@/components/ExpertCard";
 import ExistingCustomerDiagnosis from "@/components/ExistingCustomerDiagnosis";
 import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Sparkles, LifeBuoy, Target } from "lucide-react";
@@ -174,7 +173,6 @@ const BefintligKund = () => (
         </section>
 
         <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/befintlig-kund" />
       </div>
     </main>
     <Footer />

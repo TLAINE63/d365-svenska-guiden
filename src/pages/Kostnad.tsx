@@ -1,4 +1,3 @@
-import ExpertCard from "@/components/ExpertCard";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -303,7 +302,6 @@ export default function Kostnad() {
 
         <CostContactForm />
 <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/kostnad" />
 <SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
       </main>
 

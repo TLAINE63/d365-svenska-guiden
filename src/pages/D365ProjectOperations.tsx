@@ -1,5 +1,4 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
-import ExpertCard from "@/components/ExpertCard";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
@@ -122,7 +121,6 @@ const D365ProjectOperations = () => {
       </main>
       <AiExamplesEntry apps={["projectops"]} label={"Se hur AI förändrar arbetet i Project Operations"} source="d365projectoperations" />
       <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/d365projectoperations" />
       <Footer />
     </div>
   );

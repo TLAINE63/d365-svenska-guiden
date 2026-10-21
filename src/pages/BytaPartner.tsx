@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import GuideBreadcrumb from "@/components/guides/GuideBreadcrumb";
 import EditorialSource from "@/components/EditorialSource";
-import ExpertCard from "@/components/ExpertCard";
 import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { analyse, asksPartnerApps, partnerSearch, PRODUCT_LABEL, type PsAnswers } from "@/lib/partnerSwitch";
@@ -232,7 +231,6 @@ const BytaPartner = () => {
           </section>
 
           <EditorialSource sourceType="Köpguide" />
-          <ExpertCard path="/guider/byta-dynamics-partner" />
         </div>
       </main>
       <Footer />

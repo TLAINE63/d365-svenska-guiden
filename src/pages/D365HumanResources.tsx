@@ -1,4 +1,3 @@
-import ExpertCard from "@/components/ExpertCard";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
@@ -114,7 +113,6 @@ const D365HumanResources = () => {
 
       </main>
       <EditorialSource sourceType="Köpguide" />
-<ExpertCard path="/d365humanresources" />
       <Footer />
     </div>
   );
