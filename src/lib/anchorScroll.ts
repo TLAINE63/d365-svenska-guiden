@@ -7,7 +7,7 @@
  */
 
 const HEADER_FALLBACK_HEIGHT = 104;
-const EXTRA_GAP = 12;
+const EXTRA_GAP = 24;
 const MAX_WAIT_MS = 8000;
 const STABLE_FRAMES = 3;
 

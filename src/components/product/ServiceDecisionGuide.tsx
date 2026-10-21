@@ -37,7 +37,7 @@ export default function ServiceDecisionGuide() {
           ))}
         </div>
         <p className="mb-8 max-w-3xl text-sm text-muted-foreground">Om problemen främst gäller tekniker ute hos kund, arbetsorder och reservdelar, <Link to="/d365fieldservice/" onClick={() => trackServiceJourney("field-service", "/d365fieldservice/", "decision")} className="text-primary underline underline-offset-4">undersök Field Service</Link>. Automatisering och AI kräver en användbar kunskapsbas, rätt behörigheter och någon som ansvarar för serviceprocesserna.</p>
-        <h2 id="service-beslutsunderlag" className="mb-3 scroll-mt-24 text-xl font-bold text-foreground sm:text-2xl">Bygg ert beslutsunderlag för kundservice</h2>
+        <h2 id="service-beslutsunderlag" className="mb-3 scroll-mt-32 border-t border-border pt-8 text-xl font-bold text-foreground sm:text-2xl">Bygg ert beslutsunderlag för kundservice</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {BUILD.map(({ key, Icon, label, question, cta, to }) => (
             <Link key={key} to={to} onClick={() => trackServiceJourney(key, to, "build")} className="group flex flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:bg-secondary/50">
