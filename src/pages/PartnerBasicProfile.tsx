@@ -39,15 +39,16 @@ export default function PartnerBasicProfile({
     : [];
 
   const seoTitle = partner
-    ? `${partner.name} som Dynamics 365-partner – fakta & produktområden`
-    : "D365-partner – observerad data";
+    ? basicPartnerSeoTitle(partner.name)
+    : "Dynamics 365-partner – grundprofil";
 
+  // Dynamics 365-fokuserad text först; partnerns allmänna bolagsbeskrivning är reserv.
   const seoDescription = partner
-    ? excerpt(partner.extended_content) ||
-      `${partner.name} är en Microsoft Dynamics 365-partner. Översikt av observerade produktområden${
-        observedApps.length ? ` (${observedApps.join(", ")})` : ""
-      }, branscher och geografisk täckning – sammanställt av d365.se från publika källor.`
-    : "Basickort med observerad data om en Microsoft Dynamics 365-partner som ännu inte har egen profil på d365.se.";
+    ? buildMetaDescription([
+        basicPartnerSeoDescription(partner.name, observedApps),
+        excerpt(partner.extended_content),
+      ])
+    : "Grundprofil med observerad data om en Microsoft Dynamics 365-partner som ännu inte har en partnerverifierad profil på d365.se.";
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,6 +56,8 @@ export default function PartnerBasicProfile({
         title={seoTitle}
         description={seoDescription}
         canonicalPath={`/basic/${slug}/`}
+        ogImage="https://d365.se/og-partner.png"
+        ogImageAlt={partner ? `${partner.name} – Dynamics 365-partner i Sverige` : "Dynamics 365-partners i Sverige"}
       />
       {partner && (
         <>
