@@ -96,6 +96,7 @@ export default function Priser() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Dynamics 365 pris 2026 – licenser & prislista i SEK"
+        titleMaxLength={61}
         description="Vad kostar Dynamics 365? Aktuellt pris per användare och månad i SEK för Business Central, Finance & SCM, Sales, Customer Service med flera."
         canonicalPath="/priser/"
       />
