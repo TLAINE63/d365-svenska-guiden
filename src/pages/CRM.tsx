@@ -517,6 +517,25 @@ const CRM = () => {
  </AccordionContent>
  </AccordionItem>
 
+ <AccordionItem value="item-crm-kostnad" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
+ <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
+ Vad kostar ett CRM-system i Sverige?
+ </AccordionTrigger>
+ <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+ <p>Ett CRM-system kostar allt från en låg månadsavgift per användare till flera hundra tusen kronor i införande. Priset avgörs mindre av vilket system ni väljer och mer av vilken typ av CRM ni behöver. Grovt finns tre nivåer:</p>
+ <p><strong>1. Enkla start-CRM.</strong> Kontaktregister och enkel säljpipeline för små team. Låg licenskostnad, få integrationer och nästan inget införandeprojekt. Passar när behovet främst är att samla kunder och affärer på ett ställe.</p>
+ <p><strong>2. Verksamhets-CRM.</strong> Strukturerade säljprocesser, offerter, rapporter och koppling till e-post och kalender. Här finns till exempel Dynamics{"\u00A0"}365 Sales Professional ({resolvePriceTokens("{{price:sales-professional:exact}}")} per användare och månad). Ett mindre införande kostar ofta från cirka 75 000 kr.</p>
+ <p><strong>3. Företagsplattformar.</strong> Avancerade säljprocesser, AI, prognoser, kundservice och integration mot affärssystem. Här finns Dynamics{"\u00A0"}365 Sales Enterprise ({resolvePriceTokens("{{price:sales-enterprise:exact}}")} per användare och månad). Införandet ligger typiskt mellan 75 000 och 350 000 kr per applikation och upp till cirka 2 MSEK för flera integrerade applikationer.</p>
+ <p>Jämför alltid totalkostnaden över tre år: licenser, införande, integrationer, utbildning och förvaltning. Ett billigt system som inte används blir dyrt.</p>
+ <p>
+ Räkna på er situation i{" "}
+ <a href="/sales-kalkylator/" className="text-crm hover:underline font-medium">CRM-kalkylatorn</a>, se{" "}
+ <a href="/priser/" className="text-crm hover:underline font-medium">alla licenspriser</a> eller läs om{" "}
+ <a href="/kostnad/" className="text-crm hover:underline font-medium">totalkostnaden för Dynamics{"\u00A0"}365</a>.
+ </p>
+ </AccordionContent>
+ </AccordionItem>
+
  <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border ">
  <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
  Hur snabbt kan vi komma igång med Dynamics 365 CRM?

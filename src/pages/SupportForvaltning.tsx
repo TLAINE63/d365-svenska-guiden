@@ -5,10 +5,10 @@ const SupportForvaltning = () => (
   <SimpleGuidePage
     path={PATH}
     tool="support_guide"
-    seoTitle="Support och förvaltning av Dynamics 365: vad ska avtalet innehålla?"
-    seoDescription="Skillnaden mellan support, förvaltning och vidareutveckling i Dynamics 365, vad ett förvaltningsavtal bör innehålla och hur ni byter supportpartner utan att störa driften."
+    seoTitle="Dynamics 365 support och förvaltning: vad ska avtalet innehålla?"
+    seoDescription="Dynamics 365 support, förvaltning och vidareutveckling: vad Microsoft ansvarar för, vad en supportpartner gör, vanliga avtalsmodeller och hur ni byter supportpartner utan att störa driften."
     crumbs={[{ name: "Start", url: "/" }, { name: "Redan Dynamics 365-kund", url: "/befintlig-kund/" }, { name: "Support och förvaltning", url: PATH }]}
-    h1="Vad ska support och förvaltning av Dynamics 365 omfatta?"
+    h1="Dynamics 365 support och förvaltning: vad ska det omfatta?"
     shortAnswer="Support hanterar fel som uppstår, förvaltning håller lösningen frisk över tid och vidareutveckling förbättrar den. Ett bra avtal skiljer på de tre, anger ansvar och servicenivåer och säkrar att ni äger dokumentation, åtkomst och kod."
     sections={[
       {
@@ -17,6 +17,23 @@ const SupportForvaltning = () => (
           { t: "Support", d: "Ärendehantering när något inte fungerar: felanmälan, prioritering, svarstider och lösning." },
           { t: "Förvaltning", d: "Löpande arbete: Microsofts uppdateringar och release waves, miljöer, behörigheter, tester och dokumentation." },
           { t: "Vidareutveckling", d: "Nya funktioner, förbättrade processer, fler användare eller applikationer. Planeras och prissätts separat." },
+        ],
+      },
+      {
+        title: "Vad gör Microsoft och vad gör er supportpartner?",
+        cards: [
+          { t: "Microsoft", d: "Driftar molntjänsten, levererar uppdateringar och hanterar fel i själva plattformen. Ärenden till Microsoft går normalt via er partner eller ert eget supportavtal." },
+          { t: "Supportpartner", d: "Hanterar frågor och fel i er lösning: konfiguration, anpassningar, tillägg, integrationer och användarnas vardagsproblem." },
+          { t: "Ni själva", d: "Äger processer, data och prioriteringar. Många har en intern systemförvaltare som tar första linjens frågor." },
+        ],
+      },
+      {
+        title: "Vanliga avtalsmodeller för support",
+        list: [
+          "Löpande timdebitering: flexibelt, men svårare att budgetera",
+          "Timbank eller månadspott: ett antal timmar per månad eller år till fast pris",
+          "Fast förvaltningsavtal: definierat åtagande med servicenivåer till fast månadsavgift",
+          "Kombination: fast grundförvaltning plus vidareutveckling som separata uppdrag",
         ],
       },
       {
