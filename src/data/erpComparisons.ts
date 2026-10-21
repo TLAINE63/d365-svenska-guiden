@@ -1205,7 +1205,7 @@ const SALES_COMPARISONS: ProductComparison[] = [
     productKey: "sales",
     competitor: "Salesforce Sales Cloud",
     competitorUrl: "https://www.salesforce.com/se/sales/",
-    title: "Dynamics 365 vs Salesforce: Sales vs Sales Cloud jämförd",
+    title: "Dynamics 365 vs Salesforce – Sales mot Sales Cloud",
     metaDescription:
       "Dynamics 365 vs Salesforce: jämför Sales och Sales Cloud på pris, AI (Copilot vs Einstein), Microsoft 365-integration och svenska partners.",
     intro:
