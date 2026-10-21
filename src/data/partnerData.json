@@ -1398,6 +1398,227 @@
     "public_profile_updated_at": "2026-09-16T15:42:55.754+00:00"
   },
   {
+    "id": "a996ca97-8db0-4d7b-8df0-2e5f2dbd89c3",
+    "slug": "dizparc",
+    "name": "Dizparc Everest AB",
+    "description": "Hos Dizparc hittar du ett stort gäng experter med specialistkunskap och både lång och bred erfarenhet av att arbeta med Microsoft Business Central. Oavsett om du står i startgroparna att implementera ett helt nytt affärssystem eller utveckla det du redan har kan vi med vår goda verksamhetskunskap inom områden som ekonomi, försäljning, produktion, lager/logistik och inköp hjälpa dig att ro just ditt projekt i land med hög kvalitet och leveranssäkerhet.\n\nVår breda erfarenhet av närliggande och integrerade applikationer kommer väl till pass på resan mot en skräddarsydd lösning som matchar just din verksamhets behov - både på kort och lång sikt. Vi tror på långsiktiga relationer och många av våra kunder har vi arbetat med och följt på deras digitaliseringsresor under lång tid.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc.png",
+    "logo_dark_bg": false,
+    "website": "https://dizparc.se/tjanster/affarssystem-och-insikter/dynamics-365-business-central",
+    "email": "mikael.sjoqvist@dizparc.se",
+    "contact_person": "Mikael Sjöqvist",
+    "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc-contact-main.png?t=1792575796511",
+    "phone": "+46702327879",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "keyPoints": "- Business Central och Data & Analytics i samma team. Från transaktion till Power BI och Fabric, utan överlämning mellan leverantörer.\n- Integrationer mot omvärlden: e-handel, transport, distributörer och licensplattformar via API.\n- Uppgradering från NAV eller äldre BC till molnet, med städad data och färre egna anpassningar.\n- AI i vår egen leverans. Det ger snabbare utveckling, test och dokumentation, och kunddata lämnar inte kontrollerade miljöer.",
+        "whyChoose": "Vi är ett Business Central-team som också kan data och AI. Därför stannar vi inte vid ett affärssystem som fungerar. Vi ser till att informationen i det faktiskt används för uppföljning och beslut. Ni får ett erfaret team som lär känna er verksamhet, korta beslutsvägar och konsulter som säger till när något inte är värt att bygga. Ni vet alltid vem som ansvarar för leveransen och hur er data hanteras, även när vi använder AI i arbetet.",
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Konsulttjänster"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "1-49"
+        ],
+        "contactName": "Mikael Sjöqvist",
+        "contactEmail": "mikael.sjoqvist@dizparc.se",
+        "contactPhone": "+46707575145",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "landingPageUrl": "https://dizparc.se/tjanster/affarssystem-och-insikter/dynamics-365-business-central",
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc-contact-bc.png?t=1792577816567",
+        "deliveryProfile": {
+          "aiAutomation": "Vi aktiverar och anpassar Copilot i Business Central där det gör nytta, till exempel i bankavstämning och orderhantering. Vi bygger automation med Power Automate och agenter för återkommande flöden som orderinläsning och leverantörsfakturor. Vi utgår från er process och anpassar lösningen till den. Vi säljer inga AI-planer som blir liggande. AI används även i vår egen utveckling, med tydliga regler för att er data inte lämnar kontrollerade miljöer.",
+          "deliveryModel": "Ett typiskt team består av projektledare, [1–3] lösningsarkitekter och utvecklare, med Data & analytics-konsult vid behov. Vi arbetar i faser: analys, design, utveckling, test och go-live. Utvecklings- och testfasen körs ofta i sprintar om 2–3 veckor. Workshops, nyckelmoment och go-live gör vi gärna på plats, mycket annat på distans (ca 20/80). Kunden behöver en intern projektledare och processägare som avsätter tid, samt nyckelanvändare för test och utbildning.",
+          "managedServices": "Efter go-live går våra kunder över till ett förvaltning ofta med ett förvaltningsavtal, med fast månadsavgift och timbank eller på löpande räkning. Era superanvändare tar first line. Vi tar second och third line, med prioriterade svarstider. Ni har en namngiven kontaktperson som känner lösningen. Microsofts uppdateringar och de två större årliga releaserna testas i sandbox innan de når produktion, inklusive tillägg och integrationer. Vi följer upp ärenden och lösningens hälsa regelbundet.",
+          "typicalProjects": "Nyimplementation: från analys till go-live, ofta 3–12 månader.\nUppgradering från NAV eller äldre BC till moln: [1–4] månader, med fokus på att ta bort onödiga anpassningar.\nRollout av nya bolag: 2–8 veckor med en beprövad mall.\nIntegration: avgränsade projekt om 2–8 veckor, till exempel mot e-handel, logistik eller distributörer.\nDatamigrering: Vi städar och flyttar det som behövs, inte allt som finns.",
+          "typicalCustomers": "Svenska små och medelstora företag, typiskt 20–250 anställda och 50–2 000 MSEK i omsättning. Många finns inom handel och grossist, tillverkning och tjänste- eller IT-verksamhet. De har ofta flera bolag och behöver integrationer mot e-handel, logistik eller leverantörer. Kunderna finns över hela Sverige. Vi utgår från Göteborg, Karlstad och Umeå och levererar mycket på distans. Gemensamt är att de vill styra verksamheten i sitt affärssystem, inte bara bokföra i det.",
+          "furtherDevelopment": "Vi har en gemensam backlogg med er där idéer och behov samlas och prioriteras i ett förvaltningsforum. Budgeten sätts som en årlig ram eller timbank. Större insatser offereras separat med fast pris eller takpris. Typiska insatser är nya integrationer, automatisering av manuella flöden, rapportering i Power BI, Copilot och agenter, samt nya bolag eller verksamheter i systemet. Målet är en lösning som blir bättre varje år."
+        },
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Vagabond",
+          "Café Bar",
+          "FocusNordic",
+          "StenaRecycling",
+          "Skanska",
+          "Vertiseit",
+          "Iver",
+          "Matkompaniet"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://dizparc.se/case/dcg",
+          "https://dizparc.se/case/vk-media",
+          "https://dizparc.se/case/prevent"
+        ],
+        "productDescription": "Vi hjälper organisationer att skapa ett stabilt och framtidssäkert affärssystem anpassat efter verksamhetens processer. Vårt fokus är att leverera lösningar som optimerar affärsflöden för att skapa affärsnytta, är enkla att vidareutveckla och fullt integrerade i Microsofts ekosystem.",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "industry_apps": [],
+    "is_featured": true,
+    "customer_examples": [],
+    "office_cities": [
+      "Göteborg",
+      "Karlstad",
+      "Umeå"
+    ],
+    "map_url": "https://dizparc.se",
+    "youtube_video_id": null,
+    "created_at": "2026-03-26T16:00:45.940704+00:00",
+    "updated_at": "2026-10-21T10:26:29.575583+00:00",
+    "industry_pitches": [
+      {
+        "text": "Dizparc levererar lösningar baserade på Microsoft Dynamics 365 Business Central till aktörer inom grossist- och distributionsbranschen. Partnern har erfarenhet av att optimera affärsprocesser som ekonomi, försäljning, lagerhantering och inköp vilka är centrala för branschens effektivitet och lönsamhet. Dizparc arbetar med att utveckla och implementera affärssystem som ska möta verksamheters specifika behov avseende snabba och spårbara leveranser. De har även kompetens kring integrationer med närliggande applikationer för att skapa heltäckande lösningar. Dizparc strävar efter långsiktiga kundrelationer och erbjuder stöd under kunders digitaliseringsresor.",
+        "product": null,
+        "industry": "Grossist & Distribution",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:33:26Z"
+      },
+      {
+        "text": "Dizparc erbjuder lösningar baserade på Microsoft Business Central för företag inom retail och e-handel. De har erfarenhet av att stödja företag i både implementering av nya affärssystem och utveckling av befintliga lösningar. Dizparc arbetar med relevanta områden som ekonomi, försäljning, lager/logistik och inköp, vilket kan underlätta hanteringen av flöden som är centrala för både fysisk handel och e-handel. Deras kompetens sträcker sig till att integrera närliggande applikationer för att skapa anpassade lösningar som möter specifika verksamhetsbehov inom branschen. Dizparc fokuserar på långsiktiga relationer och har erfarenhet av att följa sina kunder genom olika digitaliseringsfaser.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:33:29Z"
+      },
+      {
+        "text": "Dizparc har erfarenhet av att arbeta med Microsoft Dynamics 365 Business Central för företag inom tillverkningsindustrin. De bistår med implementering och vidareutveckling av affärssystem för att möta krav på effektivitet och anpassningsförmåga. Deras kompetens sträcker sig över områden som ekonomi, försäljning, produktion, lager/logistik och inköp, vilket ger stöd för digitaliseringsresan.\n\nDe arbetar med att skapa skräddarsydda lösningar som integreras med kringliggande applikationer, med fokus på både kortsiktiga behov och långsiktig strategi. Dizparc erbjuder stöd för företag som vill optimera sina processer och säkerställa leveranskvalitet inom tillverkningssektorn.",
+        "product": null,
+        "industry": "Tillverkningsindustri",
+        "edited_by": "admin-bulk",
+        "generated_at": "2026-05-17T08:33:26Z"
+      }
+    ],
+    "agreement_signed": true,
+    "related_party": false,
+    "positioning_statement": "Vi är valet när ni vill ha Business Central, data och AI som hänger ihop, levererat av ett team som anpassar lösningen efter er verksamhet.",
+    "delivery_profile": {
+      "methodology": "Dizparc Route",
+      "typical_length": "",
+      "bc_project_cost_band": "1M–2.5M",
+      "bc_project_weeks_max": 52,
+      "bc_project_weeks_min": 6
+    },
+    "team_size_sweden": "11–25",
+    "implementations_done": null,
+    "not_a_fit": [
+      "Projekt som kräver Finance & Supply Chain Management snarare än Business Central",
+      "Verksamheter som behöver support dygnet runt, alla dagar",
+      "Branscher där en specialiserad vertikal lösning är kärnan, till exempel mode",
+      "Företag som bara söker ett färdigt paket till lägsta pris, utan behov av anpassning eller uppföljning"
+    ],
+    "implementations_per_app": {
+      "Business Central": "25–100"
+    },
+    "ai_summary": "Dizparc fokuserar på implementering och utveckling av Microsoft Dynamics 365 Business Central. Partnern har kontor på flera orter i Sverige, inklusive Umeå, Stockholm och Göteborg. De har erfarenhet av att stödja projekt inom ekonomi, försäljning, produktion, lager/logistik och inköp.",
+    "ai_summary_generated_at": "2026-10-21T08:46:39.652+00:00",
+    "ai_profile": {
+      "use_cases": [],
+      "description": null,
+      "migrated_at": "2026-06-30T09:25:49.082462+00:00",
+      "capabilities": [],
+      "delivery_model": null,
+      "evidence_level": [
+        "self-declared"
+      ],
+      "relevant_areas": [],
+      "experience_level": null,
+      "project_count_range": null
+    },
+    "extended_content": "Dizparc är en svensk IT-partner med rötter i Småland och 35+ års erfarenhet av affärssystem. Bolaget har cirka 45 anställda med kontor i Jönköping, Stockholm och Göteborg. Dizparc är Microsoft Dynamics-partner med fokus på Business Central och CE/CRM för svenska små och medelstora företag.\n\nAktiva produktområden: Microsoft Dynamics 365 Business Central som huvuderbjudande för ekonomi och affärssystem. Dynamics 365 Customer Engagement (Sales, Service) för CRM-behov. Power Platform (Power BI, Power Apps, Power Automate) för analys och automation. Integration och anpassning av BC med branschspecifika tillägg.\n\nTydliga styrkor: Lokal närvaro i Småland med personlig service och långsiktiga kundrelationer. Kombinerar BC och CE vilket ger helhetslösning för ERP+CRM. Pragmatisk approach med fokus på att lösa kundens faktiska behov snarare än teknisk överambition.\n\nRäckvidd och segment: Sverige med särskild styrka i Småland och västra Sverige. Segment: små till medelstora företag (20-500 anställda) inom handel, tillverkning och tjänstesektor. Fokus på kunder som värdesätter lokal partner med personligt engagemang.\n\nPassar bäst: Svenska SMB-företag som söker en lokal, lättillgänglig partner för BC och/eller CRM. Kunder som värdesätter personlig relation och pragmatisk problemlösning framför storskalig internationell kapacitet. Mindre lämplig för enterprise-segment eller komplexa internationella utrullningar.\n\nSammanfattning: En regional svensk BC/CE-partner med stark lokal förankring i Småland. Jämförbar med andra svenska SMB-fokuserade partners som NAB Solutions, Yellow Solution och Navcite.",
+    "extended_content_updated_at": "2026-10-21T08:46:39.652+00:00",
+    "partner_size_tier": 3,
+    "partner_size_tier_needs_review": false,
+    "ai_summary_full": null,
+    "best_fit_for": [],
+    "ai_tags": [],
+    "extended_competencies": {},
+    "team_size_per_app": {},
+    "key_differentiators": [
+      "Business Central och dataanalys i samma team, utan överlämning mellan leverantörer",
+      "Standard först: vi anpassar bara där det ger tydlig affärsnytta",
+      "Ett erfaret team med namngiven kontaktperson och korta beslutsvägar",
+      "Integrationer mot e-handel, logistik, distributörer och licensplattformar",
+      "AI och automation som används där det sparar tid, med tydliga regler för er data"
+    ],
+    "key_differentiators_source": "partner",
+    "public_profile_summary": "Analys av publika källor indikerar att Dizparc är en IT-partner med ursprung i Småland och över 35 års erfarenhet av affärssystem. Företaget har cirka 45 anställda med kontor i Jönköping, Stockholm och Göteborg. Fokus ligger på svenska små och medelstora företag.\n\nFöretaget positionerar sig som en Microsoft Dynamics-partner med huvudsakligt fokus på Business Central och Customer Engagement (CE/CRM). Power Platform, särskilt Power BI, Power Apps och Power Automate, samt integrationer är också aktiva produktområden. En tydlig styrka som observeras är företagets lokala närvaro i Småland med fokus på personlig service och långsiktiga kundrelationer, samt en pragmatisk inställning till problemlösning. \n\nPublikt innehåll från Dizparc visar att de engagerar sig i ämnen som cybersäkerhet, AI, molntjänster, digital transformation, och IT-budget. Företaget har även publicerat artiklar om rekrytering, medarbetarporträtt och företagsnyheter, samt anordnat lokala evenemang, däribland frukostseminarier som behandlar AI, cybersäkerhet och entreprenörskap.",
+    "public_focus_tags": [
+      "Affärssystem",
+      "Business Central",
+      "Customer Engagement",
+      "Power Platform",
+      "Cybersäkerhet",
+      "Molntjänster",
+      "Digital transformation",
+      "Små och medelstora företag",
+      "Lokal närvaro",
+      "IT-rådgivning"
+    ],
+    "public_topics_12m": [
+      "Cybersäkerhet",
+      "AI",
+      "IT-budget",
+      "Digital transformation",
+      "Verksamhetsförändring",
+      "Power BI",
+      "Medarbetarporträtt",
+      "Företagsnyheter"
+    ],
+    "public_profile_sources": [
+      "https://dizparc.se",
+      "https://dizparc.se/nyheter-och-kunskap/dizparc-threat-intel-report-2026",
+      "https://dizparc.se/nyheter-och-kunskap",
+      "https://dizparc.se/nyheter-och-kunskap/dizparc-i-goteborg-och-karlstad-far-ny-vd",
+      "https://dizparc.se/nyheter-och-kunskap/dizparc-vaxjo-vaxlar-upp-med-ny-saljkraft",
+      "https://dizparc.se/nyheter-och-kunskap/dizparc-drar-igang-cybersakerhetslyftet",
+      "https://dizparc.se/nyheter-och-kunskap/vad-hander-efter-ett-cyberangrepp",
+      "https://dizparc.se/nyheter-och-kunskap/vad-hander-nar-nyckelpersoner-pa-it-avdelningen-forsvinner",
+      "https://dizparc.se/nyheter-och-kunskap/sa-far-du-kontroll-pa-it-budgeten",
+      "https://dizparc.se/nyheter-och-kunskap/datadrivna-beslut-for-okad-tillvaxt-och-konkurrenskraft",
+      "https://dizparc.se/nyheter-och-kunskap/ledningens-roll-i-bygget-av-en-sakerhetskultur-att-lita-pa",
+      "https://dizparc.se/nyheter-och-kunskap/nis2-behover-vi-agera",
+      "https://dizparc.se/nyheter-och-kunskap/dizparc-och-karlstads-universitet-sjosatter-ett-nytt-forskningsprojekt-inom-cybersakerhet",
+      "https://dizparc.se/nyheter-och-kunskap/sa-blir-anvandarna-en-del-i-ert-aktiva-cyberforsvar",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-petra-stacke",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-jessica-barrington",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-robert-stromqvist",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-viktor-svenningsson",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-sara-nilsson",
+      "https://dizparc.se/nyheter-och-kunskap/lar-kanna-jan-bidner"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:43:13.123+00:00"
+  },
+  {
     "id": "42f8b63b-a4c9-480d-81e5-a322652b3af4",
     "slug": "fellowmind",
     "name": "Fellowmind",
