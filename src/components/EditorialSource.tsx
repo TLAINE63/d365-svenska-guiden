@@ -52,8 +52,10 @@ function EditorialSourceInner({
       aria-label="Avsändare och innehållskälla"
       data-editorial-source={sourceType}
       className={cn(
-        "my-3 border-b pb-2 text-xs leading-relaxed",
-        dark ? "border-primary-foreground/20 text-primary-foreground/80" : "border-border text-muted-foreground",
+        "text-xs leading-relaxed",
+        dark
+          ? "my-3 border-b border-primary-foreground/20 pb-2 text-primary-foreground/80"
+          : "mx-auto my-10 w-full max-w-3xl border-t border-border px-4 pt-6 text-center text-muted-foreground sm:px-6 [&_dl]:justify-center [&_p]:mx-auto",
         className,
       )}
     >
