@@ -59,7 +59,7 @@ const AiExempelDetalj = () => {
         breadcrumbs={[{ name: "Start", url: "/" }, { name: "AI-exempel", url: "/ai/exempel/" }, { name: ex.title, url: `/ai/exempel/${ex.slug}/` }]}
       />
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24 lg:pt-32">
         <article className="container mx-auto max-w-3xl px-4 py-10">
           <Link to={back} className={`rounded-sm text-sm text-muted-foreground hover:text-primary ${focus}`}>← Alla exempel</Link>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">

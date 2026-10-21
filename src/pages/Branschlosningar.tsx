@@ -342,7 +342,7 @@ const Branschlosningar = () => {
  <main>
  
  {/* Hero Section */}
- <section className="pt-24 pb-6 px-4 bg-gradient-to-b from-muted/50 to-background">
+ <section className="pt-24 lg:pt-32 pb-6 px-4 bg-gradient-to-b from-muted/50 to-background">
  <div className="container mx-auto max-w-6xl text-center">
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3">
  Branschlösningar

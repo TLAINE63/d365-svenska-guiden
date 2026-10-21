@@ -69,7 +69,7 @@ const AiExempel = () => {
         breadcrumbs={[{ name: "Start", url: "/" }, { name: "AI i Dynamics 365", url: "/aioversikt/" }, { name: "Exempel", url: "/ai/exempel/" }]}
       />
       <Navbar />
-      <main className="pt-24">
+      <main className="pt-24 lg:pt-32">
         {/* Hero */}
         <section className="container mx-auto max-w-5xl px-4 py-12">
           <h1 className="text-4xl font-bold text-foreground md:text-5xl">Ett nytt sätt att arbeta med Dynamics&nbsp;365</h1>
