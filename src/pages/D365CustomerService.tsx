@@ -88,11 +88,12 @@ const D365CustomerService = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Customer Service – pris, omnikanal & partner"
-        description="Helpdesk och ärendehantering med Copilot AI och omnikanal (e-post, chatt, telefon, SMS): pris från 478 kr/mån och svenska Microsoft-partners."
+        title="Dynamics 365 Customer Service – pris & partners"
+        description="Dynamics 365 Customer Service för ärenden och omnikanal (e-post, chatt, telefon): pris från 478 kr/mån, Copilot och svenska partners att jämföra."
         canonicalPath="/d365customerservice"
         keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
         ogImage="https://d365.se/og-customer-service.png"
+        ogImageAlt="Dynamics 365 Customer Service – köpguide på d365.se"
       />
       <FAQSchema faqs={customerServiceFaqs} />
       <ServiceSchema 

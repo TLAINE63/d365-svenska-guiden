@@ -122,8 +122,9 @@ const SEOHead = ({
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={resolvedOgImage} />
-      <meta property="og:image:width" content={String(ogImageWidth)} />
-      <meta property="og:image:height" content={String(ogImageHeight)} />
+      {/* 0 = okända mått (t.ex. partnerlogotyper); ange då inga mått i stället för fel mått. */}
+      {ogImageWidth > 0 && <meta property="og:image:width" content={String(ogImageWidth)} />}
+      {ogImageHeight > 0 && <meta property="og:image:height" content={String(ogImageHeight)} />}
       {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
       <meta property="og:site_name" content="d365.se" />
       <meta property="og:locale" content="sv_SE" />

@@ -35,11 +35,12 @@ const D365ProjectOperations = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Project Operations – projektstyrning för tjänster"
-        description="Microsofts projektmodul för konsult-, ingenjörs- och tjänsteföretag. Resursplanering, tid & utlägg, projektekonomi och fakturering – integrerat med Finance, BC, Sales och Teams."
+        title="Dynamics 365 Project Operations – guide & partners"
+        description="Dynamics 365 Project Operations för konsult- och tjänsteföretag: resursplanering, tid och utlägg, projektekonomi och fakturering. Jämför svenska partners."
         canonicalPath="/d365projectoperations"
         keywords="Dynamics 365 Project Operations, projektstyrning Microsoft, PSA, resursplanering, projektekonomi, tid och utlägg, konsultbolag ERP"
-        ogImage="https://d365.se/og-finance-supply-chain.png"
+        ogImage="https://d365.se/og-erp.png"
+        ogImageAlt="Dynamics 365 Project Operations – köpguide på d365.se"
       />
       <ServiceSchema
         name="Microsoft Dynamics 365 Project Operations – projektstyrning för tjänsteföretag"

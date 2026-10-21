@@ -418,18 +418,27 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize || selectedGeography;
 
  const seoApps = (partner.applications || []).slice(0, 3).join(", ");
+ // Produktundersidor får egen titel/beskrivning så att de inte dubblerar huvudprofilen.
+ const seoProduct = productFromPath?.replace(/\s*\(.*\)$/, "") ?? null;
  // Kortare baseTitle så hela titeln får plats inom 60 tecken utan ellipsis.
  const seoTitle = buildMetaTitle({
- baseTitle: `${partner.name} – Dynamics 365 Partner`,
- primaryKeyword: "Dynamics 365",
+ baseTitle: seoProduct
+ ? `${partner.name} – ${seoProduct}-partner`
+ : `${partner.name} – Dynamics 365-partner`,
+ primaryKeyword: seoProduct ? undefined : "Dynamics 365",
  }).value;
  const seoDescription = buildMetaDescription([
+ seoProduct
+ ? `${partner.name} som ${seoProduct}-partner i Sverige: kompetenser, branscher, kundexempel och kontaktväg via d365.se. Jämför innan ni väljer.`
+ : undefined,
  partner.description,
  seoApps
  ? `${partner.name} är en Microsoft Dynamics 365-partner med fokus på ${seoApps}. Se kompetenser, referenser och kontakta dem via d365.se.`
  : undefined,
  `${partner.name} är en Microsoft Dynamics 365-partner som hjälper svenska företag med implementation, support och utveckling.`,
  ]);
+ // Sociala tjänster visar inte SVG; använd då den gemensamma partnerbilden.
+ const rasterLogo = partner.logo_url && /\.(png|jpe?g|webp)(\?|$)/i.test(partner.logo_url) ? partner.logo_url : null;
 
  return (
  <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
@@ -438,8 +447,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  description={seoDescription}
  canonicalPath={buildPartnerProductPath(partner.slug, productFromPath ?? undefined)}
  keywords={[partner.name, "Dynamics 365", "Microsoft partner", ...(partner.applications || [])].join(", ")}
- ogImage={partner.logo_url || undefined}
- ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}
+ ogImage={rasterLogo ?? "https://d365.se/og-partner.png"}
+ ogImageWidth={rasterLogo ? 0 : undefined}
+ ogImageHeight={rasterLogo ? 0 : undefined}
+ ogImageAlt={`${partner.name} – Microsoft Dynamics 365-partner`}
  ogType="website"
  />
  <PartnerOrganizationSchema

@@ -150,6 +150,8 @@ export default function AllD365Partners() {
         title="Övriga Dynamics 365-partners i Sverige"
         description="Hitta Dynamics 365-partners i Sverige. Partnerverifierade profiler och övriga aktörer på d365.se – köparsidig vägledning."
         canonicalPath="/alla-d365-partners/"
+        ogImage="https://d365.se/og-partner.png"
+        ogImageAlt="Dynamics 365-partners i Sverige på d365.se"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />

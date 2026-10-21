@@ -73,11 +73,12 @@ const D365ContactCenter = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Contact Center – Pris, AI-agenter & omnikanal"
-        description="Microsofts AI-drivna kontaktcenter för telefoni, chatt och e-post. Licenspris från 1 051 kr/agent/mån, integration med Teams och jämförelse av svenska partners."
+        title="Dynamics 365 Contact Center – pris & partners"
+        description="Dynamics 365 Contact Center: AI-drivet kontaktcenter för telefoni, chatt och e-post. Pris från 1 051 kr/agent/mån och svenska partners att jämföra."
         canonicalPath="/d365contactcenter"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
+        ogImageAlt="Dynamics 365 Contact Center – köpguide på d365.se"
       />
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 

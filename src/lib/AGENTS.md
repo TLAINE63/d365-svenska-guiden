@@ -7,3 +7,4 @@
 - Calculators hand off to the product-matched requirement spec only via calcToKrav.ts URL params (bransch/storlek/omraden/produkt + kalla=kalkyl) that the specs already read; ambiguous calculator industries and user counts for ERP (asks employees) are never mapped, so prefill is never guessed.
 - Existing-customer diagnosis (existingDiagnosis.ts) is deterministic with 7 needs, asks a follow-up only when it changes the next step, never auto-opens contact, and passes only a known product to partner search via ?apps=, so nothing is guessed.
 - Second opinion (/second-opinion/) reuses PlanContactDialog advisory mode via a ContactTopic; diagnosis passes only a known need via ?behov= (unknown values ignored), so no parallel lead flow exists.
+- Basic-profile SEO title/description come from partnerSeo.ts, shared by PartnerBasicProfile and the prerender fallback, so crawlers and visitors see identical metadata within 60/155 chars.

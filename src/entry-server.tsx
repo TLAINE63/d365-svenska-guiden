@@ -119,6 +119,7 @@ import { PRODUCT_PARTNERS_SVERIGE } from './data/productPartnersSverige';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
+import { basicPartnerSeoDescription, basicPartnerSeoTitle } from './lib/partnerSeo';
 import partnerDataJson from './data/partnerData.json';
 
 // Re-export buildRedirectHtml; LEGACY_REDIRECTS is extended below with
@@ -724,7 +725,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
       priority: '0.7',
       changefreq: 'weekly' as const,
       meta: {
-        title: `${p.name} – Dynamics 365 Partner | d365.se`,
+        title: `${p.name} – Dynamics 365-partner | d365.se`,
         description:
           p.description?.slice(0, 155) ||
           `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
@@ -763,10 +764,8 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
             changefreq: 'monthly',
             lastmod: (r.updated_at || '').slice(0, 10) || undefined,
             meta: {
-              title: `${r.name} som Dynamics 365-partner – fakta & produktområden | d365.se`,
-              description:
-                desc ||
-                `${r.name} – observerad data om denna Microsoft Dynamics 365-partner i Sverige, sammanställd av d365.se från publika källor.`,
+              title: `${basicPartnerSeoTitle(r.name)} | d365.se`,
+              description: basicPartnerSeoDescription(r.name) || desc,
             },
           });
         }
