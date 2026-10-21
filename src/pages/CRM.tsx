@@ -529,7 +529,7 @@ const CRM = () => {
  <p>Jämför alltid totalkostnaden över tre år: licenser, införande, integrationer, utbildning och förvaltning. Ett billigt system som inte används blir dyrt.</p>
  <p>
  Räkna på er situation i{" "}
- <a href="/sales-kalkylator/" className="text-crm hover:underline font-medium">CRM-kalkylatorn</a>, se{" "}
+ <a href="/d365sales/roi-kalkylator/" className="text-crm hover:underline font-medium">CRM-kalkylatorn</a>, se{" "}
  <a href="/priser/" className="text-crm hover:underline font-medium">alla licenspriser</a> eller läs om{" "}
  <a href="/kostnad/" className="text-crm hover:underline font-medium">totalkostnaden för Dynamics{"\u00A0"}365</a>.
  </p>
