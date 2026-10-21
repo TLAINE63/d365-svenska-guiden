@@ -242,13 +242,14 @@ export default function IndustryVerifiedPartnerCard({
         </section>
       </div>
 
-      <footer className="flex flex-col gap-2 border-t border-border px-6 py-4 sm:flex-row sm:flex-wrap">
-        <Button asChild className="font-bold sm:flex-1">
+      <footer className="space-y-2 border-t border-border px-6 py-4">
+        <Button asChild className="w-full font-bold">
           <Link to={profileUrl || `/partner/${partner.slug}/`}>
             Se partnerprofil
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </Button>
+        <div className="grid grid-cols-2 gap-2">
         <Button
           type="button"
           variant="outline"
@@ -261,13 +262,14 @@ export default function IndustryVerifiedPartnerCard({
         </Button>
         <Button
           type="button"
-          variant="ghost"
+          variant="outline"
           onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner" })}
           className="whitespace-normal"
         >
           <Mail className="h-4 w-4" aria-hidden />
           Be om kontakt
         </Button>
+        </div>
       </footer>
       <PartnerRequestDialog
         open={contactOpen}
