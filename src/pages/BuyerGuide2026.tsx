@@ -125,10 +125,10 @@ const BuyerGuide2026 = ({ variant }: Props) => {
         </section>
 
         <FunnelCTA stage="early" guide={variant} source={path} />
-      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod />
       </main>
 
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </>
   );

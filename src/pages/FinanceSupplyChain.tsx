@@ -707,12 +707,12 @@ const FinanceSupplyChain = () => {
 
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
-<EditorialSource sourceType="Köpguide" />
 <PartnerSwitchCta />
 <SourcesAndMethod variant="product" externalSources={fscmSources} />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       </main>
  <BasicProfilesDirectory products={["fsc"]} />
+      <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>
  );

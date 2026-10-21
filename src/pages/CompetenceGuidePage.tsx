@@ -173,9 +173,9 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
 
           <MatchInfoDisclosure />
         </div>
-      <EditorialSource sourceType="Partnerguide" />
       <SourcesAndMethod variant="competence" partnerEvidence={partnerSources} />
       </main>
+      <EditorialSource sourceType="Partnerguide" />
       <Footer />
 
       <DescribeNeedDialog

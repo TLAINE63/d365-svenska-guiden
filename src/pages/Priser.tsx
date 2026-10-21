@@ -158,7 +158,6 @@ export default function Priser() {
             </div>
           </div>
         </section>
-      <EditorialSource sourceType="Köpguide" />
       <SourcesAndMethod externalSources={priceSources} />
       </main>
 
@@ -167,6 +166,7 @@ export default function Priser() {
           <PageOfferBanner />
         </div>
       </section>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

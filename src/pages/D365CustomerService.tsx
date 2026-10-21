@@ -284,8 +284,8 @@ const D365CustomerService = () => {
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
       <SourcesAndMethod variant="product" />
       <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
-      <EditorialSource sourceType="Köpguide" />
       <PartnerSwitchCta />
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

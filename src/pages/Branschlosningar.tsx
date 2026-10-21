@@ -686,9 +686,9 @@ const Branschlosningar = () => {
      <PageOfferBanner />
    </div>
  </section>
- <EditorialSource sourceType="Branschguide" />
  <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
+      <EditorialSource sourceType="Branschguide" />
  <Footer />
 
  {/* No Partner Dialog */}

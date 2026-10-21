@@ -94,9 +94,9 @@ export default function CrmCategoryGuide({ guide }: { guide: CrmCategoryGuideKey
         </section>
 
         <ContextualCta source={`next-step:${guide}`} heading={g.cta.heading} text={g.cta.text} primaryLabel="Få hjälp att hitta rätt partner" product={g.product} links={g.cta.links} />
-        <EditorialSource sourceType="Köpguide" />
         <SourcesAndMethod />
       </main>
+      <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
   );

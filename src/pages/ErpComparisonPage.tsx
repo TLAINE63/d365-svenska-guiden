@@ -323,10 +323,10 @@ const ErpComparisonPage = () => {
             </div>
           </section>
         )}
-      <EditorialSource sourceType="Jämförelse" />
       <SourcesAndMethod variant="comparison" />
       </main>
 
+      <EditorialSource sourceType="Jämförelse" />
       <Footer />
     </div>
   );

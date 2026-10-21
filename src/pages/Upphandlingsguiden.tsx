@@ -320,9 +320,9 @@ const Upphandlingsguiden = () => {
  </div>
  </div>
  </section>
- <EditorialSource sourceType="Köpguide" />
  <SourcesAndMethod />
  </main>
+      <EditorialSource sourceType="Köpguide" />
  <Footer />
  </>
  );

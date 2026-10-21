@@ -604,8 +604,8 @@ const BusinessCentral = () => {
       <BcNextSteps />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
-      <EditorialSource sourceType="Köpguide" />
       <PartnerSwitchCta />
+      <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>
  );
