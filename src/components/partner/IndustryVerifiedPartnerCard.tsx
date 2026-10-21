@@ -1,12 +1,11 @@
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import EditorialReviewNote from "@/components/partner/EditorialReviewNote";
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Lightbulb, Mail, ShieldCheck, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, Lightbulb, Mail, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner, ProductFilterInput } from "@/hooks/usePartners";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -258,7 +257,7 @@ export default function IndustryVerifiedPartnerCard({
           className="whitespace-normal"
         >
           <Star className={`h-4 w-4 ${isSaved ? "fill-current text-primary" : ""}`} aria-hidden />
-          {isSaved ? "I kortlistan" : "Kortlista"}
+          {isSaved ? "I kortlistan" : "Lägg till i kortlista"}
         </Button>
         <Button
           type="button"
