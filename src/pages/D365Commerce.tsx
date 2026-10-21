@@ -31,11 +31,12 @@ const D365Commerce = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Dynamics 365 Commerce – retail, POS och e-handel"
-        description="Microsofts omnikanal-plattform för butik, e-handel, kundklubb och POS – samlad produktkatalog, prismotor och kunddata i realtid över alla kanaler. Integrerat med F&SCM."
+        title="Dynamics 365 Commerce – butik, POS & e-handel"
+        description="Dynamics 365 Commerce samlar butik, POS, e-handel och kundklubb med gemensam produktkatalog och prismotor, integrerat med F&SCM. Jämför partners."
         canonicalPath="/d365commerce"
         keywords="Dynamics 365 Commerce, omnikanal retail, POS-system Microsoft, e-handel Dynamics, kundklubb, prismotor, butikssystem, headless commerce"
-        ogImage="https://d365.se/og-finance-supply-chain.png"
+        ogImage="https://d365.se/og-erp.png"
+        ogImageAlt="Dynamics 365 Commerce – köpguide på d365.se"
       />
       <ServiceSchema
         name="Microsoft Dynamics 365 Commerce – omnikanal handel"

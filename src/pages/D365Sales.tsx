@@ -109,11 +109,12 @@ const D365Sales = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Microsoft Dynamics 365 Sales – CRM för B2B-sälj"
-        description={resolvePriceTokens("Microsoft Dynamics 365 Sales – B2B-CRM för svenska säljteam: pris från {{price:sales-professional:short}}, Copilot, Salesforce-jämförelse och Microsoft-partners som kan införandet.")}
+        title="Dynamics 365 Sales – CRM för B2B, pris & partners"
+        description={resolvePriceTokens("Dynamics 365 Sales är Microsofts CRM för B2B-sälj: pris från {{price:sales-professional:short}}, Copilot, jämförelse mot Salesforce och svenska partners.")}
         canonicalPath="/d365sales"
         keywords="Dynamics 365 Sales pris, Dynamics 365 Sales licens, CRM för sälj, Microsoft CRM system, Salesforce alternativ Sverige, Dynamics 365 Sales vs Salesforce, CRM system säljteam, Dynamics 365 Sales implementering, Sales Enterprise Copilot, Microsoft CRM partner Sverige"
         ogImage="https://d365.se/og-sales.png"
+        ogImageAlt="Dynamics 365 Sales – köpguide på d365.se"
       />
       <FAQSchema faqs={salesFaqs} />
       <ServiceSchema 

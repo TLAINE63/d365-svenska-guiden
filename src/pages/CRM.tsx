@@ -201,11 +201,12 @@ const CRM = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Dynamics 365 CRM (Sales) – Guide, priser & partners 2026"
- description="Köpguide för Microsoft Dynamics 365 CRM: licenspriser (från 621 kr/mån), implementeringskostnader, jämförelse mot HubSpot/Salesforce och svenska certifierade partners."
+ title="Dynamics 365 CRM – guide, priser & partners"
+ description={resolvePriceTokens("Köpguide för Dynamics 365 CRM: licenspriser från {{price:sales-professional:short}}, implementeringskostnad, jämförelse mot HubSpot och Salesforce samt svenska partners.")}
  canonicalPath="/crm"
  keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
  ogImage="https://d365.se/og-crm.png"
+ ogImageAlt="Dynamics 365 CRM – köpguide på d365.se"
  />
  <FAQSchema faqs={crmFaqs} />
  <ServiceSchema 
