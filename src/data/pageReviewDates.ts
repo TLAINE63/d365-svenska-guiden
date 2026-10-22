@@ -36,7 +36,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/upphandlingsguiden/": "2026-10-05",
   "/kundservicesystem/": "2026-10-05",
   "/faltservicesystem/": "2026-10-05",
-  "/jamfor/": "2026-10-05",
+  "/jamfor/": "2026-10-22",
   "/jamfor/business-central-vs-monitor-erp/": "2026-10-20",
   "/jamfor/business-central-vs-visma-net/": "2026-10-20",
   "/jamfor/business-central-vs-jeeves/": "2026-10-20",
