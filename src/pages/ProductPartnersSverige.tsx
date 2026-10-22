@@ -91,7 +91,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={cfg.metaTitle.replace("{count}", String(partners.length))}
-        titleMaxLength={cfg.metaTitle.includes("{count}") ? 75 : undefined}
+        titleMaxLength={cfg.titleMaxLength ?? (cfg.metaTitle.includes("{count}") ? 75 : undefined)}
         description={cfg.metaDescription}
         canonicalPath={canonical}
       />
