@@ -10,8 +10,8 @@ const Footer = () => {
       style={{ borderTop: "3px solid hsl(var(--signature))" }}
     >
       <div className="container mx-auto px-4">
-        {/* Trust-modulen "Så fungerar d365.se" ligger på startsidan (SECTION 5)
-            och på /agande-och-intressen. Duplicera den inte i footern. */}
+        {/* Trust-modulen "Så fungerar d365.se" ligger längst ned på de sidor som
+            använder den, direkt ovanför footern. Duplicera den inte i footern. */}
 
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-8 items-start mb-8">
