@@ -159,9 +159,9 @@ export default function Priser() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 pris & licenser 2026 – Vad kostar det? | d365.se"
-        titleMaxLength={61}
-        description="Vad kostar Dynamics 365? Licenspriser 2026 i SEK för Business Central Essentials, Premium och Team Members, Finance & SCM samt CRM, plus införandekostnad."
+        title="Dynamics 365 priser – Licenser, kostnader & prisexempel | d365.se"
+        titleMaxLength={70}
+        description="Se vad Microsoft Dynamics 365 kostar. Jämför licenser, användartyper och vanliga kostnadsposter för Business Central, Sales, Customer Service och Finance."
         canonicalPath="/priser/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -179,9 +179,12 @@ export default function Priser() {
               <span aria-current="page">Prislista</span>
             </nav>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 max-w-4xl">
-              {nowrapBrand("Vad kostar Dynamics 365? Licenspriser & modeller 2026")}
+              {nowrapBrand("Dynamics 365 priser, licenser och kostnader")}
             </h1>
             <div className="max-w-4xl">
+              <p className="text-base sm:text-lg text-muted-foreground mb-6">
+                Vad kostar Microsoft {D365}? Det beror på vilka appar ni behöver, hur många användare som ska arbeta i systemet och hur implementationen ska genomföras. Här får du en översikt över licenser, löpande kostnader och faktorer som påverkar den totala investeringen.
+              </p>
               <h2 className="text-xl font-bold mb-3">Kort svar</h2>
               <p className="text-base sm:text-lg text-muted-foreground">
                 Microsoft {D365} licensieras per användare och månad. Business Central kostar från {price("bc-essentials")} och Finance & Supply Chain Management från {price("finance")} (listpris, SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling, och licensen är bara en del av totalkostnaden. Införande, integration och förvaltning står normalt för en betydligt större andel över tid.
@@ -189,6 +192,29 @@ export default function Priser() {
               <p className="mt-3 text-sm text-muted-foreground">
                 Vill ni se hela kostnaden med införande och förvaltning?{" "}
                 <Link to="/kostnad/" className="font-medium text-primary hover:underline">Se kostnadsguiden</Link>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-10 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl space-y-10">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">{nowrapBrand("Vad påverkar priset för Dynamics 365?")}</h2>
+              <p className="text-muted-foreground leading-relaxed mb-3">
+                Priset för {D365} består normalt av licenser, implementation, anpassningar, integrationer, utbildning och löpande förvaltning. En enkel start med standardfunktioner har andra kostnader än ett upplägg med flera bolag, avancerade processer eller kopplingar till exempelvis e-handel, lager, BI och andra verksamhetssystem.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                När du jämför offerter är det därför viktigt att skilja på licenskostnaden per användare och den totala kostnaden för att införa, driva och vidareutveckla lösningen över tid. Det gäller både <Link to="/businesscentral/" className="font-medium text-primary hover:underline">Business Central</Link> och <Link to="/d365sales/" className="font-medium text-primary hover:underline">{D365} Sales</Link>.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Jämför licenser och kostnader innan ni väljer lösning</h2>
+              <p className="text-muted-foreground leading-relaxed mb-3">
+                Börja med att definiera vilka användare som behöver full funktionalitet, vilka som bara ska läsa eller registrera information och vilka processer som kräver tillägg eller integrationer. Be sedan om en tydlig kostnadsbild som inkluderar både licenser och införande, så att ni kan <Link to="/valjdynamics365partner/" className="font-medium text-primary hover:underline">jämföra offerter och välja rätt partner</Link>.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                En bra partner kan hjälpa er att välja rätt nivå från början, så att ni inte betalar för mer funktionalitet än verksamheten använder, men heller inte bygger in begränsningar som blir dyra att lösa senare. <Link to="/dynamics-365-crm-partners-sverige/" className="font-medium text-primary hover:underline">{nowrapBrand("Hitta en Dynamics 365-partner")}</Link>.
               </p>
             </div>
           </div>
