@@ -319,6 +319,34 @@ export default function Priser() {
           </div>
         </section>
 
+        <section id="konsultpris" className="scroll-mt-32 py-10 sm:py-12 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vad kostar en <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-konsult? Priser och timarvoden i Sverige</h2>
+            <p className="text-muted-foreground mb-4 max-w-3xl">
+              Utöver de månatliga licenskostnaderna från Microsoft utgörs investeringen av konsulttid för implementering, integrationer, kundanpassning och löpande support.
+            </p>
+            <p className="text-muted-foreground mb-4 max-w-3xl">
+              I Sverige ligger timpriset för en <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-konsult ofta på <strong className="text-foreground">1 100–1 700 kr per timme</strong> (exkl. moms). Var i spannet priset hamnar beror främst på roll, erfarenhet och hur specialiserad kompetensen är, till exempel om det gäller verksamhetskonsult, utvecklare eller lösningsarkitekt.
+            </p>
+            <SourceNote
+              source="d365.se:s redaktionella bedömning utifrån svenska partnerofferter"
+              updated="2026-10-22"
+              method="Spannet är detsamma som i sajtens kalkylatorer. Det är inte ett pris från någon enskild partner; be alltid om timpris och estimerat antal timmar per roll i offerten."
+              className="mb-6 max-w-3xl"
+            />
+            <h3 className="text-lg font-semibold text-foreground mb-3">Vad påverkar det totala konsultpriset?</h3>
+            <ul className="grid gap-3 md:grid-cols-3 text-sm">
+              <li className="rounded-lg border border-border bg-card p-4"><strong className="block text-foreground mb-1">Graden av standardisering</strong><span className="text-muted-foreground">Att välja standardprocesser i Business Central håller nere konsulttimmarna avsevärt jämfört med skräddarsydda anpassningar.</span></li>
+              <li className="rounded-lg border border-border bg-card p-4"><strong className="block text-foreground mb-1">Kvaliteten på befintlig data</strong><span className="text-muted-foreground">Ju bättre tvättad och strukturerad er data är inför migreringen, desto färre timmar krävs för datamigrering.</span></li>
+              <li className="rounded-lg border border-border bg-card p-4"><strong className="block text-foreground mb-1">Förvaltnings- och supportavtal (SLA)</strong><span className="text-muted-foreground">Många partners erbjuder rabatterade timpriser om ni tecknar ett löpande månatligt supportavtal.</span></li>
+            </ul>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-8">
+              <Link to="/valjdynamics365partner/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline"><span>Jämför <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-partners och begär prisuppskattning</span><ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link>
+              <Link to="/implementationskalkylator/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline"><span>Räkna på konsulttimmar i kalkylatorn</span><ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link>
+            </div>
+          </div>
+        </section>
+
         {/* Full prislista */}
         <section id="prislista" className="scroll-mt-32 py-10 sm:py-12 border-t border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">

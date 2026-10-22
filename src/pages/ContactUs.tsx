@@ -290,6 +290,10 @@ const ContactUs = () => {
                   Boka kostnadsfri rådgivning
                 </Button>
               </ContactFormDialog>
+              <p className="mt-6 text-sm text-muted-foreground">
+                Söker du prisuppgifter på licenser och konsultarvoden?{" "}
+                <Link to="/priser/#konsultpris" className="font-medium text-primary hover:underline">Se vår kompletta prisguide för Dynamics&nbsp;365 här →</Link>
+              </p>
             </div>
           </div>
         </div>
