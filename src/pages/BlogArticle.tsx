@@ -322,8 +322,6 @@ const BlogArticle = () => {
             >
               {article.content}
             </article>
-            <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
-            <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />
 
             {/* Redaktionell not – för ämnen med snabb utveckling */}
             {(() => {
@@ -485,6 +483,9 @@ const BlogArticle = () => {
         )}
       </main>
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
+      {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
+      <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />
+      <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
       <Footer />
     </>
   );

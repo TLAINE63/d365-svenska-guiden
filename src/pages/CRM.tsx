@@ -827,9 +827,9 @@ const CRM = () => {
  pageSource="crm"
 />
 <ContextualCta source="next-step:crm" heading="Vilken typ av CRM passar er?" text="Några frågor om er process ger en rekommenderad lösningstyp och partners som passar." primaryLabel="Se vilken typ av CRM som passar er" goal="sales" links={[{ label: "Gör CRM-behovsanalys", to: "/CRMbehovsanalys/" }, { label: "Jämför CRM-partners", to: "/dynamics-365-crm-partners-sverige/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
-<SourcesAndMethod />
       </main>
  <BasicProfilesDirectory products={["sales","service"]} />
+      <SourcesAndMethod />
       <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>

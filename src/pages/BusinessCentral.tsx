@@ -604,11 +604,11 @@ const BusinessCentral = () => {
       <AiExamplesEntry apps={["bc"]} label="Se konkreta AI-exempel för Business Central" source="businesscentral" />
       <RelatedPages pages={bcRelatedPages.map(page => ({ ...page, description: page.description.replace(/Dynamics 365/g, "Dynamics\u00a0365"), href: page.href === "/affarssystem/" ? "/affarssystem/#comparison" : page.href === "/valjdynamics365partner/" ? "/business-central-partners-sverige/" : page.href }))} heading="Fördjupning om produktval, kostnad och partner" />
       <BcOptionalDeepDive />
-      <SourcesAndMethod variant="product" />
       <BcNextSteps />
       </main>
  <BasicProfilesDirectory products={["bc"]} />
       <PartnerSwitchCta />
+      <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />
  <Footer />
  </div>

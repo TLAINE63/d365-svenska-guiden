@@ -214,49 +214,6 @@ const DeepDiveArticle = () => {
               {article.content}
             </article>
 
-            {/* Authoritative external sources (Microsoft Learn) */}
-            {(() => {
-              const learnLinks: Record<string, { label: string; url: string }[]> = {
-                "businesscentral": [
-                  { label: "Microsoft Learn: Dynamics 365 Business Central", url: "https://learn.microsoft.com/dynamics365/business-central/" },
-                  { label: "Microsoft Docs: BC produktöversikt", url: "https://learn.microsoft.com/dynamics365/business-central/across-business-functionality" },
-                ],
-                "finance": [
-                  { label: "Microsoft Learn: Dynamics 365 Finance", url: "https://learn.microsoft.com/dynamics365/finance/" },
-                ],
-                "supply-chain": [
-                  { label: "Microsoft Learn: Dynamics 365 Supply Chain Management", url: "https://learn.microsoft.com/dynamics365/supply-chain/" },
-                ],
-                "d365sales": [
-                  { label: "Microsoft Learn: Dynamics 365 Sales", url: "https://learn.microsoft.com/dynamics365/sales/" },
-                ],
-                "d365customerservice": [
-                  { label: "Microsoft Learn: Dynamics 365 Customer Service", url: "https://learn.microsoft.com/dynamics365/customer-service/" },
-                ],
-                "d365fieldservice": [
-                  { label: "Microsoft Learn: Dynamics 365 Field Service", url: "https://learn.microsoft.com/dynamics365/field-service/" },
-                ],
-                "d365contactcenter": [
-                  { label: "Microsoft Learn: Dynamics 365 Contact Center", url: "https://learn.microsoft.com/dynamics365/contact-center/" },
-                ],
-                "customer-insights": [
-                  { label: "Microsoft Learn: Dynamics 365 Customer Insights", url: "https://learn.microsoft.com/dynamics365/customer-insights/" },
-                ],
-                "copilot": [
-                  { label: "Microsoft Learn: Copilot för Dynamics 365", url: "https://learn.microsoft.com/dynamics365/guidance/develop/" },
-                ],
-                "agents": [
-                  { label: "Microsoft Learn: Copilot Studio agents", url: "https://learn.microsoft.com/microsoft-copilot-studio/" },
-                ],
-              };
-              const links = learnLinks[article.productSlug];
-              <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={modifiedAt} />
-              if (!links?.length) return <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />;
-              return <SourcesAndMethod externalSources={[
-                ...links.map(link => ({ name: link.label, href: link.url, supports: "Produktfunktioner och teknisk dokumentation för artikelns produktområde. Hänvisningen är övergripande och belägger inte automatiskt alla enskilda påståenden." })),
-                ...getArticleMicrosoftSources(article.content).filter(source => !links.some(link => link.url === source.href)),
-              ]} />;
-            })()}
           </div>
         </section>
 
@@ -322,6 +279,50 @@ const DeepDiveArticle = () => {
         secondaryTo={`/fraga/?q=${encodeURIComponent(`Vad bör vi tänka på kring ${article.title}?`)}`}
       />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
+      {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
+            {/* Authoritative external sources (Microsoft Learn) */}
+            {(() => {
+              const learnLinks: Record<string, { label: string; url: string }[]> = {
+                "businesscentral": [
+                  { label: "Microsoft Learn: Dynamics 365 Business Central", url: "https://learn.microsoft.com/dynamics365/business-central/" },
+                  { label: "Microsoft Docs: BC produktöversikt", url: "https://learn.microsoft.com/dynamics365/business-central/across-business-functionality" },
+                ],
+                "finance": [
+                  { label: "Microsoft Learn: Dynamics 365 Finance", url: "https://learn.microsoft.com/dynamics365/finance/" },
+                ],
+                "supply-chain": [
+                  { label: "Microsoft Learn: Dynamics 365 Supply Chain Management", url: "https://learn.microsoft.com/dynamics365/supply-chain/" },
+                ],
+                "d365sales": [
+                  { label: "Microsoft Learn: Dynamics 365 Sales", url: "https://learn.microsoft.com/dynamics365/sales/" },
+                ],
+                "d365customerservice": [
+                  { label: "Microsoft Learn: Dynamics 365 Customer Service", url: "https://learn.microsoft.com/dynamics365/customer-service/" },
+                ],
+                "d365fieldservice": [
+                  { label: "Microsoft Learn: Dynamics 365 Field Service", url: "https://learn.microsoft.com/dynamics365/field-service/" },
+                ],
+                "d365contactcenter": [
+                  { label: "Microsoft Learn: Dynamics 365 Contact Center", url: "https://learn.microsoft.com/dynamics365/contact-center/" },
+                ],
+                "customer-insights": [
+                  { label: "Microsoft Learn: Dynamics 365 Customer Insights", url: "https://learn.microsoft.com/dynamics365/customer-insights/" },
+                ],
+                "copilot": [
+                  { label: "Microsoft Learn: Copilot för Dynamics 365", url: "https://learn.microsoft.com/dynamics365/guidance/develop/" },
+                ],
+                "agents": [
+                  { label: "Microsoft Learn: Copilot Studio agents", url: "https://learn.microsoft.com/microsoft-copilot-studio/" },
+                ],
+              };
+              const links = learnLinks[article.productSlug];
+              if (!links?.length) return <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />;
+              return <SourcesAndMethod externalSources={[
+                ...links.map(link => ({ name: link.label, href: link.url, supports: "Produktfunktioner och teknisk dokumentation för artikelns produktområde. Hänvisningen är övergripande och belägger inte automatiskt alla enskilda påståenden." })),
+                ...getArticleMicrosoftSources(article.content).filter(source => !links.some(link => link.url === source.href)),
+              ]} />;
+            })()}
+      <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={modifiedAt} />
       <Footer />
     </>
   );

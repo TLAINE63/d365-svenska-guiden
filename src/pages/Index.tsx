@@ -636,23 +636,6 @@ const Index = () => {
                 </tbody>
               </table>
             </div>
-            <div className="mt-8 grid gap-6 md:grid-cols-[2fr_1fr]">
-              <div>
-                <h3 className="text-[15px] font-semibold text-foreground mb-2">Källor</h3>
-                <ul className="space-y-1.5 text-[14px]">
-                  {HOME_SOURCES.map((s) => (
-                    <li key={s.url}>
-                      <a href={s.url} target="_blank" rel="noopener" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <p className="text-[13px] text-muted-foreground md:text-right self-end">
-                Senast uppdaterad: <time dateTime={HOME_LAST_UPDATED}>{HOME_LAST_UPDATED}</time>
-              </p>
-            </div>
           </div>
         </section>
 
@@ -889,6 +872,28 @@ const Index = () => {
 
 </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
+      {/* Källor, längst ned tillsammans med "Så fungerar d365.se". */}
+      <section aria-label="Källor" className="border-t border-border bg-background py-8 sm:py-10">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
+          <div>
+            <h3 className="text-[15px] font-semibold text-foreground mb-2">Källor</h3>
+            <ul className="space-y-1.5 text-[14px]">
+              {HOME_SOURCES.map((s) => (
+                <li key={s.url}>
+                  <a href={s.url} target="_blank" rel="noopener" className="text-[hsl(var(--signature))] underline-offset-2 hover:underline">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="text-[13px] text-muted-foreground md:text-right self-end">
+            Senast uppdaterad: <time dateTime={HOME_LAST_UPDATED}>{HOME_LAST_UPDATED}</time>
+          </p>
+        </div>
+        </div>
+      </section>
       {/* Transparensrutan "Så fungerar d365.se" ligger alltid längst ned, direkt ovanför footern. */}
       <TrustBanner variant="compact" />
       <Footer />

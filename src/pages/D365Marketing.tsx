@@ -276,8 +276,8 @@ const D365Marketing = () => {
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 
       </main>
-      <SourcesAndMethod variant="product" />
       <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
+      <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
