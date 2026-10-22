@@ -37,3 +37,4 @@
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
 <!-- LOVABLE:END -->
+- Meta descriptions pass through fitMetaDescription (src/lib/metaDescription.ts) in SEOHead and the prerender fallback: max 160 chars, cut at full sentences, suffix only if it fits whole; sitemap generation skips any legacy-redirect source, so Bing never sees over-long descriptions or redirect URLs.
