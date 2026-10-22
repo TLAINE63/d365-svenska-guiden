@@ -2,7 +2,7 @@
 
 ## Publicering och indexering (2026-10-22)
 - [x] Publicera korta beskrivningar och rensad sajtkarta, skicka sajtkartan till Bing
-- [ ] Skicka sajtkartan till Google Search Console och kontrollera Googles läge
+- [x] Skicka sajtkartan till Google Search Console och kontrollera Googles läge
 
 
 ## WP1 Aktuellt (2026-10-22)
