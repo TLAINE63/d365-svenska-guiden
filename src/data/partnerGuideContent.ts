@@ -472,6 +472,29 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "h2",
+        "text": "Offert på implementering av Dynamics 365 – vad ska den innehålla?"
+      },
+      {
+        "type": "p",
+        "text": "Att ta in och jämföra offerter för implementering av Microsoft Dynamics 365 (oavsett om det gäller Business Central, Finance & Supply Chain eller CRM) kräver att ni jämför likvärdiga förutsättningar. En komplett implementeringsoffert ska tydligt specificera:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Förstudie och kravspecifikation (scoping): Fastställs projektets omfattning genom en betald förstudie, eller ingår scoping i anbudet?",
+          "Prismodell – fast pris eller löpande räkning: Fast pris passar bäst vid standardiserade införanden (t.ex. standard Business Central med definierade processer). Löpande räkning (time & material) är vanligast vid komplexa projekt med många integrationer och kundanpassningar. Se till att det finns tydliga milstolpar och takpriser (cap).",
+          "Licenskostnader vs. konsulttid: Säkerställ att offerten separerar Microsofts löpande användarlicenser från partnerns engångskostnad för implementation, integrationer och projektledning.",
+          "Datamigrering och utbildning: Specificera vem som ansvarar för att tvätta och flytta historisk data från ert gamla system, samt hur många utbildningstimmar för slutanvändare som ingår.",
+          "Supportavtal och SLA efter go-live: Hur övergår projektet till löpande förvaltning och vad är timpriset för vidareutveckling efter driftsättning?"
+        ]
+      },
+      {
+        "type": "link",
+        "text": "Jämför partners och ta in offerter för Dynamics 365 i Sverige",
+        "to": "/valjdynamics365partner/"
+      },
+      {
+        "type": "h2",
         "text": "Meriter mäter något annat än du tror"
       },
       {
