@@ -5,6 +5,6 @@
 - Public partner cards use PartnerCardHeader for a native link across the identity area, name left and logo right; keep actions outside it and reuse downloadable SVGs through VerifiedPartnerBadge.
 
 - Customer Service uses ServiceDecisionGuide and a product-specific shared ProductNextSteps ending with existing tools and partner anchors; page navigation stays separate from scoring and partner data.
-- EditorialSource (light) is the single bottom-of-page credits box, placed directly before Footer, and merges registered authors from src/data/contentContributors.ts with publisher info; ExpertCard is no longer placed on pages, so authorship appears once and never fabricated.
+- Page end matter sits together directly before Footer in the order sources (SourcesAndMethod or the home Källor list), EditorialSource, TrustBanner, so provenance is grouped and never interrupts content. EditorialSource (light) is the single bottom-of-page credits box, and merges registered authors from src/data/contentContributors.ts with publisher info; ExpertCard is no longer placed on pages, so authorship appears once and never fabricated.
 - ISV reseller links verify profiles via public hooks.
 - Partner switch guide (/guider/byta-dynamics-partner/) is a buyer need, not a partner competence: deterministic score-free analysis in src/lib/partnerSwitch.ts, results only from answers, matching via existing partner filters.

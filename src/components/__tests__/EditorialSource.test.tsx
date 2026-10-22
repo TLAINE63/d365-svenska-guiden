@@ -1,11 +1,13 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
+import { MemoryRouter } from "react-router-dom";
 import EditorialSource, { editorialDate } from "../EditorialSource";
 
 describe("EditorialSource", () => {
   it("renders the publisher and source type as visible semantic HTML without invented provenance", () => {
-    const html = renderToStaticMarkup(<EditorialSource sourceType="Partnerguide" />);
+    // En sökväg utan registrerat granskningsdatum, så inget datum får hittas på.
+    const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/sida-utan-granskningsdatum/"]}><EditorialSource sourceType="Partnerguide" /></MemoryRouter>);
     expect(html).toContain("D365.SE Partnerguide");
     expect(html).toContain("Utgivare:");
     expect(html).toContain("Källtyp:");
