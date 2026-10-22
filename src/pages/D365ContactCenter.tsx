@@ -263,11 +263,12 @@ const D365ContactCenter = () => {
 
       <ProductDeepDiveLink product="Dynamics 365 Contact Center" label="Contact Center" />
 
-      <ProductPartnerNewsSection productArea="crm-service" productLabel="Contact Center" />
 
       <ProductIsvSection product="Contact Center" />
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" showUnprofiledList={false} />
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Contact Center" />
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
 
       </main>

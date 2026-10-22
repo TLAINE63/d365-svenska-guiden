@@ -264,11 +264,12 @@ const D365FieldService = () => {
 
       <ProductDeepDiveLink product="Dynamics 365 Field Service" label="Field Service" />
 
-      <ProductPartnerNewsSection productArea="crm-service" productLabel="Field Service" />
 
       <ProductIsvSection product="Field Service" />
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Field Service" />
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
 
       </main>

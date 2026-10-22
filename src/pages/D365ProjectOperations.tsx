@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
-import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -96,7 +95,6 @@ const D365ProjectOperations = () => {
       <BuyerManual product="project-operations" />
       <CostBreakdown product="project-operations" />
 
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Project Operations" />
 
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" showUnprofiledList={false} />
 

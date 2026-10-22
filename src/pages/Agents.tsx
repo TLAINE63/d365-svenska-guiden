@@ -555,7 +555,7 @@ const Agents = () => {
         </div>
       </section>
 
-      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="AI-agent" />
+      <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI-agenter" />
       </main>
       <Footer />
     </div>

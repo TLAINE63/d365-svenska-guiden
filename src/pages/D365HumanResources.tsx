@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
-import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -89,7 +88,6 @@ const D365HumanResources = () => {
       <BuyerManual product="human-resources" />
       <CostBreakdown product="human-resources" />
 
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Human Resources" />
 
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" showUnprofiledList={false} />
 

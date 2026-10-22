@@ -573,7 +573,6 @@ const Copilot = () => {
         </div>
       </section>
 
-      <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Copilot" />
 
       <ProductDeepDiveLink product="Microsoft Copilot – Dynamics 365" label="Copilot" />
 
@@ -622,6 +621,8 @@ const Copilot = () => {
         </div>
       </section>
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI och Copilot" />
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
       </main>
       <Footer />

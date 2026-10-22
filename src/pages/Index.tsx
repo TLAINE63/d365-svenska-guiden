@@ -41,7 +41,6 @@ const ContactFormDialog = lazyWithRetry(() => import("@/components/ContactFormDi
 
 const EbookBanner = lazyWithRetry(() => import("@/components/EbookBanner"));
 const ScrollCTA = lazyWithRetry(() => import("@/components/ScrollCTA"));
-const HomePartnerNewsSection = lazyWithRetry(() => import("@/components/HomePartnerNewsSection"));
 const HomeVerifiedPartnersGrid = lazyWithRetry(() => import("@/components/HomeVerifiedPartnersGrid"));
 const HomeGuidesSection = lazyWithRetry(() => import("@/components/HomeGuidesSection"));
 
@@ -555,9 +554,6 @@ const Index = () => {
           </div>
         </section>
 
-        <Suspense fallback={null}>
-          <HomePartnerNewsSection />
-        </Suspense>
 
         {/* Statistik & metodik – förtroende efter köpresan, före kunskapssektionen */}
         <section aria-labelledby="statistik-rubrik" className="border-b border-border bg-secondary/40 py-7 sm:py-9">

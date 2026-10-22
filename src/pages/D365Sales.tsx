@@ -253,7 +253,6 @@ const D365Sales = () => {
 
       <ProductDeepDiveLink product="Dynamics 365 Sales" label="Sales" />
 
-      <ProductPartnerNewsSection productArea="crm-sales" productLabel="Sales" />
 
       <ProductIsvSection product="Sales" />
 
@@ -263,6 +262,8 @@ const D365Sales = () => {
         <UnprofiledPartnersList variant="teaser" showSeeAllLink />
       </div>
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="crm-sales" heading="Relaterat om Dynamics 365 Sales" />
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />
 <PartnerSwitchCta />

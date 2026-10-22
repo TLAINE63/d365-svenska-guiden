@@ -8,3 +8,5 @@
 - Page end matter sits together directly before Footer in the order sources (SourcesAndMethod or the home Källor list), EditorialSource, TrustBanner, so provenance is grouped and never interrupts content. EditorialSource (light) is the single bottom-of-page credits box, and merges registered authors from src/data/contentContributors.ts with publisher info; ExpertCard is no longer placed on pages, so authorship appears once and never fabricated.
 - ISV reseller links verify profiles via public hooks.
 - Partner switch guide (/guider/byta-dynamics-partner/) is a buyer need, not a partner competence: deterministic score-free analysis in src/lib/partnerSwitch.ts, results only from answers, matching via existing partner filters.
+
+- Partnernytt (/partnernytt/) is the archive for partner content; buying pages show only ProductPartnerNewsSection (max 3, topic-matched via src/lib/contextualPartnerNews.ts, hidden without matches, placed just before RelatedPages), the home page has no partner-news feed, and partner profiles keep their own partner's posts, so news never competes with buying journeys.
