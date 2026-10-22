@@ -47,6 +47,7 @@ const VadArDynamics365 = () => (
         { label: "Kom igång", href: "/kom-igang/" },
         { label: "Hitta partner", href: "/valjdynamics365partner/" },
         { label: "Redan Dynamics 365-kund", href: "/befintlig-kund/" },
+        { label: "Se priser och licenser för Dynamics 365", href: "/priser/" },
       ],
     }}
     faq={[
