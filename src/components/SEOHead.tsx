@@ -9,6 +9,10 @@ interface SEOHeadProps {
   /** Endast när en exakt beslutad titel är längre än standardgränsen. */
   titleMaxLength?: number;
   description: string;
+  /** Egen titel för delning i sociala medier (og:title/twitter:title). */
+  ogTitle?: string;
+  /** Egen text för delning i sociala medier (og:description/twitter:description). */
+  ogDescription?: string;
   canonicalPath?: string;
   keywords?: string;
   ogImage?: string;
@@ -36,6 +40,8 @@ const SEOHead = ({
   title,
   titleMaxLength,
   description,
+  ogTitle,
+  ogDescription,
   canonicalPath,
   keywords,
   ogImage = "https://d365.se/og-erp.png",
@@ -72,6 +78,9 @@ const SEOHead = ({
   const trailingPath = resolvedPath.endsWith("/") ? resolvedPath : `${resolvedPath}/`;
   const canonicalUrl = `${baseUrl}${trailingPath}`;
   const fullTitle = buildSeoTitle(title, titleMaxLength);
+
+  const socialTitle = (ogTitle || "").trim() || fullTitle;
+  const socialDescription = (ogDescription || "").trim() || description;
 
   const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${baseUrl}${ogImage}`;
   const isArticle = ogType === "article";
@@ -117,8 +126,8 @@ const SEOHead = ({
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={socialTitle} />
+      <meta property="og:description" content={socialDescription} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={resolvedOgImage} />
@@ -157,8 +166,8 @@ const SEOHead = ({
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:title" content={socialTitle} />
+      <meta name="twitter:description" content={socialDescription} />
       <meta name="twitter:image" content={resolvedOgImage} />
       {ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
 

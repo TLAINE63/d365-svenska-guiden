@@ -165,7 +165,10 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
     <>
       <SEOHead
         title={guide.seoTitle}
+        titleMaxLength={guide.seoTitleMaxLength}
         description={guide.seoDescription}
+        ogTitle={guide.ogTitle}
+        ogDescription={guide.ogDescription}
         canonicalPath={path}
         ogType="article"
         articleSection="Partnerval"
