@@ -18,7 +18,7 @@ const GuiderIndex = () => (
   <>
     <SEOHead
       title="Guider för partnerval – Dynamics 365"
-      description="Guider för att välja Dynamics 365-partner: huvudguide och fördjupningar för Business Central, Finance & Supply Chain, Sales, Customer Service och Field Service."
+      description="Guider för att välja Dynamics 365-partner, med fördjupningar för Business Central, Finance & Supply Chain, Sales, Customer Service och Field Service."
       canonicalPath="/guider/"
       breadcrumbs={breadcrumbs}
     />
