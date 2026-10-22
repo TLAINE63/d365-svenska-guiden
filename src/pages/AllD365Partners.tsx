@@ -366,12 +366,12 @@ export default function AllD365Partners() {
             </Button>
           </div>
         </section>
-        <TrustBanner variant="compact" />
 
       <ContextualCta source="next-step:alla-partners" heading="Svårt att välja bland alla partners?" text="Listan visar alla. Guiden sorterar fram de som passar er produkt, bransch och storlek." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
 </main>
 
       <BasicProfilesDirectory />
+      <TrustBanner variant="compact" />
       <Footer />
     </div>
   );

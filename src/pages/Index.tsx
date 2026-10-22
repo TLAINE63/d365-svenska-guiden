@@ -577,9 +577,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Transparency strip – svar på "säljer du något?" */}
-        <TrustBanner variant="compact" />
-
         {/* SECTION 6 – KNOWLEDGE / LATEST ARTICLES */}
         <section className="section-divider py-14 sm:py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -890,10 +887,10 @@ const Index = () => {
           <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
         </section>
 
-        {/* Transparensblocket ligger som SECTION 5 högre upp – undvik dubblering här. */}
 </main>
       <Suspense fallback={null}><ScrollCTA /></Suspense>
-      
+      {/* Transparensrutan "Så fungerar d365.se" ligger alltid längst ned, direkt ovanför footern. */}
+      <TrustBanner variant="compact" />
       <Footer />
     </div>
   );
