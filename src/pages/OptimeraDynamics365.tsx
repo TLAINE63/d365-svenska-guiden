@@ -6,7 +6,7 @@ const OptimeraDynamics365 = () => (
     path={PATH}
     tool="optimize_guide"
     seoTitle="Optimera och felsöka Dynamics 365: prestanda, anpassningar och användning"
-    seoDescription="Fungerar er Dynamics 365-lösning sämre än väntat? Så hittar ni orsaken: prestanda, anpassningar, integrationer, data eller låg användning, och när ni behöver extern hjälp."
+    seoDescription="Fungerar Dynamics 365 sämre än väntat? Så hittar ni orsaken: prestanda, anpassningar, integrationer, data eller låg användning, och när ni behöver hjälp."
     crumbs={[{ name: "Start", url: "/" }, { name: "Redan Dynamics 365-kund", url: "/befintlig-kund/" }, { name: "Optimera Dynamics 365", url: PATH }]}
     h1="Varför fungerar inte Dynamics 365 som det var tänkt, och hur optimerar ni lösningen?"
     shortAnswer="De flesta problem i en befintlig Dynamics 365-lösning beror på processer, data, anpassningar eller förvaltning snarare än själva plattformen. Börja med att ringa in symtomen, skilj på system och arbetssätt, och ta in extern bedömning först när orsaken är oklar eller lösningen behöver större förändringar."

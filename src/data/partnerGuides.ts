@@ -93,7 +93,7 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
       "För företag som vill införa eller utveckla CRM och säljarbete.",
     seoTitle: "Välja partner för Dynamics 365 Sales – guide för köpare",
     seoDescription:
-      "Så väljer du partner för Dynamics 365 Sales: användning och adoption, standard eller egen app, integration mot affärssystemet och vad som händer efter lansering.",
+      "Så väljer du partner för Dynamics 365 Sales: adoption, standard eller egen app, integration mot affärssystemet och vad som händer efter lansering.",
     apps: ["Sales"],
     midCtaLabel: "Visa Dynamics 365 Sales-partners",
   },

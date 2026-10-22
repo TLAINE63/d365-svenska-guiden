@@ -197,7 +197,7 @@ export default function ImplementationCalculator() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Kalkylator: pris & omfattning för Dynamics 365"
-        description="Räkna fram en realistisk budget för din Dynamics 365-implementation: licenskostnad per månad, engångskostnad för införandet, tidplan och fasfördelning – baserat på antal användare, integrationer och komplexitet."
+        description="Räkna fram en budget för er Dynamics 365-implementation: licens per månad, införandekostnad och tidplan utifrån användare, integrationer och komplexitet."
         canonicalPath="/implementationskalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />

@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync
 import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
 import { buildSeoTitle, truncateEncodedSeoTitle, encodeHtmlText } from './src/lib/seoTitle';
+import { fitMetaDescription } from './src/lib/metaDescription';
 
 /**
  * Vite plugin that prerenders static HTML for all defined routes after the
@@ -201,7 +202,7 @@ export default function prerenderPlugin(): Plugin {
               head.title && !head.title.includes('></title>') && head.title.includes('</title>');
             if (route.meta && !helmetHasUsefulTitle) {
               const metaTitle = encodeHtmlText(buildSeoTitle(route.meta.title));
-              const metaDesc = encodeHtmlText(route.meta.description);
+              const metaDesc = encodeHtmlText(fitMetaDescription(route.meta.description));
               const trailing = route.path.endsWith('/') ? route.path : route.path + '/';
               const isArticle = route.path.startsWith('/artiklar/') || route.path.startsWith('/kunskapscenter/');
               const ogImage = 'https://d365.se/og-default.png';
