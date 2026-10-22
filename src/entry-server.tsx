@@ -84,6 +84,7 @@ import Kostnad from './pages/Kostnad';
 import BefintligKund from './pages/BefintligKund';
 import BytaPartner from './pages/BytaPartner';
 import SecondOpinion from './pages/SecondOpinion';
+import PartnersInSweden from './pages/PartnersInSweden';
 import OptimeraDynamics365 from './pages/OptimeraDynamics365';
 import Dynamicskonsult from './pages/Dynamicskonsult';
 import Dynamics365VsSalesforce from './pages/Dynamics365VsSalesforce';
@@ -262,6 +263,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/befintlig-kund', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/byta-dynamics-partner', priority: '0.8', changefreq: 'monthly' },
   { path: '/second-opinion', priority: '0.8', changefreq: 'monthly' },
+  { path: '/dynamics-365-partners-in-sweden', priority: '0.7', changefreq: 'monthly' },
   { path: '/guider/optimera-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/dynamicskonsult', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/dynamics-365-support-forvaltning', priority: '0.8', changefreq: 'monthly' },
@@ -632,6 +634,7 @@ export function render(url: string) {
               <Route path="/befintlig-kund" element={<BefintligKund />} />
               <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
               <Route path="/second-opinion" element={<SecondOpinion />} />
+              <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
               <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
               <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
               <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
@@ -726,6 +729,7 @@ export function render(url: string) {
       meta: helmet?.meta?.toString() || '',
       link: helmet?.link?.toString() || '',
       script: helmet?.script?.toString() || '',
+      htmlAttributes: helmet?.htmlAttributes?.toString() || '',
     },
   };
 }

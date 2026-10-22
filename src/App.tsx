@@ -111,6 +111,7 @@ const RoleGuidance = lazy(() => import("./pages/RoleGuidance"));
 const BefintligKund = lazy(() => import("./pages/BefintligKund"));
 const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
+const PartnersInSweden = lazy(() => import("./pages/PartnersInSweden"));
 const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
 const Dynamicskonsult = lazy(() => import("./pages/Dynamicskonsult"));
 const Dynamics365VsSalesforce = lazy(() => import("./pages/Dynamics365VsSalesforce"));
@@ -240,6 +241,7 @@ const AppShell = () => {
           <Route path="/befintlig-kund" element={<BefintligKund />} />
           <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
           <Route path="/second-opinion" element={<SecondOpinion />} />
+          <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
           <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
           <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
           <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />

@@ -34,6 +34,8 @@ interface SEOHeadProps {
   breadcrumbs?: { name: string; url: string }[];
   /** Senast uppdaterad (ÅÅÅÅ-MM-DD), skrivs som dateModified i WebPage. */
   dateModified?: string;
+  /** Sidans språk. Standard svenska; "en" för enstaka engelska landningssidor. */
+  language?: "sv" | "en";
 }
 
 const SEOHead = ({
@@ -59,12 +61,15 @@ const SEOHead = ({
   webPageSchema = true,
   breadcrumbs,
   dateModified,
+  language = "sv",
 }: SEOHeadProps) => {
+  const isEnglish = language === "en";
   // Bing/Google vill ha 120–160 tecken. Korta beskrivningar kompletteras
   // med en neutral köparsidig mening så att ingen sida får för kort text.
   const rawDescription = (description || "").trim();
-  const DESC_SUFFIX =
-    " Jämför verifierade partners, priser och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.";
+  const DESC_SUFFIX = isEnglish
+    ? " Compare verified partners and solutions on d365.se, the Swedish guide to Dynamics\u00A0365."
+    : " Jämför verifierade partners, priser och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.";
   if (rawDescription.length < 110) {
     const base = /[.!?]$/.test(rawDescription) ? rawDescription : `${rawDescription}.`;
     description = (rawDescription ? base + DESC_SUFFIX : DESC_SUFFIX.trim()).slice(0, 165);
@@ -92,7 +97,7 @@ const SEOHead = ({
         name: fullTitle,
         description,
         url: canonicalUrl,
-        inLanguage: "sv-SE",
+        inLanguage: isEnglish ? "en" : "sv-SE",
         isPartOf: { "@id": `${baseUrl}/#website` },
         primaryImageOfPage: { "@type": "ImageObject", url: resolvedOgImage },
         "@id": `${canonicalUrl}#webpage`,
@@ -117,7 +122,7 @@ const SEOHead = ({
     : null;
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={isEnglish ? { lang: "en" } : undefined}>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
@@ -136,8 +141,8 @@ const SEOHead = ({
       {ogImageHeight > 0 && <meta property="og:image:height" content={String(ogImageHeight)} />}
       {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
       <meta property="og:site_name" content="d365.se" />
-      <meta property="og:locale" content="sv_SE" />
-      <meta property="og:locale:alternate" content="nb_NO" />
+      <meta property="og:locale" content={isEnglish ? "en_GB" : "sv_SE"} />
+      <meta property="og:locale:alternate" content={isEnglish ? "sv_SE" : "nb_NO"} />
       {ogVideo && <meta property="og:video" content={ogVideo} />}
       {ogVideo && <meta property="og:video:secure_url" content={ogVideo} />}
       {ogVideo && <meta property="og:video:type" content="text/html" />}

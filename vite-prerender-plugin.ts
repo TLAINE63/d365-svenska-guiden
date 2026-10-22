@@ -161,6 +161,10 @@ export default function prerenderPlugin(): Plugin {
 
             let page = template;
 
+            // Sidor som anger eget språk (t.ex. engelska landningssidor) får rätt <html lang>.
+            const langMatch = typeof head.htmlAttributes === 'string' ? head.htmlAttributes.match(/lang="([a-zA-Z-]+)"/) : null;
+            if (langMatch) page = page.replace(/<html lang="[^"]*"/, `<html lang="${langMatch[1]}"`);
+
             // Strip existing SEO tags from the template to avoid duplicates
             page = page.replace(/<title>.*?<\/title>/gs, '');
             page = page.replace(/<meta\s+name="description"[^>]*\/?>/g, '');
