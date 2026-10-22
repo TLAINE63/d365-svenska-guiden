@@ -1,3 +1,4 @@
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -660,11 +661,13 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
      därför kontaktuppgifter och detaljerade kompetenser. Hör av dig till oss så hjälper
      vi dig vidare.
    </p>
+   <BasicPartnersReveal count={matchingBasicPartners.length}>
    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
     {matchingBasicPartners.map((bp) => (
      <PartnerBasicCard key={bp.id} partner={bp} variant="list" />
     ))}
    </div>
+   </BasicPartnersReveal>
   </div>
  )}
  </div>

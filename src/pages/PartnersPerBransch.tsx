@@ -1,3 +1,4 @@
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
@@ -212,6 +213,7 @@ const PartnersPerBransch = () => {
                             </span>
                           </h3>
                         </div>
+                        <BasicPartnersReveal count={list.length}>
                         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                           {list.map((p) => (
                             <li key={p.id}>
@@ -219,6 +221,7 @@ const PartnersPerBransch = () => {
                             </li>
                           ))}
                         </ul>
+                        </BasicPartnersReveal>
 
                       </div>
                     );

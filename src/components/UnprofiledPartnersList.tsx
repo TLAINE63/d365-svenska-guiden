@@ -1,3 +1,4 @@
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -127,7 +128,8 @@ const UnprofiledPartnersList = ({
         </div>
 
         <WhyTheseResults basic order="alphabetical" criteria={[productLabel, industry]} className="mb-5" />
-        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+        <BasicPartnersReveal count={combined.length} className="mb-8 text-center [&>div]:text-left">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {combined.map((p) => {
             const additional = (p.products || []).filter(
               (label) => !productKey || label !== PRODUCT_LABEL[productKey],
@@ -185,6 +187,7 @@ const UnprofiledPartnersList = ({
             );
           })}
         </ul>
+        </BasicPartnersReveal>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
