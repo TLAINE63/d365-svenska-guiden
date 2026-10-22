@@ -447,6 +447,31 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "h2",
+        "text": "ISO-certifierade Dynamics 365-partners – krav på kvalitet och informationssäkerhet"
+      },
+      {
+        "type": "p",
+        "text": "Vid större upphandlingar och implementeringar av affärssystem eller CRM är certifierade processer ofta ett grundkrav. Flera svenska Microsoft Dynamics 365-partners anger att de är certifierade enligt internationella ISO-standarder:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "ISO 9001 (Kvalitetsledning): Visar att partnern har strukturerade processer för projektledning, kravhantering, leveranskvalitet och kontinuerlig förbättring.",
+          "ISO 27001 (Informationssäkerhet): Ett viktigt certifikat för molnbaserade lösningar. Det visar att partnern har ett ledningssystem för informationssäkerhet som omfattar datahantering, behörighetskontroll och skydd mot dataintrång.",
+          "ISO 14001 (Miljöledning): Relevanta miljökrav som ofta efterfrågas i offentliga upphandlingar och hållbarhetsredovisningar."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "När ni begär in anbud eller utvärderar partners bör ni alltid be om kopior på gällande certifikat, kontrollera vilka delar av verksamheten certifikatet omfattar samt granska hur partnern tillämpar metodiken i det praktiska införandeprojektet."
+      },
+      {
+        "type": "link",
+        "text": "Jämför Microsoft Dynamics 365-partners i Sverige",
+        "to": "/alla-d365-partners/"
+      },
+      {
+        "type": "h2",
         "text": "Meriter mäter något annat än du tror"
       },
       {
