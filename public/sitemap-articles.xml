@@ -780,4 +780,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://d365.se/aktuellt/microsoft-beskriver-30-crm-fardigheter-for-copilot-kopplade-till-dynamics-365/</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/aktuellt/microsoft-lyfter-dynamics-365-activate-som-ai-stod-for-crm-migrering/</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/aktuellt/microsoft-lyfter-migrering-fran-dynamics-nav-gp-och-sl-till-business-central/</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

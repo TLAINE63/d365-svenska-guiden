@@ -24,7 +24,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/optimera-dynamics-365/": "2026-10-20",
   "/dynamicskonsult/": "2026-10-22",
   "/guider/dynamics-365-support-forvaltning/": "2026-10-21",
-  "/valjdynamics365partner/": "2026-10-21",
+  "/valjdynamics365partner/": "2026-10-22",
   "/vad-ar-dynamics-365/": "2026-10-22",
   "/befintlig-kund/": "2026-10-20",
   "/businesscentral/": "2026-10-22",
