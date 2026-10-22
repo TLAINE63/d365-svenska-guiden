@@ -228,8 +228,9 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
         <CardHeader>
           <CardTitle>Aktuellt: importera från länk</CardTitle>
           <CardDescription>
-            d365.se:s egen analys av förändringar i Dynamics&nbsp;365. Klistra in en källa, oftast från Microsoft. AI bedömer relevans och skriver ett utkast.
-            Ingenting publiceras utan att du godkänner det. Partners nyheter hör hemma i Partnernytt.
+            d365.se:s egen analys av förändringar i Dynamics&nbsp;365. Klistra in en källa, oftast från Microsoft. AI bedömer relevans och skriver ett utkast som hamnar i godkännandekön.
+            Där granskar du, redigerar vid behov och väljer Publicera eller Ignorera. Publicerade analyser visas automatiskt på /aktuellt/ och på sidor med samma produkt, ämne eller bransch.
+            Ingenting publiceras utan ditt beslut. Partners nyheter hör hemma i Partnernytt.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
