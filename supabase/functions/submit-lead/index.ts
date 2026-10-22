@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
+import { createLeadEnrichToken } from "../_shared/lead-enrich-token.ts";
 
 // Get allowed origins for CORS
 function isAllowedOrigin(origin: string): boolean {
@@ -684,8 +685,15 @@ const handler = async (req: Request): Promise<Response> => {
       }
     }
 
+    let enrichToken: string | undefined;
+    try {
+      enrichToken = await createLeadEnrichToken(lead.id);
+    } catch (tokenErr) {
+      console.error("enrich token error", tokenErr);
+    }
+
     return new Response(
-      JSON.stringify({ success: true, id: lead.id }),
+      JSON.stringify({ success: true, id: lead.id, enrich_token: enrichToken }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error: unknown) {

@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { verifyLeadEnrichToken } from "../_shared/lead-enrich-token.ts";
 
 function isAllowedOrigin(origin: string | null): boolean {
   if (!origin) return false;
@@ -54,6 +55,14 @@ Deno.serve(async (req) => {
         headers: { ...cors, "Content-Type": "application/json" },
       });
     }
+    // Only the browser that created the lead holds this token (returned by submit-lead).
+    if (!(await verifyLeadEnrichToken(leadId, body?.enrich_token))) {
+      return new Response(JSON.stringify({ error: "Ej behörig" }), {
+        status: 403,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
+
 
     const email = clean(body?.email, 255);
     if (!email) {

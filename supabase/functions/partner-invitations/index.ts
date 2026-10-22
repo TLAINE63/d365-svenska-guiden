@@ -53,6 +53,12 @@ function renderParagraph(trimmed: string): string {
   return `<p>${withBold}</p>`;
 }
 
+/** Escapes plain email text so template/override/name content can never become markup. */
+function escapeEmailText(input: string): string {
+  return String(input ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] ?? c));
+}
+
 function normalizeEmailPlaceholders(body: string): string {
   return String(body || "")
     .replace(/\[\s*Länk\s+till\s+profileringsformulär\s*\]/gi, "{{INVITATION_LINK}}")
@@ -978,8 +984,8 @@ D365.se`;
                   .map(paragraph => {
                     const trimmed = paragraph.trim();
                     if (!trimmed) return "";
-                    // Convert single line breaks to <br> within paragraphs
-                    const withBr = trimmed.replace(/\n/g, "<br>");
+                    // Template text is plain text: escape first, then convert line breaks to <br>
+                    const withBr = escapeEmailText(trimmed).replace(/\n/g, "<br>");
                     // Auto-link URLs
                     const withLinks = withBr.replace(
                       /(https?:\/\/[^\s<,]+)/g,
@@ -2236,7 +2242,8 @@ D365.se`;
                 .map((paragraph: string) => {
                   const trimmed = paragraph.trim();
                   if (!trimmed) return "";
-                  const withBr = trimmed.replace(/\n/g, "<br>");
+                  // Body and {{NAME}} are plain text; escape before adding our own markup.
+                  const withBr = escapeEmailText(trimmed).replace(/\n/g, "<br>");
                   const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
                   const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
                   return `<p>${withEmails}</p>`;
