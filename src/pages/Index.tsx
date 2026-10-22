@@ -575,6 +575,12 @@ const Index = () => {
               </Link>
             ))}
           </div>
+          <div className="container mx-auto mt-5 max-w-6xl px-4 sm:px-6">
+            <Link to="/guider/valja-dynamics-365-partner/" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
+              Hitta implementeringspartners med svensk support
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          </div>
         </section>
 
         {/* SECTION 6 – KNOWLEDGE / LATEST ARTICLES */}
