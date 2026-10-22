@@ -317,6 +317,9 @@ const BusinessCentral = () => {
  <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
  Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
  </p>
+ <p className="text-center mt-4">
+ <Link to="/priser/" className="font-medium text-primary hover:underline">Se priser och licenser för Dynamics{"\u00A0"}365</Link>
+ </p>
  </div>
  </section>
 

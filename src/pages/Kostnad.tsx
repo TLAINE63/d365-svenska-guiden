@@ -137,7 +137,7 @@ export default function Kostnad() {
               svenska införanden – använd dem som sanity-check mot partner­offerterna, inte
               som facit. Intervallen gäller både affärssystem (ERP) och CRM-lösningar.
             </p>
-            <p className="mb-4 text-sm text-muted-foreground">Letar ni bara efter licenspriser per användare och månad? <Link to="/priser/" className="font-medium text-primary hover:underline">Se prislistan</Link></p>
+            <p className="mb-4 text-sm text-muted-foreground">Letar ni bara efter licenspriser per användare och månad? <Link to="/priser/" className="font-medium text-primary hover:underline">Se priser och licenser för Dynamics{"\u00A0"}365</Link></p>
             <SourceNote
               className="mb-6"
               source="Microsofts officiella listpriser samt d365.se:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners"
