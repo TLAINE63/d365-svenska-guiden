@@ -297,33 +297,25 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                         <TableCell className="text-xs">{d(r.fact_checked_at) || "–"}</TableCell>
                         <TableCell>
                           <div className="flex flex-wrap gap-1.5">
-                            <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => setPreview(r)}><Eye className="h-3.5 w-3.5" />Förhandsgranska</Button>
+                            <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => openPreview(r)}><Eye className="h-3.5 w-3.5" />Förhandsgranska</Button>
                             <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => setEditing({ ...r })}><Pencil className="h-3.5 w-3.5" />Redigera</Button>
-                            {(st === "candidate" || st === "draft") && (
-                              <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "review", "Redo för granskning")}>Till granskning</Button>
-                            )}
-                            {QUEUE.includes(st) && st !== "approved" && (
-                              <Button size="sm" variant="secondary" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Godkänd")}>Godkänn</Button>
-                            )}
-                            {st === "approved" && (
-                              <Button size="sm" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "published", "Publicerad")}>Publicera</Button>
+                            {QUEUE.includes(st) && (
+                              <>
+                                <Button size="sm" className="h-7 px-2 text-xs" disabled={busy} onClick={() => openPreview(r)}>Publicera</Button>
+                                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "ignored", "Ignorerad")}>Ignorera</Button>
+                              </>
                             )}
                             {st === "published" && (
                               <>
                                 <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" asChild>
                                   <a href={aktuelltPath(r.slug)} target="_blank" rel="noopener"><ExternalLink className="h-3.5 w-3.5" />Visa</a>
                                 </Button>
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Avpublicerad, ligger kvar som godkänd")}>Avpublicera</Button>
+                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Avpublicerad, ligger kvar i godkännandekön")}>Avpublicera</Button>
+                                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "archived", "Arkiverad")}>Arkivera</Button>
                               </>
                             )}
-                            {st !== "published" && st !== "ignored" && st !== "archived" && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "ignored", "Ignorerad")}>Ignorera</Button>
-                            )}
-                            {st !== "published" && st !== "archived" && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "archived", "Arkiverad")}>Arkivera</Button>
-                            )}
                             {(st === "ignored" || st === "archived") && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "draft", "Återställd som utkast")}>Återställ</Button>
+                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "draft", "Återställd till godkännandekön")}>Återställ</Button>
                             )}
                           </div>
                         </TableCell>
