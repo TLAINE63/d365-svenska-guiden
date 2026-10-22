@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Publicering och indexering (2026-10-22)
+- [x] Publicera korta beskrivningar och rensad sajtkarta, skicka sajtkartan till Bing
+- [ ] Skicka sajtkartan till Google Search Console och kontrollera Googles läge
+
+
 ## WP1 Aktuellt (2026-10-22)
 - [x] Inventera redaktionen och rapportera återanvändningsplan
 - [x] Utöka artikelregistret med Aktuellt-fält, intern bedömningstabell och publiceringsspärr
