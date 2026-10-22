@@ -123,6 +123,7 @@ const STATIC_ROUTES = [
   { path: "/partners-sitemap/", changefreq: "weekly", priority: "0.5" },
   { path: "/jamfor-partners/", changefreq: "monthly", priority: "0.7" },
   { path: "/partnernytt/", changefreq: "daily", priority: "0.8" },
+  { path: "/aktuellt/", changefreq: "weekly", priority: "0.7" },
   { path: "/jamfor/", changefreq: "monthly", priority: "0.7" },
   { path: "/jamfor/dynamics-365-vs-salesforce/", changefreq: "monthly", priority: "0.8" },
   { path: "/dataskydd/", changefreq: "yearly", priority: "0.5" },
@@ -288,6 +289,30 @@ if (_supaUrl && _supaKey) {
   }
 }
 
+// Aktuellt: d365.se:s publicerade analyser (endast is_published, egna URL:er)
+let aktuelltEntries = [];
+if (_supaUrl && _supaKey) {
+  try {
+    const res = await fetch(
+      `${_supaUrl}/rest/v1/knowledge_articles?select=slug,fact_checked_at,updated_at&content_type=eq.aktuellt&is_published=eq.true&order=published_at.desc`,
+      { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      aktuelltEntries = (rows || [])
+        .filter((r) => r && r.slug)
+        .map((r) => ({
+          path: `/aktuellt/${r.slug}/`,
+          changefreq: "monthly",
+          priority: "0.6",
+          lastmod: (r.fact_checked_at || r.updated_at || "").slice(0, 10) || TODAY,
+        }));
+    }
+  } catch (e) {
+    console.warn(`[sitemap] aktuellt fetch failed: ${e.message}`);
+  }
+}
+
 // Jämför (ERP comparisons)
 const jamforSrc = "src/data/erpComparisons.ts";
 const jamforLastmod = mtimeISO(jamforSrc);
@@ -346,7 +371,7 @@ const eventsLastmod = eventEntries.reduce(
 const groups = [
   { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
-  { file: "sitemap-articles.xml", entries: articleEntries, lastmod: articlesLastmod },
+  { file: "sitemap-articles.xml", entries: [...articleEntries, ...aktuelltEntries], lastmod: articlesLastmod },
   { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
   { file: "sitemap-events.xml", entries: eventEntries, lastmod: eventsLastmod },

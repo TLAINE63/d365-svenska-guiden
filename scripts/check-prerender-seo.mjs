@@ -43,6 +43,7 @@ export const CRITICAL_ROUTES = [
   "/alla-d365-partners",
   "/partners-per-bransch",
   "/partnernytt",
+  "/aktuellt",
   "/jamfor",
   "/jamfor-partners",
   "/beslutsmognad",
