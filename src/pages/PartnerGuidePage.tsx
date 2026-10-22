@@ -86,7 +86,7 @@ const renderBlock = (block: GuideBlock, i: number) => {
       return (
         <p key={i} className="my-5">
           <Link to={block.to} className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline">
-            {nowrapBrand(block.text)}
+            <span>{nowrapBrand(block.text)}</span>
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </p>
