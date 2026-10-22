@@ -45,6 +45,7 @@ const STATIC_ROUTES = [
   { path: "/guider/byta-dynamics-partner/", changefreq: "monthly", priority: "0.8" },
   { path: "/second-opinion/", changefreq: "monthly", priority: "0.8" },
   { path: "/guider/optimera-dynamics-365/", changefreq: "monthly", priority: "0.8" },
+  { path: "/dynamicskonsult/", changefreq: "monthly", priority: "0.8" },
   { path: "/guider/dynamics-365-support-forvaltning/", changefreq: "monthly", priority: "0.8" },
   { path: "/vad-ar-dynamics-365/", changefreq: "monthly", priority: "0.8" },
   { path: "/guider/valja-dynamics-365-partner/", changefreq: "monthly", priority: "0.9" },

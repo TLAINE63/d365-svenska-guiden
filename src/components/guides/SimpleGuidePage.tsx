@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
-export interface GuideSection { title: string; intro?: string; cards?: { t: string; d: string }[]; list?: string[] }
+export interface GuideSection { title: string; intro?: string; cards?: { t: string; d: string; h?: string }[]; list?: string[] }
 export interface GuideLink { label: string; href: string }
 export interface SimpleGuideProps {
   path: string;
@@ -49,10 +49,17 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
               {s.cards && (
                 <div className="grid gap-4 md:grid-cols-2">
                   {s.cards.map((c) => (
+                    c.h ? (
+                      <Link key={c.t} to={c.h} onClick={() => track(c.h!)} className="block rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary">
+                        <h3 className="font-semibold mb-1 flex items-center gap-2">{nowrapBrand(c.t)} <ArrowRight className="h-4 w-4 text-primary" aria-hidden /></h3>
+                        <p className="text-sm text-muted-foreground">{nowrapBrand(c.d)}</p>
+                      </Link>
+                    ) : (
                     <div key={c.t} className="rounded-lg border border-border bg-card p-5">
                       <h3 className="font-semibold mb-1">{nowrapBrand(c.t)}</h3>
                       <p className="text-sm text-muted-foreground">{nowrapBrand(c.d)}</p>
                     </div>
+                    )
                   ))}
                 </div>
               )}
