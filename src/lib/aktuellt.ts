@@ -11,6 +11,7 @@ import {
 import { industryMatches } from "@/lib/contextualPartnerNews";
 
 export * from "../../supabase/functions/_shared/aktuellt-taxonomy";
+export * from "../../supabase/functions/_shared/aktuellt-publish";
 
 export interface AktuelltAnalysis {
   what_happened?: string;
@@ -133,6 +134,36 @@ export function countContextualAktuellt(items: AktuelltArticle[], ctx: AktuelltC
     .filter((a) => a.availability_status !== "not_relevant")
     .filter((a) => isContextuallyFresh(a, today))
     .filter((a) => matchesContext(a, ctx)).length;
+}
+
+/**
+ * Alla sidor med ett automatiskt Aktuellt-block och vilket sammanhang de matchar.
+ * Sidorna läser sitt sammanhang härifrån, och redaktionen visar samma lista som
+ * "Visas automatiskt på", så ingen artikel behöver placeras manuellt.
+ */
+export const AKTUELLT_PLACEMENTS = {
+  businessCentral: { path: "/businesscentral/", label: "Business Central", ctx: { products: ["business-central"] } },
+  financeSupplyChain: { path: "/finance-supply-chain/", label: "Finance & Supply Chain Management", ctx: { products: ["finance", "supply-chain"] } },
+  affarssystem: { path: "/affarssystem/", label: "Affärssystem (ERP)", ctx: { products: ["business-central", "finance", "supply-chain"], topics: ["erp"] } },
+  crm: { path: "/crm/", label: "CRM", ctx: { products: ["sales", "customer-service", "field-service", "customer-insights", "contact-center"], topics: ["crm"] } },
+  sales: { path: "/d365sales/", label: "Sales", ctx: { products: ["sales"] } },
+  customerService: { path: "/d365customerservice/", label: "Customer Service", ctx: { products: ["customer-service"] } },
+  fieldService: { path: "/d365fieldservice/", label: "Field Service", ctx: { products: ["field-service"] } },
+  contactCenter: { path: "/d365contactcenter/", label: "Contact Center", ctx: { products: ["contact-center"] } },
+  customerInsights: { path: "/d365marketing/", label: "Customer Insights", ctx: { products: ["customer-insights"] } },
+  copilot: { path: "/copilot/", label: "Copilot", ctx: { products: ["copilot", "copilot-studio"], topics: ["ai-copilot"] } },
+  agents: { path: "/agents/", label: "AI-agenter", ctx: { products: ["copilot-studio"], topics: ["agenter"] } },
+  aiOverview: { path: "/aioversikt/", label: "AI-översikt", ctx: { products: ["copilot", "copilot-studio"], topics: ["ai-copilot", "agenter"] } },
+  priser: { path: "/priser/", label: "Priser och licenser", ctx: { topics: ["licensiering"] } },
+} as const satisfies Record<string, { path: string; label: string; ctx: AktuelltContext }>;
+
+/** Var en artikel visas automatiskt när den är publicerad (utöver /aktuellt/). */
+export function aktuelltPlacementsFor(a: Pick<AktuelltArticle, "product_keys" | "topic" | "industry">): string[] {
+  const out: string[] = Object.values(AKTUELLT_PLACEMENTS)
+    .filter((p) => matchesContext(a, p.ctx as AktuelltContext))
+    .map((p) => `${p.label} (${p.path})`);
+  if (a.industry) out.push(`Branschsidan för ${a.industry.toLowerCase()}`);
+  return out;
 }
 
 /** Befintliga produktsidor per produktnyckel (för länken "Läs om produkten"). */
