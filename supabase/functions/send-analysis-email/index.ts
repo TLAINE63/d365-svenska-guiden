@@ -117,21 +117,25 @@ function formatAiMarkdown(input: string, maxLen = 6000): string {
   }
   flushPara(); closeList();
 
-  let html = out.join("\n");
-  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong style=\"color:#0d0d0d;\">$1</strong>");
-  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
-  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 5px;border-radius:3px;font-size:13px;">$1</code>');
-  return html;
+  return stripInlineMarkdown(out.join("\n"));
 }
 
-/** Kortare version för listobjekt (t.ex. risks/nextSteps) – behåller bold/italic men ingen block-parse. */
+/**
+ * The analysis text arrives from the browser, so it is treated as untrusted:
+ * inline markdown markers are removed instead of turned into markup, and the
+ * text itself stays HTML-escaped. Only our own fixed block wrappers are added.
+ */
+function stripInlineMarkdown(escaped: string): string {
+  return escaped
+    .replace(/\*\*([^*\n]+?)\*\*/g, "$1")
+    .replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1$2")
+    .replace(/`([^`\n]+?)`/g, "$1");
+}
+
+/** Kortare version för listobjekt (t.ex. risks/nextSteps) – ren, escapad text utan block-parse. */
 function formatAiInline(input: string, maxLen = 500): string {
   if (typeof input !== "string") return "";
-  let html = sanitizeHtml(input.slice(0, maxLen));
-  html = html.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
-  html = html.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
-  html = html.replace(/`([^`\n]+?)`/g, '<code style="background:#f4f4f5;padding:1px 4px;border-radius:3px;font-size:13px;">$1</code>');
-  return html;
+  return stripInlineMarkdown(sanitizeHtml(input.slice(0, maxLen)));
 }
 
 // Validation functions
