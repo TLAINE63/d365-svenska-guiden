@@ -101,6 +101,15 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
+        "text": "Söker ni specifikt en CRM-specialist för sälj och marknad?"
+      },
+      {
+        "type": "link",
+        "text": "Se vår sammanställning över Dynamics 365 CRM-partners i Sverige",
+        "to": "/dynamics-365-crm-partners-sverige/"
+      },
+      {
+        "type": "p",
         "text": "Om du inte klargör vilken av dessa marknader du är på riskerar du att jämföra kandidater som inte är jämförbara."
       },
       {
