@@ -8,9 +8,15 @@ import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { FALLBACK_PRICES } from "@/data/productPricesFallback";
 import { useProductPrices, formatPrice } from "@/hooks/useProductPrices";
+import { BC_TIERS, BC_DAY_RATE, fmtBcRange } from "@/data/bcProjectEstimates";
+import { CTA } from "@/data/ctaLabels";
+
+const D365 = "Dynamics\u00A0365";
 
 const priserFaqs = [
   {
@@ -29,6 +35,11 @@ const priserFaqs = [
       "Team Members passar användare som främst läser data, rapporterar tid och utlägg, godkänner i flöden och registrerar enklare poster. Så snart användaren skapar order, bokför eller arbetar operativt i ekonomi- eller lagerprocessen krävs en full licens.",
   },
   {
+    question: "Vad är skillnaden mellan bas- och tilläggslicens i Finance & Supply Chain Management?",
+    answer:
+      "Den första Dynamics 365-applikationen en användare licensieras för köps som baslicens. Behöver samma användare fler kvalificerade applikationer, till exempel både Finance och Supply Chain Management, köps de som tilläggslicenser till ett lägre pris. Vilka kombinationer som kvalificerar styrs av Microsofts licensguide.",
+  },
+  {
     question: "Ingår Copilot och AI-agenter i licenspriset?",
     answer:
       "Grundläggande Copilot-funktioner ingår i flera Dynamics 365-licenser, medan agenter och utökad AI-användning debiteras per konsumtion via Copilot Studio-krediter. Räkna därför AI som en separat, rörlig post i budgeten.",
@@ -45,6 +56,35 @@ const breadcrumbs = [
   { name: "Prislista", url: "https://d365.se/priser/" },
 ];
 
+type PriceRow = {
+  product_key: string;
+  product_name: string;
+  category: string;
+  price_sek: number | null;
+  price_unit: string;
+  price_note: string | null;
+  is_quote: boolean;
+};
+
+const priceDrivers = [
+  {
+    t: "Användartyp",
+    d: "Fulla användare som arbetar operativt kräver full licens. Användare som främst läser, godkänner och rapporterar tid kan ofta klara sig med Team Members.",
+  },
+  {
+    t: "Applikation och nivå",
+    d: "Business Central är byggt för små och medelstora företag. Finance & Supply Chain Management är enterprise-ERP med högre pris per användare. Båda har en standard- och en Premium-nivå.",
+  },
+  {
+    t: "Bas- och tilläggslicenser",
+    d: "En användare som behöver flera applikationer betalar fullt pris för den första och ett lägre tilläggspris för de följande, när kombinationen kvalificerar.",
+  },
+  {
+    t: "Införande kontra drift",
+    d: "Licensen är en löpande månadskostnad. Införandet är en engångsinsats från partnern och står oftast för den största delen av första årets kostnad.",
+  },
+];
+
 /**
  * Fristående, fullt prerendererad prislista för Microsoft Dynamics 365.
  * Använder FALLBACK_PRICES vid SSR/initial render så att hela tabellen
@@ -54,21 +94,19 @@ const breadcrumbs = [
 export default function Priser() {
   const { data: livePrices } = useProductPrices();
 
-  const prices = (livePrices && livePrices.length > 0 ? livePrices : FALLBACK_PRICES) as Array<{
-    product_name: string;
-    category: string;
-    price_sek: number | null;
-    price_unit: string;
-    price_note: string | null;
-    is_quote: boolean;
-  }>;
+  const prices = (livePrices && livePrices.length > 0 ? livePrices : FALLBACK_PRICES) as PriceRow[];
+  const byKey = new Map(prices.map((p) => [p.product_key, p]));
+  const price = (key: string) => {
+    const p = byKey.get(key);
+    return p ? formatPrice(p) : "Se Microsofts prislista";
+  };
 
   const erp = prices.filter((p) => p.category === "ERP");
   const crm = prices.filter((p) => p.category === "CRM");
 
-  const Section = ({ title, rows }: { title: string; rows: typeof prices }) => (
+  const Section = ({ title, rows }: { title: string; rows: PriceRow[] }) => (
     <section className="mb-12">
-      <h2 className="text-2xl font-bold text-foreground mb-4">{title}</h2>
+      <h3 className="text-xl font-bold text-foreground mb-4">{title}</h3>
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted/50">
@@ -92,12 +130,37 @@ export default function Priser() {
     </section>
   );
 
+  const bcPlans = [
+    {
+      key: "bc-essentials",
+      name: "Essentials",
+      d: "Ekonomi, försäljning, inköp, lager, projekt och grundläggande service. Räcker för de flesta handels- och tjänsteföretag.",
+    },
+    {
+      key: "bc-premium",
+      name: "Premium",
+      d: "Allt i Essentials plus tillverkning och serviceorderhantering. Alla fulla användare i samma miljö måste ha samma nivå.",
+    },
+    {
+      key: "bc-team-members",
+      name: "Team Members",
+      d: "För användare som läser data, godkänner, rapporterar tid och utlägg eller gör enklare registreringar. Ingen bokföring eller orderhantering.",
+    },
+  ];
+
+  const fscmBase = [
+    { key: "finance", name: "Finance" },
+    { key: "finance-premium", name: "Finance Premium" },
+    { key: "supply-chain-management", name: "Supply Chain Management" },
+    { key: "scm-premium", name: "Supply Chain Management Premium" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 pris 2026 – licenser & prislista i SEK"
+        title="Dynamics 365 pris & licenser 2026 – Vad kostar det? | d365.se"
         titleMaxLength={61}
-        description="Vad kostar Dynamics 365? Aktuellt pris per användare och månad i SEK för Business Central, Finance & SCM, Sales, Customer Service med flera."
+        description="Vad kostar Dynamics 365? Licenspriser 2026 i SEK för Business Central Essentials, Premium och Team Members, Finance & SCM samt CRM, plus införandekostnad."
         canonicalPath="/priser/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -106,7 +169,7 @@ export default function Priser() {
 
       <main className="pt-10">
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -114,19 +177,152 @@ export default function Priser() {
               <span className="mx-2">/</span>
               <span aria-current="page">Prislista</span>
             </nav>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {nowrapBrand("Dynamics 365 pris: vad kostar licenserna och vad ingår?")}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6 max-w-4xl">
+              {nowrapBrand("Vad kostar Dynamics 365? Licenspriser & modeller 2026")}
             </h1>
-            <h2 className="text-xl font-bold mb-3">Kort svar</h2>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Officiella listpriser för Dynamics 365 (SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling – och utgör bara en del av totalkostnaden. Implementation, integration och förvaltning står normalt för en betydligt större andel över tid.
-            </p>
-            <p className="mt-3 text-sm text-muted-foreground">Den här sidan visar licenspriser. Vill ni se hela kostnaden med införande och förvaltning? <Link to="/kostnad/" className="font-medium text-primary hover:underline">Se kostnadsguiden</Link></p>
+            <div className="max-w-4xl">
+              <h2 className="text-xl font-bold mb-3">Kort svar</h2>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                {D365} licensieras per användare och månad. Business Central kostar från {price("bc-essentials")} och Finance & Supply Chain Management från {price("finance")} (listpris, SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling, och licensen är bara en del av totalkostnaden. Införande, integration och förvaltning står normalt för en betydligt större andel över tid.
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Vill ni se hela kostnaden med införande och förvaltning?{" "}
+                <Link to="/kostnad/" className="font-medium text-primary hover:underline">Se kostnadsguiden</Link>
+              </p>
+            </div>
           </div>
         </section>
 
-        <section className="py-8 sm:py-10">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        {/* Snabb översikt */}
+        <section className="py-10 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Snabb översikt: vad avgör priset?</h2>
+            <p className="text-muted-foreground mb-6 max-w-3xl">
+              Fyra saker styr vad {D365} kostar för er. Börja med dem innan ni jämför offerter.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {priceDrivers.map((c) => (
+                <div key={c.t} className="rounded-lg border border-border bg-card p-5">
+                  <h3 className="text-base font-semibold text-foreground mb-2">{c.t}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{c.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Business Central */}
+        <section id="business-central" className="scroll-mt-32 py-10 sm:py-12 border-t border-border bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+              Business Central: Essentials, Premium och Team Members
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-3xl">
+              Business Central har tre licenstyper. Valet mellan Essentials och Premium gäller hela miljön, medan Team Members kan blandas in för användare med begränsade behov.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              {bcPlans.map((p) => (
+                <div key={p.key} className="rounded-lg border border-border bg-card p-5 flex flex-col">
+                  <h3 className="text-lg font-semibold text-foreground">{p.name}</h3>
+                  <p className="mt-1 mb-3 text-base font-bold text-foreground">{price(p.key)}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{p.d}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-sm text-muted-foreground">
+              Läs mer om funktioner och passform på{" "}
+              <Link to="/businesscentral/" className="font-medium text-primary hover:underline">Business Central-sidan</Link>.
+            </p>
+          </div>
+        </section>
+
+        {/* F&SCM */}
+        <section id="finance-supply-chain" className="scroll-mt-32 py-10 sm:py-12 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+              Finance & Supply Chain Management: bas- och tilläggslicenser
+            </h2>
+            <p className="text-muted-foreground mb-6 max-w-3xl">
+              Finance och Supply Chain Management säljs som separata applikationer, var och en med en standard- och en Premium-nivå.
+            </p>
+            <div className="grid lg:grid-cols-2 gap-6">
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold text-foreground mb-3">Baslicenser (listpris)</h3>
+                <ul className="divide-y divide-border">
+                  {fscmBase.map((b) => (
+                    <li key={b.key} className="flex flex-wrap justify-between gap-2 py-2 text-sm">
+                      <span className="text-foreground">{b.name}</span>
+                      <span className="font-medium text-foreground whitespace-nowrap">{price(b.key)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold text-foreground mb-3">Så fungerar tilläggslicenser</h3>
+                <ul className="space-y-3 text-sm text-muted-foreground leading-relaxed list-disc pl-5">
+                  <li>Den första {D365}-applikationen en användare behöver köps som baslicens.</li>
+                  <li>Behöver samma användare fler kvalificerade applikationer, till exempel både Finance och Supply Chain Management, köps de som tilläggslicenser (attach) till ett lägre pris.</li>
+                  <li>Användare med smalare uppgifter kan licensieras med begränsade licenser, till exempel Team Members.</li>
+                  <li>Kontrollera kvalificerade kombinationer och eventuellt minsta antal licenser i Microsofts licensguide innan ni budgeterar.</li>
+                </ul>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-muted-foreground">
+              Läs mer om passform och partners på{" "}
+              <Link to="/finance-supply-chain/" className="font-medium text-primary hover:underline">Finance & Supply Chain-sidan</Link>.
+            </p>
+          </div>
+        </section>
+
+        {/* Implementering */}
+        <section id="implementering" className="scroll-mt-32 py-10 sm:py-12 border-t border-border bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Implementering: konsultinsats kontra licenskostnad</h2>
+            <p className="text-muted-foreground mb-6 max-w-3xl">
+              Licensen betalar ni till Microsoft via partnern varje månad. Införandet är partnerns konsultarbete: analys, konfiguration, datamigrering, integrationer, utbildning och driftstart. Det är en engångskostnad som ofta är större än flera års licenser.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold text-foreground mb-3">Business Central</h3>
+                <ul className="divide-y divide-border text-sm">
+                  <li className="flex flex-wrap justify-between gap-2 py-2">
+                    <span className="text-foreground">Snabbstart, fast pris</span>
+                    <span className="font-medium whitespace-nowrap">från 50 000 kr</span>
+                  </li>
+                  {(Object.keys(BC_TIERS) as (keyof typeof BC_TIERS)[]).map((k) => (
+                    <li key={k} className="flex flex-wrap justify-between gap-2 py-2">
+                      <span className="text-foreground">{BC_TIERS[k].label} ({BC_TIERS[k].days[0]}–{BC_TIERS[k].days[1]} konsultdagar)</span>
+                      <span className="font-medium whitespace-nowrap">{fmtBcRange(BC_TIERS[k].days)}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Räkneexempel med {BC_DAY_RATE.toLocaleString("sv-SE")} kr per konsultdag. Inte en offert.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-lg font-semibold text-foreground mb-3">Finance & Supply Chain Management</h3>
+                <ul className="divide-y divide-border text-sm">
+                  <li className="flex flex-wrap justify-between gap-2 py-2"><span className="text-foreground">Litet projekt</span><span className="font-medium whitespace-nowrap">2–6 MSEK</span></li>
+                  <li className="flex flex-wrap justify-between gap-2 py-2"><span className="text-foreground">Medelstort projekt</span><span className="font-medium whitespace-nowrap">6–15 MSEK</span></li>
+                  <li className="flex flex-wrap justify-between gap-2 py-2"><span className="text-foreground">Stort projekt</span><span className="font-medium whitespace-nowrap">från 15 MSEK</span></li>
+                </ul>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  d365.se:s redaktionella spann utifrån svenska partnerofferter, inte Microsoft-uppgifter.
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-muted-foreground">
+              Hela kostnadsbilden med förvaltning och vidareutveckling finns i{" "}
+              <Link to="/kostnad/" className="font-medium text-primary hover:underline">kostnadsguiden</Link>.
+            </p>
+          </div>
+        </section>
+
+        {/* Full prislista */}
+        <section id="prislista" className="scroll-mt-32 py-10 sm:py-12 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">Fullständig prislista för {D365}</h2>
             <Section title="ERP – Business Central, Finance & Supply Chain Management (F&O)" rows={erp} />
             <Section title="CRM – Sales, Service, Customer Insights m.fl." rows={crm} />
             <SourceNote
@@ -144,16 +340,39 @@ export default function Priser() {
             </p>
           </div>
         </section>
-        <section className="py-10 border-t border-border bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+
+        {/* Nästa steg */}
+        <section className="py-10 sm:py-12 border-t border-border bg-secondary/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="rounded-xl border border-border bg-card p-6 sm:p-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Nästa steg</h2>
+              <p className="text-muted-foreground mb-6 max-w-3xl">
+                Licenspriset är detsamma oavsett partner, men införandet skiljer sig mycket. Jämför partners som levererat i er bransch, eller räkna på er egen omfattning först.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild className="h-auto min-h-11 whitespace-normal">
+                  <Link to={CTA.findPartnerTo}>
+                    Hitta rätt {D365}-partner <ArrowRight aria-hidden className="h-4 w-4 shrink-0" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal">
+                  <Link to="/implementationskalkylator/">Få prisuppskattning</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-10 border-t border-border">
+          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
-              Vanliga frågor om Dynamics 365-priser
+              Vanliga frågor om {D365}-priser
             </h2>
             <div className="space-y-5">
               {priserFaqs.map((faq) => (
                 <div key={faq.question} className="bg-card border border-border rounded-lg p-5">
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{faq.question}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">{nowrapBrand(faq.question)}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{nowrapBrand(faq.answer)}</p>
                 </div>
               ))}
             </div>

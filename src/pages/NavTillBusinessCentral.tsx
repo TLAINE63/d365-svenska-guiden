@@ -373,9 +373,8 @@ const NavTillBusinessCentral = () => {
                   ))}
                 </ul>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Be om offerter där dessa delar redovisas separat, så blir de jämförbara. Licenspriser för Business
-                  Central finns på{" "}
-                  <Link to="/priser/" className="underline underline-offset-2 hover:text-foreground">prissidan</Link>.
+                  Be om offerter där dessa delar redovisas separat, så blir de jämförbara.{" "}
+                  <Link to="/priser/#business-central" className="underline underline-offset-2 hover:text-foreground">Se priser och licenser för Dynamics{"\u00A0"}365</Link>.
                 </p>
                 <div className="mt-6">
                   <TestCta label="Gör NAV-testet innan ni räknar på kostnaden" size="default" />

@@ -267,7 +267,8 @@ const FinanceSupplyChain = () => {
  </span>
  </AccordionTrigger>
  <AccordionContent className="text-muted-foreground pb-6 pl-11">
- Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer du behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. Implementeringskostnaderna varierar med komplexiteten: ett litet projekt ligger på 2–6 miljoner kronor, ett medelstort på 6–15 miljoner och ett stort på från 15 miljoner kronor.
+ Licenspriser börjar från 2 007,30 kr/månad för Finance och 2 007,30 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer du behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. Implementeringskostnaderna varierar med komplexiteten: ett litet projekt ligger på 2–6 miljoner kronor, ett medelstort på 6–15 miljoner och ett stort på från 15 miljoner kronor.{" "}
+ <Link to="/priser/#finance-supply-chain" className="font-medium text-primary hover:underline">Se priser och licenser för Dynamics{"\u00A0"}365</Link>
  </AccordionContent>
  </AccordionItem>
  
