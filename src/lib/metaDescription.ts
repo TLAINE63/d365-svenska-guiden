@@ -131,3 +131,33 @@ export const buildArticleMetaDescription = (article: {
 
   return buildMetaDescription([fits ? `${base}.${fits}` : `${base}.`]);
 };
+
+/** Bing flaggar beskrivningar utanför ca 25–160 tecken; Google klipper runt 155–160. */
+export const META_DESCRIPTION_HARD_MAX = 160;
+
+/**
+ * Säkerställer att en sidbeskrivning håller sig inom 160 tecken.
+ * För lång text kortas vid sista hela meningen (om minst 100 tecken återstår),
+ * annars vid ord med ellips. Kort text (<110) kompletteras med första suffix
+ * som ryms helt, aldrig med en avklippt mening.
+ */
+export const fitMetaDescription = (
+  description: string,
+  suffixes: string[] = [],
+  max: number = META_DESCRIPTION_HARD_MAX,
+): string => {
+  let text = clean(description || "");
+  if (text.length > max) {
+    const slice = text.slice(0, max);
+    const ends = [...slice.matchAll(/[.!?](?=\s|$)/g)].map((m) => (m.index ?? 0) + 1);
+    const lastEnd = ends.filter((i) => i >= 100).pop();
+    text = lastEnd ? slice.slice(0, lastEnd).trim() : truncateAtWord(text, max);
+  }
+  if (text.length < 110) {
+    const base = text ? (/[.!?…]$/.test(text) ? text : `${text}.`) : "";
+    const fit = suffixes.find((s) => clean(`${base} ${s}`).length <= max);
+    if (fit) text = clean(`${base} ${fit}`);
+    else if (!text && suffixes.length) text = clean(suffixes[suffixes.length - 1]);
+  }
+  return text;
+};
