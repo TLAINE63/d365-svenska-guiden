@@ -1,46 +1,48 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { usePublishedPartnerNews, type PartnerNewsProductArea } from "@/hooks/usePartnerNews";
 import PartnerNewsCard from "@/components/PartnerNewsCard";
+import { pickContextualPartnerNews } from "@/lib/contextualPartnerNews";
 
 interface Props {
-  productArea: PartnerNewsProductArea;
-  productLabel: string;
+  /** Produktområde i Partnernytt som sidans ämne motsvarar. */
+  productArea?: PartnerNewsProductArea;
+  /** Bransch (sidans namn); matchas mot Partnernytts branschfält. */
+  industry?: string;
+  /** T.ex. "Relaterat om Dynamics 365 Sales". */
+  heading: string;
   className?: string;
 }
 
-export default function ProductPartnerNewsSection({ productArea, productLabel, className }: Props) {
-  const { data, isLoading } = usePublishedPartnerNews({
-    productArea,
-    showOnProductPage: true,
-    limit: 6,
-  });
+/**
+ * Litet, sekundärt block med högst tre Partnernytt-poster som rör sidans ämne.
+ * Visas inte alls utan relevanta träffar. Länkar till befintliga artiklar,
+ * Partnernytt är huvudarkivet.
+ */
+export default function ProductPartnerNewsSection({ productArea, industry, heading, className }: Props) {
+  const { data, isLoading } = usePublishedPartnerNews({ productArea, limit: industry ? 80 : 12 });
+  if (isLoading || !data) return null;
+  const items = pickContextualPartnerNews(data, { industry });
+  if (items.length === 0) return null;
 
-  if (isLoading || !data || data.length === 0) return null;
+  const moreHref = productArea ? `/partnernytt/?produkt=${productArea}` : "/partnernytt/";
 
   return (
-    <section className={`py-12 sm:py-16 bg-background ${className ?? ""}`}>
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-            Aktuellt från {productLabel}-partners
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Redaktionellt utvalda nyheter, kundcase och event från publicerade partners på d365.se.
-          </p>
+    <section aria-label={heading} data-contextual-partner-news className={`border-t border-border py-10 sm:py-12 ${className ?? ""}`}>
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-lg sm:text-xl font-semibold text-foreground">{heading}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Utvalt från Partnernytt, innehåll från Dynamics&nbsp;365-partners.</p>
+          </div>
+          <Link to={moreHref} className="inline-flex items-center gap-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            <span>Se fler i Partnernytt</span> <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+          </Link>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-          {data.map((item) => (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
             <PartnerNewsCard key={item.id} item={item} clickSource="related" />
           ))}
-        </div>
-        <div className="mt-8 flex justify-center">
-          <Button asChild variant="outline" className="h-auto min-h-10 max-w-full whitespace-normal text-left">
-            <Link to={`/partnernytt/?produkt=${productArea}`} className="inline-flex items-center gap-1">
-              <span>Visa allt partnernytt för {productLabel}</span> <ArrowRight className="w-4 h-4 shrink-0" />
-            </Link>
-          </Button>
         </div>
       </div>
     </section>
