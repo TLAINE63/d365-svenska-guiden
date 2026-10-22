@@ -295,7 +295,7 @@ export const routes: PrerenderRoute[] = [
     meta: {
       title: 'Videobibliotek: Dynamics 365 på YouTube',
       description:
-        'Kurerat videobibliotek med Microsoft Dynamics 365-videor grupperade per produktområde och frågeställning – demo, priser, implementering, integration och nyheter.',
+        'Videobibliotek med Microsoft Dynamics 365-videor per produktområde och fråga: demo, priser, implementering, integration och nyheter.',
     },
   },
   {

@@ -233,7 +233,7 @@ const FscmMatchningstest = () => {
  <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Finance & Supply Chain Management (F&O)", url: "/finance-supply-chain/" }, { name: "Matchningstest", url: "/finance-supply-chain-management/matchningstest/" }]}
  title="Matchar F&SCM dina behov? – Matchningstest | d365.se"
- description={`Cirka tio minuter, upp till ${QUESTIONS.length} frågor. Funktionsorienterat matchningstest som visar om Dynamics 365 Finance & Supply Chain Management verkar relevant att utvärdera vidare – eller om enklare alternativ räcker.`}
+ description={`Cirka tio minuter, upp till ${QUESTIONS.length} frågor. Matchningstest som visar om Dynamics 365 Finance & Supply Chain är värt att utvärdera vidare, eller om enklare alternativ räcker.`}
  canonicalPath="/finance-supply-chain-management/matchningstest"
  keywords="Dynamics 365 Finance matchningstest, F&SCM behovsanalys, ERP-test, Business Central vs F&SCM"
  ogImage="https://d365.se/og-finance-scm.png"

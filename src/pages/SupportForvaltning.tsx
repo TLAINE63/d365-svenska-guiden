@@ -6,7 +6,7 @@ const SupportForvaltning = () => (
     path={PATH}
     tool="support_guide"
     seoTitle="Dynamics 365 support och förvaltning: vad ska avtalet innehålla?"
-    seoDescription="Dynamics 365 support, förvaltning och vidareutveckling: vad Microsoft ansvarar för, vad en supportpartner gör, vanliga avtalsmodeller och hur ni byter supportpartner utan att störa driften."
+    seoDescription="Dynamics 365 support och förvaltning: vad Microsoft ansvarar för, vad en supportpartner gör, vanliga avtalsmodeller och hur ni byter utan att störa driften."
     crumbs={[{ name: "Start", url: "/" }, { name: "Redan Dynamics 365-kund", url: "/befintlig-kund/" }, { name: "Support och förvaltning", url: PATH }]}
     h1="Dynamics 365 support och förvaltning: vad ska det omfatta?"
     shortAnswer="Support hanterar fel som uppstår, förvaltning håller lösningen frisk över tid och vidareutveckling förbättrar den. Ett bra avtal skiljer på de tre, anger ansvar och servicenivåer och säkrar att ni äger dokumentation, åtkomst och kod."

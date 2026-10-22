@@ -64,7 +64,7 @@ const AiExempel = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="AI i Dynamics 365: exempel på nya arbetssätt"
-        description="Konkreta, källgranskade exempel på hur Copilot, inbyggd AI och agenter förändrar arbetet i Business Central, Sales, Customer Service, Finance, Supply Chain, Field Service och Project Operations."
+        description="Källgranskade exempel på hur Copilot, inbyggd AI och agenter förändrar arbetet i Business Central, Sales, Customer Service, Finance och Supply Chain."
         canonicalPath="/ai/exempel/"
         breadcrumbs={[{ name: "Start", url: "/" }, { name: "AI i Dynamics 365", url: "/aioversikt/" }, { name: "Exempel", url: "/ai/exempel/" }]}
       />

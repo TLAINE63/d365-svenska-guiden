@@ -20,7 +20,7 @@ export default function Friskrivning() {
       <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Friskrivning", url: "/friskrivning/" }]}
         title="Friskrivning & tolkningar | d365.se"
-        description="Samlade friskrivningar för d365.se: information, behovsanalyser, kravspecifikationer, ROI-kalkyler, jämförelser och hur partnerinformation presenteras och tolkas."
+        description="Samlade friskrivningar för d365.se: information, behovsanalyser, kravspecar, ROI-kalkyler, jämförelser och hur partnerinformation presenteras."
         canonicalPath="/friskrivning"
       />
       <Navbar />
