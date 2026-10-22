@@ -279,7 +279,7 @@ export default function Priser() {
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Implementering: konsultinsats kontra licenskostnad</h2>
             <p className="text-muted-foreground mb-6 max-w-3xl">
-              Licensen betalar ni till Microsoft via partnern varje månad. Införandet är partnerns konsultarbete: analys, konfiguration, datamigrering, integrationer, utbildning och driftstart. Det är en engångskostnad som ofta är större än flera års licenser.
+              Licensen är en löpande månadskostnad till Microsoft, oftast via partnern. Införandet är partnerns konsultarbete: analys, konfiguration, datamigrering, integrationer, utbildning och driftstart. Det är en engångskostnad som ofta är större än flera års licenser.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="rounded-lg border border-border bg-card p-5">
