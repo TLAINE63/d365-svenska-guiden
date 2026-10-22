@@ -22,7 +22,12 @@ export interface PartnerGuide {
   cardTitle: string;
   cardDescription: string;
   seoTitle: string;
+  /** Endast när en exakt beslutad titel är längre än standardgränsen. */
+  seoTitleMaxLength?: number;
   seoDescription: string;
+  /** Egen delningstitel/-text för sociala medier, annars används SEO-värdena. */
+  ogTitle?: string;
+  ogDescription?: string;
   /** Applikationsnamn som används för att matcha partners (som i partnerdata). */
   apps: string[];
   /** Kanoniska filternamn i partnerlistan, om de skiljer sig från apps. */
@@ -42,9 +47,13 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
     cardTitle: "Hur hittar du rätt Dynamics 365-partner?",
     cardDescription:
       "Urvalsprocessen i stort: longlist, gallring, frågor och hur svaren ska bedömas – oavsett applikation.",
-    seoTitle: "Välja Dynamics 365-partner i Sverige – guide för köpare",
+    seoTitle: "Välja Dynamics 365-partner? Guide & Checklista 2026 | d365.se",
+    seoTitleMaxLength: 61,
     seoDescription:
-      "Så väljer du rätt Dynamics 365-partner i Sverige: longlist, gallring på bransch och storlek, frågor att ställa och hur du bedömer svaren.",
+      "Ska du välja eller byta partner för Dynamics 365? Se vår köparsidiga checklista för support, certifieringar och hur du hittar rätt partner i Sverige.",
+    ogTitle: "Välja Dynamics 365-partner? Köparsidig guide & checklista | d365.se",
+    ogDescription:
+      "Jämför verifierade partners, SLA och supportavtal innan ni väljer partner för Dynamics 365.",
     apps: [],
     midCtaLabel: "Jämför Dynamics 365-partners",
   },
