@@ -81,9 +81,7 @@ const STATIC_ROUTES = [
   { path: "/kunskapscenter/sales/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/customer-service/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/copilot/", changefreq: "weekly", priority: "0.7" },
-  { path: "/kunskapscenter/upphandling/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/partners/", changefreq: "weekly", priority: "0.7" },
-  { path: "/kunskapscenter/upphandlingsresan/", changefreq: "monthly", priority: "0.7" },
   { path: "/kunskapscenter/business-central-tillagg/", changefreq: "weekly", priority: "0.7" },
   { path: "/kunskapscenter/dynamics-365-tillagg/", changefreq: "weekly", priority: "0.7" },
   { path: "/customer-engagement/tillagg/cpq/", changefreq: "monthly", priority: "0.6" },
@@ -326,7 +324,15 @@ const jamforEntries = jamforSlugs.map((slug) => ({
 }));
 
 // ---- XML helpers ----
+// Adresser som 301:as vidare ska aldrig ligga i sajtkartan.
+const REDIRECT_SOURCES = new Set(
+  [readText("src/lib/legacy-redirects.ts"), readText("src/entry-server.tsx")]
+    .flatMap((t) => [...t.matchAll(/from:\s*["']([^"']+)["']/g)].map((m) => m[1].replace(/\/+$/, "")))
+);
+const isRedirectSource = (loc) => REDIRECT_SOURCES.has(String(loc).replace(/^https?:\/\/[^/]+/, "").replace(/\/+$/, ""));
+
 function urlset(entries) {
+  entries = entries.filter((e) => !isRedirectSource(e.loc ?? e.path ?? ""));
   const urls = entries.map((e) =>
     [
       "  <url>",

@@ -121,7 +121,7 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/partner/cegeka",          to: "/basic/cegeka",          intendedStatus: 301 },
   { from: "/partner/cepheo",          to: "/basic/cepheo",          intendedStatus: 301 },
   { from: "/partner/cosmo-consult",   to: "/basic/cosmo-consult",   intendedStatus: 301 },
-  { from: "/partner/dizparc",         to: "/basic/dizparc",         intendedStatus: 301 },
+  // (dizparc-profilen är publicerad igen, ingen redirect längre)
   { from: "/partner/ecit-sverige-ab", to: "/basic/ecit-sverige-ab", intendedStatus: 301 },
   { from: "/partner/enqore-ab",       to: "/basic/enqore-ab",       intendedStatus: 301 },
   { from: "/partner/exsitec",         to: "/basic/exsitec",         intendedStatus: 301 },
