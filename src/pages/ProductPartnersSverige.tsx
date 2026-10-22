@@ -75,6 +75,25 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
   const basicCount = (basicRoutes as any[]).filter((b) => Array.isArray(b?.products) && (cfg.productKey === "crm" ? (b.products.includes("sales") || b.products.includes("service")) : b.products.includes(cfg.productKey))).length;
   const fill = (t: string) => t.replace(/\{\{bcVerified\}\}/g, String(partners.length)).replace(/\{\{bcBasic\}\}/g, String(basicCount));
   const faqs = cfg.faq.map((f) => ({ q: f.q, a: fill(resolvePriceTokens(f.a)) }));
+
+  // Länkar första förekomsten av varje konfigurerad fras (i renderordning).
+  const usedLinks = new Set<string>();
+  const rich = (text: string): ReactNode => {
+    for (const l of cfg.links || []) {
+      if (usedLinks.has(l.text)) continue;
+      const i = text.indexOf(l.text);
+      if (i < 0) continue;
+      usedLinks.add(l.text);
+      return (
+        <>
+          {rich(text.slice(0, i))}
+          <Link to={l.to} className="font-medium text-primary hover:underline">{nowrapBrand(l.text)}</Link>
+          {rich(text.slice(i + l.text.length))}
+        </>
+      );
+    }
+    return nowrapBrand(text);
+  };
   const rows = partners.map((p: any) => {
     const facts = getPartnerSelectionFacts(p, cfg.productKey === "ai" ? null : cfg.productKey);
     const get = (l: string) => facts.find((f) => f.label === l)?.value || MISSING_TEXT;
