@@ -401,6 +401,27 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "h2",
+        "text": "Implementeringspartner med svensk support för Dynamics 365"
+      },
+      {
+        "type": "p",
+        "text": "När ni upphandlar eller implementerar Microsoft Dynamics 365 är lokal närvaro och tillgänglig support ofta avgörande. En svensk implementeringspartner erbjuder:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Svensktalande applikationskonsulter och utvecklare: Direkt dialog utan språkbarriärer under införandeprojektet.",
+          "Support under svensk kontorstid och SLA: Snabb hjälp och eskalering anpassad efter nordiska affärsprocesser och arbetstider.",
+          "Förståelse för lokala krav: Djup kunskap om svenska redovisningsregler, moms, bankintegrationer (Bankgirot/ISO 20022) och lokala branschkrav."
+        ]
+      },
+      {
+        "type": "link",
+        "text": "Se implementeringspartners med support i Sverige",
+        "to": "/alla-d365-partners/"
+      },
+      {
+        "type": "h2",
         "text": "Meriter mäter något annat än du tror"
       },
       {
