@@ -138,6 +138,7 @@ export const META_DESCRIPTION_HARD_MAX = 160;
 /**
  * Säkerställer att en sidbeskrivning håller sig inom 160 tecken.
  * För lång text kortas vid sista hela meningen (om minst 100 tecken återstår),
+ * (minst 50 tecken),
  * annars vid ord med ellips. Kort text (<110) kompletteras med första suffix
  * som ryms helt, aldrig med en avklippt mening.
  */
@@ -148,10 +149,13 @@ export const fitMetaDescription = (
 ): string => {
   let text = clean(description || "");
   if (text.length > max) {
-    const slice = text.slice(0, max);
-    const ends = [...slice.matchAll(/[.!?](?=\s|$)/g)].map((m) => (m.index ?? 0) + 1);
-    const lastEnd = ends.filter((i) => i >= 100).pop();
-    text = lastEnd ? slice.slice(0, lastEnd).trim() : truncateAtWord(text, max);
+    // Meningsslut räknas bara om originaltexten fortsätter med mellanslag,
+    // så "d365.se" aldrig tolkas som slutet på en mening.
+    const ends = [...text.matchAll(/[.!?](?=\s|$)/g)]
+      .map((m) => (m.index ?? 0) + 1)
+      .filter((i) => i <= max && i >= 50);
+    const lastEnd = ends.pop();
+    text = lastEnd ? text.slice(0, lastEnd).trim() : truncateAtWord(text, max);
   }
   if (text.length < 110) {
     const base = text ? (/[.!?…]$/.test(text) ? text : `${text}.`) : "";
