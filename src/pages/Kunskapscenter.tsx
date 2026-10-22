@@ -603,6 +603,7 @@ const Kunskapscenter = () => {
  .from("knowledge_articles")
  .select("*")
  .eq("is_published", true)
+ .neq("content_type", "aktuellt")
  .order("published_at", { ascending: false }),
  fetch(
  `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=public-events`,

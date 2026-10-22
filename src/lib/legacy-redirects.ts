@@ -95,7 +95,7 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Events / nyheter
   { from: "/nyheter",                   to: "/events",              intendedStatus: 301 },
   { from: "/evenemang",                 to: "/events",              intendedStatus: 301 },
-  { from: "/aktuellt",                  to: "/events",              intendedStatus: 301 },
+  // /aktuellt används sedan 2026-10-22 av d365.se:s analyser (Aktuellt), inte längre som alias för /events.
 
   // Tidigare hemsidesidor som konsoliderats till /
   { from: "/start",                     to: "/",                    intendedStatus: 301 },

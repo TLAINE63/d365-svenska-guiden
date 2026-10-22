@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -273,6 +274,7 @@ const D365Marketing = () => {
 
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["customer-insights"]} heading="Aktuellt inom Customer Insights" />
       <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM och marknadsföring" />
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 

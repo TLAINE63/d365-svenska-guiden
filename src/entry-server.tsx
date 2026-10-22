@@ -8,6 +8,7 @@ import { normalizeBasicPartnerRow, type BasicPartner } from './hooks/useBasicPar
 const BASIC_PARTNERS_BY_SLUG: Record<string, BasicPartner> = {};
 const EVENTS_BY_ID: Record<string, PartnerEvent> = {};
 const PARTNER_NEWS_BY_ID: Record<string, PartnerNewsItem> = {};
+const AKTUELLT_BY_SLUG: Record<string, AktuelltArticleData> = {};
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -108,6 +109,9 @@ import { BC_CATEGORY_PAGES } from './data/bcIsvCategoryPages';
 import Partnernytt from './pages/Partnernytt';
 import PartnerNewsDetail from './pages/PartnerNewsDetail';
 import type { PartnerNewsItem } from './hooks/usePartnerNews';
+import Aktuellt from './pages/Aktuellt';
+import AktuelltArticle from './pages/AktuelltArticle';
+import { AKTUELLT_PUBLIC_SELECT, type AktuelltArticle as AktuelltArticleData } from './lib/aktuellt';
 import type { PartnerEvent } from './pages/EventDetail';
 import Friskrivning from './pages/Friskrivning';
 import Backlankar from './pages/Backlankar';
@@ -342,6 +346,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365contactcenter/matchningstest/resultat', priority: '0.3', changefreq: 'monthly' },
   { path: '/d365contactcenter/roi-kalkylator', priority: '0.6', changefreq: 'monthly' },
   { path: '/partnernytt', priority: '0.7', changefreq: 'weekly' },
+  { path: '/aktuellt', priority: '0.7', changefreq: 'weekly' },
   { path: '/friskrivning', priority: '0.3', changefreq: 'yearly' },
   { path: '/lankar-till-d365', priority: '0.4', changefreq: 'monthly' },
   { path: '/jamfor-partners', priority: '0.7', changefreq: 'weekly' },
@@ -486,6 +491,10 @@ export function render(url: string) {
   const partnerNewsMatch = url.match(/^\/partnernytt\/artikel\/([^/?#]+)/);
   const partnerNewsId = partnerNewsMatch ? partnerNewsMatch[1].replace(/\/$/, '') : null;
   const partnerNewsInitialData = partnerNewsId ? PARTNER_NEWS_BY_ID[partnerNewsId] || null : null;
+
+  const aktuelltMatch = url.match(/^\/aktuellt\/([^/?#]+)/);
+  const aktuelltSlug = aktuelltMatch ? aktuelltMatch[1].replace(/\/$/, '') : null;
+  const aktuelltInitialData = aktuelltSlug ? AKTUELLT_BY_SLUG[aktuelltSlug] || null : null;
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -677,6 +686,8 @@ export function render(url: string) {
               <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
               <Route path="/partnernytt" element={<Partnernytt />} />
               <Route path="/partnernytt/artikel/:id" element={<PartnerNewsDetail initialData={partnerNewsInitialData} />} />
+              <Route path="/aktuellt" element={<Aktuellt />} />
+              <Route path="/aktuellt/:slug" element={<AktuelltArticle initialData={aktuelltInitialData} />} />
               <Route path="/friskrivning" element={<Friskrivning />} />
               <Route path="/lankar-till-d365" element={<Backlankar />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />
@@ -786,6 +797,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   const eventRoutes: PrerenderRoute[] = [];
   const articleRoutes: PrerenderRoute[] = [];
   const partnerNewsRoutes: PrerenderRoute[] = [];
+  const aktuelltRoutes: PrerenderRoute[] = [];
   try {
     const supaUrl = process.env.VITE_SUPABASE_URL;
     const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -883,8 +895,32 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         console.warn(`  ⚠️  Partnernytt fetch failed: ${pnRes.status}`);
       }
 
+      // ── Aktuellt: d365.se:s publicerade analyser med egen delningsmetadata ──
+      const akUrl = `${supaUrl}/rest/v1/knowledge_articles?select=${AKTUELLT_PUBLIC_SELECT}&content_type=eq.aktuellt&is_published=eq.true&order=published_at.desc`;
+      const akRes = await fetch(akUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (akRes.ok) {
+        const rows = (await akRes.json()) as AktuelltArticleData[];
+        for (const a of rows) {
+          if (!a.slug) continue;
+          AKTUELLT_BY_SLUG[a.slug] = a;
+          aktuelltRoutes.push({
+            path: `/aktuellt/${a.slug}`,
+            priority: '0.6',
+            changefreq: 'monthly',
+            lastmod: (a.fact_checked_at || a.updated_at || a.published_at || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${a.title} | Aktuellt | d365.se`,
+              description: (a.description || a.title).slice(0, 155),
+            },
+          });
+        }
+        console.log(`  📦 Found ${aktuelltRoutes.length} Aktuellt routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Aktuellt fetch failed: ${akRes.status}`);
+      }
+
       // ── Knowledge articles: published, internal urls only ──
-      const kaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=title,description,url,updated_at,published_at&is_published=eq.true&url=like.%2F%25`;
+      const kaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=title,description,url,updated_at,published_at&is_published=eq.true&content_type=neq.aktuellt&url=like.%2F%25`;
       const kaRes = await fetch(kaUrl, {
         headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
       });
@@ -922,5 +958,5 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     console.warn(`  ⚠️  Dynamic routes fetch error: ${err.message}`);
   }
 
-  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes];
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes];
 }

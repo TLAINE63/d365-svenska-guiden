@@ -86,6 +86,7 @@ serve(async (req) => {
       const { data, error } = await supabase
         .from("knowledge_articles")
         .select("*")
+        .neq("content_type", "aktuellt") // Aktuellt har en egen flik (manage-aktuellt)
         .order("created_at", { ascending: false });
       if (error) throw error;
       return json({ articles: data || [] }, 200, corsHeaders);

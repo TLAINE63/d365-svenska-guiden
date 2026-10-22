@@ -29,6 +29,13 @@
       "when": 1792513170309,
       "tag": "0003_buyer_profiles_owner_token",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792667148032,
+      "tag": "0004_aktuellt_on_knowledge_articles",
+      "breakpoints": true
     }
   ]
 }

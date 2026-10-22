@@ -132,7 +132,7 @@ export default function Partnernytt() {
       <main className="pt-24 lg:pt-32">
         <section className="bg-[hsl(var(--hero-dark))] text-white py-14">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h1 className="text-3xl sm:text-4xl font-bold">Aktuellt från Dynamics 365-partners</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold">Partnernytt från <span className="whitespace-nowrap">Dynamics 365</span>-partners</h1>
             <p className="mt-4 text-lg text-white/80">
               Nyheter, kundcase, event och erbjudanden från publicerade partners på d365.se – länkade till originalkällan.
             </p>

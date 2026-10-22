@@ -14,6 +14,7 @@ import { useAdminPartners } from "@/hooks/useAdminPartners";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminPartnerNewsTab from "@/components/AdminPartnerNewsTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import RedaktionAktuelltTab from "@/components/RedaktionAktuelltTab";
 import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import RedaktionBacklinksTab from "@/components/RedaktionBacklinksTab";
 import RedaktionAssignmentProfilesTab from "@/components/RedaktionAssignmentProfilesTab";
@@ -193,7 +194,7 @@ export default function Redaktion() {
               <PenLine className="h-6 w-6" /> Redaktion
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              {email} · Event, Partnernytt och Artiklar
+              {email} · Event, Partnernytt, Aktuellt och Artiklar
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={logout} className="gap-2">
@@ -202,9 +203,10 @@ export default function Redaktion() {
         </div>
 
         <Tabs defaultValue="events">
-          <TabsList className="mb-6">
+          <TabsList className="mb-6 h-auto flex-wrap">
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
+            <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
@@ -300,6 +302,10 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="aktuellt">
+            <RedaktionAktuelltTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="articles">
