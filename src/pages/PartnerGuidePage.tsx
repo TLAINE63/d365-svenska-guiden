@@ -17,6 +17,8 @@ import StickyPartnerCTA from "@/components/guides/StickyPartnerCTA";
 import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
 import GuideSearch from "@/components/guides/GuideSearch";
 import ContextualCta from "@/components/ContextualCta";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import {
   PARTNER_GUIDES,
   PartnerGuideKey,
@@ -53,10 +55,41 @@ const renderBlock = (block: GuideBlock, i: number) => {
           {block.items.map((item) => (
             <li key={item} className="flex gap-2.5 text-[15px] leading-relaxed">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              <span>{item}</span>
+              <span>{nowrapBrand(item)}</span>
             </li>
           ))}
         </ul>
+      );
+    case "ol":
+      return (
+        <ol key={i} className="my-4 list-decimal space-y-2 pl-6 text-[15px] leading-relaxed marker:font-semibold marker:text-foreground">
+          {block.items.map((item) => (
+            <li key={item} className="pl-1 text-muted-foreground">{nowrapBrand(item)}</li>
+          ))}
+        </ol>
+      );
+    case "callout":
+      return (
+        <aside key={i} className="my-6 rounded-lg border border-border border-l-4 border-l-accent bg-muted/40 p-5">
+          <p className="mb-3 font-semibold text-foreground">{nowrapBrand(block.title)}</p>
+          <ul className="space-y-2">
+            {block.items.map((item) => (
+              <li key={item} className="flex gap-2.5 text-[15px] leading-relaxed">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span>{nowrapBrand(item)}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      );
+    case "link":
+      return (
+        <p key={i} className="my-5">
+          <Link to={block.to} className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline">
+            <span>{nowrapBrand(block.text)}</span>
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </p>
       );
     case "table":
       return (
@@ -88,7 +121,7 @@ const renderBlock = (block: GuideBlock, i: number) => {
     default:
       return (
         <p key={i} className="my-4 text-[15px] leading-relaxed text-muted-foreground">
-          {block.text}
+          {nowrapBrand(block.text)}
         </p>
       );
   }

@@ -9,7 +9,10 @@ export type GuideBlock =
   | { type: "h3"; text: string }
   | { type: "p"; text: string }
   | { type: "ul"; items: string[] }
-  | { type: "table"; head: string[]; rows: string[][] };
+  | { type: "table"; head: string[]; rows: string[][] }
+  | { type: "ol"; items: string[] }
+  | { type: "callout"; title: string; items: string[] }
+  | { type: "link"; text: string; to: string };
 
 export interface GuideContent {
   h1: string;
@@ -357,6 +360,44 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
           "En klumpsumma utan nedbrytning.",
           "Estimatet sjunker påtagligt när ni nämner att ni jämför med en annan leverantör."
         ]
+      },
+      {
+        "type": "h2",
+        "text": "Strategisk partner vs. teknisk leverantör för komplexa organisationer"
+      },
+      {
+        "type": "p",
+        "text": "För medelstora och större svenska verksamheter – särskilt organisationer med flera bolag, internationella dotterbolag, matrisorganisationer eller krav på regelefterlevnad – räcker det sällan med en renodlat teknisk Dynamics 365-partner."
+      },
+      {
+        "type": "p",
+        "text": "En strategisk implementeringspartner skiljer sig på tre avgörande punkter:"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Förändringsledning (Change Management): Förmågan att få medarbetare, ledningsgrupp och verksamhetsansvariga med på tåget. Tekniska system fallerar sällan på grund av koden, utan för att organisationens arbetssätt inte anpassats.",
+          "Arkitektur och integrationer: Erfarenhet av att knyta samman affärssystem, CRM och externa verksamhetssystem med bibehållen datakvalitet och skalbarhet över landsgränser.",
+          "Långsiktig förvaltning och governance: En tydlig modell för vem som äger processerna och hur vidareutveckling prioriteras efter go-live."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "När ni upphandlar eller utvärderar partners för en komplex miljö bör ni alltid be om referenser på motsvarande organisationsstorlek och säkerställa att partnern har seniora verksamhetsarkitekter – inte enbart systemutvecklare."
+      },
+      {
+        "type": "callout",
+        "title": "Nyckelfrågor att ställa strategiska partners",
+        "items": [
+          "Hur strukturerar ni projektledningen mellan vår interna styrgrupp och ert leveransteam?",
+          "Vilken metodik använder ni för förändringsledning i en verksamhet med etablerade arbetssätt?",
+          "Hur hanterar ni löpande uppdateringar i Microsoft-molnet (Release Wave) utan att störa den dagliga driften?"
+        ]
+      },
+      {
+        "type": "link",
+        "text": "Se och jämför Dynamics 365-partners i Sverige",
+        "to": "/alla-d365-partners/"
       },
       {
         "type": "h2",
