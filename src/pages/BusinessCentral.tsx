@@ -409,6 +409,23 @@ const BusinessCentral = () => {
 
       <ProductIsvSection product="Business Central" />
 
+      <section id="branschlosningar-jamfor" aria-labelledby="bransch-jamfor-rubrik" className="scroll-mt-28 py-10 sm:py-14">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 id="bransch-jamfor-rubrik" className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Hur jämför du branschspecifika ERP-lösningar i <span className="whitespace-nowrap">Dynamics 365</span>?</h2>
+          <p className="text-[15px] sm:text-base leading-relaxed text-muted-foreground max-w-4xl">När standardfunktionaliteten i ett affärssystem inte räcker till behöver du utvärdera branschspecifika anpassningar och Microsoft-appar från AppSource (ISV-lösningar). Så gör du en strukturerad jämförelse:</p>
+          <ol className="mt-5 max-w-4xl list-decimal space-y-3 pl-6 text-[15px] sm:text-base leading-relaxed text-muted-foreground marker:font-semibold marker:text-foreground">
+            <li className="pl-1"><strong className="font-semibold text-foreground">Kartlägg kärnprocesserna:</strong> Identifiera vilka unika processer din bransch kräver (t.ex. spårbarhet/bäst-före i livsmedel, projektstyrning för konsulter eller avancerad lagerstyrning för grossister).</li>
+            <li className="pl-1"><strong className="font-semibold text-foreground">Välj rätt grundplattform:</strong> Säkerställ om behoven bäst möts av Business Central (små till medelstora bolag) eller Finance & Supply Chain Management (större globala koncerner).</li>
+            <li className="pl-1"><strong className="font-semibold text-foreground">Utvärdera färdiga branschpaket vs. egna anpassningar:</strong> Granska Microsoft AppSource och partners färdigpaketerade branschlösningar. Färdiga appar minimerar framtida uppgraderingsrisker.</li>
+            <li className="pl-1"><strong className="font-semibold text-foreground">Välj en partner med dokumenterad branscherfarenhet:</strong> Det är partnerns verksamhetskunskap som avgör om lösningen skapar verklig affärsnytta.</li>
+          </ol>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-8">
+            <Link to="/branscher/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline"><span>Utforska lösningar för olika branscher</span><ArrowRight aria-hidden className="h-4 w-4" /></Link>
+            <Link to="/partners-per-bransch/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline-offset-4 hover:underline"><span>Hitta partners med expertis inom din bransch</span><ArrowRight aria-hidden className="h-4 w-4" /></Link>
+          </div>
+        </div>
+      </section>
+
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto px-4 sm:px-6">
