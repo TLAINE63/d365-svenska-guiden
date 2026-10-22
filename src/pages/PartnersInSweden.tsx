@@ -14,15 +14,15 @@ const MS_D365 = "Microsoft\u00A0Dynamics\u00A0365";
 const REASONS = [
   {
     title: "Swedish localisation and compliance",
-    text: "Swedish accounting rules, VAT reporting and bank formats such as Bankgirot and ISO\u00A020022 payment files. Ask how the partner has handled these in earlier projects.",
+    text: "Swedish VAT (moms) reporting, the standard BAS chart of accounts and bank integration through Bankgirot and ISO\u00A020022 payment files. Ask how the partner has handled these in earlier projects.",
   },
   {
     title: "Local support and SLA",
-    text: "Consultants who speak Swedish and English and who work during Nordic business hours. Ask who will support you after go-live and on what terms.",
+    text: "Consultants who speak Swedish and English, work during Nordic business hours and have experience of cross-border rollouts. Ask who will support you after go-live and on what terms.",
   },
   {
     title: "Ecosystem and ISV add-ons",
-    text: "Add-ons for Swedish payroll, e-invoicing through PEPPOL and integrations with local logistics and banking services. Ask which add-ons the partner works with and why.",
+    text: "Swedish add-ons for payroll, e-invoicing through PEPPOL, logistics and retail. Ask which add-ons the partner works with and why.",
   },
 ];
 
@@ -31,19 +31,19 @@ const SOLUTIONS = [
     to: "/business-central-partners-sverige/",
     icon: Building2,
     title: "Business Central partners in Sweden",
-    text: `ERP for small and mid-sized companies on ${MS_D365} Business Central.`,
+    text: "Lean, all-in-one ERP for small and mid-sized companies and growing subsidiaries.",
   },
   {
     to: "/finance-supply-chain-partners-sverige/",
     icon: Factory,
     title: "Finance & Supply Chain Management partners",
-    text: "ERP for larger and international organisations with complex finance, production or logistics.",
+    text: "ERP for complex enterprise environments, multi-company setups and manufacturing (formerly Finance & Operations).",
   },
   {
     to: "/dynamics-365-crm-partners-sverige/",
     icon: Users,
     title: "CRM & Sales partners in Sweden",
-    text: `Sales, Customer Service, Field Service, Customer Insights and Contact Center in ${D365}.`,
+    text: `Sales, Customer Service, Field Service, Customer Insights and Contact Center in ${D365} (formerly Customer Engagement).`,
   },
   {
     to: "/dynamics-365-ai-copilot-partners-sverige/",
@@ -60,9 +60,9 @@ export default function PartnersInSweden() {
     <div className="min-h-screen bg-background" lang="en">
       <SEOHead
         language="en"
-        title="Microsoft Dynamics 365 Partners in Sweden – Directory 2026"
+        title="Microsoft Dynamics 365 Partners in Sweden – Implementation & Support"
         titleMaxLength={72}
-        description={`Looking for a ${MS_D365} partner in Sweden? Compare verified Swedish implementation partners for Business Central, F&SCM and CRM.`}
+        description={`Find and compare verified ${MS_D365} partners in Sweden. Local expertise for Business Central, Finance & Supply Chain and CRM implementations.`}
         canonicalPath={PATH}
         breadcrumbs={[
           { name: "d365.se", url: "/" },
