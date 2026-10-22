@@ -1,3 +1,4 @@
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import { useInquiry } from "@/contexts/InquiryContext";
 import ContextualCta from "@/components/ContextualCta";
 import { useState, useMemo, useEffect } from "react";
@@ -997,11 +998,13 @@ const ValjPartner = () => {
     till oss så hjälper vi till.
    </p>
   </div>
+  <BasicPartnersReveal count={filteredBasicPartners.length}>
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
    {filteredBasicPartners.map((p) => (
     <PartnerBasicCard key={p.id} partner={p} variant="list" />
    ))}
   </div>
+  </BasicPartnersReveal>
  </div>
 )}
 

@@ -1,3 +1,4 @@
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import FitModel from "@/components/FitModel";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -324,11 +325,13 @@ export default function AllD365Partners() {
 
               </div>
               <WhyTheseResults order="alphabetical" basic className="mb-5" />
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <BasicPartnersReveal count={basicSorted.length} className="mb-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {basicSorted.map((p) => (
                   <PartnerBasicCard key={p.id} partner={p} variant="list" />
                 ))}
               </div>
+              </BasicPartnersReveal>
 
             </div>
           </section>
