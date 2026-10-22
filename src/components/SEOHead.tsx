@@ -3,6 +3,7 @@ import { pageReviewDate } from "@/data/pageReviewDates";
 import { useLocation } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
 import { buildSeoTitle } from "@/lib/seoTitle";
+import { fitMetaDescription } from "@/lib/metaDescription";
 
 interface SEOHeadProps {
   title: string;
@@ -64,16 +65,20 @@ const SEOHead = ({
   language = "sv",
 }: SEOHeadProps) => {
   const isEnglish = language === "en";
-  // Bing/Google vill ha 120–160 tecken. Korta beskrivningar kompletteras
-  // med en neutral köparsidig mening så att ingen sida får för kort text.
-  const rawDescription = (description || "").trim();
-  const DESC_SUFFIX = isEnglish
-    ? " Compare verified partners and solutions on d365.se, the Swedish guide to Dynamics\u00A0365."
-    : " Jämför verifierade partners, priser och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.";
-  if (rawDescription.length < 110) {
-    const base = /[.!?]$/.test(rawDescription) ? rawDescription : `${rawDescription}.`;
-    description = (rawDescription ? base + DESC_SUFFIX : DESC_SUFFIX.trim()).slice(0, 165);
-  }
+  // Bing/Google vill ha ca 110–160 tecken. Långa beskrivningar kortas vid hel
+  // mening; korta kompletteras med en neutral köparsidig mening som ryms helt.
+  const DESC_SUFFIXES = isEnglish
+    ? [
+        "Compare verified partners and solutions on d365.se, the Swedish guide to Dynamics\u00A0365.",
+        "Compare partners on d365.se, the Swedish guide to Dynamics\u00A0365.",
+        "Buyer-side guidance from d365.se.",
+      ]
+    : [
+        "Jämför verifierade partners, priser och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.",
+        "Jämför partners och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.",
+        "Köparsidig vägledning från d365.se.",
+      ];
+  description = fitMetaDescription(description || "", DESC_SUFFIXES);
   const baseUrl = "https://d365.se";
   const { pathname } = useLocation();
 
