@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -268,6 +269,7 @@ const D365ContactCenter = () => {
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" showUnprofiledList={false} />
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["contact-center"]} heading="Aktuellt inom Contact Center" />
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Contact Center" />
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
 

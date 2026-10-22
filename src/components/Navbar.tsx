@@ -225,6 +225,7 @@ const Navbar = () => {
               Fråga d365.se
             </Link>
             <Link to="/kunskapscenter" className={utilityLink}>Kunskapscenter</Link>
+            <Link to="/aktuellt/" className={utilityLink}>Aktuellt</Link>
             <Link to="/partnernytt/" className={utilityLink}>Partnernytt</Link>
             <Link to="/kontakt/" className={utilityLink}>Kontakt</Link>
             <Link to="/konto/" className={utilityLink}>Mitt konto</Link>
@@ -301,6 +302,7 @@ const Navbar = () => {
                 <div className="flex flex-col gap-1 pt-2">
                   <SheetClose asChild><Link to="/fraga/" className={`inline-flex items-center gap-2 ${mobileLink}`}><Sparkles className="h-4 w-4" aria-hidden="true" />Fråga d365.se</Link></SheetClose>
                   <SheetClose asChild><Link to="/kunskapscenter" className={mobileLink}>Kunskapscenter</Link></SheetClose>
+                  <SheetClose asChild><Link to="/aktuellt/" className={mobileLink}>Aktuellt</Link></SheetClose>
                   <SheetClose asChild><Link to="/partnernytt/" className={mobileLink}>Partnernytt</Link></SheetClose>
                   <SheetClose asChild><Link to="/kontakt/" className={mobileLink}>Kontakt</Link></SheetClose>
                   <SheetClose asChild><Link to="/konto/" className={mobileLink}>Mitt konto</Link></SheetClose>

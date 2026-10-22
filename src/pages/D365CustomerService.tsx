@@ -18,6 +18,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import CostBreakdown from "@/components/CostBreakdown";
 import { FileText } from "lucide-react";
@@ -276,6 +277,7 @@ const D365CustomerService = () => {
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["customer-service"]} heading="Aktuellt inom Customer Service" />
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Customer Service" />
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
 

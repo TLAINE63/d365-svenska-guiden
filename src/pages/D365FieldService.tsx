@@ -15,6 +15,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -269,6 +270,7 @@ const D365FieldService = () => {
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["field-service"]} heading="Aktuellt inom Field Service" />
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Field Service" />
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
 

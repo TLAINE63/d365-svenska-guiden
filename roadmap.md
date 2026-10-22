@@ -1,5 +1,15 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## WP1 Aktuellt (2026-10-22)
+- [ ] Inventera redaktionen och rapportera återanvändningsplan
+- [ ] Utöka artikelregistret med Aktuellt-fält, intern bedömningstabell och publiceringsspärr
+- [ ] Backendfunktion: länkimport, AI-bedömning, granskning/status, framtida kandidatintag
+- [ ] Flik Aktuellt i /redaktion/ med kö, publicerade, alla, ignorerade/arkiverade
+- [ ] Publik /aktuellt/ och /aktuellt/:slug med förgenerering och sitemap
+- [ ] Kontextuellt block (max två) på produkt-, AI- och branschsidor
+- [ ] Partnernytt-H1 och publik navigation
+- [ ] Tester, webbläsarkontroll och slutrapport (WP2 byggs inte)
+
 ## Second opinion (2026-10-20)
 - [x] Egen sida /second-opinion/ med befintligt rådgivningsformulär, diagnoskontext och anonym mätning
 - [ ] Samlad end-to-end-QA av båda huvudresorna inkl. slutförd kravspec → partner, före publicering

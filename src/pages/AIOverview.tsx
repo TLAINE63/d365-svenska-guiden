@@ -6,6 +6,7 @@ import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import SEOHead from "@/components/SEOHead";
 import { WebPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -817,6 +818,7 @@ const AIOverview = () => {
  </Link>
  </section>
  {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+ <AktuelltContextSection products={["copilot", "copilot-studio"]} topics={["ai-copilot", "agenter"]} heading="Aktuellt om AI och Copilot" />
  <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI och Copilot" />
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
  <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />

@@ -146,6 +146,8 @@ const ImplementationCalculator = lazy(() => import("./pages/ImplementationCalcul
 const ComparePartners = lazy(() => import("./pages/ComparePartners"));
 const Partnernytt = lazy(() => import("./pages/Partnernytt"));
 const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
+const Aktuellt = lazy(() => import("./pages/Aktuellt"));
+const AktuelltArticle = lazy(() => import("./pages/AktuelltArticle"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
 const IsvProfile = lazy(() => import("./pages/IsvProfile"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
@@ -350,8 +352,6 @@ const AppShell = () => {
           <Route path="/evenemang" element={<RedirectTo to="/events/" />} />
           <Route path="/dynamics-365-customer-engagement-crm" element={<RedirectTo to="/crm/" />} />
           <Route path="/dynamics-365-erp-business-central" element={<RedirectTo to="/businesscentral/" />} />
-          <Route path="/aktuellt" element={<RedirectTo to="/events/" />} />
-          <Route path="/aktuellt/*" element={<RedirectTo to="/events/" />} />
           <Route path="/projektpaket" element={<RedirectTo to="/" />} />
           <Route path="/fraga" element={<SmartSearch />} />
           <Route path="/AI-sok" element={<RedirectTo to="/fraga" />} />
@@ -428,6 +428,8 @@ const AppShell = () => {
           <Route path="/isv-profil/:token" element={<IsvProfile />} />
           <Route path="/partnernytt" element={<Partnernytt />} />
           <Route path="/partnernytt/artikel/:id" element={<PartnerNewsDetail />} />
+          <Route path="/aktuellt" element={<Aktuellt />} />
+          <Route path="/aktuellt/:slug" element={<AktuelltArticle />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

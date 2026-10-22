@@ -16,6 +16,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/agents/": "2026-10-22",
   "/aioversikt/": "2026-10-22",
   "/alla-d365-partners/": "2026-10-22",
+  "/partnernytt/": "2026-10-22",
   "/dynamics-365-crm-partners-sverige/": "2026-10-22",
   "/guider/valja-dynamics-365-sales-partner/": "2026-10-22",
   "/second-opinion/": "2026-10-20",

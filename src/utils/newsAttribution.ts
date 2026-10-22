@@ -17,6 +17,7 @@ export type NewsAttributionSource =
   | "detail_view"
   | "product_page"
   | "ai_page"
+  | "aktuellt"
   | "other";
 
 export interface NewsAttribution {

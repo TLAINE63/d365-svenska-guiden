@@ -21,6 +21,7 @@ import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
@@ -263,6 +264,7 @@ const D365Sales = () => {
       </div>
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["sales"]} heading="Aktuellt inom Dynamics 365 Sales" />
       <ProductPartnerNewsSection productArea="crm-sales" heading="Relaterat om Dynamics 365 Sales" />
       <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />

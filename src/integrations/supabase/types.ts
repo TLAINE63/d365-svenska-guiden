@@ -1374,52 +1374,159 @@ export type Database = {
         }
         Relationships: []
       }
+      knowledge_article_assessments: {
+        Row: {
+          ai_suggestion: Json | null
+          article_id: string
+          created_at: string
+          discovered_at: string
+          ingest_method: string
+          intake_source: string | null
+          not_publish_reasons: string[]
+          recommendation: string | null
+          relevance_reason: string | null
+          relevance_score: number | null
+          updated_at: string
+          verification_notes: string | null
+        }
+        Insert: {
+          ai_suggestion?: Json | null
+          article_id: string
+          created_at?: string
+          discovered_at?: string
+          ingest_method?: string
+          intake_source?: string | null
+          not_publish_reasons?: string[]
+          recommendation?: string | null
+          relevance_reason?: string | null
+          relevance_score?: number | null
+          updated_at?: string
+          verification_notes?: string | null
+        }
+        Update: {
+          ai_suggestion?: Json | null
+          article_id?: string
+          created_at?: string
+          discovered_at?: string
+          ingest_method?: string
+          intake_source?: string | null
+          not_publish_reasons?: string[]
+          recommendation?: string | null
+          relevance_reason?: string | null
+          relevance_score?: number | null
+          updated_at?: string
+          verification_notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_article_assessments_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: true
+            referencedRelation: "knowledge_articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       knowledge_articles: {
         Row: {
+          analysis: Json | null
+          availability_status: string | null
           category: string
           content_type: string
+          context_until: string | null
           created_at: string
+          cta_label: string | null
+          cta_url: string | null
+          customer_status: string | null
           description: string | null
+          editorial_priority: number
+          editorial_status: string | null
+          extra_sources: Json
+          fact_checked_at: string | null
           format: string
           id: string
           image_url: string | null
+          industry: string | null
           is_published: boolean
+          needs_verification: boolean
+          product_keys: string[]
           published_at: string | null
+          recommended_action: string | null
           slug: string | null
+          source_name: string | null
+          source_published_at: string | null
+          source_url: string | null
           target_roles: string[]
           title: string
+          topic: string | null
           updated_at: string
           url: string | null
         }
         Insert: {
+          analysis?: Json | null
+          availability_status?: string | null
           category?: string
           content_type?: string
+          context_until?: string | null
           created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          customer_status?: string | null
           description?: string | null
+          editorial_priority?: number
+          editorial_status?: string | null
+          extra_sources?: Json
+          fact_checked_at?: string | null
           format?: string
           id?: string
           image_url?: string | null
+          industry?: string | null
           is_published?: boolean
+          needs_verification?: boolean
+          product_keys?: string[]
           published_at?: string | null
+          recommended_action?: string | null
           slug?: string | null
+          source_name?: string | null
+          source_published_at?: string | null
+          source_url?: string | null
           target_roles?: string[]
           title: string
+          topic?: string | null
           updated_at?: string
           url?: string | null
         }
         Update: {
+          analysis?: Json | null
+          availability_status?: string | null
           category?: string
           content_type?: string
+          context_until?: string | null
           created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          customer_status?: string | null
           description?: string | null
+          editorial_priority?: number
+          editorial_status?: string | null
+          extra_sources?: Json
+          fact_checked_at?: string | null
           format?: string
           id?: string
           image_url?: string | null
+          industry?: string | null
           is_published?: boolean
+          needs_verification?: boolean
+          product_keys?: string[]
           published_at?: string | null
+          recommended_action?: string | null
           slug?: string | null
+          source_name?: string | null
+          source_published_at?: string | null
+          source_url?: string | null
           target_roles?: string[]
           title?: string
+          topic?: string | null
           updated_at?: string
           url?: string | null
         }

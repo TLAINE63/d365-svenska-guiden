@@ -20,6 +20,7 @@ import Footer from "@/components/Footer";
 import CeIsvSection from "@/components/CeIsvSection";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink, FileText } from "lucide-react";
@@ -812,6 +813,7 @@ const CRM = () => {
  <CeIsvSection />
 
  {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+ <AktuelltContextSection products={["sales", "customer-service", "field-service", "customer-insights", "contact-center"]} topics={["crm"]} heading="Aktuellt inom Dynamics 365 CRM" />
  <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM" />
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
  <section className="py-8">

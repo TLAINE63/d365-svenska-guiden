@@ -22,6 +22,7 @@ import FactBox from "@/components/FactBox";
 import { fscmSources } from "@/lib/guideSources";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
@@ -707,6 +708,7 @@ const FinanceSupplyChain = () => {
  </section>
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <AktuelltContextSection products={["finance", "supply-chain"]} heading="Aktuellt inom Finance & Supply Chain Management" />
       <ProductPartnerNewsSection productArea="finance-scm" heading="Relaterat om Finance & Supply Chain Management" />
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />

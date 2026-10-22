@@ -4,6 +4,7 @@ import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Sparkles, Zap, Brain, Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -555,6 +556,7 @@ const Agents = () => {
         </div>
       </section>
 
+      <AktuelltContextSection products={["copilot-studio"]} topics={["agenter"]} heading="Aktuellt om AI-agenter" />
       <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI-agenter" />
       </main>
       <Footer />
