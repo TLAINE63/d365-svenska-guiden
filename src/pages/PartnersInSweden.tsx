@@ -61,7 +61,7 @@ export default function PartnersInSweden() {
       <SEOHead
         language="en"
         title="Microsoft Dynamics 365 Partners in Sweden – Directory 2026"
-        titleMaxLength={62}
+        titleMaxLength={72}
         description={`Looking for a ${MS_D365} partner in Sweden? Compare verified Swedish implementation partners for Business Central, F&SCM and CRM.`}
         canonicalPath={PATH}
         breadcrumbs={[
