@@ -176,6 +176,13 @@ export default function AllD365Partners() {
               </Link>
               .
             </p>
+            <p className="text-sm text-muted-foreground mb-5" lang="en">
+              Looking for a partner in Sweden?{" "}
+              <Link to="/dynamics-365-partners-in-sweden/" hrefLang="en" className="font-semibold text-primary underline-offset-4 hover:underline">
+                Read our English guide for international organisations
+              </Link>
+              .
+            </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">
