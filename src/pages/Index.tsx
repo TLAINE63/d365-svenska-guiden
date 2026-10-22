@@ -571,12 +571,12 @@ const Index = () => {
               </Link>
             ))}
           </div>
-          <div className="container mx-auto mt-5 max-w-6xl px-4 sm:px-6">
+          <div className="container mx-auto mt-5 flex max-w-6xl flex-col gap-2 px-4 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:px-6">
             <Link to="/guider/valja-dynamics-365-partner/" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
               Hitta implementeringspartners med svensk support
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-            <Link to="/dynamicskonsult/" className="ml-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
+            <Link to="/dynamicskonsult/" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
               Anlita Dynamics&nbsp;365-konsult
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
