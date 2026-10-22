@@ -20,6 +20,7 @@ const ScrollCTA = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [leadId, setLeadId] = useState<string | null>(null);
+  const [enrichToken, setEnrichToken] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [details, setDetails] = useState({ contact_name: "", company_name: "" });
   const [detailsSaved, setDetailsSaved] = useState(false);
@@ -76,7 +77,10 @@ const ScrollCTA = () => {
       });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
-      if (typeof data?.id === "string" && data.id !== "blocked") setLeadId(data.id);
+      if (typeof data?.id === "string" && data.id !== "blocked" && typeof data?.enrich_token === "string") {
+        setLeadId(data.id);
+        setEnrichToken(data.enrich_token);
+      }
       setSubmitted(true);
       toast({ title: "Tack!", description: "Vi hör av oss inom kort för att boka in tid." });
     } catch (err) {
@@ -90,11 +94,11 @@ const ScrollCTA = () => {
   // Steg 2: frivillig komplettering efter att leadet redan är sparat.
   const handleDetails = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!leadId) return;
+    if (!leadId || !enrichToken) return;
     setSubmitting(true);
     try {
       await supabase.functions.invoke("enrich-lead", {
-        body: { lead_id: leadId, email, ...details },
+        body: { lead_id: leadId, enrich_token: enrichToken, email, ...details },
       });
       setDetailsSaved(true);
     } catch (err) {
