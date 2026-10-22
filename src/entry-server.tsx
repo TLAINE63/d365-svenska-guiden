@@ -726,6 +726,7 @@ export function render(url: string) {
       meta: helmet?.meta?.toString() || '',
       link: helmet?.link?.toString() || '',
       script: helmet?.script?.toString() || '',
+      htmlAttributes: helmet?.htmlAttributes?.toString() || '',
     },
   };
 }
