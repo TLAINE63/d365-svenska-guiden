@@ -422,6 +422,31 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "h2",
+        "text": "Implementera Dynamics 365 i Norden – så väljer ni en pålitlig konsult"
+      },
+      {
+        "type": "p",
+        "text": "För företag med verksamhet över de nordiska länderna ställs särskilda krav på implementeringspartnern. Det räcker inte med lokal närvaro i ett enskilt land; konsulten måste behärska både gränsöverskridande affärsprocesser och lokala regelverk."
+      },
+      {
+        "type": "p",
+        "text": "När ni utvärderar en implementeringskonsult för Norden bör ni verifiera:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Lokaliseringsstöd per land: Att partnern har djup kunskap om nationella bankkrav, momsregler, SAF-T där det krävs (t.ex. i Norge) och lokala e-fakturaformat (Peppol i Sverige, EHF i Norge, NemHandel i Danmark).",
+          "Dokumenterad certifiering och referenser: Välj en Microsoft Solutions Partner med verifierad leveranserfarenhet från liknande nordiska projekt – be alltid att få tala med referenskunder.",
+          "Resursstyrka över gränserna: Säkerställ att konsultbolaget har kapacitet att erbjuda löpande applikationssupport och utbildning på både svenska och lokala språk under och efter go-live."
+        ]
+      },
+      {
+        "type": "link",
+        "text": "Hitta och jämför Dynamics 365-partners med nordisk räckvidd",
+        "to": "/valjdynamics365partner/?geo=norden#hitta-partners"
+      },
+      {
+        "type": "h2",
         "text": "Meriter mäter något annat än du tror"
       },
       {
