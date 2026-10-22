@@ -85,6 +85,7 @@ import BytaPartner from './pages/BytaPartner';
 import SecondOpinion from './pages/SecondOpinion';
 import OptimeraDynamics365 from './pages/OptimeraDynamics365';
 import Dynamicskonsult from './pages/Dynamicskonsult';
+import Dynamics365VsSalesforce from './pages/Dynamics365VsSalesforce';
 import SupportForvaltning from './pages/SupportForvaltning';
 import VadArDynamics365 from './pages/VadArDynamics365';
 import CrmCategoryGuide from './pages/CrmCategoryGuide';
@@ -345,6 +346,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/lankar-till-d365', priority: '0.4', changefreq: 'monthly' },
   { path: '/jamfor-partners', priority: '0.7', changefreq: 'weekly' },
   { path: '/jamfor', priority: '0.7', changefreq: 'monthly' },
+  { path: '/jamfor/dynamics-365-vs-salesforce', priority: '0.8', changefreq: 'monthly' },
   ...PRODUCT_COMPARISONS.map((c) => ({
     path: `/jamfor/${c.slug}`,
     priority: '0.6',
@@ -679,6 +681,7 @@ export function render(url: string) {
               <Route path="/lankar-till-d365" element={<Backlankar />} />
               <Route path="/jamfor-partners" element={<ComparePartners />} />
               <Route path="/jamfor" element={<ErpComparisonsHub />} />
+              <Route path="/jamfor/dynamics-365-vs-salesforce" element={<Dynamics365VsSalesforce />} />
               <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
               <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
               <Route path="/partners-sitemap" element={<PartnersSitemap />} />

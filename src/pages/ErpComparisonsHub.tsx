@@ -46,6 +46,9 @@ const ErpComparisonsHub = () => {
             <p className="text-sm text-white/70 mt-3">
               Vill du gå djupare? Se <Link to="/businesscentral/" className="text-white underline hover:text-white/80">Business Central ERP</Link> med priser, funktioner och svenska partners, eller <Link to="/affarssystem/" className="text-white underline hover:text-white/80">ERP-guiden</Link> för jämförelsen mellan BC och Finance & Supply Chain Management.
             </p>
+            <p className="text-sm text-white/70 mt-2">
+              Väljer ni CRM-plattform? Se den övergripande jämförelsen <Link to="/jamfor/dynamics-365-vs-salesforce/" className="text-white underline hover:text-white/80">Microsoft Dynamics&nbsp;365 vs Salesforce</Link>.
+            </p>
           </div>
         </section>
 

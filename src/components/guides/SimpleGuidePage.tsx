@@ -15,6 +15,8 @@ export interface SimpleGuideProps {
   path: string;
   tool: string;
   seoTitle: string;
+  /** Endast när en exakt beslutad titel är längre än standardgränsen. */
+  seoTitleMaxLength?: number;
   seoDescription: string;
   crumbs: { name: string; url: string }[];
   h1: string;
@@ -30,7 +32,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: p.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
   return (
     <>
-      <SEOHead title={p.seoTitle} description={p.seoDescription} canonicalPath={p.path} breadcrumbs={p.crumbs} />
+      <SEOHead title={p.seoTitle} titleMaxLength={p.seoTitleMaxLength} description={p.seoDescription} canonicalPath={p.path} breadcrumbs={p.crumbs} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Navbar />
       <main className="min-h-screen pt-28 lg:pt-32 pb-16">
@@ -51,7 +53,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
                   {s.cards.map((c) => (
                     c.h ? (
                       <Link key={c.t} to={c.h} onClick={() => track(c.h!)} className="block rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary">
-                        <h3 className="font-semibold mb-1 flex items-center gap-2">{nowrapBrand(c.t)} <ArrowRight className="h-4 w-4 text-primary" aria-hidden /></h3>
+                        <h3 className="font-semibold mb-1 flex items-center gap-2"><span>{nowrapBrand(c.t)}</span> <ArrowRight className="h-4 w-4 text-primary" aria-hidden /></h3>
                         <p className="text-sm text-muted-foreground">{nowrapBrand(c.d)}</p>
                       </Link>
                     ) : (

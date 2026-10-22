@@ -124,6 +124,7 @@ const STATIC_ROUTES = [
   { path: "/jamfor-partners/", changefreq: "monthly", priority: "0.7" },
   { path: "/partnernytt/", changefreq: "daily", priority: "0.8" },
   { path: "/jamfor/", changefreq: "monthly", priority: "0.7" },
+  { path: "/jamfor/dynamics-365-vs-salesforce/", changefreq: "monthly", priority: "0.8" },
   { path: "/dataskydd/", changefreq: "yearly", priority: "0.5" },
   { path: "/friskrivning/", changefreq: "yearly", priority: "0.5" },
   { path: "/lankar-till-d365/", changefreq: "monthly", priority: "0.4" },

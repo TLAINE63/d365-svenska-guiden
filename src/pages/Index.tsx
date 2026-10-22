@@ -638,6 +638,10 @@ const Index = () => {
                 </tbody>
               </table>
             </div>
+            <Link to="/jamfor/dynamics-365-vs-salesforce/" className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
+              Jämför Microsoft Dynamics&nbsp;365 vs Salesforce
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
           </div>
         </section>
 
