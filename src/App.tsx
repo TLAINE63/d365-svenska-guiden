@@ -112,6 +112,7 @@ const BefintligKund = lazy(() => import("./pages/BefintligKund"));
 const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
 const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
+const Dynamicskonsult = lazy(() => import("./pages/Dynamicskonsult"));
 const SupportForvaltning = lazy(() => import("./pages/SupportForvaltning"));
 const VadArDynamics365 = lazy(() => import("./pages/VadArDynamics365"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
@@ -236,6 +237,7 @@ const AppShell = () => {
           <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
           <Route path="/second-opinion" element={<SecondOpinion />} />
           <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
+          <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
           <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
           <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />
           <Route path="/byta-partner" element={<Navigate to="/guider/byta-dynamics-partner/" replace />} />
@@ -315,6 +317,7 @@ const AppShell = () => {
           <Route path="/partner/:slug/fordjupning" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/fordjupning/" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/:productSlug" element={<PartnerProfile />} />
+          <Route path="/basic/dynamicskonsult" element={<RedirectTo to="/dynamicskonsult/" />} />
           <Route path="/basic/:slug" element={<PartnerBasicProfile />} />
           <Route path="/basic/:slug/" element={<PartnerBasicProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
