@@ -23,6 +23,7 @@ import {
   aktuelltSlugify,
   normalizeAktuelltCandidate,
 } from "../_shared/aktuellt-taxonomy.ts";
+import { aktuelltPublishBlockers } from "../_shared/aktuellt-publish.ts";
 
 const ALLOWED_ORIGINS = ["https://d365.se", "https://www.d365.se", "http://localhost:5173", "http://localhost:8080"];
 function cors(req: Request): Record<string, string> {
@@ -460,18 +461,43 @@ serve(async (req) => {
       return json({ article: data });
     }
 
+    // Ett klick från godkännandekön: redaktörens aktiva beslut godkänner och
+    // publicerar i två steg, så databasens spärr (godkänd före publicerad) gäller.
+    if (action === "publish" && req.method === "POST") {
+      const { id, confirm_fact_check } = await req.json().catch(() => ({}));
+      if (!id) return json({ error: "id krävs" }, 400);
+      const { data: cur, error: curErr } = await supabase.from("knowledge_articles").select("*").eq("id", id).eq("content_type", "aktuellt").single();
+      if (curErr || !cur) return json({ error: "Posten hittades inte" }, 404);
+      const confirm = confirm_fact_check === true;
+      const missing = aktuelltPublishBlockers(cur, confirm);
+      if (missing.length) return json({ error: `Komplettera först: ${missing.join(", ")}.` }, 400);
+      const approvePatch: Record<string, unknown> = {};
+      if (confirm) {
+        approvePatch.fact_checked_at = new Date().toISOString().slice(0, 10);
+        approvePatch.needs_verification = false;
+      }
+      if (!["approved", "published"].includes(cur.editorial_status)) {
+        approvePatch.editorial_status = "approved";
+        approvePatch.is_published = false;
+        approvePatch.url = null;
+      }
+      if (Object.keys(approvePatch).length) {
+        const { error } = await supabase.from("knowledge_articles").update(approvePatch).eq("id", id);
+        if (error) return json({ error: error.message }, 400);
+      }
+      const { data, error } = await supabase.from("knowledge_articles")
+        .update({ editorial_status: "published", is_published: true }).eq("id", id).select("*").single();
+      if (error) return json({ error: error.message }, 400);
+      return json({ article: data });
+    }
+
     if (action === "set-status" && req.method === "POST") {
       const { id, status } = await req.json().catch(() => ({}));
       if (!id || !keys(AKTUELLT_STATUSES).includes(status)) return json({ error: "id och giltig status krävs" }, 400);
       const { data: cur, error: curErr } = await supabase.from("knowledge_articles").select("*").eq("id", id).eq("content_type", "aktuellt").single();
       if (curErr || !cur) return json({ error: "Posten hittades inte" }, 404);
       if (status === "approved" || status === "published") {
-        const missing: string[] = [];
-        if (!cur.source_url) missing.push("primärkälla");
-        if (!cur.fact_checked_at) missing.push("datum för senaste faktakontroll");
-        if (cur.needs_verification) missing.push("bocka ur Behöver verifieras efter kontroll");
-        if (!cur.description) missing.push("ingress");
-        if (!cur.analysis?.what_happened) missing.push("Vad har hänt?");
+        const missing = aktuelltPublishBlockers(cur);
         if (missing.length) return json({ error: `Komplettera först: ${missing.join(", ")}.` }, 400);
       }
       if (status === "published" && !["approved", "published"].includes(cur.editorial_status)) {

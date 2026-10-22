@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import SourceNote from "@/components/SourceNote";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
@@ -406,6 +407,7 @@ export default function Priser() {
             </div>
           </div>
         </section>
+        <AktuelltContextSection placement="priser" heading="Aktuellt om licenser och priser" />
       </main>
 
       <section className="py-8">

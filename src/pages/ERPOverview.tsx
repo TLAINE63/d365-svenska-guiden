@@ -126,6 +126,7 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import EditorialSource from "@/components/EditorialSource";
+import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 
 const ERPOverview = () => {
  useEffect(() => {
@@ -491,6 +492,7 @@ const ERPOverview = () => {
  </div>
  </section>
 
+ <AktuelltContextSection placement="affarssystem" heading="Aktuellt inom affärssystem" />
  <RelatedPages pages={erpRelatedPages} heading="Fördjupning om affärssystem, kostnader och partner" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">

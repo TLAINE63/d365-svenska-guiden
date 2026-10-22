@@ -269,7 +269,7 @@ const D365ContactCenter = () => {
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" showUnprofiledList={false} />
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["contact-center"]} heading="Aktuellt inom Contact Center" />
+      <AktuelltContextSection placement="contactCenter" heading="Aktuellt inom Contact Center" />
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Contact Center" />
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
 

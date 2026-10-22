@@ -277,7 +277,7 @@ const D365CustomerService = () => {
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["customer-service"]} heading="Aktuellt inom Customer Service" />
+      <AktuelltContextSection placement="customerService" heading="Aktuellt inom Customer Service" />
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Customer Service" />
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
 

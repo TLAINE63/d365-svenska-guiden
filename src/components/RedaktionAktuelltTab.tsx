@@ -24,6 +24,9 @@ import {
   AKTUELLT_PRODUCTS,
   AKTUELLT_TOPICS,
   aktuelltActionLabel,
+  aktuelltNeedsFactConfirmation,
+  aktuelltPlacementsFor,
+  aktuelltPublishBlockers,
   aktuelltAvailabilityLabel,
   aktuelltCustomerStatusLabel,
   aktuelltPath,
@@ -81,6 +84,7 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
   const [preview, setPreview] = useState<Row | null>(null);
   const [saving, setSaving] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [confirmFact, setConfirmFact] = useState(false);
 
   const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-aktuellt`;
   const headers = () => ({
@@ -166,6 +170,26 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
     }
   };
 
+  const openPreview = (r: Row) => {
+    setConfirmFact(false);
+    setPreview(r);
+  };
+
+  /** Ett aktivt redaktionellt beslut: godkänner och publicerar i samma klick. */
+  const publish = async (r: Row) => {
+    setBusyId(r.id);
+    try {
+      await call("publish", { id: r.id, confirm_fact_check: confirmFact });
+      toast.success("Publicerad. Den visas på /aktuellt/ och på matchande sidor.");
+      setPreview(null);
+      await load();
+    } catch (e) {
+      toast.error((e as Error).message);
+    } finally {
+      setBusyId(null);
+    }
+  };
+
   const save = async () => {
     if (!editing) return;
     setSaving(true);
@@ -204,8 +228,9 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
         <CardHeader>
           <CardTitle>Aktuellt: importera från länk</CardTitle>
           <CardDescription>
-            d365.se:s egen analys av förändringar i Dynamics&nbsp;365. Klistra in en källa, oftast från Microsoft. AI bedömer relevans och skriver ett utkast.
-            Ingenting publiceras utan att du godkänner det. Partners nyheter hör hemma i Partnernytt.
+            d365.se:s egen analys av förändringar i Dynamics&nbsp;365. Klistra in en källa, oftast från Microsoft. AI bedömer relevans och skriver ett utkast som hamnar i godkännandekön.
+            Där granskar du, redigerar vid behov och väljer Publicera eller Ignorera. Publicerade analyser visas automatiskt på /aktuellt/ och på sidor med samma produkt, ämne eller bransch.
+            Ingenting publiceras utan ditt beslut. Partners nyheter hör hemma i Partnernytt.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -297,33 +322,25 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                         <TableCell className="text-xs">{d(r.fact_checked_at) || "–"}</TableCell>
                         <TableCell>
                           <div className="flex flex-wrap gap-1.5">
-                            <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => setPreview(r)}><Eye className="h-3.5 w-3.5" />Förhandsgranska</Button>
+                            <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => openPreview(r)}><Eye className="h-3.5 w-3.5" />Förhandsgranska</Button>
                             <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" onClick={() => setEditing({ ...r })}><Pencil className="h-3.5 w-3.5" />Redigera</Button>
-                            {(st === "candidate" || st === "draft") && (
-                              <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "review", "Redo för granskning")}>Till granskning</Button>
-                            )}
-                            {QUEUE.includes(st) && st !== "approved" && (
-                              <Button size="sm" variant="secondary" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Godkänd")}>Godkänn</Button>
-                            )}
-                            {st === "approved" && (
-                              <Button size="sm" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "published", "Publicerad")}>Publicera</Button>
+                            {QUEUE.includes(st) && (
+                              <>
+                                <Button size="sm" className="h-7 px-2 text-xs" disabled={busy} onClick={() => openPreview(r)}>Publicera</Button>
+                                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "ignored", "Ignorerad")}>Ignorera</Button>
+                              </>
                             )}
                             {st === "published" && (
                               <>
                                 <Button size="sm" variant="outline" className="h-7 gap-1 px-2 text-xs" asChild>
                                   <a href={aktuelltPath(r.slug)} target="_blank" rel="noopener"><ExternalLink className="h-3.5 w-3.5" />Visa</a>
                                 </Button>
-                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Avpublicerad, ligger kvar som godkänd")}>Avpublicera</Button>
+                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "approved", "Avpublicerad, ligger kvar i godkännandekön")}>Avpublicera</Button>
+                                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "archived", "Arkiverad")}>Arkivera</Button>
                               </>
                             )}
-                            {st !== "published" && st !== "ignored" && st !== "archived" && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "ignored", "Ignorerad")}>Ignorera</Button>
-                            )}
-                            {st !== "published" && st !== "archived" && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "archived", "Arkiverad")}>Arkivera</Button>
-                            )}
                             {(st === "ignored" || st === "archived") && (
-                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "draft", "Återställd som utkast")}>Återställ</Button>
+                              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled={busy} onClick={() => setStatus(r, "draft", "Återställd till godkännandekön")}>Återställ</Button>
                             )}
                           </div>
                         </TableCell>
@@ -364,6 +381,54 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                   Nästa steg: {preview.cta_label || "–"} ({preview.cta_url || "–"}) · Adress: {aktuelltPath(preview.slug)}
                 </p>
               </div>
+
+              {(() => {
+                const st = preview.editorial_status || "candidate";
+                const placements = aktuelltPlacementsFor(preview);
+                const needsConfirm = aktuelltNeedsFactConfirmation(preview);
+                const blockers = aktuelltPublishBlockers(preview, confirmFact);
+                const inQueue = QUEUE.includes(st);
+                return (
+                  <div className="space-y-3 rounded-md border border-border bg-muted/30 p-4 text-sm">
+                    <div>
+                      <p className="font-semibold text-foreground">Visas automatiskt efter publicering</p>
+                      <p className="mt-1 text-muted-foreground">
+                        /aktuellt/{placements.length > 0 ? `, samt högst två artiklar per sida på: ${placements.join(", ")}` : ". Ingen produkt, inget ämne eller bransch matchar andra sidor, ändra under Redigera om den ska synas där."}
+                      </p>
+                    </div>
+                    {inQueue && (
+                      <>
+                        {needsConfirm && (
+                          <label className="flex items-start gap-3">
+                            <Checkbox checked={confirmFact} onCheckedChange={(v) => setConfirmFact(v === true)} className="mt-0.5" />
+                            <span>
+                              Jag har kontrollerat uppgifterna mot primärkällan idag. Faktakontrollen sätts till {today()}
+                              {preview.needs_verification ? " och markeringen Behöver verifieras tas bort" : ""}.
+                            </span>
+                          </label>
+                        )}
+                        {blockers.length > 0 && (
+                          <p className="font-medium text-cta-orange">Innan publicering: {blockers.join(", ")}.</p>
+                        )}
+                        {assessmentOf(preview)?.recommendation === "not_publish" && (
+                          <p className="text-muted-foreground">AI bedömer källan som ej publiceringsvärd. Du kan ändå publicera om du gör en annan bedömning.</p>
+                        )}
+                      </>
+                    )}
+                    <div className="flex flex-wrap justify-end gap-2 pt-1">
+                      <Button variant="outline" size="sm" onClick={() => { setEditing({ ...preview }); setPreview(null); }}><Pencil className="mr-1 h-3.5 w-3.5" />Redigera</Button>
+                      {inQueue && (
+                        <>
+                          <Button variant="ghost" size="sm" disabled={busyId === preview.id} onClick={async () => { await setStatus(preview, "ignored", "Ignorerad"); setPreview(null); }}>Ignorera</Button>
+                          <Button size="sm" disabled={busyId === preview.id || blockers.length > 0} onClick={() => publish(preview)}>
+                            {busyId === preview.id ? "Publicerar…" : "Publicera"}
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
             </>
           )}
         </DialogContent>

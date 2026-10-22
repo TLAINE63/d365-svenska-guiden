@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Aktuellt: ett enda arbetsbord i /redaktion/ (2026-10-22)
+- [x] Fliken efter Artiklar, kön med Förhandsgranska/Redigera/Publicera/Ignorera
+- [x] Publicering i ett beslut med intygad faktakontroll, databasens spärr kvar
+- [x] Visa var artikeln sprids automatiskt; block även på /priser/ och /affarssystem/
+
 ## Publicering och indexering (2026-10-22)
 - [x] Publicera korta beskrivningar och rensad sajtkarta, skicka sajtkartan till Bing
 - [x] Skicka sajtkartan till Google Search Console och kontrollera Googles läge

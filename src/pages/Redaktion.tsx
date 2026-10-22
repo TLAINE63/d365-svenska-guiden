@@ -194,7 +194,7 @@ export default function Redaktion() {
               <PenLine className="h-6 w-6" /> Redaktion
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              {email} · Event, Partnernytt, Aktuellt och Artiklar
+              {email} · Event, Partnernytt, Artiklar och Aktuellt
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={logout} className="gap-2">
@@ -206,8 +206,8 @@ export default function Redaktion() {
           <TabsList className="mb-6 h-auto flex-wrap">
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
-            <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
+            <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
             <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>

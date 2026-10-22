@@ -813,7 +813,7 @@ const CRM = () => {
  <CeIsvSection />
 
  {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
- <AktuelltContextSection products={["sales", "customer-service", "field-service", "customer-insights", "contact-center"]} topics={["crm"]} heading="Aktuellt inom Dynamics 365 CRM" />
+ <AktuelltContextSection placement="crm" heading="Aktuellt inom Dynamics 365 CRM" />
  <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM" />
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
  <section className="py-8">
