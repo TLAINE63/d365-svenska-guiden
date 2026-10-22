@@ -60,9 +60,9 @@ export default function PartnersInSweden() {
     <div className="min-h-screen bg-background" lang="en">
       <SEOHead
         language="en"
-        title="Microsoft Dynamics 365 Partners in Sweden – Implementation & Support"
-        titleMaxLength={80}
-        description={`Find and compare verified ${MS_D365} partners in Sweden. Local expertise for Business Central, Finance & Supply Chain and CRM implementations.`}
+        title="Microsoft Dynamics 365 Implementation Partners in Sweden"
+        titleMaxLength={72}
+        description={`Find verified ${MS_D365} implementation partners in Sweden. Local Nordic expertise for Business Central, Finance & Supply Chain and CRM deployments.`}
         canonicalPath={PATH}
         breadcrumbs={[
           { name: "d365.se", url: "/" },
@@ -77,7 +77,7 @@ export default function PartnersInSweden() {
           <div className="container mx-auto max-w-5xl px-4 sm:px-6">
             <span className="mb-3 block text-xs font-bold uppercase tracking-[0.2em] text-accent">Partner directory · Sweden</span>
             <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
-              Find a <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Partner in Sweden
+              Find <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Implementation Partners in Sweden
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground">
               Are you expanding into the Swedish market or looking for local expertise for your {MS_D365} implementation?
@@ -112,6 +112,27 @@ export default function PartnersInSweden() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        <section className="pb-12 sm:pb-16">
+          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Choosing the right implementation partner in Sweden</h2>
+            <p className="mt-3 max-w-3xl text-muted-foreground">
+              A successful ERP or CRM rollout depends heavily on an implementation partner that understands Swedish business culture, reporting standards and local industry practices. Key factors to evaluate:
+            </p>
+            <ul className="mt-6 grid gap-5 md:grid-cols-3">
+              {[
+                ["Implementation methodology", "A structured agile or phased rollout process adapted to Nordic organisations. Ask to see the plan from a comparable project."],
+                ["Architecture and cloud migration", `Technical competence in moving on-premises systems to ${D365} in the cloud, including data migration and integrations.`],
+                ["Post-go-live support and SLA", "A Swedish-speaking helpdesk combined with English-language support for international teams. Ask for the support terms in writing."],
+              ].map(([t, x]) => (
+                <li key={t} className="rounded-xl border border-border bg-card p-6">
+                  <h3 className="text-lg font-semibold text-foreground">{t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{x}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
