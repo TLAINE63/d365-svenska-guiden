@@ -273,8 +273,8 @@ const D365FieldService = () => {
 
       </main>
       <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
-      <SourcesAndMethod variant="product" />
       <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
+      <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>

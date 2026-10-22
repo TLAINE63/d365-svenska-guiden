@@ -271,8 +271,8 @@ const D365ContactCenter = () => {
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
 
       </main>
-      <SourcesAndMethod variant="product" />
       <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
+      <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>

@@ -301,7 +301,6 @@ export default function Kostnad() {
         </section>
 
         <CostContactForm />
-<SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
       </main>
 
       <section className="py-8">
@@ -309,6 +308,7 @@ export default function Kostnad() {
           <PageOfferBanner />
         </div>
       </section>
+      <SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>

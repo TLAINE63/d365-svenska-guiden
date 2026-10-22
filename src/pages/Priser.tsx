@@ -378,7 +378,6 @@ export default function Priser() {
             </div>
           </div>
         </section>
-      <SourcesAndMethod externalSources={priceSources} />
       </main>
 
       <section className="py-8">
@@ -386,6 +385,7 @@ export default function Priser() {
           <PageOfferBanner />
         </div>
       </section>
+      <SourcesAndMethod externalSources={priceSources} />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>
