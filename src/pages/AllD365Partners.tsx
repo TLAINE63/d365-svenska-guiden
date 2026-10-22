@@ -169,6 +169,13 @@ export default function AllD365Partners() {
             <p className="text-base sm:text-lg text-muted-foreground mb-5">
               Här hittar du en översikt över Dynamics 365-partners på den svenska marknaden – både partnerverifierade profiler på d365.se och andra aktörer vi känner till. Vill du veta mer om någon eller få hjälp att smalna ner kortlistan, hör av dig.
             </p>
+            <p className="text-sm sm:text-base text-muted-foreground mb-5">
+              Söker du specifikt efter CRM? Se alla{" "}
+              <Link to="/dynamics-365-crm-partners-sverige/" className="font-semibold text-primary underline-offset-4 hover:underline">
+                Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 CRM-partners i Sverige här
+              </Link>
+              .
+            </p>
             {totalMarket > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
                 <Badge className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/10">

@@ -1938,6 +1938,11 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       {
         "type": "p",
         "text": "På d365.se kan ni jämföra svenska Dynamics 365-partners per applikationsområde, bransch och storlek, och avgränsa fältet innan ni börjar boka möten."
+      },
+      {
+        "type": "link",
+        "text": "Jämför Microsoft Dynamics 365 CRM-partners i Sverige",
+        "to": "/dynamics-365-crm-partners-sverige/"
       }
     ],
     "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
