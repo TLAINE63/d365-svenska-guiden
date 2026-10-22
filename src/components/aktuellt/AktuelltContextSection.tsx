@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { usePublishedAktuellt } from "@/hooks/useAktuellt";
-import { countContextualAktuellt, pickContextualAktuellt, type AktuelltContext } from "@/lib/aktuellt";
+import { AKTUELLT_PLACEMENTS, countContextualAktuellt, pickContextualAktuellt, type AktuelltContext } from "@/lib/aktuellt";
 import AktuelltCard from "@/components/aktuellt/AktuelltCard";
 
 interface Props extends AktuelltContext {
+  /** Registrerad sida i AKTUELLT_PLACEMENTS; styr vilka artiklar som matchar. */
+  placement?: keyof typeof AKTUELLT_PLACEMENTS;
   /** T.ex. "Aktuellt inom Dynamics 365 Finance". */
   heading: string;
   className?: string;
@@ -15,9 +17,10 @@ interface Props extends AktuelltContext {
  * Placeras efter sidans köp- och beslutsinnehåll och renderas inte alls utan
  * publicerade, färska och matchande artiklar.
  */
-export default function AktuelltContextSection({ heading, className, ...ctx }: Props) {
+export default function AktuelltContextSection({ heading, className, placement, ...rest }: Props) {
   const { data, isLoading } = usePublishedAktuellt({ limit: 60 });
   if (isLoading || !data) return null;
+  const ctx: AktuelltContext = placement ? (AKTUELLT_PLACEMENTS[placement].ctx as AktuelltContext) : rest;
   const items = pickContextualAktuellt(data, ctx);
   if (items.length === 0) return null;
   const showMore = countContextualAktuellt(data, ctx) > items.length;

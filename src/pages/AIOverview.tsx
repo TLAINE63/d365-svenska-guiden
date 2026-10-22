@@ -818,7 +818,7 @@ const AIOverview = () => {
  </Link>
  </section>
  {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
- <AktuelltContextSection products={["copilot", "copilot-studio"]} topics={["ai-copilot", "agenter"]} heading="Aktuellt om AI och Copilot" />
+ <AktuelltContextSection placement="aiOverview" heading="Aktuellt om AI och Copilot" />
  <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI och Copilot" />
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
  <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />

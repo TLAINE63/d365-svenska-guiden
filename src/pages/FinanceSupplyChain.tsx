@@ -708,7 +708,7 @@ const FinanceSupplyChain = () => {
  </section>
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["finance", "supply-chain"]} heading="Aktuellt inom Finance & Supply Chain Management" />
+      <AktuelltContextSection placement="financeSupplyChain" heading="Aktuellt inom Finance & Supply Chain Management" />
       <ProductPartnerNewsSection productArea="finance-scm" heading="Relaterat om Finance & Supply Chain Management" />
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />

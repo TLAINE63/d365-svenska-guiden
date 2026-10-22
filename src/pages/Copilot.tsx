@@ -623,7 +623,7 @@ const Copilot = () => {
       </section>
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["copilot", "copilot-studio"]} topics={["ai-copilot"]} heading="Aktuellt om AI och Copilot" />
+      <AktuelltContextSection placement="copilot" heading="Aktuellt om AI och Copilot" />
       <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI och Copilot" />
       <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
       </main>

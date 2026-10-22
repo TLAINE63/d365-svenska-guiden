@@ -274,7 +274,7 @@ const D365Marketing = () => {
 
 
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["customer-insights"]} heading="Aktuellt inom Customer Insights" />
+      <AktuelltContextSection placement="customerInsights" heading="Aktuellt inom Customer Insights" />
       <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM och marknadsföring" />
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 

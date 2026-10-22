@@ -621,7 +621,7 @@ const BusinessCentral = () => {
       <RelevantVideosSection productGroups={["business-central"]} title="Videor om Business Central" />
       <AiExamplesEntry apps={["bc"]} label="Se konkreta AI-exempel för Business Central" source="businesscentral" />
       {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
-      <AktuelltContextSection products={["business-central"]} heading="Aktuellt inom Business Central" />
+      <AktuelltContextSection placement="businessCentral" heading="Aktuellt inom Business Central" />
       <ProductPartnerNewsSection productArea="business-central" heading="Relaterat om Business Central" />
       <RelatedPages pages={bcRelatedPages.map(page => ({ ...page, description: page.description.replace(/Dynamics 365/g, "Dynamics\u00a0365"), href: page.href === "/affarssystem/" ? "/affarssystem/#comparison" : page.href === "/valjdynamics365partner/" ? "/business-central-partners-sverige/" : page.href }))} heading="Fördjupning om produktval, kostnad och partner" />
       <BcOptionalDeepDive />

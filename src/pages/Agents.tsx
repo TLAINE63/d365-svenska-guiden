@@ -556,7 +556,7 @@ const Agents = () => {
         </div>
       </section>
 
-      <AktuelltContextSection products={["copilot-studio"]} topics={["agenter"]} heading="Aktuellt om AI-agenter" />
+      <AktuelltContextSection placement="agents" heading="Aktuellt om AI-agenter" />
       <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI-agenter" />
       </main>
       <Footer />
