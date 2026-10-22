@@ -2,7 +2,7 @@ import CrmMarketSection from "@/components/crm/CrmMarketSection";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -136,7 +136,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
               {cfg.h1}
             </h1>
             {cfg.intro.split(/\n\s*\n/).map((para, i) => (
-              <p key={i} className={`text-base sm:text-lg text-muted-foreground${i > 0 ? " mt-3" : ""}`}>{nowrapBrand(para)}</p>
+              <p key={i} className={`text-base sm:text-lg text-muted-foreground${i > 0 ? " mt-3" : ""}`}>{rich(para)}</p>
             ))}
             <p className="text-sm text-muted-foreground mt-4">
               Vill du läsa om produkten i sig?{" "}
@@ -151,19 +151,19 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           <section className="py-8 sm:py-10 border-b border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">{nowrapBrand(cfg.leadSection.heading)}</h2>
-              <p className="text-base text-muted-foreground leading-relaxed">{nowrapBrand(cfg.leadSection.intro)}</p>
+              <p className="text-base text-muted-foreground leading-relaxed">{rich(cfg.leadSection.intro)}</p>
               <ul className="mt-4 space-y-2.5">
                 {cfg.leadSection.items.map((it) => (
                   <li key={it.label} className="flex gap-2.5 text-base leading-relaxed">
                     <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                     <span className="text-muted-foreground">
-                      <strong className="font-semibold text-foreground">{it.label}:</strong> {nowrapBrand(it.text)}
+                      <strong className="font-semibold text-foreground">{it.label}:</strong> {rich(it.text)}
                     </span>
                   </li>
                 ))}
               </ul>
               {cfg.leadSection.outro && (
-                <p className="mt-4 text-base text-muted-foreground leading-relaxed">{nowrapBrand(cfg.leadSection.outro)}</p>
+                <p className="mt-4 text-base text-muted-foreground leading-relaxed">{rich(cfg.leadSection.outro)}</p>
               )}
             </div>
           </section>
@@ -263,6 +263,15 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
             )}
           </div>
         </section>
+
+        {cfg.closingSection && (
+          <section className="py-8 sm:py-10 border-t border-border">
+            <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">{nowrapBrand(cfg.closingSection.heading)}</h2>
+              <p className="text-base text-muted-foreground leading-relaxed">{rich(cfg.closingSection.text)}</p>
+            </div>
+          </section>
+        )}
 
         {cfg.productKey === "crm" && <CrmMarketSection />}
 
