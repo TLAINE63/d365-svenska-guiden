@@ -451,21 +451,9 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://d365.se/kunskapscenter/upphandling/</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://d365.se/kunskapscenter/partners/</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/kunskapscenter/upphandlingsresan/</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
