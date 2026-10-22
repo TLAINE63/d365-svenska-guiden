@@ -877,7 +877,7 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
           <div>
-            <h3 className="text-[15px] font-semibold text-foreground mb-2">Källor</h3>
+            <h2 className="text-[15px] font-semibold text-foreground mb-2">Källor</h2>
             <ul className="space-y-1.5 text-[14px]">
               {HOME_SOURCES.map((s) => (
                 <li key={s.url}>
