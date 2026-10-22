@@ -269,13 +269,14 @@ const D365CustomerService = () => {
 
       <ProductDeepDiveLink product="Dynamics 365 Customer Service" label="Customer Service" />
 
-      <ProductPartnerNewsSection productArea="crm-service" productLabel="Customer Service" />
 
 
 
       <ProductIsvSection product="Customer Service" />
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Customer Service" />
       <RelatedPages pages={customerServiceRelatedPages} heading="Utforska vidare" />
 
       

@@ -599,7 +599,6 @@ const CRM = () => {
  </div>
  </section>
 
- <ProductPartnerNewsSection productArea="crm" productLabel="CRM" />
 
 
  {/* Partners Section */}
@@ -812,6 +811,8 @@ const CRM = () => {
 
  <CeIsvSection />
 
+ {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+ <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM" />
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
  <section className="py-8">
    <div className="container mx-auto px-4 max-w-6xl">

@@ -266,13 +266,14 @@ const D365Marketing = () => {
 
       <ProductDeepDiveLink product="Dynamics 365 Customer Insights" label="Customer Insights" />
 
-      <ProductPartnerNewsSection productArea="crm" productLabel="Marketing" />
 
       <ProductIsvSection product="Customer Insights (Marketing)" />
 
       <ApplicationPartners applicationFilter="Customer Insights (Marketing)" pageSource="D365 Marketing" />
 
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM och marknadsföring" />
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 
       </main>

@@ -2,6 +2,7 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
+import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import ContextualCta from "@/components/ContextualCta";
@@ -703,6 +704,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </section>
 
  {/* Relaterade pelarsidor – interna länkar för SEO/AIO */}
+ {/* Sekundärt: relaterat från Partnernytt för branschen, visas bara vid träffar. */}
+ <ProductPartnerNewsSection industry={industryName} heading={`Relaterat för ${industryName.toLowerCase()}`} />
  <RelatedPages heading="Utforska Dynamics 365" pages={branschRelatedPages} />
 
  <ContextualCta

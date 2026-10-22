@@ -805,7 +805,6 @@ const AIOverview = () => {
  </section>
  </div>
  </main>
- <ProductPartnerNewsSection productArea="microsoft-ai" productLabel="Microsoft AI" />
 
  <ProductDeepDiveLink product="Microsoft Copilot – Dynamics 365" label="Copilot" />
 
@@ -817,6 +816,8 @@ const AIOverview = () => {
  <p className="mt-2 inline-flex items-center gap-1 text-lg font-semibold text-primary">Se exempel: Sluta leta. Börja fråga. <ArrowRight className="h-4 w-4" /></p>
  </Link>
  </section>
+ {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+ <ProductPartnerNewsSection productArea="microsoft-ai" heading="Relaterat om AI och Copilot" />
  <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
  <RelevantVideosSection productGroups={["microsoft-ai", "power-platform"]} title="Videor om Copilot och AI i Dynamics 365" />
  <Footer />

@@ -494,7 +494,6 @@ const FinanceSupplyChain = () => {
       <ProductDeepDiveLink product="Finance & Supply Chain" label="Finance & Supply Chain Management" />
       <RelevantVideosSection productGroups={["finance-scm"]} title="Videor om Finance & Supply Chain Management (F&O)" />
 
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Finance & Supply Chain Management (F&O)" />
 
 
       <ProductIsvSection
@@ -707,6 +706,8 @@ const FinanceSupplyChain = () => {
  </div>
  </section>
 
+      {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+      <ProductPartnerNewsSection productArea="finance-scm" heading="Relaterat om Finance & Supply Chain Management" />
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <PartnerSwitchCta />

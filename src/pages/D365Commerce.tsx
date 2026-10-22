@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
-import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
@@ -89,7 +88,6 @@ const D365Commerce = () => {
       <BuyerManual product="commerce" />
       <CostBreakdown product="commerce" />
 
-      <ProductPartnerNewsSection productArea="finance-scm" productLabel="Commerce" />
 
       <ApplicationPartners applicationFilter="Commerce" pageSource="D365 Commerce" filterMode="companySize" showUnprofiledList={false} />
 
