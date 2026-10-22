@@ -15,6 +15,8 @@ export interface SimpleGuideProps {
   path: string;
   tool: string;
   seoTitle: string;
+  /** Endast när en exakt beslutad titel är längre än standardgränsen. */
+  seoTitleMaxLength?: number;
   seoDescription: string;
   crumbs: { name: string; url: string }[];
   h1: string;
@@ -30,7 +32,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: p.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
   return (
     <>
-      <SEOHead title={p.seoTitle} description={p.seoDescription} canonicalPath={p.path} breadcrumbs={p.crumbs} />
+      <SEOHead title={p.seoTitle} titleMaxLength={p.seoTitleMaxLength} description={p.seoDescription} canonicalPath={p.path} breadcrumbs={p.crumbs} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Navbar />
       <main className="min-h-screen pt-28 lg:pt-32 pb-16">

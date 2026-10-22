@@ -113,6 +113,7 @@ const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
 const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
 const Dynamicskonsult = lazy(() => import("./pages/Dynamicskonsult"));
+const Dynamics365VsSalesforce = lazy(() => import("./pages/Dynamics365VsSalesforce"));
 const SupportForvaltning = lazy(() => import("./pages/SupportForvaltning"));
 const VadArDynamics365 = lazy(() => import("./pages/VadArDynamics365"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
@@ -191,6 +192,7 @@ const AppShell = () => {
           <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
           <Route path="/d365fieldservice/roi-kalkylator" element={<ProductRoiPage productKey="field-service" />} />
           <Route path="/jamfor" element={<ErpComparisonsHub />} />
+          <Route path="/jamfor/dynamics-365-vs-salesforce" element={<Dynamics365VsSalesforce />} />
           <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
