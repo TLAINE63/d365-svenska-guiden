@@ -15,6 +15,13 @@ export interface ProductPartnersSverigeConfig {
   productLandingPath: string;    // /businesscentral, /d365sales, ...
   productLabel: string;          // Visningsnamn
   faq: { q: string; a: string }[];
+  /** Valfri H2-sektion direkt efter hero, manuellt skriven per sida. */
+  leadSection?: {
+    heading: string;
+    intro: string;
+    items: { label: string; text: string }[];
+    outro?: string;
+  };
 }
 
 export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
@@ -81,10 +88,22 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     productLabel: "Dynamics 365 CRM (Sales, Customer Insights, Customer Service, Field Service, Contact Center)",
     productLandingPath: "/crm/",
     h1: "Microsoft Dynamics 365 CRM-partners i Sverige",
-    metaTitle: "Dynamics 365 CRM-partners i Sverige – Hitta & Jämför | d365.se",
-    titleMaxLength: 65,
+    metaTitle: "Dynamics 365 CRM-partner i Sverige – Hitta & Jämför Experter | d365.se",
+    titleMaxLength: 70,
     metaDescription:
-      "Jämför Microsoft Dynamics 365 CRM- och Sales-partners i Sverige. Hitta rätt specialist för implementering, migrering och support.",
+      "Jämför Microsoft Dynamics 365 CRM-partners i Sverige. Hitta rätt specialist för Dynamics 365 Sales, Customer Service och Customer Insights (Marketing).",
+    leadSection: {
+      heading: "Hitta rätt Dynamics 365 CRM-partner i Sverige",
+      intro:
+        "Att välja rätt Dynamics 365 CRM-partner är avgörande för att få ut full effekt av er investering i Microsofts CRM-plattform. Oavsett om ni implementerar Dynamics 365 Sales, Customer Service eller Customer Insights (Marketing) behöver ni en partner med dokumenterad erfarenhet av:",
+      items: [
+        { label: "Integrationer mot affärssystem", text: "Ett fungerande dataflöde mellan CRM och ERP, till exempel Business Central eller Finance & Supply Chain Management." },
+        { label: "Anpassade säljprocesser", text: "B2B-pipeline, leadkvalificering, offerthantering och mobilt säljstöd." },
+        { label: "Support och förvaltning i Sverige", text: "Svensktalande konsulter, support med avtalade svarstider (SLA) och löpande användarutbildning." },
+      ],
+      outro:
+        "Här nedan listar och jämför vi partners på den svenska marknaden som arbetar med Dynamics 365 CRM. Be alltid om referenser som styrker erfarenheten inom just ert område.",
+    },
     intro:
       "Söker ditt företag en Microsoft Dynamics 365 CRM-partner? Här listar och jämför vi partners på den svenska marknaden som arbetar med Dynamics 365 Sales, Customer Insights och kundresor i Microsoft-ekosystemet. Oavsett om ni ska implementera ett nytt CRM-system, bygga integrationer mot affärssystemet eller uppgradera en befintlig lösning kan ni jämföra partners här.\n\nDynamics 365 CRM (Customer Engagement) är en svit av appar på samma plattform: Sales, Customer Insights (Marketing), Customer Service, Field Service och Contact Center. I praktiken arbetar de flesta CRM-partners med hela sviten, därför jämför vi dem på en gemensam sida i stället för per app.\n\nHär listas partners på den svenska marknaden som har registrerat Sales eller Customer Service i sin profil, sorterade efter namn. Ordningen säger inget om kvalitet.\n\nJämför partners på tre punkter: erfarenhet av er bransch, referenser från bolag av er storlek och vilken del av CRM-sviten de faktiskt har levererat flest projekt inom. Be om ett kundcase för just den app som är viktigast för er.",
     faq: [
