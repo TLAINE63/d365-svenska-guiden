@@ -183,7 +183,7 @@ export default function Priser() {
             <div className="max-w-4xl">
               <h2 className="text-xl font-bold mb-3">Kort svar</h2>
               <p className="text-base sm:text-lg text-muted-foreground">
-                {D365} licensieras per användare och månad. Business Central kostar från {price("bc-essentials")} och Finance & Supply Chain Management från {price("finance")} (listpris, SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling, och licensen är bara en del av totalkostnaden. Införande, integration och förvaltning står normalt för en betydligt större andel över tid.
+                Microsoft {D365} licensieras per användare och månad. Business Central kostar från {price("bc-essentials")} och Finance & Supply Chain Management från {price("finance")} (listpris, SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling, och licensen är bara en del av totalkostnaden. Införande, integration och förvaltning står normalt för en betydligt större andel över tid.
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
                 Vill ni se hela kostnaden med införande och förvaltning?{" "}
