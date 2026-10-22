@@ -167,7 +167,7 @@ export default function PartnersInSweden() {
         <section className="border-t border-border py-8">
           <div className="container mx-auto max-w-3xl px-4 text-center text-sm text-muted-foreground sm:px-6">
             <p>
-              How d365.se works: the site is financed by partners who publish verified profiles. Ownership and interests are disclosed on{" "}
+              How d365.se works: d365.se continuously maps relevant {D365} partners in the Swedish market. Partners without a profile agreement are shown with a basic profile compiled from public sources, while partners with a profile agreement can review and complete their own profile. Which partners match a company depends on relevance and needs. Ownership and interests are disclosed on{" "}
               <Link to="/agande-och-intressen/" className="font-semibold text-primary hover:underline">our transparency page</Link> (in Swedish).
               {reviewed && <> Last reviewed {reviewed}.</>}
             </p>

@@ -64,6 +64,7 @@ const STATIC_ROUTES = [
   { path: "/branscher/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365sales/", changefreq: "monthly", priority: "0.8" },
   { path: "/business-central-partners-sverige/", changefreq: "monthly", priority: "0.7" },
+  { path: "/dynamics-365-partners-in-sweden/", changefreq: "monthly", priority: "0.7" },
   { path: "/dynamics-365-crm-partners-sverige/", changefreq: "monthly", priority: "0.7" },
   { path: "/d365marketing/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365customerservice/", changefreq: "monthly", priority: "0.8" },

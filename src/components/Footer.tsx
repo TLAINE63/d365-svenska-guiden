@@ -75,6 +75,7 @@ const Footer = () => {
               <li><Link to="/alla-d365-partners/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Alla D365-partners</Link></li>
               <li><Link to="/partners-per-bransch/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners per bransch</Link></li>
               <li><Link to="/partners-sitemap/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners-sitemap</Link></li>
+              <li><Link to="/dynamics-365-partners-in-sweden/" hrefLang="en" lang="en" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Partners in Sweden (English)</Link></li>
             </ul>
           </div>
 
