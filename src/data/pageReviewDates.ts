@@ -31,7 +31,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/finance-supply-chain/": "2026-10-22",
   "/crm/": "2026-10-22",
   "/d365sales/": "2026-10-22",
-  "/d365customerservice/": "2026-10-22",
+  "/d365customerservice/": "2026-10-23",
   "/d365fieldservice/": "2026-10-22",
   "/d365marketing/": "2026-10-22",
   "/d365contactcenter/": "2026-10-22",
