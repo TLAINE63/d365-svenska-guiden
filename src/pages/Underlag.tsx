@@ -267,7 +267,7 @@ export default function Underlag() {
                 </section>
               </section>
 
-              {(meta.area === "partner" || !meta.area) && (lvl || crmApps.length > 0 || items.length > 0) && <section className={`${card} border-l-4 border-l-primary print:hidden`}>
+              {(meta.area === "partner" || !meta.area) && (lvl || crmApps.length > 0 || items.length > 0) && <section className={`${card} print:hidden`}>
                 <p className="plan-eyebrow mb-2">Nästa steg</p>
                 {nextStep.to.startsWith("#") ? (
                   <a href={nextStep.to} className="inline-flex items-center text-lg font-semibold text-primary">{nextStep.label}<ArrowRight className="w-5 h-5 ml-1" /></a>
