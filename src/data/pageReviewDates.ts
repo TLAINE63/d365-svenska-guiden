@@ -6,7 +6,7 @@
 export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/byta-dynamics-partner/": "2026-10-23",
   "/guider/valja-dynamics-365-partner/": "2026-10-22",
-  "/": "2026-10-22",
+  "/": "2026-10-23",
   "/kontakt/": "2026-10-22",
   "/jamfor/dynamics-365-vs-salesforce/": "2026-10-22",
   "/d365commerce/": "2026-10-22",
@@ -24,7 +24,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/optimera-dynamics-365/": "2026-10-20",
   "/dynamicskonsult/": "2026-10-22",
   "/guider/dynamics-365-support-forvaltning/": "2026-10-23",
-  "/valjdynamics365partner/": "2026-10-22",
+  "/valjdynamics365partner/": "2026-10-23",
   "/vad-ar-dynamics-365/": "2026-10-22",
   "/befintlig-kund/": "2026-10-20",
   "/businesscentral/": "2026-10-22",

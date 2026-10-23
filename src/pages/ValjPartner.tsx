@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
-import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search, MapPin, Building2 } from "lucide-react";
+import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search, MapPin, Building2, CheckCircle2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { SizeFilters } from "@/components/SizeFilters";
@@ -588,9 +588,9 @@ const ValjPartner = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Microsoft Dynamics 365-partner i Sverige – Jämför & Hitta Rätt | d365.se"
+ title="Dynamics Partners i Sverige | Jämför Microsoft Dynamics 365-partners"
  titleMaxLength={80}
- description="Hitta och jämför auktoriserade Microsoft Dynamics 365-partners i Sverige. Köparsidig guide för Business Central, Finance & SCM, Sales och Customer Service."
+ description="Hitta Dynamics partners i Sverige. Jämför kompetens, branschfokus och applikationsområden bland svenska Microsoft Dynamics 365-partners på d365.se."
  canonicalPath="/valjdynamics365partner"
  keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"
@@ -604,7 +604,7 @@ const ValjPartner = () => {
  <BreadcrumbSchema items={partnerBreadcrumbs} />
  <ItemListSchema
  name="Dynamics 365-partners i Sverige"
- description="Lista över Microsoft-certifierade Dynamics 365-partners presenterade på d365.se."
+ description="Lista över Dynamics 365-partners i Sverige presenterade på d365.se."
  items={partners.map((p) => ({
  name: p.name,
  url: `https://d365.se/partner/${p.slug}`,
@@ -621,8 +621,8 @@ const ValjPartner = () => {
  />
  
   <ProductHero
-  title="Hitta rätt Microsoft Dynamics 365-partner för era behov"
-  subhead="Använd filtret som en första kortlista, inte ett facit. Rätt partner handlar om applikation (affärssystem/ERP eller CRM), bransch, metodik, team, kemi och ansvar efter go-live."
+  title="Hitta rätt Microsoft Dynamics partners i Sverige"
+  subhead="Att välja rätt implementeringspartner är avgörande för en lyckad satsning på affärssystem och CRM. Här guidar vi dig till Dynamics partners i Sverige och hjälper dig jämföra kompetens, bransch och ansvar efter go-live."
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
@@ -631,6 +631,60 @@ const ValjPartner = () => {
   <ShortAnswer title="Vad är en Dynamics 365-partner">
  Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft Dynamics-partners och konsultbolag för din bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
  </ShortAnswer>
+
+ <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
+ <div className="container mx-auto px-4 sm:px-6">
+ <div className="max-w-4xl mx-auto">
+ <h2 id="krav-pa-partner" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+ Vad ska du kräva av en certifierad Dynamics partner?
+ </h2>
+ <p className="text-muted-foreground mb-5">
+ En certifiering visar att partnern uppfyller Microsofts krav, men säger inte allt om hur projektet och förvaltningen kommer att fungera för just er. Be om belägg för de här fyra punkterna innan ni går vidare.
+ </p>
+ <ul className="grid gap-4 sm:grid-cols-2">
+ {[
+ { t: "Microsoft Solutions Partner-beteckning", d: <>Fråga om partnern har Microsofts beteckning Solutions Partner for Business Applications och kontrollera den i Microsofts partnerkatalog. Beteckningen bygger på kunder, certifierade konsulter och leveranser inom Business Applications.</> },
+ { t: "Dokumenterad erfarenhet i er bransch", d: <>Be om referenskunder i er bransch och storlek, och prata med minst en av dem. Fråga vilka branschtillägg partnern själv har byggt eller levererat.</> },
+ { t: "Tydliga SLA-nivåer och supportorganisation", d: <>Kontrollera vem som tar över efter driftsättning, vilka svarstider som gäller per prioritet och hur Microsofts uppdateringar hanteras. Se vår guide om <Link to="/guider/dynamics-365-support-forvaltning/" className="text-primary underline underline-offset-2">support och förvaltning</Link>.</> },
+ { t: "Transparent prismodell", d: <>Begär timpriser per roll, hur förändringar i omfattningen prissätts och vad förvaltningen kostar per månad. Jämför med typiska nivåer på <Link to="/priser/" className="text-primary underline underline-offset-2">prissidan</Link>.</> },
+ ].map((item) => (
+ <li key={item.t} className="rounded-lg border border-border bg-card p-5">
+ <p className="flex items-start gap-2 font-semibold text-foreground mb-2">
+ <CheckCircle2 className="h-5 w-5 shrink-0 text-accent mt-0.5" aria-hidden />
+ {item.t}
+ </p>
+ <p className="text-sm text-muted-foreground leading-relaxed">{item.d}</p>
+ </li>
+ ))}
+ </ul>
+ <div className="mt-6 rounded-lg border border-border bg-secondary/40 p-5">
+ <p className="font-semibold text-foreground mb-3">Visa partners per modul</p>
+ <div className="flex flex-wrap gap-2">
+ {[
+ { label: "CRM / Sales", app: "Sales" },
+ { label: "Customer Service", app: "Customer Service" },
+ { label: "Business Central", app: "Business Central" },
+ { label: "Finance & Supply Chain", app: "Finance & SCM" },
+ ].map((m) => (
+ <Button
+ key={m.app}
+ type="button"
+ variant={selectedApplications.length === 1 && selectedApplications[0] === m.app ? "default" : "outline"}
+ className="min-h-11"
+ onClick={() => {
+ setSelectedApplications([m.app]);
+ document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+ }}
+ >
+ {m.label}
+ </Button>
+ ))}
+ </div>
+ <p className="mt-3 text-xs text-muted-foreground">Väljer modulen i filtret nedan. Ni kan sedan lägga till bransch, geografi och storlek.</p>
+ </div>
+ </div>
+ </div>
+ </section>
 
  <section className="py-8 sm:py-10">
  <div className="container mx-auto px-4 sm:px-6">
@@ -1214,10 +1268,10 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  </div>
  <div className="text-center md:text-left">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Behöver du vägledning?
+ Behöver du hjälp att välja eller upphandla Dynamics partner?
  </h2>
  <p className="text-lg text-muted-foreground">
- Med vår breda erfarenhet av Dynamics 365-marknaden kan vi hjälpa dig att hitta rätt partner för just dina behov och förutsättningar.
+ Boka ett möte med Thomas. Rådgivningen är kostnadsfri och sker på köparens sida, ingen partner deltar i samtalet.
  </p>
  </div>
  </div>

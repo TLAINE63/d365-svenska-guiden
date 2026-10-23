@@ -834,9 +834,11 @@ const Index = () => {
                           <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
                           <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med projektets storlek.</p>
                           <p className="pt-2">
+                            Jämför{" "}
                             <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-semibold">
-                              → Hitta rätt partner
-                            </Link>
+                              Dynamics partners i Sverige
+                            </Link>{" "}
+                            efter applikation, bransch och storlek.
                           </p>
                         </div>
                         <VideoComingSoon />
