@@ -69,6 +69,7 @@ const Footer = () => {
               <li><Link to="/events/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Events & Webinars</Link></li>
               <li><Link to="/beslutsmognad/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Beslutsmognadsindex</Link></li>
               <li><Link to="/kravspecifikation/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Kravspecifikationer</Link></li>
+              <li><Link to="/guider/dynamics-365-support-forvaltning/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Support och förvaltning</Link></li>
               <li><Link to="/qa/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/branscher/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta din bransch</Link></li>
               <li><Link to="/valjdynamics365partner/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Hitta rätt partner</Link></li>

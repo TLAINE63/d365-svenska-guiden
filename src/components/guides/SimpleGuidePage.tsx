@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -20,9 +21,13 @@ export interface SimpleGuideProps {
   seoDescription: string;
   crumbs: { name: string; url: string }[];
   h1: string;
+  /** Valfri ingress direkt under H1, före det korta svaret. */
+  intro?: string;
   shortAnswer: string;
   sections: GuideSection[];
   next: { title: string; text: string; links: GuideLink[] };
+  /** Valfritt innehåll direkt efter nästa steg, t.ex. den gemensamma rådgivningsrutan. */
+  afterNext?: ReactNode;
   faq: { q: string; a: string }[];
 }
 
@@ -40,6 +45,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
           <GuideBreadcrumb items={p.crumbs} className="mb-5" />
           <header className="max-w-3xl mb-10">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">{nowrapBrand(p.h1)}</h1>
+            {p.intro && <p className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-6">{nowrapBrand(p.intro)}</p>}
             <h2 className="text-xl font-bold mb-2">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{nowrapBrand(p.shortAnswer)}</p>
           </header>
@@ -88,6 +94,8 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
               ))}
             </div>
           </section>
+
+          {p.afterNext && <div className="mb-12">{p.afterNext}</div>}
 
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-foreground mb-4">Vanliga frågor</h2>

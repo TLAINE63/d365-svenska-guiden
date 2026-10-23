@@ -21,7 +21,8 @@ import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
 import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import CostBreakdown from "@/components/CostBreakdown";
-import { FileText } from "lucide-react";
+import { FileText, LifeBuoy } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import SEOHead from "@/components/SEOHead";
@@ -116,6 +117,19 @@ const D365CustomerService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#service-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Customer Service-partner", href: "#partners" }}
       />
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6 mt-6">
+        <aside aria-label="Support för befintligt system" className="flex gap-3 rounded-lg border border-border bg-secondary/40 p-4 text-sm leading-relaxed text-muted-foreground">
+          <LifeBuoy className="h-5 w-5 shrink-0 text-accent mt-0.5" aria-hidden />
+          <p>
+            Letar du efter teknisk användarsupport eller förvaltningsavtal för ditt befintliga{" "}
+            <span className="whitespace-nowrap">Dynamics{"\u00A0"}365</span>-system? Den här sidan beskriver modulen{" "}
+            <span className="whitespace-nowrap">Microsoft Dynamics{"\u00A0"}365</span> Customer Service.{" "}
+            <Link to="/guider/dynamics-365-support-forvaltning/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">
+              Läs vår guide för <span className="whitespace-nowrap">Dynamics{"\u00A0"}365</span> support och förvaltning här
+            </Link>.
+          </p>
+        </aside>
+      </div>
       <SystemvalHandoffNote page="cs" />
       <ServiceDecisionGuide />
 
