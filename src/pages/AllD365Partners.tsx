@@ -177,6 +177,13 @@ export default function AllD365Partners() {
               </Link>
               .
             </p>
+            <p className="text-sm text-muted-foreground mb-3">
+              Vill du hitta en Dynamics{"\u00A0"}365-partner som passar dina behov?{" "}
+              <Link to="/valjdynamics365partner/" className="font-semibold text-primary underline-offset-4 hover:underline">
+                Använd vår partnerväljare
+              </Link>
+              .
+            </p>
             <p className="text-sm text-muted-foreground mb-5" lang="en">
               Looking for a partner in Sweden?{" "}
               <Link to="/dynamics-365-partners-in-sweden/" hrefLang="en" className="font-semibold text-primary underline-offset-4 hover:underline">

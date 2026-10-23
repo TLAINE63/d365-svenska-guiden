@@ -35,6 +35,14 @@ interface Props {
 
 const BASE = "https://d365.se";
 
+/** Övergång från guide till rätt partnersida: generellt val till partnerväljaren, produktguider till produktens partnersida. */
+const NEXT_STEP_BOX: Partial<Record<PartnerGuideKey, { heading: string; text: string; label: string; to: string }>> = {
+  hub: { heading: "Klar med checklistan?", text: "Gå vidare till partnerväljaren och filtrera partners utifrån dina behov.", label: "Öppna partnerväljaren", to: "/valjdynamics365partner/" },
+  bc: { heading: "Redo att hitta en Business Central-partner?", text: "Se partners som arbetar med Business Central i Sverige.", label: "Se Business Central-partners i Sverige", to: "/business-central-partners-sverige/" },
+  sales: { heading: "Redo att hitta en CRM- eller Sales-partner?", text: "Se partners som arbetar med Dynamics\u00A0365 Sales och CRM i Sverige.", label: "Se CRM & Sales-partners i Sverige", to: "/dynamics-365-crm-partners-sverige/" },
+  fscm: { heading: "Redo att hitta en Finance & Supply Chain-partner?", text: "Se partners som arbetar med Finance & Supply Chain Management i Sverige.", label: "Se Finance & Supply Chain-partners i Sverige", to: "/finance-supply-chain-partners-sverige/" },
+};
+
 const renderBlock = (block: GuideBlock, i: number) => {
   switch (block.type) {
     case "h2":
@@ -245,6 +253,16 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
               {renderBlock(block, i)}
             </div>
           ))}
+
+          {NEXT_STEP_BOX[guideKey] && (
+            <GuideCTA
+              heading={NEXT_STEP_BOX[guideKey]!.heading}
+              text={NEXT_STEP_BOX[guideKey]!.text}
+              buttonLabel={NEXT_STEP_BOX[guideKey]!.label}
+              to={NEXT_STEP_BOX[guideKey]!.to}
+              source={`${path}#cta-next-step`}
+            />
+          )}
 
           <GuideCTA
             variant="final"
