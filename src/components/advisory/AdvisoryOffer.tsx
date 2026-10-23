@@ -3,6 +3,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
 import type { AdvisoryPlacement, ContactSection } from "@/components/plan/PlanContactDialog";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
@@ -61,7 +62,12 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
   return (
     <div ref={ref} className={`print:hidden ${className}`} data-advisory-placement={placement}>
       {variant === "inline" ? (
-        <aside aria-label="Kostnadsfri rådgivning" className="rounded-lg border border-border bg-card p-5 sm:p-6">
+        <aside aria-label="Kostnadsfri rådgivning" className="flex flex-col gap-5 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-start sm:p-6">
+          <figure className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-center sm:text-center">
+            <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={112} height={112} className="h-20 w-20 rounded-full object-cover object-[50%_12%] ring-2 ring-border sm:h-28 sm:w-28" />
+            <figcaption className="text-xs leading-tight text-muted-foreground"><span className="block font-semibold text-foreground">Thomas Laine</span>Grundare, d365.se</figcaption>
+          </figure>
+          <div className="min-w-0">
           <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
             <MessageCircle className="h-4 w-4" aria-hidden />
             Kostnadsfri rådgivning
@@ -73,6 +79,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">{carriedNote} Ingen partner deltar och inget delas utan ert godkännande.</p>
+          </div>
         </aside>
       ) : (
         <p className="text-sm text-muted-foreground">
