@@ -63,6 +63,7 @@ import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
 import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 import halsaImg from "@/assets/industries/halsa-sjukvard.webp";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import nonprofitImg from "@/assets/industries/nonprofit.webp";
 import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
@@ -84,7 +85,7 @@ const INDUSTRY_IMAGES: Record<string, string> = {
  "media-publishing": mediaPublishingImg,
  "jordbruk-skogsbruk": jordbrukImg,
  "halsa-sjukvard": halsaImg,
- "nonprofit-organisationer": medlemsorganisationerImg,
+ "nonprofit-organisationer": nonprofitImg,
  "medlemsorganisationer": medlemsorganisationerImg,
  "utbildning": utbildningImg,
  "offentlig-sektor": offentligSektorImg,
