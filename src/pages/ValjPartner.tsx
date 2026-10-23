@@ -1239,7 +1239,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  rel="noopener noreferrer"
  >
  <Calendar className="w-5 h-5 mr-2" />
- Boka ett möte
+ Boka en kostnadsfri rådgivning
  </a>
  </Button>
  <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded border border-border">
