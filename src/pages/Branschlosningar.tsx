@@ -92,6 +92,7 @@ import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
 import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
 import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.webp";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import nonprofitImg from "@/assets/industries/nonprofit.webp";
 import utbildningImg from "@/assets/industries/utbildning.webp";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
 import uthyrningImg from "@/assets/industries/uthyrning.webp";
@@ -132,7 +133,7 @@ const industries: Industry[] = [
  { name: "Media & Publishing", slug: "media-publishing", image: mediaPublishingImg, description: "System för media- och förlagsbranschen", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Media & Publishing"] },
  { name: "Jordbruk & Skogsbruk", slug: "jordbruk-skogsbruk", image: jordbrukSkogsbrukImg, description: "Affärssystem för jord- och skogsbruk", products: ["bc", "fsc"], partnerIndustries: ["Jordbruk & Skogsbruk"] },
  { name: "Hälsa- & sjukvård", slug: "halsa-sjukvard", image: halsaSjukvardImg, description: "Lösningar för hälso- och sjukvårdssektorn", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Hälsa- & sjukvård"] },
- { name: "Non-profit / Organisationer", slug: "nonprofit-organisationer", image: medlemsorganisationerImg, description: "System för ideella organisationer och föreningar", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Non-profit / Organisationer"] },
+ { name: "Non-profit / Organisationer", slug: "nonprofit-organisationer", image: nonprofitImg, description: "System för ideella organisationer och föreningar", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Non-profit / Organisationer"] },
  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer, förbund och föreningar", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Medlemsorganisationer"] },
  { name: "Utbildning", slug: "utbildning", image: utbildningImg, description: "Lösningar för utbildningssektorn", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Utbildning"] },
  { name: "Offentlig sektor", slug: "offentlig-sektor", image: offentligSektorImg, description: "Affärssystem för myndigheter och offentlig verksamhet", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Offentlig sektor"] },
