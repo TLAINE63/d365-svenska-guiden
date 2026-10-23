@@ -5,11 +5,13 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import FitPrioritySelect from "@/components/FitPrioritySelect";
 import { Button } from "@/components/ui/button";
 
-export default function FitModel({ model, heading }: { model: FitModelKey; heading?: string }) {
+/** framed: renderas inuti förälderns innehållsbredd (t.ex. som kort i Min D365-plan) i stället för eget smalt band. */
+export default function FitModel({ model, heading, framed = false, className = "" }: { model: FitModelKey; heading?: string; framed?: boolean; className?: string }) {
   const value = fitModels[model];
   return (
-    <section id={`d365-${model}-fit-model`} data-fit-model={model} aria-labelledby={`${model}-fit-title`} className="scroll-mt-24 border-y border-border py-8 sm:py-10">
-      <div className="container mx-auto max-w-3xl px-4 sm:px-6">
+    <section id={`d365-${model}-fit-model`} data-fit-model={model} aria-labelledby={`${model}-fit-title`} className={framed ? `scroll-mt-28 ${className}` : "scroll-mt-24 border-y border-border py-8 sm:py-10"}>
+      <div className={framed ? "" : "container mx-auto max-w-3xl px-4 sm:px-6"}>
+        {framed && <p className="plan-eyebrow mb-2">Beslutsstöd</p>}
         <h2 id={`${model}-fit-title`} className="text-xl font-semibold text-foreground">{nowrapBrand(heading ?? value.name)}</h2>
         <p className="mt-1 text-xs text-muted-foreground">{value.name} · Redaktionellt beslutsstöd</p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nowrapBrand(value.method)}</p>

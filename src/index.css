@@ -657,6 +657,11 @@ All colors MUST be HSL.
   --border: 185 25% 30%;
   --accent: 170 55% 62%;
 }
+.dark .plan-premium {
+  --card: 185 38% 14%;
+  --card-foreground: 200 18% 97%;
+  --muted: 185 30% 17%;
+}
 
 /* The published profile continues the opening's grid, without changing shared cards elsewhere. */
 .partner-profile-continuation {
