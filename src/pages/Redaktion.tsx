@@ -26,6 +26,7 @@ import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
+import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -208,6 +209,7 @@ export default function Redaktion() {
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
+            <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
             <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
@@ -228,6 +230,10 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="advisory">
+            <AdminAdvisoryTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="newsletter">
