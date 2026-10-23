@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /** Stabil, icke-personlig nyckel för en rekommendation (sökväg utan parametrar). */
 const nbaKey = (to: string) => to.split("?")[0].replace(/[^a-z0-9#/-]/gi, "").slice(0, 60) || "okand";
 import PlanContactDialog, { type PlanContactMode } from "@/components/plan/PlanContactDialog";
-import { ArrowRight, RotateCcw } from "lucide-react";
+import { ArrowRight, CheckCircle2, Circle, Compass, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuyerContext, sizeLabel, updateBuyerContext } from "@/lib/buyerContext";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -38,21 +38,25 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
     } catch { /* ignore */ }
   }, [next.to]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <section aria-labelledby="plan-summary-title" className="mb-8 border-y border-border py-6">
-      <h2 id="plan-summary-title" className="mb-3 text-xl font-semibold text-foreground">Er plan just nu</h2>
-      <p className="mb-4 text-sm text-muted-foreground">Era val sparas i den här webbläsaren mellan besök. Inga kontaktuppgifter behövs och inget skickas till partners utan ert godkännande.</p>
-      <div className="mb-4 flex flex-wrap gap-2" aria-label="Område att utreda">
+    <section aria-labelledby="plan-summary-title" className="plan-card">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="plan-eyebrow mb-2">Översikt</p>
+          <h2 id="plan-summary-title" className="text-2xl font-semibold text-foreground sm:text-3xl">Er plan just nu</h2>
+        </div>
+      <div className="flex flex-wrap gap-2" aria-label="Område att utreda">
         {(["erp", "crm", "migration"] as const).map((area) => <Button key={area} size="sm" variant={meta.area === area ? "default" : "outline"} aria-pressed={meta.area === area} onClick={() => updatePlan({ area })}>{areas[area]}</Button>)}
       </div>
-      <dl className="grid gap-3 text-sm sm:grid-cols-2">
+      </div>
+      <dl className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
         {[
           ["Område som utreds", meta.area ? areas[meta.area] : scope],
           ["Bransch", buyer.industry || "Inte angiven ännu"],
           ["Företagsstorlek", sizeLabel(buyer.size) || "Inte angiven ännu"],
-        ].map(([label, value]) => <div key={label}><dt className="text-muted-foreground">{label}</dt><dd className="mt-1 font-medium text-foreground">{nowrapBrand(value)}</dd></div>)}
-        <div><dt className="mb-1 text-muted-foreground">Vald produkt</dt><dd>
+        ].map(([label, value]) => <div key={label} className="rounded-xl bg-muted/70 p-4"><dt className="text-xs uppercase tracking-wider text-muted-foreground">{label}</dt><dd className="mt-1.5 font-semibold text-foreground">{nowrapBrand(value)}</dd></div>)}
+        <div className="rounded-xl bg-muted/70 p-4"><dt className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">Vald produkt</dt><dd>
           <Select value={buyer.product || "unset"} onValueChange={(product) => updateBuyerContext({ product: product === "unset" ? null : product })}>
-            <SelectTrigger aria-label="Vald produkt" className="h-auto min-h-10 text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
+            <SelectTrigger aria-label="Vald produkt" className="h-auto min-h-10 bg-card text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="unset">Inte vald ännu</SelectItem>
               {["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service", "Contact Center", "Project Operations", "Commerce", "Human Resources"].map((product) => <SelectItem key={product} value={product}>{product === "Finance & SCM" ? "Finance & Supply Chain Management (F&O)" : product}</SelectItem>)}
@@ -60,7 +64,7 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           </Select>
         </dd></div>
       </dl>
-      <ul aria-label="Planens status" className="mt-5 grid gap-1.5 text-sm sm:grid-cols-2">
+      <ul aria-label="Planens status" className="mt-4 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
         {([
           [Boolean(meta.area), meta.area ? areas[meta.area] : "Område ej valt"],
           [Boolean(buyer.industry), buyer.industry || "Bransch ej angiven"],
@@ -68,11 +72,11 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           [needs.length + meta.needs.length + priorities.length > 0, "Viktiga behov angivna"],
           [Boolean(buyer.product), buyer.product ? `Lösning: ${buyer.product}` : "Lösning ej vald"],
           [items.length > 0, items.length ? `${items.length} partner sparade` : "Partner ej vald"],
-        ] as [boolean, string][]).map(([done, label]) => <li key={label} className={done ? "text-foreground" : "text-muted-foreground"}><span aria-hidden="true" className={done ? "text-accent" : ""}>{done ? "✓" : "□"}</span> {nowrapBrand(label)}<span className="sr-only">{done ? " (klart)" : " (återstår)"}</span></li>)}
+        ] as [boolean, string][]).map(([done, label]) => <li key={label} className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${done ? "border-accent/40 bg-accent/5 text-foreground" : "border-border text-muted-foreground"}`}>{done ? <CheckCircle2 aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" /> : <Circle aria-hidden="true" className="h-4 w-4 shrink-0 opacity-50" />}<span className="min-w-0">{nowrapBrand(label)}</span><span className="sr-only">{done ? " (klart)" : " (återstår)"}</span></li>)}
       </ul>
-      <p className="mt-3 text-sm"><span className="font-semibold">Rekommenderat nästa steg:</span> {next.label}</p>
-      {meta.solution && (() => { const sol = meta.solution; return <div className="mt-6">
-        <h3 className="font-semibold">Lösningsbild från behovsguiden <span className="text-xs font-normal text-muted-foreground">sparad {sol.savedAt}</span></h3>
+      <p className="mt-5 flex items-start gap-3 rounded-xl border-l-4 border-primary bg-primary/5 p-4 text-sm"><Compass aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><span><span className="font-semibold">Rekommenderat nästa steg:</span> {next.label}</span></p>
+      {meta.solution && (() => { const sol = meta.solution; return <div className="mt-8 border-t border-border pt-6">
+        <h3 className="text-lg font-semibold">Lösningsbild från behovsguiden <span className="text-xs font-normal text-muted-foreground">sparad {sol.savedAt}</span></h3>
         <p className="mt-1 text-sm text-muted-foreground">{sol.existingCustomer ? "Ni är redan Dynamics-kund och undersöker vidareutveckling." : sol.knownProduct ? `Ni har valt ${sol.knownProduct} och undersöker hur lösningen bör kompletteras.` : `Ni utforskar ${sol.areaLabel}.`}</p>
         <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
           {sol.knownProduct && <div><dt className="text-muted-foreground">Vald produkt (ert val)</dt><dd className="font-medium">{nowrapBrand(`Dynamics 365 ${sol.knownProduct}`)}</dd></div>}
@@ -88,7 +92,7 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
         <p className="mt-3 text-sm print:hidden"><Link to="/kom-igang/?source=min-d365-plan" className="text-primary hover:underline">Gör om behovsguiden</Link></p>
       </div>; })()}
       {(meta.completedSteps || []).length > 0 && <p className="mt-4 text-sm"><span className="font-semibold">Genomfört:</span> {(meta.completedSteps || []).map((c) => c === "behovsguide" ? "✓ Behovsguiden" : `✓ ${c}`).join(", ")}</p>}
-      <h3 className="mt-5 font-semibold">Behov och prioriteringar</h3>
+      <h3 className="mt-8 border-t border-border pt-6 text-lg font-semibold">Behov och prioriteringar</h3>
       {needs.length || meta.needs.length || priorities.length ? <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-foreground">
         {Array.from(new Set([...meta.needs, ...needs])).map((need) => <li key={need}>{nowrapBrand(need)}</li>)}
         {priorities.map(([key, value]) => <li key={key}>{key.slice(key.indexOf(":") + 1)}: {value === "important" ? "Prioriterat behov" : "Behöver utredas"}</li>)}
@@ -102,16 +106,16 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           "Vem i organisationen äger beslutet, och vilka roller behöver vara med?",
         ];
         return <>
-          <h3 id="plan-fragor" className="mt-5 scroll-mt-32 font-semibold">Frågor att ta med till styrgrupp och partners</h3>
+          <h3 id="plan-fragor" className="mt-8 scroll-mt-32 border-t border-border pt-6 text-lg font-semibold">Frågor att ta med till styrgrupp och partners</h3>
           <p className="mt-1 text-sm text-muted-foreground">Använd frågorna som checklista inför interna möten och partnersamtal.</p>
-          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-foreground">
+          <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm text-foreground marker:font-semibold marker:text-primary">
             {[...general, ...(cfg ? cfg.questions : [])].map((q) => <li key={q}>{nowrapBrand(q)}</li>)}
           </ol>
           {!cfg && <p className="mt-2 text-xs text-muted-foreground print:hidden">Välj en produkt ovan för att få produktspecifika frågor.</p>}
           {(meta.calculations || []).length > 0 && <>
-            <h3 className="mt-5 font-semibold">Sparade kalkyler</h3>
+            <h3 className="mt-8 border-t border-border pt-6 text-lg font-semibold">Sparade kalkyler</h3>
             <p className="mt-1 text-sm text-muted-foreground">Indikativa siffror från kalkylatorerna, exkl. moms.</p>
-            {(meta.calculations || []).map((c) => <div key={c.id} className="mt-3 break-inside-avoid rounded-md border border-border p-3">
+            {(meta.calculations || []).map((c) => <div key={c.id} className="mt-3 break-inside-avoid rounded-xl border border-border p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <p className="font-medium text-foreground">{nowrapBrand(c.product)} <span className="text-xs font-normal text-muted-foreground">uppdaterad {c.savedAt}</span></p>
                 <span className="flex gap-3 text-xs print:hidden">
@@ -124,10 +128,10 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
               </dl>
             </div>)}
           </>}
-          <h3 className="mt-5 font-semibold">Mina partneralternativ</h3>
+          <h3 className="mt-8 border-t border-border pt-6 text-lg font-semibold">Mina partneralternativ</h3>
           <p className="mt-1 text-sm text-muted-foreground">Partners ni vill undersöka vidare (högst tre). Att spara en partner kontaktar ingen och delar inga uppgifter.</p>
           {items.length === 0 ? <p className="mt-2 text-sm print:hidden">Inga partners sparade ännu. <Link to={planPartnerListUrl(buyer, meta)} className="text-primary hover:underline">Hitta relevanta partners →</Link></p> : <>
-            <ul className="mt-2 divide-y divide-border rounded-md border border-border">
+            <ul className="mt-3 divide-y divide-border rounded-xl border border-border">
               {items.map((p) => <li key={p.slug} className="flex flex-wrap items-center justify-between gap-3 p-3 text-sm">
                 <div className="min-w-0"><p className="font-medium text-foreground">{p.name}</p><p className="text-xs text-muted-foreground">{p.verified ? "Verifierad partner" : "Grundprofil"}</p></div>
                 <span className="flex gap-3 text-xs print:hidden">
@@ -144,8 +148,8 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
           </>}
         </>;
       })()}
-      <section aria-labelledby="plan-contact-title" className="mt-6 rounded-md border border-border p-4">
-        <h3 id="plan-contact-title" className="font-semibold">Ta nästa steg när ni är redo</h3>
+      <section aria-labelledby="plan-contact-title" className="mt-8 rounded-xl bg-muted/70 p-5 sm:p-6">
+        <h3 id="plan-contact-title" className="text-lg font-semibold">Ta nästa steg när ni är redo</h3>
         <p className="mt-1 text-sm text-muted-foreground">Ni bestämmer själva vilka som får ert underlag. Inget skickas till någon partner utan ert godkännande, och planen behöver inte vara komplett.</p>
         {(meta.contacts || []).length > 0 && <ul aria-label="Kontaktstatus" className="mt-3 space-y-1 text-sm">
           {(meta.contacts || []).map((c, i) => <li key={i}><span className="text-accent" aria-hidden="true">✓</span> {PLAN_CONTACT_LABEL[c.type]}{c.partners.length ? `: ${c.partners.join(", ")}` : ""} <span className="text-xs text-muted-foreground">{c.date}</span></li>)}
@@ -158,7 +162,7 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
         {!items.length && <p className="mt-2 text-xs text-muted-foreground print:hidden">Spara minst en partner i kortlistan för att kunna kontakta partners.</p>}
       </section>
       {contact && <PlanContactDialog mode={contact} onClose={() => setContact(null)} />}
-      <div className="mt-5 flex flex-wrap gap-3 print:hidden" onClickCapture={(e) => { if ((e.target as HTMLElement).closest("[data-nba]")) trackFunnelEvent({ event_type: "cta_click", event_name: "next_best_action_clicked", metadata: { action_key: nbaKey(next.to), action_label: next.label, target: next.to } }); }}>
+      <div className="mt-8 flex flex-wrap gap-3 border-t border-border pt-6 print:hidden" onClickCapture={(e) => { if ((e.target as HTMLElement).closest("[data-nba]")) trackFunnelEvent({ event_type: "cta_click", event_name: "next_best_action_clicked", metadata: { action_key: nbaKey(next.to), action_label: next.label, target: next.to } }); }}>
         {next.to === "#plan-fragor" ? <Button data-nba onClick={() => document.getElementById("plan-fragor")?.scrollIntoView({ behavior: "smooth" })}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : next.to.startsWith("#") ? <Button data-nba onClick={onEdit}>{next.label}<ArrowRight className="h-4 w-4" /></Button> : <Button asChild className="h-auto min-h-10 whitespace-normal"><Link data-nba to={next.to}>{next.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
         <Button variant="outline" onClick={onEdit}>Ändra eller komplettera svar</Button>
         <Button variant="ghost" onClick={() => { if (window.confirm("Rensa planens svar och prioriteringar? Era sparade partners finns kvar.")) clearD365Plan(); }}><RotateCcw className="h-4 w-4" />Rensa planen</Button>
