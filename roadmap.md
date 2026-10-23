@@ -57,3 +57,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Verifiera F&SCM-stöd och visa ett relevant urval ur den sammanslagna ISV-katalogen
 - [x] Samla sidans avslutning till en huvudväg med jämförelse och kostnad som sekundära vägar
 - [x] Testa regler och kontrollera verkliga länkar samt mobil/dator utan publicering
+
+## Heroräknare (2026-10-23)
+- [x] 139 000+ visningar, 3 300+ unika besökare, 20+ partners, 450+ guider; no-store i räknarfunktionen
