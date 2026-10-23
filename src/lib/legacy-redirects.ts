@@ -60,6 +60,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Partnernamnbyte: Goodfellows → Modia
   { from: "/partner/goodfellows",       to: "/partner/modia/",        intendedStatus: 301 },
 
+  // Partnernamnbyte: Dynamicskonsult → DevCore. Den gamla grundprofilen rankar
+  // fortfarande i Google; besökarna leds till partnerväljaren (beslut 2026-10-24).
+  { from: "/basic/dynamicskonsult",     to: "/valjdynamics365partner/", intendedStatus: 301 },
+
   // Branscher (gammalt namn)
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
 
