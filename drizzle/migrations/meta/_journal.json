@@ -50,6 +50,13 @@
       "when": 1792740878922,
       "tag": "0006_inquiries_public_insert_no_advisory_admin_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792741553436,
+      "tag": "0007_advisory_revoke_definer_execute",
+      "breakpoints": true
     }
   ]
 }
