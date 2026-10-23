@@ -129,32 +129,35 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Handle "update" action: update time_on_page for existing row instead of inserting
-    if (action === "update" && session_id && time_on_page_seconds !== undefined) {
-      // Find the most recent row for this session + page and update it
-      const { data: existing } = await supabase
-        .from("visitor_analytics")
-        .select("id, time_on_page_seconds")
-        .eq("session_id", String(session_id).slice(0, 100))
-        .eq("page_path", String(page_path).slice(0, 500))
-        // Only the visit that is still in progress may be updated (last 30 min)
-        .gte("visited_at", new Date(Date.now() - 30 * 60 * 1000).toISOString())
-        .order("visited_at", { ascending: false })
-        .limit(1);
-
+    // Handle "update" action: update time_on_page for the visit row created by
+    // this same browser. The row is identified only by the server-issued
+    // visit_id + signed visit_token returned on insert, so callers cannot pick
+    // another visitor's row by guessing session_id/page_path.
+    if (action === "update") {
+      const visitId = typeof body.visit_id === "string" ? body.visit_id : "";
+      const visitToken = typeof body.visit_token === "string" ? body.visit_token : "";
       const newSeconds = Number(time_on_page_seconds);
-      if (
-        existing && existing.length > 0 &&
-        Number.isFinite(newSeconds) && newSeconds >= 0 &&
-        newSeconds >= (existing[0].time_on_page_seconds ?? 0)
-      ) {
-        await supabase
+      const validToken = UUID_RE.test(visitId) && visitToken.length > 0 &&
+        await safeTokenMatch(visitToken, await signVisitId(visitId));
+
+      if (validToken && Number.isFinite(newSeconds) && newSeconds >= 0) {
+        const { data: existing } = await supabase
           .from("visitor_analytics")
-          .update({
-            time_on_page_seconds: Math.min(Math.round(newSeconds), 600),
-            is_bounce: false,
-          })
-          .eq("id", existing[0].id);
+          .select("id, time_on_page_seconds")
+          .eq("id", visitId)
+          // Only the visit that is still in progress may be updated (last 30 min)
+          .gte("visited_at", new Date(Date.now() - 30 * 60 * 1000).toISOString())
+          .limit(1);
+
+        if (existing && existing.length > 0 && newSeconds >= (existing[0].time_on_page_seconds ?? 0)) {
+          await supabase
+            .from("visitor_analytics")
+            .update({
+              time_on_page_seconds: Math.min(Math.round(newSeconds), 600),
+              is_bounce: false,
+            })
+            .eq("id", visitId);
+        }
       }
 
       return new Response(
