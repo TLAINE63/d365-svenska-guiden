@@ -1209,7 +1209,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  <img 
  src={thomasLainePhoto} 
  alt="Thomas Laine" 
- className="w-48 h-48 rounded object-cover object-[50%_15%] border-4 border-primary/20"
+ className="w-48 h-48 rounded object-cover object-[50%_0%] border-4 border-primary/20"
  />
  </div>
  <div className="text-center md:text-left">
