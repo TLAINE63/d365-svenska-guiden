@@ -11,6 +11,8 @@ import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCrmRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { ADVISORY_CTA } from "@/lib/advisory";
 import IsvAddonSuggestions, { type SelectedIsvAddon } from "@/components/IsvAddonSuggestions";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
@@ -499,6 +501,15 @@ ${
                     .join("\n") || ""
                 }`}
                 resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
+              />
+              <AdvisoryOffer
+                variant="compact"
+                placement="tool_result"
+                pageType="requirements"
+                cta={ADVISORY_CTA.tool_result}
+                text="Vill ni gå igenom kravunderlaget med någon på köparens sida innan ni skickar det vidare?"
+                sections={[{ key: "kravunderlag", label: "Kravunderlag", lines: [`Kravspecifikation: Dynamics 365 Customer Insights (Marketing)`, ...(result.industry || industry ? [`Bransch: ${result.industry || industry}`] : []), ...(companySize ? [`Företagsstorlek: ${companySize}`] : []), `${selectedAreas.length} valda funktionsområden`] }]}
+                metadata={{ tool: "RequirementsSpecMarketing" }}
               />
 
               <div className="text-center">

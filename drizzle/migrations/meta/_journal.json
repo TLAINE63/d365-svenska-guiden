@@ -36,6 +36,20 @@
       "when": 1792667148032,
       "tag": "0004_aktuellt_on_knowledge_articles",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792740860433,
+      "tag": "0005_advisory_wp1",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792740878922,
+      "tag": "0006_inquiries_public_insert_no_advisory_admin_fields",
+      "breakpoints": true
     }
   ]
 }

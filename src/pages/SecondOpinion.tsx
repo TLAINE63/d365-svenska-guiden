@@ -68,6 +68,7 @@ const SecondOpinion = () => {
     submitEvent: "second_opinion_submit",
     extra: known.length ? { key: "second_opinion", label: "Second opinion", lines: known } : undefined,
     metadata: meta,
+    advisory: { placement: "second_opinion", cta: "Be om en second opinion", pageType: "guide" },
   };
   const start = () => { setOpen(true); };
   const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };

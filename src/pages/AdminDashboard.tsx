@@ -113,6 +113,7 @@ import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
+import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
@@ -288,7 +289,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
  id: "leads-partners",
  label: "Leads & Partners",
  icon: Building2,
- tabs: ["leads", "partner-requests", "partners", "unprofiled-partners", "basic-partners", "data-gaps", "invitations", "agreement", "isv-catalog"],
+ tabs: ["leads", "partner-requests", "advisory", "partners", "unprofiled-partners", "basic-partners", "data-gaps", "invitations", "agreement", "isv-catalog"],
  },
  {
  id: "innehall",
@@ -2382,6 +2383,12 @@ Thomas`,
  </span>
  Partnerförfrågningar
  </TabsTrigger>
+ <TabsTrigger value="advisory" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+ <Inbox className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+ </span>
+ Rådgivning
+ </TabsTrigger>
  <TabsTrigger value="clicks" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
  <MousePointerClick className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
@@ -3787,6 +3794,11 @@ Thomas`,
  token={token || ""}
  onSessionExpired={logout}
  />
+ </TabsContent>
+
+ {/* ==================== ADVISORY TAB ==================== */}
+ <TabsContent value="advisory">
+ <AdminAdvisoryTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
  {/* ==================== AGREEMENT TAB ==================== */}

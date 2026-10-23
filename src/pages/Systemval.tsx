@@ -12,7 +12,9 @@ import type { SvcResult } from "@/lib/systemval/modules/service";
 import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemval/SolutionResultView";
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import { buildSolutionMap } from "@/lib/systemval/solutionMap";
-import { buildSystemvalResult, type Cta } from "@/lib/systemval/result";
+import { buildSystemvalResult, CLARITY_LABEL, type Cta } from "@/lib/systemval/result";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { ADVISORY_CTA } from "@/lib/advisory";
 import { savePlanSolution } from "@/lib/d365Plan";
 import type { PoResult } from "@/lib/systemval/modules/projectOperations";
 import DeepDialog from "@/components/systemval/DeepDialog";
@@ -242,6 +244,29 @@ export default function Systemval() {
               answers={summary}
               onEdit={(i) => { fromResult.current = true; setCursor(i); }}
               onRestart={restart}
+            />
+          )}
+
+          {!question && picture && result && !deepMode && (
+            <AdvisoryOffer
+              className="mt-10"
+              variant="inline"
+              placement="needs_guide"
+              pageType="tool"
+              cta={ADVISORY_CTA.needs_guide}
+              heading={result.clarity === "clear" ? "Vill ni pröva bedömningen innan ni går vidare?" : "Vill ni ha hjälp att tolka resultatet?"}
+              text="Gå igenom behovsanalysen med en rådgivare på köparens sida. Ni får hjälp att väga alternativen och reda ut de öppna frågorna, utan att någon partner deltar."
+              sections={[
+                { key: "behovsguide_resultat", label: "Resultat från behovsguiden", lines: [
+                  `Bedömning: ${CLARITY_LABEL[result.clarity]}`,
+                  ...result.primaryTracks.map((t) => `Huvudspår: ${t.label}`),
+                  ...result.alternativeTracks.map((x) => `Alternativ: ${x.labels.join(" eller ")}`),
+                  ...result.complementaryTracks.map((x) => `Komplettering: ${x.label}`),
+                  ...(result.selectedStartingPoint ? [`Utgångspunkt: ${result.selectedStartingPoint.label}`] : []),
+                ] },
+                ...(result.unresolvedQuestions.length ? [{ key: "behovsguide_oppna", label: "Öppna frågor", lines: result.unresolvedQuestions.slice(0, 5) }] : []),
+              ]}
+              metadata={{ clarity: result.clarity, primary: result.primaryTracks.map((t) => t.id).join(",") }}
             />
           )}
 

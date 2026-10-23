@@ -14,6 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
+      advisory_case_links: {
+        Row: {
+          case_a: string
+          case_b: string
+          created_at: string
+          id: string
+          note: string | null
+        }
+        Insert: {
+          case_a: string
+          case_b: string
+          created_at?: string
+          id?: string
+          note?: string | null
+        }
+        Update: {
+          case_a?: string
+          case_b?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "advisory_case_links_case_a_fkey"
+            columns: ["case_a"]
+            isOneToOne: false
+            referencedRelation: "advisory_cases"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "advisory_case_links_case_b_fkey"
+            columns: ["case_b"]
+            isOneToOne: false
+            referencedRelation: "advisory_cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      advisory_cases: {
+        Row: {
+          budget: string | null
+          company: string | null
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          id: string
+          journey_context: Json | null
+          need_summary: string | null
+          next_step: string | null
+          notes: string | null
+          origin_cta: string | null
+          origin_placement: string | null
+          phone: string | null
+          status: string
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          budget?: string | null
+          company?: string | null
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          journey_context?: Json | null
+          need_summary?: string | null
+          next_step?: string | null
+          notes?: string | null
+          origin_cta?: string | null
+          origin_placement?: string | null
+          phone?: string | null
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          budget?: string | null
+          company?: string | null
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          journey_context?: Json | null
+          need_summary?: string | null
+          next_step?: string | null
+          notes?: string | null
+          origin_cta?: string | null
+          origin_placement?: string | null
+          phone?: string | null
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ai_citation_checks: {
         Row: {
           check_month: string
@@ -869,6 +965,10 @@ export type Database = {
       }
       inquiries: {
         Row: {
+          advisory_case_id: string | null
+          advisory_cta: string | null
+          advisory_placement: string | null
+          booking_status: string | null
           buyer_replied_at: string | null
           buyer_reply: string | null
           company: string
@@ -881,8 +981,12 @@ export type Database = {
           id: string
           include_project: boolean | null
           inquiry_type: string
+          is_advisory: boolean
           landing_page: string | null
+          meeting_at: string | null
+          meeting_held_at: string | null
           message: string | null
+          page_type: string | null
           phone: string | null
           privacy_ack: boolean
           product_area: string | null
@@ -899,6 +1003,10 @@ export type Database = {
           utm_term: string | null
         }
         Insert: {
+          advisory_case_id?: string | null
+          advisory_cta?: string | null
+          advisory_placement?: string | null
+          booking_status?: string | null
           buyer_replied_at?: string | null
           buyer_reply?: string | null
           company: string
@@ -911,8 +1019,12 @@ export type Database = {
           id?: string
           include_project?: boolean | null
           inquiry_type: string
+          is_advisory?: boolean
           landing_page?: string | null
+          meeting_at?: string | null
+          meeting_held_at?: string | null
           message?: string | null
+          page_type?: string | null
           phone?: string | null
           privacy_ack: boolean
           product_area?: string | null
@@ -929,6 +1041,10 @@ export type Database = {
           utm_term?: string | null
         }
         Update: {
+          advisory_case_id?: string | null
+          advisory_cta?: string | null
+          advisory_placement?: string | null
+          booking_status?: string | null
           buyer_replied_at?: string | null
           buyer_reply?: string | null
           company?: string
@@ -941,8 +1057,12 @@ export type Database = {
           id?: string
           include_project?: boolean | null
           inquiry_type?: string
+          is_advisory?: boolean
           landing_page?: string | null
+          meeting_at?: string | null
+          meeting_held_at?: string | null
           message?: string | null
+          page_type?: string | null
           phone?: string | null
           privacy_ack?: boolean
           product_area?: string | null
@@ -958,7 +1078,15 @@ export type Database = {
           utm_source?: string | null
           utm_term?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_advisory_case_id_fkey"
+            columns: ["advisory_case_id"]
+            isOneToOne: false
+            referencedRelation: "advisory_cases"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       inquiry_partners: {
         Row: {
@@ -2515,6 +2643,86 @@ export type Database = {
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "partner_product_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_introductions: {
+        Row: {
+          admin_notes: string | null
+          business_outcome: string | null
+          business_status: string
+          case_id: string
+          commercial_model: string
+          consent_at: string | null
+          consent_given: boolean
+          consent_note: string | null
+          consent_scope: string[]
+          created_at: string
+          estimated_project_size: string | null
+          id: string
+          introduced_at: string | null
+          next_step: string | null
+          origin: string
+          outcome_at: string | null
+          partner_name: string | null
+          partner_response: string
+          partner_response_at: string | null
+          partner_slug: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          business_outcome?: string | null
+          business_status?: string
+          case_id: string
+          commercial_model?: string
+          consent_at?: string | null
+          consent_given?: boolean
+          consent_note?: string | null
+          consent_scope?: string[]
+          created_at?: string
+          estimated_project_size?: string | null
+          id?: string
+          introduced_at?: string | null
+          next_step?: string | null
+          origin?: string
+          outcome_at?: string | null
+          partner_name?: string | null
+          partner_response?: string
+          partner_response_at?: string | null
+          partner_slug: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          business_outcome?: string | null
+          business_status?: string
+          case_id?: string
+          commercial_model?: string
+          consent_at?: string | null
+          consent_given?: boolean
+          consent_note?: string | null
+          consent_scope?: string[]
+          created_at?: string
+          estimated_project_size?: string | null
+          id?: string
+          introduced_at?: string | null
+          next_step?: string | null
+          origin?: string
+          outcome_at?: string | null
+          partner_name?: string | null
+          partner_response?: string
+          partner_response_at?: string | null
+          partner_slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_introductions_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "advisory_cases"
             referencedColumns: ["id"]
           },
         ]
@@ -5578,6 +5786,10 @@ export type Database = {
       }
     }
     Functions: {
+      advisory_log_event: {
+        Args: { _meta: Json; _name: string }
+        Returns: undefined
+      }
       bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
       get_all_partner_names: {
