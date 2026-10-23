@@ -66,7 +66,7 @@ const OmThomasLaine = () => {
               <img
                 src={thomasLainePhoto}
                 alt="Thomas Laine – grundare av d365.se"
-                className="w-48 h-48 lg:w-64 lg:h-64 rounded object-cover border-4 border-primary/20 mx-auto lg:mx-0"
+                className="w-48 h-48 lg:w-64 lg:h-64 rounded object-cover object-top border-4 border-primary/20 mx-auto lg:mx-0"
               />
               <div>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground mb-2">

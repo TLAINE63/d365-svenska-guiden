@@ -693,7 +693,7 @@ const Index = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div className="flex items-start gap-3">
-                    <img src={thomasLaine} alt="Thomas Laine, köparsidig rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover flex-shrink-0" />
+                    <img src={thomasLaine} alt="Thomas Laine, köparsidig rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover object-top flex-shrink-0" />
                     <div className="pt-1">
                       <p className="font-semibold text-foreground">Thomas Laine</p>
                       <p className="text-xs text-muted-foreground leading-snug">
