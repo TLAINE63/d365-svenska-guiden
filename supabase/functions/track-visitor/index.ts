@@ -85,6 +85,26 @@ function isProductionOrigin(origin: string | null): boolean {
   return origin === "https://d365.se" || origin === "https://www.d365.se";
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// Signs a visit row id so only the browser that created the row can update it.
+async function signVisitId(visitId: string): Promise<string> {
+  const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+  const key = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(`track-visitor:${secret}`),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"],
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(visitId));
+  return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function safeTokenMatch(a: string, b: string): Promise<boolean> {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
 Deno.serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
 
@@ -181,7 +201,7 @@ Deno.serve(async (req) => {
     const geoData = geoLookupIp ? await getGeoData(geoLookupIp) : null;
 
     // Insert visitor record (only on initial page load)
-    const { error } = await supabase.from("visitor_analytics").insert({
+    const { data: inserted, error } = await supabase.from("visitor_analytics").insert({
       page_path,
       referrer: referrer || null,
       utm_source: utmSource,
@@ -195,9 +215,9 @@ Deno.serve(async (req) => {
       geo_city: geoData?.city || null,
       ip_anonymized: anonymizedIp,
       geo_org: geoData?.org || null,
-    });
+    }).select("id").single();
 
-    if (error) {
+    if (error || !inserted) {
       console.error("Insert error:", error);
       return new Response(
         JSON.stringify({ error: "Failed to track visit" }),
@@ -206,7 +226,7 @@ Deno.serve(async (req) => {
     }
 
     return new Response(
-      JSON.stringify({ success: true }),
+      JSON.stringify({ success: true, visit_id: inserted.id, visit_token: await signVisitId(inserted.id) }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
