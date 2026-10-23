@@ -64,7 +64,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
       {variant === "inline" ? (
         <aside aria-label="Kostnadsfri rådgivning" className="flex flex-col gap-5 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-start sm:p-6">
           <figure className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-center sm:text-center">
-            <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={112} height={112} className="h-20 w-20 rounded-full object-cover object-[50%_12%] ring-2 ring-border sm:h-28 sm:w-28" />
+            <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={112} height={112} className="h-20 w-20 rounded-full object-cover object-[50%_0%] ring-2 ring-border sm:h-28 sm:w-28" />
             <figcaption className="text-xs leading-tight text-muted-foreground"><span className="block font-semibold text-foreground">Thomas Laine</span>Grundare, d365.se</figcaption>
           </figure>
           <div className="min-w-0">
