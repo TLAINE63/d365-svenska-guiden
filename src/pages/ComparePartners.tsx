@@ -42,6 +42,8 @@ import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { ADVISORY_CTA } from "@/lib/advisory";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { getResultAssessment, getDocumentedEvidence } from "@/lib/partnerResultCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
@@ -2634,6 +2636,25 @@ const ComparePartners = () => {
                       )}
                     </section>
 
+                    {hasBoth && (
+                      <AdvisoryOffer
+                        className="mt-8"
+                        variant="inline"
+                        placement="compare"
+                        pageType="comparison"
+                        cta={ADVISORY_CTA.compare}
+                        heading="Vill ni gå igenom jämförelsen innan ni tar kontakt?"
+                        text="En rådgivare på köparens sida går igenom era valda partners mot ert behov, så att ni vet vad ni ska fråga och jämföra. Vill ni hellre kontakta partnerna direkt gör ni det ovan."
+                        sections={[
+                          { key: "valda_partners", label: "Valda partners", lines: [a, b, c].filter((p): p is DatabasePartner => Boolean(p)).map((p) => p.name) },
+                          ...((productFilters.length || industryFilter) ? [{ key: "jamforelse_urval", label: "Jämförelsens urval", lines: [
+                            ...productFilters.map((f) => `Produkt: ${PRODUCT_FILTER_GROUP[f]?.label ?? f}`),
+                            ...(industryFilter ? [`Bransch: ${industryFilter}`] : []),
+                          ] }] : []),
+                        ]}
+                        metadata={{ partner_count: [a, b, c].filter(Boolean).length }}
+                      />
+                    )}
 
                   </div>
                 )}

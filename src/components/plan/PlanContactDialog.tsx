@@ -50,12 +50,20 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; metadata?: Record<string, unknown> }
+export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion";
+/** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
+export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin }
+export type { Section as ContactSection };
 
 export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
   const { items } = useShortlist();
   const planSections = usePlanSections();
-  const sections = topic?.extra ? [topic.extra, ...planSections] : planSections;
+  const own = [...(topic?.extra ? [topic.extra] : []), ...(topic?.extras || [])];
+  const ownKeys = new Set(own.map((s) => s.key));
+  const sections = [...own, ...planSections.filter((s) => !ownKeys.has(s.key))];
+  const evType = topic?.advisory ? "advisory" as const : "engagement" as const;
+  const advMeta = topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType } : {};
   const [excluded, setExcluded] = useState<Record<string, boolean>>({});
   const [picked, setPicked] = useState<Record<string, boolean>>({});
   const [focus, setFocus] = useState("");
@@ -67,7 +75,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
   const advisory = mode === "advisory";
 
   useEffect(() => {
-    trackFunnelEvent({ event_type: "engagement", event_name: topic ? topic.startEvent : advisory ? "advisory_started" : "partner_contact_started", metadata: { shortlist: items.length, ...topic?.metadata } });
+    trackFunnelEvent({ event_type: evType, event_name: topic ? topic.startEvent : advisory ? "advisory_started" : "partner_contact_started", metadata: { shortlist: items.length, ...topic?.metadata, ...advMeta } });
     if (sections.length) trackFunnelEvent({ event_type: "engagement", event_name: "share_preview_viewed", metadata: { mode, sections: sections.length } });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -108,6 +116,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
           help_with: topic ? [topic.helpWith, focus].filter(Boolean).join(": ") : advisory ? focus || null : "Partnerdialog från Min D365-plan",
           project, include_project: shared.length > 0, privacy_ack: true,
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
+          advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null } : null,
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });
@@ -115,7 +124,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
       if (advisory) {
         recordPlanContact("advisory");
-        trackFunnelEvent({ event_type: "engagement", event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata } });
+        trackFunnelEvent({ event_type: evType, event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata, ...advMeta } });
       }
       // Grundprofiler finns inte alltid med namn i backend; visa kortlistans namn i stället för slug.
       const nameOf = (s: string) => chosen.find((p) => p.slug === s || p.name === s)?.name || s;
@@ -202,6 +211,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
                 </>}
               </section>
 
+              {advisory && <p className="rounded-md border border-border bg-secondary/40 p-3 text-xs text-muted-foreground">Rådgivningen är kostnadsfri för er och ingen partner behöver delta i mötet. d365.se kan ha kommersiella relationer med partners, men eventuell ersättning styr inte vilken lösning eller partner vi bedömer som relevant. Läs mer om <Link to="/agande-och-intressen/" className="underline" target="_blank">ägande och intressen</Link>. Inget delas med någon partner utan ert uttryckliga godkännande.</p>}
               <p className="text-xs text-muted-foreground">Dynamic Factory, som ger ut d365.se, är personuppgiftsansvarig. Läs mer i <Link to="/dataskydd/" className="underline" target="_blank">dataskyddspolicyn</Link>.</p>
               <label className="flex items-start gap-2 text-sm cursor-pointer rounded-md border border-border p-3">
                 <Checkbox checked={approve} onCheckedChange={(v) => setApprove(v === true)} className="mt-0.5" />

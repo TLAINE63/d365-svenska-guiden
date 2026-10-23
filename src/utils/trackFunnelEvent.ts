@@ -46,7 +46,8 @@ export type FunnelEventType =
   | "competence"
   | "role_guidance"
   | "underlag"
-  | "ai_library";
+  | "ai_library"
+  | "advisory";
 
 /** Fasta steg i köparresan. */
 export type FunnelStep =

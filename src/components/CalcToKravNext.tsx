@@ -3,6 +3,8 @@ import { ArrowRight, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useBuyerProfile } from "@/lib/buyerProfile";
 import { calcToKravLink, trackCalcToKrav, type CalcKravInput } from "@/lib/calcToKrav";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { ADVISORY_CTA } from "@/lib/advisory";
 
 type Props = Omit<CalcKravInput, "profileHasIndustry"> & {
   /** Övriga, sekundära vägar (t.ex. matchningstest eller partnerlista). */
@@ -50,6 +52,16 @@ export default function CalcToKravNext({ children, className = "", ...input }: P
         </Button>
         {children}
       </div>
+      <AdvisoryOffer
+        className="mt-6 border-t border-border pt-4"
+        variant="compact"
+        placement="tool_result"
+        pageType="calculator"
+        cta={ADVISORY_CTA.tool_result}
+        text="Vill ni hellre gå igenom kalkylen med någon på köparens sida först?"
+        sections={[{ key: "kalkyl", label: "Kalkyl", lines: [`Produkt: ${link.label}`, ...carried] }]}
+        metadata={{ tool: "calculator", product: input.product }}
+      />
     </div>
   );
 }

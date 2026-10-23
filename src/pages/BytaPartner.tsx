@@ -11,6 +11,8 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import { analyse, asksPartnerApps, partnerSearch, PRODUCT_LABEL, type PsAnswers } from "@/lib/partnerSwitch";
 import { addScopeApps, setAnswer } from "@/lib/buyerProfile";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { ADVISORY_CTA } from "@/lib/advisory";
 
 const PATH = "/guider/byta-dynamics-partner/";
 const breadcrumbs = [
@@ -42,6 +44,9 @@ const faq = [
   { q: "Vem äger anpassningarna och koden?", a: "Det avgörs av ert avtal. Kontrollera vad det säger om äganderätt, nyttjanderätt, källkod och fortsatt användning efter avslutat samarbete." },
   { q: "Måste licenserna flyttas samtidigt?", a: "Inte nödvändigtvis. Licens- och CSP-partner kan vara en annan än den som förvaltar lösningen. Följ Microsofts aktuella regler om ni vill flytta abonnemangen." },
 ];
+
+const SCOPE_LABEL: Record<string, string> = { all: "Hela partnerrelationen", support: "Support och förvaltning", development: "Vidareutveckling", specialist: "Komplettera med specialist" };
+const REASON_LABEL: Record<string, string> = { support: "Support och respons", competence: "Saknad kompetens", cost: "Kostnader", unclear: "Otydligt samarbete", strategy: "Ny riktning" };
 
 type Opt = { v: string; l: string };
 const Q = ({ label, opts, value, onChange }: { label: string; opts: Opt[]; value?: string; onChange: (v: string) => void }) => (
@@ -97,6 +102,24 @@ const Analysis = () => {
           <Button variant="ghost" onClick={() => { setDone(false); setStep(0); }}>Ändra svar</Button>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">Produkt och omfattning sparas bara i er webbläsare och följer med till partnerurval och Min D365-plan.</p>
+        <AdvisoryOffer
+          className="mt-6"
+          variant="inline"
+          placement="partner_switch"
+          pageType="guide"
+          cta={ADVISORY_CTA.partner_switch}
+          heading={areas.length ? "Osäkra på hur ni ska tolka resultatet?" : "Vill ni få resultatet bekräftat?"}
+          text="Gå igenom analysen med en rådgivare på köparens sida innan ni bestämmer er. Ofta blir slutsatsen att fortsätta med nuvarande partner, med tydligare krav eller förvaltning."
+          sections={[
+            { key: "partnerbyte_lage", label: "Ert läge", lines: [
+              a.product && a.product !== "other" ? `Produkt: ${PRODUCT_LABEL[a.product]}` : null,
+              a.scope ? `Vill förändra: ${SCOPE_LABEL[a.scope] ?? a.scope}` : null,
+              a.reasons.length ? `Skäl: ${a.reasons.map((r) => REASON_LABEL[r] ?? r).join(", ")}` : null,
+            ].filter(Boolean) as string[] },
+            ...(areas.length ? [{ key: "partnerbyte_resultat", label: "Resultat från partnerbytesanalysen", lines: areas.map((x) => x.title) }] : []),
+          ].filter((s) => s.lines.length > 0)}
+          metadata={{ areas: areas.length }}
+        />
       </div>
     );
   }

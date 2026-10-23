@@ -18,6 +18,13 @@ const Body = z.object({
   partners: z.array(z.object({ slug: z.string().trim().min(1).max(120), name: z.string().trim().max(200).optional(), consent: z.boolean() })).max(3).default([]),
   /** Rådgivning direkt med d365.se, ingen partner kontaktas. */
   advisory: z.boolean().optional(),
+  /** Var rådgivningen bokades (beslutspunkt, CTA, sidtyp). Inga personuppgifter. */
+  advisory_context: z.object({
+    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan"]),
+    cta: z.string().trim().max(120),
+    page_type: z.string().trim().max(60).optional().nullable(),
+    page_path: z.string().trim().max(300).optional().nullable(),
+  }).optional().nullable(),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100), utm_content: s(100), utm_term: s(100),
   referrer: s(500), landing_page: s(500), session_id: s(100),
 });
@@ -85,16 +92,28 @@ Deno.serve(async (req) => {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
     // Rådgivning med d365.se: inga partners kontaktas.
+    // Varje bokning (Advisory Booking = inquiries-rad) får ett eget nytt Advisory Case; ärenden slås aldrig ihop automatiskt.
     if (d.advisory && d.inquiry_type === "fraga") {
-      const { partners: _a, advisory: _b, ...restA } = d;
-      const { error: errA } = await sb.from("inquiries").insert({ ...restA, project: d.include_project ? d.project ?? null : null, source_site: siteFromOrigin(origin) });
-      if (errA) { console.error(errA); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
+      const { partners: _a, advisory: _b, advisory_context: ac, ...restA } = d;
+      const project = d.include_project ? d.project ?? null : null;
+      const { data: advCase, error: caseErr } = await sb.from("advisory_cases").insert({
+        contact_name: d.contact_name, company: d.company, email: d.email, phone: d.phone || null,
+        journey_context: project, origin_placement: ac?.placement ?? "plan", origin_cta: ac?.cta ?? d.help_with ?? null,
+      }).select("id").single();
+      if (caseErr || !advCase) { console.error(caseErr); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
+      const { data: booking, error: errA } = await sb.from("inquiries").insert({
+        ...restA, project, source_site: siteFromOrigin(origin),
+        is_advisory: true, advisory_case_id: advCase.id, booking_status: "forfragan",
+        advisory_placement: ac?.placement ?? "plan", advisory_cta: ac?.cta ?? null, page_type: ac?.page_type ?? null,
+        landing_page: restA.landing_page ?? ac?.page_path ?? null,
+      }).select("id").single();
+      if (errA || !booking) { console.error(errA); await sb.from("advisory_cases").delete().eq("id", advCase.id); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
       const keyA = Deno.env.get("RESEND_API_KEY");
       if (keyA) {
         const resend = new Resend(keyA);
         try {
           await resend.emails.send({
-            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Rådgivning via Min D365-plan: ${d.company}`,
+            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Rådgivning${ac?.cta ? ` (${ac.cta})` : " via Min D365-plan"}: ${d.company}`,
             html: layout(`Rådgivning: ${esc(d.company)}`, p(`${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.`) + box("Kontakt och förfrågan", rows([["Namn", d.contact_name], ["Företag", d.company], ["E-post", d.email], ["Telefon", d.phone || "–"], ["Gäller", d.help_with || "–"], ["Meddelande", d.message || "–"]])) + (d.include_project ? projectText(d.project) : "")),
           });
           await resend.emails.send({
@@ -103,7 +122,7 @@ Deno.serve(async (req) => {
           });
         } catch (e) { console.error("advisory mail", e); }
       }
-      return json({ ok: true, partners: [] }, 200, cors);
+      return json({ ok: true, partners: [], booking_id: booking.id }, 200, cors);
     }
 
     if (!approved.length) return json({ error: "Välj minst en partner som ska få er förfrågan." }, 400, cors);
@@ -116,7 +135,7 @@ Deno.serve(async (req) => {
     const introNames = intros.map((s) => all.find((p) => p.slug === s)?.name || d.partners.find((p) => p.slug === s)?.name || s);
     const dbProject = d.include_project ? { ...(d.project || {}), ...(intros.length ? { introduktion_begard: intros } : {}) } : (intros.length ? { introduktion_begard: intros } : null);
 
-    const { partners: _p, advisory: _adv, ...rest } = d;
+    const { partners: _p, advisory: _adv, advisory_context: _ctx, ...rest } = d;
     const { data: inquiry, error } = await sb.from("inquiries").insert({ ...rest, project: dbProject, source_site: siteFromOrigin(origin) }).select("id").single();
     if (error || !inquiry) { console.error(error); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
 

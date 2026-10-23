@@ -4,7 +4,7 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
-  "/guider/byta-dynamics-partner/": "2026-10-20",
+  "/guider/byta-dynamics-partner/": "2026-10-23",
   "/guider/valja-dynamics-365-partner/": "2026-10-22",
   "/": "2026-10-22",
   "/kontakt/": "2026-10-22",
