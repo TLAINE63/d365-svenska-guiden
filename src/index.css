@@ -650,7 +650,7 @@ All colors MUST be HSL.
   background: hsl(var(--primary) / 0.88);
 }
 @media (max-width: 640px) { .partner-opening-name { font-size: 2.25rem; } }
-.dark .partner-profile-premium {
+.dark .partner-profile-premium, .dark .plan-premium {
   --background: 185 42% 11%;
   --foreground: 200 18% 97%;
   --muted-foreground: 185 14% 74%;
