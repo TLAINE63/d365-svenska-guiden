@@ -2,12 +2,12 @@
 
 ## WP1 Rådgivningsledd partnerintroduktion (2026-10-23)
 - [x] Inventera CTA, bokning (PlanContactDialog advisory → submit-inquiry), admin, mätning
-- [ ] Datamodell: bokning (inquiries), rådgivningsärende, partnerintroduktion, relationer, spärrar
-- [ ] Gemensam rådgivningskomponent (compact/inline) med transparens och delningsförhandsvisning
-- [ ] Fyra placeringar: jämförelse, partnerbytesanalys, behovsguide, kalkylator/kravspec
-- [ ] Adminflik Rådgivning (ärenden, bokningar, introduktioner, relaterade ärenden)
-- [ ] Mätning: view/click/booking/meeting/introduction, direkta förfrågningar separat
-- [ ] Tester, webbläsarkontroll, slutrapport (WP2 byggs inte)
+- [x] Datamodell: bokning (inquiries), rådgivningsärende, partnerintroduktion, relationer, spärrar
+- [x] Gemensam rådgivningskomponent (compact/inline) med transparens och delningsförhandsvisning
+- [x] Fyra placeringar: jämförelse, partnerbytesanalys, behovsguide, kalkylator/kravspec
+- [x] Adminflik Rådgivning (ärenden, bokningar, introduktioner, relaterade ärenden)
+- [x] Mätning: view/click/booking/meeting/introduction, direkta förfrågningar separat
+- [x] Tester, webbläsarkontroll, slutrapport (WP2 byggs inte)
 
 ## Aktuellt: ett enda arbetsbord i /redaktion/ (2026-10-22)
 - [x] Fliken efter Artiklar, kön med Förhandsgranska/Redigera/Publicera/Ignorera
