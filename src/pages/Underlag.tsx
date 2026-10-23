@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight, ClipboardCopy, Printer, Trash2 } from "lucide-react";
+import { ArrowRight, ClipboardCopy, HardDrive, Printer, ShieldCheck, Trash2, UserX } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -137,135 +137,163 @@ export default function Underlag() {
     if (window.confirm("Vill ni rensa planens svar och prioriteringar? Era sparade partners finns kvar.")) clearD365Plan();
   };
 
+  const card = "plan-card";
+  const h2 = "text-2xl font-semibold text-foreground sm:text-3xl";
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead title="Min D365-plan | d365.se" description="Samla verksamhetens behov, egna prioriteringar, bedömningar och sparade partners i er plan utan kontaktkrav." canonicalPath="/underlag/" noIndex />
       <div className="print:hidden"><Navbar /></div>
-      <main className="flex-1">
-        <section className="container mx-auto px-4 sm:px-6 max-w-4xl pt-24 sm:pt-28 pb-12">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2 print:hidden">Anonymt, ingen inloggning</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 [hyphens:manual]">
-            Min D365-plan
-          </h1>
+      <main className="plan-premium flex-1">
+        <section className="plan-opening">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-36 pb-12 sm:pb-16">
+            <p className="plan-eyebrow mb-3 print:hidden">Anonymt, ingen inloggning</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight [hyphens:manual]">Min D365-plan</h1>
+            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground">
+              Samla behov, prioriteringar, bedömningar och sparade partners på ett ställe, som underlag för interna möten och partnersamtal.
+            </p>
+            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-foreground print:hidden">
+              {[
+                [HardDrive, "Sparas bara i den här webbläsaren"],
+                [UserX, "Inga kontaktuppgifter behövs"],
+                [ShieldCheck, "Inget skickas utan ert godkännande"],
+              ].map(([Icon, label]) => {
+                const I = Icon as typeof ShieldCheck;
+                return <li key={label as string} className="flex items-center gap-2"><I aria-hidden="true" className="h-4 w-4 text-accent" />{label as string}</li>;
+              })}
+            </ul>
+          </div>
+        </section>
 
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14 space-y-8">
           <PlanSummary onEdit={edit} />
 
-          {!any && <section id="komplettera" className="scroll-mt-32 mb-6">
-            <h2 className="mb-3 text-xl font-semibold">Utgå från er verksamhet</h2>
+          {!any && <section id="komplettera" className={`${card} scroll-mt-32`}>
+            <p className="plan-eyebrow mb-2">Kom igång</p>
+            <h2 className={h2}>Utgå från er verksamhet</h2>
+            <p className="mt-2 mb-6 max-w-3xl text-sm sm:text-base text-muted-foreground">Ert underlag växer fram när ni besvarar frågor och markerar prioriteringar. Ett enklare system, en annan leverantör eller fortsatt utredning kan vara rätt nästa steg. En vald prioritering är inte en produktrekommendation.</p>
             <UnderlagQuestionnaire questions={showEdit ? UNDERLAG_QUESTIONS : PARTS[0].questions.slice(0, 3)} />
           </section>}
-          {!any && (meta.area === "erp" || meta.area === "crm") && <FitModel model={meta.area as FitModelKey} heading="Vilka behov avgör ert val?" />}
 
-          {!any ? (
-            <div className="space-y-6">
-              <p className="text-muted-foreground max-w-2xl">Ert underlag växer fram när ni besvarar frågor och markerar prioriteringar. Ett enklare system, en annan leverantör eller fortsatt utredning kan vara rätt nästa steg. En vald prioritering är inte en produktrekommendation.</p>
-            </div>
-          ) : (
-            <div className="space-y-8">
-              <div className="flex flex-wrap gap-2 print:hidden">
-                <Button variant="outline" size="sm" onClick={copy}><ClipboardCopy className="w-4 h-4 mr-1" />Kopiera</Button>
-                <Button variant="outline" size="sm" onClick={print}><Printer className="w-4 h-4 mr-1" />Skriv ut/PDF</Button>
-                <Button variant="ghost" size="sm" onClick={clear}><Trash2 className="w-4 h-4 mr-1" />Rensa</Button>
-              </div>
+          {any && (
+            <>
+              <section className={card} aria-labelledby="underlag-title">
+                <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <p className="plan-eyebrow mb-2">Ert underlag</p>
+                    <h2 id="underlag-title" className={h2}>Svar och bedömningar</h2>
+                  </div>
+                  <div className="flex flex-wrap gap-2 print:hidden">
+                    <Button variant="outline" size="sm" onClick={copy}><ClipboardCopy className="w-4 h-4 mr-1" />Kopiera</Button>
+                    <Button variant="outline" size="sm" onClick={print}><Printer className="w-4 h-4 mr-1" />Skriv ut/PDF</Button>
+                    <Button variant="ghost" size="sm" onClick={clear}><Trash2 className="w-4 h-4 mr-1" />Rensa</Button>
+                  </div>
+                </div>
 
-              <ul className="grid gap-2 sm:grid-cols-2">
-                {[...parts.map((p) => ({ t: p.title, s: p.status, m: p.missing.length })), { t: "Bedömning", s: assessmentStatus, m: 0 }, { t: "Partnerutvärdering", s: partnerStatus, m: 0 }].map((r) => (
-                  <li key={r.t} className="flex items-center justify-between gap-2 rounded-md border border-border px-3 py-2 text-sm">
-                    <span>{r.t}{r.m > 0 && <span className="text-muted-foreground"> · {r.m} uppgifter saknas</span>}</span>
-                    <span className={`rounded px-2 py-0.5 text-xs font-medium ${statusCls[r.s]}`}>{r.s}</span>
-                  </li>
+                <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {[...parts.map((p) => ({ t: p.title, s: p.status, m: p.missing.length })), { t: "Bedömning", s: assessmentStatus, m: 0 }, { t: "Partnerutvärdering", s: partnerStatus, m: 0 }].map((r) => (
+                    <li key={r.t} className="flex items-center justify-between gap-2 rounded-xl bg-muted/70 px-4 py-3 text-sm">
+                      <span><span className="font-medium">{r.t}</span>{r.m > 0 && <span className="block text-xs text-muted-foreground">{r.m} uppgifter saknas</span>}</span>
+                      <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusCls[r.s]}`}>{r.s}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {parts.filter((p) => p.answered.length).map((p) => (
+                  <section key={p.key} className="mt-8 border-t border-border pt-6">
+                    <h3 className="text-lg font-semibold mb-3">{p.title}</h3>
+                    <dl className="divide-y divide-border rounded-xl border border-border text-sm">
+                      {p.answered.map((q) => (
+                        <div key={q.id} className="grid gap-1 px-4 py-3 sm:grid-cols-2">
+                          <dt className="text-muted-foreground">{q.text}</dt>
+                          <dd className="font-medium text-foreground break-words">{answerLabel(q, profile[q.section][q.key])}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    {p.missing.length > 0 && <p className="text-xs text-muted-foreground mt-2">Saknas: {p.missing.map((q) => q.text.replace(/\?$/, "")).join(" · ")}</p>}
+                  </section>
                 ))}
-              </ul>
 
-              {parts.filter((p) => p.answered.length).map((p) => (
-                <section key={p.key}>
-                  <h2 className="text-xl font-semibold mb-2">{p.title}</h2>
-                  <dl className="divide-y divide-border rounded-lg border border-border text-sm">
-                    {p.answered.map((q) => (
-                      <div key={q.id} className="grid gap-1 px-3 py-2 sm:grid-cols-2">
-                        <dt className="text-muted-foreground">{q.text}</dt>
-                        <dd className="text-foreground break-words">{answerLabel(q, profile[q.section][q.key])}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  {p.missing.length > 0 && <p className="text-xs text-muted-foreground mt-1">Saknas: {p.missing.map((q) => q.text.replace(/\?$/, "")).join(" · ")}</p>}
+                {(lvl || crmApps.length > 0) && (
+                  <section className="mt-8 border-t border-border pt-6">
+                    <h3 className="text-lg font-semibold mb-3">Bedömning</h3>
+                    <ul className="grid gap-3 text-sm md:grid-cols-2">
+                      {lvl && (
+                        <li className="rounded-xl border border-border border-l-4 border-l-accent p-4">
+                          <span className="font-medium">Finance &amp; Supply&nbsp;Chain&nbsp;Management:</span> {FSCM_LEVEL_TEXT[lvl]}.
+                          {lvl === "below" && (
+                            <> <a href={BC_TEST_URL} className="text-primary underline" target="_blank" rel="noopener">Utvärdera Business Central på businesscentral.se</a></>
+                          )}
+                        </li>
+                      )}
+                      {crmApps.length > 0 && (
+                        <li className="rounded-xl border border-border border-l-4 border-l-accent p-4">
+                          <span className="font-medium">CRM-applikationer som verkar relevanta att utvärdera vidare:</span> {crmApps.map((c) => CRM_APP_LABEL[c]).join(", ")}.
+                        </li>
+                      )}
+                    </ul>
+                  </section>
+                )}
+
+                <div className="mt-8 grid gap-8 border-t border-border pt-6 md:grid-cols-2">
+                  <section>
+                    <h3 className="text-lg font-semibold mb-2">Kostnadsbild</h3>
+                    <p className="text-sm">
+                      {budget && BUDGET_LABEL[budget] ? <>Er egen budgetram: {BUDGET_LABEL[budget]}. </> : null}
+                      Licens- och projektkostnad bör kontrolleras med partner.
+                    </p>
+                  </section>
+                  {items.length > 0 && (
+                    <section>
+                      <h3 className="text-lg font-semibold mb-2">Partnerutvärdering</h3>
+                      <ul className="text-sm space-y-1">
+                        {items.map((i) => <li key={i.slug}><Link to={i.url} className="text-primary hover:underline">{i.name}</Link></li>)}
+                      </ul>
+                      <p className="text-xs text-muted-foreground mt-1">{compared ? "Partnerna har jämförts sida vid sida." : "Partnerna har inte jämförts ännu."}</p>
+                    </section>
+                  )}
+                </div>
+
+                {takeForward.length > 0 && (
+                  <section className="mt-8 border-t border-border pt-6">
+                    <h3 className="text-lg font-semibold mb-2">Frågor att ta vidare</h3>
+                    <ul className="list-disc pl-5 text-sm space-y-1.5 marker:text-primary">{takeForward.map((q) => <li key={q}>{q}</li>)}</ul>
+                  </section>
+                )}
+
+                <section id="komplettera" className="mt-8 border-t border-border pt-6 scroll-mt-32 print:hidden">
+                  <Button variant="outline" size="sm" onClick={() => setShowEdit((v) => !v)}>{showEdit ? "Dölj frågorna" : "Komplettera underlaget"}</Button>
+                  {showEdit && <div className="mt-4"><UnderlagQuestionnaire questions={UNDERLAG_QUESTIONS} /></div>}
                 </section>
-              ))}
-
-              {(lvl || crmApps.length > 0) && (
-                <section>
-                  <h2 className="text-xl font-semibold mb-2">Bedömning</h2>
-                  <ul className="space-y-2 text-sm">
-                    {lvl && (
-                      <li className="rounded-lg border border-border p-3">
-                        <span className="font-medium">Finance &amp; Supply&nbsp;Chain&nbsp;Management:</span> {FSCM_LEVEL_TEXT[lvl]}.
-                        {lvl === "below" && (
-                          <> <a href={BC_TEST_URL} className="text-primary underline" target="_blank" rel="noopener">Utvärdera Business Central på businesscentral.se</a></>
-                        )}
-                      </li>
-                    )}
-                    {crmApps.length > 0 && (
-                      <li className="rounded-lg border border-border p-3">
-                        <span className="font-medium">CRM-applikationer som verkar relevanta att utvärdera vidare:</span> {crmApps.map((c) => CRM_APP_LABEL[c]).join(", ")}.
-                      </li>
-                    )}
-                  </ul>
-                </section>
-              )}
-
-              <section>
-                <h2 className="text-xl font-semibold mb-2">Kostnadsbild</h2>
-                <p className="text-sm">
-                  {budget && BUDGET_LABEL[budget] ? <>Er egen budgetram: {BUDGET_LABEL[budget]}. </> : null}
-                  Licens- och projektkostnad bör kontrolleras med partner.
-                </p>
               </section>
 
-              {items.length > 0 && (
-                <section>
-                  <h2 className="text-xl font-semibold mb-2">Partnerutvärdering</h2>
-                  <ul className="text-sm space-y-1">
-                    {items.map((i) => <li key={i.slug}><Link to={i.url} className="text-primary hover:underline">{i.name}</Link></li>)}
-                  </ul>
-                  <p className="text-xs text-muted-foreground mt-1">{compared ? "Partnerna har jämförts sida vid sida." : "Partnerna har inte jämförts ännu."}</p>
-                </section>
-              )}
-
-              {takeForward.length > 0 && (
-                <section>
-                  <h2 className="text-xl font-semibold mb-2">Frågor att ta vidare</h2>
-                  <ul className="list-disc pl-5 text-sm space-y-1">{takeForward.map((q) => <li key={q}>{q}</li>)}</ul>
-                </section>
-              )}
-
-              {(meta.area === "partner" || !meta.area) && (lvl || crmApps.length > 0 || items.length > 0) && <section className="border-y border-border py-4 print:hidden">
-                <h2 className="text-xl font-semibold mb-2">Nästa steg</h2>
+              {(meta.area === "partner" || !meta.area) && (lvl || crmApps.length > 0 || items.length > 0) && <section className={`${card} border-l-4 border-l-primary print:hidden`}>
+                <p className="plan-eyebrow mb-2">Nästa steg</p>
                 {nextStep.to.startsWith("#") ? (
-                  <a href={nextStep.to} className="inline-flex items-center text-primary font-medium">{nextStep.label}<ArrowRight className="w-4 h-4 ml-1" /></a>
+                  <a href={nextStep.to} className="inline-flex items-center text-lg font-semibold text-primary">{nextStep.label}<ArrowRight className="w-5 h-5 ml-1" /></a>
                 ) : (
-                  <Link to={nextStep.to} className="inline-flex items-center text-primary font-medium">{nextStep.label}<ArrowRight className="w-4 h-4 ml-1" /></Link>
+                  <Link to={nextStep.to} className="inline-flex items-center text-lg font-semibold text-primary">{nextStep.label}<ArrowRight className="w-5 h-5 ml-1" /></Link>
                 )}
                 <div className="mt-3">
                   <Link to={`/valjdynamics365partner/?${filtersToSearch(filters)}`} className="text-sm text-muted-foreground underline">Se partners förifyllda från underlaget</Link>
                 </div>
               </section>}
 
-              <section id="komplettera" className="scroll-mt-32 print:hidden">
-                <Button variant="outline" size="sm" onClick={() => setShowEdit((v) => !v)}>{showEdit ? "Dölj frågorna" : "Komplettera underlaget"}</Button>
-                {showEdit && <div className="mt-4"><UnderlagQuestionnaire questions={UNDERLAG_QUESTIONS} /></div>}
-              </section>
-
               {hasPackage && (
-                <section id="skicka" className="print:hidden">
-                  <h2 className="text-xl font-semibold mb-2">Skicka ert <span className="whitespace-nowrap">Dynamics 365</span>-underlag</h2>
-                  <p className="text-sm text-muted-foreground mb-3">Ni får hela underlaget på e-post. Det skickas inte vidare till någon partner utan ert godkännande.</p>
+                <section id="skicka" className={`${card} print:hidden`}>
+                  <p className="plan-eyebrow mb-2">Skicka</p>
+                  <h2 className={`${h2} mb-2`}>Skicka ert <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-underlag</h2>
+                  <p className="text-sm text-muted-foreground mb-5">Ni får hela underlaget på e-post. Det skickas inte vidare till någon partner utan ert godkännande.</p>
                   <SendUnderlagForm text={text} profile={profile} />
                 </section>
               )}
-            </div>
+            </>
           )}
-        </section>
-        {any && (meta.area === "erp" || meta.area === "crm" || meta.area === "partner") && <FitModel model={meta.area} heading="Vilka behov avgör ert val?" />}
+
+          {(meta.area === "erp" || meta.area === "crm" || (any && meta.area === "partner")) && (
+            <FitModel framed className={card} model={meta.area as FitModelKey} heading="Vilka behov avgör ert val?" />
+          )}
+        </div>
       </main>
       <div className="print:hidden"><Footer /></div>
     </div>
