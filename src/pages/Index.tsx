@@ -153,12 +153,15 @@ const Index = () => {
   const isvSolutionCount = loadedIsvCount > 64 ? loadedIsvCount : ISV_COUNT_BASELINE;
   const identifiedPartnerCount = IDENTIFIED_PARTNER_COUNT;
   const [visitorCount, setVisitorCount] = useState(0);
+  const [visitCount, setVisitCount] = useState(0);
   useEffect(() => {
     let cancelled = false;
     supabase.functions
       .invoke("public-visitor-count", { body: {} })
       .then(({ data }) => {
-        if (!cancelled && data?.uniqueVisitorsTotal > 0) setVisitorCount(data.uniqueVisitorsTotal);
+        if (cancelled) return;
+        if (data?.uniqueVisitorsTotal > 0) setVisitorCount(data.uniqueVisitorsTotal);
+        if (data?.totalVisits > 0) setVisitCount(data.totalVisits);
       })
       .catch(() => {});
     return () => {
@@ -326,21 +329,19 @@ const Index = () => {
             <ul className="mb-5 sm:mb-7 grid max-w-4xl gap-x-5 gap-y-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
               <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={identifiedPartnerCount} className="tabular-nums" /> kartlagda Dynamics 365-partners</span>
+                <span><CountUp value={139000 + visitCount} suffix="+" className="tabular-nums" /> visningar</span>
               </li>
               <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={isvSolutionCount} className="tabular-nums" /> tilläggslösningar i ISV-katalogen</span>
+                <span><CountUp value={3300 + visitorCount} suffix="+" className="tabular-nums" /> unika besökare</span>
               </li>
-              {visitorCount > 0 && (
-                <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                  <span><CountUp value={visitorCount} className="tabular-nums" /> besökare</span>
-                </li>
-              )}
               <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
                 <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={HERO_INDUSTRIES.length} className="tabular-nums" /> branscher</span>
+                <span><CountUp value={VERIFIED_PARTNER_COUNT} suffix="+" className="tabular-nums" /> verifierade partners i Sverige</span>
+              </li>
+              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
               </li>
             </ul>
             <p className="mb-4 sm:mb-6 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">

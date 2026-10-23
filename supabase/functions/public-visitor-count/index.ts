@@ -16,6 +16,7 @@ Deno.serve(async (req) => {
     );
 
     const visitors = new Set<string>();
+    let totalVisits = 0;
     const pageSize = 1000;
     for (let from = 0; from < 1000000; from += pageSize) {
       const { data, error } = await supabase
@@ -31,6 +32,7 @@ Deno.serve(async (req) => {
         });
       }
       if (!data || data.length === 0) break;
+      totalVisits += data.length;
       for (const r of data) {
         const day = (r.visited_at || "").slice(0, 10);
         const base = r.ip_anonymized && r.ip_anonymized !== "unknown" ? r.ip_anonymized : r.session_id;
@@ -39,8 +41,8 @@ Deno.serve(async (req) => {
       if (data.length < pageSize) break;
     }
 
-    return new Response(JSON.stringify({ uniqueVisitorsTotal: visitors.size }), {
-      headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" },
+    return new Response(JSON.stringify({ uniqueVisitorsTotal: visitors.size, totalVisits }), {
+      headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "no-store, no-cache, must-revalidate" },
     });
   } catch (e) {
     console.error("public-visitor-count error", e);
