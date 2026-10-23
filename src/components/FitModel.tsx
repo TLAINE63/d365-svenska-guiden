@@ -12,9 +12,9 @@ export default function FitModel({ model, heading, framed = false, className = "
     <section id={`d365-${model}-fit-model`} data-fit-model={model} aria-labelledby={`${model}-fit-title`} className={framed ? `scroll-mt-28 ${className}` : "scroll-mt-24 border-y border-border py-8 sm:py-10"}>
       <div className={framed ? "" : "container mx-auto max-w-3xl px-4 sm:px-6"}>
         {framed && <p className="plan-eyebrow mb-2">Beslutsstöd</p>}
-        <h2 id={`${model}-fit-title`} className="text-xl font-semibold text-foreground">{nowrapBrand(heading ?? value.name)}</h2>
+        <h2 id={`${model}-fit-title`} className={`${framed ? "text-2xl sm:text-3xl" : "text-xl"} font-semibold text-foreground`}>{nowrapBrand(heading ?? value.name)}</h2>
         <p className="mt-1 text-xs text-muted-foreground">{value.name} · Redaktionellt beslutsstöd</p>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{nowrapBrand(value.method)}</p>
+        <p className={`mt-3 text-sm leading-relaxed text-muted-foreground ${framed ? "max-w-3xl sm:text-base" : ""}`}>{nowrapBrand(value.method)}</p>
         <details className="group mt-4">
           <summary className="flex w-fit max-w-full cursor-pointer list-none items-center gap-2 rounded-sm py-2 text-sm font-semibold text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
             <span>Visa bedömningsunderlaget</span>
