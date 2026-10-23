@@ -64,10 +64,14 @@ export function useVisitorTracking() {
       return;
     }
 
+    // Server-issued id + signed token for this page's visit row; only these
+    // allow the time-on-page update, so no one can alter another visit.
+    let visit: { id: string; token: string } | null = null;
+
     // Track the page visit (insert new row)
     const trackVisit = async () => {
       try {
-        await fetch(
+        const res = await fetch(
           `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-visitor`,
           {
             method: "POST",
@@ -87,6 +91,10 @@ export function useVisitorTracking() {
             keepalive: true,
           }
         );
+        const data = await res.json().catch(() => null);
+        if (data && typeof data.visit_id === "string" && typeof data.visit_token === "string") {
+          visit = { id: data.visit_id, token: data.visit_token };
+        }
       } catch (error) {
         console.debug("Visitor tracking failed:", error);
       }
@@ -99,13 +107,15 @@ export function useVisitorTracking() {
 
     // Update time on page when leaving (no new insert, just update)
     const handleBeforeUnload = () => {
+      if (!visit) return;
       const timeOnPage = Math.round((Date.now() - pageLoadTime.current) / 1000);
       navigator.sendBeacon(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-visitor`,
         JSON.stringify({
           action: "update",
           page_path: currentPath,
-          session_id: getSessionId(),
+          visit_id: visit.id,
+          visit_token: visit.token,
           time_on_page_seconds: timeOnPage,
         })
       );

@@ -104,7 +104,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Rate limiting
     const clientIP = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
     if (isRateLimited(clientIP)) {
-      console.log(`Rate limited IP: ${clientIP}`);
+      console.log("Rate limited request");
       return new Response(
         JSON.stringify({ error: "För många förfrågningar. Försök igen senare." }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -424,7 +424,8 @@ const handler = async (req: Request): Promise<Response> => {
                 partner_slug: p.slug,
                 to: toEmail,
                 cc: ADMIN_EMAILS,
-                reply_to: sanitizedData.email,
+                // Visitor email is personal data and is never written to logs.
+                has_reply_to: Boolean(sanitizedData.email),
                 provider_message_id: providerMessageId,
               }),
             );
@@ -517,7 +518,7 @@ const handler = async (req: Request): Promise<Response> => {
               "[visitor-confirmation-email]",
               JSON.stringify({
                 source_type: sanitizedData.source_type,
-                to: sanitizedData.email,
+                to: "visitor",
                 reply_to: "info@d365.se",
                 partners: notifiedPartnerNames,
                 provider_message_id: confirmMessageId,
