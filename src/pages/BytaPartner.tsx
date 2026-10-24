@@ -109,7 +109,7 @@ const Analysis = () => {
           pageType="guide"
           cta={ADVISORY_CTA.partner_switch}
           heading={areas.length ? "Osäkra på hur ni ska tolka resultatet?" : "Vill ni få resultatet bekräftat?"}
-          text="Gå igenom analysen med en rådgivare på köparens sida innan ni bestämmer er. Ofta blir slutsatsen att fortsätta med nuvarande partner, med tydligare krav eller förvaltning."
+          text="Gå igenom analysen med en rådgivare innan ni bestämmer er. Ofta blir slutsatsen att fortsätta med nuvarande partner, med tydligare krav eller förvaltning."
           sections={[
             { key: "partnerbyte_lage", label: "Ert läge", lines: [
               a.product && a.product !== "other" ? `Produkt: ${PRODUCT_LABEL[a.product]}` : null,

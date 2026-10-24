@@ -606,7 +606,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "text": "Vill ni ha struktur på själva utvärderingen är utgångspunkten enkel. Bestäm vilka tre kriterier som väger tyngst för er innan ni träffar någon leverantör, och håll fast vid dem. Det är den enskilt största skillnaden mellan en upphandling som går att försvara och en som avgörs av vem som gjorde bäst intryck i rummet."
       }
     ],
-    "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
+    "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
   },
   "valja-business-central-partner": {
     "h1": "Hur väljer du rätt partner för Dynamics 365 Business Central?",
@@ -1023,7 +1023,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "text": "På d365.se kan ni jämföra svenska Dynamics 365-partners per applikationsområde, bransch och storlek, och avgränsa fältet innan ni börjar boka möten."
       }
     ],
-    "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
+    "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
   },
   "valja-finance-supply-chain-partner": {
     "h1": "Hur väljer du rätt partner för Dynamics 365 Finance & Supply Chain Management?",
@@ -1535,7 +1535,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "text": "Ska ni samtidigt se över CRM-sidan finns separata guider om Dynamics 365 Sales och Customer Service och Field Service."
       }
     ],
-    "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
+    "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
   },
   "valja-dynamics-365-sales-partner": {
     "h1": "Hur väljer du rätt partner för Dynamics 365 Sales?",
@@ -1954,7 +1954,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "to": "/dynamics-365-crm-partners-sverige/"
       }
     ],
-    "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
+    "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
   },
   "valja-customer-service-field-service-partner": {
     "h1": "Hur väljer du rätt partner för Dynamics 365 Customer Service och Field Service?",
@@ -2365,6 +2365,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "text": "På d365.se kan ni jämföra svenska Dynamics 365-partners per applikationsområde, bransch och storlek, och avgränsa fältet innan ni börjar boka möten."
       }
     ],
-    "about": "d365.se är en köparsidig svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
+    "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
   }
 } as const;

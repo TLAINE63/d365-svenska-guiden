@@ -366,7 +366,7 @@ serve(async (req: Request): Promise<Response> => {
 
     const intro = isErp
       ? `<p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Hej ${safeContactName},</p>
-         <p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Tack för att du genomförde ERP Behovsanalysen på d365.se. Bifogat hittar du ert köparsidiga beslutsunderlag som PDF.</p>
+         <p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Tack för att du genomförde ERP Behovsanalysen på d365.se. Bifogat hittar du ert beslutsunderlag som PDF.</p>
          <p style="font-size:15px;line-height:1.7;margin:0 0 8px 0;color:#1a1a1a;">Analysen ger en <strong>preliminär systemindikation</strong> baserad på era svar – inte ett definitivt systemval. Använd den som diskussionsunderlag inför kravspecifikation och dialog med ERP-partner.</p>`
       : `<p style="font-size:15px;line-height:1.7;margin:0 0 16px 0;color:#1a1a1a;">Hej ${safeContactName},</p>
          <p style="font-size:15px;line-height:1.7;margin:0 0 8px 0;color:#1a1a1a;">Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>`;
@@ -383,7 +383,7 @@ serve(async (req: Request): Promise<Response> => {
             <!-- Brand header -->
             <div style="background:#15130F;padding:24px 32px;border-bottom:3px solid #D64A1F;">
               <div style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:-0.02em;">d365.se</div>
-              <div style="color:rgba(255,255,255,0.65);font-size:12px;margin-top:4px;letter-spacing:0.02em;">Köparsidig vägledning för Microsoft Dynamics 365</div>
+              <div style="color:rgba(255,255,255,0.65);font-size:12px;margin-top:4px;letter-spacing:0.02em;">Vägledning inför system- och partnerval i Microsoft&nbsp;Dynamics&nbsp;365</div>
             </div>
 
             <!-- Body -->
@@ -419,7 +419,7 @@ serve(async (req: Request): Promise<Response> => {
             <!-- Footer -->
             <div style="background:#15130F;padding:20px 32px;color:rgba(255,255,255,0.65);font-size:12px;line-height:1.6;">
               ${pdfBase64 ? '<div style="margin-bottom:6px;">📎 PDF-rapporten är bifogad i detta mejl.</div>' : ""}
-              <div>d365.se – köparsidig vägledning för Microsoft Dynamics 365.</div>
+              <div>d365.se – vägledning inför system- och partnerval i Microsoft&nbsp;Dynamics&nbsp;365.</div>
             </div>
           </div>
         </div>

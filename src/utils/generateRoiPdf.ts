@@ -109,7 +109,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
-  doc.text("d365.se · köparsidig vägledning", margin, 16);
+  doc.text("d365.se · underlag inför system- och partnerval", margin, 16);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);

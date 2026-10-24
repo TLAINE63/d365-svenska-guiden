@@ -23,7 +23,7 @@ export const PDF_ACCENT_H = 1.8; // mm – tjocklek på orange accent-stripe
 export function drawBrandHeader(
   doc: jsPDF,
   title: string,
-  subtitle = "d365.se · köparsidig vägledning för Microsoft Dynamics 365",
+  subtitle = "d365.se · underlag inför system- och partnerval i Microsoft Dynamics 365",
 ): number {
   const pageW = doc.internal.pageSize.getWidth();
 

@@ -214,7 +214,7 @@ export default function ImplementationCalculator() {
               <span aria-current="page">Pris- och omfattningskalkylator</span>
             </nav>
             <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-              På köparens sida
+              Underlag inför budget och offert
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               Pris- och omfattningskalkylator för Dynamics 365

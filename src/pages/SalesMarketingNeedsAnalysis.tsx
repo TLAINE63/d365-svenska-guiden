@@ -1298,7 +1298,7 @@ const SalesMarketingNeedsAnalysis = () => {
  } else if (focusKey === "both") {
  pdfPartners.push({ label: "Sälj- och marknadssamverkanspartner", description: "Partner med kompetens i både CRM och marketing automation: lead management, CRM + Customer Insights, kunddata, rapportering från kampanj till pipeline, Power Platform, Copilot/AI och förändringsledning." });
  } else if (focusKey === "unsure") {
- pdfPartners.push({ label: "Köparsidig CRM- och kunddataguide", description: "Partner som kan kartlägga var problemen främst ligger (sälj, marknad, kunddata, integration) innan plattformsval och ge en stegvis väg framåt." });
+ pdfPartners.push({ label: "CRM- och kunddatapartner som börjar i behovet", description: "Partner som kan kartlägga var problemen främst ligger (sälj, marknad, kunddata, integration) innan plattformsval och ge en stegvis väg framåt." });
  } else {
  if (pdfProduct.includes("Sales")) {
  if (["500+", "250-999 anställda"].includes(data.employees)) {
@@ -3469,7 +3469,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <main className="pt-28 pb-12">
  
  <ShortAnswer title="Vad är en behovsanalys för Sales & Marketing">
- En CRM-behovsanalys för sälj och marknad klargör hur din pipeline, leadshantering, kampanjer och kunddata ska fungera – innan du jämför verktyg. Vår kostnadsfria analys ger en köparsidig rekommendation om Dynamics 365 Sales och Customer Insights baserat på din säljmodell, B2B/B2C-fokus och datamognad.
+ En CRM-behovsanalys för sälj och marknad klargör hur din pipeline, leadshantering, kampanjer och kunddata ska fungera – innan du jämför verktyg. Vår kostnadsfria analys ger en rekommendation om Dynamics 365 Sales och Customer Insights baserat på din säljmodell, B2B/B2C-fokus och datamognad.
  </ShortAnswer>
 
  <div className="container mx-auto px-4 max-w-4xl">
@@ -3553,7 +3553,7 @@ const SalesMarketingNeedsAnalysis = () => {
  />
  <ServiceSchema 
  name="Sälj & Marknad Behovsanalys"
- description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Ni får ett underlag inför partnerdialogen."
  />
  <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
  <SoftwareApplicationSchema

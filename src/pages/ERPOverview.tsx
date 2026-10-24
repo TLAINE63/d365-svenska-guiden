@@ -45,7 +45,7 @@ const honestFacts = [
   { icon: Users, title: "Partnervalet slår produktvalet", body: "Samma Business Central kan upplevas helt olika beroende på partner. Branscherfarenhet och referenser är viktigare än timpris." },
   { icon: AlertTriangle, title: "Anpassningar kostar för evigt", body: "Varje specialanpassning måste underhållas vid varje uppgradering. Anpassa bara där det ger äkta konkurrensfördel." },
   { icon: Lightbulb, title: "Standard slår skräddarsytt", body: "Microsoft uppgraderar BC och F&SCM löpande. Den som följer standard får ny funktionalitet gratis. Den som anpassat får teknisk skuld." },
-  { icon: CheckCircle2, title: "Börja med en köparsidig analys", body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare." },
+  { icon: CheckCircle2, title: "Börja med en behovsanalys", body: "En behovsanalys utan säljincitament tar några timmar och sparar ofta hundratusentals kronor i felval senare." },
 ];
 
 
@@ -101,7 +101,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vilket Microsoft ERP-system passar mitt företag?",
- answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & Supply Chain Management (F&O) om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En köparsidig behovsanalys hjälper dig välja rätt – utan säljpåverkan."
+ answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & Supply Chain Management (F&O) om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En behovsanalys innan du pratar med leverantörer hjälper dig välja rätt, utan säljpåverkan."
  },
  {
  question: "Vad är ett affärssystem?",
@@ -109,7 +109,7 @@ const erpFaqsRaw = [
  },
  {
  question: "Vilka är de vanligaste misstagen vid val av affärssystem?",
- answer: "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en köparsidig behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
+ answer: "1) Att låta licenspris styra mer än totalkostnad och processpassning. 2) Att hoppa över en egen behovsanalys och köpa det partnern råkar sälja mest av. 3) Att underskatta tiden för datatvätt och integration. 4) Att inte involvera nyckelanvändare tidigt. 5) Att välja partner enbart på pris istället för branscherfarenhet och referenser."
  },
  {
  question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?",
@@ -148,8 +148,8 @@ const ERPOverview = () => {
  ogImageAlt="Affärssystem och ERP – köpguide på d365.se"
  />
  <ServiceSchema 
- name="Affärssystem & Microsoft Dynamics 365 ERP – köparsidig guide"
- description="Köparsidig guide och jämförelse av affärssystem i Sverige med fokus på Microsoft Dynamics 365: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ name="Affärssystem & Microsoft Dynamics 365 ERP – guide inför systemvalet"
+ description="Guide och jämförelse av affärssystem i Sverige med fokus på Microsoft Dynamics 365: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer."
  />
  <FAQSchema faqs={erpFaqs} />
  <BreadcrumbSchema items={erpBreadcrumbs} />
@@ -158,7 +158,7 @@ const ERPOverview = () => {
  
  {/* Header */}
  <ProductHero
- eyebrow="Pelarsida · Köparsidig guide"
+ eyebrow="Pelarsida · Guide inför systemvalet"
  title="Vilket affärssystem (ERP) passar er verksamhet?"
  subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}

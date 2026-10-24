@@ -133,7 +133,7 @@ export function appendSuggestedPartnersPage(
   doc.setFont("helvetica", "italic");
   doc.setFontSize(8.5);
   doc.setTextColor(...MUTED);
-  const disc = "Urvalet baseras på samma köparsidiga rankning som resten av d365.se (bransch- och produktprofil, avtalade partners först). Detta är inte en fullständig lista – jämför gärna med ytterligare partners från vår partnersida.";
+  const disc = "Urvalet baseras på samma rankning som resten av d365.se (bransch- och produktprofil, avtalade partners först). Detta är inte en fullständig lista – jämför gärna med ytterligare partners från vår partnersida.";
   const discLines = doc.splitTextToSize(disc, contentW);
   doc.text(discLines, margin, y);
 }

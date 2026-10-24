@@ -115,7 +115,7 @@ const SuggestedPartnersCTA = ({
           </Button>
         </div>
         <p className="mt-4 text-xs text-muted-foreground italic">
-          Urvalet baseras på samma köparsidiga rankning som resten av sajten
+          Urvalet baseras på samma rankning som resten av sajten
           (bransch- och produktprofil med kompletterande storlekssignaler). Detta är
           inte en fullständig lista – gå gärna vidare till jämför-sidan eller
           till fler partners.

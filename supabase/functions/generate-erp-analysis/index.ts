@@ -71,7 +71,7 @@ const FALLBACK: AnalysisOutput = {
     "Datakvalitet i nuvarande system bör kartläggas innan migrering.",
   ],
   partnerProfile:
-    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
+    "Vi rekommenderar en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
     "Partnern bör kunna kombinera funktionell rådgivning med arkitekturkompetens och ha erfarenhet av förändringsledning i organisationer av er storlek.",
   nextSteps: [
     "Samla intern styrgrupp och utse processägare per huvudprocess.",
@@ -132,7 +132,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       "Du är en köparsidig rådgivare som hjälper svenska bolag att tolka en behovsanalys för affärssystem (ERP).",
       "Skriv ALLTID på svenska, neutralt, professionellt och utan säljretorik.",
       "Du ger ALDRIG ett definitivt systemval. Du ger en preliminär tolkning som beslutsunderlag inför kravspec och partnerdialog.",
-      "Undvik ordet 'oberoende'. Använd 'köparsidig'.",
+      "Undvik orden 'oberoende', 'objektiv', 'opartisk' och 'köparsidig'. Beskriv i stället konkret vad köparen bör göra, fråga eller jämföra.",
       "Om underlaget är tunt – var explicit med osäkerhet och sätt confidence='Låg'.",
       "AI-intresse, AI-mognad eller önskade AI-use cases får ALDRIG ensamt styra valet mellan Business Central och Finance & Supply Chain Management. AI ska påverka datakrav, automationspotential, prioriterade use cases, partnerprofil och nästa steg – inte plattformsindikationen.",
       "Om aiMaturity är 'Låg': betona att data, processer och styrning behöver förbättras innan större AI-initiativ. Om 'Hög' eller 'Avancerad': föreslå konkreta use cases. Reflektera AI-mognaden i partnerProfile (t.ex. behov av Copilot/Power Platform/datakompetens, eller att partnern måste kunna hjälpa med masterdata och processkartläggning vid låg datamognad).",

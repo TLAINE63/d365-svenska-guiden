@@ -149,7 +149,7 @@ export default function AllD365Partners() {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Övriga Dynamics 365-partners i Sverige"
-        description="Hitta Dynamics 365-partners i Sverige. Partnerverifierade profiler och övriga aktörer på d365.se – köparsidig vägledning."
+        description="Hitta Dynamics 365-partners i Sverige. Jämför partnerverifierade profiler och övriga aktörer på d365.se utifrån era behov."
         canonicalPath="/alla-d365-partners/"
         ogImage="https://d365.se/og-partner.png"
         ogImageAlt="Dynamics 365-partners i Sverige på d365.se"
@@ -379,7 +379,7 @@ export default function AllD365Partners() {
               Vill du ha hjälp att hitta rätt partner?
             </h2>
             <p className="text-base text-muted-foreground mb-6">
-              Vi vägleder dig köparsidigt och kostnadsfritt – berätta vad du behöver
+              Vi vägleder dig kostnadsfritt utifrån dina behov – berätta vad du behöver
               så återkopplar vi med 2–3 lämpliga partners att jämföra.
             </p>
             <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">

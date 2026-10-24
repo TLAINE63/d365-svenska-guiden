@@ -599,7 +599,7 @@ const ValjPartner = () => {
  <FAQSchema faqs={partnerFaqs} />
  <ServiceSchema 
  name="Dynamics 365 Partnerval"
- description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Ni väljer själva vilka partners ni kontaktar."
  />
  <BreadcrumbSchema items={partnerBreadcrumbs} />
  <ItemListSchema
@@ -629,7 +629,7 @@ const ValjPartner = () => {
   />
 
   <ShortAnswer title="Vad är en Dynamics 365-partner">
- Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft Dynamics-partners och konsultbolag för din bransch, geografi och AI-mognad – och få rekommendationer via vår köparsidiga partnerguide.
+ Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft Dynamics-partners och konsultbolag för din bransch, geografi och AI-mognad – och få rekommendationer utifrån era behov via vår partnerguide.
  </ShortAnswer>
 
  <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
@@ -1271,7 +1271,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  Behöver du hjälp att välja eller upphandla Dynamics partner?
  </h2>
  <p className="text-lg text-muted-foreground">
- Boka ett möte med Thomas. Rådgivningen är kostnadsfri och sker på köparens sida, ingen partner deltar i samtalet.
+ Boka ett möte med Thomas. Rådgivningen är kostnadsfri och ingen partner deltar i samtalet.
  </p>
  </div>
  </div>

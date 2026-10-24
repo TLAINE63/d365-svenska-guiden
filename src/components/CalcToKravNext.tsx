@@ -58,7 +58,7 @@ export default function CalcToKravNext({ children, className = "", ...input }: P
         placement="tool_result"
         pageType="calculator"
         cta={ADVISORY_CTA.tool_result}
-        text="Vill ni hellre gå igenom kalkylen med någon på köparens sida först?"
+        text="Vill ni gå igenom kalkylen med en rådgivare innan ni pratar med partners?"
         sections={[{ key: "kalkyl", label: "Kalkyl", lines: [`Produkt: ${link.label}`, ...carried] }]}
         metadata={{ tool: "calculator", product: input.product }}
       />

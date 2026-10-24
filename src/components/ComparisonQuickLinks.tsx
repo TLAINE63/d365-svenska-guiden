@@ -85,7 +85,7 @@ const ComparisonQuickLinks = ({
               {title}
             </h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
-              Köparsidiga sida-vid-sida-jämförelser med samma rader, samma frågor och alltid
+              Redaktionella sida-vid-sida-jämförelser med samma rader, samma frågor och alltid
               &quot;när passar inte&quot;.
             </p>
           </div>

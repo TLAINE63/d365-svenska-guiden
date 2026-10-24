@@ -238,7 +238,7 @@ const RequirementsSpecCustomerService = () => {
     <>
       <SEOHead
         title="Kravspecifikation för Customer Service | d365.se"
-        description="Skräddarsydd kravspec för Customer Service, Contact Center och Field Service – AI-berikad. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Skräddarsydd kravspec för Customer Service, Contact Center och Field Service – AI-berikad. Låt partners svara på samma behov och krav."
         canonicalPath="/kravspecifikation-kundservice"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -542,7 +542,7 @@ ${
                 placement="tool_result"
                 pageType="requirements"
                 cta={ADVISORY_CTA.tool_result}
-                text="Vill ni gå igenom kravunderlaget med någon på köparens sida innan ni skickar det vidare?"
+                text="Vill ni gå igenom kravunderlaget med en rådgivare innan ni skickar det till partners?"
                 sections={[{ key: "kravunderlag", label: "Kravunderlag", lines: [`Kravspecifikation: Dynamics 365 Customer Service`, ...(result.industry || industry ? [`Bransch: ${result.industry || industry}`] : []), ...(companySize ? [`Företagsstorlek: ${companySize}`] : []), `${selectedAreas.length} valda funktionsområden`] }]}
                 metadata={{ tool: "RequirementsSpecCustomerService" }}
               />

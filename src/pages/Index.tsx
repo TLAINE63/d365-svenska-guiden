@@ -701,15 +701,15 @@ const Index = () => {
               <div className="flex flex-col items-start">
                 <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(var(--signature))] mb-3">Vem står bakom d365.se</span>
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
-                  Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner
+                  Vi hjälper er jämföra Microsoft Dynamics&nbsp;365-partners utifrån era behov
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <div className="flex items-start gap-3">
-                    <img src={thomasLaine} alt="Thomas Laine, köparsidig rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover object-top flex-shrink-0" />
+                    <img src={thomasLaine} alt="Thomas Laine, rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover object-top flex-shrink-0" />
                     <div className="pt-1">
                       <p className="font-semibold text-foreground">Thomas Laine</p>
                       <p className="text-xs text-muted-foreground leading-snug">
-                        Medgrundare, d365.se. Köparsidig rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
+                        Medgrundare, d365.se. Rådgivare inför system- och partnerval inom Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.
                       </p>
                       <Link to="/om-thomas-laine/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
                         Om Thomas Laine →
@@ -717,11 +717,11 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <img src={michaelUhman} alt="Michael Uhman, köparsidig rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover flex-shrink-0" />
+                    <img src={michaelUhman} alt="Michael Uhman, rådgivare inom Microsoft Dynamics 365" loading="lazy" width={80} height={80} className="w-20 h-20 rounded object-cover flex-shrink-0" />
                     <div className="pt-1">
                       <p className="font-semibold text-foreground">Michael Uhman</p>
                       <p className="text-xs text-muted-foreground leading-snug">
-                        Medgrundare, d365.se. Köparsidig rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut.
+                        Medgrundare, d365.se. Rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut.
                       </p>
                       <Link to="/om-michael-uhman/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
                         Om Michael Uhman →

@@ -2644,7 +2644,7 @@ const ComparePartners = () => {
                         pageType="comparison"
                         cta={ADVISORY_CTA.compare}
                         heading="Vill ni gå igenom jämförelsen innan ni tar kontakt?"
-                        text="En rådgivare på köparens sida går igenom era valda partners mot ert behov, så att ni vet vad ni ska fråga och jämföra. Vill ni hellre kontakta partnerna direkt gör ni det ovan."
+                        text="Före partnerdialogen går en rådgivare igenom era valda partners mot ert behov, så att ni vet vad ni ska fråga och jämföra. Vill ni hellre kontakta partnerna direkt gör ni det ovan."
                         sections={[
                           { key: "valda_partners", label: "Valda partners", lines: [a, b, c].filter((p): p is DatabasePartner => Boolean(p)).map((p) => p.name) },
                           ...((productFilters.length || industryFilter) ? [{ key: "jamforelse_urval", label: "Jämförelsens urval", lines: [

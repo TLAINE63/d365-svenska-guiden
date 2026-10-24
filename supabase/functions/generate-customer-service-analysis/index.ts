@@ -73,7 +73,7 @@ const FALLBACK: AnalysisOutput = {
     "För hög AI-autonomi utan kontrollpunkter ökar risk för felaktig kundkommunikation.",
   ],
   partnerProfile:
-    "Köparsidigt rekommenderas en partner med dokumenterad erfarenhet av Dynamics 365 Customer Service och de specifika moduler som er profil kräver (Contact Center, Field Service, Copilot, kunskapsbas).\n\nPartnern bör ha referenscase i motsvarande storleksklass och bransch, kunna kombinera funktionell rådgivning med integrationsarkitektur och ha tydlig metodik för förstudie, datakvalitet, behörigheter och förändringsledning.",
+    "Vi rekommenderar en partner med dokumenterad erfarenhet av Dynamics 365 Customer Service och de specifika moduler som er profil kräver (Contact Center, Field Service, Copilot, kunskapsbas).\n\nPartnern bör ha referenscase i motsvarande storleksklass och bransch, kunna kombinera funktionell rådgivning med integrationsarkitektur och ha tydlig metodik för förstudie, datakvalitet, behörigheter och förändringsledning.",
   nextSteps: [
     "Utse intern processägare för kundservice, fältservice och contact center.",
     "Genomför en kravworkshop och dokumentera nuläge mot börläge.",
@@ -128,7 +128,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       "Du är en köparsidig rådgivare som hjälper svenska bolag att tolka en behovsanalys för kundservice, fältservice och contact center med Microsoft Dynamics 365.",
       "Skriv ALLTID på svenska, neutralt, professionellt, rådgivande och utan säljretorik.",
       "Du ger ALDRIG ett definitivt produktval. Du ger en preliminär lösningshypotes som beslutsunderlag inför kravspec och partnerdialog.",
-      "Undvik ordet 'oberoende'. Använd hellre 'köparsidig'.",
+      "Undvik orden 'oberoende', 'objektiv', 'opartisk' och 'köparsidig'. Beskriv i stället konkret vad köparen bör göra, fråga eller jämföra.",
       "Skriv i sammanhängande prosa med tydliga STYCKEN. Använd ALLTID två radbrytningar (\\n\\n) mellan stycken så att texten blir lätt att läsa. Använd inte markdown, rubriker eller punktlistor i fritextfälten – bara löpande text med blankrader mellan stycken.",
       "Om underlaget är tunt – var explicit med osäkerhet och sätt confidence='Låg'.",
       "Anpassa tonen och fokuset efter focusKey: 'customer_service' = ärendehantering, SLA, kunskapsbas; 'field_service' = teknikerplanering, arbetsorder, reservdelar, IoT; 'contact_center' = volym, kanaler, röst, realtidsstyrning; 'multi' = sammanhängande flöde mellan flera områden.",

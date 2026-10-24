@@ -2248,9 +2248,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 Release Wave 1 2026 – vad som faktiskt kommer, per produkt",
     metaTitle: "Dynamics 365 Release Wave 1 2026: nyheter per produkt | d365.se",
     metaDescription:
-      "Köparsidig sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
+      "Sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
     summary:
-      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s köparsidiga genomgång – per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
+      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s genomgång – per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
     category: "Produktnyheter",
     tags: ["dynamics365", "release wave", "ai", "copilot", "agenter", "roadmap"],
     products: [
@@ -2288,7 +2288,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           Microsoft publicerade Release Wave 1 2026 för Dynamics 365 den{" "}
           <strong>18 mars 2026</strong>. Planen omfattar uppdateringar som rullas
-          ut mellan 1 april och september 2026. Här är en köparsidig
+          ut mellan 1 april och september 2026. Här är en
           sammanställning per produkt – både det som kommer och det som redan
           finns inom AI, Copilot och agenter.
         </p>
@@ -3370,7 +3370,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
               som tänkt, beslutet blir svårt att försvara.
             </li>
             <li>
-              Köparsidig vägledning, rätt frågor i säljprocessen och en
+              Ett tydligt behov, rätt frågor i säljprocessen och en
               strukturerad utvärdering minskar risken markant.
             </li>
           </ul>
@@ -3512,7 +3512,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           skillnad.
         </p>
 
-        <h3>Köparsidig vägledning tidigt i processen</h3>
+        <h3>Vägledning tidigt i processen</h3>
         <p>
           Partnerlandskapet är svårt att överblicka för den som bara gör den här
           typen av val vart tionde eller femtonde år.
@@ -3578,7 +3578,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           systemvalet. Det bör vara en central del av beslutet från början.
         </p>
         <p>
-          På d365.se erbjuder vi köparsidigt stöd för att strukturera valet av
+          På d365.se får ni stöd att strukturera valet av
           Dynamics 365-partner – utifrån lösningsområde, bransch, erfarenhet och
           faktiskt leveransupplägg.
         </p>
@@ -3595,7 +3595,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för Retail & e-handel",
     metaTitle: "Dynamics 365 för retail & e-handel – guide & partners",
     metaDescription:
-      "Dynamics 365 för retail & e-handel ger POS, lager, omnikanal och kunddata i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
+      "Dynamics 365 för retail & e-handel ger POS, lager, omnikanal och kunddata i en plattform. Guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (BC, F&SCM och Commerce) fungerar som back-office för retail- och e-handelsbolag – ekonomi, lager, kund och kanal i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -3834,8 +3834,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           På d365.se kan du filtrera partners per produktområde, läsa deras
           branschbeskrivningar och jämföra kompetenser sida vid sida.
-          Plattformen är köparsidig – vägledningen är skriven utifrån köparens
-          perspektiv och inga partners betalar för att synas högre eller
+          Vägledningen är skriven utifrån köparens
+          perspektiv, och inga partners betalar för att synas högre eller
           beskrivas mer fördelaktigt.
         </p>
         <p>
@@ -3877,7 +3877,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för tillverkningsindustrin",
     metaTitle: "Dynamics 365 för tillverkningsindustri – guide & partners",
     metaDescription:
-      "Dynamics 365 för tillverkning täcker MRP, BOM, kvalitet, spårbarhet och MES-integration. Köparsidig guide med kostnad, fallgropar och svenska partners.",
+      "Dynamics 365 för tillverkning täcker MRP, BOM, kvalitet, spårbarhet och MES-integration. Guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium) är ryggraden för svenska tillverkningsbolag – planering, inköp, lager, kvalitet och ekonomi i en plattform, kompletterad med MES och PLM. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -4420,7 +4420,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för grossist & distribution",
     metaTitle: "Dynamics 365 för grossist & distribution – guide & partners",
     metaDescription:
-      "Dynamics 365 för grossist & distribution stöttar lager, WMS, prislogik och EDI i en plattform. Köparsidig guide med kostnad, fallgropar och svenska partners.",
+      "Dynamics 365 för grossist & distribution stöttar lager, WMS, prislogik och EDI i en plattform. Guide med kostnad, fallgropar och svenska partners.",
     summary:
       "Dynamics 365 (BC Premium eller F&SCM) är en stark ryggrad för svenska grossister och distributörer – ekonomi, lager, prislogik, EDI och kund i samma plattform. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",

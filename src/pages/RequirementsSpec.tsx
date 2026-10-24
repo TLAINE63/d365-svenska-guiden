@@ -562,7 +562,7 @@ const RequirementsSpec = () => {
                 placement="tool_result"
                 pageType="requirements"
                 cta={ADVISORY_CTA.tool_result}
-                text="Vill ni gå igenom kravunderlaget med någon på köparens sida innan ni skickar det vidare?"
+                text="Vill ni gå igenom kravunderlaget med en rådgivare innan ni skickar det till partners?"
                 sections={[{ key: "kravunderlag", label: "Kravunderlag", lines: [`Kravspecifikation: ERP`, ...(result.industry || industry ? [`Bransch: ${result.industry || industry}`] : []), ...(companySize ? [`Företagsstorlek: ${companySize}`] : []), `${selectedAreas.length} valda funktionsområden`] }]}
                 metadata={{ tool: "RequirementsSpec" }}
               />

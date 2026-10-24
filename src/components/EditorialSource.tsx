@@ -80,7 +80,7 @@ function EditorialSourceInner({
         {ORGANIZATION.name.toUpperCase()} {sourceType}
       </p>
       <p className="mt-1 text-xs">
-        Av d365.se-redaktionen. d365.se är en svensk köparsidig kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{" "}
+        Av d365.se-redaktionen. d365.se är en svensk kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{" "}
         <span className="whitespace-nowrap">Dynamics&nbsp;365</span> och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft.
       </p>
     </>

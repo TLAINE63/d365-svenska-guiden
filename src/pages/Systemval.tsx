@@ -255,7 +255,7 @@ export default function Systemval() {
               pageType="tool"
               cta={ADVISORY_CTA.needs_guide}
               heading={result.clarity === "clear" ? "Vill ni pröva bedömningen innan ni går vidare?" : "Vill ni ha hjälp att tolka resultatet?"}
-              text="Gå igenom behovsanalysen med en rådgivare på köparens sida. Ni får hjälp att väga alternativen och reda ut de öppna frågorna, utan att någon partner deltar."
+              text="Gå igenom behovsanalysen med en rådgivare innan ni pratar med partners. Ni får hjälp att väga alternativen och reda ut de öppna frågorna, utan att någon partner deltar."
               sections={[
                 { key: "behovsguide_resultat", label: "Resultat från behovsguiden", lines: [
                   `Bedömning: ${CLARITY_LABEL[result.clarity]}`,

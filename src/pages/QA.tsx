@@ -71,7 +71,7 @@ const QA = () => {
     {
       id: "kontrollera-partner",
       question: "Vilka frågor bör du ställa partnern innan avtal?",
-      answer: "Innan du skriver under, gå igenom åtminstone följande punkter med partnern:\n\n**Branscherfarenhet**\n\nBe om 2–3 referenskunder i din bransch och i din storleksklass – inte bara partnerns största logotyper. Fråga vad som gick bra och vad som gick mindre bra.\n\n**Konkret team, inte bara säljteam**\n\nVilka konsulter kommer faktiskt att arbeta i ditt projekt? Vilken erfarenhet har lösningsarkitekten, projektledaren och utvecklarna?\n\n**Metodik och leveransmodell**\n\nFast pris, löpande räkning eller hybrid? Hur hanteras ändringar (change requests)? Vilket ramverk används (Sure Step, agilt, eget)?\n\n**Licens- och totalkostnad**\n\nBegär en TCO-bild över 3 år: licenser, implementation, integrationer, förvaltning, Copilot-tillägg och Power Platform. Inte bara första årets pris.\n\n**Förvaltning efter go-live**\n\nVilket SLA gäller? Hur ser support, releaseplanering och vidareutveckling ut? Vad ingår och vad är tilläggsbeställning?\n\n**Avtalsvillkor och inlåsning**\n\nGranska uppsägningstider, ägarskap av kod och konfiguration, samt hur ett eventuellt partnerbyte hanteras. En bra partner gör det enkelt att byta – inte svårt.\n\n**Köparsidig second opinion**\n\nÖverväg att låta någon utan egen vinning i affären granska offerten, scope och avtalet innan du skriver under.",
+      answer: "Innan du skriver under, gå igenom åtminstone följande punkter med partnern:\n\n**Branscherfarenhet**\n\nBe om 2–3 referenskunder i din bransch och i din storleksklass – inte bara partnerns största logotyper. Fråga vad som gick bra och vad som gick mindre bra.\n\n**Konkret team, inte bara säljteam**\n\nVilka konsulter kommer faktiskt att arbeta i ditt projekt? Vilken erfarenhet har lösningsarkitekten, projektledaren och utvecklarna?\n\n**Metodik och leveransmodell**\n\nFast pris, löpande räkning eller hybrid? Hur hanteras ändringar (change requests)? Vilket ramverk används (Sure Step, agilt, eget)?\n\n**Licens- och totalkostnad**\n\nBegär en TCO-bild över 3 år: licenser, implementation, integrationer, förvaltning, Copilot-tillägg och Power Platform. Inte bara första årets pris.\n\n**Förvaltning efter go-live**\n\nVilket SLA gäller? Hur ser support, releaseplanering och vidareutveckling ut? Vad ingår och vad är tilläggsbeställning?\n\n**Avtalsvillkor och inlåsning**\n\nGranska uppsägningstider, ägarskap av kod och konfiguration, samt hur ett eventuellt partnerbyte hanteras. En bra partner gör det enkelt att byta – inte svårt.\n\n**Second opinion**\n\nÖverväg att låta någon utan egen vinning i affären granska offerten, scope och avtalet innan du skriver under.",
     },
     {
       id: "nasta-steg",
@@ -145,7 +145,7 @@ const QA = () => {
     <div className="min-h-screen">
       <SEOHead
         title="Vanliga frågor om Dynamics 365, affärssystem och partnerval"
-        description="Svar på vanliga frågor om Microsoft Dynamics 365, affärssystem och CRM: kostnad, licenser, tidplan, partnerval och förvaltning. Köparsidig vägledning från d365.se."
+        description="Svar på vanliga frågor om Microsoft Dynamics 365, affärssystem och CRM: kostnad, licenser, tidplan, partnerval och förvaltning."
         canonicalPath="/qa"
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"

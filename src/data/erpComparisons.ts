@@ -1364,7 +1364,7 @@ const CS_COMPARISONS: ProductComparison[] = [
     productKey: "customer-service",
     competitor: "Zendesk",
     competitorUrl: "https://www.zendesk.se/",
-    title: "Dynamics 365 Customer Service vs Zendesk – köparsidig jämförelse",
+    title: "Dynamics 365 Customer Service vs Zendesk – redaktionell jämförelse",
     metaDescription:
       "Jämför Dynamics 365 Customer Service med Zendesk. Funktioner, pris, AI, omnikanal och vilken plattform som passar svenska kundserviceorganisationer bäst.",
     intro:
@@ -1739,7 +1739,7 @@ const CC_COMPARISONS: ProductComparison[] = [
     productKey: "contact-center",
     competitor: "Genesys Cloud CX",
     competitorUrl: "https://www.genesys.com/sv-se",
-    title: "Dynamics 365 Contact Center vs Genesys Cloud CX – köparsidig jämförelse",
+    title: "Dynamics 365 Contact Center vs Genesys Cloud CX – redaktionell jämförelse",
     metaDescription:
       "Jämför Dynamics 365 Contact Center med Genesys Cloud CX. Funktioner, pris, AI, omnikanal och vilket val passar svenska kontaktcenter bäst.",
     intro:

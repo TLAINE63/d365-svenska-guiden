@@ -286,7 +286,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     slug: "business-central",
     metaTitle: "Business Central – kunskap, guider och fördjupningar | d365.se",
     metaDescription:
-      "Allt om Microsoft Dynamics 365 Business Central: produktfördjupningar, artiklar, behovsanalys och kravspecifikation. Köparsidig vägledning.",
+      "Allt om Microsoft Dynamics 365 Business Central: produktfördjupningar, artiklar, behovsanalys och kravspecifikation inför system- och partnerval.",
     h1: "Business Central – kunskap, guider och fördjupningar",
     intro:
       "Här hittar du alla våra resurser om Microsoft Dynamics 365 Business Central – från korta produktfördjupningar till djuplodande artiklar, behovsanalyser och kravspecifikationer. Allt är skrivet ur köparens perspektiv och uppdateras löpande.",
@@ -390,7 +390,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
       "Allt om Microsoft Copilot och AI-agenter i Dynamics 365: produktfördjupningar, AI Readiness Assessment och artiklar om AI för ERP och CRM.",
     h1: "Copilot & AI-agenter – kunskap, guider och fördjupningar",
     intro:
-      "Köparsidig vägledning om Microsoft Copilot och AI-agenter i Dynamics 365. Här hittar du AI Readiness Assessment, produktfördjupningar om Copilot och Agents samt artiklar om AI:s roll i ERP och CRM.",
+      "Vägledning om Microsoft Copilot och AI-agenter i Dynamics 365. Här hittar du AI Readiness Assessment, produktfördjupningar om Copilot och Agents samt artiklar om AI:s roll i ERP och CRM.",
     breadcrumbLabel: "Copilot & AI",
     resources: [
       tools.aiReadiness,

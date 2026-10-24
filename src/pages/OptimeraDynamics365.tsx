@@ -26,7 +26,7 @@ const OptimeraDynamics365 = () => (
         title: "Intern genomgång, second opinion eller specialistpartner?",
         cards: [
           { t: "Intern genomgång räcker", d: "När symtomen är tydliga och avgränsade, till exempel ett enskilt flöde eller en rapport, och er partner har kapacitet att åtgärda." },
-          { t: "Second opinion behövs", d: "När orsaken är oklar, när förslag på åtgärder känns stora eller dyra, eller när ni vill ha en köparsidig bedömning innan ni beslutar." },
+          { t: "Second opinion behövs", d: "När orsaken är oklar, när förslag på åtgärder känns stora eller dyra, eller när ni vill att någon granskar förslaget innan ni beslutar." },
           { t: "Specialistpartner", d: "När problemet kräver djup kompetens inom ett område, till exempel prestanda, integration, data eller AI, som er nuvarande partner saknar." },
         ],
       },

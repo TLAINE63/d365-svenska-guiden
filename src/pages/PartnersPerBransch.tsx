@@ -75,7 +75,7 @@ const PartnersPerBransch = () => {
     <>
       <SEOHead
         title="Dynamics 365-partners per bransch – Sverige | d365.se"
-        description="Hitta Dynamics 365-partners per bransch i Sverige: tillverkning, retail, finans, offentlig sektor, hälsa & sjukvård m.fl. Köparsidig guide vid partnerval."
+        description="Hitta Dynamics 365-partners per bransch i Sverige: tillverkning, retail, finans, offentlig sektor, hälsa & sjukvård m.fl. Jämför partners utifrån er bransch."
         canonicalPath="/partners-per-bransch/"
       />
       <BreadcrumbSchema

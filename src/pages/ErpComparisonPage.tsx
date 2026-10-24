@@ -61,7 +61,7 @@ const ErpComparisonPage = () => {
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20 text-white">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
             <p className="text-xs font-semibold uppercase tracking-wide text-white/70 mb-3">
-              Konkurrentjämförelse · Köparsidigt perspektiv
+              Redaktionell jämförelse · Samma frågor för båda alternativen
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
               {nowrapBrand(`${data.productShort} eller ${data.competitor}, vilket passar er verksamhet?`)}
@@ -102,7 +102,7 @@ const ErpComparisonPage = () => {
             <div className="mt-4 rounded-lg border border-border bg-background p-4 flex gap-3">
               <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-sm text-muted-foreground">
-                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan du fattar beslut. Jämförelsen är en köparsidig vägledning, inte en garanti för att enskilda funktioner eller priser är identiska vid ditt köptillfälle.
+                <strong className="text-foreground">Observera:</strong> Priser, licensvillkor och funktionalitet kan ändras över tid. Kontrollera aktuella uppgifter direkt med respektive leverantör eller partner innan du fattar beslut. Jämförelsen är ett underlag för er egen utvärdering, inte en garanti för att enskilda funktioner eller priser är identiska vid ditt köptillfälle.
               </p>
             </div>
             <div className="mt-3 rounded-lg border border-primary/30 bg-primary/5 p-4 flex gap-3">

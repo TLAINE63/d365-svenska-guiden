@@ -14,7 +14,7 @@ const Dynamics365VsSalesforce = () => (
     tool="d365_vs_salesforce"
     seoTitle={SEO_TITLE}
     seoTitleMaxLength={SEO_TITLE.length}
-    seoDescription="Jämför Microsoft Dynamics 365 och Salesforce. Se priser, licensmodeller, ekosystem, CRM-funktionalitet och svensk partnernärvaro i vår köparsidiga guide."
+    seoDescription="Jämför Microsoft Dynamics 365 och Salesforce utifrån samma frågor: priser, licensmodeller, ekosystem, CRM-funktionalitet och svensk partnernärvaro."
     crumbs={[
       { name: "Start", url: "/" },
       { name: "Jämförelser", url: "/jamfor/" },

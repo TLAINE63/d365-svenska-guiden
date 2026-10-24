@@ -66,7 +66,7 @@ const SEOHead = ({
 }: SEOHeadProps) => {
   const isEnglish = language === "en";
   // Bing/Google vill ha ca 110–160 tecken. Långa beskrivningar kortas vid hel
-  // mening; korta kompletteras med en neutral köparsidig mening som ryms helt.
+  // mening; korta kompletteras med en neutral mening om d365.se som ryms helt.
   const DESC_SUFFIXES = isEnglish
     ? [
         "Compare verified partners and solutions on d365.se, the Swedish guide to Dynamics\u00A0365.",
@@ -76,7 +76,7 @@ const SEOHead = ({
     : [
         "Jämför verifierade partners, priser och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.",
         "Jämför partners och lösningar på d365.se, den svenska guiden till Dynamics\u00A0365.",
-        "Köparsidig vägledning från d365.se.",
+        "Guide inför system- och partnerval på d365.se.",
       ];
   description = fitMetaDescription(description || "", DESC_SUFFIXES);
   const baseUrl = "https://d365.se";

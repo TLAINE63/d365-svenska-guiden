@@ -2773,7 +2773,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
     // ══════════════════════════════════════════════════════════════════════
     if (aiAnalysis?.partnerProfile) {
       checkPage(30);
-      addSectionHeader("REKOMMENDERAD PARTNERPROFIL (KÖPARSIDIGT)", 14, 124, 134);
+      addSectionHeader("REKOMMENDERAD PARTNERPROFIL", 14, 124, 134);
       addProse(aiAnalysis.partnerProfile, 9, 5.4);
     }
 
@@ -3023,7 +3023,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din köparsidiga guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    pdf.text("Ditt underlag inför valet av Dynamics 365-lösning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -4313,7 +4313,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
         <main className="flex-grow pt-28 pb-12">
   
       <ShortAnswer title="Vad är en behovsanalys för ERP">
-        En ERP-behovsanalys hjälper dig klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en köparsidig rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
+        En ERP-behovsanalys hjälper dig klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
       </ShortAnswer>
 
         <div className="container mx-auto px-4 max-w-4xl">
@@ -4609,7 +4609,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
       />
       <ServiceSchema 
         name="ERP Behovsanalys"
-        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Beskriv behovet innan ni väljer system."
       />
       <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
       <SoftwareApplicationSchema

@@ -6,7 +6,7 @@ const VadArDynamics365 = () => (
     path={PATH}
     tool="what_is_d365"
     seoTitle="Vad är Microsoft Dynamics 365? ERP, CRM och hur delarna hänger ihop"
-    seoDescription="En köparsidig introduktion till Microsoft Dynamics 365: affärssystem (ERP), CRM-applikationer, Dataverse och Power Platform, och hur ni hittar rätt startpunkt."
+    seoDescription="En introduktion till Microsoft Dynamics 365: affärssystem (ERP), CRM-applikationer, Dataverse och Power Platform, och hur ni hittar rätt startpunkt."
     crumbs={[{ name: "Start", url: "/" }, { name: "Vad är Dynamics 365?", url: PATH }]}
     h1="Vad är Microsoft Dynamics 365?"
     shortAnswer="Microsoft Dynamics 365 är en familj av molnbaserade affärsapplikationer. Den täcker affärssystem (ERP) för ekonomi, lager och produktion samt CRM-lösningar för sälj, marknad, kundservice och fältservice. Ni väljer de applikationer ni behöver och kan bygga vidare över tid."

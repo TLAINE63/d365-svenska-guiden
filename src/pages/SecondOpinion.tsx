@@ -88,7 +88,7 @@ const SecondOpinion = () => {
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <header className="max-w-3xl mb-10">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">{nowrapBrand("När behöver ni en second opinion på Dynamics 365?")}</h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">{nowrapBrand("En second opinion är en köparsidig bedömning av er lösning, offert, implementation eller partnersamarbete. Målet är ett bättre beslut, inte automatiskt ett partnerbyte.")}</p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">{nowrapBrand("En second opinion är en extra genomgång av er lösning, offert, implementation eller partnersamarbete innan ni beslutar. Målet är ett bättre beslut, inte automatiskt ett partnerbyte.")}</p>
             {known.length > 0 && (
               <div className="mb-6 rounded-md border border-border bg-secondary/40 p-4 text-sm">
                 <p className="font-semibold text-foreground mb-1">Det här vet vi redan, ni behöver inte beskriva det igen</p>
