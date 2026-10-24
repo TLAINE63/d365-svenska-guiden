@@ -109,7 +109,7 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = VERIFIED_PARTNER_COUNT;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
-const HOME_LAST_UPDATED = "2026-10-09";
+const HOME_LAST_UPDATED = "2026-10-24";
 
 const HOME_SOURCES = [
   { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
