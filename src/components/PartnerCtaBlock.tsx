@@ -49,7 +49,7 @@ const PartnerCtaBlock = ({ variant = "article", source, industry, product, class
             {[
               "Jämför leverantörer sida vid sida",
               "Få hjälp att kortlista relevanta partner",
-              "Kostnadsfritt och köparorienterat",
+              "Kostnadsfritt, och ni väljer själva vilka partners ni kontaktar",
             ].map((t) => (
               <li key={t} className="flex items-start gap-2 text-[15px] text-muted-foreground">
                 <Check className="h-4 w-4 mt-0.5 text-accent flex-shrink-0" />

@@ -2,7 +2,10 @@ import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "fs";
 import path from "path";
 
-const PHRASE = "Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner";
+// Thomas 2026-10-24: metadata beskriver sidans nytta konkret i stället för att
+// sätta en etikett på perspektivet. Startsidan undantas tills vidare.
+const LABELS = /köpar(sidig|inriktad|orienterad|fokuserad|vänlig)|köparens sida|oberoende|objektiv|opartisk/i;
+const LABEL_EXEMPT = new Set(["Index.tsx"]);
 const PAGES_DIR = path.resolve(__dirname, "..", "pages");
 
 // Dynamiska sidor som bygger SEOHead-props i runtime (utan litterala strängar).
@@ -63,8 +66,11 @@ describe("SEO – publika undersidor", () => {
   });
 
   describe.each(blocks)("$file [#$index]", ({ title, description }) => {
-    it("har en metabeskrivning som innehåller den nya formuleringen", () => {
-      expect(description).toContain(PHRASE);
+    it("har en metabeskrivning utan positioneringsetiketter som köparsidig", ({ task }) => {
+      const file = task.suite?.name.split(" ")[0] ?? "";
+      if (LABEL_EXEMPT.has(file)) return;
+      expect(description).not.toMatch(LABELS);
+      expect(title).not.toMatch(LABELS);
     });
 
     it("har en metabeskrivning inom rekommenderad längd (50–160 tecken)", () => {
