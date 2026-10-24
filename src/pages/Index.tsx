@@ -331,6 +331,7 @@ const Index = () => {
 
               Vad stämmer bäst in på er situation?
             </p>
+            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
             <AdvisoryOffer
               variant="hero"
               placement="home"
@@ -339,10 +340,9 @@ const Index = () => {
               cta="Tala med en rådgivare"
               dialogTitle="Tala med en rådgivare"
               dialogDescription="En rådgivare på köparens sida hjälper er att hitta rätt startpunkt. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande."
-              className="mb-2 sm:mb-3"
+              className="mt-3"
             />
-            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
-            <ul className="mt-4 sm:mt-5 flex flex-wrap gap-x-5 gap-y-1" aria-label="Fakta om d365.se">
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1" aria-label="Fakta om d365.se">
               <li className="flex items-start gap-2 text-[12px] leading-snug text-primary-foreground/55">
                 <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
                 <span><CountUp value={139000 + visitCount} suffix="+" className="tabular-nums" /> visningar</span>
