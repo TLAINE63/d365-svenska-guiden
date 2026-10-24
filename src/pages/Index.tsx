@@ -5,6 +5,7 @@ import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import DecisionModel from "@/components/home/DecisionModel";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
@@ -108,7 +109,7 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = VERIFIED_PARTNER_COUNT;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
-const HOME_LAST_UPDATED = "2026-10-09";
+const HOME_LAST_UPDATED = "2026-10-24";
 
 const HOME_SOURCES = [
   { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
@@ -350,6 +351,16 @@ const Index = () => {
               <span className="mt-1.5 block font-normal text-[13px] sm:text-[14px] lg:text-[15px] text-primary-foreground/80">Välj det alternativ som bäst motsvarar er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+            <AdvisoryOffer
+              variant="hero"
+              placement="home"
+              pageType="startsida"
+              text="Osäker på var ni ska börja?"
+              cta="Tala med en rådgivare"
+              dialogTitle="Tala med en rådgivare"
+              dialogDescription="En rådgivare på köparens sida hjälper er att hitta rätt startpunkt. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande."
+              className="mt-6 sm:mt-8"
+            />
           </div>
         </section>
 

@@ -18,6 +18,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   tool_result: "Kalkylator/kravspecifikation",
   second_opinion: "Second opinion-sidan",
   plan: "Min D365-plan",
+  home: "Startsidan",
 };
 
 export const CASE_STATUSES = [
