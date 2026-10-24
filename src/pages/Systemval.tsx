@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
 import { CONFIG_VERSION, MAX_QUESTIONS } from "@/lib/systemval/config";
 import { answer, contextFor, deriveState, emptyInput, getQuestion, resolveOptions, resolveText, toggleMulti, type DialogInput } from "@/lib/systemval/engine";
 import type { ErpResult } from "@/lib/systemval/modules/erp";
@@ -268,6 +268,23 @@ export default function Systemval() {
               ]}
               metadata={{ clarity: result.clarity, primary: result.primaryTracks.map((t) => t.id).join(",") }}
             />
+          )}
+
+          {!deepMode && (
+            <aside aria-labelledby="nasta-steg-partner" className="mt-12 flex flex-col gap-4 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+              <div>
+                <p id="nasta-steg-partner" className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent mb-1">Nästa steg</p>
+                <p className="text-sm sm:text-[15px] leading-relaxed text-foreground">
+                  Söker ni en partner för rådgivning eller införande? Hitta och jämför i vår partnerväljare.
+                </p>
+              </div>
+              <Button asChild variant="outline" className="min-h-11 shrink-0">
+                <Link to="/valjdynamics365partner/" onClick={() => trackSystemval("next_step_clicked", { kind: "partner_selector_box" })}>
+                  <span>Hitta <span className="whitespace-nowrap">Dynamics&nbsp;365-partner</span></span>
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Button>
+            </aside>
           )}
 
           {debug && (

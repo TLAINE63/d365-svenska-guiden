@@ -7,6 +7,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/byta-dynamics-partner/": "2026-10-23",
   "/guider/valja-dynamics-365-partner/": "2026-10-22",
   "/": "2026-10-24",
+  "/kom-igang/": "2026-10-24",
   "/kontakt/": "2026-10-22",
   "/jamfor/dynamics-365-vs-salesforce/": "2026-10-22",
   "/d365commerce/": "2026-10-22",
