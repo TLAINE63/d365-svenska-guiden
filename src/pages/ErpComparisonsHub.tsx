@@ -22,7 +22,7 @@ const ErpComparisonsHub = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Jämför Dynamics 365 mot konkurrenter | d365.se"
-        description="Jämför Dynamics 365 ERP och CRM med SAP, Salesforce, HubSpot, Zendesk, ServiceNow, Genesys, Puzzel, Telia ACE med flera alternativ."
+        description="Jämför Dynamics 365 ERP och CRM med SAP, Salesforce, HubSpot, Zendesk, ServiceNow, Genesys, Puzzel, Telia ACE och fler alternativ."
         canonicalPath="/jamfor/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
