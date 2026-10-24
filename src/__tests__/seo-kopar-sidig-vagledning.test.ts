@@ -65,9 +65,8 @@ describe("SEO – publika undersidor", () => {
     expect(blocks.length).toBeGreaterThanOrEqual(20);
   });
 
-  describe.each(blocks)("$file [#$index]", ({ title, description }) => {
-    it("har en metabeskrivning utan positioneringsetiketter som köparsidig", ({ task }) => {
-      const file = task.suite?.name.split(" ")[0] ?? "";
+  describe.each(blocks)("$file [#$index]", ({ file, title, description }) => {
+    it("har en metabeskrivning utan positioneringsetiketter som köparsidig", () => {
       if (LABEL_EXEMPT.has(file)) return;
       expect(description).not.toMatch(LABELS);
       expect(title).not.toMatch(LABELS);
