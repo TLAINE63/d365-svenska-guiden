@@ -23,7 +23,7 @@ const ContactUs = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Kontakt – rådgivning inför system- och partnerval | d365.se"
+        title="Kontakt – rådgivning om Dynamics 365-lösning och partner | d365.se"
         description="Boka ett kostnadsfritt möte med Thomas Laine eller Michael Uhman om ert val av Microsoft Dynamics 365-lösning och partner, utan säljpåverkan."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
@@ -99,7 +99,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Thomas Laine</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Rådgivare inför system- och partnerval, med lång erfarenhet av Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Rådgivare med lång erfarenhet av Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
@@ -237,8 +237,8 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning inför system- och partnerval</h4>
-                      <p className="text-sm text-muted-foreground">Ett samtal på 30 minuter före partnerdialogen. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
+                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning</h4>
+                      <p className="text-sm text-muted-foreground">30 minuter om behov, lösning, kostnad eller partner. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
 

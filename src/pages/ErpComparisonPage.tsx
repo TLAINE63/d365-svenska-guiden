@@ -61,7 +61,7 @@ const ErpComparisonPage = () => {
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20 text-white">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
             <p className="text-xs font-semibold uppercase tracking-wide text-white/70 mb-3">
-              Redaktionell jämförelse · Samma frågor för båda alternativen
+              Konkurrentjämförelse · Samma frågor för båda alternativen
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
               {nowrapBrand(`${data.productShort} eller ${data.competitor}, vilket passar er verksamhet?`)}

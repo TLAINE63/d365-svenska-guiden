@@ -84,7 +84,7 @@ const D365ContactCenter = () => {
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter"
-        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader."
+        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />

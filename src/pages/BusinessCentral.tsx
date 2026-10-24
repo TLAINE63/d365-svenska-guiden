@@ -249,7 +249,7 @@ const BusinessCentral = () => {
  <FAQSchema faqs={bcFaqs} />
  <ServiceSchema 
  name="Microsoft Dynamics 365 Business Central"
- description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI."
+ description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={bcBreadcrumbs} />
  <script

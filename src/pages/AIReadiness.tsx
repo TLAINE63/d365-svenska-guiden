@@ -1058,7 +1058,7 @@ const AIReadiness = () => {
       doc.setFontSize(7.5);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(slate400.r, slate400.g, slate400.b);
-      doc.text("d365.se – guide inför system- och partnerval i Dynamics 365", lm, ph - 12);
+      doc.text("d365.se – guide till Dynamics 365 i Sverige", lm, ph - 12);
       doc.text(`Sida ${pageNum}`, rm, ph - 12, { align: "right" });
     };
 
@@ -1218,7 +1218,7 @@ const AIReadiness = () => {
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);
-    doc.text("Guide inför system- och partnerval i Dynamics 365", lm, ph - 19);
+    doc.text("Guide till Dynamics 365 i Sverige", lm, ph - 19);
 
     // ═══ PAGE 1: Executive Summary ═══
     newPage("Executive Summary");
@@ -1562,7 +1562,7 @@ const AIReadiness = () => {
         />
         <WebPageSchema
           name="AI Readiness Assessment – Mät AI-effekt"
-          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap."
+          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
           url="https://d365.se/ai-readiness/"
           breadcrumb={[
             { name: "Hem", url: "https://d365.se/" },

@@ -1433,7 +1433,7 @@ const CustomerServiceNeedsAnalysis = () => {
  pdf.text("Dynamic Factory", margin + 8, yPos + 10);
  pdf.setFont("helvetica", "normal");
  pdf.setFontSize(9);
- pdf.text("Ditt underlag inför valet av Dynamics 365-lösning", margin + 8, yPos + 18);
+ pdf.text("Ert underlag för kundservice i Dynamics 365", margin + 8, yPos + 18);
  pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
  pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
  pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -2317,7 +2317,7 @@ const CustomerServiceNeedsAnalysis = () => {
  keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
  ogImage="https://d365.se/og-kundservice-behovsanalys.png"
  />
- <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice." />
+ <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." />
  <BreadcrumbSchema items={customerServiceBreadcrumbs} />
  <SoftwareApplicationSchema
  name="Behovsanalys Customer Service"

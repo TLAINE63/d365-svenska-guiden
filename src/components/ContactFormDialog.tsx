@@ -133,7 +133,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
  </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] bg-card">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-card-foreground">{title ?? "Kostnadsfri rådgivning inför system- och partnerval"}</DialogTitle>
+          <DialogTitle className="text-2xl text-card-foreground">{title ?? "Kostnadsfri rådgivning"}</DialogTitle>
           <DialogDescription className="text-muted-foreground">
             {description ?? "Fyll i formuläret så återkommer vi till dig så snart som möjligt."}
           </DialogDescription>

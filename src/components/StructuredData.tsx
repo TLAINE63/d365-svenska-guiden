@@ -17,7 +17,7 @@ export const OrganizationSchema = () => {
       "url": ORGANIZATION.logoUrl,
       "width": 2000,
       "height": 1620,
-      "caption": "d365.se – guide till Microsoft Dynamics 365 inför system- och partnerval"
+      "caption": "d365.se – köparsidig guide till Microsoft Dynamics 365"
     },
     "image": ORGANIZATION.logoUrl,
     "description": ORGANIZATION_SCHEMA_DESCRIPTION,

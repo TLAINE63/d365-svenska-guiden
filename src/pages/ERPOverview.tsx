@@ -148,8 +148,8 @@ const ERPOverview = () => {
  ogImageAlt="Affärssystem och ERP – köpguide på d365.se"
  />
  <ServiceSchema 
- name="Affärssystem & Microsoft Dynamics 365 ERP – guide inför systemvalet"
- description="Guide och jämförelse av affärssystem i Sverige med fokus på Microsoft Dynamics 365: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer."
+ name="Affärssystem & Microsoft Dynamics 365 ERP – köparsidig guide"
+ description="Köparsidig guide och jämförelse av affärssystem i Sverige med fokus på Microsoft Dynamics 365: Business Central för mindre och medelstora företag, Finance & Supply Chain Management för stora organisationer. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <FAQSchema faqs={erpFaqs} />
  <BreadcrumbSchema items={erpBreadcrumbs} />

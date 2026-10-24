@@ -22,7 +22,7 @@ const ErpComparisonsHub = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Jämför Dynamics 365 mot konkurrenter | d365.se"
-        description="Redaktionella jämförelser av Dynamics 365 ERP och CRM mot SAP, Salesforce, HubSpot, Zendesk, ServiceNow, Genesys, Puzzel, Telia ACE med flera alternativ."
+        description="Jämför Dynamics 365 ERP och CRM med SAP, Salesforce, HubSpot, Zendesk, ServiceNow, Genesys, Puzzel, Telia ACE med flera alternativ."
         canonicalPath="/jamfor/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -38,7 +38,7 @@ const ErpComparisonsHub = () => {
               Jämför Dynamics 365 mot konkurrenter
             </h1>
             <p className="text-base sm:text-lg text-white/85 max-w-3xl">
-              Strukturerade, redaktionella jämförelser av Microsoft Dynamics&nbsp;365 mot etablerade
+              Strukturerade jämförelser av Microsoft Dynamics&nbsp;365 mot etablerade
               alternativ – för ERP, CRM, kundservice, marketing/CDP, kontaktcenter och fältservice.
               Samma rader, samma frågor – och alltid &quot;när passar inte&quot;. {PRODUCT_COMPARISONS.length}{" "}
               jämförelser totalt.
