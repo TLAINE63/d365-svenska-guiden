@@ -296,7 +296,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="D365 (Dynamics 365) – köparguide i Sverige"
-        description="D365 (Microsoft Dynamics 365) i Sverige: köparsidig guide med priskalkylator, kostnadsfri behovsanalys och jämförelse av partners per bransch."
+        description="D365 (Microsoft Dynamics 365) i Sverige: jämför ERP och CRM, räkna på kostnaden, gör en kostnadsfri behovsanalys och jämför partners per bransch."
         canonicalPath="/"
         ogImage="https://d365.se/og-erp.png"
         dateModified={HOME_LAST_UPDATED}
@@ -305,8 +305,8 @@ const Index = () => {
       <WebSiteSchema />
       <FAQSchema faqs={homeFaqs} />
       <NoscriptSEO
-        title="Microsoft Dynamics 365 Sverige – köparsidig guide till ERP & CRM"
-        description="d365.se är en köparsidig guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar. Du kan hitta och jämföra Dynamics 365-partners och göra en kostnadsfri behovsanalys. Business Central kostar från 765 kr per användare och månad."
+        title="Microsoft Dynamics 365 Sverige – guide till ERP & CRM"
+        description="d365.se är en guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar. Du kan hitta och jämföra Dynamics 365-partners och göra en kostnadsfri behovsanalys. Business Central kostar från 765 kr per användare och månad."
         sections={[
           { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnplattform för affärssystem (ERP) och kundhantering (CRM). Business Central och Finance & Supply Chain Management används för ERP. Sales, Customer Service, Field Service och Customer Insights används för CRM." },
           { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Rätt partner avgör om projektet lyckas. En bra partner har erfarenhet av er bransch. Den har referenskunder av liknande storlek. Den kan också den applikation ni ska införa." },
