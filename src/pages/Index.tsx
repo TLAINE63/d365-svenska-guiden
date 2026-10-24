@@ -350,6 +350,16 @@ const Index = () => {
               <span className="mt-1.5 block font-normal text-[13px] sm:text-[14px] lg:text-[15px] text-primary-foreground/80">Välj det alternativ som bäst motsvarar er situation.</span>
             </p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+            <AdvisoryOffer
+              variant="hero"
+              placement="home"
+              pageType="startsida"
+              text="Osäker på var ni ska börja?"
+              cta="Tala med en rådgivare"
+              dialogTitle="Tala med en rådgivare"
+              dialogDescription="En rådgivare på köparens sida hjälper er att hitta rätt startpunkt. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande."
+              className="mt-6 sm:mt-8"
+            />
           </div>
         </section>
 

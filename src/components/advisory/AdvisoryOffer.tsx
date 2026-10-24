@@ -9,8 +9,8 @@ import type { AdvisoryPlacement, ContactSection } from "@/components/plan/PlanCo
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 interface Props {
-  /** compact = textrad med länk, inline = rådgivningskort. */
-  variant: "compact" | "inline";
+  /** compact = textrad med länk, inline = rådgivningskort, hero = ljus textrad på mörk bakgrund. */
+  variant: "compact" | "inline" | "hero";
   placement: AdvisoryPlacement;
   /** CTA-text, styrd av beslutssituationen. */
   cta: string;
@@ -81,6 +81,15 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           <p className="mt-3 text-xs text-muted-foreground">{carriedNote} Ingen partner deltar och inget delas utan ert godkännande.</p>
           </div>
         </aside>
+      ) : variant === "hero" ? (
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13.5px] sm:text-[14.5px] text-primary-foreground/70">
+          <MessageCircle className="h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden />
+          <span>{nowrapBrand(text)}</span>
+          <button type="button" onClick={start} className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-primary-foreground hover:text-[hsl(var(--accent-dark-zone))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] rounded-sm">
+            {nowrapBrand(cta)}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </button>
+        </p>
       ) : (
         <p className="text-sm text-muted-foreground">
           {nowrapBrand(text)}{" "}
