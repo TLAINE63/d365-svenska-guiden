@@ -1,4 +1,5 @@
 import { track } from "@/lib/track";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { Link } from "react-router-dom";
 import { ClipboardCheck, ArrowLeftRight, Users, LayoutGrid, type LucideIcon } from "lucide-react";
 
@@ -9,23 +10,24 @@ const NODES: {
   text: string;
   cta: string;
   to: string;
+  journey: string;
   /** Kortet öppnar startsidans val av behovsanalys. */
   needsAnalysis?: boolean;
 }[] = [
-  { icon: ClipboardCheck, title: "Hitta rätt lösning", text: "Få vägledning bland affärssystem (ERP) och CRM-lösningar i Dynamics\u00A0365 som passar era behov.", cta: "Starta behovsguiden", to: "/kom-igang/?source=startsida" },
-  { icon: ArrowLeftRight, title: "Räkna på kostnaden", text: "Se införandekostnad, löpande kostnader och 3-års TCO för Dynamics\u00A0365.", cta: "Beräkna er kostnad", to: "/kostnad/" },
-  { icon: LayoutGrid, title: "Redan Dynamics\u00A0365-kund", text: "Utöka, uppgradera, använd AI eller byt partner.", cta: "Se era alternativ", to: "/befintlig-kund/" },
-  { icon: Users, title: "Hitta rätt Dynamics\u00A0365-partner", text: "Filtrera på affärssystem (ERP), CRM, bransch och kompetens.", cta: "Hitta partners", to: "/valjdynamics365partner/" },
+  { icon: ClipboardCheck, title: "Vi behöver ett nytt affärssystem eller CRM", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Hitta rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system" },
+  { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost" },
+  { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få stöd kring utveckling, AI, support, förvaltning eller byte av partner.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer" },
+  { icon: Users, title: "Vi behöver en Dynamics\u00A0365-partner", text: "Jämför partners utifrån lösning, bransch, kompetens och behov.", cta: "Hitta rätt partner", to: "/valjdynamics365partner/", journey: "find_partner" },
 ];
 
 const cardClass =
-  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-4 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-6";
+  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3.5 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
 
 const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
   <>
     <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))] lg:h-6 lg:w-6" aria-hidden="true" />
-    <span className="text-balance text-[18px] font-bold leading-tight text-primary-foreground lg:text-[24px]">{n.title}</span>
-    <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[14.5px]">{n.text}</span>
+    <span className="text-balance text-[16px] font-bold leading-tight text-primary-foreground lg:text-[19px]">{n.title}</span>
+    <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[14px]">{n.text}</span>
     <span className="mt-auto pt-1.5 text-[13px] font-semibold text-primary-foreground lg:text-[14px] underline-offset-4 group-hover:underline">
       {n.cta} <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
     </span>
@@ -55,7 +57,7 @@ const DecisionModel = ({ onStartNeedsAnalysis }: DecisionModelProps) => (
             <CardBody n={n} />
           </button>
         ) : (
-          <Link key={n.to} to={n.to} className={cardClass} onClick={() => track("home_path_click", { path: n.title, to: n.to })}>
+          <Link key={n.to} to={n.to} className={cardClass} onClick={() => { track("home_path_click", { path: n.title, to: n.to }); trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: n.to } }); }}>
             <CardBody n={n} />
           </Link>
         ),
