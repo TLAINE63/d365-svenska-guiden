@@ -100,7 +100,7 @@ const D365CustomerService = () => {
       <FAQSchema faqs={customerServiceFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Customer Service – Helpdesk & Ärendehantering"
-        description="Molnbaserat kundservicesystem och helpdesk med inbyggd Copilot AI, omnikanalstöd (e-post, chatt, telefon, SMS) och självbetjäningsportaler. Licenspriser från 478 kr/kundservicemedarbetare/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Molnbaserat kundservicesystem och helpdesk med inbyggd Copilot AI, omnikanalstöd (e-post, chatt, telefon, SMS) och självbetjäningsportaler. Licenspriser från 478 kr/kundservicemedarbetare/mån."
       />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />

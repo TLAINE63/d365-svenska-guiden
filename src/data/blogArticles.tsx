@@ -4205,7 +4205,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för livsmedel & processindustri",
     metaTitle: "Dynamics 365 för livsmedel & processindustri – guide",
     metaDescription:
-      "Dynamics 365 för livsmedel & processindustri hanterar batch, recept, HACCP och spårbarhet från råvara till färdig produkt. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för livsmedel & processindustri hanterar batch, recept, HACCP och spårbarhet från råvara till färdig produkt. Guide med svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium med livsmedelstillägg) stödjer batch, recept, hållbarhet, HACCP och spårbarhet från råvara till färdig produkt. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -4716,7 +4716,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för jordbruk & skogsbruk",
     metaTitle: "Dynamics 365 för jordbruk & skogsbruk – guide & partners",
     metaDescription:
-      "Dynamics 365 för jordbruk & skogsbruk täcker säsong, maskinpark, lager, fältservice och avräkning. Köparsidig guide med kostnad och svenska partners.",
+      "Dynamics 365 för jordbruk & skogsbruk täcker säsong, maskinpark, lager, fältservice och avräkning. Guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 fungerar som back-office för svenska jord- och skogsbruksbolag – ekonomi, anläggningsregister, fältservice och kund, integrerat med branschens specialistsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -5196,7 +5196,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för energi & utilities",
     metaTitle: "Dynamics 365 för energi & utilities – guide & partners",
     metaDescription:
-      "Dynamics 365 för energi & utilities stöttar fältservice, ärenden, projekt och kund med CIS/MDM-integration. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för energi & utilities stöttar fältservice, ärenden, projekt och kund med CIS/MDM-integration. Guide med svenska partners.",
     summary:
       "Dynamics 365 fungerar som plattform för svenska energi- och utilitiesbolag – ekonomi, projekt, fältservice och kund, integrerat med CIS/MDM och GIS/NIS. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -5412,7 +5412,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för konsultbolag & tjänsteföretag",
     metaTitle: "Dynamics 365 för konsultbolag & tjänsteföretag – guide",
     metaDescription:
-      "Dynamics 365 för konsultbolag (Project Operations + BC) ger tid, projekt, prognoser, sälj och ekonomi i samma plattform. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för konsultbolag (Project Operations + BC) ger tid, projekt, prognoser, sälj och ekonomi i samma plattform. Guide med svenska partners.",
     summary:
       "Dynamics 365 (Project Operations + BC eller F&SCM) är en stark plattform för svenska konsult- och tjänsteföretag – tid, projekt, prognoser, sälj och ekonomi i samma datamiljö. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -5665,7 +5665,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för finans & försäkring",
     metaTitle: "Dynamics 365 för finans & försäkring – guide & partners",
     metaDescription:
-      "Dynamics 365 för finans & försäkring stöttar distribution, CRM, kundtjänst och Customer Insights mot kärnsystem. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för finans & försäkring stöttar distribution, CRM, kundtjänst och Customer Insights mot kärnsystem. Guide med svenska partners.",
     summary:
       "Dynamics 365 stödjer svenska finans- och försäkringsbolag på CRM-sidan – distribution, kundtjänst, Customer Insights och compliance – med integration mot bank- och försäkringskärnsystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -5896,7 +5896,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för offentlig sektor",
     metaTitle: "Dynamics 365 för offentlig sektor – guide & partners",
     metaDescription:
-      "Dynamics 365 för offentlig sektor stöttar ärenden, fältservice, projekt och medborgarkontakt med diarie-integration. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för offentlig sektor stöttar ärenden, fältservice, projekt och medborgarkontakt med diarie-integration. Guide med svenska partners.",
     summary:
       "Dynamics 365 är en plattform för svenska kommuner, regioner och myndigheter – ärendehantering, fältservice, projekt och medborgarkontakt, integrerat med diariesystem och ekonomi. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -6132,7 +6132,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för Life Science & Medtech",
     metaTitle: "Dynamics 365 för Life Science & Medtech – guide & partners",
     metaDescription:
-      "Dynamics 365 för Life Science & Medtech hanterar GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för Life Science & Medtech hanterar GxP, validering, spårbarhet och kvalitetsstyrning med ISV-tillägg. Guide med svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC Premium med life science-tillägg) hanterar GxP, validering, spårbarhet och kvalitetsstyrning för svenska life science- och medtech-bolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -6373,7 +6373,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för telekom & IT-tjänster",
     metaTitle: "Dynamics 365 för telekom & IT-tjänster – guide & partners",
     metaDescription:
-      "Dynamics 365 för telekom & IT-tjänster stöttar abonnemang, CPQ, ärenden och SLA mot fakturasystem. Köparsidig guide med kostnad och svenska partners.",
+      "Dynamics 365 för telekom & IT-tjänster stöttar abonnemang, CPQ, ärenden och SLA mot fakturasystem. Guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 fungerar som ryggrad för svenska telekom- och IT-tjänsteföretag – sälj, leverans, ärenden, SLA och ekonomi, integrerat med abonnemangs- och faktureringssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -6601,7 +6601,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för uthyrningsverksamhet",
     metaTitle: "Dynamics 365 för uthyrningsverksamhet – guide & partners",
     metaDescription:
-      "Dynamics 365 för uthyrning hanterar hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för uthyrning hanterar hyresavtal, beläggning, underhåll och fältservice med branschtillägg. Guide med svenska partners.",
     summary:
       "Dynamics 365 (BC eller F&SCM med uthyrningstillägg) stödjer hyresavtal, beläggning, underhåll och fältservice för svenska uthyrningsbolag – maskiner, fordon, verktyg och event. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -6813,7 +6813,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för mode, sport & textil",
     metaTitle: "Dynamics 365 för mode, sport & textil – guide & partners",
     metaDescription:
-      "Dynamics 365 för mode, sport & textil hanterar storlek/färg-matriser, säsong, kollektion och kanal med ISV-tillägg. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för mode, sport & textil hanterar storlek/färg-matriser, säsong, kollektion och kanal med ISV-tillägg. Guide med svenska partners.",
     summary:
       "Dynamics 365 med modetillägg (Bisqo, K3 Pebblestone, LS Retail Fashion) hanterar storlek/färg-matriser, säsong, kollektion och kanal för svenska mode-, sport- och textilbolag. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -7009,7 +7009,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för fastighet & förvaltning",
     metaTitle: "Dynamics 365 för fastighet & förvaltning – guide & partners",
     metaDescription:
-      "Dynamics 365 för fastighet & förvaltning täcker ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för fastighet & förvaltning täcker ekonomi, anläggningsregister, fältservice och hyresgästkontakt. Guide med svenska partners.",
     summary:
       "Dynamics 365 (BC eller F&SCM + Field Service) hanterar ekonomi, anläggningsregister, underhåll och hyresgästkontakt för svenska fastighets- och förvaltningsbolag – integrerat med specialiserade hyresadministrationssystem. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -7213,7 +7213,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för transport & logistik",
     metaTitle: "Dynamics 365 för transport & logistik – guide & partners",
     metaDescription:
-      "Dynamics 365 för transport & logistik stöttar WMS, uppdragsekonomi, fakturering och TMS-integration. Köparsidig guide med kostnad och svenska partners.",
+      "Dynamics 365 för transport & logistik stöttar WMS, uppdragsekonomi, fakturering och TMS-integration. Guide med kostnad och svenska partners.",
     summary:
       "Dynamics 365 (F&SCM eller BC) är ekonomi- och operativt nav för svenska transport- och logistikbolag – WMS, uppdragsekonomi, fakturering och fältservice, integrerat med specialiserade TMS-system. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
@@ -7434,7 +7434,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     title: "Dynamics 365 för medlemsorganisationer",
     metaTitle: "Dynamics 365 för medlemsorganisationer – guide & partners",
     metaDescription:
-      "Dynamics 365 för medlemsorganisationer stöttar medlemsresan, segmentering, kommunikation och avgiftshantering. Köparsidig guide med svenska partners.",
+      "Dynamics 365 för medlemsorganisationer stöttar medlemsresan, segmentering, kommunikation och avgiftshantering. Guide med svenska partners.",
     summary:
       "Dynamics 365 (Sales + Customer Insights + Customer Service, ev. BC för avgifter) hanterar medlemsresan, segmentering, kommunikation och service för svenska fackförbund, branschorganisationer och föreningar. Guiden går igenom arbetsprocesser, systemstöd och listade partners – skriven ur köparens perspektiv.",
     category: "Branschguide",
