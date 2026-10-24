@@ -124,7 +124,7 @@ Deno.serve(async (req) => {
     const isvBlock = await buildIsvContextBlock();
     const competenceBlock = await buildCompetenceContextBlock();
 
-    const systemPrompt = `Du är en sökassistent för d365.se, en köparsidig guide till Microsoft Dynamics 365 i Sverige.
+    const systemPrompt = `Du är en sökassistent för d365.se, en guide som hjälper svenska företag att jämföra Microsoft Dynamics 365-lösningar och partners.
 Användaren ställer en fri fråga – din uppgift är att föreslå den BÄSTA sidan att skicka dem till, plus 2-3 alternativa förslag.
 Svara ALLTID på svenska och ALLTID i giltig JSON.
 

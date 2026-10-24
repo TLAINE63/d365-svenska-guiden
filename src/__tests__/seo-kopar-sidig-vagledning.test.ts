@@ -3,9 +3,9 @@ import { readFileSync, readdirSync } from "fs";
 import path from "path";
 
 // Thomas 2026-10-24: metadata beskriver sidans nytta konkret i stället för att
-// sätta en etikett på perspektivet. Startsidan undantas tills vidare.
+// sätta en etikett på perspektivet. Gäller även startsidan (Thomas 2026-10-24).
 const LABELS = /köpar(sidig|inriktad|orienterad|fokuserad|vänlig)|köparens sida|oberoende|objektiv|opartisk/i;
-const LABEL_EXEMPT = new Set(["Index.tsx"]);
+const LABEL_EXEMPT = new Set<string>([]);
 const PAGES_DIR = path.resolve(__dirname, "..", "pages");
 
 // Dynamiska sidor som bygger SEOHead-props i runtime (utan litterala strängar).

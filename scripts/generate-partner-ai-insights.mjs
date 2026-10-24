@@ -21,7 +21,7 @@ const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SYSTEM = `Du är en senior, köparsidig rådgivare på d365.se som skriver neutrala analyser av Microsoft Dynamics 365-partners.
+const SYSTEM = `Du är en senior rådgivare på d365.se som skriver neutrala analyser av Microsoft Dynamics 365-partners.
 Regler:
 - Skriv på svenska, i tredje person, sakligt och utan säljjargong eller superlativ.
 - Använd ALDRIG ordet "oberoende".
