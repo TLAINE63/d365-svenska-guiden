@@ -14,7 +14,7 @@ const NODES: {
   /** Kortet öppnar startsidans val av behovsanalys. */
   needsAnalysis?: boolean;
 }[] = [
-  { icon: ClipboardCheck, title: "Vi behöver ett nytt affärssystem eller CRM", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Hitta rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system" },
+  { icon: ClipboardCheck, title: "Vi behöver ett nytt affärssystem (ERP) eller CRM", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Hitta rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system" },
   { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost" },
   { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få stöd kring utveckling, AI, support, förvaltning eller byte av partner.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer" },
   { icon: Users, title: "Vi behöver en Dynamics\u00A0365-partner", text: "Jämför partners utifrån lösning, bransch, kompetens och behov.", cta: "Hitta rätt partner", to: "/valjdynamics365partner/", journey: "find_partner" },

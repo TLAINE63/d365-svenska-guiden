@@ -325,7 +325,7 @@ const Index = () => {
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
             <p className="mb-5 sm:mb-6 max-w-2xl sm:max-w-3xl text-[14px] sm:text-[15px] lg:text-[17px] leading-relaxed text-primary-foreground/75">
-              Ska ni välja nytt affärssystem eller CRM, förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här får ni köparsidig vägledning för att jämföra alternativ, förstå kostnader och hitta rätt kompetens och partner.
+              Ska ni välja nytt affärssystem (ERP) eller CRM, förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här får ni köparsidig vägledning för att jämföra alternativ, förstå kostnader och hitta rätt kompetens och partner.
             </p>
             <p className="mb-2 sm:mb-3 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
 
