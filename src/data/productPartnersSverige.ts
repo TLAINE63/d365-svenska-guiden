@@ -37,7 +37,7 @@ export const PRODUCT_PARTNERS_SVERIGE: ProductPartnersSverigeConfig[] = [
     h1: "Business Central-partners i Sverige",
     metaTitle: "Business Central-partners i Sverige: jämför {count} partners | d365.se",
     metaDescription:
-      "Microsoft Dynamics 365 Business Central-partners i Sverige. Jämför inriktning, branscher och referenser. Köparsidig vägledning utan provisionsmodell.",
+      "Microsoft Dynamics 365 Business Central-partners i Sverige. Jämför inriktning, branscher och referenser. Vägledning inför partnervalet, utan provisionsmodell.",
     intro:
       "Business Central är Microsofts affärssystem för små och medelstora företag. Valet av partner påverkar ofta projektet mer än valet av system: partnern bestämmer metod, branschtillägg, integrationer och hur förvaltningen fungerar efter driftstart.\n\nHär listas Business Central-partners på den svenska marknaden, utifrån köparens perspektiv. Partners med profileringsavtal har granskat sina uppgifter. Övriga visas med en grundprofil som d365.se har sammanställt från publika källor. Listan är sorterad efter namn och säger inget om kvalitet.\n\nJämför partners på tre punkter: erfarenhet av er bransch, referenser från bolag av er storlek och hur de arbetar med förvaltning efter go-live.",
     faq: [

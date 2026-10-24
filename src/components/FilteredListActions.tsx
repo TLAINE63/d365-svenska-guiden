@@ -85,7 +85,7 @@ const FilteredListActions = ({
               Hittade flera intressanta partners?
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Få vägledning köparsidigt – eller låt d365.se förmedla samma förfrågan
+              Få vägledning utifrån era behov, eller låt d365.se förmedla samma förfrågan
               till {recipientLabel} på en gång.
             </p>
           </div>

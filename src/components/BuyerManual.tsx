@@ -48,7 +48,7 @@ const BuyerManual = ({ product, heading = "Köparmanual", subheading }: BuyerMan
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-3xl mb-8 sm:mb-12">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-            På köparens sida
+            Inför produkt- och partnerval
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
             {heading}

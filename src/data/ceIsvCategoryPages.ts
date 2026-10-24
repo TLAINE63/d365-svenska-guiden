@@ -111,7 +111,7 @@ export const CE_CATEGORY_PAGES: CeCategoryPage[] = [
     h1: "Tillägg för Dynamics 365 Field Service",
     metaTitle: "Tillägg för Dynamics 365 Field Service – mobilitet och inspektioner",
     metaDescription:
-      "Vilka tillägg finns till Dynamics 365 Field Service? Mobilitet, offlineläge, inspektioner och utökade fältserviceflöden – med köparsidiga urvalsråd.",
+      "Vilka tillägg finns till Dynamics 365 Field Service? Mobilitet, offlineläge, inspektioner och utökade fältserviceflöden – med råd inför urvalet.",
     intro:
       "Field Service-tillägg löser olika typer av problem: mobilitet och offlineläge, digitala inspektioner och checklistor, samt utökade processer för avtal, planering och service. Vi särskiljer dem så att du kan matcha rätt lösning mot rätt behov.",
     faq: [

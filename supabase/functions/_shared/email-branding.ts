@@ -15,7 +15,7 @@ export function premiumEmail(html: string, subject: string): string {
 <div style="display:none;max-height:0;overflow:hidden">${escapeHtml(subject)}</div>
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F5F2EC"><tr><td align="center" style="padding:28px 12px">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #D8D1C6;border-radius:4px;overflow:hidden">
-<tr><td style="padding:24px 28px;background:#161511;color:#ffffff"><strong style="font-size:22px">D365.SE</strong><div style="margin-top:6px;font-size:12px;color:#D8D1C6">Köparsidig vägledning för Microsoft&nbsp;Dynamics&nbsp;365</div></td></tr>
+<tr><td style="padding:24px 28px;background:#161511;color:#ffffff"><strong style="font-size:22px">D365.SE</strong><div style="margin-top:6px;font-size:12px;color:#D8D1C6">Vägledning inför system- och partnerval i Microsoft&nbsp;Dynamics&nbsp;365</div></td></tr>
 <tr><td style="padding:28px;font-size:15px;line-height:1.7;overflow-wrap:anywhere">${content}
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:28px;border-top:1px solid #D8D1C6"><tr><td style="padding-top:20px;font-size:14px;line-height:1.8">Med vänliga hälsningar<br><strong>Thomas&nbsp;Laine</strong><br>D365.SE<br><a href="mailto:${EMAIL_OWNER}" style="color:#007C68">${EMAIL_OWNER}</a><br><a href="tel:+46722324060" style="color:#007C68">+46&nbsp;72&nbsp;232&nbsp;40&nbsp;60</a> · <a href="https://d365.se" style="color:#007C68">d365.se</a></td></tr></table>
 </td></tr></table><div style="padding:18px 12px;color:#6F6A61;font-size:11px;line-height:1.6">Moveahead AB (Dynamic Factory) · D365.SE</div>

@@ -23,8 +23,8 @@ const ContactUs = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Kontakt – köparsidig guide till Dynamics 365 | d365.se"
-        description="Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner. Boka kostnadsfritt möte med Thomas Laine eller Michael Uhman för rådgivning utan säljpåverkan."
+        title="Kontakt – rådgivning inför system- och partnerval | d365.se"
+        description="Boka ett kostnadsfritt möte med Thomas Laine eller Michael Uhman om ert val av Microsoft Dynamics 365-lösning och partner, utan säljpåverkan."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
         ogImage="https://d365.se/og-kontakt.png"
@@ -99,7 +99,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Thomas Laine</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Köparsidig rådgivare med lång erfarenhet av Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Rådgivare inför system- och partnerval, med lång erfarenhet av Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
@@ -166,7 +166,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Michael Uhman</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Köparsidig rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut.</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
@@ -237,8 +237,8 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri köparrådgivning</h4>
-                      <p className="text-sm text-muted-foreground">30 minuter med en rådgivare på köparens sida. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
+                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning inför system- och partnerval</h4>
+                      <p className="text-sm text-muted-foreground">Ett samtal på 30 minuter före partnerdialogen. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
 

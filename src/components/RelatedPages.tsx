@@ -88,7 +88,7 @@ export const affarssystemRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain Management (F&O)", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
   { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på dina behov", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Hur Dynamics 365 anpassas för olika branscher", href: "/branscher/" },
-  { title: "Hitta rätt partner", description: "Katalog över certifierade Microsoft-partners – vi står på köparens sida", href: "/valjdynamics365partner/" },
+  { title: "Hitta rätt partner", description: "Jämför Microsoft-partners utifrån era behov", href: "/valjdynamics365partner/" },
 ];
 
 export const crmRelatedPages: RelatedPage[] = [
@@ -177,7 +177,7 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & Supply Chain Management (F&O)", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "Affärssystem & ERP – guide", description: "Köparsidig guide: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/affarssystem/" },
+  { title: "Affärssystem & ERP – guide", description: "Guide inför systemvalet: vad ett affärssystem är, vad det kostar och hur du väljer rätt", href: "/affarssystem/" },
   { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
 ];

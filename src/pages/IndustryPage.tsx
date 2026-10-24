@@ -408,7 +408,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
           partner spelar större roll än produkten i sig. På d365.se hittar du {matchingPartners.length}{' '}
           {matchingPartners.length === 1 ? 'partner' : 'partners'} med dokumenterad erfarenhet av{' '}
           {industryName.toLowerCase()} – jämför kompetens, branschreferenser och geografisk närvaro
-          köparsidigt, utan att bli kontaktad förrän du själv väljer det.
+          utifrån era behov, utan att bli kontaktad förrän du själv väljer det.
         </ShortAnswer>
       )}
 

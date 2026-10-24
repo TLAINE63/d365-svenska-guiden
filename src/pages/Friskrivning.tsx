@@ -112,7 +112,7 @@ export default function Friskrivning() {
           </h2>
           <p className="text-muted-foreground leading-relaxed">
             Priser, licensvillkor och funktionalitet kan ändras över tid. Våra
-            jämförelser är <strong>köparsidiga vägledningar, inte garantier</strong>.
+            jämförelser är <strong>underlag för er egen utvärdering, inte garantier</strong>.
             De ger en strukturerad utgångspunkt för dina egna samtal med Microsoft och
             partners.
           </p>
@@ -133,7 +133,7 @@ export default function Friskrivning() {
               via vår partnerportal. d365.se använder AI för att tolka,
               strukturera och summera informationen så att de delar vi bedömer
               mest relevanta för dig som köpare framträder tydligare. Det du ser
-              är en köparsidig presentation, inte partnerns ordagrant återgivna
+              är d365.se:s presentation, skriven för dig som köpare, inte partnerns ordagrant återgivna
               profil.
             </li>
             <li>

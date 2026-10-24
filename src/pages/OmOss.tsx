@@ -33,7 +33,7 @@ const OmOss = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`Om d365.se – köparsidig guide till Microsoft ${D365}`}
+        title={`Om d365.se – guide inför system- och partnerval i Microsoft ${D365}`}
         description={`d365.se drivs av ${ORGANIZATION.legalName} och hjälper svenska företag att förstå Microsoft ${D365}, ringa in sitt behov och hitta rätt partner. Läs om vilka vi är och hur sajten finansieras.`}
         canonicalPath="/om-oss/"
       />
@@ -110,7 +110,7 @@ const OmOss = () => {
                 <div key={advisor.name} className="flex items-start gap-4">
                   <img
                     src={advisor.image}
-                    alt={`${advisor.name}, köparsidig rådgivare inom Microsoft ${D365}`}
+                    alt={`${advisor.name}, rådgivare inom Microsoft ${D365}`}
                     loading="lazy"
                     width={80}
                     height={80}

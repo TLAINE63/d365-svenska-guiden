@@ -50,8 +50,8 @@ export const PARTNER_GUIDES: PartnerGuide[] = [
     seoTitle: "Välja Dynamics 365-partner? Guide & Checklista 2026 | d365.se",
     seoTitleMaxLength: 61,
     seoDescription:
-      "Ska du välja eller byta partner för Dynamics 365? Se vår köparsidiga checklista för support, certifieringar och hur du hittar rätt partner i Sverige.",
-    ogTitle: "Välja Dynamics 365-partner? Köparsidig guide & checklista | d365.se",
+      "Ska du välja eller byta partner för Dynamics 365? Se vår checklista för support, certifieringar och hur du hittar rätt partner i Sverige.",
+    ogTitle: "Välja Dynamics 365-partner? Guide & checklista | d365.se",
     ogDescription:
       "Jämför verifierade partners, SLA och supportavtal innan ni väljer partner för Dynamics 365.",
     apps: [],

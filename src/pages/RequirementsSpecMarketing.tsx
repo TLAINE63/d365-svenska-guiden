@@ -206,7 +206,7 @@ const RequirementsSpecMarketing = () => {
     <>
       <SEOHead
         title="Kravspecifikation för Dynamics 365 Marketing | d365.se"
-        description="Skräddarsydd kravspec för Customer Insights (Marketing) – AI-berikade branschanpassade krav. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+        description="Skräddarsydd kravspec för Customer Insights (Marketing) – AI-berikade branschanpassade krav. Ett jämförbart underlag för partnerdialogen."
         canonicalPath="/kravspecifikation-marketing"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -507,7 +507,7 @@ ${
                 placement="tool_result"
                 pageType="requirements"
                 cta={ADVISORY_CTA.tool_result}
-                text="Vill ni gå igenom kravunderlaget med någon på köparens sida innan ni skickar det vidare?"
+                text="Vill ni gå igenom kravunderlaget med en rådgivare innan ni skickar det till partners?"
                 sections={[{ key: "kravunderlag", label: "Kravunderlag", lines: [`Kravspecifikation: Dynamics 365 Customer Insights (Marketing)`, ...(result.industry || industry ? [`Bransch: ${result.industry || industry}`] : []), ...(companySize ? [`Företagsstorlek: ${companySize}`] : []), `${selectedAreas.length} valda funktionsområden`] }]}
                 metadata={{ tool: "RequirementsSpecMarketing" }}
               />

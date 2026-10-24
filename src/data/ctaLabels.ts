@@ -19,10 +19,10 @@ export const CTA = {
   aiSearchTo: "/fraga/",
 
   /** Rådgivning – aldrig ordet "oberoende" i kommersiell copy. */
-  advisoryHeading: "Kostnadsfri köparrådgivning",
+  advisoryHeading: "Kostnadsfri rådgivning inför system- och partnerval",
   advisoryCta: "Boka kostnadsfri rådgivning",
   advisoryBullets: [
-    "30 minuter med en rådgivare på köparens sida",
+    "Ett samtal på 30 minuter före partnerdialogen",
     "Ingen partner deltar i samtalet",
     "Ingen försäljning – fokus på ditt behov och dina alternativ",
   ],

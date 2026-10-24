@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { fitMetaDescription } from "./metaDescription";
 
-const SUFFIXES = ["Jämför partners och lösningar på d365.se, den svenska guiden till Dynamics 365.", "Köparsidig vägledning från d365.se."];
+const SUFFIXES = ["Jämför partners och lösningar på d365.se, den svenska guiden till Dynamics 365.", "Guide inför system- och partnerval på d365.se."];
 
 describe("fitMetaDescription", () => {
   it("never returns more than 160 characters", () => {

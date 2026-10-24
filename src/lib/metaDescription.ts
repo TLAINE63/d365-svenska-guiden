@@ -43,7 +43,7 @@ export interface MetaDescriptionResult {
  */
 export const buildMetaDescriptionDetailed = (
   candidates: Array<string | undefined | null>,
-  fallback = "Köparsidig kunskap om Microsoft Dynamics 365 – ERP, CRM och partnerval.",
+  fallback = "Guide till Microsoft Dynamics 365 – ERP, CRM och partnerval.",
 ): MetaDescriptionResult => {
   const warnings: string[] = [];
   const cleaned = candidates
@@ -119,10 +119,10 @@ export const buildArticleMetaDescription = (article: {
   const base = clean(article.description).replace(/[.\s]+$/, "");
   const product = clean(article.product);
   const suffixes = [
-    ` Så fungerar det i ${product}, vad det kostar och vad du bör kräva av partnern. Köparsidig guide från d365.se.`,
+    ` Så fungerar det i ${product}, vad det kostar och vad du bör kräva av partnern. Guide från d365.se.`,
     ` Så fungerar det i ${product} och vad du bör kräva av partnern.`,
-    ` Köparsidig genomgång av ${product} från d365.se.`,
-    " Köparsidig guide från d365.se.",
+    ` Genomgång av ${product} från d365.se.`,
+    " Guide från d365.se.",
   ];
 
   const fits = suffixes.find(

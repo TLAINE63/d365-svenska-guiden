@@ -335,7 +335,7 @@ const Branschlosningar = () => {
  />
  <ServiceSchema 
  name="Dynamics 365 Branschlösningar – ERP och CRM per bransch i Sverige"
- description="Katalog över Microsoft-certifierade Dynamics 365-partners med branschspecialisering inom tillverkning, handel, fastighet, bygg, life science och 14 andra branscher. Filtrera på produkt (Business Central, Finance & SCM, CRM) och bransch för att hitta rätt partner. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Katalog över Microsoft-certifierade Dynamics 365-partners med branschspecialisering inom tillverkning, handel, fastighet, bygg, life science och 14 andra branscher. Filtrera på produkt (Business Central, Finance & SCM, CRM) och bransch för att hitta rätt partner."
  />
  <FAQSchema faqs={branschFaqs} />
  <BreadcrumbSchema items={branschBreadcrumbs} />

@@ -64,7 +64,7 @@ export default function CostContactForm() {
           sourcePage="/kostnad/"
           selectedProduct={product || undefined}
           title="Kontakta oss om kostnader"
-          description="Fyll i dina uppgifter så hör vi av oss med en köparsidig genomgång av kostnadsbilden."
+          description="Fyll i dina uppgifter så hör vi av oss och går igenom kostnadsbilden med er."
         />
       </div>
     </section>

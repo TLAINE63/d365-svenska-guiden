@@ -71,7 +71,7 @@ const FALLBACK: AnalysisOutput = {
     "Datakvalitet i nuvarande system bör kartläggas innan migrering.",
   ],
   partnerProfile:
-    "Köparsidigt rekommenderas en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
+    "Vi rekommenderar en partner med dokumenterad branscherfarenhet, tydlig metodik för förstudie och kravarbete samt referenscase i motsvarande storleksklass. " +
     "Partnern bör kunna kombinera funktionell rådgivning med arkitekturkompetens och ha erfarenhet av förändringsledning i organisationer av er storlek.",
   nextSteps: [
     "Samla intern styrgrupp och utse processägare per huvudprocess.",
@@ -129,10 +129,10 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     const system = [
-      "Du är en köparsidig rådgivare som hjälper svenska bolag att tolka en behovsanalys för affärssystem (ERP).",
+      "Du är en rådgivare på köparens sida som hjälper svenska bolag att tolka en behovsanalys för affärssystem (ERP).",
       "Skriv ALLTID på svenska, neutralt, professionellt och utan säljretorik.",
       "Du ger ALDRIG ett definitivt systemval. Du ger en preliminär tolkning som beslutsunderlag inför kravspec och partnerdialog.",
-      "Undvik ordet 'oberoende'. Använd 'köparsidig'.",
+      "Undvik orden 'oberoende', 'objektiv', 'opartisk' och 'köparsidig'. Beskriv i stället konkret vad köparen bör göra, fråga eller jämföra.",
       "Om underlaget är tunt – var explicit med osäkerhet och sätt confidence='Låg'.",
       "AI-intresse, AI-mognad eller önskade AI-use cases får ALDRIG ensamt styra valet mellan Business Central och Finance & Supply Chain Management. AI ska påverka datakrav, automationspotential, prioriterade use cases, partnerprofil och nästa steg – inte plattformsindikationen.",
       "Om aiMaturity är 'Låg': betona att data, processer och styrning behöver förbättras innan större AI-initiativ. Om 'Hög' eller 'Avancerad': föreslå konkreta use cases. Reflektera AI-mognaden i partnerProfile (t.ex. behov av Copilot/Power Platform/datakompetens, eller att partnern måste kunna hjälpa med masterdata och processkartläggning vid låg datamognad).",
@@ -145,7 +145,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       aiInterpretation: "string (350-550 ord, sammanhängande prosa i 3-4 stycken som tolkar verksamhetens profil, komplexitet, geografi, datamognad och AI-mognad och kopplar detta till plattformsindikationen utan att låsa valet)",
       valueHypothesis: "string (150-250 ord, beskriver var den största affärsnyttan sannolikt ligger på 1-3 års sikt – processeffektivitet, datadriven styrning, automation, Copilot/AI – och vilka förutsättningar som krävs)",
       whyPoints: "string[] (4-6 punkter, konkreta skäl till varför analysen lutar åt indikationen, varje punkt 1-2 meningar)",
-      risks: "string[] (4-6 risker och frågor att utreda vidare, formulerade köparsidigt)",
+      risks: "string[] (4-6 risker och frågor att utreda vidare, formulerade utifrån köparens perspektiv)",
       partnerProfile: "string (4-7 meningar om vilken partnerprofil som passar, inklusive metodik, branscherfarenhet, AI/data-kompetens och förändringsledningskapacitet)",
       nextSteps: "string[] (5-7 konkreta nästa steg för köparen, formulerade som handlingsbara åtgärder)",
       confidence: "Låg | Medel | Hög (säkerhet i analysen baserat på hur komplett underlaget är)",
@@ -165,7 +165,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       JSON.stringify(recommendation, null, 2),
       "```",
       "",
-      "Generera ett köparsidigt analysunderlag enligt detta schema (returnera ENDAST JSON):",
+      "Generera ett analysunderlag för köparen enligt detta schema (returnera ENDAST JSON):",
       "```json",
       JSON.stringify(schemaHint, null, 2),
       "```",

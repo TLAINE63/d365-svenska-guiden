@@ -66,9 +66,9 @@ const steps: Step[] = [
  icon: Search,
  tag: "Steg 3 · Marknads- & partneranalys",
  title: "Hitta rätt typ av Dynamics 365-partner",
- highlight: "med köparsidig vägledning",
+ highlight: "utifrån era behov",
  description:
- "Få en strukturerad överblick över vilka partners som matchar din bransch, dina produktområden, din geografi och din storlek. Vi står på köparens sida – inga direktlänkar till leverantörer, all kontakt går via plattformens mediarade matchning.",
+ "Få en strukturerad överblick över vilka partners som matchar din bransch, dina produktområden, din geografi och din storlek. Ni väljer själva vilka partners ni går vidare med, och en förfrågan via d365.se skickas bara till de partners ni har godkänt.",
  links: [
  { label: "Hitta Dynamics 365-partner", to: "/valjdynamics365partner/" },
  { label: "Utforska branscher", to: "/branscher/" },
@@ -122,7 +122,7 @@ const Upphandlingsguiden = () => {
  <SEOHead
  breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Upphandlingsguiden", url: "/upphandlingsguiden/" }]}
  title="Upphandlingsguiden: 7 stadier från behov till partner"
- description="De 7 stadierna i en upphandling av Dynamics 365 (ERP och CRM) – från tidiga signaler och behovsanalys till kravspecifikation, partnerval och avtal. Köparsidig vägledning steg för steg."
+ description="De 7 stadierna i en upphandling av Dynamics 365 (ERP och CRM) – från tidiga signaler och behovsanalys till kravspecifikation, partnerval och avtal."
  canonicalPath="/upphandlingsguiden"
  />
  <Navbar />
@@ -171,7 +171,7 @@ const Upphandlingsguiden = () => {
  <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
  <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
  {[
- { icon: ShieldCheck, title: "Köparens sida", text: "Vi vägleder utan att sälja in en specifik partner." },
+ { icon: ShieldCheck, title: "Ingen partner att sälja in", text: "Vi vägleder utan att sälja in en specifik partner." },
  { icon: Check, title: "Sju tydliga stadier", text: "Från tidiga signaler till val av Microsoftpartner." },
  { icon: Sparkles, title: "AI-stödd matchning", text: "Datadriven rekommendation baserad på dina behov." },
  ].map(({ icon: Icon, title, text }) => (

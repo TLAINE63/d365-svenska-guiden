@@ -102,7 +102,7 @@ const BefintligKund = () => (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { t: "Byta Dynamics\u00A0365-partner", d: "Utvärdera, minska beroendet eller byta.", h: "/guider/byta-dynamics-partner/" },
-              { t: "Second opinion", d: "Köparsidig bedömning av lösning, offert eller partner.", h: "/second-opinion/" },
+              { t: "Second opinion", d: "En extra genomgång av lösning, offert eller partner innan ni beslutar.", h: "/second-opinion/" },
               { t: "Optimera och felsöka", d: "Prestanda, anpassningar, integrationer och användning.", h: "/guider/optimera-dynamics-365/" },
               { t: "Support och förvaltning", d: "Vad avtalet ska omfatta och hur ansvaret fördelas.", h: "/guider/dynamics-365-support-forvaltning/" },
             ].map((x) => (

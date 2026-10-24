@@ -123,7 +123,7 @@ export default function Kostnad() {
               <span aria-current="page">Kostnad</span>
             </nav>
             <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-              På köparens sida
+              Kostnadsguide
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {nowrapBrand("Vad kostar Dynamics 365, inklusive införande och förvaltning?")}

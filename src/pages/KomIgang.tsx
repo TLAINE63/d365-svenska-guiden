@@ -511,7 +511,7 @@ const KomIgang = () => {
     const recs = [result.primary, ...result.complements].filter(Boolean) as { app: string; label: string; reason: string }[];
     return (
       <div className="min-h-screen bg-background">
-        <SEOHead webPageSchema={false} title="Er väg vidare – d365.se" description="Anpassade rekommendationer baserat på er situation och era behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365." canonicalPath="/kom-igang" noIndex />
+        <SEOHead webPageSchema={false} title="Er väg vidare – d365.se" description="Anpassade rekommendationer baserat på er situation och era behov, med förslag på nästa steg." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-28 sm:pt-32 pb-10">
           <div className="container mx-auto px-4 sm:px-6">
@@ -910,7 +910,7 @@ const KomIgang = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Hitta rätt Dynamics 365-lösning – Kom igång | d365.se"
-        description="Berätta var ni befinner er och vad ni behöver hjälp med, så får ni vägledning kring relevanta lösningsområden och nästa steg. Vi står på köparens sida."
+        description="Berätta var ni befinner er och vad ni behöver hjälp med, så får ni vägledning kring relevanta lösningsområden och nästa steg."
         canonicalPath="/kom-igang"
       />
       <WebPageSchema

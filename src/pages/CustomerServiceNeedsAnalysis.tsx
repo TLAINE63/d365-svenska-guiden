@@ -1000,7 +1000,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
  pdf.setTextColor(180, 200, 255);
  pdf.setFontSize(9);
- pdf.text("d365.se – Köparsidig vägledning för val av Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+ pdf.text("d365.se – underlag inför val av Microsoft Dynamics 365-lösning och partner", pageWidth / 2, pageHeight - 28, { align: "center" });
  pdf.setTextColor(255, 255, 255);
  pdf.setFontSize(10);
  pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
@@ -1433,7 +1433,7 @@ const CustomerServiceNeedsAnalysis = () => {
  pdf.text("Dynamic Factory", margin + 8, yPos + 10);
  pdf.setFont("helvetica", "normal");
  pdf.setFontSize(9);
- pdf.text("Din köparsidiga vägledning till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+ pdf.text("Ditt underlag inför valet av Dynamics 365-lösning", margin + 8, yPos + 18);
  pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
  pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
  pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -2312,12 +2312,12 @@ const CustomerServiceNeedsAnalysis = () => {
  <div className="min-h-screen bg-background">
  <SEOHead
  title="Kundservice Behovsanalys | Dynamics 365"
- description="Kostnadsfri behovsanalys för Dynamics 365 Customer Service, Field Service och Contact Center. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
+ description="Kostnadsfri behovsanalys för Dynamics 365 Customer Service, Field Service och Contact Center. Beskriv behovet innan ni jämför lösningar och partners."
  canonicalPath="/kundservice-behovsanalys"
  keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
  ogImage="https://d365.se/og-kundservice-behovsanalys.png"
  />
- <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner." />
+ <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice." />
  <BreadcrumbSchema items={customerServiceBreadcrumbs} />
  <SoftwareApplicationSchema
  name="Behovsanalys Customer Service"

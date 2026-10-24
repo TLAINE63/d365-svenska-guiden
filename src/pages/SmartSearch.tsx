@@ -56,7 +56,7 @@ const NEXT_STEP: Record<
   },
   komplex: {
     title: "Nästa steg",
-    label: "Boka köparsidig rådgivning",
+    label: "Boka rådgivning inför system- och partnerval",
     to: "/kontakt/",
   },
 };
@@ -115,7 +115,7 @@ export default function SmartSearch() {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Fråga d365.se – få svar om Dynamics 365</title>
-        <meta name="description" content="Ställ frågor om Dynamics 365-lösningar, kostnader, partnerval och implementering. Du får ett köparsidigt svar baserat på innehållet och partnerinformationen på d365.se." />
+        <meta name="description" content="Ställ frågor om Dynamics 365-lösningar, kostnader, partnerval och implementering. Svaren bygger på innehållet och partnerinformationen på d365.se." />
         <meta name="robots" content="noindex, follow" />
         <link rel="canonical" href="https://d365.se/fraga/" />
       </Helmet>
@@ -127,8 +127,8 @@ export default function SmartSearch() {
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">Få svar om Dynamics 365</h1>
           <p className="text-muted-foreground">
-            Ställ frågor om lösningar, kostnader, partnerval och implementering. Du får ett köparsidigt svar
-            baserat på innehållet och partnerinformationen på d365.se.
+            Ställ frågor om lösningar, kostnader, partnerval och implementering. Svaren bygger
+            på innehållet och partnerinformationen på d365.se.
           </p>
         </div>
 

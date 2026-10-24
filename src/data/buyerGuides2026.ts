@@ -43,10 +43,10 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
     title: "ERP-köparguiden 2026",
     seoTitle: "ERP-köparguiden 2026 – köp affärssystem rätt",
     seoDescription:
-      "Köparsidig guide inför ERP-upphandling 2026: när Business Central räcker, när Finance & Supply Chain behövs, vad det kostar och vad du ska kräva av partnern.",
+      "Guide inför ERP-upphandling 2026: när Business Central räcker, när Finance & Supply Chain behövs, vad det kostar och vad du ska kräva av partnern.",
     hero: "Så köper du affärssystem 2026 – utan att betala för fel scope",
     intro:
-      "Guiden är skriven från köparens sida. Den beskriver hur du avgör vilket Dynamics 365-ERP som passar, vad totalkostnaden faktiskt består av och vilka bevis du ska kräva av partnern innan du skriver på.",
+      "Guiden är skriven för er som ska välja affärssystem. Den beskriver hur du avgör vilket Dynamics 365-ERP som passar, vad totalkostnaden faktiskt består av och vilka bevis du ska kräva av partnern innan du skriver på.",
     benefits: [
       "Beslutsunderlag för valet mellan Business Central och Finance & Supply Chain Management (F&O)",
       "Checklista för vad totalkostnaden består av utöver listpris",
@@ -127,7 +127,7 @@ export const BUYER_GUIDES: Record<"erp" | "crm", BuyerGuide> = {
     title: "CRM-köparguiden 2026",
     seoTitle: "CRM-köparguiden 2026 – köp CRM rätt",
     seoDescription:
-      "Köparsidig guide inför CRM-upphandling 2026: avgränsa sälj, service, fält och marknad, förstå kostnaden och vilka krav du ska ställa på partnern.",
+      "Guide inför CRM-upphandling 2026: avgränsa sälj, service, fält och marknad, förstå kostnaden och vilka krav du ska ställa på partnern.",
     hero: "Så köper du CRM 2026 – med adoption som mål, inte funktioner",
     intro:
       "Ett CRM-projekt lyckas när säljare och servicepersonal faktiskt använder systemet. Guiden beskriver hur du avgränsar scope, undviker de vanligaste misstagen och väljer en partner som kan din process – inte bara plattformen.",

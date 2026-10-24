@@ -107,7 +107,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             onClose={() => setOpen(false)}
             topic={{
               title: dialogTitle || cta,
-              description: dialogDescription || "En rådgivare på köparens sida går igenom ert underlag med er. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
+              description: dialogDescription || "Ett samtal före partnerdialogen där en rådgivare går igenom ert underlag med er. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
               helpWith: cta,
               startEvent: "advisory_form_opened",
               submitEvent: "advisory_booking_completed",

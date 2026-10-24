@@ -88,7 +88,7 @@ export const FAQ_TOPICS: FaqTopic[] = [
       {
         question: "Kostar det något att använda d365.se?",
         answer:
-          "Nej, verktygen för behovsanalys, kravspecifikation, jämförelser och partnerkontakt är kostnadsfria för dig som köpare. d365.se finansieras av partners som betalar för sin närvaro på plattformen. Rådgivningen är köparsidig och partnerkontakter förmedlas alltid via plattformen.",
+          "Nej, verktygen för behovsanalys, kravspecifikation, jämförelser och partnerkontakt är kostnadsfria för dig som köpare. d365.se finansieras av partners som betalar för sin närvaro på plattformen. Rådgivningen utgår från era behov, och partnerkontakter förmedlas alltid via plattformen.",
       },
     ],
   },

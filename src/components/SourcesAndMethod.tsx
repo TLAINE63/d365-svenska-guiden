@@ -35,7 +35,7 @@ export default function SourcesAndMethod({ externalSources = [], partnerEvidence
   return <section data-sources-and-method aria-labelledby={id} className={cn("border-t border-border py-8 sm:py-10", className)}>
     <div className="container mx-auto max-w-5xl px-4 sm:px-6">
       <div className="mb-7 max-w-3xl"><h2 className="mb-2 text-base font-semibold text-foreground">Om innehållet</h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">Innehållet är framtaget av d365.se-redaktionen. d365.se är en svensk köparsidig kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{"\u00A0"}{nowrapBrand("Dynamics 365")} och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft officiellt.</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">Innehållet är framtaget av d365.se-redaktionen. d365.se är en svensk kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{"\u00A0"}{nowrapBrand("Dynamics 365")} och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft officiellt.</p>
       </div>
       <h2 id={id} className="mb-3 text-xl font-bold text-foreground">Källor och metod</h2>
       <p className="mb-6 max-w-3xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(METHOD[variant])}</p>
