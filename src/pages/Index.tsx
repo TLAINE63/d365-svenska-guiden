@@ -318,38 +318,20 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex min-h-[100svh] items-center overflow-hidden border-b border-[hsl(var(--line-dark))] py-24 sm:pt-40 sm:pb-16"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex items-center overflow-hidden border-b border-[hsl(var(--line-dark))] pt-20 pb-6 sm:pt-32 sm:pb-10"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
-            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-5 sm:mb-7 text-balance">
+            <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-3 sm:mb-4 text-balance">
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
-            <p className="mb-5 sm:mb-7 max-w-2xl sm:max-w-3xl lg:max-w-4xl text-[14px] sm:text-[15px] lg:text-[19px] leading-loose text-primary-foreground/75">
-              Oavsett var ni befinner er i processen hjälper d365.se er att förstå alternativen, bygga ert beslutsunderlag och ta nästa steg. Guiden täcker Dynamics&nbsp;365 både som affärssystem (ERP) och som CRM-lösningar: säljstöd, marketing automation, kundservice och fältservice.
+            <p className="mb-5 sm:mb-6 max-w-2xl sm:max-w-3xl text-[14px] sm:text-[15px] lg:text-[17px] leading-relaxed text-primary-foreground/75">
+              Ska ni välja nytt affärssystem eller CRM, förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här får ni köparsidig vägledning för att jämföra alternativ, förstå kostnader och hitta rätt kompetens och partner.
             </p>
-            <ul className="mb-5 sm:mb-7 grid max-w-4xl gap-x-5 gap-y-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Fakta om d365.se">
-              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={139000 + visitCount} suffix="+" className="tabular-nums" /> visningar</span>
-              </li>
-              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={3300 + visitorCount} suffix="+" className="tabular-nums" /> unika besökare</span>
-              </li>
-              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={VERIFIED_PARTNER_COUNT} suffix="+" className="tabular-nums" /> verifierade partners i Sverige</span>
-              </li>
-              <li className="flex items-start gap-2 text-[13px] font-medium leading-snug text-white/80">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
-                <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
-              </li>
-            </ul>
-            <p className="mb-4 sm:mb-6 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
+            <p className="mb-2 sm:mb-3 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
 
-              Var befinner ni er i processen?
-              <span className="mt-1.5 block font-normal text-[13px] sm:text-[14px] lg:text-[15px] text-primary-foreground/80">Välj det alternativ som bäst motsvarar er situation.</span>
+              Vad stämmer bäst in på er situation?
             </p>
+            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
             <AdvisoryOffer
               variant="hero"
               placement="home"
@@ -358,9 +340,26 @@ const Index = () => {
               cta="Tala med en rådgivare"
               dialogTitle="Tala med en rådgivare"
               dialogDescription="En rådgivare på köparens sida hjälper er att hitta rätt startpunkt. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande."
-              className="-mt-2 mb-4 sm:-mt-3 sm:mb-5"
+              className="mt-3"
             />
-            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1" aria-label="Fakta om d365.se">
+              <li className="flex items-start gap-2 text-[12px] leading-snug text-primary-foreground/55">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={139000 + visitCount} suffix="+" className="tabular-nums" /> visningar</span>
+              </li>
+              <li className="flex items-start gap-2 text-[12px] leading-snug text-primary-foreground/55">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={3300 + visitorCount} suffix="+" className="tabular-nums" /> unika besökare</span>
+              </li>
+              <li className="flex items-start gap-2 text-[12px] leading-snug text-primary-foreground/55">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={VERIFIED_PARTNER_COUNT} suffix="+" className="tabular-nums" /> verifierade partners i Sverige</span>
+              </li>
+              <li className="flex items-start gap-2 text-[12px] leading-snug text-primary-foreground/55">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden="true" />
+                <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
+              </li>
+            </ul>
 
           </div>
         </section>
