@@ -280,7 +280,7 @@ export default function Systemval() {
               </div>
               <Button asChild variant="outline" className="min-h-11 shrink-0">
                 <Link to="/valjdynamics365partner/" onClick={() => trackSystemval("next_step_clicked", { kind: "partner_selector_box" })}>
-                  Hitta <span className="whitespace-nowrap">Dynamics&nbsp;365-partner</span>
+                  <span>Hitta <span className="whitespace-nowrap">Dynamics&nbsp;365-partner</span></span>
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </Button>
