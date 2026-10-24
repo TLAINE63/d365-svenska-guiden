@@ -318,7 +318,7 @@ const Index = () => {
         {/* SECTION 1 – BESLUTSMODELLEN (icke-linjär ingång) */}
         <section
           aria-labelledby="beslutsmodell"
-          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex items-center overflow-hidden border-b border-[hsl(var(--line-dark))] pt-16 pb-6 sm:pt-32 sm:pb-10"
+          className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex items-center overflow-hidden border-b border-[hsl(var(--line-dark))] pt-20 pb-6 sm:pt-32 sm:pb-10"
         >
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-3 sm:mb-4 text-balance">
