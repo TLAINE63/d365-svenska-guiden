@@ -237,7 +237,7 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri köparrådgivning</h4>
+                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning inför system- och partnerval</h4>
                       <p className="text-sm text-muted-foreground">Ett samtal på 30 minuter före partnerdialogen. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>

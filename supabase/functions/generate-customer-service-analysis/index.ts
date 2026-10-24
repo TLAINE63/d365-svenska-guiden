@@ -125,7 +125,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     const system = [
-      "Du är en köparsidig rådgivare som hjälper svenska bolag att tolka en behovsanalys för kundservice, fältservice och contact center med Microsoft Dynamics 365.",
+      "Du är en rådgivare på köparens sida som hjälper svenska bolag att tolka en behovsanalys för kundservice, fältservice och contact center med Microsoft Dynamics 365.",
       "Skriv ALLTID på svenska, neutralt, professionellt, rådgivande och utan säljretorik.",
       "Du ger ALDRIG ett definitivt produktval. Du ger en preliminär lösningshypotes som beslutsunderlag inför kravspec och partnerdialog.",
       "Undvik orden 'oberoende', 'objektiv', 'opartisk' och 'köparsidig'. Beskriv i stället konkret vad köparen bör göra, fråga eller jämföra.",
@@ -142,7 +142,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       solutionHypothesis: "string (220-340 ord, 2-3 stycken separerade med \\n\\n, preliminär lösningshypotes anpassad efter focusKey, med tydlig brasklapp att slutligt val kräver kravspec och fit-gap)",
       dataAndAiAnalysis: "string (260-400 ord, 2-3 stycken separerade med \\n\\n, balanserad analys av datamognad, AI-potential, kontrollpunkter och vad som bör göras innan agenter införs)",
       whyPoints: "string[] (4-6 punkter, konkreta skäl till varför analysen lutar åt lösningshypotesen, varje punkt 1-2 meningar)",
-      risks: "string[] (4-6 risker och frågor att utreda vidare, köparsidigt formulerade)",
+      risks: "string[] (4-6 risker och frågor att utreda vidare, formulerade utifrån köparens perspektiv)",
       partnerProfile: "string (140-220 ord, 2 stycken separerade med \\n\\n, vilken partnerprofil som passar inklusive metodik, branscherfarenhet, AI/data-kompetens och förändringsledning)",
       nextSteps: "string[] (5-7 konkreta nästa steg för köparen, handlingsbara åtgärder)",
       confidence: "Låg | Medel | Hög (säkerhet baserat på hur komplett underlaget är)",
@@ -167,7 +167,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       JSON.stringify(recommendation, null, 2),
       "```",
       "",
-      "Generera ett köparsidigt analysunderlag enligt detta schema (returnera ENDAST JSON, fritextfält ska ha STYCKEN separerade med \\n\\n):",
+      "Generera ett analysunderlag för köparen enligt detta schema (returnera ENDAST JSON, fritextfält ska ha STYCKEN separerade med \\n\\n):",
       "```json",
       JSON.stringify(schemaHint, null, 2),
       "```",
