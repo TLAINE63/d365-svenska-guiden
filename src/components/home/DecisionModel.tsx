@@ -21,12 +21,12 @@ const NODES: {
 ];
 
 const cardClass =
-  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3.5 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
+  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded border border-primary-foreground/15 bg-[hsl(var(--hero-dark))] p-3 sm:p-3.5 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
 
 const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
   <>
     <n.icon className="h-5 w-5 shrink-0 text-[hsl(var(--accent-dark-zone))] lg:h-6 lg:w-6" aria-hidden="true" />
-    <span className="text-balance text-[16px] font-bold leading-tight text-primary-foreground lg:text-[19px]">{n.title}</span>
+    <span className="text-balance text-[14.5px] sm:text-[16px] font-bold leading-tight text-primary-foreground lg:text-[19px]">{n.title}</span>
     <span className="text-[12.5px] leading-snug text-primary-foreground/65 lg:text-[14px]">{n.text}</span>
     <span className="mt-auto pt-1.5 text-[13px] font-semibold text-primary-foreground lg:text-[14px] underline-offset-4 group-hover:underline">
       {n.cta} <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
@@ -42,7 +42,7 @@ interface DecisionModelProps {
 /** Icke-linjär beslutsmodell. Desktop: fyra kort i en rad. */
 const DecisionModel = ({ onStartNeedsAnalysis }: DecisionModelProps) => (
   <nav aria-label="Vägval i ert Dynamics 365-beslut">
-    <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:gap-3 lg:grid-cols-4 lg:gap-4">
+    <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 lg:gap-4">
       {NODES.map((n) =>
         n.needsAnalysis && onStartNeedsAnalysis ? (
           <button
