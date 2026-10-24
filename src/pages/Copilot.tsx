@@ -85,7 +85,7 @@ const Copilot = () => {
       />
       <ServiceSchema 
         name="Microsoft Copilot i Dynamics 365 – AI för ERP och CRM"
-        description="Inbyggd AI-assistent i Dynamics 365 utan extra licensavgift. Copilot automatiserar processer i Finance, Supply Chain, Sales, Customer Service och Business Central. 353% potentiell ROI över 3 år enligt Forrester TEI-studie 2024."
+        description="Inbyggd AI-assistent i Dynamics 365 utan extra licensavgift. Copilot automatiserar processer i Finance, Supply Chain, Sales, Customer Service och Business Central. 353% potentiell ROI över 3 år enligt Forrester TEI-studie 2024. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <FAQSchema faqs={copilotFaqs} />
       <BreadcrumbSchema items={copilotBreadcrumbs} />

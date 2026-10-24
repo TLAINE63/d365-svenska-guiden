@@ -709,7 +709,7 @@ const Index = () => {
                     <div className="pt-1">
                       <p className="font-semibold text-foreground">Thomas Laine</p>
                       <p className="text-xs text-muted-foreground leading-snug">
-                        Medgrundare, d365.se. Rådgivare inför system- och partnerval inom Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.
+                        Medgrundare, d365.se. Rådgivare inom Microsoft Dynamics&nbsp;365, ERP, CRM och partnerlandskapet.
                       </p>
                       <Link to="/om-thomas-laine/" className="inline-block mt-1 text-xs font-medium text-primary hover:underline">
                         Om Thomas Laine →

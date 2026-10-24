@@ -185,7 +185,7 @@ const FinanceSupplyChain = () => {
  <FAQSchema faqs={fscFaqs} />
  <ServiceSchema 
  name="Microsoft Dynamics 365 Finance & Supply Chain Management – Enterprise ERP"
- description="Enterprise ERP-lösning för global ekonomihantering, supply chain, tillverkning och distribution. Licenspris från 2 007,30 kr per användare och månad. SAP-alternativ med inbyggd Copilot AI. Implementationstid 9–36 månader beroende på komplexitet."
+ description="Enterprise ERP-lösning för global ekonomihantering, supply chain, tillverkning och distribution. Licenspris från 2 007,30 kr per användare och månad. SAP-alternativ med inbyggd Copilot AI. Implementationstid 9–36 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={fscBreadcrumbs} />
  <Navbar />

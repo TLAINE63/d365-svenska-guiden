@@ -181,7 +181,7 @@ const ScrollCTA = () => {
                 Osäker på var du ska börja?
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-                30 minuters kostnadsfri rådgivning inför system- och partnerval. Ingen partner deltar, ingen försäljning.
+                30 minuters kostnadsfri rådgivning om behov, lösning eller partner. Ingen partner deltar, ingen försäljning.
               </p>
               <Button
                 size="sm"

@@ -9,8 +9,8 @@ export type SiteTextDef = { key: string; group: string; label: string; value: st
 
 export const SITE_TEXT_DEFAULTS: SiteTextDef[] = [
   // Beskrivning av d365.se
-  { group: "Beskrivning av d365.se", key: "org.description", label: "Kort beskrivning (sökdata, sidfot, llms)", value: "Guide som hjälper svenska företag att förstå Microsoft Dynamics 365 och hitta rätt partner utifrån behov, bransch och storlek." },
-  { group: "Beskrivning av d365.se", key: "org.schema_description", label: "Beskrivning i strukturerad data (Organization)", value: "Tjänst för val av Microsoft Dynamics 365-partner i Sverige utifrån verksamhetens behov. Kostnadsfri för köpare." },
+  { group: "Beskrivning av d365.se", key: "org.description", label: "Kort beskrivning (sökdata, sidfot, llms)", value: "Köparsidig guide som hjälper svenska företag att förstå Microsoft Dynamics 365 och hitta rätt partner utifrån behov, bransch och storlek." },
+  { group: "Beskrivning av d365.se", key: "org.schema_description", label: "Beskrivning i strukturerad data (Organization)", value: "Köparsidig tjänst för val av Microsoft Dynamics 365-partner i Sverige. Kostnadsfri för köpare." },
   { group: "Beskrivning av d365.se", key: "buyer.description", label: "Beskrivning av tjänsten (/om-oss/, /qa/)", multiline: true, value: "d365.se hjälper svenska organisationer att välja Microsoft Dynamics 365-partner utifrån verksamhetens behov. Tjänsten är kostnadsfri för köpare och omfattar alla Dynamics 365-applikationer: Business Central, Finance & Supply Chain Management, Sales, Customer Service, Field Service, Customer Insights, Contact Center, Project Operations, Commerce och Human Resources." },
   { group: "Beskrivning av d365.se", key: "buyer.explainer", label: "Vad det betyder att stå på köparens sida", multiline: true, value: "Att stå på köparens sida betyder att vi utgår från era behov när vi jämför lösningar och partners. Partners kan teckna profileringsavtal med d365.se och granska sina profiler, men avtalet ger ingen köpt fördel i d365.se:s rekommendationer." },
   { group: "Beskrivning av d365.se", key: "buyer.link_text", label: "Länktext till ägande och intressen", value: "Läs mer om hur samarbetet med partners fungerar." },
@@ -26,7 +26,7 @@ export const SITE_TEXT_DEFAULTS: SiteTextDef[] = [
   { group: "Ägande och intressen", key: "ownership.role", label: "Vår roll – och din", multiline: true, value: "Vi står på köparens sida. Vi säljer varken system eller implementation, och vi sluter inga avtal åt någon partner. Vår uppgift är att ge dig ett tryggt och försvarbart beslutsunderlag.\n\nNär du är redo tar du själv kontakt med de partners du vill prata med, i din egen takt. Vi förmedlar kunskap – inte kontrakt." },
 
   // Grundare och kontakt
-  { group: "Grundare och kontakt", key: "founder.thomas.role", label: "Thomas Laine: roll", multiline: true, value: "Medgrundare, d365.se. Rådgivare inför system- och partnerval inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet." },
+  { group: "Grundare och kontakt", key: "founder.thomas.role", label: "Thomas Laine: roll", multiline: true, value: "Medgrundare, d365.se. Rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet." },
   { group: "Grundare och kontakt", key: "founder.thomas.email", label: "Thomas Laine: e-post", value: "thomas.laine@dynamicfactory.se" },
   { group: "Grundare och kontakt", key: "founder.thomas.phone", label: "Thomas Laine: telefon", value: "+46 72 232 40 60" },
   { group: "Grundare och kontakt", key: "founder.michael.role", label: "Michael Uhman: roll", multiline: true, value: "Medgrundare, d365.se. Rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut." },

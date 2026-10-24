@@ -212,7 +212,7 @@ const CRM = () => {
  <FAQSchema faqs={crmFaqs} />
  <ServiceSchema 
  name="Microsoft Dynamics 365 CRM – Sales, Marketing & Customer Service"
- description="Molnbaserade CRM-applikationer för försäljning, marknadsföring, kundservice och fältservice med inbyggd AI via Microsoft Copilot."
+ description="Molnbaserade CRM-applikationer för försäljning, marknadsföring, kundservice och fältservice med inbyggd AI via Microsoft Copilot. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={crmBreadcrumbs} />
  <Navbar />

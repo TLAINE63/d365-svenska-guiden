@@ -599,7 +599,7 @@ const ValjPartner = () => {
  <FAQSchema faqs={partnerFaqs} />
  <ServiceSchema 
  name="Dynamics 365 Partnerval"
- description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Ni väljer själva vilka partners ni kontaktar."
+ description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
  />
  <BreadcrumbSchema items={partnerBreadcrumbs} />
  <ItemListSchema

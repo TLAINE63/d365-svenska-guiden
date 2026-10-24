@@ -79,7 +79,7 @@ const Agents = () => {
       <FAQSchema faqs={agentsFaqs} />
       <ServiceSchema 
         name="Microsoft AI Agents – Autonoma agenter i Dynamics 365"
-        description="Autonoma AI-agenter i Dynamics 365 som arbetar självständigt för att lösa komplexa affärsuppgifter inom försäljning, kundservice, ekonomi och supply chain. Redo för svenska företag."
+        description="Autonoma AI-agenter i Dynamics 365 som arbetar självständigt för att lösa komplexa affärsuppgifter inom försäljning, kundservice, ekonomi och supply chain. Redo för svenska företag. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={agentsBreadcrumbs} />
       <Navbar />

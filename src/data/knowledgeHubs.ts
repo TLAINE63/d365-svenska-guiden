@@ -286,7 +286,7 @@ export const KNOWLEDGE_HUBS: KnowledgeHubConfig[] = [
     slug: "business-central",
     metaTitle: "Business Central – kunskap, guider och fördjupningar | d365.se",
     metaDescription:
-      "Allt om Microsoft Dynamics 365 Business Central: produktfördjupningar, artiklar, behovsanalys och kravspecifikation inför system- och partnerval.",
+      "Allt om Microsoft Dynamics 365 Business Central: produktfördjupningar, artiklar, behovsanalys och kravspecifikation.",
     h1: "Business Central – kunskap, guider och fördjupningar",
     intro:
       "Här hittar du alla våra resurser om Microsoft Dynamics 365 Business Central – från korta produktfördjupningar till djuplodande artiklar, behovsanalyser och kravspecifikationer. Allt är skrivet ur köparens perspektiv och uppdateras löpande.",

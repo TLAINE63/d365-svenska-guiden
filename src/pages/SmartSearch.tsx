@@ -56,7 +56,7 @@ const NEXT_STEP: Record<
   },
   komplex: {
     title: "Nästa steg",
-    label: "Boka rådgivning inför system- och partnerval",
+    label: "Boka kostnadsfri rådgivning",
     to: "/kontakt/",
   },
 };

@@ -88,7 +88,7 @@ const D365FieldService = () => {
       <FAQSchema faqs={fieldServiceFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Field Service – Fältservice & Underhållshantering"
-        description={resolvePriceTokens("Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från {{price:field-service}}. Implementationstid 2–12 månader beroende på komplexitet.")}
+        description={resolvePriceTokens("Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från {{price:field-service}}. Implementationstid 2–12 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner.")}
       />
       <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />
