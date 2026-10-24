@@ -50,7 +50,7 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion";
+export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
 export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin }

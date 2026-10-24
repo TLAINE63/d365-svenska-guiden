@@ -20,7 +20,7 @@ const Body = z.object({
   advisory: z.boolean().optional(),
   /** Var rådgivningen bokades (beslutspunkt, CTA, sidtyp). Inga personuppgifter. */
   advisory_context: z.object({
-    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan"]),
+    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan", "home"]),
     cta: z.string().trim().max(120),
     page_type: z.string().trim().max(60).optional().nullable(),
     page_path: z.string().trim().max(300).optional().nullable(),
