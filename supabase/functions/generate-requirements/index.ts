@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { D365_MARKET_CONTEXT_SV } from "../_shared/market-context.ts";
 import { getCorsHeaders } from "../_shared/cors.ts";
 import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+import { PROMPT_CONFIDENTIALITY_SV } from "../_shared/prompt-guard.ts";
 
 
 // Unified ERP base requirements (system-agnostic, covering both BC and F&SCM capabilities)
@@ -479,7 +480,7 @@ Returnera JSON med denna exakta struktur:
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: getSystemPrompt(product) },
+          { role: "system", content: getSystemPrompt(product) + PROMPT_CONFIDENTIALITY_SV },
           { role: "user", content: userPrompt },
         ],
         tools: [

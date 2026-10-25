@@ -1,6 +1,7 @@
 // AI insights for /jamfor-partners – neutral, non-ranking comparison summary.
 import { getCorsHeaders } from "../_shared/cors.ts";
 import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+import { PROMPT_CONFIDENTIALITY_SV } from "../_shared/prompt-guard.ts";
 
 function sanitizeUntrusted(s: unknown, max = 500): string {
   if (typeof s !== "string") return "";
@@ -124,7 +125,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: SYSTEM_PROMPT + PROMPT_CONFIDENTIALITY_SV },
           { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },

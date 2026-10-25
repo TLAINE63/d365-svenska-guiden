@@ -3,6 +3,7 @@
 // Field Service / Contact Center via Lovable AI Gateway.
 
 import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+import { PROMPT_CONFIDENTIALITY_SV } from "../_shared/prompt-guard.ts";
 
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
@@ -179,7 +180,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: system },
+          { role: "system", content: system + PROMPT_CONFIDENTIALITY_SV },
           { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },
