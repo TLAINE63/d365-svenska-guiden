@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import DOMPurify from "dompurify";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -355,7 +356,7 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
                   )}
                 </figure>
               )}
-              <div className={`mt-8 max-w-3xl ${ARTICLE_BODY_CLASS}`} dangerouslySetInnerHTML={{ __html: form.body_html }} />
+              <div className={`mt-8 max-w-3xl ${ARTICLE_BODY_CLASS}`} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(form.body_html) }} />
             </section>
           </>
         )}

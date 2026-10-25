@@ -10,7 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, ExternalLink, FileText, Code2 } from "lucide-react";
+import { Plus, Pencil, Trash2, ExternalLink, FileText, Code2, FileUp } from "lucide-react";
+import RedaktionWordArticleDialog, { type WordArticleRecord } from "@/components/RedaktionWordArticleDialog";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 
@@ -28,7 +29,31 @@ interface KnowledgeArticle {
   is_published: boolean;
   published_at: string | null;
   created_at: string;
+  body_html?: string | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+  hero_caption?: string | null;
+  article_section?: string | null;
+  tags?: string[] | null;
+  source_filename?: string | null;
 }
+
+const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
+  id: a.id,
+  title: a.title,
+  slug: a.slug || "",
+  description: a.description || "",
+  meta_title: a.meta_title || "",
+  meta_description: a.meta_description || "",
+  article_section: a.article_section || "",
+  tags: a.tags || [],
+  image_url: a.image_url || "",
+  hero_caption: a.hero_caption || "",
+  body_html: a.body_html || "",
+  source_filename: a.source_filename || "",
+  is_published: a.is_published,
+  published_at: a.published_at,
+});
 
 interface Props {
   token: string | null;
@@ -60,6 +85,8 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState<Partial<KnowledgeArticle> | null>(null);
+  const [wordEditing, setWordEditing] = useState<WordArticleRecord | null>(null);
+  const [wordOpen, setWordOpen] = useState(false);
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-knowledge-articles`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -187,14 +214,19 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
               Artiklar
             </CardTitle>
             <CardDescription>
-              Alla artiklar på ett ställe: både de du skapar här och de som ligger som färdiga
-              sidor på d365.se. Publicerade artiklar visas på /kunskapscenter och ingår i
-              sitemap.xml för Google.
+              Alla artiklar på ett ställe. Ladda upp en Word-fil för att skapa en hel artikel på
+              d365.se, eller lägg till en länk till en befintlig sida. Publicerade artiklar visas i
+              Kunskapscentret och ingår i sajtkartan för Google.
             </CardDescription>
           </div>
-          <Button onClick={() => setEditing(empty())} className="gap-2">
-            <Plus className="w-4 h-4" /> Ny artikel
-          </Button>
+          <div className="flex flex-wrap gap-2 justify-end">
+            <Button onClick={() => { setWordEditing(null); setWordOpen(true); }} className="gap-2">
+              <FileUp className="w-4 h-4" /> Ladda upp Word-artikel
+            </Button>
+            <Button variant="outline" onClick={() => setEditing(empty())} className="gap-2">
+              <Plus className="w-4 h-4" /> Ny länk
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -227,8 +259,12 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
                       <Badge variant="outline" className="gap-1">
                         <Code2 className="w-3 h-3" /> Publicerad sida
                       </Badge>
+                    ) : r.article?.body_html ? (
+                      <Badge variant="outline" className="gap-1">
+                        <FileUp className="w-3 h-3" /> Word-artikel
+                      </Badge>
                     ) : (
-                      <Badge variant="outline">Redaktion</Badge>
+                      <Badge variant="outline">Länk</Badge>
                     )}
                   </TableCell>
                   <TableCell>
@@ -252,7 +288,17 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
                       <span className="text-xs text-muted-foreground">Redigeras av utvecklare</span>
                     ) : (
                       <div className="flex justify-end gap-1">
-                        <Button size="sm" variant="outline" onClick={() => setEditing(r.article!)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          aria-label="Redigera"
+                          onClick={() => {
+                            if (r.article!.body_html) {
+                              setWordEditing(toWordRecord(r.article!));
+                              setWordOpen(true);
+                            } else setEditing(r.article!);
+                          }}
+                        >
                           <Pencil className="w-4 h-4" />
                         </Button>
                         <Button size="sm" variant="outline" onClick={() => remove(r.key)}>
@@ -268,6 +314,16 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
         )}
       </CardContent>
 
+
+      <RedaktionWordArticleDialog
+        open={wordOpen}
+        initial={wordEditing}
+        token={token}
+        takenSlugs={articles.filter((a) => a.id !== wordEditing?.id && a.slug).map((a) => a.slug as string)}
+        onClose={() => setWordOpen(false)}
+        onSaved={() => { setWordOpen(false); load(); }}
+        onSessionExpired={onSessionExpired}
+      />
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent className="max-w-2xl">
