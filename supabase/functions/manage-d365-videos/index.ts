@@ -213,11 +213,11 @@ serve(async (req) => {
         // Redaktören lägger till en enskild video via länk. Den sparas som Ny och
         // syns publikt först när redaktören väljer Publicera.
         const id = parseYouTubeId(String(body.url || ""));
-        if (!id) return json({ error: "Klistra in en länk till en YouTube-video" }, 400);
+        if (!id) return json({ error: "Klistra in en länk till en YouTube-video" });
         const { data: existing } = await supabase.from("d365_videos").select("id,status,title").eq("youtube_id", id).maybeSingle();
-        if (existing) return json({ error: `Videon finns redan i listan: ${existing.title}` }, 409);
+        if (existing) return json({ error: `Videon finns redan i listan: ${existing.title}` });
         const v = await fetchYouTubeVideo(id);
-        if (!v) return json({ error: "Hittade inte videon. Kontrollera att den är offentlig eller olistad." }, 404);
+        if (!v) return json({ error: "Hittade inte videon. Kontrollera att den är offentlig eller olistad." });
         const { data: inserted, error: insErr } = await supabase
           .from("d365_videos").insert({ ...v, status: "new" }).select("*").maybeSingle();
         if (insErr) throw insErr;
