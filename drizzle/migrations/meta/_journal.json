@@ -57,6 +57,13 @@
       "when": 1792741553436,
       "tag": "0007_advisory_revoke_definer_execute",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792969485950,
+      "tag": "0008_editor_word_articles",
+      "breakpoints": true
     }
   ]
 }
