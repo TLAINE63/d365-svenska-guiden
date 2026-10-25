@@ -77,6 +77,7 @@ import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
+import HeroPartnerLogoMarquee from "@/components/HeroPartnerLogoMarquee";
 import { IDENTIFIED_PARTNER_COUNT, VERIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 import { FREE_TOOL_COUNT } from "@/data/freeTools";
 import { KNOWLEDGE_CONTENT_COUNT } from "@/data/knowledgeContentCount";
@@ -360,6 +361,7 @@ const Index = () => {
                 <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
               </li>
             </ul>
+            <HeroPartnerLogoMarquee className="mt-4 sm:mt-5" />
 
           </div>
         </section>

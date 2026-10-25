@@ -25,7 +25,7 @@ export const HERO_LOGO_PARTNERS: LogoPartner[] = (partnerData as LogoPartner[])
 
 function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean }) {
   return (
-    <li className="shrink-0" aria-hidden={hidden || undefined}>
+    <li className="shrink-0 pr-3" aria-hidden={hidden || undefined}>
       <Link
         to={`/partner/${partner.slug}/`}
         tabIndex={hidden ? -1 : undefined}
@@ -73,7 +73,7 @@ export default function HeroPartnerLogoMarquee({ className }: { className?: stri
         className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:overflow-x-auto"
       >
         <ul
-          className="flex w-max gap-3 animate-marquee group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
+          className="flex w-max animate-marquee group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
           style={{ ["--marquee-duration" as string]: `${HERO_LOGO_PARTNERS.length * 3}s` }}
         >
           {HERO_LOGO_PARTNERS.map((p) => (
