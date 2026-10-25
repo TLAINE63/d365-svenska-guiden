@@ -109,7 +109,8 @@ async function verifyJWT(token: string, secret: string): Promise<boolean> {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    // Videor är redaktionellt innehåll: både admin och redaktör (/redaktion) får hantera dem.
+    return payload.role === "admin" || payload.role === "editor";
   } catch { return false; }
 }
 
