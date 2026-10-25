@@ -170,6 +170,10 @@ export default {
             height: "0",
           },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
         shimmer: {
           "0%": {
             transform: "translateX(-100%)",
@@ -183,6 +187,7 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         shimmer: "shimmer 3s ease-in-out infinite",
+        marquee: "marquee var(--marquee-duration, 60s) linear infinite",
       },
     },
   },
