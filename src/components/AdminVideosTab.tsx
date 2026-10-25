@@ -3,11 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Play, Plus, Trash2, Youtube } from "lucide-react";
+import { Link2, Loader2, Pencil, Play, Plus, Trash2, Youtube } from "lucide-react";
 import {
   VIDEO_PRODUCT_GROUPS,
   videoProductLabel,
@@ -59,6 +61,48 @@ export default function AdminVideosTab({ token, onSessionExpired }: Props) {
   const [statusFilter, setStatusFilter] = useState<"alla" | "new" | "published" | "hidden">("alla");
   const [productFilter, setProductFilter] = useState<string>("alla");
   const [newSource, setNewSource] = useState({ channel_id: "", channel_name: "" });
+  const [videoUrl, setVideoUrl] = useState("");
+  const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<{ id: string; title: string; summary_sv: string } | null>(null);
+  const [savingEdit, setSavingEdit] = useState(false);
+
+  async function addVideo() {
+    if (!videoUrl.trim()) return;
+    setAdding(true);
+    try {
+      const r = await call("add-video", { url: videoUrl.trim() });
+      setVideoUrl("");
+      if (r.item) setVideos((prev) => [r.item, ...prev]);
+      setStatusFilter("new");
+      toast({
+        title: "Videon är tillagd som Ny",
+        description: "Kontrollera titel och sammanfattning och tryck sedan på Publicera.",
+      });
+    } catch (e) {
+      toast({ title: "Kunde inte lägga till videon", description: (e as Error).message, variant: "destructive" });
+    } finally {
+      setAdding(false);
+    }
+  }
+
+  async function saveEdit() {
+    if (!editing) return;
+    setSavingEdit(true);
+    try {
+      await call("update-video", {
+        video: { id: editing.id, title: editing.title.trim(), summary_sv: editing.summary_sv.trim() || null },
+      });
+      setVideos((prev) =>
+        prev.map((x) => (x.id === editing.id ? { ...x, title: editing.title.trim(), summary_sv: editing.summary_sv.trim() || null } : x)),
+      );
+      setEditing(null);
+      toast({ title: "Sparat" });
+    } catch (e) {
+      toast({ title: "Kunde inte spara", description: (e as Error).message, variant: "destructive" });
+    } finally {
+      setSavingEdit(false);
+    }
+  }
 
   async function call(action: string, extra: Record<string, unknown> = {}) {
     const { data, error } = await supabase.functions.invoke("manage-d365-videos", {
