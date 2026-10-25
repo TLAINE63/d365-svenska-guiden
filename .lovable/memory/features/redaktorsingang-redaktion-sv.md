@@ -10,3 +10,4 @@ type: feature
 - Edge-funktionen `editor-bootstrap` skapar konto plus editor-roll, skyddad av adminlösenordet, avsedd för engångsuppsättning.
 - `/reset-password` hanterar nytt lösenord efter återställningslänk.
 - Adminpanelen `/admin` med lösenord är oförändrad.
+- Thomas vill (2026-10-26) kunna lägga in egna artiklar från Word och egna YouTube-videor direkt i /redaktion: fliken Artiklar har "Ladda upp Word-artikel" (utkast tills han publicerar), fliken Videor har "Lägg till en video från YouTube" (sparas som Ny tills han publicerar).
