@@ -30,6 +30,8 @@ export default defineConfig(({ mode }) => ({
     // "external asset" requirement. Keeping this at 0 ensures every icon is
     // served as /assets/xxx.svg (or .webp).
     assetsInlineLimit: 0,
+    // Never ship source maps: keeps original source code out of the public site.
+    sourcemap: false,
     modulePreload: {
       resolveDependencies: () => [],
     },

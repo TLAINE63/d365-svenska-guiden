@@ -3,6 +3,7 @@ import { getCorsHeaders } from '../_shared/cors.ts';
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
 import { scoreExtendedRelevance, cleanSnippet } from '../_shared/extended-relevance.ts';
+import { PROMPT_CONFIDENTIALITY_SV } from '../_shared/prompt-guard.ts';
 
 // Fetch internal AI matching knowledge (partner_ai_knowledge) for the given partner ids.
 // Data is internal-only and never returned to the client – used only to enrich the AI prompt.
@@ -429,7 +430,7 @@ Svara med JSON i EXAKT detta format (inga andra fält):
       body: JSON.stringify({
         model: 'google/gemini-3-flash-preview',
         messages: [
-          { role: 'system', content: systemPrompt },
+          { role: 'system', content: systemPrompt + PROMPT_CONFIDENTIALITY_SV },
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.2, // Low temp for consistent ranking
