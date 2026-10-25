@@ -1558,7 +1558,9 @@ export type Database = {
       knowledge_articles: {
         Row: {
           analysis: Json | null
+          article_section: string | null
           availability_status: string | null
+          body_html: string | null
           category: string
           content_type: string
           context_until: string | null
@@ -1572,18 +1574,24 @@ export type Database = {
           extra_sources: Json
           fact_checked_at: string | null
           format: string
+          hero_caption: string | null
           id: string
           image_url: string | null
           industry: string | null
           is_published: boolean
+          meta_description: string | null
+          meta_title: string | null
           needs_verification: boolean
           product_keys: string[]
           published_at: string | null
+          reading_time_minutes: number | null
           recommended_action: string | null
           slug: string | null
+          source_filename: string | null
           source_name: string | null
           source_published_at: string | null
           source_url: string | null
+          tags: string[]
           target_roles: string[]
           title: string
           topic: string | null
@@ -1592,7 +1600,9 @@ export type Database = {
         }
         Insert: {
           analysis?: Json | null
+          article_section?: string | null
           availability_status?: string | null
+          body_html?: string | null
           category?: string
           content_type?: string
           context_until?: string | null
@@ -1606,18 +1616,24 @@ export type Database = {
           extra_sources?: Json
           fact_checked_at?: string | null
           format?: string
+          hero_caption?: string | null
           id?: string
           image_url?: string | null
           industry?: string | null
           is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
           needs_verification?: boolean
           product_keys?: string[]
           published_at?: string | null
+          reading_time_minutes?: number | null
           recommended_action?: string | null
           slug?: string | null
+          source_filename?: string | null
           source_name?: string | null
           source_published_at?: string | null
           source_url?: string | null
+          tags?: string[]
           target_roles?: string[]
           title: string
           topic?: string | null
@@ -1626,7 +1642,9 @@ export type Database = {
         }
         Update: {
           analysis?: Json | null
+          article_section?: string | null
           availability_status?: string | null
+          body_html?: string | null
           category?: string
           content_type?: string
           context_until?: string | null
@@ -1640,18 +1658,24 @@ export type Database = {
           extra_sources?: Json
           fact_checked_at?: string | null
           format?: string
+          hero_caption?: string | null
           id?: string
           image_url?: string | null
           industry?: string | null
           is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
           needs_verification?: boolean
           product_keys?: string[]
           published_at?: string | null
+          reading_time_minutes?: number | null
           recommended_action?: string | null
           slug?: string | null
+          source_filename?: string | null
           source_name?: string | null
           source_published_at?: string | null
           source_url?: string | null
+          tags?: string[]
           target_roles?: string[]
           title?: string
           topic?: string | null

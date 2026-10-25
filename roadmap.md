@@ -60,3 +60,9 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 ## Heroräknare (2026-10-23)
 - [x] 139 000+ visningar, 3 300+ unika besökare, 20+ partners, 450+ guider; no-store i räknarfunktionen
+
+## Word-artiklar och egna YouTube-videor i /redaktion (2026-10-26)
+- [x] Ladda upp Word-fil i fliken Artiklar → utkast med text, bilder, ingress och SEO-fält; publiceras först när redaktören väljer det
+- [x] Publika sidan /artiklar/<adress>/ visar Word-artiklar med samma utseende som övriga artiklar, förgenereras och kommer med i sajtkartan
+- [x] Flik Videor i /redaktion med "Lägg till video via länk" (granska och publicera själv)
+- [x] Lägg in uppladdade bygg/installation-artikeln som utkast

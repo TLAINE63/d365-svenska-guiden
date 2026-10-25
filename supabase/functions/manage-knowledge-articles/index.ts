@@ -1,5 +1,52 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import sanitizeHtml from "npm:sanitize-html@2.13.0";
+
+// Bilder i Word-artiklar läggs i den befintliga publika dokumentlagringen under en egen mapp.
+const ARTICLE_IMAGE_BUCKET = "partner-documents";
+const ARTICLE_IMAGE_PREFIX = "redaktion-artiklar";
+const IMAGE_TYPES: Record<string, string> = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
+
+/** Bara enkel artikelformatering får följa med från Word; skript, stilar och okända attribut tas bort. */
+function sanitizeArticleHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: [
+      "h2", "h3", "h4", "p", "br", "hr", "strong", "b", "em", "i", "u", "sup", "sub",
+      "ul", "ol", "li", "a", "blockquote", "img", "figure", "figcaption",
+      "table", "thead", "tbody", "tr", "th", "td",
+    ],
+    allowedAttributes: {
+      a: ["href", "title", "target", "rel"],
+      img: ["src", "alt", "width", "height", "loading"],
+      td: ["colspan", "rowspan"],
+      th: ["colspan", "rowspan"],
+    },
+    allowedSchemes: ["https", "http", "mailto"],
+    allowedSchemesByTag: { img: ["https"] },
+    allowProtocolRelative: false,
+    transformTags: {
+      a: (tagName: string, attribs: Record<string, string>) => {
+        const href = attribs.href || "";
+        const external = /^https?:\/\//i.test(href) && !/^https?:\/\/(www\.)?d365\.se/i.test(href);
+        return {
+          tagName,
+          attribs: external
+            ? { href, target: "_blank", rel: "noopener noreferrer" }
+            : { href: href.replace(/^https?:\/\/(www\.)?d365\.se/i, "") || "/" },
+        };
+      },
+      img: (tagName: string, attribs: Record<string, string>) => ({
+        tagName,
+        attribs: { ...attribs, loading: "lazy" },
+      }),
+    },
+  }).trim();
+}
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -92,29 +139,55 @@ serve(async (req) => {
       return json({ articles: data || [] }, 200, corsHeaders);
     }
 
+    if (action === "upload-image" && req.method === "POST") {
+      const { data_base64, content_type } = await req.json();
+      const ext = IMAGE_TYPES[String(content_type || "")];
+      if (!ext || typeof data_base64 !== "string") {
+        return json({ error: "Bara PNG, JPG, WebP och GIF stöds" }, 400, corsHeaders);
+      }
+      const bytes = Uint8Array.from(atob(data_base64), (c) => c.charCodeAt(0));
+      if (bytes.length > 8 * 1024 * 1024) {
+        return json({ error: "Bilden är större än 8 MB" }, 400, corsHeaders);
+      }
+      const month = new Date().toISOString().slice(0, 7);
+      const path = `${ARTICLE_IMAGE_PREFIX}/${month}/${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from(ARTICLE_IMAGE_BUCKET)
+        .upload(path, bytes, { contentType: content_type, cacheControl: "31536000", upsert: false });
+      if (upErr) return json({ error: upErr.message }, 400, corsHeaders);
+      const { data: pub } = supabase.storage.from(ARTICLE_IMAGE_BUCKET).getPublicUrl(path);
+      return json({ url: pub.publicUrl }, 200, corsHeaders);
+    }
+
     if (action === "save" && req.method === "POST") {
       const body = await req.json();
       const { id, ...fields } = body;
 
       const title = (fields.title || "").trim();
-      const articleUrl = (fields.url || "").trim();
       const isPublished = !!fields.is_published;
+      const isFullArticle = typeof fields.body_html === "string" && fields.body_html.trim().length > 0;
 
       if (!title) return json({ error: "Titel krävs" }, 400, corsHeaders);
+
+      const slug = (fields.slug || "").trim() || slugify(title);
+      if (isFullArticle && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+        return json({ error: "Adressen får bara innehålla små bokstäver a–z, siffror och bindestreck" }, 400, corsHeaders);
+      }
+
+      // Helartiklar (uppladdade från Word) får alltid sin egen sida på /artiklar/<adress>/.
+      const articleUrl = isFullArticle ? `/artiklar/${slug}/` : (fields.url || "").trim();
       if (isPublished && !articleUrl) {
         return json({ error: "En publicerad artikel måste ha en url" }, 400, corsHeaders);
       }
-
-      const slug = (fields.slug || "").trim() || slugify(title);
 
       const payload: Record<string, unknown> = {
         title,
         url: articleUrl || null,
         slug,
         description: fields.description?.trim() || null,
-        category: fields.category || "artikel",
-        content_type: fields.content_type || "artikel",
-        format: fields.format || "artikel",
+        category: isFullArticle ? "artikel" : (fields.category || "artikel"),
+        content_type: isFullArticle ? "artikel" : (fields.content_type || "artikel"),
+        format: isFullArticle ? "artikel" : (fields.format || "artikel"),
         target_roles: Array.isArray(fields.target_roles) ? fields.target_roles : [],
         image_url: fields.image_url?.trim() || null,
         is_published: isPublished,
@@ -122,6 +195,23 @@ serve(async (req) => {
           ? (fields.published_at || new Date().toISOString())
           : null,
       };
+
+      if (isFullArticle) {
+        const html = sanitizeArticleHtml(fields.body_html);
+        const words = html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+        Object.assign(payload, {
+          body_html: html,
+          meta_title: fields.meta_title?.trim() || null,
+          meta_description: fields.meta_description?.trim() || null,
+          hero_caption: fields.hero_caption?.trim() || null,
+          article_section: fields.article_section?.trim() || null,
+          tags: Array.isArray(fields.tags)
+            ? fields.tags.map((t: unknown) => String(t).trim()).filter(Boolean).slice(0, 15)
+            : [],
+          reading_time_minutes: Math.max(1, Math.round(words / 200)),
+          source_filename: fields.source_filename?.trim() || null,
+        });
+      }
 
       let result;
       if (id) {

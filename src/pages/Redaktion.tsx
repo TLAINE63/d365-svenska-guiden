@@ -27,6 +27,7 @@ import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
+import AdminVideosTab from "@/components/AdminVideosTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -195,7 +196,7 @@ export default function Redaktion() {
               <PenLine className="h-6 w-6" /> Redaktion
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              {email} · Event, Partnernytt, Artiklar och Aktuellt
+              {email} · Event, Partnernytt, Artiklar, Videor och Aktuellt
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={logout} className="gap-2">
@@ -208,6 +209,7 @@ export default function Redaktion() {
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
+            <TabsTrigger value="videos">Videor</TabsTrigger>
             <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
             <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
@@ -312,6 +314,10 @@ export default function Redaktion() {
 
           <TabsContent value="aktuellt">
             <RedaktionAktuelltTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="videos">
+            <AdminVideosTab token={token || ""} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="articles">

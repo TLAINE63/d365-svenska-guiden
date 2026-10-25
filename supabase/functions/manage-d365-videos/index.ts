@@ -2,6 +2,76 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { z } from "https://esm.sh/zod@3.23.8";
 import { PRODUCT_GROUPS, QUESTION_TYPES } from "../_shared/d365-video-taxonomy.ts";
+import { classify } from "../_shared/d365-video-classify.ts";
+
+/** Plockar ut YouTube-id ur watch-, youtu.be-, shorts-, live- och embed-länkar. */
+function parseYouTubeId(input: string): string | null {
+  const v = input.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
+  try {
+    const u = new URL(v);
+    const host = u.hostname.replace(/^(www\.|m\.|music\.)/, "");
+    if (host === "youtu.be") return u.pathname.slice(1, 12) || null;
+    if (host !== "youtube.com" && host !== "youtube-nocookie.com") return null;
+    const fromQuery = u.searchParams.get("v");
+    if (fromQuery && /^[a-zA-Z0-9_-]{11}$/.test(fromQuery)) return fromQuery;
+    const m = u.pathname.match(/^\/(?:shorts|live|embed|v)\/([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function decodeHtml(s: string): string {
+  return s
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
+    .replace(/&amp;/g, "&");
+}
+
+/** Hämtar titel, kanal, beskrivning och publiceringsdatum för en enskild YouTube-video. */
+async function fetchYouTubeVideo(id: string) {
+  const watchUrl = `https://www.youtube.com/watch?v=${id}`;
+  const oembed = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(watchUrl)}&format=json`, {
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!oembed.ok) return null;
+  const o = await oembed.json();
+  let description = "";
+  let publishedAt: string | null = null;
+  let channelId: string | null = null;
+  try {
+    const page = await fetch(watchUrl, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; d365.se-video/1.0)", "Accept-Language": "sv-SE,sv;q=0.9,en;q=0.8" },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (page.ok) {
+      const html = await page.text();
+      const short = html.match(/"shortDescription":"((?:[^"\\]|\\.)*)"/);
+      if (short) {
+        try { description = JSON.parse(`"${short[1]}"`); } catch { /* ignore */ }
+      }
+      if (!description) {
+        const meta = html.match(/<meta name="description" content="([^"]*)"/);
+        if (meta) description = decodeHtml(meta[1]);
+      }
+      const date = html.match(/"(?:uploadDate|publishDate)":"([^"]+)"/) ||
+        html.match(/itemprop="datePublished" content="([^"]+)"/);
+      if (date && !isNaN(Date.parse(date[1]))) publishedAt = new Date(date[1]).toISOString();
+      const ch = html.match(/"channelId":"(UC[a-zA-Z0-9_-]{20,})"/);
+      if (ch) channelId = ch[1];
+    }
+  } catch { /* beskrivning och datum är frivilliga */ }
+  return {
+    youtube_id: id,
+    title: String(o.title || "").slice(0, 300),
+    channel_name: o.author_name ? String(o.author_name).slice(0, 200) : null,
+    channel_id: channelId,
+    description: description.slice(0, 3000),
+    published_at: publishedAt,
+    thumbnail_url: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+  };
+}
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -39,7 +109,8 @@ async function verifyJWT(token: string, secret: string): Promise<boolean> {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    return payload.role === "admin";
+    // Videor är redaktionellt innehåll: både admin och redaktör (/redaktion) får hantera dem.
+    return payload.role === "admin" || payload.role === "editor";
   } catch { return false; }
 }
 
@@ -138,6 +209,29 @@ serve(async (req) => {
         const { error } = await supabase.from("d365_video_sources").delete().eq("id", id);
         if (error) throw error;
         return json({ success: true });
+      }
+      case "add-video": {
+        // Redaktören lägger till en enskild video via länk. Den sparas som Ny och
+        // syns publikt först när redaktören väljer Publicera.
+        const id = parseYouTubeId(String(body.url || ""));
+        if (!id) return json({ error: "Klistra in en länk till en YouTube-video" });
+        const { data: existing } = await supabase.from("d365_videos").select("id,status,title").eq("youtube_id", id).maybeSingle();
+        if (existing) return json({ error: `Videon finns redan i listan: ${existing.title}` });
+        const v = await fetchYouTubeVideo(id);
+        if (!v) return json({ error: "Hittade inte videon. Kontrollera att den är offentlig eller olistad." });
+        const { data: inserted, error: insErr } = await supabase
+          .from("d365_videos").insert({ ...v, status: "new" }).select("*").maybeSingle();
+        if (insErr) throw insErr;
+        const c = await classify(v);
+        if (!c.result) return json({ success: true, item: inserted, classified: false });
+        const { data: updated } = await supabase.from("d365_videos").update({
+          product_groups: c.result.product_groups,
+          question_types: c.result.question_types,
+          summary_sv: c.result.summary_sv,
+          relevance_score: c.result.relevance_score,
+          ai_classified_at: new Date().toISOString(),
+        }).eq("id", inserted!.id).select("*").maybeSingle();
+        return json({ success: true, item: updated ?? inserted, classified: true });
       }
       case "update-video": {
         const p = VideoUpdateSchema.safeParse(body.video);
