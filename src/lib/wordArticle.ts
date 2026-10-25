@@ -206,7 +206,7 @@ export async function convertWordFile(file: File, upload: ImageUploader): Promis
         const buffer = await image.readAsArrayBuffer();
         const url = await uploadImageBlob(new Blob([buffer], { type: image.contentType }), upload);
         imageCount++;
-        return { src: url, alt: image.altText ?? "" };
+        return { src: url }; // Word-filens alternativtext läggs till automatiskt
       }),
     },
   );
