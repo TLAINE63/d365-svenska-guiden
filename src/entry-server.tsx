@@ -9,6 +9,7 @@ const BASIC_PARTNERS_BY_SLUG: Record<string, BasicPartner> = {};
 const EVENTS_BY_ID: Record<string, PartnerEvent> = {};
 const PARTNER_NEWS_BY_ID: Record<string, PartnerNewsItem> = {};
 const AKTUELLT_BY_SLUG: Record<string, AktuelltArticleData> = {};
+const EDITOR_ARTICLES_BY_SLUG: Record<string, EditorArticleRow> = {};
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -113,6 +114,7 @@ import type { PartnerNewsItem } from './hooks/usePartnerNews';
 import Aktuellt from './pages/Aktuellt';
 import AktuelltArticle from './pages/AktuelltArticle';
 import { AKTUELLT_PUBLIC_SELECT, type AktuelltArticle as AktuelltArticleData } from './lib/aktuellt';
+import { EDITOR_ARTICLE_PUBLIC_SELECT, type EditorArticleRow } from './lib/editorArticle';
 import type { PartnerEvent } from './pages/EventDetail';
 import Friskrivning from './pages/Friskrivning';
 import Backlankar from './pages/Backlankar';
@@ -498,6 +500,10 @@ export function render(url: string) {
   const aktuelltSlug = aktuelltMatch ? aktuelltMatch[1].replace(/\/$/, '') : null;
   const aktuelltInitialData = aktuelltSlug ? AKTUELLT_BY_SLUG[aktuelltSlug] || null : null;
 
+  const articleMatch = url.match(/^\/artiklar\/([^/?#]+)/);
+  const articleSlug = articleMatch ? articleMatch[1].replace(/\/$/, '') : null;
+  const editorArticleInitialData = articleSlug ? EDITOR_ARTICLES_BY_SLUG[articleSlug] || null : null;
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, enabled: false },
@@ -656,7 +662,7 @@ export function render(url: string) {
                 />
               ))}
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
-              <Route path="/artiklar/:slug" element={<BlogArticle />} />
+              <Route path="/artiklar/:slug" element={<BlogArticle initialEditorArticle={editorArticleInitialData} />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
               <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
               <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
@@ -923,8 +929,32 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         console.warn(`  ⚠️  Aktuellt fetch failed: ${akRes.status}`);
       }
 
-      // ── Knowledge articles: published, internal urls only ──
-      const kaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=title,description,url,updated_at,published_at&is_published=eq.true&content_type=neq.aktuellt&url=like.%2F%25`;
+      // ── Word-artiklar från redaktionen: hela texten förgenereras på /artiklar/<adress>/ ──
+      const eaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=${EDITOR_ARTICLE_PUBLIC_SELECT}&is_published=eq.true&content_type=eq.artikel&body_html=not.is.null&order=published_at.desc`;
+      const eaRes = await fetch(eaUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (eaRes.ok) {
+        const rows = (await eaRes.json()) as EditorArticleRow[];
+        for (const a of rows) {
+          if (!a.slug || !a.body_html) continue;
+          EDITOR_ARTICLES_BY_SLUG[a.slug] = a;
+          articleRoutes.push({
+            path: `/artiklar/${a.slug}`,
+            priority: '0.7',
+            changefreq: 'monthly',
+            lastmod: (a.updated_at || a.published_at || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${a.meta_title || a.title} | d365.se`,
+              description: (a.meta_description || a.description || a.title).slice(0, 155),
+            },
+          });
+        }
+        console.log(`  📦 Found ${Object.keys(EDITOR_ARTICLES_BY_SLUG).length} Word article routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Word articles fetch failed: ${eaRes.status}`);
+      }
+
+      // ── Knowledge articles: published, internal urls only (Word-artiklar hanteras ovan) ──
+      const kaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=title,description,url,updated_at,published_at&is_published=eq.true&content_type=neq.aktuellt&body_html=is.null&url=like.%2F%25`;
       const kaRes = await fetch(kaUrl, {
         headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
       });
