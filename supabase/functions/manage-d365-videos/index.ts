@@ -209,6 +209,29 @@ serve(async (req) => {
         if (error) throw error;
         return json({ success: true });
       }
+      case "add-video": {
+        // Redaktören lägger till en enskild video via länk. Den sparas som Ny och
+        // syns publikt först när redaktören väljer Publicera.
+        const id = parseYouTubeId(String(body.url || ""));
+        if (!id) return json({ error: "Klistra in en länk till en YouTube-video" }, 400);
+        const { data: existing } = await supabase.from("d365_videos").select("id,status,title").eq("youtube_id", id).maybeSingle();
+        if (existing) return json({ error: `Videon finns redan i listan: ${existing.title}` }, 409);
+        const v = await fetchYouTubeVideo(id);
+        if (!v) return json({ error: "Hittade inte videon. Kontrollera att den är offentlig eller olistad." }, 404);
+        const { data: inserted, error: insErr } = await supabase
+          .from("d365_videos").insert({ ...v, status: "new" }).select("*").maybeSingle();
+        if (insErr) throw insErr;
+        const c = await classify(v);
+        if (!c.result) return json({ success: true, item: inserted, classified: false });
+        const { data: updated } = await supabase.from("d365_videos").update({
+          product_groups: c.result.product_groups,
+          question_types: c.result.question_types,
+          summary_sv: c.result.summary_sv,
+          relevance_score: c.result.relevance_score,
+          ai_classified_at: new Date().toISOString(),
+        }).eq("id", inserted!.id).select("*").maybeSingle();
+        return json({ success: true, item: updated ?? inserted, classified: true });
+      }
       case "update-video": {
         const p = VideoUpdateSchema.safeParse(body.video);
         if (!p.success) return json({ error: "Valideringsfel", details: p.error.flatten().fieldErrors }, 400);
