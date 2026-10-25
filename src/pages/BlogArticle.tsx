@@ -21,6 +21,9 @@ import { getRelatedArticles } from "@/lib/relatedArticles";
 import IndustryBig5FAQ from "@/components/IndustryBig5FAQ";
 import { ARTICLE_TO_INDUSTRY_SLUG } from "@/data/branschguideIndustryMap";
 import { findIndustryBySlug } from "@/data/standardIndustries";
+import { ARTICLE_BODY_CLASS } from "@/lib/articleBodyClass";
+import { useEditorArticle } from "@/hooks/useEditorArticle";
+import { editorRowToBlogArticle, type EditorArticleRow } from "@/lib/editorArticle";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
@@ -30,11 +33,31 @@ const formatDateSv = (iso: string) => {
   return `${y}-${m}-${day}`;
 };
 
-const BlogArticle = () => {
+interface BlogArticleProps {
+  /** Förhämtad Word-artikel från redaktionen (förgenerering). */
+  initialEditorArticle?: EditorArticleRow | null;
+}
+
+const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
   const { slug } = useParams();
-  const article = slug ? getBlogArticleBySlug(slug) : undefined;
+  const staticArticle = slug ? getBlogArticleBySlug(slug) : undefined;
+  // Artiklar som redaktionen laddat upp från Word hämtas när ingen kodad artikel har adressen.
+  const editorQuery = useEditorArticle(slug, !staticArticle);
+  const editorRow = editorQuery.data ?? initialEditorArticle;
+  const article = staticArticle ?? (editorRow ? editorRowToBlogArticle(editorRow) : undefined);
 
   if (!article) {
+    if (!staticArticle && editorQuery.isLoading) {
+      return (
+        <>
+          <Navbar />
+          <main className="min-h-screen bg-background pt-28">
+            <div className="container mx-auto px-4 max-w-3xl py-10 text-muted-foreground">Laddar artikeln…</div>
+          </main>
+          <Footer />
+        </>
+      );
+    }
     return <Navigate to="/kunskapscenter/" replace />;
   }
 
@@ -255,6 +278,9 @@ const BlogArticle = () => {
                 loading="eager"
                 fetchPriority="high"
               />
+              {article.heroCaption && (
+                <p className="mt-2 text-sm italic text-muted-foreground">{article.heroCaption}</p>
+              )}
             </div>
           </section>
         )}
@@ -307,18 +333,7 @@ const BlogArticle = () => {
             )}
 
             <article
-              className="
-                article-body max-w-none
-                text-base md:text-lg leading-relaxed text-foreground/90
-                [&_p]:mb-5 [&_p]:leading-relaxed
-                [&_h2]:font-bold [&_h2]:text-2xl md:[&_h2]:text-3xl [&_h2]:tracking-tight [&_h2]:text-foreground [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:text-balance
-                [&_h3]:font-semibold [&_h3]:text-xl md:[&_h3]:text-2xl [&_h3]:text-foreground [&_h3]:mt-9 [&_h3]:mb-3 [&_h3]:text-balance
-                [&_ul]:my-6 [&_ul]:pl-7 [&_ul]:space-y-2 [&_ul>li]:list-disc [&_ul>li]:marker:text-primary [&_ul>li]:pl-2
-                [&_ol]:my-6 [&_ol]:pl-7 [&_ol]:space-y-2 [&_ol>li]:list-decimal
-                [&_strong]:text-foreground [&_strong]:font-semibold
-                [&_em]:italic
-                [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80
-              "
+              className={ARTICLE_BODY_CLASS}
             >
               {article.content}
             </article>

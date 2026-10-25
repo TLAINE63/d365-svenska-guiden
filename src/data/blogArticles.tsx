@@ -64,6 +64,8 @@ export interface BlogArticle {
   author: BlogArticleAuthor;
   /** Cover/hero image */
   heroImage: string;
+  /** Bildtext under huvudbilden (används av Word-artiklar från redaktionen). */
+  heroCaption?: string;
   /** Estimated reading time in minutes */
   readingTimeMinutes: number;
   /** Article body (JSX) */
