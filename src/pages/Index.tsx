@@ -361,7 +361,7 @@ const Index = () => {
                 <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
               </li>
             </ul>
-            <HeroPartnerLogoMarquee className="mt-4 sm:mt-5" />
+            <HeroPartnerLogoMarquee className="mt-3 sm:mt-4" />
 
           </div>
         </section>

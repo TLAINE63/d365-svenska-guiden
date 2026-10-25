@@ -31,7 +31,7 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
         tabIndex={hidden ? -1 : undefined}
         title={`${partner.name} – partnerprofil`}
         className={cn(
-          "flex h-11 w-32 sm:h-12 sm:w-36 items-center justify-center rounded-md border px-3 transition",
+          "flex h-10 w-28 sm:h-11 sm:w-32 items-center justify-center rounded-md border px-3 transition",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))]",
           partner.logo_dark_bg
             ? "border-[hsl(var(--line-dark))] bg-primary-foreground/5 hover:bg-primary-foreground/10"
@@ -44,7 +44,7 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
             alt={hidden ? "" : partner.name}
             loading="lazy"
             decoding="async"
-            className="max-h-7 sm:max-h-8 max-w-full object-contain"
+            className="max-h-6 sm:max-h-7 max-w-full object-contain"
           />
         ) : (
           <span
@@ -65,11 +65,8 @@ export default function HeroPartnerLogoMarquee({ className }: { className?: stri
   if (HERO_LOGO_PARTNERS.length === 0) return null;
   return (
     <div className={cn("relative", className)}>
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-foreground/55">
-        Verifierade partners på d365.se
-      </p>
       <nav
-        aria-label="Verifierade partners"
+        aria-label="Verifierade partners på d365.se"
         className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:overflow-x-auto"
       >
         <ul
