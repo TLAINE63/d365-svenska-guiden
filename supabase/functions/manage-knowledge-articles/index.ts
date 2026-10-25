@@ -1,5 +1,52 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import sanitizeHtml from "npm:sanitize-html@2.13.0";
+
+// Bilder i Word-artiklar läggs i den befintliga publika dokumentlagringen under en egen mapp.
+const ARTICLE_IMAGE_BUCKET = "partner-documents";
+const ARTICLE_IMAGE_PREFIX = "redaktion-artiklar";
+const IMAGE_TYPES: Record<string, string> = {
+  "image/png": "png",
+  "image/jpeg": "jpg",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
+
+/** Bara enkel artikelformatering får följa med från Word; skript, stilar och okända attribut tas bort. */
+function sanitizeArticleHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: [
+      "h2", "h3", "h4", "p", "br", "hr", "strong", "b", "em", "i", "u", "sup", "sub",
+      "ul", "ol", "li", "a", "blockquote", "img", "figure", "figcaption",
+      "table", "thead", "tbody", "tr", "th", "td",
+    ],
+    allowedAttributes: {
+      a: ["href", "title", "target", "rel"],
+      img: ["src", "alt", "width", "height", "loading"],
+      td: ["colspan", "rowspan"],
+      th: ["colspan", "rowspan"],
+    },
+    allowedSchemes: ["https", "http", "mailto"],
+    allowedSchemesByTag: { img: ["https"] },
+    allowProtocolRelative: false,
+    transformTags: {
+      a: (tagName: string, attribs: Record<string, string>) => {
+        const href = attribs.href || "";
+        const external = /^https?:\/\//i.test(href) && !/^https?:\/\/(www\.)?d365\.se/i.test(href);
+        return {
+          tagName,
+          attribs: external
+            ? { href, target: "_blank", rel: "noopener noreferrer" }
+            : { href: href.replace(/^https?:\/\/(www\.)?d365\.se/i, "") || "/" },
+        };
+      },
+      img: (tagName: string, attribs: Record<string, string>) => ({
+        tagName,
+        attribs: { ...attribs, loading: "lazy" },
+      }),
+    },
+  }).trim();
+}
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
