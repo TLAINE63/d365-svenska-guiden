@@ -186,7 +186,7 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
     ...articles.map((a) => ({
       key: a.id,
       title: a.title,
-      category: a.category,
+      category: a.article_section || a.category,
       date: a.published_at || a.created_at,
       url: a.url,
       published: a.is_published,
