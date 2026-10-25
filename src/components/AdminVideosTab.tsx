@@ -203,6 +203,39 @@ export default function AdminVideosTab({ token, onSessionExpired }: Props) {
   return (
     <div className="space-y-6">
       <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Link2 className="h-4 w-4" /> Lägg till en video från YouTube
+          </CardTitle>
+          <CardDescription>
+            Klistra in länken till en video, till exempel från din egen kanal. Titel, kanal och datum
+            hämtas från YouTube och en svensk sammanfattning föreslås. Videon sparas som Ny och syns på
+            sajten först när du trycker på Publicera.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form
+            className="flex flex-col gap-3 sm:flex-row"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addVideo();
+            }}
+          >
+            <Input
+              aria-label="Länk till YouTube-video"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=…"
+            />
+            <Button type="submit" disabled={adding || !videoUrl.trim()} className="shrink-0">
+              {adding ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
+              Lägg till video
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardHeader className="flex flex-row items-center justify-between gap-4">
           <CardTitle className="flex items-center gap-2 text-base">
             <Youtube className="h-4 w-4" /> YouTube-kanaler
@@ -328,6 +361,14 @@ export default function AdminVideosTab({ token, onSessionExpired }: Props) {
                 <div className="flex gap-2">
                   <Button
                     size="sm"
+                    variant="ghost"
+                    aria-label="Redigera titel och sammanfattning"
+                    onClick={() => setEditing({ id: v.id, title: v.title, summary_sv: v.summary_sv ?? "" })}
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="sm"
                     variant={v.status === "published" ? "default" : "outline"}
                     onClick={() => setVideoStatus(v, "published")}
                   >
@@ -349,6 +390,44 @@ export default function AdminVideosTab({ token, onSessionExpired }: Props) {
           </div>
         </CardContent>
       </Card>
+
+      <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>Redigera video</DialogTitle>
+          </DialogHeader>
+          {editing && (
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="video-title">Titel</Label>
+                <Input
+                  id="video-title"
+                  value={editing.title}
+                  maxLength={300}
+                  onChange={(e) => setEditing({ ...editing, title: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="video-summary">Sammanfattning på d365.se</Label>
+                <Textarea
+                  id="video-summary"
+                  rows={4}
+                  maxLength={600}
+                  value={editing.summary_sv}
+                  onChange={(e) => setEditing({ ...editing, summary_sv: e.target.value })}
+                />
+                <p className="text-xs text-muted-foreground mt-1">{editing.summary_sv.length}/600 tecken</p>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditing(null)}>Avbryt</Button>
+            <Button onClick={saveEdit} disabled={savingEdit || !editing?.title.trim()}>
+              {savingEdit ? "Sparar…" : "Spara"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
