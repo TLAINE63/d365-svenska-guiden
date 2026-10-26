@@ -361,7 +361,6 @@ const Index = () => {
                 <span><CountUp value={450} suffix="+" className="tabular-nums" /> guider, artiklar &amp; insikter</span>
               </li>
             </ul>
-            <HeroPartnerLogoMarquee className="mt-3 sm:mt-4" />
 
           </div>
         </section>
@@ -377,6 +376,7 @@ const Index = () => {
                 <p className="text-[13.5px] text-white/60 mb-4">
                   Valen är frivilliga – ni kan gå vidare direkt.
                 </p>
+                <HeroPartnerLogoMarquee className="mb-5" />
 
                 {/* Hero finder: bransch + produkt → direktnavigering */}
                 <div className="bg-white/[0.04] border border-white/10 rounded p-3 sm:p-4 mb-5">
