@@ -36,6 +36,7 @@ import LeadCTA from "@/components/LeadCTA";
 import StickyContactCTA from "@/components/partner/StickyContactCTA";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
+import PartnerArticlesSection from "@/components/partner/PartnerArticlesSection";
 import DecisionProfile from "@/components/partner/DecisionProfile";
 import PartnerAiInsights from "@/components/partner/PartnerAiInsights";
 import PartnerPublicSourcesSection from "@/components/partner/PartnerPublicSourcesSection";
@@ -511,6 +512,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     </div>
    </section>
   )}
+
+  {partner?.slug && <PartnerArticlesSection partnerSlug={partner.slug} partnerName={partner.name} />}
 
 
 
