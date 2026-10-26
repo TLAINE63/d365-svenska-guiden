@@ -18,6 +18,7 @@ import GuidePartnerSpotlight from "@/components/guides/GuidePartnerSpotlight";
 import GuideSearch from "@/components/guides/GuideSearch";
 import ContextualCta from "@/components/ContextualCta";
 import { Link } from "react-router-dom";
+import { Fragment, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import {
   PARTNER_GUIDES,
@@ -129,10 +130,40 @@ const renderBlock = (block: GuideBlock, i: number) => {
     default:
       return (
         <p key={i} className="my-4 text-[15px] leading-relaxed text-muted-foreground">
-          {nowrapBrand(block.text)}
+          {block.links?.length ? renderInlineLinks(block.text, block.links) : nowrapBrand(block.text)}
         </p>
       );
   }
+};
+
+/** Gör angivna ankartexter i en paragraf till interna länkar, utan att ändra texten. */
+const renderInlineLinks = (text: string, links: { text: string; to: string }[]): ReactNode[] => {
+  const out: ReactNode[] = [];
+  let rest = text;
+  let k = 0;
+  for (const l of links) {
+    const at = rest.indexOf(l.text);
+    if (at < 0) continue;
+    out.push(<Fragment key={k++}>{nowrapBrand(rest.slice(0, at))}</Fragment>);
+    out.push(
+      <Link key={k++} to={l.to} className="font-medium text-primary underline underline-offset-4 hover:no-underline">
+        {nowrapBrand(l.text)}
+      </Link>
+    );
+    rest = rest.slice(at + l.text.length);
+  }
+  out.push(<Fragment key={k++}>{nowrapBrand(rest)}</Fragment>);
+  return out;
+};
+
+/** Framhävd ruta efter introduktionen i huvudguiden, leder till partnerväljaren. */
+const INTRO_CTA: Partial<Record<PartnerGuideKey, { heading: string; text: string; label: string; to: string }>> = {
+  hub: {
+    heading: "Hitta rätt certifierad partner för ert projekt",
+    text: "I vår kostnadsfria partnerväljare kan du filtrera och jämföra svenska Microsoft-partners utifrån branschkompetens och produktfokus. Certifieringar och referenser kontrollerar ni sedan direkt med de partners ni går vidare med.",
+    label: "Gå till partnerväljaren",
+    to: "/valjdynamics365partner/",
+  },
 };
 
 const PartnerGuidePage = ({ guideKey }: Props) => {
@@ -233,6 +264,17 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             {nowrapBrand(partnerQuestion(content.h1))}
           </h1>
           {introBlocks.length > 0 && <section aria-label="Kort svar"><h2 className="text-xl font-bold mb-3">Kort svar</h2>{introBlocks.map(renderBlock)}</section>}
+
+          {INTRO_CTA[guideKey] && (
+            <GuideCTA
+              variant="highlight"
+              heading={INTRO_CTA[guideKey]!.heading}
+              text={INTRO_CTA[guideKey]!.text}
+              buttonLabel={INTRO_CTA[guideKey]!.label}
+              to={INTRO_CTA[guideKey]!.to}
+              source={`${path}#cta-intro`}
+            />
+          )}
 
           {guideKey === "hub" && <><FitModel model="partner" heading="Vad avgör valet av partner?" /><GuideCardsGrid /></>}
 
