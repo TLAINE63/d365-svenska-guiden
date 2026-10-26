@@ -41,17 +41,10 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
             alt={hidden ? "" : partner.name}
             loading="lazy"
             decoding="async"
-            className={cn(
-              "max-h-6 sm:max-h-7 max-w-full object-contain opacity-70 transition group-hover:opacity-100",
-              partner.logo_dark_bg
-                ? "grayscale brightness-200 mix-blend-screen"
-                : /\.jpe?g($|\?)/i.test(partner.logo_url)
-                  ? "grayscale invert mix-blend-screen"
-                  : "brightness-0 invert",
-            )}
+            className="max-h-7 sm:max-h-8 max-w-full rounded-sm object-contain transition group-hover:scale-105"
           />
         ) : (
-          <span className="truncate text-[12px] font-semibold text-primary-foreground/70 group-hover:text-primary-foreground">
+          <span className="truncate text-[12px] font-semibold text-foreground/70 group-hover:text-foreground">
             {partner.name}
           </span>
         )}
@@ -63,10 +56,10 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
 export default function HeroPartnerLogoMarquee({ className }: { className?: string }) {
   if (HERO_LOGO_PARTNERS.length === 0) return null;
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative rounded-md border border-border bg-background py-2 shadow-sm", className)}>
       <nav
         aria-label="Verifierade partners på d365.se"
-        className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:overflow-x-auto"
+        className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] motion-reduce:overflow-x-auto"
       >
         <ul
           className="flex w-max animate-marquee group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
