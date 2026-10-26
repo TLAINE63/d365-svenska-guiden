@@ -83,20 +83,6 @@ const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
   "human-resources": "Human Resources",
 };
 
-const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
-  all: null,
-  bc: "bc",
-  fscm: "fsc",
-  sales: "sales",
-  "customer-service": "service",
-  "field-service": "service",
-  "contact-center": "service",
-  marketing: "sales",
-  "project-operations": "fsc",
-  commerce: "fsc",
-  "human-resources": "fsc",
-};
-
 const partnerIndustries = (p: RawPartner) => {
   const set = new Set<string>([...(p.industries || []), ...(p.secondary_industries || [])]);
   Object.values(p.product_filters || {}).forEach((f) =>
