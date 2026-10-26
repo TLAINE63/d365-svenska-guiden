@@ -31,11 +31,8 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
         tabIndex={hidden ? -1 : undefined}
         title={`${partner.name} – partnerprofil`}
         className={cn(
-          "flex h-10 w-28 sm:h-11 sm:w-32 items-center justify-center rounded-md border px-3 transition",
+          "group flex h-10 w-28 sm:h-11 sm:w-32 items-center justify-center rounded-md px-3 transition",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))]",
-          partner.logo_dark_bg
-            ? "border-[hsl(var(--line-dark))] bg-primary-foreground/5 hover:bg-primary-foreground/10"
-            : "border-transparent bg-primary-foreground hover:-translate-y-0.5",
         )}
       >
         {partner.logo_url ? (
@@ -44,15 +41,17 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
             alt={hidden ? "" : partner.name}
             loading="lazy"
             decoding="async"
-            className="max-h-6 sm:max-h-7 max-w-full object-contain"
+            className={cn(
+              "max-h-6 sm:max-h-7 max-w-full object-contain opacity-70 transition group-hover:opacity-100",
+              partner.logo_dark_bg
+                ? "grayscale brightness-200 mix-blend-screen"
+                : /\.jpe?g($|\?)/i.test(partner.logo_url)
+                  ? "grayscale invert mix-blend-screen"
+                  : "brightness-0 invert",
+            )}
           />
         ) : (
-          <span
-            className={cn(
-              "truncate text-[12px] font-semibold",
-              partner.logo_dark_bg ? "text-primary-foreground" : "text-foreground",
-            )}
-          >
+          <span className="truncate text-[12px] font-semibold text-primary-foreground/70 group-hover:text-primary-foreground">
             {partner.name}
           </span>
         )}
