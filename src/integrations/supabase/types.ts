@@ -1582,6 +1582,7 @@ export type Database = {
           meta_description: string | null
           meta_title: string | null
           needs_verification: boolean
+          partner_slugs: string[]
           product_keys: string[]
           published_at: string | null
           reading_time_minutes: number | null
@@ -1624,6 +1625,7 @@ export type Database = {
           meta_description?: string | null
           meta_title?: string | null
           needs_verification?: boolean
+          partner_slugs?: string[]
           product_keys?: string[]
           published_at?: string | null
           reading_time_minutes?: number | null
@@ -1666,6 +1668,7 @@ export type Database = {
           meta_description?: string | null
           meta_title?: string | null
           needs_verification?: boolean
+          partner_slugs?: string[]
           product_keys?: string[]
           published_at?: string | null
           reading_time_minutes?: number | null
