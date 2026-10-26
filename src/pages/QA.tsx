@@ -256,7 +256,7 @@ const QA = () => {
             </nav>
             {FAQ_TOPICS.map((topic) => (
               <section key={topic.id} id={topic.id} className="mb-10 scroll-mt-28">
-                <h2 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{topic.title}</h2>
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{topic.title}</h3>
                 <p className="text-muted-foreground mb-4 leading-relaxed">{topic.intro}</p>
                 <Accordion type="single" collapsible className="w-full">
                   {topic.items.map((item, i) => (
