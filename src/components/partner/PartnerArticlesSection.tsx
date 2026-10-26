@@ -53,19 +53,19 @@ export default function PartnerArticlesSection({ partnerSlug, partnerName }: Pro
             Artiklar på d365.se med {partnerName}
           </h2>
         </div>
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid gap-4">
           {articles.map((a) => (
             <li key={a.slug}>
               <Link
                 to={`/artiklar/${a.slug}/`}
-                className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+                className="group flex h-full flex-col sm:flex-row overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
               >
                 {a.image_url && (
                   <img
                     src={a.image_url}
                     alt=""
                     loading="lazy"
-                    className="aspect-[2/1] w-full object-cover"
+                    className="aspect-[2/1] w-full object-cover sm:aspect-auto sm:w-2/5 sm:shrink-0"
                   />
                 )}
                 <div className="flex flex-1 flex-col gap-2 p-4">
