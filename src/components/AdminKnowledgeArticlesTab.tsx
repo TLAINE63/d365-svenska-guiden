@@ -36,6 +36,7 @@ interface KnowledgeArticle {
   article_section?: string | null;
   tags?: string[] | null;
   source_filename?: string | null;
+  partner_slugs?: string[] | null;
 }
 
 const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
@@ -47,6 +48,7 @@ const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
   meta_description: a.meta_description || "",
   article_section: a.article_section || "",
   tags: a.tags || [],
+  partner_slugs: a.partner_slugs || [],
   image_url: a.image_url || "",
   hero_caption: a.hero_caption || "",
   body_html: a.body_html || "",

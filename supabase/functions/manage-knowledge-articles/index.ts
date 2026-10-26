@@ -210,6 +210,14 @@ serve(async (req) => {
             : [],
           reading_time_minutes: Math.max(1, Math.round(words / 200)),
           source_filename: fields.source_filename?.trim() || null,
+          // Partnerprofiler där artikeln också ska listas (partneradresser).
+          partner_slugs: Array.isArray(fields.partner_slugs)
+            ? Array.from(new Set(
+                fields.partner_slugs
+                  .map((s: unknown) => String(s).trim().toLowerCase())
+                  .filter((s: string) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s)),
+              )).slice(0, 10)
+            : [],
         });
       }
 
