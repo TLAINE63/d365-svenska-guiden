@@ -233,8 +233,9 @@ const IndustryComparisonWidget = () => {
     <div className="space-y-6">
       {/* Sector select */}
       <div className="bg-secondary/30 rounded p-5 border border-border space-y-1">
-        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
+        <label htmlFor="industry-comparison-sector" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
         <select
+          id="industry-comparison-sector"
           value={sec}
           onChange={e => changeSector(e.target.value)}
           className="h-11 w-full px-4 text-sm border-2 border-border rounded bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"

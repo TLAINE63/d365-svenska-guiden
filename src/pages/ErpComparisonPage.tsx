@@ -150,9 +150,10 @@ const ErpComparisonPage = () => {
                       href={data.competitorUrl}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
+                      aria-label={`${data.competitor} webbplats (öppnas i ny flik)`}
                       className="inline-flex items-center gap-1 ml-2 text-muted-foreground/70 hover:text-foreground"
                     >
-                      <ExternalLink className="h-3 w-3" />
+                      <ExternalLink className="h-3 w-3" aria-hidden="true" />
                     </a>
                   )}
                 </p>

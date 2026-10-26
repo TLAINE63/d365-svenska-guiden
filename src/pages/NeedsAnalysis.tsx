@@ -4682,7 +4682,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
           {/* Content */}
           <Card>
             <CardHeader className="py-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
+              <CardTitle as="h2" className="flex items-center gap-2 text-lg">
                 {(() => {
                   const Icon = stepIcons[currentStep - 1];
                   return <Icon className="w-5 h-5 text-[hsl(var(--cta-orange))]" />;

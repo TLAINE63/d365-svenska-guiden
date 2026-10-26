@@ -2375,7 +2375,7 @@ const CustomerServiceNeedsAnalysis = () => {
  <CardHeader className="bg-gradient-to-r from-customer-service/10 to-customer-service/5 border-b py-3">
  <div className="flex items-center gap-2">
  <StepIcon className="w-5 h-5 text-customer-service" />
- <CardTitle className="text-lg text-customer-service">{stepTitles[currentStep - 1]}</CardTitle>
+ <CardTitle as="h2" className="text-lg text-customer-service">{stepTitles[currentStep - 1]}</CardTitle>
  {currentStep === totalSteps && (
  <Button variant="outline" size="sm" onClick={handlePrint} className="ml-auto print:hidden">
  🖨️ Skriv ut

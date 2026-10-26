@@ -151,9 +151,9 @@ const Copilot = () => {
               </div>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div className="bg-secondary/30 rounded-lg p-4">
-                  <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                  <h3 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
                     <img src={CopilotLogo} alt="Microsoft Copilot" className="h-5 w-5" /> Copilot
-                  </h4>
+                  </h3>
                   <ul className="space-y-1 text-muted-foreground">
                     <li>• Hjälper användaren med uppgifter</li>
                     <li>• Kräver användarinteraktion</li>
@@ -162,9 +162,9 @@ const Copilot = () => {
                   </ul>
                 </div>
                 <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg p-4 border border-primary/20">
-                  <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                  <h3 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
                     <span>⚡</span> Agents
-                  </h4>
+                  </h3>
                   <ul className="space-y-1 text-foreground/90 font-medium">
                     <li>• Utför hela arbetsflöden automatiskt</li>
                     <li>• Arbetar självständigt 24/7</li>

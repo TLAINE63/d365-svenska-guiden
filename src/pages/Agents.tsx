@@ -499,7 +499,7 @@ const Agents = () => {
               </p>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-card rounded-lg p-6 border border-border">
-                  <h4 className="font-bold text-card-foreground mb-3">Copilot för Användaren</h4>
+                  <h3 className="font-bold text-card-foreground mb-3">Copilot för Användaren</h3>
                   <p className="text-sm text-muted-foreground mb-3">
                     Copilot hjälper dina medarbetare att arbeta smartare genom att ge förslag, 
                     automatisera uppgifter och tillhandahålla AI-insikter i realtid.
@@ -511,7 +511,7 @@ const Agents = () => {
                   </div>
                 </div>
                 <div className="bg-card rounded-lg p-6 border border-border">
-                  <h4 className="font-bold text-card-foreground mb-3">Agenter för Processerna</h4>
+                  <h3 className="font-bold text-card-foreground mb-3">Agenter för Processerna</h3>
                   <p className="text-sm text-muted-foreground mb-3">
                     Agenter hanterar repetitiva och komplexa arbetsflöden självständigt, 
                     arbetar 24/7 och koordinerar mellan system och team.

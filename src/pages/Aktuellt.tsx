@@ -134,6 +134,7 @@ export default function Aktuellt() {
 
         <section className="py-12">
           <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+            <h2 className="sr-only">Publicerade analyser</h2>
             {isLoading && <p className="text-center text-muted-foreground">Laddar analyser…</p>}
             {!isLoading && items.length === 0 && (
               <div className="mx-auto max-w-2xl py-12 text-center">

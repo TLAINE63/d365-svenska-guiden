@@ -62,6 +62,7 @@ const D365TillaggKatalog = () => {
             </p>
           </header>
 
+          <h2 className="sr-only">Tilläggslösningar per leverantör</h2>
           <BcIsvCatalog
             showProductFilter
             defaultProducts={preselected}
