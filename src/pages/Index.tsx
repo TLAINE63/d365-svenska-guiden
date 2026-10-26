@@ -321,7 +321,7 @@ const Index = () => {
           aria-labelledby="beslutsmodell"
           className="section-divider section-divider-dark bg-[hsl(var(--hero-dark))] relative flex items-center overflow-hidden border-b border-[hsl(var(--line-dark))] pt-20 pb-6 sm:pt-32 sm:pb-10"
         >
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl relative">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
             <h1 id="beslutsmodell" className="text-[21px] sm:text-[28px] lg:text-[40px] font-bold text-primary-foreground leading-tight tracking-tight mb-3 sm:mb-4 text-balance">
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
@@ -368,7 +368,7 @@ const Index = () => {
         {/* SECTION 2 – HERO */}
         <section id="matcha-partner" className="scroll-mt-20 section-divider section-divider-dark bg-[hsl(var(--hero-dark))] pt-8 sm:pt-12 pb-12 sm:pb-16 relative overflow-hidden border-b border-[hsl(var(--line-dark))]">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
-            <div className="max-w-4xl">
+            <div>
               <div className="mb-8">
                 <h2 className="text-[22px] sm:text-[28px] font-semibold text-white leading-tight mb-2">
                   Hitta relevanta <span className="whitespace-nowrap">Dynamics&nbsp;365-partners</span>

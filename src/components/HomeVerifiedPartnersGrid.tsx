@@ -170,7 +170,7 @@ export default function HomeVerifiedPartnersGrid({ onStartNeedsAnalysis }: HomeV
 
   return (
     <section className="py-12 sm:py-16 bg-background border-b border-border">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-end justify-between gap-6 mb-8 flex-wrap">
           <div>
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
