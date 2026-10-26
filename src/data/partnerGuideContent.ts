@@ -7,7 +7,8 @@
 export type GuideBlock =
   | { type: "h2"; text: string }
   | { type: "h3"; text: string }
-  | { type: "p"; text: string }
+  /** links: delar av texten som blir interna länkar (ankartexten måste finnas ordagrant i text, i ordning). */
+  | { type: "p"; text: string; links?: { text: string; to: string }[] }
   | { type: "ul"; items: string[] }
   | { type: "table"; head: string[]; rows: string[][] }
   | { type: "ol"; items: string[] }
@@ -130,7 +131,8 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Ger dig registrerade partners med formell status. Katalogen svarar på frågan vem som är registrerad hos Microsoft, inte på frågan vem som passar just er. Den skiljer inte heller på ett bolag med tre konsulter och ett med trehundra."
+        "text": "Ger dig registrerade partners med formell status. Katalogen svarar på frågan vem som är registrerad hos Microsoft, inte på frågan vem som passar just er. Den skiljer inte heller på ett bolag med tre konsulter och ett med trehundra. Vill ni även se bransch, produktfokus och storlek kan ni komplettera med vår partnerväljare för Dynamics 365.",
+        "links": [{ "text": "vår partnerväljare för Dynamics 365", "to": "/valjdynamics365partner/" }]
       },
       {
         "type": "h3",
@@ -472,7 +474,8 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "När ni begär in anbud eller utvärderar partners bör ni alltid be om kopior på gällande certifikat, kontrollera vilka delar av verksamheten certifikatet omfattar samt granska hur partnern tillämpar metodiken i det praktiska införandeprojektet."
+        "text": "När ni begär in anbud eller utvärderar partners bör ni alltid be om kopior på gällande certifikat, kontrollera vilka delar av verksamheten certifikatet omfattar samt granska hur partnern tillämpar metodiken i det praktiska införandeprojektet. Ett praktiskt arbetssätt är att först jämföra partners utifrån bransch och applikationsområde, och därefter begära certifikat från dem ni går vidare med.",
+        "links": [{ "text": "jämföra partners utifrån bransch och applikationsområde", "to": "/valjdynamics365partner/" }]
       },
       {
         "type": "link",
@@ -604,6 +607,11 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       {
         "type": "p",
         "text": "Vill ni ha struktur på själva utvärderingen är utgångspunkten enkel. Bestäm vilka tre kriterier som väger tyngst för er innan ni träffar någon leverantör, och håll fast vid dem. Det är den enskilt största skillnaden mellan en upphandling som går att försvara och en som avgörs av vem som gjorde bäst intryck i rummet."
+      },
+      {
+        "type": "p",
+        "text": "Vår rekommendation är att ta nästa steg i partnerväljaren. Där filtrerar ni partners på applikationsområde, bransch och storlek, och sparar de mest relevanta till er kortlista innan ni bokar möten.",
+        "links": [{ "text": "ta nästa steg i partnerväljaren", "to": "/valjdynamics365partner/" }]
       }
     ],
     "about": "d365.se är en svensk guide för organisationer som utvärderar Microsoft Dynamics 365. Vi säljer varken system eller implementation. Vi beskriver marknadens partners på jämförbara grunder så att köparen kan fatta ett beslut som håller."
