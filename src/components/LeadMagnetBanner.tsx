@@ -171,7 +171,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   return (
     <Card ref={cardRef} className="bg-[hsl(var(--hero-dark))] border-[hsl(var(--line-dark))] text-white p-4 sm:p-6 relative overflow-hidden rounded">
       {onClose && (
-        <button onClick={onClose} className="absolute top-2 right-2 text-white/60 hover:text-white z-10">
+        <button type="button" onClick={onClose} aria-label="Stäng" className="absolute top-2 right-2 text-white/60 hover:text-white z-10">
           <X className="h-4 w-4" />
         </button>
       )}

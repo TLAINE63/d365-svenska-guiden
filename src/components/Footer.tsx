@@ -19,7 +19,7 @@ const Footer = () => {
 
           {/* Column 2: ERP */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Affärssystem (ERP)</h3>
+            <h2 className="text-base font-semibold text-white mb-4">Affärssystem (ERP)</h2>
             <ul className="space-y-2 text-sm">
               <li><Link to="/affarssystem/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Affärssystem & ERP – guide</Link></li>
               <li><Link to="/affarssystem/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Business Central vs F&SCM</Link></li>
@@ -38,7 +38,7 @@ const Footer = () => {
 
           {/* Column 3: CRM / Marknad & Sälj */}
           <div>
-            <h3 className="font-semibold text-white mb-4">CRM / Marknad & Sälj</h3>
+            <h2 className="text-base font-semibold text-white mb-4">CRM / Marknad & Sälj</h2>
             <ul className="space-y-2 text-sm">
               <li><Link to="/crm/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365sales/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Sales</Link></li>
@@ -52,7 +52,7 @@ const Footer = () => {
 
           {/* Column 4: Kundservice */}
           <div>
-            <h3 className="font-semibold text-white mb-4">CRM / Kundservice</h3>
+            <h2 className="text-base font-semibold text-white mb-4">CRM / Kundservice</h2>
             <ul className="space-y-2 text-sm">
               <li><Link to="/d365customerservice/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Customer Service</Link></li>
               <li><Link to="/d365fieldservice/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Dynamics 365 Field Service</Link></li>
@@ -63,7 +63,7 @@ const Footer = () => {
 
           {/* Column 5: Kunskapscenter */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Kunskapscenter</h3>
+            <h2 className="text-base font-semibold text-white mb-4">Kunskapscenter</h2>
             <ul className="space-y-2 text-sm">
               <li><Link to="/kunskapscenter/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Kunskapscenter (Q&A & fördjupningar)</Link></li>
               <li><Link to="/events/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Events & Webinars</Link></li>
@@ -82,7 +82,7 @@ const Footer = () => {
 
           {/* Column 5: AI & Partner */}
           <div>
-            <h3 className="font-semibold text-white mb-4">AI & Partner</h3>
+            <h2 className="text-base font-semibold text-white mb-4">AI & Partner</h2>
             <ul className="space-y-2 text-sm">
               <li><Link to="/copilot/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Microsoft Copilot</Link></li>
               <li><Link to="/agents/" className="text-[hsl(var(--muted-dark))] hover:text-white transition-colors">Microsoft Agenter</Link></li>

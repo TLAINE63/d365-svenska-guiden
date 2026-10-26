@@ -270,7 +270,7 @@ const Events = () => {
  <Card>
  <CardContent className="py-12 text-center">
  <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
- <h3 className="text-xl font-semibold mb-2">Inga kommande events</h3>
+ <h2 className="text-xl font-semibold mb-2">Inga kommande events</h2>
  <p className="text-muted-foreground">
  Just nu finns inga planerade events. Kom tillbaka snart!
  </p>

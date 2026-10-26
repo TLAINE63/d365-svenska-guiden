@@ -3624,7 +3624,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <CardHeader className="bg-gradient-to-r from-[hsl(var(--cta-orange))]/10 to-[hsl(var(--cta-orange))]/5 border-b py-3">
  <div className="flex items-center gap-2">
  <StepIcon className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
- <CardTitle className="text-lg text-[hsl(var(--cta-orange))]">
+ <CardTitle as="h2" className="text-lg text-[hsl(var(--cta-orange))]">
  {stepTitles[currentStep - 1]}
  </CardTitle>
  </div>
