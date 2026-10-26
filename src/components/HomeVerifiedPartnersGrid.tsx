@@ -8,8 +8,7 @@ import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { Button } from "@/components/ui/button";
-import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
-import type { DatabasePartner } from "@/hooks/usePartners";
+import CompactVerifiedPartnerCard from "@/components/partner/CompactVerifiedPartnerCard";
 
 
 type RawPartner = {
@@ -306,15 +305,15 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 .
               </div>
             ) : (
-              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filtered.map((p) => {
                   return (
                     <li key={p.slug} className="h-full">
-                      <IndustryVerifiedPartnerCard
-                        partner={p as unknown as DatabasePartner}
-                        industry={industry || null}
-                        productKey={PRODUCT_FILTER_KEY[product]}
-                        productLabel={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
+                      <CompactVerifiedPartnerCard
+                        partner={p}
+                        industries={partnerIndustries(p)}
+                        highlightedIndustry={industry || null}
+                        productArea={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
                       />
                     </li>
                   );
