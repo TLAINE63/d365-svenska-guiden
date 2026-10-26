@@ -11,6 +11,7 @@ import { AlertTriangle, FileUp, ImagePlus, Loader2 } from "lucide-react";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 import { ARTICLE_BODY_CLASS } from "@/lib/articleBodyClass";
 import { convertWordFile, fixTitleTypography, uploadImageBlob, type ImageUploader } from "@/lib/wordArticle";
+import { usePartners } from "@/hooks/usePartners";
 
 export interface WordArticleRecord {
   id?: string;
@@ -21,6 +22,8 @@ export interface WordArticleRecord {
   meta_description: string;
   article_section: string;
   tags: string[];
+  /** Partnerprofiler (partneradresser) där artikeln också listas. */
+  partner_slugs: string[];
   image_url: string;
   hero_caption: string;
   body_html: string;
@@ -63,6 +66,7 @@ const blank = (): WordArticleRecord => ({
   meta_description: "",
   article_section: "",
   tags: [],
+  partner_slugs: [],
   image_url: "",
   hero_caption: "",
   body_html: "",
@@ -72,6 +76,11 @@ const blank = (): WordArticleRecord => ({
 
 export default function RedaktionWordArticleDialog({ open, initial, token, takenSlugs, onClose, onSaved, onSessionExpired }: Props) {
   const { toast } = useToast();
+  const { data: partners } = usePartners();
+  const partnerOptions = useMemo(
+    () => (partners ?? []).filter((p) => !!p.slug).map((p) => ({ slug: p.slug as string, name: p.name })),
+    [partners],
+  );
   const [form, setForm] = useState<WordArticleRecord>(blank());
   const [tagsText, setTagsText] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
@@ -303,6 +312,40 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
               <div>
                 <Label htmlFor="wa-tags">Taggar (separera med komma)</Label>
                 <Input id="wa-tags" value={tagsText} onChange={(e) => setTagsText(e.target.value)} placeholder="Business Central, Bygg, Partnerval" />
+              </div>
+              <div className="md:col-span-2">
+                <p className="text-sm font-medium leading-none mb-1">Visa även på partnerprofil</p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Välj partners som medverkar i eller nämns i artikeln. Artikeln listas då på deras profil.
+                </p>
+                <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto rounded border border-border p-2">
+                  {partnerOptions.length === 0 && (
+                    <span className="text-xs text-muted-foreground">Laddar partners…</span>
+                  )}
+                  {partnerOptions.map((p) => {
+                    const selected = form.partner_slugs.includes(p.slug);
+                    return (
+                      <button
+                        key={p.slug}
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() =>
+                          set(
+                            "partner_slugs",
+                            selected ? form.partner_slugs.filter((s) => s !== p.slug) : [...form.partner_slugs, p.slug],
+                          )
+                        }
+                        className={`rounded-full border px-2.5 py-1 text-xs transition-colors ${
+                          selected
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border bg-background text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {p.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
               <div className="md:col-span-2">
                 <Label htmlFor="wa-meta-desc">Metabeskrivning för Google (lämna tomt för att använda ingressen)</Label>
