@@ -8,8 +8,7 @@ import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { Button } from "@/components/ui/button";
-import IndustryVerifiedPartnerCard from "@/components/partner/IndustryVerifiedPartnerCard";
-import type { DatabasePartner } from "@/hooks/usePartners";
+import CompactVerifiedPartnerCard from "@/components/partner/CompactVerifiedPartnerCard";
 
 
 type RawPartner = {
@@ -82,20 +81,6 @@ const PRODUCT_AREA_LABEL: Record<ProductId, string> = {
   "project-operations": "Project Operations",
   commerce: "Commerce",
   "human-resources": "Human Resources",
-};
-
-const PRODUCT_FILTER_KEY: Record<ProductId, string | null> = {
-  all: null,
-  bc: "bc",
-  fscm: "fsc",
-  sales: "sales",
-  "customer-service": "service",
-  "field-service": "service",
-  "contact-center": "service",
-  marketing: "sales",
-  "project-operations": "fsc",
-  commerce: "fsc",
-  "human-resources": "fsc",
 };
 
 const partnerIndustries = (p: RawPartner) => {
@@ -306,15 +291,15 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 .
               </div>
             ) : (
-              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filtered.map((p) => {
                   return (
                     <li key={p.slug} className="h-full">
-                      <IndustryVerifiedPartnerCard
-                        partner={p as unknown as DatabasePartner}
-                        industry={industry || null}
-                        productKey={PRODUCT_FILTER_KEY[product]}
-                        productLabel={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
+                      <CompactVerifiedPartnerCard
+                        partner={p}
+                        industries={partnerIndustries(p)}
+                        highlightedIndustry={industry || null}
+                        productArea={product !== "all" ? PRODUCT_AREA_LABEL[product] : null}
                       />
                     </li>
                   );
