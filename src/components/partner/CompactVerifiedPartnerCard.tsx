@@ -10,6 +10,7 @@ interface Props {
     logo_dark_bg?: boolean | null;
     is_featured?: boolean | null;
     applications?: string[];
+    product_filters?: Record<string, unknown> | null;
   };
   industries: string[];
   /** Vald bransch lyfts först. */
@@ -24,13 +25,16 @@ const canonicalApp = (value: string) => {
   return value;
 };
 
+const FILTER_LABELS: Record<string, string> = { bc: "Business Central", fsc: "F&SCM", sales: "Sales", service: "Customer Service" };
+
 function limited(list: string[], max: number) {
   return { shown: list.slice(0, max), rest: Math.max(0, list.length - max) };
 }
 
 /** Kompakt partnerkort: logo, namn, verifierad badge, produkter och branscher. */
 export default function CompactVerifiedPartnerCard({ partner, industries, highlightedIndustry, productArea }: Props) {
-  const apps = Array.from(new Set((partner.applications || []).map(canonicalApp)));
+  const fromFilters = Object.entries(partner.product_filters || {}).filter(([, f]) => Boolean(f)).map(([k]) => FILTER_LABELS[k]).filter(Boolean);
+  const apps = Array.from(new Set([...(partner.applications || []), ...fromFilters].map(canonicalApp)));
   const orderedIndustries = highlightedIndustry && industries.includes(highlightedIndustry)
     ? [highlightedIndustry, ...industries.filter((i) => i !== highlightedIndustry)]
     : industries;
@@ -40,7 +44,7 @@ export default function CompactVerifiedPartnerCard({ partner, industries, highli
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-primary/45">
       <PartnerCardHeader partner={partner} to={`/partner/${partner.slug}/`} compact className="border-b border-border p-4" />
-      <dl className="flex-1 space-y-1.5 px-4 py-3 text-xs leading-snug">
+      {(a.shown.length > 0 || i.shown.length > 0) ? <dl className="flex-1 space-y-1.5 px-4 py-3 text-xs leading-snug">
         {a.shown.length > 0 && (
           <div className="flex gap-2">
             <dt className="w-16 shrink-0 font-semibold text-muted-foreground">Produkter</dt>
@@ -53,8 +57,8 @@ export default function CompactVerifiedPartnerCard({ partner, industries, highli
             <dd className="text-foreground/85">{i.shown.join(" · ")}{i.rest > 0 && <span className="text-muted-foreground"> +{i.rest}</span>}</dd>
           </div>
         )}
-      </dl>
-      <div className="px-4 pb-4">
+      </dl> : <div className="flex-1" />}
+      <div className="px-4 pb-4 pt-1">
         <ShortlistButton
           entry={{ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true }}
           cardType="verifierad"
