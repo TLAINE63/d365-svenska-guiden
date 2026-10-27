@@ -26,6 +26,16 @@ export interface D365InsideEpisode {
 
 export const D365_INSIDE_EPISODES: D365InsideEpisode[] = [
   {
+    youtubeId: "xcYwWLuZvac",
+    title: "Vivicta om Dynamics\u00A0365: AI, internationella projekt och val av partner",
+    publishedAt: "2026-10-27",
+    summary:
+      "Thomas Laine samtalar med Peter B Andersson på Vivicta om internationella leveransteam, AI-agenter i projektarbetet och tre råd inför valet av Dynamics\u00A0365-partner.",
+    articlePath: "/artiklar/vivicta-dynamics-365-partner/",
+    partnerSlug: "vivicta",
+    partnerName: "Vivicta",
+  },
+  {
     youtubeId: "DitMX0anlh0",
     title: "Hur väljer bygg- och projektbolag rätt affärssystem? | d365.se INSIDE med 4PS",
     publishedAt: "2026-10-26",
