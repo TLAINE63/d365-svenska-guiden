@@ -141,7 +141,7 @@ export default function Kostnad() {
             <SourceNote
               className="mb-6"
               source="Microsofts officiella listpriser samt d365.se:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners"
-              updated="2026-06-11"
+              updated="2026-10-27"
               method="Intervallen är spann, inte snittpriser: de visar vad partners normalt offererar för respektive omfattning och kan avvika i enskilda projekt."
             />
             <div className="flex flex-wrap gap-3 text-sm">

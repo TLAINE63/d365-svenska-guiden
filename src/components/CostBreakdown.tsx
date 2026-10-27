@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Receipt, Layers, Wrench, RefreshCw } from "lucide-react";
 import { costBreakdowns, type CostBreakdownContent } from "@/data/costBreakdown";
+import { costAssumptions, COST_ASSUMPTIONS_CHECKED } from "@/data/costAssumptions";
 
 interface CostBreakdownProps {
   /** Produktnyckel som matchar costBreakdowns (t.ex. "sales", "business-central"). */
@@ -18,6 +19,7 @@ interface CostBreakdownProps {
 const CostBreakdown = ({ product, heading, hideOverviewLink = false }: CostBreakdownProps) => {
   const data: CostBreakdownContent | undefined = costBreakdowns[product];
   if (!data) return null;
+  const assumptions = costAssumptions[product as string];
 
   return (
     <section className="py-8 sm:py-12 md:py-16 bg-background border-b border-border">
@@ -115,6 +117,41 @@ const CostBreakdown = ({ product, heading, hideOverviewLink = false }: CostBreak
             </ul>
           </article>
         </div>
+
+        {assumptions && (
+          <article className="mt-4 sm:mt-6 rounded border border-border bg-card p-5 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-semibold text-card-foreground">
+              Antaganden bakom intervallen
+            </h3>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 mb-4">
+              Använd punkterna för att jämföra offerter på samma villkor. Granskat {COST_ASSUMPTIONS_CHECKED}.
+            </p>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+              <div>
+                <dt className="font-semibold text-card-foreground">Projektavgränsning</dt>
+                <dd className="text-card-foreground/90 mt-1">{assumptions.scope}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-card-foreground">Integrationer</dt>
+                <dd className="text-card-foreground/90 mt-1">{assumptions.integrations}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-card-foreground">Er egen tid</dt>
+                <dd className="text-card-foreground/90 mt-1">{assumptions.internal}</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-card-foreground">Ingår inte i intervallet</dt>
+                <dd className="mt-1">
+                  <ul className="list-disc pl-5 space-y-1 text-card-foreground/90">
+                    {assumptions.excluded.map((x) => <li key={x}>{x}</li>)}
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </article>
+        )}
+
+
 
         {(data.note || !hideOverviewLink) && (
           <p className="mt-6 text-xs sm:text-sm text-muted-foreground">
