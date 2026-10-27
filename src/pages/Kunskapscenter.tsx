@@ -1,3 +1,4 @@
+import D365InsideSection from "@/components/D365InsideSection";
 import ContextualCta from "@/components/ContextualCta";
 import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { useState, useEffect, useRef } from "react";
