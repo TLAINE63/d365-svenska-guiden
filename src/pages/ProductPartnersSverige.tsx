@@ -121,7 +121,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
       <main className="pt-10">
         {/* Hero */}
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -149,7 +149,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {cfg.leadSection && (
           <section className="py-8 sm:py-10 border-b border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">{nowrapBrand(cfg.leadSection.heading)}</h2>
               <p className="text-base text-muted-foreground leading-relaxed">{rich(cfg.leadSection.intro)}</p>
               <ul className="mt-4 space-y-2.5">
@@ -171,7 +171,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {rows.length > 0 && (
           <section className="py-8 sm:py-10 border-b border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Jämförelse i korthet</h2>
               <div className="max-w-full overflow-x-auto">
                 <table className="w-full min-w-[720px] border-collapse text-left text-sm">
@@ -203,7 +203,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {/* Partners – plain HTML list */}
         <section className="py-8 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               {partners.length} {partners.length === 1 ? "partner" : "partners"} att jämföra
             </h2>
@@ -266,7 +266,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {cfg.closingSection && (
           <section className="py-8 sm:py-10 border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">{nowrapBrand(cfg.closingSection.heading)}</h2>
               <p className="text-base text-muted-foreground leading-relaxed">{rich(cfg.closingSection.text)}</p>
             </div>
@@ -296,7 +296,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
 
         {/* Related landing pages */}
         <section className="py-8 sm:py-12 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
               Utforska partners inom andra Dynamics 365-områden
             </h2>

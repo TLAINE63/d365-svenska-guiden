@@ -6,7 +6,7 @@ import { trackAi } from "@/lib/aiLibraryTracking";
 const AiExamplesEntry = ({ apps = [], label, source }: { apps?: string[]; label?: string; source: string }) => {
   const to = apps.length ? `/ai/exempel/?app=${apps.join(",")}#exempel` : "/ai/exempel/";
   return (
-    <section className="container mx-auto max-w-5xl px-4 py-10" aria-labelledby={`ai-entry-${source}`}>
+    <section className="container mx-auto max-w-6xl px-4 py-10" aria-labelledby={`ai-entry-${source}`}>
       <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent">

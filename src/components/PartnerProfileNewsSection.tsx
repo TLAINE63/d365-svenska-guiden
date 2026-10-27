@@ -70,7 +70,7 @@ export default function PartnerProfileNewsSection({
 
   return (
     <section className="py-10 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         {heading}
         {grid}
       </div>

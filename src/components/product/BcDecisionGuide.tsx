@@ -16,7 +16,7 @@ export default function BcDecisionGuide() {
   return (
     <>
       <section id="bc-passform" aria-labelledby="bc-fit-heading" className="scroll-mt-24 border-t border-border bg-background py-8 sm:py-12">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 id="bc-fit-heading" className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Passar Business Central oss?</h2>
           <p className="mb-6 max-w-3xl text-muted-foreground">Business Central är värt att undersöka när flera av dessa flöden behöver hänga ihop. Utgå från era processer, inte enbart från antal anställda eller användare.</p>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -47,7 +47,7 @@ export default function BcDecisionGuide() {
       </section>
       <div id="bc-jamforelse" className="scroll-mt-24">
         <section className="border-t border-border bg-secondary/20 pt-8 sm:pt-10">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Jämför Business Central</h2>
             <p className="mb-4 max-w-3xl text-muted-foreground">Börja med Business Central och Finance &amp; Supply Chain om ni väljer inom Microsofts ERP-utbud. Jämför sedan andra alternativ som är relevanta för era processer.</p>
             <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal text-left"><Link to="/affarssystem/#comparison">Business Central eller Finance &amp; Supply Chain? <ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link></Button>
@@ -62,7 +62,7 @@ export default function BcDecisionGuide() {
 export function BcOptionalDeepDive() {
   return (
     <section className="border-t border-border bg-background py-8 sm:py-10">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 className="mb-3 text-xl font-bold text-foreground sm:text-2xl">Vill ni gå djupare i Business Central-utvärderingen?</h2>
         <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted-foreground">På businesscentral.se finns specialiserad fördjupning om Business Central. Det är ett frivilligt komplement. Ni kan bedöma passform, jämföra, räkna på kostnad och hitta partner här på d365.se.</p>
         <Button asChild variant="outline" className="h-auto min-h-11 whitespace-normal text-left"><a href="https://businesscentral.se/?utm_source=d365.se&utm_medium=referral&utm_campaign=bc-fordjupning" target="_blank" rel="noopener noreferrer">Fördjupa utvärderingen på businesscentral.se <ExternalLink aria-hidden className="h-4 w-4 shrink-0" /></a></Button>
@@ -74,7 +74,7 @@ export function BcOptionalDeepDive() {
 export function BcNextSteps() {
   return (
     <section aria-labelledby="bc-next-heading" className="border-t border-border bg-secondary/40 py-8 sm:py-12">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 id="bc-next-heading" className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Redo att gå vidare?</h2>
         <p className="mb-5 max-w-3xl text-muted-foreground">Räkna på er kostnadsbild eller undersök partners med erfarenhet av era processer. Ni väljer själva nästa steg, inget skickas till en partner utan ert godkännande.</p>
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">

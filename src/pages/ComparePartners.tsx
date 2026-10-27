@@ -2662,7 +2662,7 @@ const ComparePartners = () => {
             )}
           </div>
         </div>
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="mt-10 rounded-xl border border-border bg-muted/30 p-5 text-sm text-muted-foreground">
             Vill du hitta en Dynamics{"\u00A0"}365-partner som passar dina behov?{" "}
             <Link to="/valjdynamics365partner/" className="font-semibold text-primary underline-offset-4 hover:underline">

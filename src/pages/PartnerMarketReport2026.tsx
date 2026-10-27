@@ -169,7 +169,7 @@ export default function PartnerMarketReport2026() {
 
       <main className="pt-24 sm:pt-28">
         <section className="py-10 sm:py-14 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -218,7 +218,7 @@ export default function PartnerMarketReport2026() {
         </section>
 
         <section className="py-10 sm:py-14">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl space-y-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl space-y-12">
             <div className="rounded-xl border border-border bg-card p-4 sm:p-5 space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

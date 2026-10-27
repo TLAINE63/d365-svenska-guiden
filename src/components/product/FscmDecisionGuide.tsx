@@ -77,7 +77,7 @@ export default function FscmDecisionGuide() {
 
   return (
     <section aria-labelledby="fscm-decision-heading" className="py-8 sm:py-10 bg-background border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <h2 id="fscm-decision-heading" className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
           Var befinner ni er i beslutet?
         </h2>

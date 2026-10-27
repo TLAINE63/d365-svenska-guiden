@@ -34,7 +34,7 @@ export default function SalesDecisionGuide() {
 
   return (
     <section aria-labelledby="sales-decision-heading" className="py-8 sm:py-10 bg-background border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <h2 id="sales-decision-heading" className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
           Behöver vi byta eller förbättra vårt CRM?
         </h2>

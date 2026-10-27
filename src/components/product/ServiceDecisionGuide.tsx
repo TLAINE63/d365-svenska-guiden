@@ -21,7 +21,7 @@ export const trackServiceJourney = (path: string, to: string, position: string) 
 export default function ServiceDecisionGuide() {
   return (
     <section aria-labelledby="service-decision-heading" className="border-t border-border bg-background py-8 sm:py-10">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 id="service-decision-heading" className="mb-3 text-xl font-bold text-foreground sm:text-2xl md:text-3xl">Var fastnar kundservicen i dag?</h2>
         <p className="mb-6 max-w-3xl text-sm text-muted-foreground md:text-base">Ärenden som saknar ägare, kunder som måste upprepa sin fråga eller svar som är svåra att hitta kräver olika åtgärder. Börja med vad som inte fungerar, inte med att välja fler funktioner.</p>
         <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">Behöver ni ärendehantering, kontaktcenter, självservice eller en kombination?</h2>

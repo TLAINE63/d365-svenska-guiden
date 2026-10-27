@@ -88,7 +88,7 @@ const KunskapscenterHub = ({ slug }: Props) => {
       <main className="min-h-screen bg-background pt-10 lg:pt-28">
         {/* Header */}
         <section className="border-b border-border bg-[hsl(var(--hero-dark))] text-white">
-          <div className="container mx-auto px-4 py-10 md:py-10 max-w-5xl">
+          <div className="container mx-auto px-4 py-10 md:py-10 max-w-6xl">
             {/* Breadcrumbs (visual) */}
             <nav aria-label="Brödsmulor" className="mb-4 text-sm">
               <ol className="flex flex-wrap items-center gap-1.5 text-white/70">

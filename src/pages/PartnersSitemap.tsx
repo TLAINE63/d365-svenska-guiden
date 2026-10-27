@@ -46,7 +46,7 @@ export default function PartnersSitemap() {
 
       <main className="pt-10">
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -66,7 +66,7 @@ export default function PartnersSitemap() {
 
         {/* A–Ö */}
         <section className="py-8 sm:py-10">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Alla partners A–Ö
             </h2>
@@ -87,7 +87,7 @@ export default function PartnersSitemap() {
 
         {/* Per produktområde */}
         <section className="py-8 sm:py-10 bg-secondary/40 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Partners per produktområde
             </h2>
@@ -108,7 +108,7 @@ export default function PartnersSitemap() {
 
         {/* Grundprofiler (ej partnerverifierade) */}
         <section className="py-8 sm:py-10 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
               Grundprofiler
             </h2>
@@ -134,7 +134,7 @@ export default function PartnersSitemap() {
 
         {/* Per bransch */}
         <section className="py-8 sm:py-10 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Partners per bransch
             </h2>

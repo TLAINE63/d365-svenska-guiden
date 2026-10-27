@@ -47,7 +47,7 @@ const ProductNextSteps = ({ product, pageSource }: Props) => {
   if (product === "customer-service") {
     return (
       <section aria-labelledby="next-steps-heading" className="border-t border-border bg-secondary/40 py-8 sm:py-12">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 id="next-steps-heading" className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Vad behöver ni inför nästa beslut?</h2>
           <p className="mb-5 max-w-3xl text-muted-foreground">Bedöm om Customer Service passar, förbered ert underlag eller undersök partners med registrerad kompetens för produkten.</p>
           <Button asChild size="lg" className="h-auto min-h-11 whitespace-normal text-left">
@@ -68,7 +68,7 @@ const ProductNextSteps = ({ product, pageSource }: Props) => {
     const onPath = (path: string, to: string) => track("fscm_pilot_cta", { path, to, position: "bottom" }, null, "fscm");
     return (
       <section aria-labelledby="next-steps-heading" className="border-t border-border bg-secondary/40 py-8 sm:py-12">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 id="next-steps-heading" className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">Vilken partner bör ni undersöka vidare?</h2>
           <p className="mb-5 max-w-3xl text-muted-foreground">Om Finance och Supply Chain Management verkar relevant, jämför partnernas erfarenhet av era processer, bransch och projektomfattning. Be om liknande kundreferenser och kontrollera vad standardfunktionerna täcker innan ni väljer tillägg.</p>
           <Button asChild size="lg" className="h-auto min-h-11 whitespace-normal text-left">

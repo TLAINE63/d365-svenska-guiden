@@ -327,7 +327,7 @@ const BusinessCentral = () => {
 
       <CostBreakdown product="business-central" heading="Vad kostar införande och förvaltning?" />
       <section className="bg-background pb-8 sm:pb-12">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="mb-4 max-w-3xl text-sm text-muted-foreground">Skilj på licenser, införande, tillägg och anpassningar, integrationer samt löpande förvaltning. Kalkylen är en uppskattning utifrån era antaganden, inte en offert.</p>
           <Button asChild className="h-auto min-h-11 whitespace-normal"><Link to="/businesscentral/roi-kalkylator/">Beräkna kostnaden <ArrowRight aria-hidden className="h-4 w-4 shrink-0" /></Link></Button>
         </div>

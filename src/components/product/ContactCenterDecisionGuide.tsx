@@ -21,7 +21,7 @@ export const trackContactJourney = (path: string, to: string, position: string) 
 export default function ContactCenterDecisionGuide() {
   return (
     <section aria-labelledby="contact-decision-heading" className="border-t border-border bg-background py-8 sm:py-10">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 id="contact-decision-heading" className="mb-3 text-xl font-bold text-foreground sm:text-2xl md:text-3xl">Var fastnar kundkontakten i dag?</h2>
         <p className="mb-6 max-w-3xl text-sm text-muted-foreground md:text-base">Långa köer, kunder som måste upprepa sig mellan kanaler eller agenter som letar svar kräver olika lösningar. Börja med vad som inte fungerar, inte med funktionslistan.</p>
         <h2 className="mb-4 text-xl font-bold text-foreground sm:text-2xl">Vad behöver ni främst stöd för?</h2>

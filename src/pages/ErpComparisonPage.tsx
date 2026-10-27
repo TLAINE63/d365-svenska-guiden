@@ -59,7 +59,7 @@ const ErpComparisonPage = () => {
       <main className="pt-10 flex-1">
         {/* HERO */}
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20 text-white">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-8 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12">
             <p className="text-xs font-semibold uppercase tracking-wide text-white/70 mb-3">
               Konkurrentjämförelse · Samma frågor för båda alternativen
             </p>
@@ -75,7 +75,7 @@ const ErpComparisonPage = () => {
 
         {/* COMPARISON TABLE */}
         <section className="py-8 sm:py-10 bg-secondary/40 border-y border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Jämförelse
             </h2>
@@ -116,7 +116,7 @@ const ErpComparisonPage = () => {
 
         {/* SUMMARIES */}
         <section className="py-8 sm:py-10">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid md:grid-cols-2 gap-6">
             <Card className="border-border">
               <CardContent className="p-6">
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
@@ -186,8 +186,8 @@ const ErpComparisonPage = () => {
 
         {/* WHEN NOT */}
         <section className="py-8 sm:py-10">
-          <h2 className="container mx-auto max-w-5xl px-4 sm:px-6 text-2xl font-bold mb-6">Risker att tänka på</h2>
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-6">
+          <h2 className="container mx-auto max-w-6xl px-4 sm:px-6 text-2xl font-bold mb-6">Risker att tänka på</h2>
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid md:grid-cols-2 gap-6">
             <Card className="border-amber-200 bg-amber-50/40">
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -238,7 +238,7 @@ const ErpComparisonPage = () => {
 
         {/* CTA */}
         <section className="py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="rounded-2xl border border-border bg-gradient-to-br from-secondary/60 to-background p-6 sm:p-10 text-center">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
                 Så går du vidare med {nowrapBrand(data.productShort)}
@@ -274,7 +274,7 @@ const ErpComparisonPage = () => {
         {/* OTHER COMPARISONS */}
         {(sameProduct.length > 0 || otherProducts.length > 0) && (
           <section className="py-10 border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-5xl space-y-8">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl space-y-8">
               {sameProduct.length > 0 && (
                 <div>
                   <h2 className="text-lg font-bold text-foreground mb-4">

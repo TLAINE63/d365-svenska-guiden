@@ -169,7 +169,7 @@ const Upphandlingsguiden = () => {
 
  {/* Köparsidigt löfte */}
  <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
- <div className="container mx-auto max-w-5xl grid sm:grid-cols-3 gap-4">
+ <div className="container mx-auto max-w-6xl grid sm:grid-cols-3 gap-4">
  {[
  { icon: ShieldCheck, title: "Ingen partner att sälja in", text: "Vi vägleder utan att sälja in en specifik partner." },
  { icon: Check, title: "Sju tydliga stadier", text: "Från tidiga signaler till val av Microsoftpartner." },
@@ -288,7 +288,7 @@ const Upphandlingsguiden = () => {
 
  {/* Avslut CTA */}
  <section className="px-4 sm:px-6 py-8 sm:py-12 bg-background">
- <div className="container mx-auto max-w-5xl">
+ <div className="container mx-auto max-w-6xl">
  <div className="relative overflow-hidden rounded bg-[hsl(var(--hero-dark))] border border-[hsl(var(--line-dark))] p-8 sm:p-12 text-center">
  <RadialGlow />
  <div className="relative">

@@ -40,7 +40,7 @@ const PartnerCtaBlock = ({ variant = "article", source, industry, product, class
       className={`bg-muted/40 border-y border-border py-10 sm:py-14 print:hidden ${className}`}
       aria-label="Nästa steg"
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{heading}</h2>
         <p className="text-muted-foreground mb-6 max-w-2xl">{body}</p>
 

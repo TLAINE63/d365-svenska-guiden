@@ -242,7 +242,7 @@ const CRM = () => {
  <p><strong>Ett CRM-system (<em>Customer Relationship Management</em>) samlar företagets kundkontakter, säljpipeline, kundservice och marknadsaktiviteter på ett ställe.</strong> Rätt CRM beror på vilken kundprocess ni vill förbättra: försäljning, kundservice, fältservice eller marknadsföring. Små säljteam klarar sig ofta med ett enklare säljfokuserat CRM. När flera avdelningar ska dela kunddata, processerna är komplexa eller CRM ska integreras med affärssystem och Microsoft{"\u00A0"}365 blir en CRM-svit som Dynamics{"\u00A0"}365 eller Salesforce mer relevant.</p>
  <p>Jämför alltid <strong>totalkostnaden, inte bara licenspriset</strong>, och välj partner efter erfarenhet av just er process.</p>
  </ShortAnswer>
-  <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+  <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
   <KeyTakeaways
    partnersAnchor="guide-partners"
    items={[
@@ -259,7 +259,7 @@ const CRM = () => {
 
   {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
   <section className="py-10 sm:py-12 bg-background">
-   <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+   <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
      Vad avgör valet av Dynamics 365 CRM?
     </h2>

@@ -71,7 +71,7 @@ const SuggestedPartnersCTA = ({
       className={`border-t border-border bg-secondary/30 py-12 sm:py-16 ${className}`}
       aria-label="Föreslagna partners"
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[hsl(var(--cta-orange))] mb-2">
           <Sparkles className="w-3.5 h-3.5" />
           Nästa steg

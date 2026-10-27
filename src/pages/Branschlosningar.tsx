@@ -616,7 +616,7 @@ const Branschlosningar = () => {
  {/* Internal Links to Product Pages */}
  {!selectedIndustry && (
  <section className="py-8 sm:py-10 px-4 bg-secondary/40">
- <div className="container mx-auto max-w-5xl">
+ <div className="container mx-auto max-w-6xl">
  <div className="text-center mb-6">
  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Utforska Dynamics 365 per applikation</h2>
  <p className="text-sm sm:text-base text-muted-foreground">Lär dig mer om de produkter som matchar din bransch</p>

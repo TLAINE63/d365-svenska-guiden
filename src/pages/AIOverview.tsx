@@ -249,7 +249,7 @@ const AIOverview = () => {
 
   {/* Förutsättningar för AI */}
   <section className="px-4 sm:px-6 py-10 bg-background border-b border-border">
-  <div className="container mx-auto max-w-5xl">
+  <div className="container mx-auto max-w-6xl">
   <div className="max-w-3xl mb-8">
   <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mb-2">
   Det här behöver vara på plats innan du skalar AI
@@ -811,7 +811,7 @@ const AIOverview = () => {
 
  <ProductDeepDiveLink product="Microsoft Agents – Dynamics 365" label="AI-agenter" />
 
- <section className="container mx-auto max-w-5xl px-4 py-10">
+ <section className="container mx-auto max-w-6xl px-4 py-10">
  <Link to="/ai/exempel/" className="block rounded-xl border border-border bg-card p-6 hover:border-primary/40">
  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Så förändras arbetet</p>
  <p className="mt-2 inline-flex items-center gap-1 text-lg font-semibold text-primary">Se exempel: Sluta leta. Börja fråga. <ArrowRight className="h-4 w-4" /></p>
