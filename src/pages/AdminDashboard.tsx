@@ -114,6 +114,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminPartnerRequestsTab from "@/components/AdminPartnerRequestsTab";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
+import AdminUnderlagForwardsTab from "@/components/admin/AdminUnderlagForwardsTab";
 
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
@@ -2383,6 +2384,12 @@ Thomas`,
  </span>
  Partnerförfrågningar
  </TabsTrigger>
+ <TabsTrigger value="underlag-forwards" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+ <Inbox className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+ </span>
+ Underlag att godkänna
+ </TabsTrigger>
  <TabsTrigger value="advisory" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
  <Inbox className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
@@ -3794,6 +3801,11 @@ Thomas`,
  token={token || ""}
  onSessionExpired={logout}
  />
+ </TabsContent>
+
+ {/* ==================== UNDERLAG FORWARDS TAB ==================== */}
+ <TabsContent value="underlag-forwards">
+ <AdminUnderlagForwardsTab token={token || null} onSessionExpired={logout} />
  </TabsContent>
 
  {/* ==================== ADVISORY TAB ==================== */}
