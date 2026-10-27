@@ -51,3 +51,10 @@ export const D365_INSIDE_EPISODES: D365InsideEpisode[] = [
 export function isD365InsideChannel(channelName: string | null | undefined): boolean {
   return /inside/i.test(channelName ?? "");
 }
+
+/** Avsnitt där en viss partner medverkar, senaste först. */
+export function episodesForPartner(partnerSlug: string): D365InsideEpisode[] {
+  return D365_INSIDE_EPISODES.filter((e) => e.partnerSlug === partnerSlug).sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+}
