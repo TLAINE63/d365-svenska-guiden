@@ -47,7 +47,7 @@ export function safeResultUrl(url: string | null | undefined): string | null {
     const u = new URL(url);
     if (u.protocol !== "https:") return null;
     const h = u.hostname;
-    if (h === "d365.se" || h === "www.d365.se" || h.endsWith(".lovable.app")) return u.toString();
+    if (h === "d365.se" || h === "www.d365.se" || h.endsWith(".lovable.app") || h.endsWith(".lovableproject.com")) return u.toString();
   } catch { /* ogiltig */ }
   return null;
 }
