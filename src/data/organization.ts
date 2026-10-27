@@ -34,7 +34,7 @@ export const ORGANIZATION = {
   vatNumber: "SE559045604101",
   postalAddress: "",
   /** Endast verifierade profiler – inga gissade URL:er. */
-  sameAs: ["https://dynamicfactory.se"],
+  sameAs: ["https://dynamicfactory.se", "https://www.youtube.com/@thomaslaine-d365"],
   advisors: [
     {
       name: "Thomas Laine",
