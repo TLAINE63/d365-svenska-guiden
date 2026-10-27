@@ -61,6 +61,7 @@ Deno.serve(async (req) => {
         .update({ status: "rejected", reviewed_at: new Date().toISOString(), review_note: cleanText(body.note, 1000) })
         .eq("id", row.id).eq("status", "pending");
       if (error) throw error;
+      if (row.pdf_path) await sb.storage.from(UNDERLAG_PDF_BUCKET).remove([row.pdf_path]);
       return json({ ok: true }, 200, cors);
     }
 
