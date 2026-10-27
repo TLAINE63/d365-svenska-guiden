@@ -1,3 +1,4 @@
+import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -105,7 +106,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
  }
 
  console.log("Email sent successfully:", data);
- if (data?.success === true || data?.ok === true) trackConfirmedForm("general_contact");
+ if (data?.success === true || data?.ok === true) { trackConfirmedForm("general_contact"); trackAdsContactConversion("general_contact"); }
 
  toast({
  title: "Tack för din förfrågan!",

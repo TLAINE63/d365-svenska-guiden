@@ -1,4 +1,3 @@
-import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import connection from './package.json';
 import routes from './providerRoutes.json';
 import { createTrackingService } from './sdk/tracking-service';
@@ -54,7 +53,6 @@ export function trackPage(): void {
   } catch { /* silent */ }
 }
 export function trackConfirmedForm(formId: string): void {
-  trackAdsContactConversion(formId);
   const leadType = formId === 'general_contact' ? 'general_contact' : formId === 'underlag_sent' ? 'guide_request' : 'provider_contact';
   if (/^[a-zA-Z0-9_-]{1,128}$/.test(formId)) sendEvent('lead_submit', { form_id: formId, lead_type: leadType, submission_status: 'confirmed' });
 }

@@ -1,3 +1,4 @@
+import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 // Gemensam mätning mot backendfunktionen track-event (delas med businesscentral.se).
 // Fel får aldrig påverka sidan.
 import { trackJourney } from "@/lib/siJourney";
@@ -36,7 +37,7 @@ export function initTracking() { getTrackSession(); getTrackSource(); }
 export function track(eventName: string, metadata?: Record<string, unknown> | null, partnerSlug?: string | null, productArea?: string | null) {
   try {
     if (typeof window === "undefined") return;
-    if (eventName === "inquiry_submit") trackConfirmedForm("partner_inquiry");
+    if (eventName === "inquiry_submit") { trackConfirmedForm("partner_inquiry"); trackAdsContactConversion("partner_inquiry"); }
     if (eventName === "partner_profile_view" && partnerSlug) {
       const k = `d365_pv_${partnerSlug}`;
       if (sessionStorage.getItem(k)) return;
