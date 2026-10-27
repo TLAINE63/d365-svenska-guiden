@@ -84,7 +84,7 @@ const SecondOpinion = () => {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Navbar />
       <main className="min-h-screen pt-28 lg:pt-32 pb-16">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <header className="max-w-3xl mb-10">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">{nowrapBrand("När behöver ni en second opinion på Dynamics 365?")}</h1>

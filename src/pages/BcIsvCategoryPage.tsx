@@ -46,7 +46,7 @@ const BcIsvCategoryPage = () => {
       <Navbar />
 
       <main className="pt-24 lg:pt-32 pb-16">
-        <div className="container mx-auto px-4 max-w-5xl">
+        <div className="container mx-auto px-4 max-w-6xl">
           <Link
             to="/kunskapscenter/dynamics-365-tillagg/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"

@@ -35,7 +35,7 @@ export default function StandardProductSections({ productName, data }: Props) {
     <>
       {/* 2. Känner du igen dig? */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             {nowrapBrand(`När passar ${productName}?`)}
           </h2>
@@ -58,7 +58,7 @@ export default function StandardProductSections({ productName, data }: Props) {
 
       {/* 3. Vad Dynamics 365 löser */}
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             {nowrapBrand(`Vilka behov kan ${productName} stödja?`)}
           </h2>
@@ -78,7 +78,7 @@ export default function StandardProductSections({ productName, data }: Props) {
 
       {/* 4. Var partnern avgör */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Partner och kompetens: vad avgör införandet?
           </h2>
@@ -103,7 +103,7 @@ export default function StandardProductSections({ productName, data }: Props) {
 
       {/* 5. Vanliga fallgropar */}
       <section className="py-6 sm:py-7 md:py-8 bg-secondary/30 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Risker att tänka på
           </h2>
@@ -126,7 +126,7 @@ export default function StandardProductSections({ productName, data }: Props) {
 
       {/* 6. Rekommenderat nästa steg */}
       <section className="py-6 sm:py-7 md:py-8 bg-background border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
             Så förbereder ni beslutsunderlaget
           </h2>

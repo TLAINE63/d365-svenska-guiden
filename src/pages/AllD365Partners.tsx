@@ -160,7 +160,7 @@ export default function AllD365Partners() {
       <main className="pt-10">
         {/* Hero */}
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-4">
               <Users className="w-3.5 h-3.5" /> Marknadskarta
             </div>
@@ -207,7 +207,7 @@ export default function AllD365Partners() {
 
         {/* Search & filter */}
         <section data-sticky-offset className="py-6 border-b border-border bg-background sticky top-16 z-20 backdrop-blur">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex flex-col gap-3">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -286,7 +286,7 @@ export default function AllD365Partners() {
 
         {/* Profiled partners */}
         <section className="py-8 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                 Partnerverifierade profiler på d365.se
@@ -319,7 +319,7 @@ export default function AllD365Partners() {
         {/* Basic partners: compact list linking to detail cards */}
         {basicFiltered.length > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                   Fler partners som arbetar med Dynamics 365
@@ -347,7 +347,7 @@ export default function AllD365Partners() {
         {/* Legacy "others" (curated names without observed data yet) */}
         {others.length > 0 && (
           <section className="py-8 sm:py-12 border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <div className="mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                   Övriga aktörer på marknaden

@@ -817,7 +817,7 @@ const ValjPartner = () => {
  {/* Lead Magnet Banner after Fem viktiga frågor */}
  {showLeadMagnet && (
  <section id="guide" className="px-4 py-8 bg-muted/30">
- <div className="container mx-auto max-w-4xl">
+ <div className="container mx-auto max-w-6xl">
  <LeadMagnetBanner 
  sourcePage="/valjdynamics365partner" 
  onClose={() => setShowLeadMagnet(false)}

@@ -94,7 +94,7 @@ const ContextualCta = ({
 
   return (
     <aside className={`border-y border-border bg-secondary/40 py-9 sm:py-11 print:hidden ${className}`} aria-label="Rekommenderat nästa steg">
-      <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
           <div>
             <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">

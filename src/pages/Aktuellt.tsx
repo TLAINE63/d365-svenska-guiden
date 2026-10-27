@@ -88,7 +88,7 @@ export default function Aktuellt() {
       <Navbar />
       <main className="pt-24 lg:pt-32">
         <section className="border-b border-border bg-secondary/40 py-12 sm:py-14">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <span className="mb-3 block text-xs font-bold uppercase tracking-[0.2em] text-accent">Köparguidens analys</span>
             <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
               Aktuellt inom <span className="whitespace-nowrap">Dynamics 365</span>

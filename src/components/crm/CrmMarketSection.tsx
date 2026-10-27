@@ -38,7 +38,7 @@ export default function CrmMarketSection() {
     inLanguage: "sv",
   };
   return (
-    <section id="crm-marknaden" className="container mx-auto max-w-5xl scroll-mt-24 px-4 py-10 sm:px-6">
+    <section id="crm-marknaden" className="container mx-auto max-w-6xl scroll-mt-24 px-4 py-10 sm:px-6">
       <Helmet><script type="application/ld+json">{JSON.stringify(dataset)}</script></Helmet>
       <h2 className="mb-2 text-2xl font-bold text-foreground">{nowrapBrand("Svenska Dynamics 365 CRM-marknaden")}</h2>
       <p className="mb-5 max-w-3xl text-sm text-foreground/80">

@@ -8,7 +8,7 @@ export default function BuyerFitSection({ fitKey }: { fitKey: CrmBuyerFitKey }) 
   const f = crmBuyerFit[fitKey];
   return (
     <section aria-label={`Passar ${f.category} er?`} className="bg-background pb-6 sm:pb-8">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-lg border border-border bg-card p-5">
             <h2 className="mb-3 text-base font-semibold text-foreground">När passar lösningen?</h2>

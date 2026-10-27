@@ -254,7 +254,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
       <Navbar />
 
       <main className="min-h-screen pt-28 lg:pt-32 pb-16">
-        <article className="container mx-auto max-w-5xl px-4 sm:px-6">
+        <article className="container mx-auto max-w-6xl px-4 sm:px-6">
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <GuideSeriesNavigation current={guide.key} className="mb-6" />
 

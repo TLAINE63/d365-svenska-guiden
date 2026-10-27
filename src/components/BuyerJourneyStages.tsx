@@ -317,7 +317,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
     <>
       {/* Light section: journey map + overview */}
       <section className="bg-background py-12 md:py-10 border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
 
 

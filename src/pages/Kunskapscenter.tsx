@@ -865,7 +865,7 @@ const Kunskapscenter = () => {
  />
  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
  </div>
- <div className="container mx-auto px-4 max-w-4xl relative z-10">
+ <div className="container mx-auto px-4 max-w-6xl relative z-10">
  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
  Förstå Dynamics 365 – innan partnerdialogen börjar
  </h1>

@@ -51,7 +51,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
 
       <main className="min-h-screen">
         <section className="bg-[hsl(var(--hero-dark))] pt-28 pb-16 sm:pt-32 sm:pb-20">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/60 mb-4">
               Tidig köpfas · Köparguide
             </p>
@@ -65,7 +65,7 @@ const BuyerGuide2026 = ({ variant }: Props) => {
 
         <ShortAnswer>{guide.intro}</ShortAnswer>
 
-        <section className="container mx-auto px-4 sm:px-6 max-w-4xl py-12 sm:py-16">
+        <section className="container mx-auto px-4 sm:px-6 max-w-6xl py-12 sm:py-16">
           <h2 className="text-xl font-bold mb-4">Det här får du ut av guiden</h2>
           <ul className="grid sm:grid-cols-2 gap-3 mb-12">
             {guide.benefits.map((b) => (

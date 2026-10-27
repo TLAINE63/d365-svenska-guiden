@@ -14,7 +14,7 @@ export default function Backlankar() {
         canonicalPath="/lankar-till-d365"
       />
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 pt-28 pb-16 max-w-5xl">
+      <main className="flex-1 container mx-auto px-4 pt-28 pb-16 max-w-6xl">
         <div className="mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary text-sm font-medium mb-4">
             <Link2 className="h-4 w-4" /> Länkprofil

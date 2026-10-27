@@ -38,7 +38,7 @@ const entries = [
 export default function CrmBuyerGuideIntro() {
   return (
     <div className="bg-background">
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-2 text-2xl font-bold text-foreground">Vilka problem ska CRM lösa?</h2>
         <p className="mb-5 max-w-3xl text-foreground/80">Börja i problemet, inte i produkten. De flesta CRM-projekt börjar med en av de här situationerna:</p>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -51,7 +51,7 @@ export default function CrmBuyerGuideIntro() {
         </div>
       </section>
 
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-5 text-2xl font-bold text-foreground">Vilka typer av CRM-plattformar finns?</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {platformTypes.map((p) => (
@@ -63,14 +63,14 @@ export default function CrmBuyerGuideIntro() {
         </div>
       </section>
 
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-3 text-2xl font-bold text-foreground">Hur väljer man CRM?</h2>
         <ul className="list-disc space-y-2 pl-5 text-foreground/85">
           {decisive.map((d) => <li key={d}>{nowrapBrand(d)}</li>)}
         </ul>
       </section>
 
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-3 text-2xl font-bold text-foreground">Vad kostar CRM typiskt?</h2>
         <p className="max-w-3xl text-foreground/85">
           {nowrapBrand(resolvePriceTokens("Kostnaden består av licens per användare, införande och förvaltning. Enklare säljfokuserade CRM har ofta lägre licens och kortare införande. För Dynamics 365 börjar Sales på {{price:sales-professional:exact}} och Customer Service på {{price:customer-service-pro:exact}} per användare och månad exkl. moms. Införandet kostar ofta mer än första årets licenser, så jämför alltid totalkostnaden."))}{" "}
@@ -78,7 +78,7 @@ export default function CrmBuyerGuideIntro() {
         </p>
       </section>
 
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-4 text-2xl font-bold text-foreground">När passar Dynamics 365, och när bör ni titta på alternativ?</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-lg border border-border bg-card p-5">
@@ -105,7 +105,7 @@ export default function CrmBuyerGuideIntro() {
         </div>
       </section>
 
-      <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 className="mb-2 text-2xl font-bold text-foreground">{nowrapBrand("Vilken Dynamics 365-app löser ert problem?")}</h2>
         <p className="mb-4 max-w-3xl text-foreground/80">{nowrapBrand("Dynamics 365 CRM (Customer Engagement) består av flera appar på samma plattform. Välj utifrån behovet:")}</p>
         <ul className="divide-y divide-border rounded-lg border border-border bg-card">

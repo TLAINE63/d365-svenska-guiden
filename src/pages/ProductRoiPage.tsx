@@ -118,7 +118,7 @@ export default function ProductRoiPage({ productKey }: Props) {
 
         {/* ANTAGANDEN */}
         <section id="antaganden" className="py-12 bg-secondary/30 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl font-bold text-foreground mb-2">Antaganden</h2>
             <p className="text-sm text-muted-foreground mb-4">
               Kalkylen är medvetet förenklad. Den ska ge en storleksordning, inte ersätta en business case-analys.

@@ -63,7 +63,7 @@ export default function TcoScenarios() {
 
   return (
     <section id="tco-3-ar" className="py-8 sm:py-12 border-b border-border">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Totalkostnad över tid</p>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
           Vad kostar det över tre år?

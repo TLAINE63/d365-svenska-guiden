@@ -74,7 +74,7 @@ export default function PartnersInSweden() {
 
       <main className="pt-24 lg:pt-32">
         <section className="border-b border-border bg-secondary/40 py-12 sm:py-16">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <span className="mb-3 block text-xs font-bold uppercase tracking-[0.2em] text-accent">Partner directory · Sweden</span>
             <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
               Find <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Implementation Partners in Sweden
@@ -98,7 +98,7 @@ export default function PartnersInSweden() {
         </section>
 
         <section className="py-12 sm:py-16">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Why you need a local Swedish implementation partner</h2>
             <p className="mt-3 max-w-3xl text-muted-foreground">
               {D365} is a global product, but a successful implementation in Sweden depends on local requirements. These are the areas to check with any partner.
@@ -116,7 +116,7 @@ export default function PartnersInSweden() {
         </section>
 
         <section className="pb-12 sm:pb-16">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Choosing the right implementation partner in Sweden</h2>
             <p className="mt-3 max-w-3xl text-muted-foreground">
               A successful ERP or CRM rollout depends heavily on an implementation partner that understands Swedish business culture, reporting standards and local industry practices. Key factors to evaluate:
@@ -137,7 +137,7 @@ export default function PartnersInSweden() {
         </section>
 
         <section className="border-t border-border bg-secondary/30 py-12 sm:py-16">
-          <div className="container mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Explore partners by solution</h2>
             <p className="mt-3 max-w-3xl text-muted-foreground">
               The partner lists and profiles are written in Swedish. Partner names, products, industries and locations are easy to compare, and you can ask each partner about English-speaking consultants.

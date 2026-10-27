@@ -22,7 +22,7 @@ export default function ProductRoiCta({ productKey, id = "roi-tco" }: Props) {
       id={id}
       className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-primary/20"
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2 flex items-center gap-2">

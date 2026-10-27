@@ -35,7 +35,7 @@ export default function CrmCategoryGuide({ guide }: { guide: CrmCategoryGuideKey
         />
         <ShortAnswer>{g.shortAnswer}</ShortAnswer>
 
-        <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <h2 className="mb-4 text-2xl font-bold text-foreground">{g.problemsHeading}</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {g.problems.map((p) => (
@@ -47,7 +47,7 @@ export default function CrmCategoryGuide({ guide }: { guide: CrmCategoryGuideKey
           </div>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <h2 className="mb-4 text-2xl font-bold text-foreground">Vilka typer av lösningar finns?</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {g.types.map((p) => (
@@ -59,7 +59,7 @@ export default function CrmCategoryGuide({ guide }: { guide: CrmCategoryGuideKey
           </div>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <h2 className="mb-3 text-2xl font-bold text-foreground">Vad avgör valet?</h2>
           <ul className="space-y-2 text-foreground/85">
             {g.decisive.map((d) => (
@@ -68,12 +68,12 @@ export default function CrmCategoryGuide({ guide }: { guide: CrmCategoryGuideKey
           </ul>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <h2 className="mb-2 text-base font-semibold text-foreground">D365.SE:s bedömning</h2>
           <p className="max-w-4xl text-sm leading-relaxed text-foreground/85">{nowrapBrand(g.assessment)}</p>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 py-8 sm:px-6">
+        <section className="container mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <h2 className="mb-4 text-2xl font-bold text-foreground">{nowrapBrand("När är Dynamics 365 rätt spår?")}</h2>
           <ul className="divide-y divide-border rounded-lg border border-border bg-card">
             {g.apps.map((a) => (

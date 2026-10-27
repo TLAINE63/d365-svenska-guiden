@@ -112,7 +112,7 @@ export default function QuickQuoteEstimator() {
 
   return (
     <section className="py-8 sm:py-12 bg-background border-b border-border" id="snabb-offertfraga">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
           Snabb offertfråga
         </p>

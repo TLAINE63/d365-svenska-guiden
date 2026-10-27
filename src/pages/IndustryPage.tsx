@@ -356,7 +356,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  ) : (
  <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background" aria-hidden />
  )}
- <div className="relative container mx-auto px-4 max-w-5xl py-8 md:py-12">
+ <div className="relative container mx-auto px-4 max-w-6xl py-8 md:py-12">
  <nav className="text-xs text-muted-foreground mb-2">
  <Link to="/" className="hover:text-foreground">Hem</Link>
  <span className="mx-2">/</span>
@@ -414,7 +414,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {/* Innehåll – full bredd */}
  <section className="pt-4 md:pt-6 pb-10 border-b border-border">
- <div className="container mx-auto px-4 max-w-5xl space-y-10">
+ <div className="container mx-auto px-4 max-w-6xl space-y-10">
  {/* Collapsible sektioner – endast rubriker visas tills man klickar */}
  <Accordion type="multiple" className="space-y-3">
  {page?.processes && page.processes.length > 0 && (
@@ -529,7 +529,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {/* Partners + produktfilter längst ned */}
  <section id="partners" className="scroll-mt-24 py-12 border-b border-border bg-muted/20">
- <div className="container mx-auto px-4 max-w-5xl">
+ <div className="container mx-auto px-4 max-w-6xl">
  <div className="flex items-center gap-2 mb-2">
  <Building2 className="w-5 h-5 text-primary" />
  <h2 className="text-2xl font-bold">
@@ -676,7 +676,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
 
  {/* Branschguide-artikel + andra branscher */}
  <section className="py-10 border-b border-border">
- <div className="container mx-auto px-4 max-w-5xl">
+ <div className="container mx-auto px-4 max-w-6xl">
  {slug && INDUSTRY_TO_ARTICLE_SLUG[slug] && (
  <div className="mb-8 rounded-lg border border-primary/20 bg-primary/5 p-5">
  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">

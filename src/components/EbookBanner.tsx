@@ -143,7 +143,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
 
   return (
     <section ref={ctaRef as unknown as React.RefObject<HTMLElement>} className="py-10 sm:py-12 bg-[hsl(var(--hero-dark))] border-y border-[hsl(var(--line-dark))] text-white">
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Book image */}
           <div className="flex-shrink-0">

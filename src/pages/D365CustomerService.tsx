@@ -117,7 +117,7 @@ const D365CustomerService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#service-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Customer Service-partner", href: "#partners" }}
       />
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6 mt-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 mt-6">
         <aside aria-label="Support för befintligt system" className="flex gap-3 rounded-lg border border-border bg-secondary/40 p-4 text-sm leading-relaxed text-muted-foreground">
           <LifeBuoy className="h-5 w-5 shrink-0 text-accent mt-0.5" aria-hidden />
           <p>

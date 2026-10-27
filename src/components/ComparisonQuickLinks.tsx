@@ -38,7 +38,7 @@ const ComparisonQuickLinks = ({
   if (variant === "compact") {
     return (
       <section className={`py-6 ${className}`}>
-        <div className="container mx-auto px-4 max-w-5xl">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="rounded-xl border border-border bg-secondary/30 p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-3">
               <GitCompare className="w-4 h-4 text-primary shrink-0" />
@@ -75,7 +75,7 @@ const ComparisonQuickLinks = ({
     <section
       className={`py-8 sm:py-10 md:py-12 bg-secondary/20 border-y border-border ${className}`}
     >
-      <div className="container mx-auto px-4 max-w-5xl">
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 mb-5 sm:mb-6">
           <div className="min-w-0">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-1">

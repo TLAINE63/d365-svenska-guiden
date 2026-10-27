@@ -198,7 +198,7 @@ export default function Priser() {
         </section>
 
         <section className="py-10 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl space-y-10">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl space-y-10">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">{nowrapBrand("Vad påverkar priset för Dynamics 365?")}</h2>
               <p className="text-muted-foreground leading-relaxed mb-3">
@@ -419,7 +419,7 @@ export default function Priser() {
         </section>
 
         <section className="py-10 border-t border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Vanliga frågor om {D365}-priser
             </h2>

@@ -116,7 +116,7 @@ export default function Kostnad() {
 
       <main className="pt-10">
         <section className="py-8 sm:py-12 bg-gradient-to-br from-secondary/60 to-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <nav aria-label="Brödsmulor" className="text-xs text-muted-foreground mb-4">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -193,7 +193,7 @@ export default function Kostnad() {
 
         {/* Genvägar */}
         <section className="py-8 bg-secondary/30 border-y border-border" id="per-applikation">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
               Del 2 av 3
             </p>

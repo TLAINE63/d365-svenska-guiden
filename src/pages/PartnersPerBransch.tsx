@@ -87,7 +87,7 @@ const PartnersPerBransch = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-12 lg:pt-28">
         <section className="border-b border-border bg-secondary/30">
-          <div className="container mx-auto px-4 py-10 max-w-5xl">
+          <div className="container mx-auto px-4 py-10 max-w-6xl">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Building2 className="w-5 h-5 text-primary" />
@@ -110,7 +110,7 @@ const PartnersPerBransch = () => {
         </section>
 
         <section className="py-10">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="container mx-auto px-4 max-w-6xl">
             {isLoading && partners.length === 0 ? (
               <p className="text-muted-foreground">Laddar partners…</p>
             ) : (
@@ -178,7 +178,7 @@ const PartnersPerBransch = () => {
         {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
         {!verifiedOnly && basicPartners.length > 0 && (
         <section className="py-10 bg-secondary/40 border-t border-border">
-          <div className="container mx-auto px-4 max-w-5xl">
+          <div className="container mx-auto px-4 max-w-6xl">
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
                 Fler partners som arbetar med Dynamics 365

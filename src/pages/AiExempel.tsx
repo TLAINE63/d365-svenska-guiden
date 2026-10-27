@@ -71,7 +71,7 @@ const AiExempel = () => {
       <Navbar />
       <main className="pt-24 lg:pt-32">
         {/* Hero */}
-        <section className="container mx-auto max-w-5xl px-4 py-12">
+        <section className="container mx-auto max-w-6xl px-4 py-12">
           <h1 className="text-4xl font-bold text-foreground md:text-5xl">Ett nytt sätt att arbeta med Dynamics&nbsp;365</h1>
           <p className="mt-5 max-w-3xl text-lg text-muted-foreground">
             Du behöver inte alltid börja med att leta efter rätt meny, vy eller funktion. Med AI kan du i allt fler situationer börja med att beskriva vad du vill få gjort och få hjälp att hitta, förstå, analysera och agera.
@@ -90,7 +90,7 @@ const AiExempel = () => {
         </section>
 
         {/* Förr och nu + mognadstrappa + roller */}
-        <section className="container mx-auto max-w-5xl px-4 pb-12" aria-labelledby="forr-nu">
+        <section className="container mx-auto max-w-6xl px-4 pb-12" aria-labelledby="forr-nu">
           <h2 id="forr-nu" className="text-2xl font-bold text-foreground">Förr och nu</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             <div className="rounded-xl border border-border bg-muted/40 p-5">
@@ -132,7 +132,7 @@ const AiExempel = () => {
         </section>
 
         {/* Biblioteket */}
-        <section id="exempel" className="container mx-auto max-w-5xl scroll-mt-24 px-4 pb-16" aria-labelledby="sluta-leta">
+        <section id="exempel" className="container mx-auto max-w-6xl scroll-mt-24 px-4 pb-16" aria-labelledby="sluta-leta">
           <h2 id="sluta-leta" className="text-3xl font-bold text-foreground">Sluta leta. Börja fråga.</h2>
           <p className="mt-2 text-muted-foreground">Se konkreta exempel på hur AI förändrar arbetet i Dynamics&nbsp;365.</p>
 
@@ -218,7 +218,7 @@ const AiExempel = () => {
           </p>
         </section>
 
-        <section className="container mx-auto max-w-5xl px-4 pb-16">
+        <section className="container mx-auto max-w-6xl px-4 pb-16">
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold text-foreground">Så fungerar tekniken</h2>
             <p className="mt-1 text-sm text-muted-foreground">Exemplen visar hur arbetet förändras. I AI-översikten förklarar vi Copilot, agenter och utvecklingen.</p>
