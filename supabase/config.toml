@@ -29,6 +29,9 @@ project_id = "vnvphfrrmoaskiwlspeo"
     verify_jwt = false
   [functions.manage-advisory]
     verify_jwt = false
+
+  [functions.manage-underlag-forwards]
+    verify_jwt = false
   [functions.manage-leads]
     verify_jwt = false
   [functions.manage-partner-reports]

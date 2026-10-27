@@ -3,11 +3,18 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 import { checkAndLogQuota } from "../_shared/ai-quota.ts";
+import { ADVISOR_BCC, UNDERLAG_PDF_BUCKET, isValidEmail, labelFor, sanitize } from "../_shared/underlagForward.ts";
+
+/**
+ * Publikt formulär "Skicka underlag till partners".
+ * Sparar bara en förfrågan som väntar på godkännande. Inga mejl går till partners eller
+ * till köparens angivna adress härifrån; det sker först när en administratör godkänner
+ * förfrågan via manage-underlag-forwards. Endast ett internt meddelande går till d365.se.
+ */
 
 const MAX_PDF_BYTES = 10 * 1024 * 1024; // 10 MB
 
-/** Validates that a base64 payload is a real PDF within the size cap. */
-function validatePdfBase64(b64: string): { ok: true; bytes: Uint8Array } | { ok: false; error: string } {
+function decodePdfBase64(b64: string): { ok: true; bytes: Uint8Array } | { ok: false; error: string } {
   const clean = b64.replace(/^data:[^;]+;base64,/, "").replace(/\s/g, "");
   if (!/^[A-Za-z0-9+/]+={0,2}$/.test(clean)) return { ok: false, error: "Ogiltig bilaga" };
   if (clean.length * 0.75 > MAX_PDF_BYTES) return { ok: false, error: "Bilagan är för stor (max 10 MB)" };
@@ -23,9 +30,6 @@ function validatePdfBase64(b64: string): { ok: true; bytes: Uint8Array } | { ok:
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return { ok: true, bytes };
 }
-
-
-const ADVISOR_BCC = ["thomas.laine@dynamicfactory.se", "info@d365.se"];
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -46,29 +50,14 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-function sanitize(input: string | undefined | null): string {
-  if (!input) return "";
-  return String(input)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;")
-    .trim();
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255;
-}
+const str = (v: unknown, max: number): string | null => {
+  if (typeof v !== "string") return null;
+  const t = v.trim();
+  return t ? t.slice(0, max) : null;
+};
 
 interface Payload {
-  contact: {
-    company_name: string;
-    contact_name: string;
-    email: string;
-    phone?: string;
-    message?: string;
-  };
+  contact: { company_name: string; contact_name: string; email: string; phone?: string; message?: string };
   assessment_type: string;
   source_page: string;
   partner_slugs: string[];
@@ -82,124 +71,75 @@ interface Payload {
   honeypot?: string;
 }
 
-
-const ASSESSMENT_LABELS: Record<string, string> = {
-  bc_matching: "Behovsanalys – Business Central (ERP)",
-  fscm_matching: "Behovsanalys – Finance & Supply Chain (ERP)",
-  "crm_matching_sales": "Behovsanalys – Dynamics 365 Sales",
-  "crm_matching_customer-service": "Behovsanalys – Dynamics 365 Customer Service",
-  "crm_matching_marketing": "Behovsanalys – Customer Insights (Marketing)",
-  "crm_matching_field-service": "Behovsanalys – Dynamics 365 Field Service",
-  "crm_matching_contact-center": "Behovsanalys – Dynamics 365 Contact Center",
-  req_spec_erp: "Kravspecifikation – ERP",
-  req_spec_sales: "Kravspecifikation – Sälj (D365 Sales)",
-  req_spec_customer_service: "Kravspecifikation – Kundservice",
-  req_spec_marketing: "Kravspecifikation – Marknad (Customer Insights)",
-};
-
-function labelFor(assessmentType: string): string {
-  return ASSESSMENT_LABELS[assessmentType] || "Underlag från d365.se";
-}
-
 serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  const reply = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
   try {
     const payload = (await req.json()) as Payload;
 
     // Honeypot – tyst avvisning av botar
-    if (payload?.honeypot && String(payload.honeypot).length > 0) {
-      return new Response(JSON.stringify({ success: true }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+    if (payload?.honeypot && String(payload.honeypot).length > 0) return reply({ ok: true, pending_review: true });
 
-    // Basic validation
     if (
       !payload?.contact?.email ||
       !isValidEmail(payload.contact.email) ||
-      !payload.contact.company_name ||
-      !payload.contact.contact_name ||
+      !str(payload.contact.company_name, 200) ||
+      !str(payload.contact.contact_name, 200) ||
       !Array.isArray(payload.partner_slugs) ||
       payload.partner_slugs.length === 0 ||
       payload.partner_slugs.length > 6 ||
       !payload.partner_slugs.every((s) => typeof s === "string" && /^[a-z0-9-]{1,120}$/i.test(s)) ||
-      !payload.assessment_type ||
+      typeof payload.assessment_type !== "string" ||
+      !/^[a-z0-9_-]{1,80}$/i.test(payload.assessment_type) ||
       typeof payload.underlag_summary !== "string" ||
-      !payload.underlag_summary ||
-      payload.underlag_summary.length > 20000
+      !payload.underlag_summary.trim() ||
+      payload.underlag_summary.length > 20000 ||
+      (payload.contact.message !== undefined && typeof payload.contact.message !== "string") ||
+      (payload.contact.message && payload.contact.message.length > 4000)
     ) {
-      return new Response(JSON.stringify({ error: "Ogiltiga indata" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return reply({ error: "Ogiltiga indata" }, 400);
     }
 
-    // Blockera fria/personliga e-postdomäner (samma policy som övriga lead-formulär)
-    if (isFreeEmailDomain(payload.contact.email)) {
-      return new Response(JSON.stringify({ error: FREE_EMAIL_ERROR_SV }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+    if (isFreeEmailDomain(payload.contact.email)) return reply({ error: FREE_EMAIL_ERROR_SV }, 400);
 
-    // Validera ev. PDF-bilaga (magic bytes + storlek)
+    let pdfBytes: Uint8Array | null = null;
     if (payload.pdf_base64) {
-      const pdfCheck = validatePdfBase64(payload.pdf_base64);
-      if (!pdfCheck.ok) {
-        return new Response(JSON.stringify({ error: pdfCheck.error }), {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (!payload.pdf_filename || !/\.pdf$/i.test(payload.pdf_filename)) {
-        payload.pdf_filename = "underlag.pdf";
-      }
+      const pdf = decodePdfBase64(payload.pdf_base64);
+      if (!pdf.ok) return reply({ error: pdf.error }, 400);
+      pdfBytes = pdf.bytes;
     }
 
     // Rate limiting per IP och dygn
     const quota = await checkAndLogQuota(req, "send-underlag-to-partners", 5);
     if (!quota.allowed) {
-      return new Response(
-        JSON.stringify({ error: "För många förfrågningar. Försök igen imorgon eller kontakta oss direkt." }),
-        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
+      return reply({ error: "För många förfrågningar. Försök igen imorgon eller kontakta oss direkt." }, 429);
     }
 
+    const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    );
-
-    // Look up partners
+    // Bara partners som finns i katalogen sparas på förfrågan.
+    const slugs = Array.from(new Set(payload.partner_slugs.map((s) => s.toLowerCase())));
     const { data: partnerRows, error: partnersErr } = await supabase
       .from("partners")
-      .select("slug, name, email, contact_person")
-      .in("slug", payload.partner_slugs);
-
+      .select("slug, name")
+      .in("slug", slugs);
     if (partnersErr) {
       console.error("Partner lookup error:", partnersErr);
-      return new Response(JSON.stringify({ error: "Kunde inte slå upp partners" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return reply({ error: "Kunde inte slå upp partners" }, 500);
     }
+    const partners = partnerRows || [];
+    if (partners.length === 0) return reply({ error: "Inga giltiga partners valda" }, 400);
 
-    const partners = (partnerRows || []).filter((p) => p.email && isValidEmail(p.email));
-    if (partners.length === 0) {
-      return new Response(JSON.stringify({ error: "Inga giltiga partnermail hittades" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const assessmentLabel = labelFor(payload.assessment_type);
     const contact = payload.contact;
-    const productsList = (payload.products || []).join(", ");
+    const label = labelFor(payload.assessment_type);
+    const products = Array.isArray(payload.products)
+      ? payload.products.filter((p) => typeof p === "string").map((p) => p.slice(0, 80)).slice(0, 12)
+      : [];
 
-    // Create a lead row for CRM tracking
+    // Lead för CRM-uppföljning (status ny, väntar på granskning)
     const { data: leadRow, error: leadErr } = await supabase
       .from("leads")
       .insert({
@@ -207,187 +147,86 @@ serve(async (req) => {
         contact_name: sanitize(contact.contact_name).slice(0, 200),
         email: contact.email.trim().toLowerCase().slice(0, 255),
         phone: contact.phone ? sanitize(contact.phone).slice(0, 40) : null,
-        industry: payload.industry || null,
-        selected_product: productsList || null,
-        source_page: payload.source_page || null,
+        industry: str(payload.industry, 120),
+        selected_product: products.join(", ") || null,
+        source_page: str(payload.source_page, 300),
         source_type: "analysis_forward",
         message: [
-          `[${assessmentLabel}]`,
+          `[${label}] (väntar på godkännande före utskick)`,
           contact.message ? `Meddelande: ${contact.message}` : null,
           "",
           "Sammanfattning av underlag:",
           payload.underlag_summary,
-        ]
-          .filter(Boolean)
-          .join("\n")
-          .slice(0, 8000),
+        ].filter((x) => x !== null).join("\n").slice(0, 8000),
         assigned_partners: partners.map((p) => p.slug),
         status: "new",
-        company_size: payload.company_size || null,
+        company_size: str(payload.company_size, 80),
       })
-      .select()
+      .select("id")
       .single();
+    if (leadErr) console.error("Lead insert error:", leadErr);
 
-    if (leadErr) {
-      console.error("Lead insert error:", leadErr);
+    const { data: reqRow, error: reqErr } = await supabase
+      .from("underlag_forward_requests")
+      .insert({
+        company_name: str(contact.company_name, 200)!,
+        contact_name: str(contact.contact_name, 200)!,
+        email: contact.email.trim().toLowerCase().slice(0, 255),
+        phone: str(contact.phone, 40),
+        message: str(contact.message, 4000),
+        assessment_type: payload.assessment_type,
+        source_page: str(payload.source_page, 300),
+        partner_slugs: partners.map((p) => p.slug),
+        products,
+        industry: str(payload.industry, 120),
+        company_size: str(payload.company_size, 80),
+        underlag_summary: payload.underlag_summary.trim(),
+        result_url: str(payload.result_url, 500),
+        pdf_filename: pdfBytes
+          ? (payload.pdf_filename && /\.pdf$/i.test(payload.pdf_filename) ? payload.pdf_filename : "underlag.pdf")
+              .replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 120)
+          : null,
+        lead_id: leadRow?.id || null,
+      })
+      .select("id")
+      .single();
+    if (reqErr || !reqRow) {
+      console.error("Forward request insert error:", reqErr);
+      return reply({ error: "Kunde inte spara underlaget" }, 500);
     }
 
+    if (pdfBytes) {
+      const path = `underlag-forward/${reqRow.id}.pdf`;
+      const { error: upErr } = await supabase.storage
+        .from(UNDERLAG_PDF_BUCKET)
+        .upload(path, pdfBytes, { contentType: "application/pdf", upsert: true });
+      if (upErr) console.error("PDF upload error:", upErr);
+      else await supabase.from("underlag_forward_requests").update({ pdf_path: path }).eq("id", reqRow.id);
+    }
+
+    // Internt meddelande till d365.se (fast mottagare, inget köparinnehåll)
     const resendKey = Deno.env.get("RESEND_API_KEY");
-    if (!resendKey) {
-      return new Response(JSON.stringify({ error: "Emailtjänst inte konfigurerad" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const resend = new Resend(resendKey);
-
-    // Convert plain-text summary to safe HTML paragraphs
-    const summaryHtml = sanitize(payload.underlag_summary)
-      .split(/\n{2,}/)
-      .map((p) => `<p style="margin:0 0 12px 0;line-height:1.6;color:#1a1a1a;">${p.replace(/\n/g, "<br/>")}</p>`)
-      .join("");
-
-    const attachments =
-      payload.pdf_base64 && payload.pdf_filename
-        ? [
-            {
-              filename: payload.pdf_filename.replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 120),
-              content: payload.pdf_base64,
-            },
-          ]
-        : undefined;
-
-    const resultLinkHtml = payload.result_url
-      ? `<p style="margin:16px 0;"><a href="${sanitize(payload.result_url)}" style="color:#D64A1F;">Öppna underlaget online</a></p>`
-      : "";
-
-    const contactBlockHtml = `
-      <table style="width:100%;border-collapse:collapse;margin:12px 0 20px;">
-        <tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;width:35%;">Företag</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(contact.company_name)}</td></tr>
-        <tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">Kontaktperson</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(contact.contact_name)}</td></tr>
-        <tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">E-post</td><td style="padding:6px 8px;background:#faf8f4;"><a href="mailto:${sanitize(contact.email)}">${sanitize(contact.email)}</a></td></tr>
-        ${contact.phone ? `<tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">Telefon</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(contact.phone)}</td></tr>` : ""}
-        ${payload.industry ? `<tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">Bransch</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(payload.industry)}</td></tr>` : ""}
-        ${payload.company_size ? `<tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">Storlek</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(payload.company_size)}</td></tr>` : ""}
-        ${productsList ? `<tr><td style="padding:6px 8px;background:#f5f2ec;font-weight:600;">Produktområde</td><td style="padding:6px 8px;background:#faf8f4;">${sanitize(productsList)}</td></tr>` : ""}
-      </table>`;
-
-    const bodyForPartner = (partnerName: string, contactPerson: string | null) => `
-      <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background:#ffffff;">
-        <div style="background:#15130F;padding:22px 28px;">
-          <div style="height:3px;background:#D64A1F;width:60px;margin-bottom:14px;"></div>
-          <h1 style="margin:0;color:#ffffff;font-size:20px;font-weight:600;">Nytt underlag från d365.se</h1>
-          <p style="margin:6px 0 0 0;color:#c9c4bb;font-size:13px;">${sanitize(assessmentLabel)}</p>
-        </div>
-        <div style="padding:24px 28px;color:#1a1a1a;">
-          <p style="margin:0 0 12px 0;">Hej ${sanitize(contactPerson || partnerName)},</p>
-          <p style="margin:0 0 16px 0;line-height:1.6;">
-            En köpare på d365.se har just genomfört <strong>${sanitize(assessmentLabel)}</strong>
-            och valt att skicka sitt underlag till er. Underlaget har även skickats till upp till två andra matchande partners.
-          </p>
-          ${contactBlockHtml}
-          ${contact.message ? `<p style="margin:0 0 8px 0;"><strong>Meddelande från köparen:</strong></p><blockquote style="margin:0 0 16px 0;padding:10px 14px;background:#faf8f4;border-left:3px solid #D64A1F;color:#333;">${sanitize(contact.message)}</blockquote>` : ""}
-          <h2 style="font-size:15px;margin:24px 0 10px 0;color:#0E7C86;">Sammanfattning av underlaget</h2>
-          ${summaryHtml}
-          ${resultLinkHtml}
-          ${attachments ? `<p style="margin:16px 0 0 0;color:#555;font-size:13px;">📎 Fullständigt underlag bifogas som PDF.</p>` : ""}
-          <p style="margin:24px 0 0 0;line-height:1.6;">
-            Vänligen svara direkt till köparen på <a href="mailto:${sanitize(contact.email)}" style="color:#D64A1F;">${sanitize(contact.email)}</a>.
-            Rådgivningsteamet på d365.se är kopierat (BCC) för uppföljning.
-          </p>
-          <p style="margin:24px 0 0 0;color:#888;font-size:12px;">Referens: ${leadRow?.id || "n/a"}</p>
-        </div>
-      </div>`;
-
-    // Send to each partner
-    const results: Array<{ slug: string; ok: boolean; error?: string }> = [];
-    for (const p of partners) {
+    if (resendKey) {
       try {
-        const resp = await resend.emails.send({
+        const resend = new Resend(resendKey);
+        await resend.emails.send({
           from: "d365.se <info@d365.se>",
-          to: [p.email!],
-          bcc: ADVISOR_BCC,
-          reply_to: contact.email,
-          subject: `Nytt underlag från d365.se: ${contact.company_name} (${assessmentLabel})`,
-          html: bodyForPartner(p.name || "", p.contact_person as string | null),
-          attachments,
-          tags: [
-            { name: "type", value: "analysis_forward" },
-            { name: "assessment", value: payload.assessment_type.slice(0, 60) },
-            { name: "partner", value: p.slug.slice(0, 60) },
-          ],
-        });
-        results.push({ slug: p.slug, ok: !resp.error });
-        if (resp.error) console.error("Resend error for", p.slug, resp.error);
-
-        // Log in email_send_log (best-effort)
-        await supabase.from("email_send_log").insert({
-          message_id: `analysis_forward-${leadRow?.id || crypto.randomUUID()}-${p.slug}`,
-          template_name: "analysis_forward",
-          recipient_email: p.email!,
-          status: resp.error ? "failed" : "sent",
-          error_message: resp.error ? String(resp.error) : null,
-          metadata: {
-            assessment_type: payload.assessment_type,
-            partner_slug: p.slug,
-            lead_id: leadRow?.id || null,
-            buyer_email: contact.email,
-          },
+          to: ADVISOR_BCC,
+          subject: `Underlag väntar på godkännande (${partners.length} partners)`,
+          html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;">
+            <p>Ett nytt underlag (${sanitize(label)}) väntar på godkännande innan det skickas till ${partners.length} partners.</p>
+            <p>Granska och godkänn det i admin under Leads &amp; partners → Underlag att godkänna.</p>
+            <p style="color:#888;font-size:12px;">Referens: ${reqRow.id}</p></div>`,
+          tags: [{ name: "type", value: "analysis_forward_pending" }],
         });
       } catch (err) {
-        console.error("Send failed for", p.slug, err);
-        results.push({ slug: p.slug, ok: false, error: String(err) });
+        console.error("Admin notification failed:", err);
       }
     }
 
-    // Buyer confirmation
-    const partnerListHtml = partners
-      .map((p) => `<li style="margin:0 0 6px 0;">${sanitize(p.name || p.slug)}</li>`)
-      .join("");
-    try {
-      await resend.emails.send({
-        from: "d365.se <info@d365.se>",
-        to: [contact.email],
-        bcc: ADVISOR_BCC,
-        subject: `Ditt underlag är skickat till ${partners.length} Microsoft-partners`,
-        html: `
-          <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background:#ffffff;">
-            <div style="background:#15130F;padding:22px 28px;">
-              <div style="height:3px;background:#D64A1F;width:60px;margin-bottom:14px;"></div>
-              <h1 style="margin:0;color:#ffffff;font-size:20px;font-weight:600;">Tack – underlaget är skickat</h1>
-              <p style="margin:6px 0 0 0;color:#c9c4bb;font-size:13px;">${sanitize(assessmentLabel)}</p>
-            </div>
-            <div style="padding:24px 28px;color:#1a1a1a;line-height:1.6;">
-              <p style="margin:0 0 14px 0;">Hej ${sanitize(contact.contact_name)},</p>
-              <p style="margin:0 0 14px 0;">Vi har skickat ert underlag från ${sanitize(assessmentLabel)} till följande matchande Microsoft-partners:</p>
-              <ul style="margin:0 0 16px 20px;padding:0;">${partnerListHtml}</ul>
-              <p style="margin:0 0 14px 0;">Partnerna återkommer normalt inom 1–3 arbetsdagar direkt till din e-post. Rådgivningsteamet på d365.se följer upp för att säkerställa att ni får svar.</p>
-              <p style="margin:0;color:#555;font-size:13px;">Vill du att fler partners får underlaget? Svara på det här mailet så hjälper vi dig.</p>
-            </div>
-          </div>`,
-        tags: [
-          { name: "type", value: "analysis_forward_confirmation" },
-          { name: "assessment", value: payload.assessment_type.slice(0, 60) },
-        ],
-      });
-    } catch (err) {
-      console.error("Buyer confirmation failed:", err);
-    }
-
-    return new Response(
-      JSON.stringify({
-        ok: true,
-        delivered: results.filter((r) => r.ok).length,
-        total: partners.length,
-        lead_id: leadRow?.id || null,
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-    );
+    return reply({ ok: true, pending_review: true, total: partners.length, request_id: reqRow.id });
   } catch (err) {
     console.error("send-underlag-to-partners error:", err);
-    return new Response(JSON.stringify({ error: "Internt fel" }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return reply({ error: "Internt fel" }, 500);
   }
 });
