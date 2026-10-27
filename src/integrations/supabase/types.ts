@@ -5000,6 +5000,87 @@ export type Database = {
         }
         Relationships: []
       }
+      underlag_forward_requests: {
+        Row: {
+          assessment_type: string
+          company_name: string
+          company_size: string | null
+          contact_name: string
+          created_at: string
+          delivered: number | null
+          email: string
+          id: string
+          industry: string | null
+          lead_id: string | null
+          message: string | null
+          partner_slugs: string[]
+          pdf_filename: string | null
+          pdf_path: string | null
+          phone: string | null
+          products: string[]
+          result_url: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          source_page: string | null
+          status: string
+          total: number | null
+          underlag_summary: string
+          updated_at: string
+        }
+        Insert: {
+          assessment_type: string
+          company_name: string
+          company_size?: string | null
+          contact_name: string
+          created_at?: string
+          delivered?: number | null
+          email: string
+          id?: string
+          industry?: string | null
+          lead_id?: string | null
+          message?: string | null
+          partner_slugs?: string[]
+          pdf_filename?: string | null
+          pdf_path?: string | null
+          phone?: string | null
+          products?: string[]
+          result_url?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          source_page?: string | null
+          status?: string
+          total?: number | null
+          underlag_summary: string
+          updated_at?: string
+        }
+        Update: {
+          assessment_type?: string
+          company_name?: string
+          company_size?: string | null
+          contact_name?: string
+          created_at?: string
+          delivered?: number | null
+          email?: string
+          id?: string
+          industry?: string | null
+          lead_id?: string | null
+          message?: string | null
+          partner_slugs?: string[]
+          pdf_filename?: string | null
+          pdf_path?: string | null
+          phone?: string | null
+          products?: string[]
+          result_url?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          source_page?: string | null
+          status?: string
+          total?: number | null
+          underlag_summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       underlag_submissions: {
         Row: {
           buyer_id: string | null

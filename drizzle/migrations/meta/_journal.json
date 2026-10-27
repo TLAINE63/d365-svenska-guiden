@@ -71,6 +71,13 @@
       "when": 1793029244113,
       "tag": "0009_knowledge_articles_partner_slugs",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793098508872,
+      "tag": "0010_underlag_forward_requests",
+      "breakpoints": true
     }
   ]
 }
