@@ -105,9 +105,9 @@
     "vitest": "^3.2.4"
   },
   "overrides": {
-    "dompurify": "^3.4.12"
+    "dompurify": "^3.4.17"
   },
   "resolutions": {
-    "dompurify": "^3.4.12"
+    "dompurify": "^3.4.17"
   }
 }
