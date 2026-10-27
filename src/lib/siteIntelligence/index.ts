@@ -1,3 +1,4 @@
+import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import connection from './package.json';
 import routes from './providerRoutes.json';
 import { createTrackingService } from './sdk/tracking-service';
