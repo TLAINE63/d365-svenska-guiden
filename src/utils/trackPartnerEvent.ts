@@ -1,3 +1,4 @@
+import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { sendEvent, providerForSlug, trackConfirmedForm } from "@/lib/siteIntelligence";
 import { supabase } from "@/integrations/supabase/client";
 import { isExcludedFromTracking } from "@/hooks/useVisitorTracking";
@@ -186,7 +187,7 @@ export const trackPartnerEvent = (input: PartnerEventInput): void => {
     const provider = providerForSlug(input.partnerSlug);
     if (provider) sendEvent("partner_list_view", { ...provider, view_context: "partner_card" });
   }
-  if (input.event === "formular_skickat" && typeof input.metadata?.form_id === "string") trackConfirmedForm(input.metadata.form_id);
+  if (input.event === "formular_skickat" && typeof input.metadata?.form_id === "string") { trackConfirmedForm(input.metadata.form_id); trackAdsContactConversion(input.metadata.form_id); }
   if (isExcludedFromTracking()) return;
   enqueue({
     event_name: input.event,

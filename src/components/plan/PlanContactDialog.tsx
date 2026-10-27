@@ -13,6 +13,7 @@ import { recordPlanContact, usePlanMeta, planProductLabel } from "@/lib/d365Plan
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { getTrackSession, getTrackSource } from "@/lib/track";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 
 export type PlanContactMode = "advisory" | "partners";
 
@@ -122,6 +123,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
+      trackAdsContactConversion(advisory ? "advisory" : "plan_partner_contact");
       if (advisory) {
         recordPlanContact("advisory");
         trackFunnelEvent({ event_type: evType, event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata, ...advMeta } });
