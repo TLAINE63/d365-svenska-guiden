@@ -11,6 +11,7 @@ import { Search, ArrowRight } from "lucide-react";
 import { useD365Videos, type D365Video } from "@/hooks/useD365Videos";
 import D365VideoCard from "@/components/D365VideoCard";
 import D365VideoPlayerDialog from "@/components/D365VideoPlayerDialog";
+import D365InsideSection from "@/components/D365InsideSection";
 import {
   VIDEO_PRODUCT_GROUPS,
   VIDEO_QUESTION_TYPES,
@@ -89,10 +90,15 @@ const VideoIndex = () => {
             <p className="mt-3 text-muted-foreground">
               Vi samlar in videor från Microsofts officiella YouTube-kanaler varje dygn och grupperar dem
               automatiskt per produktområde och frågeställning, så att du snabbt hittar svar på just din fråga.
+              Här finns också våra egna samtal i d365.se INSIDE.
             </p>
           </div>
 
-          <div className="mt-8 space-y-4">
+          <D365InsideSection className="mt-8" />
+
+          <h2 className="mt-12 text-xl md:text-2xl font-bold">Alla videor</h2>
+
+          <div className="mt-6 space-y-4">
             <div className="relative max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input

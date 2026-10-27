@@ -126,7 +126,7 @@ export default function D365InsideSection({ headingLevel = "h2", className = "" 
             )}
             {latest.partnerSlug && latest.partnerName && (
               <Link
-                to={`/partners/${latest.partnerSlug}`}
+                to={`/partner/${latest.partnerSlug}/`}
                 className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-[hsl(var(--accent-dark-zone))] hover:underline"
               >
                 Se partnerprofilen för {latest.partnerName} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

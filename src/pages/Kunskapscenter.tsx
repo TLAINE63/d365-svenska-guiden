@@ -947,7 +947,14 @@ const Kunskapscenter = () => {
 
  <div ref={tracksGridRef} />
 
- {/* Topical hubs – crawl-friendly internal links */}
+ {/* d365.se INSIDE – egna intervjuer på YouTube */}
+ <div className="border-b border-border bg-background">
+  <div className="container mx-auto px-4 py-8 max-w-6xl">
+   <D365InsideSection />
+  </div>
+ </div>
+
+  {/* Topical hubs – crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
   <div className="container mx-auto px-4 py-6">
    <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
