@@ -1,4 +1,7 @@
 import type { BlogArticle } from "@/data/blogArticles";
+import YouTubeLite from "@/components/YouTubeLite";
+import { splitArticleVideos } from "@/lib/articleVideoEmbeds";
+import { D365_INSIDE_CHANNEL_URL } from "@/data/d365Inside";
 
 /**
  * Helartiklar som redaktionen laddat upp från Word i /redaktion.
@@ -48,6 +51,24 @@ export function editorRowToBlogArticle(row: EditorArticleRow): BlogArticle {
     heroImage: row.image_url || "",
     heroCaption: row.hero_caption || undefined,
     readingTimeMinutes: row.reading_time_minutes || 5,
-    content: <div dangerouslySetInnerHTML={{ __html: row.body_html }} />,
+    content: (
+      <div>
+        {splitArticleVideos(row.body_html).map((part, i) =>
+          part.type === "video" ? (
+            <figure key={i} className="my-6 not-prose">
+              <YouTubeLite videoId={part.id} title={`Videoklipp: ${row.title}`} />
+              <figcaption className="mt-2 text-sm text-muted-foreground">
+                Klipp från d365.se INSIDE.{" "}
+                <a href={D365_INSIDE_CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="underline">
+                  Se alla samtal på YouTube
+                </a>
+              </figcaption>
+            </figure>
+          ) : (
+            <div key={i} dangerouslySetInnerHTML={{ __html: part.html }} />
+          )
+        )}
+      </div>
+    ),
   };
 }
