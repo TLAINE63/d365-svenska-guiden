@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import NotFound from "./NotFound";
 import CompetencePartnerSection from "@/components/kompetens/CompetencePartnerSection";
 import CompetenceResultSummary from "@/components/kompetens/CompetenceResultSummary";
-import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
+import ExpertRequirementExit from "@/components/kompetens/ExpertRequirementExit";
+import { getExpertDraft, saveExpertDraft, type ExpertDraft } from "@/lib/expertRequirement";
 import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { guideBySlug, guidePath, type DeliveryMode } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -67,6 +68,22 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
   useEffect(() => {
     if (guide) trackCompetenceEvent("kompetens_guide_view", { guide: guide.slug });
   }, [guide]);
+
+  // Sprint 1.2 steg 3: besökarens behov från /kompetens/ (bara under besöket) kompletteras med sidans val.
+  const [stored, setStored] = useState<ExpertDraft>({});
+  useEffect(() => { setStored(getExpertDraft()); }, []);
+  const draft: ExpertDraft = {
+    ...stored,
+    role: guide?.slug,
+    product: filters.product ?? stored.product,
+    industry: filters.industry ?? stored.industry,
+    region: filters.region ?? stored.region,
+    delivery: filters.delivery ?? stored.delivery,
+  };
+  useEffect(() => {
+    if (guide) saveExpertDraft(draft);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guide?.slug, stored, filters]);
 
   if (!guide) return <NotFound />;
 
@@ -155,21 +172,13 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
             }}
           />
 
-          <section className="my-10 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-bold mb-2">Så går du vidare med ert kompetensbehov</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-              Berätta vad ni behöver, så går vi igenom det och återkommer om vi ser ett relevant
-              nästa steg. Behovet skickas inte vidare till partners automatiskt.
-            </p>
-            <Button
-              onClick={() => {
-                setNeedOpen(true);
-                trackCompetenceEvent("kompetens_need_form_open", { guide: guide.slug });
-              }}
-            >
-              Beskriv vilken kompetens ni behöver
-            </Button>
-          </section>
+          <ExpertRequirementExit
+            draft={draft}
+            pageType="kompetensguide"
+            className="my-10"
+            open={needOpen}
+            onOpenChange={setNeedOpen}
+          />
 
           <MatchInfoDisclosure />
         </div>
@@ -178,13 +187,6 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
       <EditorialSource sourceType="Partnerguide" />
       <Footer />
 
-      <DescribeNeedDialog
-        open={needOpen}
-        onOpenChange={setNeedOpen}
-        roleLabel={guide.title}
-        guideSlug={guide.slug}
-        filters={filters}
-      />
     </>
   );
 };

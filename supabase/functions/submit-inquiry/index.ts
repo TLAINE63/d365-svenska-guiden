@@ -20,7 +20,7 @@ const Body = z.object({
   advisory: z.boolean().optional(),
   /** Var rådgivningen bokades (beslutspunkt, CTA, sidtyp). Inga personuppgifter. */
   advisory_context: z.object({
-    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan", "home", "partner_search"]),
+    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan", "home", "partner_search", "expert_requirement"]),
     cta: z.string().trim().max(120),
     page_type: z.string().trim().max(60).optional().nullable(),
     page_path: z.string().trim().max(300).optional().nullable(),
@@ -109,16 +109,17 @@ Deno.serve(async (req) => {
       }).select("id").single();
       if (errA || !booking) { console.error(errA); await sb.from("advisory_cases").delete().eq("id", advCase.id); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
       const keyA = Deno.env.get("RESEND_API_KEY");
+      const isExpert = ac?.placement === "expert_requirement";
       if (keyA) {
         const resend = new Resend(keyA);
         try {
           await resend.emails.send({
-            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: `Rådgivning${ac?.cta ? ` (${ac.cta})` : " via Min D365-plan"}: ${d.company}`,
+            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: isExpert ? `Kompetensbehov (expert/konsult): ${d.company}` : `Rådgivning${ac?.cta ? ` (${ac.cta})` : " via Min D365-plan"}: ${d.company}`,
             html: layout(`Rådgivning: ${esc(d.company)}`, p(`${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.`) + box("Kontakt och förfrågan", rows([["Namn", d.contact_name], ["Företag", d.company], ["E-post", d.email], ["Telefon", d.phone || "–"], ["Gäller", d.help_with || "–"], ["Meddelande", d.message || "–"]])) + (d.include_project ? projectText(d.project) : "")),
           });
           await resend.emails.send({
             from: "d365.se <info@d365.se>", to: [d.email], subject: "Er förfrågan till d365.se",
-            html: layout("Tack, vi har tagit emot er förfrågan", p(`Hej ${esc(d.contact_name)},`) + p("Tack för er förfrågan. Vi har tagit emot ert underlag och återkommer personligen. Inget har skickats till någon partner.") + box("Det här händer nu", "Vi går igenom er sammanställning och hör av oss för att diskutera nästa steg i er utvärdering. Ni behöver inte göra något under tiden.") + (d.include_project ? projectText(d.project) : "") + p(`<span style="color:${MUTED};font-size:13px">Spara gärna detta mejl, sammanställningen kan användas som internt underlag.</span>`) + SIGNATURE, "Vi har tagit emot ert underlag"),
+            html: layout("Tack, vi har tagit emot er förfrågan", p(`Hej ${esc(d.contact_name)},`) + p("Tack för er förfrågan. Vi har tagit emot ert underlag och återkommer personligen. Inget har skickats till någon partner.") + box("Det här händer nu", isExpert ? "Vi går igenom ert kompetensbehov manuellt. Tillgänglighet och lämplig leveransform behöver verifieras innan vi kan föreslå ett nästa steg. Vill ni bli introducerade till en namngiven partner frågar vi er först." : "Vi går igenom er sammanställning och hör av oss för att diskutera nästa steg i er utvärdering. Ni behöver inte göra något under tiden.") + (d.include_project ? projectText(d.project) : "") + p(`<span style="color:${MUTED};font-size:13px">Spara gärna detta mejl, sammanställningen kan användas som internt underlag.</span>`) + SIGNATURE, "Vi har tagit emot ert underlag"),
           });
         } catch (e) { console.error("advisory mail", e); }
       }

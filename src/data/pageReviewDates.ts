@@ -4,6 +4,14 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
+  "/kompetens/": "2026-10-30",
+  "/kompetens/dynamics-365-projektledare/": "2026-10-30",
+  "/kompetens/dynamics-365-testledare/": "2026-10-30",
+  "/kompetens/dynamics-365-solution-architect/": "2026-10-30",
+  "/kompetens/dynamics-365-forvaltningsledare/": "2026-10-30",
+  "/kompetens/dynamics-365-applikationskonsult/": "2026-10-30",
+  "/kompetens/dynamics-365-utvecklare/": "2026-10-30",
+  "/kompetens/dynamics-365-support-och-servicedesk/": "2026-10-30",
   "/guider/budget-prognos-planering-dynamics-365/": "2026-10-30",
   "/guider/": "2026-10-30",
   "/business-central/tillagg/rapportering-fpa/": "2026-10-30",

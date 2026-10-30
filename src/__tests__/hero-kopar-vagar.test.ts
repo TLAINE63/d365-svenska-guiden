@@ -50,7 +50,7 @@ describe("Valet Vad söker ni?", () => {
   });
 
   it("expertvägen använder kompetensöversikten och klassas ExpertRequirement", () => {
-    expect(byType("expert")).toMatchObject({ to: "/kompetens/", intentType: "ExpertRequirement", startEvent: "expert_requirement_started" });
+    expect(byType("expert")).toMatchObject({ to: "/kompetens/", intentType: "ExpertRequirement", startEvent: "expert_search_started" });
   });
 
   it("har exakt två huvudval", () => {

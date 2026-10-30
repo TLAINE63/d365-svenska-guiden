@@ -20,6 +20,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   plan: "Min D365-plan",
   home: "Startsidan",
   partner_search: "Partnersökningen",
+  expert_requirement: "Kompetensbehov (expert/konsult)",
 };
 
 export const CASE_STATUSES = [

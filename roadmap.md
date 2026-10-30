@@ -3,7 +3,8 @@
 ## Köparvägar i hero (2026-10-30)
 - [x] Sprint 0.9: ny ingress, fyra kort, rådgivarlänk, kort-id och klassificering i mätningen
 - [x] Sprint 1.0: kompetenskortet frågar först "Vad söker ni?" (partner, expert/konsult, osäker); ersätter tidigare Sprint 1.1 Kompetensfunneln
-- [ ] Nästa: förbättra partner- respektive expertvägens underresor
+- [x] Sprint 1.1: partnersökningen (behov, filter, neutral ordning, två utgångar, mätning)
+- [x] Sprint 1.2: expertvägen (kompetens, behov, värde före kontakt, kompetensbehov till d365.se, mätning)
 
 ## WP1 Rådgivningsledd partnerintroduktion (2026-10-23)
 - [x] Inventera CTA, bokning (PlanContactDialog advisory → submit-inquiry), admin, mätning
