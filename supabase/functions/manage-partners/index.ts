@@ -164,6 +164,8 @@ interface PartnerData {
   youtube_video_id?: string;
   partner_size_tier?: number | null;
   partner_size_tier_needs_review?: boolean;
+  information_status?: string;
+  information_verified_at?: string | null;
   industry_pitches?: Array<{
     industry: string;
     product: string | null;
@@ -351,6 +353,8 @@ serve(async (req: Request): Promise<Response> => {
             youtube_video_id: partner.youtube_video_id?.trim() || null,
             partner_size_tier: normalizeSizeTier(partner.partner_size_tier),
             partner_size_tier_needs_review: partner.partner_size_tier_needs_review === true,
+            information_status: normalizeInfoStatus(partner.information_status) ?? "compiled",
+            information_verified_at: normalizeDate(partner.information_verified_at),
             industry_pitches: partner.industry_pitches || [],
             positioning_statement: (partner as any).positioning_statement || null,
             delivery_profile: (partner as any).delivery_profile || {},
@@ -437,6 +441,11 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
         if (partner?.partner_size_tier !== undefined) updateData.partner_size_tier = normalizeSizeTier(partner.partner_size_tier);
         if (partner?.partner_size_tier_needs_review !== undefined) updateData.partner_size_tier_needs_review = partner.partner_size_tier_needs_review === true;
+        if (partner?.information_status !== undefined) {
+          const st = normalizeInfoStatus(partner.information_status);
+          if (st) updateData.information_status = st;
+        }
+        if (partner?.information_verified_at !== undefined) updateData.information_verified_at = normalizeDate(partner.information_verified_at);
         if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
         if ((partner as any)?.positioning_statement !== undefined) updateData.positioning_statement = (partner as any).positioning_statement || null;
         if ((partner as any)?.delivery_profile !== undefined) updateData.delivery_profile = (partner as any).delivery_profile || {};
