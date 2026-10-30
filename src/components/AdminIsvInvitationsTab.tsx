@@ -185,7 +185,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Kunde inte spara beslut");
-      toast({ title: approve ? "Publicerad" : "Avvisad" });
+      toast({ title: approve ? "Godkänd" : "Avvisad" });
       setReview(null);
       await load();
       if (approve) onApproved?.();

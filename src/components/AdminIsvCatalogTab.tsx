@@ -16,6 +16,7 @@ import AdminIsvInvitationsTab from "@/components/AdminIsvInvitationsTab";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
 import IsvPartnerPicker from "@/components/IsvPartnerPicker";
 import AdminIsvNewSolutions from "@/components/AdminIsvNewSolutions";
+import AdminIsvStatusPanel from "@/components/AdminIsvStatusPanel";
 
 interface Props {
   token: string | null;
@@ -208,6 +209,7 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
           ])
         )}
       />
+      <AdminIsvStatusPanel token={token} onSessionExpired={onSessionExpired} />
       <AdminIsvNewSolutions token={token} onSessionExpired={onSessionExpired} onChanged={load} />
 
     <Card>
