@@ -612,7 +612,7 @@ const Partnerprogram = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Betald utökad presentation, till exempel expertintervju och video, kvartalsvis genomgång
                 av profilen, statistik över profilvisningar och en namngiven kontaktperson på d365.se.
-                995 kr för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service
+                995&nbsp;kr för 1 produktområde, 1&nbsp;595&nbsp;kr för 2 och 1&nbsp;995&nbsp;kr för 3 (Sales och Customer Service
                 räknas som en CRM-enhet).
               </p>
             </div>
