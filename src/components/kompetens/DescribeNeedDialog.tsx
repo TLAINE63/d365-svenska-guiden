@@ -125,7 +125,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
           competence_type: "unsure",
           initial_intent: "CompetenceNeedUnclassified",
           source_page: typeof window !== "undefined" ? window.location.pathname : "/",
-          product_known: !!product,
+          product_known: !!form.product,
           timestamp: new Date().toISOString(),
         });
       }
