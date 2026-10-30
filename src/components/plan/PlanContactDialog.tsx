@@ -51,10 +51,10 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search";
+export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search" | "expert_requirement";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
-export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string }
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean }
 export type { Section as ContactSection };
 
 export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
@@ -151,10 +151,14 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
         {done ? (
           <div className="space-y-4 py-2">
             <DialogHeader>
-              <DialogTitle>{advisory ? "Ert underlag är skickat till d365.se" : "Er förfrågan är skickad"}</DialogTitle>
+              <DialogTitle>{topic?.doneTitle || (advisory ? "Ert underlag är skickat till d365.se" : "Er förfrågan är skickad")}</DialogTitle>
               <DialogDescription>Ni får en bekräftelse på e-post.</DialogDescription>
             </DialogHeader>
-            {advisory ? <p className="text-sm">d365.se går igenom ert underlag och hör av sig. Inget har skickats till någon partner.</p> : <ul className="space-y-1 text-sm">
+            {topic?.showDoneSummary && shared.length > 0 && <section className="rounded-md border border-border bg-muted/40 p-3 text-sm">
+              <p className="font-semibold">Registrerat behov</p>
+              <ul className="mt-2 space-y-1">{shared.map((s) => <li key={s.key}><span className="font-medium">{s.label}:</span> <span className="text-muted-foreground">{s.lines.join(" · ")}</span></li>)}</ul>
+            </section>}
+            {topic?.doneNotes?.length ? <ul className="list-disc space-y-1 pl-5 text-sm">{topic.doneNotes.map((n) => <li key={n}>{n}</li>)}</ul> : advisory ? <p className="text-sm">d365.se går igenom ert underlag och hör av sig. Inget har skickats till någon partner.</p> : <ul className="space-y-1 text-sm">
               {done.partners.length > 0 && <li>Förfrågan skickad till: <strong>{done.partners.join(", ")}</strong>. Partnern kontaktar er direkt.</li>}
               {done.intros.length > 0 && <li>Introduktion begärd via d365.se för: <strong>{done.intros.join(", ")}</strong>. Era uppgifter har inte skickats till dem.</li>}
             </ul>}

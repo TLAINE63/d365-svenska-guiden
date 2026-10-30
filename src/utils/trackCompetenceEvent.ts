@@ -26,7 +26,12 @@ type CompetenceEvent =
   | "partner_profile_viewed"
   | "partner_compare_started"
   | "partner_selfservice_clicked"
-  | "partner_selection_help_requested";
+  | "partner_selection_help_requested"
+  // Sprint 1.2: expert- och konsultvägen (se src/lib/expertRequirement.ts).
+  | "expert_search_started"
+  | "expert_role_selected"
+  | "expert_specialism_selected"
+  | "expert_requirement_submitted";
 
 export function trackCompetenceEvent(
   event: CompetenceEvent,
