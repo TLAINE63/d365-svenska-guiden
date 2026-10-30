@@ -1,5 +1,4 @@
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
-import { useInquiry } from "@/contexts/InquiryContext";
 import ContextualCta from "@/components/ContextualCta";
 import { useState, useMemo, useEffect } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -235,7 +234,6 @@ const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): 
 };
 
 const ValjPartner = () => {
-  const inquiry = useInquiry();
  const { data: dbPartners, isLoading } = usePartners();
  const { data: basicPartners } = useBasicPartners();
  const [searchParams, setSearchParams] = useSearchParams();
