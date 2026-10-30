@@ -8,6 +8,7 @@ import GuideSearch from "@/components/guides/GuideSearch";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 
 const breadcrumbs = [
   { name: "Start", url: "/" },
@@ -18,7 +19,7 @@ const GuiderIndex = () => (
   <>
     <SEOHead
       title="Guider för partnerval – Dynamics 365"
-      description="Guider för att välja Dynamics 365-partner, med fördjupningar för Business Central, Finance & Supply Chain, Sales, Customer Service och Field Service."
+      description="Guider för att välja Dynamics 365-partner, med fördjupningar för Business Central, Finance & Supply Chain, Sales och Service samt budget och prognos."
       canonicalPath="/guider/"
       breadcrumbs={breadcrumbs}
     />
@@ -54,6 +55,25 @@ const GuiderIndex = () => (
             </Link>
           ))}
         </div>
+
+        <section className="mt-12" aria-labelledby="planering-guider">
+          <h2 id="planering-guider" className="text-xl font-bold tracking-tight mb-4">Planering och uppföljning</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Link
+              to="/guider/budget-prognos-planering-dynamics-365/"
+              className="group flex flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-[hsl(var(--cta-orange))] hover:shadow-md"
+            >
+              <h3 className="text-base font-bold mb-1.5">{nowrapBrand("Budget, prognos och säljplanering i Dynamics 365")}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                {nowrapBrand("Rullande prognoser och säljplanering i Business Central, Finance & Supply Chain Management och Dynamics 365 Sales med Power BI och Fabric.")}
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[hsl(var(--cta-orange))]">
+                Läs guiden
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </div>
+        </section>
 
         <GuideCTA
           variant="final"

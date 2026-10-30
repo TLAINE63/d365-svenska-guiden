@@ -11,6 +11,8 @@ export interface BcCategoryPage {
   metaTitle: string;
   metaDescription: string;
   intro: string;
+  /** Valfri rekommendationsruta till en fördjupande guide. */
+  guideLink?: { text: string; to: string };
   faq: { q: string; a: string }[];
 }
 
@@ -104,6 +106,10 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
       "Vilka lösningar finns för rapportering, budget, prognos, koncern och abonnemangsfakturering i Business Central? Se urvalet och när de passar.",
     intro:
       "Finansiella tillägg spänner från rapport- och budgetverktyg till koncernkonsolidering och abonnemangsfakturering. Behovet styrs ofta av antal bolag, rapportkrav och affärsmodell.",
+    guideLink: {
+      text: "Läs vår kompletta guide om budget, rullande prognoser och säljplanering i Dynamics 365",
+      to: "/guider/budget-prognos-planering-dynamics-365/",
+    },
     faq: [
       {
         q: "Räcker Power BI för finansiell rapportering?",

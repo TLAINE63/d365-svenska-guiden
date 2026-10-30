@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { DeepDiveArticle } from "./bcArticles";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import sales01Img from "@/assets/articles/sales-01-pipeline.png";
@@ -293,6 +294,19 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
           <li>Integration med Power BI för djupanalys</li>
           <li>Historisk prognosnoggrannhetsrapport per säljare</li>
         </ul>
+
+        <h2>När säljprognosen ska synka med koncernens ekonomi</h2>
+        <p>
+          Säljprognosen blir mest värdefull när den inte stannar i CRM. Läses pipeline och viktade
+          prognoser in i samma Power BI-modell som utfallet från affärssystemet kan ekonomi­avdelningen
+          uppdatera intäkts- och kassaflödesprognosen direkt från säljteamets senaste bedömning, i stället
+          för att stämma av två kalkylblad.
+        </p>
+        <p>
+          <Link to="/guider/budget-prognos-planering-dynamics-365/">
+            Läs mer om hur säljprognoser integreras med finansiell planering i Dynamics{"\u00A0"}365
+          </Link>
+        </p>
       </>
     ),
   },
