@@ -5,6 +5,8 @@ function isAllowedOrigin(origin: string | null): boolean {
   const allowed = [
     "https://d365.se",
     "https://www.d365.se",
+    "https://businesscentral.se",
+    "https://www.businesscentral.se",
     "https://d365-svenska-guiden.lovable.app",
     "http://localhost:5173",
     "http://localhost:8080",
@@ -141,7 +143,8 @@ Deno.serve(async (req) => {
       page_path: page_path ? String(page_path).slice(0, 500) : null,
       session_id: session_id ? String(session_id).slice(0, 80) : null,
       step_number: typeof step_number === "number" ? step_number : null,
-      metadata: metadata && typeof metadata === "object" ? metadata : {},
+      // Sajten sätts på servern utifrån anropets ursprung, så d365.se och businesscentral.se kan skiljas åt i rapporten.
+      metadata: { ...(metadata && typeof metadata === "object" ? metadata : {}), source_site: /businesscentral\.se$/.test((req.headers.get("origin") || "").replace(/^https?:\/\//, "")) ? "businesscentral.se" : "d365.se" },
       ip_anonymized: anonIp,
       user_agent: userAgent,
       step: typeof step === "string" && STEPS.has(step) ? step : null,

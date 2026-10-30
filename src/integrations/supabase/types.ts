@@ -1132,6 +1132,54 @@ export type Database = {
           },
         ]
       }
+      isv_bc_presentation: {
+        Row: {
+          bc_editorial_context: string | null
+          bc_intro: string | null
+          bc_seo_description: string | null
+          bc_seo_title: string | null
+          bc_slug: string | null
+          bc_use_case: string | null
+          solution_id: string
+          updated_at: string
+        }
+        Insert: {
+          bc_editorial_context?: string | null
+          bc_intro?: string | null
+          bc_seo_description?: string | null
+          bc_seo_title?: string | null
+          bc_slug?: string | null
+          bc_use_case?: string | null
+          solution_id: string
+          updated_at?: string
+        }
+        Update: {
+          bc_editorial_context?: string | null
+          bc_intro?: string | null
+          bc_seo_description?: string | null
+          bc_seo_title?: string | null
+          bc_slug?: string | null
+          bc_use_case?: string | null
+          solution_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_bc_presentation_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
+            referencedRelation: "bc_isv_products_v1"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "isv_bc_presentation_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
+            referencedRelation: "isv_solutions"
+            referencedColumns: ["solution_id"]
+          },
+        ]
+      }
       isv_invitations: {
         Row: {
           created_at: string
@@ -5377,6 +5425,57 @@ export type Database = {
           },
         ]
       }
+      bc_isv_products_v1: {
+        Row: {
+          available_in: string[] | null
+          bc_editorial_context: string | null
+          bc_intro: string | null
+          bc_seo_description: string | null
+          bc_seo_title: string | null
+          bc_slug: string | null
+          best_for: string | null
+          category: string | null
+          compatible_products: string[] | null
+          considerations: string | null
+          d365_url: string | null
+          help_placement: string | null
+          industries: string[] | null
+          information_status: string | null
+          integration_type: string | null
+          last_verified_date: string | null
+          partner_slugs: string[] | null
+          premium_product: boolean | null
+          premium_vendor: boolean | null
+          product_id: string | null
+          product_name: string | null
+          product_website: string | null
+          schema_version: string | null
+          short_description: string | null
+          subcategory: string | null
+          updated_at: string | null
+          use_case: string | null
+          use_case_label: string | null
+          use_cases: string[] | null
+          vendor_description: string | null
+          vendor_id: string | null
+          vendor_information_status: string | null
+          vendor_last_verified_date: string | null
+          vendor_logo_url: string | null
+          vendor_name: string | null
+          vendor_website: string | null
+          what: string | null
+          when_fits: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       bc_partners_v1: {
         Row: {
           bc_competencies: Json | null
@@ -6015,6 +6114,8 @@ export type Database = {
         Args: { _meta: Json; _name: string }
         Returns: undefined
       }
+      bc_isv_use_case: { Args: { _category: string }; Returns: string }
+      bc_isv_use_case_label: { Args: { _key: string }; Returns: string }
       bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
       get_all_partner_names: {

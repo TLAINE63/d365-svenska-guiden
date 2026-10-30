@@ -280,9 +280,11 @@ serve(async (req) => {
       ]);
       if (vErr || pErr) throw vErr || pErr;
       const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
+      const { data: bcRows } = await supabase.from("isv_bc_presentation").select("*");
+      const bc = new Map((bcRows || []).map((r) => [r.solution_id, r]));
       return json({
         vendors: (vendors || []).map((v) => ({ ...v, buyer_opportunity_agreement_status: boa.get(v.slug) || "none" })),
-        products: products || [],
+        products: (products || []).map((p) => ({ ...p, bc_presentation: bc.get(p.solution_id) || null })),
       }, 200, corsHeaders);
     }
 
@@ -312,6 +314,26 @@ serve(async (req) => {
       const fields = statusFields(body || {}, "product_source", "premium_product");
       if (!Object.keys(fields).length) return json({ error: "Inga fält att spara" }, 400, corsHeaders);
       const { error } = await supabase.from("isv_solutions").update({ ...fields, updated_at: new Date().toISOString() }).eq("solution_id", id);
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ success: true }, 200, corsHeaders);
+    }
+
+    // Sprint 2.0: egen presentation på businesscentral.se. Kärndata och status ändras aldrig här.
+    if (action === "set_bc_presentation" && req.method === "POST") {
+      const body = await req.json();
+      const id = clean(body?.solution_id, 100);
+      if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
+      const slug = clean(body?.bc_slug, 120)?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || null;
+      const row = {
+        solution_id: id,
+        bc_slug: slug,
+        bc_intro: clean(body?.bc_intro, 1000),
+        bc_seo_title: clean(body?.bc_seo_title, 70),
+        bc_seo_description: clean(body?.bc_seo_description, 160),
+        bc_editorial_context: clean(body?.bc_editorial_context, 4000),
+        bc_use_case: clean(body?.bc_use_case, 40),
+      };
+      const { error } = await supabase.from("isv_bc_presentation").upsert(row, { onConflict: "solution_id" });
       if (error) return json({ error: error.message }, 400, corsHeaders);
       return json({ success: true }, 200, corsHeaders);
     }

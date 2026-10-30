@@ -86,3 +86,10 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Självservice per leverantör: korrigera/bekräfta profil, uppdatera produkter, lägga till och skicka produkt för publicering, allt via granskning
 - [x] Admin: leverantörsinbjudan, granskning per inskickstyp, statuspanel för verifiering, Premium, avtal och publiceringsmål
 - [x] Anonym mätning med de fem isv_*-händelserna och ISV-väg i köpvägsrapporten
+
+## Sprint 2.0 Business Central-syndikering av ISV-produkter (2026-10-30)
+- [x] Publik lista för businesscentral.se ur samma produktpost (bara Verifierad, publicerad, aktiv, BC-relevant, markerad)
+- [x] Alla 83 aktiva BC-tillägg markerade för businesscentral.se
+- [x] Egen adress, ingress, SEO-text, redaktionell kontext och use case per tillägg i admin
+- [x] Hjälpförfrågan och mätning tar emot anrop från businesscentral.se, märkta med sajt
+- [ ] Bygga visningen i businesscentral.se-projektet (väntar: görs i det projektet, instruktion i docs/BC-ISV-SYNDIKERING.md)
