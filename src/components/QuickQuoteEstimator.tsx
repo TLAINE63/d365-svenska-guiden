@@ -57,9 +57,10 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
   const priceMap = usePriceMap();
 
   const [solution, setSolution] = useState<SolutionKey>("bc");
-  const [userBucket, setUserBucket] = useState("35");
-  const [complexity, setComplexity] = useState<Complexity>("anpassad");
-  const [integrations, setIntegrations] = useState(3);
+  // Förval: lägsta alternativet överallt och 0 integrationer (Thomas 2026-10-30).
+  const [userBucket, setUserBucket] = useState("10");
+  const [complexity, setComplexity] = useState<Complexity>("standardnara");
+  const [integrations, setIntegrations] = useState(0);
   const [industry, setIndustry] = useState<string>("");
   const [showEstimate, setShowEstimate] = useState(false);
 
@@ -72,7 +73,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
     [priceMap],
   );
 
-  const bucket = USER_BUCKETS.find((b) => b.value === userBucket) ?? USER_BUCKETS[1];
+  const bucket = USER_BUCKETS.find((b) => b.value === userBucket) ?? USER_BUCKETS[0];
 
   const result = useMemo(
     () =>
