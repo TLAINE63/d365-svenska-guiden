@@ -1,4 +1,5 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Navigate } from "react-router-dom";
+import { resolveD365GuidePath } from "@/lib/d365guidePaths";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,8 +7,16 @@ import SEOHead from "@/components/SEOHead";
 
 const NotFound = () => {
   const location = useLocation();
+  // Besökare från d365guide.com:s språkväljare landar på engelska/norska/
+  // danska/finska adresser; led dem till motsvarande svenska sida.
+  const guideTarget = resolveD365GuidePath(location.pathname);
+  const redirectTo =
+    guideTarget && guideTarget.replace(/\/+$/, "") !== location.pathname.replace(/\/+$/, "")
+      ? guideTarget
+      : null;
 
   useEffect(() => {
+    if (redirectTo) return;
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
 
     // Logga 404:an så att gamla/trasiga URL:er kan följas upp i admin.
@@ -40,9 +49,11 @@ const NotFound = () => {
       'link[rel="canonical"]:not([data-rh]), meta[property^="og:"]:not([data-rh]), meta[name^="twitter:"]:not([data-rh]), script[type="application/ld+json"]:not([data-rh])'
     );
     stale.forEach((el) => el.parentElement?.removeChild(el));
-  }, [location.pathname]);
+  }, [location.pathname, redirectTo]);
 
-
+  if (redirectTo) {
+    return <Navigate to={`${redirectTo}${location.search}${location.hash}`} replace />;
+  }
 
   return (
     <>
