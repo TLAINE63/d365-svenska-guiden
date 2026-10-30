@@ -272,7 +272,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
               />
 
               <p className="mt-4 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Nästa steg:</span> välj nedan upp till 3 partners som får ert underlag och kan ge en riktig offert.{" "}
+                <span className="font-semibold text-foreground">Nästa steg:</span> se nedan vad som påverkar er faktiska kostnad. Vill ni ha riktiga offerter kan ni längre ned skicka underlaget till upp till 3 partners som ni själva väljer.{" "}
                 <Link to="/implementationskalkylator/" className="font-medium text-primary hover:underline">
                   Eller räkna mer detaljerat i kalkylatorn
                 </Link>
