@@ -3900,6 +3900,8 @@ export type Database = {
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json
+          information_status: string
+          information_verified_at: string | null
           invoice_contact: string | null
           invoice_email: string | null
           is_featured: boolean | null
@@ -3989,6 +3991,8 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json
+          information_status?: string
+          information_verified_at?: string | null
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
@@ -4078,6 +4082,8 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json
+          information_status?: string
+          information_verified_at?: string | null
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
@@ -5754,6 +5760,8 @@ export type Database = {
           industries: string[] | null
           industry_apps: Json | null
           industry_pitches: Json | null
+          information_status: string | null
+          information_verified_at: string | null
           is_featured: boolean | null
           key_differentiators: string[] | null
           key_differentiators_source: string | null
@@ -5808,6 +5816,8 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
+          information_status?: string | null
+          information_verified_at?: string | null
           is_featured?: boolean | null
           key_differentiators?: string[] | null
           key_differentiators_source?: string | null
@@ -5862,6 +5872,8 @@ export type Database = {
           industries?: string[] | null
           industry_apps?: Json | null
           industry_pitches?: Json | null
+          information_status?: string | null
+          information_verified_at?: string | null
           is_featured?: boolean | null
           key_differentiators?: string[] | null
           key_differentiators_source?: string | null
