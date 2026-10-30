@@ -6,14 +6,13 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import BuyerAssessmentLight from "@/components/assessment/BuyerAssessmentLight";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import {
-  BUSINESS_NEEDS, CONCRETE_NEEDS, COMPANY_SIZES, TIME_HORIZONS, COST_LINK, assessmentLines, businessNeedByKey,
+  BUSINESS_NEEDS, CONCRETE_NEEDS, COST_LINK, assessmentLines, businessNeedByKey,
   type AssessmentDraft, type BusinessNeed, type BusinessNeedKey, type ExploreLink,
 } from "@/lib/solutionNeeds";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 const STARTED_KEY = "d365_solution_journey_started";
-const selectCls = "mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const track = (event_name: string, metadata: Record<string, unknown> = {}) =>
   trackFunnelEvent({ event_type: "cta_click", event_name, metadata: { initial_intent: "BuyerProject", source_page: "/kom-igang/", ...metadata } });
 
@@ -56,9 +55,6 @@ export default function SolutionNeedStart({ onContinue, onSkip }: Props) {
     track("business_need_selected", { need: key });
     window.setTimeout(() => document.getElementById("losning-utforska")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
-
-  const toggleArea = (k: BusinessNeedKey) =>
-    setDraft((d) => ({ ...d, areas: (d.areas || []).includes(k) ? (d.areas || []).filter((x) => x !== k) : [...(d.areas || []), k] }));
 
   const group = (title: string, links: ExploreLink[]) => links.length > 0 && (
     <div>

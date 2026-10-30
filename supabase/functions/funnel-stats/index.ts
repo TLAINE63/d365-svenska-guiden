@@ -308,7 +308,11 @@ Deno.serve(async (req) => {
           { name: "solution_journey_started", label: "Resan startad", kind: "click" },
           { name: "business_need_selected", label: "Verksamhetsbehov valt", kind: "click", by: "need" },
           { name: "solution_area_viewed", label: "Lösningsområde visat eller klickat", kind: "click" },
-          { name: "solution_assessment_requested", label: "Få en första bedömning", kind: "submit" },
+          { name: "assessment_started", label: "Bedömning påbörjad", kind: "click" },
+          { name: "assessment_completed", label: "Bedömning visad", kind: "click" },
+          { name: "assessment_selfservice_continued", label: "Fortsatte utforska själv", kind: "click" },
+          { name: "assessment_contact_requested", label: "Diskutera bedömningen med d365.se", kind: "submit" },
+          { name: "solution_assessment_requested", label: "Få en första bedömning (före Sprint 1.7)", kind: "submit" },
           { name: "solution_advice_requested", label: "Prata med d365.se", kind: "submit" } ] },
         { key: "cost", label: "Kostnad", placements: ["cost_help"], events: [
           { name: "cost_journey_started", label: "Resan startad", kind: "click" },
