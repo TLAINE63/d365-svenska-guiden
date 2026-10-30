@@ -1,4 +1,6 @@
 import SimpleGuidePage from "@/components/guides/SimpleGuidePage";
+import GuideCTA from "@/components/guides/GuideCTA";
+import D365VsSalesforceMatrix from "@/components/comparisons/D365VsSalesforceMatrix";
 
 /**
  * Övergripande, köparsidig jämförelse Dynamics 365 vs Salesforce.
@@ -6,7 +8,7 @@ import SimpleGuidePage from "@/components/guides/SimpleGuidePage";
  * kostnadspåståenden hänvisar till kalkylator och modulsidornas prisuppgifter.
  */
 const PATH = "/jamfor/dynamics-365-vs-salesforce/";
-const SEO_TITLE = "Microsoft Dynamics 365 vs Salesforce – Stor Jämförelse 2026 | d365.se";
+const SEO_TITLE = "Dynamics 365 vs Salesforce: Jämförelse, priser & CRM | d365.se";
 
 const Dynamics365VsSalesforce = () => (
   <SimpleGuidePage
@@ -14,7 +16,7 @@ const Dynamics365VsSalesforce = () => (
     tool="d365_vs_salesforce"
     seoTitle={SEO_TITLE}
     seoTitleMaxLength={SEO_TITLE.length}
-    seoDescription="Jämför Microsoft Dynamics 365 och Salesforce utifrån samma frågor: priser, licensmodeller, ekosystem, CRM-funktionalitet och svensk partnernärvaro."
+    seoDescription="Jämför Microsoft Dynamics 365 Sales med Salesforce CRM. Se skillnader i licenspriser, Microsoft 365-integration, Copilot AI och implementering."
     crumbs={[
       { name: "Start", url: "/" },
       { name: "Jämförelser", url: "/jamfor/" },
@@ -22,6 +24,7 @@ const Dynamics365VsSalesforce = () => (
     ]}
     h1="Microsoft Dynamics 365 vs Salesforce – Vilken CRM-plattform passar er?"
     shortAnswer="Båda är mogna CRM-plattformar, och valet avgörs sällan av enskilda funktioner. Det avgörs av var ert dagliga arbete sker, om CRM ska dela data med affärssystemet och vad lösningen kostar med de integrationer och tillägg ni faktiskt behöver. Jämför därför per område: sälj, kundservice, marknadsföring och fältservice."
+    afterIntro={<D365VsSalesforceMatrix />}
     sections={[
       {
         title: "Helhet eller renodlat CRM?",
@@ -75,6 +78,17 @@ const Dynamics365VsSalesforce = () => (
         { label: "Alla jämförelser", href: "/jamfor/" },
       ],
     }}
+    afterNext={
+      <GuideCTA
+        variant="final"
+        heading="Utvärderar ni byte mellan Salesforce och Dynamics 365?"
+        text="Ett byte innebär datamigrering och ofta en period där båda systemen används parallellt. Fråga partners om deras erfarenhet av just detta och be om referenser."
+        buttonLabel="Jämför CRM-partners i partnerväljaren"
+        to="/valjdynamics365partner/"
+        source={`${PATH}#cta-final`}
+        className="!mt-0"
+      />
+    }
     faq={[
       {
         q: "Är Dynamics 365 eller Salesforce billigast?",
