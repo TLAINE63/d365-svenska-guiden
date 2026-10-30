@@ -24,6 +24,7 @@ import AdminAiVisibilityTab from "@/components/AdminAiVisibilityTab";
 import PostHogStatsCard from "@/components/PostHogStatsCard";
 import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import BuyerFunnelCard from "@/components/BuyerFunnelCard";
+import BuyerPathsReportCard from "@/components/BuyerPathsReportCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
@@ -251,6 +252,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="stats" className="space-y-6">
+            <BuyerPathsReportCard token={token} onSessionExpired={logout} />
             <BuyerFunnelCard token={token} onSessionExpired={logout} />
             <AiLibraryStatsCard token={token} onSessionExpired={logout} />
             <PostHogStatsCard token={token} onSessionExpired={logout} />

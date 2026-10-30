@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
       });
     }
     // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
-    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "buyer_paths" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
@@ -295,6 +295,103 @@ Deno.serve(async (req) => {
         if (r.event_name === "ai_library_entry_click") inc(entries, String(m.source_page || "okänt"));
       }
       return new Response(JSON.stringify({ period: { start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10) }, total: rows.length, sessions: sessions.size, events, byExample, filters, zero, entries, sources }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
+    if (body?.action === "buyer_paths") {
+      // Rapport per köpväg: endast aggregerade antal. Läser aldrig namn, e-post, telefon eller fritext.
+      const dP = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const sinceP = new Date(Date.now() - dP * 86400000).toISOString();
+      type Ev = { name: string; label: string; kind: "click" | "submit"; by?: string };
+      const PATHS: { key: string; label: string; events: Ev[]; placements?: string[]; leadTypes?: string[] }[] = [
+        { key: "hero", label: "Startsidans fyra köpvägar", events: [{ name: "hero_intent_clicked", label: "Klick på kort i startsidans hero", kind: "click", by: "card_id" }] },
+        { key: "solution", label: "Nytt CRM- eller affärssystem (ERP)", placements: ["solution_assessment", "solution_advice", "needs_guide"], events: [
+          { name: "solution_journey_started", label: "Resan startad", kind: "click" },
+          { name: "business_need_selected", label: "Verksamhetsbehov valt", kind: "click", by: "need" },
+          { name: "solution_area_viewed", label: "Lösningsområde visat eller klickat", kind: "click" },
+          { name: "solution_assessment_requested", label: "Få en första bedömning", kind: "submit" },
+          { name: "solution_advice_requested", label: "Prata med d365.se", kind: "submit" } ] },
+        { key: "cost", label: "Kostnad", placements: ["cost_help"], events: [
+          { name: "cost_journey_started", label: "Resan startad", kind: "click" },
+          { name: "cost_calculation_completed", label: "Kalkyl gjord", kind: "click", by: "calculator" },
+          { name: "cost_next_step_clicked", label: "Nästa steg klickat", kind: "click", by: "step" },
+          { name: "cost_help_requested", label: "Få hjälp att bedöma kostnadsbilden", kind: "submit" } ] },
+        { key: "existing", label: "Befintlig Dynamics 365", placements: ["existing_dynamics", "partner_relationship_review", "second_opinion"], events: [
+          { name: "existing_dynamics_option_selected", label: "Val gjort", kind: "click", by: "option" },
+          { name: "existing_dynamics_help_requested", label: "Prata med d365.se om nästa steg", kind: "submit" },
+          { name: "partner_relationship_review_requested", label: "Utvärdera partnersamarbetet", kind: "submit" } ] },
+        { key: "competence", label: "Kompetens: partner eller expert", leadTypes: ["kompetens_behov"], events: [
+          { name: "competence_path_opened", label: "Valet Vad söker ni? öppnat", kind: "click" },
+          { name: "competence_type_selected", label: "Typ vald", kind: "click", by: "competence_type" },
+          { name: "competence_help_requested", label: "Osäker: Beskriv behovet", kind: "submit" } ] },
+        { key: "partner", label: "Partnersökning", placements: ["partner_search"], events: [
+          { name: "partner_search_started", label: "Sökning startad", kind: "click" },
+          { name: "partner_need_selected", label: "Behov valt", kind: "click", by: "need" },
+          { name: "partner_filters_applied", label: "Filter använda", kind: "click" },
+          { name: "partner_verification_filter_applied", label: "Informationsstatus filtrerad", kind: "click", by: "information_status" },
+          { name: "partner_profile_viewed", label: "Profil besökt", kind: "click" },
+          { name: "partner_compare_started", label: "Jämförelse startad", kind: "click" },
+          { name: "partner_selfservice_clicked", label: "Besök partnern", kind: "click" },
+          { name: "partner_selection_help_requested", label: "Få hjälp att bedöma partners", kind: "submit" } ] },
+        { key: "expert", label: "Expert eller konsult", placements: ["expert_requirement"], events: [
+          { name: "expert_search_started", label: "Sökning startad", kind: "click" },
+          { name: "expert_role_selected", label: "Roll vald", kind: "click", by: "role" },
+          { name: "expert_specialism_selected", label: "Specialistområde valt", kind: "click" },
+          { name: "expert_requirement_started", label: "Behovsformulär öppnat", kind: "click" },
+          { name: "expert_requirement_submitted", label: "Kompetensbehov skickat", kind: "submit" } ] },
+      ];
+      const evByName = new Map<string, Ev>();
+      for (const pth of PATHS) for (const e of pth.events) evByName.set(e.name, e);
+      const names = [...evByName.keys()];
+      // Bara uppräkningsbara värden redovisas; fritext eller ovanliga tecken blir "övrigt".
+      const safeVal = (v: unknown) => (typeof v === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(v) ? v : "övrigt");
+      const stats = new Map<string, { total: number; sessions: Set<string>; by: Map<string, number> }>();
+      const add = (name: string, sid: string | null, meta: any) => {
+        const e = evByName.get(name); if (!e) return;
+        let st = stats.get(name);
+        if (!st) { st = { total: 0, sessions: new Set(), by: new Map() }; stats.set(name, st); }
+        st.total++;
+        if (sid) st.sessions.add(sid);
+        if (e.by) { const k = safeVal(meta?.[e.by]); st.by.set(k, (st.by.get(k) || 0) + 1); }
+      };
+      for (let from = 0; from < 300000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, session_id, metadata").in("event_name", names).gte("occurred_at", sinceP).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) add(r.event_name, r.session_id, r.metadata);
+        if (!data || data.length < 1000) break;
+      }
+      // Startsidans kortklick mäts via track-event (partner_tracking_events).
+      for (let from = 0; from < 300000; from += 1000) {
+        const { data, error } = await supabase.from("partner_tracking_events").select("event_name, session_id, metadata").eq("event_name", "hero_intent_clicked").gte("created_at", sinceP).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) add(r.event_name, r.session_id, r.metadata);
+        if (!data || data.length < 1000) break;
+      }
+      // Registrerade ärenden räknas per ingång; endast ingång och typ läses, aldrig kontaktuppgifter.
+      const placementCount = new Map<string, number>();
+      for (let from = 0; from < 100000; from += 1000) {
+        const { data, error } = await supabase.from("inquiries").select("advisory_placement").eq("is_advisory", true).gte("created_at", sinceP).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) { const k = r.advisory_placement || "plan"; placementCount.set(k, (placementCount.get(k) || 0) + 1); }
+        if (!data || data.length < 1000) break;
+      }
+      const leadCount = new Map<string, number>();
+      const { data: leadRows, error: leadErr } = await supabase.from("leads").select("source_type").eq("source_type", "kompetens_behov").gte("created_at", sinceP).limit(10000);
+      if (leadErr) console.error(leadErr);
+      for (const r of leadRows || []) leadCount.set(r.source_type, (leadCount.get(r.source_type) || 0) + 1);
+      const paths = PATHS.map((pth) => {
+        const events = pth.events.map((e) => {
+          const st = stats.get(e.name);
+          return { name: e.name, label: e.label, kind: e.kind, total: st?.total || 0, sessions: st?.sessions.size || 0,
+            breakdown: st ? [...st.by.entries()].sort((a, b) => b[1] - a[1]).map(([value, count]) => ({ value, count })) : [] };
+        });
+        const registered = [
+          ...(pth.placements || []).map((pl) => ({ key: pl, count: placementCount.get(pl) || 0 })),
+          ...(pth.leadTypes || []).map((lt) => ({ key: lt, count: leadCount.get(lt) || 0 })),
+        ];
+        return { key: pth.key, label: pth.label, clicks: events.filter((e) => e.kind === "click").reduce((a, e) => a + e.total, 0),
+          submits: events.filter((e) => e.kind === "submit").reduce((a, e) => a + e.total, 0), events, registered };
+      });
+      return new Response(JSON.stringify({ days: dP, since: sinceP.slice(0, 10), paths }), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     if (body?.action === "buyer") {
