@@ -110,7 +110,7 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = VERIFIED_PARTNER_COUNT;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
-const HOME_LAST_UPDATED = "2026-10-26";
+const HOME_LAST_UPDATED = "2026-10-30";
 
 const HOME_SOURCES = [
   { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
@@ -326,7 +326,7 @@ const Index = () => {
               Rätt Microsoft <span className="whitespace-nowrap">Dynamics&nbsp;365-beslut</span> börjar här.
             </h1>
             <p className="mb-5 sm:mb-6 max-w-2xl sm:max-w-3xl text-[14px] sm:text-[15px] lg:text-[17px] leading-relaxed text-primary-foreground/75">
-              Ska ni välja nytt affärssystem (ERP) eller CRM, förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här kan ni jämföra alternativ, förstå kostnader och hitta rätt kompetens och partner utifrån era behov.
+              Ska ni välja nytt CRM- eller affärssystem (ERP), förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här får ni hjälp att förstå alternativen och hitta rätt nästa steg utifrån era behov.
             </p>
             <p className="mb-2 sm:mb-3 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
 
@@ -337,8 +337,8 @@ const Index = () => {
               variant="hero"
               placement="home"
               pageType="startsida"
-              text="Osäker på var ni ska börja?"
-              cta="Tala med en rådgivare"
+              text="Osäker på vad som är rätt nästa steg?"
+              cta="Prata med d365.se"
               dialogTitle="Tala med en rådgivare"
               dialogDescription="En rådgivare på köparens sida hjälper er att hitta rätt startpunkt. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande."
               className="mt-3"
