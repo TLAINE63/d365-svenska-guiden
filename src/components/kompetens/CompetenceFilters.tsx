@@ -19,9 +19,14 @@ interface Props {
   /** Produktfiltret är låst på produktkompetensguider. */
   lockedProduct?: string;
   className?: string;
+  /** Vilka fält som visas (standard alla). */
+  fields?: Array<"product" | "industry" | "region" | "delivery">;
+  /** Dölj knappen Rensa val. */
+  hideClear?: boolean;
 }
 
-const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: Props) => {
+const CompetenceFilters = ({ value, onChange, lockedProduct, className = "", fields = ["product", "industry", "region", "delivery"], hideClear = false }: Props) => {
+  const show = (f: "product" | "industry" | "region" | "delivery") => fields.includes(f);
   const set = (key: keyof CompetenceFilterState, v: string) =>
     onChange({ ...value, [key]: v === ALL ? undefined : v });
 
@@ -30,7 +35,7 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
   return (
     <div className={className}>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
+        {show("product") && <div>
           <Label className="text-xs font-semibold mb-1.5 block">Produkt</Label>
           {lockedProduct ? (
             <div className="flex h-10 items-center rounded-md border border-border bg-muted px-3 text-sm text-muted-foreground">
@@ -51,9 +56,9 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
               </SelectContent>
             </Select>
           )}
-        </div>
+        </div>}
 
-        <div>
+        {show("industry") && <div>
           <Label className="text-xs font-semibold mb-1.5 block">Bransch</Label>
           <Select value={value.industry ?? ALL} onValueChange={(v) => set("industry", v)}>
             <SelectTrigger>
@@ -68,9 +73,9 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div>}
 
-        <div>
+        {show("region") && <div>
           <Label className="text-xs font-semibold mb-1.5 block">
             Geografiskt behov
           </Label>
@@ -87,9 +92,9 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div>}
 
-        <div>
+        {show("delivery") && <div>
           <Label className="text-xs font-semibold mb-1.5 block">Leveransform</Label>
           <Select value={value.delivery ?? ALL} onValueChange={(v) => set("delivery", v)}>
             <SelectTrigger>
@@ -104,10 +109,10 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "" }: P
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div>}
       </div>
 
-      {hasAny && (
+      {hasAny && !hideClear && (
         <Button
           type="button"
           variant="ghost"

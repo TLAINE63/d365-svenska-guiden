@@ -12,6 +12,9 @@ interface Props {
   showRequirements?: boolean;
   pageType: string;
   className?: string;
+  /** Valfritt styrt läge, t.ex. när partnerdelens tomläge öppnar formuläret. */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -20,13 +23,15 @@ interface Props {
  * internt ärende hos d365.se med status ny. Inget skickas till någon partner, och en namngiven
  * introduktion kräver köparens godkännande (partner_introductions).
  */
-export default function ExpertRequirementExit({ draft, showRequirements = true, pageType, className = "" }: Props) {
-  const [open, setOpen] = useState(false);
+export default function ExpertRequirementExit({ draft, showRequirements = true, pageType, className = "", open: openProp, onOpenChange }: Props) {
+  const [openState, setOpenState] = useState(false);
+  const open = openProp ?? openState;
+  const setOpen = (v: boolean) => { setOpenState(v); onOpenChange?.(v); };
   const summary = draftSummary(draft);
   const toClarify = requirementsToClarify(draft);
 
   return (
-    <section className={`rounded-xl border border-border bg-card p-6 ${className}`}>
+    <section id="beskriv-behov" className={`scroll-mt-28 rounded-xl border border-border bg-card p-6 ${className}`}>
       <h2 className="text-lg font-bold mb-2">Så går ni vidare med ert kompetensbehov</h2>
       <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-2xl">
         Beskriv behovet så går d365.se igenom det manuellt. Tillgänglighet och lämplig leveransform
@@ -78,6 +83,7 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
               startEvent: "expert_requirement_started",
               submitEvent: "expert_requirement_submitted",
               messageLabel: "Beskrivning av behovet (valfritt)",
+              hideFocus: true,
               extras: summary.length ? [{ key: "kompetensbehov", label: "Kompetensbehov", lines: summary.map((r) => `${r.label}: ${r.value}`) }] : [],
               metadata: {
                 intent_type: "ExpertRequirement",

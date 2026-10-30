@@ -54,7 +54,7 @@ function usePlanSections(): Section[] {
 export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search" | "expert_requirement";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
-export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean }
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean; hideFocus?: boolean }
 export type { Section as ContactSection };
 
 export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
@@ -187,7 +187,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
                 {chosenVerified.length > 0 && chosenBasic.length > 0 && <p className="text-xs text-muted-foreground">Kontaktvägarna skiljer sig: verifierade partners får er förfrågan direkt, för grundprofiler begär ni en introduktion via d365.se.</p>}
               </fieldset>}
 
-              {advisory && <div>
+              {advisory && !topic?.hideFocus && <div>
                 <Label htmlFor="pc-focus">Vad vill ni främst ha hjälp med?</Label>
                 <select id="pc-focus" className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={focus} onChange={(e) => setFocus(e.target.value)}>
                   <option value="">Välj (valfritt)</option>{FOCUS.map((x) => <option key={x}>{x}</option>)}
