@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
       });
     }
     // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
-    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "buyer_paths" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "buyer_paths" || body?.action === "journey_funnels" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
