@@ -14,7 +14,12 @@ type CompetenceEvent =
   | "kompetens_partner_profile_click"
   | "kompetens_partner_contact_click"
   | "kompetens_need_form_open"
-  | "kompetens_need_form_submit";
+  | "kompetens_need_form_submit"
+  // Sprint 1.0: förgrening partner/expert från startsidans kompetenskort.
+  | "competence_path_opened"
+  | "competence_type_selected"
+  | "partner_search_started"
+  | "expert_requirement_started";
 
 export function trackCompetenceEvent(
   event: CompetenceEvent,
