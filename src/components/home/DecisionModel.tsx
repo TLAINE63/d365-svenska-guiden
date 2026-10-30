@@ -82,6 +82,14 @@ const DecisionModel = ({ onStartNeedsAnalysis, onOpenCompetenceChoice }: Decisio
                 destination,
                 timestamp: new Date().toISOString(),
               };
+              track("hero_intent_clicked", {
+                card_id: n.cardId,
+                source_page: meta.source_page,
+                initial_intent: n.intentType ?? null,
+                buyer_stage: n.buyerStage ?? null,
+                destination,
+                timestamp: meta.timestamp,
+              });
               track("home_path_click", { path: n.title, to: destination, ...meta });
               trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: destination, ...meta } });
               if (opensChoice) {
