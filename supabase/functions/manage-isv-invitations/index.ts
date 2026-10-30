@@ -76,12 +76,12 @@ serve(async (req) => {
             await resend.emails.send({
               from: "d365.se <noreply@d365.se>",
               to: [email],
-              subject: `Beskriv ${solution_name} i ISV-katalogen på d365.se`,
+              subject: isVendor ? `Granska ${solution_name} och era produkter på d365.se` : `Beskriv ${solution_name} i ISV-katalogen på d365.se`,
               html: `
                 <div style="font-family:Segoe UI,Arial,sans-serif;color:#1f2933;line-height:1.6">
                   <p>Hej${vendor_name ? ` ${vendor_name}` : ""},</p>
                   <p>d365.se kartlägger tillägg och ISV-lösningar för Microsoft Dynamics 365 på den svenska marknaden.
-                  <strong>${solution_name}</strong> finns med i katalogen och ni får gärna beskriva lösningen med era egna ord.</p>
+                  ${isVendor ? `<strong>${solution_name}</strong> och era produkter finns med i katalogen. Via länken kan ni granska och korrigera leverantörsprofilen, bekräfta uppgifterna, uppdatera produkter och lägga till nya produkter. Allt granskas av redaktionen innan det publiceras.` : `<strong>${solution_name}</strong> finns med i katalogen och ni får gärna beskriva lösningen med era egna ord.`}</p>
                   <p>Via länken nedan anger ni bland annat vilka Dynamics 365-produkter lösningen är byggd för,
                   vilka branscher den passar för, vad den gör och när den passar.</p>
                   <p><a href="${link}" style="background:#D64A1F;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">Fyll i er profil</a></p>
