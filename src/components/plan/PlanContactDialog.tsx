@@ -217,7 +217,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
                 </>}
               </section>
 
-              {advisory && <p className="rounded-md border border-border bg-secondary/40 p-3 text-xs text-muted-foreground">Rådgivningen är kostnadsfri för er och ingen partner behöver delta i mötet. d365.se kan ha kommersiella relationer med partners, men eventuell ersättning styr inte vilken lösning eller partner vi bedömer som relevant. Läs mer om <Link to="/agande-och-intressen/" className="underline" target="_blank">ägande och intressen</Link>. Inget delas med någon partner utan ert uttryckliga godkännande.</p>}
+              {advisory && <p className="rounded-md border border-border bg-secondary/40 p-3 text-xs text-muted-foreground">Rådgivningen är kostnadsfri för er och ingen partner behöver delta. d365.se kan ha kommersiella relationer med partners, men eventuell ersättning styr inte vilken lösning eller partner vi bedömer som relevant. Läs mer om <Link to="/agande-och-intressen/" className="underline" target="_blank">ägande och intressen</Link>. Inget delas med någon partner utan ert uttryckliga godkännande.</p>}
               <p className="text-xs text-muted-foreground">Dynamic Factory, som ger ut d365.se, är personuppgiftsansvarig. Läs mer i <Link to="/dataskydd/" className="underline" target="_blank">dataskyddspolicyn</Link>.</p>
               <label className="flex items-start gap-2 text-sm cursor-pointer rounded-md border border-border p-3">
                 <Checkbox checked={approve} onCheckedChange={(v) => setApprove(v === true)} className="mt-0.5" />
