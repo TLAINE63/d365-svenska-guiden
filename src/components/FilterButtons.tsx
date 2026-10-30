@@ -35,7 +35,7 @@ interface FilterOption {
 
 interface FilterButtonsProps {
   title: string;
-  icon: "industry" | "employees" | "application" | "revenue" | "geography" | "need";
+  icon: "industry" | "employees" | "application" | "revenue" | "geography" | "need" | "verification" | "assignment" | "delivery" | "competence";
   options: FilterOption[];
   selectedValue: string | null;
   onSelect: (value: string | null) => void;
@@ -60,6 +60,10 @@ const iconMap = {
   revenue: TrendingUp,
   geography: Globe,
   need: ClipboardList,
+  verification: ShieldCheck,
+  assignment: Briefcase,
+  delivery: LifeBuoy,
+  competence: Sparkles,
 };
 
 const colorSchemes = {
