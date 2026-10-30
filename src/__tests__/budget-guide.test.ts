@@ -9,6 +9,7 @@ import {
   BUDGET_GUIDE_SEO,
 } from "@/data/budgetPlanningGuide";
 import { BC_CATEGORY_PAGES } from "@/data/bcIsvCategoryPages";
+import * as guide from "@/data/budgetPlanningGuide";
 
 const PAGE = readFileSync(resolve(process.cwd(), "src/pages/BudgetPrognosPlanering.tsx"), "utf-8");
 
