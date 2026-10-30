@@ -25,6 +25,10 @@ const NotFound = () => {
   useEffect(() => {
     if (redirectTo) return;
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    if (!viewed.current) {
+      viewed.current = true;
+      trackFunnelEvent({ event_type: "cta_view", event_name: "dead_end_next_step_viewed", page_path: location.pathname, metadata: deadEndMeta("not_found", location.pathname, "not_found_options") });
+    }
 
     // Logga 404:an så att gamla/trasiga URL:er kan följas upp i admin.
     try {
