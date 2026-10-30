@@ -29,6 +29,48 @@
         } catch (e) {}
       })();
     </script>
+    <!-- Skydd mot inbäddning (hosting kan inte sätta X-Frame-Options/frame-ancestors): om sidan visas i en ram
+         på en okänd domän döljs innehållet och besökaren får en länk till d365.se. d365.se och Lovables
+         förhandsvisning är tillåtna. Sökmotorer läser sidan utan ram och påverkas inte. -->
+    <style>html[data-d365-framed] body > :not(#d365-frame-notice){display:none!important}</style>
+    <script>
+      (function () {
+        try {
+          if (window.self === window.top) return;
+          var ok = function (h) {
+            h = (h || '').toLowerCase();
+            return h === 'd365.se' || h === 'www.d365.se' || h === 'localhost' || h === '127.0.0.1' ||
+              /(^|\.)lovable\.(app|dev)$/.test(h) || /(^|\.)lovableproject\.com$/.test(h);
+          };
+          var hostOf = function (u) { try { return new URL(u).hostname; } catch (e) { return ''; } };
+          var hosts = [];
+          try { hosts = [window.top.location.hostname]; } catch (e) {
+            var anc = location.ancestorOrigins;
+            if (anc && anc.length) { for (var i = 0; i < anc.length; i++) hosts.push(hostOf(anc[i])); }
+            else if (document.referrer) hosts = [hostOf(document.referrer)];
+          }
+          // Utan uppgift om vem som bäddar in tillåts sidan, så att förhandsvisning och verktyg inte slutar fungera.
+          if (!hosts.length || hosts.every(ok)) return;
+          document.documentElement.setAttribute('data-d365-framed', '');
+          var show = function () {
+            var d = document.createElement('div');
+            d.id = 'd365-frame-notice';
+            d.setAttribute('style', 'font-family:system-ui,sans-serif;padding:24px;max-width:520px;margin:40px auto;line-height:1.5');
+            var a = document.createElement('a');
+            a.href = 'https://d365.se' + location.pathname;
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.textContent = 'Öppna sidan på d365.se';
+            var p = document.createElement('p');
+            p.textContent = 'Den här sidan kan bara visas på d365.se. ';
+            p.appendChild(a);
+            d.appendChild(p);
+            document.body.appendChild(d);
+          };
+          if (document.body) show(); else document.addEventListener('DOMContentLoaded', show);
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Snitcher visitor identification (laddas efter LCP för att inte blockera första rendering) -->
     <script>
