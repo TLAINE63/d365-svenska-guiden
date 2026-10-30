@@ -1258,6 +1258,7 @@ const ValjPartner = () => {
    ...(need ? [{ key: "partnerbehov", label: "Valt behov", lines: [needLabel(need) as string] }] : []),
    ...(selectedApplications.length ? [{ key: "losning", label: "Dynamics-produkt", lines: selectedApplications.map(applicationFilterLabel) }] : []),
    ...(selectedIndustry || selectedGeography || selectedCompanySize ? [{ key: "partnerurval", label: "Bransch, geografi och storlek", lines: [selectedIndustry && `Bransch: ${selectedIndustry}`, selectedGeography && `Geografi: ${selectedGeography}`, selectedCompanySize && `Storlek: ${selectedCompanySize} anställda`].filter(Boolean) as string[] }] : []),
+   ...(extraFiltersActive ? [{ key: "uppdrag", label: "Uppdragstyp, leveransform och kompetens", lines: [assignmentType && `Uppdragstyp: ${ASSIGNMENT_TYPES.find((a) => a.value === assignmentType)?.label}`, deliveryForm && `Leveransform: ${DELIVERY_FORMS.find((d) => d.value === deliveryForm)?.label}`, competence && `Kompetens: ${COMPETENCE_OPTIONS.find((c) => c.value === competence)?.label}`].filter(Boolean) as string[] }] : []),
    ...(shortlistItems.length ? [{ key: "kortlista", label: "Partners i er kortlista", lines: shortlistItems.map((i) => i.name) }] : []),
   ]}
   metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}
