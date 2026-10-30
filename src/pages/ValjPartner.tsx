@@ -10,7 +10,7 @@ import RelatedPages, { valjPartnerRelatedPages } from "@/components/RelatedPages
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { Users, ArrowRight, ArrowLeftRight, Calendar, MessageSquare, Mail, Award, Shield, ExternalLink, Star, Loader2, List, Search, MapPin, Building2, CheckCircle2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { applicationFilterLabel } from "@/lib/applicationLabels";
@@ -18,7 +18,6 @@ import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import ProductHero from "@/components/ProductHero";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
-import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
@@ -58,6 +57,13 @@ import {
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import EditorialSource from "@/components/EditorialSource";
 import ShortlistButton from "@/components/ShortlistButton";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { useShortlist } from "@/contexts/ShortlistContext";
+import { episodesForPartner } from "@/data/d365Inside";
+import {
+ PARTNER_NEEDS, type PartnerNeedKey, getPartnerNeed, setPartnerNeed, needLabel, intentForNeed,
+ startPartnerSearch, trackPartnerFunnel, neutralPartnerOrder, countPartnerCases,
+} from "@/lib/partnerSearchFunnel";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -304,6 +310,22 @@ const ValjPartner = () => {
  const [verifiedOnly, setVerifiedOnly] = useState(false);
  const [nameQuery, setNameQuery] = useState("");
 
+ // Sprint 1.1 steg 1: behovet sparas bara under besöket och styr varken urval eller ordning.
+ const location = useLocation();
+ const { items: shortlistItems } = useShortlist();
+ const [need, setNeed] = useState<PartnerNeedKey | null>(null);
+ useEffect(() => {
+  setNeed(getPartnerNeed());
+  startPartnerSearch(searchParams.get("source") || (location.hash === "#hitta-partners" ? "hitta-partners" : "sida"));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, []);
+ const selectNeed = (key: string | null) => {
+  const k = (PARTNER_NEEDS.find((n) => n.key === key)?.key ?? null) as PartnerNeedKey | null;
+  setNeed(k);
+  setPartnerNeed(k);
+  if (k) trackPartnerFunnel("partner_need_selected", { need: k, intent_type: intentForNeed(k) });
+ };
+
  // Publish current filters to the partner-compare context so a "Jämför"
  // navigation carries product/industry/geo/size into the compare page.
  const { setFilterContext: setCompareFilters } = usePartnerCompare();
@@ -495,14 +517,13 @@ const ValjPartner = () => {
  }
  }
  
- // Avtalspartners först, sedan sessionsstabil seedad ordning inom respektive grupp
- // (samma seed som övriga partnerlistor, så ordningen hoppar inte vid filterändringar).
+ // Sessionsstabil seedad ordning (samma seed som övriga partnerlistor,
+ // så ordningen hoppar inte vid filterändringar).
  const seed = getSessionSeed();
    const q = nameQuery.trim().toLowerCase();
    if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
-   const signed = result.filter(p => p.agreement_signed);
-   const unsigned = result.filter(p => !p.agreement_signed);
-   return [...seededShuffle(signed, seed), ...seededShuffle(unsigned, seed + 1)];
+   // Neutral ordning: avtal, premium eller andra kommersiella relationer påverkar inte placeringen.
+   return neutralPartnerOrder(result, seededShuffle, seed);
   }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery]);
 
  // Track which partners get shown in filter results (admin sales summary)
@@ -558,6 +579,29 @@ const ValjPartner = () => {
     selectedCompanySize,
     selectedGeography,
   ]);
+
+ // Sprint 1.1 steg 2: mät när besökaren preciserar sökningen (bara valda filtervärden, ingen fritext).
+ useEffect(() => {
+  if (isLoading) return;
+  if (!selectedApplications.length && !selectedIndustry && !selectedGeography && !selectedCompanySize && !selectedRevenue) return;
+  const t = window.setTimeout(() => trackPartnerFunnel("partner_filters_applied", {
+   product: selectedApplications.join(", ") || null,
+   industry: selectedIndustry,
+   geography: selectedGeography,
+   size: selectedCompanySize,
+   revenue: selectedRevenue,
+   results: filteredPartners.length,
+  }), 800);
+  return () => window.clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [isLoading, selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
+
+ // Från startsidans val "En Dynamics 365-partner": landa direkt på steg 1.
+ useEffect(() => {
+  if (isLoading || location.hash !== "#hitta-partners") return;
+  const t = window.setTimeout(() => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" }), 60);
+  return () => window.clearTimeout(t);
+ }, [isLoading, location.hash]);
 
  // Basic-partners (observerad data) som matchar samma filter
   const filteredBasicPartners = useMemo(
@@ -847,6 +891,23 @@ const ValjPartner = () => {
  </div>
 
 
+ {/* Steg 1: behov */}
+ <div className="mx-auto max-w-4xl">
+  <FilterButtons
+   title="Vad behöver ni hjälp med?"
+   icon="need"
+   options={PARTNER_NEEDS.map((n) => ({ label: n.label, value: n.key }))}
+   selectedValue={need}
+   onSelect={selectNeed}
+   colorScheme="amber"
+  />
+  <p className="-mt-4 mb-8 text-center text-xs text-muted-foreground">
+   Valet följer med om ni ber d365.se om hjälp. Det ändrar inte vilka partners som visas eller i vilken ordning.
+   {need === "utvardera" && <> Funderar ni på att byta partner? <Link to="/guider/byta-dynamics-partner/" className="font-semibold text-foreground underline underline-offset-4">Läs guiden om partnerbyte</Link>.</>}
+  </p>
+  <p className="mb-6 text-center text-sm font-semibold text-foreground">Precisera sökningen</p>
+ </div>
+
  {/* Fritextsökning på partnernamn */}
  <div className="mx-auto mb-8 max-w-xl">
   <label htmlFor="partner-name-search" className="sr-only">Sök partner på namn</label>
@@ -988,9 +1049,12 @@ const ValjPartner = () => {
   ) : (
    <>
     {searchParams.get("source") === "min-d365-plan" && (selectedApplications.length > 0 || selectedIndustry) && <p className="mb-4 max-w-4xl mx-auto rounded-md border border-border bg-card p-3 text-sm text-foreground">Utifrån er D365-plan visar vi partners inom {[...selectedApplications.map(applicationFilterLabel), selectedIndustry?.toLocaleLowerCase("sv")].filter(Boolean).join(" och ").replace(/Dynamics 365/g, "Dynamics\u00a0365")}. Ordningen påverkas inte av planen och ni kan ändra filtren fritt.</p>}
-    <WhyTheseResults className="mb-6 max-w-4xl mx-auto" agreementPriority criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
+    <WhyTheseResults className="mb-6 max-w-4xl mx-auto" criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
     <div className="mb-6 max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 p-4">
-      <p className="text-sm text-foreground"><span className="font-semibold">Nästa steg:</span> spara 1–3 partners i kortlistan och jämför dem innan ni tar kontakt.</p>
+      <div className="text-sm text-foreground">
+       <p><span className="font-semibold">Nästa steg:</span> spara 1–3 partners i kortlistan och jämför dem. Kontakta sedan en partner själva eller be d365.se om hjälp med urvalet.</p>
+       <p className="mt-1 text-xs text-muted-foreground">När ni kontaktar en partner går det direkt till partnern. d365.se garanterar inte partnerns återkoppling.</p>
+      </div>
       <Button asChild size="sm"><Link to="/kortlista/">Gå till kortlistan <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>
     </div>
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1025,8 +1089,20 @@ const ValjPartner = () => {
  showRandomIndicator={true}
  />
  {underlagFilters && <UnderlagMatchBox partner={partner as any} filters={underlagFilters} />}
+ {(() => {
+  const cases = countPartnerCases(partner as any);
+  const inside = episodesForPartner(partner.slug).length > 0;
+  if (!cases && !inside) return null;
+  return (
+   <p className="text-xs text-muted-foreground">
+    {cases > 0 && <>Kundcase i profilen: <span className="font-semibold text-foreground">{cases}</span></>}
+    {cases > 0 && inside && " · "}
+    {inside && <Link to={buildPartnerProfileUrl(partner.slug)} className="font-semibold text-foreground underline underline-offset-4">Intervju i d365.se INSIDE</Link>}
+   </p>
+  );
+ })()}
  <div className="flex flex-wrap items-center gap-2">
-  <Button variant="outline" onClick={() => inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null })}>Be om kontakt</Button>
+  <Button variant="outline" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "kontakta_partnern" }); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null }); }}>Kontakta partnern</Button>
   <div className="min-w-[12rem]">
    <ShortlistButton entry={{ slug: partner.slug, name: partner.name, url: buildPartnerProfileUrl(partner.slug), verified: true }} cardType="verifierad" productArea={selectedApplications[0] || null} />
   </div>
@@ -1065,76 +1141,27 @@ const ValjPartner = () => {
 
 
 
- {/* Lead CTA with urgency badge */}
- <div className="max-w-xl mx-auto mt-12">
- {/* Premium Contact CTA Card - same design as PartnerProfile */}
- <article className="relative rounded overflow-hidden ">
- {/* Gradient background */}
- <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
- 
- {/* Animated orb */}
- <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
- 
- <div className="relative p-6 sm:p-8">
- <div className="flex items-start gap-4 mb-6">
- <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
- <span className="text-xl">✨</span>
- </div>
- <div>
- <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
- Låt oss hjälpa dig hitta rätt partner
- </h3>
- <p className="text-white/70 text-sm sm:text-base">
- Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
- </p>
- </div>
- </div>
- 
- {/* Filter context with glass effect */}
- {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
- <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
- <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
- <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
- Din sökning
- </p>
- <div className="flex flex-wrap gap-2">
- {selectedApplications.map(app => (
- <Badge key={app} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- {applicationFilterLabel(app)}
- </Badge>
- ))}
- {selectedIndustry && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedIndustry}
- </Badge>
- )}
- {selectedCompanySize && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedCompanySize}
- </Badge>
- )}
- {selectedGeography && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedGeography}
- </Badge>
- )}
- </div>
- </div>
- )}
- 
- <LeadCTA
- sourcePage="/valjdynamics365partner"
- selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
- selectedIndustry={selectedIndustry || undefined}
- selectedCompanySize={selectedCompanySize || undefined}
- selectedGeography={selectedGeography || undefined}
- variant="inline"
+ {/* Sprint 1.1 Conversion Exit B: hjälp från d365.se (internt granskningsärende, inget skickas till partner) */}
+ <AdvisoryOffer
+  className="max-w-4xl mx-auto mt-12"
+  variant="inline"
+  placement="partner_search"
+  pageType={intentForNeed(need)}
+  cta="Få hjälp att bedöma vilka partners som passar"
+  heading="Vill ni ha hjälp att bedöma vilka partners som passar?"
+  text="Beskriv ert behov så gör d365.se en manuell genomgång och ger råd om relevanta nästa steg. Inget skickas automatiskt till någon partner, och en namngiven introduktion görs bara efter ert godkännande."
+  dialogTitle="Få hjälp att bedöma vilka partners som passar"
+  dialogDescription="d365.se går igenom ert behov manuellt och återkommer med råd om nästa steg. Inget skickas till någon partner. Vill ni bli introducerade till en namngiven partner frågar vi er först."
+  messageLabel="Kort beskrivning av behovet (valfritt)"
+  submitEvent="partner_selection_help_requested"
+  sections={[
+   ...(need ? [{ key: "partnerbehov", label: "Valt behov", lines: [needLabel(need) as string] }] : []),
+   ...(selectedApplications.length ? [{ key: "losning", label: "Dynamics-produkt", lines: selectedApplications.map(applicationFilterLabel) }] : []),
+   ...(selectedIndustry || selectedGeography || selectedCompanySize ? [{ key: "partnerurval", label: "Bransch, geografi och storlek", lines: [selectedIndustry && `Bransch: ${selectedIndustry}`, selectedGeography && `Geografi: ${selectedGeography}`, selectedCompanySize && `Storlek: ${selectedCompanySize} anställda`].filter(Boolean) as string[] }] : []),
+   ...(shortlistItems.length ? [{ key: "kortlista", label: "Partners i er kortlista", lines: shortlistItems.map((i) => i.name) }] : []),
+  ]}
+  metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}
  />
- </div>
- </article>
- </div>
  </div>
   </section>
 

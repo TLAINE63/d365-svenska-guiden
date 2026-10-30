@@ -2,6 +2,7 @@
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useState, useEffect, useMemo } from "react";
 import PartnerProfileOpening from "@/components/partner/PartnerProfileOpening";
+import { trackPartnerFunnel } from "@/lib/partnerSearchFunnel";
 import {
   PROFILE_EXPLAINER_VERIFIED_MORE,
   PROFILE_EXPLAINER_VERIFIED_SHORT,
@@ -207,6 +208,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   partnerSlug: slug,
   partnerId,
  });
+ trackPartnerFunnel("partner_profile_viewed", { partner_slug: slug });
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [slug]);
 

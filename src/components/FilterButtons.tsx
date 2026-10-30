@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, Building2, Users, AppWindow, TrendingUp, Globe } from "lucide-react";
+import { X, Building2, Users, AppWindow, TrendingUp, Globe, ClipboardList } from "lucide-react";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -35,7 +35,7 @@ interface FilterOption {
 
 interface FilterButtonsProps {
   title: string;
-  icon: "industry" | "employees" | "application" | "revenue" | "geography";
+  icon: "industry" | "employees" | "application" | "revenue" | "geography" | "need";
   options: FilterOption[];
   selectedValue: string | null;
   onSelect: (value: string | null) => void;
@@ -59,6 +59,7 @@ const iconMap = {
   application: AppWindow,
   revenue: TrendingUp,
   geography: Globe,
+  need: ClipboardList,
 };
 
 const colorSchemes = {

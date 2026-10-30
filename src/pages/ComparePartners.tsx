@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { trackBuyerToolEvent } from "@/utils/trackBuyerToolEvent";
 import { trackFunnelStep } from "@/utils/trackFunnelEvent";
+import { trackPartnerFunnel } from "@/lib/partnerSearchFunnel";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import EditorialSource from "@/components/EditorialSource";
@@ -1301,6 +1302,7 @@ const ComparePartners = () => {
 
   useEffect(() => {
     trackFunnelStep("compare_open");
+    trackPartnerFunnel("partner_compare_started");
   }, []);
 
   // Clear selected industry if it no longer has any published partners.

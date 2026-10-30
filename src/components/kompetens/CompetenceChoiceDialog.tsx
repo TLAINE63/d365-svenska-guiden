@@ -11,6 +11,7 @@ import {
 import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackCompetenceEvent } from "@/utils/trackCompetenceEvent";
+import { markPartnerSearchStarted } from "@/lib/partnerSearchFunnel";
 
 /**
  * Sprint 1.0: första steget efter "Hitta rätt kompetens" i startsidans hero.
@@ -35,7 +36,7 @@ export const COMPETENCE_CHOICES: {
     title: "En Dynamics\u00A0365-partner",
     text: "För ett projekt, införande, vidareutveckling, support eller förvaltning.",
     cta: "Hitta relevant partner",
-    to: "/valjdynamics365partner/",
+    to: "/valjdynamics365partner/#hitta-partners",
     intentType: "PartnerSearch",
     startEvent: "partner_search_started",
   },
@@ -96,6 +97,7 @@ const CompetenceChoiceDialog = ({ open, onOpenChange, productContext }: Props) =
                   to={c.to}
                   onClick={() => {
                     select(c.type, c.intentType);
+                    if (c.type === "partner") markPartnerSearchStarted();
                     trackCompetenceEvent(c.startEvent, { ...base(), competence_type: c.type, destination: c.to });
                     onOpenChange(false);
                   }}
