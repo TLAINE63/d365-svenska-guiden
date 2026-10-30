@@ -12,7 +12,8 @@ export type GuideBlock =
   | { type: "ul"; items: string[] }
   | { type: "table"; head: string[]; rows: string[][] }
   | { type: "ol"; items: string[] }
-  | { type: "callout"; title: string; items: string[] }
+  /** link: valfri intern länk under punkterna. */
+  | { type: "callout"; title: string; items: string[]; link?: { text: string; to: string } }
   | { type: "link"; text: string; to: string };
 
 export interface GuideContent {
@@ -974,6 +975,17 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         ]
       },
       {
+        "type": "callout",
+        "title": "Kravställning på partner: planering och prognos",
+        "items": [
+          "Säkerställ att partnern har kompetens inom Power BI och modern verksamhetsplanering/prognostisering."
+        ],
+        "link": {
+          "text": "Läs guiden om budget, prognos och säljplanering i Dynamics 365",
+          "to": "/guider/budget-prognos-planering-dynamics-365/"
+        }
+      },
+      {
         "type": "h2",
         "text": "Meriter som mäter något annat än du tror"
       },
@@ -1486,6 +1498,17 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         ]
       },
       {
+        "type": "callout",
+        "title": "Kravställning på partner: planering och prognos",
+        "items": [
+          "Säkerställ att partnern har kompetens inom Power BI och modern verksamhetsplanering/prognostisering."
+        ],
+        "link": {
+          "text": "Läs guiden om budget, prognos och säljplanering i Dynamics 365",
+          "to": "/guider/budget-prognos-planering-dynamics-365/"
+        }
+      },
+      {
         "type": "h2",
         "text": "Meriter och begrepp som mäter något annat än du tror"
       },
@@ -1904,6 +1927,17 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
           "Projektet avslutas vid lansering och förvaltning erbjuds som något separat senare.",
           "Varje fältändring kräver en beställning."
         ]
+      },
+      {
+        "type": "callout",
+        "title": "Kravställning på partner: planering och prognos",
+        "items": [
+          "Säkerställ att partnern har kompetens inom Power BI och modern verksamhetsplanering/prognostisering."
+        ],
+        "link": {
+          "text": "Läs guiden om budget, prognos och säljplanering i Dynamics 365",
+          "to": "/guider/budget-prognos-planering-dynamics-365/"
+        }
       },
       {
         "type": "h2",
