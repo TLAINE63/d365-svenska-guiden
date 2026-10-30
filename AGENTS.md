@@ -20,6 +20,7 @@
 
 - `/roller/` ligger under Guider, länkar bara till befintligt innehåll och ändrar inte produktnavigationen.
 - businesscentral.se läser BC-fält live från den publika vyn `bc_partners_v1` (schema 1.0, inga kontaktuppgifter, COSMO aldrig som branschlösning); källan sätts automatiskt (partner/redaktion), eftersom manuella verifieringsfält togs bort.
+- businesscentral.se reads ISV products only from the public view `bc_isv_products_v1` (schema 1.0, publication rule in the view), with its own presentation in `isv_bc_presentation`; core data stays in the single isv_solutions/isv_vendors record, so there is never a second product master. See docs/BC-ISV-SYNDIKERING.md.
 - Sökprestanda hämtas dagligen från Search Console (primär) och Bing via `search-performance` (`search_perf_daily`), grupperat efter `serp_watch_phrases` (omatchat = "Övrigt"); konkurrenter endast via manuella Semrush-CSV:er (`competitor_csv_*`), eftersom Semrush API kräver Business-plan och inte schemaläggs.
 - Central page copy (d365.se description, ownership texts, founders/contact) lives in the site_texts textbank, edited in /redaktion via the site-texts function and snapshotted to src/data/siteTexts.json at build with defaults in siteTextDefaults.ts; keeps all pages consistent and SSG-safe.
 
