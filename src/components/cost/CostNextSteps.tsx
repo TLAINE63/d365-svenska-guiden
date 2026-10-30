@@ -47,7 +47,7 @@ export default function CostNextSteps({ sourcePage, area, costAnchor, size, driv
   const lines = costHelpLines(draft, estimateLines);
 
   return (
-    <section className={`rounded-xl border border-border bg-card p-5 sm:p-6 ${className}`} aria-labelledby="kostnad-paverkar-h">
+    <section data-next-step-block="" data-source-template="calculator" className={`rounded-xl border border-border bg-card p-5 sm:p-6 ${className}`} aria-labelledby="kostnad-paverkar-h">
       <h2 id="kostnad-paverkar-h" className="text-xl sm:text-2xl font-bold text-foreground mb-2">Vad påverkar er faktiska kostnad?</h2>
       <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
         Spannet är en uppskattning. Det här avgör var i spannet ert projekt hamnar, och vad partnerns offert behöver visa.
