@@ -29,12 +29,17 @@ Deno.serve(async (req) => {
   const auth = req.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-  if (!token || !(await verifyAdminJWT(token, secret, ["admin"]))) return json({ error: "Unauthorized" }, 401, cors);
+  if (!token) return json({ error: "Unauthorized" }, 401, cors);
+  const isAdmin = await verifyAdminJWT(token, secret, ["admin"]);
+  // Redaktionen (roll editor) når bara hjälpvägarnas ärendelista och statusändring, aldrig introduktioner.
+  const isEditor = !isAdmin && (await verifyAdminJWT(token, secret, ["editor"]));
+  if (!isAdmin && !isEditor) return json({ error: "Unauthorized" }, 401, cors);
 
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, secret);
   let body: Record<string, unknown> = {};
   try { body = await req.json(); } catch { /* tom */ }
   const action = String(body.action || "list");
+  if (isEditor && action !== "help_requests" && action !== "update_help_status") return json({ error: "Unauthorized" }, 401, cors);
 
   const fail = (e: { message?: string; code?: string } | null) => {
     console.error(e);
@@ -73,6 +78,42 @@ Deno.serve(async (req) => {
         },
         funnel,
       }, 200, cors);
+    }
+
+    // Ärenden från alla hjälpvägar: en rad per inskick med ärendets status, val och underlag.
+    if (action === "help_requests") {
+      const [bookings, cases] = await Promise.all([
+        sb.from("inquiries").select("id, created_at, advisory_case_id, contact_name, company, email, phone, help_with, message, project, advisory_placement, advisory_cta, page_type, landing_page, booking_status, source_site").eq("is_advisory", true).order("created_at", { ascending: false }).limit(1000),
+        sb.from("advisory_cases").select("id, status, next_step, notes, journey_selection, origin_placement, updated_at").limit(2000),
+      ]);
+      if (bookings.error) return fail(bookings.error);
+      if (cases.error) return fail(cases.error);
+      const byId = new Map((cases.data || []).map((c) => [c.id, c]));
+      return json({
+        requests: (bookings.data || []).map((b) => {
+          const c = b.advisory_case_id ? byId.get(b.advisory_case_id) : null;
+          return { ...b, case_status: c?.status ?? null, next_step: c?.next_step ?? null, notes: c?.notes ?? null, selection: c?.journey_selection ?? {}, case_updated_at: c?.updated_at ?? null };
+        }),
+      }, 200, cors);
+    }
+
+    if (action === "update_help_status") {
+      if (!isUuid(body.id)) return json({ error: "id saknas" }, 400, cors);
+      const { data: row } = await sb.from("inquiries").select("is_advisory, advisory_case_id").eq("id", body.id).maybeSingle();
+      if (!row?.is_advisory) return json({ error: "Ärendet finns inte" }, 404, cors);
+      if (typeof body.booking_status === "string") {
+        const { error } = await sb.from("inquiries").update({ booking_status: body.booking_status }).eq("id", body.id);
+        if (error) return fail(error);
+      }
+      if (row.advisory_case_id) {
+        const upd = pick(body, ["status", "next_step", "notes"]);
+        if ("status" in upd && !upd.status) delete upd.status;
+        if (Object.keys(upd).length) {
+          const { error } = await sb.from("advisory_cases").update(upd).eq("id", row.advisory_case_id);
+          if (error) return fail(error);
+        }
+      }
+      return json({ ok: true }, 200, cors);
     }
 
     if (action === "create_case") {

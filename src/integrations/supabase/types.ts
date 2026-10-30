@@ -62,6 +62,7 @@ export type Database = {
           email: string | null
           id: string
           journey_context: Json | null
+          journey_selection: Json
           need_summary: string | null
           next_step: string | null
           notes: string | null
@@ -80,6 +81,7 @@ export type Database = {
           email?: string | null
           id?: string
           journey_context?: Json | null
+          journey_selection?: Json
           need_summary?: string | null
           next_step?: string | null
           notes?: string | null
@@ -98,6 +100,7 @@ export type Database = {
           email?: string | null
           id?: string
           journey_context?: Json | null
+          journey_selection?: Json
           need_summary?: string | null
           next_step?: string | null
           notes?: string | null
