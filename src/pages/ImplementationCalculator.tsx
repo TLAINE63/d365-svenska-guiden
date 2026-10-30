@@ -71,10 +71,11 @@ export default function ImplementationCalculator() {
   const priceMap = usePriceMap();
 
   const [solutions, setSolutions] = useState<SolutionKey[]>(["bc"]);
-  const [users, setUsers] = useState(25);
+  // Förval: lägsta alternativet överallt och 0 integrationer (Thomas 2026-10-30).
+  const [users, setUsers] = useState(5);
   const [premiumLicense, setPremiumLicense] = useState(false);
-  const [complexity, setComplexity] = useState<Complexity>("anpassad");
-  const [integrations, setIntegrations] = useState(3);
+  const [complexity, setComplexity] = useState<Complexity>("standardnara");
+  const [integrations, setIntegrations] = useState(0);
   const [legalEntities, setLegalEntities] = useState(1);
   const [dataMigration, setDataMigration] = useState(true);
   const [customDevelopment, setCustomDevelopment] = useState(false);
