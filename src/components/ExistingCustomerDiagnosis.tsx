@@ -36,7 +36,7 @@ export default function ExistingCustomerDiagnosis() {
 
   return (
     <section className="mb-12 rounded-lg border border-border bg-card p-6 sm:p-8" aria-labelledby="dx-h">
-      <h2 id="dx-h" className="text-2xl font-bold text-foreground mb-2">Vad behöver ni egentligen hjälp med?</h2>
+      <h2 id="dx-h" className="text-2xl font-bold text-foreground mb-2">Osäkra på orsaken? Gör en kort diagnos</h2>
       <p className="text-muted-foreground mb-5 max-w-3xl">
         {nowrapBrand("Välj det som bäst beskriver läget. Ni får ett förslag på vilken typ av hjälp som passar, inget skickas vidare.")}
         {product && <> Vi utgår från att ni använder {nowrapBrand(shortProductName(product) ?? product)}.</>}
