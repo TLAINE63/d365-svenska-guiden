@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
+import ProtectedContact from "@/components/partner/ProtectedContact";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, Play } from "lucide-react";
@@ -77,8 +78,8 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           <div className="min-w-0">
             {name && <div className="mb-2"><p className="text-xs text-muted-foreground">{product ? nowrapBrand(`Kontakt för ${product}`) : "Partnerns kontaktperson"}</p><p className="text-base font-semibold break-words">{name}</p></div>}
             {(email || phone || website) && <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
-          {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 break-all" onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)}>{email}</a></li>}
-          {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-4" onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)}>{phone}</a></li>}
+          {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><ProtectedContact kind="email" value={email} icon={null} onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)} /></li>}
+          {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><ProtectedContact kind="phone" value={phone} icon={null} onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)} /></li>}
           {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_kontaktrad" }); trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
             </ul>}
           </div>

@@ -7,10 +7,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/4ps-construction-software-ab.png",
     "logo_dark_bg": false,
     "website": "https://www.4ps.se/",
-    "email": "anders.ostby@4ps.se",
+    "email": null,
     "contact_person": "Anders Östby",
     "contact_photo_url": null,
-    "phone": "+46 10 540 00 00",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -44,8 +44,6 @@
           "50-99"
         ],
         "contactName": "Anders Östby",
-        "contactEmail": "anders.ostby@4ps.se",
-        "contactPhone": "010 540 00 00",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -289,10 +287,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/adbriq.png",
     "logo_dark_bg": false,
     "website": "https://www.adbriq.com/",
-    "email": "martin.rosenqvist@adbriq.com",
+    "email": null,
     "contact_person": "Martin Rosenqvist",
     "contact_photo_url": null,
-    "phone": "+46-705-277455",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -322,8 +320,6 @@
           "100-249"
         ],
         "contactName": "Martin Rosenqvist",
-        "contactEmail": "martin.rosenqvist@adbriq.com",
-        "contactPhone": "+46-705-277455",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -541,10 +537,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate.png",
     "logo_dark_bg": true,
     "website": "https://b3.se/elevate",
-    "email": "daniel.cato@b3.se",
+    "email": null,
     "contact_person": "Daniel Cato",
     "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate-contact-main.png?t=1781075023445",
-    "phone": "0734082702",
+    "phone": null,
     "applications": [
       "Sales",
       "Customer Insights (Marketing)",
@@ -786,7 +782,7 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/bisqo.png",
     "logo_dark_bg": false,
     "website": "https://www.bisqo.se/",
-    "email": "daniel.vesterberg@bisqo.se",
+    "email": null,
     "contact_person": "Daniel Vesterberg",
     "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/bisqo-contact.jpeg?t=1776942651185",
     "phone": null,
@@ -1043,10 +1039,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/crm-konsulterna.png",
     "logo_dark_bg": false,
     "website": "https://www.crmk.se",
-    "email": "andreas.franzen@crmk.se",
+    "email": null,
     "contact_person": "Andreas Franzén",
     "contact_photo_url": null,
-    "phone": "070-3349535",
+    "phone": null,
     "applications": [
       "Sales",
       "Customer Insights (Marketing)",
@@ -1092,8 +1088,6 @@
           "1.000-4.999"
         ],
         "contactName": "Andreas Franzén",
-        "contactEmail": "andreas@crmk.se",
-        "contactPhone": "070-3349535",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -1155,8 +1149,6 @@
           "1.000-4.999"
         ],
         "contactName": "Andreas Franzén",
-        "contactEmail": "andreas@crmk.se",
-        "contactPhone": "070-3349535",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -1415,10 +1407,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc.png",
     "logo_dark_bg": false,
     "website": "https://dizparc.se/tjanster/affarssystem-och-insikter/dynamics-365-business-central",
-    "email": "mikael.sjoqvist@dizparc.se",
+    "email": null,
     "contact_person": "Mikael Sjöqvist",
     "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc-contact-main.png?t=1792575796511",
-    "phone": "+46702327879",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -1450,8 +1442,6 @@
           "1-49"
         ],
         "contactName": "Mikael Sjöqvist",
-        "contactEmail": "mikael.sjoqvist@dizparc.se",
-        "contactPhone": "+46707575145",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -1638,10 +1628,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind.png",
     "logo_dark_bg": false,
     "website": "https://fellowmind.se",
-    "email": "katarina.parsson@fellowmind.se",
+    "email": null,
     "contact_person": "Katarina Pärsson",
     "contact_photo_url": null,
-    "phone": "0103333399",
+    "phone": null,
     "applications": [
       "Business Central",
       "Finance",
@@ -1691,8 +1681,6 @@
           "250-999"
         ],
         "contactName": "Caroline Rasmussen",
-        "contactEmail": "caroline.rasmussen@fellowmind.se",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -1774,8 +1762,6 @@
           ">5.000"
         ],
         "contactName": "Katarina Pärsson",
-        "contactEmail": "katarina.parsson@fellowmind.se",
-        "contactPhone": "076-001 98 78",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -1851,8 +1837,6 @@
           "250-999"
         ],
         "contactName": "Andreas Khemiri",
-        "contactEmail": "andreas.khemiri@fellowmind.se",
-        "contactPhone": "0735198843",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -2112,10 +2096,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/implema.svg",
     "logo_dark_bg": false,
     "website": "https://implema.se/microsoft-dynamics/",
-    "email": "thomas.olofsson@implema.se",
+    "email": null,
     "contact_person": "Thomas Olofsson",
     "contact_photo_url": "",
-    "phone": "+46767699936",
+    "phone": null,
     "applications": [
       "F&SCM",
       "Project Operations"
@@ -2155,8 +2139,6 @@
           "250-999"
         ],
         "contactName": "Thomas Olofsson",
-        "contactEmail": "thomas.olofsson@implema.se",
-        "contactPhone": "+46850312406",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -2370,10 +2352,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/inbiz.png",
     "logo_dark_bg": false,
     "website": "https://www.inbiz.se/microsoft-partner/",
-    "email": "carsten@inbiz.se",
+    "email": null,
     "contact_person": "Carsten Heiter",
     "contact_photo_url": null,
-    "phone": "+46 70-744 28 10",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -2411,8 +2393,6 @@
           "50-99"
         ],
         "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -2605,10 +2585,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/modia.png",
     "logo_dark_bg": false,
     "website": "https://modia.se",
-    "email": "sebastian.birgersson@modia.se",
+    "email": null,
     "contact_person": "Sebastian Birgersson",
     "contact_photo_url": "",
-    "phone": "+46 705091444",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -2640,8 +2620,6 @@
           "100-249"
         ],
         "contactName": "Sebastian Birgersson",
-        "contactEmail": "sebastian.birgersson@modia.se",
-        "contactPhone": "+46 705091444",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -2856,10 +2834,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nab-solutions.svg",
     "logo_dark_bg": false,
     "website": "https://nabsolutions.com/",
-    "email": "Gustav.stigenius@nabsolutions.se",
+    "email": null,
     "contact_person": "Gustav Stigenius",
     "contact_photo_url": "",
-    "phone": "+46 723 57 25 70",
+    "phone": null,
     "applications": [
       "Business Central",
       "Sales",
@@ -2896,8 +2874,6 @@
           "50-99"
         ],
         "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -2960,8 +2936,6 @@
           "250-999"
         ],
         "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -3272,10 +3246,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nexer.png",
     "logo_dark_bg": false,
     "website": "https://nexergroup.com/sv/tjanster/erp/affarssystem/",
-    "email": "mikael.carle@nexergroup.com",
+    "email": null,
     "contact_person": "Mikael Carle",
     "contact_photo_url": null,
-    "phone": "0708208871",
+    "phone": null,
     "applications": [
       "Business Central",
       "Sales",
@@ -3324,8 +3298,6 @@
           "250-999"
         ],
         "contactName": "Mikael Carle",
-        "contactEmail": "mikael.carle@nexergroup.com",
-        "contactPhone": "0708208871",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -3396,8 +3368,6 @@
           "1.000-4.999"
         ],
         "contactName": "Peter Utas",
-        "contactEmail": "peter.utas@nexergroup.com",
-        "contactPhone": "+46705445801",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -3485,8 +3455,6 @@
           "1.000-4.999"
         ],
         "contactName": "Peter Utas",
-        "contactEmail": "peter.utas@nexergroup.com",
-        "contactPhone": "+46705445801",
         "swedenCities": [],
         "swedenRegions": [
           "Storstockholm / Mälardalen",
@@ -3710,10 +3678,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/norra-commerce-partner.jpg",
     "logo_dark_bg": false,
     "website": "https://norracommerce.se/",
-    "email": "johann.runemark@norracommerce.se",
+    "email": null,
     "contact_person": "Johann Runemark",
     "contact_photo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/norra-commerce-partner-contact-main.jpg?t=1791289833991",
-    "phone": "+46 735190622",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -3745,8 +3713,6 @@
           "100-249"
         ],
         "contactName": "Johann Runemark",
-        "contactEmail": "johann.runemark@norracommerce.se",
-        "contactPhone": "+46(0)735190622",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -3885,7 +3851,7 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/point-taken.png",
     "logo_dark_bg": false,
     "website": "https://pointtaken.se",
-    "email": "totte.parlefalk@pointtaken.se",
+    "email": null,
     "contact_person": "Totte Pärlefalkt",
     "contact_photo_url": null,
     "phone": null,
@@ -3921,8 +3887,6 @@
           "100-249"
         ],
         "contactName": "Totte Pärlefalk",
-        "contactEmail": "totte.parlefalk@pointtaken.se",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -3976,8 +3940,6 @@
           "100-249"
         ],
         "contactName": "Totte Pärlefalk",
-        "contactEmail": "totte.parlefalk@pointtaken.se",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -4177,10 +4139,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/sirocco-group.jpg",
     "logo_dark_bg": true,
     "website": "https://www.siroccogroup.com/microsoft-dynamics-365/",
-    "email": "laith.al-hashimi@siroccogroup.com",
+    "email": null,
     "contact_person": "Laith Al-Hashimi",
     "contact_photo_url": null,
-    "phone": "0709995950",
+    "phone": null,
     "applications": [
       "Sales",
       "Customer Insights (Marketing)",
@@ -4226,8 +4188,6 @@
           ">5.000"
         ],
         "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -4284,8 +4244,6 @@
           ">5.000"
         ],
         "contactName": "",
-        "contactEmail": "",
-        "contactPhone": "",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],
@@ -4474,7 +4432,7 @@
     "logo_url": "https://texus.se",
     "logo_dark_bg": false,
     "website": "https://texus.se",
-    "email": "johan.lindskog@texus.se",
+    "email": null,
     "contact_person": null,
     "contact_photo_url": null,
     "phone": null,
@@ -4713,10 +4671,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/vivicta.jpg",
     "logo_dark_bg": false,
     "website": "https://www.vivicta.com/en/services/enterprise-applications/microsoft-dynamics-365/",
-    "email": "peter.b.andersson@vivicta.com",
+    "email": null,
     "contact_person": "Peter Andersson",
     "contact_photo_url": null,
-    "phone": "0731440076",
+    "phone": null,
     "applications": [
       "Business Central",
       "Finance",
@@ -4766,8 +4724,6 @@
           "250-999"
         ],
         "contactName": "Anton Persson",
-        "contactEmail": "anton.a.persson@vivicta.com",
-        "contactPhone": "0706082121",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -4835,8 +4791,6 @@
           ">5.000"
         ],
         "contactName": "Peter Andersson",
-        "contactEmail": "peter.b.andersson@vivicta.com",
-        "contactPhone": "0731440076",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -4921,8 +4875,6 @@
           ">5.000"
         ],
         "contactName": "Peter Andersson",
-        "contactEmail": "peter.b.andersson@vivicta.com",
-        "contactPhone": "0731440076",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -4997,8 +4949,6 @@
           ">5.000"
         ],
         "contactName": "Peter Andersson",
-        "contactEmail": "peter.b.andersson@vivicta.com",
-        "contactPhone": "0731440076",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [
@@ -5265,10 +5215,10 @@
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/yellow-solution-ab.png",
     "logo_dark_bg": false,
     "website": "https://yellowsolution.se/",
-    "email": "Jonas.grunditz@yellowsolution.se",
+    "email": null,
     "contact_person": "Jonas Grunditz",
     "contact_photo_url": null,
-    "phone": "0730870088",
+    "phone": null,
     "applications": [
       "Business Central"
     ],
@@ -5309,8 +5259,6 @@
           "100-249"
         ],
         "contactName": "Jonas Grunditz",
-        "contactEmail": "jonas.grunditz@yellowsolution.se",
-        "contactPhone": "073-0870088",
         "swedenCities": [],
         "swedenRegions": [],
         "aiCapabilities": [],

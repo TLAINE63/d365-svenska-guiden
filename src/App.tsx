@@ -9,6 +9,7 @@ import { InquiryProvider } from "@/contexts/InquiryContext";
 
 import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
+import CopyAttribution from "@/components/CopyAttribution";
 import RedirectTo from "@/components/RedirectTo";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
@@ -169,6 +170,7 @@ const AppShell = () => {
   return (
     <>
       <ScrollToTop />
+      <CopyAttribution />
       <TrailingSlashRedirect />
       
       <ChunkErrorBoundary>

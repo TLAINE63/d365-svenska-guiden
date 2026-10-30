@@ -63,7 +63,19 @@ try {
   if (!Array.isArray(rows) || rows.length === 0) {
     throw new Error("Empty response — refusing to overwrite existing snapshot");
   }
-  writeFileSync(OUTPUT_PATH, JSON.stringify(rows, null, 2) + "\n");
+  // E-post och telefon lämnas utanför den statiska kopian (som hamnar i sidornas HTML och JS),
+  // så att skrapor inte kan skörda dem. Profilerna hämtar dem live och visar dem först efter klick.
+  const stripContact = (p) => ({
+    ...p,
+    email: null,
+    phone: null,
+    product_filters: Object.fromEntries(Object.entries(p.product_filters || {}).map(([k, f]) => {
+      if (!f || typeof f !== "object") return [k, f];
+      const { contactEmail: _e, contactPhone: _ph, ...rest } = f;
+      return [k, rest];
+    })),
+  });
+  writeFileSync(OUTPUT_PATH, JSON.stringify(rows.map(stripContact), null, 2) + "\n");
   const routes = rows
     .filter((p) => p.slug && p.name)
     .map((p) => ({
