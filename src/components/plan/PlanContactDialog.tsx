@@ -51,10 +51,10 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home";
+export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
-export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin }
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string }
 export type { Section as ContactSection };
 
 export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
@@ -196,7 +196,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
                 <div><Label htmlFor="pc-email">E-post (företag) *</Label><Input id="pc-email" type="email" value={f.email} onChange={set("email")} maxLength={255} /></div>
                 <div><Label htmlFor="pc-phone">Telefon (valfritt)</Label><Input id="pc-phone" value={f.phone} onChange={set("phone")} maxLength={40} /></div>
               </div>
-              <div><Label htmlFor="pc-msg">Egen kommentar (valfritt)</Label><Textarea id="pc-msg" value={f.message} onChange={set("message")} maxLength={3000} rows={3} /></div>
+              <div><Label htmlFor="pc-msg">{topic?.messageLabel || "Egen kommentar (valfritt)"}</Label><Textarea id="pc-msg" value={f.message} onChange={set("message")} maxLength={3000} rows={3} /></div>
 
               <section className="rounded-md border border-border bg-muted/40 p-3 text-sm">
                 <p className="font-semibold">Det här underlaget kommer att delas</p>

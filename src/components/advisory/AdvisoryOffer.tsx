@@ -23,6 +23,10 @@ interface Props {
   dialogDescription?: string;
   metadata?: Record<string, unknown>;
   className?: string;
+  /** Mätningens namn när formuläret skickats (standard advisory_booking_completed). */
+  submitEvent?: string;
+  /** Etikett för fritextfältet, t.ex. "Kort beskrivning av behovet (valfritt)". */
+  messageLabel?: string;
 }
 
 /**
@@ -30,7 +34,7 @@ interface Props {
  * Återanvänder befintligt rådgivningsflöde (PlanContactDialog advisory → submit-inquiry) och konkurrerar
  * aldrig med direktkontakt: knappen är alltid sekundär och inget öppnas automatiskt.
  */
-export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "" }: Props) {
+export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const seen = useRef(false);
@@ -110,7 +114,8 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
               description: dialogDescription || "Ett samtal före partnerdialogen där en rådgivare går igenom ert underlag med er. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
               helpWith: cta,
               startEvent: "advisory_form_opened",
-              submitEvent: "advisory_booking_completed",
+              submitEvent,
+              messageLabel,
               extras: sections,
               metadata: { variant, ...metadata },
               advisory: { placement, cta, pageType },

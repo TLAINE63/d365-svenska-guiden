@@ -19,6 +19,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   second_opinion: "Second opinion-sidan",
   plan: "Min D365-plan",
   home: "Startsidan",
+  partner_search: "Partnersökningen",
 };
 
 export const CASE_STATUSES = [
