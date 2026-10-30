@@ -5,6 +5,8 @@ function isAllowedOrigin(origin: string | null): boolean {
   const allowed = [
     "https://d365.se",
     "https://www.d365.se",
+    "https://businesscentral.se",
+    "https://www.businesscentral.se",
     "https://d365-svenska-guiden.lovable.app",
     "http://localhost:5173",
     "http://localhost:8080",
