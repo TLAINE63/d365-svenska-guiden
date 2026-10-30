@@ -101,6 +101,8 @@ export interface IsvSolutionRow {
   editorial_tier?: string | null;
   nordic_relevance?: string | null;
   publication_wave?: string | null;
+  information_status?: string | null;
+  last_verified_date?: string | null;
 }
 
 /** Konverterar en databasrad till katalogens IsvSolution-format. */
@@ -145,7 +147,40 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     industryFocus: r.industry_focus || undefined,
     partnerSlugs: r.partner_slugs || undefined,
     vendorWebsite: r.vendor_website || undefined,
+    informationStatus: r.information_status || undefined,
+    lastVerifiedDate: r.last_verified_date || undefined,
   };
+}
+
+/** Publik leverantörsprofil (ISV Vendor). Kontaktuppgifter och avtalsstatus finns aldrig här. */
+export interface IsvVendorPublic {
+  slug: string;
+  name: string;
+  website: string | null;
+  description: string | null;
+  logo_url: string | null;
+  information_status: string | null;
+  last_verified_date: string | null;
+}
+
+/** Leverantörer per slug. Bara publicerade profiler; produkternas status påverkas inte. */
+export function useIsvVendors(): Record<string, IsvVendorPublic> {
+  const [vendors, setVendors] = useState<Record<string, IsvVendorPublic>>({});
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase
+        .from("isv_vendors")
+        .select("slug, name, website, description, logo_url, information_status, last_verified_date")
+        .eq("publication_status", "published");
+      if (error || cancelled || !data) return;
+      const map: Record<string, IsvVendorPublic> = {};
+      for (const v of data as IsvVendorPublic[]) map[v.slug] = v;
+      setVendors(map);
+    })();
+    return () => { cancelled = true; };
+  }, []);
+  return vendors;
 }
 
 
