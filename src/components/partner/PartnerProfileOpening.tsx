@@ -14,6 +14,7 @@ import { extractYouTubeId } from "@/lib/youtube";
 import { PROFILE_EXPLAINER_VERIFIED_MORE, PROFILE_EXPLAINER_VERIFIED_SHORT } from "@/data/profileModel";
 import { trackPartnerCardEvent } from "@/utils/trackPartnerEvent";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackPartnerFunnel } from "@/lib/partnerSearchFunnel";
 
 interface Props {
   partner: DatabasePartner;
@@ -76,7 +77,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
             {(email || phone || website) && <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm" aria-label={`Kontaktuppgifter till ${partner.name}`}>
           {email && <li className="flex items-center gap-2 min-w-0"><Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`mailto:${email}`} className="underline underline-offset-4 break-all" onClick={() => trackEvent("partner_contact_click", { type: "email" }, partner.slug)}>{email}</a></li>}
           {phone && <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-4" onClick={() => trackEvent("partner_contact_click", { type: "phone" }, partner.slug)}>{phone}</a></li>}
-          {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
+          {website && <li className="flex items-center gap-2 min-w-0"><Globe className="h-4 w-4 shrink-0 text-accent" aria-hidden /><a href={website} target="_blank" rel="noopener" className="underline underline-offset-4 break-all" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_kontaktrad" }); trackEvent("partner_outbound_click", { via: "kontaktrad" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "kontaktrad" } }); }}>{new URL(website).hostname.replace(/^www\./, "")}</a></li>}
             </ul>}
           </div>
         </div>}
@@ -91,7 +92,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
               trackEvent("shortlist_add", null, partner.slug);
             }} className="min-h-12"><Bookmark className="h-4 w-4" />Lägg till i kortlista</Button>
           )}
-          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
+          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_profil" }); trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
         </div>
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
