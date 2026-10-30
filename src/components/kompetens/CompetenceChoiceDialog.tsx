@@ -77,7 +77,7 @@ const CompetenceChoiceDialog = ({ open, onOpenChange, productContext }: Props) =
   }, [open]);
 
   const select = (type: CompetenceType, intent: string) =>
-    trackCompetenceEvent("competence_type_selected", { ...base(), competence_type: type, intent_type: intent });
+    trackCompetenceEvent("competence_type_selected", { ...base(), competence_type: type, initial_intent: intent, intent_type: intent });
 
   return (
     <>

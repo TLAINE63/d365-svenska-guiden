@@ -120,6 +120,15 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
       setLastPayload(signature);
       setDone(true);
       trackCompetenceEvent("kompetens_need_form_submit", { guide: guideSlug, competence_type: compact ? "unsure" : undefined });
+      if (compact) {
+        trackCompetenceEvent("competence_help_requested", {
+          competence_type: "unsure",
+          initial_intent: "CompetenceNeedUnclassified",
+          source_page: typeof window !== "undefined" ? window.location.pathname : "/",
+          product_known: !!form.product,
+          timestamp: new Date().toISOString(),
+        });
+      }
     } catch (err: any) {
       toast({
         title: "Det gick inte att skicka",

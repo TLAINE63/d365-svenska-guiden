@@ -27,6 +27,8 @@ type CompetenceEvent =
   | "partner_compare_started"
   | "partner_selfservice_clicked"
   | "partner_selection_help_requested"
+  // Sprint 1.0: osäker-vägen skickad till d365.se (Hand Raise, ingen partnerdistribution).
+  | "competence_help_requested"
   // Sprint 1.2: expert- och konsultvägen (se src/lib/expertRequirement.ts).
   | "expert_search_started"
   | "expert_role_selected"
