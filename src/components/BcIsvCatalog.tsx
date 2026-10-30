@@ -496,10 +496,10 @@ const SolutionDetail = ({
             </details>
 
             <section className="space-y-2 pt-3 border-t border-border" aria-label="Nästa steg">
-              {s.vendorWebsite && (
+              {(s.vendorWebsite || vendor?.website) && (
                 <Button asChild className="w-full h-auto min-h-10 whitespace-normal">
                   <a
-                    href={withUtm(s.vendorWebsite)}
+                    href={withUtm((s.vendorWebsite || vendor?.website)!)}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() =>
@@ -516,7 +516,7 @@ const SolutionDetail = ({
                 </Button>
               )}
               <Button
-                variant={s.vendorWebsite ? "outline" : "default"}
+                variant={s.vendorWebsite || vendor?.website ? "outline" : "default"}
                 className="w-full h-auto min-h-10 whitespace-normal"
                 onClick={() => onHelp(s)}
               >
