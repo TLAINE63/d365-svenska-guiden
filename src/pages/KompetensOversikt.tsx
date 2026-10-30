@@ -14,7 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CompetenceFilters from "@/components/kompetens/CompetenceFilters";
-import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
+import ExpertRequirementExit from "@/components/kompetens/ExpertRequirementExit";
+import { Input } from "@/components/ui/input";
+import {
+  SENIORITY_OPTIONS, specialismGroups, getExpertDraft, saveExpertDraft, startExpertSearch, type ExpertDraft,
+} from "@/lib/expertRequirement";
 import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { COMPETENCE_GUIDES, guidePath } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -31,13 +35,37 @@ const KompetensOversikt = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState<string>("");
   const [filters, setFilters] = useState<CompetenceFilterState>({});
-  const [needOpen, setNeedOpen] = useState(false);
+  // Sprint 1.2: specialistområde, senioritet, start och omfattning (sparas bara under besöket).
+  const [extra, setExtra] = useState<Pick<ExpertDraft, "specialism" | "seniority" | "start" | "length">>({});
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     trackCompetenceEvent("kompetens_overview_view");
+    startExpertSearch("kompetens");
+    const d = getExpertDraft();
+    if (d.role && COMPETENCE_GUIDES.some((g) => g.slug === d.role)) setRole(d.role);
+    setFilters({ product: d.product, industry: d.industry, region: d.region, delivery: d.delivery as CompetenceFilterState["delivery"] });
+    setExtra({ specialism: d.specialism, seniority: d.seniority, start: d.start, length: d.length });
+    setLoaded(true);
   }, []);
 
   const selectedGuide = COMPETENCE_GUIDES.find((g) => g.slug === role);
+  const product = selectedGuide?.type === "product" ? selectedGuide.productArea : filters.product;
+  const draft: ExpertDraft = { role: role || undefined, ...filters, product, ...extra };
+
+  useEffect(() => {
+    if (loaded) saveExpertDraft(draft);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded, role, filters, extra]);
+
+  const selectRole = (v: string) => {
+    setRole(v);
+    trackCompetenceEvent("expert_role_selected", { role: v, intent_type: "ExpertRequirement" });
+  };
+  const selectSpecialism = (v: string) => {
+    setExtra((x) => ({ ...x, specialism: v || undefined }));
+    if (v) trackCompetenceEvent("expert_specialism_selected", { specialism: v, role: role || undefined, intent_type: "ExpertRequirement" });
+  };
 
   const search = () => {
     if (!selectedGuide) return;
@@ -81,10 +109,10 @@ const KompetensOversikt = () => {
           <section className="mb-10">
             <h2 className="text-xl font-bold mb-3">Så fungerar det</h2>
             <ol className="list-decimal space-y-1.5 pl-5 text-muted-foreground leading-relaxed max-w-3xl">
-              <li>Välj den roll eller det kompetensområde ni söker.</li>
-              <li>Läs vad rollen gör och vad ni bör kontrollera vid utvärdering.</li>
-              <li>Filtrera partners på produkt, bransch, område och leveransform.</li>
-              <li>Gå vidare till partnerprofilen eller be d365.se om en introduktion.</li>
+              <li>Välj produkt, roll och specialistområde.</li>
+              <li>Beskriv behovet: senioritet, bransch, geografi, leveransform, start och omfattning.</li>
+              <li>Läs kompetensguiden, vad ni bör utvärdera och vilka partners som har dokumenterad erfarenhet.</li>
+              <li>Beskriv ert konkreta behov för d365.se, eller gå vidare till en partnerprofil.</li>
             </ol>
           </section>
 
@@ -112,8 +140,8 @@ const KompetensOversikt = () => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setNeedOpen(true);
                   trackCompetenceEvent("kompetens_need_form_open");
+                  document.getElementById("beskriv-behov")?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
                 Beskriv ert behov
@@ -125,32 +153,83 @@ const KompetensOversikt = () => {
           </div>
 
           <section id="sok-kompetens" className="mb-10 scroll-mt-28 rounded-xl border border-border bg-card p-5">
-            <h2 className="text-xl font-bold mb-4">Sök kompetens</h2>
-            <div className="mb-4 max-w-sm">
-              <Label className="text-xs font-semibold mb-1.5 block">
-                Roll eller kompetensområde *
-              </Label>
-              <Select value={role} onValueChange={setRole}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Välj roll eller kompetensområde" />
-                </SelectTrigger>
-                <SelectContent>
-                  {COMPETENCE_GUIDES.map((g) => (
-                    <SelectItem key={g.slug} value={g.slug}>
-                      {g.title}
-                    </SelectItem>
+            <h2 className="text-xl font-bold mb-1">Sök kompetens</h2>
+            <p className="text-sm text-muted-foreground mb-5">Alla fält utom roll är valfria. Valen sparas bara under ert besök.</p>
+
+            <h3 className="text-base font-semibold mb-3">Steg 1: Vilken kompetens behöver ni?</h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+              <div>
+                <Label className="text-xs font-semibold mb-1.5 block">Roll *</Label>
+                <Select value={role} onValueChange={selectRole}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Välj roll eller kompetensområde" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COMPETENCE_GUIDES.map((g) => (
+                      <SelectItem key={g.slug} value={g.slug}>
+                        {g.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <CompetenceFilters
+                className="[&>div]:block"
+                value={filters}
+                onChange={setFilters}
+                fields={["product"]}
+                hideClear
+                lockedProduct={selectedGuide?.type === "product" ? selectedGuide.productArea : undefined}
+              />
+              <div>
+                <Label htmlFor="ex-specialism" className="text-xs font-semibold mb-1.5 block">Specialistområde</Label>
+                <select
+                  id="ex-specialism"
+                  value={extra.specialism ?? ""}
+                  onChange={(e) => selectSpecialism(e.target.value)}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Inget särskilt</option>
+                  {specialismGroups(product).map((g) => (
+                    <optgroup key={g.label} label={g.label}>
+                      {g.options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                    </optgroup>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+              </div>
             </div>
 
+            <h3 className="text-base font-semibold mb-3">Steg 2: Beskriv behovet</h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+              <div>
+                <Label htmlFor="ex-seniority" className="text-xs font-semibold mb-1.5 block">Senioritet</Label>
+                <select
+                  id="ex-seniority"
+                  value={extra.seniority ?? ""}
+                  onChange={(e) => setExtra((x) => ({ ...x, seniority: e.target.value || undefined }))}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Ej angiven</option>
+                  {SENIORITY_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="ex-start" className="text-xs font-semibold mb-1.5 block">Ungefärlig start</Label>
+                <Input id="ex-start" placeholder="Till exempel 2026-12" maxLength={60} value={extra.start ?? ""} onChange={(e) => setExtra((x) => ({ ...x, start: e.target.value }))} />
+              </div>
+              <div className="sm:col-span-2">
+                <Label htmlFor="ex-length" className="text-xs font-semibold mb-1.5 block">Uppskattad längd eller omfattning</Label>
+                <Input id="ex-length" placeholder="Till exempel 6 månader, 3 dagar per vecka" maxLength={120} value={extra.length ?? ""} onChange={(e) => setExtra((x) => ({ ...x, length: e.target.value }))} />
+              </div>
+            </div>
             <CompetenceFilters
               value={filters}
               onChange={setFilters}
+              fields={["industry", "region", "delivery"]}
               lockedProduct={selectedGuide?.type === "product" ? selectedGuide.productArea : undefined}
             />
 
-            <Button className="mt-4" disabled={!selectedGuide} onClick={search}>
+            <Button className="mt-5" disabled={!selectedGuide} onClick={search}>
               Visa kompetensguide och partners
             </Button>
           </section>
@@ -178,6 +257,8 @@ const KompetensOversikt = () => {
           </section>
 
 
+          <ExpertRequirementExit draft={draft} pageType="kompetens_oversikt" className="mb-10" />
+
           <section className="mb-6">
             <h2 className="text-xl font-bold mb-3">Vad funktionen inte visar</h2>
             <p className="text-muted-foreground leading-relaxed max-w-3xl">
@@ -192,13 +273,6 @@ const KompetensOversikt = () => {
       </main>
       <Footer />
 
-      <DescribeNeedDialog
-        open={needOpen}
-        onOpenChange={setNeedOpen}
-        roleLabel={selectedGuide?.title ?? "Ej vald"}
-        guideSlug={selectedGuide?.slug}
-        filters={filters}
-      />
     </>
   );
 };
