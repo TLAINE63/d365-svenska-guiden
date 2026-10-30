@@ -22,6 +22,8 @@ import DeepResultSection from "@/components/systemval/DeepResultSection";
 import { DEEP_VERSION, deriveDeep, evaluateDeep } from "@/lib/systemval/deep";
 import { trackSystemval } from "@/lib/systemval/analytics";
 import { clearSystemvalContext, saveSystemvalContext, toSystemvalContext } from "@/lib/systemvalHandoff";
+import SolutionNeedStart from "@/components/systemval/SolutionNeedStart";
+import type { BusinessNeed } from "@/lib/solutionNeeds";
 
 const STORAGE_KEY = "d365_systemval_v1";
 const DEEP_KEY = "d365_systemval_deep_v1";
@@ -52,6 +54,8 @@ export default function Systemval() {
   const [debug, setDebug] = useState(false);
   const [deepAnswers, setDeepAnswers] = useState<Record<string, string[]>>({});
   const [deepMode, setDeepMode] = useState<null | { startAt?: number }>(null);
+  // Sprint 1.4: verksamhetsbehovet först, bara innan guiden har påbörjats.
+  const [skipNeedStart, setSkipNeedStart] = useState(false);
   useEffect(() => { setDeepAnswers(loadDeep()); }, []);
   useEffect(() => { try { localStorage.setItem(DEEP_KEY, JSON.stringify({ version: DEEP_VERSION, answers: deepAnswers })); } catch { /* ignore */ } }, [deepAnswers]);
 
@@ -149,6 +153,16 @@ export default function Systemval() {
   const restart = () => { setInput(emptyInput()); setCursor(0); setDeepAnswers({}); setDeepMode(null); clearSystemvalContext(); };
 
   const isEntry = questionId === "entry";
+  const showNeedStart = !skipNeedStart && !input.answers.entry && pos === 0;
+  const continueFromNeed = (need: BusinessNeed) => {
+    trackSystemval("guide_started"); tracked.current.guide = true;
+    let next = answer(input, "entry", ["needs"]);
+    if (need.systemvalNeeds.length) next = answer(next, "needs_areas", need.systemvalNeeds);
+    else if (need.key === "vet_inte") next = answer(next, "needs_areas", ["unknown"]);
+    setInput(next);
+    setSkipNeedStart(true);
+    setCursor(deriveState(next).path.length);
+  };
   const shownNumber = state.path.slice(0, pos).filter((id) => getQuestion(id)?.countsTowardBudget).length + 1;
 
   return (
@@ -160,10 +174,12 @@ export default function Systemval() {
       />
       <Navbar />
       <main className="flex-1 pt-32 sm:pt-36 pb-16">
-        <div className={`mx-auto w-full px-4 sm:px-6 ${question && options.length > 4 ? "max-w-5xl" : "max-w-3xl"}`}>
+        <div className={`mx-auto w-full px-4 sm:px-6 ${showNeedStart || (question && options.length > 4) ? "max-w-5xl" : "max-w-3xl"}`}>
           <p className="text-sm font-medium text-accent mb-2">Vi står inför ett systemval</p>
 
-          {question && (
+          {showNeedStart && <SolutionNeedStart onContinue={continueFromNeed} onSkip={() => setSkipNeedStart(true)} />}
+
+          {question && !showNeedStart && (
             <section aria-labelledby="q-title">
               {!isEntry && (
                 <p className="text-xs text-muted-foreground mb-2">
@@ -270,7 +286,7 @@ export default function Systemval() {
             />
           )}
 
-          {!deepMode && (
+          {!deepMode && !showNeedStart && (
             <aside aria-labelledby="nasta-steg-partner" className="mt-12 flex flex-col gap-4 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
               <div>
                 <p id="nasta-steg-partner" className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent mb-1">Nästa steg</p>

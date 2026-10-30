@@ -23,6 +23,8 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   expert_requirement: "Kompetensbehov (expert/konsult)",
   existing_dynamics: "Befintlig Dynamics 365: nästa steg",
   partner_relationship_review: "Utvärdera partnersamarbetet",
+  solution_assessment: "Första bedömning (CRM- eller affärssystem)",
+  solution_advice: "Prata med d365.se (CRM- eller affärssystem)",
 };
 
 export const CASE_STATUSES = [
