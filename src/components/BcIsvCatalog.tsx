@@ -576,6 +576,8 @@ const BcIsvCatalog = ({
   const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
   const [autoOpened, setAutoOpened] = useState(false);
+  const [statusSel, setStatusSel] = useState<Set<IsvInformationStatus>>(new Set());
+  const [helpFor, setHelpFor] = useState<IsvSolution | null>(null);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
     const next = new Set(set);
@@ -584,6 +586,22 @@ const BcIsvCatalog = ({
   };
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
+  const vendors = useIsvVendors();
+
+  /** Single-select: Alla (tomt) eller exakt en informationsstatus. */
+  const applyStatus = (v: IsvInformationStatus | null) => {
+    setStatusSel(v ? new Set([v]) : new Set());
+    trackIsv("isv_verification_filter_applied", { information_status: v ?? "all" });
+  };
+
+  const openSolution = (s: IsvSolution) => {
+    setOpen(s);
+    trackIsv("isv_product_viewed", {
+      product_id: s.id,
+      vendor_slug: s.vendorSlug || null,
+      information_status: isvInformationStatusOf(s.informationStatus),
+    });
+  };
 
   // När produktfiltret visas är defaultProducts bara ett förval, inte en hård avgränsning.
   const scoped = useMemo(() => {
@@ -625,6 +643,8 @@ const BcIsvCatalog = ({
     const q = query.trim().toLowerCase();
     return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
+      // Informationsstatus ändrar bara urvalet, aldrig ordningen.
+      if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
       if (deliveries.size && !deliveries.has(model(s))) return false;
       if (industries.size) {
         const all = [...(s.industries || []), ...(s.industryFocus || [])];
@@ -666,7 +686,7 @@ const BcIsvCatalog = ({
       }
       return true;
     });
-  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query]);
+  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query, statusSel]);
 
 
   // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
@@ -677,7 +697,7 @@ const BcIsvCatalog = ({
       (s) => slugify(s.id) === key || slugify(s.name) === key
     );
     if (match) {
-      setOpen(match);
+      openSolution(match);
       setAutoOpened(true);
     }
   }, [openSolutionId, BC_ISV_SOLUTIONS, autoOpened]);
@@ -705,6 +725,7 @@ const BcIsvCatalog = ({
     focus.size +
     ceSel.size +
     (showProductFilter ? products.size : 0) +
+    statusSel.size +
     (query.trim() ? 1 : 0);
 
   const clearAll = () => {
@@ -715,6 +736,7 @@ const BcIsvCatalog = ({
     setCeSel(new Set());
     setQuery("");
     if (showProductFilter) setProducts(new Set());
+    setStatusSel(new Set());
   };
 
 
@@ -828,6 +850,16 @@ const BcIsvCatalog = ({
             onToggle={toggle(industries, setIndustries)}
             onClear={() => setIndustries(new Set())}
           />
+          <div className="h-px bg-border/60" />
+          <FilterRow
+            label="Informations&shy;status"
+            options={ISV_INFORMATION_STATUSES.map((x) => x.value)}
+            selected={statusSel}
+            onToggle={(v) => applyStatus(statusSel.has(v) ? null : v)}
+            onClear={() => applyStatus(null)}
+            labelFor={(v) => ISV_INFORMATION_STATUSES.find((x) => x.value === v)!.label}
+          />
+
 
         </div>
 
@@ -909,7 +941,46 @@ const BcIsvCatalog = ({
         </div>
       )}
 
-      <SolutionDetail s={open} onClose={() => setOpen(null)} />
+      <SolutionDetail
+        s={open}
+        onClose={() => setOpen(null)}
+        vendor={open?.vendorSlug ? vendors[open.vendorSlug] : undefined}
+        onHelp={(s) => setHelpFor(s)}
+      />
+
+      {helpFor && (
+        <Suspense fallback={null}>
+          <PlanContactDialog
+            mode="advisory"
+            onClose={() => setHelpFor(null)}
+            topic={{
+              title: "Få hjälp att bedöma om lösningen passar",
+              description: "d365.se går igenom ert behov och lösningen manuellt och hör av sig. Inget skickas till leverantören eller någon partner.",
+              helpWith: `Bedöma tilläggslösning: ${helpFor.name}`,
+              startEvent: "isv_product_help_started",
+              submitEvent: "isv_product_help_requested",
+              messageLabel: "Vad behöver lösningen klara hos er? (valfritt)",
+              hideFocus: true,
+              extras: [{ key: "isv_produkt", label: "Lösningen ni tittar på", lines: isvHelpLines(helpFor) }],
+              metadata: {
+                initial_intent: "IsvRequirement",
+                product_id: helpFor.id,
+                vendor_slug: helpFor.vendorSlug ?? null,
+                information_status: isvInformationStatusOf(helpFor.informationStatus),
+                recipient: "d365.se",
+                conversion_type: "advisory",
+              },
+              advisory: { placement: "isv_product_help", cta: "Få hjälp att bedöma om lösningen passar", pageType: "isv_katalog" },
+              doneTitle: "Tack, vi har tagit emot ert underlag",
+              showDoneSummary: true,
+              doneNotes: [
+                "d365.se går igenom underlaget manuellt och hör av sig.",
+                "Inget har skickats till leverantören eller någon partner. En introduktion görs bara efter ert godkännande.",
+              ],
+            }}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
