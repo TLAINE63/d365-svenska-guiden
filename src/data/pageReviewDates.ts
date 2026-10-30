@@ -4,6 +4,12 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
+  "/guider/budget-prognos-planering-dynamics-365/": "2026-10-30",
+  "/guider/": "2026-10-30",
+  "/business-central/tillagg/rapportering-fpa/": "2026-10-30",
+  "/kunskapscenter/d365sales/forsaljningsprognoser-och-kvothantering/": "2026-10-30",
+  "/guider/valja-business-central-partner/": "2026-10-30",
+  "/guider/valja-finance-supply-chain-partner/": "2026-10-30",
   "/guider/byta-dynamics-partner/": "2026-10-24",
   "/guider/valja-dynamics-365-partner/": "2026-10-26",
   "/": "2026-10-26",
@@ -20,7 +26,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/partnernytt/": "2026-10-22",
   "/dynamics-365-partners-in-sweden/": "2026-10-22",
   "/dynamics-365-crm-partners-sverige/": "2026-10-22",
-  "/guider/valja-dynamics-365-sales-partner/": "2026-10-24",
+  "/guider/valja-dynamics-365-sales-partner/": "2026-10-30",
   "/second-opinion/": "2026-10-24",
   "/guider/optimera-dynamics-365/": "2026-10-24",
   "/dynamicskonsult/": "2026-10-22",
