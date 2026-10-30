@@ -298,7 +298,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
         <h2>När säljprognosen ska synka med koncernens ekonomi</h2>
         <p>
           Säljprognosen blir mest värdefull när den inte stannar i CRM. Läses pipeline och viktade
-          prognoser in i samma Power BI-modell som utfallet från affärssystemet kan ekonomi­avdelningen
+          prognoser in i samma Power BI-modell som utfallet från affärssystemet kan ekonomiavdelningen
           uppdatera intäkts- och kassaflödesprognosen direkt från säljteamets senaste bedömning, i stället
           för att stämma av två kalkylblad.
         </p>
