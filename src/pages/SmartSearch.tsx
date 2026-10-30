@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { localSearch } from "@/lib/localSearchFallback";
+import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 
 type SourceType = "redaktionellt" | "bedomning" | "partner" | "publikt";
 
@@ -73,11 +74,13 @@ export default function SmartSearch() {
   const [query, setQuery] = useState(initial);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
+  const [noAnswer, setNoAnswer] = useState(false);
 
   const runSearch = async (q: string) => {
     if (!q.trim()) return;
     setLoading(true);
     setResult(null);
+    setNoAnswer(false);
     setParams({ q });
     let data: any = null;
     let failed = false;
@@ -95,10 +98,8 @@ export default function SmartSearch() {
         setResult(local);
         return;
       }
-      toast({
-        title: "Vi kan hjälpa er vidare",
-        description: "Det fria svaret är inte tillgängligt just nu. Prova ett produkt-, partner- eller tilläggsnamn, eller kontakta oss.",
-      });
+      // No Dead Ends: ett beständigt block med vägar vidare i stället för bara ett meddelande.
+      setNoAnswer(true);
       return;
     }
     setResult(data as SearchResult);
@@ -150,6 +151,23 @@ export default function SmartSearch() {
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Få svar"}
           </Button>
         </form>
+
+        {noAnswer && !loading && (
+          <EmptyResultsNextSteps
+            sourceTemplate="search"
+            className="mb-6"
+            message="Vi hittade inget säkert svar på frågan just nu."
+            resetLabel="Formulera om frågan"
+            onResetFilters={() => { setNoAnswer(false); setQuery(""); }}
+            broaden={{ label: "Starta behovsguiden", to: "/kom-igang/" }}
+            alternatives={[
+              { label: "Vad kostar det?", to: "/kostnad/" },
+              { label: "Hitta relevanta partners", to: "/valjdynamics365partner/" },
+              { label: "Tilläggslösningar", to: "/kunskapscenter/dynamics-365-tillagg/" },
+            ]}
+            context="Sök utan säkert svar"
+          />
+        )}
 
         {!result && !loading && (
           <div className="space-y-2">
