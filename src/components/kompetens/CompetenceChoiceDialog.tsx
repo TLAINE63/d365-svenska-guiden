@@ -12,6 +12,7 @@ import DescribeNeedDialog from "@/components/kompetens/DescribeNeedDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackCompetenceEvent } from "@/utils/trackCompetenceEvent";
 import { markPartnerSearchStarted } from "@/lib/partnerSearchFunnel";
+import { markExpertSearchStarted } from "@/lib/expertRequirement";
 
 /**
  * Sprint 1.0: första steget efter "Hitta rätt kompetens" i startsidans hero.
@@ -29,7 +30,7 @@ export const COMPETENCE_CHOICES: {
   to: string;
   /** Intern klassificering, visas aldrig publikt. */
   intentType: "PartnerSearch" | "ExpertRequirement";
-  startEvent: "partner_search_started" | "expert_requirement_started";
+  startEvent: "partner_search_started" | "expert_search_started";
 }[] = [
   {
     type: "partner",
@@ -47,7 +48,8 @@ export const COMPETENCE_CHOICES: {
     cta: "Hitta rätt expertkompetens",
     to: "/kompetens/",
     intentType: "ExpertRequirement",
-    startEvent: "expert_requirement_started",
+    // Sprint 1.2: sökningen startar här; expert_requirement_started mäts när behovsformuläret öppnas.
+    startEvent: "expert_search_started",
   },
 ];
 
@@ -98,6 +100,7 @@ const CompetenceChoiceDialog = ({ open, onOpenChange, productContext }: Props) =
                   onClick={() => {
                     select(c.type, c.intentType);
                     if (c.type === "partner") markPartnerSearchStarted();
+                    if (c.type === "expert") markExpertSearchStarted();
                     trackCompetenceEvent(c.startEvent, { ...base(), competence_type: c.type, destination: c.to });
                     onOpenChange(false);
                   }}
