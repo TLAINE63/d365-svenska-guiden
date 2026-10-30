@@ -3,6 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { ShieldCheck } from "lucide-react";
@@ -32,6 +35,15 @@ const VERIFY: [string, string][] = [
 const PUBLICATION: [string, string][] = [["draft", "Utkast"], ["submitted", "Inskickad"], ["published", "Publicerad"], ["hidden", "Dold"]];
 const BOA: [string, string][] = [["none", "Inget"], ["offered", "Erbjudet"], ["signed", "Signerat"], ["ended", "Avslutat"]];
 
+const BC_USE_CASES: [string, string][] = [
+  ["", "Härled från kategori"], ["wms", "Lager och WMS"], ["scanning", "Scanning och mobilt"], ["manufacturing", "Tillverkning"],
+  ["planning", "Planering"], ["edi", "EDI och e-faktura"], ["ap-automation", "Leverantörsfakturor (AP)"], ["expense", "Utlägg"],
+  ["payroll", "Lön och HR"], ["banking", "Bank och betalningar"], ["tax", "Skatt och moms"], ["document-management", "Dokumenthantering"],
+  ["e-commerce", "E-handel"], ["shipping", "Frakt och logistik"], ["reporting-bi", "Rapportering och BI"], ["integration", "Integration"],
+  ["localization", "Svensk lokalisering"], ["industry", "Branschlösning"], ["other", "Övrigt"],
+];
+const emptyBc = { bc_slug: "", bc_intro: "", bc_seo_title: "", bc_seo_description: "", bc_editorial_context: "", bc_use_case: "" };
+
 const sel = "h-8 rounded-md border border-input bg-background px-2 text-xs";
 
 function Select({ value, options, onChange, label }: { value: string; options: [string, string][]; onChange: (v: string) => void; label: string }) {
@@ -53,6 +65,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
   const [tab, setTab] = useState<"vendors" | "products">("vendors");
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(false);
+  const [bcEdit, setBcEdit] = useState<{ id: string; name: string; form: typeof emptyBc } | null>(null);
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-solutions`;
   const headers = () => ({ Authorization: `Bearer ${token}`, apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY, "Content-Type": "application/json" });
@@ -85,6 +98,20 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
       toast({ title: "Kunde inte spara", description: data?.error, variant: "destructive" });
       return;
     }
+    await load();
+  };
+
+  const saveBc = async () => {
+    if (!bcEdit) return;
+    const res = await fetch(`${baseUrl}?action=set_bc_presentation`, { method: "POST", headers: headers(), body: JSON.stringify({ solution_id: bcEdit.id, ...bcEdit.form }) });
+    if (res.status === 401) return onSessionExpired();
+    const data = await res.json();
+    if (!res.ok) {
+      toast({ title: "Kunde inte spara", description: data?.error, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Sparat för businesscentral.se" });
+    setBcEdit(null);
     await load();
   };
 
@@ -181,6 +208,15 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                       <TableCell>
                         <p className="font-medium">{p.name}</p>
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
+                        {p.publish_businesscentral && (
+                          <button
+                            type="button"
+                            className="text-xs text-primary hover:underline mt-1"
+                            onClick={() => setBcEdit({ id: p.solution_id, name: p.name, form: { ...emptyBc, ...Object.fromEntries(Object.entries(p.bc_presentation || {}).filter(([k]) => k in emptyBc).map(([k, v]) => [k, v ?? ""])) } })}
+                          >
+                            Text för businesscentral.se{p.information_status !== "verified" ? " (visas först när produkten är verifierad)" : ""}
+                          </button>
+                        )}
                       </TableCell>
                       {statusCells(p, "product", p.solution_id)}
                       {publishCells(p, "product", p.solution_id)}
@@ -190,6 +226,51 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
           </Table>
         </div>
       </CardContent>
+
+      <Dialog open={!!bcEdit} onOpenChange={(o) => !o && setBcEdit(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{bcEdit?.name} på businesscentral.se</DialogTitle>
+          </DialogHeader>
+          {bcEdit && (
+            <div className="space-y-3 text-sm">
+              <p className="text-xs text-muted-foreground">
+                Bara presentationen på businesscentral.se. Produktdata, kompatibilitet och status hämtas från samma produkt som på d365.se.
+              </p>
+              <div>
+                <Label htmlFor="bc-slug">Adress (lämna tomt för produktens id)</Label>
+                <Input id="bc-slug" value={bcEdit.form.bc_slug} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_slug: e.target.value } })} />
+              </div>
+              <div>
+                <Label htmlFor="bc-use">Use case</Label>
+                <select id="bc-use" className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm" value={bcEdit.form.bc_use_case} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_use_case: e.target.value } })}>
+                  {BC_USE_CASES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="bc-intro">Ingress</Label>
+                <Textarea id="bc-intro" rows={3} maxLength={1000} value={bcEdit.form.bc_intro} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_intro: e.target.value } })} />
+              </div>
+              <div>
+                <Label htmlFor="bc-title">SEO-titel ({bcEdit.form.bc_seo_title.length}/60)</Label>
+                <Input id="bc-title" maxLength={70} value={bcEdit.form.bc_seo_title} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_seo_title: e.target.value } })} />
+              </div>
+              <div>
+                <Label htmlFor="bc-desc">Metabeskrivning ({bcEdit.form.bc_seo_description.length}/160)</Label>
+                <Textarea id="bc-desc" rows={2} maxLength={160} value={bcEdit.form.bc_seo_description} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_seo_description: e.target.value } })} />
+              </div>
+              <div>
+                <Label htmlFor="bc-ctx">Redaktionell kontext</Label>
+                <Textarea id="bc-ctx" rows={5} maxLength={4000} value={bcEdit.form.bc_editorial_context} onChange={(e) => setBcEdit({ ...bcEdit, form: { ...bcEdit.form, bc_editorial_context: e.target.value } })} />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setBcEdit(null)}>Avbryt</Button>
+            <Button onClick={saveBc}>Spara</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }
