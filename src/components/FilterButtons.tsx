@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, Building2, Users, AppWindow, TrendingUp, Globe, ClipboardList } from "lucide-react";
+import { X, Building2, Users, AppWindow, TrendingUp, Globe, ClipboardList, ShieldCheck, Briefcase, LifeBuoy, Sparkles } from "lucide-react";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
