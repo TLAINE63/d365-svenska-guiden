@@ -110,14 +110,34 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-User-agent: CCBot
-Allow: /
-
 User-agent: cohere-ai
 Allow: /
 
+# Datainsamlare för återpublicering och datautvinning – spärrade (Thomas 2026-10-30).
+# Sökmotorer och AI-sök ovan påverkas inte.
+User-agent: CCBot
+Disallow: /
+
 User-agent: Bytespider
-Allow: /
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: Omgili
+Disallow: /
+
+User-agent: magpie-crawler
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /
 
 # Brave Search – crawlern använder normalt ingen egen user-agent och följer
 # Googlebot-reglerna ovan. Blocken nedan är framtidssäkring om Brave deklarerar UA.
