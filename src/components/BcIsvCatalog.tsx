@@ -909,7 +909,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {list.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -927,7 +927,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {singles.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -936,7 +936,7 @@ const BcIsvCatalog = ({
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s) => (
-            <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+            <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
           ))}
         </div>
       )}
