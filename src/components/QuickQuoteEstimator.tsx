@@ -23,6 +23,8 @@ import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { allIndustries } from "@/data/partners";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import SourceNote from "@/components/SourceNote";
+import CostNextSteps from "@/components/cost/CostNextSteps";
+import { SOLUTION_TO_COST, costDrivers, trackCost } from "@/lib/costJourney";
 
 /** Kalkylatorns lösningar → partnerfiltrets produktnycklar. */
 const PARTNER_PRODUCT: Record<SolutionKey, ProductKey> = {
@@ -51,7 +53,7 @@ const fmtSek = (n: number) =>
  * för licens och implementation. Använder samma beräkningsmodell som den fulla
  * kalkylatorn på /implementationskalkylator/ så att siffrorna alltid stämmer överens.
  */
-export default function QuickQuoteEstimator() {
+export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateShown?: () => void } = {}) {
   const priceMap = usePriceMap();
 
   const [solution, setSolution] = useState<SolutionKey>("bc");
@@ -215,7 +217,7 @@ export default function QuickQuoteEstimator() {
           </div>
 
           {!showEstimate && (
-            <Button className="mt-5" onClick={() => setShowEstimate(true)}>
+            <Button className="mt-5" onClick={() => { setShowEstimate(true); onEstimateShown?.(); trackCost("cost_calculation_completed", { calculator: "snabb_offertfraga", solution, users: bucket.size, complexity, integrations, source_page: "/kostnad/" }); }}>
               <Calculator className="w-4 h-4 mr-2" aria-hidden="true" />
               Visa kostnadsspann
             </Button>
@@ -270,7 +272,7 @@ export default function QuickQuoteEstimator() {
               />
 
               <p className="mt-4 text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Nästa steg:</span> välj nedan upp till 3 partners som får ert underlag och kan ge en riktig offert.{" "}
+                <span className="font-semibold text-foreground">Nästa steg:</span> se nedan vad som påverkar er faktiska kostnad. Vill ni ha riktiga offerter kan ni längre ned skicka underlaget till upp till 3 partners som ni själva väljer.{" "}
                 <Link to="/implementationskalkylator/" className="font-medium text-primary hover:underline">
                   Eller räkna mer detaljerat i kalkylatorn
                 </Link>
@@ -278,6 +280,18 @@ export default function QuickQuoteEstimator() {
             </div>
           )}
         </div>
+
+        {showEstimate && (
+          <CostNextSteps
+            className="mt-6"
+            sourcePage="/kostnad/"
+            area={SOLUTION_TO_COST[solution]?.area}
+            costAnchor={SOLUTION_TO_COST[solution]?.anchor}
+            size={bucket.label}
+            drivers={costDrivers({ usersLabel: bucket.label, complexityLabel, integrations, dataMigration: true, legalEntities: 1, supportYearly: fmtSek(result.supportYearly) })}
+            estimateLines={[`Snabbkalkyl: implementation ${fmtSek(result.costLow)}–${fmtSek(result.costHigh)}, licens ${result.licenseYearly ? `${fmtSek(result.licenseYearly)} per år` : "offert"}.`]}
+          />
+        )}
 
         {showEstimate && (
           <div className="mt-6">

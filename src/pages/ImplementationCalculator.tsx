@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import CostNextSteps from "@/components/cost/CostNextSteps";
+import { SOLUTION_TO_COST, costDrivers, orgSizeForUsers, startCostJourney, trackCost } from "@/lib/costJourney";
 import { Link } from "react-router-dom";
 import { Calculator, Clock, Info, Wallet, Layers, ArrowRight, Download } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -119,6 +121,20 @@ export default function ImplementationCalculator() {
       priceLookup,
     ],
   );
+
+  // Sprint 1.5: kostnadsresan startar här också; beräkningen räknas som klar efter besökarens första ändring.
+  useEffect(() => { startCostJourney("/implementationskalkylator/"); }, []);
+  const calcTracked = useRef<"initial" | "waiting" | "done">("initial");
+  useEffect(() => {
+    if (calcTracked.current === "initial") { calcTracked.current = "waiting"; return; }
+    if (calcTracked.current === "done") return;
+    const t = window.setTimeout(() => {
+      calcTracked.current = "done";
+      trackCost("cost_calculation_completed", { calculator: "implementationskalkylator", solution: solutions[0], users, complexity, integrations, legal_entities: legalEntities, source_page: "/implementationskalkylator/" });
+    }, 1500);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solutions, users, premiumLicense, complexity, integrations, legalEntities, dataMigration, customDevelopment, training, hourlyRate]);
 
   // Endast en produkt åt gången kan väljas
   const selectSolution = (key: SolutionKey) => {
@@ -658,6 +674,19 @@ export default function ImplementationCalculator() {
                 priceLookup={priceLookup}
               />
             </div>
+          </div>
+        </section>
+
+        <section className="pb-8">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <CostNextSteps
+              sourcePage="/implementationskalkylator/"
+              area={SOLUTION_TO_COST[solutions[0]]?.area}
+              costAnchor={SOLUTION_TO_COST[solutions[0]]?.anchor}
+              size={orgSizeForUsers(users)}
+              drivers={costDrivers({ usersLabel: `${users} användare`, complexityLabel: COMPLEXITY_OPTIONS.find((c) => c.key === complexity)?.label, integrations, legalEntities, dataMigration, supportYearly: fmtSek(result.supportYearly) })}
+              estimateLines={[`Kalkyl: implementation ${fmtSek(result.costLow)}–${fmtSek(result.costHigh)}, ${users} användare, ${integrations} integrationer, ${legalEntities} bolag.`]}
+            />
           </div>
         </section>
 

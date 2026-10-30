@@ -20,7 +20,7 @@ const Body = z.object({
   advisory: z.boolean().optional(),
   /** Var rådgivningen bokades (beslutspunkt, CTA, sidtyp). Inga personuppgifter. */
   advisory_context: z.object({
-    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan", "home", "partner_search", "expert_requirement", "existing_dynamics", "partner_relationship_review", "solution_assessment", "solution_advice"]),
+    placement: z.enum(["compare", "partner_switch", "needs_guide", "tool_result", "second_opinion", "plan", "home", "partner_search", "expert_requirement", "existing_dynamics", "partner_relationship_review", "solution_assessment", "solution_advice", "cost_help"]),
     cta: z.string().trim().max(120),
     page_type: z.string().trim().max(60).optional().nullable(),
     page_path: z.string().trim().max(300).optional().nullable(),
@@ -114,7 +114,7 @@ Deno.serve(async (req) => {
         const resend = new Resend(keyA);
         try {
           await resend.emails.send({
-            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: isExpert ? `Kompetensbehov (expert/konsult): ${d.company}` : ac?.placement === "partner_relationship_review" ? `Utvärdera partnersamarbetet: ${d.company}` : ac?.placement === "existing_dynamics" ? `Befintlig Dynamics 365, nästa steg: ${d.company}` : ac?.placement === "solution_assessment" ? `Första bedömning, CRM- eller affärssystem: ${d.company}` : ac?.placement === "solution_advice" ? `Prata med d365.se, CRM- eller affärssystem: ${d.company}` : `Rådgivning${ac?.cta ? ` (${ac.cta})` : " via Min D365-plan"}: ${d.company}`,
+            from: "d365.se <info@d365.se>", to: ADMIN_EMAILS, reply_to: d.email, subject: isExpert ? `Kompetensbehov (expert/konsult): ${d.company}` : ac?.placement === "partner_relationship_review" ? `Utvärdera partnersamarbetet: ${d.company}` : ac?.placement === "existing_dynamics" ? `Befintlig Dynamics 365, nästa steg: ${d.company}` : ac?.placement === "solution_assessment" ? `Första bedömning, CRM- eller affärssystem: ${d.company}` : ac?.placement === "solution_advice" ? `Prata med d365.se, CRM- eller affärssystem: ${d.company}` : ac?.placement === "cost_help" ? `Kostnadsbild: ${d.company}` : `Rådgivning${ac?.cta ? ` (${ac.cta})` : " via Min D365-plan"}: ${d.company}`,
             html: layout(`Rådgivning: ${esc(d.company)}`, p(`${esc(d.contact_name)}${d.role ? `, ${esc(d.role)}` : ""} på ${esc(d.company)} vill ha hjälp med nästa steg. Ingen partner har kontaktats.`) + box("Kontakt och förfrågan", rows([["Namn", d.contact_name], ["Företag", d.company], ["E-post", d.email], ["Telefon", d.phone || "–"], ["Gäller", d.help_with || "–"], ["Meddelande", d.message || "–"]])) + (d.include_project ? projectText(d.project) : "")),
           });
           await resend.emails.send({
