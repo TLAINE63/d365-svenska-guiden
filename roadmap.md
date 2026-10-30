@@ -97,3 +97,10 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 ## Hjälpärenden i admin och /redaktion (2026-10-30)
 - [x] Gemensam ärendevy för alla hjälpvägar med valt behov, Dynamics 365-produkt, sajt, status, bokning, nästa steg och anteckningar
 - [x] Nya ärenden sparar besökarens val strukturerat
+
+## Sprint 2.1 No Dead Ends (2026-10-30)
+- [x] Nästa steg per sidtyp med fallback, global "Osäker på vad som är rätt nästa steg?" ovanför sidfoten
+- [x] Fortsätt er utvärdering på artiklar, alla guider, grundprofiler, AI-chatt, videosidor, Aktuellt och tre produktsidor
+- [x] Tomma resultat med ändra filter, bredda, närliggande och hjälp (katalog, partnerlistor, jämförelse, startsida, sök)
+- [x] 404 med fyra huvudvägar och sök; kalkylatorer "Vad vill ni göra härnäst?"; INSIDE med köparnästa steg
+- [x] Mätning dead_end_* i köpvägsrapporten; leveransrapport docs/NO-DEAD-ENDS-2.1.md

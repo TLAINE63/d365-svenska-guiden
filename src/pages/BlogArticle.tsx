@@ -1,4 +1,5 @@
 import SourcesAndMethod from "@/components/SourcesAndMethod";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
@@ -497,6 +498,7 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
           </section>
         )}
       </main>
+      <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
       <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />

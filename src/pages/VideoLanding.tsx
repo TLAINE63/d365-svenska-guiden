@@ -1,4 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
@@ -138,6 +139,7 @@ const VideoLanding = () => {
             )}
           </article>
         </main>
+        <ContinueEvaluation template="inside" />
         <Footer />
       </div>
     </>

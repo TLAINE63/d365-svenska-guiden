@@ -1,4 +1,5 @@
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
+import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import FitModel from "@/components/FitModel";
 import WhyTheseResults from "@/components/WhyTheseResults";
@@ -299,7 +300,14 @@ export default function AllD365Partners() {
             {profiledAll.length === 0 ? (
               <p className="text-sm text-muted-foreground">Laddar…</p>
             ) : profiled.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Inga partnerverifierade profiler matchar filtret.</p>
+              <EmptyResultsNextSteps
+                sourceTemplate="partner_list"
+                message="Inga partnerverifierade profiler matchar filtret."
+                onResetFilters={() => { setQuery(""); setProductFilter("all"); setVerifiedOnly(false); }}
+                broaden={{ label: "Filtrera på behov i partnerväljaren", to: "/valjdynamics365partner/" }}
+                alternatives={[{ label: "Hitta rätt kompetens", to: "/kompetens/" }]}
+                context="Alla partners utan träffar"
+              />
             ) : (
                <ul className="grid lg:grid-cols-2 gap-4">
                 {profiled.map((p) => (

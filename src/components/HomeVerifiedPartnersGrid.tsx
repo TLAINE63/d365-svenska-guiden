@@ -1,4 +1,5 @@
 import WhyTheseResults from "@/components/WhyTheseResults";
+import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import { useEffect, useMemo, useState } from "react";
 import { trackPartnerImpression } from "@/utils/trackPartnerEvent";
 
@@ -283,13 +284,14 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
 
             <WhyTheseResults order="alphabetical" criteria={[product === "all" ? null : PRODUCT_AREA_LABEL[product], industry]} className="mb-5" />
             {filtered.length === 0 ? (
-              <div className="rounded border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-                Inga partners matchar valet just nu.{" "}
-<Link to="/valjdynamics365partner/#alla-partners-rubrik" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
-                  Se alla partners
-                </Link>
-                .
-              </div>
+              <EmptyResultsNextSteps
+                sourceTemplate="home"
+                message="Inga partners matchar valet just nu."
+                onResetFilters={() => { setProduct("all"); setIndustry(""); }}
+                broaden={{ label: "Se alla partners", to: "/valjdynamics365partner/#alla-partners-rubrik" }}
+                alternatives={[{ label: "Starta behovsguiden", to: "/kom-igang/" }]}
+                context="Startsidans partnerurval utan träffar"
+              />
             ) : (
               <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filtered.map((p) => {

@@ -64,7 +64,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
     : "Ni ser exakt vad som skickas innan ni skickar.";
 
   return (
-    <div ref={ref} className={`print:hidden ${className}`} data-advisory-placement={placement}>
+    <div ref={ref} className={`print:hidden ${className}`} data-advisory-placement={placement} data-next-step-block="">
       {variant === "inline" ? (
         <aside aria-label="Kostnadsfri rådgivning" className="flex flex-col gap-5 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-start sm:p-6">
           <figure className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-center sm:text-center">

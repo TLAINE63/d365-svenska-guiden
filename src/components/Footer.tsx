@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
+import GlobalNextStepFallback from "@/components/nextsteps/GlobalNextStepFallback";
 
 const siteLogo = "/d365-logo.svg";
 
 const Footer = () => {
   return (
+    <>
+    <GlobalNextStepFallback />
     <footer
       className="bg-[hsl(var(--hero-dark))] py-12 text-[hsl(var(--muted-dark))]"
       style={{ borderTop: "3px solid hsl(var(--signature))" }}
@@ -176,6 +179,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   );
 };
 

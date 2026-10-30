@@ -31,7 +31,7 @@ export default function CalcToKravNext({ children, className = "", ...input }: P
     <div className={`rounded-xl border border-border bg-card p-6 sm:p-8 text-left ${className}`}>
       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[hsl(var(--cta-orange))] mb-2">
         <ClipboardList className="w-3.5 h-3.5" aria-hidden />
-        Nästa steg
+        Vad vill ni göra härnäst?
       </div>
       <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Gör kravspecifikationen för {link.label}</h2>
       <p className="text-muted-foreground mb-4 max-w-2xl">

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Link, useSearchParams } from "react-router-dom";
 import { X } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -155,6 +156,7 @@ export default function Aktuellt() {
           </div>
         </section>
       </main>
+      <ContinueEvaluation template="aktuellt" />
       <Footer />
     </div>
   );
