@@ -731,3 +731,8 @@ All colors MUST be HSL.
   .partner-profile-continuation > div[data-engagement] > .partner-profile-products { padding-block: 3rem; }
   .partner-profile-continuation h2 { font-size: 1.5rem; }
 }
+
+/* Sprint 2.1 No Dead Ends: den globala fallbacken ovanför sidfoten döljs när sidan redan har ett nästa steg-block. */
+body:has([data-next-step-block]) [data-global-next-step] {
+  display: none;
+}
