@@ -1,4 +1,5 @@
 import EditorialSource from "@/components/EditorialSource";
+import GuideCTA from "@/components/guides/GuideCTA";
 import { Link } from "react-router-dom";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -21,8 +22,9 @@ const ErpComparisonsHub = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Jämför Dynamics 365 mot konkurrenter | d365.se"
-        description="Jämför Dynamics 365 ERP och CRM med SAP, Salesforce, HubSpot, Zendesk, ServiceNow, Genesys, Puzzel, Telia ACE och fler alternativ."
+        title="Jämför Microsoft Dynamics 365 mot ledande alternativ | d365.se"
+        titleMaxLength={70}
+        description="Saklig jämförelse av Dynamics 365 ERP & CRM mot Salesforce, SAP, Monitor, Visma Net och HubSpot. Välj rätt system för din bransch."
         canonicalPath="/jamfor/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -38,10 +40,13 @@ const ErpComparisonsHub = () => {
               Jämför Dynamics 365 mot konkurrenter
             </h1>
             <p className="text-base sm:text-lg text-white/85 max-w-3xl">
-              Strukturerade jämförelser av Microsoft Dynamics&nbsp;365 mot etablerade
-              alternativ – för ERP, CRM, kundservice, marketing/CDP, kontaktcenter och fältservice.
-              Samma rader, samma frågor – och alltid &quot;när passar inte&quot;. {PRODUCT_COMPARISONS.length}{" "}
-              jämförelser totalt.
+              Att välja mellan affärssystem och CRM kräver förståelse för funktionalitet, licenskostnader,
+              ekosystem och branschspecifika krav. Här jämför vi Microsoft Dynamics&nbsp;365 med de
+              vanligaste marknadsalternativen.
+            </p>
+            <p className="text-sm text-white/70 mt-3">
+              {PRODUCT_COMPARISONS.length} jämförelser för ERP, CRM, kundservice, marketing/CDP,
+              kontaktcenter och fältservice, med samma frågor och alltid när alternativet passar bättre.
             </p>
             <p className="text-sm text-white/70 mt-3">
               Vill du gå djupare? Se <Link to="/businesscentral/" className="text-white underline hover:text-white/80">Business Central ERP</Link> med priser, funktioner och svenska partners, eller <Link to="/affarssystem/" className="text-white underline hover:text-white/80">ERP-guiden</Link> för jämförelsen mellan BC och Finance & Supply Chain Management.
@@ -54,6 +59,25 @@ const ErpComparisonsHub = () => {
 
         <section className="py-10 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl space-y-10">
+            <div id="branschspecifika-erp" className="scroll-mt-24 max-w-3xl">
+              <h2 className="text-2xl font-bold text-foreground mb-3">
+                Hur jämför man branschspecifika Dynamics&nbsp;365 ERP-lösningar?
+              </h2>
+              <p className="text-muted-foreground mb-3">
+                Ett standardiserat <Link to="/businesscentral/" className="text-primary underline underline-offset-2">affärssystem</Link> räcker
+                sällan för företag med unika <Link to="/branscher/" className="text-primary underline underline-offset-2">branschprocesser</Link>.
+                När du utvärderar Dynamics&nbsp;365 mot nischade system (som{" "}
+                <Link to="/jamfor/business-central-vs-monitor-erp/" className="text-primary underline underline-offset-2">Monitor för tillverkning</Link> eller{" "}
+                <Link to="/jamfor/business-central-vs-jeeves/" className="text-primary underline underline-offset-2">Jeeves för partihandel</Link>) bör
+                du fokusera på tre faktorer:
+              </p>
+              <ol className="list-decimal space-y-1.5 pl-5 text-muted-foreground">
+                <li>Standardfunktionalitet jämfört med branschtillägg (AppSource).</li>
+                <li>Integrationsmöjligheter med Power BI och Microsoft Fabric.</li>
+                <li>Tillgång till svenska partners med djup branscherfarenhet.</li>
+              </ol>
+            </div>
+
             <div id="snabbguide" className="scroll-mt-24">
               <div className="mb-5">
                 <h2 className="text-2xl font-bold text-foreground">Vilket vägval står ni inför?</h2>
@@ -123,6 +147,16 @@ const ErpComparisonsHub = () => {
                 </div>
               );
             })}
+
+            <GuideCTA
+              variant="highlight"
+              heading="Svårt att avgöra vilket system som passar bäst?"
+              text="En implementeringspartner kan genomföra en förstudie och demonstrera systemen med era processer och er data."
+              buttonLabel="Hitta rätt implementeringspartner i partnerväljaren"
+              to="/valjdynamics365partner/"
+              source="/jamfor/#cta-partnervaljare"
+              className="!my-0"
+            />
 
             <div className="rounded-lg border border-border bg-background p-4 flex gap-3">
               <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
