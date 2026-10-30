@@ -37,6 +37,7 @@ import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 import { displayApplicationName, getApplicationIcon, sortApplications, normalizeApplications } from "@/lib/applicationLabels";
 import PartnerCardSummary from "@/components/partner/PartnerCardSummary";
+import { trackPartnerFunnel } from "@/lib/partnerSearchFunnel";
 
 import {
   getResultAssessment,
@@ -604,6 +605,7 @@ const PartnerCard = ({
  rel="noopener noreferrer"
  onClick={(e) => {
  e.stopPropagation();
+ trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: compareSlug || undefined, via: "landningssida" });
  trackPartnerClick(
  partner.name || 'Partner',
  productLandingPageUrl,
@@ -653,6 +655,7 @@ const PartnerCard = ({
      onClick={(e) => {
       e.preventDefault();
       e.stopPropagation();
+      trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: compareSlug || undefined, via: "fa_kontakt" });
       setContactOpen(true);
      }}
      className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium border border-border bg-transparent text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
@@ -670,6 +673,7 @@ const PartnerCard = ({
    onClick={(e) => {
     e.preventDefault();
     e.stopPropagation();
+    trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: compareSlug || undefined, via: "fa_kontakt" });
     setContactOpen(true);
    }}
    className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-sm font-semibold border bg-[hsl(var(--cta-orange))] text-white border-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 transition-all"
