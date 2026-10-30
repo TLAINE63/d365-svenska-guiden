@@ -5,6 +5,7 @@
 - [x] Sprint 1.0: kompetenskortet frågar först "Vad söker ni?" (partner, expert/konsult, osäker); ersätter tidigare Sprint 1.1 Kompetensfunneln
 - [x] Sprint 1.1: partnersökningen (behov, filter, neutral ordning, två utgångar, mätning)
 - [x] Sprint 1.1b: informationsstatus (tre nivåer, filter, sortering), uppdragstyp/leveransform/kompetens, Besök partnern, Standard kostnadsfri på Partnerprogram
+- [x] Sprint 1.3: befintlig Dynamics 365 (sex val, Prata med d365.se, Utvärdera partnersamarbetet, mätning)
 - [x] Sprint 1.2: expertvägen (kompetens, behov, värde före kontakt, kompetensbehov till d365.se, mätning)
 
 ## WP1 Rådgivningsledd partnerintroduktion (2026-10-23)

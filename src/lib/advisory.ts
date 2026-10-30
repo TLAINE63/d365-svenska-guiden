@@ -21,6 +21,8 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   home: "Startsidan",
   partner_search: "Partnersökningen",
   expert_requirement: "Kompetensbehov (expert/konsult)",
+  existing_dynamics: "Befintlig Dynamics 365: nästa steg",
+  partner_relationship_review: "Utvärdera partnersamarbetet",
 };
 
 export const CASE_STATUSES = [

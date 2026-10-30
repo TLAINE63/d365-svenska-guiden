@@ -1,4 +1,5 @@
 import ExistingCustomerDiagnosis from "@/components/ExistingCustomerDiagnosis";
+import ExistingDynamicsNextStep, { PARTNER_REVIEW_HASH } from "@/components/existing/ExistingDynamicsNextStep";
 import { Link } from "react-router-dom";
 import { ArrowRight, Layers, Sparkles, LifeBuoy, Target } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -95,13 +96,15 @@ const BefintligKund = () => (
           </p>
         </header>
 
+        <ExistingDynamicsNextStep />
+
         <ExistingCustomerDiagnosis />
 
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-foreground mb-4">Fyra vanliga vägar för befintliga kunder</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { t: "Byta Dynamics\u00A0365-partner", d: "Utvärdera, minska beroendet eller byta.", h: "/guider/byta-dynamics-partner/" },
+              { t: "Utvärdera partnersamarbetet", d: "Bedöm vad som fungerar och vad som behöver förbättras innan ni beslutar.", h: "/guider/byta-dynamics-partner/" },
               { t: "Second opinion", d: "En extra genomgång av lösning, offert eller partner innan ni beslutar.", h: "/second-opinion/" },
               { t: "Optimera och felsöka", d: "Prestanda, anpassningar, integrationer och användning.", h: "/guider/optimera-dynamics-365/" },
               { t: "Support och förvaltning", d: "Vad avtalet ska omfatta och hur ansvaret fördelas.", h: "/guider/dynamics-365-support-forvaltning/" },
@@ -138,15 +141,15 @@ const BefintligKund = () => (
         </div>
 
         <section className="mt-12 rounded-lg border border-border bg-card p-6 sm:p-8">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Funderar ni på att byta partner eller minska partnerberoendet?</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Vill ni utvärdera partnersamarbetet?</h2>
           <p className="text-muted-foreground mb-6 max-w-3xl">
-            {nowrapBrand("Att vara missnöjd med partnern betyder inte att ni måste byta system. Dynamics 365-lösningen och era data finns kvar, det som byts är vem som förvaltar och utvecklar den.")}
+            {nowrapBrand("Friktion i samarbetet betyder inte att ni måste byta partner eller system. Ofta går det att förbättra samarbetet. Om ni ändå väljer att byta finns Dynamics 365-lösningen och era data kvar, det som byts är vem som förvaltar och utvecklar den.")}
           </p>
           <div className="grid gap-4 sm:grid-cols-3 mb-6">
             {[
               { t: "Utvärdera", d: "Hitta orsakerna till friktionen innan ni agerar." },
               { t: "Minska beroendet", d: "Säkra dokumentation, adminåtkomst, kod och licenser." },
-              { t: "Byta partner", d: "Så fungerar uppsägning, överlämning och ny partner i praktiken." },
+              { t: "Om ni väljer att byta", d: "Så fungerar uppsägning, överlämning och ny partner i praktiken." },
             ].map((x) => (
               <div key={x.t} className="rounded-md border border-border bg-secondary/40 p-4">
                 <h3 className="font-semibold text-foreground mb-1">{x.t}</h3>
@@ -154,8 +157,11 @@ const BefintligKund = () => (
               </div>
             ))}
           </div>
-          <Link to="/guider/byta-dynamics-partner/" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
-            Till guiden och partnerbytesanalysen <ArrowRight className="h-4 w-4" aria-hidden />
+          <a href={`#${PARTNER_REVIEW_HASH}`} className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
+            Få hjälp att utvärdera partnersamarbetet <ArrowRight className="h-4 w-4" aria-hidden />
+          </a>
+          <Link to="/guider/byta-dynamics-partner/" className="ml-0 sm:ml-3 mt-3 sm:mt-0 inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm font-semibold text-primary hover:bg-secondary">
+            Läs guiden om partnersamarbete <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
           <Link to="/second-opinion/" className="ml-0 sm:ml-3 mt-3 sm:mt-0 inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm font-semibold text-primary hover:bg-secondary">
             Osäkra? Be om en second opinion först <ArrowRight className="h-4 w-4" aria-hidden />
