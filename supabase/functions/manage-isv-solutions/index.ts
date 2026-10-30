@@ -248,6 +248,74 @@ serve(async (req) => {
       return json({ success: true }, 200, corsHeaders);
     }
 
+    // ── Sprint 1.9: status för leverantör och produkt, satt manuellt av redaktionen ──
+    // Den publika informationsstatusen härleds i databasen ur verifiering och bekräftelse.
+    // Leverantör och produkt uppdateras alltid var för sig och påverkar aldrig varandra.
+    const SOURCES = ["d365_research", "d365_ai_research", "vendor_submitted", "mixed"];
+    const CONFIRM = ["not_confirmed", "confirmed"];
+    const VERIFY = ["not_reviewed", "reviewed", "partially_verified", "verified", "verification_expired"];
+    const pickV = (v: unknown, allowed: string[]) => (typeof v === "string" && allowed.includes(v) ? v : undefined);
+    const dateV = (v: unknown) => (typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : v === null ? null : undefined);
+    const boolV = (v: unknown) => (typeof v === "boolean" ? v : undefined);
+    const statusFields = (body: Record<string, unknown>, sourceKey: string, premiumKey: string) => {
+      const out: Record<string, unknown> = {
+        [sourceKey]: pickV(body[sourceKey], SOURCES),
+        confirmation_status: pickV(body.confirmation_status, CONFIRM),
+        verification_status: pickV(body.verification_status, VERIFY),
+        last_verified_date: dateV(body.last_verified_date),
+        [premiumKey]: boolV(body[premiumKey]),
+        publish_d365: boolV(body.publish_d365),
+        publish_businesscentral: boolV(body.publish_businesscentral),
+        publish_d365guide: boolV(body.publish_d365guide),
+      };
+      for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
+      return out;
+    };
+
+    if (action === "list_status" && req.method === "GET") {
+      const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
+        supabase.from("isv_vendors").select("slug, name, website, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, is_published, product_source, confirmation_status, verification_status, last_verified_date, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
+      ]);
+      if (vErr || pErr) throw vErr || pErr;
+      const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
+      return json({
+        vendors: (vendors || []).map((v) => ({ ...v, buyer_opportunity_agreement_status: boa.get(v.slug) || "none" })),
+        products: products || [],
+      }, 200, corsHeaders);
+    }
+
+    if (action === "set_vendor_status" && req.method === "POST") {
+      const body = await req.json();
+      const slug = clean(body?.slug, 120);
+      if (!slug) return json({ error: "slug krävs" }, 400, corsHeaders);
+      const fields = statusFields(body || {}, "profile_source", "premium_vendor");
+      const pub = pickV(body?.publication_status, ["draft", "submitted", "published", "hidden"]);
+      if (pub) fields.publication_status = pub;
+      if (Object.keys(fields).length) {
+        const { error } = await supabase.from("isv_vendors").update({ ...fields, updated_at: new Date().toISOString() }).eq("slug", slug);
+        if (error) return json({ error: error.message }, 400, corsHeaders);
+      }
+      const boaV = pickV(body?.buyer_opportunity_agreement_status, ["none", "offered", "signed", "ended"]);
+      if (boaV) {
+        const { error } = await supabase.from("isv_vendor_internal").upsert({ vendor_slug: slug, buyer_opportunity_agreement_status: boaV }, { onConflict: "vendor_slug" });
+        if (error) return json({ error: error.message }, 400, corsHeaders);
+      }
+      return json({ success: true }, 200, corsHeaders);
+    }
+
+    if (action === "set_product_status" && req.method === "POST") {
+      const body = await req.json();
+      const id = clean(body?.solution_id, 100);
+      if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
+      const fields = statusFields(body || {}, "product_source", "premium_product");
+      if (!Object.keys(fields).length) return json({ error: "Inga fält att spara" }, 400, corsHeaders);
+      const { error } = await supabase.from("isv_solutions").update({ ...fields, updated_at: new Date().toISOString() }).eq("solution_id", id);
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ success: true }, 200, corsHeaders);
+    }
+
     return json({ error: "Unknown action" }, 400, corsHeaders);
   } catch (e) {
     console.error("manage-isv-solutions error", e);
