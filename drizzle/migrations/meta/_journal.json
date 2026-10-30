@@ -92,6 +92,13 @@
       "when": 1793374863137,
       "tag": "0012_partner_information_status",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1793379158880,
+      "tag": "0013_isv_vendor_product_statuses",
+      "breakpoints": true
     }
   ]
 }
