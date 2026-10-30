@@ -116,6 +116,7 @@ const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
 const Dynamicskonsult = lazy(() => import("./pages/Dynamicskonsult"));
 const Dynamics365VsSalesforce = lazy(() => import("./pages/Dynamics365VsSalesforce"));
 const SupportForvaltning = lazy(() => import("./pages/SupportForvaltning"));
+const BudgetPrognosPlanering = lazy(() => import("./pages/BudgetPrognosPlanering"));
 const VadArDynamics365 = lazy(() => import("./pages/VadArDynamics365"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
 const VideoIndex = lazy(() => import("./pages/VideoIndex"));
@@ -245,6 +246,7 @@ const AppShell = () => {
           <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
           <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
           <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
+          <Route path="/guider/budget-prognos-planering-dynamics-365" element={<BudgetPrognosPlanering />} />
           <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />
           <Route path="/byta-partner" element={<Navigate to="/guider/byta-dynamics-partner/" replace />} />
           <Route path="/guider/valja-dynamics-365-partner" element={<PartnerGuidePage guideKey="hub" />} />

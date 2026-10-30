@@ -90,6 +90,7 @@ import OptimeraDynamics365 from './pages/OptimeraDynamics365';
 import Dynamicskonsult from './pages/Dynamicskonsult';
 import Dynamics365VsSalesforce from './pages/Dynamics365VsSalesforce';
 import SupportForvaltning from './pages/SupportForvaltning';
+import BudgetPrognosPlanering from './pages/BudgetPrognosPlanering';
 import VadArDynamics365 from './pages/VadArDynamics365';
 import CrmCategoryGuide from './pages/CrmCategoryGuide';
 import ImplementationCalculator from './pages/ImplementationCalculator';
@@ -269,6 +270,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/guider/optimera-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/dynamicskonsult', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/dynamics-365-support-forvaltning', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guider/budget-prognos-planering-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/vad-ar-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
@@ -644,6 +646,7 @@ export function render(url: string) {
               <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
               <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
               <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
+              <Route path="/guider/budget-prognos-planering-dynamics-365" element={<BudgetPrognosPlanering />} />
               <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />
               <Route path="/byta-partner" element={<Navigate to="/guider/byta-dynamics-partner/" replace />} />
               <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />

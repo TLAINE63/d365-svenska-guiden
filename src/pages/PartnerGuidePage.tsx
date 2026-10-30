@@ -89,6 +89,12 @@ const renderBlock = (block: GuideBlock, i: number) => {
               </li>
             ))}
           </ul>
+          {block.link && (
+            <Link to={block.link.to} className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+              <span>{nowrapBrand(block.link.text)}</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          )}
         </aside>
       );
     case "link":

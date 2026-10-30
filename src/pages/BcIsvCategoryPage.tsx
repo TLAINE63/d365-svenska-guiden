@@ -8,6 +8,7 @@ import { FAQSchema } from "@/components/StructuredData";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { deliveryLabel } from "@/data/bcIsvSolutions";
 import { findBcCategoryPage } from "@/data/bcIsvCategoryPages";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 
 /** Indexerbar landningssida för en utvald tilläggskategori inom Business Central. */
 const BcIsvCategoryPage = () => {
@@ -58,6 +59,19 @@ const BcIsvCategoryPage = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{page.h1}</h1>
             <p className="text-muted-foreground leading-relaxed">{page.intro}</p>
           </header>
+
+          {page.guideLink && (
+            <aside className="mb-10 max-w-3xl rounded-lg border border-border border-l-4 border-l-accent bg-muted/40 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">Rekommenderad fördjupning</p>
+              <Link
+                to={page.guideLink.to}
+                className="inline-flex items-start gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                <span>{nowrapBrand(page.guideLink.text)}</span>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0" aria-hidden />
+              </Link>
+            </aside>
+          )}
 
           <section className="mb-12">
             <h2 className="text-xl font-bold text-foreground mb-4">
