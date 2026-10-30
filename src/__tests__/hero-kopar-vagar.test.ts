@@ -1,8 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { HERO_NODES } from "@/components/home/DecisionModel";
+import { COMPETENCE_CHOICES } from "@/components/kompetens/CompetenceChoiceDialog";
 
 // Sprint 0.9 (Thomas 2026-10-30): fyra köparvägar i startsidans hero,
 // var och en med fast kort-id, intern klassificering och befintlig destination.
+// Sprint 1.0: kompetenskortet förgrenas först till partner eller expert.
 const byId = (id: string) => HERO_NODES.find((n) => n.cardId === id);
 
 describe("Hero-korten på startsidan", () => {
@@ -29,11 +31,29 @@ describe("Hero-korten på startsidan", () => {
     expect(n?.intentType).not.toBe("PartnerChange");
   });
 
-  it("kompetens leder till kompetensöversikten och klassas ExpertRequirement", () => {
-    expect(byId("hero_competence")).toMatchObject({ to: "/kompetens/", intentType: "ExpertRequirement" });
+  it("kompetenskortet öppnar valet partner/expert i stället för att gå direkt till expertkompetens", () => {
+    const n = byId("hero_competence");
+    expect(n?.opensCompetenceChoice).toBe(true);
+    expect(n?.intentType).toBeUndefined();
   });
 
   it("inget kort leder direkt till partnerväljaren", () => {
     expect(HERO_NODES.some((n) => n.to.startsWith("/valjdynamics365partner"))).toBe(false);
+  });
+});
+
+describe("Valet Vad söker ni?", () => {
+  const byType = (t: string) => COMPETENCE_CHOICES.find((c) => c.type === t);
+
+  it("partnervägen använder partnerväljaren och klassas PartnerSearch, inte PartnerChange", () => {
+    expect(byType("partner")).toMatchObject({ to: "/valjdynamics365partner/", intentType: "PartnerSearch", startEvent: "partner_search_started" });
+  });
+
+  it("expertvägen använder kompetensöversikten och klassas ExpertRequirement", () => {
+    expect(byType("expert")).toMatchObject({ to: "/kompetens/", intentType: "ExpertRequirement", startEvent: "expert_requirement_started" });
+  });
+
+  it("har exakt två huvudval", () => {
+    expect(COMPETENCE_CHOICES.map((c) => c.type)).toEqual(["partner", "expert"]);
   });
 });
