@@ -29,6 +29,7 @@ import {
 } from "@/data/partnerGuides";
 import { GUIDE_CONTENT, GuideBlock } from "@/data/partnerGuideContent";
 import EditorialSource from "@/components/EditorialSource";
+import { PARTNER_SELECTOR_CTA } from "@/data/partnerSelectorCta";
 
 interface Props {
   guideKey: PartnerGuideKey;
@@ -38,7 +39,7 @@ const BASE = "https://d365.se";
 
 /** Övergång från guide till rätt partnersida: generellt val till partnerväljaren, produktguider till produktens partnersida. */
 const NEXT_STEP_BOX: Partial<Record<PartnerGuideKey, { heading: string; text: string; label: string; to: string }>> = {
-  hub: { heading: "Klar med checklistan?", text: "Gå vidare till partnerväljaren och filtrera partners utifrån dina behov.", label: "Öppna partnerväljaren", to: "/valjdynamics365partner/" },
+  hub: { heading: PARTNER_SELECTOR_CTA.heading, text: PARTNER_SELECTOR_CTA.text, label: PARTNER_SELECTOR_CTA.label, to: PARTNER_SELECTOR_CTA.to },
   bc: { heading: "Redo att hitta en Business Central-partner?", text: "Se partners som arbetar med Business Central i Sverige.", label: "Se Business Central-partners i Sverige", to: "/business-central-partners-sverige/" },
   sales: { heading: "Redo att hitta en CRM- eller Sales-partner?", text: "Se partners som arbetar med Dynamics\u00A0365 Sales och CRM i Sverige.", label: "Se CRM & Sales-partners i Sverige", to: "/dynamics-365-crm-partners-sverige/" },
   fscm: { heading: "Redo att hitta en Finance & Supply Chain-partner?", text: "Se partners som arbetar med Finance & Supply Chain Management i Sverige.", label: "Se Finance & Supply Chain-partners i Sverige", to: "/finance-supply-chain-partners-sverige/" },
@@ -164,12 +165,7 @@ const renderInlineLinks = (text: string, links: { text: string; to: string }[]):
 
 /** Framhävd ruta efter introduktionen i huvudguiden, leder till partnerväljaren. */
 const INTRO_CTA: Partial<Record<PartnerGuideKey, { heading: string; text: string; label: string; to: string }>> = {
-  hub: {
-    heading: "Hitta rätt certifierad partner för ert projekt",
-    text: "I vår kostnadsfria partnerväljare kan du filtrera och jämföra svenska Microsoft-partners utifrån branschkompetens och produktfokus. Certifieringar och referenser kontrollerar ni sedan direkt med de partners ni går vidare med.",
-    label: "Gå till partnerväljaren",
-    to: "/valjdynamics365partner/",
-  },
+  hub: PARTNER_SELECTOR_CTA,
 };
 
 const PartnerGuidePage = ({ guideKey }: Props) => {

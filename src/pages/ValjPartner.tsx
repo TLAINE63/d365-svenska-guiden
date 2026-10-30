@@ -588,9 +588,9 @@ const ValjPartner = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Dynamics Partners i Sverige | Jämför Microsoft Dynamics 365-partners"
+ title="Hitta rätt Microsoft Dynamics 365-partner i Sverige | d365.se"
  titleMaxLength={80}
- description="Hitta Dynamics partners i Sverige. Jämför kompetens, branschfokus och applikationsområden bland svenska Microsoft Dynamics 365-partners på d365.se."
+ description="Jämför svenska Microsoft Dynamics 365-partners. Filtrera på bransch, ERP, CRM och specialistkompetens för att hitta rätt konsult."
  canonicalPath="/valjdynamics365partner"
  keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"
@@ -621,8 +621,8 @@ const ValjPartner = () => {
  />
  
   <ProductHero
-  title="Hitta rätt Microsoft Dynamics partners i Sverige"
-  subhead="Att välja rätt implementeringspartner är avgörande för en lyckad satsning på affärssystem och CRM. Här guidar vi dig till Dynamics partners i Sverige och hjälper dig jämföra kompetens, bransch och ansvar efter go-live."
+  title={"Välj rätt Microsoft Dynamics\u00A0365-partner"}
+  subhead={"Att välja rätt implementeringspartner är avgörande för en lyckad satsning på Dynamics\u00A0365. Jämför partners utifrån branscherfarenhet, systemfokus (Business Central, Finance & Supply Chain eller CRM) och geografisk närvaro."}
   primary={{ label: "Guidad väg till rätt partner", onClick: () => setGuideOpen(true), icon: ArrowRight }}
   secondary={{ label: "Jämför tre partners sida vid sida", to: "/jamfor-partners/", icon: ArrowLeftRight }}
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}

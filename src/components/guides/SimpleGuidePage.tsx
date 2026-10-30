@@ -26,6 +26,8 @@ export interface SimpleGuideProps {
   shortAnswer: string;
   sections: GuideSection[];
   next: { title: string; text: string; links: GuideLink[] };
+  /** Valfritt innehåll direkt efter det korta svaret, före första avsnittet. */
+  afterIntro?: ReactNode;
   /** Valfritt innehåll direkt efter nästa steg, t.ex. den gemensamma rådgivningsrutan. */
   afterNext?: ReactNode;
   faq: { q: string; a: string }[];
@@ -49,6 +51,8 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
             <h2 className="text-xl font-bold mb-2">Kort svar</h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{nowrapBrand(p.shortAnswer)}</p>
           </header>
+
+          {p.afterIntro && <div className="mb-12">{p.afterIntro}</div>}
 
           {p.sections.map((s) => (
             <section key={s.title} className="mb-12">

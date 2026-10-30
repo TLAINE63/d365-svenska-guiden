@@ -113,7 +113,6 @@ const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
 const PartnersInSweden = lazy(() => import("./pages/PartnersInSweden"));
 const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
-const Dynamicskonsult = lazy(() => import("./pages/Dynamicskonsult"));
 const Dynamics365VsSalesforce = lazy(() => import("./pages/Dynamics365VsSalesforce"));
 const SupportForvaltning = lazy(() => import("./pages/SupportForvaltning"));
 const BudgetPrognosPlanering = lazy(() => import("./pages/BudgetPrognosPlanering"));
@@ -244,7 +243,8 @@ const AppShell = () => {
           <Route path="/second-opinion" element={<SecondOpinion />} />
           <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
           <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
-          <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
+          <Route path="/dynamicskonsult" element={<RedirectTo to="/valjdynamics365partner/" />} />
+          <Route path="/dynamicskonsult/" element={<RedirectTo to="/valjdynamics365partner/" />} />
           <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
           <Route path="/guider/budget-prognos-planering-dynamics-365" element={<BudgetPrognosPlanering />} />
           <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />

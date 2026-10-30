@@ -1,5 +1,7 @@
 import SimpleGuidePage from "@/components/guides/SimpleGuidePage";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import GuideCTA from "@/components/guides/GuideCTA";
+import { PARTNER_SELECTOR_CTA as CTA } from "@/data/partnerSelectorCta";
 
 const PATH = "/guider/dynamics-365-support-forvaltning/";
 const SupportForvaltning = () => (
@@ -13,6 +15,9 @@ const SupportForvaltning = () => (
     h1="Support och förvaltning för Microsoft Dynamics 365"
     intro="Snabb experthjälp vid driftstörningar, användarfrågor och löpande förvaltning. Här går vi igenom vad ett supportavtal innebär, hur SLA fungerar och hur du hittar rätt svensk partner."
     shortAnswer="Support hanterar fel som uppstår, förvaltning håller lösningen frisk över tid och vidareutveckling förbättrar den. Ett bra avtal skiljer på de tre, anger ansvar och servicenivåer och säkrar att ni äger dokumentation, åtkomst och kod."
+    afterIntro={
+      <GuideCTA variant="highlight" heading={CTA.heading} text={CTA.text} buttonLabel={CTA.label} to={CTA.to} source={`${PATH}#cta-intro`} className="!my-0" />
+    }
     sections={[
       {
         title: "Support, förvaltning och vidareutveckling",
@@ -95,6 +100,8 @@ const SupportForvaltning = () => (
       ],
     }}
     afterNext={
+      <>
+      <GuideCTA variant="final" heading={CTA.heading} text={CTA.text} buttonLabel={CTA.label} to={CTA.to} source={`${PATH}#cta-final`} className="!mt-0" />
       <AdvisoryOffer
         variant="inline"
         placement="partner_switch"
@@ -104,6 +111,7 @@ const SupportForvaltning = () => (
         cta="Boka en kostnadsfri rådgivning"
         metadata={{ source: "support_guide", intent: "consultation" }}
       />
+      </>
     }
     faq={[
       { q: "Ingår uppdateringar från Microsoft i licensen?", a: "Microsoft levererar uppdateringarna i molnet, men test, anpassningar och godkännande i er lösning är normalt förvaltningsarbete hos er eller er partner." },

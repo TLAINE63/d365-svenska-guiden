@@ -590,8 +590,8 @@ const Index = () => {
               Hitta implementeringspartners med svensk support
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-            <Link to="/dynamicskonsult/" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
-              Anlita Dynamics&nbsp;365-konsult
+            <Link to="/valjdynamics365partner/" className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[hsl(var(--signature))] underline-offset-4 hover:underline">
+              Jämför Dynamics&nbsp;365-partners och konsulter
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
           </div>

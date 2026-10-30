@@ -63,6 +63,8 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Partnernamnbyte: Dynamicskonsult → DevCore. Den gamla grundprofilen rankar
   // fortfarande i Google; besökarna leds till partnerväljaren (beslut 2026-10-24).
   { from: "/basic/dynamicskonsult",     to: "/valjdynamics365partner/", intendedStatus: 301 },
+  // Konsultguiden konkurrerade med partnerväljaren om samma sökningar (beslut 2026-10-30).
+  { from: "/dynamicskonsult",           to: "/valjdynamics365partner/", intendedStatus: 301 },
 
   // Branscher (gammalt namn)
   { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
