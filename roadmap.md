@@ -104,3 +104,9 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Tomma resultat med ändra filter, bredda, närliggande och hjälp (katalog, partnerlistor, jämförelse, startsida, sök)
 - [x] 404 med fyra huvudvägar och sök; kalkylatorer "Vad vill ni göra härnäst?"; INSIDE med köparnästa steg
 - [x] Mätning dead_end_* i köpvägsrapporten; leveransrapport docs/NO-DEAD-ENDS-2.1.md
+
+## Sprint 2.2 Funnelmätning (2026-10-30)
+- [x] Gemensamma resehändelser i tre nivåer med sprintens dimensioner
+- [x] Databasen loggar introduktion efter godkännande, möte begärt och möte genomfört
+- [x] Rapport per funnel med progression, Hand Raise, kvalificerat behov, introduktion och möte; tre kontaktvägar separat; jämförelse per informationsstatus
+- [ ] Hjälpväg på partnerprofiler (partner_profile_help_requested) finns inte ännu (väntar: beslut om profilen ska få en sådan väg)

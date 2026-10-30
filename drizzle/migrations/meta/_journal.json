@@ -113,6 +113,13 @@
       "when": 1793381206974,
       "tag": "0015_advisory_case_journey_selection",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1793383469205,
+      "tag": "0016_journey_funnel_server_events",
+      "breakpoints": true
     }
   ]
 }

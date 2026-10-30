@@ -1,4 +1,5 @@
 import { forwardFunnelEvent } from "@/lib/siJourney";
+import { canonicalJourneyEvent } from "@/lib/journeyFunnels";
 /**
  * Fire-and-forget funnel event tracker.
  * Used to measure where visitors drop off in the conversion funnel
@@ -45,6 +46,7 @@ export type FunnelEventType =
   | "engagement"
   | "competence"
   | "isv"
+  | "journey_funnel"
   | "role_guidance"
   | "underlag"
   | "ai_library"
@@ -244,6 +246,21 @@ function getJourneyId(): string | null {
   } catch { return null; }
 }
 
+function send(url: string, body: string) {
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(url, new Blob([body], { type: "application/json" }));
+    return;
+  }
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+    body,
+    keepalive: true,
+  }).catch(() => {
+    /* swallow */
+  });
+}
+
 export function trackFunnelEvent(payload: FunnelEventPayload): void {
   try {
     if (!isTrackingAllowed()) return;
@@ -259,35 +276,27 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
     payload = { ...payload, metadata: meta };
     forwardFunnelEvent(String(payload.event_type), String(payload.event_name), meta);
     const partnerSlug = (meta.partner_slug || meta.partner) as string | undefined;
-    const body = JSON.stringify({
-      ...payload,
+    const sessionId = getSessionId();
+    const common = {
       page_path: pagePath,
-      session_id: getSessionId(),
-      step: deriveStep(payload),
+      session_id: sessionId,
       landing_path: attribution?.landing_path ?? null,
       traffic_source: attribution?.traffic_source ?? null,
-      tool: (meta.tool as string) || toolFromName(payload.event_name, pagePath),
       device: getDevice(),
       partner_slug: typeof partnerSlug === "string" ? partnerSlug : null,
-    });
+    };
+    send(url, JSON.stringify({
+      ...payload,
+      ...common,
+      step: deriveStep(payload),
+      tool: (meta.tool as string) || toolFromName(payload.event_name, pagePath),
+    }));
 
-    if (navigator.sendBeacon) {
-      const blob = new Blob([body], { type: "application/json" });
-      navigator.sendBeacon(url, blob);
-      return;
+    // Sprint 2.2: gemensam resehändelse (start, progression, Hand Raise, självservice) bredvid originalet.
+    const canon = canonicalJourneyEvent(String(payload.event_name), meta, pagePath);
+    if (canon) {
+      send(url, JSON.stringify({ event_type: "journey_funnel", event_name: canon.name, metadata: canon.metadata, ...common }));
     }
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-      },
-      body,
-      keepalive: true,
-    }).catch(() => {
-      /* swallow */
-    });
   } catch {
     /* swallow */
   }
