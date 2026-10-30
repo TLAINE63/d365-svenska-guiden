@@ -134,7 +134,7 @@ export default function BuyerPathsReportCard({ token, onSessionExpired }: { toke
               ))}
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
-              Klick och inskick (mätning) kommer från besökare som tillåter statistik. Registrerade ärenden räknar alla inskick som sparats, oavsett samtycke.
+              Klick och inskick (mätning) kommer från sajtens anonyma mätning och kan saknas om mätningen blockeras i webbläsaren. Registrerade ärenden räknar alla sparade inskick.
             </p>
           </>
         )}
