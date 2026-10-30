@@ -93,3 +93,7 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Egen adress, ingress, SEO-text, redaktionell kontext och use case per tillägg i admin
 - [x] Hjälpförfrågan och mätning tar emot anrop från businesscentral.se, märkta med sajt
 - [ ] Bygga visningen i businesscentral.se-projektet (väntar: görs i det projektet, instruktion i docs/BC-ISV-SYNDIKERING.md)
+
+## Hjälpärenden i admin och /redaktion (2026-10-30)
+- [x] Gemensam ärendevy för alla hjälpvägar med valt behov, Dynamics 365-produkt, sajt, status, bokning, nästa steg och anteckningar
+- [x] Nya ärenden sparar besökarens val strukturerat
