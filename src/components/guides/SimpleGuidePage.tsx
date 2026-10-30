@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -108,6 +109,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
             </div>
           </section>
 
+          <ContinueEvaluation path={p.path} className="-mx-4 sm:-mx-6" />
           <EditorialSource sourceType="Köpguide" />
         </div>
       </main>

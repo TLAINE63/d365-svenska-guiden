@@ -1,4 +1,5 @@
 import KeyTakeaways from "@/components/guide/KeyTakeaways";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -813,6 +814,7 @@ const CRM = () => {
  <CeIsvSection />
 
  {/* Sekundärt: relaterat från Partnernytt, långt ned på sidan. */}
+ <ContinueEvaluation path="/crm/" />
  <AktuelltContextSection placement="crm" heading="Aktuellt inom Dynamics 365 CRM" />
  <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM" />
  <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />

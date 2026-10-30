@@ -1,4 +1,5 @@
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { partnerQuestion } from "@/lib/guideHeadings";
 import { partnerSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -328,6 +329,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             <p className="text-[15px] leading-relaxed text-muted-foreground">{content.about}</p>
           </section>
         </article>
+      <ContinueEvaluation path={path} />
       <SourcesAndMethod variant="partners" partnerEvidence={partnerSources} />
       </main>
 
