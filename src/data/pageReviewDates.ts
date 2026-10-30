@@ -41,7 +41,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/valjdynamics365partner/": "2026-10-30",
   "/partnerprogram/": "2026-10-30",
   "/vad-ar-dynamics-365/": "2026-10-24",
-  "/befintlig-kund/": "2026-10-24",
+  "/befintlig-kund/": "2026-10-30",
   "/businesscentral/": "2026-10-24",
   "/finance-supply-chain/": "2026-10-24",
   "/crm/": "2026-10-24",
