@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, Check, ExternalLink, Info } from "lucide-react";
+import { ArrowRight, Check, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import {
-  AIMPLAN_DISCLOSURE,
   AIMPLAN_TEXT,
   BUDGET_ARCHITECTURE_STEPS,
   BUDGET_ARCHITECTURE_TEXT,
@@ -28,7 +27,6 @@ import {
   BUDGET_REQUIREMENTS,
   BUDGET_SOURCES,
   BUDGET_SYSTEMS,
-  OWNERSHIP_PATH,
 } from "@/data/budgetPlanningGuide";
 
 const BASE = "https://d365.se";
@@ -63,18 +61,6 @@ const BudgetPrognosPlanering = () => {
     mainEntity: BUDGET_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
 
-  const disclosure = (
-    <p className="flex gap-2 text-xs leading-relaxed text-muted-foreground">
-      <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-      <span>
-        {AIMPLAN_DISCLOSURE}{" "}
-        <Link to={OWNERSHIP_PATH} className="underline underline-offset-2 hover:text-foreground">
-          Läs om ägande och intressen
-        </Link>
-        .
-      </span>
-    </p>
-  );
 
   return (
     <>
@@ -180,7 +166,6 @@ const BudgetPrognosPlanering = () => {
                   </Link>
                   .
                 </p>
-                {disclosure}
               </div>
               <div className="rounded-xl border border-border bg-card p-6">
                 <h3 className="text-lg font-bold mb-3">Varför arkitekturen håller över tid</h3>
@@ -257,7 +242,6 @@ const BudgetPrognosPlanering = () => {
                 </div>
               </aside>
             </div>
-            <div className="mt-4">{disclosure}</div>
           </section>
 
           {/* Läs vidare */}

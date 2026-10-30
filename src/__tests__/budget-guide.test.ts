@@ -3,13 +3,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { GUIDE_CONTENT } from "@/data/partnerGuideContent";
 import {
-  AIMPLAN_DISCLOSURE,
   BUDGET_CTA_BUYERS,
   BUDGET_CTA_PARTNERS,
   BUDGET_GUIDE_PATH,
   BUDGET_GUIDE_SEO,
 } from "@/data/budgetPlanningGuide";
 import { BC_CATEGORY_PAGES } from "@/data/bcIsvCategoryPages";
+import * as guide from "@/data/budgetPlanningGuide";
 
 const PAGE = readFileSync(resolve(process.cwd(), "src/pages/BudgetPrognosPlanering.tsx"), "utf-8");
 
@@ -19,10 +19,11 @@ describe("Guiden om budget, prognos och säljplanering", () => {
     expect(BUDGET_GUIDE_SEO.title).toBe("Budget, prognos och säljplanering i Dynamics 365 | d365.se");
   });
 
-  it("redovisar ägarintresset i Aimplan och länkar till ägandesidan", () => {
-    expect(AIMPLAN_DISCLOSURE).toContain("ägarintresse i Aimplan");
-    expect(PAGE).toContain("AIMPLAN_DISCLOSURE");
-    expect(PAGE).toContain("OWNERSHIP_PATH");
+  it("påstår inget ägarintresse i Aimplan och nämner inte Cloud Ahead", () => {
+    expect(PAGE).not.toContain("AIMPLAN_DISCLOSURE");
+    const all = JSON.stringify(guide);
+    expect(all).not.toContain("ägarintresse");
+    expect(all).not.toContain("Cloud Ahead");
   });
 
   it("CTA-boxarna leder köpare till partnerväljaren och partners till fpaa.se", () => {

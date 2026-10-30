@@ -618,7 +618,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
           budget/prognos och management reporting ovanpå BC.
         </p>
         <p>
-          Aimplan är en svensk FP&amp;A-plattform. Moveahead AB, som driver d365.se, har ägarintresse i Aimplan. Läs mer på sidan om ägande och intressen.
+          Aimplan är en svensk FP&amp;A-plattform för planering, budget och prognos i Power BI och Microsoft Fabric.
         </p>
 
         <h2>Solver for Business Central</h2>
