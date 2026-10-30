@@ -25,6 +25,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   partner_relationship_review: "Utvärdera partnersamarbetet",
   solution_assessment: "Första bedömning (CRM- eller affärssystem)",
   solution_advice: "Prata med d365.se (CRM- eller affärssystem)",
+  cost_help: "Kostnadsbild",
 };
 
 export const CASE_STATUSES = [

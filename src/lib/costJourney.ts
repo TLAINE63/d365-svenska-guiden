@@ -103,3 +103,34 @@ export function startCostJourney(page: string) {
   } catch { /* ignoreras */ }
   trackCost("cost_journey_started", { source_page: page });
 }
+
+export interface CostDriverInput {
+  usersLabel?: string;
+  complexityLabel?: string;
+  integrations?: number;
+  legalEntities?: number;
+  dataMigration?: boolean;
+  supportYearly?: string;
+}
+
+/** Kostnadsdrivare i klartext. Med kalkylval beskrivs besökarens egna val, annars de generella drivarna. */
+export function costDrivers(i: CostDriverInput = {}): { label: string; text: string }[] {
+  return [
+    { label: "Antal användare och licensnivå", text: i.usersLabel ? `Ni har räknat med ${i.usersLabel.toLowerCase()}. Antal och licensnivå styr licenskostnaden och utbildningen.` : "Antal användare och licensnivå styr licenskostnaden och hur mycket utbildning som behövs." },
+    { label: "Hur nära standard ni kan arbeta", text: i.complexityLabel ? `Valt: ${i.complexityLabel.toLowerCase()}. Ju närmare standard, desto lägre pris och kortare tid.` : "Ju närmare standardprocesserna ni kan arbeta, desto lägre pris och kortare tid." },
+    { label: "Integrationer", text: typeof i.integrations === "number" ? `${i.integrations} integration(er) är medräknade. Varje integration mot e-handel, EDI, lön eller lager flyttar projektet uppåt i spannet.` : "Varje integration mot e-handel, EDI, lön eller lager flyttar projektet uppåt i spannet." },
+    { label: "Datamigrering och antal bolag", text: `${i.dataMigration === false ? "Ingen datamigrering är medräknad." : "Mängden och kvaliteten på gammal data påverkar tiden."}${i.legalEntities && i.legalEntities > 1 ? ` ${i.legalEntities} bolag kräver mer uppsättning och test.` : " Fler bolag eller länder kräver mer uppsättning och test."}` },
+    { label: "Er egen tid", text: "Workshops, test och utbildning med era nyckelanvändare ingår inte i partnerns pris men behövs genom hela projektet." },
+    { label: "Löpande kostnader efter go-live", text: i.supportYearly ? `Förvaltning beräknas till ca ${i.supportYearly} per år, utöver licenser och eventuell AI-konsumtion.` : "Licenser, förvaltning, vidareutveckling och eventuell AI-konsumtion tillkommer varje år." },
+  ];
+}
+
+/** Användarantal → organisationsstorlek i hjälpformuläret. */
+export function orgSizeForUsers(users: number): (typeof COST_ORG_SIZES)[number] {
+  if (users <= 25) return "1–25 användare";
+  if (users <= 50) return "26–50 användare";
+  if (users <= 100) return "51–100 användare";
+  if (users <= 250) return "101–250 användare";
+  if (users <= 500) return "251–500 användare";
+  return "Fler än 500 användare";
+}

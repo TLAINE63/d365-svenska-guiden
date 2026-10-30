@@ -11,7 +11,9 @@ import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import { Link } from "react-router-dom";
 import CostBreakdown from "@/components/CostBreakdown";
 import CostProjectExamples from "@/components/CostProjectExamples";
-import CostContactForm from "@/components/CostContactForm";
+import CostNextSteps from "@/components/cost/CostNextSteps";
+import { costDrivers, startCostJourney } from "@/lib/costJourney";
+import { useEffect, useState } from "react";
 import LicenseCostTable from "@/components/LicenseCostTable";
 import TcoScenarios from "@/components/TcoScenarios";
 import QuickQuoteEstimator from "@/components/QuickQuoteEstimator";
@@ -102,6 +104,9 @@ const productOrder: {
  * Återanvänder CostBreakdown-komponenten per produkt.
  */
 export default function Kostnad() {
+  // Sprint 1.5: efter snabbkalkylen visas nästa steg där; annars längst ned med generella kostnadsdrivare.
+  const [estimated, setEstimated] = useState(false);
+  useEffect(() => { startCostJourney("/kostnad/"); }, []);
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -189,7 +194,7 @@ export default function Kostnad() {
 
         <TcoScenarios />
 
-        <QuickQuoteEstimator />
+        <QuickQuoteEstimator onEstimateShown={() => setEstimated(true)} />
 
         {/* Genvägar */}
         <section className="py-8 bg-secondary/30 border-y border-border" id="per-applikation">
@@ -300,7 +305,13 @@ export default function Kostnad() {
           </div>
         </section>
 
-        <CostContactForm />
+        {!estimated && (
+          <section className="py-10 sm:py-14 bg-secondary/30 border-t border-border">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+              <CostNextSteps sourcePage="/kostnad/" drivers={costDrivers()} />
+            </div>
+          </section>
+        )}
       </main>
 
       <section className="py-8">
