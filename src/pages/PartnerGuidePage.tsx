@@ -329,7 +329,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
             <p className="text-[15px] leading-relaxed text-muted-foreground">{content.about}</p>
           </section>
         </article>
-      <ContinueEvaluation path={path} />
+      <ContinueEvaluation path={path} template="guide" />
       <SourcesAndMethod variant="partners" partnerEvidence={partnerSources} />
       </main>
 

@@ -1,4 +1,5 @@
 import SourcesAndMethod from "@/components/SourcesAndMethod";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import ContextualCta from "@/components/ContextualCta";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -278,6 +279,7 @@ const DeepDiveArticle = () => {
         secondaryLabel="Fråga d365.se"
         secondaryTo={`/fraga/?q=${encodeURIComponent(`Vad bör vi tänka på kring ${article.title}?`)}`}
       />
+      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/artiklar/"} template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
             {/* Authoritative external sources (Microsoft Learn) */}

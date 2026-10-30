@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -130,6 +131,7 @@ export default function PartnerBasicProfile({
           </div>
         )}
       </main>
+      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="partner_profile" />
       <Footer />
     </div>
   );

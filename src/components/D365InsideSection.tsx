@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { deadEndMeta } from "@/lib/nextSteps";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink, Youtube } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +18,13 @@ interface Props {
   headingLevel?: "h2" | "h3";
   className?: string;
 }
+
+/** Sprint 2.1: relevanta köparnästa steg efter ett INSIDE-avsnitt. */
+const INSIDE_BUYER_STEPS = [
+  { label: "Starta behovsguiden", to: "/kom-igang/", type: "journey" },
+  { label: "Hitta relevanta partners", to: "/valjdynamics365partner/", type: "partner_search" },
+  { label: "Vad kostar det?", to: "/kostnad/", type: "cost" },
+];
 
 const channelLink = `${D365_INSIDE_CHANNEL_URL}?utm_source=d365.se&utm_medium=referral&utm_campaign=d365-inside`;
 
@@ -156,6 +165,23 @@ export default function D365InsideSection({ headingLevel = "h2", className = "" 
           </ul>
         </div>
       )}
+
+      <div className="border-t border-primary-foreground/15 px-6 py-5 md:px-8" aria-label="Nästa steg efter avsnittet">
+        <p className="text-sm font-semibold text-primary-foreground">Utvärderar ni själva? Nästa steg</p>
+        <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          {INSIDE_BUYER_STEPS.map((s) => (
+            <li key={s.to}>
+              <Link
+                to={s.to}
+                onClick={() => trackFunnelEvent({ event_type: "cta_click", event_name: "dead_end_next_step_clicked", page_path: typeof window !== "undefined" ? window.location.pathname : null, metadata: deadEndMeta("inside", typeof window !== "undefined" ? window.location.pathname : "", s.type, s.to) })}
+                className="inline-flex items-center gap-1 font-medium text-[hsl(var(--accent-dark-zone))] hover:underline"
+              >
+                {s.label} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

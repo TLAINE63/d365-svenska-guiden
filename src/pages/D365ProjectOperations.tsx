@@ -1,4 +1,5 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ProductHero from "@/components/ProductHero";
@@ -114,6 +115,7 @@ const D365ProjectOperations = () => {
         </div>
       </section>
 
+      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="product" />
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Project Operations" />
 

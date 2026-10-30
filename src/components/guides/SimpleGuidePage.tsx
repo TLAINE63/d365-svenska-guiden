@@ -109,7 +109,7 @@ const SimpleGuidePage = (p: SimpleGuideProps) => {
             </div>
           </section>
 
-          <ContinueEvaluation path={p.path} className="-mx-4 sm:-mx-6" />
+          <ContinueEvaluation path={p.path} template="guide" className="-mx-4 sm:-mx-6" />
           <EditorialSource sourceType="Köpguide" />
         </div>
       </main>

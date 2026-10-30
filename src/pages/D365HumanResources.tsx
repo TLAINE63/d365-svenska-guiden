@@ -1,4 +1,5 @@
 import ProductIsvSection from "@/components/ProductIsvSection";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import ProductHero from "@/components/ProductHero";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
@@ -107,6 +108,7 @@ const D365HumanResources = () => {
         </div>
       </section>
 
+      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="product" />
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Human Resources" />
 
