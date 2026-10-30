@@ -174,13 +174,13 @@ export default function Systemval() {
       />
       <Navbar />
       <main className="flex-1 pt-32 sm:pt-36 pb-16">
-        <div className={`mx-auto w-full px-4 sm:px-6 ${showNeedStart || (question && options.length > 4) ? "max-w-5xl" : "max-w-3xl"}`}>
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
           <p className="text-sm font-medium text-accent mb-2">Vi står inför ett systemval</p>
 
           {showNeedStart && <SolutionNeedStart onContinue={continueFromNeed} onSkip={() => setSkipNeedStart(true)} />}
 
           {question && !showNeedStart && (
-            <section aria-labelledby="q-title">
+            <section aria-labelledby="q-title" className={options.length > 4 ? "" : "max-w-3xl"}>
               {!isEntry && (
                 <p className="text-xs text-muted-foreground mb-2">
                   Fråga {shownNumber} · {question.type === "multi" ? "Välj ett eller flera alternativ" : "Välj ett alternativ"}
