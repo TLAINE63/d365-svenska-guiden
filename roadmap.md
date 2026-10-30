@@ -110,3 +110,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Databasen loggar introduktion efter godkännande, möte begärt och möte genomfört
 - [x] Rapport per funnel med progression, Hand Raise, kvalificerat behov, introduktion och möte; tre kontaktvägar separat; jämförelse per informationsstatus
 - [ ] Hjälpväg på partnerprofiler (partner_profile_help_requested) finns inte ännu (väntar: beslut om profilen ska få en sådan väg)
+
+## Sprint 2.3 Buyer Opportunity MVP (2026-10-30)
+- [ ] Byggs först när verkliga hjälpförfrågningar kommit in (väntar: Thomas beslut 2026-10-30; i dag finns bara testinskick)
