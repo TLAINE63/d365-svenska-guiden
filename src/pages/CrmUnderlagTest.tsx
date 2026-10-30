@@ -45,7 +45,7 @@ export default function CrmUnderlagTest() {
       <Navbar />
       <main className="flex-1">
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl pt-24 sm:pt-28 pb-8">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-24 sm:pt-28 pb-8">
             <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-tight text-primary-foreground [hyphens:manual]">
               Vilka <span className="whitespace-nowrap">Dynamics 365</span> CRM-applikationer verkar relevanta?
             </h1>
@@ -54,7 +54,7 @@ export default function CrmUnderlagTest() {
             </p>
           </div>
         </section>
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-8">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 [&>*]:max-w-3xl">
           <div className="mb-4 text-xs text-muted-foreground flex justify-between">
             <span>{answered} av {total} besvarade</span>
           </div>
