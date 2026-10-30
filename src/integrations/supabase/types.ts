@@ -6140,6 +6140,14 @@ export type Database = {
         Returns: boolean
       }
       inquiry_followup_dispatch: { Args: never; Returns: number }
+      journey_log_event: {
+        Args: { _meta: Json; _name: string }
+        Returns: undefined
+      }
+      journey_type_for_placement: {
+        Args: { _placement: string }
+        Returns: string
+      }
       partner_report_autogen_dispatch: { Args: never; Returns: undefined }
       partner_report_monthly_dispatch: {
         Args: { target_month?: string }
