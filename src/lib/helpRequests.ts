@@ -52,11 +52,12 @@ export function selectedNeed(selection: Selection | null | undefined): string | 
 export function productsInText(text: string): string[] {
   let rest = ` ${text} `;
   const found: string[] = [];
+  const esc = (v: string) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   for (const name of D365_PRODUCT_NAMES) {
-    const re = new RegExp(`(^|[^\\p{L}])${name.replace(/[.*+?^${}()|[\]\\&]/g, "\\$&")}(?![\\p{L}])`, "u");
+    const re = new RegExp(`(^|[^\\p{L}])${esc(name)}(?![\\p{L}])`, "u");
     if (re.test(rest)) {
       found.push(name);
-      rest = rest.replace(new RegExp(name.replace(/[.*+?^${}()|[\]\\&]/g, "\\$&"), "g"), " ");
+      rest = rest.split(name).join(" ");
     }
   }
   return found;

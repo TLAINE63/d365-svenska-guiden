@@ -62,7 +62,7 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
     } catch (e: any) { toast({ title: "Kunde inte spara", description: e.message, variant: "destructive" }); }
   };
 
-  const enriched = useMemo(() => rows.map((r) => ({
+  const enriched = useMemo(() => rows.map((r): Row => ({
     ...r,
     _path: r.advisory_placement || "plan",
     _need: selectedNeed(r.selection),
