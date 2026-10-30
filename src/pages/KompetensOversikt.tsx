@@ -174,10 +174,10 @@ const KompetensOversikt = () => {
                 </Select>
               </div>
               <CompetenceFilters
-                className="[&>div]:block"
                 value={filters}
                 onChange={setFilters}
                 fields={["product"]}
+                gridClassName="grid"
                 hideClear
                 lockedProduct={selectedGuide?.type === "product" ? selectedGuide.productArea : undefined}
               />
@@ -226,6 +226,7 @@ const KompetensOversikt = () => {
               value={filters}
               onChange={setFilters}
               fields={["industry", "region", "delivery"]}
+              gridClassName="grid gap-4 sm:grid-cols-3"
               lockedProduct={selectedGuide?.type === "product" ? selectedGuide.productArea : undefined}
             />
 

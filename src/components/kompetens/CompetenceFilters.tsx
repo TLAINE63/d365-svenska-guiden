@@ -23,9 +23,10 @@ interface Props {
   fields?: Array<"product" | "industry" | "region" | "delivery">;
   /** Dölj knappen Rensa val. */
   hideClear?: boolean;
+  gridClassName?: string;
 }
 
-const CompetenceFilters = ({ value, onChange, lockedProduct, className = "", fields = ["product", "industry", "region", "delivery"], hideClear = false }: Props) => {
+const CompetenceFilters = ({ value, onChange, lockedProduct, className = "", fields = ["product", "industry", "region", "delivery"], hideClear = false, gridClassName = "grid gap-4 sm:grid-cols-2 lg:grid-cols-4" }: Props) => {
   const show = (f: "product" | "industry" | "region" | "delivery") => fields.includes(f);
   const set = (key: keyof CompetenceFilterState, v: string) =>
     onChange({ ...value, [key]: v === ALL ? undefined : v });
@@ -34,7 +35,7 @@ const CompetenceFilters = ({ value, onChange, lockedProduct, className = "", fie
 
   return (
     <div className={className}>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className={gridClassName}>
         {show("product") && <div>
           <Label className="text-xs font-semibold mb-1.5 block">Produkt</Label>
           {lockedProduct ? (
