@@ -223,7 +223,7 @@ const BudgetPrognosPlanering = () => {
                     onClick={() => track(BUDGET_CTA_BUYERS.button.to)}
                     className="inline-flex items-center gap-2 rounded-md bg-[hsl(var(--cta-orange))] px-5 py-2.5 text-sm font-bold text-primary-foreground transition-all hover:bg-[hsl(var(--cta-orange-hover))] hover:-translate-y-0.5"
                   >
-                    {nowrapBrand(BUDGET_CTA_BUYERS.button.label)}
+                    <span>{nowrapBrand(BUDGET_CTA_BUYERS.button.label)}</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <a
