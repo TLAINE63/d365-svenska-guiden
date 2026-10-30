@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Copy, Mail, Send, Trash2, Check, X } from "lucide-react";
 import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { useIsvVendors } from "@/hooks/useIsvSolutions";
 
 interface Props {
   token: string | null;
@@ -49,7 +50,18 @@ interface Submission {
   notes: string | null;
   status: string;
   submitted_at: string;
+  kind?: "solution_update" | "new_solution" | "vendor_profile";
+  vendor_slug?: string | null;
+  payload?: Record<string, any>;
+  confirm_information?: boolean;
+  request_publication?: boolean;
 }
+
+const KIND_LABEL: Record<string, string> = {
+  solution_update: "Produktändring",
+  new_solution: "Ny produkt",
+  vendor_profile: "Leverantörsprofil",
+};
 
 const PUBLIC_BASE = "https://www.d365.se";
 const fmt = formatDateYYYYMMDD;
@@ -66,6 +78,10 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
   const [vendorName, setVendorName] = useState("");
   const [sendEmail, setSendEmail] = useState(true);
   const [review, setReview] = useState<Submission | null>(null);
+  const [scope, setScope] = useState<"solution" | "vendor">("solution");
+  const [vendorSlug, setVendorSlug] = useState("");
+  const vendors = useIsvVendors();
+  const vendorOptions = useMemo(() => Object.values(vendors).sort((a, b) => a.name.localeCompare(b.name, "sv")), [vendors]);
 
   // Förifyll leverantör och e-post från sparade kontaktuppgifter i ISV-katalogen
   const selectSolution = (id: string) => {
@@ -118,8 +134,8 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
 
   const create = async () => {
     const sol = BC_ISV_SOLUTIONS.find((s) => s.id === solutionId);
-    if (!sol || !email.trim()) {
-      toast({ title: "Fyll i lösning och e-post", variant: "destructive" });
+    if ((scope === "solution" ? !sol : !vendorSlug) || !email.trim()) {
+      toast({ title: scope === "solution" ? "Fyll i lösning och e-post" : "Välj leverantör och fyll i e-post", variant: "destructive" });
       return;
     }
     setBusy(true);
@@ -127,13 +143,11 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
       const res = await fetch(`${baseUrl}?action=create`, {
         method: "POST",
         headers: authHeaders(),
-        body: JSON.stringify({
-          solution_id: sol.id,
-          solution_name: sol.name,
-          vendor_name: vendorName || sol.vendor,
-          email: email.trim(),
-          send_email: sendEmail,
-        }),
+        body: JSON.stringify(
+          scope === "vendor"
+            ? { scope: "vendor", vendor_slug: vendorSlug, vendor_name: vendorName || undefined, email: email.trim(), send_email: sendEmail }
+            : { solution_id: sol!.id, solution_name: sol!.name, vendor_name: vendorName || sol!.vendor, email: email.trim(), send_email: sendEmail },
+        ),
       });
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
@@ -171,7 +185,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Kunde inte spara beslut");
-      toast({ title: approve ? "Publicerad" : "Avvisad" });
+      toast({ title: approve ? "Godkänd" : "Avvisad" });
       setReview(null);
       await load();
       if (approve) onApproved?.();
@@ -197,20 +211,44 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="flex flex-wrap gap-4 text-sm" role="radiogroup" aria-label="Länken gäller">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="isv-scope" checked={scope === "solution"} onChange={() => setScope("solution")} /> En produkt
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="isv-scope" checked={scope === "vendor"} onChange={() => setScope("vendor")} /> Hela leverantören (profil, bekräftelse, alla produkter och nya produkter)
+            </label>
+          </div>
           <div className="grid md:grid-cols-4 gap-3 items-end">
-            <div>
-              <Label>Lösning</Label>
-              <select
-                className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
-                value={solutionId}
-                onChange={(e) => selectSolution(e.target.value)}
-              >
-                <option value="">Välj lösning…</option>
-                {solutionOptions.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name} ({s.vendor})</option>
-                ))}
-              </select>
-            </div>
+            {scope === "solution" ? (
+              <div>
+                <Label>Lösning</Label>
+                <select
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                  value={solutionId}
+                  onChange={(e) => selectSolution(e.target.value)}
+                >
+                  <option value="">Välj lösning…</option>
+                  {solutionOptions.map((s) => (
+                    <option key={s.id} value={s.id}>{s.name} ({s.vendor})</option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div>
+                <Label>Leverantör</Label>
+                <select
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                  value={vendorSlug}
+                  onChange={(e) => setVendorSlug(e.target.value)}
+                >
+                  <option value="">Välj leverantör…</option>
+                  {vendorOptions.map((v) => (
+                    <option key={v.slug} value={v.slug}>{v.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div>
               <Label>Leverantör (valfritt)</Label>
               <Input value={vendorName} onChange={(e) => setVendorName(e.target.value)} placeholder="Kontaktnamn/företag" />
@@ -234,7 +272,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
               <div className="flex flex-wrap gap-2">
                 {pending.map((s) => (
                   <Button key={s.id} size="sm" variant="outline" onClick={() => setReview(s)}>
-                    Granska {invitations.find((i) => i.id === s.invitation_id)?.solution_name || s.solution_id}
+                    Granska {KIND_LABEL[s.kind || "solution_update"]}: {s.kind === "new_solution" ? s.payload?.name : invitations.find((i) => i.id === s.invitation_id)?.solution_name || s.solution_id}
                   </Button>
                 ))}
               </div>
@@ -293,10 +331,34 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
       <Dialog open={!!review} onOpenChange={(o) => !o && setReview(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Granska inskickad beskrivning</DialogTitle>
+            <DialogTitle>Granska inskick: {KIND_LABEL[review?.kind || "solution_update"]}</DialogTitle>
           </DialogHeader>
           {review && (
+            <div className="space-y-2 text-sm">
+              <div className="flex flex-wrap gap-1.5">
+                {review.confirm_information && <Badge variant="outline">Leverantören bekräftar uppgifterna</Badge>}
+                {review.kind === "new_solution" && (
+                  <Badge variant="outline">{review.request_publication ? "Begär publicering" : "Sparas opublicerad"}</Badge>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Godkännande ändrar bara {review.kind === "vendor_profile" ? "leverantörsprofilen" : "produkten"}. Verifiering sätts separat under Informationsstatus.
+              </p>
+            </div>
+          )}
+          {review && review.kind === "vendor_profile" && (
+            <div className="space-y-3 text-sm">
+              <div><Label>Om leverantören</Label><p className="mt-1 whitespace-pre-line">{review.payload?.description || "(oförändrat)"}</p></div>
+              <div><Label>Webbplats</Label><p className="mt-1">{review.payload?.website || "(oförändrat)"}</p></div>
+              <div><Label>Logotyp</Label><p className="mt-1 break-all">{review.payload?.logo_url || "(oförändrat)"}</p></div>
+              <div className="text-muted-foreground">{review.contact_name} · {review.contact_email}{review.notes && <p className="mt-2 italic">{review.notes}</p>}</div>
+            </div>
+          )}
+          {review && review.kind !== "vendor_profile" && (
             <div className="space-y-4 text-sm">
+              {review.kind === "new_solution" && (
+                <div><Label>Namn och kategori</Label><p className="mt-1">{review.payload?.name} · {review.payload?.category || "Ingen kategori vald"}</p></div>
+              )}
               <div>
                 <Label>Produkter</Label>
                 <div className="flex flex-wrap gap-1.5 mt-1">
@@ -333,7 +395,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
               <X className="h-4 w-4 mr-1" /> Avvisa
             </Button>
             <Button onClick={() => review && decide(review, true)} disabled={busy}>
-              <Check className="h-4 w-4 mr-1" /> Publicera
+              <Check className="h-4 w-4 mr-1" /> Godkänn
             </Button>
           </DialogFooter>
         </DialogContent>

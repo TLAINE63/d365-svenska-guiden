@@ -61,6 +61,7 @@ const ALLOWED_TYPES = new Set([
   "journey",
   "engagement",
   "competence",
+  "isv",
   "role_guidance",
   "underlag",
   "ai_library",

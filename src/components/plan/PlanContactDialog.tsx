@@ -51,7 +51,7 @@ function usePlanSections(): Section[] {
   }, [meta, buyer]);
 }
 
-export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search" | "expert_requirement" | "existing_dynamics" | "partner_relationship_review" | "solution_assessment" | "solution_advice" | "cost_help" | "next_step_help";
+export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search" | "expert_requirement" | "existing_dynamics" | "partner_relationship_review" | "solution_assessment" | "solution_advice" | "cost_help" | "next_step_help" | "isv_product_help";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
 export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean; hideFocus?: boolean }

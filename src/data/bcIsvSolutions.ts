@@ -179,6 +179,9 @@ export interface IsvSolution {
   publicationWave?: string;       // now | wave_2
   sourceStatus?: string;          // Intern källstatus (Verifierad, Verifiera före publicering …)
   lifecycleStatus?: string;       // active | end_of_sale | discontinued (visas aldrig publikt)
+  // ── Sprint 1.9: publik informationsstatus för produkten (oberoende av leverantörens) ──
+  informationStatus?: string;     // verified | vendor_confirmed | compiled (saknas = compiled)
+  lastVerifiedDate?: string;      // ÅÅÅÅ-MM-DD, bara när produkten är verifierad
 }
 
 /** Relevansvärdet för en enskild CE-applikation. */

@@ -44,6 +44,7 @@ export type FunnelEventType =
   | "journey"
   | "engagement"
   | "competence"
+  | "isv"
   | "role_guidance"
   | "underlag"
   | "ai_library"

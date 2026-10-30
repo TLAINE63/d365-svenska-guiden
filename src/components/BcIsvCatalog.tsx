@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,35 @@ import {
   type DeliveryModel,
   type IsvSolution,
 } from "@/data/bcIsvSolutions";
-import { useIsvSolutions } from "@/hooks/useIsvSolutions";
+import { useIsvSolutions, useIsvVendors, type IsvVendorPublic } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
+import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
+import {
+  ISV_INFORMATION_STATUSES,
+  isvHelpLines,
+  isvInformationStatusOf,
+  matchesIsvStatusFilter,
+  trackIsv,
+  type IsvInformationStatus,
+} from "@/lib/isvInformationStatus";
+
+const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
+
+const withUtm = (url: string) => {
+  try {
+    const u = new URL(url);
+    u.searchParams.set("utm_source", "d365.se");
+    u.searchParams.set("utm_medium", "referral");
+    u.searchParams.set("utm_campaign", "isv-katalog");
+    return u.toString();
+  } catch {
+    return url;
+  }
+};
 
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
@@ -156,6 +179,7 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
       </div>
 
       <div className="px-7 py-5 flex flex-col flex-1 gap-4">
+        <InformationStatusBadge kind="isv" partner={{ information_status: s.informationStatus }} className="self-start" />
         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.shortDescription}</p>
 
         {useCases.length > 0 && (
@@ -275,7 +299,17 @@ export const IsvResellers = ({ slugs, products }: { slugs: string[]; products?: 
   );
 };
 
-const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => void }) => (
+const SolutionDetail = ({
+  s,
+  onClose,
+  vendor,
+  onHelp,
+}: {
+  s: IsvSolution | null;
+  onClose: () => void;
+  vendor?: IsvVendorPublic;
+  onHelp: (s: IsvSolution) => void;
+}) => (
   <Dialog open={!!s} onOpenChange={(o) => !o && onClose()}>
     <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0 overflow-x-hidden">
       {s && (
@@ -301,6 +335,14 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
           </DialogHeader>
 
           <div className="space-y-5 px-7 py-6 text-sm leading-relaxed">
+            <section aria-label="Informationsstatus för produkten" className="flex flex-wrap items-center gap-2">
+              <InformationStatusBadge
+                kind="isv"
+                showDate
+                partner={{ information_status: s.informationStatus, information_verified_at: s.lastVerifiedDate }}
+              />
+              <span className="text-xs text-muted-foreground">Gäller produkten. Leverantörens status visas separat nedan.</span>
+            </section>
             <section className="space-y-3">
               <div>
                 <h4 className="font-semibold text-foreground mb-1">Byggd för</h4>
@@ -425,11 +467,68 @@ const SolutionDetail = ({ s, onClose }: { s: IsvSolution | null; onClose: () => 
                 </section>
               );
             })()}
-            <div className="pt-3">
-              <Button asChild variant="outline" className="w-full h-auto min-h-10 whitespace-normal">
+            <details
+              className="rounded-lg border border-border bg-muted/30 p-4"
+              onToggle={(e) => {
+                if ((e.currentTarget as HTMLDetailsElement).open) {
+                  trackIsv("isv_vendor_viewed", {
+                    vendor_slug: s.vendorSlug || null,
+                    information_status: isvInformationStatusOf(vendor?.information_status),
+                    source_page: typeof window !== "undefined" ? window.location.pathname : null,
+                  });
+                }
+              }}
+            >
+              <summary className="cursor-pointer font-semibold text-foreground">Om leverantören {vendor?.name || s.vendor}</summary>
+              <div className="mt-3 space-y-2">
+                <InformationStatusBadge
+                  kind="isv"
+                  showDate
+                  partner={{ information_status: vendor?.information_status, information_verified_at: vendor?.last_verified_date }}
+                />
+                <p className="text-foreground/80">
+                  {vendor?.description || "Leverantören har ännu inte beskrivit sin verksamhet på d365.se."}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Leverantörens och produktens status sätts var för sig. En verifierad leverantör gör inte produkten verifierad.
+                </p>
+              </div>
+            </details>
+
+            <section className="space-y-2 pt-3 border-t border-border" aria-label="Nästa steg">
+              {(s.vendorWebsite || vendor?.website) && (
+                <Button asChild className="w-full h-auto min-h-10 whitespace-normal">
+                  <a
+                    href={withUtm((s.vendorWebsite || vendor?.website)!)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      trackIsv("isv_product_selfservice_clicked", {
+                        product_id: s.id,
+                        vendor_slug: s.vendorSlug || null,
+                        information_status: isvInformationStatusOf(s.informationStatus),
+                        conversion_type: "self_service",
+                      })
+                    }
+                  >
+                    Besök produktens webbplats →
+                  </a>
+                </Button>
+              )}
+              <Button
+                variant={s.vendorWebsite || vendor?.website ? "outline" : "default"}
+                className="w-full h-auto min-h-10 whitespace-normal"
+                onClick={() => onHelp(s)}
+              >
+                Få hjälp att bedöma om lösningen passar →
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                Webbplatslänken skickar inga uppgifter om er. Ber ni om hjälp går underlaget bara till d365.se, inget skickas till leverantören.
+              </p>
+              <Button asChild variant="ghost" className="w-full h-auto min-h-10 whitespace-normal">
                 <Link to={isvPartnerDestination(solutionProducts(s)).to}>{isvPartnerDestination(solutionProducts(s)).label} →</Link>
               </Button>
-            </div>
+            </section>
           </div>
         </>
       )}
@@ -477,6 +576,8 @@ const BcIsvCatalog = ({
   const [groupByVendor, setGroupByVendor] = useState(true);
   const [open, setOpen] = useState<IsvSolution | null>(null);
   const [autoOpened, setAutoOpened] = useState(false);
+  const [statusSel, setStatusSel] = useState<Set<IsvInformationStatus>>(new Set());
+  const [helpFor, setHelpFor] = useState<IsvSolution | null>(null);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
     const next = new Set(set);
@@ -485,6 +586,22 @@ const BcIsvCatalog = ({
   };
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
+  const vendors = useIsvVendors();
+
+  /** Single-select: Alla (tomt) eller exakt en informationsstatus. */
+  const applyStatus = (v: IsvInformationStatus | null) => {
+    setStatusSel(v ? new Set([v]) : new Set());
+    trackIsv("isv_verification_filter_applied", { information_status: v ?? "all" });
+  };
+
+  const openSolution = (s: IsvSolution) => {
+    setOpen(s);
+    trackIsv("isv_product_viewed", {
+      product_id: s.id,
+      vendor_slug: s.vendorSlug || null,
+      information_status: isvInformationStatusOf(s.informationStatus),
+    });
+  };
 
   // När produktfiltret visas är defaultProducts bara ett förval, inte en hård avgränsning.
   const scoped = useMemo(() => {
@@ -526,6 +643,8 @@ const BcIsvCatalog = ({
     const q = query.trim().toLowerCase();
     return scoped.filter((s) => {
       if (cats.size && !cats.has(s.category)) return false;
+      // Informationsstatus ändrar bara urvalet, aldrig ordningen.
+      if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
       if (deliveries.size && !deliveries.has(model(s))) return false;
       if (industries.size) {
         const all = [...(s.industries || []), ...(s.industryFocus || [])];
@@ -567,7 +686,7 @@ const BcIsvCatalog = ({
       }
       return true;
     });
-  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query]);
+  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query, statusSel]);
 
 
   // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
@@ -578,7 +697,7 @@ const BcIsvCatalog = ({
       (s) => slugify(s.id) === key || slugify(s.name) === key
     );
     if (match) {
-      setOpen(match);
+      openSolution(match);
       setAutoOpened(true);
     }
   }, [openSolutionId, BC_ISV_SOLUTIONS, autoOpened]);
@@ -606,6 +725,7 @@ const BcIsvCatalog = ({
     focus.size +
     ceSel.size +
     (showProductFilter ? products.size : 0) +
+    statusSel.size +
     (query.trim() ? 1 : 0);
 
   const clearAll = () => {
@@ -616,6 +736,7 @@ const BcIsvCatalog = ({
     setCeSel(new Set());
     setQuery("");
     if (showProductFilter) setProducts(new Set());
+    setStatusSel(new Set());
   };
 
 
@@ -729,6 +850,16 @@ const BcIsvCatalog = ({
             onToggle={toggle(industries, setIndustries)}
             onClear={() => setIndustries(new Set())}
           />
+          <div className="h-px bg-border/60" />
+          <FilterRow
+            label="Informations&shy;status"
+            options={ISV_INFORMATION_STATUSES.map((x) => x.value)}
+            selected={statusSel}
+            onToggle={(v) => applyStatus(statusSel.has(v) ? null : v)}
+            onClear={() => applyStatus(null)}
+            labelFor={(v) => ISV_INFORMATION_STATUSES.find((x) => x.value === v)!.label}
+          />
+
 
         </div>
 
@@ -778,7 +909,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {list.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -796,7 +927,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {singles.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -805,12 +936,51 @@ const BcIsvCatalog = ({
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s) => (
-            <SolutionCard key={s.id} s={s} onOpen={() => setOpen(s)} />
+            <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
           ))}
         </div>
       )}
 
-      <SolutionDetail s={open} onClose={() => setOpen(null)} />
+      <SolutionDetail
+        s={open}
+        onClose={() => setOpen(null)}
+        vendor={open?.vendorSlug ? vendors[open.vendorSlug] : undefined}
+        onHelp={(s) => setHelpFor(s)}
+      />
+
+      {helpFor && (
+        <Suspense fallback={null}>
+          <PlanContactDialog
+            mode="advisory"
+            onClose={() => setHelpFor(null)}
+            topic={{
+              title: "Få hjälp att bedöma om lösningen passar",
+              description: "d365.se går igenom ert behov och lösningen manuellt och hör av sig. Inget skickas till leverantören eller någon partner.",
+              helpWith: `Bedöma tilläggslösning: ${helpFor.name}`,
+              startEvent: "isv_product_help_started",
+              submitEvent: "isv_product_help_requested",
+              messageLabel: "Vad behöver lösningen klara hos er? (valfritt)",
+              hideFocus: true,
+              extras: [{ key: "isv_produkt", label: "Lösningen ni tittar på", lines: isvHelpLines(helpFor) }],
+              metadata: {
+                initial_intent: "IsvRequirement",
+                product_id: helpFor.id,
+                vendor_slug: helpFor.vendorSlug ?? null,
+                information_status: isvInformationStatusOf(helpFor.informationStatus),
+                recipient: "d365.se",
+                conversion_type: "advisory",
+              },
+              advisory: { placement: "isv_product_help", cta: "Få hjälp att bedöma om lösningen passar", pageType: "isv_katalog" },
+              doneTitle: "Tack, vi har tagit emot ert underlag",
+              showDoneSummary: true,
+              doneNotes: [
+                "d365.se går igenom underlaget manuellt och hör av sig.",
+                "Inget har skickats till leverantören eller någon partner. En introduktion görs bara efter ert godkännande.",
+              ],
+            }}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };

@@ -1140,12 +1140,14 @@ export type Database = {
           id: string
           reviewed_at: string | null
           reviewed_by: string | null
+          scope: string
           solution_id: string
           solution_name: string
           status: string
           submitted_at: string | null
           token: string
           vendor_name: string | null
+          vendor_slug: string | null
         }
         Insert: {
           created_at?: string
@@ -1154,12 +1156,14 @@ export type Database = {
           id?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
+          scope?: string
           solution_id: string
           solution_name: string
           status?: string
           submitted_at?: string | null
           token: string
           vendor_name?: string | null
+          vendor_slug?: string | null
         }
         Update: {
           created_at?: string
@@ -1168,12 +1172,14 @@ export type Database = {
           id?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
+          scope?: string
           solution_id?: string
           solution_name?: string
           status?: string
           submitted_at?: string | null
           token?: string
           vendor_name?: string | null
+          vendor_slug?: string | null
         }
         Relationships: []
       }
@@ -1257,6 +1263,7 @@ export type Database = {
           best_for: string | null
           category: string
           combos: string[]
+          confirmation_status: string
           considerations: string | null
           contact_center_relevance: string | null
           created_at: string
@@ -1270,14 +1277,21 @@ export type Database = {
           id: string
           industries: string[]
           industry_focus: string[]
+          information_status: string
           is_published: boolean
+          last_verified_date: string | null
           lifecycle_note: string | null
           lifecycle_status: string
           name: string
           nordic_relevance: string | null
           partner_slugs: string[]
+          premium_product: boolean
+          product_source: string
           products: string[]
           publication_wave: string | null
+          publish_businesscentral: boolean
+          publish_d365: boolean
+          publish_d365guide: boolean
           sales_relevance: string | null
           short_description: string | null
           solution_id: string
@@ -1295,6 +1309,7 @@ export type Database = {
           vendor: string
           vendor_slug: string | null
           vendor_website: string | null
+          verification_status: string
           verified_at: string | null
           what: string | null
           when_fits: string | null
@@ -1303,6 +1318,7 @@ export type Database = {
           best_for?: string | null
           category?: string
           combos?: string[]
+          confirmation_status?: string
           considerations?: string | null
           contact_center_relevance?: string | null
           created_at?: string
@@ -1316,14 +1332,21 @@ export type Database = {
           id?: string
           industries?: string[]
           industry_focus?: string[]
+          information_status?: string
           is_published?: boolean
+          last_verified_date?: string | null
           lifecycle_note?: string | null
           lifecycle_status?: string
           name: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
+          premium_product?: boolean
+          product_source?: string
           products?: string[]
           publication_wave?: string | null
+          publish_businesscentral?: boolean
+          publish_d365?: boolean
+          publish_d365guide?: boolean
           sales_relevance?: string | null
           short_description?: string | null
           solution_id: string
@@ -1341,6 +1364,7 @@ export type Database = {
           vendor: string
           vendor_slug?: string | null
           vendor_website?: string | null
+          verification_status?: string
           verified_at?: string | null
           what?: string | null
           when_fits?: string | null
@@ -1349,6 +1373,7 @@ export type Database = {
           best_for?: string | null
           category?: string
           combos?: string[]
+          confirmation_status?: string
           considerations?: string | null
           contact_center_relevance?: string | null
           created_at?: string
@@ -1362,14 +1387,21 @@ export type Database = {
           id?: string
           industries?: string[]
           industry_focus?: string[]
+          information_status?: string
           is_published?: boolean
+          last_verified_date?: string | null
           lifecycle_note?: string | null
           lifecycle_status?: string
           name?: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
+          premium_product?: boolean
+          product_source?: string
           products?: string[]
           publication_wave?: string | null
+          publish_businesscentral?: boolean
+          publish_d365?: boolean
+          publish_d365guide?: boolean
           sales_relevance?: string | null
           short_description?: string | null
           solution_id?: string
@@ -1387,6 +1419,7 @@ export type Database = {
           vendor?: string
           vendor_slug?: string | null
           vendor_website?: string | null
+          verification_status?: string
           verified_at?: string | null
           what?: string | null
           when_fits?: string | null
@@ -1404,60 +1437,75 @@ export type Database = {
       isv_submissions: {
         Row: {
           combos: string[]
+          confirm_information: boolean
           contact_email: string | null
           contact_name: string | null
           id: string
           industries: string[]
           invitation_id: string
+          kind: string
           notes: string | null
           partner_slugs: string[]
+          payload: Json
           products: string[]
+          request_publication: boolean
           reviewed_at: string | null
           short_description: string | null
           solution_id: string
           status: string
           submitted_at: string
           use_cases: string[]
+          vendor_slug: string | null
           vendor_website: string | null
           what: string | null
           when_fits: string | null
         }
         Insert: {
           combos?: string[]
+          confirm_information?: boolean
           contact_email?: string | null
           contact_name?: string | null
           id?: string
           industries?: string[]
           invitation_id: string
+          kind?: string
           notes?: string | null
           partner_slugs?: string[]
+          payload?: Json
           products?: string[]
+          request_publication?: boolean
           reviewed_at?: string | null
           short_description?: string | null
           solution_id: string
           status?: string
           submitted_at?: string
           use_cases?: string[]
+          vendor_slug?: string | null
           vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
         }
         Update: {
           combos?: string[]
+          confirm_information?: boolean
           contact_email?: string | null
           contact_name?: string | null
           id?: string
           industries?: string[]
           invitation_id?: string
+          kind?: string
           notes?: string | null
           partner_slugs?: string[]
+          payload?: Json
           products?: string[]
+          request_publication?: boolean
           reviewed_at?: string | null
           short_description?: string | null
           solution_id?: string
           status?: string
           submitted_at?: string
           use_cases?: string[]
+          vendor_slug?: string | null
           vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
@@ -1472,32 +1520,89 @@ export type Database = {
           },
         ]
       }
+      isv_vendor_internal: {
+        Row: {
+          buyer_opportunity_agreement_status: string
+          contact_email: string | null
+          contact_name: string | null
+          updated_at: string
+          vendor_slug: string
+        }
+        Insert: {
+          buyer_opportunity_agreement_status?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          updated_at?: string
+          vendor_slug: string
+        }
+        Update: {
+          buyer_opportunity_agreement_status?: string
+          contact_email?: string | null
+          contact_name?: string | null
+          updated_at?: string
+          vendor_slug?: string
+        }
+        Relationships: []
+      }
       isv_vendors: {
         Row: {
+          confirmation_status: string
           created_at: string
           description: string | null
           id: string
+          information_status: string
+          last_verified_date: string | null
+          logo_url: string | null
           name: string
+          premium_vendor: boolean
+          profile_source: string
+          publication_status: string
+          publish_businesscentral: boolean
+          publish_d365: boolean
+          publish_d365guide: boolean
           slug: string
           updated_at: string
+          verification_status: string
           website: string | null
         }
         Insert: {
+          confirmation_status?: string
           created_at?: string
           description?: string | null
           id?: string
+          information_status?: string
+          last_verified_date?: string | null
+          logo_url?: string | null
           name: string
+          premium_vendor?: boolean
+          profile_source?: string
+          publication_status?: string
+          publish_businesscentral?: boolean
+          publish_d365?: boolean
+          publish_d365guide?: boolean
           slug: string
           updated_at?: string
+          verification_status?: string
           website?: string | null
         }
         Update: {
+          confirmation_status?: string
           created_at?: string
           description?: string | null
           id?: string
+          information_status?: string
+          last_verified_date?: string | null
+          logo_url?: string | null
           name?: string
+          premium_vendor?: boolean
+          profile_source?: string
+          publication_status?: string
+          publish_businesscentral?: boolean
+          publish_d365?: boolean
+          publish_d365guide?: boolean
           slug?: string
           updated_at?: string
+          verification_status?: string
           website?: string | null
         }
         Relationships: []

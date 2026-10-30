@@ -346,6 +346,12 @@ Deno.serve(async (req) => {
           { name: "expert_specialism_selected", label: "Specialistområde valt", kind: "click" },
           { name: "expert_requirement_started", label: "Behovsformulär öppnat", kind: "click" },
           { name: "expert_requirement_submitted", label: "Kompetensbehov skickat", kind: "submit" } ] },
+        { key: "isv", label: "Tilläggslösningar (ISV)", placements: ["isv_product_help"], events: [
+          { name: "isv_verification_filter_applied", label: "Informationsstatus filtrerad", kind: "click", by: "information_status" },
+          { name: "isv_product_viewed", label: "Produkt visad", kind: "click", by: "information_status" },
+          { name: "isv_vendor_viewed", label: "Leverantör visad", kind: "click" },
+          { name: "isv_product_selfservice_clicked", label: "Besök produktens webbplats", kind: "click" },
+          { name: "isv_product_help_requested", label: "Få hjälp att bedöma om lösningen passar", kind: "submit" } ] },
       ];
       const evByName = new Map<string, Ev>();
       for (const pth of PATHS) for (const e of pth.events) evByName.set(e.name, e);
