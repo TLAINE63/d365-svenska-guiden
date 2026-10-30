@@ -37,18 +37,28 @@ serve(async (req) => {
 
     if (action === "create" && req.method === "POST") {
       const body = await req.json();
-      const solution_id = cleanText(body?.solution_id, 100);
-      const solution_name = cleanText(body?.solution_name, 200);
+      const isVendor = body?.scope === "vendor";
+      const vendor_slug = isVendor ? cleanText(body?.vendor_slug, 120) : null;
+      let solution_id = cleanText(body?.solution_id, 100);
+      let solution_name = cleanText(body?.solution_name, 200);
       const email = cleanText(body?.email, 200);
-      const vendor_name = cleanText(body?.vendor_name, 200);
+      let vendor_name = cleanText(body?.vendor_name, 200);
+      if (isVendor) {
+        if (!vendor_slug) return json({ error: "Leverantör krävs" }, 400, corsHeaders);
+        const { data: v } = await supabase.from("isv_vendors").select("slug, name").eq("slug", vendor_slug).maybeSingle();
+        if (!v) return json({ error: "Leverantören finns inte" }, 404, corsHeaders);
+        solution_id = `vendor:${v.slug}`;
+        solution_name = v.name;
+        vendor_name = vendor_name || v.name;
+      }
       if (!solution_id || !solution_name || !email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        return json({ error: "Lösning och giltig e-postadress krävs" }, 400, corsHeaders);
+        return json({ error: "Lösning eller leverantör och giltig e-postadress krävs" }, 400, corsHeaders);
       }
 
       const token = makeToken();
       const { data: invitation, error } = await supabase
         .from("isv_invitations")
-        .insert({ solution_id, solution_name, email, vendor_name, token })
+        .insert({ solution_id, solution_name, email, vendor_name, token, scope: isVendor ? "vendor" : "solution", vendor_slug })
         .select()
         .single();
       if (error) return json({ error: error.message }, 400, corsHeaders);
@@ -104,34 +114,93 @@ serve(async (req) => {
       const { data: sub, error: subErr } = await supabase
         .from("isv_submissions").select("*").eq("id", submission_id).single();
       if (subErr || !sub) return json({ error: "Inskickad profil hittades inte" }, 404, corsHeaders);
+      if (sub.status !== "pending") return json({ error: "Inskicket är redan hanterat" }, 409, corsHeaders);
+      const p = (sub.payload || {}) as Record<string, unknown>;
+      const now = new Date().toISOString();
+      // Leverantörens källa blir "mixed" när den kompletterar redaktionens research.
+      const mergedSource = (cur: string | null | undefined) => (cur === "vendor_submitted" ? "vendor_submitted" : "mixed");
 
-      const payload = {
-        solution_id: sub.solution_id,
-        short_description: cleanText(sub.short_description, 400),
-        what: cleanText(sub.what),
-        when_fits: cleanText(sub.when_fits),
-        use_cases: cleanList(sub.use_cases),
-        combos: cleanList(sub.combos),
-        products: cleanList(sub.products, 12, 100),
-        industries: cleanList(sub.industries, 25, 100),
-        partner_slugs: cleanList(sub.partner_slugs, 100, 120),
-        vendor_website: cleanText(sub.vendor_website, 300),
-        vendor_contact_name: cleanText(sub.contact_name, 200),
-        vendor_contact_email: cleanText(sub.contact_email, 200),
-        vendor_updated_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
+      if (sub.kind === "vendor_profile") {
+        // Bara leverantörsnivån ändras. Produkternas status påverkas inte.
+        const { data: v } = await supabase.from("isv_vendors").select("profile_source").eq("slug", sub.vendor_slug).single();
+        const upd: Record<string, unknown> = { updated_at: now, profile_source: mergedSource(v?.profile_source) };
+        if (typeof p.website === "string" && p.website) upd.website = p.website;
+        if (typeof p.description === "string" && p.description) upd.description = p.description;
+        if (typeof p.logo_url === "string" && p.logo_url) upd.logo_url = p.logo_url;
+        if (sub.confirm_information) upd.confirmation_status = "confirmed";
+        const { error } = await supabase.from("isv_vendors").update(upd).eq("slug", sub.vendor_slug);
+        if (error) return json({ error: error.message }, 400, corsHeaders);
+        if (sub.contact_name || sub.contact_email) {
+          await supabase.from("isv_vendor_internal").upsert(
+            { vendor_slug: sub.vendor_slug, contact_name: cleanText(sub.contact_name, 200), contact_email: cleanText(sub.contact_email, 200) },
+            { onConflict: "vendor_slug" },
+          );
+        }
+      } else if (sub.kind === "new_solution") {
+        const { data: v } = await supabase.from("isv_vendors").select("name").eq("slug", sub.vendor_slug).single();
+        const { error } = await supabase.from("isv_solutions").insert({
+          solution_id: sub.solution_id,
+          name: cleanText(p.name, 200) || sub.solution_id,
+          vendor: v?.name || sub.vendor_slug,
+          vendor_slug: sub.vendor_slug,
+          category: cleanText(p.category, 100) || "Integration / iPaaS",
+          type: "BC-native (ISV)",
+          tier: "Tier 2",
+          delivery_model: typeof p.delivery_model === "string" ? p.delivery_model : "native_isv",
+          geo: Array.isArray(p.geo) ? p.geo : [],
+          short_description: cleanText(sub.short_description, 400),
+          what: cleanText(sub.what),
+          when_fits: cleanText(sub.when_fits),
+          use_cases: cleanList(sub.use_cases),
+          combos: cleanList(sub.combos),
+          products: cleanList(sub.products, 12, 100),
+          industry_focus: cleanList(sub.industries, 25, 100),
+          partner_slugs: cleanList(sub.partner_slugs, 100, 120),
+          vendor_website: cleanText(sub.vendor_website, 300),
+          product_source: "vendor_submitted",
+          confirmation_status: sub.confirm_information ? "confirmed" : "not_confirmed",
+          // Publiceras bara om leverantören bad om det och redaktionen godkänner här.
+          is_published: sub.request_publication === true,
+        });
+        if (error) return json({ error: error.message }, 400, corsHeaders);
+      } else {
+        const payload = {
+          solution_id: sub.solution_id,
+          short_description: cleanText(sub.short_description, 400),
+          what: cleanText(sub.what),
+          when_fits: cleanText(sub.when_fits),
+          use_cases: cleanList(sub.use_cases),
+          combos: cleanList(sub.combos),
+          products: cleanList(sub.products, 12, 100),
+          industries: cleanList(sub.industries, 25, 100),
+          partner_slugs: cleanList(sub.partner_slugs, 100, 120),
+          vendor_website: cleanText(sub.vendor_website, 300),
+          vendor_contact_name: cleanText(sub.contact_name, 200),
+          vendor_contact_email: cleanText(sub.contact_email, 200),
+          vendor_updated_at: now,
+          updated_at: now,
+        };
+        const { error: upErr } = await supabase
+          .from("isv_solution_overrides")
+          .upsert(payload, { onConflict: "solution_id" });
+        if (upErr) return json({ error: upErr.message }, 400, corsHeaders);
 
-      const { error: upErr } = await supabase
-        .from("isv_solution_overrides")
-        .upsert(payload, { onConflict: "solution_id" });
-      if (upErr) return json({ error: upErr.message }, 400, corsHeaders);
+        // Produktnivån: källa, bekräftelse och strukturerade fält. Leverantören påverkas inte.
+        const { data: cur } = await supabase.from("isv_solutions").select("product_source").eq("solution_id", sub.solution_id).maybeSingle();
+        if (cur) {
+          const upd: Record<string, unknown> = { product_source: mergedSource(cur.product_source), updated_at: now };
+          if (sub.confirm_information) upd.confirmation_status = "confirmed";
+          if (typeof p.delivery_model === "string") upd.delivery_model = p.delivery_model;
+          if (Array.isArray(p.geo) && p.geo.length) upd.geo = p.geo;
+          await supabase.from("isv_solutions").update(upd).eq("solution_id", sub.solution_id);
+        }
+      }
 
       await supabase.from("isv_submissions")
-        .update({ status: "approved", reviewed_at: new Date().toISOString() })
+        .update({ status: "approved", reviewed_at: now })
         .eq("id", submission_id);
       await supabase.from("isv_invitations")
-        .update({ status: "approved", reviewed_at: new Date().toISOString() })
+        .update({ status: "approved", reviewed_at: now })
         .eq("id", sub.invitation_id);
 
       return json({ success: true }, 200, corsHeaders);
