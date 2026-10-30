@@ -173,6 +173,8 @@ Deno.serve(async (req) => {
           if (e.event_name === "kompetens_partner_profile_click") sets.profile.add(sid);
           if (e.event_name === "kompetens_need_form_submit") sets.need.add(sid);
         }
+        // Sprint 1.2: kompetensbehovet skickas via rådgivningsflödet (event_type advisory).
+        if (e.event_name === "expert_requirement_submitted") sets.need.add(sid);
       }
       for (const e of events) {
         const sid = e.session_id; if (!sid) continue;
