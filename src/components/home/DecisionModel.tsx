@@ -18,11 +18,13 @@ export const HERO_NODES: {
   buyerStage?: "Plan";
   /** Kortet öppnar startsidans val av behovsanalys. */
   needsAnalysis?: boolean;
+  /** Sprint 1.0: kortet öppnar valet "Vad söker ni?" (partner eller expert). Länken är reserv utan JavaScript. */
+  opensCompetenceChoice?: boolean;
 }[] = [
   { icon: ClipboardCheck, title: "Vi utvärderar ett nytt CRM- eller affärssystem (ERP)", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Utforska rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system", cardId: "hero_new_crm_erp", intentType: "BuyerProject" },
   { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost", cardId: "hero_cost", intentType: "BuyerProject", buyerStage: "Plan" },
   { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få mer värde genom vidareutveckling, support, AI, förvaltning eller ett bättre partnersamarbete.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer", cardId: "hero_existing_dynamics" },
-  { icon: Users, title: "Vi behöver Dynamics\u00A0365-kompetens", text: "Hitta rätt kompetens för projekt, utveckling, support eller förvaltning.", cta: "Hitta rätt kompetens", to: "/kompetens/", journey: "competence", cardId: "hero_competence", intentType: "ExpertRequirement" },
+  { icon: Users, title: "Vi behöver Dynamics\u00A0365-kompetens", text: "Hitta en relevant partner eller specifik kompetens utifrån ert behov.", cta: "Hitta rätt kompetens", to: "/kompetens/", journey: "competence", cardId: "hero_competence", opensCompetenceChoice: true },
 ];
 const NODES = HERO_NODES;
 
@@ -43,10 +45,12 @@ const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
 interface DecisionModelProps {
   /** Öppnar startsidans val av behovsanalys (ERP, CRM eller kundservice). */
   onStartNeedsAnalysis?: () => void;
+  /** Öppnar valet "Vad söker ni?" för kompetenskortet. */
+  onOpenCompetenceChoice?: () => void;
 }
 
 /** Icke-linjär beslutsmodell. Desktop: fyra kort i en rad. */
-const DecisionModel = ({ onStartNeedsAnalysis }: DecisionModelProps) => (
+const DecisionModel = ({ onStartNeedsAnalysis, onOpenCompetenceChoice }: DecisionModelProps) => (
   <nav aria-label="Vägval i ert Dynamics 365-beslut">
     <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 lg:gap-4">
       {NODES.map((n) =>
@@ -67,17 +71,23 @@ const DecisionModel = ({ onStartNeedsAnalysis }: DecisionModelProps) => (
             key={n.to}
             to={n.to}
             className={cardClass}
-            onClick={() => {
+            onClick={(e) => {
+              const opensChoice = !!(n.opensCompetenceChoice && onOpenCompetenceChoice);
+              const destination = opensChoice ? "competence_choice" : n.to;
               const meta = {
                 source_page: typeof window !== "undefined" ? window.location.pathname : "/",
                 card_id: n.cardId,
                 intent_type: n.intentType ?? null,
                 buyer_stage: n.buyerStage ?? null,
-                destination: n.to,
+                destination,
                 timestamp: new Date().toISOString(),
               };
-              track("home_path_click", { path: n.title, to: n.to, ...meta });
-              trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: n.to, ...meta } });
+              track("home_path_click", { path: n.title, to: destination, ...meta });
+              trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: destination, ...meta } });
+              if (opensChoice) {
+                e.preventDefault();
+                onOpenCompetenceChoice!();
+              }
             }}
           >
             <CardBody n={n} />
