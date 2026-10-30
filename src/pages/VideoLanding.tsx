@@ -139,7 +139,7 @@ const VideoLanding = () => {
             )}
           </article>
         </main>
-        <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/kunskapscenter/videor/"} template="inside" />
+        <ContinueEvaluation template="inside" />
         <Footer />
       </div>
     </>

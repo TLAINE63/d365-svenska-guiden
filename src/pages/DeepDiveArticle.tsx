@@ -279,7 +279,7 @@ const DeepDiveArticle = () => {
         secondaryLabel="Fråga d365.se"
         secondaryTo={`/fraga/?q=${encodeURIComponent(`Vad bör vi tänka på kring ${article.title}?`)}`}
       />
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/artiklar/"} template="article" />
+      <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
             {/* Authoritative external sources (Microsoft Learn) */}

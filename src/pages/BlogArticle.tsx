@@ -498,7 +498,7 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
           </section>
         )}
       </main>
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/artiklar/"} template="article" />
+      <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
       <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />

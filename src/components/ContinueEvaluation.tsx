@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, BookOpen, Columns3, Compass, MessageCircle } from "lucide-react";
 import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -12,7 +12,7 @@ const ICONS: Record<NextStepKind, typeof BookOpen> = { knowledge: BookOpen, comp
 
 interface Props {
   /** Sidans sökväg. Pilotsidor har egna steg; övriga sidor använder sidtypens fallback. */
-  path: string;
+  path?: string;
   /** Sprint 2.1: sidtyp för fallback_next_step och mätning. Utan sidtyp visas blocket bara på pilotsidor. */
   template?: SourceTemplate;
   /** Rubrik, t.ex. "Vad vill ni göra härnäst?" efter ett kalkylresultat. */
@@ -25,7 +25,9 @@ interface Props {
  * (conversion_type, recipient, source_page, buyer_stage, intent_type). Personlig hjälp skapar
  * ett internt ärende hos d365.se via rådgivningsflödet och skickas aldrig till partners.
  */
-export default function ContinueEvaluation({ path, template, heading = "Fortsätt er utvärdering", className = "" }: Props) {
+export default function ContinueEvaluation({ path: pathProp, template, heading = "Fortsätt er utvärdering", className = "" }: Props) {
+  const { pathname } = useLocation();
+  const path = pathProp ?? pathname;
   const page = nextStepPage(path, template);
   const sourceTemplate: SourceTemplate = template ?? "other";
   const ref = useRef<HTMLElement>(null);

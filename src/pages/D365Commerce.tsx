@@ -108,7 +108,7 @@ const D365Commerce = () => {
         </div>
       </section>
 
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="product" />
+      <ContinueEvaluation template="product" />
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Commerce" />
 

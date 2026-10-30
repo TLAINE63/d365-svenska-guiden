@@ -156,7 +156,7 @@ export default function Aktuellt() {
           </div>
         </section>
       </main>
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="aktuellt" />
+      <ContinueEvaluation template="aktuellt" />
       <Footer />
     </div>
   );

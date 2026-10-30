@@ -28,7 +28,7 @@ export default function AskAi() {
           <AiChatPanel className="flex-1" />
         </div>
       </main>
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="search" />
+      <ContinueEvaluation template="search" />
       <Footer />
     </div>
   );

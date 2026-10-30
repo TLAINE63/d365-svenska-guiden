@@ -131,7 +131,7 @@ export default function PartnerBasicProfile({
           </div>
         )}
       </main>
-      <ContinueEvaluation path={typeof window !== "undefined" ? window.location.pathname : "/"} template="partner_profile" />
+      <ContinueEvaluation template="partner_profile" />
       <Footer />
     </div>
   );
