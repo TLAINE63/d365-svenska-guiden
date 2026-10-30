@@ -1,4 +1,5 @@
 import type { TabKey } from "./types";
+import ProtectedContact from "@/components/partner/ProtectedContact";
 export type { TabKey } from "./types";
 import { swedishPossessive, formatSwedishPhone, formatSwedishBand } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
@@ -848,22 +849,10 @@ export default function PartnerProductTabs({
                       <span className="text-sm font-semibold text-foreground">{data.contact.name}</span>
                     )}
                     {data.contact.email && (
-                      <a
-                        href={`mailto:${data.contact.email}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                      >
-                        <Mail className="w-3.5 h-3.5" />
-                        {data.contact.email}
-                      </a>
+                      <ProtectedContact kind="email" value={data.contact.email} className="text-sm text-primary" icon={<Mail className="w-3.5 h-3.5" />} />
                     )}
                     {data.contact.phone && (
-                      <a
-                        href={`tel:${data.contact.phone.replace(/[\s\-()]/g, "")}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-foreground/80 hover:text-foreground"
-                      >
-                        <Phone className="w-3.5 h-3.5" />
-                        {formatSwedishPhone(data.contact.phone)}
-                      </a>
+                      <ProtectedContact kind="phone" value={data.contact.phone} display={formatSwedishPhone(data.contact.phone)} className="text-sm text-foreground/80" icon={<Phone className="w-3.5 h-3.5" />} />
                     )}
                   </div>
                 </div>
