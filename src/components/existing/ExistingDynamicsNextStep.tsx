@@ -100,8 +100,8 @@ export default function ExistingDynamicsNextStep() {
               <ul className="mb-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5">
                 {option.links.map((l) => (
                   <li key={l.href}>
-                    <Link to={l.href} className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
-                      {nowrapBrand(l.label)} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    <Link to={l.href} className="text-sm font-medium text-primary hover:underline">
+                      {nowrapBrand(l.label)} <ArrowRight className="inline h-3.5 w-3.5 align-[-2px]" aria-hidden="true" />
                     </Link>
                   </li>
                 ))}
