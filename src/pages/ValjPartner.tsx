@@ -46,7 +46,6 @@ import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
-import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import { getCardSummaryData } from "@/lib/partnerCardSummary";
 import UnderlagMatchBox from "@/components/underlag/UnderlagMatchBox";
 import { saveProfile, getBuyerProfile } from "@/lib/buyerProfile";
@@ -64,6 +63,17 @@ import {
  PARTNER_NEEDS, type PartnerNeedKey, getPartnerNeed, setPartnerNeed, needLabel, intentForNeed,
  startPartnerSearch, trackPartnerFunnel, neutralPartnerOrder, countPartnerCases,
 } from "@/lib/partnerSearchFunnel";
+import {
+ INFORMATION_STATUSES, PARTNER_SORTS, type InformationStatus, type PartnerSort, isInformationStatus,
+ filterByInformationStatus, sortPartners,
+} from "@/lib/partnerInformationStatus";
+import {
+ ASSIGNMENT_TYPES, DELIVERY_FORMS, COMPETENCE_OPTIONS, type AssignmentType,
+ matchesAssignmentType, matchesDeliveryForm, matchesCompetence,
+} from "@/lib/partnerSearchFilters";
+import type { SupportLevel } from "@/data/deliveryProfileFields";
+import type { CompetencyArea } from "@/lib/extendedCompetencies";
+import { partnerWebsiteUrl } from "@/lib/track";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -307,7 +317,15 @@ const ValjPartner = () => {
     criteria: underlagCriteria,
    }
   : null;
- const [verifiedOnly, setVerifiedOnly] = useState(false);
+ // Sprint 1.1: informationsstatus (Alla = null), sortering och extra filter.
+ const [infoStatus, setInfoStatus] = useState<InformationStatus | null>(null);
+ const [sortOrder, setSortOrder] = useState<PartnerSort>("relevant");
+ const [assignmentType, setAssignmentType] = useState<AssignmentType | null>(null);
+ const [deliveryForm, setDeliveryForm] = useState<SupportLevel | null>(null);
+ const [competence, setCompetence] = useState<CompetencyArea | null>(null);
+ const extraFiltersActive = !!(assignmentType || deliveryForm || competence);
+ // Grundprofiler är alltid "Sammanställd av d365.se" och saknar uppgifter för de extra filtren.
+ const showBasicPartners = (!infoStatus || infoStatus === "compiled") && !extraFiltersActive;
  const [nameQuery, setNameQuery] = useState("");
 
  // Sprint 1.1 steg 1: behovet sparas bara under besöket och styr varken urval eller ordning.
@@ -522,9 +540,17 @@ const ValjPartner = () => {
  const seed = getSessionSeed();
    const q = nameQuery.trim().toLowerCase();
    if (q) result = result.filter(p => p.name.toLowerCase().includes(q));
+   const productKeys = appsToProductFilterKeys(selectedApplications);
+   result = result.filter((p) =>
+    matchesAssignmentType(p as any, assignmentType, productKeys) &&
+    matchesDeliveryForm(p as any, deliveryForm, productKeys) &&
+    matchesCompetence(p as any, competence),
+   );
+   result = filterByInformationStatus(result, infoStatus);
    // Neutral ordning: avtal, premium eller andra kommersiella relationer påverkar inte placeringen.
-   return neutralPartnerOrder(result, seededShuffle, seed);
-  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery]);
+   // Alla som matchar filtren har likvärdig fit, så informationsstatus är bara sekundär tiebreaker.
+   return sortPartners(neutralPartnerOrder(result, seededShuffle, seed), sortOrder);
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery, assignmentType, deliveryForm, competence, infoStatus, sortOrder]);
 
  // Track which partners get shown in filter results (admin sales summary)
  // MUST be called before any early return to preserve hook order
@@ -590,11 +616,21 @@ const ValjPartner = () => {
    geography: selectedGeography,
    size: selectedCompanySize,
    revenue: selectedRevenue,
+   assignment_type: assignmentType,
+   delivery_form: deliveryForm,
+   competence,
    results: filteredPartners.length,
   }), 800);
   return () => window.clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [isLoading, selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
+ }, [isLoading, selectedApplications, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue, assignmentType, deliveryForm, competence]);
+
+ const selectInfoStatus = (v: string | null) => {
+  const next = isInformationStatus(v) ? v : null;
+  if (next === infoStatus) return;
+  setInfoStatus(next);
+  trackPartnerFunnel("partner_verification_filter_applied", { information_status: next ?? "alla" });
+ };
 
  // Från startsidans val "En Dynamics 365-partner": landa direkt på steg 1.
  useEffect(() => {
@@ -971,17 +1007,52 @@ const ValjPartner = () => {
  colorScheme="amber"
  />
 
- {/* Visningsfilter: endast verifierade partners */}
- <div className="flex justify-center mb-8">
-  <VerifiedOnlyToggle
-   checked={verifiedOnly}
-   onChange={setVerifiedOnly}
-   count={filteredPartners.length}
-  />
- </div>
+ {/* Sprint 1.1: uppdragstyp, leveransform och kompetens (befintliga partneruppgifter) */}
+ <FilterButtons
+  title="Uppdragstyp"
+  icon="assignment"
+  options={ASSIGNMENT_TYPES.map((a) => ({ label: a.label, value: a.value }))}
+  selectedValue={assignmentType}
+  onSelect={(v) => setAssignmentType((v as AssignmentType) || null)}
+  colorScheme="amber"
+ />
+ <FilterButtons
+  title="Leveransform"
+  icon="delivery"
+  options={DELIVERY_FORMS.map((d) => ({ label: d.label, value: d.value }))}
+  selectedValue={deliveryForm}
+  onSelect={(v) => setDeliveryForm((v as SupportLevel) || null)}
+  colorScheme="amber"
+ />
+ <FilterButtons
+  title="Kompetens"
+  icon="competence"
+  options={COMPETENCE_OPTIONS.map((c) => ({ label: c.label, value: c.value }))}
+  selectedValue={competence}
+  onSelect={(v) => setCompetence((v as CompetencyArea) || null)}
+  colorScheme="amber"
+ />
+ {extraFiltersActive && (
+  <p className="-mt-4 mb-8 text-center text-xs text-muted-foreground">
+   Uppdragstyp bygger på partnerns egna beskrivningar, leveransform och kompetens på d365.se:s bedömning av partnerns underlag.
+  </p>
+ )}
+
+ {/* Sprint 1.1: informationsstatus (hur uppgifterna har kontrollerats, inte partnerns kvalitet) */}
+ <FilterButtons
+  title="Informationsstatus"
+  icon="verification"
+  options={[{ label: "Alla", value: "alla" }, ...INFORMATION_STATUSES.map((s) => ({ label: s.label, value: s.value }))]}
+  selectedValue={infoStatus ?? "alla"}
+  onSelect={selectInfoStatus}
+  colorScheme="amber"
+ />
+ <p className="-mt-4 mb-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
+  Informationsstatus visar hur uppgifterna har kontrollerats. Den påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
+ </p>
 
  {/* Filter Results Summary */}
- {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
+ {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue || extraFiltersActive || infoStatus) && (
  <div className="text-center mb-8">
  <p className="text-sm text-muted-foreground">
  Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
@@ -1000,6 +1071,10 @@ const ValjPartner = () => {
  setSelectedGeography(null);
  setSelectedCompanySize(null);
  setSelectedRevenue(null);
+ setAssignmentType(null);
+ setDeliveryForm(null);
+ setCompetence(null);
+ setInfoStatus(null);
  }}
  className="mt-2 text-muted-foreground hover:text-foreground"
  >
@@ -1034,6 +1109,10 @@ const ValjPartner = () => {
  setSelectedApplications([]);
  setSelectedIndustry(null);
  setSelectedGeography(null);
+ setAssignmentType(null);
+ setDeliveryForm(null);
+ setCompetence(null);
+ setInfoStatus(null);
  }}
  >
  Rensa alla filter
@@ -1053,11 +1132,22 @@ const ValjPartner = () => {
     <div className="mb-6 max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 p-4">
       <div className="text-sm text-foreground">
        <p><span className="font-semibold">Nästa steg:</span> spara 1–3 partners i kortlistan och jämför dem. Kontakta sedan en partner själva eller be d365.se om hjälp med urvalet.</p>
-       <p className="mt-1 text-xs text-muted-foreground">När ni kontaktar en partner går det direkt till partnern. d365.se garanterar inte partnerns återkoppling.</p>
+       <p className="mt-1 text-xs text-muted-foreground">"Besök partnern" öppnar partnerns egen webbplats. d365.se skickar inga uppgifter om er till partnern.</p>
       </div>
       <Button asChild size="sm"><Link to="/kortlista/">Gå till kortlistan <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>
     </div>
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+     <div className="mb-4 flex items-center justify-end gap-2 text-sm">
+      <label htmlFor="partner-sort" className="text-muted-foreground">Sortera</label>
+      <select
+       id="partner-sort"
+       value={sortOrder}
+       onChange={(e) => setSortOrder(e.target.value as PartnerSort)}
+       className="h-9 rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+       {PARTNER_SORTS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+     </div>
+     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {
  // Determine which product key to use for this partner
  const hasBCApp = selectedApplications.includes("Business Central");
@@ -1102,7 +1192,19 @@ const ValjPartner = () => {
   );
  })()}
  <div className="flex flex-wrap items-center gap-2">
-  <Button variant="outline" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "kontakta_partnern" }); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: selectedApplications[0] || null }); }}>Kontakta partnern</Button>
+  {(() => {
+   // Conversion Exit A (självservice): direkt till partnerns webbplats, ingen kontaktdata från d365.se.
+   const site = partnerWebsiteUrl(partner.website);
+   const onVisit = () => {
+    trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: site ? "besok_partnern" : "besok_partnern_profil" });
+    if (site) trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "partnervaljaren" } });
+   };
+   return site ? (
+    <Button asChild variant="outline"><a href={site} target="_blank" rel="noopener" onClick={onVisit}>Besök partnern <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" /></a></Button>
+   ) : (
+    <Button asChild variant="outline"><Link to={buildPartnerProfileUrl(partner.slug)} onClick={onVisit}>Besök partnern <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" /></Link></Button>
+   );
+  })()}
   <div className="min-w-[12rem]">
    <ShortlistButton entry={{ slug: partner.slug, name: partner.name, url: buildPartnerProfileUrl(partner.slug), verified: true }} cardType="verifierad" productArea={selectedApplications[0] || null} />
   </div>
@@ -1115,7 +1217,7 @@ const ValjPartner = () => {
 )}
 
 {/* Basic-partners som matchar samma filter */}
-{!verifiedOnly && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
+{showBasicPartners && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
