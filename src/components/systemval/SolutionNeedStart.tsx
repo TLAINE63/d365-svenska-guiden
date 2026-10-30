@@ -2,20 +2,17 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calculator, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import BuyerAssessmentLight from "@/components/assessment/BuyerAssessmentLight";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import {
-  BUSINESS_NEEDS, CONCRETE_NEEDS, COMPANY_SIZES, TIME_HORIZONS, COST_LINK, assessmentLines, businessNeedByKey,
+  BUSINESS_NEEDS, CONCRETE_NEEDS, COST_LINK, assessmentLines, businessNeedByKey,
   type AssessmentDraft, type BusinessNeed, type BusinessNeedKey, type ExploreLink,
 } from "@/lib/solutionNeeds";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 const STARTED_KEY = "d365_solution_journey_started";
-const selectCls = "mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const track = (event_name: string, metadata: Record<string, unknown> = {}) =>
   trackFunnelEvent({ event_type: "cta_click", event_name, metadata: { initial_intent: "BuyerProject", source_page: "/kom-igang/", ...metadata } });
 
@@ -58,9 +55,6 @@ export default function SolutionNeedStart({ onContinue, onSkip }: Props) {
     track("business_need_selected", { need: key });
     window.setTimeout(() => document.getElementById("losning-utforska")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
-
-  const toggleArea = (k: BusinessNeedKey) =>
-    setDraft((d) => ({ ...d, areas: (d.areas || []).includes(k) ? (d.areas || []).filter((x) => x !== k) : [...(d.areas || []), k] }));
 
   const group = (title: string, links: ExploreLink[]) => links.length > 0 && (
     <div>
@@ -138,83 +132,17 @@ export default function SolutionNeedStart({ onContinue, onSkip }: Props) {
             </Button>
           </div>
 
-          <div className="mt-8 rounded-lg border border-border bg-muted/30 p-5">
-            <h2 className="text-lg font-semibold text-foreground mb-1">Vill ni ha en första bedömning från d365.se?</h2>
-            <p className="text-sm text-muted-foreground mb-4">Allt nedan är frivilligt. Uppgifterna följer med först när ni själva skickar dem.</p>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="sa-change">Vad vill ni förändra eller förbättra?</Label>
-                <Textarea id="sa-change" rows={2} maxLength={600} value={draft.change ?? ""} onChange={(e) => setDraft({ ...draft, change: e.target.value })} />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-3">
-                <div>
-                  <Label htmlFor="sa-system">Nuvarande system</Label>
-                  <Input id="sa-system" maxLength={120} placeholder="T.ex. Excel, Fortnox, Visma" value={draft.currentSystem ?? ""} onChange={(e) => setDraft({ ...draft, currentSystem: e.target.value })} />
-                </div>
-                <div>
-                  <Label htmlFor="sa-size">Ungefärlig storlek</Label>
-                  <select id="sa-size" className={selectCls} value={draft.size ?? ""} onChange={(e) => setDraft({ ...draft, size: e.target.value || undefined })}>
-                    <option value="">Välj</option>
-                    {COMPANY_SIZES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <Label htmlFor="sa-horizon">Tidshorisont</Label>
-                  <select id="sa-horizon" className={selectCls} value={draft.horizon ?? ""} onChange={(e) => setDraft({ ...draft, horizon: e.target.value || undefined })}>
-                    <option value="">Välj</option>
-                    {TIME_HORIZONS.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-              </div>
-              <fieldset>
-                <legend className="text-sm font-medium mb-2">Verksamhetsområden</legend>
-                <div className="flex flex-wrap gap-2">
-                  {CONCRETE_NEEDS.map((n) => {
-                    const on = (draft.areas || []).includes(n.key);
-                    return (
-                      <button key={n.key} type="button" aria-pressed={on} onClick={() => toggleArea(n.key)}
-                        className={`rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${on ? "border-primary bg-primary/10 text-foreground" : "border-border bg-background text-muted-foreground hover:border-primary/50"}`}>
-                        {n.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </fieldset>
-              <div className="flex flex-wrap gap-3">
-                <Button onClick={() => setDialog("assessment")}>Få en första bedömning <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>
-                <Button variant="outline" onClick={() => setDialog("advice")}>Prata med d365.se <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>
-              </div>
-              <p className="text-xs text-muted-foreground">Inget skickas till någon partner. En introduktion görs bara efter ert godkännande.</p>
-            </div>
+          <div className="mt-8">
+            <BuyerAssessmentLight
+              key={need.key}
+              sourcePage="/kom-igang/"
+              initialAreas={CONCRETE_NEEDS.some((n) => n.key === need.key) ? [need.key] : []}
+              onChange={(i) => setDraft(i)}
+              onContinueGuide={() => onContinue(need)}
+              extraActions={<Button variant="outline" onClick={() => setDialog("advice")}>Prata med d365.se <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>}
+            />
           </div>
         </div>
-      )}
-
-      {dialog === "assessment" && need && (
-        <Suspense fallback={null}>
-          <PlanContactDialog
-            mode="advisory"
-            onClose={() => setDialog(null)}
-            topic={{
-              title: "Få en första bedömning",
-              description: "d365.se går igenom underlaget manuellt och återkommer med en första bedömning av vilka lösningsvägar som kan passa. Inget skickas till någon partner.",
-              helpWith: `Första bedömning: ${need.label}`,
-              startEvent: "solution_assessment_started",
-              submitEvent: "solution_assessment_requested",
-              messageLabel: "Något mer vi bör veta? (valfritt)",
-              hideFocus: true,
-              extras: lines.length ? [{ key: "losningsbehov", label: "Ert underlag", lines }] : [],
-              metadata: { initial_intent: "BuyerProject", need: need.key, areas: (draft.areas || []).join(","), size: draft.size ?? null, horizon: draft.horizon ?? null },
-              advisory: { placement: "solution_assessment", cta: "Få en första bedömning", pageType: "behovsguide" },
-              doneTitle: "Tack, vi har tagit emot ert underlag",
-              showDoneSummary: true,
-              doneNotes: [
-                "d365.se går igenom underlaget manuellt och hör av sig med en första bedömning.",
-                "Inget har skickats till någon partner. En introduktion görs bara efter ert godkännande.",
-              ],
-            }}
-          />
-        </Suspense>
       )}
 
       {dialog === "advice" && need && (
