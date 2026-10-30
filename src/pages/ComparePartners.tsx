@@ -1,4 +1,5 @@
 import { trackJourney } from "@/lib/siJourney";
+import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import { useInquiry } from "@/contexts/InquiryContext";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import { track } from "@/lib/track";
@@ -2071,9 +2072,16 @@ const ComparePartners = () => {
                 )}
 
                 {eligiblePartners.length === 0 && (productActive || industryFilter) && (
-                  <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-600 mb-6">
-                    Inga partners matchar din kombination av produkt och bransch. Bredda urvalet ovan.
-                  </div>
+                  <EmptyResultsNextSteps
+                    className="mb-6"
+                    sourceTemplate="partner_list"
+                    message="Inga partners matchar er kombination av produkt och bransch."
+                    onResetFilters={() => { const next = new URLSearchParams(params); next.delete("product"); next.delete("industry"); setParams(next, { replace: true }); }}
+                    resetLabel="Rensa produkt och bransch"
+                    broaden={industryFilter ? { label: "Ta bort branschfiltret", onClick: () => { const next = new URLSearchParams(params); next.delete("industry"); setParams(next, { replace: true }); } } : undefined}
+                    alternatives={[{ label: "Hitta relevanta partners", to: "/valjdynamics365partner/" }, { label: "Hitta rätt kompetens", to: "/kompetens/" }]}
+                    context="Partnerjämförelse utan träffar"
+                  />
                 )}
 
                 {!hasBoth && eligiblePartners.length > 0 && (
