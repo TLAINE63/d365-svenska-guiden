@@ -827,6 +827,8 @@ const AdminDashboard = () => {
     source_document_updated_at?: string;
     partner_size_tier?: number | null;
     partner_size_tier_needs_review?: boolean;
+    information_status?: "verified" | "partner_confirmed" | "compiled";
+    information_verified_at?: string;
   }>({
   slug: "",
   name: "",
@@ -877,6 +879,8 @@ const AdminDashboard = () => {
     source_document_updated_at: "",
     partner_size_tier: null,
     partner_size_tier_needs_review: false,
+    information_status: "compiled",
+    information_verified_at: "",
     });
 
  // ==================== LEAD FUNCTIONS ====================
@@ -1550,6 +1554,8 @@ Thomas`,
   extended_competency_evidence: {},
   partner_size_tier: null,
   partner_size_tier_needs_review: false,
+  information_status: "compiled",
+  information_verified_at: "",
   });
  setEditingPartner(null);
  setFormErrors({});
@@ -1653,6 +1659,8 @@ Thomas`,
     source_document_updated_at: (partner as any).source_document_updated_at || "",
     partner_size_tier: (partner as any).partner_size_tier ?? null,
     partner_size_tier_needs_review: (partner as any).partner_size_tier_needs_review ?? false,
+    information_status: (partner as any).information_status ?? "compiled",
+    information_verified_at: (partner as any).information_verified_at ?? "",
     });
  setIndustryApps(
  Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -4453,6 +4461,37 @@ Thomas`,
  }
  />
  <Label htmlFor="is_featured">Publicerad partner</Label>
+  </div>
+
+  {/* Sprint 1.1: informationsstatus, sätts bara manuellt av redaktionen. Oberoende av avtal/premium. */}
+  <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-4 space-y-3">
+    <div>
+      <Label htmlFor="information_status" className="text-sm font-medium">Informationsstatus (visas publikt)</Label>
+      <p className="text-xs text-muted-foreground mt-0.5">
+        Verifierad = redaktionen har granskat centrala uppgifter. Bekräftad = partnern har själv granskat uppgifterna. Sammanställd = redaktionens research, eventuellt med AI-stöd, ej bekräftad av partnern. Avtal, Premium eller betalning ger aldrig verifieringsstatus.
+      </p>
+      <select
+        id="information_status"
+        className="mt-2 h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+        value={partnerFormData.information_status ?? "compiled"}
+        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_status: e.target.value as "verified" | "partner_confirmed" | "compiled" })}
+      >
+        <option value="verified">Verifierad av d365.se</option>
+        <option value="partner_confirmed">Bekräftad av partnern</option>
+        <option value="compiled">Sammanställd av d365.se</option>
+      </select>
+    </div>
+    <div>
+      <Label htmlFor="information_verified_at" className="text-sm font-medium">Senast verifierad (ÅÅÅÅ-MM-DD)</Label>
+      <Input
+        id="information_verified_at"
+        type="date"
+        className="mt-1"
+        value={partnerFormData.information_verified_at || ""}
+        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_verified_at: e.target.value })}
+      />
+      <p className="text-xs text-muted-foreground mt-1">Lämnas tom sätts dagens datum när status blir Verifierad.</p>
+    </div>
   </div>
 
   {/* Leverantörsstorlek – intern signal för AI-ranking (ingen publik filter-UI) */}

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, Play } from "lucide-react";
@@ -64,6 +65,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           <div className="min-w-0">
             <p className="mb-3 text-sm text-muted-foreground">{nowrapBrand("Microsoft Dynamics 365-partner")}</p>
             <h1 className="partner-opening-name font-semibold leading-tight break-words">{partner.name}</h1>
+            <div className="mt-3"><InformationStatusBadge partner={partner as { information_status?: string | null; information_verified_at?: string | null }} showDate /></div>
           </div>
         </div>
         <div className="mt-8 sm:mt-10 max-w-3xl">

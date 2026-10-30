@@ -152,6 +152,10 @@ export interface DatabasePartner {
   /** Grov leverantörsstorlek 1..5 (intern signal – ingen publik filter-UI). */
   partner_size_tier?: number | null;
   partner_size_tier_needs_review?: boolean | null;
+  /** Publik informationsstatus (verified | partner_confirmed | compiled), sätts manuellt av redaktionen. */
+  information_status?: string | null;
+  /** ÅÅÅÅ-MM-DD för senaste verifiering av d365.se. */
+  information_verified_at?: string | null;
 }
 
 export interface PartnerInput {
