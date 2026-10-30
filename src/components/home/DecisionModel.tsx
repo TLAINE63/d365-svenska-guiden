@@ -4,21 +4,27 @@ import { Link } from "react-router-dom";
 import { ClipboardCheck, ArrowLeftRight, Users, LayoutGrid, type LucideIcon } from "lucide-react";
 
 /** Fyra vägval, ett huvudmål per kort (hela kortet klickbart) med enhetlig text-CTA. */
-const NODES: {
+export const HERO_NODES: {
   icon: LucideIcon;
   title: string;
   text: string;
   cta: string;
   to: string;
   journey: string;
+  /** Stabilt kort-id för mätning (Sprint 0.9). */
+  cardId: string;
+  /** Intern klassificering, visas aldrig publikt. */
+  intentType?: "BuyerProject" | "ExpertRequirement";
+  buyerStage?: "Plan";
   /** Kortet öppnar startsidans val av behovsanalys. */
   needsAnalysis?: boolean;
 }[] = [
-  { icon: ClipboardCheck, title: "Vi behöver ett nytt affärssystem (ERP) eller CRM", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Hitta rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system" },
-  { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost" },
-  { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få stöd kring utveckling, AI, support, förvaltning eller byte av partner.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer" },
-  { icon: Users, title: "Vi behöver en Dynamics\u00A0365-partner", text: "Jämför partners utifrån lösning, bransch, kompetens och behov.", cta: "Hitta rätt partner", to: "/valjdynamics365partner/", journey: "find_partner" },
+  { icon: ClipboardCheck, title: "Vi utvärderar ett nytt CRM- eller affärssystem (ERP)", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Utforska rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system", cardId: "hero_new_crm_erp", intentType: "BuyerProject" },
+  { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost", cardId: "hero_cost", intentType: "BuyerProject", buyerStage: "Plan" },
+  { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få mer värde genom vidareutveckling, support, AI, förvaltning eller ett bättre partnersamarbete.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer", cardId: "hero_existing_dynamics" },
+  { icon: Users, title: "Vi behöver Dynamics\u00A0365-kompetens", text: "Hitta rätt kompetens för projekt, utveckling, support eller förvaltning.", cta: "Hitta rätt kompetens", to: "/kompetens/", journey: "competence", cardId: "hero_competence", intentType: "ExpertRequirement" },
 ];
+const NODES = HERO_NODES;
 
 const cardClass =
   "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded-lg border border-primary-foreground/30 bg-primary-foreground/[0.07] shadow-md p-3 sm:p-3.5 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
@@ -57,7 +63,23 @@ const DecisionModel = ({ onStartNeedsAnalysis }: DecisionModelProps) => (
             <CardBody n={n} />
           </button>
         ) : (
-          <Link key={n.to} to={n.to} className={cardClass} onClick={() => { track("home_path_click", { path: n.title, to: n.to }); trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: n.to } }); }}>
+          <Link
+            key={n.to}
+            to={n.to}
+            className={cardClass}
+            onClick={() => {
+              const meta = {
+                source_page: typeof window !== "undefined" ? window.location.pathname : "/",
+                card_id: n.cardId,
+                intent_type: n.intentType ?? null,
+                buyer_stage: n.buyerStage ?? null,
+                destination: n.to,
+                timestamp: new Date().toISOString(),
+              };
+              track("home_path_click", { path: n.title, to: n.to, ...meta });
+              trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: n.to, ...meta } });
+            }}
+          >
             <CardBody n={n} />
           </Link>
         ),
