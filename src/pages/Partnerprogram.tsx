@@ -79,9 +79,9 @@ const faqs = [
       "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
   },
   {
-    question: "Vad kostar en partnerverifierad profil?",
+    question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Avgiften faktureras månadsvis i efterskott, exklusive moms. Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service räknas som en CRM-enhet), exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
@@ -586,48 +586,49 @@ const Partnerprogram = () => {
       </section>
 
 
-      {/* 8b. PRISER */}
+      {/* 8b. PUBLICERING OCH PRISER (Sprint 1.1: Standard är kostnadsfri) */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Vad kostar en partnerverifierad profil?
+            Kostar det att publiceras på d365.se?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">
-            Priset baseras på hur många produktområden ni profilerar er inom. Alla profilerade
-            partners betalar samma månadsavgift. Betalning ger ingen rankingvikt, bonuspoäng eller
-            köpt placering, och påverkar inte redaktionella rekommendationer.
+            Nej. Grundpublicering kräver ingen betalning. En relevant Dynamics&nbsp;365-partner kan
+            publiceras som Standard utan avgift. Premium är ett frivilligt tillägg för den som vill ha en
+            utökad presentation. Ingen av nivåerna påverkar relevansordningen, och verifiering kan inte köpas.
           </p>
-          <div className="grid gap-5 md:grid-cols-3 max-w-4xl">
-            {[
-              {
-                tier: "1 produktområde",
-                price: "995 kr/månad",
-                d: "T.ex. enbart Business Central, eller Finance & Supply Chain Management, eller CRM.",
-              },
-              {
-                tier: "2 produktområden",
-                price: "1 595 kr/månad",
-                d: "T.ex. Business Central plus CRM, eller F&SCM plus Business Central.",
-              },
-              {
-                tier: "3 produktområden",
-                price: "1 995 kr/månad",
-                d: "Full profilering över ERP och CRM. Sales och Customer Service buntas som en CRM-enhet.",
-              },
-            ].map((t) => (
-              <div key={t.tier} className="rounded-xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                  {t.tier}
-                </h3>
-                <p className="text-3xl font-bold text-foreground mb-3">{t.price}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">{t.d}</p>
-              </div>
-            ))}
+          <div className="grid gap-5 md:grid-cols-2 max-w-4xl">
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Standard</h3>
+              <p className="text-3xl font-bold text-foreground mb-3">0 kr</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Kostnadsfri grundpublicering. Partnerprofil med produktområden, branscher, geografi och
+                partnerns egna beskrivningar, synlig i partnerväljaren, filtren och jämförelsen.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Premium</h3>
+              <p className="text-3xl font-bold text-foreground mb-3">995–1&nbsp;995 kr/månad</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Betald utökad presentation, till exempel expertintervju och video, kvartalsvis genomgång
+                av profilen, statistik över profilvisningar och en namngiven kontaktperson på d365.se.
+                995 kr för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service
+                räknas som en CRM-enhet).
+              </p>
+            </div>
           </div>
           <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
-            Avgiften faktureras månadsvis i efterskott och priserna anges exklusive moms.
+            Premium faktureras månadsvis i efterskott och priserna anges exklusive moms.
             Uppsägningstiden är 3 månader och ska meddelas i god tid före varje kvartals början.
           </p>
+          <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: Verifierad av d365.se, Bekräftad av partnern eller Sammanställd av d365.se. Statusen beskriver hur uppgifterna har kontrollerats.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium ger aldrig verifieringsstatus, och information som tagits fram med AI-stöd blir aldrig automatiskt verifierad.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Standard eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
+            </ul>
+          </div>
         </div>
       </section>
 
