@@ -1,4 +1,5 @@
 import KeyTakeaways from "@/components/guide/KeyTakeaways";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import FitModel from "@/components/FitModel";
@@ -492,6 +493,7 @@ const ERPOverview = () => {
  </div>
  </section>
 
+ <ContinueEvaluation path="/affarssystem/" />
  <AktuelltContextSection placement="affarssystem" heading="Aktuellt inom affärssystem" />
  <RelatedPages pages={erpRelatedPages} heading="Fördjupning om affärssystem, kostnader och partner" />
  <section className="py-8">

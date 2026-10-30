@@ -4,7 +4,7 @@ import { ArrowRight, BookOpen, Columns3, Compass, MessageCircle } from "lucide-r
 import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
-import { nextStepOptions, nextStepPage, type NextStepKind, type NextStepOption } from "@/lib/nextSteps";
+import { HELP_STEP, nextStepOptions, nextStepPage, type NextStepKind, type NextStepOption } from "@/lib/nextSteps";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
@@ -102,7 +102,7 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
               messageLabel: "Kort meddelande",
               hideFocus: true,
               extras: [{ key: "sammanhang", label: "Sammanhang", lines: [`Sida: ${page.context} (${path})`] }],
-              metadata: { ...base(HELP_STEP_META), intent_context: page.context },
+              metadata: { ...base(HELP_STEP), intent_context: page.context },
               advisory: { placement: "next_step_help", cta: "Få hjälp att bedöma nästa steg", pageType: page.buyerStage },
               doneTitle: "Tack, vi hör av oss",
               showDoneSummary: true,
@@ -117,5 +117,3 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
     </section>
   );
 }
-
-const HELP_STEP_META: NextStepOption = { kind: "help", label: "", text: "", ctaType: "hand_raise", conversionType: "contact_d365", recipient: "d365" };

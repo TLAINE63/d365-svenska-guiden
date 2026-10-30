@@ -332,6 +332,10 @@ Deno.serve(async (req) => {
           { name: "partner_compare_started", label: "Jämförelse startad", kind: "click" },
           { name: "partner_selfservice_clicked", label: "Besök partnern", kind: "click" },
           { name: "partner_selection_help_requested", label: "Få hjälp att bedöma partners", kind: "submit" } ] },
+        { key: "next_step", label: "Fortsätt er utvärdering (pilot)", placements: ["next_step_help"], events: [
+          { name: "next_step_view", label: "Blocket visat", kind: "click" },
+          { name: "next_step_clicked", label: "Nästa steg klickat", kind: "click", by: "step" },
+          { name: "next_step_help_requested", label: "Få hjälp att bedöma nästa steg", kind: "submit" } ] },
         { key: "expert", label: "Expert eller konsult", placements: ["expert_requirement"], events: [
           { name: "expert_search_started", label: "Sökning startad", kind: "click" },
           { name: "expert_role_selected", label: "Roll vald", kind: "click", by: "role" },

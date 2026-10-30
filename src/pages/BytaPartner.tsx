@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, ClipboardCheck, Scale, ShieldCheck, Repeat } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -253,6 +254,7 @@ const BytaPartner = () => {
             </ul>
           </section>
 
+          <ContinueEvaluation path="/guider/byta-dynamics-partner/" className="-mx-4 sm:-mx-6" />
           <EditorialSource sourceType="Köpguide" />
         </div>
       </main>
