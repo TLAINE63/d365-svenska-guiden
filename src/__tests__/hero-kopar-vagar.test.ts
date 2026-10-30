@@ -46,7 +46,7 @@ describe("Valet Vad söker ni?", () => {
   const byType = (t: string) => COMPETENCE_CHOICES.find((c) => c.type === t);
 
   it("partnervägen använder partnerväljaren och klassas PartnerSearch, inte PartnerChange", () => {
-    expect(byType("partner")).toMatchObject({ to: "/valjdynamics365partner/", intentType: "PartnerSearch", startEvent: "partner_search_started" });
+    expect(byType("partner")).toMatchObject({ to: "/valjdynamics365partner/#hitta-partners", intentType: "PartnerSearch", startEvent: "partner_search_started" });
   });
 
   it("expertvägen använder kompetensöversikten och klassas ExpertRequirement", () => {
