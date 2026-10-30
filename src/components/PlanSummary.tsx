@@ -15,6 +15,7 @@ import { useShortlist } from "@/contexts/ShortlistContext";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { productNextSteps } from "@/data/productNextSteps";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 
 export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
   const buyer = useBuyerContext();
@@ -49,11 +50,35 @@ export default function PlanSummary({ onEdit }: { onEdit: () => void }) {
       </div>
       </div>
       <dl className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          ["Område som utreds", meta.area ? areas[meta.area] : scope],
-          ["Bransch", buyer.industry || "Inte angiven ännu"],
-          ["Företagsstorlek", sizeLabel(buyer.size) || "Inte angiven ännu"],
-        ].map(([label, value]) => <div key={label} className="rounded-xl bg-muted/70 p-4"><dt className="text-xs uppercase tracking-wider text-muted-foreground">{label}</dt><dd className="mt-1.5 font-semibold text-foreground">{nowrapBrand(value)}</dd></div>)}
+        {/* Alla fyra delarna går att ändra direkt; valen sparas bara lokalt i webbläsaren. */}
+        <div className="rounded-xl bg-muted/70 p-4"><dt className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">Område som utreds</dt><dd>
+          <Select value={meta.area || "unset"} onValueChange={(v) => updatePlan({ area: v === "unset" ? undefined : (v as keyof typeof areas) })}>
+            <SelectTrigger aria-label="Område som utreds" className="h-auto min-h-10 bg-card text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unset">{meta.area ? "Inte valt" : nowrapBrand(scope)}</SelectItem>
+              {(Object.keys(areas) as (keyof typeof areas)[]).map((a) => <SelectItem key={a} value={a}>{areas[a]}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </dd></div>
+        <div className="rounded-xl bg-muted/70 p-4"><dt className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">Bransch</dt><dd>
+          <Select value={buyer.industry || "unset"} onValueChange={(v) => updateBuyerContext({ industry: v === "unset" ? null : v })}>
+            <SelectTrigger aria-label="Bransch" className="h-auto min-h-10 bg-card text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unset">Inte angiven ännu</SelectItem>
+              {buyer.industry && !STANDARD_INDUSTRIES.some((i) => i.name === buyer.industry) && <SelectItem value={buyer.industry}>{buyer.industry}</SelectItem>}
+              {STANDARD_INDUSTRIES.map((i) => <SelectItem key={i.slug} value={i.name}>{i.name}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </dd></div>
+        <div className="rounded-xl bg-muted/70 p-4"><dt className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">Företagsstorlek</dt><dd>
+          <Select value={buyer.size || "unset"} onValueChange={(v) => updateBuyerContext({ size: v === "unset" ? null : v })}>
+            <SelectTrigger aria-label="Företagsstorlek" className="h-auto min-h-10 bg-card text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unset">Inte angiven ännu</SelectItem>
+              {["1-49", "50-99", "100-249", "250-999", "1.000-4.999", ">5.000"].map((s) => <SelectItem key={s} value={s}>{sizeLabel(s)}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </dd></div>
         <div className="rounded-xl bg-muted/70 p-4"><dt className="mb-1.5 text-xs uppercase tracking-wider text-muted-foreground">Vald produkt</dt><dd>
           <Select value={buyer.product || "unset"} onValueChange={(product) => updateBuyerContext({ product: product === "unset" ? null : product })}>
             <SelectTrigger aria-label="Vald produkt" className="h-auto min-h-10 bg-card text-left [&>span]:whitespace-normal"><SelectValue /></SelectTrigger>
