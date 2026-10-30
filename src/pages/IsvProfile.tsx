@@ -268,7 +268,7 @@ export default function IsvProfile() {
               <CardHeader>
                 <CardTitle className="text-lg flex flex-wrap items-center gap-2">
                   Leverantörsprofil
-                  <InformationStatusBadge kind="isv" partner={{ information_status: vendor?.information_status }} />
+                  <InformationStatusBadge kind="isv" className="font-sans" partner={{ information_status: vendor?.information_status }} />
                 </CardTitle>
                 <CardDescription>Visas för besökare som tittar på era produkter. Kontaktuppgifterna publiceras inte.</CardDescription>
               </CardHeader>
