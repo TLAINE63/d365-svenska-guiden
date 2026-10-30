@@ -23,6 +23,7 @@ type CompetenceEvent =
   // Sprint 1.1: partnersökningens tratt (se src/lib/partnerSearchFunnel.ts).
   | "partner_need_selected"
   | "partner_filters_applied"
+  | "partner_verification_filter_applied"
   | "partner_profile_viewed"
   | "partner_compare_started"
   | "partner_selfservice_clicked"
