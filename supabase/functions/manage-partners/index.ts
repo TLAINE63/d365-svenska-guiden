@@ -43,6 +43,17 @@ function normalizeSizeTier(v: unknown): number | null {
   return r >= 1 && r <= 5 ? r : null;
 }
 
+// Informationsstatus sätts bara manuellt av redaktionen (aldrig av AI eller kommersiell status).
+function normalizeInfoStatus(v: unknown): "verified" | "partner_confirmed" | "compiled" | null {
+  return v === "verified" || v === "partner_confirmed" || v === "compiled" ? v : null;
+}
+
+function normalizeDate(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const s = v.trim().slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : null;
+}
+
 // JWT verification using HMAC-SHA256
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
   try {
