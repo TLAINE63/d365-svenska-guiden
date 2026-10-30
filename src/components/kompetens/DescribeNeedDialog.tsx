@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
-import { deliveryModeLabel } from "@/data/competenceGuides";
+import { deliveryModeLabel, PRODUCT_OPTIONS } from "@/data/competenceGuides";
 import { trackCompetenceEvent } from "@/utils/trackCompetenceEvent";
 import type { CompetenceFilterState } from "@/lib/competenceMatching";
 
@@ -26,11 +26,12 @@ interface Props {
   roleLabel: string;
   guideSlug?: string;
   filters: CompetenceFilterState;
+  /** Kort variant (Sprint 1.0): produkt om känd, behov, företag, namn och e-post. */
+  compact?: boolean;
 }
 
-const MIN_DESCRIPTION = 30;
-
-const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters }: Props) => {
+const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters, compact = false }: Props) => {
+  const MIN_DESCRIPTION = compact ? 10 : 30;
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -44,6 +45,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
     length: "",
     scope: "",
     description: "",
+    product: "",
     consent: false,
     hp: "",
   });
@@ -86,7 +88,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
 
     const messageLines = [
       `Behov av kompetens: ${roleLabel}.`,
-      filters.product ? `Produkt: ${filters.product}.` : "",
+      (form.product || filters.product) ? `Produkt: ${form.product || filters.product}.` : "",
       filters.industry ? `Bransch: ${filters.industry}.` : "",
       filters.region ? `Område: ${filters.region}.` : "",
       filters.delivery ? `Leveransform: ${deliveryModeLabel(filters.delivery)}.` : "",
@@ -106,7 +108,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
           email: form.email.trim(),
           phone: form.phone.trim() || undefined,
           industry: filters.industry,
-          selected_product: filters.product,
+          selected_product: form.product || filters.product,
           source_page: typeof window !== "undefined" ? window.location.pathname : guideSlug,
           source_type: "kompetens_behov",
           message: messageLines.join("\n").slice(0, 1000),
@@ -117,7 +119,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
       }
       setLastPayload(signature);
       setDone(true);
-      trackCompetenceEvent("kompetens_need_form_submit", { guide: guideSlug });
+      trackCompetenceEvent("kompetens_need_form_submit", { guide: guideSlug, competence_type: compact ? "unsure" : undefined });
     } catch (err: any) {
       toast({
         title: "Det gick inte att skicka",
@@ -133,7 +135,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Beskriv ert behov</DialogTitle>
+          <DialogTitle>{compact ? "Beskriv behovet" : "Beskriv ert behov"}</DialogTitle>
           <DialogDescription>
             Behovet går till d365.se och skickas inte vidare till partners automatiskt.
           </DialogDescription>
@@ -158,10 +160,27 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
               onChange={(e) => upd("hp", e.target.value)}
             />
 
-            <div className="rounded-md border border-border bg-muted/40 p-3 text-sm">
-              <p className="font-semibold">Roll eller kompetensområde</p>
-              <p className="text-muted-foreground">{roleLabel}</p>
-            </div>
+            {compact ? (
+              <div>
+                <Label htmlFor="kn-product">Dynamics 365-produkt, om ni vet</Label>
+                <select
+                  id="kn-product"
+                  value={form.product}
+                  onChange={(e) => upd("product", e.target.value)}
+                  className="mt-1 flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Vet inte än</option>
+                  {PRODUCT_OPTIONS.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div className="rounded-md border border-border bg-muted/40 p-3 text-sm">
+                <p className="font-semibold">Roll eller kompetensområde</p>
+                <p className="text-muted-foreground">{roleLabel}</p>
+              </div>
+            )}
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
@@ -176,6 +195,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
                 <Label htmlFor="kn-email">E-post *</Label>
                 <Input id="kn-email" type="email" value={form.email} onChange={(e) => upd("email", e.target.value)} required />
               </div>
+              {!compact && (<>
               <div>
                 <Label htmlFor="kn-phone">Telefon</Label>
                 <Input id="kn-phone" value={form.phone} onChange={(e) => upd("phone", e.target.value)} />
@@ -188,15 +208,18 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters 
                 <Label htmlFor="kn-length">Uppskattad längd</Label>
                 <Input id="kn-length" placeholder="Till exempel 6 månader" value={form.length} onChange={(e) => upd("length", e.target.value)} />
               </div>
+              </>)}
             </div>
 
-            <div>
-              <Label htmlFor="kn-scope">Omfattning</Label>
-              <Input id="kn-scope" placeholder="Till exempel 2 dagar per vecka" value={form.scope} onChange={(e) => upd("scope", e.target.value)} />
-            </div>
+            {!compact && (
+              <div>
+                <Label htmlFor="kn-scope">Omfattning</Label>
+                <Input id="kn-scope" placeholder="Till exempel 2 dagar per vecka" value={form.scope} onChange={(e) => upd("scope", e.target.value)} />
+              </div>
+            )}
 
             <div>
-              <Label htmlFor="kn-desc">Beskrivning av behovet *</Label>
+              <Label htmlFor="kn-desc">{compact ? "Vad behöver ni hjälp med? *" : "Beskrivning av behovet *"}</Label>
               <Textarea
                 id="kn-desc"
                 rows={5}

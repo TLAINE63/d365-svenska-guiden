@@ -5,6 +5,7 @@ import { lazyWithRetry } from "@/lib/lazyWithRetry";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import DecisionModel from "@/components/home/DecisionModel";
+import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialog";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -142,6 +143,7 @@ const homeFaqs = [
 
 const Index = () => {
   const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
+  const [competenceChoiceOpen, setCompetenceChoiceOpen] = useState(false);
   const [aiQuery, setAiQuery] = useState("");
   const [heroIndustry, setHeroIndustry] = useState("");
   const [heroProduct, setHeroProduct] = useState("");
@@ -332,7 +334,8 @@ const Index = () => {
 
               Vad stämmer bäst in på er situation?
             </p>
-            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} />
+            <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} onOpenCompetenceChoice={() => setCompetenceChoiceOpen(true)} />
+            <CompetenceChoiceDialog open={competenceChoiceOpen} onOpenChange={setCompetenceChoiceOpen} />
             <AdvisoryOffer
               variant="hero"
               placement="home"
