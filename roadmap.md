@@ -78,3 +78,11 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Publika sidan /artiklar/<adress>/ visar Word-artiklar med samma utseende som övriga artiklar, förgenereras och kommer med i sajtkartan
 - [x] Flik Videor i /redaktion med "Lägg till video via länk" (granska och publicera själv)
 - [x] Lägg in uppladdade bygg/installation-artikeln som utkast
+
+## Sprint 1.9 ISV-leverantörer och produkter (2026-10-30)
+- [x] Leverantör och produkt med var sin källa, bekräftelse, verifiering och publik status (startläge: alla Sammanställd)
+- [x] Statusfilter (förval Alla), statusmärke på kort och i lösningsrutan, leverantörens status separat
+- [x] Exit A "Besök produktens webbplats" och Exit B "Få hjälp att bedöma om lösningen passar" (internt ärende, inget till leverantören)
+- [x] Självservice per leverantör: korrigera/bekräfta profil, uppdatera produkter, lägga till och skicka produkt för publicering, allt via granskning
+- [x] Admin: leverantörsinbjudan, granskning per inskickstyp, statuspanel för verifiering, Premium, avtal och publiceringsmål
+- [x] Anonym mätning med de fem isv_*-händelserna och ISV-väg i köpvägsrapporten
