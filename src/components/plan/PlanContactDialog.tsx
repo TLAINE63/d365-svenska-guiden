@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { cleanSelection } from "@/lib/helpRequests";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -117,7 +118,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
           help_with: topic ? [topic.helpWith, focus].filter(Boolean).join(": ") : advisory ? focus || null : "Partnerdialog från Min D365-plan",
           project, include_project: shared.length > 0, privacy_ack: true,
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
-          advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null } : null,
+          advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null, selection: cleanSelection(topic.metadata) } : null,
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });

@@ -24,10 +24,22 @@ const Body = z.object({
     cta: z.string().trim().max(120),
     page_type: z.string().trim().max(60).optional().nullable(),
     page_path: z.string().trim().max(300).optional().nullable(),
+    /** Besökarens val i hjälpvägen (behov, produkt m.m.), bara korta uppräknade värden. */
+    selection: z.record(z.union([z.string().max(120), z.number(), z.boolean()])).optional().nullable(),
   }).optional().nullable(),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100), utm_content: s(100), utm_term: s(100),
   referrer: s(500), landing_page: s(500), session_id: s(100),
 });
+
+const cleanSel = (v: Record<string, unknown> | null | undefined) => {
+  const out: Record<string, string | number | boolean> = {};
+  for (const [k, x] of Object.entries(v || {})) {
+    if (Object.keys(out).length >= 20 || !/^[a-z_]{1,40}$/.test(k)) continue;
+    if (typeof x === "string" && x.trim()) out[k] = x.trim().slice(0, 120);
+    else if (typeof x === "number" || typeof x === "boolean") out[k] = x;
+  }
+  return out;
+};
 
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const json = (b: unknown, status: number, cors: Record<string, string>) => new Response(JSON.stringify(b), { status, headers: { ...cors, "Content-Type": "application/json" } });
@@ -98,7 +110,7 @@ Deno.serve(async (req) => {
       const project = d.include_project ? d.project ?? null : null;
       const { data: advCase, error: caseErr } = await sb.from("advisory_cases").insert({
         contact_name: d.contact_name, company: d.company, email: d.email, phone: d.phone || null,
-        journey_context: project, origin_placement: ac?.placement ?? "plan", origin_cta: ac?.cta ?? d.help_with ?? null,
+        journey_context: project, journey_selection: cleanSel(ac?.selection), origin_placement: ac?.placement ?? "plan", origin_cta: ac?.cta ?? d.help_with ?? null,
       }).select("id").single();
       if (caseErr || !advCase) { console.error(caseErr); return json({ error: "Förfrågan kunde inte sparas." }, 500, cors); }
       const { data: booking, error: errA } = await sb.from("inquiries").insert({
