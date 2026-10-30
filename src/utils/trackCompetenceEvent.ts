@@ -19,7 +19,14 @@ type CompetenceEvent =
   | "competence_path_opened"
   | "competence_type_selected"
   | "partner_search_started"
-  | "expert_requirement_started";
+  | "expert_requirement_started"
+  // Sprint 1.1: partnersökningens tratt (se src/lib/partnerSearchFunnel.ts).
+  | "partner_need_selected"
+  | "partner_filters_applied"
+  | "partner_profile_viewed"
+  | "partner_compare_started"
+  | "partner_selfservice_clicked"
+  | "partner_selection_help_requested";
 
 export function trackCompetenceEvent(
   event: CompetenceEvent,
