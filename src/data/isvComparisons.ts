@@ -115,7 +115,7 @@ export const ISV_COMPARISONS: IsvComparison[] = [
     slug: "jet-vs-solver-vs-aimplan",
     title: "Jet Reports vs Solver vs Aimplan",
     intro:
-      "Jet är klassisk Excel-rapportering nära BC. Solver är dedikerat FP&A. Aimplan är en svensk molnplattform med nordiskt fokus. Moveahead AB (som driver d365.se) har ägarintresse i Aimplan, se /agande-och-intressen.",
+      "Jet är klassisk Excel-rapportering nära BC. Solver är dedikerat FP&A. Aimplan är en svensk molnplattform med nordiskt fokus.",
     solutionIds: ["jet-reports", "solver", "aimplan"],
     category: "Rapportering / FP&A",
     parentArticleSlug: "tillagg-rapportering-budget",

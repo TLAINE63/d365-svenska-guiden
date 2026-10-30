@@ -1,8 +1,7 @@
 /**
  * Guiden "Budget, prognos och säljplanering i Dynamics 365".
  * Uppdrag från Thomas Laine 2026-10-30. Copy följer sajtens regler:
- * inga obestyrkta påståenden ("certifierad", "ledande", prisbelopp utan källa),
- * och varje omnämnande av Aimplan eller fpaa.se redovisar ägarintresset.
+ * inga obestyrkta påståenden ("certifierad", "ledande", prisbelopp utan källa).
  */
 import type { GuideSource } from "@/lib/guideSources";
 
@@ -116,11 +115,6 @@ export const BUDGET_ARCHITECTURE_TEXT = [
 export const AIMPLAN_TEXT =
   "Aimplan är ett svenskt tillägg som ger Power BI och Microsoft Fabric skrivbarhet: inmatning av budget och prognos, rullande prognosmodeller, scenarier, kommentarer och revisionsspårning direkt i rapporterna. Planeringen sker i samma miljö som uppföljningen, så användarna behöver inte växla mellan system. Implementeringen görs normalt av en Microsoft-partner som kan både affärssystemet och Power BI.";
 
-/** Måste visas där Aimplan eller fpaa.se nämns (intressekonflikt, MFL). */
-export const AIMPLAN_DISCLOSURE =
-  "Moveahead AB, som driver d365.se, har ägarintresse i Aimplan. fpaa.se ges ut av Cloud Ahead AB tillsammans med Powerbridge, som distribuerar Aimplan i Norden.";
-
-export const OWNERSHIP_PATH = "/agande-och-intressen/";
 
 export const BUDGET_FUTURE_PROOF = [
   "Data, semantiska modeller och rapporter kan ligga kvar i organisationens befintliga Microsoft-tenant.",
@@ -192,5 +186,5 @@ export const BUDGET_SOURCES: GuideSource[] = [
   { name: "Microsoft Learn: Budget planning overview (Finance)", href: "https://learn.microsoft.com/en-us/dynamics365/finance/budgeting/budget-planning-overview-configuration", supports: "Budgetplanering i Finance med arbetsflöden och Excel-mallar." },
   { name: "Microsoft Learn: Configure forecasts (Dynamics 365 Sales)", href: "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast", supports: "Inbyggda säljprognoser med hierarkier, kvoter och justeringar." },
   { name: "Microsoft Learn: Translytical task flows (Power BI)", href: "https://learn.microsoft.com/en-us/power-bi/create-reports/translytical-task-flow-overview", supports: "Microsofts inbyggda möjlighet att skriva tillbaka data från Power BI-rapporter." },
-  { name: "Aimplan: produktbeskrivning", href: "https://www.aimplan.com/", supports: "Leverantörens egen beskrivning av planering, prognos och rapportering i Power BI och Fabric. Moveahead AB, som driver d365.se, har ägarintresse i Aimplan." },
+  { name: "Aimplan: produktbeskrivning", href: "https://www.aimplan.com/", supports: "Leverantörens egen beskrivning av planering, prognos och rapportering i Power BI och Fabric." },
 ];
