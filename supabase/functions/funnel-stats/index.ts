@@ -346,6 +346,9 @@ Deno.serve(async (req) => {
           { name: "expert_specialism_selected", label: "Specialistområde valt", kind: "click" },
           { name: "expert_requirement_started", label: "Behovsformulär öppnat", kind: "click" },
           { name: "expert_requirement_submitted", label: "Kompetensbehov skickat", kind: "submit" } ] },
+        { key: "dead_end", label: "Nästa steg på alla sidtyper (No Dead Ends)", events: [
+          { name: "dead_end_next_step_viewed", label: "Nästa steg visat, per sidtyp", kind: "click", by: "source_template" },
+          { name: "dead_end_next_step_clicked", label: "Nästa steg klickat, per typ", kind: "click", by: "next_step_type" } ] },
         { key: "isv", label: "Tilläggslösningar (ISV)", placements: ["isv_product_help"], events: [
           { name: "isv_verification_filter_applied", label: "Informationsstatus filtrerad", kind: "click", by: "information_status" },
           { name: "isv_product_viewed", label: "Produkt visad", kind: "click", by: "information_status" },
