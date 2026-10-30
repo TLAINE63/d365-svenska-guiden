@@ -121,7 +121,7 @@ const CrmMatchningstest = ({ productKey }: Props) => {
 
       <main className="flex-1">
         <section className="bg-[hsl(var(--hero-dark))] border-b border-primary/20">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 pb-8 sm:pb-10">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-24 sm:pt-28 pb-8 sm:pb-10">
             <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               {config.eyebrow}
             </span>
@@ -132,7 +132,7 @@ const CrmMatchningstest = ({ productKey }: Props) => {
           </div>
         </section>
 
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12 [&>*]:max-w-3xl">
           <div className="mb-6">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
               <span>
