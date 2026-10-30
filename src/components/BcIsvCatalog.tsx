@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -879,12 +880,18 @@ const BcIsvCatalog = ({
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground border border-dashed border-border rounded">
-          <p>Inga lösningar matchar valda filter.</p>
-          <button onClick={clearAll} className="text-primary hover:underline mt-2 text-sm">
-            Rensa filter
-          </button>
-        </div>
+        <EmptyResultsNextSteps
+          sourceTemplate="isv_category"
+          message="Inga lösningar matchar valda filter."
+          onResetFilters={clearAll}
+          resetLabel="Rensa filter"
+          broaden={statusSel.size ? { label: "Visa alla informationsstatusar", onClick: () => applyStatus(null) } : undefined}
+          alternatives={[
+            { label: "Hitta relevanta partners", to: "/valjdynamics365partner/" },
+            { label: "Starta behovsguiden", to: "/kom-igang/" },
+          ]}
+          context="Tilläggskatalogen utan träffar"
+        />
       ) : groupByVendor && vendorGroups.length > 0 ? (
         <div className="space-y-10">
           {vendorGroups.map(([vendor, list]) => (
