@@ -11,3 +11,4 @@
 
 - Partnernytt (/partnernytt/) is the archive for partner content; buying pages show only ProductPartnerNewsSection (max 3, topic-matched via src/lib/contextualPartnerNews.ts, hidden without matches, placed just before RelatedPages), the home page has no partner-news feed, and partner profiles keep their own partner's posts, so news never competes with buying journeys.
 - Min D365-plan (/underlag/) uses the scoped .plan-premium palette shared with partner profiles (petrol opening, plan-card surfaces, 72rem grid); FitModel takes `framed` to render inside that grid instead of its own narrow band, so other pages keep the default.
+- Home hero card 4 opens CompetenceChoiceDialog (partner → partner selector, expert → /kompetens/, unsure → DescribeNeedDialog compact), so competence intent is chosen by the visitor and no parallel partner/competence model exists.
