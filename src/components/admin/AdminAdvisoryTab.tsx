@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, RefreshCw, ChevronDown, ChevronRight, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import {
   BOOKING_STATUSES, CASE_STATUSES, CONSENT_SCOPE_OPTIONS, INTRO_STATUSES, PARTNER_RESPONSES, PLACEMENT_LABEL,
@@ -73,6 +74,7 @@ export default function AdminAdvisoryTab({ token, onSessionExpired }: Props) {
 
   return (
     <div className="space-y-6">
+      <HelpRequestsCard token={token} onSessionExpired={onSessionExpired} />
       <Card>
         <CardHeader className="flex flex-row items-center justify-between gap-4">
           <div>

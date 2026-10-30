@@ -25,6 +25,7 @@ import PostHogStatsCard from "@/components/PostHogStatsCard";
 import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import BuyerPathsReportCard from "@/components/BuyerPathsReportCard";
+import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
@@ -212,6 +213,7 @@ export default function Redaktion() {
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="videos">Videor</TabsTrigger>
             <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
+            <TabsTrigger value="help-requests">Hjälpärenden</TabsTrigger>
             <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
@@ -233,6 +235,10 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="help-requests">
+            <HelpRequestsCard token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="advisory">
