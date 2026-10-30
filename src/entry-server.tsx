@@ -87,7 +87,6 @@ import BytaPartner from './pages/BytaPartner';
 import SecondOpinion from './pages/SecondOpinion';
 import PartnersInSweden from './pages/PartnersInSweden';
 import OptimeraDynamics365 from './pages/OptimeraDynamics365';
-import Dynamicskonsult from './pages/Dynamicskonsult';
 import Dynamics365VsSalesforce from './pages/Dynamics365VsSalesforce';
 import SupportForvaltning from './pages/SupportForvaltning';
 import BudgetPrognosPlanering from './pages/BudgetPrognosPlanering';
@@ -268,7 +267,6 @@ export const routes: PrerenderRoute[] = [
   { path: '/second-opinion', priority: '0.8', changefreq: 'monthly' },
   { path: '/dynamics-365-partners-in-sweden', priority: '0.7', changefreq: 'monthly' },
   { path: '/guider/optimera-dynamics-365', priority: '0.8', changefreq: 'monthly' },
-  { path: '/dynamicskonsult', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/dynamics-365-support-forvaltning', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/budget-prognos-planering-dynamics-365', priority: '0.8', changefreq: 'monthly' },
   { path: '/vad-ar-dynamics-365', priority: '0.8', changefreq: 'monthly' },
@@ -644,7 +642,7 @@ export function render(url: string) {
               <Route path="/second-opinion" element={<SecondOpinion />} />
               <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
               <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
-              <Route path="/dynamicskonsult" element={<Dynamicskonsult />} />
+              <Route path="/dynamicskonsult" element={<Navigate to="/valjdynamics365partner/" replace />} />
               <Route path="/guider/dynamics-365-support-forvaltning" element={<SupportForvaltning />} />
               <Route path="/guider/budget-prognos-planering-dynamics-365" element={<BudgetPrognosPlanering />} />
               <Route path="/vad-ar-dynamics-365" element={<VadArDynamics365 />} />
