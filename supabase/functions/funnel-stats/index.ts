@@ -411,6 +411,98 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ days: dP, since: sinceP.slice(0, 10), paths }), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
+    if (body?.action === "journey_funnels") {
+      // Sprint 2.2: funnel per köpväg i tre nivåer. Bara aggregat, inga personuppgifter eller fritext läses.
+      const dJ = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+      const sinceJ = new Date(Date.now() - dJ * 86400000).toISOString();
+      const TYPES = ["solution", "partner", "expert", "cost", "existing", "isv"] as const;
+      const PLACEMENT_TYPE: Record<string, string> = {
+        solution_assessment: "solution", solution_advice: "solution", needs_guide: "solution",
+        partner_search: "partner", compare: "partner", plan: "partner", home: "partner",
+        expert_requirement: "expert", cost_help: "cost", tool_result: "cost",
+        existing_dynamics: "existing", partner_relationship_review: "existing", second_opinion: "existing", partner_switch: "existing",
+        isv_product_help: "isv",
+      };
+      const safe = (v: unknown) => (typeof v === "string" && /^[A-Za-z0-9_-]{1,40}$/.test(v) ? v : null);
+      type Agg = { entries: Set<string>; progressed: Set<string>; hand: Set<string>; self: Set<string>; selfClicks: number; handSubmits: number;
+        intros: number; meetingsRequested: number; meetingsHeld: number; cases: number; qualified: number; direct: number;
+        verification: Record<string, Record<string, number>> };
+      const agg: Record<string, Agg> = {};
+      for (const t of TYPES) agg[t] = { entries: new Set(), progressed: new Set(), hand: new Set(), self: new Set(), selfClicks: 0, handSubmits: 0,
+        intros: 0, meetingsRequested: 0, meetingsHeld: 0, cases: 0, qualified: 0, direct: 0, verification: {} };
+      const pendingPartner: { t: string; level: string; slug: string }[] = [];
+      const addVer = (t: string, level: string, status: string | null) => {
+        const v = (agg[t].verification[level] ??= {});
+        const k = status || "okänd";
+        v[k] = (v[k] || 0) + 1;
+      };
+      for (let from = 0; from < 300000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, session_id, metadata").eq("event_type", "journey_funnel").gte("occurred_at", sinceJ).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) {
+          const m = (r.metadata || {}) as Record<string, unknown>;
+          const t = safe(m.journey_type);
+          if (!t || !agg[t]) continue;
+          const a = agg[t];
+          const jid = String(m.journey_id || r.session_id || "");
+          const level = r.event_name === "supplier_selfservice_clicked" ? "selfservice" : r.event_name === "contact_d365_submitted" ? "contact_d365" : r.event_name === "journey_progressed" ? "progression" : null;
+          if (["journey_started", "journey_progressed", "contact_d365_submitted", "supplier_selfservice_clicked"].includes(r.event_name) && jid) a.entries.add(jid);
+          if (["journey_progressed", "contact_d365_submitted", "supplier_selfservice_clicked"].includes(r.event_name) && jid) a.progressed.add(jid);
+          if (r.event_name === "contact_d365_submitted") { a.handSubmits++; if (jid) a.hand.add(jid); }
+          if (r.event_name === "supplier_selfservice_clicked") { a.selfClicks++; if (jid) a.self.add(jid); }
+          if (r.event_name === "buyer_approved_introduction") a.intros++;
+          if (r.event_name === "meeting_requested") a.meetingsRequested++;
+          if (r.event_name === "meeting_held") a.meetingsHeld++;
+          if (level) {
+            const st = safe(m.verification_status);
+            if (st) addVer(t, level, st);
+            else if (t === "partner" && safe(m.partner_slug)) pendingPartner.push({ t, level, slug: String(m.partner_slug) });
+            else addVer(t, level, null);
+          }
+        }
+        if (!data || data.length < 1000) break;
+      }
+      // Partnerhändelser utan status får partnerns nuvarande informationsstatus (rapporttillfället).
+      if (pendingPartner.length) {
+        const slugs = [...new Set(pendingPartner.map((p) => p.slug))].slice(0, 1000);
+        const { data: ps } = await supabase.from("partners").select("slug, information_status").in("slug", slugs);
+        const st = new Map((ps || []).map((p) => [p.slug, p.information_status as string | null]));
+        for (const p of pendingPartner) addVer(p.t, p.level, st.get(p.slug) ?? null);
+      }
+      // Registrerade Hand Raises och kvalificerade behov per köpväg (endast ingång och om behovet är dokumenterat).
+      for (let from = 0; from < 100000; from += 1000) {
+        const { data, error } = await supabase.from("advisory_cases").select("origin_placement, need_summary").gte("created_at", sinceJ).range(from, from + 999);
+        if (error) { console.error(error); break; }
+        for (const r of data || []) {
+          const t = PLACEMENT_TYPE[r.origin_placement || ""];
+          if (!t) continue;
+          agg[t].cases++;
+          if (typeof r.need_summary === "string" && r.need_summary.trim()) agg[t].qualified++;
+        }
+        if (!data || data.length < 1000) break;
+      }
+      // Direktförfrågningar till partner med köparens godkännande per partner (förmedlad kontakt, inte via d365.se).
+      const { count: direct } = await supabase.from("inquiries").select("id", { count: "exact", head: true }).eq("is_advisory", false).gte("created_at", sinceJ);
+      agg.partner.direct = direct ?? 0;
+      const rate = (n: number, d: number) => (d > 0 ? Math.round((1000 * n) / d) / 10 : null);
+      const funnels = TYPES.map((t) => {
+        const a = agg[t];
+        const entries = a.entries.size;
+        return {
+          key: t, entries,
+          progressed: a.progressed.size, progression_rate: rate(a.progressed.size, entries),
+          hand_raise_journeys: a.hand.size, hand_raise_submits: a.handSubmits, hand_raise_rate: rate(a.hand.size, entries),
+          registered_cases: a.cases, qualified_needs: a.qualified, qualified_need_rate: rate(a.qualified, a.cases),
+          introductions: a.intros, introduction_rate: rate(a.intros, a.cases),
+          meetings_requested: a.meetingsRequested, meetings_held: a.meetingsHeld, meeting_held_rate: rate(a.meetingsHeld, a.cases),
+          selfservice_journeys: a.self.size, selfservice_clicks: a.selfClicks, selfservice_rate: rate(a.self.size, entries),
+          direct_partner_requests: a.direct,
+          verification: a.verification,
+        };
+      });
+      return new Response(JSON.stringify({ days: dJ, since: sinceJ.slice(0, 10), funnels }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
     if (body?.action === "buyer") {
       // Sprint 6: köparfunnel från faktiska händelser. Unika sessioner per steg, ingen persondata läses.
       const d = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
