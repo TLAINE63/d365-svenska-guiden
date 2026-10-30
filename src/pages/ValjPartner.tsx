@@ -1141,76 +1141,27 @@ const ValjPartner = () => {
 
 
 
- {/* Lead CTA with urgency badge */}
- <div className="max-w-xl mx-auto mt-12">
- {/* Premium Contact CTA Card - same design as PartnerProfile */}
- <article className="relative rounded overflow-hidden ">
- {/* Gradient background */}
- <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
- <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
- 
- {/* Animated orb */}
- <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded animate-pulse" />
- 
- <div className="relative p-6 sm:p-8">
- <div className="flex items-start gap-4 mb-6">
- <div className="p-3 rounded bg-gradient-to-br from-primary to-accent shadow-primary/30">
- <span className="text-xl">✨</span>
- </div>
- <div>
- <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
- Låt oss hjälpa dig hitta rätt partner
- </h3>
- <p className="text-white/70 text-sm sm:text-base">
- Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
- </p>
- </div>
- </div>
- 
- {/* Filter context with glass effect */}
- {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
- <div className="mb-6 p-4 bg-white/10 rounded border border-white/20">
- <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
- <span className="w-1.5 h-1.5 rounded bg-cta-orange animate-pulse" />
- Din sökning
- </p>
- <div className="flex flex-wrap gap-2">
- {selectedApplications.map(app => (
- <Badge key={app} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 ">
- {applicationFilterLabel(app)}
- </Badge>
- ))}
- {selectedIndustry && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedIndustry}
- </Badge>
- )}
- {selectedCompanySize && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedCompanySize}
- </Badge>
- )}
- {selectedGeography && (
- <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 ">
- {selectedGeography}
- </Badge>
- )}
- </div>
- </div>
- )}
- 
- <LeadCTA
- sourcePage="/valjdynamics365partner"
- selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
- selectedIndustry={selectedIndustry || undefined}
- selectedCompanySize={selectedCompanySize || undefined}
- selectedGeography={selectedGeography || undefined}
- variant="inline"
+ {/* Sprint 1.1 Conversion Exit B: hjälp från d365.se (internt granskningsärende, inget skickas till partner) */}
+ <AdvisoryOffer
+  className="max-w-4xl mx-auto mt-12"
+  variant="inline"
+  placement="partner_search"
+  pageType={intentForNeed(need)}
+  cta="Få hjälp att bedöma vilka partners som passar"
+  heading="Vill ni ha hjälp att bedöma vilka partners som passar?"
+  text="Beskriv ert behov så gör d365.se en manuell genomgång och ger råd om relevanta nästa steg. Inget skickas automatiskt till någon partner, och en namngiven introduktion görs bara efter ert godkännande."
+  dialogTitle="Få hjälp att bedöma vilka partners som passar"
+  dialogDescription="d365.se går igenom ert behov manuellt och återkommer med råd om nästa steg. Inget skickas till någon partner. Vill ni bli introducerade till en namngiven partner frågar vi er först."
+  messageLabel="Kort beskrivning av behovet (valfritt)"
+  submitEvent="partner_selection_help_requested"
+  sections={[
+   ...(need ? [{ key: "partnerbehov", label: "Valt behov", lines: [needLabel(need) as string] }] : []),
+   ...(selectedApplications.length ? [{ key: "losning", label: "Dynamics-produkt", lines: selectedApplications.map(applicationFilterLabel) }] : []),
+   ...(selectedIndustry || selectedGeography || selectedCompanySize ? [{ key: "partnerurval", label: "Bransch, geografi och storlek", lines: [selectedIndustry && `Bransch: ${selectedIndustry}`, selectedGeography && `Geografi: ${selectedGeography}`, selectedCompanySize && `Storlek: ${selectedCompanySize} anställda`].filter(Boolean) as string[] }] : []),
+   ...(shortlistItems.length ? [{ key: "kortlista", label: "Partners i er kortlista", lines: shortlistItems.map((i) => i.name) }] : []),
+  ]}
+  metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}
  />
- </div>
- </article>
- </div>
  </div>
   </section>
 
