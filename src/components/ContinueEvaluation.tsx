@@ -4,15 +4,19 @@ import { ArrowRight, BookOpen, Columns3, Compass, MessageCircle } from "lucide-r
 import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
-import { HELP_STEP, nextStepOptions, nextStepPage, type NextStepKind, type NextStepOption } from "@/lib/nextSteps";
+import { HELP_STEP, deadEndMeta, nextStepOptions, nextStepPage, STAGE_CLASS, type NextStepKind, type NextStepOption, type SourceTemplate } from "@/lib/nextSteps";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 const ICONS: Record<NextStepKind, typeof BookOpen> = { knowledge: BookOpen, comparison: Columns3, tool: Compass, help: MessageCircle };
 
 interface Props {
-  /** Sidans sökväg. Komponenten visas bara på sidor i pilotlistan. */
+  /** Sidans sökväg. Pilotsidor har egna steg; övriga sidor använder sidtypens fallback. */
   path: string;
+  /** Sprint 2.1: sidtyp för fallback_next_step och mätning. Utan sidtyp visas blocket bara på pilotsidor. */
+  template?: SourceTemplate;
+  /** Rubrik, t.ex. "Vad vill ni göra härnäst?" efter ett kalkylresultat. */
+  heading?: string;
   className?: string;
 }
 
@@ -21,8 +25,9 @@ interface Props {
  * (conversion_type, recipient, source_page, buyer_stage, intent_type). Personlig hjälp skapar
  * ett internt ärende hos d365.se via rådgivningsflödet och skickas aldrig till partners.
  */
-export default function ContinueEvaluation({ path, className = "" }: Props) {
-  const page = nextStepPage(path);
+export default function ContinueEvaluation({ path, template, heading = "Fortsätt er utvärdering", className = "" }: Props) {
+  const page = nextStepPage(path, template);
+  const sourceTemplate: SourceTemplate = template ?? "other";
   const ref = useRef<HTMLElement>(null);
   const viewed = useRef(false);
   const [competenceOpen, setCompetenceOpen] = useState(false);
@@ -32,6 +37,7 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
     source_page: path,
     buyer_stage: page?.buyerStage,
     intent_type: page?.intentType,
+    stage_class: page ? STAGE_CLASS[page.buyerStage] : undefined,
     ...(o ? { step: o.kind, cta_type: o.ctaType, conversion_type: o.conversionType, recipient: o.recipient, target: o.to ?? (o.opensCompetenceChoice ? "competence_choice" : "help") } : {}),
   });
 
@@ -41,6 +47,7 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
       if (viewed.current || !entries.some((e) => e.isIntersecting)) return;
       viewed.current = true;
       trackFunnelEvent({ event_type: "cta_view", event_name: "next_step_view", page_path: path, metadata: { ...base(), options: nextStepOptions(page).map((o) => o.kind).join(",") } });
+      trackFunnelEvent({ event_type: "cta_view", event_name: "dead_end_next_step_viewed", page_path: path, metadata: { ...deadEndMeta(sourceTemplate, path, "continue_evaluation"), stage_class: STAGE_CLASS[page.buyerStage] } });
       obs.disconnect();
     }, { threshold: 0.4 });
     obs.observe(ref.current);
@@ -51,8 +58,11 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
   if (!page) return null;
   const options = nextStepOptions(page);
 
-  const clicked = (o: NextStepOption) =>
+  const clicked = (o: NextStepOption) => {
     trackFunnelEvent({ event_type: "cta_click", event_name: "next_step_clicked", page_path: path, metadata: base(o) });
+    const destination = o.to ?? (o.opensCompetenceChoice ? "competence_choice" : "help_d365");
+    trackFunnelEvent({ event_type: "cta_click", event_name: "dead_end_next_step_clicked", page_path: path, metadata: { ...deadEndMeta(sourceTemplate, path, o.kind, destination), stage_class: STAGE_CLASS[page!.buyerStage] } });
+  };
 
   const cardCls = "group flex h-full w-full flex-col items-start gap-2 rounded-lg border border-border bg-card p-4 text-left transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
   const body = (o: NextStepOption) => {
@@ -67,10 +77,10 @@ export default function ContinueEvaluation({ path, className = "" }: Props) {
   };
 
   return (
-    <section ref={ref} className={`py-10 sm:py-12 print:hidden ${className}`} aria-labelledby="fortsatt-utvardering-h">
+    <section ref={ref} data-next-step-block="" data-source-template={sourceTemplate} className={`py-10 sm:py-12 print:hidden ${className}`} aria-labelledby="fortsatt-utvardering-h">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">Nästa steg</p>
-        <h2 id="fortsatt-utvardering-h" className="mb-5 text-2xl font-bold text-foreground">Fortsätt er utvärdering</h2>
+        <h2 id="fortsatt-utvardering-h" className="mb-5 text-2xl font-bold text-foreground">{heading}</h2>
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {options.map((o) => (
             <li key={o.kind}>
