@@ -212,7 +212,7 @@ const CompareStickyCTA = ({
             className="h-12 px-5 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground font-semibold shadow-xl rounded-full"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
-            Be om intro
+            Kontakta valda partners
           </Button>
         )}
       </div>
