@@ -828,7 +828,7 @@ const AdminDashboard = () => {
     source_document_updated_at?: string;
     partner_size_tier?: number | null;
     partner_size_tier_needs_review?: boolean;
-    information_status?: "verified" | "partner_confirmed" | "compiled";
+    information_status?: "verified" | "compiled";
     information_verified_at?: string;
   }>({
   slug: "",
@@ -4481,10 +4481,9 @@ Thomas`,
         id="information_status"
         className="mt-2 h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
         value={partnerFormData.information_status ?? "compiled"}
-        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_status: e.target.value as "verified" | "partner_confirmed" | "compiled" })}
+        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_status: e.target.value as "verified" | "compiled" })}
       >
         <option value="verified">Verifierad av d365.se</option>
-        <option value="partner_confirmed">Bekräftad av partnern</option>
         <option value="compiled">Automatiskt sammanställd</option>
       </select>
     </div>

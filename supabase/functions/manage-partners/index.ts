@@ -44,8 +44,8 @@ function normalizeSizeTier(v: unknown): number | null {
 }
 
 // Informationsstatus sätts bara manuellt av redaktionen (aldrig av AI eller kommersiell status).
-function normalizeInfoStatus(v: unknown): "verified" | "partner_confirmed" | "compiled" | null {
-  return v === "verified" || v === "partner_confirmed" || v === "compiled" ? v : null;
+function normalizeInfoStatus(v: unknown): "verified" | "compiled" | null {
+  return v === "verified" || v === "compiled" ? v : null;
 }
 
 function normalizeDate(v: unknown): string | null {

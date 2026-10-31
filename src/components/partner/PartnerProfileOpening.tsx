@@ -66,7 +66,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           <div className="min-w-0">
             <p className="mb-3 text-sm text-muted-foreground">{nowrapBrand("Microsoft Dynamics 365-partner")}</p>
             <h1 className="partner-opening-name font-semibold leading-tight break-words">{partner.name}</h1>
-            <div className="mt-3"><InformationStatusBadge partner={partner as { information_status?: string | null; information_verified_at?: string | null }} showDate /></div>
+            <div className="mt-3"><InformationStatusBadge partner={partner as { information_status?: string | null; information_verified_at?: string | null }} showDate explain /></div>
           </div>
         </div>
         <div className="mt-8 sm:mt-10 max-w-3xl">

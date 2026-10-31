@@ -624,7 +624,7 @@ const Partnerprogram = () => {
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: Verifierad av d365.se, Bekräftad av partnern eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: Verifierad av d365.se eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium ger aldrig verifieringsstatus, och information som tagits fram med AI-stöd blir aldrig automatiskt verifierad.</li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Standard eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
             </ul>
