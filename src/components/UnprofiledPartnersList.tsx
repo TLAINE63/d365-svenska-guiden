@@ -78,21 +78,25 @@ const UnprofiledPartnersList = ({
             !!p.observed_revenue?.[k]?.length ||
             !!p.observed_delivery_geo?.[k]?.length,
         ).map((k) => PRODUCT_LABEL[k]);
+        // Partners utan dokumenterad produkt eller bransch visas aldrig.
+        if (products.length === 0) return;
         items.push({ id: `basic-${p.id}`, name: p.name, slug: p.slug, products });
       });
     // Non-featured partners in DB (exists in our system but not yet published)
     (allNames || [])
       .filter((p) => !p.is_featured)
       .filter((p) => {
-        if (!productKey) return true;
-        // Only include if they've self-profiled for this product
-        return !!p.product_filters?.[productKey];
+        // Bara partners med vald produkt; branschfilter kan inte matchas mot namnposter.
+        if (industry) return false;
+        if (productKey) return !!p.product_filters?.[productKey];
+        return PRODUCT_ORDER.some((k) => !!p.product_filters?.[k]);
       })
-      .forEach((p) => items.push({ id: `db-${p.id}`, name: p.name }));
-    // Manually curated "listed but not profiled" partners are not product-specific
-    if (!productKey) {
-      (unprofiled || []).forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
-    }
+      .forEach((p) => items.push({
+        id: `db-${p.id}`,
+        name: p.name,
+        products: PRODUCT_ORDER.filter((k) => !!p.product_filters?.[k]).map((k) => PRODUCT_LABEL[k]),
+      }));
+    // Manuellt listade namn saknar produkt och bransch och visas därför inte (Thomas 2026-10-31).
     // Dedupe by lowercased name, keep first occurrence (basic wins).
     const seen = new Set<string>();
     const deduped = items.filter((it) => {
@@ -103,7 +107,7 @@ const UnprofiledPartnersList = ({
     });
     deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
     return deduped;
-  }, [unprofiled, allNames, basicPartners, productKey, industry]);
+  }, [allNames, basicPartners, productKey, industry]);
 
   if (l1 || l2 || l3) return null;
   if (combined.length === 0) return null;

@@ -69,6 +69,14 @@ export function hasObservedProduct(p: BasicPartner, key: ProductKey): boolean {
   );
 }
 
+/**
+ * Har partnern minst en dokumenterad produkt (och därmed branschinsikt per produkt)?
+ * Partners utan vald produkt eller bransch visas aldrig i publika listor (Thomas 2026-10-31).
+ */
+export function hasAnyObservedProduct(p: BasicPartner): boolean {
+  return (["bc", "fsc", "sales", "service"] as ProductKey[]).some((k) => hasObservedProduct(p, k));
+}
+
 function matchesSoftList(values: string[] | undefined, selected: string | null): boolean {
   if (!selected) return true;
   if (!values || values.length === 0) return true; // ingen observerad data = filtrera inte bort
