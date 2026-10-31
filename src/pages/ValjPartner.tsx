@@ -1382,7 +1382,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  </div>
  </section>
 
- <UnprofiledPartnersList variant="teaser" />
+ {infoStatus !== "verified" && <UnprofiledPartnersList variant="teaser" />}
 
 
  {/* CTA Section */}
