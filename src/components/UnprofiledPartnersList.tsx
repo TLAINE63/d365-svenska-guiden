@@ -112,7 +112,7 @@ const UnprofiledPartnersList = ({
     ? `Fler partners som arbetar med ${applicationFilterLabel(productLabel)}`
     : "Fler Dynamics 365-partners på den svenska marknaden";
   const areaText = productKey && productLabel ? applicationFilterLabel(productLabel) : "Dynamics 365";
-  const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en partnerverifierad profil. Informationen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter och har inte granskats eller bekräftats av partnern.`;
+  const intro = `d365.se listar även partners som enligt tillgänglig information arbetar med ${areaText} men som ännu inte har en partnerverifierad profil. Informationen är automatiskt sammanställd utifrån publikt tillgängliga uppgifter och har inte granskats eller bekräftats av partnern.`;
 
   return (
     <section className="py-8 sm:py-12 bg-background border-t border-border">

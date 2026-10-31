@@ -141,7 +141,7 @@ function basicSummary(p: BasicPartner) {
     new Set(PRODUCT_ORDER.flatMap((k) => p.observed_industries?.[k] || [])),
   );
   const parts: string[] = [
-    `${p.name} presenteras idag med en Basic-profil, sammanställd av d365.se utifrån publika källor.`,
+    `${p.name} presenteras idag med en Basic-profil, automatiskt sammanställd utifrån publika källor.`,
   ];
   parts.push(
     products.length

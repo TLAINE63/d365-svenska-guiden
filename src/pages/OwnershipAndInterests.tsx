@@ -49,7 +49,7 @@ export default function OwnershipAndInterests() {
           </h2>
           <p className="text-muted-foreground leading-relaxed">
             <strong className="text-foreground">Grundprofil – ej partnerverifierad:</strong>{" "}
-            profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter.
+            profilen är automatiskt sammanställd utifrån publikt tillgängliga uppgifter.
             Informationen har inte granskats eller bekräftats av partnern.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">

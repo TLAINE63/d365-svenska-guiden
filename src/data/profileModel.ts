@@ -15,7 +15,7 @@ export const PROFILE_LABEL_BASIC = "Grundprofil – ej partnerverifierad";
 export const PROFILE_LABEL_VERIFIED = "Partnerverifierad profil";
 
 export const PROFILE_EXPLAINER_BASIC =
-  "Profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
+  "Profilen är automatiskt sammanställd utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
 
 export const PROFILE_EXPLAINER_VERIFIED_SHORT =
   "Partnern har ett profileringsavtal med d365.se och har granskat och kompletterat informationen i profilen.";
