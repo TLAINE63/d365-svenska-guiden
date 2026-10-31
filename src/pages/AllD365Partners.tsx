@@ -80,7 +80,9 @@ export default function AllD365Partners() {
     if (verifiedOnly) return [];
     return (basicPartners || []).filter((p) => {
       if (q && !p.name.toLowerCase().includes(q)) return false;
-      if (productFilter !== "all" && !p.observed_products?.[productFilter]) return false;
+      // Partners utan dokumenterad produkt eller bransch visas aldrig.
+      if (!hasAnyObservedProduct(p)) return false;
+      if (productFilter !== "all" && !hasObservedProduct(p, productFilter)) return false;
       return true;
     });
   }, [basicPartners, q, productFilter, verifiedOnly]);
@@ -91,8 +93,9 @@ export default function AllD365Partners() {
     [basicFiltered],
   );
 
+  // Övriga namnposter saknar produkt och bransch och visas därför inte (Thomas 2026-10-31).
   const others = useMemo(() => {
-    if (verifiedOnly) return [];
+    if (verifiedOnly || true) return [] as { id: string; name: string }[];
     const basicNames = new Set(
       (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
     );
