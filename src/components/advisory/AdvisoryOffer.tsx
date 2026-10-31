@@ -27,6 +27,10 @@ interface Props {
   submitEvent?: string;
   /** Etikett för fritextfältet, t.ex. "Kort beskrivning av behovet (valfritt)". */
   messageLabel?: string;
+  /** Mätningens namn när formuläret öppnas (standard advisory_form_opened). */
+  startEvent?: string;
+  /** Liten rubrik ovanför kortet (standard "Kostnadsfri rådgivning"). */
+  eyebrow?: string;
 }
 
 /**
@@ -34,7 +38,7 @@ interface Props {
  * Återanvänder befintligt rådgivningsflöde (PlanContactDialog advisory → submit-inquiry) och konkurrerar
  * aldrig med direktkontakt: knappen är alltid sekundär och inget öppnas automatiskt.
  */
-export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel }: Props) {
+export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel, startEvent = "advisory_form_opened", eyebrow = "Kostnadsfri rådgivning" }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const seen = useRef(false);
@@ -66,7 +70,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
   return (
     <div ref={ref} className={`print:hidden ${className}`} data-advisory-placement={placement} data-next-step-block="">
       {variant === "inline" ? (
-        <aside aria-label="Kostnadsfri rådgivning" className="flex flex-col gap-5 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-start sm:p-6">
+        <aside aria-label={eyebrow} className="flex flex-col gap-5 rounded-lg border border-border bg-card p-5 sm:flex-row sm:items-start sm:p-6">
           <figure className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-center sm:text-center">
             <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={112} height={112} className="h-20 w-20 rounded-full object-cover object-[50%_0%] ring-2 ring-border sm:h-28 sm:w-28" />
             <figcaption className="text-xs leading-tight text-muted-foreground"><span className="block font-semibold text-foreground">Thomas Laine</span>Grundare, d365.se</figcaption>
@@ -74,7 +78,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           <div className="min-w-0">
           <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
             <MessageCircle className="h-4 w-4" aria-hidden />
-            Kostnadsfri rådgivning
+            {eyebrow}
           </p>
           {heading && <h3 className="mb-1.5 text-lg font-bold leading-snug text-foreground">{nowrapBrand(heading)}</h3>}
           <p className="mb-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(text)}</p>
@@ -113,7 +117,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
               title: dialogTitle || cta,
               description: dialogDescription || "Ett samtal före partnerdialogen där en rådgivare går igenom ert underlag med er. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
               helpWith: cta,
-              startEvent: "advisory_form_opened",
+              startEvent,
               submitEvent,
               messageLabel,
               extras: sections,

@@ -23,6 +23,7 @@ import IndustryBig5FAQ from "@/components/IndustryBig5FAQ";
 import { ARTICLE_TO_INDUSTRY_SLUG } from "@/data/branschguideIndustryMap";
 import { findIndustryBySlug } from "@/data/standardIndustries";
 import { ARTICLE_BODY_CLASS } from "@/lib/articleBodyClass";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import { useEditorArticle } from "@/hooks/useEditorArticle";
 import { editorRowToBlogArticle, type EditorArticleRow } from "@/lib/editorArticle";
 
@@ -498,6 +499,23 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
           </section>
         )}
       </main>
+      <div className="container mx-auto max-w-6xl px-4 pb-10">
+        <AdvisoryOffer
+          variant="inline"
+          placement="question"
+          pageType="artikel"
+          eyebrow="Ställ en fråga"
+          heading="Ställ en fråga om Dynamics 365, partner eller kompetens"
+          text="Undrar ni något efter artikeln? Skicka en kort fråga så får ni ett rakt svar eller vägledning om nästa steg. Inget möte krävs."
+          cta="Ställ en fråga"
+          dialogTitle="Ställ en fråga om Dynamics 365, partner eller kompetens"
+          dialogDescription="Skriv er fråga så svarar d365.se med ett rakt svar eller vägledning. Ingen partner deltar och inget delas utan ert godkännande."
+          messageLabel="Er fråga"
+          startEvent="question_started"
+          submitEvent="question_submitted"
+          metadata={{ article: article.slug }}
+        />
+      </div>
       <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}

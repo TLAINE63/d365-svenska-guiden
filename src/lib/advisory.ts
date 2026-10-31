@@ -28,6 +28,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   cost_help: "Kostnadsbild",
   next_step_help: "Fortsätt er utvärdering: hjälp med nästa steg",
   isv_product_help: "Tilläggslösning: bedöma om den passar (ISV)",
+  question: "Ställ en fråga (artikel eller kunskapssida)",
 };
 
 export const CASE_STATUSES = [
