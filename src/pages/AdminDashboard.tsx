@@ -1,3 +1,4 @@
+import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link as RouterLink } from "react-router-dom";
