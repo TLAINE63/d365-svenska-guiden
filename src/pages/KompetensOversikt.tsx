@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import CompetenceFilters from "@/components/kompetens/CompetenceFilters";
 import ExpertRequirementExit from "@/components/kompetens/ExpertRequirementExit";
+import { COMPETENCE_CTA } from "@/lib/conversionCtas";
 import { Input } from "@/components/ui/input";
 import {
   SENIORITY_OPTIONS, specialismGroups, getExpertDraft, saveExpertDraft, startExpertSearch, type ExpertDraft,
@@ -144,7 +145,7 @@ const KompetensOversikt = () => {
                   document.getElementById("beskriv-behov")?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
-                Beskriv ert behov
+                {COMPETENCE_CTA.primary}
               </Button>
               <p className="text-xs text-muted-foreground mt-3">
                 Ingen information skickas vidare till partners utan ert godkännande.

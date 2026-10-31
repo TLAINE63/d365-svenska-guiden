@@ -39,7 +39,7 @@ describe("CompareStickyCTA – regression: partner routing payload", () => {
     act(() => window.dispatchEvent(new Event("scroll")));
 
     // Open dialog (desktop button)
-    fireEvent.click(await screen.findByRole("button", { name: /be om intro till/i }));
+    fireEvent.click(await screen.findByRole("button", { name: /kontakta valda partners/i }));
 
     fireEvent.change(screen.getByLabelText(/Företag \*/i), { target: { value: "Kundbolaget AB" } });
     fireEvent.change(screen.getByLabelText(/Kontaktperson \*/i), { target: { value: "Anna Andersson" } });

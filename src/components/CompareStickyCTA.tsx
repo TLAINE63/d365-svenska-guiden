@@ -163,7 +163,7 @@ const CompareStickyCTA = ({
             className="flex-1 h-11 text-sm font-semibold bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
           >
             <MessageCircle className="w-4 h-4 mr-1.5" />
-            Be om intro till {partners.length === 2 ? "båda" : "alla"}
+            Kontakta valda partners
           </Button>
         </div>
       </div>
@@ -196,7 +196,7 @@ const CompareStickyCTA = ({
               onClick={() => setOpen(true)}
               className="w-full justify-between h-11 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground font-semibold"
             >
-              Be om introduktion
+              Kontakta valda partners
               <ArrowRight className="w-4 h-4" />
             </Button>
             <button
@@ -212,7 +212,7 @@ const CompareStickyCTA = ({
             className="h-12 px-5 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground font-semibold shadow-xl rounded-full"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
-            Be om intro
+            Kontakta valda partners
           </Button>
         )}
       </div>
@@ -220,7 +220,7 @@ const CompareStickyCTA = ({
       <Dialog open={open} onOpenChange={(o) => (submitted ? (setOpen(o), setSubmitted(false)) : setOpen(o))}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Be om introduktion till {partnerLabel}</DialogTitle>
+            <DialogTitle>Kontakta {partnerLabel}</DialogTitle>
             <DialogDescription>
               Vi förmedlar din förfrågan direkt till de partners du jämför. Ingen kostnad, inga förpliktelser.
             </DialogDescription>

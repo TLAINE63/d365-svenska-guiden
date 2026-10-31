@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
 import PartnerRequestDialog from "@/components/PartnerRequestDialog";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { PARTNER_COMPARE_CTA, PARTNER_PROFILE_CTA } from "@/lib/conversionCtas";
 
 /**
  * Flytande shortlist. Besökaren lägger partners åt sidan (max 3) och väljer
@@ -70,7 +71,7 @@ const PartnerCompareBar = () => {
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <p className="flex-1 min-w-[200px] text-xs text-muted-foreground sm:text-sm">
               {n === 1
-                ? "Lägg åt sidan en eller två till, eller be om introduktion redan nu."
+                ? "Lägg till en eller två till för att jämföra, eller kontakta partnern redan nu."
                 : "Vill ni att d365.se hjälper er att jämföra dem eller förmedlar kontakt?"}
             </p>
             <Button size="sm" variant="outline" onClick={goCompare} disabled={n < 2} className="font-semibold">
@@ -79,7 +80,7 @@ const PartnerCompareBar = () => {
             </Button>
             <Button size="sm" onClick={openIntro} className="font-bold">
               <UserRoundPlus className="h-4 w-4" aria-hidden="true" />
-              Be om introduktion
+              {n > 1 ? PARTNER_COMPARE_CTA.primary : PARTNER_PROFILE_CTA.primary}
             </Button>
           </div>
         </div>

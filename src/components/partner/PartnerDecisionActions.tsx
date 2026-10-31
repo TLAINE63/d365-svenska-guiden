@@ -5,6 +5,7 @@ import { useShortlist } from "@/contexts/ShortlistContext";
 import { useInquiry } from "@/contexts/InquiryContext";
 import { track, partnerWebsiteUrl } from "@/lib/track";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { PARTNER_PROFILE_CTA } from "@/lib/conversionCtas";
 
 interface PartnerDecisionActionsProps {
   partner: { slug: string; name: string };
@@ -15,7 +16,7 @@ interface PartnerDecisionActionsProps {
   compact?: boolean;
 }
 
-/** Profilens tre handlingar: Be om kontakt, Lägg till i kortlista, Besök partnerns webbplats. */
+/** Profilens tre handlingar: Kontakta partner, Lägg till i kortlista, Besök partnerns webbplats. */
 const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, compact = false }: PartnerDecisionActionsProps) => {
   const shortlist = useShortlist();
   const inquiry = useInquiry();
@@ -33,7 +34,7 @@ const PartnerDecisionActions = ({ partner, product, industry, website, onIntro, 
     <div className={`grid gap-2 ${compact ? "grid-cols-1" : outboundUrl ? "sm:grid-cols-3" : "sm:grid-cols-2"}`} aria-label={`Nästa steg för ${partner.name}`}>
       <Button type="button" onClick={contact} className="min-h-11 whitespace-normal font-bold">
         <UserRoundPlus className="h-4 w-4" aria-hidden="true" />
-        Be om kontakt
+        {PARTNER_PROFILE_CTA.primary}
       </Button>
       {saved ? (
         <Button asChild variant="outline" className="min-h-11 whitespace-normal">

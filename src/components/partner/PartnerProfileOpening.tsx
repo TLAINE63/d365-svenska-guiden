@@ -17,6 +17,8 @@ import { PROFILE_EXPLAINER_VERIFIED_MORE, PROFILE_EXPLAINER_VERIFIED_SHORT } fro
 import { trackPartnerCardEvent } from "@/utils/trackPartnerEvent";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { trackPartnerFunnel } from "@/lib/partnerSearchFunnel";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { PARTNER_PROFILE_CTA } from "@/lib/conversionCtas";
 
 interface Props {
   partner: DatabasePartner;
@@ -85,7 +87,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           </div>
         </div>}
         <div className="partner-opening-actions mt-8 flex flex-wrap gap-3" aria-label={`Nästa steg för ${partner.name}`}>
-          <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">Be om kontakt<ArrowRight className="h-4 w-4" /></Button>
+          <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">{PARTNER_PROFILE_CTA.primary}<ArrowRight className="h-4 w-4" /></Button>
           {saved ? (
             <span className="inline-flex min-h-12 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium"><BookmarkCheck className="h-4 w-4" />Tillagd i kortlistan<Link to="/kortlista/" className="underline underline-offset-4">Visa kortlistan</Link></span>
           ) : (
@@ -97,6 +99,21 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           )}
           {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_profil" }); trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
         </div>
+        <p className="mt-3 max-w-2xl text-xs text-muted-foreground">Förfrågan går bara till {partner.name}, och bara om ni godkänner det i formuläret. Partnern kontaktar er sedan direkt.</p>
+        <AdvisoryOffer
+          className="mt-5 max-w-2xl"
+          variant="compact"
+          placement="partner_search"
+          pageType="partner_profile"
+          cta={PARTNER_PROFILE_CTA.secondary}
+          text={`Osäker på om ${partner.name} passar er?`}
+          dialogTitle={PARTNER_PROFILE_CTA.secondary}
+          dialogDescription={`d365.se går igenom ert behov och om ${partner.name} är ett rimligt val. Inget skickas till ${partner.name} eller någon annan partner utan ert godkännande.`}
+          messageLabel="Vad är ni osäkra på? (valfritt)"
+          submitEvent="partner_selection_help_requested"
+          sections={[{ key: "partnerprofil", label: "Partner ni tittar på", lines: [partner.name, ...(product ? [`Produkt: ${product}`] : []), ...(industry ? [`Bransch: ${industry}`] : [])] }]}
+          metadata={{ partner_slug: partner.slug, product: product ?? null }}
+        />
         <div className="mt-8 border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
           {video && <Button variant="outline" size="sm" onClick={onVideo} aria-label={`Spela introduktionsvideo från ${partner.name}`}><Play className="h-4 w-4" />Introduktionsvideo</Button>}

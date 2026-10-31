@@ -2,6 +2,8 @@ import { lazy, Suspense, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import { COMPETENCE_CTA } from "@/lib/conversionCtas";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import { draftSummary, requirementsToClarify, roleTitle, type ExpertDraft } from "@/lib/expertRequirement";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
@@ -18,7 +20,8 @@ interface Props {
 }
 
 /**
- * Sprint 1.2 Conversion Exit: "Beskriv ert konkreta kompetensbehov".
+ * Sprint 1.2 Conversion Exit, primär "Beskriv kompetensbehovet" och sekundär "Prata med d365.se"
+ * för den som är osäker på vilken kompetens som behövs (Conversion & Trust steg 3).
  * Återanvänder rådgivningsflödet (PlanContactDialog advisory → submit-inquiry), som skapar ett
  * internt ärende hos d365.se med status ny. Inget skickas till någon partner, och en namngiven
  * introduktion kräver köparens godkännande (partner_introductions).
@@ -65,11 +68,23 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
       )}
 
       <Button onClick={() => setOpen(true)}>
-        Beskriv ert konkreta kompetensbehov <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        {COMPETENCE_CTA.primary} <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </Button>
       <p className="text-xs text-muted-foreground mt-3">
         Ingen information skickas vidare till partners utan ert godkännande.
       </p>
+      <AdvisoryOffer
+        className="mt-5 border-t border-border pt-4"
+        variant="compact"
+        placement="expert_requirement"
+        pageType={pageType}
+        cta={COMPETENCE_CTA.secondary}
+        text="Osäker på vilken kompetens ni behöver, eller om det är en partner eller en expert ni söker?"
+        dialogTitle="Prata med d365.se om ert kompetensbehov"
+        dialogDescription="Resonera med oss om vilken kompetens ni behöver och vilken väg som passar. Inget skickas till någon partner utan ert godkännande."
+        messageLabel="Vad funderar ni på? (valfritt)"
+        metadata={{ intent_type: "ExpertRequirement", role: draft.role ?? null, product: draft.product ?? null }}
+      />
 
       {open && (
         <Suspense fallback={null}>
@@ -77,7 +92,7 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
             mode="advisory"
             onClose={() => setOpen(false)}
             topic={{
-              title: "Beskriv ert konkreta kompetensbehov",
+              title: COMPETENCE_CTA.primary,
               description: "Behovet går till d365.se (Dynamic Factory) för manuell genomgång. Inget skickas till någon partner. Vill ni bli introducerade till en namngiven partner frågar vi er först.",
               helpWith: roleTitle(draft.role) ? `Kompetensbehov: ${roleTitle(draft.role)}` : "Kompetensbehov",
               startEvent: "expert_requirement_started",
@@ -93,7 +108,7 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
                 seniority: draft.seniority ?? null,
                 delivery: draft.delivery ?? null,
               },
-              advisory: { placement: "expert_requirement", cta: "Beskriv ert konkreta kompetensbehov", pageType },
+              advisory: { placement: "expert_requirement", cta: COMPETENCE_CTA.primary, pageType },
               doneTitle: "Ert kompetensbehov är registrerat",
               showDoneSummary: true,
               doneNotes: [

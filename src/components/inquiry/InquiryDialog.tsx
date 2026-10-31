@@ -42,6 +42,12 @@ function summarize(): { items: string[]; data: Record<string, unknown> } {
   return { items, data };
 }
 
+/** "A", "A och B", "A, B och C" – vilka partners som kan få förfrågan. */
+export function recipientNames(partners: { name: string }[]): string {
+  const n = partners.map((p) => p.name);
+  return n.length <= 1 ? (n[0] ?? "") : `${n.slice(0, -1).join(", ")} och ${n[n.length - 1]}`;
+}
+
 interface Props { partners: InquiryPartner[]; type: InquiryType; productArea?: string | null; onClose: () => void }
 
 export default function InquiryDialog({ partners, type, productArea, onClose }: Props) {
@@ -55,7 +61,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF((s) => ({ ...s, [k]: e.target.value }));
-  const title = partners.length === 1 ? `Be om kontakt med ${partners[0].name}` : "Kontakta valda partners";
+  const title = partners.length === 1 ? `Kontakta ${partners[0].name}` : "Kontakta valda partners";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,6 +106,14 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>Ni väljer vilka partners som får era uppgifter. En partner får dem bara om ni godkänner det nedan, och kontaktar er sedan direkt. d365.se får en kopia för att kunna följa upp att ni fått svar.</DialogDescription>
         </DialogHeader>
+        <div className="rounded-md border border-border bg-muted/40 p-3 text-sm">
+          <p className="font-semibold mb-1">Vad händer när ni skickat?</p>
+          <ol className="list-decimal pl-5 space-y-0.5 text-muted-foreground">
+            <li>Förfrågan kan bara gå till {recipientNames(partners)}, och {partners.length === 1 ? "bara om ni kryssar i rutan nedan" : "bara till dem ni kryssar i nedan"}.</li>
+            <li>Varje partner ser bara sin egen förfrågan och kontaktar er direkt.</li>
+            <li>d365.se får en kopia och kan höra av sig för att fråga om ni fått svar.</li>
+          </ol>
+        </div>
         <form onSubmit={submit} className="space-y-5" noValidate>
           <fieldset className="space-y-2">
             <legend className="text-sm font-semibold mb-1">Ni kan välja upp till tre partners.</legend>
