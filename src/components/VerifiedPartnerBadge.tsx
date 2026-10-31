@@ -38,7 +38,7 @@ export default function VerifiedPartnerBadge({
             className={`inline-flex max-w-full shrink-0 ${className}`}
           >
             <img
-              src={`/badges/verifierad-partner-${logoDarkBg ? "light" : "dark"}.svg`}
+              src={`/badges/verifierad-partner-dark.svg`}
               alt="Verifierad Dynamics 365-partner på d365.se"
               width={240}
               height={72}
