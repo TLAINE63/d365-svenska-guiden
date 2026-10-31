@@ -17,6 +17,7 @@ import TrustBanner from "@/components/TrustBanner";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { hasAnyObservedProduct, hasObservedProduct } from "@/lib/basicPartnerMatch";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
@@ -94,32 +95,7 @@ export default function AllD365Partners() {
   );
 
   // Övriga namnposter saknar produkt och bransch och visas därför inte (Thomas 2026-10-31).
-  const others = useMemo(() => {
-    if (verifiedOnly || true) return [] as { id: string; name: string }[];
-    const basicNames = new Set(
-      (basicPartners || []).map((p) => p.name.trim().toLowerCase()),
-    );
-    const items: { id: string; name: string }[] = [];
-    (allNames || [])
-      .filter((p) => !p.is_featured)
-      .filter((p) => !basicNames.has(p.name.trim().toLowerCase()))
-      .forEach((p) => items.push({ id: `db-${p.id}`, name: p.name }));
-    (unprofiled || [])
-      .filter((p) => !basicNames.has(p.name.trim().toLowerCase()))
-      .forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
-    const seen = new Set<string>();
-    const deduped = items.filter((it) => {
-      const key = it.name.trim().toLowerCase();
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-    deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
-    // Others have no product data → hidden when a specific product filter is active.
-    if (productFilter !== "all") return [];
-    if (q) return deduped.filter((it) => it.name.toLowerCase().includes(q));
-    return deduped;
-  }, [allNames, unprofiled, basicPartners, q, productFilter, verifiedOnly]);
+  const others: { id: string; name: string }[] = [];
 
   // Gemensam källa: samma antal i förrenderad HTML och efter hydrering.
   const basicCount = basicPartners?.length || BASIC_PARTNER_COUNT;
