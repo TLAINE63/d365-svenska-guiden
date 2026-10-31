@@ -109,7 +109,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
         <div className="rounded-md border border-border bg-muted/40 p-3 text-sm">
           <p className="font-semibold mb-1">Vad händer när ni skickat?</p>
           <ol className="list-decimal pl-5 space-y-0.5 text-muted-foreground">
-            <li>Förfrågan går bara till {recipientNames(partners)}, och bara till dem ni kryssar i nedan.</li>
+            <li>Förfrågan kan bara gå till {recipientNames(partners)}, och {partners.length === 1 ? "bara om ni kryssar i rutan nedan" : "bara till dem ni kryssar i nedan"}.</li>
             <li>Varje partner ser bara sin egen förfrågan och kontaktar er direkt.</li>
             <li>d365.se får en kopia och kan höra av sig för att fråga om ni fått svar.</li>
           </ol>
