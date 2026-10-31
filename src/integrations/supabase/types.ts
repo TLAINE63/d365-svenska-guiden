@@ -4081,6 +4081,7 @@ export type Database = {
           org_number: string | null
           partner_size_tier: number | null
           partner_size_tier_needs_review: boolean
+          partner_updated_at: string | null
           phone: string | null
           platform_capabilities: string[] | null
           positioning_statement: string | null
@@ -4172,6 +4173,7 @@ export type Database = {
           org_number?: string | null
           partner_size_tier?: number | null
           partner_size_tier_needs_review?: boolean
+          partner_updated_at?: string | null
           phone?: string | null
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
@@ -4263,6 +4265,7 @@ export type Database = {
           org_number?: string | null
           partner_size_tier?: number | null
           partner_size_tier_needs_review?: boolean
+          partner_updated_at?: string | null
           phone?: string | null
           platform_capabilities?: string[] | null
           positioning_statement?: string | null
@@ -6147,6 +6150,10 @@ export type Database = {
       journey_type_for_placement: {
         Args: { _placement: string }
         Returns: string
+      }
+      partner_mark_self_update: {
+        Args: { _partner_id: string }
+        Returns: undefined
       }
       partner_report_autogen_dispatch: { Args: never; Returns: undefined }
       partner_report_monthly_dispatch: {
