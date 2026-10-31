@@ -1036,17 +1036,20 @@ const ValjPartner = () => {
   </p>
  )}
 
- {/* Sprint 1.1: informationsstatus (hur uppgifterna har kontrollerats, inte partnerns kvalitet) */}
- <FilterButtons
-  title="Informationsstatus"
-  icon="verification"
-  options={[{ label: "Alla", value: "alla" }, ...INFORMATION_STATUSES.map((s) => ({ label: s.label, value: s.value }))]}
-  selectedValue={infoStatus ?? "alla"}
-  onSelect={selectInfoStatus}
-  colorScheme="amber"
- />
- <p className="-mt-4 mb-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
-  Informationsstatus visar hur uppgifterna har kontrollerats. Den påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
+ {/* Enda statusfiltret för köpare: visa endast partners verifierade av d365.se. */}
+ <div className="mb-3 flex justify-center">
+  <label className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium cursor-pointer">
+   <input
+    type="checkbox"
+    className="h-4 w-4 accent-[hsl(var(--accent))]"
+    checked={infoStatus === "verified"}
+    onChange={(e) => selectInfoStatus(e.target.checked ? "verified" : null)}
+   />
+   Visa endast partners verifierade av d365.se
+  </label>
+ </div>
+ <p className="mb-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
+  Verifierad betyder att d365.se har granskat partnerns uppgifter. Det påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
  </p>
 
  {/* Filter Results Summary */}

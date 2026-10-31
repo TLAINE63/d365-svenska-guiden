@@ -1,3 +1,4 @@
+import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { Link as RouterLink } from "react-router-dom";
@@ -2917,7 +2918,13 @@ Thomas`,
 
  {/* ==================== PARTNERS TAB (Publicerade / Ej publicerade) ==================== */}
  {(["partners", "unprofiled-partners"] as const).map((tabValue) => (
- <TabsContent key={tabValue} value={tabValue}>
+  <TabsContent key={tabValue} value={tabValue}>
+ {tabValue === "partners" && (
+  <details className="mb-4 rounded-lg border border-border">
+   <summary className="cursor-pointer px-4 py-3 text-sm font-semibold">Informationsstatus och aktualitet (partnerns egna uppdateringar)</summary>
+   <div className="p-3"><PartnerFreshnessCard partners={fullPartners as any} /></div>
+  </details>
+ )}
  <div className="flex justify-between items-center mb-4">
  <div className="flex gap-2">
  <Button onClick={openCreatePartnerDialog}>

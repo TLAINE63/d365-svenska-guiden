@@ -1,3 +1,4 @@
+import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
@@ -276,6 +277,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="partners">
+            <div className="mb-6"><PartnerFreshnessCard partners={partners as any} /></div>
             <RedaktionPartnerLinksTab
               token={token}
               isLoading={partnersLoading}
