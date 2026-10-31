@@ -52,7 +52,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           <Button asChild variant="ghost" size="sm" className="px-0 text-muted-foreground"><Link to="/alla-d365-partners/"><ArrowLeft className="h-4 w-4" />Alla partners</Link></Button>
           {partner.is_featured === true && (
             <img
-              src={`/badges/verifierad-partner-${partner.logo_dark_bg ? "light" : "dark"}.svg`}
+              src={`/badges/verifierad-partner-dark.svg`}
               alt="Verifierad Dynamics 365-partner på d365.se"
               width={240}
               height={72}
