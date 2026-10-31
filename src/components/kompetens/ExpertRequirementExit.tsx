@@ -83,6 +83,7 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
         dialogTitle="Prata med d365.se om ert kompetensbehov"
         dialogDescription="Resonera med oss om vilken kompetens ni behöver och vilken väg som passar. Inget skickas till någon partner utan ert godkännande."
         messageLabel="Vad funderar ni på? (valfritt)"
+        submitEvent="expert_requirement_submitted"
         metadata={{ intent_type: "ExpertRequirement", role: draft.role ?? null, product: draft.product ?? null }}
       />
 

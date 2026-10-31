@@ -16,6 +16,7 @@ import { getTrackSession, getTrackSource } from "@/lib/track";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { ADVISOR_BOOKING_URL } from "@/data/organization";
+import { contactLevelFor, trackContactLevel } from "@/lib/contactLevels";
 
 export type PlanContactMode = "advisory" | "partners";
 
@@ -80,6 +81,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
   useEffect(() => {
     trackFunnelEvent({ event_type: evType, event_name: topic ? topic.startEvent : advisory ? "advisory_started" : "partner_contact_started", metadata: { shortlist: items.length, ...topic?.metadata, ...advMeta } });
     if (sections.length) trackFunnelEvent({ event_type: "engagement", event_name: "share_preview_viewed", metadata: { mode, sections: sections.length } });
+    trackContactLevel("started", advisory ? contactLevelFor(topic?.advisory?.placement ?? "plan") : "partner", { placement: topic?.advisory?.placement ?? (advisory ? "plan" : null), page_type: topic?.advisory?.pageType ?? null });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const chosen = items.filter((i) => picked[i.slug]);
@@ -129,6 +131,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
       if (advisory) {
         recordPlanContact("advisory");
         trackFunnelEvent({ event_type: evType, event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata, ...advMeta } });
+        trackContactLevel("submitted", contactLevelFor(topic?.advisory?.placement ?? "plan"), { placement: topic?.advisory?.placement ?? "plan", page_type: topic?.advisory?.pageType ?? null });
       }
       // Grundprofiler finns inte alltid med namn i backend; visa kortlistans namn i stället för slug.
       const nameOf = (s: string) => chosen.find((p) => p.slug === s || p.name === s)?.name || s;
@@ -139,6 +142,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
         if (intros.length) recordPlanContact("intro", intros);
         if (sent.length) trackFunnelEvent({ event_type: "engagement", event_name: "partner_request_submitted", metadata: { count: sent.length, sections: shared.length } });
         if (intros.length) trackFunnelEvent({ event_type: "engagement", event_name: "basic_profile_intro_requested", metadata: { count: intros.length } });
+        if (sent.length || intros.length) trackContactLevel("submitted", "partner", { placement: "plan", partner_count: sent.length + intros.length });
       }
       setDone({ partners: sent, intros });
     } catch {

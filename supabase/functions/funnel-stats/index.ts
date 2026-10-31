@@ -349,6 +349,9 @@ Deno.serve(async (req) => {
         { key: "dead_end", label: "Nästa steg på alla sidtyper (No Dead Ends)", events: [
           { name: "dead_end_next_step_viewed", label: "Nästa steg visat, per sidtyp", kind: "click", by: "source_template" },
           { name: "dead_end_next_step_clicked", label: "Nästa steg klickat, per typ", kind: "click", by: "next_step_type" } ] },
+        { key: "contact_levels", label: "Kontaktnivåer: fråga, Prata med d365.se, partnerkontakt", events: [
+          { name: "contact_level_started", label: "Formulär öppnat, per nivå", kind: "click", by: "level" },
+          { name: "contact_level_submitted", label: "Formulär skickat, per nivå", kind: "submit", by: "level" } ] },
         { key: "isv", label: "Tilläggslösningar (ISV)", placements: ["isv_product_help"], events: [
           { name: "isv_verification_filter_applied", label: "Informationsstatus filtrerad", kind: "click", by: "information_status" },
           { name: "isv_product_viewed", label: "Produkt visad", kind: "click", by: "information_status" },
