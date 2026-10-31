@@ -24,7 +24,7 @@ export const HERO_NODES: {
   { icon: ClipboardCheck, title: "Vi utvärderar ett nytt CRM- eller affärssystem (ERP)", text: "Utforska och jämför alternativ utifrån verksamhetens behov.", cta: "Utforska rätt lösning", to: "/kom-igang/?source=startsida", journey: "new_system", cardId: "hero_new_crm_erp", intentType: "BuyerProject" },
   { icon: ArrowLeftRight, title: "Vi vill förstå vad det kostar", text: "Beräkna licenser, införande, löpande kostnader och TCO.", cta: "Beräkna kostnaden", to: "/kostnad/", journey: "cost", cardId: "hero_cost", intentType: "BuyerProject", buyerStage: "Plan" },
   { icon: LayoutGrid, title: "Vi använder redan Dynamics\u00A0365", text: "Få mer värde genom vidareutveckling, support, AI, förvaltning eller ett bättre partnersamarbete.", cta: "Utforska nästa steg", to: "/befintlig-kund/", journey: "existing_customer", cardId: "hero_existing_dynamics" },
-  { icon: Users, title: "Vi behöver Dynamics\u00A0365-kompetens", text: "Hitta en relevant partner eller specifik kompetens utifrån ert behov.", cta: "Hitta rätt kompetens", to: "/kompetens/", journey: "competence", cardId: "hero_competence", opensCompetenceChoice: true },
+  { icon: Users, title: "Vi söker partner eller expert", text: "Hitta rätt Dynamics\u00A0365-partner för projekt och förvaltning, eller specifik specialistkompetens.", cta: "Hitta partner eller expert", to: "/kompetens/", journey: "competence", cardId: "hero_competence", opensCompetenceChoice: true },
 ];
 const NODES = HERO_NODES;
 
