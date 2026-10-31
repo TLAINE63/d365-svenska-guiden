@@ -4483,7 +4483,7 @@ Thomas`,
         value={partnerFormData.information_status ?? "compiled"}
         onChange={(e) => setPartnerFormData({ ...partnerFormData, information_status: e.target.value as "verified" | "compiled" })}
       >
-        <option value="verified">Verifierad av d365.se</option>
+        <option value="verified">D365 Verifierad</option>
         <option value="compiled">Automatiskt sammanställd</option>
       </select>
     </div>

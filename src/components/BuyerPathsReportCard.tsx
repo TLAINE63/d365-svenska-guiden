@@ -18,7 +18,7 @@ const VALUE_LABEL: Record<string, string> = {
   partner: "Partner",
   expert: "Expert eller konsult",
   unsure: "Osäker",
-  verified: "Verifierad av d365.se",
+  verified: "D365 Verifierad",
   partner_confirmed: "Bekräftad av partnern",
   compiled: "Automatiskt sammanställd",
   alla: "Alla",
