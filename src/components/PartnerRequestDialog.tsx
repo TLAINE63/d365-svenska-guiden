@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { trackFormStarted, trackFormSubmitted } from "@/utils/trackPartnerEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { trackFunnelStep } from "@/utils/trackFunnelEvent";
+import { trackContactLevel } from "@/lib/contactLevels";
 
 interface PartnerRequestDialogProps {
   open: boolean;
@@ -194,6 +195,9 @@ const PartnerRequestDialog = ({
   useEffect(() => {
     onSubmitting?.(submitting);
   }, [submitting, onSubmitting]);
+  useEffect(() => {
+    if (open) trackContactLevel("started", "partner", { placement: `partner_request_${mode}`, partner_count: multi ? recipients!.length : 1 });
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -310,6 +314,7 @@ const PartnerRequestDialog = ({
       });
       trackFormSubmitted({ slug: partnerSlug }, "verifierad", formId, selectedProduct ?? null);
       trackFunnelStep("intro_sent", { partner_slug: partnerSlug, mode, recipients: targets.length - failed.length });
+      trackContactLevel("submitted", "partner", { placement: `partner_request_${mode}`, partner_count: targets.length - failed.length });
       reset();
       onOpenChange(false);
     } catch (err) {

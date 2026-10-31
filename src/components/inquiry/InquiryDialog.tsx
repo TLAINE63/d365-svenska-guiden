@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { useShortlist } from "@/contexts/ShortlistContext";
 import { getTrackSession, getTrackSource, track } from "@/lib/track";
 import type { InquiryPartner, InquiryType } from "@/contexts/InquiryContext";
 import ProjectSummary from "@/components/inquiry/ProjectSummary";
+import { trackContactLevel } from "@/lib/contactLevels";
 
 const ROLES = ["VD", "CFO eller ekonomichef", "IT-ansvarig", "Försäljnings- eller servicechef", "Verksamhetschef", "Annan"];
 const PRODUCTS = ["Business Central", "Finance & Supply Chain Management (F&O)", "Sales", "Customer Service", "Field Service", "Contact Center", "Customer Insights", "Project Operations", "Human Resources", "Commerce", "Vet inte än"];
@@ -60,6 +61,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
   const [privacy, setPrivacy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  useEffect(() => { trackContactLevel("started", "partner", { placement: type, partner_count: partners.length }); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF((s) => ({ ...s, [k]: e.target.value }));
   const title = partners.length === 1 ? `Kontakta ${partners[0].name}` : "Kontakta valda partners";
 
@@ -89,6 +91,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) { setError(data.error || "Något gick fel. Försök igen."); setSending(false); return; }
       track("inquiry_submit", { partner_count: approved.length, product_area: f.product || null });
+      trackContactLevel("submitted", "partner", { placement: type, partner_count: approved.length });
       onClose();
       const qs = new URLSearchParams({ p: (Array.isArray(data.partners) ? data.partners : []).join(", "), e: f.email });
       if (Array.isArray(data.intros) && data.intros.length) qs.set("i", data.intros.join(", "));

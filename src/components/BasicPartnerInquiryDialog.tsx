@@ -16,6 +16,7 @@ import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { trackFormStarted, trackFormSubmitted } from "@/utils/trackPartnerEvent";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { Send } from "lucide-react";
+import { trackContactLevel } from "@/lib/contactLevels";
 
 interface BasicPartnerInquiryDialogProps {
   open: boolean;
@@ -48,6 +49,7 @@ export const BasicPartnerInquiryDialog = ({
   });
 
   useEffect(() => {
+    if (open) trackContactLevel("started", "partner", { placement: "basic_profile_intro", partner_count: 1 });
     if (!open) {
       setSubmitted(false);
       setForm({ company_name: "", contact_name: "", email: "", phone: "", message: "" });
@@ -92,6 +94,7 @@ export const BasicPartnerInquiryDialog = ({
       });
       if (error) throw error;
       setSubmitted(true);
+      trackContactLevel("submitted", "partner", { placement: "basic_profile_intro", partner_count: 1 });
       trackFormSubmitted({ slug: partnerSlug }, "basic", "basic_partner_inquiry", selectedProduct ?? null);
       toast({
         title: "Tack!",
