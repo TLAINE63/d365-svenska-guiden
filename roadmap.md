@@ -5,7 +5,7 @@
 - [x] Steg 1: "Ställ en fråga" på artiklar, egen kategori och mätning
 - [x] Steg 2: "Prata med d365.se om ert behov" ersätter "Boka rådgivning"; mötesbokning först efter inskick
 - [x] Steg 3: CTA-hierarki per sidtyp (partnerprofiler, jämförelser, kompetens)
-- [ ] Steg 4: verifiering mobil/desktop, formulärinlämning, mätning
+- [x] Steg 4: verifiering mobil/desktop, formulärinlämning, mätning (gemensam nivåmätning contact_level_*)
 
 ## Köparvägar i hero (2026-10-30)
 - [x] Sprint 0.9: ny ingress, fyra kort, rådgivarlänk, kort-id och klassificering i mätningen
