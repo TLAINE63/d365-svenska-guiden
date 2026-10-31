@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
+import { trackContactLevel } from "@/lib/contactLevels";
 
 interface ComparePartner {
   slug: string;
@@ -65,6 +66,10 @@ const CompareStickyCTA = ({
       else setDismissed(false);
     } catch {}
   }, [dismissKey]);
+
+  useEffect(() => {
+    if (open) trackContactLevel("started", "partner", { placement: "compare_sticky", partner_count: partners.length });
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 500);
@@ -123,6 +128,7 @@ const CompareStickyCTA = ({
       if (error) throw error;
 
       setSubmitted(true);
+      trackContactLevel("submitted", "partner", { placement: "compare_sticky", partner_count: partners.length });
       toast({
         title: "Tack! Vi återkommer",
         description: `${partnerNames} kommer att kontakta dig inom kort.`,
