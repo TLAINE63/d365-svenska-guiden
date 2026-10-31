@@ -27,7 +27,6 @@ import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import {
-  ISV_INFORMATION_STATUSES,
   isvHelpLines,
   isvInformationStatusOf,
   matchesIsvStatusFilter,
