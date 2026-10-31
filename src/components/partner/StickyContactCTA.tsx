@@ -74,7 +74,7 @@ export const StickyContactCTA = ({ partnerSlug, partnerName, product, industry, 
         {expanded && (
           <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-3 shadow-xl animate-in fade-in slide-in-from-bottom-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-1">
-              Kontakta {partnerName}
+              Nästa steg med {partnerName}
             </p>
             <PartnerDecisionActions
               partner={{ slug: partnerSlug, name: partnerName }}
