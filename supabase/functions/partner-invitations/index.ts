@@ -301,6 +301,8 @@ serve(async (req: Request): Promise<Response> => {
           const result = await applyPartnerResponse(supabase, inv.partner_id, {
             confirm: body.confirm, remove: body.remove, add: body.add, add_solutions: body.add_solutions,
           }, product);
+          // Partnerns egen uppdatering: datum sparas, Sammanställd blir Bekräftad, Verifierad behålls.
+          await supabase.rpc("partner_mark_self_update", { _partner_id: inv.partner_id });
           return new Response(JSON.stringify(result), { headers: h });
         }
         const r = await computeReview(supabase, inv.partner_id, product);
@@ -597,6 +599,8 @@ serve(async (req: Request): Promise<Response> => {
         if (updateError) {
           console.error("Auto-update partner error:", updateError);
           // Don't fail the submission, just log the error
+        } else {
+          await supabase.rpc("partner_mark_self_update", { _partner_id: partnerId });
         }
       } else {
         // Create new partner
