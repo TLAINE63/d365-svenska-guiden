@@ -8,7 +8,7 @@
  */
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
-export type IsvInformationStatus = "verified" | "vendor_confirmed" | "compiled";
+export type IsvInformationStatus = "verified" | "compiled";
 export type IsvStatusFilter = "all" | IsvInformationStatus;
 
 export const ISV_INFORMATION_STATUSES: { value: IsvInformationStatus; label: string; description: string }[] = [
@@ -18,14 +18,9 @@ export const ISV_INFORMATION_STATUSES: { value: IsvInformationStatus; label: str
     description: "d365.se-redaktionen har granskat centrala uppgifter enligt verifieringsprocessen.",
   },
   {
-    value: "vendor_confirmed",
-    label: "Bekräftad av leverantören",
-    description: "Leverantören har själv granskat och bekräftat uppgifterna.",
-  },
-  {
     value: "compiled",
     label: "Automatiskt sammanställd",
-    description: "Informationen är automatiskt sammanställd från publika källor med hjälp av AI. Den är inte granskad av d365.se och inte bekräftad av leverantören.",
+    description: "Informationen har sammanställts automatiskt med hjälp av AI från publika källor, främst leverantörens egen webbplats, Microsoft AppSource och öppna företagsregister. Den har inte granskats av d365.se-redaktionen och kan vara ofullständig eller inaktuell.",
   },
 ];
 
@@ -35,7 +30,7 @@ export const ISV_STATUS_FILTERS: { value: IsvStatusFilter; label: string }[] = [
 ];
 
 export function isIsvInformationStatus(v: unknown): v is IsvInformationStatus {
-  return v === "verified" || v === "vendor_confirmed" || v === "compiled";
+  return v === "verified" || v === "compiled";
 }
 
 /** Okänd eller saknad status behandlas som sammanställd, aldrig som verifierad. */

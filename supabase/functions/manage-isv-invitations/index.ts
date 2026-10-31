@@ -117,7 +117,7 @@ serve(async (req) => {
       if (sub.status !== "pending") return json({ error: "Inskicket är redan hanterat" }, 409, corsHeaders);
       const p = (sub.payload || {}) as Record<string, unknown>;
       const now = new Date().toISOString();
-      // Godkänd leverantörsuppdatering: Automatiskt sammanställd blir Bekräftad av leverantören.
+      // Godkänd leverantörsuppdatering: statusen ändras inte (bara datum); bara redaktionen kan verifiera.
       // Verifierad behålls (databasen låter verifiering gå före bekräftelse); nytt verifieringsdatum sätts manuellt.
       const vendorUpdatedAt = sub.submitted_at || now;
       // Leverantörens källa blir "mixed" när den kompletterar redaktionens research.

@@ -7,7 +7,7 @@
  * - Kommersiell status (Standard, Premium, Buyer Opportunity Agreement, Outbound):
  *   påverkar aldrig fit, status eller ordning.
  */
-export type InformationStatus = "verified" | "partner_confirmed" | "compiled";
+export type InformationStatus = "verified" | "compiled";
 
 export const INFORMATION_STATUSES: { value: InformationStatus; label: string; description: string }[] = [
   {
@@ -16,19 +16,14 @@ export const INFORMATION_STATUSES: { value: InformationStatus; label: string; de
     description: "d365.se-redaktionen har granskat centrala uppgifter enligt verifieringsprocessen.",
   },
   {
-    value: "partner_confirmed",
-    label: "Bekräftad av partnern",
-    description: "Partnern har själv granskat och bekräftat uppgifterna.",
-  },
-  {
     value: "compiled",
     label: "Automatiskt sammanställd",
-    description: "Informationen är automatiskt sammanställd från publika källor med hjälp av AI. Den är inte granskad av d365.se och inte bekräftad av partnern.",
+    description: "Informationen har sammanställts automatiskt med hjälp av AI från publika källor, främst partnerns egen webbplats, Microsofts partnerkatalog och öppna företagsregister. Den har inte granskats av d365.se-redaktionen och kan vara ofullständig eller inaktuell.",
   },
 ];
 
 export function isInformationStatus(v: unknown): v is InformationStatus {
-  return v === "verified" || v === "partner_confirmed" || v === "compiled";
+  return v === "verified" || v === "compiled";
 }
 
 /** Okänd eller saknad status behandlas som sammanställd, aldrig som verifierad. */
@@ -42,7 +37,7 @@ export function informationStatusLabel(s: InformationStatus): string {
 }
 
 /** Högre = mer säker information. Används bara som sekundär tiebreaker vid likvärdig fit. */
-export const CONFIDENCE_RANK: Record<InformationStatus, number> = { verified: 3, partner_confirmed: 2, compiled: 1 };
+export const CONFIDENCE_RANK: Record<InformationStatus, number> = { verified: 2, compiled: 1 };
 
 export type PartnerSort = "relevant" | "latest_verified" | "alpha";
 
