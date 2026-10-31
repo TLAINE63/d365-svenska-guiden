@@ -804,7 +804,7 @@ const CRM = () => {
  </p>
  <ContactFormDialog>
  <Button className="bg-crm hover:bg-crm/90 text-crm-foreground h-14 sm:h-16 rounded" size="lg">
- Boka in en kostnadsfri rådgivning
+ Prata med d365.se om ert behov
  </Button>
  </ContactFormDialog>
  </div>

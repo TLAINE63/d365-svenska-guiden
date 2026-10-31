@@ -6,10 +6,10 @@ const base = { consent_given: true, consent_at: "2026-10-23", consent_scope: ["k
 describe("WP1 rådgivning", () => {
   it("de fyra beslutspunkterna har sina egna CTA:er", () => {
     expect(ADVISORY_CTA).toEqual({
-      compare: "Boka genomgång av mina valda partners",
+      compare: "Prata med d365.se om alternativen",
       partner_switch: "Få en second opinion",
       needs_guide: "Diskutera vår behovsanalys",
-      tool_result: "Boka genomgång av resultatet",
+      tool_result: "Prata med d365.se om resultatet",
     });
   });
 

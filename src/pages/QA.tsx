@@ -285,7 +285,7 @@ const QA = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-16 sm:h-20 text-lg sm:text-xl rounded px-8 sm:px-12 font-bold transition-all" size="lg">
-                Boka in en kostnadsfri rådgivning
+                Prata med d365.se om ert behov
               </Button>
             </ContactFormDialog>
           </div>
