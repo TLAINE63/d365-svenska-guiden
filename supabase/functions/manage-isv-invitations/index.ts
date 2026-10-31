@@ -117,17 +117,19 @@ serve(async (req) => {
       if (sub.status !== "pending") return json({ error: "Inskicket är redan hanterat" }, 409, corsHeaders);
       const p = (sub.payload || {}) as Record<string, unknown>;
       const now = new Date().toISOString();
+      // Godkänd leverantörsuppdatering: Automatiskt sammanställd blir Bekräftad av leverantören.
+      // Verifierad behålls (databasen låter verifiering gå före bekräftelse); nytt verifieringsdatum sätts manuellt.
+      const vendorUpdatedAt = sub.submitted_at || now;
       // Leverantörens källa blir "mixed" när den kompletterar redaktionens research.
       const mergedSource = (cur: string | null | undefined) => (cur === "vendor_submitted" ? "vendor_submitted" : "mixed");
 
       if (sub.kind === "vendor_profile") {
         // Bara leverantörsnivån ändras. Produkternas status påverkas inte.
         const { data: v } = await supabase.from("isv_vendors").select("profile_source").eq("slug", sub.vendor_slug).single();
-        const upd: Record<string, unknown> = { updated_at: now, profile_source: mergedSource(v?.profile_source) };
+        const upd: Record<string, unknown> = { updated_at: now, vendor_updated_at: vendorUpdatedAt, confirmation_status: "confirmed", profile_source: mergedSource(v?.profile_source) };
         if (typeof p.website === "string" && p.website) upd.website = p.website;
         if (typeof p.description === "string" && p.description) upd.description = p.description;
         if (typeof p.logo_url === "string" && p.logo_url) upd.logo_url = p.logo_url;
-        if (sub.confirm_information) upd.confirmation_status = "confirmed";
         const { error } = await supabase.from("isv_vendors").update(upd).eq("slug", sub.vendor_slug);
         if (error) return json({ error: error.message }, 400, corsHeaders);
         if (sub.contact_name || sub.contact_email) {
@@ -158,7 +160,8 @@ serve(async (req) => {
           partner_slugs: cleanList(sub.partner_slugs, 100, 120),
           vendor_website: cleanText(sub.vendor_website, 300),
           product_source: "vendor_submitted",
-          confirmation_status: sub.confirm_information ? "confirmed" : "not_confirmed",
+          confirmation_status: "confirmed",
+          vendor_updated_at: vendorUpdatedAt,
           // Publiceras bara om leverantören bad om det och redaktionen godkänner här.
           is_published: sub.request_publication === true,
         });
@@ -188,8 +191,7 @@ serve(async (req) => {
         // Produktnivån: källa, bekräftelse och strukturerade fält. Leverantören påverkas inte.
         const { data: cur } = await supabase.from("isv_solutions").select("product_source").eq("solution_id", sub.solution_id).maybeSingle();
         if (cur) {
-          const upd: Record<string, unknown> = { product_source: mergedSource(cur.product_source), updated_at: now };
-          if (sub.confirm_information) upd.confirmation_status = "confirmed";
+          const upd: Record<string, unknown> = { product_source: mergedSource(cur.product_source), updated_at: now, vendor_updated_at: vendorUpdatedAt, confirmation_status: "confirmed" };
           if (typeof p.delivery_model === "string") upd.delivery_model = p.delivery_model;
           if (Array.isArray(p.geo) && p.geo.length) upd.geo = p.geo;
           await supabase.from("isv_solutions").update(upd).eq("solution_id", sub.solution_id);

@@ -45,8 +45,7 @@ async function verifyJWT(token: string, secret: string) {
     if (!ok) return false;
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
-    if (payload.role !== "admin") return false;
-    return true;
+    return typeof payload.role === "string" ? payload.role : false;
   } catch { return false; }
 }
 
@@ -72,7 +71,11 @@ serve(async (req) => {
     const auth = req.headers.get("authorization") || "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
     const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-    if (!token || !(await verifyJWT(token, secret))) {
+    const role = token ? await verifyJWT(token, secret) : false;
+    const url0 = new URL(req.url);
+    // Redaktion (editor) får bara läsa aktualitetsöversikten; allt annat kräver admin.
+    const editorAllowed = url0.searchParams.get("action") === "list_freshness";
+    if (!(role === "admin" || (editorAllowed && role === "editor"))) {
       return json({ error: "Unauthorized" }, 401, corsHeaders);
     }
 
@@ -272,11 +275,21 @@ serve(async (req) => {
       return out;
     };
 
+    // Aktualitet: när leverantören själv uppdaterade och när d365.se senast verifierade.
+    if (action === "list_freshness" && req.method === "GET") {
+      const [{ data: vendors, error: vErr }, { data: products, error: pErr }] = await Promise.all([
+        supabase.from("isv_vendors").select("slug, name, information_status, last_verified_date, vendor_updated_at").order("name"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, information_status, last_verified_date, vendor_updated_at").order("name"),
+      ]);
+      if (vErr || pErr) throw vErr || pErr;
+      return json({ vendors: vendors || [], products: products || [] }, 200, corsHeaders);
+    }
+
     if (action === "list_status" && req.method === "GET") {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
-        supabase.from("isv_vendors").select("slug, name, website, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendors").select("slug, name, website, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status"),
-        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, is_published, product_source, confirmation_status, verification_status, last_verified_date, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
       if (vErr || pErr) throw vErr || pErr;
       const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
