@@ -10,7 +10,7 @@ describe("ISV-informationsstatus", () => {
   it("visar de tre publika statusarna med exakta etiketter", () => {
     expect(isvInformationStatusLabel("verified")).toBe("Verifierad av d365.se");
     expect(isvInformationStatusLabel("vendor_confirmed")).toBe("Bekräftad av leverantören");
-    expect(isvInformationStatusLabel("compiled")).toBe("Sammanställd av d365.se");
+    expect(isvInformationStatusLabel("compiled")).toBe("Automatiskt sammanställd");
   });
 
   it("har Alla som förvalt filter", () => {

@@ -4475,7 +4475,7 @@ Thomas`,
     <div>
       <Label htmlFor="information_status" className="text-sm font-medium">Informationsstatus (visas publikt)</Label>
       <p className="text-xs text-muted-foreground mt-0.5">
-        Verifierad = redaktionen har granskat centrala uppgifter. Bekräftad = partnern har själv granskat uppgifterna. Sammanställd = redaktionens research, eventuellt med AI-stöd, ej bekräftad av partnern. Avtal, Premium eller betalning ger aldrig verifieringsstatus.
+        Verifierad = redaktionen har granskat centrala uppgifter. Bekräftad = partnern har själv granskat uppgifterna. Automatiskt sammanställd = AI-profilerad från publika källor, ej granskad av d365.se och ej bekräftad av partnern. Avtal, Premium eller betalning ger aldrig verifieringsstatus.
       </p>
       <select
         id="information_status"
@@ -4485,7 +4485,7 @@ Thomas`,
       >
         <option value="verified">Verifierad av d365.se</option>
         <option value="partner_confirmed">Bekräftad av partnern</option>
-        <option value="compiled">Sammanställd av d365.se</option>
+        <option value="compiled">Automatiskt sammanställd</option>
       </select>
     </div>
     <div>

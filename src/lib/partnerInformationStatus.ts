@@ -22,8 +22,8 @@ export const INFORMATION_STATUSES: { value: InformationStatus; label: string; de
   },
   {
     value: "compiled",
-    label: "Sammanställd av d365.se",
-    description: "d365.se-redaktionen har sammanställt informationen genom research, eventuellt med AI-stöd. Partnern har ännu inte bekräftat uppgifterna.",
+    label: "Automatiskt sammanställd",
+    description: "Informationen är automatiskt sammanställd från publika källor med hjälp av AI. Den är inte granskad av d365.se och inte bekräftad av partnern.",
   },
 ];
 

@@ -21,7 +21,7 @@ Redigeras i d365.se admin → ISV → Informationsstatus → Produkter → "Text
 Use case-nycklar: wms, scanning, manufacturing, planning, edi, ap-automation, expense, payroll, banking, tax, document-management, e-commerce, shipping, reporting-bi, integration, localization, industry, other. Etikett finns i `use_case_label`.
 
 ## Informationsstatus och filter
-Visa samma tre etiketter som d365.se (Verifierad av d365.se, Bekräftad av leverantören, Sammanställd av d365.se) och samma filterlogik med "Alla" som förval. Filtret ändrar bara urvalet, aldrig ordningen. Med nuvarande regel är alla produkter i vyn verifierade.
+Visa samma tre etiketter som d365.se (Verifierad av d365.se, Bekräftad av leverantören, Automatiskt sammanställd) och samma filterlogik med "Alla" som förval. Filtret ändrar bara urvalet, aldrig ordningen. Med nuvarande regel är alla produkter i vyn verifierade.
 
 ## Conversion exits
 - Självservice: "Besök produktens webbplats →" till `product_website` med `utm_source=businesscentral.se&utm_medium=referral&utm_campaign=isv-katalog`. Inga besökaruppgifter följer med.
