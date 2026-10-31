@@ -1,3 +1,4 @@
+import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
