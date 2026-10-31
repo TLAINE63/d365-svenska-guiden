@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { CTA } from "@/data/ctaLabels";
 import { ADVISORY_CTA, INTRO_STATUSES, allowedStatuses, caseConversionType, qualificationGaps, sendBlockers } from "@/lib/advisory";
 
 const base = { consent_given: true, consent_at: "2026-10-23", consent_scope: ["kontaktuppgifter"], introduced_at: "2026-10-23T10:00:00Z", partner_response: "accepterad", next_step: "Workshop vecka 45", business_status: "dialog" };
@@ -6,11 +7,16 @@ const base = { consent_given: true, consent_at: "2026-10-23", consent_scope: ["k
 describe("WP1 rådgivning", () => {
   it("de fyra beslutspunkterna har sina egna CTA:er", () => {
     expect(ADVISORY_CTA).toEqual({
-      compare: "Boka genomgång av mina valda partners",
+      compare: "Prata med d365.se om alternativen",
       partner_switch: "Få en second opinion",
       needs_guide: "Diskutera vår behovsanalys",
-      tool_result: "Boka genomgång av resultatet",
+      tool_result: "Prata med d365.se om resultatet",
     });
+  });
+
+  it("rådgivning erbjuds som samtal med d365.se, inte som mötesbokning", () => {
+    expect(CTA.advisoryCta).toBe("Prata med d365.se om ert behov");
+    expect(Object.values(ADVISORY_CTA).some((c) => c.startsWith("Boka"))).toBe(false);
   });
 
   it("statusflödet innehåller Introducerad, Dialog, Kvalificerad, Vunnen, Förlorad och Okänd", () => {

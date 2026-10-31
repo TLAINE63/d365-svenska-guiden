@@ -114,7 +114,7 @@ const Agents = () => {
                   size="lg"
                   className="bg-agents hover:bg-agents/90 text-agents-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded"
                 >
-                  Boka in en kostnadsfri AI-rådgivning
+                  Prata med d365.se om AI-agenter
                 </Button>
               </ContactFormDialog>
             </div>
@@ -543,7 +543,7 @@ const Agents = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ContactFormDialog>
                 <Button size="lg" className="bg-agents hover:bg-agents/90 text-agents-foreground h-14 sm:h-16 rounded">
-                  Boka en kostnadsfri AI-rådgivning
+                  Prata med d365.se om AI-agenter
                 </Button>
               </ContactFormDialog>
               <Button size="lg" variant="outline" asChild>

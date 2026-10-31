@@ -29,7 +29,7 @@ interface Props {
   messageLabel?: string;
   /** Mätningens namn när formuläret öppnas (standard advisory_form_opened). */
   startEvent?: string;
-  /** Liten rubrik ovanför kortet (standard "Kostnadsfri rådgivning"). */
+  /** Liten rubrik ovanför kortet (standard "Prata med d365.se"). */
   eyebrow?: string;
 }
 
@@ -38,7 +38,7 @@ interface Props {
  * Återanvänder befintligt rådgivningsflöde (PlanContactDialog advisory → submit-inquiry) och konkurrerar
  * aldrig med direktkontakt: knappen är alltid sekundär och inget öppnas automatiskt.
  */
-export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel, startEvent = "advisory_form_opened", eyebrow = "Kostnadsfri rådgivning" }: Props) {
+export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel, startEvent = "advisory_form_opened", eyebrow = "Prata med d365.se" }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const seen = useRef(false);
@@ -115,7 +115,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             onClose={() => setOpen(false)}
             topic={{
               title: dialogTitle || cta,
-              description: dialogDescription || "Ett samtal före partnerdialogen där en rådgivare går igenom ert underlag med er. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
+              description: dialogDescription || "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande.",
               helpWith: cta,
               startEvent,
               submitEvent,

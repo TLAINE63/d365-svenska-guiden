@@ -32,7 +32,7 @@ const steps = [
   },
   {
     num: "3",
-    title: "Boka avstämning",
+    title: "Stäm av med d365.se",
     body: "Vi hör av oss om vi ser att någon partner passar särskilt väl för din situation.",
   },
 ];

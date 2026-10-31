@@ -121,7 +121,7 @@ const Copilot = () => {
                   size="lg"
                   className="bg-copilot hover:bg-copilot/90 text-copilot-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded"
                 >
-                  Boka en kostnadsfri AI-rådgivning
+                  Prata med d365.se om AI och Copilot
                 </Button>
               </ContactFormDialog>
             </div>
@@ -592,7 +592,7 @@ const Copilot = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-copilot hover:bg-copilot/90 text-copilot-foreground h-14 sm:h-16 rounded" size="lg">
-                Boka in en kostnadsfri rådgivning
+                Prata med d365.se om ert behov
               </Button>
             </ContactFormDialog>
           </div>

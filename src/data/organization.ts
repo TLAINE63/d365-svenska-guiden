@@ -59,3 +59,7 @@ export const BUYER_SIDE_DESCRIPTION = siteText("buyer.description");
 export const BUYER_SIDE_EXPLAINER = siteText("buyer.explainer");
 export const BUYER_SIDE_LINK_TEXT = siteText("buyer.link_text");
 export const ORGANIZATION_SCHEMA_DESCRIPTION = rawSiteText("org.schema_description");
+
+/** Thomas Laines bokningssida. Används som genomförandealternativ efter att besökaren pratat med d365.se, aldrig som själva erbjudandet. */
+export const ADVISOR_BOOKING_URL =
+  "https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink";

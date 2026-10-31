@@ -181,7 +181,7 @@ const ScrollCTA = () => {
                 Osäker på var du ska börja?
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-                30 minuters kostnadsfri rådgivning om behov, lösning eller partner. Ingen partner deltar, ingen försäljning.
+                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, ingen partner deltar.
               </p>
               <Button
                 size="sm"
@@ -191,13 +191,13 @@ const ScrollCTA = () => {
                 }}
                 className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
               >
-                Boka kostnadsfri rådgivning
+                Prata med d365.se om ert behov
               </Button>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-2 pr-6">
-            <p className="font-semibold text-sm mb-1">Boka kostnadsfri rådgivning</p>
+            <p className="font-semibold text-sm mb-1">Prata med d365.se om ert behov</p>
             <Input
               type="email"
               placeholder="jobb-epost@foretag.se"

@@ -140,7 +140,7 @@ const ContactUs = () => {
                           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
                         >
                           <Calendar className="w-4 h-4" />
-                          Boka möte
+                          Boka en tid direkt
                         </a>
                         <Link
                           to="/om-thomas-laine/"
@@ -237,7 +237,7 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning</h4>
+                      <h4 className="font-semibold text-foreground mb-1">Prata med d365.se om ert behov</h4>
                       <p className="text-sm text-muted-foreground">30 minuter om behov, lösning, kostnad eller partner. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
@@ -279,7 +279,7 @@ const ContactUs = () => {
                 Redo att komma igång?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Boka ett kostnadsfritt samtal idag och ta första steget mot en mer effektiv verksamhet med Microsoft Dynamics 365.
+                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, och ingen partner deltar.
               </p>
               
               <ContactFormDialog>
@@ -287,7 +287,7 @@ const ContactUs = () => {
                   size="lg"
                   className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 sm:h-16 rounded"
                 >
-                  Boka kostnadsfri rådgivning
+                  Prata med d365.se om ert behov
                 </Button>
               </ContactFormDialog>
               <p className="mt-6 text-sm text-muted-foreground">

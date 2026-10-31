@@ -5,10 +5,10 @@
  */
 
 export const ADVISORY_CTA = {
-  compare: "Boka genomgång av mina valda partners",
+  compare: "Prata med d365.se om alternativen",
   partner_switch: "Få en second opinion",
   needs_guide: "Diskutera vår behovsanalys",
-  tool_result: "Boka genomgång av resultatet",
+  tool_result: "Prata med d365.se om resultatet",
 } as const;
 
 export const PLACEMENT_LABEL: Record<string, string> = {

@@ -1404,7 +1404,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  Behöver du hjälp att välja eller upphandla Dynamics partner?
  </h2>
  <p className="text-lg text-muted-foreground">
- Boka ett möte med Thomas. Rådgivningen är kostnadsfri och ingen partner deltar i samtalet.
+ Prata med d365.se om ert behov. Vi resonerar om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, och ingen partner deltar.
  </p>
  </div>
  </div>
@@ -1426,7 +1426,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  rel="noopener noreferrer"
  >
  <Calendar className="w-5 h-5 mr-2" />
- Boka en kostnadsfri rådgivning
+ Boka en tid direkt
  </a>
  </Button>
  <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded border border-border">

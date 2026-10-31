@@ -56,7 +56,7 @@ const NEXT_STEP: Record<
   },
   komplex: {
     title: "Nästa steg",
-    label: "Boka kostnadsfri rådgivning",
+    label: "Prata med d365.se om ert behov",
     to: "/kontakt/",
   },
 };
