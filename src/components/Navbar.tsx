@@ -258,6 +258,9 @@ const Navbar = () => {
             </Link>
             <DesktopMenu menu={tools} />
             <DesktopMenu menu={partners} />
+            <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors whitespace-nowrap">
+              Tilläggslösningar
+            </Link>
             <Link
               to="/valjdynamics365partner/"
               data-nav-cta
@@ -298,6 +301,11 @@ const Navbar = () => {
                   {[tools, partners].map((m) => (
                     <MobileGroup key={m.label} menu={m} />
                   ))}
+                  <div className="border-b border-border py-4">
+                    <SheetClose asChild>
+                      <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Tilläggslösningar</Link>
+                    </SheetClose>
+                  </div>
                 </Accordion>
                 <div className="flex flex-col gap-1 pt-2">
                   <SheetClose asChild><Link to="/fraga/" className={`inline-flex items-center gap-2 ${mobileLink}`}><Sparkles className="h-4 w-4" aria-hidden="true" />Fråga d365.se</Link></SheetClose>
