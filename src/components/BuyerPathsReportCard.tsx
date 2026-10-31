@@ -20,7 +20,7 @@ const VALUE_LABEL: Record<string, string> = {
   unsure: "Osäker",
   verified: "Verifierad av d365.se",
   partner_confirmed: "Bekräftad av partnern",
-  compiled: "Sammanställd av d365.se",
+  compiled: "Automatiskt sammanställd",
   alla: "Alla",
   "övrigt": "Övrigt",
 };

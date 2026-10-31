@@ -15,7 +15,7 @@ interface BasicPartnerBadgeProps {
 export const BASIC_PROFILE_LABEL = "Grundprofil – ej partnerverifierad";
 
 export const BASIC_PROFILE_DISCLAIMER =
-  "Profilen är sammanställd av d365.se utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
+  "Profilen är automatiskt sammanställd utifrån publikt tillgängliga uppgifter. Informationen har inte granskats eller bekräftats av partnern.";
 
 /**
  * Neutral markering för partners utan verifierad profil.

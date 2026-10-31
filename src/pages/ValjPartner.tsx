@@ -322,7 +322,7 @@ const ValjPartner = () => {
  const [deliveryForm, setDeliveryForm] = useState<SupportLevel | null>(null);
  const [competence, setCompetence] = useState<CompetencyArea | null>(null);
  const extraFiltersActive = !!(assignmentType || deliveryForm || competence);
- // Grundprofiler är alltid "Sammanställd av d365.se" och saknar uppgifter för de extra filtren.
+ // Grundprofiler är alltid "Automatiskt sammanställd" och saknar uppgifter för de extra filtren.
  const showBasicPartners = (!infoStatus || infoStatus === "compiled") && !extraFiltersActive;
  const [nameQuery, setNameQuery] = useState("");
 
@@ -1045,7 +1045,7 @@ const ValjPartner = () => {
     checked={infoStatus === "verified"}
     onChange={(e) => selectInfoStatus(e.target.checked ? "verified" : null)}
    />
-   Visa endast partners verifierade av d365.se
+   Endast partners verifierade av d365.se
   </label>
  </div>
  <p className="mb-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
@@ -1306,7 +1306,7 @@ const ValjPartner = () => {
  <div className="container mx-auto px-4">
  <div className="max-w-5xl mx-auto">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
- Alla partnerverifierade profiler
+ Alla publicerade partnerprofiler
  </h2>
  <p className="text-muted-foreground mb-8">
  Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.

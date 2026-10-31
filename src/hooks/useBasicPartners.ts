@@ -191,9 +191,9 @@ export const BASIC_COPY = {
   productsLabel:
     "Observerade produktområden baserade på partnerns publika information.",
   extendedLabel:
-    "Sammanställd av d365.se utifrån publikt tillgängliga uppgifter – inte granskad av partnern.",
+    "Automatiskt sammanställt utifrån publikt tillgängliga uppgifter, inte granskat av d365.se eller partnern.",
   footer:
-    "Den här översikten är sammanställd av d365.se utifrån publika källor.",
+    "Den här översikten är automatiskt sammanställd utifrån publika källor.",
   partnerRepHeading: "Representerar du denna partner?",
   partnerRepBody:
     "Granska, korrigera och komplettera profilen så att kunder får ett så korrekt beslutsunderlag som möjligt.",

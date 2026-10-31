@@ -163,7 +163,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
           <ShieldCheck className="h-5 w-5 text-accent" /> Informationsstatus för leverantörer och produkter
         </CardTitle>
         <CardDescription>
-          Publik status härleds automatiskt: Verifierad av d365.se kräver verifieringen Verifierad, annars visas Bekräftad av leverantören om bekräftelse finns, annars Sammanställd av d365.se.
+          Publik status härleds automatiskt: Verifierad av d365.se kräver verifieringen Verifierad, annars visas Bekräftad av leverantören om bekräftelse finns, annars Automatiskt sammanställd.
           Leverantör och produkt sätts var för sig. Premium och avtal påverkar aldrig status eller ordning.
         </CardDescription>
       </CardHeader>
