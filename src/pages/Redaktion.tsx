@@ -1,4 +1,5 @@
 import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
+import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
@@ -278,6 +279,7 @@ export default function Redaktion() {
 
           <TabsContent value="partners">
             <div className="mb-6"><PartnerFreshnessCard partners={partners as any} /></div>
+            <div className="mb-6"><IsvFreshnessCard token={token} onSessionExpired={logout} /></div>
             <RedaktionPartnerLinksTab
               token={token}
               isLoading={partnersLoading}

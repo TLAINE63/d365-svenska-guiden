@@ -150,6 +150,14 @@ serve(async (req) => {
         console.error("isv-profile insert", error);
         return json({ error: "Kunde inte spara inskicket" }, 400, corsHeaders);
       }
+      const submittedAt = String(base.submitted_at);
+      // Leverantörens egen uppdatering sparar datumet direkt (även för verifierade poster),
+      // så att redaktionen ser att uppgifterna behöver kontrolleras och verifieras på nytt.
+      if (kind === "vendor_profile") {
+        await supabase.from("isv_vendors").update({ vendor_updated_at: submittedAt }).eq("slug", invitation.vendor_slug);
+      } else if (kind === "solution_update") {
+        await supabase.from("isv_solutions").update({ vendor_updated_at: submittedAt }).eq("solution_id", row.solution_id as string);
+      }
       await supabase.from("isv_invitations").update({ status: "submitted", submitted_at: new Date().toISOString() }).eq("id", invitation.id);
       return json({ success: true }, 200, corsHeaders);
     }

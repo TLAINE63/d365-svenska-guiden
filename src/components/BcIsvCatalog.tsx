@@ -27,7 +27,6 @@ import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import {
-  ISV_INFORMATION_STATUSES,
   isvHelpLines,
   isvInformationStatusOf,
   matchesIsvStatusFilter,
@@ -589,7 +588,7 @@ const BcIsvCatalog = ({
   const BC_ISV_SOLUTIONS = useIsvSolutions();
   const vendors = useIsvVendors();
 
-  /** Single-select: Alla (tomt) eller exakt en informationsstatus. */
+  /** Av eller på: alla lösningar, eller endast verifierade av d365.se. */
   const applyStatus = (v: IsvInformationStatus | null) => {
     setStatusSel(v ? new Set([v]) : new Set());
     trackIsv("isv_verification_filter_applied", { information_status: v ?? "all" });
@@ -852,14 +851,16 @@ const BcIsvCatalog = ({
             onClear={() => setIndustries(new Set())}
           />
           <div className="h-px bg-border/60" />
-          <FilterRow
-            label="Informations&shy;status"
-            options={ISV_INFORMATION_STATUSES.map((x) => x.value)}
-            selected={statusSel}
-            onToggle={(v) => applyStatus(statusSel.has(v) ? null : v)}
-            onClear={() => applyStatus(null)}
-            labelFor={(v) => ISV_INFORMATION_STATUSES.find((x) => x.value === v)!.label}
-          />
+          {/* Enda statusfiltret för köpare: endast verifierade av d365.se. Ändrar bara urvalet, aldrig ordningen. */}
+          <label className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium cursor-pointer">
+            <input
+              type="checkbox"
+              className="h-4 w-4 accent-[hsl(var(--accent))]"
+              checked={statusSel.has("verified")}
+              onChange={(e) => applyStatus(e.target.checked ? "verified" : null)}
+            />
+            Endast lösningar verifierade av d365.se
+          </label>
 
 
         </div>
@@ -885,7 +886,7 @@ const BcIsvCatalog = ({
           message="Inga lösningar matchar valda filter."
           onResetFilters={clearAll}
           resetLabel="Rensa filter"
-          broaden={statusSel.size ? { label: "Visa alla informationsstatusar", onClick: () => applyStatus(null) } : undefined}
+          broaden={statusSel.size ? { label: "Visa även ej verifierade lösningar", onClick: () => applyStatus(null) } : undefined}
           alternatives={[
             { label: "Hitta relevanta partners", to: "/valjdynamics365partner/" },
             { label: "Starta behovsguiden", to: "/kom-igang/" },
