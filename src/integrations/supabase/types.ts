@@ -1359,6 +1359,7 @@ export type Database = {
           use_cases: string[]
           vendor: string
           vendor_slug: string | null
+          vendor_updated_at: string | null
           vendor_website: string | null
           verification_status: string
           verified_at: string | null
@@ -1414,6 +1415,7 @@ export type Database = {
           use_cases?: string[]
           vendor: string
           vendor_slug?: string | null
+          vendor_updated_at?: string | null
           vendor_website?: string | null
           verification_status?: string
           verified_at?: string | null
@@ -1469,6 +1471,7 @@ export type Database = {
           use_cases?: string[]
           vendor?: string
           vendor_slug?: string | null
+          vendor_updated_at?: string | null
           vendor_website?: string | null
           verification_status?: string
           verified_at?: string | null
@@ -1613,6 +1616,7 @@ export type Database = {
           publish_d365guide: boolean
           slug: string
           updated_at: string
+          vendor_updated_at: string | null
           verification_status: string
           website: string | null
         }
@@ -1633,6 +1637,7 @@ export type Database = {
           publish_d365guide?: boolean
           slug: string
           updated_at?: string
+          vendor_updated_at?: string | null
           verification_status?: string
           website?: string | null
         }
@@ -1653,6 +1658,7 @@ export type Database = {
           publish_d365guide?: boolean
           slug?: string
           updated_at?: string
+          vendor_updated_at?: string | null
           verification_status?: string
           website?: string | null
         }
