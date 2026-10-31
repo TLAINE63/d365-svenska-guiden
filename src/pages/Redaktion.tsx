@@ -277,6 +277,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="partners">
+            <div className="mb-6"><PartnerFreshnessCard partners={partners as any} /></div>
             <RedaktionPartnerLinksTab
               token={token}
               isLoading={partnersLoading}
