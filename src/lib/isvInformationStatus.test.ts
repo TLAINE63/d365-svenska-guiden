@@ -9,7 +9,7 @@ import {
 describe("ISV-informationsstatus", () => {
   it("visar de tre publika statusarna med exakta etiketter", () => {
     expect(isvInformationStatusLabel("verified")).toBe("Verifierad av d365.se");
-    expect(isvInformationStatusLabel("vendor_confirmed")).toBe("Bekräftad av leverantören");
+    expect(isvInformationStatusOf("vendor_confirmed")).toBe("compiled");
     expect(isvInformationStatusLabel("compiled")).toBe("Automatiskt sammanställd");
   });
 
@@ -26,7 +26,7 @@ describe("ISV-informationsstatus", () => {
   it("filtrerar bara på vald status", () => {
     expect(matchesIsvStatusFilter("compiled", "all")).toBe(true);
     expect(matchesIsvStatusFilter("compiled", "verified")).toBe(false);
-    expect(matchesIsvStatusFilter("vendor_confirmed", "vendor_confirmed")).toBe(true);
+    expect(matchesIsvStatusFilter("vendor_confirmed", "compiled")).toBe(true);
     expect(matchesIsvStatusFilter(undefined, "compiled")).toBe(true);
   });
 });
