@@ -14,13 +14,13 @@ export type IsvStatusFilter = "all" | IsvInformationStatus;
 export const ISV_INFORMATION_STATUSES: { value: IsvInformationStatus; label: string; description: string }[] = [
   {
     value: "verified",
-    label: "Verifierad av d365.se",
-    description: "d365.se-redaktionen har granskat centrala uppgifter enligt verifieringsprocessen.",
+    label: "D365 Verifierad",
+    description: "Informationen är kvalitetssäkrad.",
   },
   {
     value: "compiled",
     label: "Automatiskt sammanställd",
-    description: "Informationen har sammanställts automatiskt med hjälp av AI från publika källor, främst leverantörens egen webbplats, Microsoft AppSource och öppna företagsregister. Den har inte granskats av d365.se-redaktionen och kan vara ofullständig eller inaktuell.",
+    description: "Informationen är maskinellt sammanställd och ännu inte verifierad.",
   },
 ];
 

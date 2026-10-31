@@ -8,7 +8,7 @@ import {
 
 describe("ISV-informationsstatus", () => {
   it("visar de tre publika statusarna med exakta etiketter", () => {
-    expect(isvInformationStatusLabel("verified")).toBe("Verifierad av d365.se");
+    expect(isvInformationStatusLabel("verified")).toBe("D365 Verifierad");
     expect(isvInformationStatusOf("vendor_confirmed")).toBe("compiled");
     expect(isvInformationStatusLabel("compiled")).toBe("Automatiskt sammanställd");
   });
