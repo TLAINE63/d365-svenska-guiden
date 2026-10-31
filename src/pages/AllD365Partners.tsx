@@ -14,8 +14,6 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, Users, CheckCircle2 } from "lucide-react";
 import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
 import TrustBanner from "@/components/TrustBanner";
-import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
-import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { hasAnyObservedProduct, hasObservedProduct } from "@/lib/basicPartnerMatch";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -42,8 +40,6 @@ const STATIC_PROFILED = (partnerDataJson as unknown as DatabasePartner[])
 
 export default function AllD365Partners() {
   const { data: dbPartners } = usePartners();
-  const { data: unprofiled } = useUnprofiledPartners();
-  const { data: allNames } = useAllPartnerNames();
   const { data: basicPartners } = useBasicPartners();
 
   const [query, setQuery] = useState("");

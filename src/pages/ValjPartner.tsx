@@ -325,6 +325,8 @@ const ValjPartner = () => {
  // Grundprofiler är alltid "Automatiskt sammanställd" och saknar uppgifter för de extra filtren.
  const showBasicPartners = (!infoStatus || infoStatus === "compiled") && !extraFiltersActive;
  const [nameQuery, setNameQuery] = useState("");
+ // Grundprofiler följer samma filter som övriga partners; utan filter visas den samlade listan längre ned.
+ const anyBasicFilter = selectedApplications.length > 0 || !!selectedIndustry || !!selectedGeography || !!selectedCompanySize || !!selectedRevenue || nameQuery.trim().length > 0;
 
  // Sprint 1.1 steg 1: behovet sparas bara under besöket och styr varken urval eller ordning.
  const location = useLocation();
@@ -1218,7 +1220,7 @@ const ValjPartner = () => {
 )}
 
 {/* Basic-partners som matchar samma filter */}
-{showBasicPartners && selectedApplications.length > 0 && filteredBasicPartners.length > 0 && (
+{showBasicPartners && anyBasicFilter && filteredBasicPartners.length > 0 && (
  <div className="mt-12 border-t border-dashed border-border pt-8">
   <div className="max-w-3xl mb-6">
     <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
@@ -1382,7 +1384,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  </div>
  </section>
 
- {infoStatus !== "verified" && <UnprofiledPartnersList variant="teaser" />}
+ {showBasicPartners && !anyBasicFilter && <UnprofiledPartnersList variant="teaser" />}
 
 
  {/* CTA Section */}
