@@ -4,7 +4,7 @@
 ## Sprint Conversion & Trust (2026-10-31)
 - [x] Steg 1: "Ställ en fråga" på artiklar, egen kategori och mätning
 - [x] Steg 2: "Prata med d365.se om ert behov" ersätter "Boka rådgivning"; mötesbokning först efter inskick
-- [ ] Steg 3: CTA-hierarki per sidtyp (partnerprofiler, jämförelser, kompetens)
+- [x] Steg 3: CTA-hierarki per sidtyp (partnerprofiler, jämförelser, kompetens)
 - [ ] Steg 4: verifiering mobil/desktop, formulärinlämning, mätning
 
 ## Köparvägar i hero (2026-10-30)
