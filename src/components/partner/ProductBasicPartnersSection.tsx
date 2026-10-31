@@ -1,14 +1,20 @@
 import WhyTheseResults from "@/components/WhyTheseResults";
 import { useMemo, useState } from "react";
-import { useBasicPartners } from "@/hooks/useBasicPartners";
+import { useBasicPartners, type ProductKey } from "@/hooks/useBasicPartners";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { filterBasicPartners } from "@/lib/basicPartnerMatch";
 import PartnerBasicCard from "@/components/partner/PartnerBasicCard";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
+import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 
 interface ProductBasicPartnersSectionProps {
   /** Applikationer som produktsidan gäller, t.ex. ["Business Central"] */
   applications: string[];
+  /** Läsbar etikett för produktområdet, t.ex. "Business Central" */
+  productLabel?: string;
+  /** Produktområde som redan är känt av sidan och inte upprepas på korten */
+  excludeProductKey?: ProductKey;
   industry?: string | null;
   geography?: string | null;
   companySize?: string | null;
@@ -18,12 +24,14 @@ interface ProductBasicPartnersSectionProps {
 }
 
 /**
- * Visar ej verifierade profiler (observerad, ej verifierad data) som matchar samma filter
- * som de verifierade partnerkorten på en produktsida. Inkluderar en toggle för
- * att visa endast verifierade partners.
+ * Visar grundprofiler (observerad, ej verifierad data) som matchar samma filter
+ * som de verifierade partnerkorten på en produktsida. Öppna från start
+ * (Thomas 2026-10-31) och döljs med rutan för endast verifierade partners.
  */
 export default function ProductBasicPartnersSection({
   applications,
+  productLabel,
+  excludeProductKey,
   industry = null,
   geography = null,
   companySize = null,
@@ -57,31 +65,36 @@ export default function ProductBasicPartnersSection({
     !verifiedOnly,
   );
 
+  if (filtered.length === 0) return null;
+
   return (
     <div className="mt-12 border-t border-dashed border-border pt-8">
-      <div className="flex justify-center mb-8">
+      <div className="mb-6">
         <VerifiedOnlyToggle checked={verifiedOnly} onChange={setVerifiedOnly} count={verifiedCount} />
       </div>
 
-      {!verifiedOnly && filtered.length > 0 && (
+      {!verifiedOnly && (
         <>
-          <div className="max-w-3xl mb-6">
+          <div className="max-w-3xl mb-5">
             <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-              Profiler som matchar din filtrering ({filtered.length})
+              {filtered.length === 1 ? "1 övrig partner" : `${filtered.length} övriga partners`}
+              {productLabel ? <> inom {nowrapBrand(productLabel)}</> : null}
             </h3>
             <p className="text-sm text-muted-foreground">
-              Grundläggande information om partnern baserad på offentligt tillgängliga uppgifter.
-              Profilerna har ännu inte verifierats av partnern och innehåller därför varken
-              kontaktperson, kontaktuppgifter, kundcase eller detaljerade kompetenser. Vill du komma
-              i kontakt med någon av dem, hör av dig till oss så hjälper vi till.
+              Grundprofiler sammanställda av d365.se utifrån publikt tillgängliga uppgifter.
+              Informationen har inte granskats eller bekräftats av partnern och profilerna saknar
+              därför kontaktuppgifter och detaljerade kompetenser. Hör av dig till oss så hjälper
+              vi dig vidare.
             </p>
           </div>
           <WhyTheseResults basic order="alphabetical" criteria={[...applications, industry, geography]} className="mb-5" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((p) => (
-              <PartnerBasicCard key={p.id} partner={p} variant="list" />
-            ))}
-          </div>
+          <BasicPartnersReveal count={filtered.length}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map((p) => (
+                <PartnerBasicCard key={p.id} partner={p} variant="list" excludeProductKey={excludeProductKey} />
+              ))}
+            </div>
+          </BasicPartnersReveal>
         </>
       )}
     </div>
