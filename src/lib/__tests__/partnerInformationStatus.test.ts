@@ -12,7 +12,8 @@ describe("informationsstatus", () => {
 
   it("filtret visar bara vald status och Alla visar alla", () => {
     const list = [p("A", "verified"), p("B", "partner_confirmed"), p("C", "compiled")];
-    expect(filterByInformationStatus(list, "partner_confirmed").map((x) => x.name)).toEqual(["B"]);
+    expect(filterByInformationStatus(list, "verified").map((x) => x.name)).toEqual(["A"]);
+    expect(filterByInformationStatus(list, "compiled").map((x) => x.name)).toEqual(["B", "C"]);
     expect(filterByInformationStatus(list, null)).toHaveLength(3);
   });
 
@@ -61,5 +62,13 @@ describe("uppdragstyp, leveransform och kompetens", () => {
   it("kompetens räknar inte Ej bekräftad", () => {
     expect(matchesCompetence(partner, "power_platform")).toBe(true);
     expect(matchesCompetence(partner, "copilot_ai")).toBe(false);
+  });
+});
+
+describe("två informationsnivåer", () => {
+  it("den gamla mellannivån räknas som automatiskt sammanställd", async () => {
+    const m = await import("@/lib/partnerInformationStatus");
+    expect(m.INFORMATION_STATUSES.map((s) => s.value)).toEqual(["verified", "compiled"]);
+    expect(m.informationStatusOf({ information_status: "partner_confirmed" })).toBe("compiled");
   });
 });
