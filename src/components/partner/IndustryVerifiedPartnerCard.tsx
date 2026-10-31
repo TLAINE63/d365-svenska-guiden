@@ -312,7 +312,7 @@ export default function IndustryVerifiedPartnerCard({
             className="min-h-10 whitespace-normal border-[hsl(var(--border-on-dark))] bg-transparent text-[hsl(var(--border-on-dark))] hover:border-primary hover:bg-transparent hover:text-primary"
           >
             <Mail className="h-4 w-4" aria-hidden />
-            Be om kontakt
+            Kontakta partner
           </Button>
         </div>
       </footer>
