@@ -16,6 +16,8 @@ const VALUE_LABEL: Record<string, string> = {
   hero_existing_dynamics: "Använder redan Dynamics 365",
   hero_competence: "Dynamics 365-kompetens",
   partner: "Partner",
+  question: "Fråga till d365.se (nivå 1)",
+  advisory: "Prata med d365.se (nivå 2)",
   expert: "Expert eller konsult",
   unsure: "Osäker",
   verified: "D365 Verifierad",
