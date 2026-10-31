@@ -21,6 +21,14 @@ import {
   findProductPartnersSverigeConfig,
   type ProductPartnersSverigeConfig,
 } from "@/data/productPartnersSverige";
+import ProductBasicPartnersSection from "@/components/partner/ProductBasicPartnersSection";
+
+/** Applikationer som grundprofilerna matchas mot per produktsida. */
+const BASIC_APPS_BY_PRODUCT: Record<string, string[]> = {
+  bc: ["Business Central"],
+  fsc: ["Finance & SCM"],
+  crm: ["Sales", "Customer Service"],
+};
 
 // Sverige-baserad: partner är "i Sverige" om de har minst ett kontor eller en
 // region i Sverige, eller har Sverige listad i geography för aktuell produkt.
@@ -71,6 +79,8 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
   if (!cfg) return <Navigate to="/alla-d365-partners/" replace />;
 
   const partners = useMemo(() => partnersForConfig(cfg), [cfg]);
+  // Grundprofiler saknar AI-data, därför visas de inte på AI-sidan.
+  const basicApplications = useMemo(() => BASIC_APPS_BY_PRODUCT[cfg.productKey] ?? [], [cfg.productKey]);
   const canonical = `/${cfg.slug}/`;
   const basicCount = (basicRoutes as any[]).filter((b) => Array.isArray(b?.products) && (cfg.productKey === "crm" ? (b.products.includes("sales") || b.products.includes("service")) : b.products.includes(cfg.productKey))).length;
   const fill = (t: string) => t.replace(/\{\{bcVerified\}\}/g, String(partners.length)).replace(/\{\{bcBasic\}\}/g, String(basicCount));
@@ -260,6 +270,14 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
                   );
                 })}
               </ul>
+            )}
+            {basicApplications.length > 0 && (
+              <ProductBasicPartnersSection
+                applications={basicApplications}
+                productLabel={cfg.productKey === "crm" ? "Dynamics 365 CRM" : cfg.productLabel}
+                excludeProductKey={cfg.productKey === "bc" || cfg.productKey === "fsc" ? cfg.productKey : undefined}
+                verifiedCount={partners.length}
+              />
             )}
           </div>
         </section>
