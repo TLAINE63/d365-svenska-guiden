@@ -17,6 +17,8 @@ interface Props {
  */
 export default function BasicProfilesDirectory({ products, heading = "Fler aktörer med grundprofil" }: Props) {
   const list = (basicPartnerRoutes as BasicRoute[])
+    // Grundprofiler utan dokumenterad produkt visas aldrig (Thomas 2026-10-31).
+    .filter((b) => (b.products || []).length > 0)
     .filter((b) => !products || (b.products || []).some((p) => products.includes(p as ProductKey)))
     .sort((a, b) => a.name.localeCompare(b.name, "sv"));
   if (list.length === 0) return null;
