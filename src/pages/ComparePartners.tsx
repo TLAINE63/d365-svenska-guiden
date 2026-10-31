@@ -46,6 +46,7 @@ import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import { ADVISORY_CTA } from "@/lib/advisory";
+import { PARTNER_COMPARE_CTA } from "@/lib/conversionCtas";
 import { describeAiCapabilities } from "@/utils/aiScoring";
 import { getResultAssessment, getDocumentedEvidence } from "@/lib/partnerResultCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
@@ -2094,8 +2095,11 @@ const ComparePartners = () => {
                 {hasBoth && (
                   <>
                     <div className="mb-6 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-4">
-                      <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">Ni väljer själva vilka av partnerna som får era uppgifter.</p>
-                      <Button onClick={() => inquiry.open({ partners: comparedPartners.map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: productFilters[0] || null })}>Kontakta de här partnerna</Button>
+                      <p className="text-sm text-muted-foreground flex-1 min-w-[12rem]">Ni väljer själva vilka av partnerna som får era uppgifter. Varje partner ni godkänner kontaktar er direkt.</p>
+                      <div className="flex flex-col items-start gap-1.5 sm:items-end">
+                        <Button onClick={() => inquiry.open({ partners: comparedPartners.map((p) => ({ slug: p.slug, name: p.name })), type: "kortlista", productArea: productFilters[0] || null })}>{PARTNER_COMPARE_CTA.primary}</Button>
+                        <a href="#jamforelse-radgivning" className="text-sm font-medium text-foreground underline underline-offset-4 hover:text-accent">{PARTNER_COMPARE_CTA.secondary}</a>
+                      </div>
                     </div>
                     {(() => {
                       const aiPartners = [a, b, ...(c ? [c] : [])].filter(
@@ -2467,7 +2471,7 @@ const ComparePartners = () => {
 
                     {/* Be om introduktion till valda partners */}
                     <section className="space-y-3">
-                      <SectionTitle icon={Mail} title="Be om introduktion till valda partners" />
+                      <SectionTitle icon={Mail} title={PARTNER_COMPARE_CTA.primary} />
                       {(() => {
                         const selected = [A, B, C].filter(
                           (s) => s.partner && !isBasicPartner(s.partner),
@@ -2647,6 +2651,7 @@ const ComparePartners = () => {
                     </section>
 
                     {hasBoth && (
+                      <div id="jamforelse-radgivning" className="scroll-mt-28">
                       <AdvisoryOffer
                         className="mt-8"
                         variant="inline"
@@ -2664,6 +2669,7 @@ const ComparePartners = () => {
                         ]}
                         metadata={{ partner_count: [a, b, c].filter(Boolean).length }}
                       />
+                      </div>
                     )}
 
                   </div>
