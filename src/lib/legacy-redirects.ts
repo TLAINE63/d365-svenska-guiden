@@ -77,6 +77,8 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/dynamics-365-contact-center-partners-sverige", to: "/dynamics-365-crm-partners-sverige/", intendedStatus: 301 },
   { from: "/erp",                       to: "/affarssystem/",       intendedStatus: 301 },
   { from: "/kunskapscenter/fragor-och-svar", to: "/qa/", intendedStatus: 301 },
+  // Kort adress för 4PS-artikeln (delas i LinkedIn/INSIDE); artikeln bor kvar under /artiklar/.
+  { from: "/affarssystem-bygg-installation", to: "/artiklar/affarssystem-bygg-installation/", intendedStatus: 301 },
 
   // Upphandlingssidorna sammanslagna till /upphandlingsguiden/ (7 stadier, beslut 2026-10-05)
   { from: "/kunskapscenter/upphandling",     to: "/upphandlingsguiden/", intendedStatus: 301 },

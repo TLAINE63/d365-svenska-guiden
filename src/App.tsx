@@ -342,6 +342,7 @@ const AppShell = () => {
           <Route path="/partner-update/:token" element={<PartnerUpdate />} />
           {/* Redirects for old/legacy URLs (44 st 404 i GSC) */}
           <Route path="/kontakta-oss" element={<RedirectTo to="/kontakt/" />} />
+          <Route path="/affarssystem-bygg-installation" element={<RedirectTo to="/artiklar/affarssystem-bygg-installation/" />} />
           <Route path="/om-oss" element={<OmOss />} />
           <Route path="/om-oss/" element={<OmOss />} />
           <Route path="/våra-tjänster" element={<RedirectTo to="/" />} />
