@@ -178,7 +178,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
               <DialogTitle>{topic ? topic.title : advisory ? "Prata med d365.se om ert behov" : "Kontakta mina valda partners"}</DialogTitle>
               <DialogDescription>
                 {topic ? topic.description : advisory
-                  ? "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Ingen partner kontaktas."
+                  ? "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner kontaktas."
                   : "Välj vilka av era sparade partners som ska få ert underlag. Ni bestämmer själva, och inget skickas till andra partners."}
               </DialogDescription>
             </DialogHeader>

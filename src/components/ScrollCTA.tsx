@@ -181,7 +181,7 @@ const ScrollCTA = () => {
                 Osäker på var du ska börja?
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, ingen partner deltar.
+                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar.
               </p>
               <Button
                 size="sm"

@@ -107,7 +107,7 @@ const SupportForvaltning = () => (
         placement="partner_switch"
         pageType="support_guide"
         heading="Behöver du hjälp att utvärdera eller byta supportpartner?"
-        text="Resonera med oss om ert nuvarande avtal, era servicenivåer och vilka alternativ ni har. Kostnadsfritt, och ingen partner deltar."
+        text="Resonera med oss om ert nuvarande avtal, era servicenivåer och vilka alternativ ni har. Kostnadsfritt och utan förpliktelser. Ingen partner deltar."
         cta="Prata med d365.se om ert behov"
         metadata={{ source: "support_guide", intent: "consultation" }}
       />

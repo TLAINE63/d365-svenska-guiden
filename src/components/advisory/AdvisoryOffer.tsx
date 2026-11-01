@@ -86,7 +86,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             {cta}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Button>
-          <p className="mt-3 text-xs text-muted-foreground">{carriedNote} Ingen partner deltar och inget delas utan ert godkännande.</p>
+          <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt och utan förpliktelser. {carriedNote} Ingen partner deltar och inget delas utan ert godkännande.</p>
           </div>
         </aside>
       ) : variant === "hero" ? (
@@ -115,7 +115,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             onClose={() => setOpen(false)}
             topic={{
               title: dialogTitle || cta,
-              description: dialogDescription || "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, ingen partner deltar och ingen kontaktas utan ert godkännande.",
+              description: dialogDescription || "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
               helpWith: cta,
               startEvent,
               submitEvent,
