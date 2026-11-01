@@ -238,7 +238,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Prata med d365.se om ert behov</h4>
-                      <p className="text-sm text-muted-foreground">30 minuter om behov, lösning, kostnad eller partner. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
+                      <p className="text-sm text-muted-foreground">30 minuter om behov, lösning, kostnad eller partner. Kostnadsfritt och utan förpliktelser. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
 
@@ -279,7 +279,7 @@ const ContactUs = () => {
                 Redo att komma igång?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, och ingen partner deltar.
+                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar.
               </p>
               
               <ContactFormDialog>
