@@ -173,7 +173,7 @@ const QA = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Frågorna du faktiskt behöver svar på
@@ -189,7 +189,7 @@ const QA = () => {
 
       {/* FAQ Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="sr-only">Vanliga frågor om Dynamics 365</h2>
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4" value={openItem} onValueChange={setOpenItem}>
@@ -245,7 +245,7 @@ const QA = () => {
 
       {/* Ämnesvisa frågor (tidigare /kunskapscenter/fragor-och-svar/, sammanslagen 2026-10-05) */}
       <section className="pb-8 sm:pb-12 md:pb-16 bg-background" aria-labelledby="fler-fragor">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 id="fler-fragor" className="text-2xl md:text-3xl font-bold text-foreground mb-4">Fler frågor om affärssystem och partnerval</h2>
             <nav aria-label="Ämnen" className="mb-10 rounded-lg border border-border bg-muted/40 p-5">
@@ -275,7 +275,7 @@ const QA = () => {
 
       {/* CTA Section */}
       <section className="py-10 bg-secondary/50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Har du fler frågor?

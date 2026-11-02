@@ -68,7 +68,7 @@ const D365HumanResources = () => {
       </ShortAnswer>
 
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Microsoft Dynamics 365 Human Resources
@@ -93,7 +93,7 @@ const D365HumanResources = () => {
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" showUnprofiledList={false} />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att samla HR och affärssystem?
           </h2>

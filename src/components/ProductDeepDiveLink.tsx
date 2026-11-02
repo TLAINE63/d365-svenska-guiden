@@ -15,7 +15,7 @@ export default function ProductDeepDiveLink({ product, label, count }: Props) {
 
   return (
     <section className="py-8 sm:py-10 bg-secondary/20 border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 p-5 sm:p-6 rounded border border-border bg-card">
           <BookOpen className="w-8 h-8 text-accent flex-shrink-0" />
           <div className="flex-1 min-w-0">

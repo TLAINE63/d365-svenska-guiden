@@ -74,7 +74,7 @@ const D365ProjectOperations = () => {
 
       <StandardProductSections productName="Project Operations" data={PRODUCT_STANDARD_SECTIONS["project-operations"]} />
 
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Microsoft Dynamics 365 Project Operations
@@ -100,7 +100,7 @@ const D365ProjectOperations = () => {
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" showUnprofiledList={false} />
 
       <section className="py-8 sm:py-12 md:py-16 bg-finance">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att professionalisera din projektleverans?
           </h2>

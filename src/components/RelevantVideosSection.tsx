@@ -34,7 +34,7 @@ export default function RelevantVideosSection({
 
   return (
     <section className="py-12">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-2xl">
             <h2 className="text-2xl font-bold tracking-tight">{title}</h2>

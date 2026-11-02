@@ -713,7 +713,7 @@ const ValjPartner = () => {
  </ShortAnswer>
 
  <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <h2 id="krav-pa-partner" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Vad ska du kräva av en certifierad Dynamics partner?
@@ -767,7 +767,7 @@ const ValjPartner = () => {
  </section>
 
  <section className="py-8 sm:py-10">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-4xl mx-auto rounded-lg border border-border bg-card p-6">
  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Dynamics{"\u00A0"}365 konsult eller Microsoft-partner, vad är skillnaden?
@@ -789,7 +789,7 @@ const ValjPartner = () => {
 
  {/* Fem viktiga frågor Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -908,7 +908,7 @@ const ValjPartner = () => {
 
 
  <section id="hitta-partners" className="py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
               {/* Partner Map */}
               <div className="shrink-0 w-56 md:w-72">
@@ -1276,7 +1276,7 @@ const ValjPartner = () => {
   <section className="relative py-10 sm:py-14 md:py-16 bg-[hsl(var(--hero-dark))] overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
-    <div className="relative container mx-auto px-4 sm:px-6">
+    <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
       <div className="max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-medium mb-5">
           <ArrowLeftRight className="h-4 w-4" />
@@ -1306,7 +1306,7 @@ const ValjPartner = () => {
 
   {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
  <section className="py-12 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
  Alla publicerade partnerprofiler
@@ -1390,7 +1390,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
 
  {/* CTA Section */}
  <section className="py-10 bg-secondary/50">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-3xl mx-auto">
  <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
  <div className="flex-shrink-0">

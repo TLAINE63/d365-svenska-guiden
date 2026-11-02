@@ -514,7 +514,7 @@ const KomIgang = () => {
         <SEOHead webPageSchema={false} title="Er väg vidare – d365.se" description="Anpassade rekommendationer baserat på er situation och era behov, med förslag på nästa steg." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-28 sm:pt-32 pb-10">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-6">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vårt förslag utifrån era svar</h1>
@@ -928,7 +928,7 @@ const KomIgang = () => {
         {/* Hero */}
         <section className="relative pt-24 pb-2 sm:pt-28 sm:pb-3 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
-          <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
               Hitta rätt väg för era <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-behov
             </h1>
@@ -938,7 +938,7 @@ const KomIgang = () => {
 
         {/* Wizard */}
         <section className="flex-1 py-3 sm:py-4">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               {/* Step indicator */}
               <div className="flex items-center justify-center gap-2 mb-2">

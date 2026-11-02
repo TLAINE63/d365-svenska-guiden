@@ -24,7 +24,7 @@ export default function BasicProfilesDirectory({ products, heading = "Fler aktö
   if (list.length === 0) return null;
 
   return (
-    <section aria-labelledby="grundprofiler-rubrik" className="container mx-auto px-4 py-10">
+    <section aria-labelledby="grundprofiler-rubrik" className="container mx-auto max-w-6xl px-4 sm:px-6 py-10">
       <div className="max-w-5xl mx-auto border-t border-border pt-8">
         <h2 id="grundprofiler-rubrik" className="text-lg font-semibold text-foreground">
           {heading} ({list.length})

@@ -53,7 +53,7 @@ const ContactUs = () => {
         </div>
 
         <div className="relative h-full flex items-center justify-center">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-2xl mx-auto text-center">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3 sm:mb-4 drop-shadow-lg">
                 Ett samtal innan partnerdialogen börjar
@@ -68,7 +68,7 @@ const ContactUs = () => {
 
       {/* Contact Information */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             {/* Intro */}
             <div className="mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto text-center space-y-4">

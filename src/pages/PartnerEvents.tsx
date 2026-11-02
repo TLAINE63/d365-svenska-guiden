@@ -201,7 +201,7 @@ const PartnerEvents = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main>
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-12">
           <Card className="max-w-lg mx-auto">
             <CardContent className="pt-6">
               <div className="text-center">
@@ -230,7 +230,7 @@ const PartnerEvents = () => {
       <Navbar />
       <main>
       
-      <div className="container mx-auto px-4 py-8 mt-16">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-8 mt-16">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">

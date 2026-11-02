@@ -21,7 +21,7 @@ export default function MicrosoftNewsSection({ limit = 3, className }: Props) {
 
   return (
     <section className={className ?? "py-12 border-b border-border bg-muted/30"}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-foreground">Nyheter från Microsoft</h2>

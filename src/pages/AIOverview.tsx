@@ -271,7 +271,7 @@ const AIOverview = () => {
   </div>
   </section>
 
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
 
  {/* Copilot vs Agenter */}
  <section className="max-w-4xl mx-auto mb-20">

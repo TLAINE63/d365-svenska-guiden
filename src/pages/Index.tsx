@@ -755,7 +755,7 @@ const Index = () => {
 
         {/* FAQ */}
         <section id="questions" className="section-divider py-12 sm:py-16 bg-background">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">De 5 vanligaste frågorna om Dynamics 365</h2>
             <p className="text-center text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">
               Ärliga svar om pris, val, partner och AI. Varje svar får en kort video från Microsoft eller ledande experter.

@@ -130,7 +130,7 @@ const D365Marketing = () => {
 
       {/* Video Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Se Dynamics 365 Customer Insights i aktion
@@ -147,7 +147,7 @@ const D365Marketing = () => {
 
       {/* FAQ Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
               Vanliga frågor om Customer Insights
@@ -196,7 +196,7 @@ const D365Marketing = () => {
 
       {/* Pricing Section */}
       <section id="pricing" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
               <img src={MarketingIcon} alt="Dynamics 365 Customer Insights – Journeys (Marketing)" className="h-12 w-12" />
@@ -221,7 +221,7 @@ const D365Marketing = () => {
 
       {/* Implementation Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Hur lång tid tar en implementation och vad ligger kostnaden på?

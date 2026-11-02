@@ -437,7 +437,7 @@ const CRM = () => {
 
  {/* FAQ Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
  Vanliga frågor om Microsoft Dynamics 365 CRM
@@ -605,7 +605,7 @@ const CRM = () => {
 
  {/* Partners Section */}
  <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
  Partners och kompetens för Dynamics 365 CRM
@@ -794,7 +794,7 @@ const CRM = () => {
 
  {/* CTA Section */}
  <section className="py-10 bg-background">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-3xl mx-auto text-center">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
  Så går du vidare med Dynamics 365 CRM

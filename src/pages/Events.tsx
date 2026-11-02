@@ -173,7 +173,7 @@ const Events = () => {
  <BreadcrumbSchema items={eventsBreadcrumbs} />
  <Navbar />
  <main>
- <div className="container mx-auto px-4 py-10 mt-16">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-10 mt-16">
  <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
  Dynamics 365 webinars och seminarier
  </h1>
@@ -233,7 +233,7 @@ const Events = () => {
  />
  <div className="absolute inset-0 bg-gradient-to-r from-violet-900/90 via-purple-800/80 to-violet-900/70" />
  
- <div className="relative container mx-auto px-4 text-center">
+ <div className="relative container mx-auto max-w-6xl px-4 sm:px-6 text-center">
  <Badge className="mb-4 bg-white/20 text-white border-white/30">
  <CalendarDays className="w-3 h-3 mr-1" />
  Partner-events
@@ -252,7 +252,7 @@ const Events = () => {
 
  {/* Events Content */}
  <section className="py-12">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <Tabs defaultValue="upcoming" className="max-w-4xl mx-auto">
  <TabsList className="grid w-full grid-cols-2 mb-8">
  <TabsTrigger value="upcoming" className="gap-2">

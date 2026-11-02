@@ -167,7 +167,7 @@ const NavTillBusinessCentral = () => {
       <main>
         {/* Hero */}
         <section ref={heroRef} className="pt-24 pb-12 sm:pt-28 sm:pb-16 bg-muted/30 border-b border-border">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <nav aria-label="Brödsmulor" className="mb-6 text-sm text-muted-foreground">
                 <ol className="flex flex-wrap items-center gap-1">
@@ -223,7 +223,7 @@ const NavTillBusinessCentral = () => {
 
         {/* Tre vägar */}
         <section className="py-14 sm:py-16">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
                 Tre vägar från Navision och Dynamics NAV till Business Central
@@ -283,7 +283,7 @@ const NavTillBusinessCentral = () => {
 
         {/* Testsektion */}
         <section id={TEST_ID} className="py-14 sm:py-16 bg-muted/30 border-y border-border scroll-mt-24">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
                 Test: Vilken väg från NAV till Business Central passar ert företag?
@@ -301,7 +301,7 @@ const NavTillBusinessCentral = () => {
 
         {/* Fördjupning */}
         <article className="py-14 sm:py-16">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl mx-auto space-y-14">
               <section>
                 <h2 className="text-2xl font-bold text-foreground">

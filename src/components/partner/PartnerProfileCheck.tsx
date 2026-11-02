@@ -272,7 +272,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
 
   return (
     <section id="profilkoll" className="py-14 md:py-20 scroll-mt-24">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
             Kostnadsfri profilkoll

@@ -223,7 +223,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
 
   return (
     <section ref={sectionRef} className="py-14 md:py-20 bg-secondary/20 border-y border-border">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
           Hur står sig din profil när kunden jämför?
         </h2>
