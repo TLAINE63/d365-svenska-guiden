@@ -300,6 +300,7 @@ const BusinessCentral = () => {
   primary={{ label: "Passar Business Central oss?", href: "#bc-passform" }}
   secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
   tertiary={{ label: "Jämför Business Central med andra affärssystem", href: "#bc-jamforelse" }}
+  quaternary={{ label: "Hitta rätt Business Central-partner", href: "#partners" }}
     />
   <div className="xl:flex">
   <ProductSectionNav title="På sidan" items={BC_SECTIONS} />

@@ -55,7 +55,7 @@ const D365Commerce = () => {
         titleAccent="Butik, e-handel och kundklubb i en plattform – när partnern kan retail."
         subhead="Commerce är Microsofts svar på det fragmenterade retail-landskapet där separata system för kassa, e-handel, lager och CRM skapar dubbla prislistor, fel saldon och en kundupplevelse som spricker mellan kanalerna. Plattformen är kraftfull – men exceptionellt komplex att implementera. Skillnaden mellan ett retail-projekt som lyfter omsättningen och ett som blir en mardröm ligger i partnerns retail-erfarenhet: kan de POS, lojalitet, kampanjlogik, BOPIS-flöden och integration mot dina logistikpartners?"
         primary={{
-          label: "Jämför Commerce-partners",
+          label: "Hitta rätt Commerce-partner",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}

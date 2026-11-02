@@ -59,7 +59,7 @@ const D365ProjectOperations = () => {
         titleAccent="Projekt, resurser och ekonomi i ett sammanhang – när partnern kan din leveransmodell."
         subhead="Project Operations är inte ett verktyg du installerar och kör igång – det är en spegling av hur ditt tjänsteföretag säljer, bemannar och fakturerar projekt. Skillnaden mellan ett system som verkligen lyfter marginalen och ett som bara ersätter Excel ligger i partnervalet: en partner som förstår tid & utlägg, resursoptimering, work-in-progress, milstolps­fakturering och hur det hänger ihop med din ERP är guld värd."
         primary={{
-          label: "Jämför Project Operations-partners",
+          label: "Hitta rätt Project Operations-partner",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
