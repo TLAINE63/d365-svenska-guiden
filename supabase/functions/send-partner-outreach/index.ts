@@ -334,7 +334,7 @@ Deno.serve(async (req) => {
     // Admin-flöde: lista och skicka expertprofilmejl direkt till partnerna.
     // Månadsbrevet (lista, förhandsgranska, testutskick som endast går till REVIEW_RECIPIENT)
     // är även öppet för redaktörer (/redaktion). Expertutskicken går till partnerna och förblir admin-only.
-    const NEWSLETTER_ACTIONS = ["newsletter-send", "newsletter-list", "newsletter-preview", "newsletter-save"];
+    const NEWSLETTER_ACTIONS = ["newsletter-send", "newsletter-list", "newsletter-preview", "newsletter-save", "newsletter-archive"];
     if (["expert-list", "expert-send", "expert-mark-sent", ...NEWSLETTER_ACTIONS].includes(rawBody?.action)) {
       const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
       const allowedRoles = NEWSLETTER_ACTIONS.includes(rawBody.action) ? ["admin", "editor"] : ["admin"];
@@ -344,7 +344,7 @@ Deno.serve(async (req) => {
       const sb = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
       const { data: partners, error: pErr } = await sb
         .from("partners")
-        .select("id,name,admin_contact_email,email,partner_invitations(token,status,expires_at,created_at)")
+        .select("id,name,slug,admin_contact_email,email,partner_invitations(token,status,expires_at,created_at)")
         .eq("is_featured", true)
         .order("name");
       if (pErr) throw pErr;
@@ -359,7 +359,7 @@ Deno.serve(async (req) => {
           .sort((a: any, b: any) => b.created_at.localeCompare(a.created_at))[0];
         const last = (logs ?? []).find((l: any) => l.metadata?.partner_id === p.id && l.status === "sent");
         return {
-          id: p.id, name: p.name,
+          id: p.id, name: p.name, slug: (p.slug as string | null) ?? null,
           email: (p.admin_contact_email || p.email || "").trim() || null,
           token: inv?.token ?? null,
           last_sent_at: last?.created_at ?? null,
