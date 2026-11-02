@@ -81,7 +81,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service räknas som en CRM-enhet), exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service räknas som en CRM-enhet), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: ni betalar för 10 månader och får 12, det vill säga 9 950 kr per år för ett produktområde, 15 950 kr för två och 19 950 kr för tre. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
@@ -597,7 +597,7 @@ const Partnerprogram = () => {
             publiceras som Standard utan avgift. Premium är ett frivilligt tillägg för den som vill ha en
             utökad presentation. Ingen av nivåerna påverkar relevansordningen, och verifiering kan inte köpas.
           </p>
-          <div className="grid gap-5 md:grid-cols-2 max-w-4xl">
+          <div className="grid gap-5 md:grid-cols-3 items-stretch">
             <div className="rounded-xl border border-border bg-card p-6">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Standard</h3>
               <p className="text-3xl font-bold text-foreground mb-3">0 kr</p>
@@ -616,10 +616,24 @@ const Partnerprogram = () => {
                 räknas som en CRM-enhet).
               </p>
             </div>
+            <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg">
+              <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+                Populärast
+              </span>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-2">Premium År</h3>
+              <p className="text-3xl font-bold text-foreground mb-1">från 9&nbsp;950 kr/år</p>
+              <p className="text-xs text-muted-foreground mb-3">exkl. moms, 2 månader ingår utan kostnad</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Samma innehåll som Premium, med årsvis betalning i förskott. Ni betalar för 10 månader och
+                får 12 månaders Premium. Pris per år: 9&nbsp;950&nbsp;kr för ett produktområde, 15&nbsp;950&nbsp;kr för
+                två och 19&nbsp;950&nbsp;kr för tre.
+              </p>
+            </div>
           </div>
           <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
-            Premium faktureras månadsvis i efterskott och priserna anges exklusive moms.
-            Uppsägningstiden är 3 månader och ska meddelas i god tid före varje kvartals början.
+            Premium faktureras månadsvis i efterskott och Premium År faktureras årsvis i förskott. Alla priser
+            anges exklusive moms. För Premium är uppsägningstiden 3 månader och ska meddelas i god tid före
+            varje kvartals början.
           </p>
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
