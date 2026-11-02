@@ -17,7 +17,7 @@ const RelatedPages = ({ heading = "Utforska vidare", pages }: RelatedPagesProps)
 
   return (
     <section className="py-8 sm:py-12 bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
           {heading}
         </h2>
