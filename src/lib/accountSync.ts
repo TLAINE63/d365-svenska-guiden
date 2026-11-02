@@ -101,10 +101,36 @@ export function initAccountSync() {
 
 export async function flushAccountSync() { await push(); }
 
-/** Rensar plan, kortlista, kalkyler och köparkontext lokalt och på kontot. */
+/** Lokala guidesvar som inte synkas men ska rensas vid nollställning. */
+export const LOCAL_RESET_KEYS = [
+  "d365_systemval_v1",
+  "d365_systemval_deep_v1",
+  "d365_systemval_handover_v1",
+  "d365_sales_matchningstest_v1",
+  "d365_marketing_matchningstest_v1",
+  "d365_customerservice_matchningstest_v1",
+  "d365_fieldservice_matchningstest_v1",
+  "d365_contactcenter_matchningstest_v1",
+  "d365_lead_profile_v1",
+  "beslutsmognadsindex_draft",
+] as const;
+
+const SESSION_RESET_KEYS = [
+  "d365_partner_need",
+  "d365_expert_requirement",
+  "d365_partner_search_started",
+  "d365_expert_search_started",
+  "d365_solution_journey_started",
+  "d365_cost_journey_started",
+];
+
+/** Rensar plan, kortlista, kalkyler, köparkontext och guidesvar lokalt och på kontot. */
 export async function resetBuyerState() {
-  for (const k of SYNCED_KEYS) {
+  for (const k of [...SYNCED_KEYS, ...LOCAL_RESET_KEYS]) {
     try { localStorage.removeItem(k); } catch { /* ignore */ }
+  }
+  for (const k of SESSION_RESET_KEYS) {
+    try { sessionStorage.removeItem(k); } catch { /* ignore */ }
   }
   await push();
 }
