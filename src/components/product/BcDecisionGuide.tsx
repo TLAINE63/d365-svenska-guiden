@@ -9,6 +9,9 @@ const needs = [
   ["Inköp", "Följ inköpsbehov, leverantörer och varumottagning i samma flöde."],
   ["Lager", "Få en gemensam bild av artiklar, tillgänglighet och lagertransaktioner."],
   ["Projekt", "Följ budget, tid, inköp och resultat per projekt."],
+  ["Produktion", "Planera tillverkning med strukturer, operationer och produktionsorder kopplade till lager och inköp."],
+  ["Serviceorder", "Hantera serviceärenden, serviceavtal och tekniker med koppling till artiklar och fakturering."],
+  ["Copilot och agenter", "Använd inbyggd AI för förslag, sammanfattningar och agenter som tar hand om rutinuppgifter, till exempel inköpsorder från e-post."],
   ["Rapportering", "Samla underlag för uppföljning utan återkommande manuella sammanställningar."],
 ];
 
