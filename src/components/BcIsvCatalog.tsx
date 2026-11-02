@@ -580,6 +580,8 @@ interface BcIsvCatalogProps {
   defaultCategories?: string[];
   /** Förvalda Customer Engagement-applikationer. */
   defaultCeApps?: string[];
+  /** Förvald leverantör (exakt namn). */
+  defaultVendor?: string;
 }
 
 const slugify = (v: string) =>
@@ -592,6 +594,7 @@ const BcIsvCatalog = ({
   defaultQuery = "",
   defaultCategories = [],
   defaultCeApps = [],
+  defaultVendor = "",
 }: BcIsvCatalogProps = {}) => {
   const [cats, setCats] = useState<Set<string>>(new Set(defaultCategories));
   const [ceSel, setCeSel] = useState<Set<CeApp>>(
@@ -602,6 +605,7 @@ const BcIsvCatalog = ({
   const [focus, setFocus] = useState<Set<FocusFilter>>(new Set());
   const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
   const [query, setQuery] = useState(defaultQuery);
+  const [vendorSel, setVendorSel] = useState(defaultVendor);
   const [groupByVendor, setGroupByVendor] = useState(false);
   const [open, setOpen] = useState<IsvSolution | null>(null);
   const [autoOpened, setAutoOpened] = useState(false);
@@ -667,12 +671,13 @@ const BcIsvCatalog = ({
     };
   }, [scoped]);
 
-  type Facet = "products" | "industries" | "cats";
+  type Facet = "products" | "industries" | "cats" | "vendor";
   // skip = facetten vars egna knappar räknas, så antal speglar övriga aktiva val.
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
     const synCats = categoriesForQuery(q);
     return (s: IsvSolution, skip?: Facet) => {
+      if (skip !== "vendor" && vendorSel && s.vendor.trim() !== vendorSel) return false;
       if (skip !== "cats" && cats.size && !cats.has(s.category)) return false;
       // Informationsstatus ändrar bara urvalet, aldrig ordningen.
       if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
@@ -717,7 +722,7 @@ const BcIsvCatalog = ({
       }
       return true;
     };
-  }, [cats, deliveries, industries, focus, products, ceSel, query, statusSel]);
+  }, [cats, deliveries, industries, focus, products, ceSel, query, statusSel, vendorSel]);
 
   const filtered = useMemo(() => scoped.filter((s) => matches(s)), [scoped, matches]);
 
@@ -726,6 +731,7 @@ const BcIsvCatalog = ({
     const prod = new Map<string, number>();
     const ind = new Map<string, number>();
     const cat = new Map<string, number>();
+    const ven = new Map<string, number>();
     let prodAll = 0;
     for (const s of scoped) {
       if (matches(s, "products")) {
@@ -734,9 +740,19 @@ const BcIsvCatalog = ({
       }
       if (matches(s, "industries")) for (const i of solutionIndustries(s)) ind.set(i.name, (ind.get(i.name) || 0) + 1);
       if (matches(s, "cats") && s.category) cat.set(s.category, (cat.get(s.category) || 0) + 1);
+      if (matches(s, "vendor")) {
+        const v = s.vendor.trim();
+        if (v) ven.set(v, (ven.get(v) || 0) + 1);
+      }
     }
-    return { prod, ind, cat, prodAll };
+    return { prod, ind, cat, ven, prodAll };
   }, [scoped, matches]);
+
+  // Alla leverantörer i katalogen, alfabetiskt; antal räknas om efter övriga val.
+  const vendorOptions = useMemo(
+    () => [...new Set(scoped.map((s) => s.vendor.trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b, "sv")),
+    [scoped]
+  );
 
   // Köparbehov (grupper av kategorier) sorterade efter träffar för aktiva val; valda behov hålls synliga.
   const needCount = (id: string) => {
@@ -811,6 +827,7 @@ const BcIsvCatalog = ({
     ceSel.size +
     (showProductFilter ? products.size : 0) +
     statusSel.size +
+    (vendorSel ? 1 : 0) +
     (query.trim() ? 1 : 0);
 
   const clearAll = () => {
@@ -820,6 +837,7 @@ const BcIsvCatalog = ({
     setFocus(new Set());
     setCeSel(new Set());
     setQuery("");
+    setVendorSel("");
     if (showProductFilter) setProducts(new Set());
     setStatusSel(new Set());
   };
@@ -982,6 +1000,42 @@ const BcIsvCatalog = ({
               imageFor={(n) => INDUSTRY_IMAGES[INDUSTRY_SLUG_BY_NAME.get(n) || ""]}
               countFor={(n) => facetCounts.ind.get(n) || 0}
             />
+          </section>
+
+          <section aria-labelledby="isv-step-vendor" className="pt-5 border-t border-border/60">
+            <h3 id="isv-step-vendor" className="text-sm font-semibold text-foreground mb-1">
+              {showProductFilter ? "4. " : ""}Leverantör <span className="font-normal text-muted-foreground">(valfritt)</span>
+            </h3>
+            <p className="text-xs text-muted-foreground mb-3">
+              Många leverantörer har flera tillägg. Välj en leverantör för att se alla deras lösningar.
+            </p>
+            <div className="flex items-center gap-2">
+              <select
+                value={vendorSel}
+                onChange={(e) => setVendorSel(e.target.value)}
+                aria-label="Välj leverantör"
+                className="w-full sm:w-80 py-2 px-3 text-sm rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              >
+                <option value="">Alla leverantörer ({vendorOptions.length})</option>
+                {vendorOptions.map((v) => {
+                  const n = facetCounts.ven.get(v) || 0;
+                  return (
+                    <option key={v} value={v} disabled={n === 0 && v !== vendorSel}>
+                      {v} ({n})
+                    </option>
+                  );
+                })}
+              </select>
+              {vendorSel && (
+                <button
+                  type="button"
+                  onClick={() => setVendorSel("")}
+                  className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                >
+                  <X className="w-3.5 h-3.5" /> Rensa
+                </button>
+              )}
+            </div>
           </section>
 
           <details className="pt-5 border-t border-border/60 group" open={deliveries.size + focus.size + ceSel.size > 0 || undefined}>

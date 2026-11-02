@@ -57,28 +57,9 @@ const D365TillaggKatalog = () => {
             <p className="text-muted-foreground leading-relaxed">
               Här samlar vi ISV-lösningar som kompletterar Dynamics 365 – från fakturahantering och
               WMS till EDI, lokalisering och branschpaket. Välj
-              ert system, vad ni behöver lösa och gärna bransch.
+              ert system, vad ni behöver lösa och gärna bransch eller leverantör.
             </p>
           </header>
-
-          <nav aria-label="Välj ingång" className="grid gap-3 sm:grid-cols-2 mb-8">
-            {[
-              { t: "Vi saknar en funktion", d: "Välj ert system och beskriv behovet nedan.", to: "#isv-step-need" },
-              { t: "Vi funderar på Dynamics\u00A0365", d: "Börja med behovsguiden, tilläggen kommer senare.", to: "/kom-igang/" },
-            ].map((e) =>
-              e.to.startsWith("#") ? (
-                <a key={e.t} href={e.to} className="rounded-lg border border-border bg-card p-4 hover:border-primary/50 transition-colors">
-                  <span className="block font-semibold text-foreground text-sm">{e.t}</span>
-                  <span className="block text-xs text-muted-foreground mt-1">{e.d}</span>
-                </a>
-              ) : (
-                <Link key={e.t} to={e.to} className="rounded-lg border border-border bg-card p-4 hover:border-primary/50 transition-colors">
-                  <span className="block font-semibold text-foreground text-sm">{e.t}</span>
-                  <span className="block text-xs text-muted-foreground mt-1">{e.d}</span>
-                </Link>
-              )
-            )}
-          </nav>
 
           <h2 className="sr-only">Tilläggslösningar per leverantör</h2>
           <BcIsvCatalog
@@ -88,6 +69,7 @@ const D365TillaggKatalog = () => {
             defaultQuery={defaultQuery}
             defaultCategories={defaultCategories}
             defaultCeApps={defaultCeApps}
+            defaultVendor={params.get("leverantor") || ""}
           />
         </div>
       <ContextualCta source="next-step:tillagg-katalog" heading="Hittat tillägg ni behöver?" text="Tillägg installeras nästan alltid av en partner. Se vilka partners som passar er lösning och bransch." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Business Central-tillägg per kategori", to: "/business-central/tillagg/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
