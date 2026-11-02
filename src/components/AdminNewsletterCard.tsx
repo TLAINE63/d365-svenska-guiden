@@ -17,7 +17,25 @@ const REVIEWER = "thomas.laine@dynamicfactory.se";
 const EMPTY: Content = { subject: "", summary: "", body: "", stats_month: null };
 const norm = (c: Content): Content => ({ subject: c.subject, summary: c.summary, body: c.body, stats_month: c.stats_month || null });
 
+type Audience = "verified" | "unverified";
+
+/** Två separata brev: verifierade (egen statistik) och ej verifierade (samlade siffror, partnerprogrammet). */
 export default function AdminNewsletterCard({ token }: { token: string | null }) {
+  const [audience, setAudience] = useState<Audience>("verified");
+  return (
+    <div className="space-y-3">
+      <div className="inline-flex rounded-md border p-1" role="group" aria-label="Mottagare för månadsbrevet">
+        {([["verified", "Verifierade partners"], ["unverified", "Ej verifierade partners"]] as const).map(([k, l]) => (
+          <Button key={k} size="sm" variant={audience === k ? "default" : "ghost"} aria-pressed={audience === k} onClick={() => setAudience(k)}>{l}</Button>
+        ))}
+      </div>
+      <NewsletterEditor key={audience} token={token} audience={audience} />
+    </div>
+  );
+}
+
+function NewsletterEditor({ token, audience }: { token: string | null; audience: Audience }) {
+  const unv = audience === "unverified";
   const { toast } = useToast();
   const [partners, setPartners] = useState<P[]>([]);
   const [partnerId, setPartnerId] = useState("");
@@ -35,7 +53,7 @@ export default function AdminNewsletterCard({ token }: { token: string | null })
   const dirty = JSON.stringify(norm(content)) !== JSON.stringify(norm(saved));
 
   const call = async (body: Record<string, unknown>) => {
-    const { data, error } = await supabase.functions.invoke("send-partner-outreach", { body: { token, ...body } });
+    const { data, error } = await supabase.functions.invoke("send-partner-outreach", { body: { token, audience, ...body } });
     if (error || (data as any)?.error) {
       toast({ title: "Något gick fel", description: (data as any)?.error || error?.message, variant: "destructive" });
       return null;
@@ -123,9 +141,9 @@ export default function AdminNewsletterCard({ token }: { token: string | null })
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Månadsbrev till publicerade partners</CardTitle>
+        <CardTitle>{unv ? "Månadsbrev till ej verifierade partners" : "Månadsbrev till publicerade partners"}</CardTitle>
         <CardDescription>
-          Redigera brevet, förhandsgranska per partner och gör testutskick. Testmejl går endast till {REVIEWER}, inget skickas till partnerna.
+          {unv ? "Samlade siffror för hela sajten, inga siffror per partner. Knappen leder till partnerprogrammet. " : ""}Redigera brevet, förhandsgranska per partner och gör testutskick. Testmejl går endast till {REVIEWER}, inget skickas till partnerna.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -135,11 +153,11 @@ export default function AdminNewsletterCard({ token }: { token: string | null })
               <label className="text-sm font-medium" htmlFor="nl-subject">Ämnesrad</label>
               <Input id="nl-subject" value={content.subject} onChange={set("subject")} maxLength={200} />
             </div>
-            <div className="space-y-1">
+            {!unv && <div className="space-y-1">
               <label className="text-sm font-medium" htmlFor="nl-month">Statistikmånad (partnerns egen statistik)</label>
               <Input id="nl-month" type="month" className="w-48" value={content.stats_month || ""} onChange={set("stats_month")} />
               <p className="text-xs text-muted-foreground">Varje partner får sina egna siffror för månaden, jämfört med månaden före.</p>
-            </div>
+            </div>}
             <div className="space-y-1">
               <label className="text-sm font-medium" htmlFor="nl-summary">Sammanfattning överst (visas i rutan ovanför knappen)</label>
               <Textarea id="nl-summary" value={content.summary} onChange={set("summary")} rows={5} />
