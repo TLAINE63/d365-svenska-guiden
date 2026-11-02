@@ -61,6 +61,26 @@ const D365TillaggKatalog = () => {
             </p>
           </header>
 
+          <nav aria-label="Välj ingång" className="grid gap-3 sm:grid-cols-3 mb-8">
+            {[
+              { t: "Vi saknar en funktion", d: "Välj ert system och beskriv behovet nedan.", to: "#isv-step-need" },
+              { t: "Vi vill lägga till en Dynamics\u00A0365-app", d: "Jämför apparna innan ni väljer tillägg.", to: "/jamfor/" },
+              { t: "Vi funderar på Dynamics\u00A0365", d: "Börja med behovsguiden, tilläggen kommer senare.", to: "/kom-igang/" },
+            ].map((e) =>
+              e.to.startsWith("#") ? (
+                <a key={e.t} href={e.to} className="rounded-lg border border-border bg-card p-4 hover:border-primary/50 transition-colors">
+                  <span className="block font-semibold text-foreground text-sm">{e.t}</span>
+                  <span className="block text-xs text-muted-foreground mt-1">{e.d}</span>
+                </a>
+              ) : (
+                <Link key={e.t} to={e.to} className="rounded-lg border border-border bg-card p-4 hover:border-primary/50 transition-colors">
+                  <span className="block font-semibold text-foreground text-sm">{e.t}</span>
+                  <span className="block text-xs text-muted-foreground mt-1">{e.d}</span>
+                </Link>
+              )
+            )}
+          </nav>
+
           <h2 className="sr-only">Tilläggslösningar per leverantör</h2>
           <BcIsvCatalog
             showProductFilter
