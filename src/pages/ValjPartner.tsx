@@ -1,6 +1,6 @@
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import ContextualCta from "@/components/ContextualCta";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -632,24 +632,12 @@ const ValjPartner = () => {
   trackPartnerFunnel("partner_verification_filter_applied", { information_status: next ?? "alla" });
  };
 
- // Från startsidans sökruta och val "En Dynamics 365-partner": landa direkt på partnerlistan.
- // Hashen fångas vid första render, eftersom filtersynken i URL:en (setSearchParams) tar bort den.
- const scrollToListRef = useRef(location.hash === "#hitta-partners");
+ // Från startsidans val "En Dynamics 365-partner": landa direkt på steg 1.
  useEffect(() => {
-  if (location.hash === "#hitta-partners") scrollToListRef.current = true;
- }, [location.hash]);
- useEffect(() => {
-  if (isLoading || !scrollToListRef.current) return;
-  scrollToListRef.current = false;
-  // Med valt produktområde visas resultat direkt: landa vid listan. Annars vid filtren.
-  const target = selectedApplications.length > 0 ? "partner-resultat" : "hitta-partners";
-  const go = () => document.getElementById(target)?.scrollIntoView({ block: "start" });
-  const t1 = window.setTimeout(go, 60);
-  // Ny scroll när bilder och kort har laddat klart, så listan inte hamnar fel.
-  const t2 = window.setTimeout(go, 600);
-  return () => { window.clearTimeout(t1); window.clearTimeout(t2); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  if (isLoading || location.hash !== "#hitta-partners") return;
+  const t = window.setTimeout(() => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" }), 60);
+  return () => window.clearTimeout(t);
+  }, [isLoading, location.hash]);
 
  // Basic-partners (observerad data) som matchar samma filter
   const filteredBasicPartners = useMemo(

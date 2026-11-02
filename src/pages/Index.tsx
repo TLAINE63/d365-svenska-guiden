@@ -193,7 +193,8 @@ const Index = () => {
     if (heroProduct && APPS[heroProduct]) qs.set("apps", APPS[heroProduct]);
     if (heroIndustry) qs.set("industry", heroIndustry);
     const q = qs.toString();
-    navigate(`/valjdynamics365partner/${q ? `?${q}` : ""}#hitta-partners`);
+    // Med vald lösning visas resultat direkt: landa vid listan, annars vid filtren.
+    navigate(`/valjdynamics365partner/${q ? `?${q}` : ""}${qs.has("apps") ? "#partner-resultat" : "#hitta-partners"}`);
   };
 
 
