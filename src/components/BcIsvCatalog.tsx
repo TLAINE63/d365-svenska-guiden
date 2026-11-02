@@ -24,6 +24,10 @@ import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
 import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
+import { D365_PRODUCT_BRANDING } from "@/data/d365ProductBranding";
+import { INDUSTRY_IMAGES } from "@/data/industryImages";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { standardIndustriesFor } from "@/lib/isvIndustries";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import {
@@ -51,6 +55,11 @@ const withUtm = (url: string) => {
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
   s.products?.length ? s.products : ["Business Central"];
+
+/** Lösningens branschtaggar översatta till /branscher/-branscher. */
+const solutionIndustries = (s: IsvSolution) =>
+  standardIndustriesFor([...(s.industries || []), ...(s.industryFocus || [])]);
+const INDUSTRY_SLUG_BY_NAME = new Map(STANDARD_INDUSTRIES.map((i) => [i.name, i.slug]));
 
 const model = (s: IsvSolution): DeliveryModel => s.deliveryModel || deliveryModelFromType(s.type);
 
@@ -86,6 +95,9 @@ function FilterRow<T extends string>({
   onToggle,
   onClear,
   labelFor,
+  iconFor,
+  imageFor,
+  countFor,
 }: {
   label: string;
   options: readonly T[];
@@ -94,6 +106,12 @@ function FilterRow<T extends string>({
   onClear: () => void;
   /** Visningstext när värdet är internt (t.ex. leveransform). */
   labelFor?: (v: T) => string;
+  /** Liten produktlogotyp före texten. */
+  iconFor?: (v: T) => string | undefined;
+  /** Rund miniatyrbild före texten (branschbild). */
+  imageFor?: (v: T) => string | undefined;
+  /** Antal träffar; 0 inaktiverar knappen. */
+  countFor?: (v: T) => number;
 }) {
 
   const allActive = selected.size === 0;
@@ -118,18 +136,26 @@ function FilterRow<T extends string>({
         </button>
         {options.map((opt) => {
           const active = selected.has(opt);
+          const icon = iconFor?.(opt);
+          const image = imageFor?.(opt);
+          const count = countFor?.(opt);
+          const empty = count === 0 && !active;
           return (
             <button
               key={opt}
               type="button"
               onClick={() => onToggle(opt)}
-              className={`px-3.5 py-1.5 text-xs font-medium rounded-full border transition-all ${
+              disabled={empty}
+              className={`inline-flex items-center gap-2 ${image ? "pl-1 pr-3.5 py-1" : icon ? "px-3 py-1.5" : "px-3.5 py-1.5"} text-xs font-medium rounded-full border transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
                 active
                   ? "bg-primary/10 text-primary border-primary/30 font-semibold"
                   : "bg-background text-foreground border-border hover:border-primary/40 hover:bg-muted/50"
               }`}
             >
-              {labelFor ? labelFor(opt) : opt}
+              {image && <img src={image} alt="" loading="lazy" className="w-6 h-6 rounded-full object-cover shrink-0" />}
+              {icon && <img src={icon} alt="" loading="lazy" className="w-4 h-4 object-contain shrink-0" />}
+              <span>{labelFor ? labelFor(opt) : opt}</span>
+              {count !== undefined && <span className="text-muted-foreground font-normal">{count}</span>}
 
             </button>
           );
@@ -141,7 +167,7 @@ function FilterRow<T extends string>({
 
 const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => {
   const products = solutionProducts(s);
-  const industries = (s.industryFocus?.length ? s.industryFocus : s.industries) || [];
+  const industries = solutionIndustries(s).map((i) => i.name);
   const partnerCount = (s.partnerSlugs?.length || 0) || s.partnersSE?.length || 0;
   const useCases = (s.useCases || []).slice(0, 3);
   const initials = s.vendor.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
@@ -386,14 +412,16 @@ const SolutionDetail = ({
                   </div>
                 </div>
               )}
-              {(s.industryFocus?.length || s.industries?.length) ? (
+              {solutionIndustries(s).length ? (
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Branscher</h4>
                   <div className="flex flex-wrap gap-1.5">
-                    {[...new Set([...(s.industryFocus || []), ...(s.industries || [])])].map((i) => (
-                      <Badge key={i} variant="outline" className="text-[11px]">
-                        {i}
-                      </Badge>
+                    {solutionIndustries(s).map((i) => (
+                      <Link key={i.slug} to={`/branscher/${i.slug}/`}>
+                        <Badge variant="outline" className="text-[11px] hover:border-primary/40">
+                          {i.name}
+                        </Badge>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -614,16 +642,13 @@ const BcIsvCatalog = ({
   // Filteralternativ byggs från det som faktiskt finns i katalogen.
   const options = useMemo(() => {
     const catSet = new Set<string>();
-    const indSet = new Set<string>();
+    const indCount = new Map<string, number>();
     const delSet = new Set<DeliveryModel>();
     const ceSet = new Set<CeApp>();
     for (const s of scoped) {
       for (const a of ceApps(s)) ceSet.add(a);
       if (s.category) catSet.add(s.category);
-      for (const i of [...(s.industries || []), ...(s.industryFocus || [])]) {
-        // "Alla"/"Generell" är inte egna branscher och krockar med Alla-knappen.
-        if (i && !/^(alla|generell)$/i.test(i.trim())) indSet.add(i.trim());
-      }
+      for (const i of solutionIndustries(s)) indCount.set(i.name, (indCount.get(i.name) || 0) + 1);
 
       delSet.add(model(s));
     }
@@ -633,7 +658,9 @@ const BcIsvCatalog = ({
     };
     return {
       categories: [...catSet].sort((a, b) => catOrder(a) - catOrder(b) || a.localeCompare(b, "sv")),
-      industries: [...indSet].sort((a, b) => a.localeCompare(b, "sv")),
+      // Samma branscher och ordning som /branscher/.
+      industries: STANDARD_INDUSTRIES.map((i) => i.name),
+      industryCount: indCount,
       deliveries: DELIVERY_MODELS.filter((d) => delSet.has(d)),
       ceApps: CE_APPS.filter((a) => ceSet.has(a)),
     };
@@ -647,8 +674,7 @@ const BcIsvCatalog = ({
       if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
       if (deliveries.size && !deliveries.has(model(s))) return false;
       if (industries.size) {
-        const all = [...(s.industries || []), ...(s.industryFocus || [])];
-        if (!all.some((i) => industries.has(i))) return false;
+        if (!solutionIndustries(s).some((i) => industries.has(i.name))) return false;
       }
       if (focus.size) {
         const ok =
@@ -677,6 +703,7 @@ const BcIsvCatalog = ({
           ...(s.useCases || []),
           ...(s.industries || []),
           ...(s.industryFocus || []),
+          ...solutionIndustries(s).map((i) => i.name),
           ...solutionProducts(s),
           ...ceApps(s).map((a) => CE_APP_LABEL[a]),
         ]
@@ -800,6 +827,8 @@ const BcIsvCatalog = ({
                 selected={products}
                 onToggle={toggle(products, setProducts)}
                 onClear={() => setProducts(new Set())}
+                labelFor={(p) => D365_PRODUCT_BRANDING[p]?.label || p}
+                iconFor={(p) => D365_PRODUCT_BRANDING[p]?.icon}
               />
               <div className="h-px bg-border/60" />
             </>
@@ -849,6 +878,8 @@ const BcIsvCatalog = ({
             selected={industries}
             onToggle={toggle(industries, setIndustries)}
             onClear={() => setIndustries(new Set())}
+            imageFor={(n) => INDUSTRY_IMAGES[INDUSTRY_SLUG_BY_NAME.get(n) || ""]}
+            countFor={(n) => options.industryCount.get(n) || 0}
           />
           <div className="h-px bg-border/60" />
           {/* Enda statusfiltret för köpare: endast verifierade av d365.se. Ändrar bara urvalet, aldrig ordningen. */}
