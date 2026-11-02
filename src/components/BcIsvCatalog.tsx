@@ -23,7 +23,6 @@ import { useIsvSolutions, useIsvVendors, type IsvVendorPublic } from "@/hooks/us
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
-import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 import { D365_PRODUCT_BRANDING } from "@/data/d365ProductBranding";
 import { INDUSTRY_IMAGES } from "@/data/industryImages";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
