@@ -25,7 +25,8 @@ export function ProductSectionNav({ items, title }: { items: ProductSectionNavIt
 
   return (
     <>
-      <nav aria-label={title} className="hidden xl:block fixed left-6 top-28 z-30 w-48">
+      <aside className="hidden xl:block w-56 shrink-0 border-r border-border pl-6 pr-4 pt-10">
+      <nav aria-label={title} className="sticky top-28">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</p>
         <ul className="space-y-1 border-l border-border">
           {items.map((i) => (
@@ -43,6 +44,7 @@ export function ProductSectionNav({ items, title }: { items: ProductSectionNavIt
           ))}
         </ul>
       </nav>
+      </aside>
       <nav aria-label={`${title} (kompakt)`} className="xl:hidden sticky top-16 z-30 border-b border-border bg-background/95 backdrop-blur">
         <ul className="container mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-2 sm:px-6">
           {items.map((i) => (

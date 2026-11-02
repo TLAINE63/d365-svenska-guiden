@@ -289,7 +289,7 @@ const BusinessCentral = () => {
    }}
  />
  <Navbar />
- <main id="bc-buyer-journey" className="xl:pl-56">
+ <main id="bc-buyer-journey">
 
  
  {/* Hero */}
@@ -302,7 +302,9 @@ const BusinessCentral = () => {
   secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
   tertiary={{ label: "Jämför Business Central med andra affärssystem", href: "#bc-jamforelse" }}
     />
+  <div className="xl:flex">
   <ProductSectionNav title="På sidan" items={BC_SECTIONS} />
+  <div className="min-w-0 flex-1">
   <div id="bc-oversikt" className="scroll-mt-28" />
   <ShortAnswer title="Vad är Dynamics 365 Business Central?">
  <p><strong>Dynamics{"\u00A0"}365 Business Central är Microsofts molnbaserade ERP-system (affärssystem) för mindre och medelstora företag</strong> som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
@@ -640,6 +642,8 @@ const BusinessCentral = () => {
       <RelatedPages pages={bcRelatedPages.map(page => ({ ...page, description: page.description.replace(/Dynamics 365/g, "Dynamics\u00a0365"), href: page.href === "/affarssystem/" ? "/affarssystem/#comparison" : page.href === "/valjdynamics365partner/" ? "/business-central-partners-sverige/" : page.href }))} heading="Fördjupning om produktval, kostnad och partner" />
       <BcOptionalDeepDive />
       <BcNextSteps />
+  </div>
+  </div>
       </main>
  <BasicProfilesDirectory products={["bc"]} />
       <PartnerSwitchCta />
