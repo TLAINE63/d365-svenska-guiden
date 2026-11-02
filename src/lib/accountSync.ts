@@ -100,3 +100,11 @@ export function initAccountSync() {
 }
 
 export async function flushAccountSync() { await push(); }
+
+/** Rensar plan, kortlista, kalkyler och köparkontext lokalt och på kontot. */
+export async function resetBuyerState() {
+  for (const k of SYNCED_KEYS) {
+    try { localStorage.removeItem(k); } catch { /* ignore */ }
+  }
+  await push();
+}

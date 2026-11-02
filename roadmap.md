@@ -120,3 +120,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 ## Sprint 2.3 Buyer Opportunity MVP (2026-10-30)
 - [ ] Byggs först när verkliga hjälpförfrågningar kommit in (väntar: Thomas beslut 2026-10-30; i dag finns bara testinskick)
+
+- [x] Ta bort kompetensfilter i partnerväljaren, förtydliga uppdragstyp/leveransform
+- [x] Nollställ underlag-knapp på /konto/

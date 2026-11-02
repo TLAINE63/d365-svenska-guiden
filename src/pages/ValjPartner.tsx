@@ -1009,34 +1009,33 @@ const ValjPartner = () => {
 
  {/* Sprint 1.1: uppdragstyp, leveransform och kompetens (befintliga partneruppgifter) */}
  <FilterButtons
-  title="Uppdragstyp"
+  title="Vilken typ av uppdrag gäller det?"
   icon="assignment"
   options={ASSIGNMENT_TYPES.map((a) => ({ label: a.label, value: a.value }))}
   selectedValue={assignmentType}
   onSelect={(v) => setAssignmentType((v as AssignmentType) || null)}
   colorScheme="amber"
  />
+ <ul className="mx-auto -mt-4 mb-8 max-w-2xl space-y-1 text-center text-xs text-muted-foreground">
+  <li><strong className="text-foreground">Införande och projekt:</strong> nytt system eller större projekt.</li>
+  <li><strong className="text-foreground">Vidareutveckling:</strong> bygga vidare på en lösning ni redan har.</li>
+  <li><strong className="text-foreground">Support och förvaltning:</strong> löpande hjälp efter driftstart.</li>
+  <li>Bygger på partnerns egna beskrivningar per applikation.</li>
+ </ul>
  <FilterButtons
-  title="Leveransform"
+  title="Hur långsiktigt ska partnern stötta er?"
   icon="delivery"
   options={DELIVERY_FORMS.map((d) => ({ label: d.label, value: d.value }))}
   selectedValue={deliveryForm}
   onSelect={(v) => setDeliveryForm((v as SupportLevel) || null)}
   colorScheme="amber"
  />
- <FilterButtons
-  title="Kompetens"
-  icon="competence"
-  options={COMPETENCE_OPTIONS.map((c) => ({ label: c.label, value: c.value }))}
-  selectedValue={competence}
-  onSelect={(v) => setCompetence((v as CompetencyArea) || null)}
-  colorScheme="amber"
- />
- {extraFiltersActive && (
-  <p className="-mt-4 mb-8 text-center text-xs text-muted-foreground">
-   Uppdragstyp bygger på partnerns egna beskrivningar, leveransform och kompetens på d365.se:s bedömning av partnerns underlag.
-  </p>
- )}
+ <ul className="mx-auto -mt-4 mb-8 max-w-2xl space-y-1 text-center text-xs text-muted-foreground">
+  <li><strong className="text-foreground">Projektfokus:</strong> främst projekt, begränsad förvaltning efteråt.</li>
+  <li><strong className="text-foreground">Förvaltningserbjudande:</strong> fast supportavtal med definierade nivåer efter driftstart.</li>
+  <li><strong className="text-foreground">Livscykelpartner:</strong> förvaltning plus planerad vidareutveckling över flera år.</li>
+  <li>d365.se:s bedömning av partnerns underlag. Ett val visar även partners på högre nivå.</li>
+ </ul>
 
  {/* Enda statusfiltret för köpare: visa endast partners verifierade av d365.se. */}
  <div className="mb-3 flex justify-center">
