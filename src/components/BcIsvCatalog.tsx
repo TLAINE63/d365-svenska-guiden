@@ -846,7 +846,7 @@ const BcIsvCatalog = ({
   return (
     <div>
       {/* Editorial filter module */}
-      <div className="border-y border-border bg-gradient-to-b from-muted/20 via-background to-background py-8 px-6 md:px-8 mb-8">
+      <div className="rounded-2xl border border-border bg-card shadow-[0_1px_2px_hsl(var(--foreground)/0.04),0_22px_48px_-28px_hsl(var(--foreground)/0.22)] py-8 px-6 md:px-10 mb-10">
         <div className="flex items-baseline justify-between mb-6">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
