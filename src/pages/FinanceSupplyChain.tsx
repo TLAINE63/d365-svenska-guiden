@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { FSCM_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
@@ -207,6 +209,7 @@ const FinanceSupplyChain = () => {
     to: "/finance-supply-chain-partners-sverige/",
   }}
   />
+      <ProductPageBody items={FSCM_SECTIONS}>
   <ShortAnswer>
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts affärssystem för större och internationella organisationer. Det passar när ni har avancerad ekonomi, flera bolag och valutor, tillverkning eller komplex logistik.</p>
  <p>Mindre organisationer med enklare processer klarar sig ofta med Business Central. Skillnaden ligger i komplexitet, inte bara i antal användare.</p>
@@ -334,7 +337,7 @@ const FinanceSupplyChain = () => {
  {/* AI & Agents Section for Finance & Supply Chain */}
  <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
+ <div>
  <div className="text-center mb-8 sm:mb-10">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
  AI & Agenter för Finance & Supply Chain Management (F&O)
@@ -711,6 +714,7 @@ const FinanceSupplyChain = () => {
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <PartnerSwitchCta />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
+      </ProductPageBody>
       </main>
  <BasicProfilesDirectory products={["fsc"]} />
       <SourcesAndMethod variant="product" externalSources={fscmSources} />

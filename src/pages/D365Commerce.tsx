@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { COMMERCE_SECTIONS } from "@/components/product/productSectionNavItems";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import ProductHero from "@/components/ProductHero";
@@ -58,6 +60,7 @@ const D365Commerce = () => {
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
       />
+      <ProductPageBody items={COMMERCE_SECTIONS}>
 
       <ShortAnswer title="Vad är Dynamics 365 Commerce">
         <p>Dynamics 365 Commerce är Microsofts omnikanal-plattform för retail och konsument­varor – en lösning som samlar fysisk butik, e-handel, mobil och kundklubb i en gemensam datamodell med en enda produktkatalog, prismotorn och kundprofil.</p>
@@ -112,6 +115,7 @@ const D365Commerce = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Commerce" />
 
+      </ProductPageBody>
       </main>
       <EditorialSource sourceType="Köpguide" />
       <Footer />

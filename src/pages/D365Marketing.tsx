@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { INSIGHTS_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -113,6 +115,7 @@ const D365Marketing = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#ci-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
+      <ProductPageBody items={INSIGHTS_SECTIONS}>
 
       <BuyerFitSection fitKey="insights" />
       <EditorialAssessment assessment="insights" />
@@ -222,7 +225,7 @@ const D365Marketing = () => {
       {/* Implementation Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+          <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Hur lång tid tar en implementation och vad ligger kostnaden på?
             </h2>
@@ -278,6 +281,7 @@ const D365Marketing = () => {
       <ProductPartnerNewsSection productArea="crm" heading="Relaterat om CRM och marknadsföring" />
       <RelatedPages pages={marketingRelatedPages} heading="Utforska vidare" />
 
+      </ProductPageBody>
       </main>
       <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
       <SourcesAndMethod variant="product" />
