@@ -3410,7 +3410,7 @@ Thomas`,
  </div>
  </div>
  <div className="flex gap-2">
- {partner.is_featured && (
+ {(
  <Button
  variant="outline"
  size="sm"
@@ -4180,7 +4180,7 @@ Thomas`,
 
 
  {/* Permanent self-service link (only for published partners) */}
- {editingPartner && editingPartner.is_featured && (
+ {editingPartner && (
  <div className="rounded-lg border bg-muted/40 p-4 flex items-start justify-between gap-4">
  <div className="flex-1 min-w-0">
  <div className="flex items-center gap-2 mb-1">
