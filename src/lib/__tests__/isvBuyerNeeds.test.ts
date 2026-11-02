@@ -9,6 +9,18 @@ describe("isvBuyerNeeds", () => {
       expect(hits.length, c).toBe(1);
     }
   });
+  it("finance categories used in the live catalogue belong to Ekonomi", () => {
+    for (const c of ["Banking & payments", "Finance extensions", "Expense management", "Multi-company", "Lokalisering", "AP automation", "EDI / e-faktura"]) {
+      expect(needForCategory(c).id, c).toBe("ekonomi");
+    }
+  });
+  it("production, quality and field categories are never filed under AI/HR", () => {
+    expect(needForCategory("MES / Shop floor").id).toBe("projekt");
+    expect(needForCategory("Quality management").id).toBe("projekt");
+    expect(needForCategory("Inventory planning").id).toBe("lager");
+    expect(needForCategory("Field service").id).toBe("falt");
+    expect(needForCategory("Sustainability").id).toBe("rapportering");
+  });
   it("WMS belongs to Lager och logistik", () => {
     expect(needForCategory("WMS").id).toBe("lager");
   });
