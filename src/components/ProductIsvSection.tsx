@@ -6,6 +6,7 @@ import type { IsvSolution } from "@/data/bcIsvSolutions";
 import { selectFscmIsvs } from "@/lib/fscmIsvSelection";
 import { needForCategory, type IsvBuyerNeed } from "@/lib/isvBuyerNeeds";
 import { Button } from "@/components/ui/button";
+import { commonExampleRank } from "@/lib/isvCommonExamples";
 
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
@@ -71,6 +72,7 @@ const ProductIsvSection = ({
       .map((g) => {
         const ranked = [...g.items].sort(
           (a, b) =>
+            (commonExampleRank(product, a.id) - commonExampleRank(product, b.id) || 0) ||
             evidence(b) - evidence(a) ||
             Number(reviewed.has(b.id)) - Number(reviewed.has(a.id)) ||
             a.name.localeCompare(b.name, "sv"),
