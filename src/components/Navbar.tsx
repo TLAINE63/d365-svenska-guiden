@@ -269,9 +269,12 @@ const Navbar = () => {
               Hitta rätt partner
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
+            <ThemeToggle />
           </div>
 
           {/* Mobil */}
+          <div className="flex items-center gap-1 lg:hidden">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="ghost" size="icon" aria-label="Öppna menyn" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
