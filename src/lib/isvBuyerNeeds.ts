@@ -14,13 +14,13 @@ export const ISV_BUYER_NEEDS: IsvBuyerNeed[] = [
   {
     id: "ekonomi",
     label: "Ekonomi, fakturor och betalningar",
-    categories: ["AP automation", "Lokalisering", "EDI / e-faktura", "Treasury & bank", "Tax & compliance", "Subscription billing"],
-    synonyms: ["faktura", "e-faktura", "peppol", "edi", "betalning", "bank", "moms", "leverantörsreskontra", "lokalisering", "skatt"],
+    categories: ["AP automation", "Lokalisering", "EDI / e-faktura", "Treasury & bank", "Tax & compliance", "Subscription billing", "Banking & payments", "Finance extensions", "Expense management", "Multi-company"],
+    synonyms: ["faktura", "e-faktura", "peppol", "edi", "betalning", "bank", "moms", "leverantörsreskontra", "lokalisering", "skatt", "utlägg", "koncern", "kvitto"],
   },
   {
     id: "lager",
     label: "Lager och logistik",
-    categories: ["WMS", "Frakt & TA", "Supply chain collaboration"],
+    categories: ["WMS", "Frakt & TA", "Supply chain collaboration", "Inventory planning"],
     synonyms: ["wms", "lager", "plock", "frakt", "transport", "tms", "leverans", "shipping", "logistik"],
   },
   {
@@ -32,13 +32,13 @@ export const ISV_BUYER_NEEDS: IsvBuyerNeed[] = [
   {
     id: "projekt",
     label: "Projekt, planering och produktion",
-    categories: ["Projekt", "Planering & produktion", "PLM / Engineering", "Asset Management / EAM", "Rental / equipment"],
+    categories: ["Projekt", "Planering & produktion", "PLM / Engineering", "Asset Management / EAM", "Rental / equipment", "MES / Shop floor", "Quality management"],
     synonyms: ["projekt", "planering", "produktion", "mrp", "underhåll", "eam", "uthyrning", "plm", "kalkyl"],
   },
   {
     id: "rapportering",
     label: "Rapportering, budget och prognos",
-    categories: ["Rapportering / FP&A"],
+    categories: ["Rapportering / FP&A", "Sustainability"],
     synonyms: ["rapport", "budget", "prognos", "forecast", "power bi", "fp&a", "scenarier", "bokslut"],
   },
   {
@@ -68,7 +68,7 @@ export const ISV_BUYER_NEEDS: IsvBuyerNeed[] = [
   {
     id: "falt",
     label: "Fältservice och mobilt arbete",
-    categories: ["Field Service mobility", "Field Service extensions", "Inspections", "Territory & Maps", "Mobility"],
+    categories: ["Field Service mobility", "Field Service extensions", "Inspections", "Territory & Maps", "Mobility", "Field service"],
     synonyms: ["fält", "tekniker", "inspektion", "karta", "mobil", "app", "fjärrsupport", "arbetsorder"],
   },
   {
