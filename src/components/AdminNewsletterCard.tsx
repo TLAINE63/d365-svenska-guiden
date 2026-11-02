@@ -148,7 +148,7 @@ export default function AdminNewsletterCard({ token }: { token: string | null })
               <label className="text-sm font-medium" htmlFor="nl-body">Brevtext</label>
               <Textarea id="nl-body" value={content.body} onChange={set("body")} rows={24} className="font-mono text-xs" />
               <p className="text-xs text-muted-foreground">
-                <code>## Rubrik</code> ger en rubrik, <code>- text</code> en punkt, <code>**fet**</code> fetstil,
+                <code>## Rubrik</code> ger en rubrik, <code>- text</code> en punkt, <code>**fet**</code> fetstil, <code>[text](https://...)</code> en länk,
                 tom rad nytt stycke, <code>[KNAPP]</code> knappen med partnerns profileringslänk, <code>[STATISTIK]</code> partnerns
                 egen statistik för statistikmånaden och <code>{"{partner}"}</code> partnerns namn.
                 "Hej partnernamn," och den personliga länken läggs till automatiskt.
