@@ -641,7 +641,9 @@ const ValjPartner = () => {
  useEffect(() => {
   if (isLoading || !scrollToListRef.current) return;
   scrollToListRef.current = false;
-  const go = () => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" });
+  // Med valt produktområde visas resultat direkt: landa vid listan. Annars vid filtren.
+  const target = selectedApplications.length > 0 ? "partner-resultat" : "hitta-partners";
+  const go = () => document.getElementById(target)?.scrollIntoView({ block: "start" });
   const t1 = window.setTimeout(go, 60);
   // Ny scroll när bilder och kort har laddat klart, så listan inte hamnar fel.
   const t2 = window.setTimeout(go, 600);
