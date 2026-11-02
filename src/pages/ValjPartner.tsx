@@ -1054,7 +1054,7 @@ const ValjPartner = () => {
  </p>
 
  {/* Ankare för startsidans sökruta: landa precis ovanför resultatlistan. */}
- <div id="partner-resultat" className="scroll-mt-28" aria-hidden="true" />
+ <div id="partner-resultat" className="relative -top-10 scroll-mt-28" aria-hidden="true" />
  {/* Filter Results Summary */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue || extraFiltersActive || infoStatus) && (
  <div className="text-center mb-8">
