@@ -1,10 +1,10 @@
 import ContextualCta from "@/components/ContextualCta";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import BcIsvCatalog from "@/components/BcIsvCatalog";
-import { ArrowLeft } from "lucide-react";
+import { BadgeCheck, Layers, ShieldCheck } from "lucide-react";
 import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 
 /**
@@ -33,7 +33,7 @@ const D365TillaggKatalog = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Kunskapscenter", url: "/kunskapscenter/" }, { name: "Dynamics 365-tillägg", url: "/kunskapscenter/dynamics-365-tillagg/" }]}
+        breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Tilläggslösningar", url: "/kunskapscenter/dynamics-365-tillagg/" }]}
         title="Dynamics 365-tillägg: katalog över ISV-lösningar"
         description="Katalog över ISV- och tilläggslösningar för Dynamics 365 – Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service med flera. Filtrera på produkt, kategori och bransch."
         canonicalPath="/kunskapscenter/dynamics-365-tillagg"
@@ -41,27 +41,32 @@ const D365TillaggKatalog = () => {
       />
       <Navbar />
 
-      <main className="pt-24 lg:pt-32 pb-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <Link
-            to="/kunskapscenter"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
-          >
-            <ArrowLeft className="w-4 h-4" /> Till Kunskapscenter
-          </Link>
-
-          <header className="max-w-3xl mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Tilläggslösningar för Dynamics 365
+      <main className="plan-premium pb-16">
+        <section className="plan-opening">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-36 pb-12 sm:pb-16">
+            <p className="plan-eyebrow mb-3">ISV-katalog · Microsoft&nbsp;Dynamics&nbsp;365</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+              Tilläggslösningar för <span className="whitespace-nowrap">Dynamics&nbsp;365</span>
             </h1>
-            <p className="text-muted-foreground leading-relaxed">
-              Här samlar vi ISV-lösningar som kompletterar Dynamics 365 – från fakturahantering och
-              WMS till EDI, lokalisering och branschpaket. Välj
-              ert system, vad ni behöver lösa och gärna bransch eller leverantör.
+            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground">
+              Lösningar som kompletterar <span className="whitespace-nowrap">Dynamics&nbsp;365</span>, från fakturahantering och
+              WMS till EDI, lokalisering och branschpaket. Välj ert system, vad ni behöver lösa och gärna bransch eller leverantör.
             </p>
-          </header>
+            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-foreground">
+              {[
+                [Layers, "Sorterat per system och behov"],
+                [BadgeCheck, "Informationsstatus på varje lösning"],
+                [ShieldCheck, "Inget delas med leverantörer utan ert godkännande"],
+              ].map(([Icon, label]) => {
+                const I = Icon as typeof ShieldCheck;
+                return <li key={label as string} className="flex items-center gap-2"><I aria-hidden="true" className="h-4 w-4 text-accent" />{label as string}</li>;
+              })}
+            </ul>
+          </div>
+        </section>
 
-          <h2 className="sr-only">Tilläggslösningar per leverantör</h2>
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-10 sm:py-14">
+          <h2 className="sr-only">Tilläggslösningar</h2>
           <BcIsvCatalog
             showProductFilter
             defaultProducts={preselected}
