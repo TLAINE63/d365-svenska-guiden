@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PartnerCompareProvider } from "@/contexts/PartnerCompareContext";
@@ -461,6 +462,7 @@ const AppShell = () => {
 };
 
 const App = () => (
+  <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="d365-theme">
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Suspense fallback={null}>
@@ -480,6 +482,7 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

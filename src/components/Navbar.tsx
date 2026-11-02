@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import RegionLanguageSwitcher from "./RegionLanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import {
@@ -269,9 +270,12 @@ const Navbar = () => {
               Hitta rätt partner
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
+            <ThemeToggle />
           </div>
 
           {/* Mobil */}
+          <div className="flex items-center gap-1 lg:hidden">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="ghost" size="icon" aria-label="Öppna menyn" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
@@ -322,6 +326,7 @@ const Navbar = () => {
               </div>
             </SheetContent>
           </Sheet>
+          </div>
         </div>
       </div>
     </nav>
