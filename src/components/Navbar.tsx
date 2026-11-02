@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import RegionLanguageSwitcher from "./RegionLanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import {
@@ -325,6 +326,7 @@ const Navbar = () => {
               </div>
             </SheetContent>
           </Sheet>
+          </div>
         </div>
       </div>
     </nav>
