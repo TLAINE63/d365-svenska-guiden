@@ -606,34 +606,51 @@ const Partnerprogram = () => {
                 partnerns egna beskrivningar, synlig i partnerväljaren, filtren och jämförelsen.
               </p>
             </div>
-            <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Premium</h3>
-              <p className="text-3xl font-bold text-foreground mb-3">995–1&nbsp;995 kr/månad</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Betald utökad presentation, till exempel expertintervju och video, kvartalsvis genomgång
-                av profilen, statistik över profilvisningar och en namngiven kontaktperson på d365.se.
-                995&nbsp;kr för 1 produktområde, 1&nbsp;595&nbsp;kr för 2 och 1&nbsp;995&nbsp;kr för 3 (CE/CRM-applikationerna
-                räknas som ett produktområde).
+            <div className="rounded-xl border border-border bg-card p-6 flex flex-col">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-1">Premium Månad</h3>
+              <p className="text-base font-semibold text-foreground mb-3">Utökad partnerpresentation</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Visa mer av er kompetens, era specialiseringar och de personer som kunder kan möta hos er.
+                Premium ger utrymme för en mer innehållsrik partnerprofil, med möjlighet till expertintervju
+                och video. Det ingår också en kvartalsvis genomgång av profilen, statistik över
+                profilvisningar och en namngiven kontaktperson på d365.se.
+              </p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Månadspris exklusive moms</p>
+              <ul className="text-sm text-foreground space-y-1 mb-4">
+                <li>1 produktområde: <strong>995&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
+                <li>2 produktområden: <strong>1&nbsp;595&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
+                <li>3 produktområden: <strong>1&nbsp;995&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
+              </ul>
+              <p className="text-xs text-muted-foreground leading-relaxed mt-auto">
+                Avgiften faktureras månadsvis i efterskott (D365 CE/CRM-applikationerna räknas som ett produktområde).
               </p>
             </div>
-            <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg">
+            <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg flex flex-col">
               <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
                 Populärast
               </span>
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-2">Premium År</h3>
-              <p className="text-3xl font-bold text-foreground mb-1">från 9&nbsp;950 kr/år</p>
-              <p className="text-xs text-muted-foreground mb-3">exkl. moms, 2 månader ingår utan kostnad</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Samma innehåll som Premium, med årsvis betalning i förskott. Ni betalar för 10 månader och
-                får 12 månaders Premium. Pris per år: 9&nbsp;950&nbsp;kr för ett produktområde, 15&nbsp;950&nbsp;kr för
-                två och 19&nbsp;950&nbsp;kr för tre.
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">Premium År</h3>
+              <p className="text-base font-semibold text-foreground mb-3">Utökad partnerpresentation</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Visa mer av er kompetens, era specialiseringar och de personer som kunder kan möta hos er.
+                Premium ger utrymme för en mer innehållsrik partnerprofil, med möjlighet till expertintervju
+                och video. Det ingår också en kvartalsvis genomgång av profilen, statistik över
+                profilvisningar och en namngiven kontaktperson på d365.se.
+              </p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
+              <ul className="text-sm text-foreground space-y-1 mb-4">
+                <li>1 produktområde: <strong>9&nbsp;950&nbsp;kr</strong></li>
+                <li>2 produktområden: <strong>15&nbsp;950&nbsp;kr</strong></li>
+                <li>3 produktområden: <strong>19&nbsp;950&nbsp;kr</strong></li>
+              </ul>
+              <p className="text-xs text-muted-foreground leading-relaxed mt-auto">
+                Ni betalar för 10 månader och får Premium i 12 månader. Avgiften faktureras årsvis i förskott
+                (D365 CE/CRM-applikationerna räknas som ett produktområde).
               </p>
             </div>
           </div>
           <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
-            Premium faktureras månadsvis i efterskott och Premium År faktureras årsvis i förskott. Alla priser
-            anges exklusive moms. För Premium är uppsägningstiden 3 månader och ska meddelas i god tid före
-            varje kvartals början.
+            För Premium Månad är uppsägningstiden 3 månader och ska meddelas i god tid före varje kvartals början.
           </p>
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
