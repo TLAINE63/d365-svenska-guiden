@@ -367,6 +367,21 @@ const ContentSchema = z.object({
   stats_month: z.string().regex(MONTH_RE).nullable().optional(),
 });
 
+// Alla sparade adresser per partner (admin, kontakt/sälj, faktura), utom uppenbara faktura-/adminbrevlådor.
+const BILLING_LOCAL = /^(faktura|fakturor|invoice|invoices|billing|ekonomi|economy|accounting|accounts?|finance|admin|administration|bokforing|reskontra|ap|ar)([._-].*)?$/i;
+export function newsletterRecipients(p: { admin_contact_email?: string | null; email?: string | null; invoice_email?: string | null }): string[] {
+  const out: string[] = [];
+  for (const raw of [p.admin_contact_email, p.email, p.invoice_email]) {
+    for (const part of String(raw || "").split(/[;,\s]+/)) {
+      const e = part.trim();
+      if (!e || !z.string().email().safeParse(e).success) continue;
+      if (BILLING_LOCAL.test(e.split("@")[0])) continue;
+      if (!out.some((x) => x.toLowerCase() === e.toLowerCase())) out.push(e);
+    }
+  }
+  return out;
+}
+
 async function loadContent(sb: any, id = "current"): Promise<NewsletterContent | null> {
   const { data } = await sb.from("newsletter_content").select("subject,summary,body,stats_month").eq("id", id).maybeSingle();
   return data ?? (id === "current" ? DEFAULT_CONTENT : id === "unverified-current" ? UNVERIFIED_DEFAULT : null);
@@ -398,7 +413,7 @@ Deno.serve(async (req) => {
       const archPrefix = unv ? "ejarkiv-" : "arkiv-";
       const { data: partners, error: pErr } = await sb
         .from("partners")
-        .select("id,name,slug,admin_contact_email,email,partner_invitations(token,status,expires_at,created_at)")
+        .select("id,name,slug,admin_contact_email,email,invoice_email,partner_invitations(token,status,expires_at,created_at)")
         .eq("is_featured", !unv)
         .order("name");
       if (pErr) throw pErr;
@@ -415,6 +430,7 @@ Deno.serve(async (req) => {
         return {
           id: p.id, name: p.name, slug: (p.slug as string | null) ?? null,
           email: (p.admin_contact_email || p.email || "").trim() || null,
+          recipients: newsletterRecipients(p),
           token: inv?.token ?? null,
           last_sent_at: last?.created_at ?? null,
         };
@@ -489,7 +505,7 @@ Deno.serve(async (req) => {
             content: { subject: a.subject, summary: a.summary, body: a.body, stats_month: a.stats_month },
             updated_at: a.updated_at,
           })),
-          partners: list.map((p) => ({ id: p.id, name: p.name, has_link: canSend(p) })),
+          partners: list.map((p) => ({ id: p.id, name: p.name, has_link: canSend(p), recipients: p.recipients })),
         }), { headers: jsonHeaders });
       }
 
@@ -516,20 +532,24 @@ Deno.serve(async (req) => {
         if (!resendKeyNl) throw new Error("E-posttjänsten är inte konfigurerad");
         const rsNl = new Resend(resendKeyNl);
         const resultsNl: Array<{ partner: string; status: string; reason?: string }> = [];
+        const live = rawBody.live === true;
         const onlyIds: string[] | null = Array.isArray(rawBody.partner_ids) ? rawBody.partner_ids.map(String) : null;
         for (const p of list.filter((x) => !onlyIds || onlyIds.includes(x.id))) {
           if (!canSend(p)) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
-          const subject = `[Granskning${unv ? " ej verifierad" : ""}: ${p.name}] ${content.subject.replaceAll("{partner}", p.name)}`;
+          if (live && p.recipients.length === 0) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar e-postadress" }); continue; }
+          const baseSubject = content.subject.replaceAll("{partner}", p.name);
+          const subject = live ? baseSubject : `[Granskning${unv ? " ej verifierad" : ""}: ${p.name}] ${baseSubject}`;
+          const to = live ? p.recipients : [REVIEW_RECIPIENT];
           const stats = await statsFor(p, content);
           const { data, error } = await rsNl.emails.send({
             from: "Thomas Laine via d365.se <info@d365.se>",
-            to: [REVIEW_RECIPIENT], reply_to: REVIEW_RECIPIENT, subject,
+            to, reply_to: REVIEW_RECIPIENT, subject,
             html: newsletterEmail(p.name, p.token ?? "", content, stats, audience),
           });
           const status = error ? "failed" : "sent";
-          resultsNl.push({ partner: p.name, status });
+          resultsNl.push({ partner: p.name, status, ...(live ? { reason: to.join(", ") } : {}) });
           await sb.from("email_send_log").insert({
-            recipient_email: REVIEW_RECIPIENT, template_name: "partner-newsletter-review", subject, status,
+            recipient_email: to.join(", "), template_name: live ? "partner-newsletter" : "partner-newsletter-review", subject, status,
             message_id: data?.id ?? null,
             error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
             metadata: { partner_id: p.id, partner_name: p.name, audience },
