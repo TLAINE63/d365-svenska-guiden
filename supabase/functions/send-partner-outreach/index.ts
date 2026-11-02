@@ -395,21 +395,44 @@ Deno.serve(async (req) => {
 
       // Testutskick av nyhetsbrevet: ett personligt mejl per publicerad partner,
       // men alla levereras till granskningsmottagaren.
-      const content = await loadContent(sb);
+      const content = (await loadContent(sb))!;
+      // Statistiken räknas fram vid varje förhandsgranskning/utskick, så ett arkiverat brev
+      // visar alltid samma månad som det skrevs för.
+      const statsFor = (p: { slug: string | null }, c: NewsletterContent) =>
+        /\[STATISTIK\]/.test(c.body) ? fetchPartnerStats(sb, p.slug, c.stats_month) : Promise.resolve(null);
 
       if (rawBody.action === "newsletter-save") {
         const parsed = ContentSchema.safeParse(rawBody.content);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Ämnesrad, sammanfattning och brevtext måste fyllas i" }), { status: 400, headers: jsonHeaders });
-        const { error: sErr } = await sb.from("newsletter_content").upsert({ id: "current", ...parsed.data, updated_at: new Date().toISOString() });
+        const { error: sErr } = await sb.from("newsletter_content").upsert({ id: "current", ...parsed.data, stats_month: parsed.data.stats_month ?? null, updated_at: new Date().toISOString() });
         if (sErr) throw sErr;
         return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
       }
 
+      // Arkivera den sparade versionen som en månad (t.ex. 2026-09) för senare jämförelse.
+      if (rawBody.action === "newsletter-archive") {
+        const month = String(rawBody.month || "");
+        if (!MONTH_RE.test(month)) return new Response(JSON.stringify({ error: "Ange månad som ÅÅÅÅ-MM" }), { status: 400, headers: jsonHeaders });
+        const { error: aErr } = await sb.from("newsletter_content").upsert({
+          id: `arkiv-${month}`, subject: content.subject, summary: content.summary, body: content.body,
+          stats_month: content.stats_month ?? null, updated_at: new Date().toISOString(),
+        });
+        if (aErr) throw aErr;
+        return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
+      }
+
       if (rawBody.action === "newsletter-list") {
+        const { data: arch } = await sb.from("newsletter_content")
+          .select("id,subject,summary,body,stats_month,updated_at").like("id", "arkiv-%").order("id", { ascending: false });
         return new Response(JSON.stringify({
           subject: content.subject,
           content,
           default_content: DEFAULT_CONTENT,
+          archives: (arch ?? []).map((a: any) => ({
+            month: String(a.id).slice(6), label: monthLabel(String(a.id).slice(6)),
+            content: { subject: a.subject, summary: a.summary, body: a.body, stats_month: a.stats_month },
+            updated_at: a.updated_at,
+          })),
           partners: list.map((p) => ({ id: p.id, name: p.name, has_link: !!p.token })),
         }), { headers: jsonHeaders });
       }
@@ -418,9 +441,18 @@ Deno.serve(async (req) => {
         const p = list.find((x) => x.id === rawBody.partner_id);
         if (!p) return new Response(JSON.stringify({ error: "Partnern hittades inte" }), { status: 404, headers: jsonHeaders });
         if (!p.token) return new Response(JSON.stringify({ error: "Partnern saknar giltig profileringslänk" }), { status: 400, headers: jsonHeaders });
-        const draft = rawBody.content ? ContentSchema.safeParse(rawBody.content) : null;
-        const c = draft?.success ? draft.data : content;
-        return new Response(JSON.stringify({ subject: c.subject, html: newsletterEmail(p.name, p.token, c) }), { headers: jsonHeaders });
+        let c: NewsletterContent = content;
+        if (rawBody.archive_month) {
+          const m = String(rawBody.archive_month);
+          const a = MONTH_RE.test(m) ? await loadContent(sb, `arkiv-${m}`) : null;
+          if (!a) return new Response(JSON.stringify({ error: "Arkiverat brev hittades inte" }), { status: 404, headers: jsonHeaders });
+          c = a;
+        } else if (rawBody.content) {
+          const draft = ContentSchema.safeParse(rawBody.content);
+          if (draft.success) c = draft.data;
+        }
+        const stats = await statsFor(p, c);
+        return new Response(JSON.stringify({ subject: c.subject, html: newsletterEmail(p.name, p.token, c, stats), stats }), { headers: jsonHeaders });
       }
 
       if (rawBody.action === "newsletter-send") {
@@ -432,10 +464,11 @@ Deno.serve(async (req) => {
         for (const p of list.filter((x) => !onlyIds || onlyIds.includes(x.id))) {
           if (!p.token) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
           const subject = `[Granskning: ${p.name}] ${content.subject}`;
+          const stats = await statsFor(p, content);
           const { data, error } = await rsNl.emails.send({
             from: "Thomas Laine via d365.se <info@d365.se>",
             to: [REVIEW_RECIPIENT], reply_to: REVIEW_RECIPIENT, subject,
-            html: newsletterEmail(p.name, p.token, content),
+            html: newsletterEmail(p.name, p.token, content, stats),
           });
           const status = error ? "failed" : "sent";
           resultsNl.push({ partner: p.name, status });
