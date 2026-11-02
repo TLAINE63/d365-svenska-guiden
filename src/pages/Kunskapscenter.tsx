@@ -881,7 +881,7 @@ const Kunskapscenter = () => {
 
  {/* Innehållsspår – kuraterade tracks genom kunskapscentret */}
  <section className="border-b border-border bg-[hsl(var(--bg-card))]">
-  <div className="container mx-auto px-4 py-8">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-8">
    <div className="flex items-baseline justify-between gap-4 mb-4">
     <div>
      <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider">
@@ -957,7 +957,7 @@ const Kunskapscenter = () => {
 
   {/* Topical hubs – crawl-friendly internal links */}
  <section className="border-b border-border bg-muted/30">
-  <div className="container mx-auto px-4 py-6">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
    <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
     Utforska efter ämne
    </h2>
@@ -986,7 +986,7 @@ const Kunskapscenter = () => {
 
  {/* Filters */}
  <section className="border-b border-border sticky top-16 z-40 bg-background/95 supports-[backdrop-filter]:bg-background/60 ">
- <div className="container mx-auto px-4 py-3">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-3">
  <div className="flex flex-wrap items-center gap-3">
  {/* Category pills */}
  <div className="flex flex-wrap gap-2">
@@ -1042,7 +1042,7 @@ const Kunskapscenter = () => {
  const products = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
  return (
  <section className="border-b border-border bg-muted/30">
- <div className="container mx-auto px-4 py-2.5 space-y-2.5">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-2.5 space-y-2.5">
  {/* View toggle: Artiklar / Prislista */}
  <div className="flex flex-wrap items-center gap-2">
  <span className="text-xs uppercase tracking-wider text-[hsl(var(--signature))] mr-1">
@@ -1104,7 +1104,7 @@ const Kunskapscenter = () => {
  {/* Deep-dive section (when Fördjupning tab is active) */}
  {activeCategory === "fordjupning" ? (
  <section className="py-12">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  {deepDiveView === "prices" ? (
  <PriceListSection product={deepDiveProduct} />
  ) : (() => {
@@ -1169,7 +1169,7 @@ const Kunskapscenter = () => {
  <>
  {/* Content Grid */}
  <section className="py-12">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="flex items-center justify-between mb-6">
  <p className="text-sm text-muted-foreground">
  {filteredItems.length} {filteredItems.length === 1 ? "resurs" : "resurser"}

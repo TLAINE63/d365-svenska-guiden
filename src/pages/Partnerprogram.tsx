@@ -396,7 +396,7 @@ const Partnerprogram = () => {
       {/* 3. KÖPRESAN */}
 
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
             Var i köpresan kommer d365.se in?
           </h2>
@@ -426,7 +426,7 @@ const Partnerprogram = () => {
 
       {/* 6. SEO + AI-SÖK */}
       <section ref={seoRef} className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
             Bygg fler relevanta signaler för sökmotorer och AI
           </h2>
@@ -482,7 +482,7 @@ const Partnerprogram = () => {
 
       {/* 6b. HUR AI ANVÄNDER PARTNERPROFILEN */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
             Hur använder AI er partnerprofil?
           </h2>
@@ -536,7 +536,7 @@ const Partnerprogram = () => {
 
       {/* 7. VIDEOPROFIL */}
       <section ref={videoRef} className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 grid gap-10 lg:grid-cols-2">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 grid gap-10 lg:grid-cols-2">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
               Låt era experter komma fram
@@ -588,7 +588,7 @@ const Partnerprogram = () => {
 
       {/* 8b. PUBLICERING OCH PRISER (Sprint 1.1: Standard är kostnadsfri) */}
       <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Kostar det att publiceras på d365.se?
           </h2>
@@ -634,7 +634,7 @@ const Partnerprogram = () => {
 
       {/* 9. SÅ FUNGERAR DET */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
           <div className="grid gap-5 md:grid-cols-3">
             {[
@@ -687,7 +687,7 @@ const Partnerprogram = () => {
 
       {/* 10. SOCIAL PROOF */}
       <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
             Partners med partnerverifierad profil på d365.se
           </h2>
@@ -749,7 +749,7 @@ const Partnerprogram = () => {
 
       {/* 12. FAQ */}
       <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Vanliga frågor</h2>
           <Accordion
             type="single"

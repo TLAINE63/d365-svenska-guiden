@@ -60,7 +60,7 @@ const OmMichaelUhman = () => {
       <main className="mt-16">
         {/* Hero */}
         <section className="bg-gradient-to-br from-secondary/40 to-background border-b border-border">
-          <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12">
             <Link
               to="/kontakt/"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"

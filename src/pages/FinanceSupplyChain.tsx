@@ -465,7 +465,7 @@ const FinanceSupplyChain = () => {
 
  {/* Pricing Section */}
  <section id="pricing" className="py-10 bg-background">
- <div className="container mx-auto px-4">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="text-center mb-16">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
  Licenspriser för Finance & Supply Chain Management (F&O)
@@ -504,7 +504,7 @@ const FinanceSupplyChain = () => {
 
       {/* Partners Section */}
       <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
  Finance & Supply Chain Management (F&O)-partners

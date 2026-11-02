@@ -81,7 +81,7 @@ export default function BcSiteHandoff() {
 
   return (
     <section className="py-6 sm:py-8 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="relative rounded-xl border border-accent/30 bg-card p-5 sm:p-7 shadow-sm">
           <button
             type="button"

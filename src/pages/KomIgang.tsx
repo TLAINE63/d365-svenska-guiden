@@ -928,7 +928,7 @@ const KomIgang = () => {
         {/* Hero */}
         <section className="relative pt-24 pb-2 sm:pt-28 sm:pb-3 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
-          <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
               Hitta rätt väg för era <span className="whitespace-nowrap">Dynamics&nbsp;365</span>-behov
             </h1>

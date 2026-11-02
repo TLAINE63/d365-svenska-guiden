@@ -221,7 +221,7 @@ const D365Sales = () => {
 
       {/* Pricing Section */}
       <section id="pricing" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
               <img src={SalesIcon} alt="Dynamics 365 Sales" className="h-12 w-12" />
@@ -259,7 +259,7 @@ const D365Sales = () => {
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <UnprofiledPartnersList variant="teaser" showSeeAllLink />
       </div>
 
