@@ -327,6 +327,7 @@ const AppShell = () => {
           <Route path="/partner/:slug/fordjupning" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/fordjupning/" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/:productSlug" element={<PartnerProfile />} />
+          <Route path="/kunskapscenter/d365fieldservice/remote-assist-och-mixed-reality/" element={<RedirectTo to="/d365fieldservice/" />} />
           <Route path="/basic/dynamicskonsult" element={<RedirectTo to="/valjdynamics365partner/" />} />
           <Route path="/basic/dynamicskonsult/" element={<RedirectTo to="/valjdynamics365partner/" />} />
           <Route path="/basic/:slug" element={<PartnerBasicProfile />} />

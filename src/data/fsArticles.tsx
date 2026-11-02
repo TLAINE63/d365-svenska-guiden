@@ -3,7 +3,6 @@ import fs01 from "@/assets/articles/fs-01-schemalagning.png";
 import fs02 from "@/assets/articles/fs-02-mobilapp.png";
 import fs03 from "@/assets/articles/fs-03-underhall.png";
 import fs04 from "@/assets/articles/fs-04-iot.png";
-import fs05 from "@/assets/articles/fs-05-remote-assist.png";
 import fs06 from "@/assets/articles/fs-06-reservdelar.png";
 import fs07 from "@/assets/articles/fs-07-kundkommunikation.png";
 import fs08 from "@/assets/articles/fs-08-produktivitet.png";
@@ -112,7 +111,6 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
         <h3>Viktiga funktioner</h3>
         <ul>
           <li>Barkodsläsning för reservdelsregistrering</li>
-          <li>Mixed Reality-stöd (Remote Assist via HoloLens)</li>
           <li>Röstkommandon för hands-free-användning</li>
           <li>Automatisk tidrapportering och reselogg</li>
         </ul>
@@ -222,59 +220,6 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
           <li>Realtids-telemetridashboard för driftsövervakning</li>
           <li>Eskalering från IoT till Field Service till Customer Service</li>
           <li>Automatisk garantikontroll vid IoT-alert</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    slug: "remote-assist-och-mixed-reality",
-    title: "Remote Assist och Mixed Reality",
-    description: "Experthjälp på distans med HoloLens och mobilkamera i realtid.",
-    product: "Dynamics 365 Field Service",
-    productSlug: "d365fieldservice",
-    parentPath: "/d365fieldservice/",
-    parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "FS – Remote Assist",
-    image: fs05,
-    content: (
-      <>
-        <p>
-          <em>
-            Att flyga ut en specialist kostar tid och pengar. Remote Assist i Field Service 
-            låter en expert guida en fälttekniker via HoloLens eller smartphone – med annotations 
-            och diagrams projicerade direkt i teknikerns synfält.
-          </em>
-        </p>
-
-        <h2>HoloLens och mobil Remote Assist</h2>
-        <p>
-          Tekniker sätter på sig HoloLens eller håller upp sin smartphone mot utrustningen. 
-          Experten ser i realtid exakt vad tekniker ser.
-        </p>
-        <p>
-          Experten kan rita annotations, peka på komponenter och visa reparationssteg 
-          direkt i teknikerns synfält – som att ha specialisten bredvid sig.
-        </p>
-
-        <h2>Integration med arbetsordrar och kunskapsbas</h2>
-        <p>
-          Remote Assist-sessioner länkas direkt till serviceordern. Inspelningar och screenshots 
-          sparas automatiskt som dokumentation och kan återanvändas i kunskapsbasen.
-        </p>
-
-        <h2>Guides och steg-för-steg-instruktioner</h2>
-        <p>
-          Dynamics 365 Guides skapar holografiska arbetsanvisningar kopplade till specifika 
-          utrustningar. Nya tekniker kan lära sig komplexa reparationer utan att ha en expert 
-          vid sin sida.
-        </p>
-
-        <h3>Viktiga funktioner</h3>
-        <ul>
-          <li>Teams-integration för videosamtal med expert</li>
-          <li>Automatisk sessionsinspelning och transkription</li>
-          <li>QR-kod-baserade utrustningskopplingar</li>
-          <li>Offline-instruktioner för nätverksfria miljöer</li>
         </ul>
       </>
     ),

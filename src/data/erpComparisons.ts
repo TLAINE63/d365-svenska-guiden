@@ -607,7 +607,7 @@ const FS_ROWS = (c: FsRowInput): ComparisonRow[] => [
   {
     area: "Licensmodell",
     product:
-      "Per resurs/månad: D365 Field Service ~960 kr, Field Service Contractor ~480 kr, Mixed Reality Remote Assist add-on ~660 kr.",
+      "Per resurs/månad: D365 Field Service ~960 kr, Field Service Contractor ~480 kr.",
     competitor: c.licensModell,
   },
   {
@@ -631,7 +631,7 @@ const FS_ROWS = (c: FsRowInput): ComparisonRow[] => [
   {
     area: "Mobil teknikerupplevelse",
     product:
-      "Native iOS/Android-app, offline-stöd, vägbeskrivning, signatur, foton, checklistor. Remote Assist via HoloLens/mobil.",
+      "Native iOS/Android-app, offline-stöd, vägbeskrivning, signatur, foton, checklistor. Distansstöd via Microsoft Teams.",
     competitor: c.mobil,
   },
   {
@@ -643,7 +643,7 @@ const FS_ROWS = (c: FsRowInput): ComparisonRow[] => [
   {
     area: "AI & Copilot",
     product:
-      "Copilot for Field Service: work order-summering, smart trip-planering, mixed reality för fjärrsupport, prediktivt underhåll.",
+      "Copilot for Field Service: work order-summering, smart trip-planering, fjärrsupport via Teams, prediktivt underhåll.",
     competitor: c.ai,
   },
   {
@@ -2040,16 +2040,15 @@ const FS_COMPARISONS: ProductComparison[] = [
     metaDescription:
       "Jämför Dynamics 365 Field Service med Salesforce Field Service. Funktioner, pris, AI, schemaläggning, mobil och vilket val passar svensk fältservice bäst.",
     intro:
-      "D365 Field Service och Salesforce Field Service är de två största enterprise-plattformarna för fältservice. Valet följer ofta CRM-valet i övrigt – men det finns viktiga skillnader i schemaläggning, IoT och Mixed Reality.",
+      "D365 Field Service och Salesforce Field Service är de två största enterprise-plattformarna för fältservice. Valet följer ofta CRM-valet i övrigt – men det finns viktiga skillnader i schemaläggning, IoT och Copilot.",
     productSummary:
-      "D365 Field Service är starkast när organisationen redan kör D365 Sales/Service eller M365, och när IoT, Mixed Reality och Copilot för tekniker är prioriterat.",
+      "D365 Field Service är starkast när organisationen redan kör D365 Sales/Service eller M365, och när IoT och Copilot för tekniker är prioriterat.",
     competitorSummary:
       "Salesforce Field Service är starkast i bolag där Salesforce CRM redan är navet, med tät Service Cloud-integration och stark mobil-app för komplex fältservice.",
     bestFor: {
       product: [
         "Bolag med D365 Sales/Service eller bred M365-strategi.",
         "Organisationer som driver IoT eller connected assets med Azure-stack.",
-        "Företag som vill ha Mixed Reality (HoloLens) för fjärrsupport från tekniker.",
       ],
       competitor: [
         "Befintliga Salesforce-kunder med Service Cloud i drift.",
@@ -2086,7 +2085,7 @@ const FS_COMPARISONS: ProductComparison[] = [
     ],
     competitorLimits: [
       "Om du redan kör D365 Customer Service eller Sales – integration är märkbart enklare med D365 Field Service.",
-      "Om IoT, Mixed Reality och Azure-stack är strategiska.",
+      "Om IoT och Azure-stack är strategiska.",
       "Om Copilot för tekniker (mobil) är en uttalad ambition.",
     ],
     faqs: [
@@ -2097,10 +2096,6 @@ const FS_COMPARISONS: ProductComparison[] = [
       {
         q: "Vilken har bäst mobil-app?",
         a: "Båda är mogna native iOS/Android-appar. Salesforce mobile-app har lite längre track record; D365 Field Service-mobilen har tagit stora kliv senaste 2 åren.",
-      },
-      {
-        q: "Är Mixed Reality / HoloLens unikt för D365?",
-        a: "Microsoft har den mest integrerade lösningen via Remote Assist på HoloLens 2. Salesforce har egna AR-koncept men inte i samma djup.",
       },
       {
         q: "Vilken är billigare?",

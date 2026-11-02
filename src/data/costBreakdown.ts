@@ -344,7 +344,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         size: "L",
         label: "Stor – 100+ tekniker",
-        scope: "Flera länder, sub­kontraktörer, avancerad SLA, Remote Assist, Copilot för fältarbete.",
+        scope: "Flera länder, sub­kontraktörer, avancerad SLA, Copilot för fältarbete.",
         oneTime: "1 250 000 – 6 000 000+ kr",
         weeks: "24–36 veckor",
       },
