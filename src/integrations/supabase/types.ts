@@ -1966,6 +1966,7 @@ export type Database = {
         Row: {
           body: string
           id: string
+          stats_month: string | null
           subject: string
           summary: string
           updated_at: string
@@ -1973,6 +1974,7 @@ export type Database = {
         Insert: {
           body: string
           id?: string
+          stats_month?: string | null
           subject: string
           summary: string
           updated_at?: string
@@ -1980,6 +1982,7 @@ export type Database = {
         Update: {
           body?: string
           id?: string
+          stats_month?: string | null
           subject?: string
           summary?: string
           updated_at?: string
@@ -6160,6 +6163,20 @@ export type Database = {
       partner_mark_self_update: {
         Args: { _partner_id: string }
         Returns: undefined
+      }
+      partner_month_stats: {
+        Args: { _end: string; _slug: string; _start: string }
+        Returns: {
+          card_views: number
+          comparisons: number
+          filter_views: number
+          match_recommended: number
+          onward_clicks: number
+          profile_visits: number
+          saved: number
+          site_card_views: number
+          unique_visitors: number
+        }[]
       }
       partner_report_autogen_dispatch: { Args: never; Returns: undefined }
       partner_report_monthly_dispatch: {
