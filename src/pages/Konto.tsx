@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { flushAccountSync } from "@/lib/accountSync";
+import { flushAccountSync, resetBuyerState } from "@/lib/accountSync";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,6 +59,13 @@ export default function Konto() {
     await supabase.auth.signOut();
   }
 
+  async function reset() {
+    if (!window.confirm("Rensa plan, kortlista och sparade kalkyler? Det går inte att ångra.")) return;
+    setBusy(true);
+    try { await resetBuyerState(); } finally { setBusy(false); }
+    window.location.href = "/kom-igang/";
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Mitt konto | d365.se" description="Logga in för att spara Min D365-plan, kortlista och kalkyler mellan enheter." canonicalPath="/konto/" noIndex />
@@ -76,6 +83,10 @@ export default function Konto() {
             <div className="flex flex-wrap gap-2">
               <Button asChild><Link to="/underlag/">Till Min D365-plan</Link></Button>
               <Button variant="outline" onClick={logout}>Logga ut</Button>
+            </div>
+            <div className="border-t border-border pt-4 space-y-2">
+              <p className="text-sm text-muted-foreground">Vill du börja om? Plan, kortlista och sparade kalkyler rensas både här i webbläsaren och på kontot.</p>
+              <Button variant="outline" onClick={reset} disabled={busy}>Nollställ underlag och börja om</Button>
             </div>
           </Card>
         ) : (
