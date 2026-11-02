@@ -169,8 +169,7 @@ export const PRODUCT_STANDARD_SECTIONS: Record<string, StandardSectionsData> = {
       "Mobilapp för tekniker med offline-stöd, checklistor, bilder och reservdelshantering.",
       "Förebyggande underhåll, IoT-integration och Connected Field Service.",
       "Integration med Customer Service (ärenden), Sales (offerter) och ERP (reservdelar, fakturering).",
-      "Remote Assist via HoloLens/mobil för expertstöd på distans.",
-    ],
+          ],
     partnerMatters: {
       processDesign: "Schemaläggningsregler, kompetensmatchning och SLA-hantering måste designas efter er verksamhet – annars blir AI-dispatchern värdelös.",
       integrations: "ERP för reservdelar, ekonomi för fakturering, telefoni, IoT-plattform och mobilappar – uppsättningen avgör hela teknikerflödet.",

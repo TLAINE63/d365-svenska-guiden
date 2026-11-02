@@ -480,10 +480,10 @@ export const PRODUCT_ROI_CONFIGS: Record<ProductRoiKey, ProductRoiConfig> = {
       },
       {
         id: "remote-assist",
-        label: "Remote Assist & guidade arbetsorder",
-        hint: "Expert på distans via HoloLens/Teams",
+        label: "Fjärrsupport via Teams & guidade arbetsorder",
+        hint: "Expert på distans via Microsoft Teams",
         detail:
-          "Expert kan koppla upp sig till tekniker på plats och guida via video/AR. Reducerar resor för komplexa ärenden och kortar lärotid för juniorer.",
+          "Expert kan koppla upp sig till tekniker på plats och guida via video. Reducerar resor för komplexa ärenden och kortar lärotid för juniorer.",
         savings: flat(400_000),
         implCost: 120_000,
         defaultOn: true,
