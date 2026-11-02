@@ -81,7 +81,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (Sales och Customer Service räknas som en CRM-enhet), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: ni betalar för 10 månader och får 12, det vill säga 9 950 kr per år för ett produktområde, 15 950 kr för två och 19 950 kr för tre. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: ni betalar för 10 månader och får 12, det vill säga 9 950 kr per år för ett produktområde, 15 950 kr för två och 19 950 kr för tre. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
@@ -612,8 +612,8 @@ const Partnerprogram = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Betald utökad presentation, till exempel expertintervju och video, kvartalsvis genomgång
                 av profilen, statistik över profilvisningar och en namngiven kontaktperson på d365.se.
-                995&nbsp;kr för 1 produktområde, 1&nbsp;595&nbsp;kr för 2 och 1&nbsp;995&nbsp;kr för 3 (Sales och Customer Service
-                räknas som en CRM-enhet).
+                995&nbsp;kr för 1 produktområde, 1&nbsp;595&nbsp;kr för 2 och 1&nbsp;995&nbsp;kr för 3 (CE/CRM-applikationerna
+                räknas som ett produktområde).
               </p>
             </div>
             <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg">
