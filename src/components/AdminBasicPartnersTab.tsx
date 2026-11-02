@@ -7,6 +7,26 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Link2 } from "lucide-react";
+import { toast as sonnerToast } from "sonner";
+import { getPublicBaseUrl } from "@/lib/publicUrl";
+
+async function copyProfileLink(partnerId: string, name: string) {
+  const token = typeof window !== "undefined" ? window.sessionStorage.getItem("admin_token") : null;
+  if (!token) { sonnerToast.error("Ej inloggad"); return; }
+  try {
+    const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-permanent-link`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+      body: JSON.stringify({ partner_id: partnerId }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data?.token) throw new Error(data?.error || "Kunde inte hämta länken");
+    const link = `${getPublicBaseUrl()}/partner-update/${data.token}`;
+    try { await navigator.clipboard.writeText(link); sonnerToast.success(`Profileringslänk för ${name} kopierad`); }
+    catch { sonnerToast.message("Kopiera länken manuellt", { description: link }); }
+  } catch (e) { sonnerToast.error((e as Error).message); }
+}
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -344,6 +364,14 @@ export default function AdminBasicPartnersTab() {
                         <a href={`/basic/${r.slug}/`} target="_blank" rel="noreferrer">
                           <Eye className="h-3.5 w-3.5" />
                         </a>
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        title="Kopiera profileringslänk"
+                        onClick={() => copyProfileLink(r.id, r.name)}
+                      >
+                        <Link2 className="h-3.5 w-3.5" />
                       </Button>
                       <Button
                         size="sm"
