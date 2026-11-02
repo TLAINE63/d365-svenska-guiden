@@ -148,6 +148,13 @@
       "when": 1793619022296,
       "tag": "0020_aimplan_override_cross_product",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1793631736272,
+      "tag": "0021_newsletter_archive_and_partner_stats",
+      "breakpoints": true
     }
   ]
 }
