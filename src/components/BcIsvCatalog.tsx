@@ -666,14 +666,16 @@ const BcIsvCatalog = ({
     };
   }, [scoped]);
 
-  const filtered = useMemo(() => {
+  type Facet = "products" | "industries" | "cats";
+  // skip = facetten vars egna knappar räknas, så antal speglar övriga aktiva val.
+  const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return scoped.filter((s) => {
-      if (cats.size && !cats.has(s.category)) return false;
+    return (s: IsvSolution, skip?: Facet) => {
+      if (skip !== "cats" && cats.size && !cats.has(s.category)) return false;
       // Informationsstatus ändrar bara urvalet, aldrig ordningen.
       if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
       if (deliveries.size && !deliveries.has(model(s))) return false;
-      if (industries.size) {
+      if (skip !== "industries" && industries.size) {
         if (!solutionIndustries(s).some((i) => industries.has(i.name))) return false;
       }
       if (focus.size) {
@@ -686,7 +688,7 @@ const BcIsvCatalog = ({
         const apps = ceApps(s);
         if (!apps.some((a) => ceSel.has(a))) return false;
       }
-      if (products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
+      if (skip !== "products" && products.size && !solutionProducts(s).some((p) => products.has(p))) return false;
       if (q) {
         const hay = [
           s.name,
@@ -712,8 +714,39 @@ const BcIsvCatalog = ({
         if (!hay.includes(q)) return false;
       }
       return true;
-    });
-  }, [scoped, cats, deliveries, industries, focus, products, ceSel, query, statusSel]);
+    };
+  }, [cats, deliveries, industries, focus, products, ceSel, query, statusSel]);
+
+  const filtered = useMemo(() => scoped.filter((s) => matches(s)), [scoped, matches]);
+
+  // Dynamiska antal per facett, räknade om efter övriga aktiva val.
+  const facetCounts = useMemo(() => {
+    const prod = new Map<string, number>();
+    const ind = new Map<string, number>();
+    const cat = new Map<string, number>();
+    let prodAll = 0;
+    for (const s of scoped) {
+      if (matches(s, "products")) {
+        prodAll++;
+        for (const p of solutionProducts(s)) prod.set(p, (prod.get(p) || 0) + 1);
+      }
+      if (matches(s, "industries")) for (const i of solutionIndustries(s)) ind.set(i.name, (ind.get(i.name) || 0) + 1);
+      if (matches(s, "cats") && s.category) cat.set(s.category, (cat.get(s.category) || 0) + 1);
+    }
+    return { prod, ind, cat, prodAll };
+  }, [scoped, matches]);
+
+  // Behov sorterade efter träffar för vald produkt; valda behov hålls alltid synliga.
+  const needs = useMemo(() => {
+    const sorted = [...options.categories].sort(
+      (a, b) => (facetCounts.cat.get(b) || 0) - (facetCounts.cat.get(a) || 0)
+    );
+    const top = sorted.filter((c) => (facetCounts.cat.get(c) || 0) > 0).slice(0, ISV_TOP_NEEDS);
+    for (const c of cats) if (!top.includes(c)) top.push(c);
+    return { top, rest: sorted.filter((c) => !top.includes(c)) };
+  }, [options.categories, facetCounts, cats]);
+  const [showMoreApps, setShowMoreApps] = useState(false);
+  const [showMoreNeeds, setShowMoreNeeds] = useState(false);
 
 
   // Djuplänk: öppna en specifik lösning direkt (t.ex. från AI-sök)
