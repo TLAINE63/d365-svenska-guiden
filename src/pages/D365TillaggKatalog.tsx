@@ -56,9 +56,8 @@ const D365TillaggKatalog = () => {
             </h1>
             <p className="text-muted-foreground leading-relaxed">
               Här samlar vi ISV-lösningar som kompletterar Dynamics 365 – från fakturahantering och
-              WMS till EDI, lokalisering och branschpaket. Filtrera på vilken Dynamics 365-produkt
-              lösningen är byggd för, kategori och bransch. Leverantörer med flera produkter visas
-              samlade under sitt eget namn.
+              WMS till EDI, lokalisering och branschpaket. Välj
+              ert system, vad ni behöver lösa och gärna bransch.
             </p>
           </header>
 
