@@ -112,9 +112,10 @@ function escapeHtml(s: string): string {
     .replaceAll("'", "&#039;");
 }
 
-// Enkel, säker markup: escape först, sedan **fet**, {partner} och varumärken på en rad.
+// Enkel, säker markup: escape först, sedan [länk](https://...), **fet**, {partner} och varumärken på en rad.
 function inline(s: string, name: string): string {
   return escapeHtml(s)
+    .replace(/\[([^\]]+)\]\((https:\/\/[^\s)"'<>]+)\)/g, '<a href="$2" style="color:#0e7c86;font-weight:600;text-decoration:underline">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#0f1f3d">$1</strong>')
     .replaceAll("{partner}", name)
     .replace(/Microsoft Dynamics 365/g, "Microsoft&nbsp;Dynamics&nbsp;365")
