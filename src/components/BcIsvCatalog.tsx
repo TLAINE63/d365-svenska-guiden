@@ -1002,6 +1002,42 @@ const BcIsvCatalog = ({
             />
           </section>
 
+          <section aria-labelledby="isv-step-vendor" className="pt-5 border-t border-border/60">
+            <h3 id="isv-step-vendor" className="text-sm font-semibold text-foreground mb-1">
+              {showProductFilter ? "4. " : ""}Leverantör <span className="font-normal text-muted-foreground">(valfritt)</span>
+            </h3>
+            <p className="text-xs text-muted-foreground mb-3">
+              Många leverantörer har flera tillägg. Välj en leverantör för att se alla deras lösningar.
+            </p>
+            <div className="flex items-center gap-2">
+              <select
+                value={vendorSel}
+                onChange={(e) => setVendorSel(e.target.value)}
+                aria-label="Välj leverantör"
+                className="w-full sm:w-80 py-2 px-3 text-sm rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+              >
+                <option value="">Alla leverantörer ({vendorOptions.length})</option>
+                {vendorOptions.map((v) => {
+                  const n = facetCounts.ven.get(v) || 0;
+                  return (
+                    <option key={v} value={v} disabled={n === 0 && v !== vendorSel}>
+                      {v} ({n})
+                    </option>
+                  );
+                })}
+              </select>
+              {vendorSel && (
+                <button
+                  type="button"
+                  onClick={() => setVendorSel("")}
+                  className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                >
+                  <X className="w-3.5 h-3.5" /> Rensa
+                </button>
+              )}
+            </div>
+          </section>
+
           <details className="pt-5 border-t border-border/60 group" open={deliveries.size + focus.size + ceSel.size > 0 || undefined}>
             <summary className="cursor-pointer text-sm font-semibold text-foreground list-none">
               Fler filter <span className="font-normal text-muted-foreground">(leveransform, område, CE-applikation)</span>
