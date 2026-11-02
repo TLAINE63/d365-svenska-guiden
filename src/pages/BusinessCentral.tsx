@@ -352,7 +352,8 @@ const BusinessCentral = () => {
 
 
   {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
-  <section id="bc-anvandning" className="scroll-mt-28 py-10 sm:py-12 bg-background">
+  {/* Dold tills vidare (Thomas 2026-11-02) */}
+  <section id="bc-anvandning" hidden className="scroll-mt-28 py-10 sm:py-12 bg-background">
    <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
      När passar Business Central i er verksamhet?
