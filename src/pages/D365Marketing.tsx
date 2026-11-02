@@ -113,7 +113,7 @@ const D365Marketing = () => {
         subhead="Börja i ert problem: kunddata i flera system, marknad och sälj som behöver samma kundbild eller kundresor som inte fungerar. Här får ni hjälp att bedöma behovet, jämföra alternativ, ta fram krav och kostnadsbild och hitta partners."
         primary={{ label: "Analysera vårt behov", to: "/d365marketing/matchningstest/" }}
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#ci-beslutsunderlag", icon: FileText }}
-        tertiary={{ label: "Hitta rätt partner", to: "/dynamics-365-crm-partners-sverige/" }}
+        tertiary={{ label: "Hitta rätt Customer Insights-partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
       <ProductPageBody items={INSIGHTS_SECTIONS}>
 

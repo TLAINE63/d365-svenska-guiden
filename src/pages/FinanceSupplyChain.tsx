@@ -205,7 +205,7 @@ const FinanceSupplyChain = () => {
   }}
   secondary={{ label: "2. Bygg beslutsunderlag: TCO/ROI-kalkyl", to: "/finance-supply-chain/roi-kalkylator/", icon: FileText }}
   tertiary={{
-    label: "3. Matcha partner: jämför F&SCM-partners",
+    label: "3. Hitta rätt F&SCM-partner",
     to: "/finance-supply-chain-partners-sverige/",
   }}
   />
