@@ -100,8 +100,55 @@ Vänliga hälsningar,
 **Thomas Laine och Michael Uhman**
 d365.se`;
 
+type Audience = "verified" | "unverified";
+const PARTNERPROGRAM_URL = `${PUBLIC_BASE_URL}/partnerprogram/?utm_source=d365.se&utm_medium=email&utm_campaign=manadsbrev-grundprofil`;
+const UNVERIFIED_SUBJECT = "Köparna jämför Dynamics 365-partners på d365.se. Syns {partner} där de väljer?";
+const UNVERIFIED_SUMMARY = `**Sammanfattat: oktober blev vår största månad hittills.**
+Över 2 300 besökare och drygt 6 600 sidvisningar i nätverket d365.se, businesscentral.se och d365guide.com. **Just nu syns {partner} bara med en grundprofil**, utan länk till er webbplats, kundexempel eller kontaktväg. Det är de verifierade partnerna köparna klickar vidare till.`;
+const UNVERIFIED_BODY = `## d365.se i siffror
+- **155 000+ visningar** och **6 700+ unika besökare** sedan start
+- **450+ guider, artiklar och insikter** som rankar i Google, Bing och AI-tjänster
+- **219 tilläggslösningar** och jämförelser för Business Central, Finance & Supply Chain, Sales, Customer Service med flera
+
+## Oktober i hela nätverket
+- **d365.se:** 538 unika besökare (+32 %), 1 093 besök och 2 080 sidvisningar
+- **businesscentral.se:** 1 423 unika besökare (+107 %) och 2 517 sidvisningar, 374 nya köparprofiler
+- **d365guide.com:** 430 besök (+394 %) och 2 060 sidvisningar, nästan 5 sidor per besök
+- Över 5 700 sidhämtningar av AI- och söktjänster som ChatGPT, Claude, Copilot och Google
+
+## Köparresan i oktober
+Det här är inte slösurf. Så rörde sig köparna på d365.se, från första val till kontakt:
+- **101** valde en köpväg på startsidan (nytt system, kostnad, partner eller expert, befintlig lösning)
+- **118** startade en behovsanalys, kalkyl eller kravguide, och **59** slutförde den
+- **525** profilbesök, **36** rekommendationer från behovsguiden och **10** jämförelser mellan partners
+- **7** partners sparades i köparnas kortlistor
+- **18** kontaktsteg: påbörjade förfrågningar, klick till partnerns webbplats och kontaktuppgifter
+
+## Vilka företag som besöker oss
+Sedan start har vi identifierat **570+ företag och organisationer** som besökt d365.se, varav **260+ svenska** och **210+ med fler än 200 anställda**. Bland besökarna finns tillverkare, grossister, tjänsteföretag, regioner och kommuner, till exempel Region Skåne, Falu kommun, Gröna Lund, Röhnisch och Syntronic.
+
+## Det här missar {partner} i dag
+- Köparna klickar vidare till **verifierade partners**, som har länk till webbplatsen, kundexempel, branschfokus och kontaktknappar
+- Grundprofiler listas efter de verifierade och saknar kontaktväg
+- Verifierade partners får egen månadsstatistik: hur ofta kortet visats, jämförts, matchats och klickats
+- Bara verifierade partners kan väljas när köparen skickar en förfrågan till upp till tre partners
+
+[KNAPP]
+
+## Synas i d365.se INSIDE
+Vi intervjuar partners om kompetens, kunder och arbetssätt, som artikel och video kopplad till profilen. Se avsnitten på [YouTube-kanalen d365.se INSIDE](https://www.youtube.com/@d365.se-inside). Svara på detta mejl så bokar vi en tid.
+
+Läs mer om upplägget på [d365.se/partnerprogram](${PARTNERPROGRAM_URL}).
+
+Frågor? Svara gärna på detta mejl.
+
+Vänliga hälsningar,
+**Thomas Laine och Michael Uhman**
+d365.se`;
+
 interface NewsletterContent { subject: string; summary: string; body: string; stats_month?: string | null }
 const DEFAULT_CONTENT: NewsletterContent = { subject: NEWSLETTER_SUBJECT, summary: DEFAULT_SUMMARY, body: DEFAULT_BODY, stats_month: null };
+const UNVERIFIED_DEFAULT: NewsletterContent = { subject: UNVERIFIED_SUBJECT, summary: UNVERIFIED_SUMMARY, body: UNVERIFIED_BODY, stats_month: "2026-10" };
 
 function escapeHtml(s: string): string {
   return s
@@ -115,7 +162,7 @@ function escapeHtml(s: string): string {
 // Enkel, säker markup: escape först, sedan [länk](https://...), **fet**, {partner} och varumärken på en rad.
 function inline(s: string, name: string): string {
   return escapeHtml(s)
-    .replace(/\[([^\]]+)\]\((https:\/\/[^\s)"'<>]+)\)/g, '<a href="$2" style="color:#0e7c86;font-weight:600;text-decoration:underline">$1</a>')
+    .replace(/\[([^\]]+)\]\((https:\/\/[^\s)"'<>]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:#0e7c86;font-weight:600;text-decoration:underline">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#0f1f3d">$1</strong>')
     .replaceAll("{partner}", name)
     .replace(/Microsoft Dynamics 365/g, "Microsoft&nbsp;Dynamics&nbsp;365")
@@ -266,10 +313,11 @@ function statsBlock(s: PartnerStats, name: string): string {
   </table>`;
 }
 
-function newsletterEmail(partnerName: string, token: string, c: NewsletterContent = DEFAULT_CONTENT, stats: PartnerStats | null = null): string {
+function newsletterEmail(partnerName: string, token: string, c: NewsletterContent = DEFAULT_CONTENT, stats: PartnerStats | null = null, audience: Audience = "verified"): string {
   const name = escapeHtml(partnerName);
-  const url = `${PUBLIC_BASE_URL}/partner-update/${encodeURIComponent(token)}`;
-  const button = `<a href="${url}" style="display:inline-block;background:${PETROL};color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 24px;border-radius:8px">Öppna din profileringslänk</a>`;
+  const unv = audience === "unverified";
+  const url = unv ? PARTNERPROGRAM_URL : `${PUBLIC_BASE_URL}/partner-update/${encodeURIComponent(token)}`;
+  const button = `<a href="${url}" target="_blank" rel="noopener" style="display:inline-block;background:${unv ? ORANGE : PETROL};color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 24px;border-radius:8px">${unv ? "Se partnerprogrammet" : "Öppna din profileringslänk"}</a>`;
   const summary = c.summary.replace(/\r/g, "").split("\n").filter((l) => l.trim())
     .map((l, i, a) => `<p style="margin:0 0 ${i === a.length - 1 ? 0 : 8}px;font-size:15px;line-height:1.65;color:#1f2d3a">${inline(l.trim(), name)}</p>`).join("");
   const statsHtml = stats ? statsBlock(stats, name) : "";
@@ -288,7 +336,7 @@ function newsletterEmail(partnerName: string, token: string, c: NewsletterConten
           </tr></table>
           <div style="height:1px;background:#22385c;margin:22px 0 18px;font-size:0;line-height:1px">&nbsp;</div>
           <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.25">Hej ${name},</div>
-          <div style="color:#c7d3df;font-size:14px;line-height:1.55;margin-top:6px">Här är det senaste från d365.se och hur ert partnerkort har synts.</div>
+          <div style="color:#c7d3df;font-size:14px;line-height:1.55;margin-top:6px">${unv ? "Så här många köpare jämför Dynamics&nbsp;365-partners på d365.se just nu." : "Här är det senaste från d365.se och hur ert partnerkort har synts."}</div>
         </td></tr>
         <tr><td style="background:${ORANGE};height:4px;line-height:4px;font-size:0">&nbsp;</td></tr>
         <tr><td style="padding:30px 32px 34px">
@@ -296,14 +344,14 @@ function newsletterEmail(partnerName: string, token: string, c: NewsletterConten
             <tr><td style="padding:18px 20px">
               ${summary}
               <p style="margin:16px 0 0">${button}</p>
-              <p style="margin:10px 0 0;font-size:12px;line-height:1.5;color:${MUTED}">Länken är personlig för ${name} och gäller tills vidare.</p>
+              ${unv ? "" : `<p style="margin:10px 0 0;font-size:12px;line-height:1.5;color:${MUTED}">Länken är personlig för ${name} och gäller tills vidare.</p>`}
             </td></tr>
           </table>
           ${renderMarkup(c.body, name, button, statsHtml)}
         </td></tr>
         <tr><td bgcolor="${NAVY}" style="background:${NAVY};padding:18px 32px;text-align:center;color:#9fb3c8;font-size:11px;letter-spacing:0.5px;line-height:1.6">
           D365.SE Köpguide &middot; Av d365.se-redaktionen<br>
-          <a href="${PUBLIC_BASE_URL}/" style="color:#c7d3df;text-decoration:none">www.d365.se</a>
+          <a href="${PUBLIC_BASE_URL}/" target="_blank" rel="noopener" style="color:#c7d3df;text-decoration:none">www.d365.se</a>
         </td></tr>
       </table>
     </td></tr>
@@ -321,7 +369,7 @@ const ContentSchema = z.object({
 
 async function loadContent(sb: any, id = "current"): Promise<NewsletterContent | null> {
   const { data } = await sb.from("newsletter_content").select("subject,summary,body,stats_month").eq("id", id).maybeSingle();
-  return data ?? (id === "current" ? DEFAULT_CONTENT : null);
+  return data ?? (id === "current" ? DEFAULT_CONTENT : id === "unverified-current" ? UNVERIFIED_DEFAULT : null);
 }
 
 Deno.serve(async (req) => {
@@ -343,10 +391,15 @@ Deno.serve(async (req) => {
         return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: jsonHeaders });
       }
       const sb = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
+      // Målgrupp för månadsbrevet: verifierade (publicerade) eller ej verifierade partners. Expertflödet gäller alltid verifierade.
+      const audience: Audience = NEWSLETTER_ACTIONS.includes(rawBody.action) && rawBody.audience === "unverified" ? "unverified" : "verified";
+      const unv = audience === "unverified";
+      const draftId = unv ? "unverified-current" : "current";
+      const archPrefix = unv ? "ejarkiv-" : "arkiv-";
       const { data: partners, error: pErr } = await sb
         .from("partners")
         .select("id,name,slug,admin_contact_email,email,partner_invitations(token,status,expires_at,created_at)")
-        .eq("is_featured", true)
+        .eq("is_featured", !unv)
         .order("name");
       if (pErr) throw pErr;
       const now = Date.now();
@@ -396,16 +449,18 @@ Deno.serve(async (req) => {
 
       // Testutskick av nyhetsbrevet: ett personligt mejl per publicerad partner,
       // men alla levereras till granskningsmottagaren.
-      const content = (await loadContent(sb))!;
+      const content = (await loadContent(sb, draftId))!;
+      // Ej verifierade partners behöver ingen profileringslänk; knappen leder till partnerprogrammet.
+      const canSend = (p: { token: string | null }) => unv || !!p.token;
       // Statistiken räknas fram vid varje förhandsgranskning/utskick, så ett arkiverat brev
       // visar alltid samma månad som det skrevs för.
       const statsFor = (p: { slug: string | null }, c: NewsletterContent) =>
-        /\[STATISTIK\]/.test(c.body) ? fetchPartnerStats(sb, p.slug, c.stats_month) : Promise.resolve(null);
+        !unv && /\[STATISTIK\]/.test(c.body) ? fetchPartnerStats(sb, p.slug, c.stats_month) : Promise.resolve(null);
 
       if (rawBody.action === "newsletter-save") {
         const parsed = ContentSchema.safeParse(rawBody.content);
         if (!parsed.success) return new Response(JSON.stringify({ error: "Ämnesrad, sammanfattning och brevtext måste fyllas i" }), { status: 400, headers: jsonHeaders });
-        const { error: sErr } = await sb.from("newsletter_content").upsert({ id: "current", ...parsed.data, stats_month: parsed.data.stats_month ?? null, updated_at: new Date().toISOString() });
+        const { error: sErr } = await sb.from("newsletter_content").upsert({ id: draftId, ...parsed.data, stats_month: parsed.data.stats_month ?? null, updated_at: new Date().toISOString() });
         if (sErr) throw sErr;
         return new Response(JSON.stringify({ ok: true }), { headers: jsonHeaders });
       }
@@ -415,7 +470,7 @@ Deno.serve(async (req) => {
         const month = String(rawBody.month || "");
         if (!MONTH_RE.test(month)) return new Response(JSON.stringify({ error: "Ange månad som ÅÅÅÅ-MM" }), { status: 400, headers: jsonHeaders });
         const { error: aErr } = await sb.from("newsletter_content").upsert({
-          id: `arkiv-${month}`, subject: content.subject, summary: content.summary, body: content.body,
+          id: `${archPrefix}${month}`, subject: content.subject, summary: content.summary, body: content.body,
           stats_month: content.stats_month ?? null, updated_at: new Date().toISOString(),
         });
         if (aErr) throw aErr;
@@ -424,28 +479,28 @@ Deno.serve(async (req) => {
 
       if (rawBody.action === "newsletter-list") {
         const { data: arch } = await sb.from("newsletter_content")
-          .select("id,subject,summary,body,stats_month,updated_at").like("id", "arkiv-%").order("id", { ascending: false });
+          .select("id,subject,summary,body,stats_month,updated_at").like("id", `${archPrefix}%`).order("id", { ascending: false });
         return new Response(JSON.stringify({
           subject: content.subject,
           content,
-          default_content: DEFAULT_CONTENT,
+          default_content: unv ? UNVERIFIED_DEFAULT : DEFAULT_CONTENT,
           archives: (arch ?? []).map((a: any) => ({
-            month: String(a.id).slice(6), label: monthLabel(String(a.id).slice(6)),
+            month: String(a.id).slice(archPrefix.length), label: monthLabel(String(a.id).slice(archPrefix.length)),
             content: { subject: a.subject, summary: a.summary, body: a.body, stats_month: a.stats_month },
             updated_at: a.updated_at,
           })),
-          partners: list.map((p) => ({ id: p.id, name: p.name, has_link: !!p.token })),
+          partners: list.map((p) => ({ id: p.id, name: p.name, has_link: canSend(p) })),
         }), { headers: jsonHeaders });
       }
 
       if (rawBody.action === "newsletter-preview") {
         const p = list.find((x) => x.id === rawBody.partner_id);
         if (!p) return new Response(JSON.stringify({ error: "Partnern hittades inte" }), { status: 404, headers: jsonHeaders });
-        if (!p.token) return new Response(JSON.stringify({ error: "Partnern saknar giltig profileringslänk" }), { status: 400, headers: jsonHeaders });
+        if (!canSend(p)) return new Response(JSON.stringify({ error: "Partnern saknar giltig profileringslänk" }), { status: 400, headers: jsonHeaders });
         let c: NewsletterContent = content;
         if (rawBody.archive_month) {
           const m = String(rawBody.archive_month);
-          const a = MONTH_RE.test(m) ? await loadContent(sb, `arkiv-${m}`) : null;
+          const a = MONTH_RE.test(m) ? await loadContent(sb, `${archPrefix}${m}`) : null;
           if (!a) return new Response(JSON.stringify({ error: "Arkiverat brev hittades inte" }), { status: 404, headers: jsonHeaders });
           c = a;
         } else if (rawBody.content) {
@@ -453,7 +508,7 @@ Deno.serve(async (req) => {
           if (draft.success) c = draft.data;
         }
         const stats = await statsFor(p, c);
-        return new Response(JSON.stringify({ subject: c.subject, html: newsletterEmail(p.name, p.token, c, stats), stats }), { headers: jsonHeaders });
+        return new Response(JSON.stringify({ subject: c.subject.replaceAll("{partner}", p.name), html: newsletterEmail(p.name, p.token ?? "", c, stats, audience), stats }), { headers: jsonHeaders });
       }
 
       if (rawBody.action === "newsletter-send") {
@@ -463,13 +518,13 @@ Deno.serve(async (req) => {
         const resultsNl: Array<{ partner: string; status: string; reason?: string }> = [];
         const onlyIds: string[] | null = Array.isArray(rawBody.partner_ids) ? rawBody.partner_ids.map(String) : null;
         for (const p of list.filter((x) => !onlyIds || onlyIds.includes(x.id))) {
-          if (!p.token) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
-          const subject = `[Granskning: ${p.name}] ${content.subject}`;
+          if (!canSend(p)) { resultsNl.push({ partner: p.name, status: "skipped", reason: "saknar giltig profileringslänk" }); continue; }
+          const subject = `[Granskning${unv ? " ej verifierad" : ""}: ${p.name}] ${content.subject.replaceAll("{partner}", p.name)}`;
           const stats = await statsFor(p, content);
           const { data, error } = await rsNl.emails.send({
             from: "Thomas Laine via d365.se <info@d365.se>",
             to: [REVIEW_RECIPIENT], reply_to: REVIEW_RECIPIENT, subject,
-            html: newsletterEmail(p.name, p.token, content, stats),
+            html: newsletterEmail(p.name, p.token ?? "", content, stats, audience),
           });
           const status = error ? "failed" : "sent";
           resultsNl.push({ partner: p.name, status });
@@ -477,7 +532,7 @@ Deno.serve(async (req) => {
             recipient_email: REVIEW_RECIPIENT, template_name: "partner-newsletter-review", subject, status,
             message_id: data?.id ?? null,
             error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
-            metadata: { partner_id: p.id, partner_name: p.name },
+            metadata: { partner_id: p.id, partner_name: p.name, audience },
           });
           await new Promise((r) => setTimeout(r, 600));
         }
