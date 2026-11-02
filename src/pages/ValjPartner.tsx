@@ -632,12 +632,21 @@ const ValjPartner = () => {
   trackPartnerFunnel("partner_verification_filter_applied", { information_status: next ?? "alla" });
  };
 
- // Från startsidans val "En Dynamics 365-partner": landa direkt på steg 1.
+ // Från startsidans sökruta och val "En Dynamics 365-partner": landa direkt på partnerlistan.
+ // Hashen fångas vid första render, eftersom filtersynken i URL:en (setSearchParams) tar bort den.
+ const scrollToListRef = useRef(location.hash === "#hitta-partners");
  useEffect(() => {
-  if (isLoading || location.hash !== "#hitta-partners") return;
-  const t = window.setTimeout(() => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" }), 60);
-  return () => window.clearTimeout(t);
- }, [isLoading, location.hash]);
+  if (location.hash === "#hitta-partners") scrollToListRef.current = true;
+ }, [location.hash]);
+ useEffect(() => {
+  if (isLoading || !scrollToListRef.current) return;
+  scrollToListRef.current = false;
+  const go = () => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" });
+  const t1 = window.setTimeout(go, 60);
+  // Ny scroll när bilder och kort har laddat klart, så listan inte hamnar fel.
+  const t2 = window.setTimeout(go, 600);
+  return () => { window.clearTimeout(t1); window.clearTimeout(t2); };
+  }, [isLoading, location.hash]);
 
  // Basic-partners (observerad data) som matchar samma filter
   const filteredBasicPartners = useMemo(

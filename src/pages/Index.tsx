@@ -193,7 +193,7 @@ const Index = () => {
     if (heroProduct && APPS[heroProduct]) qs.set("apps", APPS[heroProduct]);
     if (heroIndustry) qs.set("industry", heroIndustry);
     const q = qs.toString();
-    navigate(`/valjdynamics365partner/${q ? `?${q}` : ""}`);
+    navigate(`/valjdynamics365partner/${q ? `?${q}` : ""}#hitta-partners`);
   };
 
 
