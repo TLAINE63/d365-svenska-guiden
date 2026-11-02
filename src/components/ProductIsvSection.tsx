@@ -71,8 +71,8 @@ const ProductIsvSection = ({
       .map((g) => {
         const ranked = [...g.items].sort(
           (a, b) =>
-            Number(reviewed.has(b.id)) - Number(reviewed.has(a.id)) ||
             evidence(b) - evidence(a) ||
+            Number(reviewed.has(b.id)) - Number(reviewed.has(a.id)) ||
             a.name.localeCompare(b.name, "sv"),
         );
         const example = ranked.find((s) => !usedVendors.has(s.vendor)) || ranked[0];
