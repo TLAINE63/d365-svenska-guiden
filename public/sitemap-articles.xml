@@ -776,7 +776,7 @@
   </url>
   <url>
     <loc>https://d365.se/artiklar/vivicta-dynamics-365-partner/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -785,6 +785,18 @@
     <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/aktuellt/microsoft-utokar-molnkontroller-men-omfattningen-for-dynamics-365-framgar-inte/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/aktuellt/microsoft-utokar-suveranitetskontroller-men-kopplingen-till-dynamics-365-saknas/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://d365.se/aktuellt/work-iq-i-preview-kopplar-copilot-till-verksamhetsdata-fran-dynamics-365/</loc>
