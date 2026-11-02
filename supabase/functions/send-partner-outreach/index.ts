@@ -508,7 +508,7 @@ Deno.serve(async (req) => {
           if (draft.success) c = draft.data;
         }
         const stats = await statsFor(p, c);
-        return new Response(JSON.stringify({ subject: c.subject, subject: undefined, html: newsletterEmail(p.name, p.token ?? "", c, stats, audience), stats, subjectLine: c.subject.replaceAll("{partner}", p.name) }), { headers: jsonHeaders });
+        return new Response(JSON.stringify({ subject: c.subject.replaceAll("{partner}", p.name), html: newsletterEmail(p.name, p.token ?? "", c, stats, audience), stats }), { headers: jsonHeaders });
       }
 
       if (rawBody.action === "newsletter-send") {
