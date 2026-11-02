@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Archive, Copy, Eye, Loader2, RotateCcw, Save, Send, X } from "lucide-react";
 
 interface Result { partner: string; status: string; reason?: string }
-interface P { id: string; name: string; has_link: boolean }
+interface P { id: string; name: string; has_link: boolean; recipients?: string[] }
 interface Content { subject: string; summary: string; body: string; stats_month?: string | null }
 interface ArchiveItem { month: string; label: string; content: Content; updated_at: string }
 
@@ -133,6 +133,21 @@ function NewsletterEditor({ token, audience }: { token: string | null; audience:
     toast({ title: `Klart: ${d.sent} testmejl skickade till ${REVIEWER}` });
   };
 
+  const sendLive = async (all: boolean) => {
+    if (dirty) { toast({ title: "Spara ändringarna först", variant: "destructive" }); return; }
+    const targets = (all ? partners : partners.filter((p) => p.id === partnerId)).filter((p) => p.has_link && (p.recipients?.length ?? 0) > 0);
+    const addrCount = targets.reduce((n, p) => n + (p.recipients?.length ?? 0), 0);
+    if (!targets.length) { toast({ title: "Inga mottagare med e-post", variant: "destructive" }); return; }
+    if (!confirm(`SKARPT UTSKICK: ${targets.length} partner(s), ${addrCount} e-postadresser. Brevet går direkt till partnerna. Fortsätta?`)) return;
+    setBusy(all ? "live-all" : "live-one");
+    setResults(null);
+    const d = await call({ action: "newsletter-send", live: true, partner_ids: targets.map((p) => p.id) });
+    setBusy(null);
+    if (!d) return;
+    setResults(d.results ?? []);
+    toast({ title: `Klart: ${d.sent} partners fick månadsbrevet` });
+  };
+
   const selected = partners.find((p) => p.id === partnerId);
   const viewing = archives.find((a) => a.month === viewArchive);
   const set = (k: keyof Content) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -143,7 +158,7 @@ function NewsletterEditor({ token, audience }: { token: string | null; audience:
       <CardHeader>
         <CardTitle>{unv ? "Månadsbrev till ej verifierade partners" : "Månadsbrev till publicerade partners"}</CardTitle>
         <CardDescription>
-          {unv ? "Samlade siffror för hela sajten, inga siffror per partner. Knappen leder till partnerprogrammet. " : ""}Redigera brevet, förhandsgranska per partner och gör testutskick. Testmejl går endast till {REVIEWER}, inget skickas till partnerna.
+          {unv ? "Samlade siffror för hela sajten, inga siffror per partner. Knappen leder till partnerprogrammet. " : ""}Redigera brevet, förhandsgranska per partner och gör testutskick. Testmejl går endast till {REVIEWER}. Skarpt utskick går till alla sparade adresser hos partnern (admin, kontakt/sälj och faktura), utom uppenbara faktura- eller adminbrevlådor.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -249,6 +264,22 @@ function NewsletterEditor({ token, audience }: { token: string | null; audience:
                 Testa alla till mig
               </Button>
             </div>
+            <div className="flex flex-wrap items-center gap-2 rounded-md border border-destructive/40 p-3">
+              <span className="text-sm font-medium mr-2">Skarpt till partnerna:</span>
+              <Button variant="outline" onClick={() => sendLive(false)} disabled={!token || !selected?.has_link || !selected?.recipients?.length || !!busy || !!viewArchive}>
+                {busy === "live-one" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+                Skicka till vald partner
+              </Button>
+              <Button variant="destructive" onClick={() => sendLive(true)} disabled={!token || !!busy || partners.length === 0 || !!viewArchive}>
+                {busy === "live-all" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+                Skicka till alla
+              </Button>
+            </div>
+            {selected && (
+              <div className="text-sm"><span className="text-muted-foreground">Mottagare för {selected.name}:</span>{" "}
+                {selected.recipients?.length ? selected.recipients.join(", ") : <span className="text-destructive">saknar e-postadress</span>}
+              </div>
+            )}
             {viewing && (
               <div className="flex items-center justify-between gap-2 rounded-md border border-accent/40 bg-accent/10 px-3 py-2 text-sm">
                 <span>Visar arkiverat brev: <strong className="capitalize">{viewing.label}</strong></span>
@@ -277,7 +308,7 @@ function NewsletterEditor({ token, audience }: { token: string | null; audience:
               <div key={r.partner} className="flex items-center gap-3 px-3 py-2">
                 <span className="font-medium w-44 truncate">{r.partner}</span>
                 <span className={r.status === "sent" ? "text-muted-foreground" : "text-destructive"}>
-                  {r.status === "sent" ? "Skickad" : r.status === "failed" ? "Misslyckades" : `Hoppades över: ${r.reason}`}
+                  {r.status === "sent" ? "Skickad" : r.status === "failed" ? "Misslyckades" : `Hoppades över: ${r.reason}`}{r.status === "sent" && r.reason ? ` till ${r.reason}` : ""}
                 </span>
               </div>
             ))}
