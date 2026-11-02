@@ -27,6 +27,7 @@ import { ISV_PRODUCTS } from "@/data/isvProfileOptions";
 import { D365_PRODUCT_BRANDING } from "@/data/d365ProductBranding";
 import { INDUSTRY_IMAGES } from "@/data/industryImages";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import { ISV_PRODUCT_GROUPS, ISV_TOP_NEEDS } from "@/lib/isvProductGroups";
 import { standardIndustriesFor } from "@/lib/isvIndustries";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
@@ -807,10 +808,10 @@ const BcIsvCatalog = ({
         <div className="flex items-baseline justify-between mb-6">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
-              Förfina urvalet
+              Hitta rätt tillägg
             </span>
             <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
-              Filtrera fram lösningar som matchar din kategori, leveransform och bransch.
+              Välj ert system, beskriv vad ni behöver lösa och avgränsa gärna på bransch.
             </p>
           </div>
           <div className="flex items-center gap-3 text-xs shrink-0">
@@ -830,91 +831,168 @@ const BcIsvCatalog = ({
           </div>
         </div>
 
-        <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Sök på lösning, leverantör, funktion eller nyckelord…"
-            className="w-full pl-9 pr-9 py-2.5 text-sm rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Rensa sökning"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
-        </div>
-
-        <div className="space-y-5">
+        <div className="space-y-6">
           {showProductFilter && (
-            <>
-              <FilterRow
-                label="Dynamics 365-produkt"
-                options={ISV_PRODUCTS}
-                selected={products}
-                onToggle={toggle(products, setProducts)}
-                onClear={() => setProducts(new Set())}
-                labelFor={(p) => D365_PRODUCT_BRANDING[p]?.label || p}
-                iconFor={(p) => D365_PRODUCT_BRANDING[p]?.icon}
-              />
-              <div className="h-px bg-border/60" />
-            </>
+            <section aria-labelledby="isv-step-system">
+              <h3 id="isv-step-system" className="text-sm font-semibold text-foreground mb-3">
+                1. Välj ert system
+              </h3>
+              <div className="space-y-3">
+                {ISV_PRODUCT_GROUPS.filter((g) => !g.collapsed || showMoreApps || g.products.some((p) => products.has(p))).map((g) => (
+                  <div key={g.label} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-5">
+                    <span className="md:w-40 shrink-0 pt-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-muted-foreground">
+                      {g.label}
+                    </span>
+                    <div className="flex flex-wrap gap-2 flex-1">
+                      {g.products.map((p) => {
+                        const active = products.has(p);
+                        const count = facetCounts.prod.get(p) || 0;
+                        const icon = D365_PRODUCT_BRANDING[p]?.icon;
+                        return (
+                          <button
+                            key={p}
+                            type="button"
+                            onClick={() => toggle(products, setProducts)(p)}
+                            disabled={count === 0 && !active}
+                            aria-pressed={active}
+                            className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-full border transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+                              active
+                                ? "bg-primary/10 text-primary border-primary/30 font-semibold"
+                                : "bg-background text-foreground border-border hover:border-primary/40 hover:bg-muted/50"
+                            }`}
+                          >
+                            {icon && <img src={icon} alt="" loading="lazy" className="w-4 h-4 object-contain shrink-0" />}
+                            <span>{D365_PRODUCT_BRANDING[p]?.label || p}</span>
+                            <span className="text-muted-foreground font-normal">{count}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+                <div className="flex flex-wrap gap-2 md:pl-[11.25rem]">
+                  <button
+                    type="button"
+                    onClick={() => setProducts(new Set())}
+                    aria-pressed={products.size === 0}
+                    className={`px-3.5 py-1.5 text-xs font-medium rounded-full border transition-all ${
+                      products.size === 0
+                        ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                        : "bg-background text-muted-foreground border-border hover:border-primary/40"
+                    }`}
+                  >
+                    Visa alla tillägg ({facetCounts.prodAll})
+                  </button>
+                  {!showMoreApps && (
+                    <button
+                      type="button"
+                      onClick={() => setShowMoreApps(true)}
+                      className="px-3.5 py-1.5 text-xs font-medium rounded-full border border-dashed border-border text-muted-foreground hover:text-foreground"
+                    >
+                      Fler appar
+                    </button>
+                  )}
+                </div>
+              </div>
+            </section>
           )}
-          <FilterRow
-            label="Kategori"
-            options={options.categories}
-            selected={cats}
-            onToggle={toggle(cats, setCats)}
-            onClear={() => setCats(new Set())}
-          />
-          <div className="h-px bg-border/60" />
-          <FilterRow
-            label="Leveransform"
-            options={options.deliveries}
-            selected={deliveries}
-            onToggle={toggle(deliveries, setDeliveries)}
-            onClear={() => setDeliveries(new Set())}
-            labelFor={(d) => DELIVERY_FILTER_LABEL[d]}
-          />
-          <div className="h-px bg-border/60" />
-          <FilterRow
-            label="Område"
-            options={["finance", "supply"] as FocusFilter[]}
-            selected={focus}
-            onToggle={toggle(focus, setFocus)}
-            onClear={() => setFocus(new Set())}
-            labelFor={(f) => FOCUS_LABEL[f]}
-          />
-          {options.ceApps.length > 0 && (
-            <>
-              <div className="h-px bg-border/60" />
-              <FilterRow
-                label="CE-applikation"
-                options={options.ceApps}
-                selected={ceSel}
-                onToggle={toggle(ceSel, setCeSel)}
-                onClear={() => setCeSel(new Set())}
-                labelFor={(a) => CE_APP_LABEL[a]}
+
+          <section aria-labelledby="isv-step-need" className={showProductFilter ? "pt-5 border-t border-border/60" : ""}>
+            <h3 id="isv-step-need" className="text-sm font-semibold text-foreground mb-3">
+              {showProductFilter ? "2. " : ""}Vad behöver ni lösa?
+            </h3>
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                aria-label="Sök tillägg"
+                placeholder="T.ex. e-faktura, WMS, telefoni, kalkyl eller leverantörsnamn…"
+                className="w-full pl-9 pr-9 py-2.5 text-sm rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50"
               />
-            </>
-          )}
-          <div className="h-px bg-border/60" />
-          <FilterRow
-            label="Bransch"
-            options={options.industries}
-            selected={industries}
-            onToggle={toggle(industries, setIndustries)}
-            onClear={() => setIndustries(new Set())}
-            imageFor={(n) => INDUSTRY_IMAGES[INDUSTRY_SLUG_BY_NAME.get(n) || ""]}
-            countFor={(n) => options.industryCount.get(n) || 0}
-          />
-          <div className="h-px bg-border/60" />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Rensa sökning"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            <FilterRow
+              label="Behov"
+              options={showMoreNeeds ? [...needs.top, ...needs.rest] : needs.top}
+              selected={cats}
+              onToggle={toggle(cats, setCats)}
+              onClear={() => setCats(new Set())}
+              countFor={(c) => facetCounts.cat.get(c) || 0}
+            />
+            {needs.rest.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowMoreNeeds((v) => !v)}
+                className="mt-2 md:ml-[7.25rem] text-xs font-medium text-primary hover:underline"
+              >
+                {showMoreNeeds ? "Visa färre behov" : `Fler behov (${needs.rest.length})`}
+              </button>
+            )}
+          </section>
+
+          <section aria-labelledby="isv-step-industry" className="pt-5 border-t border-border/60">
+            <h3 id="isv-step-industry" className="text-sm font-semibold text-foreground mb-1">
+              {showProductFilter ? "3. " : ""}Bransch, om det hjälper <span className="font-normal text-muted-foreground">(valfritt)</span>
+            </h3>
+            <p className="text-xs text-muted-foreground mb-3">
+              Generella lösningar, som e-faktura eller e-signering, är ofta inte märkta med bransch. Välj bransch bara om ni vill avgränsa.
+            </p>
+            <FilterRow
+              label="Bransch"
+              options={options.industries}
+              selected={industries}
+              onToggle={toggle(industries, setIndustries)}
+              onClear={() => setIndustries(new Set())}
+              imageFor={(n) => INDUSTRY_IMAGES[INDUSTRY_SLUG_BY_NAME.get(n) || ""]}
+              countFor={(n) => facetCounts.ind.get(n) || 0}
+            />
+          </section>
+
+          <details className="pt-5 border-t border-border/60 group" open={deliveries.size + focus.size + ceSel.size > 0 || undefined}>
+            <summary className="cursor-pointer text-sm font-semibold text-foreground list-none">
+              Fler filter <span className="font-normal text-muted-foreground">(leveransform, område, CE-applikation)</span>
+            </summary>
+            <div className="space-y-5 mt-4">
+              <FilterRow
+                label="Leveransform"
+                options={options.deliveries}
+                selected={deliveries}
+                onToggle={toggle(deliveries, setDeliveries)}
+                onClear={() => setDeliveries(new Set())}
+                labelFor={(d) => DELIVERY_FILTER_LABEL[d]}
+              />
+              <FilterRow
+                label="Område"
+                options={["finance", "supply"] as FocusFilter[]}
+                selected={focus}
+                onToggle={toggle(focus, setFocus)}
+                onClear={() => setFocus(new Set())}
+                labelFor={(f) => FOCUS_LABEL[f]}
+              />
+              {options.ceApps.length > 0 && (
+                <FilterRow
+                  label="CE-applikation"
+                  options={options.ceApps}
+                  selected={ceSel}
+                  onToggle={toggle(ceSel, setCeSel)}
+                  onClear={() => setCeSel(new Set())}
+                  labelFor={(a) => CE_APP_LABEL[a]}
+                />
+              )}
+            </div>
+          </details>
+
           {/* Enda statusfiltret för köpare: endast verifierade av d365.se. Ändrar bara urvalet, aldrig ordningen. */}
           <label className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium cursor-pointer">
             <input
@@ -925,8 +1003,6 @@ const BcIsvCatalog = ({
             />
             Endast lösningar verifierade av d365.se
           </label>
-
-
         </div>
 
         {vendorGroups.length > 0 && (
