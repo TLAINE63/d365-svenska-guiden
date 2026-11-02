@@ -85,7 +85,7 @@ export default function Konto() {
               <Button variant="outline" onClick={logout}>Logga ut</Button>
             </div>
             <div className="border-t border-border pt-4 space-y-2">
-              <p className="text-sm text-muted-foreground">Vill du börja om? Plan, kortlista och sparade kalkyler rensas både här i webbläsaren och på kontot.</p>
+              <p className="text-sm text-muted-foreground">Vill du börja om? Plan, kortlista, sparade kalkyler och svar i guider och tester rensas både här i webbläsaren och på kontot.</p>
               <Button variant="outline" onClick={reset} disabled={busy}>Nollställ underlag och börja om</Button>
             </div>
           </Card>
