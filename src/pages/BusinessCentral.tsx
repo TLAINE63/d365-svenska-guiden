@@ -1,4 +1,16 @@
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
+import { ProductSectionNav } from "@/components/product/ProductSectionNav";
+const BC_SECTIONS = [
+  { id: "bc-oversikt", label: "Översikt" },
+  { id: "bc-passform", label: "Passar Business Central?" },
+  { id: "bc-jamforelse", label: "Jämför alternativ" },
+  { id: "pricing", label: "Pris och licenser" },
+  { id: "bc-anvandning", label: "E-handel och bygg" },
+  { id: "bc-faq", label: "Vanliga frågor" },
+  { id: "bc-tillagg", label: "Tilläggslösningar" },
+  { id: "branschlosningar-jamfor", label: "Branschlösningar" },
+  { id: "partners", label: "Hitta partner" },
+];
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import BcDecisionGuide, { BcOptionalDeepDive, BcNextSteps } from "@/components/product/BcDecisionGuide";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -277,7 +289,7 @@ const BusinessCentral = () => {
    }}
  />
  <Navbar />
- <main id="bc-buyer-journey">
+ <main id="bc-buyer-journey" className="xl:pl-56">
 
  
  {/* Hero */}
@@ -290,6 +302,8 @@ const BusinessCentral = () => {
   secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
   tertiary={{ label: "Jämför Business Central med andra affärssystem", href: "#bc-jamforelse" }}
     />
+  <ProductSectionNav title="På sidan" items={BC_SECTIONS} />
+  <div id="bc-oversikt" className="scroll-mt-28" />
   <ShortAnswer title="Vad är Dynamics 365 Business Central?">
  <p><strong>Dynamics{"\u00A0"}365 Business Central är Microsofts molnbaserade ERP-system (affärssystem) för mindre och medelstora företag</strong> som vill samla ekonomi, inköp, lager, försäljning och produktion i en plattform – i stället för att hålla ihop en flora av separata system som inte pratar med varandra.</p>
  <p>Essentials täcker ekonomi, inköp, lager, försäljning och projekt. Premium lägger till tillverkning och servicehantering. Branschkrav kan kräva tillägg från Microsoft Marketplace. Kontrollera vad som ingår i standard och vad som behöver kompletteras innan ni väljer partner.</p>
@@ -300,8 +314,8 @@ const BusinessCentral = () => {
       <SystemvalHandoffNote page="bc" />
       <BcDecisionGuide />
  {/* Pricing Section */}
- <section id="pricing" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-background">
- <div className="container mx-auto px-4 sm:px-6">
+ <section id="pricing" className="scroll-mt-28 py-8 sm:py-12 md:py-16 bg-background">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="text-center mb-10 sm:mb-12 md:mb-16">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
  Vad kostar Business Central?
@@ -336,7 +350,7 @@ const BusinessCentral = () => {
 
 
   {/* Bransch- och användningsfall – svarar på vanliga sökintentioner (e-handel, bygg) */}
-  <section className="py-10 sm:py-12 bg-background">
+  <section id="bc-anvandning" className="scroll-mt-28 py-10 sm:py-12 bg-background">
    <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
      När passar Business Central i er verksamhet?
@@ -382,9 +396,9 @@ const BusinessCentral = () => {
   </section>
 
    {/* FAQ Section – rendered from bcFaqs so visible content matches FAQSchema JSON-LD exactly */}
-  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-  <div className="container mx-auto px-4 sm:px-6">
-  <div className="max-w-4xl mx-auto">
+  <section id="bc-faq" className="scroll-mt-28 py-8 sm:py-12 md:py-16 bg-secondary/50">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+  <div>
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
   Vanliga frågor om Dynamics 365 Business Central
   </h2>
@@ -408,7 +422,7 @@ const BusinessCentral = () => {
 
 
 
-      <ProductIsvSection product="Business Central" />
+      <div id="bc-tillagg" className="scroll-mt-28"><ProductIsvSection product="Business Central" /></div>
 
       <section id="branschlosningar-jamfor" aria-labelledby="bransch-jamfor-rubrik" className="scroll-mt-28 py-10 sm:py-14">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
@@ -428,8 +442,8 @@ const BusinessCentral = () => {
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="scroll-mt-24 py-8 sm:py-12 md:py-16 bg-secondary/50">
- <div className="container mx-auto px-4 sm:px-6">
+      <section id="partners" className="scroll-mt-28 py-8 sm:py-12 md:py-16 bg-secondary/50">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
  Hitta rätt Business Central-partner
