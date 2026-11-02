@@ -123,3 +123,8 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 - [x] Ta bort kompetensfilter i partnerväljaren, förtydliga uppdragstyp/leveransform
 - [x] Nollställ underlag-knapp på /konto/
+
+## Partnerlista och produktsidor (2026-11-02)
+- [x] Uppdatera grundprofiler: Triple Core (f.d. Regentor), Caridea IT, Amanzia
+- [ ] Bofor och Standout Dynamics: väntar på Thomas beslut
+- [x] Knappen "Hitta rätt …-partner" överst på alla produktsidor
