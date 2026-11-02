@@ -36,7 +36,18 @@ export function ProductSectionNav({ items: initial, title }: { items: ProductSec
   const [active, setActive] = useState(initial[0]?.id);
 
   useEffect(() => {
-    setItems(resolveItems(initial));
+    // Sections such as partners and add-ons render after data loads, so re-resolve on DOM changes for a while.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const run = () => {
+      const next = resolveItems(initial);
+      setItems((prev) => (prev.map((p) => p.id).join() === next.map((n) => n.id).join() ? prev : next));
+    };
+    run();
+    const main = document.querySelector("main");
+    const mo = main ? new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(run, 200); }) : null;
+    mo?.observe(main!, { childList: true, subtree: true });
+    const stop = setTimeout(() => mo?.disconnect(), 15000);
+    return () => { mo?.disconnect(); clearTimeout(timer); clearTimeout(stop); };
   }, [initial]);
 
   useEffect(() => {
