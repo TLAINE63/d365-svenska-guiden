@@ -164,7 +164,7 @@ const ProductIsvSection = ({
             Vad löser standardfunktionerna i applikationen, vad kräver tillägg eller anpassning, och vem ansvarar för integration, uppgraderingar och support?
           </p>
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">Exemplen väljs efter dokumenterad koppling till applikationen och nordisk relevans, högst ett per leverantör, aldrig efter kommersiell status.</p>
+        <p className="mt-3 text-xs text-muted-foreground">Exemplen väljs redaktionellt efter vad som är vanligt hos svenska kunder, dokumenterad koppling till applikationen och nordisk relevans, högst ett per leverantör, aldrig efter kommersiell status.</p>
       </div>
     </section>
   );
