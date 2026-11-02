@@ -514,7 +514,7 @@ const KomIgang = () => {
         <SEOHead webPageSchema={false} title="Er väg vidare – d365.se" description="Anpassade rekommendationer baserat på er situation och era behov, med förslag på nästa steg." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-28 sm:pt-32 pb-10">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-6">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Vårt förslag utifrån era svar</h1>
@@ -938,7 +938,7 @@ const KomIgang = () => {
 
         {/* Wizard */}
         <section className="flex-1 py-3 sm:py-4">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               {/* Step indicator */}
               <div className="flex items-center justify-center gap-2 mb-2">

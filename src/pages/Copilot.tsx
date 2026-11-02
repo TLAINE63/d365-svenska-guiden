@@ -104,7 +104,7 @@ const Copilot = () => {
         </div>
         
         <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-10 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl">
               <div className="flex items-center mb-3 sm:mb-4">
                 <img src={CopilotLogo} alt="Microsoft Copilot" className="h-10 w-10 sm:h-12 sm:w-12" />
@@ -131,7 +131,7 @@ const Copilot = () => {
 
       {/* Agents Intro Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="bg-card rounded p-6 sm:p-8 border-2 border-primary/20">
               <div className="flex items-start gap-4 mb-4">
@@ -188,7 +188,7 @@ const Copilot = () => {
 
       {/* What is Copilot Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -213,7 +213,7 @@ const Copilot = () => {
 
       {/* Copilot by Application */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
@@ -453,7 +453,7 @@ const Copilot = () => {
 
       {/* Features Section */}
       <section className="py-10 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -507,7 +507,7 @@ const Copilot = () => {
 
       {/* Benefits Section */}
       <section className="py-10 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -553,7 +553,7 @@ const Copilot = () => {
 
       {/* Pricing Section */}
       <section className="py-10 bg-secondary/50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <div className="bg-card rounded-lg p-8 border border-border ">
               <h2 className="text-2xl font-bold text-card-foreground mb-4">Prissättning</h2>
@@ -582,7 +582,7 @@ const Copilot = () => {
 
       {/* CTA Section */}
       <section className="py-10 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Redo att börja använda AI?
@@ -601,7 +601,7 @@ const Copilot = () => {
 
       {/* FAQ – synligt innehåll matchar FAQSchema JSON-LD exakt */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 text-center">
               Vanliga frågor om Microsoft Copilot

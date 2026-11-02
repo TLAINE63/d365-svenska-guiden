@@ -15,7 +15,7 @@ const CostProjectExamples = ({ product }: Props) => {
 
   return (
     <section className="pb-8 sm:pb-12 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-5xl">
           <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
             Typexempel på projekt

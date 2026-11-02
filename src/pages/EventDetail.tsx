@@ -175,7 +175,7 @@ const EventDetail = ({ initialData = null }: EventDetailProps) => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main>
-        <div className="container mx-auto px-4 py-10 mt-16">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-10 mt-16">
           <Card className="max-w-lg mx-auto">
             <CardContent className="py-12 text-center">
               <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -366,7 +366,7 @@ const EventDetail = ({ initialData = null }: EventDetailProps) => {
 
       {/* Content Section */}
       <section className="py-12">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">

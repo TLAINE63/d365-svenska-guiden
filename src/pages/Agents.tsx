@@ -97,7 +97,7 @@ const Agents = () => {
         </div>
         
         <div className="relative min-h-[560px] sm:h-[500px] md:h-[600px] flex items-center pt-10 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 AI-agenter kräver mer än licenser
@@ -124,7 +124,7 @@ const Agents = () => {
 
       {/* What are Agents Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -199,7 +199,7 @@ const Agents = () => {
 
       {/* Key Capabilities Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/30">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -258,7 +258,7 @@ const Agents = () => {
 
       {/* Use Cases Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -427,7 +427,7 @@ const Agents = () => {
 
       {/* Benefits Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -488,7 +488,7 @@ const Agents = () => {
 
       {/* Integration Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-secondary/30">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded p-8 border border-primary/20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-center">
@@ -532,7 +532,7 @@ const Agents = () => {
 
       {/* CTA Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
               Redo att utforska Microsoft Agenter?

@@ -26,7 +26,7 @@ const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: Sho
       aria-label={title}
       className={`py-6 sm:py-8 bg-background ${className}`}
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div>
             <div className="mb-3">

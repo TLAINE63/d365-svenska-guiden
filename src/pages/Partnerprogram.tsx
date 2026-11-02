@@ -248,7 +248,7 @@ const Partnerprogram = () => {
 
       {/* 1. HERO */}
       <header className="pt-28 pb-14 md:pt-32 md:pb-20 bg-gradient-to-b from-secondary/40 to-background border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
             {matchedPartner && (
               <Badge variant="secondary" className="mb-4 text-sm">
@@ -298,7 +298,7 @@ const Partnerprogram = () => {
 
       {/* 2. RISK ATT BLI BORTVALD */}
       <section className="py-14 md:py-20 bg-slate-900 text-slate-100">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold mb-6">Vad riskerar ni med att avvakta?</h2>
             <p className="text-slate-300 mb-8">
@@ -327,7 +327,7 @@ const Partnerprogram = () => {
 
       {/* 4. FYRA HUVUDVÄRDEN */}
       <section className="py-14 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
           <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
             En partnerverifierad profil hjälper företag, sökmotorer och AI-tjänster att förstå er
@@ -718,7 +718,7 @@ const Partnerprogram = () => {
 
       {/* 11. TRANSPARENS */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
               Köparsidig – inte pay-to-rank
@@ -773,7 +773,7 @@ const Partnerprogram = () => {
 
       {/* 13. SLUT-CTA */}
       <section className="py-16 md:py-24 bg-slate-900 text-slate-100">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-3xl">
             <h2 className="text-2xl md:text-4xl font-bold mb-5">
               Hur ser ert företag ut när en kund jämför er med konkurrenterna?

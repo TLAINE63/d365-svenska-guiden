@@ -108,7 +108,7 @@ export default function HomePartnerNewsSection() {
 
   return (
     <section className="py-14 sm:py-16 bg-background border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         {hasNews && (
           <>
             <div className="max-w-3xl mx-auto text-center mb-10">

@@ -230,7 +230,7 @@ export default function Kostnad() {
 
         {productOrder.map((p) => (
           <div key={p.key} id={p.key} className="scroll-mt-24">
-            <div className="container mx-auto px-4 sm:px-6 pt-10">
+            <div className="container mx-auto max-w-6xl px-4 sm:px-6 pt-10">
               <div className="max-w-5xl">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">

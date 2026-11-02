@@ -1799,7 +1799,7 @@ const ComparePartners = () => {
       <Navbar />
 
       <main className="pt-24 lg:pt-32 pb-12">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <header className="text-center mb-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">

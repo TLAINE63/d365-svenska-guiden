@@ -1589,7 +1589,7 @@ const AIReadiness = () => {
               </p>
             </section>
           </div>
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <section className="max-w-2xl mx-auto text-center">
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-4 text-left">
@@ -1670,7 +1670,7 @@ const AIReadiness = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="container mx-auto px-4 pt-28 pb-12">
+        <main className="container mx-auto max-w-6xl px-4 sm:px-6 pt-28 pb-12">
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
@@ -1823,7 +1823,7 @@ const AIReadiness = () => {
     <div className="min-h-screen bg-background">
       <SEOHead title={`AI Impact Assessment: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" noIndex />
       <Navbar />
-      <main className="container mx-auto px-4 pt-28 pb-12">
+      <main className="container mx-auto max-w-6xl px-4 sm:px-6 pt-28 pb-12">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
