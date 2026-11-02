@@ -29,10 +29,16 @@ interface ProductIsvSectionProps {
  * Redaktionell relevans: dokumenterad verifiering och nordisk relevans.
  * Kommersiell status (avtal, premium) används aldrig.
  */
-const evidence = (s: IsvSolution): number =>
-  (s.verifiedAt ? 2 : 0) + (s.nordicRelevance === "high" ? 1 : 0);
+const evidence = (s: IsvSolution): number => {
+  const tier = (s.editorialTier || s.tier || "").toLowerCase();
+  return (tier.includes("1") ? 3 : tier.includes("2") ? 1 : 0) +
+    (s.nordicRelevance === "high" ? 2 : 0) + (s.verifiedAt ? 1 : 0);
+};
 
-interface Area { need: IsvBuyerNeed; count: number; categories: string[]; example: IsvSolution }
+/** Antal namngivna exempel per område (max ett per leverantör). */
+const EXAMPLES_PER_AREA = 4;
+
+interface Area { need: IsvBuyerNeed; count: number; categories: string[]; example: IsvSolution; more: IsvSolution[] }
 
 const catalogBase = "/kunskapscenter/dynamics-365-tillagg/";
 
@@ -71,7 +77,15 @@ const ProductIsvSection = ({
         );
         const example = ranked.find((s) => !usedVendors.has(s.vendor)) || ranked[0];
         usedVendors.add(example.vendor);
-        return { need: g.need, count: g.items.length, categories: [...g.cats], example };
+        const seen = new Set([example.vendor]);
+        const more: IsvSolution[] = [];
+        for (const s of ranked) {
+          if (more.length >= EXAMPLES_PER_AREA - 1) break;
+          if (seen.has(s.vendor)) continue;
+          seen.add(s.vendor);
+          more.push(s);
+        }
+        return { need: g.need, count: g.items.length, categories: [...g.cats], example, more };
       });
   }, [all, product, limit, reviewedFscmSelection]);
 
@@ -95,7 +109,7 @@ const ProductIsvSection = ({
             </h2>
             <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-3xl">
               {nb(description ||
-                `Standardfunktionerna i applikationen räcker ofta långt. Beroende på krav, volymer och konfiguration kan en komplettering ändå vara värd att undersöka. Här är de områden där katalogen har flest lösningar för ${product}, med ett exempel per område.`)}
+                `Standardfunktionerna i applikationen räcker ofta långt. Beroende på krav, volymer och konfiguration kan en komplettering ändå vara värd att undersöka. Här är de områden där katalogen har flest lösningar för ${product}, med några vanliga exempel per område.`)}
             </p>
           </div>
           <Button asChild variant="outline" className="h-auto min-h-10 whitespace-normal text-left">
@@ -122,6 +136,17 @@ const ProductIsvSection = ({
                 {a.example.considerations && (
                   <p className="text-xs text-muted-foreground mt-2"><span className="font-medium text-foreground">Kontrollera: </span>{nb(a.example.considerations)}</p>
                 )}
+                {a.more.length > 0 && (
+                  <p className="text-xs text-muted-foreground mt-3">
+                    <span className="font-medium text-foreground">Fler i området: </span>
+                    {a.more.map((s, i) => (
+                      <span key={s.id}>
+                        {i > 0 && ", "}
+                        <Link to={solutionUrl(s)} className="underline underline-offset-4 hover:text-primary">{s.name}</Link>
+                      </span>
+                    ))}
+                  </p>
+                )}
               </div>
               <Link to={areaUrl(a)} className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-4">
                 Se området i katalogen <ArrowRight className="w-3.5 h-3.5" aria-hidden />
@@ -137,7 +162,7 @@ const ProductIsvSection = ({
             Vad löser standardfunktionerna i applikationen, vad kräver tillägg eller anpassning, och vem ansvarar för integration, uppgraderingar och support?
           </p>
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">Exemplen väljs efter dokumenterad koppling till applikationen, aldrig efter kommersiell status.</p>
+        <p className="mt-3 text-xs text-muted-foreground">Exemplen väljs efter dokumenterad koppling till applikationen och nordisk relevans, högst ett per leverantör, aldrig efter kommersiell status.</p>
       </div>
     </section>
   );
