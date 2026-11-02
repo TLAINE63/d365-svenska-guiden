@@ -1062,6 +1062,8 @@ const ValjPartner = () => {
   Verifierad betyder att d365.se har granskat partnerns uppgifter. Det påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
  </p>
 
+ {/* Ankare för startsidans sökruta: landa precis ovanför resultatlistan. */}
+ <div id="partner-resultat" className="scroll-mt-28" aria-hidden="true" />
  {/* Filter Results Summary */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue || extraFiltersActive || infoStatus) && (
  <div className="text-center mb-8">
