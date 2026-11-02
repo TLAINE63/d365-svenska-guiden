@@ -499,10 +499,7 @@ const FinanceSupplyChain = () => {
 
       <ProductIsvSection
         product="Finance & Supply Chain Management"
-        limit={4}
         reviewedFscmSelection
-        title="Vilka tillägg kan vara värda att undersöka?"
-        description="Börja med vad standardfunktionerna täcker. Här är fyra befintliga kataloglösningar med kontrollerat stöd för Finance eller Supply Chain Management, för olika behov. Kontrollera version, integrationsansvar och kostnad med leverantören innan ni väljer."
       />
 
       {/* Partners Section */}
