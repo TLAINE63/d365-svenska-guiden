@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { FIELD_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
@@ -105,6 +107,7 @@ const D365FieldService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#field-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Field Service-partner", href: "#partners" }}
       />
+      <ProductPageBody items={FIELD_SECTIONS}>
       <SystemvalHandoffNote page="fs" />
       <FieldServiceDecisionGuide />
 
@@ -220,7 +223,7 @@ const D365FieldService = () => {
       {/* Implementation Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+          <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Hur lång tid tar en implementation och vad ligger kostnaden på?
             </h2>
@@ -274,6 +277,7 @@ const D365FieldService = () => {
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Field Service" />
       <RelatedPages pages={fieldServiceRelatedPages} heading="Utforska vidare" />
 
+      </ProductPageBody>
       </main>
       <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
       <ProductNextSteps product="field-service" pageSource="D365 Field Service" />

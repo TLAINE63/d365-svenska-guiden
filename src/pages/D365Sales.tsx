@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { SALES_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
@@ -137,6 +139,7 @@ const D365Sales = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#crm-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Sales-partner", to: "/dynamics-365-crm-partners-sverige/" }}
       />
+      <ProductPageBody items={SALES_SECTIONS}>
 
       <SystemvalHandoffNote page="sales" />
       <SalesDecisionGuide />
@@ -270,6 +273,7 @@ const D365Sales = () => {
       <AiExamplesEntry apps={["sales"]} label={"Se hur AI förändrar arbetet i Dynamics\u00A0365 Sales"} source="d365sales" />
 <PartnerSwitchCta />
       <ProductNextSteps product="sales" pageSource="D365 Sales" />
+      </ProductPageBody>
 </main>
       <BasicProfilesDirectory products={["sales"]} />
       <SourcesAndMethod variant="product" />

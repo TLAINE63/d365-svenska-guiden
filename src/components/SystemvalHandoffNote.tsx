@@ -41,7 +41,7 @@ export default function SystemvalHandoffNote({ page, className = "" }: { page: H
   const chips = [buyer.industry, sizeLabel(buyer.size)].filter(Boolean) as string[];
 
   return (
-    <aside aria-label="Från er vägledning i Systemval" className={`container mx-auto max-w-4xl px-4 sm:px-6 my-6 print:hidden ${className}`}>
+    <aside aria-label="Från er vägledning i Systemval" className={`container mx-auto max-w-6xl px-4 sm:px-6 my-6 print:hidden ${className}`}>
       <div className="rounded-lg border border-border bg-secondary/40 p-4 sm:p-5">
         <p className="mb-1 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
           <Compass className="h-4 w-4" aria-hidden="true" />

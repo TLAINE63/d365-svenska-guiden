@@ -1,13 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 export interface ProductSectionNavItem {
   id: string;
   label: string;
+  /** Optional: start of an h2 text inside <main>; its section gets `id` if it has none. */
+  match?: string;
+}
+
+/** Finds each item's target on the page; items whose target is missing are dropped. */
+function resolveItems(items: ProductSectionNavItem[]): ProductSectionNavItem[] {
+  const main = document.querySelector("main") ?? document.body;
+  const out: ProductSectionNavItem[] = [];
+  for (const item of items) {
+    let el: HTMLElement | null = document.getElementById(item.id);
+    if (!el && item.match) {
+      const h2 = Array.from(main.querySelectorAll("h2")).find((h) =>
+        (h.textContent ?? "").replace(/\s+/g, " ").trim().startsWith(item.match!),
+      );
+      if (h2) {
+        const host = (h2.closest("section") as HTMLElement | null) ?? h2;
+        if (!host.id) host.id = item.id;
+        el = host;
+      }
+    }
+    if (!el) continue;
+    el.classList.add("scroll-mt-28");
+    if (!out.some((o) => o.id === el!.id)) out.push({ id: el.id, label: item.label });
+  }
+  return out;
 }
 
 /** Sticky section menu: left rail on wide screens, horizontal chip bar below. */
-export function ProductSectionNav({ items, title }: { items: ProductSectionNavItem[]; title: string }) {
-  const [active, setActive] = useState(items[0]?.id);
+export function ProductSectionNav({ items: initial, title }: { items: ProductSectionNavItem[]; title: string }) {
+  const [items, setItems] = useState(initial);
+  const [active, setActive] = useState(initial[0]?.id);
+
+  useEffect(() => {
+    // Sections such as partners and add-ons render after data loads, so re-resolve on DOM changes for a while.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const run = () => {
+      const next = resolveItems(initial);
+      setItems((prev) => (prev.map((p) => p.id).join() === next.map((n) => n.id).join() ? prev : next));
+    };
+    run();
+    const main = document.querySelector("main");
+    const mo = main ? new MutationObserver(() => { clearTimeout(timer); timer = setTimeout(run, 200); }) : null;
+    mo?.observe(main!, { childList: true, subtree: true });
+    const stop = setTimeout(() => mo?.disconnect(), 15000);
+    return () => { mo?.disconnect(); clearTimeout(timer); clearTimeout(stop); };
+  }, [initial]);
 
   useEffect(() => {
     const els = items.map((i) => document.getElementById(i.id)).filter(Boolean) as HTMLElement[];
@@ -62,5 +103,15 @@ export function ProductSectionNav({ items, title }: { items: ProductSectionNavIt
         </ul>
       </nav>
     </>
+  );
+}
+
+/** Product page body below the hero: section menu on the left, content on the right. */
+export function ProductPageBody({ items, children }: { items: ProductSectionNavItem[]; children: ReactNode }) {
+  return (
+    <div className="xl:flex">
+      <ProductSectionNav title="På sidan" items={items} />
+      <div className="min-w-0 flex-1">{children}</div>
+    </div>
   );
 }

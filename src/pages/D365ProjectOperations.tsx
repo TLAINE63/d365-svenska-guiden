@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { PROJOPS_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
@@ -62,6 +64,7 @@ const D365ProjectOperations = () => {
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
       />
+      <ProductPageBody items={PROJOPS_SECTIONS}>
 
       <ShortAnswer title="Vad är Dynamics 365 Project Operations">
         <p>Dynamics 365 Project Operations är Microsofts samlade projektmodul för konsult-, ingenjörs- och tjänsteföretag – en plattform som binder ihop sälj, leverans och ekonomi i ett enda flöde från första offert till slutfaktura.</p>
@@ -119,6 +122,7 @@ const D365ProjectOperations = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Project Operations" />
 
+      </ProductPageBody>
       </main>
       <AiExamplesEntry apps={["projectops"]} label={"Se hur AI förändrar arbetet i Project Operations"} source="d365projectoperations" />
       <EditorialSource sourceType="Köpguide" />

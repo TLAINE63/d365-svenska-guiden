@@ -100,7 +100,7 @@ const ProductIsvSection = ({
 
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-2">

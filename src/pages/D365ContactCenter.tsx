@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { CONTACT_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -101,6 +103,7 @@ const D365ContactCenter = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#contact-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Contact Center-partner", href: "#partners" }}
       />
+      <ProductPageBody items={CONTACT_SECTIONS}>
       <SystemvalHandoffNote page="cc" />
       <ContactCenterDecisionGuide />
 
@@ -219,7 +222,7 @@ const D365ContactCenter = () => {
       {/* Implementation Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+          <div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
               Hur lång tid tar en implementation och vad ligger kostnaden på?
             </h2>
@@ -273,6 +276,7 @@ const D365ContactCenter = () => {
       <ProductPartnerNewsSection productArea="crm-service" heading="Relaterat om Contact Center" />
       <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
 
+      </ProductPageBody>
       </main>
       <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
       <SourcesAndMethod variant="product" />

@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { SERVICE_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import ServiceDecisionGuide, { trackServiceJourney } from "@/components/product/ServiceDecisionGuide";
@@ -117,6 +119,7 @@ const D365CustomerService = () => {
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#service-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Customer Service-partner", href: "#partners" }}
       />
+      <ProductPageBody items={SERVICE_SECTIONS}>
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 mt-6">
         <aside aria-label="Support för befintligt system" className="flex gap-3 rounded-lg border border-border bg-secondary/40 p-4 text-sm leading-relaxed text-muted-foreground">
           <LifeBuoy className="h-5 w-5 shrink-0 text-accent mt-0.5" aria-hidden />
@@ -297,6 +300,7 @@ const D365CustomerService = () => {
 
       
 
+      </ProductPageBody>
 </main>
       <BasicProfilesDirectory products={["service"]} />
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />

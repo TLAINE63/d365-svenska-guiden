@@ -1,3 +1,5 @@
+import { ProductPageBody } from "@/components/product/ProductSectionNav";
+import { HR_SECTIONS } from "@/components/product/productSectionNavItems";
 import ProductIsvSection from "@/components/ProductIsvSection";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import ProductHero from "@/components/ProductHero";
@@ -58,6 +60,7 @@ const D365HumanResources = () => {
         }}
         secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
       />
+      <ProductPageBody items={HR_SECTIONS}>
 
       <ShortAnswer title="Vad är Dynamics 365 Human Resources">
         <p>Dynamics 365 Human Resources är Microsofts HR-plattform för att hantera medarbetardata, organisations­struktur, anställningsavtal, kompensation, förmåner, frånvaro, prestations­utvärdering och kompetensutveckling i en samlad lösning.</p>
@@ -112,6 +115,7 @@ const D365HumanResources = () => {
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <ProductIsvSection product="Human Resources" />
 
+      </ProductPageBody>
       </main>
       <EditorialSource sourceType="Köpguide" />
       <Footer />
