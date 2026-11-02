@@ -1,87 +1,86 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Puzzle, ArrowRight } from "lucide-react";
+import { Puzzle, ArrowRight, HelpCircle } from "lucide-react";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import type { IsvSolution } from "@/data/bcIsvSolutions";
-import { FSCM_ISV_EVIDENCE, selectFscmIsvs } from "@/lib/fscmIsvSelection";
+import { selectFscmIsvs } from "@/lib/fscmIsvSelection";
+import { needForCategory, type IsvBuyerNeed } from "@/lib/isvBuyerNeeds";
 import { Button } from "@/components/ui/button";
 
 /** Lösningar utan angivna produkter räknas som Business Central-tillägg. */
 const solutionProducts = (s: IsvSolution): string[] =>
   s.products?.length ? s.products : ["Business Central"];
 
+const nb = (t: string) => t.replace(/Dynamics 365/g, "Dynamics\u00a0365");
+
 interface ProductIsvSectionProps {
   /** Produktnamn exakt som i ISV_PRODUCTS, t.ex. "Business Central". */
   product: string;
-  /** Rubriktext – standard baseras på produktnamnet. */
   title?: string;
   description?: string;
-  /** Antal lösningar som visas som smakprov. */
+  /** Antal kompletteringsområden som visas. */
   limit?: number;
   className?: string;
+  /** F&SCM: föredra redaktionellt kontrollerade exempel. */
   reviewedFscmSelection?: boolean;
 }
 
-/** Intern prioritering – exponeras aldrig som kvalitetsmärkning i gränssnittet. */
-const priority = (s: IsvSolution): number => {
-  const tier = (s.editorialTier || s.tier || "").toLowerCase();
-  let score = tier.includes("1") ? 3 : tier.includes("2") ? 2 : 1;
-  if (s.nordicRelevance === "high") score += 2;
-  if (s.verifiedAt) score += 1;
-  return score;
-};
-
 /**
- * Väljer ett brett urval: högst två lösningar per leverantör och spridning
- * över kategorier, så att en enskild leverantör inte dominerar sektionen.
+ * Redaktionell relevans: dokumenterad verifiering och nordisk relevans.
+ * Kommersiell status (avtal, premium) används aldrig.
  */
-const diversify = (list: IsvSolution[], limit: number): IsvSolution[] => {
-  const byCategory = new Map<string, IsvSolution[]>();
-  for (const s of [...list].sort((a, b) => priority(b) - priority(a) || a.name.localeCompare(b.name, "sv"))) {
-    const key = s.category || "Övrigt";
-    byCategory.set(key, [...(byCategory.get(key) || []), s]);
-  }
-  const queues = [...byCategory.values()];
-  const picked: IsvSolution[] = [];
-  const vendorCount = new Map<string, number>();
-  let progress = true;
-  while (picked.length < limit && progress) {
-    progress = false;
-    for (const q of queues) {
-      if (picked.length >= limit) break;
-      const idx = q.findIndex((s) => (vendorCount.get(s.vendor) || 0) < 2);
-      if (idx === -1) continue;
-      const [s] = q.splice(idx, 1);
-      vendorCount.set(s.vendor, (vendorCount.get(s.vendor) || 0) + 1);
-      picked.push(s);
-      progress = true;
-    }
-  }
-  return picked;
-};
+const evidence = (s: IsvSolution): number =>
+  (s.verifiedAt ? 2 : 0) + (s.nordicRelevance === "high" ? 1 : 0);
+
+interface Area { need: IsvBuyerNeed; count: number; categories: string[]; example: IsvSolution }
+
+const catalogBase = "/kunskapscenter/dynamics-365-tillagg/";
 
 const ProductIsvSection = ({
   product,
   title,
   description,
-  limit = 6,
+  limit = 4,
   className = "",
   reviewedFscmSelection = false,
 }: ProductIsvSectionProps) => {
   const all = useIsvSolutions();
 
-  const solutions = useMemo(
-    () => all.filter((s) => solutionProducts(s).includes(product)),
-    [all, product]
-  );
+  const areas = useMemo<Area[]>(() => {
+    const solutions = all.filter((s) => solutionProducts(s).includes(product));
+    const reviewed = new Set(reviewedFscmSelection ? selectFscmIsvs(solutions).map((s) => s.id) : []);
+    const groups = new Map<string, { need: IsvBuyerNeed; items: IsvSolution[]; cats: Set<string> }>();
+    for (const s of solutions) {
+      const need = needForCategory(s.category || "");
+      const g = groups.get(need.id) || { need, items: [], cats: new Set<string>() };
+      g.items.push(s);
+      if (s.category) g.cats.add(s.category);
+      groups.set(need.id, g);
+    }
+    const usedVendors = new Set<string>();
+    return [...groups.values()]
+      .filter((g) => g.need.id !== "ovrigt")
+      .sort((a, b) => b.items.length - a.items.length || a.need.label.localeCompare(b.need.label, "sv"))
+      .slice(0, limit)
+      .map((g) => {
+        const ranked = [...g.items].sort(
+          (a, b) =>
+            Number(reviewed.has(b.id)) - Number(reviewed.has(a.id)) ||
+            evidence(b) - evidence(a) ||
+            a.name.localeCompare(b.name, "sv"),
+        );
+        const example = ranked.find((s) => !usedVendors.has(s.vendor)) || ranked[0];
+        usedVendors.add(example.vendor);
+        return { need: g.need, count: g.items.length, categories: [...g.cats], example };
+      });
+  }, [all, product, limit, reviewedFscmSelection]);
 
-  const catalogUrl = `/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}`;
-  const shown = useMemo(() => reviewedFscmSelection ? selectFscmIsvs(solutions).slice(0, limit) : diversify(solutions, limit), [solutions, limit, reviewedFscmSelection]);
-  const hasSolutions = shown.length > 0;
+  if (areas.length === 0) return null;
 
-
-  // Visa bara sektionen om det finns minst en ISV-lösning för produkten
-  if (!hasSolutions) return null;
+  const productUrl = `${catalogBase}?produkt=${encodeURIComponent(product)}`;
+  const areaUrl = (a: Area) =>
+    `${productUrl}${a.categories.map((c) => `&kategori=${encodeURIComponent(c)}`).join("")}`;
+  const solutionUrl = (s: IsvSolution) => `${productUrl}&losning=${encodeURIComponent(s.id)}`;
 
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>
@@ -89,58 +88,56 @@ const ProductIsvSection = ({
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-              <Puzzle className="w-3.5 h-3.5" /> Tilläggslösningar
+              <Puzzle className="w-3.5 h-3.5" aria-hidden /> Tilläggslösningar
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-              {title || `Tilläggslösningar för ${product}`}
+              {title || `Vad hanterar ${product}, och när kan en komplettering vara värd att undersöka?`}
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-2xl">
-              {description ||
-                `Standardfunktionerna räcker inte alltid hela vägen. Här är ett urval av ISV-lösningar som kompletterar ${product} – hela katalogen finns i Kunskapscentret.`}
+            <p className="text-sm md:text-base text-muted-foreground mt-2 max-w-3xl">
+              {nb(description ||
+                `Standardfunktionerna i applikationen räcker ofta långt. Beroende på krav, volymer och konfiguration kan en komplettering ändå vara värd att undersöka. Här är de områden där katalogen har flest lösningar för ${product}, med ett exempel per område.`)}
             </p>
           </div>
           <Button asChild variant="outline" className="h-auto min-h-10 whitespace-normal text-left">
-          <Link
-            to={catalogUrl}
-          >
-            {`Se alla tillägg för ${product}`}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            <Link to={productUrl}>
+              {`Se alla tillägg för ${product}`}
+              <ArrowRight className="w-4 h-4" aria-hidden />
+            </Link>
           </Button>
         </div>
 
-        <div className={`grid sm:grid-cols-2 ${reviewedFscmSelection ? "" : "lg:grid-cols-3"} gap-4`}>
-          {shown.map((s) => (
-            <article
-              key={s.id}
-              className="group block rounded-lg border border-border bg-card p-5 hover:border-primary/50 hover:shadow-sm transition"
-            >
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
-                {s.vendor}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {areas.map((a) => (
+            <article key={a.need.id} className="flex flex-col rounded-lg border border-border bg-card p-5">
+              <h3 className="text-base font-bold text-foreground">{a.need.label}</h3>
+              <p className="text-xs text-muted-foreground mt-1">{a.count} {a.count === 1 ? "lösning" : "lösningar"} i katalogen</p>
+              <div className="mt-4 border-t border-border pt-3 flex-1">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Exempel · {a.example.vendor}</div>
+                <p className="text-sm font-semibold text-foreground mt-1">
+                  <Link to={solutionUrl(a.example)} className="hover:text-primary underline-offset-4 hover:underline">{a.example.name}</Link>
+                </p>
+                {a.example.shortDescription && (
+                  <p className="text-sm text-muted-foreground mt-1 line-clamp-3">{nb(a.example.shortDescription)}</p>
+                )}
+                {a.example.considerations && (
+                  <p className="text-xs text-muted-foreground mt-2"><span className="font-medium text-foreground">Kontrollera: </span>{nb(a.example.considerations)}</p>
+                )}
               </div>
-              <h3 className="text-base font-bold text-foreground group-hover:text-primary transition">
-                <Link to={`/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}&losning=${encodeURIComponent(s.id)}`}>{s.name}</Link>
-              </h3>
-              <div className="mt-2 inline-block text-[11px] font-medium px-2 py-0.5 rounded border border-border text-muted-foreground">
-                {s.category}
-              </div>
-              <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
-                {s.shortDescription}
-              </p>
-              {reviewedFscmSelection && (
-                <div className="mt-3 space-y-2 text-sm">
-                  <p className="font-medium text-foreground">{FSCM_ISV_EVIDENCE[s.id]?.area}</p>
-                  {s.bestFor && <p className="text-muted-foreground"><span className="font-medium text-foreground">Undersök när: </span>{s.bestFor.replace(/Dynamics 365/g, "Dynamics\u00a0365")}</p>}
-                  {s.considerations && <p className="text-muted-foreground"><span className="font-medium text-foreground">Kontrollera: </span>{s.considerations.replace(/Dynamics 365/g, "Dynamics\u00a0365")}</p>}
-                  <a href={FSCM_ISV_EVIDENCE[s.id]?.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-muted-foreground underline underline-offset-4">Källa för produktstöd, kontrollerad 2026-10-18</a>
-                </div>
-              )}
-              <Link to={`/kunskapscenter/dynamics-365-tillagg/?produkt=${encodeURIComponent(product)}&losning=${encodeURIComponent(s.id)}`} className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-4">
-                Visa lösningen <ArrowRight className="w-3.5 h-3.5" />
+              <Link to={areaUrl(a)} className="inline-flex items-center gap-1 text-xs font-semibold text-primary mt-4">
+                Se området i katalogen <ArrowRight className="w-3.5 h-3.5" aria-hidden />
               </Link>
             </article>
           ))}
         </div>
+
+        <div className="mt-6 flex gap-3 rounded-lg border border-border bg-card p-4 text-sm">
+          <HelpCircle className="w-5 h-5 shrink-0 text-accent" aria-hidden />
+          <p className="text-muted-foreground">
+            <span className="font-medium text-foreground">Fråga er partner: </span>
+            Vad löser standardfunktionerna i applikationen, vad kräver tillägg eller anpassning, och vem ansvarar för integration, uppgraderingar och support?
+          </p>
+        </div>
+        <p className="mt-3 text-xs text-muted-foreground">Exemplen väljs efter dokumenterad koppling till applikationen, aldrig efter kommersiell status.</p>
       </div>
     </section>
   );
