@@ -5,7 +5,6 @@ const BC_SECTIONS = [
   { id: "bc-passform", label: "Passar Business Central?" },
   { id: "bc-jamforelse", label: "Jämför alternativ" },
   { id: "pricing", label: "Pris och licenser" },
-  { id: "bc-anvandning", label: "E-handel och bygg" },
   { id: "bc-faq", label: "Vanliga frågor" },
   { id: "bc-tillagg", label: "Tilläggslösningar" },
   { id: "branschlosningar-jamfor", label: "Branschlösningar" },
