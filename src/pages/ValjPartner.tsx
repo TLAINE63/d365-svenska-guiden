@@ -637,7 +637,7 @@ const ValjPartner = () => {
   if (isLoading || location.hash !== "#hitta-partners") return;
   const t = window.setTimeout(() => document.getElementById("hitta-partners")?.scrollIntoView({ block: "start" }), 60);
   return () => window.clearTimeout(t);
- }, [isLoading, location.hash]);
+  }, [isLoading, location.hash]);
 
  // Basic-partners (observerad data) som matchar samma filter
   const filteredBasicPartners = useMemo(
@@ -1053,6 +1053,8 @@ const ValjPartner = () => {
   Verifierad betyder att d365.se har granskat partnerns uppgifter. Det påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
  </p>
 
+ {/* Ankare för startsidans sökruta: landa precis ovanför resultatlistan. */}
+ <div id="partner-resultat" className="relative -top-10 scroll-mt-28" aria-hidden="true" />
  {/* Filter Results Summary */}
  {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue || extraFiltersActive || infoStatus) && (
  <div className="text-center mb-8">
