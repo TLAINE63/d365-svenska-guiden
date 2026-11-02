@@ -646,7 +646,7 @@ const ValjPartner = () => {
   // Ny scroll när bilder och kort har laddat klart, så listan inte hamnar fel.
   const t2 = window.setTimeout(go, 600);
   return () => { window.clearTimeout(t1); window.clearTimeout(t2); };
-  }, [isLoading, location.hash]);
+  }, [isLoading]);
 
  // Basic-partners (observerad data) som matchar samma filter
   const filteredBasicPartners = useMemo(
