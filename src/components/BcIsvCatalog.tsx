@@ -27,6 +27,7 @@ import { D365_PRODUCT_BRANDING } from "@/data/d365ProductBranding";
 import { INDUSTRY_IMAGES } from "@/data/industryImages";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ISV_PRODUCT_GROUPS, ISV_TOP_NEEDS } from "@/lib/isvProductGroups";
+import { ISV_BUYER_NEEDS, needForCategory, categoriesForQuery } from "@/lib/isvBuyerNeeds";
 import { standardIndustriesFor } from "@/lib/isvIndustries";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
@@ -670,6 +671,7 @@ const BcIsvCatalog = ({
   // skip = facetten vars egna knappar räknas, så antal speglar övriga aktiva val.
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
+    const synCats = categoriesForQuery(q);
     return (s: IsvSolution, skip?: Facet) => {
       if (skip !== "cats" && cats.size && !cats.has(s.category)) return false;
       // Informationsstatus ändrar bara urvalet, aldrig ordningen.
@@ -711,7 +713,7 @@ const BcIsvCatalog = ({
         ]
           .join(" ")
           .toLowerCase();
-        if (!hay.includes(q)) return false;
+        if (!hay.includes(q) && !synCats.has(s.category)) return false;
       }
       return true;
     };
@@ -736,15 +738,38 @@ const BcIsvCatalog = ({
     return { prod, ind, cat, prodAll };
   }, [scoped, matches]);
 
-  // Behov sorterade efter träffar för vald produkt; valda behov hålls alltid synliga.
+  // Köparbehov (grupper av kategorier) sorterade efter träffar för aktiva val; valda behov hålls synliga.
+  const needCount = (id: string) => {
+    const n = ISV_BUYER_NEEDS.find((x) => x.id === id);
+    if (!n) return 0;
+    return n.categories.reduce((sum, c) => sum + (facetCounts.cat.get(c) || 0), 0);
+  };
+  const selectedNeeds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const c of cats) ids.add(needForCategory(c).id);
+    return ids;
+  }, [cats]);
   const needs = useMemo(() => {
-    const sorted = [...options.categories].sort(
-      (a, b) => (facetCounts.cat.get(b) || 0) - (facetCounts.cat.get(a) || 0)
-    );
-    const top = sorted.filter((c) => (facetCounts.cat.get(c) || 0) > 0).slice(0, ISV_TOP_NEEDS);
-    for (const c of cats) if (!top.includes(c)) top.push(c);
-    return { top, rest: sorted.filter((c) => !top.includes(c)) };
-  }, [options.categories, facetCounts, cats]);
+    const present = new Set(options.categories.map((c) => needForCategory(c).id));
+    const sorted = ISV_BUYER_NEEDS.filter((n) => present.has(n.id))
+      .map((n) => n.id)
+      .sort((a, b) => needCount(b) - needCount(a));
+    const top = sorted.filter((id) => needCount(id) > 0).slice(0, ISV_TOP_NEEDS);
+    for (const id of selectedNeeds) if (!top.includes(id)) top.push(id);
+    return { top, rest: sorted.filter((id) => !top.includes(id)) };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options.categories, facetCounts, selectedNeeds]);
+  const toggleNeed = (id: string) => {
+    const n = ISV_BUYER_NEEDS.find((x) => x.id === id);
+    if (!n) return;
+    const next = new Set(cats);
+    if (selectedNeeds.has(id)) {
+      for (const c of [...next]) if (needForCategory(c).id === id) next.delete(c);
+    } else {
+      for (const c of options.categories) if (needForCategory(c).id === id) next.add(c);
+    }
+    setCats(next);
+  };
   const [showMoreApps, setShowMoreApps] = useState(false);
   const [showMoreNeeds, setShowMoreNeeds] = useState(false);
 
@@ -924,10 +949,11 @@ const BcIsvCatalog = ({
             <FilterRow
               label="Behov"
               options={showMoreNeeds ? [...needs.top, ...needs.rest] : needs.top}
-              selected={cats}
-              onToggle={toggle(cats, setCats)}
+              selected={selectedNeeds}
+              onToggle={toggleNeed}
               onClear={() => setCats(new Set())}
-              countFor={(c) => facetCounts.cat.get(c) || 0}
+              labelFor={(id) => ISV_BUYER_NEEDS.find((n) => n.id === id)?.label || id}
+              countFor={needCount}
             />
             {needs.rest.length > 0 && (
               <button
