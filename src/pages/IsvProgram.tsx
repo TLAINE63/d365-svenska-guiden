@@ -84,9 +84,11 @@ const IsvProgram = () => {
                 <p className="text-base font-semibold text-foreground mb-3">Verifierad leverantör och app</p>
                 <ul className="text-sm text-muted-foreground space-y-2 mb-4">
                   {[
-                    "Verifierad leverantörsprofil med kontaktuppgifter",
-                    "En verifierad app med logotyp, webblänk och kontaktuppgifter",
-                    "Badgen D365 Verifierad med datum",
+                    "Verifieringsprocessen (grundkontroll) ingår",
+                    "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
+                    "Upp till tre aktiva demofilmer från YouTube per app",
+                    "Filmerna visas under Produktdemonstrationer i d365.se INSIDE",
+                    "Badgen D365 Verifierad med datum när verifieringen är godkänd",
                     "Möjlighet till visning på businesscentral.se för BC-appar",
                   ].map((t) => (
                     <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>
@@ -94,8 +96,9 @@ const IsvProgram = () => {
                 </ul>
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
                 <ul className="text-sm text-foreground space-y-1 mb-4">
-                  <li>Per ISV inklusive en app: <strong>3&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Per ISV inklusive en app: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Per extra app: <strong>995&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
               </div>
@@ -105,9 +108,12 @@ const IsvProgram = () => {
                 <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Verifiering och avtal hålls isär
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Verifieringsprocessen ingår, men verifierad status kan inte köpas eller garanteras.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Grundkontrollen omfattar företag, produkt, koppling till <span className="whitespace-nowrap">Dynamics 365</span> och centrala uppgifter. Utökad kontroll görs bara vid behov.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantör och produkt verifieras var för sig.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />En verifierad produkt betyder inte att alla länder, lokala partners eller supportuppgifter är verifierade. Varje sådan uppgift har egen källa och status.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantörer som redan är verifierade partners på d365.se räknas automatiskt som verifierade leverantörer.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Betalning påverkar aldrig ordningen i katalogen.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Betalning påverkar aldrig ordningen i katalogen eller våra rekommendationer.</li>
               </ul>
             </div>
           </div>
