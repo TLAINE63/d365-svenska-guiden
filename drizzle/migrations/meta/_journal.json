@@ -176,6 +176,13 @@
       "when": 1793700521745,
       "tag": "0024_isv_logos_and_inherited_contacts",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793706277360,
+      "tag": "0025_demand_engine_signals",
+      "breakpoints": true
     }
   ]
 }
