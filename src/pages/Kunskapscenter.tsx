@@ -987,78 +987,80 @@ const Kunskapscenter = () => {
  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
  </div>
  <div className="container mx-auto px-4 max-w-6xl relative z-10">
- <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
- Förstå Dynamics 365 – innan partnerdialogen börjar
+ <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight max-w-3xl">
+ Kunskap och vägledning för bättre Dynamics&nbsp;365-beslut
  </h1>
  <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
- Guider, analyser, behovsanalyser och kravspecifikationer för ledning, IT, ekonomi, sälj och verksamhetsansvariga som vill gå in i en partnerdialog med ett genomtänkt underlag.
+ Guider, jämförelser, analyser och erfarenheter för er som ska välja, införa, utveckla eller ompröva en Dynamics&nbsp;365-lösning.
  </p>
+ <form
+  role="search"
+  className="mt-5 max-w-xl"
+  onSubmit={(e) => {
+   e.preventDefault();
+   trackFunnelEvent({ event_type: "engagement", event_name: "knowledge_search", metadata: { has_query: query.trim().length > 0 } });
+   libraryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }}
+ >
+  <label htmlFor="kc-search" className="sr-only">Sök i Kunskapscentret</label>
+  <div className="flex items-center gap-2 rounded-md bg-background p-1.5 shadow-lg">
+   <Search className="ml-2 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+   <input
+    id="kc-search"
+    type="search"
+    value={query}
+    onChange={(e) => setQuery(e.target.value)}
+    placeholder="Sök guider, artiklar, verktyg och intervjuer"
+    className="min-w-0 flex-1 bg-transparent px-1 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+   />
+   <button type="submit" className="rounded bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+    Sök
+   </button>
+  </div>
+ </form>
  </div>
  </section>
 
- <MicrosoftNewsSection />
-
-
- {/* Innehållsspår – kuraterade tracks genom kunskapscentret */}
- <section className="border-b border-border bg-[hsl(var(--bg-card))]">
-  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-8">
-   <div className="flex items-baseline justify-between gap-4 mb-4">
-    <div>
-     <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider">
-      Innehållsspår
-     </h2>
-     <p className="text-sm text-muted-foreground mt-1">
-      Sex tydliga vägar genom materialet. Välj det spår som matchar var du står just nu.
-     </p>
-    </div>
-    {activeTrack && (
-     <button
-      onClick={() => setActiveTrack(null)}
-      className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 underline underline-offset-2 shrink-0"
-     >
-      <X className="w-3.5 h-3.5" />
-      Avmarkera spår
-     </button>
-    )}
-   </div>
-   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-    {TRACKS.map((track) => {
-     const Icon = track.icon;
-     const isActive = activeTrack === track.value;
-     const count = trackCounts[track.value] ?? 0;
+ {/* Fyra ingångar – gemensam navigering och filtrering ovanpå biblioteket */}
+ <section className="border-b border-border bg-[hsl(var(--bg-card))]" aria-labelledby="kc-entries-heading">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-10">
+   <h2 id="kc-entries-heading" className="text-xl md:text-2xl font-bold text-foreground">
+    Var står ni i ert beslut?
+   </h2>
+   <p className="text-sm text-muted-foreground mt-1 mb-5 max-w-2xl">
+    Välj det som bäst beskriver er fråga just nu. Det fungerar både om ni väljer nytt och om ni redan använder Dynamics&nbsp;365.
+   </p>
+   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    {KNOWLEDGE_ENTRIES.map((entry) => {
+     const Icon = ENTRY_ICON[entry.id];
+     const isActive = activeEntry === entry.id;
      return (
       <button
-       key={track.value}
-       onClick={() => selectTrack(track.value)}
+       key={entry.id}
+       type="button"
+       onClick={() => selectEntry(entry.id)}
        aria-pressed={isActive}
-       className={`text-left p-4 rounded border transition-all duration-200 ${
+       className={`flex h-full flex-col text-left p-5 rounded-lg border transition-all duration-200 ${
         isActive
          ? "bg-primary/10 border-primary ring-1 ring-primary"
          : "bg-card border-border hover:border-primary/50 hover:-translate-y-0.5"
        }`}
       >
-       <div className="flex items-start gap-3">
-        <span
-         className={`shrink-0 inline-flex items-center justify-center w-9 h-9 rounded border ${
-          isActive
-           ? "bg-primary text-primary-foreground border-primary"
-           : "bg-muted/40 text-[hsl(var(--signature))] border-border"
-         }`}
-        >
-         <Icon className="w-4.5 h-4.5" />
-        </span>
-        <div className="min-w-0">
-         <div className="flex items-center gap-2 mb-1">
-          <h3 className="text-sm font-semibold text-foreground">{track.title}</h3>
-          <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-muted/60 px-1.5 py-0.5 rounded">
-           {count}
-          </span>
-         </div>
-         <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
-          {track.description}
-         </p>
-        </div>
-       </div>
+       <span
+        className={`inline-flex items-center justify-center w-10 h-10 rounded border mb-3 ${
+         isActive ? "bg-primary text-primary-foreground border-primary" : "bg-muted/40 text-[hsl(var(--signature))] border-border"
+        }`}
+       >
+        <Icon className="w-5 h-5" aria-hidden="true" />
+       </span>
+       <h3 className="text-base font-semibold text-foreground">{entry.title}</h3>
+       <p className="mt-1 text-sm font-medium text-foreground/80">{entry.question}</p>
+       <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{entry.description}</p>
+       <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+        {isActive ? "Vald" : entry.cta}
+        {isActive ? <Check className="w-4 h-4" aria-hidden="true" /> : <ArrowRight className="w-4 h-4" aria-hidden="true" />}
+        <span className="ml-1 text-[10px] font-normal text-muted-foreground">({entryCounts[entry.id] ?? 0})</span>
+       </span>
       </button>
      );
     })}
@@ -1066,42 +1068,118 @@ const Kunskapscenter = () => {
   </div>
  </section>
 
- <div ref={tracksGridRef} />
+ {/* Rekommenderat innehåll för vald ingång */}
+ <div ref={recommendRef} className="scroll-mt-32" />
+ {activeEntryDef && (
+  <section className="border-b border-border bg-background" aria-labelledby="kc-rec-heading">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-10">
+    <div className="flex flex-wrap items-baseline justify-between gap-3 mb-5">
+     <div>
+      <p className="text-xs font-semibold uppercase tracking-wider text-[hsl(var(--signature))]">Rekommenderat för er</p>
+      <h2 id="kc-rec-heading" className="text-xl md:text-2xl font-bold text-foreground">{activeEntryDef.title}</h2>
+     </div>
+     <button type="button" onClick={showAll} className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 underline underline-offset-2">
+      <X className="w-3.5 h-3.5" aria-hidden="true" /> Visa allt innehåll
+     </button>
+    </div>
+    {recommendations.length === 0 ? (
+     <p className="text-sm text-muted-foreground">
+      Vi har ännu inte publicerat innehåll för den här frågan. Prova en annan ingång eller sök i hela biblioteket nedan.
+     </p>
+    ) : (
+     <>
+      {recommendations.some((r) => r.related) && (
+       <p className="mb-4 text-sm text-muted-foreground">
+        Det finns få resurser för just den här frågan. Vi visar även närliggande innehåll, markerat nedan.
+       </p>
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+       {recommendations.map((r) => (
+        <div key={r.item.id} className="relative">
+         {r.related && (
+          <span className="absolute -top-2 left-3 z-10 rounded bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground border border-border">
+           Närliggande
+          </span>
+         )}
+         {renderItemCard(r.item, "recommended")}
+        </div>
+       ))}
+      </div>
+     </>
+    )}
+    <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+     <span className="font-semibold text-foreground">Gå vidare:</span>
+     {activeEntryDef.nextSteps.map((n) => (
+      <Link key={n.to} to={n.to} onClick={() => trackClick("knowledge_next_step_clicked", { to: n.to })} className="inline-flex items-center gap-1 font-medium text-primary hover:underline">
+       {n.label} <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+      </Link>
+     ))}
+     {entryCounts[activeEntryDef.id] > recommendations.filter((r) => !r.related).length && (
+      <button type="button" onClick={() => libraryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })} className="inline-flex items-center gap-1 font-medium text-primary hover:underline">
+       Se alla {entryCounts[activeEntryDef.id]} resurser <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+      </button>
+     )}
+    </div>
+   </div>
+  </section>
+ )}
 
- {/* d365.se INSIDE – egna intervjuer på YouTube */}
- <div className="border-b border-border bg-background">
-  <div className="container mx-auto px-4 py-8 max-w-6xl">
-   <D365InsideSection />
-  </div>
- </div>
-
-  {/* Topical hubs – crawl-friendly internal links */}
- <section className="border-b border-border bg-muted/30">
+ {/* Utvalda verktyg – kompakt, länkar till verktygens egna sidor */}
+ <section className="border-b border-border bg-muted/30" aria-labelledby="kc-tools-heading">
   <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
-   <h2 className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
-    Utforska efter ämne
+   <h2 id="kc-tools-heading" className="text-sm font-semibold text-[hsl(var(--signature))] uppercase tracking-wider mb-3">
+    Utvalda verktyg
    </h2>
- <div className="flex flex-wrap gap-2">
- {[
-  { slug: "business-central", label: "Business Central" },
-  { slug: "dynamics-365-tillagg", label: "Dynamics 365-tillägg (ISV)" },
-  { slug: "finance-supply-chain", label: "Finance & Supply Chain Management (F&O)" },
-  { slug: "sales", label: "Sales & CRM" },
-  { slug: "customer-service", label: "Kundservice & Field Service" },
-  { slug: "copilot", label: "Copilot & AI" },
-  { slug: "partners", label: "Partnerval" },
- ].map((hub) => (
- <Link
- key={hub.slug}
- to={`/kunskapscenter/${hub.slug}/`}
- className="px-3 py-1.5 rounded text-sm font-medium border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
- >
- {hub.label}
- </Link>
- ))}
- </div>
- </div>
+   <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+    {TOOL_SHORTCUTS.map((t) => {
+     const Icon = t.icon;
+     return (
+      <li key={t.to}>
+       <Link
+        to={t.to}
+        onClick={() => trackClick("knowledge_tool_clicked", { to: t.to })}
+        className="flex h-full items-center gap-2 rounded border border-border bg-card px-3 py-2.5 text-sm font-medium text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
+       >
+        <Icon className="w-4 h-4 shrink-0 text-[hsl(var(--signature))]" aria-hidden="true" />
+        {t.label}
+       </Link>
+      </li>
+     );
+    })}
+   </ul>
+  </div>
  </section>
+
+ {/* Hela kunskapsbiblioteket */}
+ <div ref={libraryRef} className="scroll-mt-32" />
+ <section className="bg-background" aria-labelledby="kc-library-heading">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 pt-10 pb-4">
+   <h2 id="kc-library-heading" className="text-xl md:text-2xl font-bold text-foreground">Hela kunskapsbiblioteket</h2>
+   <p className="text-sm text-muted-foreground mt-1 mb-4">
+    Filtrera på innehållstyp, produkt, ämne och bransch, eller utforska ett ämne på djupet.
+   </p>
+   <div className="flex flex-wrap gap-2">
+    {[
+     { slug: "business-central", label: "Business Central" },
+     { slug: "dynamics-365-tillagg", label: "Dynamics 365-tillägg (ISV)" },
+     { slug: "finance-supply-chain", label: "Finance & Supply Chain Management (F&O)" },
+     { slug: "sales", label: "Sales & CRM" },
+     { slug: "customer-service", label: "Kundservice & Field Service" },
+     { slug: "copilot", label: "Copilot & AI" },
+     { slug: "partners", label: "Partnerval" },
+    ].map((hub) => (
+     <Link
+      key={hub.slug}
+      to={`/kunskapscenter/${hub.slug}/`}
+      className="px-3 py-1.5 rounded text-xs font-medium border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 transition-colors"
+     >
+      {hub.label}
+     </Link>
+    ))}
+   </div>
+  </div>
+ </section>
+
 
 
  {/* Filters */}
