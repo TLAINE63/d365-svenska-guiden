@@ -168,7 +168,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
       </TableCell>
       <TableCell>
         <label className="flex items-center gap-1.5 text-xs">
-          <Checkbox checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> Premium
+          <Checkbox checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Presence aktiv
         </label>
       </TableCell>
     </>
