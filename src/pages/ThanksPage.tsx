@@ -26,7 +26,7 @@ export default function ThanksPage() {
   const back = state.back && state.back.startsWith("/") ? state.back : null;
   return (
     <>
-      <SEOHead title={`${text.title} – d365.se`} description="Bekräftelse på skickat formulär via d365.se." canonicalPath={thanksPath(kind)} noIndex />
+      <SEOHead title={`${text.title} – d365.se`} description="Bekräftelse på skickat formulär via d365.se." canonicalPath={thanksPath(kind)} noIndexFollow />
       <Navbar />
       <main className="min-h-[60vh] container mx-auto max-w-2xl px-4 pt-32 pb-16">
         <h1 className="text-3xl font-bold mb-4">{text.title}</h1>

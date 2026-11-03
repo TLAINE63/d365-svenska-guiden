@@ -23,6 +23,7 @@ const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default:
 const CookieBanner = lazy(() => import("@/components/CookieBanner"));
 const ExitIntentOffer = lazy(() => import("@/components/ExitIntentOffer"));
 import SnitcherTracking from "@/components/SnitcherTracking";
+import SessionPagesRecorder from "@/components/SessionPagesRecorder";
 const PostHogTracking = lazy(() => import("@/components/PostHogTracking"));
 // Besöksmätningen laddas eagerly (mycket liten) – som lazy chunk tappades
 // sidvisningar från besökare som lämnade innan chunken hunnit laddas.
@@ -62,6 +63,7 @@ const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
 const Shortlist = lazy(() => import("./pages/Shortlist"));
 const InquiryThanks = lazy(() => import("./pages/InquiryThanks"));
+const ThanksPage = lazy(() => import("./pages/ThanksPage"));
 const InquiryResponse = lazy(() => import("./pages/InquiryResponse"));
 
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
@@ -172,6 +174,7 @@ const AppShell = () => {
   return (
     <>
       <ScrollToTop />
+      <SessionPagesRecorder />
       <CopyAttribution />
       <TrailingSlashRedirect />
       
@@ -263,6 +266,7 @@ const AppShell = () => {
           <Route path="/kortlista" element={<Shortlist />} />
           <Route path="/shortlist" element={<RedirectTo to="/kortlista/" />} />
           <Route path="/forfragan/tack" element={<InquiryThanks />} />
+          <Route path="/tack/:kind" element={<ThanksPage />} />
           <Route path="/forfragan/svar/:token" element={<InquiryResponse mode="buyer" />} />
           <Route path="/partnersvar/:token" element={<InquiryResponse mode="partner" />} />
           <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
