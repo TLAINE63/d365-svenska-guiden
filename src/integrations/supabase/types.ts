@@ -2114,6 +2114,7 @@ export type Database = {
           forwarded_at: string | null
           id: string
           industry: string | null
+          is_partner_self: boolean
           landing_page: string | null
           message: string | null
           phone: string | null
@@ -2141,6 +2142,7 @@ export type Database = {
           forwarded_at?: string | null
           id?: string
           industry?: string | null
+          is_partner_self?: boolean
           landing_page?: string | null
           message?: string | null
           phone?: string | null
@@ -2168,6 +2170,7 @@ export type Database = {
           forwarded_at?: string | null
           id?: string
           industry?: string | null
+          is_partner_self?: boolean
           landing_page?: string | null
           message?: string | null
           phone?: string | null
@@ -6455,6 +6458,10 @@ export type Database = {
       bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
       demand_company_domain: { Args: { _email: string }; Returns: string }
+      demand_is_partner_self: {
+        Args: { _email: string; _message: string; _source_page: string }
+        Returns: boolean
+      }
       demand_log: {
         Args: { _email: string; _object: string; _path: string; _type: string }
         Returns: undefined

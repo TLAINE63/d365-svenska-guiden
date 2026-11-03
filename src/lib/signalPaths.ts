@@ -26,7 +26,7 @@ const RESULT_BASES = [
 ];
 
 const DOWNLOAD_SLUGS = [
-  "kopparguide-2026", "implementationskalkyl", "partnerguide", "ai-mognad",
+  "kopparguide-2026", "implementationskalkyl", "partnerguide", "e-bok-partnervalet", "ai-mognad",
   "kravspec-erp", "kravspec-sales", "kravspec-marketing", "kravspec-kundservice",
   "roi-businesscentral", "roi-d365sales", "roi-finance-scm", "roi-customer-service",
   "roi-customer-insights", "roi-contact-center", "roi-field-service",

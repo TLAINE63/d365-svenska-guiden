@@ -1,7 +1,8 @@
 // Skyddad export av köparformulär till Demand Engine. En rad per inskickning, sorterad på created_at.
 // Loggar aldrig formulärinnehåll.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { exportAuthOk, exportCors, exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
+import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
+import { exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
 const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages"];
 
@@ -67,7 +68,7 @@ Deno.serve(async (req) => {
     const between = <T>(q: T) => (q as any).gte("created_at", range.start).lt("created_at", range.end);
     const [inq, leads, fwd, sub] = await Promise.all([
       between(sb.from("inquiries").select("id, created_at, inquiry_type, contact_name, company, role, email, phone, message, product_area, project, is_advisory, advisory_placement, source_site, source_page, landing_page, session_pages, consent_text_version, inquiry_partners(partner_slug, share_consent)").eq("source_site", "d365.se")),
-      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id").in("source_type", Object.keys(LEAD_TYPES))),
+      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id, is_partner_self").in("source_type", Object.keys(LEAD_TYPES))),
       between(sb.from("underlag_forward_requests").select("id, created_at, contact_name, company_name, email, phone, message, underlag_summary, products, partner_slugs, source_page, landing_page, session_pages, consent_partner_share, consent_text_version")),
       between(sb.from("underlag_submissions").select("id, created_at, name, company, email, phone, underlag_text, profile, source_page, landing_page, session_pages, consent_text_version")),
     ]);
@@ -100,7 +101,7 @@ Deno.serve(async (req) => {
       group.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
       const r = { ...group[0], assigned_partners: [...new Set(group.flatMap((g) => g.assigned_partners || []))] };
       rows.push({
-        ...base("leads", r), request_type: LEAD_TYPES[r.source_type] || "kontakt", name: str(r.contact_name), company: company(r.company_name), title: str(r.role), email: str(r.email), phone: str(r.phone),
+        ...base("leads", r), request_type: group.some((g) => g.is_partner_self === true) ? "partneransokan" : LEAD_TYPES[r.source_type] || "kontakt", name: str(r.contact_name), company: company(r.company_name), title: str(r.role), email: str(r.email), phone: str(r.phone),
         message: clip(r.message, 2000), product_areas: productAreas([r.selected_product]), selected_partners: join(r.assigned_partners),
         consent_partner_share: str(r.consent_partner_share === true),
       });

@@ -1,6 +1,7 @@
 // Skyddad export av demand_events till Demand Engine.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { exportAuthOk, exportCors, exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
+import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
+import { exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
 const COLUMNS = ["event_id", "site", "occurred_at", "event_type", "object", "path", "company_domain"];
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -67,7 +68,8 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  link.click();
  document.body.removeChild(link);
 
- setIsSubmitted(true);
+ markDownloadUrl("e-bok-partnervalet");
+      setIsSubmitted(true);
  toast({
  title: "E-boken laddas ner!",
  description: "Kolla din nedladdningsmapp.",
