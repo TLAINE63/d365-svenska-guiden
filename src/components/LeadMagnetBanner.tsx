@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -65,6 +66,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
 
     // Honeypot check - if filled, silently "succeed" to fool bots
     if (honeypot) {
+      markDownloadUrl("partnerguide");
       setIsSubmitted(true);
       return;
     }

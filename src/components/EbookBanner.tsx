@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -35,7 +36,8 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  }
 
  if (honeypot) {
- setIsSubmitted(true);
+ markDownloadUrl("e-bok-partnervalet");
+      setIsSubmitted(true);
  return;
  }
 
