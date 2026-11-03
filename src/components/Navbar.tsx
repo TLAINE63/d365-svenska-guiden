@@ -15,24 +15,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 import { hasPlanStarted, usePlanMeta } from "@/lib/d365Plan";
 
 type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean };
 type NavGroup = { heading?: string; items: NavLinkItem[] };
 type NavMenu = { label: string; groups: NavGroup[] };
 
-const SURVEYS = "https://d365-surveys.lovable.app";
+const ISV = "/kunskapscenter/dynamics-365-tillagg/";
 
-/** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners. ERP och CRM har samma struktur. */
+/** Huvudnavigation (6 block): ERP | CRM | Branscher | Tilläggslösningar | Guider & verktyg | Partners & kompetens.
+ *  Inom varje meny: orientera → applikationer/fördjupning → partner. ERP och CRM har samma struktur. */
 const MENUS: NavMenu[] = [
   {
     label: "Affärssystem / ERP",
     groups: [
       {
+        heading: "Välja affärssystem",
         items: [
           { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true },
           { label: "Jämför: Business Central vs F&SCM", path: "/affarssystem/#comparison-intro" },
+          { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
         ],
       },
       {
@@ -41,13 +43,12 @@ const MENUS: NavMenu[] = [
           { label: "Dynamics 365 Business Central", path: "/businesscentral" },
           { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
           { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
-          { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
           { label: "Dynamics 365 Commerce", path: "/d365commerce" },
           { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
         ],
       },
       {
-        heading: "Partners",
+        heading: "Hitta rätt leverantör",
         items: [
           { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
           { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
@@ -59,6 +60,7 @@ const MENUS: NavMenu[] = [
     label: "CRM",
     groups: [
       {
+        heading: "Välja CRM-system",
         items: [
           { label: "CRM-guiden: välja CRM-system", path: "/crm/", strong: true },
           { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
@@ -66,7 +68,7 @@ const MENUS: NavMenu[] = [
         ],
       },
       {
-        heading: "Områden (Customer Engagement)",
+        heading: "Applikationer",
         items: [
           { label: "Försäljning: Dynamics 365 Sales", path: "/d365sales" },
           { label: "Marknad och kundinsikter: Customer Insights", path: "/d365marketing" },
@@ -75,54 +77,67 @@ const MENUS: NavMenu[] = [
           { label: "Fältservice: Field Service", path: "/d365fieldservice" },
         ],
       },
-      { heading: "Partners", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+      { heading: "Hitta rätt leverantör", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+    ],
+  },
+  {
+    label: "Branscher",
+    groups: [
+      {
+        heading: "Utforska branschlösningar",
+        items: [
+          { label: "Alla branscher", path: "/branscher/", strong: true },
+          { label: "Tillverkning", path: "/branscher/tillverkning/" },
+          { label: "Grossist & distribution", path: "/branscher/grossist-distribution/" },
+          { label: "Bygg, entreprenad & installation", path: "/branscher/bygg-entreprenad/" },
+          { label: "Konsulttjänster", path: "/branscher/konsulttjanster/" },
+          { label: "Fastighet & förvaltning", path: "/branscher/fastighet-forvaltning/" },
+          { label: "Offentlig sektor", path: "/branscher/offentlig-sektor/" },
+        ],
+      },
+      { heading: "Fördjupa", items: [{ label: "Partners per bransch", path: "/partners-per-bransch/" }] },
+    ],
+  },
+  {
+    label: "Tilläggslösningar",
+    groups: [
+      {
+        heading: "Hitta tillägg efter behov",
+        items: [
+          { label: "Sök bland 200+ tilläggslösningar", path: ISV, strong: true },
+          { label: "Tillägg för Business Central", path: `${ISV}?produkt=Business%20Central` },
+          { label: "Tillägg för Finance & Supply Chain", path: `${ISV}?produkt=Finance%20%26%20Supply%20Chain%20Management` },
+          { label: "Tillägg för CRM (Customer Engagement)", path: `${ISV}?ce=Sales` },
+        ],
+      },
     ],
   },
   {
     label: "Guider & verktyg",
     groups: [
       {
+        heading: "Kom igång",
         items: [
           { label: "Starta behovsguiden", path: "/kom-igang/", strong: true },
-          { label: "Kunskapscenter", path: "/kunskapscenter" },
-          { label: "Översikt: alla guider", path: "/guider/" },
-          { label: "Välj din roll", path: "/roller/" },
+          { label: "Välj ditt område", path: "/roller/" },
           { label: "Redan Dynamics-kund", path: "/befintlig-kund/" },
-          { label: "Upphandlingsguiden", path: "/upphandlingsguiden/" },
         ],
       },
       {
-        heading: "Behovsanalys",
+        heading: "Planera investeringen",
         items: [
-          { label: "ERP (affärssystem)", path: "/ERPbehovsanalys/" },
-          { label: "CRM (sälj och marknad)", path: "/CRMbehovsanalys/" },
-          { label: "Kundservice, fältservice och Contact Center", path: "/kundservice-behovsanalys/" },
-        ],
-      },
-      {
-        heading: "Beslutsunderlag",
-        items: [
+          { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
           { label: "Kravspecifikation", path: "/kravspecifikation/" },
           { label: "Beslutsmognadsindex", path: "/beslutsmognad/" },
-          { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
           { label: "Min D365-plan", path: "/underlag/" },
         ],
       },
       {
-        heading: "Microsoft AI",
+        heading: "Fördjupa dig",
         items: [
           { label: "AI med Copilot och agenter", path: "/aioversikt" },
-          { label: "AI Readiness Assessment", path: "/ai-readiness/" },
-          { label: "Fråga d365.se", path: "/fraga/" },
-        ],
-      },
-      {
-        heading: "Fördjupade analyser",
-        items: [
-          { label: "ERP-benchmark och fördjupad ERP-analys", href: `${SURVEYS}/` },
-          { label: "Snabbkoll: bromsar ert affärssystem verksamheten?", href: `${SURVEYS}/snabbkoll` },
-          { label: "Förvaltning: stödjer den verksamhetens behov?", href: `${SURVEYS}/forvaltning` },
-          { label: "Övriga analyser", href: `${SURVEYS}/fler-analyser` },
+          { label: "Kunskapscenter", path: "/kunskapscenter" },
+          { label: "Översikt: alla guider", path: "/guider/" },
         ],
       },
     ],
@@ -131,20 +146,24 @@ const MENUS: NavMenu[] = [
     label: "Partners & kompetens",
     groups: [
       {
+        heading: "Hitta och jämför",
         items: [
           { label: "Hitta partner", path: "/valjdynamics365partner/", strong: true },
-          { label: "Partners per bransch", path: "/partners-per-bransch/" },
+          { label: "Så väljer du partner", path: "/guider/valja-dynamics-365-partner/" },
           { label: "Jämför partners", path: "/jamfor-partners/" },
+          { label: "Partners per bransch", path: "/partners-per-bransch/" },
           { label: "Min kortlista", path: "/kortlista/" },
-          { label: "Hitta kompetens", path: "/kompetens/" },
-          { label: "Byta partner?", path: "/guider/byta-dynamics-partner/" },
-          { label: "Partnernytt", path: "/partnernytt/" },
         ],
       },
       {
-        heading: "Guider: välja partner",
-        items: PARTNER_GUIDES.map((g) => ({ label: g.shortLabel, path: guidePath(g) })),
+        heading: "När du redan har Dynamics",
+        items: [
+          { label: "Byta partner?", path: "/guider/byta-dynamics-partner/" },
+          { label: "Hitta kompetens", path: "/kompetens/" },
+          { label: "Second opinion", path: "/second-opinion/" },
+        ],
       },
+      { heading: "Om partnermarknaden", items: [{ label: "Partnernytt", path: "/partnernytt/" }] },
     ],
   },
 ];
@@ -209,7 +228,6 @@ const utilityLink = "font-medium text-white/70 hover:text-[hsl(var(--signature))
 const mobileLink = "block py-1.5 text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors";
 
 const Navbar = () => {
-  const [erp, crm, tools, partners] = MENUS;
   return (
     <nav
       data-site-nav
@@ -221,6 +239,7 @@ const Navbar = () => {
       <div className="hidden lg:block border-b border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))]">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
+            <Link to="/befintlig-kund/" className={utilityLink}>Redan Dynamics-kund?</Link>
             <Link to="/fraga/" className={`inline-flex items-center gap-1.5 ${utilityLink}`}>
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Fråga d365.se
@@ -237,7 +256,7 @@ const Navbar = () => {
 
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="flex items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <Link to="/" className="flex shrink-0 items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <img
               src={companyLogo}
               alt="d365.se - Guide för Dynamics 365"
@@ -251,17 +270,10 @@ const Navbar = () => {
           </Link>
 
           {/* Huvudmeny desktop */}
-          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
-            <DesktopMenu menu={erp} />
-            <DesktopMenu menu={crm} />
-            <Link to="/branscher/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors">
-              Branscher
-            </Link>
-            <DesktopMenu menu={tools} />
-            <DesktopMenu menu={partners} />
-            <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors whitespace-nowrap">
-              Tilläggslösningar
-            </Link>
+          <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
+            {MENUS.map((m) => (
+              <DesktopMenu key={m.label} menu={m} />
+            ))}
             <Link
               to="/valjdynamics365partner/"
               data-nav-cta
@@ -274,10 +286,10 @@ const Navbar = () => {
           </div>
 
           {/* Mobil */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div className="flex items-center gap-1 xl:hidden">
           <ThemeToggle />
           <Sheet>
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild className="xl:hidden">
               <Button variant="ghost" size="icon" aria-label="Öppna menyn" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
                 <Menu className="h-5 w-5" />
               </Button>
@@ -294,24 +306,12 @@ const Navbar = () => {
                   </Link>
                 </SheetClose>
                 <Accordion type="single" collapsible className="w-full">
-                  {[erp, crm].map((m) => (
+                  {MENUS.map((m) => (
                     <MobileGroup key={m.label} menu={m} />
                   ))}
-                  <div className="border-b border-border py-4">
-                    <SheetClose asChild>
-                      <Link to="/branscher/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Branscher</Link>
-                    </SheetClose>
-                  </div>
-                  {[tools, partners].map((m) => (
-                    <MobileGroup key={m.label} menu={m} />
-                  ))}
-                  <div className="border-b border-border py-4">
-                    <SheetClose asChild>
-                      <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Tilläggslösningar</Link>
-                    </SheetClose>
-                  </div>
                 </Accordion>
                 <div className="flex flex-col gap-1 pt-2">
+                  <SheetClose asChild><Link to="/befintlig-kund/" className={mobileLink}>Redan Dynamics-kund?</Link></SheetClose>
                   <SheetClose asChild><Link to="/fraga/" className={`inline-flex items-center gap-2 ${mobileLink}`}><Sparkles className="h-4 w-4" aria-hidden="true" />Fråga d365.se</Link></SheetClose>
                   <SheetClose asChild><Link to="/kunskapscenter" className={mobileLink}>Kunskapscenter</Link></SheetClose>
                   <SheetClose asChild><Link to="/aktuellt/" className={mobileLink}>Aktuellt</Link></SheetClose>
