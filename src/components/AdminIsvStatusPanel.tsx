@@ -15,6 +15,8 @@ import AdminIsvLogoContactDialog, { type LogoContactTarget } from "@/components/
 interface Props {
   token: string | null;
   onSessionExpired: () => void;
+  /** Redaktionsläge: kommersiella fält (ISV Presence, avtal) visas bara som läsbar status. */
+  editorMode?: boolean;
 }
 
 type Row = Record<string, any>;
@@ -59,7 +61,7 @@ function Select({ value, options, onChange, label }: { value: string; options: [
  * Sprint 1.9: redaktionens manuella status för ISV-leverantörer och ISV-produkter.
  * Leverantör och produkt sätts var för sig. Premium och avtal påverkar aldrig informationsstatus eller ordning.
  */
-export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) {
+export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMode = false }: Props) {
   const { toast } = useToast();
   const [vendors, setVendors] = useState<Row[]>([]);
   const [products, setProducts] = useState<Row[]>([]);
@@ -168,7 +170,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
       </TableCell>
       <TableCell>
         <label className="flex items-center gap-1.5 text-xs">
-          <Checkbox checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Presence aktiv
+          <Checkbox disabled={editorMode} checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Presence aktiv
         </label>
       </TableCell>
     </>
@@ -229,7 +231,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                       <TableCell>
                         <div className="flex flex-col gap-1">
                           <Select label="Publicering" value={v.publication_status} options={PUBLICATION} onChange={(x) => save("vendor", v.slug, { publication_status: x })} />
-                          <Select label="Buyer Opportunity Agreement" value={v.buyer_opportunity_agreement_status} options={BOA} onChange={(x) => save("vendor", v.slug, { buyer_opportunity_agreement_status: x })} />
+ {!editorMode && <Select label="Buyer Opportunity Agreement" value={v.buyer_opportunity_agreement_status} options={BOA} onChange={(x) => save("vendor", v.slug, { buyer_opportunity_agreement_status: x })} />}
                         </div>
                       </TableCell>
                       {publishCells(v, "vendor", v.slug)}

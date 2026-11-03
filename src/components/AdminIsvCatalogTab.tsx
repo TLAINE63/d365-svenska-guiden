@@ -22,6 +22,7 @@ import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 interface Props {
   token: string | null;
   onSessionExpired: () => void;
+  editorMode?: boolean;
 }
 
 interface EditState {
@@ -66,7 +67,7 @@ const toEdit = (s: IsvSolution, o?: IsvOverride): EditState => ({
   sales_contact_phone: o?.sales_contact_phone ?? "",
 });
 
-export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
+export default function AdminIsvCatalogTab({ token, onSessionExpired, editorMode = false }: Props) {
   const { toast } = useToast();
   const [overrides, setOverrides] = useState<Record<string, IsvOverride>>({});
   const [loading, setLoading] = useState(true);
@@ -211,8 +212,8 @@ export default function AdminIsvCatalogTab({ token, onSessionExpired }: Props) {
         )}
       />
       <IsvFreshnessCard token={token} onSessionExpired={onSessionExpired} />
-      <AdminIsvStatusPanel token={token} onSessionExpired={onSessionExpired} />
-      <AdminIsvNewSolutions token={token} onSessionExpired={onSessionExpired} onChanged={load} />
+      <AdminIsvStatusPanel token={token} onSessionExpired={onSessionExpired} editorMode={editorMode} />
+      <AdminIsvNewSolutions token={token} onSessionExpired={onSessionExpired} onChanged={load} editorMode={editorMode} />
 
     <Card>
       <CardHeader className="flex flex-row items-start justify-between gap-4">

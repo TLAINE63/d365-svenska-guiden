@@ -19,7 +19,7 @@ serve(async (req) => {
     const auth = req.headers.get("authorization") || "";
     const bearer = auth.startsWith("Bearer ") ? auth.slice(7) : "";
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-    if (!bearer || !(await verifyAdminJWT(bearer, serviceKey))) {
+    if (!bearer || !(await verifyAdminJWT(bearer, serviceKey, ["admin", "editor"]))) {
       return json({ error: "Unauthorized" }, 401, corsHeaders);
     }
 

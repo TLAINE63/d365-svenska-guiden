@@ -33,6 +33,7 @@ import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
+import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -219,6 +220,7 @@ export default function Redaktion() {
             <TabsTrigger value="help-requests">Hjälpärenden</TabsTrigger>
             <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
+            <TabsTrigger value="isv">ISV-katalog</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
             <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
             <TabsTrigger value="texts">Textbank</TabsTrigger>
@@ -238,6 +240,10 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="isv">
+            <AdminIsvCatalogTab token={token || null} onSessionExpired={logout} editorMode />
           </TabsContent>
 
           <TabsContent value="help-requests">

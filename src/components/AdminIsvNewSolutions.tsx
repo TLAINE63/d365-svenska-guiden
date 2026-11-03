@@ -18,6 +18,8 @@ import { CATEGORIES as CATALOG_CATEGORIES, DELIVERY_MODELS } from "@/data/bcIsvS
 interface Props {
   token: string | null;
   onSessionExpired: () => void;
+  /** Redaktionsläge: radering är förbehållen admin. */
+  editorMode?: boolean;
   onChanged?: () => void;
 }
 
@@ -86,7 +88,7 @@ const slugify = (v: string) =>
   v.toLowerCase().replace(/[åä]/g, "a").replace(/ö/g, "o").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 /** Admin: lägg till och underhåll ISV-lösningar direkt i databasen. */
-export default function AdminIsvNewSolutions({ token, onSessionExpired, onChanged }: Props) {
+export default function AdminIsvNewSolutions({ token, onSessionExpired, onChanged, editorMode = false }: Props) {
   const { toast } = useToast();
   const [rows, setRows] = useState<IsvSolutionRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -297,9 +299,9 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                         <Button size="sm" variant="outline" onClick={() => openEdit(r)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="ghost" onClick={() => remove(r)}>
+                        {!editorMode && (<Button size="sm" variant="ghost" onClick={() => remove(r)}>
                           <Trash2 className="h-4 w-4" />
-                        </Button>
+                        </Button>)}
                       </div>
                     </TableCell>
                   </TableRow>
