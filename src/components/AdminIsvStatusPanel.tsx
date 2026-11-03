@@ -240,6 +240,21 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                       <TableCell>
                         <p className="font-medium">{p.name}</p>
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant={p.is_published ? "outline" : "default"}
+                          className="h-7 mt-1 text-xs"
+                          onClick={async () => {
+                            const res = await fetch(`${baseUrl}?action=toggle_solution`, { method: "POST", headers: headers(), body: JSON.stringify({ solution_id: p.solution_id, is_published: !p.is_published }) });
+                            if (res.status === 401) return onSessionExpired();
+                            if (!res.ok) { toast({ title: "Kunde inte spara", variant: "destructive" }); return; }
+                            toast({ title: p.is_published ? "Produkten är dold" : "Produkten är publicerad" });
+                            await load();
+                          }}
+                        >
+                          {p.is_published ? "Dölj" : "Publicera"}
+                        </Button>
                         <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "product", key: p.solution_id, name: p.name, logo_url: p.logo_url, contact: p.contact, inherited: p.vendor_contact, verified: p.information_status === "verified" })}>
                           Produktlogotyp och kontakt{p.logo_url ? " ✓" : ""}
                         </button>
