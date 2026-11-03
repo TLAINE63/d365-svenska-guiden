@@ -105,6 +105,8 @@ export interface IsvSolutionRow {
   information_status?: string | null;
   last_verified_date?: string | null;
   premium_product?: boolean | null;
+  demo_video_url?: string | null;
+  customer_cases?: unknown;
 }
 
 /** Konverterar en databasrad till katalogens IsvSolution-format. */
@@ -151,6 +153,12 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     vendorWebsite: r.vendor_website || undefined,
     informationStatus: r.information_status || undefined,
     hasPresence: r.premium_product === true,
+    demoVideoUrl: r.demo_video_url || undefined,
+    customerCases: Array.isArray(r.customer_cases)
+      ? (r.customer_cases as { title?: string; text?: string | null; url?: string | null }[])
+          .filter((c) => c && c.title)
+          .map((c) => ({ title: String(c.title), text: c.text || undefined, url: c.url || undefined }))
+      : undefined,
     lastVerifiedDate: r.last_verified_date || undefined,
     logoUrl: r.logo_url || undefined,
   };
@@ -281,4 +289,31 @@ export function useIsvSolutions(): IsvSolution[] {
       overrides
     );
   }, [overrides, dbSolutions]);
+}
+
+
+/** Publika produktfakta (modell, målgrupp, pris, länder). Visas bara när de är ifyllda. */
+export interface IsvProductFacts {
+  solution_id: string;
+  technical_model: "Embedded" | "Connected" | "Hybrid" | null;
+  target_size: string | null;
+  price_info: string | null;
+  countries: { code: string; availability: string }[];
+}
+let factsPromise: Promise<Record<string, IsvProductFacts>> | null = null;
+export function useIsvProductFacts(): Record<string, IsvProductFacts> {
+  const [facts, setFacts] = useState<Record<string, IsvProductFacts>>({});
+  useEffect(() => {
+    let cancelled = false;
+    factsPromise ??= (async () => {
+      const { data, error } = await supabase.rpc("public_isv_product_facts");
+      if (error || !data) return {};
+      const map: Record<string, IsvProductFacts> = {};
+      for (const r of data as unknown as IsvProductFacts[]) map[r.solution_id] = { ...r, countries: Array.isArray(r.countries) ? r.countries : [] };
+      return map;
+    })();
+    factsPromise.then((m) => { if (!cancelled) setFacts(m); });
+    return () => { cancelled = true; };
+  }, []);
+  return facts;
 }
