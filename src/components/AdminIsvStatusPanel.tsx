@@ -37,6 +37,7 @@ const VERIFY: [string, string][] = [
 ];
 const PUBLICATION: [string, string][] = [["draft", "Utkast"], ["submitted", "Inskickad"], ["published", "Publicerad"], ["hidden", "Dold"]];
 const BOA: [string, string][] = [["none", "Inget"], ["offered", "Erbjudet"], ["signed", "Signerat"], ["ended", "Avslutat"]];
+const GTM: [string, string][] = [["", "Försäljning: okänd"], ["direkt", "Säljer själv"], ["partner", "Via partners"], ["hybrid", "Hybrid"]];
 
 const BC_USE_CASES: [string, string][] = [
   ["", "Härled från kategori"], ["wms", "Lager och WMS"], ["scanning", "Scanning och mobilt"], ["manufacturing", "Tillverkning"],
@@ -232,6 +233,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                         <div className="flex flex-col gap-1">
                           <Select label="Publicering" value={v.publication_status} options={PUBLICATION} onChange={(x) => save("vendor", v.slug, { publication_status: x })} />
  {!editorMode && <Select label="Buyer Opportunity Agreement" value={v.buyer_opportunity_agreement_status} options={BOA} onChange={(x) => save("vendor", v.slug, { buyer_opportunity_agreement_status: x })} />}
+                          {!editorMode && <Select label="Försäljningsmodell" value={v.gtm_model || ""} options={GTM} onChange={(x) => save("vendor", v.slug, { gtm_model: x })} />}
                         </div>
                       </TableCell>
                       {publishCells(v, "vendor", v.slug)}

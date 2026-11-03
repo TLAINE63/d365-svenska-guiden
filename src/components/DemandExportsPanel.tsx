@@ -77,6 +77,13 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
           {busy === "partners" ? "Hämtar…" : "Partnerstatistik"}
         </Button>
       </div>
+      <div className="space-y-1.5">
+        <p className="text-sm text-muted-foreground">Nuläget i ISV-katalogen, inget datum behövs.</p>
+        <Button disabled={!!busy} onClick={() => download("isv", "export-isv-products", "d365se-isv-produkter")}>
+          <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+          {busy === "isv" ? "Hämtar…" : "ISV-produkter"}
+        </Button>
+      </div>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
     </div>
   );

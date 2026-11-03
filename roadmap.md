@@ -158,5 +158,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 ## ISV-produkter till Demand Engine (2026-11-03)
 - [x] Steg 1: inventering av ISV-fält (inga ändringar)
-- [ ] Steg 1b: saknade fält redigerbara i admin (väntar: Thomas godkännande av inventeringen)
-- [ ] Steg 2: knappen "ISV-produkter" på /admin/exporter (väntar: Thomas godkännande)
+- [x] Steg 1b: försäljningsmodell redigerbar i admin, aimplan/xmreality-ad9180 kopplade till sina bolag
+- [x] Steg 2: knappen "ISV-produkter" på /admin/exporter
+- [ ] Försäljningsmodell ifylld per bolag (väntar: Thomas fyller i admin)

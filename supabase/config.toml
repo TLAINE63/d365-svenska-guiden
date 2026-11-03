@@ -95,3 +95,6 @@ verify_jwt = false
 
 [functions.export-partner-stats]
 verify_jwt = false
+
+[functions.export-isv-products]
+verify_jwt = false

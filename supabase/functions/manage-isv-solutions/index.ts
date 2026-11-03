@@ -290,7 +290,7 @@ serve(async (req) => {
 
     if (action === "list_status" && req.method === "GET") {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
-        supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
         supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
@@ -314,6 +314,11 @@ serve(async (req) => {
       const fields = statusFields(body || {}, "profile_source", "premium_vendor");
       const pub = pickV(body?.publication_status, ["draft", "submitted", "published", "hidden"]);
       if (pub) fields.publication_status = pub;
+      // Försäljningsmodell: kommersiellt fält, bara admin. Tom sträng = okänt.
+      if (!isEditor && body && "gtm_model" in body) {
+        const g = body.gtm_model === "" || body.gtm_model === null ? null : pickV(body.gtm_model, ["direkt", "partner", "hybrid"]);
+        if (g !== undefined) fields.gtm_model = g;
+      }
       if (Object.keys(fields).length) {
         const { error } = await supabase.from("isv_vendors").update({ ...fields, updated_at: new Date().toISOString() }).eq("slug", slug);
         if (error) return json({ error: error.message }, 400, corsHeaders);
