@@ -1,7 +1,7 @@
 // Skyddad export av köparformulär till Demand Engine. En rad per inskickning, sorterad på created_at.
 // Loggar aldrig formulärinnehåll.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { exportHeaders, exportKeyOk, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
+import { exportAuthOk, exportCors, exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
 const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages"];
 
@@ -52,8 +52,10 @@ const LEAD_TYPES: Record<string, string> = {
 };
 
 Deno.serve(async (req) => {
-  if (req.method !== "GET") return new Response(null, { status: 405 });
-  if (!exportKeyOk(req)) return new Response(null, { status: 401 });
+  const exportHeaders = { ...baseHeaders, ...exportCors(req) };
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: exportHeaders });
+  if (req.method !== "GET") return new Response(null, { status: 405, headers: exportHeaders });
+  if (!(await exportAuthOk(req))) return new Response(null, { status: 401, headers: exportHeaders });
   const url = new URL(req.url);
   const range = parseRange(url);
   const json = (b: unknown, status: number) => new Response(JSON.stringify(b), { status, headers: { ...exportHeaders, "Content-Type": "application/json; charset=utf-8" } });
