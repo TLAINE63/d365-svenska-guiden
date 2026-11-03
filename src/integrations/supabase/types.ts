@@ -2117,6 +2117,7 @@ export type Database = {
           source_page: string | null
           source_type: string | null
           status: string
+          submission_id: string | null
           updated_at: string
         }
         Insert: {
@@ -2143,6 +2144,7 @@ export type Database = {
           source_page?: string | null
           source_type?: string | null
           status?: string
+          submission_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -2169,6 +2171,7 @@ export type Database = {
           source_page?: string | null
           source_type?: string | null
           status?: string
+          submission_id?: string | null
           updated_at?: string
         }
         Relationships: [
