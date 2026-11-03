@@ -34,6 +34,7 @@ import AdminNewsletterCard from "@/components/AdminNewsletterCard";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
+import DemandExportsPanel from "@/components/DemandExportsPanel";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -227,6 +228,7 @@ export default function Redaktion() {
             <TabsTrigger value="stats">Statistik</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
+            <TabsTrigger value="exports">Exporter</TabsTrigger>
           </TabsList>
 
           <TabsContent value="assignment-profiles">
@@ -260,6 +262,11 @@ export default function Redaktion() {
 
           <TabsContent value="texts">
             <RedaktionSiteTextsTab token={token} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="exports">
+            <p className="text-sm text-muted-foreground mb-4">CSV-filer för Demand Engine och partnerstatistik. Kräver att kontot har adminbehörighet.</p>
+            {token && <DemandExportsPanel token={token} onUnauthorized={() => {}} />}
           </TabsContent>
 
           <TabsContent value="backlinks">
