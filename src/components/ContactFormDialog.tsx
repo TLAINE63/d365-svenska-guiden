@@ -1,5 +1,8 @@
 import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { formContextBody, isInternalTraffic } from "@/lib/sessionPages";
+import { thanksPath } from "@/lib/thanksPages";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -55,6 +58,8 @@ interface ContactFormDialogProps {
   title?: string;
   description?: string;
   subject?: string;
+  /** false för partnerprogrammets och partnersidans kontaktformulär: sparas inte och får ingen tacksida. */
+  buyerForm?: boolean;
 }
 
 const ContactFormDialog = ({ children, title, description, subject, buyerForm = true }: ContactFormDialogProps) => {
