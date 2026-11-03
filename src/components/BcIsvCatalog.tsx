@@ -662,7 +662,8 @@ const BcIsvCatalog = ({
   const [groupByVendor, setGroupByVendor] = useState(false);
   const [open, setOpen] = useState<IsvSolution | null>(null);
   const [autoOpened, setAutoOpened] = useState(false);
-  const [statusSel, setStatusSel] = useState<Set<IsvInformationStatus>>(new Set());
+  // "Endast verifierade lösningar" är förvalt (Thomas 2026-11-03); besökaren kan visa alla.
+  const [statusSel, setStatusSel] = useState<Set<IsvInformationStatus>>(new Set(["verified"]));
   const [helpFor, setHelpFor] = useState<IsvSolution | null>(null);
 
   const toggle = <T,>(set: Set<T>, setter: (s: Set<T>) => void) => (v: T) => {
