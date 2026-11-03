@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -163,6 +165,7 @@ export const SendUnderlagToPartners = ({
 
       const { data, error } = await supabase.functions.invoke("send-underlag-to-partners", {
         body: {
+          ...formContextBody(),
           contact: {
             company_name: form.company,
             contact_name: form.name,
@@ -186,6 +189,7 @@ export const SendUnderlagToPartners = ({
       const delivered = (data?.delivered as number) ?? allChosen.length;
       const total = (data?.total as number) ?? allChosen.length;
       setSent({ delivered, total });
+      markThanksUrl("skicka-underlag");
       onSent?.();
       trackFunnelEvent("underlag_forward_submit", {
         assessment_type: assessmentType,
