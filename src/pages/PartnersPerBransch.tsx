@@ -57,12 +57,9 @@ const PartnersPerBransch = () => {
     });
   });
 
-  // Sort each list: avtalspartners first, then alphabetical
+  // Neutral ordning: alfabetisk, avtal påverkar inte.
   byIndustry.forEach((list) => {
     list.sort((a, b) => {
-      const ag = a.agreement_signed ? 1 : 0;
-      const bg = b.agreement_signed ? 1 : 0;
-      if (ag !== bg) return bg - ag;
       return a.name.localeCompare(b.name, "sv");
     });
   });

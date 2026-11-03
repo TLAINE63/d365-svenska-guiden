@@ -121,13 +121,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  return shuffled;
  };
  
- // Avtals-signerade partners prioriteras alltid först
- const signed = result.filter(p => p.agreement_signed);
- const unsigned = result.filter(p => !p.agreement_signed);
- return [
- ...seededShuffle(signed, sessionSeed),
- ...seededShuffle(unsigned, sessionSeed + 1),
- ];
+ // Neutral ordning: kommersiell status påverkar inte ordningen.
+ return seededShuffle(result, sessionSeed);
  }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, sessionSeed]);
 
  // Show all 18 industries in the filter
@@ -246,7 +241,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource, filterMode = "indu
  )}
 
 
-  <WhyTheseResults className="mb-6 max-w-4xl mx-auto" agreementPriority criteria={[applicationFilterLabel(applicationFilter), selectedIndustry, selectedGeography, selectedCompanySize ? `${selectedCompanySize} anställda` : null, selectedRevenue]} />
+  <WhyTheseResults className="mb-6 max-w-4xl mx-auto" criteria={[applicationFilterLabel(applicationFilter), selectedIndustry, selectedGeography, selectedCompanySize ? `${selectedCompanySize} anställda` : null, selectedRevenue]} />
 
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
  {filteredPartners.map((partner, index) => {

@@ -522,7 +522,7 @@ const BusinessCentral = () => {
  </>
  )}
 
- <WhyTheseResults agreementPriority criteria={["Business Central", selectedIndustry, selectedGeography]} className="mb-6" />
+ <WhyTheseResults criteria={["Business Central", selectedIndustry, selectedGeography]} className="mb-6" />
  {bcPartners.length === 0 ? (
  <div className="text-center py-6">
  <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>

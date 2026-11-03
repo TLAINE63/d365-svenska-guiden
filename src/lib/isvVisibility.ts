@@ -1,7 +1,7 @@
 /**
  * Vad en ISV-produkt eller leverantör får visa publikt.
  * Ej verifierad: ingen logotyp, ingen länk till leverantörens webbplats, inga kontaktuppgifter.
- * Verifierad produkt: logotyp, webblänk och kontaktväg.
+ * Verifierad produkt med aktiv ISV Presence: logotyp, webblänk och kontaktväg (båda krävs).
  * Leverantör är verifierad om den själv är verifierad eller motsvarar en publicerad (verifierad) partner.
  */
 export interface FeaturedPartnerLite {
@@ -44,8 +44,9 @@ export interface IsvExposure {
 }
 
 /** Produktens egen status styr logotyp, länk och kontakt på produktnivå. */
-export function productExposure(productStatus: string | null | undefined): IsvExposure {
-  const v = productStatus === "verified";
+export function productExposure(productStatus: string | null | undefined, hasPresence = false): IsvExposure {
+  // Kräver både D365 Verifierad och aktiv ISV Presence.
+  const v = productStatus === "verified" && hasPresence;
   return { showLogo: v, showWebsite: v, showContact: v };
 }
 
