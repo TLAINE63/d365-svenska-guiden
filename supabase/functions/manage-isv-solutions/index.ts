@@ -73,9 +73,11 @@ serve(async (req) => {
     const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     const role = token ? await verifyJWT(token, secret) : false;
     const url0 = new URL(req.url);
-    // Redaktion (editor) får bara läsa aktualitetsöversikten; allt annat kräver admin.
-    const editorAllowed = url0.searchParams.get("action") === "list_freshness";
-    if (!(role === "admin" || (editorAllowed && role === "editor"))) {
+    // Redaktion (editor) hanterar ISV-innehåll och verifiering. Radering och kommersiella
+    // fält (ISV Presence, avtalsstatus) är förbehållna admin.
+    const isEditor = role === "editor";
+    const editorAllowed = url0.searchParams.get("action") !== "delete_solution";
+    if (!(role === "admin" || (editorAllowed && isEditor))) {
       return json({ error: "Unauthorized" }, 401, corsHeaders);
     }
 
@@ -271,6 +273,7 @@ serve(async (req) => {
         publish_businesscentral: boolV(body.publish_businesscentral),
         publish_d365guide: boolV(body.publish_d365guide),
       };
+      if (isEditor) delete out[premiumKey];
       for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
       return out;
     };
@@ -315,7 +318,7 @@ serve(async (req) => {
         const { error } = await supabase.from("isv_vendors").update({ ...fields, updated_at: new Date().toISOString() }).eq("slug", slug);
         if (error) return json({ error: error.message }, 400, corsHeaders);
       }
-      const boaV = pickV(body?.buyer_opportunity_agreement_status, ["none", "offered", "signed", "ended"]);
+      const boaV = isEditor ? undefined : pickV(body?.buyer_opportunity_agreement_status, ["none", "offered", "signed", "ended"]);
       if (boaV) {
         const { error } = await supabase.from("isv_vendor_internal").upsert({ vendor_slug: slug, buyer_opportunity_agreement_status: boaV }, { onConflict: "vendor_slug" });
         if (error) return json({ error: error.message }, 400, corsHeaders);
