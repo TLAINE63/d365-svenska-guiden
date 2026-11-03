@@ -36,8 +36,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  }
 
  if (honeypot) {
- markDownloadUrl("e-bok-partnervalet");
-      setIsSubmitted(true);
+ setIsSubmitted(true);
  return;
  }
 
@@ -69,7 +68,8 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  link.click();
  document.body.removeChild(link);
 
- setIsSubmitted(true);
+ markDownloadUrl("e-bok-partnervalet");
+      setIsSubmitted(true);
  toast({
  title: "E-boken laddas ner!",
  description: "Kolla din nedladdningsmapp.",

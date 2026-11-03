@@ -66,7 +66,6 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
 
     // Honeypot check - if filled, silently "succeed" to fool bots
     if (honeypot) {
-      markDownloadUrl("partnerguide");
       setIsSubmitted(true);
       return;
     }
@@ -109,6 +108,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       // Also save PDF locally for the user
       await generatePartnerGuide(false);
       
+      markDownloadUrl("partnerguide");
       setIsSubmitted(true);
       toast({
         title: "Guiden skickas till din e-post!",
