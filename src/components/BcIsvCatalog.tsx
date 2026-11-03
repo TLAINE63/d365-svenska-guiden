@@ -40,6 +40,7 @@ import {
   type IsvInformationStatus,
 } from "@/lib/isvInformationStatus";
 import partnerData from "@/data/partnerData.json";
+import IsvProductExtras from "@/components/isv/IsvProductExtras";
 import { matchVerifiedPartner, isVendorVerified, productExposure, type FeaturedPartnerLite } from "@/lib/isvVisibility";
 
 const FEATURED_PARTNERS = (partnerData as FeaturedPartnerLite[]).filter((p) => p.is_featured);
@@ -489,6 +490,7 @@ const SolutionDetail = ({
                 </ul>
               </section>
             )}
+            <IsvProductExtras solution={s} />
             <IsvResellers slugs={s.partnerSlugs || []} products={solutionProducts(s)} />
             <section className="flex flex-wrap gap-1.5 pt-2 border-t border-border">
               {s.tags.map((t) => (
