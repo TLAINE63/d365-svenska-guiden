@@ -128,6 +128,7 @@ const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const KomIgang = lazy(() => import("./pages/KomIgang"));
 const Systemval = lazy(() => import("./pages/Systemval"));
 const Partnerprogram = lazy(() => import("./pages/Partnerprogram"));
+const IsvProgram = lazy(() => import("./pages/IsvProgram"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerPerformance = lazy(() => import("./pages/PartnerPerformance"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
@@ -293,6 +294,7 @@ const AppShell = () => {
           <Route path="/kom-igang/systemval" element={<RedirectTo to="/kom-igang/" />} />
           <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
+          <Route path="/isvprogram" element={<IsvProgram />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
           <Route path="/salj-marknad-behovsanalys" element={<RedirectTo to="/CRMbehovsanalys" />} />

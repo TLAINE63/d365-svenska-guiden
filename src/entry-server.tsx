@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Partnerprogram from './pages/Partnerprogram';
+import IsvProgram from './pages/IsvProgram';
 import PartnerBasicProfile from './pages/PartnerBasicProfile';
 import { normalizeBasicPartnerRow, type BasicPartner } from './hooks/useBasicPartners';
 
@@ -273,6 +274,15 @@ export const routes: PrerenderRoute[] = [
   { path: '/implementationskalkylator', priority: '0.8', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
+  {
+    path: '/isvprogram',
+    priority: '0.6',
+    changefreq: 'monthly',
+    meta: {
+      title: 'För ISV-leverantörer | ISV Presence på d365.se',
+      description: 'Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 3 990 kr/år inklusive en app, 995 kr/år per extra app.',
+    },
+  },
   {
     path: '/partnerprogram',
     priority: '0.7',
@@ -598,6 +608,7 @@ export function render(url: string) {
               <Route path="/kom-igang" element={<Systemval />} />
               <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
               <Route path="/partnerprogram" element={<Partnerprogram />} />
+              <Route path="/isvprogram" element={<IsvProgram />} />
               <Route path="/basic/:slug" element={<PartnerBasicProfile initialData={basicInitialData} />} />
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />

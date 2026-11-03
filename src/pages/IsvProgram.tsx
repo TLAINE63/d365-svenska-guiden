@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -38,13 +37,13 @@ const faqs = [
 ];
 
 const IsvProgram = () => {
-  const [open, setOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
         description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 3 990 kr/år inklusive en app, 995 kr/år per extra app."
-        canonical="https://d365.se/isvprogram/"
+        webPageSchema={false}
+        canonicalPath="/isvprogram"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <WebPageSchema name="För ISV-leverantörer" description="ISV Presence för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
@@ -60,9 +59,11 @@ const IsvProgram = () => {
             <p className="mt-5 text-lg opacity-90 max-w-2xl">
               Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. Med ISV Presence visas er lösning med verifierade uppgifter.
             </p>
-            <Button size="lg" variant="secondary" className="mt-8" onClick={() => setOpen(true)}>
-              Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
+            <ContactFormDialog subject="ISV Presence">
+              <Button size="lg" variant="secondary" className="mt-8">
+                Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </ContactFormDialog>
           </div>
         </section>
 
@@ -130,7 +131,6 @@ const IsvProgram = () => {
         </section>
       </main>
       <Footer />
-      <ContactFormDialog open={open} onOpenChange={setOpen} />
     </div>
   );
 };

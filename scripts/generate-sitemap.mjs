@@ -61,6 +61,7 @@ const STATIC_ROUTES = [
   { path: "/beslutsmognad/", changefreq: "monthly", priority: "0.7" },
   { path: "/kom-igang/", changefreq: "monthly", priority: "0.8" },
   { path: "/partnerprogram/", changefreq: "monthly", priority: "0.7" },
+  { path: "/isvprogram/", changefreq: "monthly", priority: "0.6" },
   { path: "/branscher/", changefreq: "monthly", priority: "0.8" },
   { path: "/d365sales/", changefreq: "monthly", priority: "0.8" },
   { path: "/business-central-partners-sverige/", changefreq: "monthly", priority: "0.7" },
