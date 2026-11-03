@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { defaultFromDate } from "@/lib/adminExports";
 
@@ -60,7 +60,7 @@ export default function AdminExporter() {
         {!isAuthenticated ? (
           <Card>
             <CardHeader>
-              <CardTitle as="h1">Åtkomst nekad</CardTitle>
+              <h1 className="text-2xl font-semibold leading-none tracking-tight">Åtkomst nekad</h1>
               <CardDescription>Sidan är bara tillgänglig för inloggad admin.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -70,7 +70,7 @@ export default function AdminExporter() {
         ) : (
           <Card>
             <CardHeader>
-              <CardTitle as="h1">Exporter</CardTitle>
+              <h1 className="text-2xl font-semibold leading-none tracking-tight">Exporter</h1>
               <CardDescription>CSV-filer för Demand Engine. Datum i formatet ÅÅÅÅ-MM-DD, till och med i dag.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
