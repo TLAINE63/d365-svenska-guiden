@@ -153,3 +153,5 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Uppdatera grundprofiler: Triple Core (f.d. Regentor), Caridea IT, Amanzia
 - [ ] Bofor och Standout Dynamics: väntar på Thomas beslut
 - [x] Knappen "Hitta rätt …-partner" överst på alla produktsidor
+- [ ] Partnerstatistik-export på /admin/exporter
+- [ ] Exporterna även i /redaktion
