@@ -107,7 +107,7 @@ const MENUS: NavMenu[] = [
           { label: "Sök bland 200+ tilläggslösningar", path: ISV, strong: true },
           { label: "Tillägg för Business Central", path: `${ISV}?produkt=Business%20Central` },
           { label: "Tillägg för Finance & Supply Chain", path: `${ISV}?produkt=Finance%20%26%20Supply%20Chain%20Management` },
-          { label: "Tillägg för CRM (Customer Engagement)", path: "/customer-engagement/tillagg" },
+          { label: "Tillägg för CRM (Customer Engagement)", path: `${ISV}?ce=Sales` },
         ],
       },
     ],
