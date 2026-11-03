@@ -117,9 +117,25 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
     await load();
   };
 
+  const [vendorFilter, setVendorFilter] = useState<{ slug: string; name: string } | null>(null);
   const term = q.trim().toLowerCase();
+  const belongsTo = (p: Row, v: { slug: string; name: string }) =>
+    p.vendor_slug === v.slug || (p.vendor || "").toLowerCase() === v.name.toLowerCase();
+  const countFor = (v: Row) => products.filter((p) => belongsTo(p, { slug: v.slug, name: v.name })).length;
   const vList = useMemo(() => vendors.filter((v) => !term || `${v.name} ${v.slug}`.toLowerCase().includes(term)), [vendors, term]);
-  const pList = useMemo(() => products.filter((p) => !term || `${p.name} ${p.vendor}`.toLowerCase().includes(term)), [products, term]);
+  const pList = useMemo(
+    () =>
+      products.filter(
+        (p) => (!vendorFilter || belongsTo(p, vendorFilter)) && (!term || `${p.name} ${p.vendor}`.toLowerCase().includes(term))
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [products, term, vendorFilter]
+  );
+  const showVendorProducts = (v: Row) => {
+    setVendorFilter({ slug: v.slug, name: v.name });
+    setQ("");
+    setTab("products");
+  };
 
   const publishCells = (r: Row, kind: "vendor" | "product", key: string) => (
     <TableCell>
