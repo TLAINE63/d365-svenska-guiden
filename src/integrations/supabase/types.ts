@@ -1183,6 +1183,36 @@ export type Database = {
           },
         ]
       }
+      isv_import_changes: {
+        Row: {
+          created_at: string
+          field: string
+          id: string
+          import_batch: string
+          new_value: string | null
+          old_value: string | null
+          solution_id: string
+        }
+        Insert: {
+          created_at?: string
+          field: string
+          id?: string
+          import_batch: string
+          new_value?: string | null
+          old_value?: string | null
+          solution_id: string
+        }
+        Update: {
+          created_at?: string
+          field?: string
+          id?: string
+          import_batch?: string
+          new_value?: string | null
+          old_value?: string | null
+          solution_id?: string
+        }
+        Relationships: []
+      }
       isv_invitations: {
         Row: {
           created_at: string
@@ -1233,6 +1263,174 @@ export type Database = {
           vendor_slug?: string | null
         }
         Relationships: []
+      }
+      isv_solution_analysis: {
+        Row: {
+          analysis_industry: string | null
+          analysis_reviewed_at: string | null
+          analysis_source_url: string | null
+          implementation_class: string | null
+          import_batch: string | null
+          imported_at: string
+          local_competence: string | null
+          match_confidence: string | null
+          match_type: string | null
+          other_erp: string | null
+          price_certainty: string | null
+          price_info: string | null
+          price_model: string | null
+          price_source_url: string | null
+          solution_id: string
+          swedish_delivery_partners: string | null
+          target_size: string | null
+          technical_model: string | null
+          technical_model_certainty: string | null
+          updated_at: string
+        }
+        Insert: {
+          analysis_industry?: string | null
+          analysis_reviewed_at?: string | null
+          analysis_source_url?: string | null
+          implementation_class?: string | null
+          import_batch?: string | null
+          imported_at?: string
+          local_competence?: string | null
+          match_confidence?: string | null
+          match_type?: string | null
+          other_erp?: string | null
+          price_certainty?: string | null
+          price_info?: string | null
+          price_model?: string | null
+          price_source_url?: string | null
+          solution_id: string
+          swedish_delivery_partners?: string | null
+          target_size?: string | null
+          technical_model?: string | null
+          technical_model_certainty?: string | null
+          updated_at?: string
+        }
+        Update: {
+          analysis_industry?: string | null
+          analysis_reviewed_at?: string | null
+          analysis_source_url?: string | null
+          implementation_class?: string | null
+          import_batch?: string | null
+          imported_at?: string
+          local_competence?: string | null
+          match_confidence?: string | null
+          match_type?: string | null
+          other_erp?: string | null
+          price_certainty?: string | null
+          price_info?: string | null
+          price_model?: string | null
+          price_source_url?: string | null
+          solution_id?: string
+          swedish_delivery_partners?: string | null
+          target_size?: string | null
+          technical_model?: string | null
+          technical_model_certainty?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_solution_analysis_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
+            referencedRelation: "bc_isv_products_v1"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "isv_solution_analysis_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
+            referencedRelation: "isv_solutions"
+            referencedColumns: ["solution_id"]
+          },
+        ]
+      }
+      isv_solution_markets: {
+        Row: {
+          availability: string
+          checked_at: string | null
+          country: string | null
+          country_code: string
+          created_at: string
+          evidence_quality: string | null
+          evidence_type: string | null
+          id: string
+          import_batch: string | null
+          language: string | null
+          local_competence: string | null
+          local_delivery: string | null
+          method_note: string | null
+          named_partners: string | null
+          reservation: string | null
+          solution_id: string
+          source_1: string | null
+          source_2: string | null
+          source_ref: string | null
+          updated_at: string
+        }
+        Insert: {
+          availability: string
+          checked_at?: string | null
+          country?: string | null
+          country_code: string
+          created_at?: string
+          evidence_quality?: string | null
+          evidence_type?: string | null
+          id?: string
+          import_batch?: string | null
+          language?: string | null
+          local_competence?: string | null
+          local_delivery?: string | null
+          method_note?: string | null
+          named_partners?: string | null
+          reservation?: string | null
+          solution_id: string
+          source_1?: string | null
+          source_2?: string | null
+          source_ref?: string | null
+          updated_at?: string
+        }
+        Update: {
+          availability?: string
+          checked_at?: string | null
+          country?: string | null
+          country_code?: string
+          created_at?: string
+          evidence_quality?: string | null
+          evidence_type?: string | null
+          id?: string
+          import_batch?: string | null
+          language?: string | null
+          local_competence?: string | null
+          local_delivery?: string | null
+          method_note?: string | null
+          named_partners?: string | null
+          reservation?: string | null
+          solution_id?: string
+          source_1?: string | null
+          source_2?: string | null
+          source_ref?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_solution_markets_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: false
+            referencedRelation: "bc_isv_products_v1"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "isv_solution_markets_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: false
+            referencedRelation: "isv_solutions"
+            referencedColumns: ["solution_id"]
+          },
+        ]
       }
       isv_solution_overrides: {
         Row: {
