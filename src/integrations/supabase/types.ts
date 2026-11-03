@@ -1555,9 +1555,11 @@ export type Database = {
           considerations: string | null
           contact_center_relevance: string | null
           created_at: string
+          customer_cases: Json
           customer_insights_relevance: string | null
           customer_service_relevance: string | null
           delivery_model: string
+          demo_video_url: string | null
           editorial_tier: string | null
           field_service_relevance: string | null
           finance_relevance: string
@@ -1612,9 +1614,11 @@ export type Database = {
           considerations?: string | null
           contact_center_relevance?: string | null
           created_at?: string
+          customer_cases?: Json
           customer_insights_relevance?: string | null
           customer_service_relevance?: string | null
           delivery_model?: string
+          demo_video_url?: string | null
           editorial_tier?: string | null
           field_service_relevance?: string | null
           finance_relevance?: string
@@ -1669,9 +1673,11 @@ export type Database = {
           considerations?: string | null
           contact_center_relevance?: string | null
           created_at?: string
+          customer_cases?: Json
           customer_insights_relevance?: string | null
           customer_service_relevance?: string | null
           delivery_model?: string
+          demo_video_url?: string | null
           editorial_tier?: string | null
           field_service_relevance?: string | null
           finance_relevance?: string
@@ -6502,6 +6508,16 @@ export type Database = {
       partner_report_monthly_dispatch: {
         Args: { target_month?: string }
         Returns: undefined
+      }
+      public_isv_product_facts: {
+        Args: never
+        Returns: {
+          countries: Json
+          price_info: string
+          solution_id: string
+          target_size: string
+          technical_model: string
+        }[]
       }
       public_verified_isv_contacts: {
         Args: never
