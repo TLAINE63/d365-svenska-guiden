@@ -1334,7 +1334,7 @@ const Kunskapscenter = () => {
  <div key={product} className="mb-12">
  <div className="flex items-center gap-3 mb-6">
  <BookOpen className={`w-5 h-5 ${productColor(product).icon}`} />
- <h2 className="text-xl font-bold text-foreground">{product}</h2>
+ <h3 className="text-xl font-bold text-foreground">{product}</h3>
  <span className="text-sm text-muted-foreground">({articles.length} artiklar)</span>
  </div>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
