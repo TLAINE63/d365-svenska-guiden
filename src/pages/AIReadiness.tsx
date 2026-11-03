@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
@@ -992,6 +993,7 @@ const AIReadiness = () => {
       if (error) throw error;
       setSubmitted(true);
       toast({ title: "Tack! Din rapport laddas ner." });
+      markDownloadUrl("ai-mognad");
       generatePDF();
     } catch {
       toast({ title: "Något gick fel. Försök igen.", variant: "destructive" });

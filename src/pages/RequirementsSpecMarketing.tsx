@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { createKravJourney, readPrefillAreas } from "@/lib/calcToKrav";
 import { useState, useEffect } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
@@ -165,6 +166,7 @@ const RequirementsSpecMarketing = () => {
           : undefined,
       });
       toast({ title: "Kravspecifikationen har laddats ner!" });
+      markDownloadUrl("kravspec-marketing");
     } catch (err: any) {
       console.error("Download error:", err);
       toast({
