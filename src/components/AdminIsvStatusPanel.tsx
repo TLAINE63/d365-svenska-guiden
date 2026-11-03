@@ -264,9 +264,26 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                             className="text-xs text-primary hover:underline mt-1"
                             onClick={() => setBcEdit({ id: p.solution_id, name: p.name, form: { ...emptyBc, ...Object.fromEntries(Object.entries(p.bc_presentation || {}).filter(([k]) => k in emptyBc).map(([k, v]) => [k, v ?? ""])) } })}
                           >
-                            Text för businesscentral.se{p.information_status !== "verified" ? " (visas först när produkten är verifierad)" : ""}
+                            Text för businesscentral.se{p.information_status !== "verified" || !p.premium_product ? " (visas först med D365 Verifierad och ISV Presence)" : ""}
                           </button>
                         )}
+                        <button
+                          type="button"
+                          className="block text-xs text-primary hover:underline mt-1"
+                          onClick={() => {
+                            const video = window.prompt("Länk till demo eller video (https://, lämna tomt för att ta bort)", p.demo_video_url || "");
+                            if (video === null) return;
+                            const current = (Array.isArray(p.customer_cases) ? p.customer_cases : [])
+                              .map((c: Row) => [c.title, c.text, c.url].filter(Boolean).join(" | ")).join("\n");
+                            const raw = window.prompt("Kundcase, ett per rad: Titel | kort text | https://länk (valfri). Lämna tomt för inga.", current);
+                            if (raw === null) return;
+                            const customer_cases = raw.split(/\n|;;/).map((l) => l.split("|").map((x) => x.trim())).filter((x) => x[0])
+                              .map(([title, text, url]) => ({ title, text: text || null, url: url || null }));
+                            save("product", p.solution_id, { demo_video_url: video.trim(), customer_cases });
+                          }}
+                        >
+                          Demo och kundcase{p.demo_video_url || (p.customer_cases?.length ?? 0) > 0 ? " ✓" : ""}
+                        </button>
                       </TableCell>
                       {statusCells(p, "product", p.solution_id)}
                       {publishCells(p, "product", p.solution_id)}
