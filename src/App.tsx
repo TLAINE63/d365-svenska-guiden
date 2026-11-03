@@ -22,7 +22,7 @@ const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ defaul
 const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
 const CookieBanner = lazy(() => import("@/components/CookieBanner"));
 const ExitIntentOffer = lazy(() => import("@/components/ExitIntentOffer"));
-const SnitcherTracking = lazy(() => import("@/components/SnitcherTracking"));
+import SnitcherTracking from "@/components/SnitcherTracking";
 const PostHogTracking = lazy(() => import("@/components/PostHogTracking"));
 // Besöksmätningen laddas eagerly (mycket liten) – som lazy chunk tappades
 // sidvisningar från besökare som lämnade innan chunken hunnit laddas.
