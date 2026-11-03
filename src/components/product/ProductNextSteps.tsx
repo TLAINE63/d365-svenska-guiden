@@ -37,9 +37,7 @@ const ProductNextSteps = ({ product, pageSource }: Props) => {
 
   const partners = useMemo(() => {
     const list = (data || []).filter((p) => p.is_featured === true && p.product_filters?.[cfg.partnerKey]);
-    const signed = list.filter((p) => p.agreement_signed);
-    const rest = list.filter((p) => !p.agreement_signed);
-    return [...seededShuffle(signed, seed), ...seededShuffle(rest, seed + 1)].slice(0, 3);
+    return seededShuffle(list, seed).slice(0, 3);
   }, [data, cfg.partnerKey, seed]);
 
   const name = <span className="whitespace-nowrap">{cfg.label}</span>;

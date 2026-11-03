@@ -46,7 +46,7 @@ const FEATURED_PARTNERS = (partnerData as FeaturedPartnerLite[]).filter((p) => p
 const vendorInfo = (s: IsvSolution, vendor?: IsvVendorPublic) => {
   const partner = matchVerifiedPartner(vendor?.name || s.vendor, s.vendorSlug, FEATURED_PARTNERS);
   const vendorVerified = isVendorVerified(vendor?.information_status, partner);
-  const product = productExposure(s.informationStatus);
+  const product = productExposure(s.informationStatus, s.hasPresence);
   const logo = product.showLogo ? s.logoUrl || vendor?.logo_url || partner?.logo_url || null : null;
   const website = product.showWebsite ? s.vendorWebsite || vendor?.website || partner?.website || null : null;
   return { partner, vendorVerified, product, logo, website };

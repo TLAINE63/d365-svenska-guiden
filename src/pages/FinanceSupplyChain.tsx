@@ -586,7 +586,7 @@ const FinanceSupplyChain = () => {
  )}
 
 
- <WhyTheseResults agreementPriority criteria={["Finance & Supply Chain Management (F&O)", selectedIndustry, selectedGeography]} className="mb-6" />
+ <WhyTheseResults criteria={["Finance & Supply Chain Management (F&O)", selectedIndustry, selectedGeography]} className="mb-6" />
  {fscPartners.length === 0 ? (
  <div className="text-center py-6">
  <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>

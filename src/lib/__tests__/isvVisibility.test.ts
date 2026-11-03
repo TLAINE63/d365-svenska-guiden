@@ -8,7 +8,9 @@ describe("isv visibility", () => {
     expect(productExposure("compiled")).toEqual({ showLogo: false, showWebsite: false, showContact: false });
   });
   it("verified product shows logo, link and contact", () => {
-    expect(productExposure("verified")).toEqual({ showLogo: true, showWebsite: true, showContact: true });
+    expect(productExposure("verified")).toEqual({ showLogo: false, showWebsite: false, showContact: false });
+    expect(productExposure("verified", true)).toEqual({ showLogo: true, showWebsite: true, showContact: true });
+    expect(productExposure("compiled", true)).toEqual({ showLogo: false, showWebsite: false, showContact: false });
   });
   it("vendor that is a verified partner (4PS) is verified automatically", () => {
     const m = matchVerifiedPartner("4PS", "4ps", partners);

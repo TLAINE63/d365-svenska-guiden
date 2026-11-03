@@ -183,6 +183,7 @@ export interface IsvSolution {
   lifecycleStatus?: string;       // active | end_of_sale | discontinued (visas aldrig publikt)
   // ── Sprint 1.9: publik informationsstatus för produkten (oberoende av leverantörens) ──
   informationStatus?: string;     // verified | vendor_confirmed | compiled (saknas = compiled)
+  hasPresence?: boolean;          // aktiv ISV Presence (premium_product)
   lastVerifiedDate?: string;      // ÅÅÅÅ-MM-DD, bara när produkten är verifierad
 }
 

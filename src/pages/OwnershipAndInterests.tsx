@@ -53,7 +53,7 @@ export default function OwnershipAndInterests() {
             Informationen har inte granskats eller bekräftats av partnern.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-3">
-            <strong className="text-foreground">Partnerverifierad profil:</strong> partnern har
+            <strong className="text-foreground">D365 Verifierad:</strong> partnern har
             ett profileringsavtal med d365.se och har granskat och kompletterat informationen i
             profilen. Partnerverifiering innebär inte kvalitetscertifiering och ger ingen köpt
             fördel i d365.se:s ranking eller rekommendationer. Verifieringen gäller uppgifterna

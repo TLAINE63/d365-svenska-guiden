@@ -104,6 +104,7 @@ export interface IsvSolutionRow {
   publication_wave?: string | null;
   information_status?: string | null;
   last_verified_date?: string | null;
+  premium_product?: boolean | null;
 }
 
 /** Konverterar en databasrad till katalogens IsvSolution-format. */
@@ -149,6 +150,7 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     partnerSlugs: r.partner_slugs || undefined,
     vendorWebsite: r.vendor_website || undefined,
     informationStatus: r.information_status || undefined,
+    hasPresence: r.premium_product === true,
     lastVerifiedDate: r.last_verified_date || undefined,
     logoUrl: r.logo_url || undefined,
   };
