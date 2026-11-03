@@ -1,4 +1,5 @@
 import { useShortlist } from "@/contexts/ShortlistContext";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { useInquiry } from "@/contexts/InquiryContext";
 import { track as trackEvent } from "@/lib/track";
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -271,6 +272,7 @@ const KomIgang = () => {
   }, [answers.industry, answers.size]);
 
   const [showResults, setShowResults] = useState(false);
+  useToolResultSignal({ base: "/kom-igang/snabbguide", hasResult: showResults && !!result, object: "snabbguide" });
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   usePartnerImpressions("partner_match_impression", matchedPartners, { surface: "kom-igang-wizard" });

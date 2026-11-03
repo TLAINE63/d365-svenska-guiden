@@ -184,13 +184,13 @@ const AppShell = () => {
           <Route path="/" element={<Index />} />
           <Route path="/crm" element={<CRM />} />
           <Route path="/businesscentral" element={<BusinessCentral />} />
-          <Route path="/nav-till-business-central" element={<NavTillBusinessCentral />} />
+          <Route path="/nav-till-business-central/resultat?" element={<NavTillBusinessCentral />} />
           <Route path="/business-central" element={<RedirectTo to="/businesscentral" />} />
-          <Route path="/businesscentral/matchningstest" element={<BcMatchningstest />} />
+          <Route path="/businesscentral/matchningstest/resultat?" element={<BcMatchningstest />} />
           <Route path="/underlag" element={<Underlag />} />
           <Route path="/plan" element={<Navigate to="/underlag/" replace />} />
           <Route path="/min-plan" element={<Navigate to="/underlag/" replace />} />
-          <Route path="/crm/matchningstest" element={<CrmUnderlagTest />} />
+          <Route path="/crm/matchningstest/resultat?" element={<CrmUnderlagTest />} />
           <Route path="/business-central/matchningstest" element={<RedirectTo to="/businesscentral/matchningstest" />} />
           <Route path="/businesscentral/roi-kalkylator" element={<BcRoiCalculator />} />
           <Route path="/business-central/roi-kalkylator" element={<RedirectTo to="/businesscentral/roi-kalkylator" />} />
@@ -205,7 +205,7 @@ const AppShell = () => {
           <Route path="/jamfor/dynamics-365-vs-salesforce" element={<Dynamics365VsSalesforce />} />
           <Route path="/jamfor/:slug" element={<ErpComparisonPage />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
-          <Route path="/finance-supply-chain-management/matchningstest" element={<FscmMatchningstest />} />
+          <Route path="/finance-supply-chain-management/matchningstest/resultat?" element={<FscmMatchningstest />} />
           <Route path="/finance-supply-chain/matchningstest" element={<RedirectTo to="/finance-supply-chain-management/matchningstest" />} />
           <Route path="/d365sales/matchningstest" element={<CrmMatchningstest productKey="sales" />} />
           <Route path="/d365sales/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="sales" />} />
@@ -233,7 +233,7 @@ const AppShell = () => {
           <Route path="/ai/exempel/fscm-analysera-data" element={<RedirectTo to="/ai/exempel/scm-efterfragan/" />} />
           <Route path="/ai/exempel/:slug" element={<AiExempelDetalj />} />
           <Route path="/ai-oversikt" element={<RedirectTo to="/aioversikt" />} />
-          <Route path="/ai-readiness" element={<AIReadiness />} />
+          <Route path="/ai-readiness/resultat?" element={<AIReadiness />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kunskapscenter/fragor-och-svar" element={<RedirectTo to="/qa/" />} />
           <Route path="/kontakt" element={<ContactUs />} />
@@ -245,7 +245,7 @@ const AppShell = () => {
           <Route path="/kompetens" element={<KompetensOversikt />} />
           <Route path="/kompetens/:slug" element={<CompetenceGuidePage />} />
           <Route path="/roller" element={<RoleGuidance />} />
-          <Route path="/befintlig-kund" element={<BefintligKund />} />
+          <Route path="/befintlig-kund/resultat?" element={<BefintligKund />} />
           <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
           <Route path="/second-opinion" element={<SecondOpinion />} />
           <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
@@ -292,17 +292,17 @@ const AppShell = () => {
           <Route path="/dynamics-365-ai-copilot-partners-sverige" element={<ProductPartnersSverige configSlug="dynamics-365-ai-copilot-partners-sverige" />} />
           <Route path="/rapporter/dynamics-365-partnersverige-2026" element={<PartnerMarketReport2026 />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
-          <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
+          <Route path="/ERPbehovsanalys/resultat?" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<RedirectTo to="/ERPbehovsanalys" />} />
-          <Route path="/kom-igang" element={<Systemval />} />
+          <Route path="/kom-igang/resultat?" element={<Systemval />} />
           <Route path="/kom-igang/systemval" element={<RedirectTo to="/kom-igang/" />} />
-          <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
+          <Route path="/kom-igang/snabbguide/resultat?" element={<KomIgang />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
           <Route path="/isvprogram" element={<IsvProgram />} />
           
-          <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
+          <Route path="/CRMbehovsanalys/resultat?" element={<SalesMarketingNeedsAnalysis />} />
           <Route path="/salj-marknad-behovsanalys" element={<RedirectTo to="/CRMbehovsanalys" />} />
-          <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
+          <Route path="/kundservice-behovsanalys/resultat?" element={<CustomerServiceNeedsAnalysis />} />
           <Route path="/branschlosningar" element={<RedirectTo to="/branscher" />} />
           <Route path="/branschlosningar/*" element={<RedirectTo to="/branscher" />} />
           <Route path="/branscher" element={<Branscher />} />
@@ -379,7 +379,7 @@ const AppShell = () => {
           <Route path="/våratjänster" element={<RedirectTo to="/" />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/priser" element={<Priser />} />
-          <Route path="/kostnad" element={<Kostnad />} />
+          <Route path="/kostnad/resultat?" element={<Kostnad />} />
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
@@ -414,10 +414,10 @@ const AppShell = () => {
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/kravspecifikation" element={<RequirementsSpec />} />
-          <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
-          <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
-          <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
+          <Route path="/kravspecifikation/resultat?" element={<RequirementsSpec />} />
+          <Route path="/kravspecifikation-sales/resultat?" element={<RequirementsSpecSales />} />
+          <Route path="/kravspecifikation-marketing/resultat?" element={<RequirementsSpecMarketing />} />
+          <Route path="/kravspecifikation-kundservice/resultat?" element={<RequirementsSpecCustomerService />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/partner-events/:token" element={<PartnerEvents />} />
           {/* Hidden partner pages – not in nav, not in sitemap, noindex */}
@@ -432,6 +432,7 @@ const AppShell = () => {
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
           <Route path="/beslutsmognad/resultat" element={<BeslutsmognadResultat />} />
           <Route path="/tack-nedladdning" element={<TackNedladdning />} />
+          <Route path="/hamtat/:slug" element={<TackNedladdning />} />
           <Route path="/beslutsmognadsindex" element={<RedirectTo to="/beslutsmognad" />} />
           <Route path="/beslutsmognadsindex/diagnostik" element={<RedirectTo to="/beslutsmognad/diagnostik" />} />
           <Route path="/beslutsmognadsindex/tack" element={<RedirectTo to="/beslutsmognad/tack" />} />

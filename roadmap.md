@@ -1,16 +1,28 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Tilläggslösningar (2026-11-03)
+- [x] "Endast verifierade lösningar" förkryssat som standard i katalogen
+
+## Partnerprogram, ny sida (2026-11-03)
+- [x] Steg 1–2: inventering av funktioner och affärsmodell (inga ändringar)
+- [ ] Steg 3: sidförslag levererat 2026-11-03 – väntar på Thomas beslut (7 beslutspunkter)
+
+## ISV-programmet, vässning (2026-11-03)
+- [x] Inventering ISV levererad 2026-11-03
+- [ ] ISV-sidan: väntar på beslut om logotyp/länk/kontakt följer betalning eller verifiering
+
 ## Signalinsamling för Demand Engine (2026-11-03)
 - [x] Steg 0: inventering av verktyg, formulär, underlag, Snitcher och inskick (inga ändringar)
 - [x] Snitcher laddas först efter samtycke, first-party-subdomän
-- [ ] Steg 2A: databas (demand_events, needs_analysis_submissions, kolumner, triggers), RLS-kontroll
-- [ ] Steg 2A: export-demand-leads, export-demand-events, track-demand-event, nyckel DEMAND_EXPORT_KEY
-- [ ] Steg 2A: sessionPages.ts, samtyckesversion, sidhistorik i köparformulär, kontakt + behovsanalyser sparas
-- [ ] Steg 2A: tacksidor /tack/... per formulär (noindex, ej sitemap/prerender)
-- [ ] Steg 2B: /resultat/-adresser för verktygen i 1.1 + tool_completed (demandEvents.ts)
-- [ ] Steg 2B: /hamtat/{slug}/ ersätter /tack-nedladdning/, download-händelser för fria underlag
-- [ ] Integritetstext: visa för Thomas före publicering
-- [ ] Curl-test 1–17 (6–8, 17 manuella i webbläsare)
+- [x] Steg 2A: databas, triggers, RLS-kontroll
+- [x] Steg 2A: export- och händelsefunktioner, exportnyckel
+- [x] Steg 2A: sidhistorik, samtyckesversion, kontakt + behovsanalyser sparas
+- [x] Steg 2A: tacksidor per formulär
+- [x] Steg 2B: /resultat/ + tool_completed för verktyg med resultatsteg
+- [ ] Implementationskalkylatorn och de sju ROI-kalkylatorerna: visar resultat direkt, inget resultatsteg – väntar på beslut om vad som räknas som slutfört
+- [x] Steg 2B: /hamtat/{slug}/ och download-händelser
+- [ ] Integritetstext inlagd på /dataskydd/ – väntar på Thomas godkännande före publicering
+- [ ] Curl-test 2, 4–9, 11, 13–17 kräver exportnyckeln eller publicerad sajt – körs av Thomas
 
 
 

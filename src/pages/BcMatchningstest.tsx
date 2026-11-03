@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
+import { trackFreeDownload } from "@/lib/demandEvents";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, FileDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -72,6 +74,7 @@ const BcMatchningstest = () => {
     () => (showResult ? calculateBcResult(answers) : null),
     [answers, showResult],
   );
+  useToolResultSignal({ base: "/businesscentral/matchningstest", hasResult: showResult && !!result, object: "bc-matchningstest" });
 
   useEffect(() => {
     if (!showResult || submitted || !result) return;
@@ -128,6 +131,7 @@ const BcMatchningstest = () => {
 
   const onPdf = async () => {
     if (!result) return;
+    trackFreeDownload("bc-matchningstest-pdf");
     try {
       const { generateBcResultPdf } = await import("@/utils/generateBcResultPdf");
       const sugg = pickSuggestedPartners(partners, { product: "bc", limit: 5 });

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link } from "react-router-dom";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { SYMPTOMS, diagnose, followUpFor, type DxAnswers, type DxSymptom } from "@/lib/existingDiagnosis";
@@ -20,6 +21,7 @@ export default function ExistingCustomerDiagnosis() {
   const answers = { ...a, knownProduct: product };
   const follow = followUpFor(a.symptom);
   const result = diagnose(answers);
+  useToolResultSignal({ base: "/befintlig-kund", hasResult: !!result, object: "befintlig-kund" });
 
   useEffect(() => {
     if (result && completed.current !== result.need) {

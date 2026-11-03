@@ -51,3 +51,25 @@ export interface ThanksState {
   description?: string;
   back?: string;
 }
+
+/** Formulärkrävda underlag (1.3): sourceType till slug i /hamtat/{slug}/. */
+export function downloadSlug(sourceType: string): string {
+  if (sourceType.startsWith("buyer_guide_")) return "kopparguide-2026";
+  if (sourceType === "implementation_calculator_pdf") return "implementationskalkyl";
+  if (sourceType === "partner_guide") return "partnerguide";
+  if (sourceType === "ai_readiness") return "ai-mognad";
+  if (sourceType.startsWith("roi_pdf_")) return `roi-${sourceType.slice(8).replace(/-roi$/, "")}`;
+  return sourceType.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
+}
+
+/** Visar /hamtat/{slug}/ efter nedladdning utan att lämna resultatvyn. */
+export function markDownloadUrl(slug: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const path = `/hamtat/${slug}/`;
+    if (window.location.pathname === path) return;
+    window.history.pushState({ ...(window.history.state || {}), [MARK]: true }, "", path);
+  } catch {
+    /* tyst */
+  }
+}

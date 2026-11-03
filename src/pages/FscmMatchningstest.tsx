@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -171,6 +172,7 @@ const FscmMatchningstest = () => {
  () => (showResult ? calculateScore(answers) : null),
  [answers, showResult],
  );
+ useToolResultSignal({ base: "/finance-supply-chain-management/matchningstest", hasResult: showResult && !!score, object: "fscm-matchningstest" });
 
  // Persist anonymously when results are first shown.
  useEffect(() => {

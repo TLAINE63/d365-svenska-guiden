@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { markDownloadUrl, downloadSlug } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -101,6 +102,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       await generateRoiPdf(data);
       trackFunnelEvent({ event_type: "pdf_download", event_name: `roi_pdf_${sourceKey}`, metadata: { product: productLabel } });
       setDone(true);
+      markDownloadUrl(downloadSlug(`roi_pdf_${sourceKey}`));
       toast({
         title: "PDF laddas ned",
         description: "Kontrollera din nedladdningsmapp.",

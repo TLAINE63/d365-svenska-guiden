@@ -1,4 +1,6 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
+import { markDownloadUrl } from "@/lib/thanksPages";
 import { createKravJourney, prefillSourceText } from "@/lib/calcToKrav";
 import { useState, useEffect, useRef } from "react";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
@@ -116,6 +118,7 @@ const RequirementsSpecCustomerService = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
+  useToolResultSignal({ base: "/kravspecifikation-kundservice", hasResult: step === 4 && !!result, object: "kravspec-kundservice" });
   const [isvAddons, setIsvAddons] = useState<SelectedIsvAddon[]>([]);
   const isvAddonText = isvAddons.length
     ? `Valda tilläggslösningar att offerera: ${isvAddons.map((a) => `${a.name} (${a.vendor})`).join(", ")}\n\n`
@@ -195,6 +198,7 @@ const RequirementsSpecCustomerService = () => {
           : undefined,
       });
       toast({ title: "Kravspecifikationen har laddats ner!" });
+      markDownloadUrl("kravspec-kundservice");
     } catch (err: any) {
       console.error("Download error:", err);
       toast({

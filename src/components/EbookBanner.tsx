@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackFreeDownload } from "@/lib/demandEvents";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -59,6 +60,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  if (response.data?.error) throw new Error(response.data.error);
 
  // Trigger PDF download
+ trackFreeDownload("e-bok-partnervalet");
  trackFunnelEvent({ event_type: "pdf_download", event_name: "ebook_partnervalet", metadata: { source_page: sourcePage } });
  const link = document.createElement("a");
  link.href = "/ebooks/det-viktiga-partnervalet.pdf";

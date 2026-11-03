@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
+import { trackFreeDownload } from "@/lib/demandEvents";
 import { Link } from "react-router-dom";
 import { track } from "@/lib/track";
 import { trackFunnelEvent } from "@/lib/funnelTracking";
@@ -32,6 +34,7 @@ const NavBcTest = () => {
   const started = useRef(false);
   const downloadPdf = async () => {
     if (!result) return;
+    trackFreeDownload("nav-till-business-central-pdf");
     setPdfBusy(true);
     try {
       const { generateNavBcResultPdf } = await import("@/utils/generateNavBcResultPdf");
@@ -45,6 +48,7 @@ const NavBcTest = () => {
   const value = answers[q.id];
   const answered = q.multi ? Array.isArray(value) && value.length > 0 : !!value;
   const result = useMemo(() => (done ? calculateNavResult(answers) : null), [done, answers]);
+  useToolResultSignal({ base: "/nav-till-business-central", hasResult: !!result, object: "nav-till-business-central" });
 
   useEffect(() => {
     if (!result) return;
