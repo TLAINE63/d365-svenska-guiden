@@ -126,8 +126,8 @@ export default function PlanContactDialog({ mode, onClose: closeDialog, topic }:
           project, include_project: shared.length > 0, privacy_ack: true,
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null, selection: cleanSelection(topic.metadata) } : null,
-          ...getTrackSource(), session_id: getTrackSession(),
           ...formContextBody(),
+          ...getTrackSource(), session_id: getTrackSession(),
         }),
       });
       const data = await res.json().catch(() => ({}));
