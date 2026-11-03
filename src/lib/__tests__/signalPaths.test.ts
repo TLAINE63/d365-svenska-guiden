@@ -33,3 +33,11 @@ describe("signal paths cover all thank-you kinds", () => {
     for (const k of THANKS_KINDS) expect(SIGNAL_PATHS).toContain(`/tack/${k}/`);
   });
 });
+
+import { previousMonth } from "../adminExports";
+describe("partner stats default month", () => {
+  it("is the previous month, rolling over the year", () => {
+    expect(previousMonth(new Date("2026-11-03T12:00:00Z"))).toBe("2026-10");
+    expect(previousMonth(new Date("2027-01-15T12:00:00Z"))).toBe("2026-12");
+  });
+});
