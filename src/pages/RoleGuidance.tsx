@@ -68,8 +68,8 @@ const RoleGuidance = () => {
                     <div className="mb-5 flex h-10 w-10 items-center justify-center rounded bg-accent-light text-accent"><Icon className="h-5 w-5" aria-hidden="true" /></div>
                     <h3 className="text-lg font-bold mb-2">{role.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed flex-1">{role.description}</p>
-                    <Button type="button" variant={selected ? "default" : "outline"} className="mt-5 w-full justify-between" onClick={() => chooseRole(role.key)} aria-pressed={selected}>
-                      {role.buttonLabel}<ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <Button type="button" variant={selected ? "default" : "outline"} className="mt-5 h-auto min-h-10 w-full justify-between gap-2 whitespace-normal py-2 text-left" onClick={() => chooseRole(role.key)} aria-pressed={selected}>
+                      {role.buttonLabel}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
                     </Button>
                   </article>
                 );
