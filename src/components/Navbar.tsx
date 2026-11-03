@@ -15,24 +15,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { PARTNER_GUIDES, guidePath } from "@/data/partnerGuides";
 import { hasPlanStarted, usePlanMeta } from "@/lib/d365Plan";
 
 type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean };
 type NavGroup = { heading?: string; items: NavLinkItem[] };
 type NavMenu = { label: string; groups: NavGroup[] };
 
-const SURVEYS = "https://d365-surveys.lovable.app";
+const ISV = "/kunskapscenter/dynamics-365-tillagg/";
 
-/** Huvudnavigation: ERP | CRM | Branscher | Guider & verktyg | Partners. ERP och CRM har samma struktur. */
+/** Huvudnavigation (6 block): ERP | CRM | Branscher | Tilläggslösningar | Guider & verktyg | Partners & kompetens.
+ *  Inom varje meny: orientera → applikationer/fördjupning → partner. ERP och CRM har samma struktur. */
 const MENUS: NavMenu[] = [
   {
     label: "Affärssystem / ERP",
     groups: [
       {
+        heading: "Välja affärssystem",
         items: [
           { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true },
           { label: "Jämför: Business Central vs F&SCM", path: "/affarssystem/#comparison-intro" },
+          { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
         ],
       },
       {
@@ -41,13 +43,12 @@ const MENUS: NavMenu[] = [
           { label: "Dynamics 365 Business Central", path: "/businesscentral" },
           { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
           { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
-          { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
           { label: "Dynamics 365 Commerce", path: "/d365commerce" },
           { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
         ],
       },
       {
-        heading: "Partners",
+        heading: "Hitta rätt leverantör",
         items: [
           { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
           { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
@@ -59,6 +60,7 @@ const MENUS: NavMenu[] = [
     label: "CRM",
     groups: [
       {
+        heading: "Välja CRM-system",
         items: [
           { label: "CRM-guiden: välja CRM-system", path: "/crm/", strong: true },
           { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
@@ -66,7 +68,7 @@ const MENUS: NavMenu[] = [
         ],
       },
       {
-        heading: "Områden (Customer Engagement)",
+        heading: "Applikationer",
         items: [
           { label: "Försäljning: Dynamics 365 Sales", path: "/d365sales" },
           { label: "Marknad och kundinsikter: Customer Insights", path: "/d365marketing" },
@@ -75,54 +77,67 @@ const MENUS: NavMenu[] = [
           { label: "Fältservice: Field Service", path: "/d365fieldservice" },
         ],
       },
-      { heading: "Partners", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+      { heading: "Hitta rätt leverantör", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+    ],
+  },
+  {
+    label: "Branscher",
+    groups: [
+      {
+        heading: "Utforska branschlösningar",
+        items: [
+          { label: "Alla branscher", path: "/branscher/", strong: true },
+          { label: "Tillverkning", path: "/branscher/tillverkning/" },
+          { label: "Grossist & distribution", path: "/branscher/grossist-distribution/" },
+          { label: "Bygg, entreprenad & installation", path: "/branscher/bygg-entreprenad/" },
+          { label: "Konsulttjänster", path: "/branscher/konsulttjanster/" },
+          { label: "Fastighet & förvaltning", path: "/branscher/fastighet-forvaltning/" },
+          { label: "Offentlig sektor", path: "/branscher/offentlig-sektor/" },
+        ],
+      },
+      { heading: "Fördjupa", items: [{ label: "Partners per bransch", path: "/partners-per-bransch/" }] },
+    ],
+  },
+  {
+    label: "Tilläggslösningar",
+    groups: [
+      {
+        heading: "Hitta tillägg efter behov",
+        items: [
+          { label: "Sök bland 200+ tilläggslösningar", path: ISV, strong: true },
+          { label: "Tillägg för Business Central", path: `${ISV}?produkt=Business%20Central` },
+          { label: "Tillägg för Finance & Supply Chain", path: `${ISV}?produkt=Finance%20%26%20Supply%20Chain%20Management` },
+          { label: "Tillägg för CRM (Customer Engagement)", path: "/customer-engagement/tillagg" },
+        ],
+      },
     ],
   },
   {
     label: "Guider & verktyg",
     groups: [
       {
+        heading: "Kom igång",
         items: [
           { label: "Starta behovsguiden", path: "/kom-igang/", strong: true },
-          { label: "Kunskapscenter", path: "/kunskapscenter" },
-          { label: "Översikt: alla guider", path: "/guider/" },
-          { label: "Välj din roll", path: "/roller/" },
+          { label: "Välj ditt område", path: "/roller/" },
           { label: "Redan Dynamics-kund", path: "/befintlig-kund/" },
-          { label: "Upphandlingsguiden", path: "/upphandlingsguiden/" },
         ],
       },
       {
-        heading: "Behovsanalys",
+        heading: "Planera investeringen",
         items: [
-          { label: "ERP (affärssystem)", path: "/ERPbehovsanalys/" },
-          { label: "CRM (sälj och marknad)", path: "/CRMbehovsanalys/" },
-          { label: "Kundservice, fältservice och Contact Center", path: "/kundservice-behovsanalys/" },
-        ],
-      },
-      {
-        heading: "Beslutsunderlag",
-        items: [
+          { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
           { label: "Kravspecifikation", path: "/kravspecifikation/" },
           { label: "Beslutsmognadsindex", path: "/beslutsmognad/" },
-          { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
           { label: "Min D365-plan", path: "/underlag/" },
         ],
       },
       {
-        heading: "Microsoft AI",
+        heading: "Fördjupa dig",
         items: [
           { label: "AI med Copilot och agenter", path: "/aioversikt" },
-          { label: "AI Readiness Assessment", path: "/ai-readiness/" },
-          { label: "Fråga d365.se", path: "/fraga/" },
-        ],
-      },
-      {
-        heading: "Fördjupade analyser",
-        items: [
-          { label: "ERP-benchmark och fördjupad ERP-analys", href: `${SURVEYS}/` },
-          { label: "Snabbkoll: bromsar ert affärssystem verksamheten?", href: `${SURVEYS}/snabbkoll` },
-          { label: "Förvaltning: stödjer den verksamhetens behov?", href: `${SURVEYS}/forvaltning` },
-          { label: "Övriga analyser", href: `${SURVEYS}/fler-analyser` },
+          { label: "Kunskapscenter", path: "/kunskapscenter" },
+          { label: "Översikt: alla guider", path: "/guider/" },
         ],
       },
     ],
@@ -131,20 +146,24 @@ const MENUS: NavMenu[] = [
     label: "Partners & kompetens",
     groups: [
       {
+        heading: "Hitta och jämför",
         items: [
           { label: "Hitta partner", path: "/valjdynamics365partner/", strong: true },
-          { label: "Partners per bransch", path: "/partners-per-bransch/" },
+          { label: "Så väljer du partner", path: "/guider/valja-dynamics-365-partner/" },
           { label: "Jämför partners", path: "/jamfor-partners/" },
+          { label: "Partners per bransch", path: "/partners-per-bransch/" },
           { label: "Min kortlista", path: "/kortlista/" },
-          { label: "Hitta kompetens", path: "/kompetens/" },
-          { label: "Byta partner?", path: "/guider/byta-dynamics-partner/" },
-          { label: "Partnernytt", path: "/partnernytt/" },
         ],
       },
       {
-        heading: "Guider: välja partner",
-        items: PARTNER_GUIDES.map((g) => ({ label: g.shortLabel, path: guidePath(g) })),
+        heading: "När du redan har Dynamics",
+        items: [
+          { label: "Byta partner?", path: "/guider/byta-dynamics-partner/" },
+          { label: "Hitta kompetens", path: "/kompetens/" },
+          { label: "Second opinion", path: "/second-opinion/" },
+        ],
       },
+      { heading: "Om partnermarknaden", items: [{ label: "Partnernytt", path: "/partnernytt/" }] },
     ],
   },
 ];
