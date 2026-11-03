@@ -155,3 +155,8 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Knappen "Hitta rätt …-partner" överst på alla produktsidor
 - [x] Partnerstatistik-export på /admin/exporter
 - [x] Exporterna även i /redaktion
+
+## ISV-produkter till Demand Engine (2026-11-03)
+- [x] Steg 1: inventering av ISV-fält (inga ändringar)
+- [ ] Steg 1b: saknade fält redigerbara i admin (väntar: Thomas godkännande av inventeringen)
+- [ ] Steg 2: knappen "ISV-produkter" på /admin/exporter (väntar: Thomas godkännande)
