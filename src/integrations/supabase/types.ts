@@ -6381,6 +6381,16 @@ export type Database = {
         Args: { target_month?: string }
         Returns: undefined
       }
+      public_verified_isv_contacts: {
+        Args: never
+        Returns: {
+          contact_email: string
+          contact_name: string
+          contact_phone: string
+          key: string
+          kind: string
+        }[]
+      }
       report_cron_secret: { Args: never; Returns: string }
       search_perf_dispatch: { Args: { payload: Json }; Returns: number }
       teaser_engagement_stats: {
