@@ -1,3 +1,4 @@
+import { BadgeCheck } from "lucide-react";
 import {
   PROFILE_EXPLAINER_VERIFIED,
   PROFILE_LABEL_VERIFIED,
@@ -34,17 +35,11 @@ export default function VerifiedPartnerBadge({
       <Tooltip>
         <TooltipTrigger asChild>
           <span
-            aria-label="Partnerverifierad profil"
-            className={`inline-flex max-w-full shrink-0 ${className}`}
+            aria-label="D365 Verifierad"
+            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 font-semibold text-accent whitespace-nowrap ${size === "md" ? "px-3 py-1 text-sm" : "px-2.5 py-0.5 text-xs"} ${className}`}
           >
-            <img
-              src={`/badges/verifierad-partner-dark.svg`}
-              alt="Verifierad Dynamics 365-partner på d365.se"
-              width={240}
-              height={72}
-              loading="lazy"
-              className={`${size === "md" ? "w-[200px]" : iconOnly ? "w-[140px]" : "w-[160px]"} h-auto max-w-full object-contain`}
-            />
+            <BadgeCheck className={size === "md" ? "h-4 w-4" : "h-3.5 w-3.5"} aria-hidden="true" />
+            D365 Verifierad
           </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[280px] text-xs">
