@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { formContextBody } from "@/lib/sessionPages";
+import { thanksPath } from "@/lib/thanksPages";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -191,6 +194,7 @@ const PartnerRequestDialog = ({
     ? `${recipients!.length} partners`
     : partnerName;
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     onSubmitting?.(submitting);
@@ -273,10 +277,14 @@ const PartnerRequestDialog = ({
         ? window.location.pathname + window.location.search
         : "/partner";
 
+      const submissionId = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : undefined;
+      const ctx = formContextBody();
       const results = await Promise.allSettled(
         targets.map((t) =>
           supabase.functions.invoke("submit-lead", {
             body: {
+              ...ctx,
+              submission_id: submissionId,
               ...newsAttributionForLead(),
               company_name: form.company_name.trim(),
               contact_name: form.contact_name.trim(),
@@ -317,6 +325,15 @@ const PartnerRequestDialog = ({
       trackContactLevel("submitted", "partner", { placement: `partner_request_${mode}`, partner_count: targets.length - failed.length });
       reset();
       onOpenChange(false);
+      navigate(thanksPath("partnermatchning"), {
+        state: {
+          title: config.toastTitle,
+          description: failed.length > 0
+            ? `Skickad till ${targets.length - failed.length} av ${targets.length} partners. Vi följer upp de övriga manuellt.`
+            : config.toastDescription(displayName),
+          back: typeof window !== "undefined" ? window.location.pathname : undefined,
+        },
+      });
     } catch (err) {
       console.error(err);
       const message = err instanceof Error && err.message
