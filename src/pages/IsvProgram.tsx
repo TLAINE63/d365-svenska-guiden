@@ -50,7 +50,7 @@ const IsvProgram = () => {
       <FAQSchema faqs={faqs} />
       <Navbar />
       <main>
-        <section className="bg-primary text-primary-foreground pt-24 pb-14">
+        <section className="bg-primary text-primary-foreground pt-36 lg:pt-44 pb-14">
           <div className="max-w-6xl mx-auto px-4">
             <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-3">För ISV-leverantörer</p>
             <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl">
