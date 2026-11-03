@@ -1531,6 +1531,7 @@ export type Database = {
           last_verified_date: string | null
           lifecycle_note: string | null
           lifecycle_status: string
+          logo_url: string | null
           name: string
           nordic_relevance: string | null
           partner_slugs: string[]
@@ -1587,6 +1588,7 @@ export type Database = {
           last_verified_date?: string | null
           lifecycle_note?: string | null
           lifecycle_status?: string
+          logo_url?: string | null
           name: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
@@ -1643,6 +1645,7 @@ export type Database = {
           last_verified_date?: string | null
           lifecycle_note?: string | null
           lifecycle_status?: string
+          logo_url?: string | null
           name?: string
           nordic_relevance?: string | null
           partner_slugs?: string[]
@@ -1777,6 +1780,7 @@ export type Database = {
           buyer_opportunity_agreement_status: string
           contact_email: string | null
           contact_name: string | null
+          contact_phone: string | null
           updated_at: string
           vendor_slug: string
         }
@@ -1784,6 +1788,7 @@ export type Database = {
           buyer_opportunity_agreement_status?: string
           contact_email?: string | null
           contact_name?: string | null
+          contact_phone?: string | null
           updated_at?: string
           vendor_slug: string
         }
@@ -1791,6 +1796,7 @@ export type Database = {
           buyer_opportunity_agreement_status?: string
           contact_email?: string | null
           contact_name?: string | null
+          contact_phone?: string | null
           updated_at?: string
           vendor_slug?: string
         }

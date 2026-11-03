@@ -47,7 +47,7 @@ const vendorInfo = (s: IsvSolution, vendor?: IsvVendorPublic) => {
   const partner = matchVerifiedPartner(vendor?.name || s.vendor, s.vendorSlug, FEATURED_PARTNERS);
   const vendorVerified = isVendorVerified(vendor?.information_status, partner);
   const product = productExposure(s.informationStatus);
-  const logo = product.showLogo ? vendor?.logo_url || partner?.logo_url || null : null;
+  const logo = product.showLogo ? s.logoUrl || vendor?.logo_url || partner?.logo_url || null : null;
   const website = product.showWebsite ? s.vendorWebsite || vendor?.website || partner?.website || null : null;
   return { partner, vendorVerified, product, logo, website };
 };

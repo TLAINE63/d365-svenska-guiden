@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { ShieldCheck } from "lucide-react";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
+import AdminIsvLogoContactDialog, { type LogoContactTarget } from "@/components/AdminIsvLogoContactDialog";
 
 interface Props {
   token: string | null;
@@ -65,6 +66,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
   const [tab, setTab] = useState<"vendors" | "products">("vendors");
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(false);
+  const [lc, setLc] = useState<LogoContactTarget | null>(null);
   const [bcEdit, setBcEdit] = useState<{ id: string; name: string; form: typeof emptyBc } | null>(null);
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-solutions`;
@@ -192,7 +194,12 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
               {tab === "vendors"
                 ? vList.map((v) => (
                     <TableRow key={v.slug}>
-                      <TableCell className="font-medium">{v.name}</TableCell>
+                      <TableCell>
+                        <p className="font-medium">{v.name}</p>
+                        <button type="button" className="text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "vendor", key: v.slug, name: v.name, logo_url: v.logo_url, contact: v.contact, verified: v.information_status === "verified" })}>
+                          Logotyp och kontakt{v.logo_url ? " ✓" : ""}
+                        </button>
+                      </TableCell>
                       {statusCells(v, "vendor", v.slug)}
                       <TableCell>
                         <div className="flex flex-col gap-1">
@@ -208,6 +215,9 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                       <TableCell>
                         <p className="font-medium">{p.name}</p>
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
+                        <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "product", key: p.solution_id, name: p.name, logo_url: p.logo_url, contact: p.contact, inherited: p.vendor_contact, verified: p.information_status === "verified" })}>
+                          Produktlogotyp och kontakt{p.logo_url ? " ✓" : ""}
+                        </button>
                         {p.publish_businesscentral && (
                           <button
                             type="button"
@@ -226,6 +236,8 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
           </Table>
         </div>
       </CardContent>
+
+      <AdminIsvLogoContactDialog target={lc} onClose={() => setLc(null)} onSaved={load} baseUrl={baseUrl} headers={headers} onSessionExpired={onSessionExpired} />
 
       <Dialog open={!!bcEdit} onOpenChange={(o) => !o && setBcEdit(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">

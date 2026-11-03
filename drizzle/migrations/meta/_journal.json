@@ -169,6 +169,13 @@
       "when": 1793700128946,
       "tag": "0023_public_verified_isv_contacts",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1793700521745,
+      "tag": "0024_isv_logos_and_inherited_contacts",
+      "breakpoints": true
     }
   ]
 }
