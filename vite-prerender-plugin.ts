@@ -6,6 +6,7 @@ import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
 import { buildSeoTitle, truncateEncodedSeoTitle, encodeHtmlText } from './src/lib/seoTitle';
 import { fitMetaDescription } from './src/lib/metaDescription';
+import { isSignalPath, SIGNAL_PATHS, withSignalNoindex } from './src/lib/signalPaths';
 
 /**
  * Vite plugin that prerenders static HTML for all defined routes after the
@@ -295,6 +296,7 @@ export default function prerenderPlugin(): Plugin {
               mkdirSync(dir, { recursive: true });
             }
 
+            if (isSignalPath(route.path)) page = withSignalNoindex(page);
             const filePath = join(dir, 'index.html');
             writeFileSync(filePath, page, 'utf-8');
 
@@ -435,6 +437,26 @@ export default function prerenderPlugin(): Plugin {
           console.warn('  ⚠️  Could not generate 404.html', err);
         }
 
+
+        // ── 8b. Signaladresser: noindex, follow i levererad HTML ─────────
+        // Tack-, resultat- och nedladdningsadresser renderas i webbläsaren. Saknas en
+        // förrenderad fil skrivs ett skal av mallen med noindex så att servern aldrig
+        // levererar indexerbar HTML för dem; befintliga filer får taggen tillagd.
+        for (const sp of SIGNAL_PATHS) {
+          try {
+            const rel = sp.replace(/^\/|\/$/g, '');
+            const dir = resolve(root, outDir, rel);
+            const file = join(dir, 'index.html');
+            let html = existsSync(file) ? readFileSync(file, 'utf-8') : template;
+            html = withSignalNoindex(html);
+            mkdirSync(dir, { recursive: true });
+            writeFileSync(file, html, 'utf-8');
+            writeFileSync(resolve(root, outDir, `${rel}.html`), html, 'utf-8');
+          } catch (err) {
+            console.warn(`  ⚠️  Could not write signal page ${sp}`, err);
+          }
+        }
+        console.log(`  ✅ ${SIGNAL_PATHS.length} signaladresser med noindex`);
 
         // ── 9. Generate .nojekyll for GitHub Pages ───────────────────────
         writeFileSync(resolve(root, outDir, '.nojekyll'), '', 'utf-8');

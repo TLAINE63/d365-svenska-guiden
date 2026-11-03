@@ -1,5 +1,4 @@
 import { partnerSources } from "@/lib/guideSources";
-import { trackFreeDownload } from "@/lib/demandEvents";
 import { IDENTIFIED_PARTNER_COUNT } from "@/data/partnerCounts";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialSource from "@/components/EditorialSource";
@@ -117,7 +116,6 @@ export default function PartnerMarketReport2026() {
   const exportStats = visibleStats.length > 0 ? visibleStats : reportStats;
 
   const handlePdf = async () => {
-    trackFreeDownload("partnerlandskap-pdf");
     setPdfLoading(true);
     try {
       await generateMarketReportPdf(exportStats);
@@ -130,7 +128,6 @@ export default function PartnerMarketReport2026() {
   };
 
   const handleCsv = () => {
-    trackFreeDownload("partnerlandskap-csv");
     downloadMarketReportCsv(exportStats);
     toast.success("Statistiken laddas ner som CSV.");
   };

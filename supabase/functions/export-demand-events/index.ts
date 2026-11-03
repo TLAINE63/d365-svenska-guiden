@@ -1,12 +1,14 @@
 // Skyddad export av demand_events till Demand Engine.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { exportHeaders, exportKeyOk, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
+import { exportAuthOk, exportCors, exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
 const COLUMNS = ["event_id", "site", "occurred_at", "event_type", "object", "path", "company_domain"];
 
 Deno.serve(async (req) => {
-  if (req.method !== "GET") return new Response(null, { status: 405 });
-  if (!exportKeyOk(req)) return new Response(null, { status: 401 });
+  const exportHeaders = { ...baseHeaders, ...exportCors(req) };
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: exportHeaders });
+  if (req.method !== "GET") return new Response(null, { status: 405, headers: exportHeaders });
+  if (!(await exportAuthOk(req))) return new Response(null, { status: 401, headers: exportHeaders });
   const url = new URL(req.url);
   const range = parseRange(url);
   const json = (b: unknown, status: number) => new Response(JSON.stringify(b), { status, headers: { ...exportHeaders, "Content-Type": "application/json; charset=utf-8" } });
