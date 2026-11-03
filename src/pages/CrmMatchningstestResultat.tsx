@@ -169,7 +169,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
         canonicalPath={`${config.canonicalPath}/resultat`}
         keywords={config.keywords}
         ogImage={config.ogImage}
-        noIndex
+        noIndexFollow
       />
       <Navbar />
 

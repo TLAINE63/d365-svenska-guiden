@@ -23,6 +23,8 @@ interface SEOHeadProps {
   ogType?: "website" | "article" | "event" | "video.other";
   ogVideo?: string;
   noIndex?: boolean;
+  /** noindex men följ länkar (signaladresser: /tack/, /resultat/, /hamtat/). */
+  noIndexFollow?: boolean;
   // Article-specific metadata (used when ogType === "article")
   articlePublishedTime?: string;
   articleModifiedTime?: string;
@@ -54,6 +56,7 @@ const SEOHead = ({
   ogType = "website",
   ogVideo,
   noIndex = false,
+  noIndexFollow = false,
   articlePublishedTime,
   articleModifiedTime,
   articleAuthor,
@@ -133,7 +136,7 @@ const SEOHead = ({
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
 
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {noIndexFollow ? <meta name="robots" content="noindex, follow" /> : noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
       <meta property="og:title" content={socialTitle} />

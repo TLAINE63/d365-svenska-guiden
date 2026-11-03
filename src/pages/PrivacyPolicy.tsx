@@ -260,6 +260,13 @@ const PrivacyPolicy = () => {
                 och för att kunna följa upp er förfrågan. Laglig grund är ert samtycke, som ni kan
                 återkalla genom att kontakta oss. Personuppgiftsansvarig är Dynamic Factory.
               </p>
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-2">Sidor ni besökt och slutförda verktyg</h3>
+              <p className="leading-relaxed">
+                När du skickar ett formulär sparar vi vilka sidor på d365.se du besökte under samma besök, för att förstå vad din fråga gäller. Listan sparas tillfälligt i webbläsarens sessionslagring, försvinner när webbläsaren stängs och skickas till oss endast om du själv skickar formuläret.
+              </p>
+              <p className="leading-relaxed mt-3">
+                Vi räknar hur många som slutför våra verktyg och hämtar våra underlag, utan uppgifter om vem du är. Om du själv skickar ett formulär med din e-postadress kopplar vi händelsen till din organisations domän.
+              </p>
             </section>
 
             <section>

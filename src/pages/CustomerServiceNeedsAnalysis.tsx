@@ -1,4 +1,5 @@
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
+import { isInternalTraffic } from "@/lib/sessionPages";
 import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -1459,6 +1460,7 @@ const CustomerServiceNeedsAnalysis = () => {
  await supabase.functions.invoke("send-analysis-email", {
  body: {
  analysisType: focusCfg.emailAnalysisType,
+ internal: isInternalTraffic(),
  companyName: data.companyName,
  contactName: data.contactName,
  phone: data.phone || "",

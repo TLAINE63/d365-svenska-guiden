@@ -1,5 +1,6 @@
 import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
@@ -204,6 +205,15 @@ interface AnalysisEmailRequest {
   aiAnalysis?: AiAnalysis;
   pdfBase64?: string;
   pdfFilename?: string;
+  /** true för intern trafik (d365_internal): inget sparas. */
+  internal?: boolean;
+}
+
+/** Behovsanalysens nyckel i needs_analysis_submissions. */
+function analysisKey(type: string): string {
+  if (type === "ERP") return "erp-behovsanalys";
+  if (/kundservice|fältservice|contact center/i.test(type)) return "kundservice-behovsanalys";
+  return "crm-behovsanalys";
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -295,7 +305,24 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log(`Processing ${analysisType} analysis from:`, companyName, contactName);
+    console.log(`Processing ${analysisType} analysis`);
+
+    // Spara vem som gjort analysen (inga svar). Fel stoppar aldrig mejlet.
+    if (body.internal !== true) {
+      try {
+        const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+        const { error: storeErr } = await sb.from("needs_analysis_submissions").insert({
+          analysis: analysisKey(analysisType),
+          name: contactName.trim().slice(0, 100),
+          company: companyName.trim().slice(0, 100),
+          email: email.trim().toLowerCase().slice(0, 255),
+          phone: phone ? phone.trim().slice(0, 30) : null,
+        });
+        if (storeErr) console.error("analysis store failed");
+      } catch {
+        console.error("analysis store failed");
+      }
+    }
     console.log(`PDF attachment included: ${!!pdfBase64}`);
 
     // Sanitize and format analysis data

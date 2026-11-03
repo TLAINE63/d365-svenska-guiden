@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { formContextFields } from "../_shared/formContext.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
@@ -85,6 +86,12 @@ interface LeadRequest {
   assigned_partners?: string[];
   attribution_news_id?: string;
   attribution_source?: string;
+  role?: string;
+  session_pages?: string[];
+  landing_page?: string;
+  consent_text_version?: string;
+  consent_partner_share?: boolean;
+  submission_id?: string;
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
   pdfFilename?: string;
@@ -178,6 +185,8 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    const ctx = formContextFields(data as unknown as Record<string, unknown>);
+
     // Insert lead into database
     const { data: lead, error: insertError } = await supabase
       .from("leads")
@@ -195,6 +204,12 @@ const handler = async (req: Request): Promise<Response> => {
         assigned_partners: sanitizedData.assigned_partners,
         attribution_news_id: sanitizedData.attribution_news_id,
         attribution_source: sanitizedData.attribution_source,
+        role: sanitizeInput(data.role).slice(0, 80) || null,
+        session_pages: ctx.session_pages,
+        landing_page: ctx.landing_page,
+        consent_text_version: ctx.consent_text_version,
+        consent_partner_share: data.consent_partner_share === true,
+        submission_id: typeof data.submission_id === "string" && UUID_RE.test(data.submission_id) ? data.submission_id : null,
         status: "new",
       })
       .select()

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl, leaveThanksUrl } from "@/lib/thanksPages";
 import { ArrowRight, MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -115,6 +117,7 @@ const CompareStickyCTA = ({
 
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...formContextBody(),
           ...newsAttributionForLead(),
           ...form,
           message: composedMessage,
@@ -128,6 +131,7 @@ const CompareStickyCTA = ({
       if (error) throw error;
 
       setSubmitted(true);
+      markThanksUrl("partnermatchning");
       trackContactLevel("submitted", "partner", { placement: "compare_sticky", partner_count: partners.length });
       toast({
         title: "Tack! Vi återkommer",
@@ -223,7 +227,7 @@ const CompareStickyCTA = ({
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={(o) => (submitted ? (setOpen(o), setSubmitted(false)) : setOpen(o))}>
+      <Dialog open={open} onOpenChange={(o) => (submitted ? (!o && leaveThanksUrl(), setOpen(o), setSubmitted(false)) : setOpen(o))}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Kontakta {partnerLabel}</DialogTitle>
@@ -238,7 +242,7 @@ const CompareStickyCTA = ({
               <p className="text-sm text-muted-foreground">
                 {partners.map((p) => p.name).join(", ")} har fått dina uppgifter och återkommer inom kort.
               </p>
-              <Button variant="outline" onClick={() => setOpen(false)} className="mt-3">
+              <Button variant="outline" onClick={() => { leaveThanksUrl(); setOpen(false); }} className="mt-3">
                 Stäng
               </Button>
             </div>

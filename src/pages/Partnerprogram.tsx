@@ -220,7 +220,7 @@ const Partnerprogram = () => {
     variant?: "default" | "outline";
     label?: string;
   }) => (
-    <ContactFormDialog>
+    <ContactFormDialog buyerForm={false}>
       <Button size={size} variant={variant} className={className} onClick={() => bookClick(placement)}>
         <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
         {label}
@@ -374,7 +374,7 @@ const Partnerprogram = () => {
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
         renderBookCta={(onClick) => (
-          <ContactFormDialog
+          <ContactFormDialog buyerForm={false}
             title="Ansök om en egen profileringslänk"
             description="Fyll i era kontaktuppgifter så skickar vi en profileringslänk där ni kan uppdatera er partnerprofil på d365.se."
             subject="Profileringslänk"

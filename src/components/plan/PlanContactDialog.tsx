@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl, leaveThanksUrl, thanksKindForAdvisory } from "@/lib/thanksPages";
+import ConsentVersionNote from "@/components/ConsentVersionNote";
 import { cleanSelection } from "@/lib/helpRequests";
 import { Link } from "react-router-dom";
 import { z } from "zod";
@@ -60,7 +63,8 @@ export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pag
 export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean; hideFocus?: boolean }
 export type { Section as ContactSection };
 
-export default function PlanContactDialog({ mode, onClose, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
+export default function PlanContactDialog({ mode, onClose: closeDialog, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
+  const onClose = () => { leaveThanksUrl(); closeDialog(); };
   const { items } = useShortlist();
   const planSections = usePlanSections();
   const own = [...(topic?.extra ? [topic.extra] : []), ...(topic?.extras || [])];
@@ -122,6 +126,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
           project, include_project: shared.length > 0, privacy_ack: true,
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null, selection: cleanSelection(topic.metadata) } : null,
+          ...formContextBody(),
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });
@@ -145,6 +150,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
         if (sent.length || intros.length) trackContactLevel("submitted", "partner", { placement: "plan", partner_count: sent.length + intros.length });
       }
       setDone({ partners: sent, intros });
+      markThanksUrl(advisory ? thanksKindForAdvisory(topic?.advisory?.placement) : "partnermatchning");
     } catch {
       setError("Något gick fel. Försök igen.");
     }
@@ -230,6 +236,7 @@ export default function PlanContactDialog({ mode, onClose, topic }: { mode: Plan
                 <Checkbox checked={approve} onCheckedChange={(v) => setApprove(v === true)} className="mt-0.5" />
                 <span>Jag godkänner att mina kontaktuppgifter{shared.length ? " och det markerade underlaget" : ""} skickas till {recipients || "de partners jag väljer ovan"}.</span>
               </label>
+              <ConsentVersionNote />
               {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
               <div className="flex flex-wrap gap-3">
                 <Button type="submit" disabled={sending}>{sending ? "Skickar…" : advisory ? "Skicka till d365.se" : "Skicka förfrågan"}</Button>

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import ConsentVersionNote from "@/components/ConsentVersionNote";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -85,6 +87,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
           project: { ...project.data, kortlista: shortlist.items.map((i) => i.slug) },
           include_project: includeProject, privacy_ack: true,
           partners: partners.map((p) => ({ slug: p.slug, consent: !!consent[p.slug] })),
+          ...formContextBody(),
           ...src, session_id: getTrackSession(),
         }),
       });
@@ -128,6 +131,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
                   : <>Jag godkänner att mina kontaktuppgifter och mitt projektunderlag skickas till {p.name}.</>}</span>
               </label>
             ))}
+            <ConsentVersionNote />
           </fieldset>
 
           <div className="grid gap-4 sm:grid-cols-2">

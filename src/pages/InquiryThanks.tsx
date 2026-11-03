@@ -11,7 +11,7 @@ export default function InquiryThanks() {
   const email = q.get("e") || "er e-postadress";
   return (
     <>
-      <SEOHead title="Tack, er förfrågan är skickad – d365.se" description="Bekräftelse på skickad förfrågan via d365.se." canonicalPath="/forfragan/tack" noIndex />
+      <SEOHead title="Tack, er förfrågan är skickad – d365.se" description="Bekräftelse på skickad förfrågan via d365.se." canonicalPath="/forfragan/tack" noIndexFollow />
       <Navbar />
       <main className="min-h-[60vh] container mx-auto max-w-2xl px-4 py-16">
         <h1 className="text-3xl font-bold mb-4">Tack, er förfrågan är skickad</h1>

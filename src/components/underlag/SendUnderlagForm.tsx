@@ -8,6 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { getBuyerId, type BuyerProfile } from "@/lib/buyerProfile";
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl } from "@/lib/thanksPages";
 
 export default function SendUnderlagForm({ text, profile }: { text: string; profile: BuyerProfile }) {
   const { toast } = useToast();
@@ -21,11 +23,12 @@ export default function SendUnderlagForm({ text, profile }: { text: string; prof
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke("submit-underlag", {
-        body: { ...f, buyer_id: getBuyerId() ?? undefined, underlag_text: text, profile },
+        body: { ...formContextBody(), ...f, buyer_id: getBuyerId() ?? undefined, underlag_text: text, profile },
       });
       if (error || data?.error) throw new Error(data?.error || "Kunde inte skicka underlaget");
       trackUnderlagEvent("underlag_sent");
       setDone(true);
+      markThanksUrl("underlag");
     } catch (err) {
       toast({ title: "Något gick fel", description: err instanceof Error ? err.message : "Försök igen.", variant: "destructive" });
     } finally {

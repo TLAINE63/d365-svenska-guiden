@@ -759,6 +759,36 @@ export type Database = {
           },
         ]
       }
+      demand_events: {
+        Row: {
+          company_domain: string | null
+          event_id: string
+          event_type: string
+          object: string
+          occurred_at: string
+          path: string | null
+          site: string
+        }
+        Insert: {
+          company_domain?: string | null
+          event_id?: string
+          event_type: string
+          object: string
+          occurred_at?: string
+          path?: string | null
+          site?: string
+        }
+        Update: {
+          company_domain?: string | null
+          event_id?: string
+          event_type?: string
+          object?: string
+          occurred_at?: string
+          path?: string | null
+          site?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
@@ -975,6 +1005,7 @@ export type Database = {
           buyer_replied_at: string | null
           buyer_reply: string | null
           company: string
+          consent_text_version: string | null
           contact_name: string
           created_at: string
           email: string
@@ -997,6 +1028,8 @@ export type Database = {
           referrer: string | null
           role: string | null
           session_id: string | null
+          session_pages: string[] | null
+          source_page: string | null
           source_site: string
           timeframe: string | null
           utm_campaign: string | null
@@ -1013,6 +1046,7 @@ export type Database = {
           buyer_replied_at?: string | null
           buyer_reply?: string | null
           company: string
+          consent_text_version?: string | null
           contact_name: string
           created_at?: string
           email: string
@@ -1035,6 +1069,8 @@ export type Database = {
           referrer?: string | null
           role?: string | null
           session_id?: string | null
+          session_pages?: string[] | null
+          source_page?: string | null
           source_site?: string
           timeframe?: string | null
           utm_campaign?: string | null
@@ -1051,6 +1087,7 @@ export type Database = {
           buyer_replied_at?: string | null
           buyer_reply?: string | null
           company?: string
+          consent_text_version?: string | null
           contact_name?: string
           created_at?: string
           email?: string
@@ -1073,6 +1110,8 @@ export type Database = {
           referrer?: string | null
           role?: string | null
           session_id?: string | null
+          session_pages?: string[] | null
+          source_page?: string | null
           source_site?: string
           timeframe?: string | null
           utm_campaign?: string | null
@@ -2061,18 +2100,24 @@ export type Database = {
           attribution_source: string | null
           company_name: string
           company_size: string | null
+          consent_partner_share: boolean
+          consent_text_version: string | null
           contact_name: string
           created_at: string
           email: string
           forwarded_at: string | null
           id: string
           industry: string | null
+          landing_page: string | null
           message: string | null
           phone: string | null
+          role: string | null
           selected_product: string | null
+          session_pages: string[] | null
           source_page: string | null
           source_type: string | null
           status: string
+          submission_id: string | null
           updated_at: string
         }
         Insert: {
@@ -2082,18 +2127,24 @@ export type Database = {
           attribution_source?: string | null
           company_name: string
           company_size?: string | null
+          consent_partner_share?: boolean
+          consent_text_version?: string | null
           contact_name: string
           created_at?: string
           email: string
           forwarded_at?: string | null
           id?: string
           industry?: string | null
+          landing_page?: string | null
           message?: string | null
           phone?: string | null
+          role?: string | null
           selected_product?: string | null
+          session_pages?: string[] | null
           source_page?: string | null
           source_type?: string | null
           status?: string
+          submission_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -2103,18 +2154,24 @@ export type Database = {
           attribution_source?: string | null
           company_name?: string
           company_size?: string | null
+          consent_partner_share?: boolean
+          consent_text_version?: string | null
           contact_name?: string
           created_at?: string
           email?: string
           forwarded_at?: string | null
           id?: string
           industry?: string | null
+          landing_page?: string | null
           message?: string | null
           phone?: string | null
+          role?: string | null
           selected_product?: string | null
+          session_pages?: string[] | null
           source_page?: string | null
           source_type?: string | null
           status?: string
+          submission_id?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -2163,6 +2220,36 @@ export type Database = {
           suffix?: string | null
           updated_at?: string
           value?: number
+        }
+        Relationships: []
+      }
+      needs_analysis_submissions: {
+        Row: {
+          analysis: string
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          phone: string | null
+        }
+        Insert: {
+          analysis: string
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+        }
+        Update: {
+          analysis?: string
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          phone?: string | null
         }
         Relationships: []
       }
@@ -5383,12 +5470,15 @@ export type Database = {
           assessment_type: string
           company_name: string
           company_size: string | null
+          consent_partner_share: boolean
+          consent_text_version: string | null
           contact_name: string
           created_at: string
           delivered: number | null
           email: string
           id: string
           industry: string | null
+          landing_page: string | null
           lead_id: string | null
           message: string | null
           partner_slugs: string[]
@@ -5399,6 +5489,7 @@ export type Database = {
           result_url: string | null
           review_note: string | null
           reviewed_at: string | null
+          session_pages: string[] | null
           source_page: string | null
           status: string
           total: number | null
@@ -5409,12 +5500,15 @@ export type Database = {
           assessment_type: string
           company_name: string
           company_size?: string | null
+          consent_partner_share?: boolean
+          consent_text_version?: string | null
           contact_name: string
           created_at?: string
           delivered?: number | null
           email: string
           id?: string
           industry?: string | null
+          landing_page?: string | null
           lead_id?: string | null
           message?: string | null
           partner_slugs?: string[]
@@ -5425,6 +5519,7 @@ export type Database = {
           result_url?: string | null
           review_note?: string | null
           reviewed_at?: string | null
+          session_pages?: string[] | null
           source_page?: string | null
           status?: string
           total?: number | null
@@ -5435,12 +5530,15 @@ export type Database = {
           assessment_type?: string
           company_name?: string
           company_size?: string | null
+          consent_partner_share?: boolean
+          consent_text_version?: string | null
           contact_name?: string
           created_at?: string
           delivered?: number | null
           email?: string
           id?: string
           industry?: string | null
+          landing_page?: string | null
           lead_id?: string | null
           message?: string | null
           partner_slugs?: string[]
@@ -5451,6 +5549,7 @@ export type Database = {
           result_url?: string | null
           review_note?: string | null
           reviewed_at?: string | null
+          session_pages?: string[] | null
           source_page?: string | null
           status?: string
           total?: number | null
@@ -5465,13 +5564,17 @@ export type Database = {
           buying_signal: string | null
           company: string
           consent: boolean
+          consent_text_version: string | null
           created_at: string
           email: string
           email_status: string | null
           id: string
+          landing_page: string | null
           name: string
           phone: string | null
           profile: Json
+          session_pages: string[] | null
+          source_page: string | null
           underlag_text: string
         }
         Insert: {
@@ -5479,13 +5582,17 @@ export type Database = {
           buying_signal?: string | null
           company: string
           consent?: boolean
+          consent_text_version?: string | null
           created_at?: string
           email: string
           email_status?: string | null
           id?: string
+          landing_page?: string | null
           name: string
           phone?: string | null
           profile?: Json
+          session_pages?: string[] | null
+          source_page?: string | null
           underlag_text?: string
         }
         Update: {
@@ -5493,13 +5600,17 @@ export type Database = {
           buying_signal?: string | null
           company?: string
           consent?: boolean
+          consent_text_version?: string | null
           created_at?: string
           email?: string
           email_status?: string | null
           id?: string
+          landing_page?: string | null
           name?: string
           phone?: string | null
           profile?: Json
+          session_pages?: string[] | null
+          source_page?: string | null
           underlag_text?: string
         }
         Relationships: []
@@ -6337,6 +6448,11 @@ export type Database = {
       bc_isv_use_case_label: { Args: { _key: string }; Returns: string }
       bc_source_label: { Args: { s: string }; Returns: string }
       d365_videos_dispatch: { Args: never; Returns: undefined }
+      demand_company_domain: { Args: { _email: string }; Returns: string }
+      demand_log: {
+        Args: { _email: string; _object: string; _path: string; _type: string }
+        Returns: undefined
+      }
       get_all_partner_names: {
         Args: never
         Returns: {

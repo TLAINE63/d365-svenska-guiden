@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl, leaveThanksUrl } from "@/lib/thanksPages";
 import {
   Dialog,
   DialogContent,
@@ -79,6 +81,7 @@ export const BasicPartnerInquiryDialog = ({
     try {
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...formContextBody(),
           ...newsAttributionForLead(),
           ...form,
           message: [
@@ -94,6 +97,7 @@ export const BasicPartnerInquiryDialog = ({
       });
       if (error) throw error;
       setSubmitted(true);
+      markThanksUrl("partnermatchning");
       trackContactLevel("submitted", "partner", { placement: "basic_profile_intro", partner_count: 1 });
       trackFormSubmitted({ slug: partnerSlug }, "basic", "basic_partner_inquiry", selectedProduct ?? null);
       toast({
@@ -113,7 +117,7 @@ export const BasicPartnerInquiryDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={(o) => (submitted ? (onOpenChange(o), setSubmitted(false)) : onOpenChange(o))}>
+    <Dialog open={open} onOpenChange={(o) => (submitted ? (!o && leaveThanksUrl(), onOpenChange(o), setSubmitted(false)) : onOpenChange(o))}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>Kontakta d365.se om {partnerName}</DialogTitle>
@@ -128,7 +132,7 @@ export const BasicPartnerInquiryDialog = ({
             <p className="text-sm text-muted-foreground">
               d365.se återkommer inom kort med vägledning kring {partnerName}.
             </p>
-            <Button variant="outline" onClick={() => onOpenChange(false)} className="mt-3">
+            <Button variant="outline" onClick={() => { leaveThanksUrl(); onOpenChange(false); }} className="mt-3">
               Stäng
             </Button>
           </div>

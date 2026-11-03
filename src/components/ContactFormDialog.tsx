@@ -1,5 +1,8 @@
 import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { formContextBody, isInternalTraffic } from "@/lib/sessionPages";
+import { thanksPath } from "@/lib/thanksPages";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -55,9 +58,12 @@ interface ContactFormDialogProps {
   title?: string;
   description?: string;
   subject?: string;
+  /** false för partnerprogrammets och partnersidans kontaktformulär: sparas inte och får ingen tacksida. */
+  buyerForm?: boolean;
 }
 
-const ContactFormDialog = ({ children, title, description, subject }: ContactFormDialogProps) => {
+const ContactFormDialog = ({ children, title, description, subject, buyerForm = true }: ContactFormDialogProps) => {
+ const navigate = useNavigate();
  const [open, setOpen] = useState(false);
  const [isSubmitting, setIsSubmitting] = useState(false);
  const { toast } = useToast();
@@ -97,6 +103,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
         description: values.description,
         honeypot: values.website || "",
         subject: subject ?? "",
+        ...(buyerForm && !isInternalTraffic() ? { store_as: "kontakt", ...formContextBody() } : {}),
       },
     });
 
@@ -115,6 +122,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
 
  form.reset();
  setOpen(false);
+ if (buyerForm) navigate(thanksPath("kontakt"), { state: { title: "Tack för din förfrågan!", description: "Vi återkommer till dig så snart som möjligt.", back: typeof window !== "undefined" ? window.location.pathname : undefined } });
  } catch (error) {
  console.error("Failed to send contact email:", error);
  toast({

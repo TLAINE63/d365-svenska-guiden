@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { formContextBody } from "@/lib/sessionPages";
+import { markThanksUrl, leaveThanksUrl } from "@/lib/thanksPages";
 import {
   Dialog,
   DialogContent,
@@ -103,6 +105,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
     try {
       const { data, error } = await supabase.functions.invoke("submit-lead", {
         body: {
+          ...formContextBody(),
           company_name: form.company.trim(),
           contact_name: form.name.trim(),
           email: form.email.trim(),
@@ -119,6 +122,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
       }
       setLastPayload(signature);
       setDone(true);
+      markThanksUrl("kompetens");
       trackCompetenceEvent("kompetens_need_form_submit", { guide: guideSlug, competence_type: compact ? "unsure" : undefined });
       if (compact) {
         trackCompetenceEvent("competence_help_requested", {
@@ -141,7 +145,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={(o) => { if (!o && done) leaveThanksUrl(); onOpenChange(o); }}>
       <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{compact ? "Beskriv behovet" : "Beskriv ert behov"}</DialogTitle>
@@ -155,7 +159,7 @@ const DescribeNeedDialog = ({ open, onOpenChange, roleLabel, guideSlug, filters,
             <p className="text-sm">
               Tack. d365.se går igenom ert behov och återkommer om vi ser ett relevant nästa steg.
             </p>
-            <Button onClick={() => onOpenChange(false)}>Stäng</Button>
+            <Button onClick={() => { leaveThanksUrl(); onOpenChange(false); }}>Stäng</Button>
           </div>
         ) : (
           <form onSubmit={submit} className="space-y-4">

@@ -59,7 +59,7 @@ const IsvProgram = () => {
             <p className="mt-5 text-lg opacity-90 max-w-2xl">
               Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. Med ISV Presence visas er lösning med verifierade uppgifter.
             </p>
-            <ContactFormDialog subject="ISV Presence">
+            <ContactFormDialog subject="ISV Presence" buyerForm={false}>
               <Button size="lg" variant="secondary" className="mt-8">
                 Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
