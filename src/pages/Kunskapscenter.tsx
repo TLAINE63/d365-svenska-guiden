@@ -1,5 +1,19 @@
 import D365InsideSection from "@/components/D365InsideSection";
-import ContextualCta from "@/components/ContextualCta";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { D365_INSIDE_EPISODES } from "@/data/d365Inside";
+import {
+  KNOWLEDGE_ENTRIES,
+  TOPIC_LABEL,
+  entriesFor,
+  isKnowledgeEntryId,
+  matchesSearch,
+  recommendFor,
+  situationsFor,
+  topicsFor,
+  type KnowledgeEntryId,
+  type KnowledgeTopic,
+} from "@/lib/knowledgeCenter";
 import { applicationFilterLabel } from "@/lib/applicationLabels";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -54,13 +68,17 @@ import {
  ClipboardList,
  Handshake,
  X,
+ Search,
+ Mic,
+ Lightbulb,
+ Scale,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning" | "branscher";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "intervju" | "fordjupning" | "branscher";
 
-type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "branscher";
+type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "intervju" | "branscher";
 
 type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "AI/Copilot/Agents";
 
@@ -104,6 +122,10 @@ interface UnifiedItem {
  icon: typeof CalendarDays;
  products: string[];
  partnerCount?: number | null;
+ category?: string | null;
+ tags?: string[];
+ /** Bransch enligt d365.se:s branschindelning, när innehållet har en. */
+ industries?: string[];
 }
 
 // Map BLOG_ARTICLES slug → industry name (used to count listed partners per industry).
@@ -330,6 +352,7 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
  { label: "Kravspecifikationer", value: "kravspecifikation" },
  { label: "Artiklar", value: "artikel" },
  { label: "Videor", value: "video" },
+ { label: "Intervjuer (INSIDE)", value: "intervju" },
 ];
 
 const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
@@ -339,6 +362,7 @@ const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
  { label: "Kravspecifikation", value: "kravspecifikation" },
  { label: "Artikel", value: "artikel" },
  { label: "Video", value: "video" },
+ { label: "Intervju", value: "intervju" },
 ];
 
 const PRODUCT_OPTIONS: ProductValue[] = [
@@ -352,132 +376,28 @@ const PRODUCT_OPTIONS: ProductValue[] = [
  "AI/Copilot/Agents",
 ];
 
-// ── Innehållsspår (curated tracks) ─────────────────────
-// Sex tydliga spår genom kunskapscentret. Varje spår plockar ut en kuraterad
-// delmängd av allItems via ett predikat. Användaren klickar ett spårkort för
-// att filtrera grid:en; klick igen avmarkerar.
+const ENTRY_ICON: Record<KnowledgeEntryId, typeof Compass> = {
+ behov: Lightbulb,
+ jamfor: Scale,
+ planera: ClipboardList,
+ partner: Handshake,
+};
 
-type TrackValue =
- | "tidig-fas"
- | "erp-val"
- | "crm-val"
- | "ai"
- | "kravspec"
- | "partnerurval";
+const TOPIC_OPTIONS = (Object.keys(TOPIC_LABEL) as KnowledgeTopic[]).map((t) => ({ label: TOPIC_LABEL[t], value: t }));
+const INDUSTRY_OPTIONS = [...new Set(Object.values(BRANSCHGUIDE_INDUSTRY_BY_SLUG))].sort((a, b) => a.localeCompare(b, "sv")).map((v) => ({ label: v, value: v }));
 
-interface TrackDef {
- value: TrackValue;
- title: string;
- description: string;
- icon: typeof Compass;
- // Predikat appliceras mot UnifiedItem
- match: (item: UnifiedItem) => boolean;
-}
-
-const CRM_PRODUCTS = new Set<string>([
- "Sales",
- "Customer Insights",
- "Customer Service",
- "Field Service",
- "Contact Center",
-]);
-
-const TRACKS: TrackDef[] = [
- {
-  value: "tidig-fas",
-  title: "Tidig fas",
-  description:
-   "Var står du? Filmer, beslutsmognad, upphandlingsresan och branschorientering – innan du låser scopet.",
-  icon: Compass,
-  match: (i) =>
-   i.type === "video" ||
-   i.type === "branscher" ||
-   i.id === "tool-upphandlingsresan" ||
-   (i.url?.includes("/beslutsmognad") ?? false),
- },
- {
-  value: "erp-val",
-  title: "ERP-val",
-  description:
-   "Behovsanalys, kravspec och branschjämförelse för Business Central och Finance & Supply Chain Management.",
-  icon: Database,
-  match: (i) => {
-   if (
-    ["tool-behovsanalys-erp", "tool-kravspec-erp", "tool-branschjamforelse"].includes(i.id)
-   )
-    return true;
-   if (
-    i.products.length > 0 &&
-    i.products.length <= 4 &&
-    i.products.some((p) => p === "Business Central" || p === "Finance & SCM") &&
-    !i.products.some((p) => CRM_PRODUCTS.has(p))
-   )
-    return true;
-   return false;
-  },
- },
- {
-  value: "crm-val",
-  title: "CRM-val (Sälj, Marknad, Service)",
-  description:
-   "Behovsanalyser och kravspec för Sales, Customer Insights, Customer Service, Field Service och Contact Center.",
-  icon: Users,
-  match: (i) => {
-   if (
-    [
-     "tool-behovsanalys-salj",
-     "tool-behovsanalys-kundservice",
-     "tool-kravspec-sales",
-     "tool-kravspec-marketing",
-     "tool-kravspec-kundservice",
-    ].includes(i.id)
-   )
-    return true;
-   if (
-    i.products.length > 0 &&
-    i.products.length <= 5 &&
-    i.products.some((p) => CRM_PRODUCTS.has(p)) &&
-    !i.products.includes("Business Central") &&
-    !i.products.includes("Finance & SCM")
-   )
-    return true;
-   return false;
-  },
- },
- {
-  value: "ai",
-  title: "AI, Copilot & Agenter",
-  description:
-   "AI Readiness, Copilot-fördjupningar och agenter – från första piloten till hela organisationen.",
-  icon: Sparkles,
-  match: (i) =>
-   i.id === "tool-ai-readiness" ||
-   i.products.includes("AI/Copilot/Agents") &&
-    (i.products.length <= 3 ||
-     (i.url?.includes("/copilot") ?? false) ||
-     (i.url?.includes("/agents") ?? false) ||
-     (i.url?.includes("/ai-") ?? false)),
- },
- {
-  value: "kravspec",
-  title: "Kravspecifikation",
-  description:
-   "Skräddarsydda kravspecar för ERP, sälj, marknad och kundservice – som PDF, redo att skicka till partners.",
-  icon: ClipboardList,
-  match: (i) => i.type === "kravspecifikation",
- },
- {
-  value: "partnerurval",
-  title: "Partnerurval",
-  description:
-   "Guider, e-bok och film om hur du utvärderar och väljer rätt Microsoft Dynamics 365-partner.",
-  icon: Handshake,
-  match: (i) =>
-   ["tool-guide-valj-partner", "tool-ebook-partnervalet", "video-partners-skillnader"].includes(
-    i.id,
-   ) || (i.url?.includes("/valjdynamics365partner") ?? false),
- },
+/** Befintliga verktyg med egna primära funktioner; Kunskapscentret länkar bara dit. */
+const TOOL_SHORTCUTS: { label: string; to: string; icon: typeof Compass }[] = [
+ { label: "Behovsguiden", to: "/kom-igang/", icon: Compass },
+ { label: "Kostnadskalkyl", to: "/kostnad/", icon: Database },
+ { label: "Kravspecifikation", to: "/kravspecifikation/", icon: FileText },
+ { label: "Tilläggskatalog", to: "/kunskapscenter/dynamics-365-tillagg/", icon: Sparkles },
+ { label: "Hitta partner", to: "/valjdynamics365partner/", icon: Users },
+ { label: "Jämför partners", to: "/jamfor-partners/", icon: Scale },
 ];
+
+/** INSIDE-avsnitt som har en artikel på d365.se: artikeln visas som intervju i biblioteket. */
+const INSIDE_ARTICLE_PATHS = new Set(D365_INSIDE_EPISODES.map((e) => e.articlePath).filter(Boolean) as string[]);
 
 // ── Dropdown component ─────────────────────────────────
 
@@ -569,8 +489,20 @@ const Kunskapscenter = () => {
      ? "fordjupning"
      : "alla";
  });
- const [activeTrack, setActiveTrack] = useState<TrackValue | null>(null);
- const tracksGridRef = useRef<HTMLDivElement>(null);
+ const [activeEntry, setActiveEntry] = useState<KnowledgeEntryId | null>(() => {
+   if (typeof window === "undefined") return null;
+   const v = new URLSearchParams(window.location.search).get("ingang");
+   return isKnowledgeEntryId(v) ? v : null;
+ });
+ const [query, setQuery] = useState(() => {
+   if (typeof window === "undefined") return "";
+   return new URLSearchParams(window.location.search).get("q") ?? "";
+ });
+ const [selectedTopics, setSelectedTopics] = useState<KnowledgeTopic[]>([]);
+ const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+ const [insideVideos, setInsideVideos] = useState<{ youtube_id: string; title: string; published_at: string | null; summary_sv: string | null }[]>([]);
+ const recommendRef = useRef<HTMLDivElement>(null);
+ const libraryRef = useRef<HTMLDivElement>(null);
  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(() => {
@@ -599,7 +531,7 @@ const Kunskapscenter = () => {
  const fetchData = async () => {
  setLoading(true);
  try {
- const [articlesRes, eventsRes] = await Promise.all([
+ const [articlesRes, eventsRes, insideRes] = await Promise.all([
  supabase
  .from("knowledge_articles")
  .select("*")
@@ -612,10 +544,18 @@ const Kunskapscenter = () => {
  headers: {
  apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
  "Content-Type": "application/json",
- },
+  },
  }
  ),
+ supabase
+ .from("d365_videos")
+ .select("youtube_id, title, published_at, summary_sv")
+ .eq("status", "published")
+ .ilike("channel_name", "%inside%")
+ .order("published_at", { ascending: false, nullsFirst: false })
+ .limit(24),
  ]);
+ if (insideRes.data) setInsideVideos(insideRes.data);
 
  if (articlesRes.data) setArticles(articlesRes.data as any);
 
@@ -680,7 +620,10 @@ const Kunskapscenter = () => {
  })),
  ...BLOG_ARTICLES.map((b) => ({
  id: `blog-${b.slug}`,
- type: (b.category === "Branschguide" ? "branscher" : "artikel") as FormatValue,
+ type: (INSIDE_ARTICLE_PATHS.has(`/artiklar/${b.slug}/`) ? "intervju" : b.category === "Branschguide" ? "branscher" : "artikel") as FormatValue,
+ category: b.category,
+ tags: b.tags,
+ industries: BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug] ? [BRANSCHGUIDE_INDUSTRY_BY_SLUG[b.slug]] : [],
  title: b.title,
  description: b.summary,
  url: `/artiklar/${b.slug}`,
@@ -714,10 +657,31 @@ const Kunskapscenter = () => {
  icon: a.content_type === "video" ? Play : BookOpen,
  products: a.target_roles || [],
  })),
+ // INSIDE-avsnitt utan egen artikel: länkar till avsnittet på YouTube.
+ ...[
+  ...D365_INSIDE_EPISODES.filter((e) => !e.articlePath).map((e) => ({ youtube_id: e.youtubeId, title: e.title, published_at: e.publishedAt, summary_sv: e.summary })),
+  ...insideVideos,
+ ]
+  .filter((v, i, arr) => arr.findIndex((x) => x.youtube_id === v.youtube_id) === i)
+  .filter((v) => !D365_INSIDE_EPISODES.some((e) => e.youtubeId === v.youtube_id && e.articlePath))
+  .map((v) => ({
+   id: `inside-${v.youtube_id}`,
+   type: "intervju" as const,
+   title: v.title,
+   description: v.summary_sv,
+   url: `https://www.youtube.com/watch?v=${v.youtube_id}`,
+   image_url: `https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg`,
+   isLogoImage: false,
+   partnerLogoUrl: null as string | null,
+   date: v.published_at ? v.published_at.slice(0, 10) : null,
+   partner: null as string | null,
+   isExternal: true,
+   icon: Mic,
+   products: [] as string[],
+  })),
  ];
 
   // Apply filters
-  const activeTrackDef = activeTrack ? TRACKS.find((t) => t.value === activeTrack) ?? null : null;
 
   const getSortDate = (date: string | null): number => {
     if (!date) return Number.NEGATIVE_INFINITY;
@@ -727,8 +691,11 @@ const Kunskapscenter = () => {
 
   const filteredItems = allItems
    .filter((item) => {
-    // Innehållsspår (kuraterad delmängd)
-    if (activeTrackDef && !activeTrackDef.match(item)) return false;
+    // Vald ingång (samma källa som rekommendationerna)
+    if (activeEntry && !entriesFor(item).includes(activeEntry)) return false;
+    if (!matchesSearch(item, query)) return false;
+    if (selectedTopics.length > 0 && !topicsFor(item).some((t) => selectedTopics.includes(t))) return false;
+    if (selectedIndustries.length > 0 && !(item.industries ?? []).some((i) => selectedIndustries.includes(i))) return false;
     // Category pill filter (guide items grouped under behovsanalys)
     if (activeCategory !== "alla") {
      const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
@@ -747,28 +714,43 @@ const Kunskapscenter = () => {
    })
    .sort((a, b) => getSortDate(b.date) - getSortDate(a.date));
 
- const trackCounts: Record<TrackValue, number> = TRACKS.reduce(
-  (acc, t) => {
-   acc[t.value] = allItems.filter(t.match).length;
-   return acc;
-  },
-  {} as Record<TrackValue, number>,
- );
+  const entryCounts = KNOWLEDGE_ENTRIES.reduce(
+   (acc, e) => {
+    acc[e.id] = allItems.filter((i) => entriesFor(i).includes(e.id)).length;
+    return acc;
+   },
+   {} as Record<KnowledgeEntryId, number>,
+  );
+  const activeEntryDef = activeEntry ? KNOWLEDGE_ENTRIES.find((e) => e.id === activeEntry) ?? null : null;
+  const recommendations = activeEntry ? recommendFor(allItems, activeEntry) : [];
 
- const selectTrack = (value: TrackValue) => {
-  const next = activeTrack === value ? null : value;
-  setActiveTrack(next);
-  if (next) {
-   setActiveCategory("alla");
-   setSelectedFormats([]);
-   setSelectedProducts([]);
-   // Scroll to grid after state update
-   setTimeout(() => {
-    tracksGridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-   }, 50);
-  }
- };
+  const syncUrl = (entry: KnowledgeEntryId | null) => {
+   if (typeof window === "undefined") return;
+   const url = new URL(window.location.href);
+   if (entry) url.searchParams.set("ingang", entry);
+   else url.searchParams.delete("ingang");
+   window.history.replaceState(window.history.state, "", url.toString());
+  };
 
+  const selectEntry = (value: KnowledgeEntryId) => {
+   const next = activeEntry === value ? null : value;
+   setActiveEntry(next);
+   syncUrl(next);
+   if (next) {
+    setActiveCategory("alla");
+    trackFunnelEvent({ event_type: "engagement", event_name: "knowledge_entry_selected", metadata: { entry: next } });
+    setTimeout(() => recommendRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+   }
+  };
+
+  const showAll = () => {
+   setActiveEntry(null);
+   syncUrl(null);
+   setTimeout(() => libraryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
+
+  const trackClick = (eventName: string, metadata: Record<string, unknown>) =>
+   trackFunnelEvent({ event_type: "cta_click", event_name: eventName, metadata: { entry: activeEntry, ...metadata } });
 
  const categoryBadgeColor = (type: string) => {
  switch (type) {
@@ -786,6 +768,8 @@ const Kunskapscenter = () => {
  return "bg-rose-600 text-white border-rose-600";
   case "branscher":
   return "bg-amber-700 text-white border-amber-700";
+  case "intervju":
+  return "bg-[hsl(var(--hero-dark))] text-white border-[hsl(var(--hero-dark))]";
  default:
  return "bg-muted text-muted-foreground border-border";
  }
@@ -807,18 +791,154 @@ const Kunskapscenter = () => {
  case "guide": return "Guide & Behovsanalys";
  case "video": return "Video";
  case "branscher": return "Branscher & Partners";
+ case "intervju": return "Intervju · INSIDE";
  default: return type;
  }
  };
 
  const hasActiveFilters =
-  selectedFormats.length > 0 || selectedProducts.length > 0 || activeTrack !== null;
+  selectedFormats.length > 0 || selectedProducts.length > 0 || selectedTopics.length > 0 || selectedIndustries.length > 0 || activeEntry !== null || query.trim() !== "";
 
  const clearAllFilters = () => {
   setActiveCategory("alla");
   setSelectedFormats([]);
   setSelectedProducts([]);
-  setActiveTrack(null);
+  setSelectedTopics([]);
+  setSelectedIndustries([]);
+  setQuery("");
+  setActiveEntry(null);
+  syncUrl(null);
+ };
+
+ const renderItemCard = (item: UnifiedItem, place: "library" | "recommended") => {
+ const CardWrapper = item.isExternal ? "a" : Link;
+ const linkProps = item.isExternal
+ ? {
+ href: item.url || "#",
+ target: "_blank" as const,
+ rel: "noopener noreferrer",
+ }
+ : { to: item.url || "#" };
+
+ return (
+ <CardWrapper
+ key={item.id}
+ {...(linkProps as any)}
+ className="group block"
+ onClick={() => trackClick(place === "recommended" ? "knowledge_recommendation_clicked" : "knowledge_library_clicked", { item_type: item.type, item: item.id })}
+ >
+ <Card className="h-full overflow-hidden border-border/50 hover:-translate-y-1 transition-all duration-300">
+ {item.image_url ? (
+              <div
+                className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-muted relative`}
+              >
+ <img
+ src={item.image_url}
+ alt={item.title}
+ className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+ loading="lazy"
+ />
+ {item.type === "event" && (
+ <>
+ <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded tracking-wide uppercase">
+ Event
+ </span>
+ {item.partnerLogoUrl && (
+ <div className="absolute bottom-2 right-2 bg-white rounded-md p-1.5">
+ <img
+ src={item.partnerLogoUrl}
+ alt={item.partner || "Partner"}
+ className="h-6 w-auto max-w-[80px] object-contain"
+ />
+ </div>
+ )}
+ </>
+ )}
+ {item.type === "branscher" && (
+ <span
+ title="AI-assisterat branschinnehåll"
+ aria-label="AI-assisterat branschinnehåll"
+ className="absolute top-2 right-2 inline-flex items-center gap-1 rounded bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 "
+ >
+ <Sparkles className="w-3 h-3" />
+ AI
+ </span>
+ )}
+ {item.type === "branscher" && typeof item.partnerCount === "number" && item.partnerCount > 0 && (
+ <span className="absolute bottom-2 left-2 inline-flex items-center rounded bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5 border border-border/40">
+ {item.partnerCount} {item.partnerCount === 1 ? "partner" : "partners"} listade
+ </span>
+ )}
+ </div>
+              ) : (
+                <div
+                  className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center`}
+                >
+ <item.icon className="w-12 h-12 text-muted-foreground/40" />
+ </div>
+ )}
+ <CardContent className="p-5 flex flex-col gap-3">
+ <div className="flex items-center gap-2 flex-wrap">
+ <Badge
+ variant="outline"
+ className={`text-xs ${categoryBadgeColor(item.type)}`}
+ >
+ {categoryLabel(item.type, item.date)}
+ </Badge>
+ {item.partner && (
+ <span className="text-xs text-muted-foreground">
+ {item.partner}
+ </span>
+ )}
+ </div>
+ <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
+ {item.title}
+ </h3>
+ {item.description && (
+ <p className="text-sm text-muted-foreground line-clamp-2">
+ {item.description}
+ </p>
+ )}
+ {item.products.length > 0 && (
+ <div className="flex flex-wrap gap-1">
+ {item.products.slice(0, 3).map((product) => (
+ <span
+ key={product}
+  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+  >
+  {applicationFilterLabel(product)}
+  </span>
+ ))}
+ {item.products.length > 3 && (
+ <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+ +{item.products.length - 3}
+ </span>
+ )}
+ </div>
+ )}
+ <div className="flex items-center justify-between mt-auto pt-2">
+ {item.date && (
+ <span className="text-xs text-muted-foreground flex items-center gap-1">
+ <Calendar className="w-3 h-3" />
+ {formatDate(item.date)}
+ </span>
+ )}
+  <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
+  {item.isExternal ? (
+  <>
+  Öppna <ExternalLink className="w-3 h-3" />
+  </>
+  ) : (
+  <>
+  {item.title ? `Läs mer om ${item.title}` : "Läs artikeln"} <ArrowRight className="w-3 h-3" />
+  </>
+  )}
+  </span>
+ </div>
+ </CardContent>
+ </Card>
+ </CardWrapper>
+ );
  };
 
  return (
@@ -1195,135 +1315,7 @@ const Kunskapscenter = () => {
  </div>
  ) : (
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
- {filteredItems.map((item) => {
- const CardWrapper = item.isExternal ? "a" : Link;
- const linkProps = item.isExternal
- ? {
- href: item.url || "#",
- target: "_blank" as const,
- rel: "noopener noreferrer",
- }
- : { to: item.url || "#" };
-
- return (
- <CardWrapper
- key={item.id}
- {...(linkProps as any)}
- className="group block"
- >
- <Card className="h-full overflow-hidden border-border/50 hover:-translate-y-1 transition-all duration-300">
- {item.image_url ? (
-              <div
-                className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-muted relative`}
-              >
- <img
- src={item.image_url}
- alt={item.title}
- className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
- loading="lazy"
- />
- {item.type === "event" && (
- <>
- <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded tracking-wide uppercase">
- Event
- </span>
- {item.partnerLogoUrl && (
- <div className="absolute bottom-2 right-2 bg-white rounded-md p-1.5">
- <img
- src={item.partnerLogoUrl}
- alt={item.partner || "Partner"}
- className="h-6 w-auto max-w-[80px] object-contain"
- />
- </div>
- )}
- </>
- )}
- {item.type === "branscher" && (
- <span
- title="AI-assisterat branschinnehåll"
- aria-label="AI-assisterat branschinnehåll"
- className="absolute top-2 right-2 inline-flex items-center gap-1 rounded bg-cyan-500/95 text-white text-[10px] font-semibold px-2 py-0.5 "
- >
- <Sparkles className="w-3 h-3" />
- AI
- </span>
- )}
- {item.type === "branscher" && typeof item.partnerCount === "number" && item.partnerCount > 0 && (
- <span className="absolute bottom-2 left-2 inline-flex items-center rounded bg-background/90 text-foreground text-[10px] font-semibold px-2 py-0.5 border border-border/40">
- {item.partnerCount} {item.partnerCount === 1 ? "partner" : "partners"} listade
- </span>
- )}
- </div>
-              ) : (
-                <div
-                  className={`${item.type === "video" ? "aspect-[20/7]" : "aspect-[2/1]"} overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center`}
-                >
- <item.icon className="w-12 h-12 text-muted-foreground/40" />
- </div>
- )}
- <CardContent className="p-5 flex flex-col gap-3">
- <div className="flex items-center gap-2 flex-wrap">
- <Badge
- variant="outline"
- className={`text-xs ${categoryBadgeColor(item.type)}`}
- >
- {categoryLabel(item.type, item.date)}
- </Badge>
- {item.partner && (
- <span className="text-xs text-muted-foreground">
- {item.partner}
- </span>
- )}
- </div>
- <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
- {item.title}
- </h3>
- {item.description && (
- <p className="text-sm text-muted-foreground line-clamp-2">
- {item.description}
- </p>
- )}
- {item.products.length > 0 && (
- <div className="flex flex-wrap gap-1">
- {item.products.slice(0, 3).map((product) => (
- <span
- key={product}
-  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
-  >
-  {applicationFilterLabel(product)}
-  </span>
- ))}
- {item.products.length > 3 && (
- <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
- +{item.products.length - 3}
- </span>
- )}
- </div>
- )}
- <div className="flex items-center justify-between mt-auto pt-2">
- {item.date && (
- <span className="text-xs text-muted-foreground flex items-center gap-1">
- <Calendar className="w-3 h-3" />
- {formatDate(item.date)}
- </span>
- )}
-  <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
-  {item.isExternal ? (
-  <>
-  Öppna <ExternalLink className="w-3 h-3" />
-  </>
-  ) : (
-  <>
-  {item.title ? `Läs mer om ${item.title}` : "Läs artikeln"} <ArrowRight className="w-3 h-3" />
-  </>
-  )}
-  </span>
- </div>
- </CardContent>
- </Card>
- </CardWrapper>
- );
- })}
+ {filteredItems.map((item) => renderItemCard(item, "library"))}
  </div>
  )}
  </div>
