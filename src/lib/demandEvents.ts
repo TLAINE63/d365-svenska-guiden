@@ -13,6 +13,8 @@ export const DEMAND_TOOL_OBJECTS = [
   "kostnad", "implementationskalkylator",
   "kravspec-erp", "kravspec-sales", "kravspec-marketing", "kravspec-kundservice",
   "ai-readiness", "befintlig-kund", "nav-till-business-central",
+  "roi-businesscentral", "roi-d365sales", "roi-finance-scm", "roi-customer-service",
+  "roi-customer-insights", "roi-contact-center", "roi-field-service",
 ] as const;
 
 /** Fria underlag i 1.3. */
