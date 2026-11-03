@@ -1,6 +1,8 @@
 // Gemensamt för export-demand-leads och export-demand-events: nyckelskydd, datum och CSV.
 // Loggar aldrig innehåll; felmeddelanden innehåller aldrig data ur databasen.
 
+declare const Deno: { env: { get(name: string): string | undefined } };
+
 export function exportKeyOk(req: Request): boolean {
   const expected = Deno.env.get("DEMAND_EXPORT_KEY") || "";
   const got = req.headers.get("x-export-key") || "";
