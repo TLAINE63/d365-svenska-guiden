@@ -50,26 +50,26 @@ const IsvProgram = () => {
       <FAQSchema faqs={faqs} />
       <Navbar />
       <main>
-        <section className="bg-primary text-primary-foreground pt-36 lg:pt-44 pb-14">
+        <section className="bg-primary text-primary-foreground pt-32 lg:pt-36 pb-8 lg:pb-10">
           <div className="max-w-6xl mx-auto px-4">
-            <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-3">För ISV-leverantörer</p>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-2">För ISV-leverantörer</p>
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight max-w-4xl">
               Visa er tilläggslösning för köpare av <span className="whitespace-nowrap">Dynamics 365</span>
             </h1>
-            <p className="mt-5 text-lg opacity-90 max-w-2xl">
+            <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
               Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. Med ISV Presence visas er lösning med verifierade uppgifter.
             </p>
             <ContactFormDialog subject="ISV Presence" buyerForm={false}>
-              <Button size="lg" variant="secondary" className="mt-8">
+              <Button size="lg" variant="secondary" className="mt-5">
                 Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </ContactFormDialog>
           </div>
         </section>
 
-        <section className="py-14">
+        <section className="pt-8 pb-14">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Nivåer och priser</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Nivåer och priser</h2>
             <div className="grid gap-5 md:grid-cols-2 items-stretch">
               <div className="rounded-xl border border-border bg-card p-6">
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Standard</h3>
@@ -82,7 +82,7 @@ const IsvProgram = () => {
                 <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">ISV Presence</span>
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">ISV Presence</h3>
                 <p className="text-base font-semibold text-foreground mb-3">Verifierad leverantör och app</p>
-                <ul className="text-sm text-muted-foreground space-y-2 mb-4">
+                <ul className="text-sm text-muted-foreground space-y-1.5 mb-3">
                   {[
                     "Verifieringsprocessen (grundkontroll) ingår",
                     "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
