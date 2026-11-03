@@ -1,7 +1,7 @@
 # components
 - CountUp preserves supplied counts in server HTML and retargets client animations on async updates, cancelling superseded frames to avoid stale totals.
 - BuyerFunnelCard (Sprint 6, /redaktion + admin) reads only funnel_events via funnel-stats action "buyer" (admin+editor); trackFunnelEvent auto-attaches plan segment (main_area/journey_state) from the local plan, so no PII or new tables.
-- Public cards and profile openings always show the dark verified badge SVG (requiring is_featured) for one consistent look; the embed for partner sites keeps both variants.
+- Public cards and profile openings show the "D365 Verifierad" pill via VerifiedPartnerBadge (requiring is_featured), the only public verification label; the embed SVG for partner sites is separate.
 - Public partner cards use PartnerCardHeader for a native link across the identity area, name left and logo right; keep actions outside it and reuse downloadable SVGs through VerifiedPartnerBadge.
 
 - Customer Service uses ServiceDecisionGuide and a product-specific shared ProductNextSteps ending with existing tools and partner anchors; page navigation stays separate from scoring and partner data.
