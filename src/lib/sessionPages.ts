@@ -22,7 +22,10 @@ export function isInternalTraffic(): boolean {
 export function cleanPath(path: string): string {
   const p = (path || "").split("#")[0].split("?")[0].trim();
   if (!p) return "/";
-  return (p.startsWith("/") ? p : `/${p}`).slice(0, 300);
+  let out = p.startsWith("/") ? p : `/${p}`;
+  // Samma sida med och utan avslutande snedstreck räknas som en (sajten lägger till det).
+  if (!out.endsWith("/") && !/\.[a-z0-9]{2,5}$/i.test(out)) out += "/";
+  return out.slice(0, 300);
 }
 
 /** Ren funktion: lägger till en sökväg enligt reglerna (ingen dubblett i rad, första + 29 senaste). */
