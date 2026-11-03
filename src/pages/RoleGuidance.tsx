@@ -14,7 +14,7 @@ import { trackRoleGuidanceEvent } from "@/utils/trackRoleGuidanceEvent";
 const breadcrumbs = [
   { name: "Start", url: "/" },
   { name: "Guider", url: "/guider/" },
-  { name: "Välj din roll", url: "/roller/" },
+  { name: "Välj område", url: "/roller/" },
 ];
 
 const RoleGuidance = () => {
@@ -40,8 +40,8 @@ const RoleGuidance = () => {
   return (
     <>
       <SEOHead
-        title="Välj din roll – vägledning för Dynamics 365"
-        description="Välj din roll och hitta relevanta systemområden, guider och partner på d365.se utifrån ditt ansvar."
+        title="Vilket område arbetar du främst med? | Dynamics 365"
+        description="Välj det område som bäst motsvarar ditt ansvar och få vägledning till relevanta behov, lösningar, guider och partners."
         canonicalPath="/roller/"
         breadcrumbs={breadcrumbs}
       />
@@ -51,14 +51,14 @@ const RoleGuidance = () => {
           <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
           <header className="max-w-3xl mb-9">
             <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(var(--signature))] mb-3">Vägledning efter ansvar</p>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">Vilken roll har du i er digitaliseringsresa?</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-4">Vilket område arbetar du främst med?</h1>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {nowrapBrand("Välj den roll som bäst beskriver ditt ansvar och få vägledning till relevanta systemområden, guider och partner.")}
+              {nowrapBrand("Välj det område som bäst motsvarar ditt ansvar eller de frågor du arbetar med. Du får vägledning till relevanta behov, lösningar, guider och partners.")}
             </p>
           </header>
 
           <section aria-labelledby="role-selector-heading" className="mb-12">
-            <h2 id="role-selector-heading" className="sr-only">Välj roll</h2>
+            <h2 id="role-selector-heading" className="sr-only">Välj område</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {ROLE_GUIDANCE.map((role) => {
                 const Icon = role.icon;
@@ -66,14 +66,20 @@ const RoleGuidance = () => {
                 return (
                   <article key={role.key} className={`flex min-h-64 flex-col border bg-card p-5 transition-colors ${selected ? "border-primary" : "border-border hover:border-primary/60"}`}>
                     <div className="mb-5 flex h-10 w-10 items-center justify-center rounded bg-accent-light text-accent"><Icon className="h-5 w-5" aria-hidden="true" /></div>
-                    <h2 className="text-lg font-bold mb-2">{role.title}</h2>
+                    <h3 className="text-lg font-bold mb-2">{role.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed flex-1">{role.description}</p>
-                    <Button type="button" variant={selected ? "default" : "outline"} className="mt-5 w-full justify-between" onClick={() => chooseRole(role.key)} aria-pressed={selected}>
-                      {role.buttonLabel}<ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <Button type="button" variant={selected ? "default" : "outline"} className="mt-5 h-auto min-h-10 w-full justify-between gap-2 whitespace-normal py-2 text-left" onClick={() => chooseRole(role.key)} aria-pressed={selected}>
+                      {role.buttonLabel}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
                     </Button>
                   </article>
                 );
               })}
+            </div>
+            <div className="mt-6 flex flex-col gap-3 border border-border bg-muted/40 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm sm:text-base text-foreground">Passar inget område riktigt? Utgå från verksamhetens behov i stället.</p>
+              <Button asChild variant="outline" className="shrink-0">
+                <Link to="/kom-igang/" onClick={() => trackRoleGuidanceEvent("role_area_clicked", { target: "Utforska efter behov" })}>Utforska efter behov<ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
+              </Button>
             </div>
           </section>
 
