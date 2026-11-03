@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { trackFreeDownload } from "@/lib/demandEvents";
 import { Link } from "react-router-dom";
 import { track } from "@/lib/track";
 import { trackFunnelEvent } from "@/lib/funnelTracking";
@@ -32,6 +33,7 @@ const NavBcTest = () => {
   const started = useRef(false);
   const downloadPdf = async () => {
     if (!result) return;
+    trackFreeDownload("nav-till-business-central-pdf");
     setPdfBusy(true);
     try {
       const { generateNavBcResultPdf } = await import("@/utils/generateNavBcResultPdf");

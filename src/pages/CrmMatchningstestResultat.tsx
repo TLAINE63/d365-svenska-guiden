@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { trackFreeDownload } from "@/lib/demandEvents";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2, Download, FileDown, MessageSquare, RotateCcw, Users } from "lucide-react";
 import { toast } from "sonner";
@@ -140,6 +141,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
         })),
         suggestedCompareUrl: origin + buildCompareUrl(top3.map((r) => r.partner.slug)),
       } : undefined;
+      trackFreeDownload("crm-matchningstest-pdf");
       await generateCrmResultPdf(score, config, extras);
     } catch (err) {
       console.error("PDF generation failed", err);
