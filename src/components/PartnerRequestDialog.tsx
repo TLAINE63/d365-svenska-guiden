@@ -279,8 +279,7 @@ const PartnerRequestDialog = ({
 
       const submissionId = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : undefined;
       const ctx = formContextBody();
-      const results = await Promise.allSettled(
-        targets.map((t) =>
+      const sendTo = (t: (typeof targets)[number]) =>
           supabase.functions.invoke("submit-lead", {
             body: {
               ...ctx,
@@ -298,9 +297,11 @@ const PartnerRequestDialog = ({
               assigned_partners: [t.slug],
               _hp: form._hp,
             },
-          })
-        )
-      );
+          });
+      // Första mottagaren skickas först så att hela inskickningen räknas som en händelse.
+      const [firstResult] = await Promise.allSettled(targets.slice(0, 1).map(sendTo));
+      const restResults = await Promise.allSettled(targets.slice(1).map(sendTo));
+      const results = [firstResult, ...restResults].filter(Boolean);
 
       const failed = results.filter(
         (r) => r.status === "rejected" || (r.status === "fulfilled" && (r.value as any)?.error)

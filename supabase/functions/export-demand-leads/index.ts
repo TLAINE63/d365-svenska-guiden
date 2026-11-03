@@ -72,7 +72,7 @@ Deno.serve(async (req) => {
     if (inq.error || leads.error || fwd.error || sub.error) return json({ ok: false, error: "query_failed" }, 500);
 
     const rows: Record<string, string>[] = [];
-    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page), consent_text_version: str(r.consent_text_version) });
+    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version) });
 
     for (const r of inq.data || []) {
       const advisory = r.is_advisory === true;
