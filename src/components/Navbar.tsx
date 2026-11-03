@@ -256,7 +256,7 @@ const Navbar = () => {
 
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="flex items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+          <Link to="/" className="flex shrink-0 items-center" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <img
               src={companyLogo}
               alt="d365.se - Guide för Dynamics 365"
@@ -270,7 +270,7 @@ const Navbar = () => {
           </Link>
 
           {/* Huvudmeny desktop */}
-          <div className="hidden lg:flex items-center gap-2 xl:gap-5">
+          <div className="hidden xl:flex items-center gap-3 2xl:gap-6">
             {MENUS.map((m) => (
               <DesktopMenu key={m.label} menu={m} />
             ))}
@@ -286,10 +286,10 @@ const Navbar = () => {
           </div>
 
           {/* Mobil */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div className="flex items-center gap-1 xl:hidden">
           <ThemeToggle />
           <Sheet>
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild className="xl:hidden">
               <Button variant="ghost" size="icon" aria-label="Öppna menyn" className="text-white hover:text-[hsl(var(--signature))] hover:bg-transparent">
                 <Menu className="h-5 w-5" />
               </Button>
