@@ -77,6 +77,7 @@ export interface IsvSolutionRow {
   industry_focus: string[] | null;
   partner_slugs: string[] | null;
   vendor_website: string | null;
+  logo_url?: string | null;
   is_published?: boolean;
   sort_order?: number;
   // Utökad modell
@@ -149,6 +150,7 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     vendorWebsite: r.vendor_website || undefined,
     informationStatus: r.information_status || undefined,
     lastVerifiedDate: r.last_verified_date || undefined,
+    logoUrl: r.logo_url || undefined,
   };
 }
 
