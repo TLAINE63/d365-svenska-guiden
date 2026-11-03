@@ -82,7 +82,7 @@ const IsvProgram = () => {
                 <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">ISV Presence</span>
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">ISV Presence</h3>
                 <p className="text-base font-semibold text-foreground mb-3">Verifierad leverantör och app</p>
-                <ul className="text-sm text-muted-foreground space-y-2 mb-4">
+                <ul className="text-sm text-muted-foreground space-y-1.5 mb-3">
                   {[
                     "Verifieringsprocessen (grundkontroll) ingår",
                     "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
