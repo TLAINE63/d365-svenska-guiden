@@ -1,7 +1,8 @@
 // Skyddad export av köparformulär till Demand Engine. En rad per inskickning, sorterad på created_at.
 // Loggar aldrig formulärinnehåll.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { exportAuthOk, exportCors, exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
+import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
+import { exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
 const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages"];
 
