@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { cleanSessionPages, cleanPagePath, cleanConsentVersion } from "../_shared/formContext.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
@@ -69,6 +70,10 @@ interface Payload {
   pdf_base64?: string;
   pdf_filename?: string;
   honeypot?: string;
+  session_pages?: string[];
+  landing_page?: string;
+  consent_text_version?: string;
+  consent_partner_share?: boolean;
 }
 
 serve(async (req) => {
@@ -182,6 +187,10 @@ serve(async (req) => {
         company_size: str(payload.company_size, 80),
         underlag_summary: payload.underlag_summary.trim(),
         result_url: str(payload.result_url, 500),
+        session_pages: cleanSessionPages(payload.session_pages),
+        landing_page: cleanPagePath(payload.landing_page),
+        consent_text_version: cleanConsentVersion(payload.consent_text_version),
+        consent_partner_share: payload.consent_partner_share === true,
         pdf_filename: pdfBytes
           ? (payload.pdf_filename && /\.pdf$/i.test(payload.pdf_filename) ? payload.pdf_filename : "underlag.pdf")
               .replace(/[^a-zA-Z0-9_.-]/g, "_").slice(0, 120)

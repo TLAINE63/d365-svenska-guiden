@@ -1,5 +1,6 @@
 // Skickar besökarens Dynamics 365-underlag: sparar, mejlar besökaren och en kopia till ägaren.
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { formContextFields } from "../_shared/formContext.ts";
 import { z } from "npm:zod@3";
 import { Resend } from "../_shared/branded-resend.ts";
 import { getCorsHeaders } from "../_shared/cors.ts";
@@ -16,6 +17,10 @@ const Body = z.object({
   underlag_text: z.string().min(1).max(20000),
   profile: z.record(z.unknown()).optional(),
   _hp: z.string().max(0).optional().or(z.literal("")),
+  session_pages: z.array(z.string().max(300)).max(30).optional().nullable(),
+  landing_page: z.string().max(300).optional().nullable(),
+  source_page: z.string().max(300).optional().nullable(),
+  consent_text_version: z.string().max(40).optional().nullable(),
 });
 
 const esc = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -59,6 +64,7 @@ Deno.serve(async (req) => {
   const { data: row, error } = await sb.from("underlag_submissions").insert({
     buyer_id: d.buyer_id ?? null, name: d.name, company: d.company, email, phone: d.phone || null,
     consent: true, profile: d.profile ?? {}, underlag_text: d.underlag_text, buying_signal: signal,
+    ...formContextFields(d as Record<string, unknown>),
   }).select("id").single();
   if (error) { console.error(error); return json({ error: "Kunde inte spara underlaget" }, 500); }
 
