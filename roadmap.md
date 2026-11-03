@@ -2,8 +2,15 @@
 
 ## Signalinsamling för Demand Engine (2026-11-03)
 - [x] Steg 0: inventering av verktyg, formulär, underlag, Snitcher och inskick (inga ändringar)
-- [ ] Steg 1–4 (egna adresser, lästa sidor i formulär, skyddad CSV-export, serverhändelser) – väntar på Thomas godkännande av inventeringen
-- [ ] Snitcher laddas utan samtycke via index.html – väntar på Thomas beslut
+- [x] Snitcher laddas först efter samtycke, first-party-subdomän
+- [ ] Steg 2A: databas (demand_events, needs_analysis_submissions, kolumner, triggers), RLS-kontroll
+- [ ] Steg 2A: export-demand-leads, export-demand-events, track-demand-event, nyckel DEMAND_EXPORT_KEY
+- [ ] Steg 2A: sessionPages.ts, samtyckesversion, sidhistorik i köparformulär, kontakt + behovsanalyser sparas
+- [ ] Steg 2A: tacksidor /tack/... per formulär (noindex, ej sitemap/prerender)
+- [ ] Steg 2B: /resultat/-adresser för verktygen i 1.1 + tool_completed (demandEvents.ts)
+- [ ] Steg 2B: /hamtat/{slug}/ ersätter /tack-nedladdning/, download-händelser för fria underlag
+- [ ] Integritetstext: visa för Thomas före publicering
+- [ ] Curl-test 1–17 (6–8, 17 manuella i webbläsare)
 
 
 
