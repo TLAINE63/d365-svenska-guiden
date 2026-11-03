@@ -9,19 +9,14 @@
     "website": "https://www.4ps.se/",
     "email": null,
     "contact_person": "Anders Östby",
-    "contact_photo_url": null,
+    "contact_photo_url": "",
     "phone": null,
     "applications": [
       "Business Central"
     ],
     "industries": [],
     "secondary_industries": [],
-    "geography": [
-      "Sverige",
-      "Norden",
-      "Europa",
-      "Globalt"
-    ],
+    "geography": [],
     "product_filters": {
       "bc": {
         "ranking": 1,
@@ -123,7 +118,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-10-30T15:41:04.326288+00:00",
+    "updated_at": "2026-11-02T17:15:05.478525+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -5048,7 +5043,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=Vivicta+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-03-19T08:57:20.19097+00:00",
-    "updated_at": "2026-10-30T15:41:04.326288+00:00",
+    "updated_at": "2026-11-02T17:02:48.993286+00:00",
     "industry_pitches": [
       {
         "text": "Vivicta levererar helhetslösningar inom Microsoft Dynamics 365, från rådgivning och design till implementering och förvaltning, med fokus på transport och logistik. De hanterar lösningar baserade på D365 Finance och Supply Chain Management, vilket stöder hantering av ekonomiska flöden och logistikkedjor.\n\nVivicta erbjuder även D365 Business Central för mindre transport- och logistikföretag som behöver ett integrerat affärssystem. För att optimera kundrelationer och serviceärenden använder de D365 Sales, Customer Service och Field Service. Lösningarna kompletteras med Power Platform och Azure, vilket innebär möjligheter till anpassade integrationer och utökad funktionalitet. Deras erfarenhet sträcker sig till branscher som industri, tillverkning, samt handel och service, vilket ger dem insikt i komplexa logistikbehov och distributionskedjor. Vivicta erbjuder kontinuerlig utveckling och licensrådgivning för att stödja kundens affärsnytta över tid.",
