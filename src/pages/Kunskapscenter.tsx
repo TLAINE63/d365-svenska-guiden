@@ -1220,7 +1220,25 @@ const Kunskapscenter = () => {
  selected={selectedProducts}
  onChange={setSelectedProducts}
  />
+ <MultiSelectDropdown<KnowledgeTopic>
+ label="Ämne"
+ options={TOPIC_OPTIONS}
+ selected={selectedTopics}
+ onChange={setSelectedTopics}
+ />
+ <MultiSelectDropdown<string>
+ label="Bransch"
+ options={INDUSTRY_OPTIONS}
+ selected={selectedIndustries}
+ onChange={setSelectedIndustries}
+ />
  </div>
+ {activeEntryDef && (
+  <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3 py-1 text-xs">
+   Ingång: <strong>{activeEntryDef.title}</strong>
+   <button type="button" onClick={showAll} className="text-primary hover:underline">Visa allt</button>
+  </span>
+ )}
 
  {/* Clear */}
  {hasActiveFilters && (
@@ -1400,7 +1418,69 @@ const Kunskapscenter = () => {
  </section>
  </>
  )}
- <ContextualCta source="next-step:kunskapscenter" heading="Har ni läst tillräckligt för att börja utvärdera?" text="När ni vet vilken produkt som passar är nästa steg att hitta partners med rätt erfarenhet." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Gör behovsanalys för affärssystem", to: "/ERPbehovsanalys/" }, { label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+ {/* d365.se INSIDE – redaktionell sektion; avsnitten finns även i biblioteket som intervjuer */}
+ <div className="border-t border-border bg-background">
+  <div className="container mx-auto px-4 py-10 max-w-6xl">
+   <D365InsideSection maxEarlier={3} />
+  </div>
+ </div>
+
+ <MicrosoftNewsSection />
+
+ {/* Nästa steg: fördjupning, partner/kompetens eller rådgivning */}
+ <section className="border-t border-border bg-muted/30" aria-labelledby="kc-next-heading">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-12">
+   <h2 id="kc-next-heading" className="text-xl md:text-2xl font-bold text-foreground">Nästa steg</h2>
+   <p className="text-sm text-muted-foreground mt-1 mb-6 max-w-2xl">
+    Fördjupa er i behovet, hitta rätt partner eller kompetens, eller ta hjälp när vägvalet är komplext.
+   </p>
+   <div className="grid gap-4 md:grid-cols-2">
+    {[
+     {
+      title: "Fördjupa beslutsunderlaget",
+      text: "Beskriv behovet, räkna på kostnaden och ta fram krav i de befintliga verktygen.",
+      links: [
+       { label: "Starta behovsguiden", to: "/kom-igang/" },
+       { label: "Vad kostar det?", to: "/kostnad/" },
+       { label: "Redan Dynamics-kund?", to: "/befintlig-kund/" },
+      ],
+     },
+     {
+      title: "Partner och kompetens",
+      text: "Jämför partners utifrån bransch och produkt, eller hitta specialistkompetens för ett avgränsat behov.",
+      links: [
+       { label: "Hitta rätt partner", to: "/valjdynamics365partner/" },
+       { label: "Hitta kompetens", to: "/kompetens/" },
+       { label: "Utvärdera nuvarande partner", to: "/guider/byta-dynamics-partner/" },
+      ],
+     },
+    ].map((card) => (
+     <div key={card.title} className="rounded-lg border border-border bg-card p-5">
+      <h3 className="text-base font-semibold text-foreground">{card.title}</h3>
+      <p className="mt-1 text-sm text-muted-foreground">{card.text}</p>
+      <ul className="mt-3 space-y-1.5 text-sm">
+       {card.links.map((l) => (
+        <li key={l.to}>
+         <Link to={l.to} onClick={() => trackClick("knowledge_next_step_clicked", { to: l.to })} className="inline-flex items-center gap-1 font-medium text-primary hover:underline">
+          {l.label} <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+         </Link>
+        </li>
+       ))}
+      </ul>
+     </div>
+    ))}
+   </div>
+   <AdvisoryOffer
+    variant="compact"
+    placement="next_step_help"
+    cta="Prata med d365.se"
+    pageType="kunskapscenter"
+    text="Står ni inför ett komplext vägval mellan lösningar, partners eller nästa steg i ett befintligt projekt?"
+    metadata={{ entry: activeEntry }}
+    className="mt-6"
+   />
+  </div>
+ </section>
 </main>
  <Footer />
  </>
