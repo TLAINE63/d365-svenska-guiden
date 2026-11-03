@@ -457,7 +457,7 @@ const PartnerProfileCheck = ({ initialSlug }: { initialSlug?: string | null }) =
                       <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                     </Link>
                   </Button>
-                  <ContactFormDialog>
+                  <ContactFormDialog buyerForm={false}>
                     <Button
                       size="sm"
                       onClick={() =>
