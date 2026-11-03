@@ -643,7 +643,7 @@ const Kunskapscenter = () => {
  .filter((a) => a.title?.trim() && a.url?.trim())
  .map((a) => ({
  id: a.id,
- type: (a.format || a.category) as FormatValue,
+ type: (INSIDE_ARTICLE_PATHS.has(`${(a.url || "").replace(/^https?:\/\/(www\.)?d365\.se/, "").replace(/\/?$/, "/")}`) ? "intervju" : a.format || a.category) as FormatValue,
  title: a.title,
  description: a.description,
  url: a.url,
