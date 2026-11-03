@@ -51,7 +51,7 @@ function loadSnitcher() {
   started = true;
   const w = window as any;
   const ns = CONFIG.namespace;
-  const s = (w[ns] = Array.isArray(w[ns]) ? w[ns] : []);
+  const s: any = (w[ns] = Array.isArray(w[ns]) ? w[ns] : []);
   if (s.initialized || s._loaded) return;
   s._loaded = true;
   [
