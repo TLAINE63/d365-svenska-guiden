@@ -78,3 +78,12 @@ export function formContext(): FormContext {
     consent_text_version: CONSENT_TEXT_VERSION,
   };
 }
+
+/** formContext utan source_page null-värden: färdigt att sprida i ett formulärs body. landing_page bara om den finns. */
+export function formContextBody(): Record<string, unknown> {
+  const c = formContext();
+  const out: Record<string, unknown> = { source_page: c.source_page, consent_text_version: c.consent_text_version };
+  if (c.session_pages) out.session_pages = c.session_pages;
+  if (c.landing_page) out.landing_page = c.landing_page;
+  return out;
+}
