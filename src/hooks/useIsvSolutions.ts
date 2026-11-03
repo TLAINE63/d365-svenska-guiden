@@ -184,6 +184,34 @@ export function useIsvVendors(): Record<string, IsvVendorPublic> {
 }
 
 
+/** Kontaktuppgift som bara lämnas ut för verifierade leverantörer och verifierade produkter. */
+export interface IsvPublicContact {
+  contact_name: string | null;
+  contact_email: string | null;
+  contact_phone: string | null;
+}
+
+/** Hämtar kontakter för verifierade ISV:er och produkter. Ej verifierade returneras aldrig av databasen. */
+export function useVerifiedIsvContacts() {
+  const [state, setState] = useState<{ vendor: Record<string, IsvPublicContact>; product: Record<string, IsvPublicContact> }>({ vendor: {}, product: {} });
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase.rpc("public_verified_isv_contacts");
+      if (error || cancelled || !data) return;
+      const next = { vendor: {} as Record<string, IsvPublicContact>, product: {} as Record<string, IsvPublicContact> };
+      for (const r of data as Array<IsvPublicContact & { kind: string; key: string }>) {
+        const c = { contact_name: r.contact_name, contact_email: r.contact_email, contact_phone: r.contact_phone };
+        if (r.kind === "vendor") next.vendor[r.key] = c;
+        else if (r.kind === "product") next.product[r.key] = c;
+      }
+      setState(next);
+    })();
+    return () => { cancelled = true; };
+  }, []);
+  return state;
+}
+
 /**
  * Plattformsprodukter som finns i den gamla kodkatalogen men som inte är
  * ISV-tillägg och därför aldrig ska visas i eller räknas in i ISV-katalogen.
