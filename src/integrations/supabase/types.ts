@@ -1852,6 +1852,7 @@ export type Database = {
           confirmation_status: string
           created_at: string
           description: string | null
+          gtm_model: string | null
           id: string
           information_status: string
           last_verified_date: string | null
@@ -1873,6 +1874,7 @@ export type Database = {
           confirmation_status?: string
           created_at?: string
           description?: string | null
+          gtm_model?: string | null
           id?: string
           information_status?: string
           last_verified_date?: string | null
@@ -1894,6 +1896,7 @@ export type Database = {
           confirmation_status?: string
           created_at?: string
           description?: string | null
+          gtm_model?: string | null
           id?: string
           information_status?: string
           last_verified_date?: string | null
