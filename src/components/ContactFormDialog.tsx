@@ -1,5 +1,5 @@
 import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formContextBody, isInternalTraffic } from "@/lib/sessionPages";
 import { thanksPath } from "@/lib/thanksPages";
@@ -66,6 +66,8 @@ const ContactFormDialog = ({ children, title, description, subject, buyerForm = 
  const navigate = useNavigate();
  const [open, setOpen] = useState(false);
  const [isSubmitting, setIsSubmitting] = useState(false);
+ // Spärr mot dubbla inskickningar: state hinner inte uppdateras mellan två snabba klick.
+ const submittingRef = useRef(false);
  const { toast } = useToast();
 
  const form = useForm<z.infer<typeof formSchema>>({
@@ -92,6 +94,8 @@ const ContactFormDialog = ({ children, title, description, subject, buyerForm = 
  return;
  }
 
+ if (submittingRef.current) return;
+ submittingRef.current = true;
  setIsSubmitting(true);
  
  try {
@@ -131,6 +135,7 @@ const ContactFormDialog = ({ children, title, description, subject, buyerForm = 
  variant: "destructive",
  });
  } finally {
+ submittingRef.current = false;
  setIsSubmitting(false);
  }
  };
