@@ -22,7 +22,7 @@ const faqs = [
   {
     question: "Vad kostar ISV Presence?",
     answer:
-      "3 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Avgiften faktureras årsvis i förskott.",
+      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Avgiften faktureras årsvis i förskott.",
   },
   {
     question: "Påverkar ISV Presence ordningen i katalogen?",
@@ -41,7 +41,7 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 3 990 kr/år inklusive en app, 995 kr/år per extra app."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inklusive en app, 995 kr/år per extra app."
         webPageSchema={false}
         canonicalPath="/isvprogram"
       />

@@ -204,6 +204,13 @@
       "when": 1793711998192,
       "tag": "0028_isv_contacts_require_presence",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1793713431044,
+      "tag": "0029_isv_presence_syndication_media_facts",
+      "breakpoints": true
     }
   ]
 }

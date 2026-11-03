@@ -76,7 +76,7 @@ const faqs = [
   {
     question: "Vad innebär videointervjun?",
     answer:
-      "En redaktionell intervju med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen.",
+      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för publicerade partners med Premium och 11 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
   },
   {
     question: "Kostar det att publiceras på d365.se?",
@@ -651,7 +651,19 @@ const Partnerprogram = () => {
           </div>
           <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
             För Premium Månad är uppsägningstiden 3 månader och ska meddelas i god tid före varje kvartals början.
+            Produktområden räknas på de områden ni väljer att delta i, och för varje produktområde kan ni välja upp till tre branscher.
           </p>
+          <div className="mt-6 max-w-4xl rounded-xl border border-border bg-card p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-2">d365.se INSIDE, expertintervju</h3>
+            <p className="text-sm text-muted-foreground mb-3">
+              Intervju och produktion med redaktionellt ansvar hos d365.se. Ni betalar för produktion och distribution, inte för en viss slutsats.
+            </p>
+            <ul className="text-sm text-foreground space-y-1">
+              <li>Publicerade partners med Premium: <strong>4&nbsp;900&nbsp;kr</strong> per intervju</li>
+              <li>Övriga: <strong>11&nbsp;900&nbsp;kr</strong> per intervju</li>
+            </ul>
+            <p className="text-xs text-muted-foreground mt-2">Exklusive moms.</p>
+          </div>
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">

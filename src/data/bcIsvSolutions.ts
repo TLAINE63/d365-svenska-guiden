@@ -184,6 +184,8 @@ export interface IsvSolution {
   // ── Sprint 1.9: publik informationsstatus för produkten (oberoende av leverantörens) ──
   informationStatus?: string;     // verified | vendor_confirmed | compiled (saknas = compiled)
   hasPresence?: boolean;          // aktiv ISV Presence (premium_product)
+  demoVideoUrl?: string;          // demo/video (https)
+  customerCases?: { title: string; text?: string; url?: string }[];
   lastVerifiedDate?: string;      // ÅÅÅÅ-MM-DD, bara när produkten är verifierad
 }
 

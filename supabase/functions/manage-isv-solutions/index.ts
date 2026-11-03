@@ -289,7 +289,7 @@ serve(async (req) => {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
         supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
-        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
       if (vErr || pErr) throw vErr || pErr;
       const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
@@ -375,6 +375,19 @@ serve(async (req) => {
       const id = clean(body?.solution_id, 100);
       if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
       const fields = statusFields(body || {}, "product_source", "premium_product");
+      // Demo/video och kundcase: redaktionellt innehåll, sparas bara när fälten skickas.
+      if (body && "demo_video_url" in body) {
+        const v = clean(body.demo_video_url, 500);
+        if (v && !/^https:\/\//i.test(v)) return json({ error: "Videolänken måste börja med https://" }, 400, corsHeaders);
+        fields.demo_video_url = v || null;
+      }
+      if (body && Array.isArray(body.customer_cases)) {
+        fields.customer_cases = (body.customer_cases as unknown[]).slice(0, 6).map((c) => {
+          const o = (c || {}) as Record<string, unknown>;
+          const url = clean(o.url, 500);
+          return { title: clean(o.title, 120), text: clean(o.text, 600), url: url && /^https:\/\//i.test(url) ? url : null };
+        }).filter((c) => c.title);
+      }
       if (!Object.keys(fields).length) return json({ error: "Inga fält att spara" }, 400, corsHeaders);
       const { error } = await supabase.from("isv_solutions").update({ ...fields, updated_at: new Date().toISOString() }).eq("solution_id", id);
       if (error) return json({ error: error.message }, 400, corsHeaders);
