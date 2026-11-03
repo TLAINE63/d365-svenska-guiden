@@ -270,7 +270,7 @@ const Navbar = () => {
           </Link>
 
           {/* Huvudmeny desktop */}
-          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-5">
             {MENUS.map((m) => (
               <DesktopMenu key={m.label} menu={m} />
             ))}
