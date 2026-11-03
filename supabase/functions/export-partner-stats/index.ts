@@ -43,17 +43,21 @@ Deno.serve(async (req) => {
       fetchAll(sb, "partner_filter_exposures", "partner_slug,viewed_at", "viewed_at", since, until),
       fetchAll(sb, "partner_engagement_events", "partner_slug,occurred_at", "occurred_at", since, until, (q) => q.eq("event_name", "partner_comparison_impression")),
       fetchAll(sb, "partner_clicks", "partner_name,clicked_at", "clicked_at", since, until),
-      fetchAll(sb, "partner_tracking_events", "partner_slug,created_at", "created_at", since, until, (q) => q.eq("event_name", "partner_outbound_click")),
+      fetchAll(sb, "partner_tracking_events", "partner_slug,event_name,metadata,created_at", "created_at", since, until, (q) => q.in("event_name", ["partner_outbound_click", "partner_contact_click"])),
       sb.from("partners").select("name,slug").then((r: any) => { if (r.error) throw new Error("partners"); return r.data ?? []; }),
     ]);
     const nameToSlug = new Map<string, string>();
     for (const p of partners) if (p.name && p.slug) nameToSlug.set(String(p.name).trim().toLowerCase(), p.slug);
 
-    type Agg = { listings: number; comparisons: number; profile_views: number; web_clicks: number };
+    // Gamla/felaktiga slugs räknas till nuvarande partner; okända slugs utelämnas.
+    const ALIASES: Record<string, string> = { "4ps": "4ps-sweden", "vivicta-se": "vivicta", "YjMtY29uc3": "b3-consulting-group", "b3-cons": "b3-consulting-group" };
+    const known = new Set<string>(partners.map((p: any) => p.slug).filter(Boolean));
+    const canon = (s: string | null | undefined) => { if (!s) return null; const c = ALIASES[s] ?? s; return known.has(c) ? c : null; };
+    type Agg = { listings: number; comparisons: number; profile_views: number; web_clicks: number; phone_clicks: number; email_clicks: number };
     const agg = new Map<string, Agg>();
     const bump = (slug: string | null | undefined, ts: string, key: keyof Agg) => {
-      if (!slug || monthOf(ts) !== month) return;
-      const a = agg.get(slug) ?? { listings: 0, comparisons: 0, profile_views: 0, web_clicks: 0 };
+      slug = canon(slug); if (!slug || monthOf(ts) !== month) return;
+      const a = agg.get(slug) ?? { listings: 0, comparisons: 0, profile_views: 0, web_clicks: 0, phone_clicks: 0, email_clicks: 0 };
       a[key]++;
       agg.set(slug, a);
     };
@@ -62,12 +66,15 @@ Deno.serve(async (req) => {
     for (const e of exposures) bump(e.partner_slug, e.viewed_at, "listings");
     for (const c of comparisons) bump(c.partner_slug, c.occurred_at, "comparisons");
     for (const c of clicks) bump(nameToSlug.get(String(c.partner_name ?? "").trim().toLowerCase()), c.clicked_at, "web_clicks");
-    for (const o of outbound) bump(o.partner_slug, o.created_at, "web_clicks");
+    for (const o of outbound) {
+      if (o.event_name === "partner_outbound_click") bump(o.partner_slug, o.created_at, "web_clicks");
+      else { const t = (o.metadata as any)?.type; if (t === "phone") bump(o.partner_slug, o.created_at, "phone_clicks"); else if (t === "email") bump(o.partner_slug, o.created_at, "email_clicks"); }
+    }
 
-    // card_views, phone_clicks och email_clicks mäts inte separat: tomma, aldrig 0.
+    // card_views mäts inte separat: tomt, aldrig 0.
     const rows = [...agg.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([slug, a]) => ({
       site: "d365.se", partner_slug: slug, month, listings: String(a.listings), card_views: "", comparisons: String(a.comparisons),
-      profile_views: String(a.profile_views), web_clicks: String(a.web_clicks), phone_clicks: "", email_clicks: "",
+      profile_views: String(a.profile_views), web_clicks: String(a.web_clicks), phone_clicks: String(a.phone_clicks), email_clicks: String(a.email_clicks),
     }));
     return new Response(toCsv(COLUMNS, rows), { status: 200, headers: { ...headers, "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="d365se-partnerstatistik-${month}.csv"` } });
   } catch {

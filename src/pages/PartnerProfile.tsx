@@ -197,8 +197,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   };
 
  // Track profile visit (one per slug per mount)
+ const validSlug = (dbPartner as DatabasePartner | undefined)?.slug;
  useEffect(() => {
- if (!slug) return;
+ // Spåra bara när partnern finns och med dess riktiga slug (aldrig URL-värdet).
+ if (!slug || !validSlug || validSlug !== slug) return;
  const partnerId = (dbPartner as DatabasePartner | undefined)?.id || null;
  void trackPartnerView(slug, "profile_visit", `/partner/${slug}`, partnerId);
  // Nivå 2 – engagemang: profilbesök och återbesök
@@ -210,7 +212,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
  });
  trackPartnerFunnel("partner_profile_viewed", { partner_slug: slug });
  // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [slug]);
+ }, [slug, validSlug]);
 
  // Nivå 2 – engagemang: klick på kundcase och kompetensområden (delegerat)
  const handleProfileEngagementClick = (e: React.MouseEvent<HTMLDivElement>) => {

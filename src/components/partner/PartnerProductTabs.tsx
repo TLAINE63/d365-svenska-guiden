@@ -1,5 +1,6 @@
 import type { TabKey } from "./types";
 import ProtectedContact from "@/components/partner/ProtectedContact";
+import { track as trackEvent } from "@/lib/track";
 export type { TabKey } from "./types";
 import { swedishPossessive, formatSwedishPhone, formatSwedishBand } from "@/lib/utils";
 import { useMemo, useState, useEffect, useRef } from "react";
@@ -849,10 +850,10 @@ export default function PartnerProductTabs({
                       <span className="text-sm font-semibold text-foreground">{data.contact.name}</span>
                     )}
                     {data.contact.email && (
-                      <ProtectedContact kind="email" value={data.contact.email} className="text-sm text-primary" icon={<Mail className="w-3.5 h-3.5" />} />
+                      <ProtectedContact kind="email" value={data.contact.email} onClick={() => trackEvent("partner_contact_click", { type: "email", via: "produktflik" }, partner.slug)} className="text-sm text-primary" icon={<Mail className="w-3.5 h-3.5" />} />
                     )}
                     {data.contact.phone && (
-                      <ProtectedContact kind="phone" value={data.contact.phone} display={formatSwedishPhone(data.contact.phone)} className="text-sm text-foreground/80" icon={<Phone className="w-3.5 h-3.5" />} />
+                      <ProtectedContact kind="phone" value={data.contact.phone} onClick={() => trackEvent("partner_contact_click", { type: "phone", via: "produktflik" }, partner.slug)} display={formatSwedishPhone(data.contact.phone)} className="text-sm text-foreground/80" icon={<Phone className="w-3.5 h-3.5" />} />
                     )}
                   </div>
                 </div>
