@@ -287,17 +287,20 @@ serve(async (req) => {
 
     if (action === "list_status" && req.method === "GET") {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
-        supabase.from("isv_vendors").select("slug, name, website, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
-        supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status"),
-        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
+        supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
       if (vErr || pErr) throw vErr || pErr;
       const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
+      const vc = new Map((internal || []).map((r) => [r.vendor_slug, { contact_name: r.contact_name, contact_email: r.contact_email, contact_phone: r.contact_phone }]));
+      const { data: ovRows } = await supabase.from("isv_solution_overrides").select("solution_id, sales_contact_name, sales_contact_email, sales_contact_phone");
+      const pc = new Map((ovRows || []).map((r) => [r.solution_id, { contact_name: r.sales_contact_name, contact_email: r.sales_contact_email, contact_phone: r.sales_contact_phone }]));
       const { data: bcRows } = await supabase.from("isv_bc_presentation").select("*");
       const bc = new Map((bcRows || []).map((r) => [r.solution_id, r]));
       return json({
-        vendors: (vendors || []).map((v) => ({ ...v, buyer_opportunity_agreement_status: boa.get(v.slug) || "none" })),
-        products: (products || []).map((p) => ({ ...p, bc_presentation: bc.get(p.solution_id) || null })),
+        vendors: (vendors || []).map((v) => ({ ...v, buyer_opportunity_agreement_status: boa.get(v.slug) || "none", contact: vc.get(v.slug) || null })),
+        products: (products || []).map((p) => ({ ...p, bc_presentation: bc.get(p.solution_id) || null, contact: pc.get(p.solution_id) || null, vendor_contact: p.vendor_slug ? vc.get(p.vendor_slug) || null : null })),
       }, 200, corsHeaders);
     }
 
@@ -318,6 +321,53 @@ serve(async (req) => {
         if (error) return json({ error: error.message }, 400, corsHeaders);
       }
       return json({ success: true }, 200, corsHeaders);
+    }
+
+    // Kontaktuppgifter: leverantörens sparas internt; produkten ärver dem om egen säljkontakt saknas.
+    if (action === "set_contact" && req.method === "POST") {
+      const body = await req.json();
+      const kind = body?.kind === "product" ? "product" : body?.kind === "vendor" ? "vendor" : null;
+      const key = clean(body?.key, 120);
+      if (!kind || !key) return json({ error: "kind och key krävs" }, 400, corsHeaders);
+      const name = clean(body?.contact_name, 200);
+      const email = clean(body?.contact_email, 254);
+      const phone = clean(body?.contact_phone, 40);
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Ogiltig e-postadress" }, 400, corsHeaders);
+      const { error } = kind === "vendor"
+        ? await supabase.from("isv_vendor_internal").upsert({ vendor_slug: key, contact_name: name, contact_email: email, contact_phone: phone }, { onConflict: "vendor_slug" })
+        : await supabase.from("isv_solution_overrides").upsert({ solution_id: key, sales_contact_name: name, sales_contact_email: email, sales_contact_phone: phone }, { onConflict: "solution_id" });
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ success: true }, 200, corsHeaders);
+    }
+
+    // Logotyp för leverantör eller produkt. Bara PNG, JPEG och WebP (inga SVG), högst 1 MB.
+    if (action === "upload_logo" && req.method === "POST") {
+      const body = await req.json();
+      const kind = body?.kind === "product" ? "product" : body?.kind === "vendor" ? "vendor" : null;
+      const key = clean(body?.key, 120);
+      if (!kind || !key) return json({ error: "kind och key krävs" }, 400, corsHeaders);
+      if (body?.remove === true) {
+        const { error } = kind === "vendor"
+          ? await supabase.from("isv_vendors").update({ logo_url: null }).eq("slug", key)
+          : await supabase.from("isv_solutions").update({ logo_url: null }).eq("solution_id", key);
+        if (error) return json({ error: error.message }, 400, corsHeaders);
+        return json({ success: true, logo_url: null }, 200, corsHeaders);
+      }
+      const types: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
+      const ext = types[String(body?.content_type || "")];
+      if (!ext || typeof body?.data !== "string") return json({ error: "Bara PNG, JPEG eller WebP" }, 400, corsHeaders);
+      const bytes = Uint8Array.from(atob(body.data), (c) => c.charCodeAt(0));
+      if (bytes.length > 1024 * 1024) return json({ error: "Logotypen får vara högst 1 MB" }, 400, corsHeaders);
+      const safe = key.toLowerCase().replace(/[^a-z0-9-]+/g, "-");
+      const path = `isv/${kind}/${safe}-${Date.now()}.${ext}`;
+      const up = await supabase.storage.from("partner-logos").upload(path, bytes, { contentType: body.content_type, upsert: true });
+      if (up.error) return json({ error: up.error.message }, 400, corsHeaders);
+      const logo_url = supabase.storage.from("partner-logos").getPublicUrl(path).data.publicUrl;
+      const { error } = kind === "vendor"
+        ? await supabase.from("isv_vendors").update({ logo_url }).eq("slug", key)
+        : await supabase.from("isv_solutions").update({ logo_url }).eq("solution_id", key);
+      if (error) return json({ error: error.message }, 400, corsHeaders);
+      return json({ success: true, logo_url }, 200, corsHeaders);
     }
 
     if (action === "set_product_status" && req.method === "POST") {
