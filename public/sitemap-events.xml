@@ -55,13 +55,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://d365.se/events/75f8ead0-cf0f-4b59-a373-c4afd9b9b13c/</loc>
+    <loc>https://d365.se/events/9a4df1ce-4f40-4d4c-953f-9e9cfbae5b83/</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://d365.se/events/9a4df1ce-4f40-4d4c-953f-9e9cfbae5b83/</loc>
+    <loc>https://d365.se/events/75f8ead0-cf0f-4b59-a373-c4afd9b9b13c/</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -75,18 +75,6 @@
   <url>
     <loc>https://d365.se/events/b74cf748-96da-4c87-af09-4c2e48972843/</loc>
     <lastmod>2026-09-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/events/a10e5f36-b057-4b11-a274-aa49dcad662a/</loc>
-    <lastmod>2026-09-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/events/6ef39cfe-5a6e-49ff-bf26-df58f0d0fb2e/</loc>
-    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -115,12 +103,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://d365.se/events/1be00b77-2a1f-4eed-ad9f-35c160a0f23b/</loc>
-    <lastmod>2026-09-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://d365.se/events/5182b0ff-6515-43a4-903a-840878e77e90/</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -133,20 +115,8 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://d365.se/events/9bdf15c4-9da2-41a0-a3af-9cad63f1de71/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://d365.se/events/8d4ff655-1b28-4ca5-954c-2498aa435bdc/</loc>
     <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/events/66dec967-d6e7-4560-93fc-24715a5e170e/</loc>
-    <lastmod>2026-05-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -249,12 +219,6 @@
   <url>
     <loc>https://d365.se/events/a8109b3d-f870-47f8-9a8a-17432f369aef/</loc>
     <lastmod>2026-02-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://d365.se/events/3846dd94-abd6-4228-95ec-f5236600efbd/</loc>
-    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -1,5 +1,11 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Signalinsamling för Demand Engine (2026-11-03)
+- [x] Steg 0: inventering av verktyg, formulär, underlag, Snitcher och inskick (inga ändringar)
+- [ ] Steg 1–4 (egna adresser, lästa sidor i formulär, skyddad CSV-export, serverhändelser) – väntar på Thomas godkännande av inventeringen
+- [ ] Snitcher laddas utan samtycke via index.html – väntar på Thomas beslut
+
+
 
 ## Sprint Conversion & Trust (2026-10-31)
 - [x] Steg 1: "Ställ en fråga" på artiklar, egen kategori och mätning

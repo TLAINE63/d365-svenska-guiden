@@ -99,14 +99,6 @@
     ]
   },
   {
-    "slug": "birdie-cloud",
-    "name": "Birdie Cloud",
-    "products": [
-      "sales",
-      "service"
-    ]
-  },
-  {
     "slug": "brain-accounting",
     "name": "Brain Accounting",
     "products": [
@@ -331,15 +323,6 @@
     ]
   },
   {
-    "slug": "knowit",
-    "name": "Knowit",
-    "products": [
-      "fsc",
-      "sales",
-      "service"
-    ]
-  },
-  {
     "slug": "kpmg",
     "name": "KPMG",
     "products": [
@@ -420,13 +403,6 @@
       "fsc",
       "sales",
       "service"
-    ]
-  },
-  {
-    "slug": "regentor",
-    "name": "Regentor",
-    "products": [
-      "bc"
     ]
   },
   {
@@ -521,6 +497,16 @@
     "products": [
       "bc",
       "fsc"
+    ]
+  },
+  {
+    "slug": "regentor",
+    "name": "Triple Core",
+    "products": [
+      "bc",
+      "fsc",
+      "sales",
+      "service"
     ]
   },
   {
