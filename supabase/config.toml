@@ -87,9 +87,6 @@ verify_jwt = false
 [functions.partner-stats-export]
 verify_jwt = false
 
-[functions.track-demand-event]
-verify_jwt = false
-
 [functions.export-demand-leads]
 verify_jwt = false
 

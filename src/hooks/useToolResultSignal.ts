@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { trackToolCompleted, type DEMAND_TOOL_OBJECTS } from "@/lib/demandEvents";
+import type { DEMAND_TOOL_OBJECTS } from "@/lib/demandEvents";
 
 interface Options {
   /** Verktygets ursprungliga sökväg, t.ex. "/kostnad". */
@@ -59,7 +59,6 @@ export function useToolResultSignal({ base, hasResult, object }: Options) {
     }
     if (!was && hasResult && !interacted.current) return;
     if (!was && hasResult) {
-      if (object) trackToolCompleted(object, resultPath(base));
       if (!onResultUrl) navigate(`${resultPath(base)}${location.search}`, { state: location.state });
     } else if (was && !hasResult && onResultUrl) {
       // Besökaren börjar om: tillbaka till startadressen.
