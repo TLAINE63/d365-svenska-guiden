@@ -228,7 +228,6 @@ const utilityLink = "font-medium text-white/70 hover:text-[hsl(var(--signature))
 const mobileLink = "block py-1.5 text-base font-medium text-muted-foreground hover:text-[hsl(var(--signature))] transition-colors";
 
 const Navbar = () => {
-  const [erp, crm, tools, partners] = MENUS;
   return (
     <nav
       data-site-nav
@@ -240,6 +239,7 @@ const Navbar = () => {
       <div className="hidden lg:block border-b border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))]">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-sm">
+            <Link to="/befintlig-kund/" className={utilityLink}>Redan Dynamics-kund?</Link>
             <Link to="/fraga/" className={`inline-flex items-center gap-1.5 ${utilityLink}`}>
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               Fråga d365.se
@@ -271,16 +271,9 @@ const Navbar = () => {
 
           {/* Huvudmeny desktop */}
           <div className="hidden lg:flex items-center gap-5 xl:gap-7">
-            <DesktopMenu menu={erp} />
-            <DesktopMenu menu={crm} />
-            <Link to="/branscher/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors">
-              Branscher
-            </Link>
-            <DesktopMenu menu={tools} />
-            <DesktopMenu menu={partners} />
-            <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-sm font-medium text-white hover:text-[hsl(var(--signature))] transition-colors whitespace-nowrap">
-              Tilläggslösningar
-            </Link>
+            {MENUS.map((m) => (
+              <DesktopMenu key={m.label} menu={m} />
+            ))}
             <Link
               to="/valjdynamics365partner/"
               data-nav-cta
@@ -313,24 +306,12 @@ const Navbar = () => {
                   </Link>
                 </SheetClose>
                 <Accordion type="single" collapsible className="w-full">
-                  {[erp, crm].map((m) => (
+                  {MENUS.map((m) => (
                     <MobileGroup key={m.label} menu={m} />
                   ))}
-                  <div className="border-b border-border py-4">
-                    <SheetClose asChild>
-                      <Link to="/branscher/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Branscher</Link>
-                    </SheetClose>
-                  </div>
-                  {[tools, partners].map((m) => (
-                    <MobileGroup key={m.label} menu={m} />
-                  ))}
-                  <div className="border-b border-border py-4">
-                    <SheetClose asChild>
-                      <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-base font-semibold text-foreground hover:text-[hsl(var(--signature))]">Tilläggslösningar</Link>
-                    </SheetClose>
-                  </div>
                 </Accordion>
                 <div className="flex flex-col gap-1 pt-2">
+                  <SheetClose asChild><Link to="/befintlig-kund/" className={mobileLink}>Redan Dynamics-kund?</Link></SheetClose>
                   <SheetClose asChild><Link to="/fraga/" className={`inline-flex items-center gap-2 ${mobileLink}`}><Sparkles className="h-4 w-4" aria-hidden="true" />Fråga d365.se</Link></SheetClose>
                   <SheetClose asChild><Link to="/kunskapscenter" className={mobileLink}>Kunskapscenter</Link></SheetClose>
                   <SheetClose asChild><Link to="/aktuellt/" className={mobileLink}>Aktuellt</Link></SheetClose>
