@@ -76,8 +76,8 @@ export default function TackNedladdning() {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Tack – ditt underlag är på väg | d365.se</title>
-        <meta name="robots" content="noindex,nofollow" />
-        <link rel="canonical" href="https://d365.se/tack-nedladdning/" />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href={`https://d365.se${location.pathname.startsWith("/hamtat/") ? location.pathname : "/tack-nedladdning/"}`} />
       </Helmet>
       <Navbar />
 

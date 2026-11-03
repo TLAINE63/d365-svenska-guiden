@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { downloadSlug } from "@/lib/thanksPages";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Download, FileText, Loader2, Lock, ShieldCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -198,7 +199,7 @@ const GatedPdfDownload = ({
       // Tack-sida med nästa steg (PDF:en kan laddas ned igen därifrån).
       const deliveryKey = `${sourceType}:${Date.now()}`;
       setPdfDelivery(deliveryKey, deliver);
-      navigate("/tack-nedladdning", {
+      navigate(`/hamtat/${downloadSlug(sourceType)}/`, {
         state: {
           documentName,
           sourceType,

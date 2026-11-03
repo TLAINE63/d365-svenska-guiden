@@ -432,6 +432,7 @@ const AppShell = () => {
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
           <Route path="/beslutsmognad/resultat" element={<BeslutsmognadResultat />} />
           <Route path="/tack-nedladdning" element={<TackNedladdning />} />
+          <Route path="/hamtat/:slug" element={<TackNedladdning />} />
           <Route path="/beslutsmognadsindex" element={<RedirectTo to="/beslutsmognad" />} />
           <Route path="/beslutsmognadsindex/diagnostik" element={<RedirectTo to="/beslutsmognad/diagnostik" />} />
           <Route path="/beslutsmognadsindex/tack" element={<RedirectTo to="/beslutsmognad/tack" />} />
