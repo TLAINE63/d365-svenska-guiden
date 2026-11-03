@@ -29,6 +29,17 @@ export function useToolResultSignal({ base, hasResult, object }: Options) {
   const navigate = useNavigate();
   const onResultUrl = norm(location.pathname) === norm(resultPath(base));
   const prev = useRef<boolean | null>(null);
+  // Resultat som dyker upp utan att besökaren gjort något (återställd progress, hydrering) räknas inte.
+  const interacted = useRef(false);
+  useEffect(() => {
+    const mark = () => { interacted.current = true; };
+    window.addEventListener("pointerdown", mark, true);
+    window.addEventListener("keydown", mark, true);
+    return () => {
+      window.removeEventListener("pointerdown", mark, true);
+      window.removeEventListener("keydown", mark, true);
+    };
+  }, []);
 
   useEffect(() => {
     const was = prev.current;
@@ -38,6 +49,7 @@ export function useToolResultSignal({ base, hasResult, object }: Options) {
       if (onResultUrl && !hasResult) navigate(`${norm(base)}/${location.search}`, { replace: true });
       return;
     }
+    if (!was && hasResult && !interacted.current) return;
     if (!was && hasResult) {
       if (object) trackToolCompleted(object, resultPath(base));
       if (!onResultUrl) navigate(`${resultPath(base)}${location.search}`, { state: location.state });
