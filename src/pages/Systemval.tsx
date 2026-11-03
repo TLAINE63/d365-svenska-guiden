@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -80,6 +81,7 @@ export default function Systemval() {
   const picture = useMemo(() => (question ? null : buildSolutionPicture(state, erp)), [question, state, erp]);
   const solutionMap = useMemo(() => (picture ? buildSolutionMap(state, picture) : null), [picture, state]);
   const result = useMemo(() => (picture && solutionMap ? buildSystemvalResult(state, picture, solutionMap) : null), [picture, solutionMap, state]);
+  useToolResultSignal({ base: "/kom-igang", hasResult: !question && !!picture && !!result && !deepMode, object: "kom-igang" });
   const fromResult = useRef(false);
   const po = state.moduleResults.projects as PoResult | undefined;
   const summary: AnswerSummaryItem[] = useMemo(() => state.path.map((id, index) => {

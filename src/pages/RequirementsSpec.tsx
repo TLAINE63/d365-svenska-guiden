@@ -1,4 +1,5 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { markDownloadUrl } from "@/lib/thanksPages";
 import { createKravJourney, prefillSourceText } from "@/lib/calcToKrav";
 import { useState, useEffect, useRef } from "react";
@@ -124,6 +125,7 @@ const RequirementsSpec = () => {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
+  useToolResultSignal({ base: "/kravspecifikation", hasResult: step === 4 && !!result, object: "kravspec-erp" });
   const [isvAddons, setIsvAddons] = useState<SelectedIsvAddon[]>([]);
   const isvAddonText = isvAddons.length
     ? `Valda tilläggslösningar att offerera: ${isvAddons.map((a) => `${a.name} (${a.vendor})`).join(", ")}\n\n`

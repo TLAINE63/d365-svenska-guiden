@@ -1,4 +1,5 @@
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { isInternalTraffic } from "@/lib/sessionPages";
 import { useState, useEffect, useRef } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
@@ -508,6 +509,7 @@ const CustomerServiceNeedsAnalysis = () => {
  const { data: allPartners = [] } = usePartners();
  const [data, setData] = useState<CustomerServiceAnalysisData>(initialData);
  const [isComplete, setIsComplete] = useState(false);
+ useToolResultSignal({ base: "/kundservice-behovsanalys", hasResult: currentStep >= 8 || isComplete });
  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
  const [isSendingEmail, setIsSendingEmail] = useState(false);
  const { toast } = useToast();

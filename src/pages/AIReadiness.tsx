@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { markDownloadUrl } from "@/lib/thanksPages";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -824,6 +825,7 @@ type Step = "intro" | "foundation" | "role_select" | "role_questions" | "result"
 
 const AIReadiness = () => {
   const [step, setStep] = useState<Step>("intro");
+  useToolResultSignal({ base: "/ai-readiness", hasResult: step === "result", object: "ai-readiness" });
   const [foundationStep, setFoundationStep] = useState(0);
   const [foundationAnswers, setFoundationAnswers] = useState<FoundationAnswers>({
     system: [],

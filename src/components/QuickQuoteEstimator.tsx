@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link } from "react-router-dom";
 import { Calculator, ArrowRight } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -63,6 +64,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
   const [integrations, setIntegrations] = useState(0);
   const [industry, setIndustry] = useState<string>("");
   const [showEstimate, setShowEstimate] = useState(false);
+  useToolResultSignal({ base: "/kostnad", hasResult: showEstimate, object: "kostnad" });
 
   const priceLookup = useMemo(
     () => (key: string) => {

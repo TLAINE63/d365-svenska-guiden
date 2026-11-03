@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -18,6 +19,7 @@ export default function CrmUnderlagTest() {
   const total = CRM_TEST_QUESTIONS.length;
   const answered = CRM_TEST_QUESTIONS.filter((q) => profile[q.section]?.[q.key] !== undefined).length;
   const done = answered === total;
+  useToolResultSignal({ base: "/crm/matchningstest", hasResult: done, object: "crm-matchningstest" });
   const apps = useMemo(() => relevantCrmApps(profile), [profile]);
 
   useEffect(() => {

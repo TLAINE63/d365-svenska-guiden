@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { trackFreeDownload } from "@/lib/demandEvents";
 import { Link } from "react-router-dom";
 import { track } from "@/lib/track";
@@ -47,6 +48,7 @@ const NavBcTest = () => {
   const value = answers[q.id];
   const answered = q.multi ? Array.isArray(value) && value.length > 0 : !!value;
   const result = useMemo(() => (done ? calculateNavResult(answers) : null), [done, answers]);
+  useToolResultSignal({ base: "/nav-till-business-central", hasResult: !!result, object: "nav-till-business-central" });
 
   useEffect(() => {
     if (!result) return;

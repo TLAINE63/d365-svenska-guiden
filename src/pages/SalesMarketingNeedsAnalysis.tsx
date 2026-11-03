@@ -1,4 +1,5 @@
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
+import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { isInternalTraffic } from "@/lib/sessionPages";
 import { useState, useEffect } from "react";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
@@ -536,6 +537,7 @@ const SalesMarketingNeedsAnalysis = () => {
  const { data: allPartners = [] } = usePartners();
  const [data, setData] = useState<SalesMarketingAnalysisData>(initialData);
  const [isComplete, setIsComplete] = useState(false);
+ useToolResultSignal({ base: "/CRMbehovsanalys", hasResult: currentStep >= 9 || isComplete });
  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
  const [isSendingEmail, setIsSendingEmail] = useState(false);
  const { toast } = useToast();
