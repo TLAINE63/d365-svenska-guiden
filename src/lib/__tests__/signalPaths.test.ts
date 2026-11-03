@@ -26,3 +26,10 @@ describe("admin export default date", () => {
     expect(defaultFromDate(new Date("2026-11-03T12:00:00Z"))).toBe("2026-10-27");
   });
 });
+
+import { THANKS_KINDS } from "../thanksPages";
+describe("signal paths cover all thank-you kinds", () => {
+  it("includes every /tack/ kind", () => {
+    for (const k of THANKS_KINDS) expect(SIGNAL_PATHS).toContain(`/tack/${k}/`);
+  });
+});

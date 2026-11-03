@@ -3,7 +3,8 @@
  * i den HTML servern levererar. Regeln används av prerender-pluginet; listan anger vilka
  * kända adresser som får en egen statisk HTML-fil.
  */
-import { THANKS_KINDS } from "./thanksPages";
+// Speglar THANKS_KINDS i thanksPages.ts (importeras inte: filen används av byggskriptet utan DOM).
+const THANKS_KINDS = ["radgivning", "second-opinion", "partnermatchning", "kompetens", "skicka-underlag", "underlag", "kontakt"];
 
 export const SIGNAL_ROBOTS_META = '<meta name="robots" content="noindex, follow" />';
 
