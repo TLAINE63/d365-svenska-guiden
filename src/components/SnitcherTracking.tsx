@@ -10,8 +10,9 @@ import { useEffect } from "react";
  */
 const CONSENT_KEY_V2 = "cookie-consent-v2";
 const CONFIG = {
-  apiEndpoint: "radar.snitcher.com",
-  cdn: "cdn.snitcher.com",
+  // First-party-subdomän (CNAME → Snitchers CloudFront), aktiverad 2026-11-03
+  apiEndpoint: "rsjpmb.d365.se",
+  cdn: "rsjpmb.d365.se",
   namespace: "Snitcher",
   profileId: "sisWjf3iiU",
 };
