@@ -38,6 +38,18 @@ import {
   trackIsv,
   type IsvInformationStatus,
 } from "@/lib/isvInformationStatus";
+import partnerData from "@/data/partnerData.json";
+import { matchVerifiedPartner, isVendorVerified, productExposure, type FeaturedPartnerLite } from "@/lib/isvVisibility";
+
+const FEATURED_PARTNERS = (partnerData as FeaturedPartnerLite[]).filter((p) => p.is_featured);
+const vendorInfo = (s: IsvSolution, vendor?: IsvVendorPublic) => {
+  const partner = matchVerifiedPartner(vendor?.name || s.vendor, s.vendorSlug, FEATURED_PARTNERS);
+  const vendorVerified = isVendorVerified(vendor?.information_status, partner);
+  const product = productExposure(s.informationStatus);
+  const logo = product.showLogo ? vendor?.logo_url || partner?.logo_url || null : null;
+  const website = product.showWebsite ? s.vendorWebsite || vendor?.website || partner?.website || null : null;
+  return { partner, vendorVerified, product, logo, website };
+};
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
@@ -166,7 +178,8 @@ function FilterRow<T extends string>({
   );
 }
 
-const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => {
+const SolutionCard = ({ s, onOpen, vendor }: { s: IsvSolution; onOpen: () => void; vendor?: IsvVendorPublic }) => {
+  const { logo } = vendorInfo(s, vendor);
   const products = solutionProducts(s);
   const industries = solutionIndustries(s).map((i) => i.name);
   const partnerCount = (s.partnerSlugs?.length || 0) || s.partnersSE?.length || 0;
@@ -183,9 +196,15 @@ const SolutionCard = ({ s, onOpen }: { s: IsvSolution; onOpen: () => void }) => 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.25),transparent_60%)]" />
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-[linear-gradient(90deg,hsl(var(--primary)),hsl(var(--primary-glow)))]" />
         <div className="relative flex items-start gap-4">
+          {logo ? (
+            <div className="w-12 h-12 shrink-0 rounded-lg bg-card border border-white/20 shadow-lg flex items-center justify-center p-1.5">
+              <img src={logo} alt={`${s.vendor} logotyp`} loading="lazy" className="max-w-full max-h-full object-contain" />
+            </div>
+          ) : (
           <div className="w-12 h-12 shrink-0 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm shadow-lg flex items-center justify-center font-['Playfair_Display'] text-lg font-semibold text-white">
             {initials}
           </div>
+          )}
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 truncate">
               {s.vendor}
@@ -513,8 +532,17 @@ const SolutionDetail = ({
                 <InformationStatusBadge
                   kind="isv"
                   showDate
-                  partner={{ information_status: vendor?.information_status, information_verified_at: vendor?.last_verified_date }}
+                  partner={{ information_status: vendorInfo(s, vendor).vendorVerified ? "verified" : vendor?.information_status, information_verified_at: vendor?.last_verified_date }}
                 />
+                {vendorInfo(s, vendor).partner && (
+                  <p className="text-xs text-muted-foreground">
+                    Leverantören är även verifierad partner på d365.se.{" "}
+                    <Link to={`/partner/${vendorInfo(s, vendor).partner!.slug}/`} className="text-primary underline underline-offset-2">Se partnerprofilen</Link>
+                  </p>
+                )}
+                {vendorInfo(s, vendor).vendorVerified && vendorInfo(s, vendor).partner?.contact_person && (
+                  <p className="text-foreground/80"><span className="font-semibold">Kontaktperson:</span> {vendorInfo(s, vendor).partner!.contact_person}</p>
+                )}
                 <p className="text-foreground/80">
                   {vendor?.description || "Leverantören har ännu inte beskrivit sin verksamhet på d365.se."}
                 </p>
@@ -525,10 +553,10 @@ const SolutionDetail = ({
             </details>
 
             <section className="space-y-2 pt-3 border-t border-border" aria-label="Nästa steg">
-              {(s.vendorWebsite || vendor?.website) && (
+              {vendorInfo(s, vendor).website && (
                 <Button asChild className="w-full h-auto min-h-10 whitespace-normal">
                   <a
-                    href={withUtm((s.vendorWebsite || vendor?.website)!)}
+                    href={withUtm(vendorInfo(s, vendor).website!)}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() =>
@@ -545,7 +573,7 @@ const SolutionDetail = ({
                 </Button>
               )}
               <Button
-                variant={s.vendorWebsite || vendor?.website ? "outline" : "default"}
+                variant={vendorInfo(s, vendor).website ? "outline" : "default"}
                 className="w-full h-auto min-h-10 whitespace-normal"
                 onClick={() => onHelp(s)}
               >
@@ -1136,7 +1164,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {list.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
+                  <SolutionCard key={s.id} s={s} vendor={s.vendorSlug ? vendors[s.vendorSlug] : undefined} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -1154,7 +1182,7 @@ const BcIsvCatalog = ({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {singles.map((s) => (
-                  <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
+                  <SolutionCard key={s.id} s={s} vendor={s.vendorSlug ? vendors[s.vendorSlug] : undefined} onOpen={() => openSolution(s)} />
                 ))}
               </div>
             </section>
@@ -1163,7 +1191,7 @@ const BcIsvCatalog = ({
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((s) => (
-            <SolutionCard key={s.id} s={s} onOpen={() => openSolution(s)} />
+            <SolutionCard key={s.id} s={s} vendor={s.vendorSlug ? vendors[s.vendorSlug] : undefined} onOpen={() => openSolution(s)} />
           ))}
         </div>
       )}
