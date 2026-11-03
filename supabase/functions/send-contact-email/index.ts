@@ -1,5 +1,7 @@
 import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
+import { formContextFields } from "../_shared/formContext.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -90,6 +92,13 @@ interface ContactEmailRequest {
   description: string;
   honeypot?: string; // Honeypot field - should always be empty
   subject?: string; // Optional custom email subject prefix
+  /** "kontakt" när köparens kontaktformulär ska sparas (inte partnerprogrammet). */
+  store_as?: string;
+  company?: string;
+  session_pages?: string[];
+  landing_page?: string;
+  source_page?: string;
+  consent_text_version?: string;
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -179,6 +188,30 @@ serve(async (req: Request): Promise<Response> => {
     const safeEmail = sanitizeHtml(email.trim());
     const safePhone = phone ? sanitizeHtml(phone.trim()) : "Ej angivet";
     const safeDescription = sanitizeHtml(description.trim());
+
+    // Köparens kontaktformulär sparas också (Demand Engine, steg 2); fel stoppar aldrig mejlet.
+    if (body.store_as === "kontakt") {
+      try {
+        const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+        const ctx = formContextFields(body as unknown as Record<string, unknown>);
+        const { error: storeErr } = await sb.from("leads").insert({
+          company_name: typeof body.company === "string" ? body.company.trim().slice(0, 200) : "",
+          contact_name: name.trim().slice(0, 100),
+          email: email.trim().toLowerCase().slice(0, 255),
+          phone: phone ? phone.trim().slice(0, 30) : null,
+          message: description.trim().slice(0, 5000),
+          source_type: "kontakt",
+          source_page: ctx.source_page,
+          landing_page: ctx.landing_page,
+          session_pages: ctx.session_pages,
+          consent_text_version: ctx.consent_text_version,
+          status: "new",
+        });
+        if (storeErr) console.error("contact store failed");
+      } catch {
+        console.error("contact store failed");
+      }
+    }
 
     console.log("Sending contact email");
 
