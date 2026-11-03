@@ -1,7 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Tilläggslösningar (2026-11-03)
-- [ ] "Endast verifierade lösningar" förkryssat som standard i katalogen
+- [x] "Endast verifierade lösningar" förkryssat som standard i katalogen
 
 ## Partnerprogram, ny sida (2026-11-03)
 - [ ] Steg 1–2: inventering av funktioner och affärsmodell (inga ändringar)
