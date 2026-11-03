@@ -137,6 +137,8 @@ export const RELEVANCE_LABEL: Record<Relevance, string> = {
 export interface IsvSolution {
   id: string;
   name: string;
+  /** Produktlogotyp (visas bara när produkten är verifierad). */
+  logoUrl?: string;
   vendor: string;
   shortDescription: string;       // 1 rad till kortet
   type: SolutionType;
