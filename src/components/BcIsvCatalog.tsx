@@ -19,7 +19,7 @@ import {
   type DeliveryModel,
   type IsvSolution,
 } from "@/data/bcIsvSolutions";
-import { useIsvSolutions, useIsvVendors, type IsvVendorPublic } from "@/hooks/useIsvSolutions";
+import { useIsvSolutions, useIsvVendors, useVerifiedIsvContacts, type IsvVendorPublic, type IsvPublicContact } from "@/hooks/useIsvSolutions";
 import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { ISV_COMPARISONS } from "@/data/isvComparisons";
@@ -31,6 +31,7 @@ import { ISV_BUYER_NEEDS, needForCategory, categoriesForQuery } from "@/lib/isvB
 import { standardIndustriesFor } from "@/lib/isvIndustries";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
+import ProtectedContact from "@/components/partner/ProtectedContact";
 import {
   isvHelpLines,
   isvInformationStatusOf,
@@ -350,11 +351,13 @@ const SolutionDetail = ({
   onClose,
   vendor,
   onHelp,
+  contacts,
 }: {
   s: IsvSolution | null;
   onClose: () => void;
   vendor?: IsvVendorPublic;
   onHelp: (s: IsvSolution) => void;
+  contacts?: { vendor: Record<string, IsvPublicContact>; product: Record<string, IsvPublicContact> };
 }) => (
   <Dialog open={!!s} onOpenChange={(o) => !o && onClose()}>
     <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0 overflow-x-hidden">
@@ -540,9 +543,17 @@ const SolutionDetail = ({
                     <Link to={`/partner/${vendorInfo(s, vendor).partner!.slug}/`} className="text-primary underline underline-offset-2">Se partnerprofilen</Link>
                   </p>
                 )}
-                {vendorInfo(s, vendor).vendorVerified && vendorInfo(s, vendor).partner?.contact_person && (
-                  <p className="text-foreground/80"><span className="font-semibold">Kontaktperson:</span> {vendorInfo(s, vendor).partner!.contact_person}</p>
-                )}
+                {vendorInfo(s, vendor).vendorVerified && (() => {
+                  const c = s.vendorSlug ? contacts?.vendor[s.vendorSlug] : undefined;
+                  const name = c?.contact_name || vendorInfo(s, vendor).partner?.contact_person;
+                  if (!name && !c?.contact_email) return null;
+                  return (
+                    <div className="space-y-1 text-foreground/80">
+                      {name && <p><span className="font-semibold">Kontaktperson:</span> {name}</p>}
+                      {c?.contact_email && <ProtectedContact kind="email" value={c.contact_email} className="text-sm text-primary" />}
+                    </div>
+                  );
+                })()}
                 <p className="text-foreground/80">
                   {vendor?.description || "Leverantören har ännu inte beskrivit sin verksamhet på d365.se."}
                 </p>
@@ -551,6 +562,20 @@ const SolutionDetail = ({
                 </p>
               </div>
             </details>
+
+            {vendorInfo(s, vendor).product.showContact && contacts?.product[s.id] && (() => {
+              const c = contacts.product[s.id];
+              return (
+                <section aria-label="Kontakt för produkten" className="rounded-lg border border-border p-4 space-y-1.5">
+                  <h4 className="font-semibold text-foreground">Kontakt för {s.name}</h4>
+                  {c.contact_name && <p className="text-foreground/80">{c.contact_name}</p>}
+                  <div className="flex flex-wrap gap-x-5 gap-y-1">
+                    {c.contact_email && <ProtectedContact kind="email" value={c.contact_email} className="text-sm text-primary" />}
+                    {c.contact_phone && <ProtectedContact kind="phone" value={c.contact_phone} className="text-sm text-primary" />}
+                  </div>
+                </section>
+              );
+            })()}
 
             <section className="space-y-2 pt-3 border-t border-border" aria-label="Nästa steg">
               {vendorInfo(s, vendor).website && (
@@ -648,6 +673,7 @@ const BcIsvCatalog = ({
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
   const vendors = useIsvVendors();
+  const contacts = useVerifiedIsvContacts();
 
   /** Av eller på: alla lösningar, eller endast verifierade av d365.se. */
   const applyStatus = (v: IsvInformationStatus | null) => {
@@ -1200,6 +1226,7 @@ const BcIsvCatalog = ({
         s={open}
         onClose={() => setOpen(null)}
         vendor={open?.vendorSlug ? vendors[open.vendorSlug] : undefined}
+        contacts={contacts}
         onHelp={(s) => setHelpFor(s)}
       />
 
