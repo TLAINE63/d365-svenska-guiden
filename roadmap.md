@@ -7,6 +7,9 @@
 - [ ] Steg 1–2: inventering av funktioner och affärsmodell (inga ändringar)
 - [ ] Steg 3: sidförslag med sex sektioner – presenteras för godkännande före implementation
 
+## ISV-programmet, vässning (2026-11-03)
+- [ ] Inventera ISV-funktioner (Standard vs ISV Presence, leverantörs-/produktverifiering, businesscentral.se, priser/extra appar) och återrapportera före implementation
+
 ## Signalinsamling för Demand Engine (2026-11-03)
 - [x] Steg 0: inventering av verktyg, formulär, underlag, Snitcher och inskick (inga ändringar)
 - [x] Snitcher laddas först efter samtycke, first-party-subdomän
