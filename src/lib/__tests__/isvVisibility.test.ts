@@ -22,6 +22,6 @@ describe("isv visibility", () => {
   });
   it("ISV Presence: 5 990 kr incl one app, +995 kr per extra app", () => {
     expect(isvPresenceYearlyPrice(1)).toBe(5990);
-    expect(isvPresenceYearlyPrice(3)).toBe(5980);
+    expect(isvPresenceYearlyPrice(3)).toBe(7980);
   });
 });
