@@ -47,7 +47,7 @@ const GuideSearch = ({ className = "", placeholder = "Sök guide eller partner�
       .map((p) => ({
         key: `partner-${p.slug}`,
         label: p.name,
-        sub: (p.applications || []).slice(0, 3).join(" · ") || "Partnerverifierad profil",
+        sub: (p.applications || []).slice(0, 3).join(" · ") || "D365 Verifierad",
         to: `/partner/${p.slug}`,
         kind: "partner" as const,
       }));

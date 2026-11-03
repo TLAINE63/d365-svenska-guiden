@@ -279,7 +279,7 @@ export default function IndustryVerifiedPartnerCard({
         <div className="mb-3 flex items-center justify-between gap-4">
         <div className="min-w-0">
           <p className="text-xs font-semibold text-[hsl(var(--border-on-dark))]">
-            {industry || "Partnerverifierad profil"}
+            {industry || "D365 Verifierad"}
           </p>
           {partner.geography?.length > 0 && (
             <p className="mt-0.5 truncate text-[10px] text-[hsl(var(--muted-dark))]">
