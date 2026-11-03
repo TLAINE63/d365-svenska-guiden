@@ -9,7 +9,6 @@ import {
   isKnowledgeEntryId,
   matchesSearch,
   recommendFor,
-  situationsFor,
   topicsFor,
   type KnowledgeEntryId,
   type KnowledgeTopic,
@@ -1207,7 +1206,7 @@ const Kunskapscenter = () => {
  <div className="hidden lg:block w-px h-8 bg-border mx-1" />
 
  {/* Dropdown filters */}
- <div className="flex gap-2">
+ <div className="flex flex-wrap gap-2">
  <MultiSelectDropdown<FormatValue>
  label="Format"
  options={FORMAT_OPTIONS}
