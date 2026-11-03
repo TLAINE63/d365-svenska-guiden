@@ -188,8 +188,14 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
       <CardContent className="space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <Button size="sm" variant={tab === "vendors" ? "default" : "outline"} onClick={() => setTab("vendors")}>Leverantörer ({vendors.length})</Button>
-          <Button size="sm" variant={tab === "products" ? "default" : "outline"} onClick={() => setTab("products")}>Produkter ({products.length})</Button>
+          <Button size="sm" variant={tab === "products" ? "default" : "outline"} onClick={() => setTab("products")}>Produkter ({vendorFilter ? pList.length : products.length})</Button>
           <Input className="max-w-xs h-9" placeholder="Sök…" value={q} onChange={(e) => setQ(e.target.value)} />
+          {tab === "products" && vendorFilter && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs">
+              Leverantör: <strong>{vendorFilter.name}</strong>
+              <button type="button" className="text-primary hover:underline" onClick={() => setVendorFilter(null)}>Visa alla</button>
+            </span>
+          )}
           {loading && <span className="text-xs text-muted-foreground">Laddar…</span>}
         </div>
         <div className="rounded-md border overflow-x-auto max-h-[70vh]">
@@ -212,8 +218,11 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired }: Props) 
                     <TableRow key={v.slug}>
                       <TableCell>
                         <p className="font-medium">{v.name}</p>
-                        <button type="button" className="text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "vendor", key: v.slug, name: v.name, logo_url: v.logo_url, contact: v.contact, verified: v.information_status === "verified" })}>
+                        <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "vendor", key: v.slug, name: v.name, logo_url: v.logo_url, contact: v.contact, verified: v.information_status === "verified" })}>
                           Logotyp och kontakt{v.logo_url ? " ✓" : ""}
+                        </button>
+                        <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => showVendorProducts(v)}>
+                          Visa produkter ({countFor(v)})
                         </button>
                       </TableCell>
                       {statusCells(v, "vendor", v.slug)}
