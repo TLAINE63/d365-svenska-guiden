@@ -3,6 +3,7 @@ import { z } from "npm:zod@3";
 import { Resend } from "../_shared/branded-resend.ts";
 import { inquiryCors, isInquiryOrigin, siteFromOrigin } from "../_shared/inquiry-cors.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
+import { cleanSessionPages, cleanPagePath, cleanConsentVersion } from "../_shared/formContext.ts";
 
 const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
 const s = (n: number) => z.string().trim().max(n).optional().nullable();
@@ -29,6 +30,8 @@ const Body = z.object({
   }).optional().nullable(),
   utm_source: s(100), utm_medium: s(100), utm_campaign: s(100), utm_content: s(100), utm_term: s(100),
   referrer: s(500), landing_page: s(500), session_id: s(100),
+  source_page: s(300), consent_text_version: s(40),
+  session_pages: z.array(z.string().max(300)).max(30).optional().nullable(),
 });
 
 const cleanSel = (v: Record<string, unknown> | null | undefined) => {
@@ -98,7 +101,7 @@ Deno.serve(async (req) => {
   try {
     const parsed = Body.safeParse(await req.json());
     if (!parsed.success) return json({ error: "Kontrollera uppgifterna i formuläret.", fields: parsed.error.flatten().fieldErrors }, 400, cors);
-    const d = parsed.data;
+    const d = { ...parsed.data, session_pages: cleanSessionPages(parsed.data.session_pages), source_page: cleanPagePath(parsed.data.source_page), consent_text_version: cleanConsentVersion(parsed.data.consent_text_version) };
     if (isFreeEmailDomain(d.email)) return json({ error: FREE_EMAIL_ERROR_SV }, 400, cors);
     const approved = [...new Set(d.partners.filter((p) => p.consent).map((p) => p.slug))];
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
