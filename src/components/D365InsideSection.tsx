@@ -17,6 +17,8 @@ interface Props {
   /** Rubriknivå för sektionsrubriken, så sidans rubrikordning hålls. */
   headingLevel?: "h2" | "h3";
   className?: string;
+  /** Högst så många tidigare avsnitt (resten nås via biblioteket eller kanalen). */
+  maxEarlier?: number;
 }
 
 /** Sprint 2.1: relevanta köparnästa steg efter ett INSIDE-avsnitt. */
@@ -33,7 +35,7 @@ const channelLink = `${D365_INSIDE_CHANNEL_URL}?utm_source=d365.se&utm_medium=re
  * YouTube-kanalen. Publicerade avsnitt i videobiblioteket (kanalnamn med "INSIDE")
  * slås ihop med reservlistan så att nya avsnitt dyker upp utan kodändring.
  */
-export default function D365InsideSection({ headingLevel = "h2", className = "" }: Props) {
+export default function D365InsideSection({ headingLevel = "h2", className = "", maxEarlier }: Props) {
   const [dbEpisodes, setDbEpisodes] = useState<D365InsideEpisode[]>([]);
 
   useEffect(() => {
@@ -71,7 +73,8 @@ export default function D365InsideSection({ headingLevel = "h2", className = "" 
     return [...byId.values()].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   }, [dbEpisodes]);
 
-  const [latest, ...earlier] = episodes;
+  const [latest, ...rest] = episodes;
+  const earlier = typeof maxEarlier === "number" ? rest.slice(0, maxEarlier) : rest;
   const Heading = headingLevel;
   const SubHeading = headingLevel === "h2" ? "h3" : "h4";
 
