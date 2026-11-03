@@ -57,7 +57,8 @@ interface ContactFormDialogProps {
   subject?: string;
 }
 
-const ContactFormDialog = ({ children, title, description, subject }: ContactFormDialogProps) => {
+const ContactFormDialog = ({ children, title, description, subject, buyerForm = true }: ContactFormDialogProps) => {
+ const navigate = useNavigate();
  const [open, setOpen] = useState(false);
  const [isSubmitting, setIsSubmitting] = useState(false);
  const { toast } = useToast();
@@ -97,6 +98,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
         description: values.description,
         honeypot: values.website || "",
         subject: subject ?? "",
+        ...(buyerForm && !isInternalTraffic() ? { store_as: "kontakt", ...formContextBody() } : {}),
       },
     });
 
@@ -115,6 +117,7 @@ const ContactFormDialog = ({ children, title, description, subject }: ContactFor
 
  form.reset();
  setOpen(false);
+ if (buyerForm) navigate(thanksPath("kontakt"), { state: { title: "Tack för din förfrågan!", description: "Vi återkommer till dig så snart som möjligt.", back: typeof window !== "undefined" ? window.location.pathname : undefined } });
  } catch (error) {
  console.error("Failed to send contact email:", error);
  toast({
