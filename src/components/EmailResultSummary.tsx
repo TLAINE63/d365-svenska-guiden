@@ -49,7 +49,7 @@ export default function EmailResultSummary({ tool, lines, sourcePage, className 
       {done ? (
         <p className="flex items-start gap-2 text-sm text-foreground">
           <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden />
-          Skickat till {email}. {followUp ? "Thomas hör av sig." : "Ingen kommer att kontakta er."}
+          Vi har skickat en bekräftelselänk till {email}. Klicka på länken i mejlet så får ni resultatet. {followUp ? "Thomas hör av sig när ni bekräftat." : "Ingen kommer att kontakta er."}
         </p>
       ) : (
         <form onSubmit={submit} className="space-y-3">

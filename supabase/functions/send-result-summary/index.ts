@@ -1,7 +1,7 @@
 // Mejlar besökarens verktygsresultat (kostnadskalkyl eller behovsguide) till besökaren,
 // med tre frågor att ställa till leverantörer. Thomas notifieras bara om besökaren
 // uttryckligen kryssat i att d365.se får höra av sig. Inget skickas till partners.
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { brandEmail } from "../_shared/email-branding.ts";
 import { getCorsHeaders } from "../_shared/cors.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
