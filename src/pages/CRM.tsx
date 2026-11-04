@@ -36,6 +36,7 @@ import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import { crmApplications, allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import { usePartnerCompare } from "@/contexts/PartnerCompareContext";
@@ -204,7 +205,7 @@ const CRM = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Dynamics 365 CRM – guide, priser & partners"
+ title="Microsoft Dynamics 365 CRM, översikt, appar och köparguide"
  description={resolvePriceTokens("Köpguide för Dynamics 365 CRM: licenspriser från {{price:sales-professional:short}}, implementeringskostnad, jämförelse mot HubSpot och Salesforce samt svenska partners.")}
  canonicalPath="/crm"
  keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
@@ -224,7 +225,7 @@ const CRM = () => {
   <ProductHero
   icon={SalesIcon}
   eyebrow="CRM-guiden"
-  title="CRM-system – så väljer svenska företag rätt CRM"
+  title="Microsoft Dynamics 365 CRM – översikt, appar och köparguide"
   subhead="Vilken typ av CRM behöver ni, vad kostar det och när passar Dynamics 365? Vi utgår från ert problem och visar sedan vilka lösningar och partners som är relevanta."
   primary={{
     label: "Jämför CRM-partners",
@@ -258,6 +259,68 @@ const CRM = () => {
   <CrmBuyerGuideIntro />
   <EditorialAssessment assessment="crm" />
   <FitModel model="crm" heading="Vad avgör valet?" />
+
+  {/* CRM-nav (Thomas 2026-11-04): behov först, produktnamn sedan, länkar till varje modulsida. */}
+  <section id="crm-appar" className="py-10 sm:py-12 bg-background scroll-mt-24">
+   <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+    <div className="max-w-3xl mb-8">
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+      Vad är Dynamics{"\u00A0"}365 CRM (Customer Engagement)?
+     </h2>
+     <p className="text-muted-foreground mb-3">
+      Dynamics{"\u00A0"}365 CRM är Microsofts samlingsnamn för apparna inom försäljning, kundservice,
+      marknadsföring och fältservice. Microsoft kallar dem även Customer Engagement. Apparna köps
+      var för sig men delar samma kunddata, så sälj, service och marknad ser samma kund.
+     </p>
+     <p className="text-muted-foreground">
+      CRM arbetar i Outlook och Teams och kopplas till Microsoft{"\u00A0"}365. Det kan också integreras
+      med affärssystemen{" "}
+      <Link to="/businesscentral/" className="text-primary underline underline-offset-2">Business Central</Link>{" "}
+      och{" "}
+      <Link to="/finance-supply-chain/" className="text-primary underline underline-offset-2">Finance &amp; Supply Chain Management</Link>,
+      så att order, fakturor och kundhistorik hänger ihop.
+     </p>
+    </div>
+    <div className="grid gap-4 md:grid-cols-2">
+     {[
+      { need: "Försäljning (CRM)", icon: SalesIcon, text: "Leads, affärsmöjligheter, offerter och prognoser i en gemensam pipeline.", link: "Dynamics\u00A0365 Sales för pipeline, leads och säljstöd", to: "/d365sales/" },
+      { need: "Kundservice & ärendehantering", icon: CustomerServiceIcon, text: "Ärenden, köer, kunskapsbas och serviceåtaganden i ett flöde.", link: "Dynamics\u00A0365 Customer Service för omnikanal och ärendehantering", to: "/d365customerservice/" },
+      { need: "Marknadsföring & kundinsikter", icon: MarketingIcon, text: "Kunddata, segment, kampanjer och automatiserade kundresor.", link: "Dynamics\u00A0365 Customer Insights för marketing automation och kundresor", to: "/d365marketing/" },
+      { need: "Fältservice", icon: FieldServiceIcon, text: "Planering av tekniker, arbetsorder, serviceavtal och mobilapp ute hos kund.", link: "Dynamics\u00A0365 Field Service för tekniker och serviceavtal", to: "/d365fieldservice/" },
+     ].map((m) => (
+      <article key={m.to} className="rounded-lg border border-border bg-card p-6 flex flex-col">
+       <div className="flex items-center gap-3 mb-3">
+        <img src={m.icon} alt="" aria-hidden="true" className="h-8 w-8" />
+        <h2 className="text-xl font-bold text-card-foreground">{m.need}</h2>
+       </div>
+       <p className="text-sm text-muted-foreground mb-4">{m.text}</p>
+       <Link to={m.to} className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+        {m.link}
+        <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+       </Link>
+      </article>
+     ))}
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Driver ni ett kontaktcenter med telefoni och chatt? Se{" "}
+     <Link to="/d365contactcenter/" className="text-primary underline underline-offset-2">Dynamics{"\u00A0"}365 Contact Center</Link>.
+    </p>
+    <div className="mt-8 rounded-lg border border-primary/30 bg-primary/5 p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+     <div>
+      <h3 className="text-lg font-bold text-foreground mb-1">Vet ni vilken del ni behöver?</h3>
+      <p className="text-sm text-muted-foreground">Läs CRM-köparguiden eller jämför partners som levererat inom just ert område.</p>
+     </div>
+     <div className="flex flex-wrap gap-2">
+      <Button asChild>
+       <Link to="/dynamics-365-crm-partners-sverige/">Jämför CRM-partners<ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Link>
+      </Button>
+      <Button asChild variant="outline">
+       <Link to="/crm-koparguiden-2026/">Läs CRM-köparguiden 2026</Link>
+      </Button>
+     </div>
+    </div>
+   </div>
+  </section>
 
   {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
   <section className="py-10 sm:py-12 bg-background">

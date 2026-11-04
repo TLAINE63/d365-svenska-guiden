@@ -144,6 +144,25 @@ const D365CustomerService = () => {
           Behov av telefoni, fler kanaler och självservice ska bedömas tillsammans med ärendeflödet. Kontrollera vilka licenser, tillägg och integrationer som behövs för just er lösning, i stället för att utgå från att allt ingår. Copilot och automatisering behöver tillförlitlig information och tydliga kontrollpunkter.
         </p>
       </ShortAnswer>
+      <section id="arendehantering" className="py-8 sm:py-10 bg-background scroll-mt-24">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              Ärendehanteringssystem och kundservice i Dynamics&nbsp;365
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Customer Service fungerar som ett ärendehanteringssystem kopplat till CRM. Varje ärende
+              hör ihop med kunden, så handläggaren ser historik, avtal och tidigare kontakter.
+            </p>
+            <ul className="space-y-2 text-sm text-foreground list-disc pl-5">
+              <li>Ärenden skapas från e-post, webbformulär och portal och fördelas via köer och regler</li>
+              <li>Serviceåtaganden (SLA) följs upp per ärende med påminnelser och eskalering</li>
+              <li>Kunskapsbas för handläggare och för kundernas självservice</li>
+              <li>Chatt, telefoni och fler kanaler kräver ofta tillägg eller Contact Center, kontrollera licensen</li>
+            </ul>
+          </div>
+        </div>
+      </section>
       <BuyerFitSection fitKey="service" />
       <EditorialAssessment assessment="service" />
 
