@@ -27,7 +27,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/kontakt/": "2026-11-04",
   "/jamfor/dynamics-365-vs-salesforce/": "2026-10-30",
   "/d365commerce/": "2026-11-02",
-  "/d365humanresources/": "2026-11-02",
+  "/d365humanresources/": "2026-11-04",
   "/d365projectoperations/": "2026-11-02",
   "/copilot/": "2026-10-24",
   "/agents/": "2026-10-24",
