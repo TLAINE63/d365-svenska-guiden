@@ -267,6 +267,26 @@ const FinanceSupplyChain = () => {
      Se <a href="#pricing" className="text-primary underline underline-offset-4">licenspriserna</a> för respektive applikation längre ned.
     </p>
    </div>
+   </section>
+
+  <section id="lagerstyrning-wms" className="py-8 sm:py-12 bg-secondary/30 scroll-mt-24">
+   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Lagerstyrning och WMS i <span className="whitespace-nowrap">Microsoft Dynamics 365</span></h2>
+    <div className="space-y-4 text-muted-foreground">
+     <p>
+      I <span className="whitespace-nowrap">Dynamics 365</span> Supply Chain Management styrs lagret av samma planering som inköp och produktion. Huvudplaneringen räknar fram behov utifrån prognoser, order och säkerhetslager, så att ni kan hålla nere kapitalbindningen utan att riskera brist.
+     </p>
+     <p>
+      Den avancerade lagerstyrningen (WMS) hanterar flera lagerställen, lagerplatser, plock- och påfyllnadsregler, vågplock, cykelinventering, mobila skannrar och transporthantering. Den passar verksamheter med höga volymer, många artiklar eller krav på spårbarhet per batch och serienummer.
+     </p>
+     <p>
+      Business Central har ett standardlager med lagerplatser, plock, inleverans och artikelspårning, vilket räcker för många mindre och medelstora bolag. Behöver ni fullskaligt WMS med komplexa flöden, flera lagerställen och detaljerad lagerplatsstyrning är Supply Chain Management, eller ett tillägg till BC, det som brukar utvärderas.
+     </p>
+     <p>
+      Hitta partners med erfarenhet av lager och logistik i <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">partnerguiden</Link>.
+     </p>
+    </div>
+   </div>
   </section>
 
  {/* FAQ Section */}

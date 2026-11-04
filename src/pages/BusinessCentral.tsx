@@ -29,6 +29,7 @@ import PricingCard from "@/components/PricingCard";
 
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 import Navbar from "@/components/Navbar";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
@@ -250,7 +251,7 @@ const BusinessCentral = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Business Central – pris, funktioner & partners"
+ title="Business Central (BC) affärssystem – pris & partners"
  description={resolvePriceTokens("Vad kostar Dynamics 365 Business Central? Licens från {{price:bc-essentials:short}}, projekt från 50 000 kr, funktioner och svenska partners att jämföra.")}
  canonicalPath="/businesscentral"
  keywords="business central erp, business central partners, business central affärssystem, dynamics 365 business central, erp business central, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
@@ -295,7 +296,7 @@ const BusinessCentral = () => {
   <ProductHero
   icon={BusinessCentralIcon}
   eyebrow="Business Central"
-  title="När passar Microsoft Dynamics 365 Business Central er verksamhet?"
+  title={"När passar affärssystemet Microsoft\u00A0Dynamics\u00A0365 Business Central (BC) er verksamhet?"}
   subhead="Förstå vad Business Central kan lösa, bedöm era behov och jämför alternativen. Här kan ni räkna på kostnaden och hitta partners med relevant erfarenhet, i den ordning som passar ert beslut."
   primary={{ label: "Passar Business Central oss?", href: "#bc-passform" }}
   secondary={{ label: "Se pris och kostnad", href: "#pricing" }}
@@ -311,6 +312,23 @@ const BusinessCentral = () => {
  <p>Essentials täcker ekonomi, inköp, lager, försäljning och projekt. Premium lägger till tillverkning och servicehantering. Branschkrav kan kräva tillägg från Microsoft Marketplace. Kontrollera vad som ingår i standard och vad som behöver kompletteras innan ni väljer partner.</p>
  </ShortAnswer>
   <EditorialAssessment assessment="bc" />
+
+  <section id="vad-ar-bc" className="scroll-mt-28 py-8 sm:py-10 bg-background">
+   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Vad är <span className="whitespace-nowrap">Dynamics 365</span> BC?</h2>
+    <p className="text-muted-foreground mb-3">
+     BC är den vanliga förkortningen för <span className="whitespace-nowrap">Dynamics 365</span> Business Central, Microsofts affärssystem (ERP) för små och medelstora bolag. Det samlar ekonomi, inköp, lager, försäljning, projekt och, i Premium, tillverkning och service i en molntjänst.
+    </p>
+    <p className="text-muted-foreground mb-6">
+     Står ni inför partnervalet? Läs <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link> och jämför partners med erfarenhet av Business Central.
+    </p>
+    <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+     <h3 className="text-lg font-semibold text-card-foreground mb-2">Boka 20-minuters kostnadsfri rådgivning med Thomas</h3>
+     <p className="text-sm text-muted-foreground mb-4">Ett kort samtal om era behov och hur ni går vidare med Business Central. Ingen partner deltar i samtalet.</p>
+     <AdvisorContactButtons />
+    </div>
+   </div>
+  </section>
 
       <BcSiteHandoff />
       <SystemvalHandoffNote page="bc" />
