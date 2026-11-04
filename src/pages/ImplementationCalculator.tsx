@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import CostNextSteps from "@/components/cost/CostNextSteps";
 import { SOLUTION_TO_COST, costDrivers, orgSizeForUsers, startCostJourney, trackCost } from "@/lib/costJourney";
 import { Link } from "react-router-dom";
-import { Calculator, Clock, Info, Wallet, Layers, ArrowRight, Download } from "lucide-react";
+import { Calculator, Clock, Info, Wallet, Layers, ArrowRight, Download, ClipboardList, Settings2, Plug, GraduationCap, Rocket, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -46,6 +46,60 @@ const ASSUMPTIONS = [
   "Datamigrering +12 %, egen utveckling +20 %, utbildning tillkommer utifrån antal användare.",
   "Spannet visas som −20 % / +30 % kring mittvärdet. Förvaltning uppskattas till 15 % av implementationskostnaden per år.",
   "Licenskostnaden hämtas från våra publicerade listpriser för Dynamics 365 och antar en licens per användare. Verkliga priser påverkas av avtalsform och mix av licenstyper.",
+];
+
+// Redaktionell genomgång av de fem faserna (Thomas 2026-11-04).
+const IMPLEMENTATION_PHASES: { title: string; icon: typeof Calculator; summary: string; points: string[] }[] = [
+  {
+    title: "Förstudie & kravbild",
+    icon: ClipboardList,
+    summary: "Ni beskriver hur verksamheten fungerar i dag och vad det nya systemet måste klara.",
+    points: [
+      "Kartlägg processer, roller och de undantag som måste hanteras",
+      "Prioritera krav: måste, bör och kan vänta till fas 2",
+      "Lista system som ska integreras och data som ska flyttas",
+    ],
+  },
+  {
+    title: "Lösningsdesign & konfiguration",
+    icon: Settings2,
+    summary: "Partnern översätter kravbilden till en lösning och sätter upp systemet.",
+    points: [
+      "Välj standardflöden först, anpassa bara där det ger affärsnytta",
+      "Bestäm licensnivå och eventuella tilläggslösningar",
+      "Konfigurera i omgångar med demo för nyckelanvändare",
+    ],
+  },
+  {
+    title: "Integrationer & datamigrering",
+    icon: Plug,
+    summary: "Ofta den största kostnadsdrivaren och den vanligaste orsaken till förseningar.",
+    points: [
+      "Definiera riktning, frekvens och ansvar för varje integration",
+      "Rensa och strukturera data innan den flyttas",
+      "Provmigrera minst en gång före skarp flytt",
+    ],
+  },
+  {
+    title: "Användartester & utbildning",
+    icon: GraduationCap,
+    summary: "Verksamheten testar hela flöden och lär sig arbeta i det nya systemet.",
+    points: [
+      "Testa verkliga scenarier från order till faktura eller ärende till lösning",
+      "Utbilda nyckelanvändare först, som sedan stöttar kollegorna",
+      "Godkänn formellt innan go-live",
+    ],
+  },
+  {
+    title: "Go-live & hypercare",
+    icon: Rocket,
+    summary: "Systemet tas i drift och partnern ger förstärkt stöd de första veckorna.",
+    points: [
+      "Planera driftstarten utanför bokslut och högsäsong",
+      "Bestäm i förväg hur länge hypercare pågår och vad den omfattar",
+      "Gå över till förvaltningsavtal med tydliga svarstider",
+    ],
+  },
 ];
 
 
@@ -213,8 +267,8 @@ export default function ImplementationCalculator() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Kalkylator: pris & omfattning för Dynamics 365"
-        description="Räkna fram en budget för er Dynamics 365-implementation: licens per månad, införandekostnad och tidplan utifrån användare, integrationer och komplexitet."
+        title="Dynamics 365 implementation, faser, tidsplan och kalkylator"
+        description="Så går en Dynamics 365-implementation till: fem faser, tumregler för tidsplan och en kalkylator för införandekostnad, licens och tidplan."
         canonicalPath="/implementationskalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -234,17 +288,29 @@ export default function ImplementationCalculator() {
               Underlag inför budget och offert
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Pris- och omfattningskalkylator för Dynamics 365
+              Dynamics&nbsp;365 implementation – kalkylator, faser och tidsplan
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
               Ställ in din situation så får du ett realistiskt spann för
               implementationskostnad, licenskostnad och tidplan – innan du pratar med
-              en enda leverantör. Alla antaganden redovisas öppet längst ned.
+              en enda leverantör. Under kalkylatorn går vi igenom de fem faserna i ett
+              införande och vilka tidsramar som är rimliga.
             </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a href="#kalkylator" className="font-medium text-primary underline underline-offset-4">
+                Till kalkylatorn
+              </a>
+              <a href="#faser" className="font-medium text-primary underline underline-offset-4">
+                Så går en implementation till
+              </a>
+              <a href="#tidsplan" className="font-medium text-primary underline underline-offset-4">
+                Tumregler för tidsplan
+              </a>
+            </div>
           </div>
         </section>
 
-        <section className="py-8 sm:py-12">
+        <section id="kalkylator" className="py-8 sm:py-12 scroll-mt-24">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid gap-6 lg:grid-cols-5">
             {/* Inputs */}
             <div className="lg:col-span-3 space-y-6">
@@ -674,6 +740,100 @@ export default function ImplementationCalculator() {
                 }}
                 priceLookup={priceLookup}
               />
+            </div>
+          </div>
+        </section>
+
+        <section id="faser" className="py-10 sm:py-14 border-t border-border scroll-mt-24" aria-labelledby="faser-rubrik">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+              Införandet steg för steg
+            </p>
+            <h2 id="faser-rubrik" className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              Så går en Dynamics&nbsp;365-implementation till
+            </h2>
+            <p className="text-base text-muted-foreground max-w-3xl mb-8">
+              Oavsett om det gäller ett affärssystem (ERP) som Business Central eller
+              Finance &amp; Supply Chain Management, eller ett CRM-system som Sales eller
+              Customer Service, följer de flesta införanden samma fem faser. Namnen
+              varierar mellan partners, men innehållet är i stort sett detsamma.
+            </p>
+            <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {IMPLEMENTATION_PHASES.map((phase, i) => {
+                const Icon = phase.icon;
+                return (
+                  <li key={phase.title} className="rounded-xl border border-border bg-card p-5">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h3 className="text-base font-semibold text-foreground">
+                        {i + 1}. {phase.title}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">{phase.summary}</p>
+                    <ul className="space-y-1.5 text-sm text-foreground">
+                      {phase.points.map((pt) => (
+                        <li key={pt} className="flex gap-2">
+                          <Check className="h-4 w-4 mt-0.5 shrink-0 text-accent" aria-hidden="true" />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ol>
+
+            <div id="tidsplan" className="mt-10 scroll-mt-24">
+              <h2 className="text-2xl font-bold text-foreground mb-3">
+                Tumregler för tidsplan
+              </h2>
+              <p className="text-base text-muted-foreground max-w-3xl mb-5">
+                Tiden från beslut till go-live styrs mer av integrationer, datakvalitet och
+                hur snabbt ni fattar beslut än av antalet användare. Använd spannen som
+                rimlighetskontroll när ni läser en partners tidplan.
+              </p>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="rounded-xl border border-border bg-card p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Business Central</p>
+                  <p className="text-2xl font-bold text-foreground mt-1">3–6 månader</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Typiskt för ett svenskt bolag med standardnära processer. Med många
+                    anpassningar, integrationer eller flera bolag blir det ofta 6–12 månader.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Finance &amp; Supply Chain Management</p>
+                  <p className="text-2xl font-bold text-foreground mt-1">6–12+ månader</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Större bolag och koncerner med fler processer, bolag och integrationer.
+                    Globala utrullningar delas oftast upp i flera etapper.
+                  </p>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4 max-w-3xl">
+                Kalkylatorn ovan räknar fram en tidplan utifrån era egna val och visar hur
+                kostnaden fördelas per fas. Ändra integrationer och antal bolag så ser ni
+                direkt hur tidsplanen påverkas.
+              </p>
+            </div>
+
+            <div className="mt-10 rounded-xl border border-primary/30 bg-primary/5 p-6 sm:p-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                Står ni inför en implementation?
+              </h2>
+              <p className="text-base text-muted-foreground max-w-3xl mb-5">
+                Jämför partners som arbetar med er lösning och få hjälp med
+                offertförfrågan via vår Partnerväljare. Ni väljer själva upp till tre
+                partners, och ingen kontaktar er utan ert godkännande.
+              </p>
+              <Button asChild size="lg">
+                <Link to="/valjdynamics365partner/">
+                  Öppna Partnerväljaren
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>
