@@ -56,6 +56,23 @@ import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import EditorialSource from "@/components/EditorialSource";
 import ShortlistButton from "@/components/ShortlistButton";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+
+/** Publicerade profiler som själva anger Finance/SCM, i bokstavsordning (ingen rangordning). */
+const FSCM_APP_PATTERN = /finance|supply chain|f&scm|f&o/i;
+const fscmProfilePartners = (staticPartnerData as any[])
+  .filter((p) => p.is_featured && Array.isArray(p.applications) && p.applications.some((a: string) => FSCM_APP_PATTERN.test(a)))
+  .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+  .map((p) => ({
+    id: p.id as string,
+    slug: p.slug as string,
+    name: p.name as string,
+    apps: (p.applications as string[]).slice(0, 4),
+    // Tillverkningsindustri först om partnern själv anger den, eftersom avsnittet handlar om F&SCM och industri.
+    industries: (Array.isArray(p.industries) ? [...(p.industries as string[])] : [])
+      .sort((a, b) => Number(b === "Tillverkningsindustri") - Number(a === "Tillverkningsindustri"))
+      .slice(0, 3),
+  }));
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { episodesForPartner } from "@/data/d365Inside";
 import {
@@ -670,11 +687,11 @@ const ValjPartner = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Hitta rätt Microsoft Dynamics 365-partner i Sverige | d365.se"
+ title="Välj rätt Microsoft Dynamics 365-partner | Guide & Rådgivning"
  titleMaxLength={80}
- description="Jämför svenska Microsoft Dynamics 365-partners. Filtrera på bransch, ERP, CRM och specialistkompetens för att hitta rätt konsult."
+ description="Söker du partner eller återförsäljare för Microsoft Dynamics 365 i Sverige? Jämför F&SCM- och industrispecialister eller boka 20 min kostnadsfri rådgivning."
  canonicalPath="/valjdynamics365partner"
- keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
+ keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 återförsäljare, Dynamics 365 reseller, F&SCM partner, Dynamics 365 partner tillverkande industri, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"
  ogImageAlt="Jämför Dynamics 365-partners i Sverige på d365.se"
  />
@@ -710,8 +727,8 @@ const ValjPartner = () => {
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
   />
 
-  <ShortAnswer title="Vad är en Dynamics 365-partner">
- Rätt Dynamics 365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra Microsoft Dynamics-partners och konsultbolag för din bransch, geografi och AI-mognad – och få rekommendationer utifrån era behov via vår partnerguide.
+  <ShortAnswer title={"Vad är en Dynamics\u00A0365-partner"}>
+ Rätt Dynamics{"\u00A0"}365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra svenska ERP-partners, CRM-partners och andra återförsäljare av Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 (ofta kallade resellers) utifrån bransch, geografi och AI-mognad, och få rekommendationer utifrån era behov via vår partnerguide.
  </ShortAnswer>
 
  <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
@@ -1277,6 +1294,76 @@ const ValjPartner = () => {
   <Link to="/second-opinion/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">Få en second opinion</Link>
  </p>
  </div>
+  </section>
+
+  {/* Fördjupning: F&SCM-specialister och tillverkande industri */}
+  <section className="py-10 sm:py-12 border-t border-border" aria-labelledby="fscm-partners">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+    <div className="max-w-4xl mx-auto">
+     <h2 id="fscm-partners" className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+      Vilka partners är specialiserade på Finance & Operations (F&SCM)?
+     </h2>
+     <p className="text-muted-foreground leading-relaxed mb-5">
+      Implementering av Finance & Supply Chain Management (F&SCM) ställer helt andra krav på projektmetodik, lösningsarkitektur och certifieringar än mindre system. Betydligt färre partners i Sverige arbetar med F&SCM än med Business Central, och erfarenheten av storskaliga projekt varierar mycket. Be därför om referenser i er egen skala. Osäker på vilka som har rätt kompetens för er? Boka en kort avstämning så går vi igenom era krav.
+     </p>
+     {fscmProfilePartners.length > 0 && (
+      <div className="mb-5">
+       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger Finance & Supply Chain</p>
+       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {fscmProfilePartners.map((p) => (
+         <li key={p.id}>
+          <Link to={`/partner/${p.slug}/`} className="group flex h-full flex-col rounded-lg border border-border bg-card p-4 hover:border-primary transition-colors">
+           <h3 className="font-semibold text-foreground group-hover:text-primary mb-2">{p.name}</h3>
+           <p className="text-xs text-muted-foreground mb-1"><span className="font-medium text-foreground">Produktområden:</span> {p.apps.join(", ")}</p>
+           <p className="text-xs text-muted-foreground"><span className="font-medium text-foreground">Branscher:</span> {p.industries.length ? p.industries.join(", ") : "anges inte i profilen"}</p>
+          </Link>
+         </li>
+        ))}
+       </ul>
+       <p className="mt-3 text-xs text-muted-foreground">
+        Bokstavsordning, ingen rangordning. Uppgifterna kommer från partnernas egna profiler. Fler partners med F&SCM, även grundprofiler, hittar ni genom att välja Finance & Supply Chain i filtret ovan.
+       </p>
+      </div>
+     )}
+     <div className="flex flex-wrap items-center gap-3">
+      <AdvisorContactButtons />
+      <Button
+       type="button"
+       variant="outline"
+       className="min-h-10"
+       onClick={() => {
+        setSelectedApplications(["Finance & SCM"]);
+        document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+       }}
+      >
+       Visa alla F&SCM-partners
+      </Button>
+     </div>
+
+     <h2 id="partner-tillverkande-industri" className="text-2xl sm:text-3xl font-bold text-foreground mt-12 mb-3">
+      Att tänka på vid val av Microsoft{"\u00A0"}Dynamics{"\u00A0"}365-partner för tillverkande industri
+     </h2>
+     <p className="text-muted-foreground leading-relaxed mb-5">
+      För industriföretag handlar valet sällan bara om ekonomi – det avgörs av partnerns förmåga inom avancerad produktionsplanering, lageroptimering, spårbarhet och maskinintegrationer. Välj en partner som förstår verkstadsgolvet och tillverkande processer, inte bara standardkonfigurationer.
+     </p>
+     <div className="flex flex-wrap gap-3">
+      <Button
+       type="button"
+       variant="outline"
+       className="min-h-10"
+       onClick={() => {
+        setSelectedIndustry("Tillverkningsindustri");
+        document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+       }}
+      >
+       Visa partners inom tillverkningsindustri
+      </Button>
+      <Button asChild variant="outline" className="min-h-10">
+       <Link to="/branscher/tillverkning/">Läs om affärssystem för tillverkning</Link>
+      </Button>
+     </div>
+    </div>
+   </div>
   </section>
 
   {/* Compare partners CTA section - black background */}
