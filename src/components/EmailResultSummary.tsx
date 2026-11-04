@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
-import { trackFunnelEvent } from "@/lib/funnelTracking";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { cleanSummaryLines, type ResultSummaryTool } from "@/lib/resultSummary";
 
 interface Props {

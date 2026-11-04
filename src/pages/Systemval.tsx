@@ -15,6 +15,7 @@ import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import { buildSolutionMap } from "@/lib/systemval/solutionMap";
 import { buildSystemvalResult, CLARITY_LABEL, type Cta } from "@/lib/systemval/result";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import EmailResultSummary from "@/components/EmailResultSummary";
 import { ADVISORY_CTA } from "@/lib/advisory";
 import { savePlanSolution } from "@/lib/d365Plan";
 import type { PoResult } from "@/lib/systemval/modules/projectOperations";
@@ -285,6 +286,21 @@ export default function Systemval() {
                 ...(result.unresolvedQuestions.length ? [{ key: "behovsguide_oppna", label: "Öppna frågor", lines: result.unresolvedQuestions.slice(0, 5) }] : []),
               ]}
               metadata={{ clarity: result.clarity, primary: result.primaryTracks.map((t) => t.id).join(",") }}
+            />
+          )}
+
+          {!question && picture && result && !deepMode && (
+            <EmailResultSummary
+              className="mt-6"
+              tool="behovsguide"
+              sourcePage="/kom-igang/"
+              lines={[
+                `Bedömning: ${CLARITY_LABEL[result.clarity]}`,
+                ...result.primaryTracks.map((t) => `Huvudspår: ${t.label}`),
+                ...result.alternativeTracks.map((x) => `Alternativ: ${x.labels.join(" eller ")}`),
+                ...result.complementaryTracks.map((x) => `Komplettering: ${x.label}`),
+                ...result.unresolvedQuestions.slice(0, 5).map((q) => `Öppen fråga: ${q}`),
+              ]}
             />
           )}
 

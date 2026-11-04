@@ -10,6 +10,8 @@ import {
   costHelpLines, costNextSteps, trackCost, type CostHelpDraft,
 } from "@/lib/costJourney";
 
+import EmailResultSummary from "@/components/EmailResultSummary";
+
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 const selectCls = "mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -130,6 +132,13 @@ export default function CostNextSteps({ sourcePage, area, costAnchor, size, driv
           Få en second opinion <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </p>
+
+      <EmailResultSummary
+        className="mt-4"
+        tool="kostnad"
+        sourcePage={sourcePage}
+        lines={[...lines, ...drivers.map((d) => `${d.label}: ${d.text}`)]}
+      />
 
       {open && (
         <Suspense fallback={null}>
