@@ -190,6 +190,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const industryName = page?.name || meta?.name || "Bransch";
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
  const seoDefaults = getIndustrySEO(slug);
+ const sharpening = slug ? INDUSTRY_SHARPENING[slug] : undefined;
 
  const matchingPartners = useMemo(() => {
  if (!partners || !meta) return [];

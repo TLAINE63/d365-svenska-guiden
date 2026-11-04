@@ -68,16 +68,16 @@ export const INDUSTRY_SEO: Record<string, IndustrySEO> = {
     h1: "Dynamics 365 för bygg, entreprenad & installation",
   },
   "fastighet-forvaltning": {
-    title: "Dynamics 365 för fastighet & förvaltning",
+    title: "Affärssystem för fastighetsbolag – Dynamics 365",
     description:
       "Hyresadministration, förvaltning, fastighetsekonomi och underhåll i Dynamics 365 Business Central, F&SCM och Field Service för svenska fastighetsbolag.",
     h1: "Dynamics 365 för fastighet & förvaltning",
   },
   "energi-utilities": {
-    title: "Dynamics 365 för energi & utilities",
+    title: "Dynamics 365 för energisektorn & utilities",
     description:
-      "Tillgångsförvaltning, fältservice, kund- och avtalshantering för energi-, el- och utilities­bolag med Dynamics 365 F&SCM, Field Service och Contact Center.",
-    h1: "Dynamics 365 för energi & utilities",
+      "Tillgångsförvaltning, fältservice, kund- och avtalshantering för energisektorn: el-, värme- och utilities­bolag med Dynamics 365 F&SCM, Field Service och Contact Center.",
+    h1: "Dynamics 365 för energisektorn & utilities",
   },
   "finans-forsakring": {
     title: "Dynamics 365 för finans & försäkring",
