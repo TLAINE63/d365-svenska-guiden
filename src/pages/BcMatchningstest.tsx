@@ -12,6 +12,7 @@ import { pickSuggestedPartners } from "@/lib/suggestPartners";
 import { buildCompareUrl } from "@/lib/compareUrl";
 import { SoftwareApplicationSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
+import BcIsvMatches from "@/components/BcIsvMatches";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
@@ -394,6 +395,8 @@ const ResultView = ({ result, answers, onRestart, onBack, onPdf }: ResultProps) 
           </div>
         </CardContent>
       </Card>
+
+      <BcIsvMatches areas={result.byClassification.isv.map((s) => s.area)} />
 
       <Card>
         <CardContent className="p-6 sm:p-8 space-y-4">
