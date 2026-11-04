@@ -82,31 +82,28 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           </p>
           {heading && <h3 className="mb-1.5 text-lg font-bold leading-snug text-foreground">{nowrapBrand(heading)}</h3>}
           <p className="mb-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(text)}</p>
-          <Button type="button" variant="outline" onClick={start} className="min-h-11 whitespace-normal text-left">
-            {cta}
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Button>
+          <AdvisorContactButtons />
+          <button type="button" onClick={start} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            {sections.length ? "Eller skicka ert underlag via formulär" : "Eller beskriv behovet i ett formulär"}
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+          </button>
           <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</p>
           </div>
         </aside>
       ) : variant === "hero" ? (
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13.5px] sm:text-[14.5px] text-primary-foreground/70">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13.5px] sm:text-[14.5px] text-primary-foreground/70">
           <MessageCircle className="h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden />
           <span>{nowrapBrand(text)}</span>
-          <button type="button" onClick={start} className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-primary-foreground hover:text-[hsl(var(--accent-dark-zone))] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] rounded-sm">
-            {nowrapBrand(cta)}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </button>
-        </p>
+          <AdvisorContactButtons compact dark />
+        </div>
       ) : (
-        <p className="text-sm text-muted-foreground">
-          {nowrapBrand(text)}{" "}
-          <button type="button" onClick={start} className="inline-flex items-center gap-1 font-semibold text-foreground underline underline-offset-4 hover:text-accent">
-            {cta}
-            <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-          </button>
-          <span className="block mt-1 text-xs">Kostnadsfritt, ingen partner deltar. {carriedNote}</span>
-        </p>
+        <div className="text-sm text-muted-foreground">
+          <p className="mb-2">{nowrapBrand(text)}</p>
+          <AdvisorContactButtons compact />
+          <span className="block mt-1 text-xs">Kostnadsfritt, ca 20 minuter med Thomas Laine, ingen partner deltar.{" "}
+            <button type="button" onClick={start} className="underline underline-offset-2 hover:text-primary">Eller använd formuläret</button>
+          </span>
+        </div>
       )}
       {open && (
         <Suspense fallback={null}>
