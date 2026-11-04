@@ -262,6 +262,21 @@ const D365Sales = () => {
 
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
+      <aside className="container mx-auto max-w-6xl px-4 sm:px-6 my-8" aria-label="Hitta partner för Dynamics 365 Sales">
+        <div className="max-w-4xl mx-auto rounded-lg border border-primary/30 bg-primary/5 p-5 sm:p-6">
+          <p className="font-semibold text-foreground mb-2">
+            Behöver ni hjälp att implementera eller konfigurera Dynamics{"\u00A0"}365 Sales?
+          </p>
+          <Link
+            to="/valjdynamics365partner/#crm-partners"
+            className="inline-flex items-center gap-1.5 font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+          >
+            Hitta rätt CRM-partner i vår partnerguide
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </aside>
+
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <UnprofiledPartnersList variant="teaser" showSeeAllLink />
       </div>
