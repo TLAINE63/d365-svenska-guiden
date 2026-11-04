@@ -1442,15 +1442,10 @@ Thomas`,
  }
 
  try {
- const partnerEmails = selectedPartnersForLead.map(name => {
- return `kontakt@${name.toLowerCase().replace(/\s+/g, '').replace(/[åä]/g, 'a').replace(/ö/g, 'o')}.se`;
- });
-
  const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", {
  action: "forward",
  token,
  id: selectedLead.id,
- partner_emails: partnerEmails,
  partner_names: selectedPartnersForLead,
  });
 
