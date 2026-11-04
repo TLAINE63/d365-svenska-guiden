@@ -257,7 +257,7 @@ const FinanceSupplyChain = () => {
        Styrning av inköp, lager, produktion och logistik i komplexa varuflöden.
       </p>
       <ul className="space-y-2 text-sm text-foreground list-disc pl-5">
-       <li>Lager- och lagerstyrning (WMS) samt transporthantering</li>
+       <li>Lagerhantering och lagerstyrning (WMS) samt transporthantering</li>
        <li>Produktionsstyrning för diskret tillverkning, processtillverkning och lean</li>
        <li>Huvudplanering (MRP), inköp och underhåll av anläggningar</li>
       </ul>
