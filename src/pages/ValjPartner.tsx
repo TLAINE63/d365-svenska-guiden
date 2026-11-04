@@ -292,6 +292,7 @@ const ValjPartner = () => {
   if (!appsParam) return;
   setSelectedApplications(appsParam.split(",").map((a) => a.trim()).filter(Boolean));
  }, [appsParam]);
+ const [staticCategory, setStaticCategory] = useState<PartnerCategoryKey | null>(null);
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(() => industryNameFromSlug(searchParams.get("industry")) ?? null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(() => searchParams.get("size") || null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
@@ -1367,6 +1368,47 @@ const ValjPartner = () => {
        <Link to="/branscher/tillverkning/">Läs om affärssystem för tillverkning</Link>
       </Button>
      </div>
+
+     <h2 id="crm-partners" className="text-2xl sm:text-3xl font-bold text-foreground mt-12 mb-3">
+      Partners för Dynamics{"\u00A0"}365 CRM (Sales & Customer Service)
+     </h2>
+     <p className="text-muted-foreground leading-relaxed mb-5">
+      Söker ni en partner som kan bygga sömlösa säljprocesser, kundservice eller fältservice i Microsoft{"\u00A0"}Dynamics{"\u00A0"}365? Flera svenska konsulthus är specialiserade på just Customer Engagement-plattformen (CRM), medan andra främst arbetar med affärssystem (ERP). Kontrollera därför att partnern har CRM-referenser, inte bara ERP-projekt.
+     </p>
+     {crmProfilePartners.length > 0 && (
+      <div className="mb-5">
+       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger CRM-produkter</p>
+       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {crmProfilePartners.map((p) => (
+         <li key={p.id}>
+          <Link to={`/partner/${p.slug}/`} className="group flex h-full flex-col rounded-lg border border-border bg-card p-4 hover:border-primary transition-colors">
+           <h3 className="font-semibold text-foreground group-hover:text-primary mb-2">{p.name}</h3>
+           <p className="text-xs text-muted-foreground"><span className="font-medium text-foreground">CRM-produkter:</span> {p.apps.join(", ")}</p>
+          </Link>
+         </li>
+        ))}
+       </ul>
+       <p className="mt-3 text-xs text-muted-foreground">
+        Bokstavsordning, ingen rangordning. Uppgifterna kommer från partnernas egna profiler.
+       </p>
+      </div>
+     )}
+     <div className="flex flex-wrap gap-3">
+      <Button
+       type="button"
+       variant="outline"
+       className="min-h-10"
+       onClick={() => {
+        setSelectedApplications(["Sales", "Customer Service"]);
+        document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" });
+       }}
+      >
+       Visa alla CRM-partners
+      </Button>
+      <Button asChild variant="outline" className="min-h-10">
+       <Link to="/crm/">Läs om CRM-system i Dynamics{"\u00A0"}365</Link>
+      </Button>
+     </div>
     </div>
    </div>
   </section>
@@ -1410,16 +1452,33 @@ const ValjPartner = () => {
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
  Alla publicerade partnerprofiler
  </h2>
- <p className="text-muted-foreground mb-8">
- Komplett lista i bokstavsordning över partners som har en profil på d365.se. Använd filtreringen ovan för att hitta rätt partner för din bransch och dina applikationer.
+ <p className="text-muted-foreground mb-5">
+ Komplett lista i bokstavsordning över partners som har en profil på d365.se. Taggarna visar vilka områden partnern själv anger. Välj ett område för att visa bara de partnerna.
  </p>
+ <div className="flex flex-wrap gap-2 mb-6" role="group" aria-label="Visa partners per område">
+  {[{ key: null as PartnerCategoryKey | null, label: "Alla" }, ...PARTNER_CATEGORIES].map((c) => (
+   <Button
+    key={c.label}
+    type="button"
+    size="sm"
+    variant={staticCategory === c.key ? "default" : "outline"}
+    aria-pressed={staticCategory === c.key}
+    className="min-h-10"
+    onClick={() => setStaticCategory(c.key)}
+   >
+    {c.label}
+   </Button>
+  ))}
+ </div>
  <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
  {[...staticPartnerData]
  .filter((p: any) => p.is_featured)
+ .filter((p: any) => !staticCategory || partnerCategoryKeys(p).includes(staticCategory))
  .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv"))
 .map((p: any) => {
 const cardSummary = getCardSummaryData(p as DatabasePartner);
 const cardText = p.ai_summary || p.ai_profile?.card_ai_summary || p.positioning_statement || "";
+const categoryKeys = partnerCategoryKeys(p);
 return (
 <li key={p.id}>
 <Link
@@ -1448,15 +1507,15 @@ className="h-10 max-w-[160px] object-contain mb-2"
 {cardText}
 </p>
 )}
-{Array.isArray(p.applications) && p.applications.length > 0 && (
-<div className="flex flex-wrap gap-1 mb-3">
-{p.applications.slice(0, 3).map((app: string) => (
+{categoryKeys.length > 0 && (
+<div className="flex flex-wrap gap-1 mb-3" aria-label="Områden">
+{categoryKeys.map((key) => (
 <Badge
-key={app}
+key={key}
 variant="outline"
 className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
 >
-{app}
+{partnerCategoryLabel(key)}
 </Badge>
 ))}
 </div>
