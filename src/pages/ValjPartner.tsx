@@ -737,6 +737,35 @@ const ValjPartner = () => {
  Rätt Dynamics{"\u00A0"}365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra svenska ERP-partners, CRM-partners och andra återförsäljare av Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 (ofta kallade resellers) utifrån bransch, geografi och AI-mognad, och få rekommendationer utifrån era behov via vår partnerguide.
  </ShortAnswer>
 
+  {/* Rådgivning med Thomas, högt upp innan partnerlistan */}
+  <section className="py-6 sm:py-8" aria-labelledby="radgivning-thomas">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+    <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-5 items-start rounded-xl border-2 border-primary/30 bg-primary/5 p-5 sm:p-6">
+     <img
+      src={thomasLainePhoto}
+      alt="Thomas Laine, rådgivare på d365.se"
+      width={96}
+      height={96}
+      loading="lazy"
+      className="h-20 w-20 sm:h-24 sm:w-24 shrink-0 rounded-full object-cover object-[50%_0%] border-2 border-primary/20"
+     />
+     <div className="min-w-0">
+      <h2 id="radgivning-thomas" className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+       Boka 20-minuters kostnadsfri rådgivning med Thomas
+      </h2>
+      <p className="text-muted-foreground leading-relaxed mb-2">
+       Står ni inför att välja eller utvärdera implementeringspartner för Microsoft{"\u00A0"}Dynamics{"\u00A0"}365? Jag hjälper er att bena ut behoven och hitta partners som passar er bransch och storlek. Det kostar ingenting för er.
+      </p>
+      <p className="text-xs text-muted-foreground mb-4">
+       Hur d365.se finansieras läser ni under{" "}
+       <Link to="/agande-och-intressen/" className="underline underline-offset-2 hover:text-primary">Ägande och intressen</Link>.
+      </p>
+      <AdvisorContactButtons bookingLabel="Boka 20 min rådgivning" />
+     </div>
+    </div>
+   </div>
+  </section>
+
  <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-4xl mx-auto">
@@ -1560,10 +1589,10 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  </div>
  <div className="text-center md:text-left">
  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
- Behöver du hjälp att välja eller upphandla Dynamics partner?
+ Svårt att välja mellan flera partners?
  </h2>
  <p className="text-lg text-muted-foreground">
- Prata med d365.se om ert behov. Vi resonerar om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt, och ingen partner deltar.
+ Boka 20 minuters kostnadsfri rådgivning med Thomas. Ni får vägledning i hur partnerna skiljer sig åt för just ert behov och stöd i kravställningen inför offertförfrågan. Ingen partner deltar i samtalet.
  </p>
  </div>
  </div>

@@ -1799,10 +1799,15 @@ const ComparePartners = () => {
                   Jämförelsevy
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">
-                  Hitta rätt Dynamics 365-partner
+                  Hitta rätt Dynamics{"\u00A0"}365-partner
                 </h1>
                 <p className="text-sm text-slate-600 mt-2 max-w-2xl mx-auto">
                   Alla partner i jämförelsen är relevanta kandidater. Här ser du var de skiljer sig åt och vilken typ av företag de passar bäst för.
+                </p>
+                <p className="text-sm mt-2">
+                  <Link to="/valjdynamics365partner/" className="font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+                    Inte valt partners än? Börja i partnerguiden
+                  </Link>
                 </p>
             </header>
 
@@ -2652,13 +2657,17 @@ const ComparePartners = () => {
           </div>
         </div>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="mt-10 rounded-xl border border-border bg-muted/30 p-5 text-sm text-muted-foreground">
-            Vill du hitta en Dynamics{"\u00A0"}365-partner som passar dina behov?{" "}
-            <Link to="/valjdynamics365partner/" className="font-semibold text-primary underline-offset-4 hover:underline">
-              Hitta rätt partner med partnerväljaren
+          <aside className="mt-10 rounded-xl border border-primary/30 bg-primary/5 p-5 sm:p-6" aria-label="Partnerguiden">
+            <p className="font-semibold text-foreground mb-1">
+              Vill du se fler Dynamics{"\u00A0"}365-partners än de du jämför här?
+            </p>
+            <p className="text-sm text-muted-foreground mb-3">
+              Partnerguiden är vår huvudsida för partnerval, med alla publicerade partners och filter för F&SCM, Business Central, CRM och bransch.
+            </p>
+            <Link to="/valjdynamics365partner/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+              Gå till partnerguiden för Dynamics{"\u00A0"}365
             </Link>
-            .
-          </p>
+          </aside>
         </div>
       </main>
 

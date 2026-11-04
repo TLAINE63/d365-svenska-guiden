@@ -14,10 +14,12 @@ interface Props {
   /** dark = ljus text på mörk bakgrund. */
   dark?: boolean;
   className?: string;
+  /** Egen knapptext för bokningslänken (t.ex. "Boka 20 min rådgivning"). */
+  bookingLabel?: string;
 }
 
 /** Två vägar till rådgivning med Thomas: Bookings eller mejl. Spåras via Site Intelligence utan PII. */
-export default function AdvisorContactButtons({ compact = false, dark = false, className = "" }: Props) {
+export default function AdvisorContactButtons({ compact = false, dark = false, className = "", bookingLabel }: Props) {
   const secondary = dark
     ? "border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
     : "border-border text-foreground hover:bg-primary/10 hover:text-primary";
@@ -31,7 +33,7 @@ export default function AdvisorContactButtons({ compact = false, dark = false, c
         className={`inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 font-semibold text-primary-foreground hover:bg-primary/90 ${compact ? "text-xs" : "text-sm"}`}
       >
         <CalendarDays className="h-4 w-4 shrink-0" aria-hidden />
-        {compact ? ADVISOR_BOOKING_CTA_SHORT : ADVISOR_BOOKING_CTA}
+        {bookingLabel ?? (compact ? ADVISOR_BOOKING_CTA_SHORT : ADVISOR_BOOKING_CTA)}
       </a>
       <a
         href={ADVISOR_EMAIL_WITH_SUBJECT}

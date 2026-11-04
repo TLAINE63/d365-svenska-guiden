@@ -267,6 +267,9 @@ const D365Sales = () => {
           <p className="font-semibold text-foreground mb-2">
             Behöver ni hjälp att implementera eller konfigurera Dynamics{"\u00A0"}365 Sales?
           </p>
+          <p className="text-sm text-muted-foreground mb-3">
+            Partnerguiden är vår huvudsida för partnerval, med alla publicerade partners och filter för CRM, affärssystem (ERP) och bransch.
+          </p>
           <Link
             to="/valjdynamics365partner/#crm-partners"
             className="inline-flex items-center gap-1.5 font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
