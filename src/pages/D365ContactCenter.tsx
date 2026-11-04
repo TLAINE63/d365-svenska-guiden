@@ -13,6 +13,8 @@ import RelatedPages, { contactCenterRelatedPages } from "@/components/RelatedPag
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+import { Link } from "react-router-dom";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
@@ -98,7 +100,7 @@ const D365ContactCenter = () => {
         eyebrow="Dynamics 365 Contact Center"
         title="Dynamics 365 Contact Center"
         titleAccent="Vilket stöd behöver ert kontaktcenter?"
-        subhead="Börja med era kanaler, volymer och agenternas vardag. Bedöm om Contact Center passar eller om Customer Service räcker, ta fram krav och kostnadsbild och hitta partners med kontaktcentererfarenhet."
+        subhead="Microsofts AI-drivna kontaktcenter med Copilot. Börja med era kanaler, volymer och agenternas vardag. Bedöm om Contact Center passar eller om Customer Service räcker, ta fram krav och kostnadsbild och hitta partners med kontaktcentererfarenhet."
         primary={{ label: "Analysera vårt behov", to: "/d365contactcenter/matchningstest/", onClick: () => trackContactJourney("assess", "/d365contactcenter/matchningstest/", "hero") }}
         secondary={{ label: "Bygg vårt beslutsunderlag", href: "#contact-beslutsunderlag", icon: FileText }}
         tertiary={{ label: "Hitta rätt Contact Center-partner", href: "#partners" }}
@@ -107,7 +109,7 @@ const D365ContactCenter = () => {
       <SystemvalHandoffNote page="cc" />
       <ContactCenterDecisionGuide />
 
-      <ShortAnswer title="Vad är Dynamics 365 Contact Center">
+      <ShortAnswer title="Vad är Microsoft Dynamics 365 Contact Center?">
         <p>
           Dynamics 365 Contact Center är Microsofts AI-drivna omnikanal-plattform för moderna kundservicecenter – en fristående lösning som kan användas ovanpå ett befintligt CRM (Salesforce, ServiceNow eller Dynamics 365) eller som en del av en samlad Microsoft-värld.
         </p>
@@ -126,6 +128,25 @@ const D365ContactCenter = () => {
       </ShortAnswer>
       <BuyerFitSection fitKey="contact" />
       <EditorialAssessment assessment="contact" />
+      <section id="val-av-kontaktcentersystem" className="py-8 sm:py-10 bg-background scroll-mt-24">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Val av kontaktcentersystem – krav och integrationer</h2>
+          <div className="space-y-4 text-muted-foreground">
+            <p>Börja kravställningen i kanalerna och volymerna: vilka kanaler ska hanteras (röst, chatt, e-post, sociala medier), hur många agenter arbetar samtidigt och vilka svarstider och SLA ni behöver följa.</p>
+            <p>Integrationerna avgör ofta projektets storlek. Kartlägg kopplingen till ert CRM, befintlig telefoni och nummer, kunskapsbas, ärendesystem samt affärssystem (ERP) för order- och fakturafrågor. Bestäm också vilka frågor AI och Copilot ska få besvara själva och när ärendet ska lämnas över till en människa.</p>
+            <p>Behöver ni hjälp att hitta en partner med erfarenhet av kontaktcenterprojekt? Använd <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link>.</p>
+          </div>
+        </div>
+      </section>
+      <section className="py-8 bg-background">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+            <h3 className="text-lg font-semibold text-card-foreground mb-2">Planerar ni att modernisera ert kontaktcenter?</h3>
+            <p className="text-sm text-muted-foreground mb-4">Boka 20 minuters kostnadsfri rådgivning med Thomas för en genomgång av era krav och alternativ. Ingen partner deltar i samtalet.</p>
+            <AdvisorContactButtons />
+          </div>
+        </div>
+      </section>
 
 
       {/* Video Section */}

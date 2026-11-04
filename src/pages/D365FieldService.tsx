@@ -14,6 +14,8 @@ import RelatedPages, { fieldServiceRelatedPages } from "@/components/RelatedPage
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+import { Link } from "react-router-dom";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import ProductPartnerNewsSection from "@/components/ProductPartnerNewsSection";
@@ -127,6 +129,34 @@ const D365FieldService = () => {
       </ShortAnswer>
       <BuyerFitSection fitKey="field" />
       <EditorialAssessment assessment="field" />
+      <section id="arbetsordersystem" className="py-8 sm:py-10 bg-background scroll-mt-24">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4"><span className="whitespace-nowrap">Microsoft Dynamics 365</span> Field Service som arbetsordersystem</h2>
+          <div className="space-y-4 text-muted-foreground mb-10">
+            <p>Field Service hanterar hela arbetsorderflödet: från ärende eller serviceavtal till arbetsorder, planering, utförande, tidrapport och fakturaunderlag.</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li><strong className="text-foreground">Schemaläggning:</strong> en planeringstavla och schemaläggningsassistent matchar uppdrag mot tekniker utifrån kompetens, tillgänglighet och plats.</li>
+              <li><strong className="text-foreground">Mobilapp:</strong> teknikern ser arbetsorder, checklistor, artiklar och kundhistorik i mobilen, även utan täckning, och rapporterar direkt på plats.</li>
+              <li><strong className="text-foreground">Ruttoptimering:</strong> resursschemaläggningen kan optimera rutter och körtider över flera uppdrag och dagar.</li>
+            </ul>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Byta arbetsordersystem – sömlös integration med Business Central och ERP</h2>
+          <div className="space-y-4 text-muted-foreground">
+            <p>Vid byte av arbetsordersystem handlar det mest om data och flöden: kunder, anläggningar, serviceavtal, artiklar och öppna arbetsorder ska flyttas, och fakturering och lager ska fortsätta fungera från första dagen.</p>
+            <p>Field Service kan kopplas till Business Central eller annat affärssystem (ERP), så att förbrukat material och arbetstid blir fakturaunderlag och lagersaldon uppdateras. Med Connected Field Service kan uppkopplade maskiner (IoT) skapa larm och arbetsorder automatiskt innan något går sönder.</p>
+            <p>Hitta partners med erfarenhet av fältservice i <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">partnerguiden</Link>.</p>
+          </div>
+        </div>
+      </section>
+      <section className="py-8 bg-background">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+            <h3 className="text-lg font-semibold text-card-foreground mb-2">Boka 20 minuters kostnadsfri rådgivning med Thomas</h3>
+            <p className="text-sm text-muted-foreground mb-4">Utvärderar ni arbetsorder- och fältservicesystem? Gå igenom era krav och alternativ på 20 minuter. Ingen partner deltar i samtalet.</p>
+            <AdvisorContactButtons />
+          </div>
+        </div>
+      </section>
 
 
       {/* Video Section */}
