@@ -312,7 +312,7 @@ const Events = () => {
  <div className="flex-1 space-y-3">
  <div className="flex flex-wrap items-start justify-between gap-2">
  <div>
- <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{event.title}</h3>
+ <h2 className="text-xl font-bold group-hover:text-primary transition-colors">{event.title}</h2>
  <p className="text-sm text-muted-foreground">
  Arrangör: {event.partners?.name || "d365.se"}
  </p>
@@ -386,7 +386,7 @@ const Events = () => {
  <Card>
  <CardContent className="py-12 text-center">
  <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
- <h3 className="text-xl font-semibold mb-2">Inga genomförda events ännu</h3>
+ <h2 className="text-xl font-semibold mb-2">Inga genomförda events ännu</h2>
  <p className="text-muted-foreground">
  Genomförda events kommer att visas här.
  </p>
@@ -423,9 +423,9 @@ const Events = () => {
  </div>
  
  <div className="flex-1 min-w-0">
- <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+ <h2 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
  {event.title}
- </h4>
+ </h2>
  <p className="text-sm text-muted-foreground mt-1">
  {event.partners?.name || "d365.se"}
  </p>
