@@ -57,6 +57,7 @@ import {
 } from "@/components/ui/accordion";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import EditorialSource from "@/components/EditorialSource";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
 
 // CRM FAQs for schema
@@ -856,21 +857,29 @@ const CRM = () => {
  </div>
  </section>
 
- {/* CTA Section */}
- <section className="py-10 bg-background">
- <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-3xl mx-auto text-center">
- <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
- Så går du vidare med Dynamics 365 CRM
- </h2>
- <p className="text-lg text-muted-foreground mb-8">
- Kontakta oss för en kostnadsfri konsultation
+ {/* Vad kostar ett CRM-system? */}
+ <section id="crm-kostnad" className="py-10 bg-background">
+ <div className="container mx-auto max-w-3xl px-4 sm:px-6">
+ <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Vad kostar ett CRM-system?</h2>
+ <p className="text-muted-foreground mb-4">
+ Frågan om CRM pris eller CRM kostnad har sällan ett enda svar. Ett CRM system pris består av flera delar, och totalkostnaden styrs av hur många som ska använda systemet, hur mycket det behöver anpassas och vilka andra system det ska prata med. Därför anger vi inga exakta belopp här, eftersom listpriser och villkor ändras. Så här brukar kostnaden för Microsoft&nbsp;Dynamics&nbsp;365 CRM se ut:
  </p>
- <ContactFormDialog>
- <Button className="bg-crm hover:bg-crm/90 text-crm-foreground h-14 sm:h-16 rounded" size="lg">
- Prata med d365.se om ert behov
- </Button>
- </ContactFormDialog>
+ <ul className="list-disc pl-6 space-y-3 text-muted-foreground mb-4">
+ <li><strong className="text-foreground">Licenser per användare och månad.</strong> Kostnaden beror på vilken app (till exempel Sales eller Customer Service), vilken licensnivå och hur många användare som behöver full licens jämfört med enklare läsbehörighet. Läs mer i <Link to="/kunskapscenter/business-central/licenser-priser/" className="text-primary underline underline-offset-2">guiden om licenser och priser</Link>.</li>
+ <li><strong className="text-foreground">Implementering, konfiguration och datamigrering.</strong> Ofta den största engångskostnaden: kartläggning av sälj- och serviceprocesser, uppsättning, behörigheter, rapporter och flytt av kunddata från gamla system.</li>
+ <li><strong className="text-foreground">Integrationer.</strong> Kopplingar till affärssystem (ERP), e-post, kalender och telefoni påverkar både projektets omfattning och den löpande driften.</li>
+ <li><strong className="text-foreground">Löpande förvaltning, support och vidareutveckling.</strong> Efter driftsättning tillkommer support, Microsofts uppdateringar och nya behov som växer fram när systemet används.</li>
+ </ul>
+ <p className="text-muted-foreground mb-4">
+ För att bedöma ett CRM system pris i Sverige är det därför mer användbart att jämföra omfattning än timpris: antal användare, antal processer som ska in från start, mängden data att migrera och antal integrationer. Ett mindre säljteam med standardprocess hamnar i en helt annan nivå än en organisation som samlar sälj, marknad och kundservice med flera integrationer.
+ </p>
+ <p className="text-muted-foreground">
+ Nästa steg är ofta att jämföra hur olika partners lägger upp projektet. <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-2">Hitta och jämför partners för Dynamics&nbsp;365 CRM</Link>.
+ </p>
+ <div className="mt-8 rounded-lg border border-border bg-card p-6">
+ <h3 className="text-xl font-bold text-card-foreground mb-2">Vill du förstå vad ett CRM-system skulle kosta i er situation?</h3>
+ <p className="text-muted-foreground mb-4">Boka 20 minuters kostnadsfri rådgivning med Thomas. Vi går igenom behov, omfattning och vilka kostnadsdelar som är relevanta innan ni pratar med en leverantör.</p>
+ <AdvisorContactButtons />
  </div>
  </div>
  </section>
