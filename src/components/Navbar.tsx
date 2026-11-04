@@ -229,10 +229,10 @@ const DesktopMenu = ({ menu }: { menu: NavMenu }) => (
                 <DropdownMenuItem key={item.path ?? item.href} asChild>
                   <ItemLink
                     item={item}
-                    className={`group cursor-pointer rounded-lg px-3 py-2.5 text-sm leading-snug transition-colors focus:bg-muted ${
+                    className={`group cursor-pointer rounded-lg px-3 py-2.5 text-sm leading-snug transition-colors ${
                       item.strong
-                        ? "mb-1 border border-primary/30 bg-primary/5 font-semibold text-primary hover:bg-primary/10"
-                        : "text-foreground hover:bg-muted"
+                        ? "mb-1 border border-primary/30 bg-primary/5 font-semibold text-primary hover:bg-primary/10 focus:bg-primary/10 hover:text-primary focus:text-primary data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary"
+                        : "text-foreground hover:bg-primary/10 focus:bg-primary/10 hover:text-primary focus:text-primary data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary"
                     }`}
                   />
                 </DropdownMenuItem>
