@@ -48,7 +48,7 @@ const MENUS: NavMenu[] = [
         ],
       },
       {
-        heading: "Hitta rätt leverantör",
+        heading: "Hitta partner",
         items: [
           { label: "Jämför Business Central-partners", path: "/business-central-partners-sverige/" },
           { label: "Jämför F&SCM-partners", path: "/finance-supply-chain-partners-sverige/" },
