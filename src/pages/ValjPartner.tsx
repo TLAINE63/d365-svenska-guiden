@@ -68,7 +68,10 @@ const fscmProfilePartners = (staticPartnerData as any[])
     slug: p.slug as string,
     name: p.name as string,
     apps: (p.applications as string[]).slice(0, 4),
-    industries: (Array.isArray(p.industries) ? (p.industries as string[]) : []).slice(0, 3),
+    // Tillverkningsindustri först om partnern själv anger den, eftersom avsnittet handlar om F&SCM och industri.
+    industries: (Array.isArray(p.industries) ? [...(p.industries as string[])] : [])
+      .sort((a, b) => Number(b === "Tillverkningsindustri") - Number(a === "Tillverkningsindustri"))
+      .slice(0, 3),
   }));
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { episodesForPartner } from "@/data/d365Inside";
