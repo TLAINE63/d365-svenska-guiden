@@ -213,8 +213,8 @@ export default function ImplementationCalculator() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Kalkylator: pris & omfattning för Dynamics 365"
-        description="Räkna fram en budget för er Dynamics 365-implementation: licens per månad, införandekostnad och tidplan utifrån användare, integrationer och komplexitet."
+        title="Dynamics 365 implementation: kalkylator, faser och tidsplan"
+        description="Så går en Dynamics 365-implementation till: fem faser, tumregler för tidsplan och en kalkylator för införandekostnad, licens och tidplan."
         canonicalPath="/implementationskalkylator/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -234,13 +234,25 @@ export default function ImplementationCalculator() {
               Underlag inför budget och offert
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Pris- och omfattningskalkylator för Dynamics 365
+              Dynamics&nbsp;365 implementation – kalkylator, faser och tidsplan
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
               Ställ in din situation så får du ett realistiskt spann för
               implementationskostnad, licenskostnad och tidplan – innan du pratar med
-              en enda leverantör. Alla antaganden redovisas öppet längst ned.
+              en enda leverantör. Under kalkylatorn går vi igenom de fem faserna i ett
+              införande och vilka tidsramar som är rimliga.
             </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a href="#kalkylator" className="font-medium text-primary underline underline-offset-4">
+                Till kalkylatorn
+              </a>
+              <a href="#faser" className="font-medium text-primary underline underline-offset-4">
+                Så går en implementation till
+              </a>
+              <a href="#tidsplan" className="font-medium text-primary underline underline-offset-4">
+                Tumregler för tidsplan
+              </a>
+            </div>
           </div>
         </section>
 
