@@ -15,7 +15,7 @@ export const INDUSTRY_ERP_SECTIONS: Record<string, IndustryErpSection> = {
   "bygg-entreprenad": {
     heading: "Affärssystem för bygg och entreprenad baserat på Microsoft Dynamics",
     intro:
-      "De flesta svenska bygg-, entreprenad- och installationsföretag som väljer Microsoft hamnar i Business Central, ofta kompletterat med ett branschpaket. Större entreprenadkoncerner med många bolag jämför även med Finance & Supply Chain Management.",
+      "För små och medelstora bygg-, entreprenad- och installationsföretag är Business Central med ett branschpaket ofta det naturliga spåret. Större entreprenadkoncerner med många bolag jämför även med Finance & Supply Chain Management.",
     points: [
       {
         title: "Projektredovisning",
