@@ -209,9 +209,10 @@ export const BASIC_COPY = {
   cta: "Komplettera partnerprofilen",
   standaloneNoContact:
     "Kontaktväg via d365.se är inte aktiverad för denna profil.",
-  buyerGuidanceCta: "Kontakta d365.se för vägledning",
+  buyerGuidanceCta: "Skriv till Thomas i stället",
   buyerGuidanceBody:
-    "Profilen kan inte matchas mot dina urvalskriterier eftersom uppgifterna ovan inte är bekräftade av partnern. d365.se kan i stället hjälpa dig att bedöma alternativ som motsvarar det du söker.",
+    "Uppgifterna ovan är inte bekräftade av partnern, så profilen kan inte matchas mot era urvalskriterier. På 20 minuter hjälper Thomas Laine er att bedöma om partnern, eller någon annan, passar ert projekt. Kostnadsfritt, inga säljare inblandade.",
+  buyerGuidanceTrust: "Inga partners kontaktar er utan ert godkännande.",
   matchingLimited: "Begränsad data: partnern kan inte bedömas fullt ut.",
   compareMissing: "data saknas",
 } as const;
