@@ -425,7 +425,7 @@ const handler = async (req: Request): Promise<Response> => {
       const key = Deno.env.get("RESEND_API_KEY");
       if (!key || !isPartnerBound(stored)) return json({ error: "Förfrågan kan inte skickas." }, 400);
       const sent = await routeToPartners(db, new Resend(key), stored);
-      return json({ success: sent > 0, sent });
+      return json({ success: true, sent });
     }
 
     // Honeypot check - if filled, silently "succeed" to fool bots
