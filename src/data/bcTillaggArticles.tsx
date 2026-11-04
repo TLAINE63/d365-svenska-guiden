@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { DeepDiveArticle } from "./bcArticles";
 import { getComparisonsForArticle } from "./isvComparisons";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 
 const CompareLinks = ({ articleSlug }: { articleSlug: string }) => {
   const comparisons = getComparisonsForArticle(articleSlug);
@@ -372,6 +373,43 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         <p>
           När du skickar volym mot flera transportörer och behöver automatiserad fraktbokning,
           etiketter, track &amp; trace och returer direkt från BC.
+        </p>
+
+        <h2>TA-system och transportadministration i Dynamics{"\u00A0"}365</h2>
+        <p>
+          Ett TA-system kopplar Business Central till transportörerna. TA-system som <strong>nShift</strong> och
+          <strong> Logtrade</strong> hämtar order och leveransadresser från affärssystemet och bokar frakten
+          automatiskt hos till exempel <strong>PostNord</strong>, DHL eller Bring.
+        </p>
+        <p>
+          Etiketter och fraktsedlar skrivs ut direkt i plock- eller packflödet, och kollinummer samt
+          spårningslänkar skrivs tillbaka till ordern så att kundtjänst och kund kan följa sändningen.
+          Kontrollera vilka transportörer, tjänster och returflöden som stöds innan ni väljer.
+        </p>
+
+        <h2>EDI-integrationer och elektroniskt orderflöde</h2>
+        <p>
+          EDI används när order, orderbekräftelser, leveransaviseringar och fakturor ska utväxlas
+          elektroniskt med handelspartners, till exempel dagligvaru- och byggvaruhandeln. EDI-fakturering
+          innebär att fakturan skickas som en strukturerad EDI-faktura i stället för PDF.
+        </p>
+        <p>
+          Flödet går normalt via en EDI-leverantör, som <strong>SPS Commerce</strong> eller en nordisk
+          EDI-operatör, som översätter mellan handelsformat (EDIFACT, Peppol) och Business Centrals order
+          och fakturor. Utgå från vilka handelspartners ni har och vilka meddelanden de kräver.
+        </p>
+
+        <aside className="not-prose my-10 rounded border border-border bg-card p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-2">Behöver ni råd kring TA-system, frakt eller EDI?</h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            Boka 20 minuters kostnadsfri rådgivning med Thomas Laine. Ingen partner deltar i samtalet.
+          </p>
+          <AdvisorContactButtons />
+        </aside>
+
+        <p>
+          Läs vidare om <Link to="/business-central/tillagg/ehandel/">e-handel, PIM och e-commerce för Business Central</Link>{" "}
+          eller <Link to="/valjdynamics365partner/">hitta partner med erfarenhet av frakt- och EDI-integrationer</Link>.
         </p>
 
         <CompareLinks articleSlug="tillagg-frakt-ta" />
