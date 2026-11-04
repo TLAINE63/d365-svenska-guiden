@@ -71,7 +71,7 @@ const ScrollCTA = () => {
           contact_name: email.split("@")[0] || "Lead",
           company_name: "Okänt företag",
           email,
-          message: "Bokning: kostnadsfri 15-min rådgivning (via ScrollCTA)",
+          message: "Bokning: kostnadsfri 20-min rådgivning (via ScrollCTA)",
           source_page: location.pathname,
           source_type: "scroll_cta_advisory",
         },
