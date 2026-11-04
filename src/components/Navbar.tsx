@@ -60,24 +60,24 @@ const MENUS: NavMenu[] = [
     label: "CRM",
     groups: [
       {
-        heading: "Välja CRM-system",
+        heading: "Välj system",
         items: [
-          { label: "CRM-guiden: välja CRM-system", path: "/crm/", strong: true },
-          { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
-          { label: "Välja fältservicesystem", path: "/faltservicesystem/" },
+          { label: "Välj CRM-system", path: "/crm/", strong: true },
+          { label: "Välj system för kundservice", path: "/kundservicesystem/" },
+          { label: "Välj system för fältservice", path: "/faltservicesystem/" },
         ],
       },
       {
-        heading: "Applikationer",
+        heading: "Microsofts lösningar",
         items: [
-          { label: "Försäljning: Dynamics 365 Sales", path: "/d365sales" },
-          { label: "Marknad och kundinsikter: Customer Insights", path: "/d365marketing" },
-          { label: "Kundservice och ärendehantering: Customer Service", path: "/d365customerservice" },
-          { label: "Kontaktcenter: Contact Center", path: "/d365contactcenter" },
-          { label: "Fältservice: Field Service", path: "/d365fieldservice" },
+          { label: "Sälj och kundrelationer: Dynamics\u00A0365 Sales", path: "/d365sales" },
+          { label: "Marknadsföring och kunddata: Customer Insights", path: "/d365marketing" },
+          { label: "Kundservice och ärenden: Customer Service", path: "/d365customerservice" },
+          { label: "Kontaktcenter och kundkommunikation: Contact Center", path: "/d365contactcenter" },
+          { label: "Service ute hos kund: Field Service", path: "/d365fieldservice" },
         ],
       },
-      { heading: "Hitta rätt leverantör", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+      { heading: "Hitta partner", items: [{ label: "Hitta CRM-partner", path: "/dynamics-365-crm-partners-sverige/" }] },
     ],
   },
   {
