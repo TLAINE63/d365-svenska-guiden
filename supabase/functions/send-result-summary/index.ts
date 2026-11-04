@@ -87,6 +87,7 @@ Deno.serve(async (req) => {
     <h2 style="font-size:18px;margin:0 0 8px">Tre frågor att ställa till leverantörerna</h2>
     <ol style="padding-left:20px;margin:0 0 24px">${li(cfg.questions)}</ol>
     <p style="margin:0 0 8px">Har ni redan fått ett förslag? <a href="https://d365.se/second-opinion/">Få en second opinion</a> innan ni skriver på.</p>
+    <p style="margin:0 0 16px">Vill ni gå igenom resultatet tillsammans? <a href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&amp;ismsaljsauthenabled&amp;ep=mlink">Välj 20 minuter i Thomas kalender</a>.</p>
     <p style="margin:0;color:#555;font-size:13px">Inga partners har fått era uppgifter. Svara på mejlet om ni vill prata med Thomas Laine på d365.se.</p>`;
 
   try {

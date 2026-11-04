@@ -134,7 +134,7 @@ const ContactUs = () => {
                           Skicka e-post
                         </Button>
                         <a 
-                          href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
+                          href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
