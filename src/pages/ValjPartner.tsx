@@ -75,6 +75,9 @@ const profilePartnersIn = (category: PartnerCategoryKey, appFilter?: RegExp) => 
       .sort((a, b) => Number(b === "Tillverkningsindustri") - Number(a === "Tillverkningsindustri"))
       .slice(0, 3),
   }));
+const FSCM_DETAIL_PATTERN = /^(finance|supply chain|f&scm|f&o|project operations)/i;
+const fscmProfilePartners = profilePartnersIn("fscm", FSCM_DETAIL_PATTERN);
+const crmProfilePartners = profilePartnersIn("crm", CRM_APP_PATTERN);
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { episodesForPartner } from "@/data/d365Inside";
 import {
