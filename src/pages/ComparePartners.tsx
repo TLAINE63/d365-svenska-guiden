@@ -45,6 +45,7 @@ import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { ADVISORY_CTA } from "@/lib/advisory";
 import { PARTNER_COMPARE_CTA } from "@/lib/conversionCtas";
 import { describeAiCapabilities } from "@/utils/aiScoring";
@@ -318,15 +319,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
             sammanställda av d365.se från publika källor.
           </p>
           {onBasicInquiry && (
-            <Button
-              type="button"
-              size="sm"
-              onClick={onBasicInquiry}
-              className="w-full h-8 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
-            >
-              <Mail className="w-4 h-4 mr-1.5" />
-              Kontakta d365.se för vägledning
-            </Button>
+            <AdvisorContactButtons compact />
           )}
         </>
       )}
@@ -2540,18 +2533,7 @@ const ComparePartners = () => {
                               Välj minst två partnerverifierade profiler ovan för att skicka samma förfrågan till alla och få jämförbara svar. Grundprofiler kan inte kontaktas direkt via d365.se.
                             </p>
                             {anyBasicSelected && (
-                              <Button
-                                type="button"
-                                size="sm"
-                                onClick={() => {
-                                  const first = [a, b, c].find((p) => p && isBasicPartner(p));
-                                  if (first) setBasicInquiryFor({ slug: first.slug, name: first.name });
-                                }}
-                                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
-                              >
-                                <Mail className="w-4 h-4 mr-1.5" />
-                                Kontakta d365.se för vägledning
-                              </Button>
+                              <AdvisorContactButtons compact />
                             )}
                           </div>
                         );
@@ -2578,21 +2560,7 @@ const ComparePartners = () => {
                                     <p className="text-[11px] text-slate-500 leading-relaxed">
                                       Kontaktväg via d365.se är inte aktiverad för denna grundprofil. d365.se kan hjälpa dig vidare.
                                     </p>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      onClick={() =>
-                                        setBasicInquiryFor({
-                                          slug: side.partner!.slug,
-                                          name: side.partner!.name,
-                                        })
-                                      }
-                                      disabled={isSubmittingQuote}
-                                      className="w-full text-xs min-h-[40px] bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
-                                    >
-                                      <Mail className="w-3.5 h-3.5 mr-1.5" />
-                                      Kontakta d365.se för vägledning
-                                    </Button>
+                                    <AdvisorContactButtons compact />
                                   </div>
                                 ) : (
                                   <div className="flex flex-wrap gap-2">
