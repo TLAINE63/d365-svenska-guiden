@@ -1108,6 +1108,21 @@ serve(async (req) => {
       }
     }
 
+    // Mottagare utöver partnerns egna registrerade adresser får bara vara interna
+    // (för testutskick av admin). Cron och okända adresser ignoreras alltid.
+    const INTERNAL = /^[^\s@]+@(dynamicfactory\.se|d365\.se)$/i;
+    const internalOnly = (v: unknown) => {
+      const t = typeof v === "string" ? v.trim().toLowerCase() : "";
+      return isAdmin && INTERNAL.test(t) ? t : "";
+    };
+    const safeOverride = internalOnly(overrideRecipient) || undefined;
+    const safeExtras = (Array.isArray(extraRecipients) ? extraRecipients : []).map(internalOnly).filter(Boolean).slice(0, 5);
+    if ((overrideRecipient && !safeOverride) || (Array.isArray(extraRecipients) && safeExtras.length !== extraRecipients.length)) {
+      return new Response(JSON.stringify({ error: "Extra mottagare måste vara interna adresser (dynamicfactory.se eller d365.se)." }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // Compute period windows
     const now = new Date();
     let currentEndDate: Date;
@@ -1151,9 +1166,9 @@ serve(async (req) => {
           previousStart, previousEnd,
           settings,
           dryRun,
-          overrideRecipient,
+          safeOverride,
           reportLabel,
-          Array.isArray(extraRecipients) ? extraRecipients : [],
+          safeExtras,
           true, // require approved report before actual send
         ));
       } catch (e: any) {
