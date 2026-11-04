@@ -4883,6 +4883,45 @@ export type Database = {
           },
         ]
       }
+      result_summary_requests: {
+        Row: {
+          confirmed_at: string | null
+          created_at: string
+          email: string
+          expires_at: string
+          follow_up: boolean
+          id: string
+          lines: Json
+          source_page: string | null
+          token_hash: string
+          tool: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          created_at?: string
+          email: string
+          expires_at?: string
+          follow_up?: boolean
+          id?: string
+          lines?: Json
+          source_page?: string | null
+          token_hash: string
+          tool: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          created_at?: string
+          email?: string
+          expires_at?: string
+          follow_up?: boolean
+          id?: string
+          lines?: Json
+          source_page?: string | null
+          token_hash?: string
+          tool?: string
+        }
+        Relationships: []
+      }
       search_perf_daily: {
         Row: {
           clicks: number
