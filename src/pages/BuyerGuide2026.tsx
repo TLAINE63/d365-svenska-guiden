@@ -122,6 +122,23 @@ const BuyerGuide2026 = ({ variant }: Props) => {
             </Link>{" "}
             för aktuella pris- och kostnadsspann.
           </p>
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            {variant === "erp" ? (
+              <>
+                <Link to="/valjdynamics365partner/" className="font-medium text-primary underline underline-offset-4 hover:no-underline">
+                  Se Business Central- och ERP-partners i Sverige
+                </Link>{" "}
+                och jämför dem på bransch, storlek och leveransförmåga i partnerväljaren.
+              </>
+            ) : (
+              <>
+                <Link to="/valjdynamics365partner/" className="font-medium text-primary underline underline-offset-4 hover:no-underline">
+                  {nowrapBrand("Hitta och jämför Dynamics 365 CRM-partners i Sverige")}
+                </Link>{" "}
+                utifrån applikation, bransch och storlek i partnerväljaren.
+              </>
+            )}
+          </p>
         </section>
 
         <FunnelCTA stage="early" guide={variant} source={path} />
