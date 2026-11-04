@@ -38,13 +38,13 @@ const MENUS: NavMenu[] = [
         ],
       },
       {
-        heading: "Applikationer",
+        heading: "Dynamics\u00A0365-applikationer",
         items: [
-          { label: "Dynamics 365 Business Central", path: "/businesscentral" },
-          { label: "Dynamics 365 Finance & Supply Chain Management", path: "/finance-supply-chain" },
-          { label: "Dynamics 365 Project Operations", path: "/d365projectoperations" },
-          { label: "Dynamics 365 Commerce", path: "/d365commerce" },
-          { label: "Dynamics 365 Human Resources", path: "/d365humanresources" },
+          { label: "Business Central", path: "/businesscentral" },
+          { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
+          { label: "Project Operations", path: "/d365projectoperations" },
+          { label: "Commerce", path: "/d365commerce" },
+          { label: "Human Resources", path: "/d365humanresources" },
         ],
       },
       {
@@ -206,20 +206,41 @@ const DesktopMenu = ({ menu }: { menu: NavMenu }) => (
         <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent className="bg-background border border-border z-50 w-72 max-h-[80vh] overflow-y-auto">
-      {menu.groups.map((g, gi) => (
-        <div key={gi}>
-          {gi > 0 && <DropdownMenuSeparator />}
-          {g.heading && (
-            <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wide text-foreground">{g.heading}</DropdownMenuLabel>
-          )}
-          {g.items.map((item) => (
-            <DropdownMenuItem key={item.path ?? item.href} asChild>
-              <ItemLink item={item} className={`cursor-pointer ${item.strong ? "font-semibold text-primary" : ""}`} />
-            </DropdownMenuItem>
-          ))}
-        </div>
-      ))}
+    <DropdownMenuContent
+      align="start"
+      className={`bg-background border border-border z-50 max-h-[80vh] overflow-y-auto p-2 rounded-xl shadow-xl ${
+        menu.groups.length >= 3 ? "w-[min(760px,95vw)]" : menu.groups.length === 2 ? "w-[min(540px,95vw)]" : "w-[380px]"
+      }`}
+    >
+      <div
+        className={`grid gap-1 ${
+          menu.groups.length >= 3 ? "grid-cols-3" : menu.groups.length === 2 ? "grid-cols-2" : "grid-cols-1"
+        } divide-x divide-border`}
+      >
+        {menu.groups.map((g, gi) => (
+          <div key={gi} className="px-2 py-1">
+            {g.heading && (
+              <DropdownMenuLabel className="px-2 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {g.heading}
+              </DropdownMenuLabel>
+            )}
+            <div className="flex flex-col gap-0.5">
+              {g.items.map((item) => (
+                <DropdownMenuItem key={item.path ?? item.href} asChild>
+                  <ItemLink
+                    item={item}
+                    className={`group cursor-pointer rounded-lg px-3 py-2.5 text-sm leading-snug transition-colors focus:bg-muted ${
+                      item.strong
+                        ? "mb-1 border border-primary/30 bg-primary/5 font-semibold text-primary hover:bg-primary/10"
+                        : "text-foreground hover:bg-muted"
+                    }`}
+                  />
+                </DropdownMenuItem>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </DropdownMenuContent>
   </DropdownMenu>
 );
