@@ -267,7 +267,7 @@ export default function ImplementationCalculator() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 implementation: kalkylator, faser och tidsplan"
+        title="Dynamics 365 implementation, faser, tidsplan och kalkylator"
         description="Så går en Dynamics 365-implementation till: fem faser, tumregler för tidsplan och en kalkylator för införandekostnad, licens och tidplan."
         canonicalPath="/implementationskalkylator/"
       />
