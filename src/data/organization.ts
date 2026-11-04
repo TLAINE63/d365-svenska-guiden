@@ -63,3 +63,6 @@ export const ORGANIZATION_SCHEMA_DESCRIPTION = rawSiteText("org.schema_descripti
 /** Thomas Laines bokningssida. Används som genomförandealternativ efter att besökaren pratat med d365.se, aldrig som själva erbjudandet. */
 export const ADVISOR_BOOKING_URL =
   "https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink";
+/** Fastställd knapptext för rådgivning med Thomas (beslut 2026-11-04). */
+export const ADVISOR_BOOKING_CTA = "Boka 20-minuters kostnadsfri rådgivning med Thomas";
+export const ADVISOR_EMAIL_HREF = "mailto:thomas.laine@dynamicfactory.se";

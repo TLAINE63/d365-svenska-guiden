@@ -56,6 +56,11 @@ export function trackConfirmedForm(formId: string): void {
   const leadType = formId === 'general_contact' ? 'general_contact' : formId === 'underlag_sent' ? 'guide_request' : 'provider_contact';
   if (/^[a-zA-Z0-9_-]{1,128}$/.test(formId)) sendEvent('lead_submit', { form_id: formId, lead_type: leadType, submission_status: 'confirmed' });
 }
+/** De tre konverteringsvägarna för rådgivning med Thomas. Fasta id:n, aldrig namn, e-post eller telefon. */
+export type ConsultationFormId = 'bookings_20min_thomas' | 'email_cta_thomas' | 'popup_20min_thomas';
+export function trackConsultationLead(formId: ConsultationFormId): void {
+  sendEvent('lead_submit', { lead_type: 'consultation', form_id: formId, submission_status: 'confirmed' });
+}
 export function installTracking(): () => void {
   if (typeof window === 'undefined') return () => {};
   let forms = new WeakSet<HTMLFormElement>();

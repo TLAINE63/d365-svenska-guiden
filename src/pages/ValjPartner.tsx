@@ -73,6 +73,8 @@ import {
 import type { SupportLevel } from "@/data/deliveryProfileFields";
 import type { CompetencyArea } from "@/lib/extendedCompetencies";
 import { partnerWebsiteUrl } from "@/lib/track";
+import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 
 // Partner FAQs for schema – priser hämtas från product_prices via resolvePriceTokens
 const partnerFaqsRaw = [
@@ -1424,19 +1426,20 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  <Button 
  asChild
  size="lg" 
- className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded"
+ className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-auto min-h-14 py-3 whitespace-normal text-center text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded"
  >
  <a
- href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink"
+ href={ADVISOR_BOOKING_URL}
  target="_blank"
  rel="noopener noreferrer"
+ onClick={() => trackConsultationLead("bookings_20min_thomas")}
  >
- <Calendar className="w-5 h-5 mr-2" />
- Boka en tid direkt
+ <Calendar className="w-5 h-5 mr-2 flex-shrink-0" />
+ {ADVISOR_BOOKING_CTA}
  </a>
  </Button>
  <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold transition-all rounded border border-border">
- <a href="mailto:thomas.laine@dynamicfactory.se">
+ <a href={ADVISOR_EMAIL_HREF} onClick={() => trackConsultationLead("email_cta_thomas")}>
  <Mail className="w-5 h-5 mr-2" />
  Emaila mig
  </a>

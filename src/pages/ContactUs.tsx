@@ -18,6 +18,8 @@ import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 import thomasLaineHeader from "@/assets/thomas-laine-kokai.jpg.asset.json";
 import michaelUhmanPhoto from "@/assets/michael-uhman.jpg";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
+import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 
 const ContactUs = () => {
   return (
@@ -104,7 +106,7 @@ const ContactUs = () => {
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
                           <Mail className="w-4 h-4 text-primary" />
-                          <a href="mailto:thomas.laine@dynamicfactory.se" className="text-sm text-primary hover:underline">
+                          <a href={ADVISOR_EMAIL_HREF} onClick={() => trackConsultationLead("email_cta_thomas")} className="text-sm text-primary hover:underline">
                             thomas.laine@dynamicfactory.se
                           </a>
                         </div>
@@ -128,19 +130,20 @@ const ContactUs = () => {
                         <Button 
                           size="sm"
                           className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white w-full"
-                          onClick={() => window.location.href = 'mailto:thomas.laine@dynamicfactory.se'}
+                          onClick={() => { trackConsultationLead("email_cta_thomas"); window.location.href = ADVISOR_EMAIL_HREF; }}
                         >
                           <Mail className="w-4 h-4 mr-2" />
                           Skicka e-post
                         </Button>
                         <a 
-                          href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
+                          href={ADVISOR_BOOKING_URL}
+                          onClick={() => trackConsultationLead("bookings_20min_thomas")}
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
+                          className="inline-flex items-center justify-center gap-2 text-center rounded-md text-sm font-medium min-h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
                         >
-                          <Calendar className="w-4 h-4" />
-                          Boka en tid direkt
+                          <Calendar className="w-4 h-4 flex-shrink-0" />
+                          {ADVISOR_BOOKING_CTA}
                         </a>
                         <Link
                           to="/om-thomas-laine/"

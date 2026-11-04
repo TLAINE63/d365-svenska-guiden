@@ -7,6 +7,8 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import { Mail, Phone, Calendar, ArrowLeft } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
+import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 
 const PERSON_ID = "https://d365.se/om-thomas-laine#thomas-laine";
 const LINKEDIN_URL = "https://www.linkedin.com/in/thomaslaine/";
@@ -153,7 +155,8 @@ const OmThomasLaine = () => {
               </p>
               <div className="grid sm:grid-cols-2 gap-3">
                 <a
-                  href="mailto:thomas.laine@dynamicfactory.se"
+                  href={ADVISOR_EMAIL_HREF}
+                  onClick={() => trackConsultationLead("email_cta_thomas")}
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90"
                 >
                   <Mail className="w-4 h-4" /> thomas.laine@dynamicfactory.se
@@ -165,12 +168,13 @@ const OmThomasLaine = () => {
                   <Phone className="w-4 h-4" /> +46 72 232 40 60
                 </a>
                 <a
-                  href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink"
+                  href={ADVISOR_BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackConsultationLead("bookings_20min_thomas")}
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] text-white text-sm font-medium"
                 >
-                  <Calendar className="w-4 h-4" /> Boka möte
+                  <Calendar className="w-4 h-4 flex-shrink-0" /> {ADVISOR_BOOKING_CTA}
                 </a>
                 <a
                   href={LINKEDIN_URL}
