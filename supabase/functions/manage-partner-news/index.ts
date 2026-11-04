@@ -434,6 +434,28 @@ serve(async (req) => {
         if (u.protocol !== "https:" || host === "localhost" || /^(\d+\.){3}\d+$/.test(host) || host.includes(":") || host.endsWith(".local") || host.endsWith(".internal")) {
           return new Response(JSON.stringify({ error: "Ogiltig bildadress" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
         }
+        // Bara partnerns egna webbplatser (registrerade i partnerregistret), d365.se och några
+        // vanliga bild-CDN:er får hämtas, så funktionen kan inte användas mot godtyckliga sajter.
+        const { data: sites } = await supabase.from("partners").select("website").not("website", "is", null);
+        const allowedHosts = new Set<string>(["d365.se", "dynamicfactory.se"]);
+        for (const r of sites || []) {
+          try {
+            const raw = String((r as { website: string }).website || "").trim();
+            if (!raw) continue;
+            const h = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`).hostname.toLowerCase().replace(/^www\./, "");
+            if (h.includes(".")) allowedHosts.add(h);
+          } catch { /* ignore */ }
+        }
+        const isAllowedImageHost = (raw: string) => {
+          let h = "";
+          try { h = new URL(raw).hostname.toLowerCase().replace(/^www\./, ""); } catch { return false; }
+          if (IMAGE_CDN_SUFFIXES.some((c) => h === c || h.endsWith(`.${c}`))) return true;
+          for (const a of allowedHosts) if (h === a || h.endsWith(`.${a}`)) return true;
+          return false;
+        };
+        if (!isAllowedImageHost(url)) {
+          return new Response(JSON.stringify({ error: "Bilden måste ligga på partnerns egen webbplats. Ladda annars upp den som fil." }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
+        }
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), 10000);
         let resp: Response;
@@ -441,7 +463,7 @@ serve(async (req) => {
           let current = url;
           let hops = 0;
           while (true) {
-            if (!(await isPublicHttpsUrl(current))) {
+            if (!isAllowedImageHost(current) || !(await isPublicHttpsUrl(current))) {
               return new Response(JSON.stringify({ error: "Ogiltig bildadress" }), { status: 400, headers: { "Content-Type": "application/json", ...cors } });
             }
             resp = await fetch(current, { signal: ctrl.signal, redirect: "manual", headers: { "User-Agent": "Mozilla/5.0 (d365.se image import)", Accept: "image/*" } });
@@ -491,6 +513,13 @@ function isPrivateIp(ip: string): boolean {
   return a === 0 || a === 10 || a === 127 || (a === 100 && b >= 64 && b <= 127) || (a === 169 && b === 254) ||
     (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || a >= 224;
 }
+
+/** Vanliga bild-CDN:er som partners webbplatser lägger sina bilder på. */
+const IMAGE_CDN_SUFFIXES = [
+  "hubspotusercontent-eu1.net", "hubspotusercontent-na1.net", "hubspotusercontent.com", "hubspot.net",
+  "wp.com", "website-files.com", "squarespace-cdn.com", "wixstatic.com", "ctfassets.net", "cdn.sanity.io",
+  "cloudinary.com", "imgix.net", "licdn.com", "azureedge.net", "blob.core.windows.net", "sitecorecontenthub.cloud",
+];
 
 async function isPublicHttpsUrl(raw: string): Promise<boolean> {
   let u: URL;

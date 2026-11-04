@@ -2101,6 +2101,33 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_partner_confirmations: {
+        Row: {
+          confirmed_at: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          lead_id: string
+          token_hash: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          lead_id: string
+          token_hash: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          lead_id?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           admin_notes: string | null

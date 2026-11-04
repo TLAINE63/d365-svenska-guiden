@@ -65,8 +65,20 @@ export function isoStockholm(ts: string | null | undefined): string {
   return `${g("year")}-${g("month")}-${g("day")}T${g("hour")}:${g("minute")}:${g("second")}${sign}${String(Math.floor(o / 60)).padStart(2, "0")}:${String(o % 60).padStart(2, "0")}`;
 }
 
+/**
+ * Neutraliserar kalkylbladsformler: värden som börjar med = + - @ tab eller CR får en
+ * inledande apostrof, så att Excel/Sheets visar dem som text. Rena tal lämnas orörda.
+ */
+export function neutralizeFormula(v: string): string {
+  if (/^-?\d+(\.\d+)?$/.test(v)) return v;
+  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+}
+
 export function toCsv(columns: string[], rows: Record<string, string>[]): string {
-  const cell = (v: string) => (/[",\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
+  const cell = (raw: string) => {
+    const v = neutralizeFormula(raw);
+    return /[",\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+  };
   return [columns.join(","), ...rows.map((r) => columns.map((c) => cell(r[c] ?? "")).join(","))].join("\r\n") + "\r\n";
 }
 

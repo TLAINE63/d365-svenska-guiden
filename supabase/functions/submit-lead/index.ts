@@ -99,221 +99,24 @@ interface LeadRequest {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const handler = async (req: Request): Promise<Response> => {
-  const corsHeaders = getCorsHeaders(req);
-  
-  // Handle CORS
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
 
-  try {
-    // Rate limiting
-    const clientIP = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
-    if (isRateLimited(clientIP)) {
-      console.log("Rate limited request");
-      return new Response(
-        JSON.stringify({ error: "För många förfrågningar. Försök igen senare." }),
-        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+type SanitizedLead = {
+  company_name: string; contact_name: string; email: string; phone: string; company_size: string;
+  industry: string; selected_product: string; source_page: string; source_type: string; message: string;
+  assigned_partners: string[];
+};
 
-    const data: LeadRequest = await req.json();
+function isPartnerBound(d: { assigned_partners: string[]; source_type: string }): boolean {
+  return d.assigned_partners.length > 0 &&
+    (d.source_type.startsWith("partner_") || d.source_type === "compare_partners_intro");
+}
 
-    // Honeypot check - if filled, silently "succeed" to fool bots
-    if (data._hp) {
-      console.log("Honeypot triggered - bot detected");
-      return new Response(
-        JSON.stringify({ success: true, id: "blocked" }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate required fields
-    if (!data.company_name || !data.contact_name || !data.email) {
-      return new Response(
-        JSON.stringify({ error: "Företagsnamn, kontaktperson och e-post är obligatoriska." }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate email
-    if (!isValidEmail(data.email)) {
-      return new Response(
-        JSON.stringify({ error: "Ogiltig e-postadress." }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Block free/personal/disposable email domains (gmail, hotmail, live, etc.)
-    if (isFreeEmailDomain(data.email)) {
-      console.log("Blocked free email domain submission");
-      return new Response(
-        JSON.stringify({ error: FREE_EMAIL_ERROR_SV }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Sanitize inputs
-    const sanitizedData = {
-      company_name: sanitizeInput(data.company_name).slice(0, 100),
-      contact_name: sanitizeInput(data.contact_name).slice(0, 100),
-      email: sanitizeInput(data.email).slice(0, 255),
-      phone: sanitizeInput(data.phone).slice(0, 20),
-      company_size: sanitizeInput(data.company_size).slice(0, 50),
-      industry: sanitizeInput(data.industry).slice(0, 100),
-      selected_product: sanitizeInput(data.selected_product).slice(0, 100),
-      source_page: sanitizeInput(data.source_page).slice(0, 200),
-      source_type: sanitizeInput(data.source_type).slice(0, 50) || "cta",
-      message: sanitizeInput(data.message).slice(0, 1000),
-      assigned_partners: Array.isArray(data.assigned_partners)
-        ? data.assigned_partners
-            .filter((s) => typeof s === "string")
-            .map((s) => sanitizeInput(s).slice(0, 100))
-            .filter(Boolean)
-            .slice(0, 5)
-        : [],
-      attribution_news_id:
-        typeof data.attribution_news_id === "string" && UUID_RE.test(data.attribution_news_id.trim())
-          ? data.attribution_news_id.trim()
-          : null,
-      attribution_source: sanitizeInput(data.attribution_source).slice(0, 50) || null,
-    };
-
-    // Create Supabase client with service role
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    const ctx = formContextFields(data as unknown as Record<string, unknown>);
-
-    // Insert lead into database
-    const { data: lead, error: insertError } = await supabase
-      .from("leads")
-      .insert({
-        company_name: sanitizedData.company_name,
-        contact_name: sanitizedData.contact_name,
-        email: sanitizedData.email,
-        phone: sanitizedData.phone || null,
-        company_size: sanitizedData.company_size || null,
-        industry: sanitizedData.industry || null,
-        selected_product: sanitizedData.selected_product || null,
-        source_page: sanitizedData.source_page || null,
-        source_type: sanitizedData.source_type,
-        message: sanitizedData.message || null,
-        assigned_partners: sanitizedData.assigned_partners,
-        attribution_news_id: sanitizedData.attribution_news_id,
-        attribution_source: sanitizedData.attribution_source,
-        role: sanitizeInput(data.role).slice(0, 80) || null,
-        session_pages: ctx.session_pages,
-        landing_page: ctx.landing_page,
-        consent_text_version: ctx.consent_text_version,
-        consent_partner_share: data.consent_partner_share === true,
-        submission_id: typeof data.submission_id === "string" && UUID_RE.test(data.submission_id) ? data.submission_id : null,
-        status: "new",
-      })
-      .select()
-      .single();
-
-    if (insertError) {
-      console.error("Database insert error:", insertError);
-      throw new Error("Kunde inte spara lead");
-    }
-
-    console.log("Lead saved successfully:", lead.id);
-
-    // Send email notification
-    const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    if (resendApiKey) {
-      const resend = new Resend(resendApiKey);
-      
-      // Determine if this is a lead magnet download
-      const isLeadMagnet = sanitizedData.source_type === "lead_magnet";
-      
-      // Send email to customer if lead magnet download
-      if (isLeadMagnet) {
-        try {
-          const attachments = data.pdfBase64 && data.pdfFilename ? [
-            {
-              filename: data.pdfFilename.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100) + ".pdf",
-              content: data.pdfBase64,
-            },
-          ] : undefined;
-          
-          if (attachments) {
-            console.log(`Adding PDF attachment: ${attachments[0].filename}`);
-          }
-          
-          await resend.emails.send({
-            from: "D365 Guiden <info@d365.se>",
-            to: [sanitizedData.email],
-            subject: "Din guide: Så väljer du rätt Dynamics 365-partner",
-            html: `
-              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
-                  <h1 style="color: white; margin: 0; font-size: 24px;">
-                    Tack för ditt intresse!
-                  </h1>
-                </div>
-                
-                <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
-                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-                    Hej!
-                  </p>
-                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-                    Tack för att du laddade ner vår guide <strong>"Så väljer du rätt Dynamics 365-partner"</strong>.
-                  </p>
-                  
-                  <div style="background: #ecfdf5; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
-                    <p style="color: #065f46; font-size: 14px; margin: 0;">
-                      📎 Guiden är bifogad i detta mail som PDF.
-                    </p>
-                  </div>
-                  
-                  <h3 style="color: #374151; font-size: 18px; margin-top: 30px;">
-                    I guiden hittar du:
-                  </h3>
-                  <ul style="color: #4b5563; font-size: 15px; line-height: 1.8;">
-                    <li>Checklista för att utvärdera Dynamics 365-partners</li>
-                    <li>Viktiga frågor att ställa till potentiella partners</li>
-                    <li>Tips för att säkerställa en lyckad implementation</li>
-                  </ul>
-                  
-                  <div style="background: #f9fafb; border-radius: 8px; padding: 20px; margin-top: 30px;">
-                    <h4 style="color: #374151; margin: 0 0 12px 0;">Behöver du mer hjälp?</h4>
-                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 16px 0;">
-                      Vi hjälper dig gärna att hitta rätt partner för dina behov.
-                    </p>
-                    <a href="https://www.d365.se/valjdynamics365partner" 
-                       style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-                      Se våra partners →
-                    </a>
-                  </div>
-                </div>
-                
-                <div style="background: #374151; padding: 20px; border-radius: 0 0 8px 8px; text-align: center;">
-                  <p style="color: #9ca3af; font-size: 12px; margin: 0;">
-                    D365 Guiden | <a href="https://www.d365.se" style="color: #10b981;">www.d365.se</a>
-                  </p>
-                </div>
-              </div>
-            `,
-            attachments,
-          });
-          
-          console.log("Customer email with PDF sent");
-        } catch (customerEmailError) {
-          console.error("Customer email failed:", customerEmailError);
-          // Continue with admin notification even if customer email fails
-        }
-      }
-      
+/** Skickar förfrågan till partnerna. Anropas bara efter att köparen bekräftat sin e-postadress. */
+// deno-lint-ignore no-explicit-any
+async function routeToPartners(supabase: any, resend: any, sanitizedData: SanitizedLead): Promise<number> {
       // --- Partner routing: send directly to the partner's contact person ---
       const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
-      const isPartnerRequest =
-        sanitizedData.assigned_partners.length > 0 &&
-        (sanitizedData.source_type.startsWith("partner_") ||
-          sanitizedData.source_type === "compare_partners_intro");
+      const isPartnerRequest = true;
       let partnerEmailSentCount = 0;
       const notifiedPartnerNames: string[] = [];
       const RESPONSE_DAYS = 3;
@@ -567,6 +370,281 @@ const handler = async (req: Request): Promise<Response> => {
         }
       }
 
+      return partnerEmailSentCount;
+}
+
+async function sha256Hex(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+const handler = async (req: Request): Promise<Response> => {
+  const corsHeaders = getCorsHeaders(req);
+  
+  // Handle CORS
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    // Rate limiting
+    const clientIP = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
+    if (isRateLimited(clientIP)) {
+      console.log("Rate limited request");
+      return new Response(
+        JSON.stringify({ error: "För många förfrågningar. Försök igen senare." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const data: LeadRequest = await req.json();
+
+    // Köparen bekräftar via engångslänk; först då skickas förfrågan till partnerna.
+    if ((data as unknown as { action?: string }).action === "confirm_partner_request") {
+      const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      const token = String((data as unknown as { token?: string }).token || "");
+      if (!/^[a-f0-9]{64}$/.test(token)) return json({ error: "Länken är ogiltig." }, 400);
+      const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+      const { data: conf } = await db.from("lead_partner_confirmations")
+        .select("id, lead_id, expires_at, confirmed_at").eq("token_hash", await sha256Hex(token)).maybeSingle();
+      if (!conf) return json({ error: "Länken är ogiltig." }, 400);
+      if (conf.confirmed_at) return json({ success: true, already: true });
+      if (new Date(conf.expires_at).getTime() < Date.now()) return json({ error: "Länken har gått ut. Skicka förfrågan igen." }, 410);
+      const { data: claimed } = await db.from("lead_partner_confirmations")
+        .update({ confirmed_at: new Date().toISOString() }).eq("id", conf.id).is("confirmed_at", null).select("id");
+      if (!claimed?.length) return json({ success: true, already: true });
+      const { data: row } = await db.from("leads").select("*").eq("id", conf.lead_id).maybeSingle();
+      if (!row) return json({ error: "Förfrågan hittades inte." }, 404);
+      const stored: SanitizedLead = {
+        company_name: row.company_name || "", contact_name: row.contact_name || "", email: row.email || "",
+        phone: row.phone || "", company_size: row.company_size || "", industry: row.industry || "",
+        selected_product: row.selected_product || "", source_page: row.source_page || "",
+        source_type: row.source_type || "", message: row.message || "",
+        assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 5) : [],
+      };
+      const key = Deno.env.get("RESEND_API_KEY");
+      if (!key || !isPartnerBound(stored)) return json({ error: "Förfrågan kan inte skickas." }, 400);
+      const sent = await routeToPartners(db, new Resend(key), stored);
+      return json({ success: true, sent });
+    }
+
+    // Honeypot check - if filled, silently "succeed" to fool bots
+    if (data._hp) {
+      console.log("Honeypot triggered - bot detected");
+      return new Response(
+        JSON.stringify({ success: true, id: "blocked" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate required fields
+    if (!data.company_name || !data.contact_name || !data.email) {
+      return new Response(
+        JSON.stringify({ error: "Företagsnamn, kontaktperson och e-post är obligatoriska." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate email
+    if (!isValidEmail(data.email)) {
+      return new Response(
+        JSON.stringify({ error: "Ogiltig e-postadress." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Block free/personal/disposable email domains (gmail, hotmail, live, etc.)
+    if (isFreeEmailDomain(data.email)) {
+      console.log("Blocked free email domain submission");
+      return new Response(
+        JSON.stringify({ error: FREE_EMAIL_ERROR_SV }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Sanitize inputs
+    const sanitizedData = {
+      company_name: sanitizeInput(data.company_name).slice(0, 100),
+      contact_name: sanitizeInput(data.contact_name).slice(0, 100),
+      email: sanitizeInput(data.email).slice(0, 255),
+      phone: sanitizeInput(data.phone).slice(0, 20),
+      company_size: sanitizeInput(data.company_size).slice(0, 50),
+      industry: sanitizeInput(data.industry).slice(0, 100),
+      selected_product: sanitizeInput(data.selected_product).slice(0, 100),
+      source_page: sanitizeInput(data.source_page).slice(0, 200),
+      source_type: sanitizeInput(data.source_type).slice(0, 50) || "cta",
+      message: sanitizeInput(data.message).slice(0, 1000),
+      assigned_partners: Array.isArray(data.assigned_partners)
+        ? data.assigned_partners
+            .filter((s) => typeof s === "string")
+            .map((s) => sanitizeInput(s).slice(0, 100))
+            .filter(Boolean)
+            .slice(0, 5)
+        : [],
+      attribution_news_id:
+        typeof data.attribution_news_id === "string" && UUID_RE.test(data.attribution_news_id.trim())
+          ? data.attribution_news_id.trim()
+          : null,
+      attribution_source: sanitizeInput(data.attribution_source).slice(0, 50) || null,
+    };
+
+    // Create Supabase client with service role
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    const ctx = formContextFields(data as unknown as Record<string, unknown>);
+
+    // Insert lead into database
+    const { data: lead, error: insertError } = await supabase
+      .from("leads")
+      .insert({
+        company_name: sanitizedData.company_name,
+        contact_name: sanitizedData.contact_name,
+        email: sanitizedData.email,
+        phone: sanitizedData.phone || null,
+        company_size: sanitizedData.company_size || null,
+        industry: sanitizedData.industry || null,
+        selected_product: sanitizedData.selected_product || null,
+        source_page: sanitizedData.source_page || null,
+        source_type: sanitizedData.source_type,
+        message: sanitizedData.message || null,
+        assigned_partners: sanitizedData.assigned_partners,
+        attribution_news_id: sanitizedData.attribution_news_id,
+        attribution_source: sanitizedData.attribution_source,
+        role: sanitizeInput(data.role).slice(0, 80) || null,
+        session_pages: ctx.session_pages,
+        landing_page: ctx.landing_page,
+        consent_text_version: ctx.consent_text_version,
+        consent_partner_share: data.consent_partner_share === true,
+        submission_id: typeof data.submission_id === "string" && UUID_RE.test(data.submission_id) ? data.submission_id : null,
+        status: "new",
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error("Database insert error:", insertError);
+      throw new Error("Kunde inte spara lead");
+    }
+
+    console.log("Lead saved successfully:", lead.id);
+
+    // Send email notification
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+      
+      // Determine if this is a lead magnet download
+      const isLeadMagnet = sanitizedData.source_type === "lead_magnet";
+      
+      // Send email to customer if lead magnet download
+      if (isLeadMagnet) {
+        try {
+          const attachments = data.pdfBase64 && data.pdfFilename ? [
+            {
+              filename: data.pdfFilename.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100) + ".pdf",
+              content: data.pdfBase64,
+            },
+          ] : undefined;
+          
+          if (attachments) {
+            console.log(`Adding PDF attachment: ${attachments[0].filename}`);
+          }
+          
+          await resend.emails.send({
+            from: "D365 Guiden <info@d365.se>",
+            to: [sanitizedData.email],
+            subject: "Din guide: Så väljer du rätt Dynamics 365-partner",
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
+                  <h1 style="color: white; margin: 0; font-size: 24px;">
+                    Tack för ditt intresse!
+                  </h1>
+                </div>
+                
+                <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
+                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                    Hej!
+                  </p>
+                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                    Tack för att du laddade ner vår guide <strong>"Så väljer du rätt Dynamics 365-partner"</strong>.
+                  </p>
+                  
+                  <div style="background: #ecfdf5; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+                    <p style="color: #065f46; font-size: 14px; margin: 0;">
+                      📎 Guiden är bifogad i detta mail som PDF.
+                    </p>
+                  </div>
+                  
+                  <h3 style="color: #374151; font-size: 18px; margin-top: 30px;">
+                    I guiden hittar du:
+                  </h3>
+                  <ul style="color: #4b5563; font-size: 15px; line-height: 1.8;">
+                    <li>Checklista för att utvärdera Dynamics 365-partners</li>
+                    <li>Viktiga frågor att ställa till potentiella partners</li>
+                    <li>Tips för att säkerställa en lyckad implementation</li>
+                  </ul>
+                  
+                  <div style="background: #f9fafb; border-radius: 8px; padding: 20px; margin-top: 30px;">
+                    <h4 style="color: #374151; margin: 0 0 12px 0;">Behöver du mer hjälp?</h4>
+                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 16px 0;">
+                      Vi hjälper dig gärna att hitta rätt partner för dina behov.
+                    </p>
+                    <a href="https://www.d365.se/valjdynamics365partner" 
+                       style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                      Se våra partners →
+                    </a>
+                  </div>
+                </div>
+                
+                <div style="background: #374151; padding: 20px; border-radius: 0 0 8px 8px; text-align: center;">
+                  <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                    D365 Guiden | <a href="https://www.d365.se" style="color: #10b981;">www.d365.se</a>
+                  </p>
+                </div>
+              </div>
+            `,
+            attachments,
+          });
+          
+          console.log("Customer email with PDF sent");
+        } catch (customerEmailError) {
+          console.error("Customer email failed:", customerEmailError);
+          // Continue with admin notification even if customer email fails
+        }
+      }
+      
+      const ADMIN_EMAILS = ["thomas.laine@dynamicfactory.se"];
+      const isPartnerRequest = isPartnerBound(sanitizedData);
+      const partnerEmailSentCount = 0;
+      // Dubbel bekräftelse: partnerna mejlas först när köparen bekräftat sin adress via engångslänk,
+      // så att ingen kan skicka meddelanden till partners i någon annans namn.
+      if (isPartnerRequest) {
+        try {
+          const token = Array.from(crypto.getRandomValues(new Uint8Array(32))).map((b) => b.toString(16).padStart(2, "0")).join("");
+          const { error: tokErr } = await supabase.from("lead_partner_confirmations").insert({ lead_id: lead.id, token_hash: await sha256Hex(token) });
+          if (tokErr) throw tokErr;
+          const { data: names } = await supabase.from("partners").select("name").in("slug", sanitizedData.assigned_partners);
+          const partnersLabel = (names || []).map((n: { name: string }) => sanitizeInput(String(n.name || ""))).filter(Boolean).join(", ") || "valda partners";
+          const link = `https://d365.se/bekrafta-forfragan/?t=${token}`;
+          await resend.emails.send({
+            from: "d365.se <info@d365.se>",
+            to: [sanitizedData.email],
+            reply_to: ADMIN_EMAILS[0],
+            subject: "Bekräfta er förfrågan via d365.se",
+            html: `
+              <h1 style="font-size:22px;margin:0 0 12px">Bekräfta er förfrågan</h1>
+              <p style="margin:0 0 16px">Någon skickade en förfrågan via d365.se till <strong>${partnersLabel}</strong> med den här e-postadressen. Förfrågan skickas till partnerna först när ni bekräftar.</p>
+              <p style="margin:0 0 24px"><a href="${link}" style="display:inline-block;background:#0E7C86;color:#ffffff;padding:12px 20px;border-radius:6px;text-decoration:none;font-weight:600">Bekräfta och skicka förfrågan</a></p>
+              <p style="margin:0;color:#555;font-size:13px">Länken gäller i 7 dagar. Har ni inte skickat någon förfrågan kan ni bortse från mejlet, inget skickas vidare.</p>`,
+          });
+        } catch (confirmErr) {
+          console.error("Partner request confirmation email failed:", confirmErr);
+        }
+      }
+
       // Send notification to admin (only when we did NOT already CC them via partner email)
       const shouldSendAdminEmail = !(isPartnerRequest && partnerEmailSentCount > 0);
       if (shouldSendAdminEmail)
@@ -587,7 +665,7 @@ const handler = async (req: Request): Promise<Response> => {
         const emailSubject = isLeadMagnet
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
           : hasPartnerRequest
-          ? `${partnerRequestLabel} → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
+          ? `${partnerRequestLabel} → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}${isPartnerRequest ? " (väntar på köparens bekräftelse)" : ""}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({

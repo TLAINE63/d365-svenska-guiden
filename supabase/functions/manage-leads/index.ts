@@ -201,7 +201,23 @@ const handler = async (req: Request): Promise<Response> => {
       }
 
       case "forward": {
-        const { id, partner_emails, partner_names } = data;
+        const { id, partner_names } = data;
+        // Mottagare hämtas alltid från partnerns registrerade adress, aldrig från anropet.
+        const names: string[] = Array.isArray(partner_names)
+          ? partner_names.filter((n: unknown): n is string => typeof n === "string" && n.trim().length > 0).slice(0, 3)
+          : [];
+        const { data: partnerRows } = names.length
+          ? await supabase.from("partners").select("name, email, admin_contact_email").in("name", names)
+          : { data: [] as { name: string; email: string | null; admin_contact_email: string | null }[] };
+        const partner_emails: string[] = Array.from(new Set(
+          (partnerRows || []).map((p) => (p.admin_contact_email || p.email || "").trim().toLowerCase())
+            .filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)),
+        ));
+        if (!partner_emails.length) {
+          return new Response(JSON.stringify({ error: "Valda partners saknar registrerad e-postadress" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
 
         // Get lead details
         const { data: lead, error: leadError } = await supabase
