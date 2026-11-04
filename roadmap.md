@@ -164,7 +164,7 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 ## Fler kontakter från besökare (2026-11-04)
 - [x] Steg 1a: trygghetsrad och personlig avsändare i rådgivningskort, planformulär och startsidans ruta
-- [ ] Steg 1b: trygghetsrad i övriga kontaktformulär
+- [x] Steg 1b: trygghetsrad i övriga kontaktformulär
 - [x] Steg 2a: second opinion-puff på /kostnad/ och partnersökningen
-- [ ] Steg 2b: second opinion-puff på partnerjämförelsen
-- [ ] Steg 3: mejla resultatet + tre frågor till leverantörer efter behovsguiden och kostnadskalkylen
+- [x] Steg 2b: second opinion-puff på partnerjämförelsen
+- [x] Steg 3: mejla resultatet + tre frågor till leverantörer efter behovsguiden och kostnadskalkylen
