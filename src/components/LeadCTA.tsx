@@ -120,7 +120,7 @@ export const LeadCTA = ({
       toast({
         title: "Tack för ditt intresse!",
         description: isPartnerBound
-          ? `${partnerName} har mottagit din förfrågan och återkommer inom kort.`
+          ? `Klicka på länken vi mejlat dig, så skickas förfrågan till ${partnerName}.`
           : "Vi återkommer inom kort med förslag på partners.",
       });
     } catch (error) {
@@ -139,7 +139,7 @@ export const LeadCTA = ({
     return (
       <div className="text-center py-6">
         <p className="text-sm text-muted-foreground">
-          Din förfrågan har skickats till {partnerName}. De återkommer inom kort.
+          Vi har mejlat dig en bekräftelselänk. När du klickar på den skickas förfrågan till {partnerName}.
         </p>
       </div>
     );

@@ -134,8 +134,8 @@ const CompareStickyCTA = ({
       markThanksUrl("partnermatchning");
       trackContactLevel("submitted", "partner", { placement: "compare_sticky", partner_count: partners.length });
       toast({
-        title: "Tack! Vi återkommer",
-        description: `${partnerNames} kommer att kontakta dig inom kort.`,
+        title: "Bekräfta din förfrågan i mejlet",
+        description: `Klicka på länken vi mejlat dig, så skickas förfrågan till ${partnerNames}.`,
       });
     } catch (err) {
       console.error("compare CTA submit error", err);
@@ -240,7 +240,7 @@ const CompareStickyCTA = ({
             <div className="py-6 text-center space-y-2">
               <p className="font-semibold">Tack för din förfrågan!</p>
               <p className="text-sm text-muted-foreground">
-                {partners.map((p) => p.name).join(", ")} har fått dina uppgifter och återkommer inom kort.
+                Vi har mejlat dig en bekräftelselänk. När du klickar på den skickas förfrågan till {partners.map((p) => p.name).join(", ")}.
               </p>
               <Button variant="outline" onClick={() => { leaveThanksUrl(); setOpen(false); }} className="mt-3">
                 Stäng

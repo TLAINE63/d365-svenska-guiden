@@ -40,8 +40,8 @@ const MODE_CONFIG = {
       `Låg tröskel – beskriv kort vad du undrar över${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}. ${name} svarar dig direkt, d365.se får kopia för uppföljning.`,
     sourceType: "partner_contact_request",
     messagePrefix: (name: string) => `Fråga till ${name}.`,
-    toastTitle: "Frågan är skickad",
-    toastDescription: (name: string) => `${name} får din fråga direkt. Du får en kopia och d365.se är kopierad för uppföljning.`,
+    toastTitle: "Bekräfta din fråga i mejlet",
+    toastDescription: (name: string) => `Vi har mejlat dig en bekräftelselänk. När du klickar på den får ${name} din fråga, och d365.se är kopierad för uppföljning.`,
     submitLabel: "Skicka fråga till partnern",
   },
   demo: {
@@ -50,8 +50,8 @@ const MODE_CONFIG = {
       `De flesta seriösa partners vill förstå behovet innan de visar system. Beskriv kort vad du vill se eller diskutera${product ? ` inom ${product}` : ""}${industry ? ` (${industry})` : ""}, så återkommer ${name} med förslag på upplägg.`,
     sourceType: "partner_demo_request",
     messagePrefix: (name: string) => `Genomgång/demo – förfrågan till ${name}.`,
-    toastTitle: "Förfrågan skickad",
-    toastDescription: (name: string) => `${name} återkommer med förslag på tid för genomgång eller demo.`,
+    toastTitle: "Bekräfta din förfrågan i mejlet",
+    toastDescription: (name: string) => `Vi har mejlat dig en bekräftelselänk. När du klickar på den får ${name} förfrågan och återkommer med förslag på tid.`,
     submitLabel: "Be partnern föreslå tid",
   },
   quote: {
@@ -60,8 +60,8 @@ const MODE_CONFIG = {
       `En exakt offert kräver normalt fördjupad avstämning – men ${name} kan ge en första uppskattning av tid och kostnad${product ? ` för ${product}` : ""}${industry ? ` (${industry})` : ""} utifrån ditt underlag.`,
     sourceType: "partner_quote_request",
     messagePrefix: (name: string) => `Prisindikation – förfrågan till ${name}.`,
-    toastTitle: "Förfrågan skickad",
-    toastDescription: (name: string) => `${name} återkommer med första uppskattning av tid och kostnad.`,
+    toastTitle: "Bekräfta din förfrågan i mejlet",
+    toastDescription: (name: string) => `Vi har mejlat dig en bekräftelselänk. När du klickar på den får ${name} förfrågan och återkommer med en första uppskattning.`,
     submitLabel: "Begär första uppskattning",
   },
 };

@@ -65,6 +65,7 @@ const Shortlist = lazy(() => import("./pages/Shortlist"));
 const InquiryThanks = lazy(() => import("./pages/InquiryThanks"));
 const ThanksPage = lazy(() => import("./pages/ThanksPage"));
 const BekraftaResultat = lazy(() => import("./pages/BekraftaResultat"));
+const BekraftaForfragan = lazy(() => import("./pages/BekraftaForfragan"));
 const InquiryResponse = lazy(() => import("./pages/InquiryResponse"));
 
 const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
@@ -270,6 +271,7 @@ const AppShell = () => {
           <Route path="/forfragan/tack" element={<InquiryThanks />} />
           <Route path="/tack/:kind" element={<ThanksPage />} />
           <Route path="/bekrafta-resultat" element={<BekraftaResultat />} />
+          <Route path="/bekrafta-forfragan" element={<BekraftaForfragan />} />
           <Route path="/forfragan/svar/:token" element={<InquiryResponse mode="buyer" />} />
           <Route path="/partnersvar/:token" element={<InquiryResponse mode="partner" />} />
           <Route path="/valj-partner" element={<RedirectTo to="/valjdynamics365partner" />} />
