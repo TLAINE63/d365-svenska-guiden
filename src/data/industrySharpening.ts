@@ -1,0 +1,37 @@
+/** Manuellt redigerade sökordsskärpningar per branschsida (rubrik, ingress, underrubriker). */
+export interface IndustrySharpening {
+  h1?: string;
+  lead?: string;
+  sections?: { heading: string; text: string }[];
+  sectionsHeading?: string;
+}
+
+export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
+  "energi-utilities": {
+    h1: "Vilken Dynamics 365-lösning och partner passar energisektorn?",
+    lead:
+      "För bolag i energisektorn (elnät, fjärrvärme, elhandel och utilities) handlar valet ofta om tillgångsförvaltning, fältservice, kund- och avtalshantering samt rapportering till myndigheter.",
+  },
+  tillverkning: {
+    lead:
+      "Tillverkande företag har olika behov beroende på om de bedriver diskret tillverkning eller processindustri. Därför skiljer vi på de två nedan.",
+    sectionsHeading: "Diskret tillverkning och processindustri",
+    sections: [
+      {
+        heading: "Diskret tillverkning",
+        text:
+          "Diskret tillverkning gäller produkter som byggs av räknebara komponenter, till exempel maskiner, fordonsdelar och elektronik. Viktiga delar är stycklistor (BOM), operationsföljder, varianter, kundorderstyrd produktion och serienummerspårning. Business Central räcker ofta för mindre och medelstora tillverkare, medan Supply Chain Management passar vid flera fabriker, avancerad planering och större volymer.",
+      },
+      {
+        heading: "Processindustri",
+        text:
+          "Processindustri gäller produktion med recept och formler, till exempel livsmedel, kemi och läkemedel. Här krävs batch- och partihantering, spårbarhet, kvalitetskontroll, biprodukter och ofta krav från myndigheter. Supply Chain Management har inbyggt stöd för processtillverkning; med Business Central behövs ofta en tilläggslösning.",
+      },
+    ],
+  },
+  "fastighet-forvaltning": {
+    h1: "Affärssystem för fastighetsbolag och fastighetsförvaltning: vilken Dynamics 365-lösning och partner passar?",
+    lead:
+      "Ett affärssystem för fastighetsbolag och fastighetsförvaltning behöver hantera hyresavier och avtal, fastighetsekonomi per objekt, underhåll och felanmälan samt rapportering till ägare och långivare.",
+  },
+};
