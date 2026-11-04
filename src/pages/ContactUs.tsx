@@ -241,7 +241,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Prata med d365.se om ert behov</h4>
-                      <p className="text-sm text-muted-foreground">30 minuter om behov, lösning, kostnad eller partner. Kostnadsfritt och utan förpliktelser. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
+                      <p className="text-sm text-muted-foreground">20 minuter med Thomas Laine om behov, lösning, kostnad eller partner. Kostnadsfritt och utan förpliktelser. Ingen partner deltar, ingen försäljning – fokus på dina behov och alternativ.</p>
                     </div>
                   </div>
 
