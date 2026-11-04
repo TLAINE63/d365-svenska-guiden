@@ -123,6 +123,14 @@ export default function CostNextSteps({ sourcePage, area, costAnchor, size, driv
         </Button>
       </div>
 
+      <p className="mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+        <span className="font-semibold text-foreground">Har ni redan fått ett förslag eller tidsestimat från en partner?</span>{" "}
+        Låt d365.se göra en rimlighetsbedömning av upplägg, timmar och licenser innan ni skriver på.{" "}
+        <Link to="/second-opinion/" onClick={() => trackCost("cost_second_opinion_clicked", { source_page: sourcePage })} className="inline-flex items-center gap-1 font-semibold text-foreground underline underline-offset-4 hover:text-accent">
+          Få en second opinion <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </Link>
+      </p>
+
       {open && (
         <Suspense fallback={null}>
           <PlanContactDialog

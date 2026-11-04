@@ -86,7 +86,7 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             {cta}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Button>
-          <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt och utan förpliktelser. {carriedNote} Ingen partner deltar och inget delas utan ert godkännande.</p>
+          <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</p>
           </div>
         </aside>
       ) : variant === "hero" ? (

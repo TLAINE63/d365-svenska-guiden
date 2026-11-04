@@ -242,6 +242,7 @@ export default function PlanContactDialog({ mode, onClose: closeDialog, topic }:
                 <Button type="submit" disabled={sending}>{sending ? "Skickar…" : advisory ? "Skicka till d365.se" : "Skicka förfrågan"}</Button>
                 <Button type="button" variant="ghost" onClick={onClose}>Avbryt</Button>
               </div>
+              <p className="text-xs text-muted-foreground">{advisory ? "Inga partners kontaktar er utan ert uttryckliga godkännande. Thomas Laine går själv igenom ert underlag." : "Bara de partners ni själva valt får er förfrågan. Inga andra kontaktar er."}</p>
             </form>
           </>
         )}
