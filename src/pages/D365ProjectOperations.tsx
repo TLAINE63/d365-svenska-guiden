@@ -16,6 +16,7 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import { FileText } from "lucide-react";
+import AdvisorCtaCard from "@/components/advisory/AdvisorCtaCard";
 import { useEffect } from "react";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import { Link } from "react-router-dom";
@@ -95,6 +96,35 @@ const D365ProjectOperations = () => {
         </div>
       </section>
 
+      <section id="projektredovisning" className="py-8 sm:py-12 md:py-16 bg-muted/30 border-y border-border">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Projektredovisning och successiv vinstavräkning i <span className="whitespace-nowrap">Dynamics 365</span>
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-4">
+              För entreprenad- och konsultföretag är projektet den enhet som ska gå med vinst. Project Operations samlar budget, prognos, upparbetade kostnader och fakturerade intäkter per projekt, så att resultatet syns löpande och inte först när projektet stängs.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-4">
+              <strong className="text-foreground">Successiv vinstavräkning</strong> innebär att intäkt och resultat redovisas i takt med projektets färdigställandegrad, i stället för vid slutfakturan. Project Operations beräknar pågående arbete (WIP) och intäktsavräkning utifrån upparbetad kostnad eller nedlagd tid i förhållande till budget, och bokför justeringen i ekonomin vid varje periodbokslut.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6">
+              <strong className="text-foreground">Budgetuppföljning och projektrapportering</strong> sker mot den godkända budgeten och den senaste prognosen. Projektledaren ser avvikelser per fas och kostnadstyp, och ledningen får marginal och beläggning för hela portföljen i Power BI. Hur avräkningen ska se ut i just er redovisning är ett beslut ni fattar tillsammans med partnern och revisorn.
+            </p>
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+              Project Operations eller Business Central för entreprenad?
+            </h3>
+            <p className="text-base sm:text-lg text-muted-foreground mb-4">
+              Project Operations passar tjänste- och konsultbaserade projekt, där tid, resurser och fakturering står i centrum, ofta tillsammans med Finance &amp; Supply Chain Management. Bygg-, anläggnings- och installationsföretag behöver dessutom kalkyl, ÄTA-hantering, underentreprenörer, maskiner och service. Där väljer många Business Central med ett branschsystem, till exempel 4PS Construct.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <Link to="/branscher/bygg-entreprenad/" className="text-sm font-semibold text-primary hover:underline">Affärssystem för bygg och entreprenad →</Link>
+              <Link to="/partner/4ps-sweden/" className="text-sm font-semibold text-primary hover:underline">4PS Construct från 4PS Sweden →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <SystemvalHandoffNote page="po" />
       <BuyerManual product="project-operations" />
       <CostBreakdown product="project-operations" />
@@ -102,21 +132,13 @@ const D365ProjectOperations = () => {
 
       <ApplicationPartners applicationFilter="Project Operations" pageSource="D365 Project Operations" filterMode="companySize" showUnprofiledList={false} />
 
-      <section className="py-8 sm:py-12 md:py-16 bg-finance">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att professionalisera din projektleverans?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och en partner som verkligen kan Project Operations.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg" className="bg-white text-finance hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded">
-              Hitta din bransch och rätt partner
-            </Button>
-          </Link>
-        </div>
-      </section>
+      <AdvisorCtaCard
+        id="po-radgivning"
+        heading="Behöver ni rådgivning kring systemstöd för projekt och entreprenad?"
+        text="Boka ett 20 minuters kostnadsfritt rådgivningssamtal med Thomas Laine för att diskutera era krav på projektredovisning och branschsystem. Ingen partner deltar i samtalet."
+        bookingLabel="Boka 20 min rådgivning"
+        link={{ to: "/valjdynamics365partner/", label: "Jämför partners för Project Operations" }}
+      />
 
       <ContinueEvaluation template="product" />
       <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />

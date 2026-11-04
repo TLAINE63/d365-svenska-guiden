@@ -4,6 +4,8 @@ export interface IndustrySharpening {
   lead?: string;
   sections?: { heading: string; text: string }[];
   sectionsHeading?: string;
+  /** Egen rubrik/text i rådgivningsrutan längst ned. */
+  advisory?: { heading: string; text: string };
 }
 
 export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
@@ -11,6 +13,12 @@ export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
     h1: "Vilken Dynamics 365-lösning och partner passar energisektorn?",
     lead:
       "För bolag i energisektorn (elnät, fjärrvärme, elhandel och utilities) handlar valet ofta om tillgångsförvaltning, fältservice, kund- och avtalshantering samt rapportering till myndigheter.",
+  },
+  "bygg-entreprenad": {
+    advisory: {
+      heading: "Behöver ni rådgivning kring systemstöd för projekt och entreprenad?",
+      text: "Boka ett 20 minuters kostnadsfritt rådgivningssamtal med Thomas Laine för att diskutera era krav på projektredovisning och branschsystem. Ingen partner deltar i samtalet.",
+    },
   },
   tillverkning: {
     lead:
