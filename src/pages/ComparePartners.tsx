@@ -2669,6 +2669,11 @@ const ComparePartners = () => {
                         ]}
                         metadata={{ partner_count: [a, b, c].filter(Boolean).length }}
                       />
+                      <p className="mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+                        <span className="font-semibold text-foreground">Har ni redan ett förslag från någon av dem?</span>{" "}
+                        Låt d365.se göra en rimlighetsbedömning av upplägg, timmar och licenser innan ni skriver på.{" "}
+                        <Link to="/second-opinion/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">Få en second opinion</Link>
+                      </p>
                       </div>
                     )}
 

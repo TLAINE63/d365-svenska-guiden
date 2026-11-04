@@ -98,3 +98,6 @@ verify_jwt = false
 
 [functions.export-isv-products]
 verify_jwt = false
+
+[functions.send-result-summary]
+  verify_jwt = false

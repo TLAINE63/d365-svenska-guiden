@@ -208,7 +208,7 @@ export const BasicPartnerInquiryDialog = ({
             </Button>
 
             <p className="text-[11px] text-muted-foreground text-center">
-              Genom att skicka godkänner du vår{" "}
+              Inga partners kontaktar er utan ert uttryckliga godkännande. Genom att skicka godkänner du vår{" "}
               <a href="/dataskydd/" className="underline">integritetspolicy</a>. Endast jobb-e-post accepteras.
             </p>
           </form>

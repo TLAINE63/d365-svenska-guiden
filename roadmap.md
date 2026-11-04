@@ -161,3 +161,10 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Steg 1b: försäljningsmodell redigerbar i admin, aimplan/xmreality-ad9180 kopplade till sina bolag
 - [x] Steg 2: knappen "ISV-produkter" på /admin/exporter
 - [ ] Försäljningsmodell ifylld per bolag (väntar: Thomas fyller i admin)
+
+## Fler kontakter från besökare (2026-11-04)
+- [x] Steg 1a: trygghetsrad och personlig avsändare i rådgivningskort, planformulär och startsidans ruta
+- [x] Steg 1b: trygghetsrad i övriga kontaktformulär
+- [x] Steg 2a: second opinion-puff på /kostnad/ och partnersökningen
+- [x] Steg 2b: second opinion-puff på partnerjämförelsen
+- [x] Steg 3: mejla resultatet + tre frågor till leverantörer efter behovsguiden och kostnadskalkylen
