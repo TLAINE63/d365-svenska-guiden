@@ -399,6 +399,35 @@ const handler = async (req: Request): Promise<Response> => {
 
     const data: LeadRequest = await req.json();
 
+    // Köparen bekräftar via engångslänk; först då skickas förfrågan till partnerna.
+    if ((data as unknown as { action?: string }).action === "confirm_partner_request") {
+      const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      const token = String((data as unknown as { token?: string }).token || "");
+      if (!/^[a-f0-9]{64}$/.test(token)) return json({ error: "Länken är ogiltig." }, 400);
+      const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+      const { data: conf } = await db.from("lead_partner_confirmations")
+        .select("id, lead_id, expires_at, confirmed_at").eq("token_hash", await sha256Hex(token)).maybeSingle();
+      if (!conf) return json({ error: "Länken är ogiltig." }, 400);
+      if (conf.confirmed_at) return json({ success: true, already: true });
+      if (new Date(conf.expires_at).getTime() < Date.now()) return json({ error: "Länken har gått ut. Skicka förfrågan igen." }, 410);
+      const { data: claimed } = await db.from("lead_partner_confirmations")
+        .update({ confirmed_at: new Date().toISOString() }).eq("id", conf.id).is("confirmed_at", null).select("id");
+      if (!claimed?.length) return json({ success: true, already: true });
+      const { data: row } = await db.from("leads").select("*").eq("id", conf.lead_id).maybeSingle();
+      if (!row) return json({ error: "Förfrågan hittades inte." }, 404);
+      const stored: SanitizedLead = {
+        company_name: row.company_name || "", contact_name: row.contact_name || "", email: row.email || "",
+        phone: row.phone || "", company_size: row.company_size || "", industry: row.industry || "",
+        selected_product: row.selected_product || "", source_page: row.source_page || "",
+        source_type: row.source_type || "", message: row.message || "",
+        assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 5) : [],
+      };
+      const key = Deno.env.get("RESEND_API_KEY");
+      if (!key || !isPartnerBound(stored)) return json({ error: "Förfrågan kan inte skickas." }, 400);
+      const sent = await routeToPartners(db, new Resend(key), stored);
+      return json({ success: sent > 0, sent });
+    }
+
     // Honeypot check - if filled, silently "succeed" to fool bots
     if (data._hp) {
       console.log("Honeypot triggered - bot detected");
@@ -636,7 +665,7 @@ const handler = async (req: Request): Promise<Response> => {
         const emailSubject = isLeadMagnet
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
           : hasPartnerRequest
-          ? `${partnerRequestLabel} → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}`
+          ? `${partnerRequestLabel} → ${sanitizedData.assigned_partners.join(", ")}: ${sanitizedData.company_name}${isPartnerRequest ? " (väntar på köparens bekräftelse)" : ""}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
