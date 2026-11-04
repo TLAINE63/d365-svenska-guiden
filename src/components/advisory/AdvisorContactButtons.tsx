@@ -21,7 +21,7 @@ interface Props {
 /** Två vägar till rådgivning med Thomas: Bookings eller mejl. Spåras via Site Intelligence utan PII. */
 export default function AdvisorContactButtons({ compact = false, dark = false, className = "", bookingLabel }: Props) {
   const secondary = dark
-    ? "border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
+    ? "border-primary-foreground/70 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
     : "border-border text-foreground hover:bg-primary/10 hover:text-primary";
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
@@ -41,7 +41,7 @@ export default function AdvisorContactButtons({ compact = false, dark = false, c
         className={`inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border px-3 py-2 font-semibold ${secondary} ${compact ? "text-xs" : "text-sm"}`}
       >
         <Mail className="h-4 w-4 shrink-0" aria-hidden />
-        {compact ? "Mejla" : "Mejla Thomas"}
+        {compact ? "Mejla dina frågor till redaktionen" : "Mejla gärna dina frågor till redaktionen"}
       </a>
     </div>
   );
