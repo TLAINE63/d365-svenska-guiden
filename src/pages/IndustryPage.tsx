@@ -10,6 +10,9 @@ import { optimizedLogo } from "@/lib/optimizedLogo";
 import ContextualCta from "@/components/ContextualCta";
 import { Link, useParams } from "react-router-dom";
 import { INDUSTRY_ERP_SECTIONS } from "@/data/industryErpSections";
+import { INDUSTRY_SHARPENING } from "@/data/industrySharpening";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
@@ -187,6 +190,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  const industryName = page?.name || meta?.name || "Bransch";
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
  const seoDefaults = getIndustrySEO(slug);
+ const sharpening = slug ? INDUSTRY_SHARPENING[slug] : undefined;
 
  const matchingPartners = useMemo(() => {
  if (!partners || !meta) return [];
@@ -366,7 +370,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <span className="text-foreground">{industryName}</span>
  </nav>
  <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-">
- {nowrapBrand(`Vilken Dynamics 365-lösning och partner passar ${industryName.toLowerCase()}?`)}
+ {nowrapBrand(sharpening?.h1 ?? `Vilken Dynamics 365-lösning och partner passar ${industryName.toLowerCase()}?`)}
  </h1>
  <div className="mb-3">
  <span
@@ -383,6 +387,9 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  {page.intro}
  </p></section>
  )}
+          {sharpening?.lead && (
+            <p className="mt-3 text-xs md:text-sm text-foreground/90 max-w-3xl leading-relaxed">{nowrapBrand(sharpening.lead)}</p>
+          )}
           <p className="mt-3 text-xs md:text-sm text-muted-foreground max-w-3xl leading-relaxed">
             Välj applikation och partner utifrån branschens processer, inte bara efter produktnamn. Läs mer om{" "}
             <Link to="/affarssystem/" className="text-primary hover:underline font-medium">
@@ -416,6 +423,19 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  {/* Innehåll – full bredd */}
  <section className="pt-4 md:pt-6 pb-10 border-b border-border">
  <div className="container mx-auto px-4 max-w-6xl space-y-10">
+ {sharpening?.sections && (
+  <div>
+   <h2 className="text-lg md:text-xl font-bold text-foreground mb-4">{sharpening.sectionsHeading}</h2>
+   <div className="grid gap-4 md:grid-cols-2">
+    {sharpening.sections.map((s) => (
+     <div key={s.heading} className="rounded-lg border border-border bg-card p-5">
+      <h3 className="font-semibold text-foreground mb-2">{s.heading}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{nowrapBrand(s.text)}</p>
+     </div>
+    ))}
+   </div>
+  </div>
+ )}
  {/* Collapsible sektioner – endast rubriker visas tills man klickar */}
  <Accordion type="multiple" className="space-y-3">
  {page?.processes && page.processes.length > 0 && (
@@ -747,6 +767,25 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  <AktuelltContextSection industry={industryName} heading={`Aktuellt för ${industryName.toLowerCase()}`} />
  <ProductPartnerNewsSection industry={industryName} heading={`Relaterat för ${industryName.toLowerCase()}`} />
  <RelatedPages heading="Utforska Dynamics 365" pages={branschRelatedPages} />
+
+ <section className="py-10 border-b border-border" aria-labelledby="bransch-radgivning">
+  <div className="container mx-auto px-4 max-w-6xl">
+   <div className="rounded-xl border border-border bg-card p-6 md:p-8 flex flex-col sm:flex-row gap-5 items-start">
+    <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={96} height={96} className="h-20 w-20 rounded-full object-cover object-[50%_0%] ring-2 ring-border shrink-0" />
+    <div className="flex-1">
+     <h2 id="bransch-radgivning" className="text-lg md:text-xl font-bold text-foreground mb-2">Boka 20-minuters kostnadsfri rådgivning med Thomas</h2>
+     <p className="text-sm text-muted-foreground mb-4 max-w-2xl leading-relaxed">
+      {nowrapBrand(`Få en genomgång av vilka Microsoft Dynamics 365-lösningar och partners som passar ${industryName.toLowerCase()}. Ingen partner deltar i samtalet och ni förbinder er inte till något.`)}
+     </p>
+     <AdvisorContactButtons />
+     <Link to="/valjdynamics365partner/" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+      Hitta partners med dokumenterad branscherfarenhet
+      <ArrowRight className="w-4 h-4" />
+     </Link>
+    </div>
+   </div>
+  </div>
+ </section>
 
  <ContextualCta
   eyebrow={`Partner för ${industryName}`}
