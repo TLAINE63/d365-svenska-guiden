@@ -58,16 +58,18 @@ import ShortlistButton from "@/components/ShortlistButton";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 
-/** Publicerade profiler som själva anger Finance/SCM, i bokstavsordning (ingen rangordning). */
-const FSCM_APP_PATTERN = /finance|supply chain|f&scm|f&o/i;
-const fscmProfilePartners = (staticPartnerData as any[])
-  .filter((p) => p.is_featured && Array.isArray(p.applications) && p.applications.some((a: string) => FSCM_APP_PATTERN.test(a)))
+import { PARTNER_CATEGORIES, partnerCategoryKeys, partnerCategoryLabel, type PartnerCategoryKey } from "@/lib/partnerCategoryTags";
+
+/** Publicerade profiler i en köparkategori, i bokstavsordning (ingen rangordning). */
+const CRM_APP_PATTERN = /^(sales|customer service|field service|contact center|customer insights)/i;
+const profilePartnersIn = (category: PartnerCategoryKey, appFilter?: RegExp) => (staticPartnerData as any[])
+  .filter((p) => p.is_featured && partnerCategoryKeys(p).includes(category))
   .sort((a, b) => a.name.localeCompare(b.name, "sv"))
   .map((p) => ({
     id: p.id as string,
     slug: p.slug as string,
     name: p.name as string,
-    apps: (p.applications as string[]).slice(0, 4),
+    apps: (p.applications as string[]).filter((a) => !appFilter || appFilter.test(a)).slice(0, 4),
     // Tillverkningsindustri först om partnern själv anger den, eftersom avsnittet handlar om F&SCM och industri.
     industries: (Array.isArray(p.industries) ? [...(p.industries as string[])] : [])
       .sort((a, b) => Number(b === "Tillverkningsindustri") - Number(a === "Tillverkningsindustri"))
