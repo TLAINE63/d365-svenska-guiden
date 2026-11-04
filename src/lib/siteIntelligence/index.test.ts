@@ -84,4 +84,18 @@ describe('Site Intelligence v2 privacy contract', () => {
     expect(events.filter(e => e.event_name === 'engaged_session')).toHaveLength(1);
     expect(events.find(e => e.event_name === 'engaged_session').engaged_time_seconds).toBe(30); cleanup();
   });
+  it.each(['bookings_20min_thomas', 'email_cta_thomas', 'popup_20min_thomas'] as const)('sends consultation lead_submit for %s without personal data', async (formId) => {
+    const m = await setup(true); window.history.replaceState({}, '', '/kontakt/');
+    m.trackConsultationLead(formId);
+    const e = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string).events[0];
+    expect(e.event_name).toBe('lead_submit'); expect(e.lead_type).toBe('consultation');
+    expect(e.form_id).toBe(formId); expect(e.submission_status).toBe('confirmed');
+    const body = JSON.stringify(e);
+    expect(body).not.toMatch(/@|thomas\.laine|\+46/);
+    expect(e.metadata).toBeUndefined();
+  });
+  it('sends no consultation lead without statistics consent', async () => {
+    const m = await setup(false); m.trackConsultationLead('popup_20min_thomas');
+    expect(fetch).not.toHaveBeenCalled();
+  });
 });
