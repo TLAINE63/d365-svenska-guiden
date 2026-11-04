@@ -570,6 +570,14 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
            {erp.packagesLink.text}
            <ArrowRight className="w-4 h-4" aria-hidden="true" />
          </Link>
+         {erp.extraLinks?.map((l) => (
+           <div key={l.to}>
+             <Link to={l.to} className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+               {l.text}
+               <ArrowRight className="w-4 h-4" aria-hidden="true" />
+             </Link>
+           </div>
+         ))}
          <div className="mt-6">
            <Link to={erp.cta.to} className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
              {erp.cta.text}
