@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { useCtaTracking } from "@/hooks/useCtaTracking";
 import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
+import { ADVISOR_BOOKING_CTA } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 
 const DISMISS_KEY = "scroll-cta-dismissed";
 
@@ -83,6 +85,7 @@ const ScrollCTA = () => {
         setEnrichToken(data.enrich_token);
       }
       setSubmitted(true);
+      trackConsultationLead("popup_20min_thomas");
       toast({ title: "Tack!", description: "Vi hör av oss inom kort för att boka in tid." });
     } catch (err) {
       console.error("ScrollCTA submit error", err);
@@ -195,9 +198,9 @@ const ScrollCTA = () => {
                   trackClick({ step: "expand" });
                   setExpanded(true);
                 }}
-                className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
+                className="w-full h-auto min-h-9 whitespace-normal py-2 text-left sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
               >
-                Boka 20 minuter med Thomas
+                {ADVISOR_BOOKING_CTA}
               </Button>
               <p className="mt-2 text-[11px] text-muted-foreground">
                 Inga partners kontaktar er utan ert godkännande.

@@ -19,6 +19,7 @@ import { getTrackSession, getTrackSource } from "@/lib/track";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { trackAdsContactConversion } from "@/utils/googleAdsConversion";
 import { ADVISOR_BOOKING_URL } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 import { contactLevelFor, trackContactLevel } from "@/lib/contactLevels";
 
 export type PlanContactMode = "advisory" | "partners";
@@ -135,6 +136,7 @@ export default function PlanContactDialog({ mode, onClose: closeDialog, topic }:
       trackAdsContactConversion(advisory ? "advisory" : "plan_partner_contact");
       if (advisory) {
         recordPlanContact("advisory");
+        trackConsultationLead("email_cta_thomas");
         trackFunnelEvent({ event_type: evType, event_name: topic ? topic.submitEvent : "advisory_submitted", metadata: { sections: shared.length, ...topic?.metadata, ...advMeta } });
         trackContactLevel("submitted", contactLevelFor(topic?.advisory?.placement ?? "plan"), { placement: topic?.advisory?.placement ?? "plan", page_type: topic?.advisory?.pageType ?? null });
       }
@@ -174,7 +176,7 @@ export default function PlanContactDialog({ mode, onClose: closeDialog, topic }:
               {done.partners.length > 0 && <li>Förfrågan skickad till: <strong>{done.partners.join(", ")}</strong>. Partnern kontaktar er direkt.</li>}
               {done.intros.length > 0 && <li>Introduktion begärd via d365.se för: <strong>{done.intros.join(", ")}</strong>. Era uppgifter har inte skickats till dem.</li>}
             </ul>}
-            {advisory && topic?.advisory?.placement !== "question" && <p className="rounded-md border border-border bg-muted/40 p-3 text-sm">Vill ni hellre ses direkt? <a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-4" onClick={() => trackFunnelEvent({ event_type: evType, event_name: "advisory_meeting_link_clicked", metadata: { ...advMeta } })}>Välj en tid i Thomas kalender</a>. Annars hör vi av oss utifrån det ni skickat.</p>}
+            {advisory && topic?.advisory?.placement !== "question" && <p className="rounded-md border border-border bg-muted/40 p-3 text-sm">Vill ni hellre ses direkt? <a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-4" onClick={() => { trackConsultationLead("bookings_20min_thomas"); trackFunnelEvent({ event_type: evType, event_name: "advisory_meeting_link_clicked", metadata: { ...advMeta } }); }}>Välj en tid i Thomas kalender</a>. Annars hör vi av oss utifrån det ni skickat.</p>}
             <p className="text-sm text-muted-foreground">Det här är en skickad förfrågan, ingen bekräftad dialog. Status syns i Min D365-plan. Inget skickas till andra partners utan ert godkännande.</p>
             <Button onClick={onClose}>{topic ? "Stäng" : "Tillbaka till planen"}</Button>
           </div>

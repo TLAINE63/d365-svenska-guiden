@@ -140,10 +140,10 @@ const ContactUs = () => {
                           onClick={() => trackConsultationLead("bookings_20min_thomas")}
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
+                          className="inline-flex items-center justify-center gap-2 text-center rounded-md text-sm font-medium min-h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
                         >
-                          <Calendar className="w-4 h-4" />
-                          Boka en tid direkt
+                          <Calendar className="w-4 h-4 flex-shrink-0" />
+                          {ADVISOR_BOOKING_CTA}
                         </a>
                         <Link
                           to="/om-thomas-laine/"
