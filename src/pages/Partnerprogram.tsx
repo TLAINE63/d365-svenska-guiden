@@ -675,6 +675,90 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      {/* 8c. KVALIFICERADE AFFÄRSMÖJLIGHETER (Thomas 2026-11-04) */}
+      <section id="affarsmojligheter" className="py-14 md:py-20 bg-secondary/30 border-y border-border">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Kvalificerade affärsmöjligheter
+          </h2>
+          <div className="max-w-3xl space-y-3 text-muted-foreground mb-8">
+            <p>
+              d365.se hjälper köpare att definiera sina behov och hitta relevanta lösningar och
+              leveranspartners. När vi identifierar ett konkret projekt med en tydlig avsikt att gå vidare
+              kan det erbjudas som en kvalificerad affärsmöjlighet.
+            </p>
+            <p className="text-foreground font-medium border-l-4 border-primary pl-4">
+              Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen
+              genomförs.
+            </p>
+          </div>
+
+          <h3 className="text-lg font-semibold text-foreground mb-3">Ersättning</h3>
+          <div className="max-w-4xl overflow-x-auto rounded-xl border border-border bg-card">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/50">
+                <tr>
+                  <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Affärstyp</th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3 whitespace-nowrap">Genomfört möte</th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3 whitespace-nowrap">Tecknat avtal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-border">
+                  <th scope="row" className="text-left font-normal text-foreground px-4 py-3">
+                    Business Central, Customer Engagement, Power Platform och andra lösningar
+                  </th>
+                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">2&nbsp;500&nbsp;kr</td>
+                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">5&nbsp;000&nbsp;kr</td>
+                </tr>
+                <tr className="border-t border-border">
+                  <th scope="row" className="text-left font-normal text-foreground px-4 py-3">
+                    Finance &amp; Supply Chain Management
+                  </th>
+                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">5&nbsp;000&nbsp;kr</td>
+                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">10&nbsp;000&nbsp;kr</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="max-w-3xl mt-5 space-y-3 text-sm text-muted-foreground">
+            <p>Mötesavgiften avräknas från avtalsersättningen. Alla belopp anges exklusive moms.</p>
+            <p>
+              För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även
+              en success fee på 2,5 procent av intäkterna från den första kronan under de första nio
+              månaderna från projektstart.
+            </p>
+            <p>
+              Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår
+              inte i beräkningsunderlaget. Fullständiga villkor regleras i partner- och förmedlingsavtalet.
+            </p>
+          </div>
+
+          <div className="mt-8 max-w-3xl rounded-xl border border-border bg-card p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-2">Köparens behov styr rekommendationerna</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Kommersiella avtal och partnernivå påverkar aldrig vilka lösningar eller partners som bedöms
+              vara relevanta för köparen. Matchningen utgår alltid från köparens behov och projektets
+              förutsättningar.
+            </p>
+          </div>
+
+          <div className="mt-8">
+            <ContactFormDialog
+              buyerForm={false}
+              title="Ansök om att ta emot affärsmöjligheter"
+              description="Fyll i era kontaktuppgifter så återkommer vi med partner- och förmedlingsavtalet och hur kvalificerade affärsmöjligheter går till."
+              subject="Ansökan: kvalificerade affärsmöjligheter"
+            >
+              <Button size="lg" onClick={() => bookClick("affarsmojligheter")}>
+                <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
+                Ansök om att ta emot affärsmöjligheter
+              </Button>
+            </ContactFormDialog>
+          </div>
+        </div>
+      </section>
+
       {/* 9. SÅ FUNGERAR DET */}
       <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
