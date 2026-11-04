@@ -2,7 +2,10 @@ import PartnerCardHeader from "./PartnerCardHeader";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, ArrowRight, Mail } from "lucide-react";
+import { MapPin, ArrowRight, Mail, Calendar } from "lucide-react";
+import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
+import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 import {
   BASIC_COPY,
   BasicPartner,
@@ -203,24 +206,52 @@ export function PartnerBasicCard({
       )}
 
       <div className="rounded-lg border border-border bg-background/60 p-4">
-        <h2 className="text-sm font-semibold text-foreground">
-          Vill du veta om {partner.name} passar ditt projekt?
-        </h2>
-        <p className="mt-1 text-sm leading-snug text-muted-foreground">
-          {BASIC_COPY.buyerGuidanceBody}
-        </p>
-        <Button
+        <div className="flex items-start gap-3">
+          <img
+            src={advisorPhoto.url}
+            alt="Thomas Laine, rådgivare på d365.se"
+            loading="lazy"
+            width={56}
+            height={56}
+            className="h-14 w-14 shrink-0 rounded-full object-cover object-[50%_0%] ring-2 ring-border"
+          />
+          <div className="min-w-0">
+            <h2 className="text-sm font-semibold text-foreground">
+              Vill du veta om {partner.name} passar ditt projekt?
+            </h2>
+            <p className="mt-1 text-sm leading-snug text-muted-foreground">
+              {BASIC_COPY.buyerGuidanceBody}
+            </p>
+          </div>
+        </div>
+        <Button asChild size="sm" className="mt-3 h-auto min-h-9 w-full whitespace-normal py-2 text-left sm:w-auto">
+          <a
+            href={ADVISOR_BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackPartnerCardEvent("klick_kontakta_vagledning", { slug: partner.slug }, "basic");
+              trackConsultationLead("bookings_20min_thomas");
+            }}
+          >
+            <Calendar className="mr-1.5 h-4 w-4 shrink-0" aria-hidden />
+            {ADVISOR_BOOKING_CTA}
+          </a>
+        </Button>
+        <button
           type="button"
-          size="sm"
           onClick={() => {
             trackPartnerCardEvent("klick_kontakta_vagledning", { slug: partner.slug }, "basic");
             setInquiryOpen(true);
           }}
-          className="mt-3 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90"
+          className="mt-2 inline-flex items-center gap-1.5 text-sm text-primary underline-offset-2 hover:underline"
         >
-          <Mail className="mr-1.5 h-3.5 w-3.5" aria-hidden />
+          <Mail className="h-3.5 w-3.5" aria-hidden />
           {BASIC_COPY.buyerGuidanceCta}
-        </Button>
+        </button>
+        <p className="mt-2 text-xs leading-snug text-muted-foreground">
+          {BASIC_COPY.buyerGuidanceTrust}
+        </p>
         <ShortlistButton
           className="mt-3"
           cardType="basic"
