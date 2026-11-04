@@ -159,6 +159,7 @@ export default function InquiryDialog({ partners, type, productArea, onClose }: 
 
           {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
           <Button type="submit" disabled={sending} className="w-full min-h-12 font-semibold">{sending ? "Skickar…" : "Skicka förfrågan"}</Button>
+          <p className="text-xs text-muted-foreground text-center">Bara de partners ni själva valt får er förfrågan. Inga andra kontaktar er.</p>
         </form>
       </DialogContent>
     </Dialog>
