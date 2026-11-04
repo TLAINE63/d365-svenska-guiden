@@ -165,7 +165,7 @@ const OmThomasLaine = () => {
                   <Phone className="w-4 h-4" /> +46 72 232 40 60
                 </a>
                 <a
-                  href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink"
+                  href="https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] text-white text-sm font-medium"

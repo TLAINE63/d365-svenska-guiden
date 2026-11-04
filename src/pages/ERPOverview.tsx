@@ -1,3 +1,4 @@
+import SecondOpinionNudge from "@/components/SecondOpinionNudge";
 import KeyTakeaways from "@/components/guide/KeyTakeaways";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import GuidePartnerPicks from "@/components/guide/GuidePartnerPicks";
@@ -493,7 +494,8 @@ const ERPOverview = () => {
  </div>
  </section>
 
- <ContinueEvaluation path="/affarssystem/" />
+ <SecondOpinionNudge sourcePage="/affarssystem/" className="my-8" />
+        <ContinueEvaluation path="/affarssystem/" />
  <AktuelltContextSection placement="affarssystem" heading="Aktuellt inom affärssystem" />
  <RelatedPages pages={erpRelatedPages} heading="Fördjupning om affärssystem, kostnader och partner" />
  <section className="py-8">
