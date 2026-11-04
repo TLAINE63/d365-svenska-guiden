@@ -1269,6 +1269,11 @@ const ValjPartner = () => {
   ]}
   metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}
  />
+ <p className="max-w-4xl mx-auto mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+  <span className="font-semibold text-foreground">Har ni redan ett förslag från en partner?</span>{" "}
+  Låt d365.se göra en rimlighetsbedömning av upplägg, timmar och licenser innan ni skriver på.{" "}
+  <Link to="/second-opinion/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">Få en second opinion</Link>
+ </p>
  </div>
   </section>
 
