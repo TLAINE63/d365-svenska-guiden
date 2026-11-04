@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import ContextualCta from "@/components/ContextualCta";
 import { Link, useParams } from "react-router-dom";
+import { INDUSTRY_ERP_SECTIONS } from "@/data/industryErpSections";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
@@ -526,6 +527,39 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </Accordion>
  </div>
  </section>
+
+ {slug && INDUSTRY_ERP_SECTIONS[slug] && (() => {
+   const erp = INDUSTRY_ERP_SECTIONS[slug];
+   return (
+     <section id="affarssystem" className="scroll-mt-24 py-10 md:py-12 border-b border-border" aria-labelledby="bransch-affarssystem">
+       <div className="container mx-auto px-4 max-w-6xl">
+         <h2 id="bransch-affarssystem" className="text-2xl font-bold text-foreground mb-3">
+           {nowrapBrand(erp.heading)}
+         </h2>
+         <p className="text-sm md:text-base text-muted-foreground max-w-3xl mb-6">{nowrapBrand(erp.intro)}</p>
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+           {erp.points.map((pt) => (
+             <div key={pt.title} className="rounded-lg border border-border bg-card p-5">
+               <h3 className="font-semibold text-foreground mb-2">{pt.title}</h3>
+               <p className="text-sm text-muted-foreground">{pt.text}</p>
+             </div>
+           ))}
+         </div>
+         <p className="text-sm text-muted-foreground max-w-3xl mb-2">{erp.packagesNote}</p>
+         <Link to={erp.packagesLink.to} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+           {erp.packagesLink.text}
+           <ArrowRight className="w-4 h-4" aria-hidden="true" />
+         </Link>
+         <div className="mt-6">
+           <Link to={erp.cta.to} className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">
+             {erp.cta.text}
+             <ArrowRight className="w-4 h-4" aria-hidden="true" />
+           </Link>
+         </div>
+       </div>
+     </section>
+   );
+ })()}
 
  {/* Partners + produktfilter längst ned */}
  <section id="partners" className="scroll-mt-24 py-12 border-b border-border bg-muted/20">

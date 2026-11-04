@@ -102,8 +102,13 @@ const erpFaqsRaw = [
  answer: "ERP implementation Sverige: Business Central tar typiskt 3–6 månader. Dynamics 365 Finance & Supply Chain Management kräver normalt 9–18 månader. Tidsåtgången beror på komplexitet, antal anpassningar och hur väl förberedda processer och data är. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att säkra projektleveransen."
  },
  {
- question: "Vilket Microsoft ERP-system passar mitt företag?",
+ question: "Vilket affärssystem passar mitt företag bäst?",
  answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & Supply Chain Management (F&O) om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En behovsanalys innan du pratar med leverantörer hjälper dig välja rätt, utan säljpåverkan."
+ },
+ {
+ question: "Hur byter och upphandlar man ett molnbaserat affärssystem?",
+ answer: "Börja med en egen behovsanalys och en rangordnad kravspecifikation, så att alla leverantörer svarar på samma underlag. Ta in offerter från två till tre partners och jämför totalkostnad över tre till fem år, inte bara licens och projektpris. Planera tidigt för datamigrering, integrationer och avveckling av det gamla systemet, och reglera förvaltning, uppsägning och tillgång till er data i avtalet. Offentliga organisationer följer dessutom LOU.",
+ link: { text: "Läs upphandlingsguiden för affärssystem", to: "/upphandlingsguiden/" },
  },
  {
  question: "Vad är ett affärssystem?",
@@ -121,7 +126,7 @@ const erpFaqsRaw = [
  question: "Kan Microsoft Dynamics 365 ERP integreras med befintliga system?",
  answer: "Ja, Dynamics 365 ERP integreras via REST API:er, Microsoft Power Platform (Power Automate) och ett rikt ekosystem av färdiga kopplings-appar mot vanliga system som Shopify, Magento, EDI-lösningar, lönesystem och branschspecifika applikationer. Business Central har inbyggd Shopify-integration. F&SCM har djupare enterprise-integrationsmöjligheter via Azure Integration Services."
  },
-];
+] as { question: string; answer: string; link?: { text: string; to: string } }[];
 const erpFaqs = erpFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -142,7 +147,7 @@ const ERPOverview = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Affärssystem & ERP 2026 – guide & partners"
+ title="Affärssystem från Microsoft Dynamics 365 (ERP) 2026"
  description={resolvePriceTokens("Vad är ett affärssystem, vad kostar det och hur väljer ni? Jämför Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & SCM ({{price:finance:short}}).")}
  canonicalPath="/affarssystem"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
@@ -161,7 +166,7 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="Pelarsida · Guide inför systemvalet"
- title="Vilket affärssystem (ERP) passar er verksamhet?"
+ title="Vilket affärssystem (ERP) från Microsoft Dynamics 365 passar er verksamhet?"
  subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
@@ -298,8 +303,9 @@ const ERPOverview = () => {
  <div className="bg-card rounded-lg p-6 sm:p-8 border border-border ">
  <div className="flex items-center gap-3 mb-4">
  <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
- <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Business Central</h3>
+ <h2 className="text-xl sm:text-2xl font-bold text-card-foreground">Dynamics&nbsp;365 Business Central</h2>
  </div>
+ <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-2">För små och medelstora företag</p>
  
  <p className="text-muted-foreground mb-6">
  Perfekt för mindre och medelstora företag som behöver ett komplett, 
@@ -348,8 +354,9 @@ const ERPOverview = () => {
  <div className="flex items-center gap-3 mb-4">
  <img src={FinanceIcon} alt="Dynamics 365 Finance" className="h-10 w-10" />
  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
- <h3 className="text-xl sm:text-2xl font-bold text-card-foreground">Finance & Supply Chain Management (F&O)</h3>
+ <h2 className="text-xl sm:text-2xl font-bold text-card-foreground">Dynamics&nbsp;365 Finance &amp; Supply Chain Management</h2>
  </div>
+ <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-2">För större koncerner, komplex tillverkning och internationell handel</p>
  
  <p className="text-muted-foreground mb-6">
  Kraftfull lösning för större, internationella organisationer med 
@@ -415,6 +422,12 @@ const ERPOverview = () => {
  <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 shrink-0" />
  </summary>
  <p className="mt-3 text-muted-foreground leading-relaxed">{f.answer}</p>
+ {f.link && (
+ <Link to={f.link.to} className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+ {f.link.text}
+ <ArrowRight className="h-4 w-4" aria-hidden="true" />
+ </Link>
+ )}
  </details>
  ))}
  </div>

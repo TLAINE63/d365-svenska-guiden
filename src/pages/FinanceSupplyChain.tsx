@@ -232,6 +232,43 @@ const FinanceSupplyChain = () => {
   <SystemvalHandoffNote page="fscm" />
   <FscmDecisionGuide />
 
+  {/* Två applikationer i F&SCM (Thomas 2026-11-04): egna H2 så att respektive namn indexeras. */}
+  <section id="finance-och-supply-chain" className="py-8 sm:py-12 bg-background scroll-mt-24">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+    <p className="text-muted-foreground max-w-3xl mb-6">
+     Finance &amp; Supply Chain Management består av två applikationer som kan köpas var för sig
+     eller tillsammans. De delar samma databas, så ekonomi och varuflöde hänger ihop utan integration.
+    </p>
+    <div className="grid gap-6 md:grid-cols-2">
+     <article className="rounded-lg border border-border bg-card p-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-card-foreground mb-2">Dynamics&nbsp;365 Finance</h2>
+      <p className="text-muted-foreground mb-4">
+       Ekonomistyrning för koncerner med många bolag, valutor och länder.
+      </p>
+      <ul className="space-y-2 text-sm text-foreground list-disc pl-5">
+       <li>Huvudbok, kund- och leverantörsreskontra, anläggningstillgångar och kassaflöde</li>
+       <li>Koncernkonsolidering, internfakturering och elimineringar</li>
+       <li>Budgetering, kostnadsredovisning och lokal skatte- och rapporteringsanpassning per land</li>
+      </ul>
+     </article>
+     <article className="rounded-lg border border-border bg-card p-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-card-foreground mb-2">Dynamics&nbsp;365 Supply Chain Management</h2>
+      <p className="text-muted-foreground mb-4">
+       Styrning av inköp, lager, produktion och logistik i komplexa varuflöden.
+      </p>
+      <ul className="space-y-2 text-sm text-foreground list-disc pl-5">
+       <li>Lagerhantering och lagerstyrning (WMS) samt transporthantering</li>
+       <li>Produktionsstyrning för diskret tillverkning, processtillverkning och lean</li>
+       <li>Huvudplanering (MRP), inköp och underhåll av anläggningar</li>
+      </ul>
+     </article>
+    </div>
+    <p className="text-sm text-muted-foreground mt-4">
+     Se <a href="#pricing" className="text-primary underline underline-offset-4">licenspriserna</a> för respektive applikation längre ned.
+    </p>
+   </div>
+  </section>
+
  {/* FAQ Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
