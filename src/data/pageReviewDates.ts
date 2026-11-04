@@ -49,6 +49,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/finance-supply-chain/": "2026-11-04",
   "/branscher/bygg-entreprenad/": "2026-11-04",
   "/branscher/energi-utilities/": "2026-11-04",
+  "/d365humanresources/": "2026-11-04",
   "/branscher/tillverkning/": "2026-11-04",
   "/branscher/fastighet-forvaltning/": "2026-11-04",
   "/branscher/retail-ehandel/": "2026-11-04",

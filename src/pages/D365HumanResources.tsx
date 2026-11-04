@@ -11,7 +11,9 @@ import Footer from "@/components/Footer";
 import ApplicationPartners from "@/components/ApplicationPartners";
 import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
-import { FileText } from "lucide-react";
+import { FileText, ArrowRight } from "lucide-react";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
 import { useEffect } from "react";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg?url";
 import { Link } from "react-router-dom";
@@ -67,7 +69,7 @@ const D365HumanResources = () => {
         <p>Funktionellt täcker den hela medarbetar­livscykeln – onboarding, befordringar, lönerevisioner, certifieringar, successions­planering och offboarding – och ger HR-avdelningen ett strukturerat sätt att förvalta organisations­hierarkier, befattningar och positions­budgetar över flera bolag och länder.</p>
         <p>Plattformen är nu integrerad som en del av Dynamics 365 Finance & Supply Chain Management, vilket gör att medarbetar­data flödar sömlöst till projektresursplanering (Project Operations), produktionsplanering, ekonomi och rapportering i Power BI.</p>
         <p>Självservice för chefer och medarbetare sker i Microsoft Teams och Outlook där Copilot kan hjälpa till med vanliga HR-frågor, sammanställningar och beslutsstöd – i stället för att tvinga in användarna i ett separat HR-portalgränssnitt.</p>
-        <p>För svenska organisationer kompletteras lösningen oftast med externa lönesystem (Hogia, Visma, Agda) och rekryteringsverktyg via öppna API:er – och en partner som förstår både svensk arbetsrätt och Microsofts integrationer är avgörande för att helheten ska sitta.</p>
+        <p>I svenska organisationer är Dynamics&nbsp;365 Human Resources navet för organisations­struktur, medarbetar­resan och kompetens, medan löneberäkning och AGI-rapportering sker i ett svenskt lönesystem som Hogia, Visma eller Agda. Systemen kopplas ihop via standard­integrationer och öppna API:er, så att anställningsdata, frånvaro och tid förs över till lönen utan dubbelregistrering. En partner som förstår både svensk arbetsrätt och Microsofts integrationer är avgörande för att helheten ska sitta.</p>
       </ShortAnswer>
 
       <section className="py-8 sm:py-12 md:py-16 bg-background">
@@ -89,25 +91,57 @@ const D365HumanResources = () => {
         </div>
       </section>
 
+      <section id="sjalvservice" className="py-8 sm:py-12 md:py-16 bg-muted/30 border-y border-border">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Självservice för medarbetare och chefer (ESS &amp; MSS)
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-4">
+              Ett HR-system med självservice låter medarbetare och chefer sköta vanliga HR-ärenden själva, utan att mejla HR. I <span className="whitespace-nowrap">Dynamics 365</span> Human Resources finns medarbetarsjälvservice (Employee Self-Service, ESS) och chefsstöd (Manager Self-Service, MSS) direkt i Microsoft Teams och Outlook, där användarna redan arbetar.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2 my-6">
+              {[
+                ["Ledighetsansökan", "Medarbetaren ser sitt saldo och ansöker om semester eller annan ledighet i Teams. Chefen godkänner direkt i Teams eller Outlook."],
+                ["Tidregistrering", "Arbetstid och frånvaro registreras i självservicen och kan föras vidare till lönesystemet för löneberäkning."],
+                ["Kompetensprofiler", "Medarbetare håller kompetenser, certifieringar och utbildningar uppdaterade, och chefer får överblick vid bemanning och successionsplanering."],
+                ["Copilot som HR-assistent", "Microsoft Copilot kan svara på vanliga HR-frågor, till exempel om policyer och saldon, och hjälpa chefer med sammanställningar. Vad som ingår beror på licens och konfiguration."],
+              ].map(([h, t]) => (
+                <div key={h} className="rounded-lg border border-border bg-card p-5">
+                  <h3 className="font-semibold text-foreground mb-2">{h}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{t}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-base text-muted-foreground">
+              HR-självservice minskar administrationen för HR-avdelningen och gör uppgifterna mer korrekta, eftersom den som äger informationen också uppdaterar den.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <BuyerManual product="human-resources" />
       <CostBreakdown product="human-resources" />
 
 
       <ApplicationPartners applicationFilter="Human Resources" pageSource="D365 Human Resources" filterMode="companySize" showUnprofiledList={false} />
 
-      <section className="py-8 sm:py-12 md:py-16 bg-finance">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Redo att samla HR och affärssystem?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Hitta din bransch och en partner med erfarenhet av HR-implementationer.
-          </p>
-          <Link to="/branscher/">
-            <Button size="lg" className="bg-white text-finance hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded">
-              Hitta din bransch och rätt partner
-            </Button>
-          </Link>
+      <section className="py-8 sm:py-12 md:py-16" aria-labelledby="hr-radgivning">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="rounded-xl border border-border bg-card p-6 md:p-8 flex flex-col sm:flex-row gap-5 items-start">
+            <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" loading="lazy" width={96} height={96} className="h-20 w-20 rounded-full object-cover object-[50%_0%] ring-2 ring-border shrink-0" />
+            <div className="flex-1">
+              <h2 id="hr-radgivning" className="text-xl md:text-2xl font-bold text-foreground mb-2">Boka 20-minuters kostnadsfri rådgivning med Thomas</h2>
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 max-w-2xl leading-relaxed">
+                Få en bedömning av om <span className="whitespace-nowrap">Dynamics 365</span> Human Resources passar era behov och hur ni bäst väljer partner. Ingen partner deltar i samtalet och ni förbinder er inte till något.
+              </p>
+              <AdvisorContactButtons />
+              <Link to="/valjdynamics365partner/" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+                Hitta en implementeringspartner för HR
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
