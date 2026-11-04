@@ -8,6 +8,7 @@ import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { useToast } from "@/hooks/use-toast";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { useCtaTracking } from "@/hooks/useCtaTracking";
+import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
 
 const DISMISS_KEY = "scroll-cta-dismissed";
 
@@ -173,15 +174,20 @@ const ScrollCTA = () => {
           )
         ) : !expanded ? (
           <div className="flex items-start gap-3 pr-6">
-            <div className="bg-primary/10 p-2 rounded-lg flex-shrink-0">
-              <MessageCircle className="h-5 w-5 text-primary" />
-            </div>
+            <img
+              src={advisorPhoto.url}
+              alt="Thomas Laine, d365.se"
+              width={56}
+              height={56}
+              loading="lazy"
+              className="h-14 w-14 flex-shrink-0 rounded-full object-cover object-[50%_0%] ring-2 ring-border"
+            />
             <div>
               <p className="font-semibold text-card-foreground text-sm sm:text-base mb-1">
-                Osäker på var du ska börja?
+                Osäker på var ni ska börja?
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar.
+                20 minuter med Thomas Laine om lösning, partner eller en offert ni redan fått. Kostnadsfritt, inga säljare inblandade.
               </p>
               <Button
                 size="sm"
@@ -191,13 +197,16 @@ const ScrollCTA = () => {
                 }}
                 className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground"
               >
-                Prata med d365.se om ert behov
+                Boka 20 minuter med Thomas
               </Button>
+              <p className="mt-2 text-[11px] text-muted-foreground">
+                Inga partners kontaktar er utan ert godkännande.
+              </p>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-2 pr-6">
-            <p className="font-semibold text-sm mb-1">Prata med d365.se om ert behov</p>
+            <p className="font-semibold text-sm mb-1">Vart ska Thomas höra av sig?</p>
             <Input
               type="email"
               placeholder="jobb-epost@foretag.se"
