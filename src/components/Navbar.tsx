@@ -17,7 +17,7 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { hasPlanStarted, usePlanMeta } from "@/lib/d365Plan";
 
-type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean };
+type NavLinkItem = { label: string; path?: string; href?: string; strong?: boolean; /** Produktnamn som visas under behovet (behov först, produkt sedan). */ product?: string };
 type NavGroup = { heading?: string; items: NavLinkItem[] };
 type NavMenu = { label: string; groups: NavGroup[] };
 
@@ -60,24 +60,24 @@ const MENUS: NavMenu[] = [
     label: "CRM",
     groups: [
       {
-        heading: "Välja CRM-system",
+        heading: "Välj system",
         items: [
-          { label: "CRM-guiden: välja CRM-system", path: "/crm/", strong: true },
-          { label: "Välja kundservicesystem", path: "/kundservicesystem/" },
-          { label: "Välja fältservicesystem", path: "/faltservicesystem/" },
+          { label: "Välj CRM-system", path: "/crm/", strong: true },
+          { label: "Välj system för kundservice", path: "/kundservicesystem/" },
+          { label: "Välj system för fältservice", path: "/faltservicesystem/" },
         ],
       },
       {
-        heading: "Applikationer",
+        heading: "Microsofts lösningar",
         items: [
-          { label: "Försäljning: Dynamics 365 Sales", path: "/d365sales" },
-          { label: "Marknad och kundinsikter: Customer Insights", path: "/d365marketing" },
-          { label: "Kundservice och ärendehantering: Customer Service", path: "/d365customerservice" },
-          { label: "Kontaktcenter: Contact Center", path: "/d365contactcenter" },
-          { label: "Fältservice: Field Service", path: "/d365fieldservice" },
+          { label: "Sälj och kundrelationer", product: "Dynamics\u00A0365 Sales", path: "/d365sales" },
+          { label: "Marknadsföring och kunddata", product: "Customer Insights", path: "/d365marketing" },
+          { label: "Kundservice och ärenden", product: "Customer Service", path: "/d365customerservice" },
+          { label: "Kontaktcenter och kundkommunikation", product: "Contact Center", path: "/d365contactcenter" },
+          { label: "Service ute hos kund", product: "Field Service", path: "/d365fieldservice" },
         ],
       },
-      { heading: "Hitta rätt leverantör", items: [{ label: "Jämför CRM-partners", path: "/dynamics-365-crm-partners-sverige/" }] },
+      { heading: "Hitta partner", items: [{ label: "Hitta CRM-partner", path: "/dynamics-365-crm-partners-sverige/" }] },
     ],
   },
   {
@@ -179,7 +179,17 @@ const ItemLink = forwardRef<HTMLAnchorElement, ItemLinkProps>(({ item, ...props 
   item.href ? (
     <a ref={ref} href={item.href} {...props}>{item.label}</a>
   ) : (
-    <Link ref={ref} to={item.path!} {...props}>{item.label}{item.path === "/underlag/" && <PlanStartedBadge />}</Link>
+    <Link ref={ref} to={item.path!} {...props} aria-label={item.product ? `${item.label}: ${item.product}` : undefined}>
+      {item.product ? (
+        <span className="flex flex-col">
+          <span>{item.label}</span>
+          <span className="whitespace-nowrap text-xs font-normal text-muted-foreground group-hover:text-primary/80 group-data-[highlighted]:text-primary/80">{item.product}</span>
+        </span>
+      ) : (
+        item.label
+      )}
+      {item.path === "/underlag/" && <PlanStartedBadge />}
+    </Link>
   )
 );
 ItemLink.displayName = "ItemLink";
