@@ -56,6 +56,20 @@ import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import EditorialSource from "@/components/EditorialSource";
 import ShortlistButton from "@/components/ShortlistButton";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+
+/** Publicerade profiler som själva anger Finance/SCM, i bokstavsordning (ingen rangordning). */
+const FSCM_APP_PATTERN = /finance|supply chain|f&scm|f&o/i;
+const fscmProfilePartners = (staticPartnerData as any[])
+  .filter((p) => p.is_featured && Array.isArray(p.applications) && p.applications.some((a: string) => FSCM_APP_PATTERN.test(a)))
+  .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+  .map((p) => ({
+    id: p.id as string,
+    slug: p.slug as string,
+    name: p.name as string,
+    apps: (p.applications as string[]).slice(0, 4),
+    industries: (Array.isArray(p.industries) ? (p.industries as string[]) : []).slice(0, 3),
+  }));
 import { useShortlist } from "@/contexts/ShortlistContext";
 import { episodesForPartner } from "@/data/d365Inside";
 import {
