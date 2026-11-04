@@ -13,6 +13,15 @@ export interface BcCategoryPage {
   intro: string;
   /** Valfri rekommendationsruta till en fördjupande guide. */
   guideLink?: { text: string; to: string };
+  /** Valfria redaktionella H2-avsnitt som visas före lösningslistan. */
+  sections?: {
+    id: string;
+    h2: string;
+    paragraphs: string[];
+    links?: { text: string; to: string }[];
+  }[];
+  /** Valfri rådgivningsruta med Thomas (Bookings + mejl). */
+  advisory?: { title: string; text: string };
   faq: { q: string; a: string }[];
 }
 
@@ -83,9 +92,26 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
     h1: "E-handel, PIM och POS för Business Central",
     metaTitle: "E-handel och PIM för Business Central – tillägg",
     metaDescription:
-      "Se lösningar som kopplar Business Central till e-handel, produktinformation och butik. Jämför integrerade plattformar och connectorer.",
+      "Koppla en e-handelslösning och PIM till Business Central, eller välj Dynamics 365 Commerce? Se skillnaden och jämför plattformar och connectorer.",
     intro:
-      "Handelsflöden mot Business Central löses med allt från lätta connectorer till plattformar som hämtar artiklar, priser och order i realtid. Produktinformation och butiksförsäljning hanteras ofta av egna lösningar.",
+      "Handelsflöden mot Business Central löses med allt från lätta connectorer till e-handelsplattformar som hämtar artiklar, priser och order i realtid. Produktinformation (PIM) och butiksförsäljning hanteras ofta av egna lösningar. För större handelsbolag finns också Microsofts egen handelslösning Dynamics 365 Commerce.",
+    sections: [
+      {
+        id: "extern-ehandel-eller-commerce",
+        h2: "Extern e-handelsplattform eller Dynamics 365 Commerce?",
+        paragraphs: [
+          "Det finns två huvudvägar. Den vanligaste för bolag med Business Central är att välja en extern e-handelslösning, till exempel Norce, Storm eller Litium, och integrera den mot Business Central. Affärssystemet äger då artiklar, lager, priser, kunder och order, medan e-handelsplattformen äger webbupplevelse, kampanjer och kassa. Kopplingen görs med en connector eller via en integrationsplattform.",
+          "Den andra vägen är Dynamics 365 Commerce, Microsofts enterprise-lösning för handel i flera kanaler. Commerce bygger på samma plattform som Finance & Supply Chain Management och samlar e-handel, butikskassa (POS), kundtjänst samt centrala sortiments- och prisregler i en lösning. Det är alltså inget tillägg till Business Central, utan ett eget val av plattform.",
+          "PIM (Product Information Management) är ofta en tredje pusselbit oavsett väg. När produktinformationen är rik, flerspråkig eller ska publiceras i flera kanaler hanteras texter, bilder och attribut i ett PIM, medan artikelnummer, priser och lagersaldon stannar i affärssystemet.",
+          "Tumregel: Business Central med en extern e-handelsplattform passar de flesta små och medelstora handelsbolag. Dynamics 365 Commerce blir aktuellt när butiker, e-handel och centrala handelsregler behöver styras i en gemensam lösning, oftast tillsammans med Finance & Supply Chain Management.",
+        ],
+        links: [
+          { text: "Läs om Dynamics 365 Commerce", to: "/d365commerce/" },
+          { text: "Läs om Dynamics 365 Finance & Supply Chain Management", to: "/finance-supply-chain/" },
+          { text: "Hitta partner med erfarenhet av handel och e-handel", to: "/valjdynamics365partner/" },
+        ],
+      },
+    ],
     faq: [
       {
         q: "Connector eller integrerad e-handelsplattform?",
@@ -153,9 +179,37 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
     h1: "Dokumenthantering och frakt för Business Central",
     metaTitle: "Dokument och frakt för Business Central – tillägg",
     metaDescription:
-      "Lösningar för dokumentdesign, utskick och distribution samt fraktbokning och transportadministration kopplat till Business Central.",
+      "Dokumentlösningar, TA-system för fraktbokning, etiketter och spårning (nShift, Logtrade) samt EDI-flöden kopplade till Business Central.",
     intro:
-      "Dokument- och outputlösningar styr hur fakturor, följesedlar och etiketter utformas och distribueras. Frakt- och TA-system hanterar bokning, etiketter och spårning mot transportörerna.",
+      "Dokument- och outputlösningar styr hur fakturor, följesedlar och etiketter utformas och distribueras. Frakt- och TA-system hanterar bokning, etiketter och spårning mot transportörerna, och EDI kopplar ihop orderflödet med kunder och leverantörer.",
+    sections: [
+      {
+        id: "ta-system",
+        h2: "TA-system och transportadministration i Dynamics 365",
+        paragraphs: [
+          "Ett TA-system (transportadministrationssystem) samlar transportörerna i ett gemensamt flöde. I stället för att boka varje sändning i transportörens egen portal skapas fraktbokningen direkt från utleveransen i Business Central. Fraktetiketter, fraktsedlar och spårningsnummer kommer sedan tillbaka till ordern, så att kundtjänst och kund kan följa leveransen.",
+          "I Sverige kopplas Business Central och övriga Dynamics 365-appar ofta till TA-tjänster som nShift och Logtrade. Via dem nås transportörer som PostNord, DHL och Bring med samma flöde för automatisk fraktbokning, spårning och etikettutskrift. Transportörer som PostNord har även egna integrationer, men med ett TA-system kan ni lägga till eller byta transportör utan att bygga nya kopplingar.",
+          "Det som brukar avgöra valet: vilka transportörer och tjänster ni använder, om etiketter ska skrivas ut vid packbordet eller i lagersystemet, hur spårningslänkar ska skickas till kunden och om returer ska hanteras i samma flöde. Kontrollera också om kopplingen är ett tillägg inuti Business Central eller en separat tjänst som synkar data.",
+        ],
+      },
+      {
+        id: "edi-orderflode",
+        h2: "EDI-integrationer och elektroniskt orderflöde",
+        paragraphs: [
+          "EDI (Electronic Data Interchange) används när order, orderbekräftelser, leveransaviseringar och fakturor ska skickas maskinellt mellan företag. Det är vanligt mot dagligvaruhandel, bygghandel, fordonsindustri och större kedjor, som ofta kräver EDI av sina leverantörer.",
+          "Business Central har grundstöd för elektroniska dokument, men ett fullständigt EDI-orderflöde mot handelsaktörer görs normalt via en EDI-leverantör eller ett tillägg. Det översätter mellan handelsformaten, till exempel EDIFACT eller Peppol, och affärssystemets order och fakturor. EDI-leverantörer som SPS Commerce erbjuder kopplingar mot Business Central, och i Norden finns flera EDI- och e-fakturaoperatörer med motsvarande lösningar.",
+          "Kravställ per handelspartner: vilka meddelanden som krävs, i vilket format, via vilken kanal (operatör, AS2 eller Peppol) och hur fel och avvikelser ska hanteras i Business Central. Det gör det lättare att jämföra leverantörer och uppskatta införandet.",
+        ],
+        links: [
+          { text: "EDI, e-faktura och integration för Business Central", to: "/business-central/tillagg/edi-e-faktura/" },
+          { text: "Hitta partner med erfarenhet av frakt- och EDI-integrationer", to: "/valjdynamics365partner/" },
+        ],
+      },
+    ],
+    advisory: {
+      title: "Behöver ni rådgivning kring TA-system, frakt och EDI?",
+      text: "Boka ett 20 minuters kostnadsfritt rådgivningssamtal med Thomas Laine för att diskutera rätt tillägg och integrationsstrategi. Ingen partner deltar i samtalet.",
+    },
     faq: [
       {
         q: "Behöver jag ett dokumentverktyg?",

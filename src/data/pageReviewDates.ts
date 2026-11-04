@@ -15,6 +15,8 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/budget-prognos-planering-dynamics-365/": "2026-10-30",
   "/guider/": "2026-10-30",
   "/business-central/tillagg/rapportering-fpa/": "2026-10-30",
+  "/business-central/tillagg/dokument-frakt/": "2026-11-04",
+  "/business-central/tillagg/ehandel/": "2026-11-04",
   "/kunskapscenter/d365sales/forsaljningsprognoser-och-kvothantering/": "2026-10-30",
   "/guider/valja-business-central-partner/": "2026-10-30",
   "/guider/valja-finance-supply-chain-partner/": "2026-10-30",
