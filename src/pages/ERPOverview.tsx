@@ -422,6 +422,12 @@ const ERPOverview = () => {
  <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-90 shrink-0" />
  </summary>
  <p className="mt-3 text-muted-foreground leading-relaxed">{f.answer}</p>
+ {f.link && (
+ <Link to={f.link.to} className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+ {f.link.text}
+ <ArrowRight className="h-4 w-4" aria-hidden="true" />
+ </Link>
+ )}
  </details>
  ))}
  </div>
