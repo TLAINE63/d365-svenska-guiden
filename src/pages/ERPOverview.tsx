@@ -306,6 +306,7 @@ const ERPOverview = () => {
  kraftfullt och användarvänligt affärssystem.
  </p>
   <p className="text-sm text-muted-foreground mb-4">Se <Link to="/businesscentral/" className="text-primary hover:underline font-medium">Business Central pris</Link> för licensnivåer och implementationsintervall.</p>
+  <p className="text-sm text-muted-foreground mb-4">Fördjupning: <a href="https://businesscentral.se/kostnad" className="text-primary hover:underline font-medium">Se fullständig prisöversikt och licenskalkylator för Business&nbsp;Central på businesscentral.se/kostnad</a>.</p>
  
  <ul className="space-y-3 text-muted-foreground mb-6">
  <li className="flex items-start gap-2">
