@@ -122,7 +122,7 @@ const SupportForvaltning = () => (
         variant="inline"
         placement="partner_switch"
         pageType="support_guide"
-        heading="Söker ni ny partner för systemförvaltning eller support av Dynamics&nbsp;365?"
+        heading="Söker ni ny partner för systemförvaltning eller support av Dynamics 365?"
         text="Boka 20 minuters kostnadsfri rådgivning med Thomas Laine för att gå igenom er nuvarande förvaltningssituation och kravbild, och få förslag på lämpliga förvaltningspartners. Ingen partner deltar i samtalet."
         cta="Boka 20 minuters rådgivning"
         metadata={{ source: "support_guide", intent: "consultation" }}
