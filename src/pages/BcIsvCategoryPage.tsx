@@ -9,6 +9,7 @@ import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 import { deliveryLabel } from "@/data/bcIsvSolutions";
 import { findBcCategoryPage } from "@/data/bcIsvCategoryPages";
 import { nowrapBrand } from "@/lib/nowrapBrand";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 
 /** Indexerbar landningssida för en utvald tilläggskategori inom Business Central. */
 const BcIsvCategoryPage = () => {
@@ -73,6 +74,32 @@ const BcIsvCategoryPage = () => {
             </aside>
           )}
 
+          {page.sections?.map((s) => (
+            <section key={s.id} id={s.id} className="mb-12 max-w-3xl scroll-mt-24">
+              <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">{nowrapBrand(s.h2)}</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                {s.paragraphs.map((p, i) => (
+                  <p key={i}>{nowrapBrand(p)}</p>
+                ))}
+              </div>
+              {s.links && s.links.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {s.links.map((l) => (
+                    <li key={l.to}>
+                      <Link
+                        to={l.to}
+                        className="inline-flex items-start gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+                      >
+                        <span>{nowrapBrand(l.text)}</span>
+                        <ArrowRight className="mt-1 h-4 w-4 shrink-0" aria-hidden />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
+
           <section className="mb-12">
             <h2 className="text-xl font-bold text-foreground mb-4">
               Lösningar i den här kategorin
@@ -126,6 +153,14 @@ const BcIsvCategoryPage = () => {
               ))}
             </div>
           </section>
+
+          {page.advisory && (
+            <section className="mb-12 rounded-lg border border-border bg-card p-5 sm:p-6">
+              <h2 className="text-lg font-semibold text-card-foreground mb-2">{nowrapBrand(page.advisory.title)}</h2>
+              <p className="text-sm text-muted-foreground mb-4 max-w-2xl">{nowrapBrand(page.advisory.text)}</p>
+              <AdvisorContactButtons />
+            </section>
+          )}
 
           <div className="rounded-lg border border-border bg-muted/30 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-sm text-muted-foreground max-w-xl">
