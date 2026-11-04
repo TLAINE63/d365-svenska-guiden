@@ -80,6 +80,22 @@ const SupportForvaltning = () => (
         ],
       },
       {
+        title: "Vilka företag erbjuder systemförvaltning av Microsoft\u00A0Dynamics\u00A0365 i Sverige?",
+        intro: "Flera svenska partners erbjuder etablerade förvaltningsmodeller för applikationsdrift (AMS), bland andra Fellowmind och Implema. Jämför dem utifrån samma krav, oavsett storlek:",
+        list: [
+          "Proaktiv förvaltning: partnern följer upp prestanda, fel och förbättringar, inte bara inkomna ärenden",
+          "Garanterade SLA-nivåer med mätbara svars- och lösningstider per prioritet",
+          "Stöd vid Microsofts löpande versionsuppdateringar (One Version): test, regressionstest och planering",
+          "Bredd över de applikationer ni har, till exempel Finance & Supply Chain Management, Business Central och CRM",
+          "Referenser från kunder i er storlek och bransch som de förvaltar i dag",
+        ],
+        cards: [
+          { t: "Se vår guide för att välja rätt Dynamics\u00A0365-partner", d: "Filtrera partners på applikation, bransch och geografi.", h: "/valjdynamics365partner/" },
+          { t: "Fellowmind", d: "Partnerprofil med produkter, branscher och kontaktvägar.", h: "/partner/fellowmind/" },
+          { t: "Implema", d: "Partnerprofil med produkter, branscher och kontaktvägar.", h: "/partner/implema/" },
+        ],
+      },
+      {
         title: "Hitta rätt supportpartner",
         intro: "Börja i partnerkatalogen och filtrera på er applikation och bransch. Fråga varje partner hur de arbetar med support och förvaltning, vilka servicenivåer de erbjuder och vilka kunder i er storlek de redan förvaltar.",
         cards: [
@@ -106,9 +122,9 @@ const SupportForvaltning = () => (
         variant="inline"
         placement="partner_switch"
         pageType="support_guide"
-        heading="Behöver du hjälp att utvärdera eller byta supportpartner?"
-        text="Resonera med oss om ert nuvarande avtal, era servicenivåer och vilka alternativ ni har. Kostnadsfritt och utan förpliktelser. Ingen partner deltar."
-        cta="Prata med d365.se om ert behov"
+        heading="Söker ni ny partner för systemförvaltning eller support av Dynamics 365?"
+        text="Boka 20 minuters kostnadsfri rådgivning med Thomas Laine för att gå igenom er nuvarande förvaltningssituation och kravbild, och få förslag på lämpliga förvaltningspartners. Ingen partner deltar i samtalet."
+        cta="Boka 20 minuters rådgivning"
         metadata={{ source: "support_guide", intent: "consultation" }}
       />
       </>
