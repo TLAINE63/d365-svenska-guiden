@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
