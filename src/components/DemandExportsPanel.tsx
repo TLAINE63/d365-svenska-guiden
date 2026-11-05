@@ -4,6 +4,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { defaultFromDate, previousMonth } from "@/lib/adminExports";
+import { supabase } from "@/integrations/supabase/client";
+
+interface SnitcherCompany {
+  company_name: string | null;
+  company_domain: string | null;
+  company_industry: string | null;
+  company_size: string | null;
+  company_country: string | null;
+  session_count: number;
+  url_count: number;
+  partner_slugs: string[];
+  first_seen: string | null;
+  last_seen: string | null;
+}
+
+function last30Days(): { from: string; to: string } {
+  const to = new Date().toISOString().slice(0, 10);
+  const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return { from, to };
+}
 
 /** CSV-exporter (admin). Nyckeln finns bara på servern; panelen skickar inloggningstoken. */
 const DATE_EXPORTS = [
