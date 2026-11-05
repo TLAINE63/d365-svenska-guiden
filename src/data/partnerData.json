@@ -526,7 +526,7 @@
   },
   {
     "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
-    "slug": "b3-consulting-group",
+    "slug": "b3-elevate",
     "name": "B3 Elevate",
     "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nära samarbete mellan teknik- och affärsexperter levererar B3 Elevate kundlösningar - från strategi, via systemutveckling, till förvaltade tjänster. \nVi är ett konsultföretag med hög kompetens och moderna arbetssätt.\nSom långvarig Microsoftpartner förstärker vi organisationers förmåga att hantera digital transformation med stöd av Microsoft Dynamics 365.",
     "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate.png",
@@ -1028,10 +1028,10 @@
   },
   {
     "id": "5035dec0-6992-4fc7-931c-0254b8c6b003",
-    "slug": "columbus-sweden-ab",
+    "slug": "columbus",
     "name": "Columbus Sweden AB",
     "description": "Columbus arbetar med medelstora och stora företag som använder Microsoft Dynamics 365 för att driva och utveckla sina affärsprocesser. Vi har bred kompetens inom Dynamics 365, från Finance och Supply Chain Management till Business Central, Customer Engagement och Commerce, med särskild erfarenhet av komplexa verksamheter inom exempelvis tillverkning, retail och distribution.\n\n**Varför Columbus?**\n\n- Medlem i Microsoft Inner Circle i över 20 år, en status som endast den främsta procenten av Microsofts Business Applications-partners globalt uppnår.\n- Tillgång till FastTrack for Dynamics 365, vilket bidrar till snabbare implementeringar och framgångsrika projekt för kunderna.\n- Niofaldig vinnare av Microsoft Partner of the Year, med utmärkelser för kundframgång och innovation i Sverige, Norge och Danmark, bland annat 2024, 2023 och 2021.",
-    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/columbus-sweden-ab.png",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/columbus.png",
     "logo_dark_bg": false,
     "website": "https://columbusglobal.com",
     "email": null,
@@ -4789,7 +4789,7 @@
   },
   {
     "id": "0dc01563-c248-4059-b219-a5311fa72a8a",
-    "slug": "update-affarssystem-ab",
+    "slug": "update-affarssystem",
     "name": "Update Affärssystem AB",
     "description": null,
     "logo_url": null,

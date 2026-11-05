@@ -106,7 +106,7 @@
     ]
   },
   {
-    "slug": "exsitec",
+    "slug": "brightcom",
     "name": "BrightCom",
     "products": [
       "bc"
@@ -179,7 +179,7 @@
     ]
   },
   {
-    "slug": "ecit-sverige-ab",
+    "slug": "ecit",
     "name": "ECIT Sverige AB",
     "products": [
       "bc"
@@ -209,7 +209,7 @@
     ]
   },
   {
-    "slug": "enqore-ab",
+    "slug": "enqore",
     "name": "Enqore AB",
     "products": [
       "bc",
@@ -217,7 +217,7 @@
     ]
   },
   {
-    "slug": "navipro-ab",
+    "slug": "evidi",
     "name": "Evidi",
     "products": [
       "bc",
@@ -299,7 +299,7 @@
     ]
   },
   {
-    "slug": "it-stod-ab",
+    "slug": "it-stod",
     "name": "IT Stöd AB",
     "products": [
       "bc"
@@ -337,7 +337,7 @@
     ]
   },
   {
-    "slug": "midpoint-ab",
+    "slug": "midpoint",
     "name": "Midpoint AB",
     "products": [
       "bc"
@@ -351,7 +351,7 @@
     ]
   },
   {
-    "slug": "navet-ab",
+    "slug": "navet",
     "name": "Navet AB",
     "products": [
       "bc"
@@ -420,7 +420,7 @@
     ]
   },
   {
-    "slug": "sherpas-group-ab",
+    "slug": "sherpas",
     "name": "Sherpas Group AB",
     "products": [
       "bc",
@@ -500,7 +500,7 @@
     ]
   },
   {
-    "slug": "future-it-partner",
+    "slug": "upheads",
     "name": "Upheads AB",
     "products": []
   },
