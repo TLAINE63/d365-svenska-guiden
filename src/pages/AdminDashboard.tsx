@@ -327,7 +327,10 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
 
 // ==================== COMPONENT ====================
 
-const AdminDashboard = () => {
+const EMBEDDED_PARTNER_TABS = ["partners", "unprofiled-partners", "basic-partners", "data-gaps", "partner-review", "partner-master", "invitations", "agreement"];
+
+/** embedded = visas inuti /redaktion/ för admin: bara partnerflikarna, utan sajtens meny/sidfot. */
+const AdminDashboard = ({ embedded = false }: { embedded?: boolean } = {}) => {
  const { toast } = useToast();
  const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
  const fileInputRef = useRef<HTMLInputElement>(null);
@@ -398,18 +401,20 @@ const AdminDashboard = () => {
 
  // Tab grouping
  const [activeGroup, setActiveGroup] = useState<string>(() => {
+ if (embedded) return "embedded-partners";
  if (typeof window === "undefined") return "leads-partners";
  return localStorage.getItem("admin-active-group") || "leads-partners";
  });
  const [activeTab, setActiveTab] = useState<string>(() => {
+ if (embedded) return "partners";
  if (typeof window === "undefined") return "leads";
  return localStorage.getItem("admin-active-tab") || "leads";
  });
  useEffect(() => {
- try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
+ if (!embedded) { try { localStorage.setItem("admin-active-group", activeGroup); } catch {} }
  }, [activeGroup]);
   useEffect(() => {
-  try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  if (!embedded) { try { localStorage.setItem("admin-active-tab", activeTab); } catch {} }
   if (activeTab === "partners") setPartnerStatusFilter("published");
   else if (activeTab === "unprofiled-partners") setPartnerStatusFilter("unpublished");
   }, [activeTab]);
@@ -2228,12 +2233,12 @@ Thomas`,
  const currentMonthName = formatDateYYYYMMDD(new Date());
 
  return (
- <div className="min-h-screen flex flex-col bg-slate-50">
- <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
- <Navbar />
- <main className="flex-grow mt-16">
+ <div className={embedded ? "flex flex-col" : "min-h-screen flex flex-col bg-slate-50"}>
+ {!embedded && <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />}
+ {!embedded && <Navbar />}
+ <main className={embedded ? "flex-grow" : "flex-grow mt-16"}>
  {/* Premium dark hero header */}
- <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border-b border-slate-700/50">
+ <div className={embedded ? "hidden" : undefined}><div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border-b border-slate-700/50">
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.15),_transparent_50%)] pointer-events-none" />
  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(249,115,22,0.08),_transparent_50%)] pointer-events-none" />
  <div className="container mx-auto px-4 pt-10 pb-8 relative">
@@ -2344,15 +2349,16 @@ Thomas`,
  </div>
  </div>
 
- <div className="container mx-auto px-4 py-8">
- <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-4 py-2 text-sm text-amber-900 dark:text-amber-100">
+ </div>
+ <div className={embedded ? "py-2" : "container mx-auto px-4 py-8"}>
+ <div className={`${embedded ? "hidden " : ""}mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-4 py-2 text-sm text-amber-900 dark:text-amber-100`}>
  <span className="font-medium">All statistik utgår från d365.se</span>
  <span className="text-amber-800/80 dark:text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
  </div>
  <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
  {/* Group selector */}
  <div className="flex flex-wrap gap-2 p-2 rounded bg-slate-100 dark:bg-slate-800/50 border border-border">
- {tabGroups.map((g) => {
+ {(embedded ? [{ id: "embedded-partners", label: "Partnerprofilering", icon: Building2, tabs: EMBEDDED_PARTNER_TABS }] : tabGroups).map((g) => {
  const isActive = activeGroup === g.id;
  return (
  <button
@@ -2406,43 +2412,43 @@ Thomas`,
  </span>
  Partnerklick
  </TabsTrigger>
- <TabsTrigger value="partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="partners" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("partners") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
  <Building2 className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
  </span>
  Publicerade
  </TabsTrigger>
- <TabsTrigger value="unprofiled-partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="unprofiled-partners" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("unprofiled-partners") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-600/10 ring-1 ring-slate-400/20">
  <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
  </span>
  Ej publicerade
  </TabsTrigger>
- <TabsTrigger value="basic-partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="basic-partners" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("basic-partners") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-600/10 ring-1 ring-slate-400/20">
  <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
  </span>
  Basickort
   </TabsTrigger>
-  <TabsTrigger value="data-gaps" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+  <TabsTrigger value="data-gaps" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("data-gaps") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
   <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
   <Building2 className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
   </span>
   Datakvalitet
   </TabsTrigger>
- <TabsTrigger value="partner-review" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="partner-review" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("partner-review") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
   <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
   <Building2 className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
   </span>
   Partnergranskning
   </TabsTrigger>
- <TabsTrigger value="partner-master" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="partner-master" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("partner-master") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
   <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
   <Building2 className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
   </span>
   Partnerdata (master)
   </TabsTrigger>
- <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="invitations" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("invitations") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
  <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
  </span>
@@ -2539,7 +2545,7 @@ Thomas`,
  </span>
  E-postlogg
  </TabsTrigger>
- <TabsTrigger value="agreement" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+ <TabsTrigger value="agreement" className={`flex items-center gap-2 ${(embedded ? EMBEDDED_PARTNER_TABS.includes("agreement") : activeGroup === "leads-partners") ? "" : "hidden"}`}>
  <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-stone-500/20 to-stone-600/10 ring-1 ring-stone-400/20">
  <ScrollText className="h-3.5 w-3.5 text-stone-200" strokeWidth={1.75} />
  </span>
@@ -6357,7 +6363,7 @@ Thomas`,
 
  </div>
  </main>
- <Footer />
+ {!embedded && <Footer />}
  </div>
  );
 };
