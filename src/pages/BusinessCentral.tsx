@@ -323,7 +323,7 @@ const BusinessCentral = () => {
      Business Central är nästa generation av Dynamics NAV, som tidigare hette Navision. Kör ni NAV eller Navision i dag är Business Central den naturliga uppgraderingsvägen; läs mer i guiden <Link to="/nav-till-business-central/" className="text-primary underline underline-offset-4">från NAV till Business Central</Link>.
     </p>
     <p className="text-muted-foreground mb-6">
-     Står ni inför partnervalet? Läs <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link> eller <Link to="/valjdynamics365partner/?product=business-central#hitta-partners" className="text-primary underline underline-offset-4">hitta Business Central-partners i Partnerväljaren</Link>.
+     Står ni inför partnervalet? Läs <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link> eller <Link to="/business-central-partners-sverige/" className="text-primary underline underline-offset-4">hitta Business Central-partners i Partnerväljaren</Link>.
     </p>
     <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
      <h3 className="text-lg font-semibold text-card-foreground mb-2">Boka 20-minuters kostnadsfri rådgivning med Thomas</h3>
