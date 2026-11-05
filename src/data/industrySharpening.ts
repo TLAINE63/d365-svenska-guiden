@@ -16,8 +16,8 @@ export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
   },
   "bygg-entreprenad": {
     advisory: {
-      heading: "Behöver ni rådgivning kring systemstöd för projekt och entreprenad?",
-      text: "Boka ett 20 minuters kostnadsfritt rådgivningssamtal med Thomas Laine för att diskutera era krav på projektredovisning och branschsystem. Ingen partner deltar i samtalet.",
+      heading: "Boka 20 minuters kostnadsfri rådgivning kring affärssystem för bygg och entreprenad med Thomas Laine",
+      text: "Thomas Laine hjälper er att reda ut kraven på kalkyl, mängdberäkning, projektredovisning och branschsystem, och vilka alternativ som är värda att jämföra. Ingen partner deltar i samtalet.",
     },
   },
   tillverkning: {

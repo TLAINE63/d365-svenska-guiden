@@ -19,6 +19,8 @@ export interface IndustryErpSection {
   /** Extra internlänkar under paketnoten. */
   extraLinks?: { text: string; to: string }[];
   cta: { text: string; to: string };
+  /** Redogör för branschens faktiska standardval, visas under ingressen. */
+  marketStandard?: string;
   /** Egna H2-avsnitt under huvudavsnittet. */
   subSections?: IndustryErpSubSection[];
 }
@@ -63,5 +65,33 @@ export const INDUSTRY_ERP_SECTIONS: Record<string, IndustryErpSection> = {
       text: "Jämför partners med specialistkompetens inom bygg och entreprenad",
       to: "/valjdynamics365partner/?industry=bygg-entreprenad#hitta-partners",
     },
+    subSections: [
+      {
+        id: "vinstavrakning",
+        h2: "Stöd för successiv vinstavräkning och projektredovisning i byggbranschen",
+        paragraphs: [
+          "Successiv vinstavräkning innebär att intäkt och resultat redovisas i takt med att projektet blir klart, i stället för först vid slutfakturan. Underlaget är upparbetade kostnader, färdigställandegrad och aktuell prognos per projekt. Kravet brukar komma från att projekt behöver följas löpande och att bokslutet ska visa verklig marginal, inte bara fakturerade belopp.",
+          "I Microsoft Dynamics 365 Business Central samlas budget, prognos, kostnader och intäkter per projekt. Branschpaketet ovanpå, till exempel 4PS Construct, lägger till det byggbranschen saknar i standardversionen: arbetsorder, tidrapportering ute från arbetsplatsen, underentreprenörsfakturor, ÄTA-arbeten och avräkning mot ursprungsavtalet. Då blir projektredovisningen en löpande uppföljning i stället för en månadsvis sammanställning i Excel.",
+          "Vill ni ha avräkningen i en egen projektplattform finns den beskriven i guiden om Dynamics 365 Project Operations, där work in progress och intäktsavräkning beräknas på nedlagd tid eller upparbetad kostnad. För många byggföretag är dock Business Central med branschpaket det kortaste spåret, eftersom ekonomin och projekten redan finns i samma system.",
+        ],
+        links: [
+          { text: "Läs om 4PS Construct från 4PS Sweden", to: "/partner/4ps-sweden/" },
+          { text: "Jämför partners för bygg och entreprenad", to: "/valjdynamics365partner/?industry=bygg-entreprenad#hitta-partners" },
+        ],
+      },
+      {
+        id: "kalkyl-och-mangdberakning",
+        h2: "Integrerat kalkylprogram och mängdberäkning",
+        paragraphs: [
+          "Kalkyl och mängdberäkning är ofta den första flaskhalsen i ett byggföretag. Räknas mängderna i ett separat kalkylprogram och förs över till projektet manuellt uppstår fel, dubbelarbete och avvikelser som är svåra att spåra tillbaka. Ett integrerat flöde gör kalkylens poster till grund för projektets budget, så att en ändrad mängd syns i prognosen i stället för i en separat fil.",
+          "Kalkyl är en del av 4PS Construct, som bygger priser, artiklar, arbetsmoment och resurser i samma system som projekt och ekonomi. Hur själva mängdberäkningen läggs upp beror på vilka moduler ni väljer och om ni räknar i externt verktyg eller från underlag i BIM och CAD, och det är en fråga att ta med i utvärderingen av partnern.",
+          "Punkter som brukar avgöra om lösningen fungerar i praktiken: vilka kalkylprogram ni använder i dag, om mängderna ska kunna hämtas från BIM eller CAD, och hur en ändrad mängd eller ett ÄTA-arbete ska påverka projektets budget, prognos och slutliga fakturering.",
+        ],
+        links: [
+          { text: "4PS Construct från 4PS Sweden", to: "/partner/4ps-sweden/" },
+          { text: "Boka 20 minuters rådgivning om kalkyl och mängdberäkning", to: "/valjdynamics365partner/?industry=bygg-entreprenad#hitta-partners" },
+        ],
+      },
+    ],
   },
 };
