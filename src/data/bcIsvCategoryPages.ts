@@ -90,12 +90,26 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
     slug: "ehandel",
     categories: ["E-handel", "PIM", "Retail / POS"],
     h1: "E-handel, PIM och POS för Business Central",
-    metaTitle: "E-handel och PIM för Business Central – tillägg",
+    metaTitle: "Business Central och e-handel – kopplingar och tillägg",
     metaDescription:
-      "Koppla en e-handelslösning och PIM till Business Central, eller välj Dynamics 365 Commerce? Se skillnaden och jämför plattformar och connectorer.",
+      "Business Central och e-handel: Shopify-koppling, connectorer mot Norce, Litium och Centra eller integrerad B2B-shop. Och när Dynamics 365 Commerce passar.",
     intro:
       "Handelsflöden mot Business Central löses med allt från lätta connectorer till e-handelsplattformar som hämtar artiklar, priser och order i realtid. Produktinformation (PIM) och butiksförsäljning hanteras ofta av egna lösningar. För större handelsbolag finns också Microsofts egen handelslösning Dynamics 365 Commerce.",
     sections: [
+      {
+        id: "tre-vagar-ehandel-business-central",
+        h2: "Business Central och e-handel: tre vanliga vägar",
+        paragraphs: [
+          "1. Inbyggd Shopify-koppling: Microsoft levererar en koppling mellan Business Central och Shopify som synkar artiklar, priser, lagersaldon, kunder och order. Det är ofta den snabbaste starten för bolag som redan säljer via Shopify.",
+          "2. Connector mot annan plattform: Säljer ni via till exempel Norce, Litium, Centra eller WooCommerce kopplas e-handeln till Business Central med ett tillägg från Microsoft Marketplace eller en integration som partnern bygger. E-handeln äger kundupplevelsen, Business Central äger order, lager, priser och bokföring.",
+          "3. Integrerad B2B-shop: För B2B med kundunika priser, avtal och sortiment väljer många en lösning som Sana Commerce eller Dynamicweb, där affärslogiken hämtas direkt från Business Central i stället för att kopieras.",
+          "Oavsett väg: fråga partnern om dokumenterad erfarenhet av just er plattform och hur fel i orderflödet övervakas och rättas.",
+        ],
+        links: [
+          { text: "Läs om Business Central", to: "/businesscentral/" },
+          { text: "Jämför Sana, Dynamicweb och Shopify-koppling", to: "/compare/sana-vs-dynamicweb-vs-shopify/" },
+        ],
+      },
       {
         id: "extern-ehandel-eller-commerce",
         h2: "Extern e-handelsplattform eller Dynamics 365 Commerce?",

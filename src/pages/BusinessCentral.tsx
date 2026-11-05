@@ -317,7 +317,10 @@ const BusinessCentral = () => {
    <div className="container mx-auto max-w-4xl px-4 sm:px-6">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Vad är <span className="whitespace-nowrap">Dynamics 365</span> BC?</h2>
     <p className="text-muted-foreground mb-3">
-     BC är den vanliga förkortningen för <span className="whitespace-nowrap">Dynamics 365</span> Business Central, Microsofts affärssystem (ERP) för små och medelstora bolag. Det samlar ekonomi, inköp, lager, försäljning, projekt och, i Premium, tillverkning och service i en molntjänst.
+     BC är den vanliga förkortningen för <span className="whitespace-nowrap">Dynamics 365</span> Business Central, Microsofts affärssystem (ERP) för små och medelstora bolag. Det samlar ekonomi, inköp, lager, försäljning, projekt och, i Premium, tillverkning och service i en molntjänst. Jämför med andra alternativ i vår <Link to="/affarssystem/" className="text-primary underline underline-offset-4">översikt över affärssystem</Link>.
+    </p>
+    <p className="text-muted-foreground mb-3">
+     Säljer ni via webbshop? Se <Link to="/business-central/tillagg/ehandel/" className="text-primary underline underline-offset-4">tillägg och kopplingar för e-handel till Business Central</Link>, från Microsofts inbyggda Shopify-koppling till B2B-portaler.
     </p>
     <p className="text-muted-foreground mb-3">
      Business Central är nästa generation av Dynamics NAV, som tidigare hette Navision. Kör ni NAV eller Navision i dag är Business Central den naturliga uppgraderingsvägen; läs mer i guiden <Link to="/nav-till-business-central/" className="text-primary underline underline-offset-4">från NAV till Business Central</Link>.
