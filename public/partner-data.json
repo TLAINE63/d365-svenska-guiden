@@ -6,7 +6,7 @@
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
   "updated": "2026-11-05",
-  "count": 20,
+  "count": 21,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -82,6 +82,22 @@
         "Globalt",
         "Europa"
       ],
+      "related_party": false
+    },
+    {
+      "name": "Columbus Sweden AB",
+      "slug": "columbus-sweden-ab",
+      "url": "https://d365.se/partner/columbus-sweden-ab/",
+      "website": "https://columbusglobal.com",
+      "description": "Columbus arbetar med medelstora och stora företag som använder Microsoft Dynamics 365 för att driva och utveckla sina affärsprocesser. Vi har bred kompetens inom Dynamics 365, från Finance och Supply Chain Management till Business Central, Customer Engagement och Commerce, med särskild erfarenhet av komplexa verksamheter inom exempelvis tillverkning, retail och distribution.\n\n**Varför Columbus?**\n\n- Medlem i Microsoft Inner Circle i över 20 år, en status som endast den främsta procenten av Microsofts Business Applications-partners globalt uppnår.\n- Tillgång till FastTrack for Dynamics 365, vilket bidrar till snabbare implementeringar och framgångsrika projekt för kunderna.\n- Niofaldig vinnare av Microsoft Partner of the Year, med utmärkelser för kundframgång och innovation i Sverige, Norge och Danmark, bland annat 2024, 2023 och 2021.",
+      "products": [
+        "F&SCM",
+        "Business Central"
+      ],
+      "industries": [],
+      "offices": null,
+      "company_size": null,
+      "geography": [],
       "related_party": false
     },
     {

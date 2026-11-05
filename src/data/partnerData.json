@@ -1027,6 +1027,225 @@
     "information_verified_at": "2026-05-01"
   },
   {
+    "id": "5035dec0-6992-4fc7-931c-0254b8c6b003",
+    "slug": "columbus-sweden-ab",
+    "name": "Columbus Sweden AB",
+    "description": "Columbus arbetar med medelstora och stora företag som använder Microsoft Dynamics 365 för att driva och utveckla sina affärsprocesser. Vi har bred kompetens inom Dynamics 365, från Finance och Supply Chain Management till Business Central, Customer Engagement och Commerce, med särskild erfarenhet av komplexa verksamheter inom exempelvis tillverkning, retail och distribution.\n\n**Varför Columbus?**\n\n- Medlem i Microsoft Inner Circle i över 20 år, en status som endast den främsta procenten av Microsofts Business Applications-partners globalt uppnår.\n- Tillgång till FastTrack for Dynamics 365, vilket bidrar till snabbare implementeringar och framgångsrika projekt för kunderna.\n- Niofaldig vinnare av Microsoft Partner of the Year, med utmärkelser för kundframgång och innovation i Sverige, Norge och Danmark, bland annat 2024, 2023 och 2021.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/columbus-sweden-ab.png",
+    "logo_dark_bg": false,
+    "website": "https://columbusglobal.com",
+    "email": null,
+    "contact_person": "Kjetil Vetlejord",
+    "contact_photo_url": "",
+    "phone": null,
+    "applications": [
+      "F&SCM",
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Globalt"
+        ],
+        "keyPoints": "Strategi och förändringsledning inför Business Central\nImplementation med konfiguration, integration, test och driftsättning\nStöd för både enskilda implementationer och utrullningar i flera länder\nLöpande applikationssupport efter implementationen",
+        "whyChoose": "Columbus kombinerar kompetens inom Dynamics 365 Business Central med ett arbetssätt som omfattar hela resan från strategi och förändringsledning till implementation och löpande applikationssupport. Columbus fokuserar på verksamhetens mål, användning och praktiska förutsättningar för att minska risk och snabbare skapa värde.",
+        "industries": [
+          "Livsmedel & Processindustri",
+          "Retail & E-handel",
+          "Mode, Sport & Textil"
+        ],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
+        ],
+        "contactName": "Ola Bellring",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Business Central ger möjlighet att samla och effektivisera affärsprocesser inom bland annat ekonomi, verksamhet, supply chain och service på en gemensam plattform. Columbus arbetar med att konfigurera och integrera lösningen för att skapa effektivare arbetsflöden och minska beroendet av fragmenterade system, kalkylblad och separata verktyg.",
+          "deliveryModel": "Columbus genomför Business Central-projekt i nära samarbete med kundens egna team och formar lösningen efter verksamhetens behov och prioriteringar. Leveransen sker strukturerat och med fokus på önskade verksamhetsresultat och omfattar bland annat konfiguration, integration, test och driftsättning samt de organisatoriska förändringar som krävs.",
+          "managedServices": "Efter implementation kan Columbus ge löpande applikationssupport för Dynamics 365 Business Central. Det ger kunden stöd även efter driftsättning och skapar kontinuitet kring den affärskritiska plattformen. Columbus Dynamics 365-erbjudande omfattar hela resan från strategi och implementation till löpande support.",
+          "typicalProjects": "Typiska projekt omfattar implementation av Dynamics 365 Business Central med konfiguration, integrationer, test och driftsättning. Columbus arbetar även med strategi, förändringsledning och användning för att förbereda organisationen inför införandet. Projekten kan omfatta en enskild implementation eller utrullning i flera länder.",
+          "typicalCustomers": "Columbus arbetar med små och medelstora organisationer som vill samla ekonomi, verksamhet, supply chain och service i ett integrerat molnbaserat affärssystem. Business Central passar verksamheter som vill ersätta fragmenterade system och kalkylblad, effektivisera arbetsflöden och få en plattform som kan skalas i takt med verksamheten.",
+          "furtherDevelopment": "Business Central är utformat för att kunna skalas i takt med att verksamheten utvecklas. Columbus kan stötta organisationen över tid när lösningen behöver anpassas efter nya behov och prioriteringar. Plattformen samlar ekonomi, verksamhet, supply chain och service och skapar en gemensam grund för effektivare och mer sammanhängande arbetssätt."
+        },
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Implementerar och utvecklar Dynamics 365 Business Central för små och medelstora organisationer.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "fsc": {
+        "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "1.000-4.999 MSEK",
+          ">5.000 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Globalt"
+        ],
+        "keyPoints": "Erfarenhet av komplexa Finance- och Supply Chain-implementationer\nStöd för både enskilda implementationer och utrullning i flera länder\nKompetens inom ekonomi, inköp, lager, produktion och logistik\nStöd från strategi och förändringsledning till support och vidareutveckling",
+        "whyChoose": "Columbus kombinerar kompetens inom Dynamics 365 Finance och Supply Chain Management med erfarenhet av komplexa verksamheter och internationella implementationer. Columbus stöttar hela resan från strategi och förändringsledning till implementation, integration, migrering, support och kontinuerlig utveckling, med fokus på minskad risk och snabbare affärsvärde.",
+        "industries": [
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri",
+          "Retail & E-handel"
+        ],
+        "companySize": [
+          "250-999",
+          "1.000-4.999",
+          ">5.000"
+        ],
+        "contactName": "Kjetil Vetlejord",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "https://www.columbusglobal.com/partners/microsoft-dynamics-365-partner/microsoft-dynamics-365-finance/",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Dynamics 365 Finance och Supply Chain Management används för att automatisera arbetsflöden, minska manuellt arbete och ge bättre underlag för planering och beslut. Columbus hjälper kunder att använda AI-baserad automation och insikter inom exempelvis ekonomiprocesser, rapportering, prognostisering, inköp, lager, produktion och logistik.",
+          "deliveryModel": "Columbus arbetar tillsammans med kundens verksamhets- och teknikteam för att forma lösningen efter affärsbehov och prioriteringar. Leveransen kan omfatta strategi, förändringsledning, lösningsdesign, implementation, integrationer, migrering, test och driftsättning. Arbetssättet anpassas för både enskilda implementationer och internationella utrullningar.",
+          "managedServices": "Efter driftsättning kan Columbus ansvara för löpande applikationssupport och stabilisering av Dynamics 365-miljön. Arbetet kan omfatta incidenthantering, förbättrad prestanda, minskad operativ risk och stöd till kundens interna team. Förvaltningen skapar en stabil grund för fortsatt användning och utveckling av plattformen.",
+          "typicalProjects": "Typiska projekt omfattar implementation eller modernisering av Dynamics 365 Finance och Supply Chain Management, ofta för att ersätta äldre eller egenutvecklade affärssystem. Uppdragen kan innefatta standardisering av processer, integrationer, migrering, automation samt utrullning till flera bolag, produktionsenheter och länder.",
+          "typicalCustomers": "Columbus arbetar med medelstora och stora verksamheter med komplexa behov inom ekonomi, tillverkning, inköp, lager, produktion och logistik. Kunderna finns bland annat inom tillverkning, livsmedel, distribution och andra internationella verksamheter som behöver standardisera processer och samla flera bolag eller länder på en gemensam ERP-plattform.",
+          "furtherDevelopment": "Columbus hjälper kunder att vidareutveckla Dynamics 365 när verksamheten växer eller behoven förändras. Det kan innebära fler bolag och länder, standardiserade processer, nya integrationer samt ökad användning av automation, IoT och dataanalys. Utvecklingen sker stegvis på den gemensamma ERP-plattformen."
+        },
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Schur",
+          "Jackson’s Bakery",
+          "The Senator Group",
+          "Origin Enterprises",
+          "Vend och BAMA",
+          "Oatly"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.columbusglobal.com/insights/cases/schur-unites-global-operations--for-a-digital-future-with-microsoft/",
+          "https://www.columbusglobal.com/insights/cases/jacksons-bakery-scale-up-new-levels-with-microsoft-dynamics-365-finance-and-supply-chain-management/",
+          "https://www.columbusglobal.com/partners/microsoft-dynamics-365-partner/microsoft-dynamics-365-supply-chain-management/the-senator-group-dynamics-365/",
+          "https://www.columbusglobal.com/insights/cases/how-origin-enterprises-future-proofed-operations-with-columbus-and-Microsoft-dynamics-365/",
+          "https://www.columbusglobal.com/partners/microsoft-dynamics-365-partner/microsoft-dynamics-365-finance/vend-modernises-marketplaces-with-dynamics-365/",
+          "https://www.columbusglobal.com/partners/microsoft-dynamics-365-partner/rebuilding-the-systems-behind-BAMA-fresh-produce/"
+        ],
+        "productDescription": "Implementerar och utvecklar Dynamics 365 Finance & Supply Chain Management för komplexa verksamheter.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "industry_apps": [],
+    "is_featured": true,
+    "customer_examples": [],
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Jönköping"
+    ],
+    "map_url": null,
+    "youtube_video_id": null,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-11-05T18:44:40.509687+00:00",
+    "industry_pitches": [],
+    "agreement_signed": false,
+    "related_party": false,
+    "positioning_statement": null,
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": null,
+    "implementations_done": null,
+    "not_a_fit": [],
+    "implementations_per_app": {},
+    "ai_summary": null,
+    "ai_summary_generated_at": null,
+    "ai_profile": {},
+    "extended_content": "Columbus är en internationell Microsoft Dynamics 365-partner med huvudkontor i Danmark, grundad 1989 och noterad på Nasdaq Copenhagen. Globalt har Columbus över 1 800 anställda i 16 länder. I Sverige finns omkring 450 medarbetare. Columbus har varit medlem i Microsoft Inner Circle i över 20 år, vilket placerar dem bland topp 1% av Microsoft Business Applications-partners globalt.\n\nAktiva produktområden: Specialisering på Microsoft Dynamics 365 Finance & Operations samt Business Central för tillverkande industri och distribution. Även D365 Customer Engagement och Power Platform. Erbjuder branschlösningar och acceleratorer specifikt för tillverkning, livsmedel och distribution.\n\nTydliga styrkor: Över 20 år i Microsoft Inner Circle – exceptionell track record. Djup vertikal expertis inom tillverkning (diskret och processindustri), distribution och livsmedel. Egen IP och branschacceleratorer. Kombination av global leveranskapacitet med stark nordisk närvaro.\n\nRäckvidd och segment: Internationell med stark nordisk och svensk närvaro. Segment: mellanstora till större tillverknings- och distributionsföretag. Referenskunder inkluderar välkända tillverkare inom livsmedel, diskret tillverkning och grossist/distribution.\n\nPassar bäst: Tillverkande företag och distributörer som söker en erfaren F&O/BC-partner med djup branschförståelse och global leveranskapacitet. Kunder som värdesätter Microsofts högsta partnernivå och beprövade branschlösningar. Mindre lämplig för rent CRM-fokuserade projekt eller vertikaler utanför tillverkning/distribution.\n\nSammanfattning: En etablerad internationell Dynamics 365-partner med exceptionell Microsoft-relation och stark vertikal fokus på tillverkning/distribution. Jämförbar med HSO och BE-terna i tillverkningssegmentet.",
+    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "partner_size_tier": 1,
+    "partner_size_tier_needs_review": false,
+    "ai_summary_full": null,
+    "best_fit_for": [],
+    "ai_tags": [],
+    "extended_competencies": {},
+    "team_size_per_app": {},
+    "key_differentiators": [],
+    "key_differentiators_source": "d365",
+    "public_profile_summary": "Analys av publika källor visar att Columbus Sweden AB är en internationell Microsoft Dynamics 365-partner med en betydande global närvaro och ett huvudkontor i Danmark. Företaget har en historia som sträcker sig till 1989 och är noterat på Nasdaq Copenhagen, med omkring 450 medarbetare i Sverige.\n\nInnehållet indikerar en specialisering på Microsoft Dynamics 365 Finance & Operations samt Business Central, med en stark vertikal fokus på tillverkande industri, distribution och livsmedel. Partnern erbjuder även kompetens inom D365 Customer Engagement och Power Platform, samt branschlösningar och acceleratorer.\n\nPublikt innehåll från partnerns webbplats visar en tydlig satsning på digital transformation och moderna affärslösningar. Flertalet artiklar och kundcase berör ämnen som digital handel, e-handel för B2B, automatisering av processer och specifikt framhävs en omfattande serie med fokus på AI och dess tillämpningar inom olika affärsområden som tillverkning och detaljhandel.",
+    "public_focus_tags": [
+      "Dynamics 365 Finance & Operations",
+      "Dynamics 365 Business Central",
+      "Tillverkande industri",
+      "Distribution",
+      "Livsmedel",
+      "Power Platform",
+      "Digital handel",
+      "AI",
+      "Automatisering",
+      "E-handel"
+    ],
+    "public_topics_12m": [],
+    "public_profile_sources": [
+      "https://columbusglobal.com",
+      "https://www.columbusglobal.com/insights/cases/jacksons-bakery-scale-up-new-levels-with-microsoft-dynamics-365-finance-and-supply-chain-management",
+      "https://www.columbusglobal.com/insights/cases/watson-marlow-fluid-technology-solutions-written-case-study",
+      "https://www.columbusglobal.com/insights/articles/5-ways-to-maximize-ap-automation-in-m3-and-medius",
+      "https://www.columbusglobal.com/insights/cases",
+      "https://www.columbusglobal.com/globalassets/home/insights//guides/point-of-view-guide-unified-commerce-for-retailers-1.pdf",
+      "https://www.columbusglobal.com/news",
+      "https://www.columbusglobal.com/insights/articles",
+      "https://www.columbusglobal.com/services/digital-commerce/unified-commerce-solutions/unified-commerce-for-b2c/cambridge-university-press-and-assessment",
+      "https://www.columbusglobal.com/services/digital-commerce/unified-commerce-solutions/unified-commerce-for-b2c/unified-commerce-guide-for-retailers",
+      "https://www.columbusglobal.com/services/digital-commerce/unified-commerce-solutions/unified-commerce-for-b2c/shoptalk-europe-2025-key-themes-and-actionable-insights",
+      "https://www.columbusglobal.com/services/data-artificial-intelligence/data-platform/from-fabcon-to-action-turning-insights-into-impact",
+      "https://www.columbusglobal.com/services/digital-commerce/customer-portal/normet-bridges-digital-gap-with-a-modern-b2b-ecommerce-platform-customer-case",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-intro",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-the-shift",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-aha-moments",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-AI-career-journey",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-data-readiness",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-AI-in-leadership",
+      "https://www.columbusglobal.com/insights/ai-in-business-podcast-future-bytes/future-bytes-AI-integration"
+    ],
+    "public_profile_updated_at": "2026-09-16T15:40:50.206+00:00",
+    "information_status": "compiled",
+    "information_verified_at": null
+  },
+  {
     "id": "f89e80b2-a124-4768-8eaf-2b185b5bf093",
     "slug": "crm-konsulterna",
     "name": "CRMK (CRM-Konsulterna)",
