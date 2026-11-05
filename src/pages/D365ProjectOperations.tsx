@@ -74,6 +74,23 @@ const D365ProjectOperations = () => {
         <p>Project Operations är fristående men blomstrar när det integreras djupt med Finance & Supply Chain Management eller Business Central för redovisning, Sales för CRM och Customer Service för support efter projektet. Precis som med övriga D365-appar avgör partnerns förmåga att modellera din specifika leveransmodell hur stor effekten faktiskt blir.</p>
       </ShortAnswer>
 
+      <section aria-labelledby="bygg-hansvisning" className="py-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto rounded-lg border border-border bg-muted/40 p-5">
+            <h2 id="bygg-hansvisning" className="text-base md:text-lg font-bold text-foreground mb-2">
+              Verksam inom bygg, anläggning eller entreprenad?
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mb-3">
+              Läs vår guide om affärssystem för bygg och entreprenad och branschlösningen 4PS Construct.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <Link to="/branscher/bygg-entreprenad/" className="text-sm font-semibold text-primary hover:underline">Guide om affärssystem för bygg och entreprenad →</Link>
+              <Link to="/partner/4ps-sweden/" className="text-sm font-semibold text-primary hover:underline">4PS Construct från 4PS Sweden →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-8 sm:py-12 md:py-16 bg-background">
 
       <StandardProductSections productName="Project Operations" data={PRODUCT_STANDARD_SECTIONS["project-operations"]} />
