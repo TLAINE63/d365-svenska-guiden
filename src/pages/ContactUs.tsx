@@ -12,13 +12,14 @@ const contactBreadcrumbs = [
   { name: "Kontakt", url: "https://d365.se/kontakt" },
 ];
 
-import { Mail, Phone, Calendar } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 import thomasLaineHeader from "@/assets/thomas-laine-kokai.jpg.asset.json";
 import michaelUhmanPhoto from "@/assets/michael-uhman.jpg";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
-import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
+import { ADVISOR_EMAIL_HREF } from "@/data/organization";
 import { trackConsultationLead } from "@/lib/siteIntelligence";
 
 const ContactUs = () => {
@@ -61,8 +62,9 @@ const ContactUs = () => {
                 Ett samtal innan partnerdialogen börjar
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow">
-                Ställ frågor om Dynamics 365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på din kortlista – från köparens perspektiv.
+                Ställ frågor om Dynamics&nbsp;365, hur en upphandling brukar se ut, eller bolla vilka partners som rimligen bör finnas på din kortlista – från köparens perspektiv.
               </p>
+              <AdvisorContactButtons compact dark className="mt-6 justify-center" />
             </div>
           </div>
         </div>
@@ -126,28 +128,11 @@ const ContactUs = () => {
                         </div>
                       </div>
                       
-                      <div className="mt-4 flex flex-col gap-2">
-                        <Button 
-                          size="sm"
-                          className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white w-full"
-                          onClick={() => { trackConsultationLead("email_cta_thomas"); window.location.href = ADVISOR_EMAIL_HREF; }}
-                        >
-                          <Mail className="w-4 h-4 mr-2" />
-                          Skicka e-post
-                        </Button>
-                        <a 
-                          href={ADVISOR_BOOKING_URL}
-                          onClick={() => trackConsultationLead("bookings_20min_thomas")}
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 text-center rounded-md text-sm font-medium min-h-9 px-3 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)]  text-white w-full"
-                        >
-                          <Calendar className="w-4 h-4 flex-shrink-0" />
-                          {ADVISOR_BOOKING_CTA}
-                        </a>
+                      <div className="mt-4">
+                        <AdvisorContactButtons className="flex-col" />
                         <Link
                           to="/om-thomas-laine/"
-                          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 border border-border bg-card hover:bg-secondary text-card-foreground w-full"
+                          className="mt-2 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-9 px-3 py-2 border border-border bg-card hover:bg-secondary text-card-foreground"
                         >
                           Om Thomas Laine
                         </Link>
@@ -201,7 +186,7 @@ const ContactUs = () => {
                           onClick={() => window.location.href = 'mailto:michael.uhman@dynamicfactory.se'}
                         >
                           <Mail className="w-4 h-4 mr-2" />
-                          Skicka e-post
+                          Mejla Michael Uhman
                         </Button>
                         <Link
                           to="/om-michael-uhman/"
@@ -277,22 +262,27 @@ const ContactUs = () => {
             </div>
 
             {/* CTA Section */}
-            <div className="text-center bg-secondary/30 rounded-lg p-12">
+            <div className="text-center bg-secondary/30 rounded-lg p-8 sm:p-12">
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                Redo att komma igång?
+                Vill du boka 20 minuter med Thomas?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar.
+                Kostnadsfritt och utan förpliktelser. Ingen partner deltar i samtalet, och ingen partner kontaktas utan ert godkännande.
               </p>
-              
-              <ContactFormDialog>
-                <Button 
-                  size="lg"
-                  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white h-14 sm:h-16 rounded"
-                >
-                  Prata med d365.se om ert behov
-                </Button>
-              </ContactFormDialog>
+
+              <AdvisorContactButtons className="justify-center" />
+
+              <div className="mt-5">
+                <ContactFormDialog>
+                  <Button
+                    variant="outline"
+                    className="border-border bg-card text-card-foreground hover:bg-secondary h-11 rounded"
+                  >
+                    Fyll i formuläret i stället
+                  </Button>
+                </ContactFormDialog>
+              </div>
+
               <p className="mt-6 text-sm text-muted-foreground">
                 Söker du prisuppgifter på licenser och konsultarvoden?{" "}
                 <Link to="/priser/#konsultpris" className="font-medium text-primary hover:underline">Se vår kompletta prisguide för Dynamics&nbsp;365 här →</Link>
