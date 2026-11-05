@@ -556,6 +556,11 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
            {nowrapBrand(erp.heading)}
          </h2>
          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mb-6">{nowrapBrand(erp.intro)}</p>
+         {erp.marketStandard && (
+           <p className="text-sm md:text-base text-foreground/90 max-w-3xl mb-6 leading-relaxed rounded-lg border border-border bg-muted/30 p-4">
+             {nowrapBrand(erp.marketStandard)}
+           </p>
+         )}
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
            {erp.points.map((pt) => (
              <div key={pt.title} className="rounded-lg border border-border bg-card p-5">
@@ -587,6 +592,32 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
      </section>
    );
  })()}
+
+ {/* Fördjupande H2-avsnitt för branschen (manuellt underhållna) */}
+ {slug && INDUSTRY_ERP_SECTIONS[slug]?.subSections?.map((sub) => (
+   <section key={sub.id} id={sub.id} className="scroll-mt-24 py-10 md:py-12 border-b border-border" aria-labelledby={`${sub.id}-rubrik`}>
+     <div className="container mx-auto px-4 max-w-6xl">
+       <h2 id={`${sub.id}-rubrik`} className="text-2xl font-bold text-foreground mb-3">
+         {nowrapBrand(sub.h2)}
+       </h2>
+       <div className="max-w-3xl space-y-4">
+         {sub.paragraphs.map((p, i) => (
+           <p key={i} className="text-sm md:text-base text-muted-foreground leading-relaxed">{nowrapBrand(p)}</p>
+         ))}
+       </div>
+       {sub.links && sub.links.length > 0 && (
+         <div className="mt-5 flex flex-col gap-1">
+           {sub.links.map((l) => (
+             <Link key={l.to + l.text} to={l.to} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+               {l.text}
+               <ArrowRight className="w-4 h-4" aria-hidden="true" />
+             </Link>
+           ))}
+         </div>
+       )}
+     </div>
+   </section>
+ ))}
 
  {/* Partners + produktfilter längst ned */}
  <section id="partners" className="scroll-mt-24 py-12 border-b border-border bg-muted/20">
