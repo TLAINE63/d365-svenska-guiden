@@ -73,11 +73,11 @@ serve(async (req) => {
     const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     const role = token ? await verifyJWT(token, secret) : false;
     const url0 = new URL(req.url);
-    // Redaktion (editor) hanterar ISV-innehåll och verifiering. Radering och kommersiella
-    // fält (ISV Presence, avtalsstatus) är förbehållna admin.
-    const isEditor = role === "editor";
-    const editorAllowed = url0.searchParams.get("action") !== "delete_solution";
-    if (!(role === "admin" || (editorAllowed && isEditor))) {
+    // Redaktion (editor) hanterar ISV-katalogen fullt ut, samma behörighet som admin
+    // (Thomas beslut 2026-11-05), inklusive radering och kommersiella fält.
+    void url0;
+    const isEditor = false;
+    if (!(role === "admin" || role === "editor")) {
       return json({ error: "Unauthorized" }, 401, corsHeaders);
     }
 
