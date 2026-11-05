@@ -40,8 +40,8 @@
     },
     {
       "name": "B3 Elevate",
-      "slug": "b3-consulting-group",
-      "url": "https://d365.se/partner/b3-consulting-group/",
+      "slug": "b3-elevate",
+      "url": "https://d365.se/partner/b3-elevate/",
       "website": "https://b3.se/elevate",
       "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nära samarbete mellan teknik- och affärsexperter levererar B3 Elevate kundlösningar - från strategi, via systemutveckling, till förvaltade tjänster. \nVi är ett konsultföretag med hög kompetens och moderna arbetssätt.\nSom långvarig Microsoftpartner förstärker vi organisationers förmåga att hantera digital transformation med stöd av Microsoft Dynamics 365.",
       "products": [
@@ -86,13 +86,14 @@
     },
     {
       "name": "Columbus Sweden AB",
-      "slug": "columbus-sweden-ab",
-      "url": "https://d365.se/partner/columbus-sweden-ab/",
+      "slug": "columbus",
+      "url": "https://d365.se/partner/columbus/",
       "website": "https://columbusglobal.com",
       "description": "Columbus arbetar med medelstora och stora företag som använder Microsoft Dynamics 365 för att driva och utveckla sina affärsprocesser. Vi har bred kompetens inom Dynamics 365, från Finance och Supply Chain Management till Business Central, Customer Engagement och Commerce, med särskild erfarenhet av komplexa verksamheter inom exempelvis tillverkning, retail och distribution.\n\n**Varför Columbus?**\n\n- Medlem i Microsoft Inner Circle i över 20 år, en status som endast den främsta procenten av Microsofts Business Applications-partners globalt uppnår.\n- Tillgång till FastTrack for Dynamics 365, vilket bidrar till snabbare implementeringar och framgångsrika projekt för kunderna.\n- Niofaldig vinnare av Microsoft Partner of the Year, med utmärkelser för kundframgång och innovation i Sverige, Norge och Danmark, bland annat 2024, 2023 och 2021.",
       "products": [
-        "F&SCM",
-        "Business Central"
+        "Business Central",
+        "Finance",
+        "Supply Chain Management"
       ],
       "industries": [],
       "offices": null,
@@ -379,8 +380,8 @@
     },
     {
       "name": "Update Affärssystem AB",
-      "slug": "update-affarssystem-ab",
-      "url": "https://d365.se/partner/update-affarssystem-ab/",
+      "slug": "update-affarssystem",
+      "url": "https://d365.se/partner/update-affarssystem/",
       "website": "https://update.se",
       "description": null,
       "products": [],

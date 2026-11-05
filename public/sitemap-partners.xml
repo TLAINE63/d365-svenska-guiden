@@ -13,13 +13,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://d365.se/partner/b3-consulting-group/</loc>
+    <loc>https://d365.se/partner/b3-elevate/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://d365.se/partner/bisqo/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/partner/columbus/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -103,7 +109,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://d365.se/partner/update-affarssystem-ab/</loc>
+    <loc>https://d365.se/partner/update-affarssystem/</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -122,49 +128,49 @@
   </url>
   <url>
     <loc>https://d365.se/basic/accenture/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/accigo/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/active-business-solutions/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/acumant/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/aperit/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/apx-core-solutions/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/avanade/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://d365.se/basic/avega/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -199,8 +205,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/exsitec/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/brightcom/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -253,8 +259,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/ecit-sverige-ab/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/ecit/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -277,14 +283,14 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/enqore-ab/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://d365.se/basic/enqore/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/navipro-ab/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/evidi/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -343,8 +349,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/it-stod-ab/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/it-stod/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -373,8 +379,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/midpoint-ab/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/midpoint/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -385,8 +391,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/navet-ab/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/navet/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -439,8 +445,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/sherpas-group-ab/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <loc>https://d365.se/basic/sherpas/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -493,8 +499,8 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://d365.se/basic/future-it-partner/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <loc>https://d365.se/basic/upheads/</loc>
+    <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
