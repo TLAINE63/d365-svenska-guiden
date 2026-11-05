@@ -327,7 +327,10 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
 
 // ==================== COMPONENT ====================
 
-const AdminDashboard = () => {
+const EMBEDDED_PARTNER_TABS = ["partners", "unprofiled-partners", "basic-partners", "data-gaps", "partner-review", "partner-master", "invitations", "agreement"];
+
+/** embedded = visas inuti /redaktion/ för admin: bara partnerflikarna, utan sajtens meny/sidfot. */
+const AdminDashboard = ({ embedded = false }: { embedded?: boolean } = {}) => {
  const { toast } = useToast();
  const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
  const fileInputRef = useRef<HTMLInputElement>(null);
@@ -398,18 +401,20 @@ const AdminDashboard = () => {
 
  // Tab grouping
  const [activeGroup, setActiveGroup] = useState<string>(() => {
+ if (embedded) return "embedded-partners";
  if (typeof window === "undefined") return "leads-partners";
  return localStorage.getItem("admin-active-group") || "leads-partners";
  });
  const [activeTab, setActiveTab] = useState<string>(() => {
+ if (embedded) return "partners";
  if (typeof window === "undefined") return "leads";
  return localStorage.getItem("admin-active-tab") || "leads";
  });
  useEffect(() => {
- try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
+ if (!embedded) { try { localStorage.setItem("admin-active-group", activeGroup); } catch {} }
  }, [activeGroup]);
   useEffect(() => {
-  try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  if (!embedded) { try { localStorage.setItem("admin-active-tab", activeTab); } catch {} }
   if (activeTab === "partners") setPartnerStatusFilter("published");
   else if (activeTab === "unprofiled-partners") setPartnerStatusFilter("unpublished");
   }, [activeTab]);
@@ -2352,7 +2357,7 @@ Thomas`,
  <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
  {/* Group selector */}
  <div className="flex flex-wrap gap-2 p-2 rounded bg-slate-100 dark:bg-slate-800/50 border border-border">
- {tabGroups.map((g) => {
+ {(embedded ? [{ id: "embedded-partners", label: "Partnerprofilering", icon: Building2, tabs: EMBEDDED_PARTNER_TABS }] : tabGroups).map((g) => {
  const isActive = activeGroup === g.id;
  return (
  <button
