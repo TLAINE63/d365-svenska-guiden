@@ -48,7 +48,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/vad-ar-dynamics-365/": "2026-10-24",
   "/befintlig-kund/": "2026-10-30",
   "/businesscentral/": "2026-11-05",
-  "/finance-supply-chain/": "2026-11-04",
+  "/finance-supply-chain/": "2026-11-06",
   "/branscher/bygg-entreprenad/": "2026-11-05",
   "/branscher/energi-utilities/": "2026-11-04",
   "/branscher/tillverkning/": "2026-11-04",

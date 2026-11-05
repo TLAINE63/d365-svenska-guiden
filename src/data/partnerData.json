@@ -9,7 +9,7 @@
     "website": "https://www.4ps.se/",
     "email": null,
     "contact_person": "Anders Östby",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": null,
     "applications": [
       "Business Central"
@@ -118,7 +118,7 @@
     "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
     "youtube_video_id": null,
     "created_at": "2026-01-12T08:56:40.330682+00:00",
-    "updated_at": "2026-11-02T17:15:05.478525+00:00",
+    "updated_at": "2026-11-05T18:56:29.281384+00:00",
     "industry_pitches": [
       {
         "text": "4PS Construction Software AB erbjuder en specialiserad lösning baserad på Microsoft Dynamics 365 Business Central, designad för bygg-, entreprenad- och installationbranschen. Partnern adresserar typiska utmaningar såsom komplex projektledning, resursallokering och uppföljning av kostnadskontroll. Genom att implementera 4PS Construct uppnås förbättrad spårbarhet i hela projektcykeln, från kalkyl till efterkalkyl. Detta system stödjer processer som anbudshantering, inköp, materialplanering och personalhantering. Lösningen tillhandahåller även realtidsdata för beslutsfattande, vilket bidrar till optimerad projektgenomförande och ökad lönsamhet. Fokus ligger på en heltäckande branschanpassning inom Dynamics 365 Business Central.",
@@ -158,7 +158,7 @@
       "Business Central": "100+"
     },
     "ai_summary": "4PS är en specialiserad Dynamics 365 Business Central-partner för bygg-, installations-, service- och entreprenadverksamheter. Kärnan är 4PS Construct, en branschlösning som samlar bland annat projekt, ekonomi, kalkyl, inköp, resursplanering och fältservice i Business Central.",
-    "ai_summary_generated_at": "2026-10-20T08:39:23.276+00:00",
+    "ai_summary_generated_at": "2026-11-05T18:56:29.007+00:00",
     "ai_profile": {
       "use_cases": [
         "readiness",
@@ -190,7 +190,7 @@
       "ai_experience_summary_generated_at": "2026-07-03T14:03:29.767Z"
     },
     "extended_content": "4PS är en vertikal Business Central-/ISV-partner för bygg, installation, service och entreprenad, med den egna branschlösningen 4PS Construct byggd ovanpå Business Central. Sedan 2023 ägs 4PS Group av Hilti, vilket ger en stark internationell produktgrupp bakom en relativt liten svensk juridisk enhet. Precis som Adbriq är 4PS en renodlad vertikal specialist snarare än en generell BC-partner, men här är branschen bygg/entreprenad i stället för fashion, och skalan bakom (Hilti-koncernen) betydligt större.\n\nAktiva produktområden: Business Central som huvudplattform genom 4PS Construct, med fokus på branschspecifik construction ERP snarare än generell BC-implementation. Sekundärt: Power Platform, AI-readiness, dashboards, rapportering, mobil/field-processer och integrationsnära flöden. CRM och fältservice förekommer som funktionalitet inom 4PS Construct men ska inte tolkas som fristående D365 CE/Field Service-erbjudande. Viktig avgränsning: F&SCM, fristående CE/CRM, Customer Service, Field Service, Contact Center, Commerce, HR och Project Operations är inte verifierade som självständiga d365.se-filter.\n\nTydliga styrkor: Egen vertikal IP/ISV-lösning (4PS Construct) med end-to-end-processer från anbud till eftermarknad, stark branschspecialisering inom bygg och installation, samt Hilti-ägande som ger internationell finansiell stabilitet och produktutveckling. Microsoft Inner Circle 2025/2026-status stärker Microsoft-närheten ytterligare. Stark förvaltningskapacitet som branschprodukt-/plattformspartner: 4PS designar, bygger, implementerar och underhåller programvaran själva.\n\nRäckvidd och segment: Huvudkontor i Göteborg, med d365.se-kontor även i Norrköping. Den svenska enheten är dock liten: 4 618 KSEK omsättning och 16 anställda 2024 enligt Bolagsfakta, vilket inte ska tolkas som koncernens storlek. 4PS Group anger globalt över 400 software engineers/application consultants och över 450 kunder. Segment: medelstora till större bygg-, installations- och serviceföretag (d365.se anger 100–4 999 anställda som relevant kundstorlek). Branschfokus: bygg, entreprenad & installation, installationsteknik samt service/underhåll.\n\nPassar bäst: Bygg-, entreprenad-, installations- och serviceföretag som behöver en branschspecifik ERP-lösning på Business Central, kunder där projektlönsamhet, marginalkontroll, resursplanering och realtidsöversikt är centrala frågor, samt organisationer som tycker standard-BC kräver för mycket anpassning för bygg- och serviceprocesser. Mindre lämplig för mycket små företag som bara behöver enkel ekonomilösning, kunder som söker ren F&SCM, CRM/CE eller andra fristående Dynamics 365-lösningar utan byggkoppling, organisationer utanför bygg/installation/entreprenad, samt kunder där lägsta pris väger tyngre än branschfunktionalitet.\n\nTre saker jag skulle flagga innan publik användning:\n\nFörst skalan: den svenska juridiska enhetens omsättning (4 618 KSEK, 16 anställda) speglar bara den svenska etableringen och ska inte förväxlas med den internationella 4PS/Hilti-gruppens storlek — håll dessa åtskilda i publik text.\n\nSedan etableringsår i Sverige: 4PS grundades 2000 i Nederländerna, men exakt etableringsår för den svenska juridiska enheten bör verifieras separat.\n\nSlutligen kontaktpersonen: Anders Östby anges enligt d365.se, men e-post och telefon bör verifieras innan publik eller operativ användning, liksom vilka kontor (Sverige vs 4PS Group/Hilti-resurs) som ansvarar för vad.\n\nSammanfattning: En vertikal produkt-/ISV-partner för bygg och installation med stark internationell produktutveckling via Hilti-ägandet, men en relativt liten svensk juridisk enhet. Rätt jämförelsegrupp är andra BC-vertikaler och branschpaket med bygg-/entreprenadfokus, med rena CRM-specialister och globala SI:er utan bygg-ERP-fokus som lägre relevans i jämförelsen.",
-    "extended_content_updated_at": "2026-10-20T08:39:23.276+00:00",
+    "extended_content_updated_at": "2026-11-05T18:56:29.007+00:00",
     "partner_size_tier": 3,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": "4PS skiljer sig från en generell Business Central-partner genom ett tydligt vertikalt fokus. 4PS Construct är utvecklat specifikt för projektorienterade verksamheter inom bygg, installation, service och närliggande områden och täcker processer från kalkyl och upphandling till projektstyrning, resurser och service. Det gör partnern särskilt relevant när branschfunktionalitet väger tyngre än en generell ERP-implementation.\nPå d365.se anges företag med cirka 100–4 999 anställda som huvudsakligt segment och lösningen kan användas internationellt. AI-underlaget är främst kopplat till AI-readiness, Copilot och rådgivning snarare än avancerad kundspecifik AI-utveckling.",
@@ -272,7 +272,7 @@
     ],
     "public_profile_updated_at": "2026-09-16T15:33:19.181+00:00",
     "information_status": "verified",
-    "information_verified_at": "2026-05-01"
+    "information_verified_at": "2026-11-05"
   },
   {
     "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
@@ -641,7 +641,7 @@
     "map_url": "https://www.google.com/maps/search/?api=1&query=B3+Elevate+Stockholm",
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-10-30T15:41:04.326288+00:00",
+    "updated_at": "2026-11-05T18:52:26.032991+00:00",
     "industry_pitches": [
       {
         "text": "För medlemsorganisationer kan B3 Elevate leverera lösningar baserade på Microsoft Dynamics 365, med fokus på att optimera medlemsresan och medvetenheten om organisationens värde. De har kompetens inom applikationer som Dynamics 365 Sales, Customer Insights (Marketing), Customer Service och Contact Center.\n\nGenom att arbeta med Dynamics 365 kan organisationer effektivisera medlemskommunikation, hantera medlemsregister och förbättra servicen. B3 Elevate bistår med att utveckla och implementera system för att underlätta dessa processer, från strategi till förvaltning. Deras expertis omfattar hur digitala verktyg kan anpassas för att möta medlemmarnas förväntningar och hantera enskilda medlemsärenden mer effektivt. De arbetar också med att integrera AI-baserade lösningar för att utveckla kundupplevelsen, vilket kan bidra till en ökad relevans för medlemmarna.",
@@ -1031,16 +1031,17 @@
     "slug": "columbus",
     "name": "Columbus Sweden AB",
     "description": "Columbus arbetar med medelstora och stora företag som använder Microsoft Dynamics 365 för att driva och utveckla sina affärsprocesser. Vi har bred kompetens inom Dynamics 365, från Finance och Supply Chain Management till Business Central, Customer Engagement och Commerce, med särskild erfarenhet av komplexa verksamheter inom exempelvis tillverkning, retail och distribution.\n\n**Varför Columbus?**\n\n- Medlem i Microsoft Inner Circle i över 20 år, en status som endast den främsta procenten av Microsofts Business Applications-partners globalt uppnår.\n- Tillgång till FastTrack for Dynamics 365, vilket bidrar till snabbare implementeringar och framgångsrika projekt för kunderna.\n- Niofaldig vinnare av Microsoft Partner of the Year, med utmärkelser för kundframgång och innovation i Sverige, Norge och Danmark, bland annat 2024, 2023 och 2021.",
-    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/columbus.png",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/columbus-sweden-ab.png",
     "logo_dark_bg": false,
     "website": "https://columbusglobal.com",
     "email": null,
     "contact_person": "Kjetil Vetlejord",
-    "contact_photo_url": "",
+    "contact_photo_url": null,
     "phone": null,
     "applications": [
-      "F&SCM",
-      "Business Central"
+      "Business Central",
+      "Finance",
+      "Supply Chain Management"
     ],
     "industries": [],
     "secondary_industries": [],
@@ -1175,9 +1176,18 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-11-05T18:44:40.509687+00:00",
-    "industry_pitches": [],
-    "agreement_signed": false,
+    "updated_at": "2026-11-05T18:59:47.539289+00:00",
+    "industry_pitches": [
+      {
+        "text": "Columbus hjälper handels- och e-handelsföretag att koppla samman sina försäljningskanaler med kärnprocesserna i affärssystemet. Genom Microsoft Dynamics 365 Finance, Supply Chain Management och Business Central adresserar de utmaningar kring lagerstyrning, inköpsoptimering och orderhantering i verksamheter med höga transaktionsvolymer.\n\nArbetet omfattar att etablera realtidssynlighet över hela varuflödet, vilket effektiviserar hanteringen av leveranser, lagersaldon och returer mellan centrallager, fysiska butiker och digitala kanaler. På ekonomisidan anpassas systemen för automatiserade betalflöden, kanalvis marginaluppföljning och konsoliderad redovisning. Columbus bistår även med integrationer mot externa e-handelsplattformar och kassasystem, vilket gör att processer från lagd kundorder till plock, pack och distribution kan automatiseras. Detta ger handelsföretag ett sammanhållet systemstöd för att hantera snabba ledtider och minska risken för fel i orderkedjan.",
+        "product": null,
+        "industry": "Retail & E-handel",
+        "edited_by": "admin",
+        "updated_at": "2026-11-05T18:59:32.427Z",
+        "generated_at": "2026-11-05T18:59:32.427Z"
+      }
+    ],
+    "agreement_signed": true,
     "related_party": false,
     "positioning_statement": null,
     "delivery_profile": {
@@ -1195,13 +1205,29 @@
     "ai_summary_generated_at": null,
     "ai_profile": {},
     "extended_content": "Columbus är en internationell Microsoft Dynamics 365-partner med huvudkontor i Danmark, grundad 1989 och noterad på Nasdaq Copenhagen. Globalt har Columbus över 1 800 anställda i 16 länder. I Sverige finns omkring 450 medarbetare. Columbus har varit medlem i Microsoft Inner Circle i över 20 år, vilket placerar dem bland topp 1% av Microsoft Business Applications-partners globalt.\n\nAktiva produktområden: Specialisering på Microsoft Dynamics 365 Finance & Operations samt Business Central för tillverkande industri och distribution. Även D365 Customer Engagement och Power Platform. Erbjuder branschlösningar och acceleratorer specifikt för tillverkning, livsmedel och distribution.\n\nTydliga styrkor: Över 20 år i Microsoft Inner Circle – exceptionell track record. Djup vertikal expertis inom tillverkning (diskret och processindustri), distribution och livsmedel. Egen IP och branschacceleratorer. Kombination av global leveranskapacitet med stark nordisk närvaro.\n\nRäckvidd och segment: Internationell med stark nordisk och svensk närvaro. Segment: mellanstora till större tillverknings- och distributionsföretag. Referenskunder inkluderar välkända tillverkare inom livsmedel, diskret tillverkning och grossist/distribution.\n\nPassar bäst: Tillverkande företag och distributörer som söker en erfaren F&O/BC-partner med djup branschförståelse och global leveranskapacitet. Kunder som värdesätter Microsofts högsta partnernivå och beprövade branschlösningar. Mindre lämplig för rent CRM-fokuserade projekt eller vertikaler utanför tillverkning/distribution.\n\nSammanfattning: En etablerad internationell Dynamics 365-partner med exceptionell Microsoft-relation och stark vertikal fokus på tillverkning/distribution. Jämförbar med HSO och BE-terna i tillverkningssegmentet.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
+    "extended_content_updated_at": "2026-11-05T18:59:47.467+00:00",
     "partner_size_tier": 1,
     "partner_size_tier_needs_review": false,
-    "ai_summary_full": null,
-    "best_fit_for": [],
-    "ai_tags": [],
-    "extended_competencies": {},
+    "ai_summary_full": "Columbus är en internationell systemintegratör med nordiskt ursprung och etablerad närvaro på flera orter i Sverige, däribland Stockholm, Göteborg, Malmö och Jönköping. Partnern hanterar hela bredden av Microsoft Dynamics 365, med tyngdpunkt på affärssystemen Business Central samt Finance och Supply Chain Management. Bolaget har ett mångårigt samarbete med Microsoft på global nivå, vilket bland annat bekräftas av långvarigt deltagande i Microsoft Inner Circle samt tillgång till FastTrack-programmet för implementeringar.\n\nVerksamheten har ett utpräglat vertikalt fokus på tillverkande industri, livsmedel och distribution. Inom dessa områden tillhandahåller partnern egna branschlösningar och acceleratorer som kompletterar standardfunktionaliteten i Dynamics 365. Leveransförmågan spänner från lokala införandeprojekt till storskaliga internationella utrullningar som kräver processharmonisering över flera länder, affärsenheter och produktionsanläggningar.\n\nColumbus adresserar två tydliga kundkategorier: mindre till medelstora verksamheter som vill konsolidera ekonomi och varuflöden i Business Central, samt medelstora och stora koncerner med avancerade krav på lager-, inköps- och produktionsstyrning inom Finance & Supply Chain Management. Den internationella leveransmodellen ger god kapacitet för komplexa åtaganden, förutsatt att kundens behov matchar partnerns industriella profil.",
+    "best_fit_for": [
+      "Medelstora och stora tillverkande företag med komplexa produktions- och logistikprocesser",
+      "Internationella koncerner med behov av flerlandsupprullningar inom Finance och SCM",
+      "Distributions- och grossistverksamheter med höga krav på automatiserad logistik",
+      "Livsmedelsföretag som efterfrågar beprövade branschacceleratorer och processer",
+      "Mindre till medelstora verksamheter som vill implementera Business Central"
+    ],
+    "ai_tags": [
+      "Dynamics 365 Finance",
+      "Supply Chain Management",
+      "Business Central",
+      "Tillverkande industri",
+      "Distribution och grossist",
+      "Livsmedelsindustri",
+      "Internationella utrullningar"
+    ],
+    "extended_competencies": {
+      "copilot_ai": "unverified"
+    },
     "team_size_per_app": {},
     "key_differentiators": [],
     "key_differentiators_source": "d365",
@@ -4813,7 +4839,7 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-10-30T15:41:04.326288+00:00",
+    "updated_at": "2026-11-05T18:52:26.032991+00:00",
     "industry_pitches": [],
     "agreement_signed": false,
     "related_party": false,
