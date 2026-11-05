@@ -39,8 +39,52 @@ interface Props {
 export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
   const [from, setFrom] = useState(defaultFromDate());
   const [month, setMonth] = useState(previousMonth());
+  const [snitcherRange, setSnitcherRange] = useState(last30Days);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const downloadSnitcher = async () => {
+    setBusy("snitcher");
+    setError(null);
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke("manage-partner-reports", {
+        body: { action: "list_all_visitors", token, period_start: snitcherRange.from, period_end: snitcherRange.to },
+      });
+      if (fnError || data?.error) {
+        if (data?.error === "Unauthorized" || /401/.test(String(fnError?.message))) {
+          setError("Exporterna kräver admininloggning.");
+          onUnauthorized();
+        } else {
+          setError("Exporten misslyckades.");
+        }
+        return;
+      }
+      const companies: SnitcherCompany[] = data.companies || [];
+      const header = ["Företag", "Domän", "Bransch", "Storlek", "Land", "Sessioner", "Sidor", "Partner-besök", "Första", "Senaste"];
+      const csv = [header.join(";")].concat(companies.map((r) => [
+        r.company_name ?? "",
+        r.company_domain ?? "",
+        r.company_industry ?? "",
+        r.company_size ?? "",
+        r.company_country ?? "",
+        r.session_count,
+        r.url_count,
+        r.partner_slugs.join("|"),
+        r.first_seen ?? "",
+        r.last_seen ?? "",
+      ].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(";"))).join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `d365se-snitcher-besokare-${snitcherRange.from}-${snitcherRange.to}.csv`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } catch {
+      setError("Exporten misslyckades.");
+    } finally {
+      setBusy(null);
+    }
+  };
 
   const download = async (id: string, query: string, file: string) => {
     setBusy(id);
