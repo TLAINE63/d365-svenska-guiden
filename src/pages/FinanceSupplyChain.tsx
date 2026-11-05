@@ -35,6 +35,7 @@ import BuyerManual from "@/components/BuyerManual";
 import CostBreakdown from "@/components/CostBreakdown";
 import ComparisonQuickLinks from "@/components/ComparisonQuickLinks";
 import ProductRoiCta from "@/components/ProductRoiCta";
+import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
