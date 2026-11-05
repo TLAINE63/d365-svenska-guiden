@@ -149,7 +149,7 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = `besokare-${start}-${end}.csv`; a.click();
+    a.href = url; a.download = `d365se-snitcher-besokare-${start}-${end}.csv`; a.click();
     URL.revokeObjectURL(url);
   };
 
