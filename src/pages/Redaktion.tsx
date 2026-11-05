@@ -18,7 +18,7 @@ function tokenRole(token: string | null): string | null {
 }
 
 /** Delar adminsessionen med partnerredigeringen så att Thomas slipper logga in två gånger. */
-function seedAdminSession(token: string) {
+function seedAdminSession(token: string): null {
   try {
     const expiry = window.sessionStorage.getItem("editor_token_expiry");
     window.sessionStorage.setItem("admin_token", token);
@@ -26,6 +26,7 @@ function seedAdminSession(token: string) {
   } catch {
     /* ignore */
   }
+  return null;
 }
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -89,7 +90,6 @@ export default function Redaktion() {
   }
 
   const isAdmin = tokenRole(token) === "admin";
-  const [adminSeeded, setAdminSeeded] = useState(false);
 
   const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
     isAuthenticated ? token : null,
@@ -319,13 +319,10 @@ export default function Redaktion() {
 
           {isAdmin && (
             <TabsContent value="partner-admin">
-              {adminSeeded ? (
-                <Suspense fallback={<Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}>
-                  <AdminDashboard embedded />
-                </Suspense>
-              ) : (
-                <Button onClick={() => { seedAdminSession(token!); setAdminSeeded(true); }}>Öppna partnerprofileringen</Button>
-              )}
+              {token && seedAdminSession(token)}
+              <Suspense fallback={<Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}>
+                <AdminDashboard embedded />
+              </Suspense>
             </TabsContent>
           )}
 
