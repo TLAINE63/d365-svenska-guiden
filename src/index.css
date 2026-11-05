@@ -569,6 +569,7 @@ All colors MUST be HSL.
   letter-spacing: 0;
 }
 .partner-opening-name { font-size: 3.5rem; }
+@media (min-width: 1024px) { .partner-opening-name { font-size: clamp(2.25rem, 3.2vw, 3rem); } }
 .partner-profile-premium .partner-opening, .plan-premium .plan-opening {
   --background: 185.217391 56.097561% 16.078431%;
   --foreground: 200 17.647059% 96.666667%;
