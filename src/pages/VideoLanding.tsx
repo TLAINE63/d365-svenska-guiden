@@ -115,6 +115,20 @@ const VideoLanding = () => {
               </p>
             </div>
 
+            {video.slug === "partners-skillnader" && (
+              <section className="mt-10 rounded-lg border border-border bg-muted/30 p-5">
+                <h2 className="text-lg font-semibold text-foreground mb-2">
+                  Så väljer ni rätt partner
+                </h2>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Guiden går igenom vad ni ska jämföra och visar partners per produkt och bransch.
+                </p>
+                <Link to="/valjdynamics365partner/" className="font-medium text-primary underline underline-offset-4">
+                  Läs guiden: Välj rätt <span className="whitespace-nowrap">Microsoft Dynamics 365</span>-partner
+                </Link>
+              </section>
+            )}
+
             {related.length > 0 && (
               <section className="mt-12">
                 <h2 className="text-xl font-semibold text-foreground mb-4">

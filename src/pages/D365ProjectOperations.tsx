@@ -112,7 +112,7 @@ const D365ProjectOperations = () => {
               <strong className="text-foreground">Budgetuppföljning och projektrapportering</strong> sker mot den godkända budgeten och den senaste prognosen. Projektledaren ser avvikelser per fas och kostnadstyp, och ledningen får marginal och beläggning för hela portföljen i Power BI. Hur avräkningen ska se ut i just er redovisning är ett beslut ni fattar tillsammans med partnern och revisorn.
             </p>
             <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
-              Project Operations eller Business Central för entreprenad?
+              Project Operations eller Business Central för bygg och entreprenad?
             </h3>
             <p className="text-base sm:text-lg text-muted-foreground mb-4">
               Project Operations passar tjänste- och konsultbaserade projekt, där tid, resurser och fakturering står i centrum, ofta tillsammans med Finance &amp; Supply Chain Management. Bygg-, anläggnings- och installationsföretag behöver dessutom kalkyl, ÄTA-hantering, underentreprenörer, maskiner och service. Där väljer många Business Central med ett branschsystem, till exempel 4PS Construct.

@@ -17,7 +17,7 @@ export const INDUSTRY_ERP_SECTIONS: Record<string, IndustryErpSection> = {
   "bygg-entreprenad": {
     heading: "Affärssystem för bygg och entreprenad baserat på Microsoft Dynamics",
     intro:
-      "Ett verksamhetssystem för entreprenad behöver samla kalkyl, projekt, inköp, personal och ekonomi. För små och medelstora bygg-, entreprenad- och installationsföretag är Business Central med ett branschpaket ofta det naturliga spåret. Det gäller även system för anläggningsföretag och för serviceföretag inom bygg och installation med serviceavtal och arbetsorder. Större entreprenadkoncerner med många bolag jämför även med Finance & Supply Chain Management, ibland tillsammans med Project Operations.",
+      "Ett verksamhetssystem för entreprenad behöver samla kalkyl, projekt, inköp, personal och ekonomi. För små och medelstora bygg-, entreprenad- och installationsföretag är Business Central med ett branschpaket ofta det naturliga spåret. Det gäller även system för anläggningsföretag och för serviceföretag inom bygg och installation med serviceavtal och arbetsorder, där projektrapportering för entreprenörer behöver fungera ute på arbetsplatsen. Större entreprenadkoncerner med många bolag jämför även med Finance & Supply Chain Management, ibland tillsammans med Project Operations.",
     points: [
       {
         title: "Projektredovisning och successiv vinstavräkning",
