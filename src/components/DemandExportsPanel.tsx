@@ -141,6 +141,25 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
           {busy === "partners" ? "Hämtar…" : "Partnerstatistik"}
         </Button>
       </div>
+      <div className="space-y-3">
+        <p className="text-sm text-muted-foreground">Identifierade besökarföretag från Snitcher, alla företag i perioden.</p>
+        <div className="flex flex-wrap gap-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="snitcher-from">Från-datum</Label>
+            <Input id="snitcher-from" type="date" value={snitcherRange.from}
+              onChange={(e) => setSnitcherRange((r) => ({ ...r, from: e.target.value }))} />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="snitcher-to">Till-datum</Label>
+            <Input id="snitcher-to" type="date" value={snitcherRange.to}
+              onChange={(e) => setSnitcherRange((r) => ({ ...r, to: e.target.value }))} />
+          </div>
+        </div>
+        <Button disabled={!!busy || !snitcherRange.from || !snitcherRange.to} onClick={downloadSnitcher}>
+          <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+          {busy === "snitcher" ? "Hämtar…" : "Snitcher-besökare"}
+        </Button>
+      </div>
       <div className="space-y-1.5">
         <p className="text-sm text-muted-foreground">Nuläget i ISV-katalogen, inget datum behövs.</p>
         <Button disabled={!!busy} onClick={() => download("isv", "export-isv-products", "d365se-isv-produkter")}>
