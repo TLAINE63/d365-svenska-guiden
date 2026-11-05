@@ -78,7 +78,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
         </div>
-        <div className="min-w-0 mt-6 lg:mt-0 lg:rounded-xl lg:border lg:border-border lg:p-5">
+        <div className="min-w-0 mt-6 lg:mt-0 lg:rounded-xl lg:border lg:border-border lg:p-4">
         {(name || photo || email || phone || website) && <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center gap-5">
           {photo && <img src={photo} alt={name ? `Foto av ${name}` : "Partnerns kontaktperson"} className="h-24 w-24 sm:h-28 sm:w-28 lg:h-20 lg:w-20 shrink-0 rounded-lg object-cover border border-border" loading="eager" />}
           <div className="min-w-0">
@@ -90,7 +90,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
             </ul>}
           </div>
         </div>}
-        <div className="partner-opening-actions mt-8 lg:mt-5 flex flex-wrap gap-3 lg:flex-col lg:[&>*]:w-full" aria-label={`Nästa steg för ${partner.name}`}>
+        <div className="partner-opening-actions mt-8 lg:mt-5 flex flex-wrap gap-3 lg:grid lg:grid-cols-2 lg:gap-2 lg:[&>a]:col-span-2 lg:[&>a]:min-h-9 lg:[&>*]:px-3" aria-label={`Nästa steg för ${partner.name}`}>
           <Button onClick={() => { track("request_contact"); inquiry.open({ partners: [{ slug: partner.slug, name: partner.name }], type: "partner", productArea: product }); }} className="partner-opening-intro min-h-12 px-6 font-semibold">{PARTNER_PROFILE_CTA.primary}<ArrowRight className="h-4 w-4" /></Button>
           {saved ? (
             <span className="inline-flex min-h-12 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium"><BookmarkCheck className="h-4 w-4" />Tillagd i kortlistan<Link to="/kortlista/" className="underline underline-offset-4">Visa kortlistan</Link></span>
@@ -103,7 +103,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           )}
           {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_profil" }); trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
         </div>
-        <p className="mt-3 max-w-2xl text-xs text-muted-foreground">Förfrågan går bara till {partner.name}, och bara om ni godkänner det i formuläret. Partnern kontaktar er sedan direkt.</p>
+        <p className="mt-3 lg:mt-1 max-w-2xl text-xs text-muted-foreground">Förfrågan går bara till {partner.name}, och bara om ni godkänner det i formuläret. Partnern kontaktar er sedan direkt.</p>
         <AdvisoryOffer
           className="mt-5 lg:mt-4 max-w-2xl"
           variant="compact"
