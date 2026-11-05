@@ -42,7 +42,7 @@ export const PARTNER_EDITORIAL_FAQ: Record<string, PartnerEditorialFaq> = {
       text: "Funderar ni på 4PS Construct eller ett annat branschsystem för bygg och entreprenad? Thomas Laine hjälper er att reda ut kraven och vilka alternativ som är värda att jämföra. Ingen partner deltar i samtalet.",
     },
   },
-  "update-affarssystem-ab": {
+  "update-affarssystem": {
     heading: "Vanliga frågor om Update Affärssystem AB",
     faqs: [
       {

@@ -7,7 +7,7 @@
     "provider_id": "partner_3591a237-ba6a-426a-9ca4-6682cc768a00",
     "provider_type": "dynamics_partner"
   },
-  "b3-consulting-group": {
+  "b3-elevate": {
     "provider_id": "partner_568e7ed9-b06e-4b29-b753-c426fbfe9417",
     "provider_type": "dynamics_partner"
   },
@@ -63,7 +63,7 @@
     "provider_id": "partner_40072e8e-d3b1-4f61-bb52-afd241356577",
     "provider_type": "dynamics_partner"
   },
-  "update-affarssystem-ab": {
+  "update-affarssystem": {
     "provider_id": "partner_58127527-2619-4ca8-b1b6-5c363e2f661b",
     "provider_type": "dynamics_partner"
   },
@@ -131,7 +131,7 @@
     "provider_id": "partner_50ab146d-98de-43e2-bd44-de761f98e867",
     "provider_type": "dynamics_partner"
   },
-  "exsitec": {
+  "brightcom": {
     "provider_id": "partner_a900a483-7f66-4f8c-867b-86a45b22bb7e",
     "provider_type": "dynamics_partner"
   },
@@ -151,7 +151,7 @@
     "provider_id": "partner_5c6084d7-4a9a-4225-85e0-7648f994381b",
     "provider_type": "dynamics_partner"
   },
-  "columbus-sweden-ab": {
+  "columbus": {
     "provider_id": "partner_024172c6-c493-4414-b326-d1439fb822fb",
     "provider_type": "dynamics_partner"
   },
@@ -175,7 +175,7 @@
     "provider_id": "partner_2021103a-04d3-4239-a0b9-fa115a86b78c",
     "provider_type": "dynamics_partner"
   },
-  "ecit-sverige-ab": {
+  "ecit": {
     "provider_id": "partner_2bb7be9b-64c2-4964-8231-50b66ff7a5b5",
     "provider_type": "dynamics_partner"
   },
@@ -191,11 +191,11 @@
     "provider_id": "partner_edd73dfd-9fdd-4597-b77a-23be47a70324",
     "provider_type": "dynamics_partner"
   },
-  "enqore-ab": {
+  "enqore": {
     "provider_id": "partner_1a9fedad-3e8e-4af1-852d-f755bc6ae37d",
     "provider_type": "dynamics_partner"
   },
-  "navipro-ab": {
+  "evidi": {
     "provider_id": "partner_74832163-d32c-4310-9f69-544b33d8b35e",
     "provider_type": "dynamics_partner"
   },
@@ -235,7 +235,7 @@
     "provider_id": "partner_328fda32-0096-4ad6-88c5-5bc9721d713e",
     "provider_type": "dynamics_partner"
   },
-  "it-stod-ab": {
+  "it-stod": {
     "provider_id": "partner_91796f1b-170b-47c8-91d4-cc8922b1f12a",
     "provider_type": "dynamics_partner"
   },
@@ -259,7 +259,7 @@
     "provider_id": "partner_2fa87373-0881-4fb1-bfc3-ef2a4c485d0c",
     "provider_type": "dynamics_partner"
   },
-  "midpoint-ab": {
+  "midpoint": {
     "provider_id": "partner_3fefe380-59b5-4e63-a8c0-ddc4fc2530f1",
     "provider_type": "dynamics_partner"
   },
@@ -267,7 +267,7 @@
     "provider_id": "partner_ea2179df-926f-488f-87d2-6f5b393c0020",
     "provider_type": "dynamics_partner"
   },
-  "navet-ab": {
+  "navet": {
     "provider_id": "partner_496616be-bb15-47cc-bdfe-101ab127b741",
     "provider_type": "dynamics_partner"
   },
@@ -307,7 +307,7 @@
     "provider_id": "partner_2bbf3627-fe15-446e-bde1-cd2dd7b2e102",
     "provider_type": "dynamics_partner"
   },
-  "sherpas-group-ab": {
+  "sherpas": {
     "provider_id": "partner_b375698a-cd8d-4b4c-812d-832ccf14bff4",
     "provider_type": "dynamics_partner"
   },
@@ -339,7 +339,7 @@
     "provider_id": "partner_f4b91bc7-9fa0-4ddb-baa3-17a91591a5b0",
     "provider_type": "dynamics_partner"
   },
-  "future-it-partner": {
+  "upheads": {
     "provider_id": "partner_1a62fbda-6c02-4fa1-9d68-fbb1f7181274",
     "provider_type": "dynamics_partner"
   },

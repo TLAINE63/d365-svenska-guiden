@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     for (const p of partners) if (p.name && p.slug) nameToSlug.set(String(p.name).trim().toLowerCase(), p.slug);
 
     // Gamla/felaktiga slugs räknas till nuvarande partner; okända slugs utelämnas.
-    const ALIASES: Record<string, string> = { "4ps": "4ps-sweden", "vivicta-se": "vivicta", "YjMtY29uc3": "b3-consulting-group", "b3-cons": "b3-consulting-group" };
+    const ALIASES: Record<string, string> = { "4ps": "4ps-sweden", "vivicta-se": "vivicta", "YjMtY29uc3": "b3-elevate", "b3-cons": "b3-elevate", "update-affarssystem-ab": "update-affarssystem", "navipro-ab": "evidi", "future-it-partner": "upheads", "b3-consulting-group": "b3-elevate", "exsitec": "brightcom", "columbus-sweden-ab": "columbus", "ecit-sverige-ab": "ecit", "enqore-ab": "enqore", "it-stod-ab": "it-stod", "midpoint-ab": "midpoint", "navet-ab": "navet", "sherpas-group-ab": "sherpas" };
     const known = new Set<string>(partners.map((p: any) => p.slug).filter(Boolean));
     const canon = (s: string | null | undefined) => { if (!s) return null; const c = ALIASES[s] ?? s; return known.has(c) ? c : null; };
     type Agg = { listings: number; comparisons: number; profile_views: number; web_clicks: number; phone_clicks: number; email_clicks: number };

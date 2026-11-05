@@ -12,6 +12,7 @@ import PartnerCompareBar from "@/components/PartnerCompareBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import CopyAttribution from "@/components/CopyAttribution";
 import RedirectTo from "@/components/RedirectTo";
+import { PARTNER_SLUG_RENAMES, partnerSlugTarget } from "@/data/partnerSlugRenames";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
 
@@ -335,6 +336,10 @@ const AppShell = () => {
           <Route path="/kravspecifikation-customer-service" element={<RedirectTo to="/kravspecifikation-kundservice" />} />
           <Route path="/partner/goodfellows" element={<RedirectTo to="/partner/modia/" />} />
           <Route path="/partner/goodfellows/*" element={<RedirectTo to="/partner/modia/" />} />
+          {PARTNER_SLUG_RENAMES.flatMap((r) => ["/partner/", "/basic/"].flatMap((b) => [
+            <Route key={b + r.from} path={b + r.from} element={<RedirectTo to={partnerSlugTarget(r)} />} />,
+            <Route key={b + r.from + "*"} path={b + r.from + "/*"} element={<RedirectTo to={partnerSlugTarget(r)} />} />,
+          ]))}
           <Route path="/partner/:slug" element={<PartnerProfile />} />
           <Route path="/partner/:slug/fordjupning" element={<PartnerExtendedContent />} />
           <Route path="/partner/:slug/fordjupning/" element={<PartnerExtendedContent />} />

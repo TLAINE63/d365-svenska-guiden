@@ -1,3 +1,4 @@
+import { PARTNER_SLUG_RENAMES, partnerSlugTarget } from "@/data/partnerSlugRenames";
 /**
  * Legacy URL redirect registry.
  *
@@ -131,18 +132,18 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/partner/cepheo",          to: "/basic/cepheo",          intendedStatus: 301 },
   { from: "/partner/cosmo-consult",   to: "/basic/cosmo-consult",   intendedStatus: 301 },
   // (dizparc-profilen är publicerad igen, ingen redirect längre)
-  { from: "/partner/ecit-sverige-ab", to: "/basic/ecit-sverige-ab", intendedStatus: 301 },
-  { from: "/partner/enqore-ab",       to: "/basic/enqore-ab",       intendedStatus: 301 },
-  { from: "/partner/exsitec",         to: "/basic/exsitec",         intendedStatus: 301 },
   { from: "/partner/hay-it",          to: "/basic/hay-it",          intendedStatus: 301 },
   // (implema-profilen är återpublicerad, ingen redirect längre)
   { from: "/partner/navcite",         to: "/basic/navcite",         intendedStatus: 301 },
-  { from: "/partner/navet-ab",        to: "/basic/navet-ab",        intendedStatus: 301 },
-  { from: "/partner/navipro-ab",      to: "/basic/navipro-ab",      intendedStatus: 301 },
   { from: "/partner/nemely",          to: "/basic/nemely",          intendedStatus: 301 },
   { from: "/partner/releye",          to: "/basic/releye",          intendedStatus: 301 },
   { from: "/partner/sopra-steria",    to: "/basic/sopra-steria",    intendedStatus: 301 },
 ];
+
+// Bytta partneradresser (2026-11-05)
+for (const r of PARTNER_SLUG_RENAMES) {
+  for (const base of ["/partner/", "/basic/"]) LEGACY_REDIRECTS.push({ from: `${base}${r.from}`, to: partnerSlugTarget(r), intendedStatus: 301 });
+}
 
 const SITE_ORIGIN = "https://d365.se";
 
