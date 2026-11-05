@@ -3,7 +3,30 @@ import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
+
+/** Läser rollen ur redaktionstoken (servern kontrollerar alltid signaturen). */
+function tokenRole(token: string | null): string | null {
+  try {
+    if (!token) return null;
+    const b = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(atob(b)).role ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** Delar adminsessionen med partnerredigeringen så att Thomas slipper logga in två gånger. */
+function seedAdminSession(token: string) {
+  try {
+    const expiry = window.sessionStorage.getItem("editor_token_expiry");
+    window.sessionStorage.setItem("admin_token", token);
+    if (expiry) window.sessionStorage.setItem("admin_token_expiry", expiry);
+  } catch {
+    /* ignore */
+  }
+}
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -64,6 +87,9 @@ export default function Redaktion() {
     toast.success("Kontot är klart, logga in med din e-post och ditt lösenord");
     setShowSetup(false);
   }
+
+  const isAdmin = tokenRole(token) === "admin";
+  const [adminSeeded, setAdminSeeded] = useState(false);
 
   const { data: partners = [], isLoading: partnersLoading } = useAdminPartners(
     isAuthenticated ? token : null,
@@ -220,6 +246,7 @@ export default function Redaktion() {
             <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
             <TabsTrigger value="help-requests">Hjälpärenden</TabsTrigger>
             <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
+            {isAdmin && <TabsTrigger value="partner-admin">Verifiera &amp; profilera partners</TabsTrigger>}
             <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
             <TabsTrigger value="isv">ISV-katalog</TabsTrigger>
             <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
@@ -289,6 +316,18 @@ export default function Redaktion() {
           <TabsContent value="ai">
             <AdminAiVisibilityTab token={token} onSessionExpired={logout} />
           </TabsContent>
+
+          {isAdmin && (
+            <TabsContent value="partner-admin">
+              {adminSeeded ? (
+                <Suspense fallback={<Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}>
+                  <AdminDashboard embedded />
+                </Suspense>
+              ) : (
+                <Button onClick={() => { seedAdminSession(token!); setAdminSeeded(true); }}>Öppna partnerprofileringen</Button>
+              )}
+            </TabsContent>
+          )}
 
           <TabsContent value="partners">
             <div className="mb-6"><PartnerFreshnessCard partners={partners as any} /></div>
