@@ -2351,7 +2351,7 @@ Thomas`,
 
  </div>
  <div className={embedded ? "py-2" : "container mx-auto px-4 py-8"}>
- <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-4 py-2 text-sm text-amber-900 dark:text-amber-100">
+ <div className={`${embedded ? "hidden " : ""}mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-4 py-2 text-sm text-amber-900 dark:text-amber-100`}>
  <span className="font-medium">All statistik utgår från d365.se</span>
  <span className="text-amber-800/80 dark:text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
  </div>
