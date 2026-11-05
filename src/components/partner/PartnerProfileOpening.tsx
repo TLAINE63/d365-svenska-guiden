@@ -49,7 +49,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
   return <>
     <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" /></Helmet>
     <header className="partner-opening bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 lg:pt-6 pb-10 sm:pb-14 lg:pb-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 lg:pt-12 pb-10 sm:pb-14 lg:pb-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5 lg:pb-3 mb-8 sm:mb-12 lg:mb-6">
           <Button asChild variant="ghost" size="sm" className="px-0 text-muted-foreground"><Link to="/alla-d365-partners/"><ArrowLeft className="h-4 w-4" />Alla partners</Link></Button>
           {partner.is_featured === true && (
@@ -78,7 +78,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
         </div>
-        <div className="min-w-0 mt-6 lg:mt-0 lg:rounded-xl lg:border lg:border-border lg:p-4">
+        <div className="min-w-0 mt-6 lg:mt-0 lg:row-span-2 lg:rounded-xl lg:border lg:border-border lg:p-4">
         {(name || photo || email || phone || website) && <div className="mt-6 lg:mt-0 flex flex-col sm:flex-row sm:items-center gap-5">
           {photo && <img src={photo} alt={name ? `Foto av ${name}` : "Partnerns kontaktperson"} className="h-24 w-24 sm:h-28 sm:w-28 lg:h-20 lg:w-20 shrink-0 rounded-lg object-cover border border-border" loading="eager" />}
           <div className="min-w-0">
@@ -119,10 +119,10 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           metadata={{ partner_slug: partner.slug, product: product ?? null }}
         />
         </div>
-        </div>
-        <div className="mt-8 lg:mt-5 border-t border-border pt-5 lg:pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div className="mt-8 lg:mt-6 lg:col-start-1 lg:row-start-2 lg:self-end border-t border-border pt-5 lg:pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <details className="text-xs text-muted-foreground max-w-2xl"><summary className="cursor-pointer font-medium">Vad innebär partnerverifierad?</summary><p className="mt-2 leading-relaxed">{PROFILE_EXPLAINER_VERIFIED_SHORT} {PROFILE_EXPLAINER_VERIFIED_MORE}</p></details>
           {video && <Button variant="outline" size="sm" onClick={onVideo} aria-label={`Spela introduktionsvideo från ${partner.name}`}><Play className="h-4 w-4" />Introduktionsvideo</Button>}
+        </div>
         </div>
       </div>
     </header>
