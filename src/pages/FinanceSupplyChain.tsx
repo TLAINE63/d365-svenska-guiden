@@ -287,6 +287,27 @@ const FinanceSupplyChain = () => {
      </p>
     </div>
    </div>
+   </section>
+
+  <section id="uppgradera-fran-dynamics-ax" className="py-8 sm:py-12 scroll-mt-24">
+   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Uppgradera från Dynamics AX till <span className="whitespace-nowrap">Dynamics 365</span> Finance &amp; Supply Chain</h2>
+    <div className="space-y-4 text-muted-foreground">
+     <p>
+      Dynamics AX (tidigare Axapta) är föregångaren till <span className="whitespace-nowrap">Dynamics 365</span> Finance &amp; Supply Chain Management. Både AX 2009 och AX 2012 har passerat Microsofts supportslut, vilket innebär inga fler säkerhetsuppdateringar eller funktionsförbättringar från Microsoft.
+     </p>
+     <p>
+      En modernisering till <span className="whitespace-nowrap">Dynamics 365</span> i molnet ger löpande uppdateringar utan stora uppgraderingsprojekt, integrerad AI och analys samt högre säkerhet. För de flesta AX-kunder handlar det inte om en enkel uppgradering utan om ett implementationsprojekt där data, integrationer och anpassningar gås igenom.
+     </p>
+     <p>
+      Hitta <Link to="/valjdynamics365partner/" className="text-primary underline underline-offset-4">partners med erfarenhet av uppgraderingsprojekt från Dynamics AX</Link> i partnerguiden.
+     </p>
+    </div>
+    <div className="mt-6 rounded-lg border border-border bg-card p-5 sm:p-6">
+     <p className="font-semibold text-card-foreground mb-3">Planerar ni att migrera från Dynamics AX? Boka 20 minuters kostnadsfri rådgivning med Thomas Laine.</p>
+     <AdvisorContactButtons />
+    </div>
+   </div>
   </section>
 
  {/* FAQ Section */}
