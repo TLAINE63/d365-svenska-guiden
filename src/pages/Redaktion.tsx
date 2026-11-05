@@ -272,7 +272,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="isv">
-            <AdminIsvCatalogTab token={token || null} onSessionExpired={logout} editorMode />
+            <AdminIsvCatalogTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="help-requests">
