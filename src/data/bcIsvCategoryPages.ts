@@ -107,7 +107,7 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
         ],
         links: [
           { text: "Läs om Business Central", to: "/businesscentral/" },
-          { text: "Jämför Sana, Dynamicweb och Shopify-koppling", to: "/compare/sana-commerce-vs-dynamicweb-vs-shopify-connector/" },
+          { text: "Jämför Sana, Dynamicweb och Shopify-koppling", to: "/compare/sana-vs-dynamicweb-vs-shopify/" },
         ],
       },
       {
