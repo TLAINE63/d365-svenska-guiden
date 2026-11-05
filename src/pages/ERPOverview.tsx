@@ -133,6 +133,7 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import EditorialSource from "@/components/EditorialSource";
+import AdvisorCtaCard from "@/components/advisory/AdvisorCtaCard";
 import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection";
 
 const ERPOverview = () => {
@@ -209,6 +210,25 @@ const ERPOverview = () => {
   />
   </div></div>
   <EditorialAssessment assessment="erp" />
+
+  <section id="kopguide-affarssystem" className="scroll-mt-24 py-8 sm:py-12 bg-background">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6"><div className="max-w-3xl mx-auto space-y-4">
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Köpguide: Hur väljer och köper man rätt affärssystem?</h2>
+    <p className="text-muted-foreground">Börja i verksamheten, inte i systemet. Beskriv de processer som ska fungera bättre (order, lager, inköp, ekonomi, projekt eller produktion), vilka system affärssystemet ska prata med och hur många användare som berörs. Först därefter är det meningsfullt att jämföra produkter.</p>
+    <p className="text-muted-foreground">Ett strukturerat köp brukar gå i fem steg: behovsanalys, val av systemspår (för Microsoft oftast <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> eller Finance &amp; Supply Chain Management), kortlista med två till tre partners, demo på era egna scenarier och till sist offert som jämförs på totalkostnad över tid, inte bara licenspris.</p>
+    <p className="text-muted-foreground">Partnern avgör ofta mer än systemet. Jämför branscherfarenhet, kundexempel och hur förvaltningen fungerar efter go-live i <Link to="/valjdynamics365partner/" className="text-primary font-medium hover:underline">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link>.</p>
+
+    <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">Kravspecifikation och process vid byte av affärssystem för medelstora företag</h2>
+    <p className="text-muted-foreground">För ett medelstort företag behöver kravspecifikationen inte vara hundratals rader. Den ska beskriva de viktigaste processerna, vad som är skallkrav och börkrav, vilka integrationer som finns (e-handel, lönesystem, bank, EDI) och vilken data som ska migreras från det gamla systemet.</p>
+    <p className="text-muted-foreground">Vid byte från ett äldre affärssystem, till exempel Dynamics NAV, Visma eller Monitor, är datamigrering, utbildning och parallellkörning de moment som oftast underskattas. Planera tid för användartester och en tydlig go-live-period, och låt partnern visa hur de har genomfört liknande byten.</p>
+    <p className="text-muted-foreground">Ta fram en kravspecifikation med <Link to="/kravspecifikation/" className="text-primary font-medium hover:underline">kravspecifikationsverktyget</Link>, läs om <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central för medelstora företag</Link> och jämför sedan partners i <Link to="/valjdynamics365partner/" className="text-primary font-medium hover:underline">partnerväljaren</Link>.</p>
+   </div></div>
+  </section>
+  <AdvisorCtaCard
+   id="affarssystem-radgivning"
+   heading="Boka 20 minuters kostnadsfri rådgivning inför ert val eller byte av affärssystem med Thomas Laine"
+   text="Ett kort samtal om era krav, vilket systemspår som är rimligt och hur ni lägger upp upphandlingen. Ingen partner deltar i samtalet."
+  />
  <FitModel model="erp" heading="Vad avgör valet?" />
 
   {/* Introduction Section */}

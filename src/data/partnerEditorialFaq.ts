@@ -42,4 +42,21 @@ export const PARTNER_EDITORIAL_FAQ: Record<string, PartnerEditorialFaq> = {
       text: "Funderar ni på 4PS Construct eller ett annat branschsystem för bygg och entreprenad? Thomas Laine hjälper er att reda ut kraven och vilka alternativ som är värda att jämföra. Ingen partner deltar i samtalet.",
     },
   },
+  "update-affarssystem-ab": {
+    heading: "Vanliga frågor om Update Affärssystem AB",
+    faqs: [
+      {
+        q: "Vad gör Update Affärssystem AB?",
+        a: "Update Affärssystem AB är en Microsoft Dynamics-partner i Göteborgsområdet med fokus på Microsoft Dynamics\u00A0365 Business Central. Enligt partnerns egna uppgifter har bolaget över 30 års erfarenhet av NAV och Business Central och kombinerar affärssystem med IT-infrastrukturtjänster.",
+      },
+      {
+        q: "Passar Update Affärssystem AB för byte från NAV eller Navision?",
+        a: "Business Central är nästa generation av Dynamics NAV (Navision), och partnerns långa NAV-erfarenhet gör dem relevanta att jämföra vid en uppgradering. Be om kundexempel på liknande byten och hur datamigreringen läggs upp.",
+      },
+    ],
+    advisory: {
+      heading: "Boka 20 minuters kostnadsfri rådgivning inför ert val eller byte av affärssystem med Thomas Laine",
+      text: "Funderar ni på Update Affärssystem AB eller en annan Business Central-partner? Thomas Laine hjälper er att reda ut kraven och vilka partners som är värda att jämföra. Ingen partner deltar i samtalet.",
+    },
+  },
 };
