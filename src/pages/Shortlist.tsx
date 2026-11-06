@@ -64,7 +64,7 @@ const Shortlist = () => {
       <Navbar />
 
       <main className="min-h-screen">
-        <section className="container mx-auto px-4 sm:px-6 max-w-6xl pt-20 pb-12 sm:pt-28 sm:pb-16">
+        <section className="container mx-auto px-4 sm:px-6 max-w-6xl pt-36 pb-12 sm:pt-40 sm:pb-16">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">
             Aktiv utvärdering
           </p>
