@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import ProtectedContact from "@/components/partner/ProtectedContact";
 import { Helmet } from "react-helmet-async";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, Bookmark, BookmarkCheck, ExternalLink, Globe, Mail, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DatabasePartner } from "@/hooks/usePartners";
@@ -29,6 +29,17 @@ interface Props {
 }
 
 export default function PartnerProfileOpening({ partner, product, industry, onIntro, onVideo }: Props) {
+  const openingRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = document.querySelector("[data-site-nav]");
+    const opening = openingRef.current;
+    if (!nav || !opening) return;
+    const updateHeight = () => opening.style.setProperty("--profile-nav-height", `${nav.getBoundingClientRect().height}px`);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, []);
   const shortlist = useShortlist();
   const inquiry = useInquiry();
   const saved = shortlist.isSaved(partner.slug);
@@ -48,8 +59,8 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
 
   return <>
     <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" /></Helmet>
-    <header className="partner-opening bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 lg:pt-12 pb-10 sm:pb-14 lg:pb-6">
+    <header ref={openingRef} className="partner-opening bg-background text-foreground">
+      <div className="partner-opening-content w-full mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 lg:pt-12 pb-10 sm:pb-14 lg:pb-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5 lg:pb-3 mb-8 sm:mb-12 lg:mb-6">
           <Button asChild variant="ghost" size="sm" className="px-0 text-muted-foreground"><Link to="/alla-d365-partners/"><ArrowLeft className="h-4 w-4" />Alla partners</Link></Button>
           {partner.is_featured === true && (

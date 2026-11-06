@@ -569,6 +569,22 @@ All colors MUST be HSL.
   letter-spacing: 0;
 }
 .partner-opening-name { font-size: 3.5rem; }
+@media (min-width: 1024px) {
+  .partner-profile-premium { display: flow-root; }
+  .partner-profile-premium .partner-opening {
+    margin-top: calc(var(--profile-nav-height, 104px) - 4rem);
+    min-height: calc(100svh - var(--profile-nav-height, 104px));
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+  }
+}
+@media (min-width: 1024px) and (max-height: 760px) {
+  .partner-profile-premium .partner-opening-content {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
 @media (min-width: 1024px) { .partner-opening-name { font-size: clamp(2.25rem, 3.2vw, 3rem); } }
 .partner-profile-premium .partner-opening, .plan-premium .plan-opening {
   --background: 185.217391 56.097561% 16.078431%;
