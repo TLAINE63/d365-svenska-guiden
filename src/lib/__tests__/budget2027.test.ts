@@ -36,8 +36,16 @@ describe("ISV budget 2027", () => {
   });
 });
 
-import { detailByCategory, estimateRevenue } from "../budget2027";
+import { detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors } from "../budget2027";
 describe("category estimates", () => {
+  it("separates partner and ISV budgets without double counting", () => {
+    expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 9950 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
+      partner: { estimate: 19900, detail: 9950 }, isv: { estimate: 19960, detail: 5990 },
+    });
+  });
+  it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
+    expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toEqual([{ name: "Truvio", apps: 3 }]);
+  });
   it("counts a yearly 2-product partner at 15 950 kr after discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
     expect(d.year2).toEqual({ count: 1, revenue: 7975 });

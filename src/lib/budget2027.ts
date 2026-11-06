@@ -130,6 +130,27 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
 }
 export const estimateRevenue = (est: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * c.unit, 0);
 
+export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}) {
+  const group = (name: Category["group"]) => CATEGORIES.filter((c) => c.group === name).reduce((s, c) => ({
+    estimate: s.estimate + (Number(est[c.key]) || 0) * c.unit,
+    detail: s.detail + (details[c.key]?.revenue ?? 0),
+  }), { estimate: 0, detail: 0 });
+  return { partner: group("partner"), isv: group("isv") };
+}
+
+/** Counts distinct catalog products per vendor without merging different brands by guesswork. */
+export function budgetIsvVendors(solutions: { id: string; vendor: string; name: string }[]) {
+  const vendors = new Map<string, Set<string>>();
+  for (const s of solutions) {
+    const name = (s.vendor || s.name).trim();
+    if (!name) continue;
+    const ids = vendors.get(name) ?? new Set<string>();
+    ids.add(s.id);
+    vendors.set(name, ids);
+  }
+  return [...vendors].map(([name, ids]) => ({ name, apps: ids.size })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+}
+
 /** Keeps saved cost rows and adds any fixed default rows missing from older saves, before the custom rows. */
 export function mergeCosts(saved?: CostLine[]): CostLine[] {
   if (!saved?.length) return DEFAULT_BUDGET.costs;
