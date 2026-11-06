@@ -64,7 +64,7 @@ const Shortlist = () => {
       <Navbar />
 
       <main className="min-h-screen">
-        <section className="container mx-auto px-4 sm:px-6 max-w-6xl py-12 sm:py-16">
+        <section className="container mx-auto px-4 sm:px-6 max-w-6xl pt-20 pb-12 sm:pt-28 sm:pb-16">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">
             Aktiv utvärdering
           </p>
@@ -159,7 +159,7 @@ const Shortlist = () => {
                   Kontakta valda partners
                   <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
-                <Button variant="outline" onClick={compareChosen} disabled={chosen.length < 2}>Jämför</Button>
+                <Button variant="outline" onClick={compareChosen} disabled={chosen.length < 1}>Jämför</Button>
                 <Button asChild variant="outline">
                   <Link to="/valjdynamics365partner/">Hitta rätt partner</Link>
                 </Button>
