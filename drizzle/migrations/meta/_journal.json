@@ -239,6 +239,13 @@
       "when": 1793807369094,
       "tag": "0033_lead_partner_confirmations",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1793960093955,
+      "tag": "0034_partner_billing_finders_fee",
+      "breakpoints": true
     }
   ]
 }

@@ -4369,8 +4369,11 @@ export type Database = {
           ai_summary_full: string | null
           ai_summary_generated_at: string | null
           ai_tags: string[]
+          annual_fee: number | null
+          annual_start_date: string | null
           applications: string[] | null
           best_fit_for: string[]
+          billing_interval: string
           cancellation_date: string | null
           contact_person: string | null
           contact_photo_url: string | null
@@ -4380,6 +4383,7 @@ export type Database = {
           description: string | null
           description_ai_generated: boolean | null
           description_generated_at: string | null
+          discount_percent: number
           email: string | null
           extended_competencies: Json
           extended_competency_evidence: Json
@@ -4387,7 +4391,10 @@ export type Database = {
           extended_content: string | null
           extended_content_updated_at: string | null
           extended_summary: string | null
+          finders_fee_notes: string | null
+          finders_fee_signed_at: string | null
           geography: string[] | null
+          has_finders_fee: boolean
           hide_basic_card: boolean
           id: string
           implementations_done: string | null
@@ -4461,8 +4468,11 @@ export type Database = {
           ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
           ai_tags?: string[]
+          annual_fee?: number | null
+          annual_start_date?: string | null
           applications?: string[] | null
           best_fit_for?: string[]
+          billing_interval?: string
           cancellation_date?: string | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -4472,6 +4482,7 @@ export type Database = {
           description?: string | null
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
+          discount_percent?: number
           email?: string | null
           extended_competencies?: Json
           extended_competency_evidence?: Json
@@ -4479,7 +4490,10 @@ export type Database = {
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
+          finders_fee_notes?: string | null
+          finders_fee_signed_at?: string | null
           geography?: string[] | null
+          has_finders_fee?: boolean
           hide_basic_card?: boolean
           id?: string
           implementations_done?: string | null
@@ -4553,8 +4567,11 @@ export type Database = {
           ai_summary_full?: string | null
           ai_summary_generated_at?: string | null
           ai_tags?: string[]
+          annual_fee?: number | null
+          annual_start_date?: string | null
           applications?: string[] | null
           best_fit_for?: string[]
+          billing_interval?: string
           cancellation_date?: string | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -4564,6 +4581,7 @@ export type Database = {
           description?: string | null
           description_ai_generated?: boolean | null
           description_generated_at?: string | null
+          discount_percent?: number
           email?: string | null
           extended_competencies?: Json
           extended_competency_evidence?: Json
@@ -4571,7 +4589,10 @@ export type Database = {
           extended_content?: string | null
           extended_content_updated_at?: string | null
           extended_summary?: string | null
+          finders_fee_notes?: string | null
+          finders_fee_signed_at?: string | null
           geography?: string[] | null
+          has_finders_fee?: boolean
           hide_basic_card?: boolean
           id?: string
           implementations_done?: string | null
