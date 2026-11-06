@@ -13,6 +13,10 @@ import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 interface P { id: string; name: string; is_featured?: boolean | null; agreement_signed?: boolean | null; product_filters?: any; billing_interval?: string | null; discount_percent?: number | null; has_finders_fee?: boolean | null }
 
 const fmt = (n: number) => new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n));
+const fmtDifference = (detail: number, budget: number) => {
+  const difference = Math.round(detail - budget);
+  return `${difference > 0 ? "+" : ""}${fmt(difference)}`;
+};
 const FORECAST_LABEL: Record<Forecast, string> = { none: "Ingen", basic: "Grundprofil", month: "Premium månad", year: "Premium år" };
 const num = (v: string) => Math.max(0, Number(v) || 0);
 
@@ -141,7 +145,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 { label: "ISVs: Finders fee-intäkter", note: "Fasta introduktionsavgifter för BC/CRM och F&SCM, utan success fee.", ...groups.isv.finders },
                 { label: "Övriga intäkter", note: "Dina egna intäktsrader, omräknade till årsbelopp.", estimate: t.other, detail: t.other },
                 { label: "Totala intäkter", note: "Partnerbudget + ISV-budget + övriga intäkter.", estimate: grossBudget, detail: detTotal + t.other },
-              ].map((r) => <tr key={r.label} className="border-t"><th scope="row" className="py-3 pr-3 text-left font-medium">{r.label}<p className="mt-1 text-xs font-normal text-muted-foreground">{r.note}</p></th><td className="text-right px-3 whitespace-nowrap font-semibold">{fmt(r.estimate)} kr</td><td className="text-right px-3 whitespace-nowrap">{fmt(r.detail)} kr</td><td className="text-right pl-3 whitespace-nowrap">{r.detail > r.estimate ? "+" : ""}{fmt(r.detail - r.estimate)} kr</td></tr>)}
+              ].map((r) => <tr key={r.label} className="border-t"><th scope="row" className="py-3 pr-3 text-left font-medium">{r.label}<p className="mt-1 text-xs font-normal text-muted-foreground">{r.note}</p></th><td className="text-right px-3 whitespace-nowrap font-semibold">{fmt(r.estimate)} kr</td><td className="text-right px-3 whitespace-nowrap">{fmt(r.detail)} kr</td><td className="text-right pl-3 whitespace-nowrap">{fmtDifference(r.detail, r.estimate)} kr</td></tr>)}
             </tbody>
           </table>
         </div>
@@ -198,17 +202,17 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                     <td className="text-right whitespace-nowrap">{fmt(e * c.unit)} kr</td>
                     <td className="text-right">{d.count}</td>
                     <td className="text-right whitespace-nowrap">{fmt(d.revenue)} kr</td>
-                    <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{diff > 0 ? "+" : ""}{fmt(diff)} kr</td>
+                    <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{fmtDifference(d.revenue, e * c.unit)} kr</td>
                   </tr>
                 );
                 })}
-                <tr className="border-t font-medium"><td className="py-3 pr-3">Delsumma: {section.label}</td><td /><td /><td className="text-right whitespace-nowrap">{fmt(section.estimate)} kr</td><td /><td className="text-right whitespace-nowrap">{fmt(section.detail)} kr</td><td className="text-right whitespace-nowrap">{fmt(section.detail - section.estimate)} kr</td></tr>
+                <tr className="border-t font-medium"><td className="py-3 pr-3">Delsumma: {section.label}</td><td /><td /><td className="text-right whitespace-nowrap">{fmt(section.estimate)} kr</td><td /><td className="text-right whitespace-nowrap">{fmt(section.detail)} kr</td><td className="text-right whitespace-nowrap">{fmtDifference(section.detail, section.estimate)} kr</td></tr>
               </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
                 <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates))} kr</td><td />
                 <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
-                <td className="text-right whitespace-nowrap">{fmt(detTotal - estimateRevenue(budget.estimates))} kr</td>
+                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates))} kr</td>
               </tr>
             </tbody>
           </table>
