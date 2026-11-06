@@ -84,20 +84,20 @@ export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[
 }
 
 // Rough top-down estimate per category, compared against the sum of partner/ISV detail rows.
-export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv" }
+export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv"; income: "subscription" | "finders" }
 export const CATEGORIES: Category[] = [
-  ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, motsvarande 10 månadsavgifter.`, unit: YEAR_PRICE[p], group: "partner" as const })),
-  ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const })),
-  { key: "meetingsStd", label: "Basic: möten BC/CRM och övrigt", description: "Antal genomförda, avgiftsbelagda möten med Basicpartners. Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Premium har ingen mötesavgift.", unit: FEES.meetingStd, group: "partner" },
-  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 2 500 kr av totalt 5 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealStd - FEES.meetingStd, group: "partner" },
-  { key: "meetingsFscm", label: "Basic: möten F&SCM", description: "Antal genomförda, avgiftsbelagda möten för Finance & Supply Chain Management med Basicpartners. Premium har ingen mötesavgift.", unit: FEES.meetingFscm, group: "partner" },
-  { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 5 000 kr av totalt 10 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner" },
-  { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner" },
-  { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner" },
-  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv" },
-  { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv" },
-  { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv" },
-  { key: "isvIntroFscm", label: "ISV-introduktioner F&SCM", description: "Antal accepterade partnerintroduktioner för Finance & Supply Chain Management med tecknat avtal. Fast ersättning 7 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introFscm, group: "isv" },
+  ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, motsvarande 10 månadsavgifter.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
+  ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const, income: "subscription" as const })),
+  { key: "meetingsStd", label: "Basic: möten BC/CRM och övrigt", description: "Antal genomförda, avgiftsbelagda möten med Basicpartners. Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Premium har ingen mötesavgift.", unit: FEES.meetingStd, group: "partner", income: "finders" },
+  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 2 500 kr av totalt 5 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealStd - FEES.meetingStd, group: "partner", income: "finders" },
+  { key: "meetingsFscm", label: "Basic: möten F&SCM", description: "Antal genomförda, avgiftsbelagda möten för Finance & Supply Chain Management med Basicpartners. Premium har ingen mötesavgift.", unit: FEES.meetingFscm, group: "partner", income: "finders" },
+  { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 5 000 kr av totalt 10 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
+  { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner", income: "finders" },
+  { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
+  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
+  { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
+  { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
+  { key: "isvIntroFscm", label: "ISV-introduktioner F&SCM", description: "Antal accepterade partnerintroduktioner för Finance & Supply Chain Management med tecknat avtal. Fast ersättning 7 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
 ];
 
 /** Count and revenue (after discounts) per category from the detail rows. Success fees are not categories. */
@@ -131,10 +131,11 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
 export const estimateRevenue = (est: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * c.unit, 0);
 
 export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}) {
-  const group = (name: Category["group"]) => CATEGORIES.filter((c) => c.group === name).reduce((s, c) => ({
+  const sum = (name: Category["group"], income?: Category["income"]) => CATEGORIES.filter((c) => c.group === name && (!income || c.income === income)).reduce((s, c) => ({
     estimate: s.estimate + (Number(est[c.key]) || 0) * c.unit,
     detail: s.detail + (details[c.key]?.revenue ?? 0),
   }), { estimate: 0, detail: 0 });
+  const group = (name: Category["group"]) => ({ ...sum(name), subscription: sum(name, "subscription"), finders: sum(name, "finders") });
   return { partner: group("partner"), isv: group("isv") };
 }
 
