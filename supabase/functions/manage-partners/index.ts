@@ -161,6 +161,13 @@ interface PartnerData {
   activation_date?: string;
   monthly_fee?: number;
   cancellation_date?: string;
+  billing_interval?: string;
+  annual_fee?: number | null;
+  annual_start_date?: string;
+  discount_percent?: number;
+  has_finders_fee?: boolean;
+  finders_fee_signed_at?: string;
+  finders_fee_notes?: string;
   admin_notes?: string;
   agreement_signed?: boolean;
   agreement_notes?: string;
@@ -350,6 +357,13 @@ serve(async (req: Request): Promise<Response> => {
             activation_date: partner.activation_date || null,
             monthly_fee: partner.monthly_fee || null,
             cancellation_date: partner.cancellation_date || null,
+            billing_interval: partner.billing_interval === 'year' ? 'year' : 'month',
+            annual_fee: partner.annual_fee || null,
+            annual_start_date: partner.annual_start_date || null,
+            discount_percent: Math.min(100, Math.max(0, Number(partner.discount_percent) || 0)),
+            has_finders_fee: !!partner.has_finders_fee,
+            finders_fee_signed_at: partner.finders_fee_signed_at || null,
+            finders_fee_notes: partner.finders_fee_notes?.trim() || null,
             admin_notes: partner.admin_notes?.trim() || null,
             agreement_signed: partner.agreement_signed || false,
             agreement_notes: partner.agreement_notes?.trim() || null,
@@ -438,6 +452,13 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.activation_date !== undefined) updateData.activation_date = partner.activation_date || null;
         if (partner?.monthly_fee !== undefined) updateData.monthly_fee = partner.monthly_fee || null;
         if (partner?.cancellation_date !== undefined) updateData.cancellation_date = partner.cancellation_date || null;
+        if (partner?.billing_interval !== undefined) updateData.billing_interval = partner.billing_interval === 'year' ? 'year' : 'month';
+        if (partner?.annual_fee !== undefined) updateData.annual_fee = partner.annual_fee || null;
+        if (partner?.annual_start_date !== undefined) updateData.annual_start_date = partner.annual_start_date || null;
+        if (partner?.discount_percent !== undefined) updateData.discount_percent = Math.min(100, Math.max(0, Number(partner.discount_percent) || 0));
+        if (partner?.has_finders_fee !== undefined) updateData.has_finders_fee = !!partner.has_finders_fee;
+        if (partner?.finders_fee_signed_at !== undefined) updateData.finders_fee_signed_at = partner.finders_fee_signed_at || null;
+        if (partner?.finders_fee_notes !== undefined) updateData.finders_fee_notes = partner.finders_fee_notes?.trim() || null;
         if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
         if (partner?.agreement_signed !== undefined) updateData.agreement_signed = partner.agreement_signed;
         if (partner?.agreement_notes !== undefined) updateData.agreement_notes = partner.agreement_notes?.trim() || null;
