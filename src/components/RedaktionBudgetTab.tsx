@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,7 +94,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
     if (iFilter === "finders" && r.introsStd + r.introsFscm + r.successBasis === 0) return false;
     return true;
   });
-  const isvShownTotal = isvShown.reduce((s, v) => s + isvRevenue(isvFor(v)).total, 0);
+  const isvShownTotals = isvShown.reduce((s, v) => { const r = isvRevenue(isvFor(v)); return { subscription: s.subscription + r.subscription, finders: s.finders + r.finders, total: s.total + r.total }; }, { subscription: 0, finders: 0, total: 0 });
   const setLine = (key: "costs" | "otherRevenue", i: number, patch: any) =>
     setBudget((b) => ({ ...b, [key]: (b[key] ?? []).map((x: any, j: number) => (j === i ? { ...x, ...patch } : x)) }));
   const periodSel = (key: "costs" | "otherRevenue", i: number, v?: Period) => (
@@ -133,8 +133,12 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <thead className="text-left text-xs text-muted-foreground"><tr><th className="py-3 pr-3">Intäkter per år</th><th className="text-right px-3">Budget</th><th className="text-right px-3">Detaljprognos</th><th className="text-right pl-3">Skillnad (detaljer − budget)</th></tr></thead>
             <tbody>
               {[
-                { label: "Budget för Partners", note: "Premium år, Premium månad och fasta finders fee-avgifter.", ...groups.partner },
-                { label: "Budget för ISVs", note: "ISV Presence, extra appar och fasta introduktionsavgifter.", ...groups.isv },
+                { label: "Budget för Partners", note: "Summa prenumerationer och fasta Finders fee-avgifter.", ...groups.partner },
+                { label: "Partners: prenumerationsintäkter", note: "Premium år och Premium månad, omräknat till årsbelopp.", ...groups.partner.subscription },
+                { label: "Partners: Finders fee-intäkter", note: "Basic-möten och avtalsersättningar för Basic och Premium, utan success fee.", ...groups.partner.finders },
+                { label: "Budget för ISVs", note: "Summa prenumerationer och fasta Finders fee-avgifter.", ...groups.isv },
+                { label: "ISVs: prenumerationsintäkter", note: "Solution Presence inklusive en app samt extra appar.", ...groups.isv.subscription },
+                { label: "ISVs: Finders fee-intäkter", note: "Fasta introduktionsavgifter för BC/CRM och F&SCM, utan success fee.", ...groups.isv.finders },
                 { label: "Övriga intäkter", note: "Dina egna intäktsrader, omräknade till årsbelopp.", estimate: t.other, detail: t.other },
                 { label: "Totala intäkter", note: "Partnerbudget + ISV-budget + övriga intäkter.", estimate: grossBudget, detail: detTotal + t.other },
               ].map((r) => <tr key={r.label} className="border-t"><th scope="row" className="py-3 pr-3 text-left font-medium">{r.label}<p className="mt-1 text-xs font-normal text-muted-foreground">{r.note}</p></th><td className="text-right px-3 whitespace-nowrap font-semibold">{fmt(r.estimate)} kr</td><td className="text-right px-3 whitespace-nowrap">{fmt(r.detail)} kr</td><td className="text-right pl-3 whitespace-nowrap">{r.detail > r.estimate ? "+" : ""}{fmt(r.detail - r.estimate)} kr</td></tr>)}
@@ -176,7 +180,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               <tr><th className="py-2 pr-3 w-80">Kategori</th><th className="text-right px-2">Pris/st<br />(årsbelopp)</th><th className="px-2">Uppskattning<br />antal</th><th className="text-right px-2">Uppskattad<br />årsintäkt</th><th className="text-right px-2">Detaljer<br />antal</th><th className="text-right px-2">Detaljer<br />årsintäkt</th><th className="text-right pl-2">Skillnad<br />årsintäkt</th></tr>
             </thead>
             <tbody>
-              {CATEGORIES.map((c) => {
+              {([
+                { label: "Partners: prenumerationsintäkter", group: "partner", income: "subscription", ...groups.partner.subscription },
+                { label: "Partners: Finders fee-intäkter", group: "partner", income: "finders", ...groups.partner.finders },
+                { label: "ISVs: prenumerationsintäkter", group: "isv", income: "subscription", ...groups.isv.subscription },
+                { label: "ISVs: Finders fee-intäkter", group: "isv", income: "finders", ...groups.isv.finders },
+              ] as const).map((section) => <Fragment key={section.label}>
+                <tr className="border-t bg-muted"><th colSpan={7} scope="colgroup" className="py-3 px-2 text-left font-semibold">{section.label}</th></tr>
+                {CATEGORIES.filter((c) => c.group === section.group && c.income === section.income).map((c) => {
                 const e = Number(budget.estimates?.[c.key]) || 0; const d = det[c.key];
                 const diff = d.revenue - e * c.unit;
                 return (
@@ -190,7 +201,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                     <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{diff > 0 ? "+" : ""}{fmt(diff)} kr</td>
                   </tr>
                 );
-              })}
+                })}
+                <tr className="border-t font-medium"><td className="py-3 pr-3">Delsumma: {section.label}</td><td /><td /><td className="text-right whitespace-nowrap">{fmt(section.estimate)} kr</td><td /><td className="text-right whitespace-nowrap">{fmt(section.detail)} kr</td><td className="text-right whitespace-nowrap">{fmt(section.detail - section.estimate)} kr</td></tr>
+              </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
                 <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates))} kr</td><td />
@@ -226,12 +239,12 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <select className={sel} value={fFinders} onChange={(e) => setFFinders(e.target.value)}>
               <option value="all">Finders fee: alla</option><option value="yes">Med finders fee-budget</option><option value="agreement">Har finders fee-avtal</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · {fmt(ft.partnerRevenue)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · Prenumerationer: {fmt(ft.subscription)} kr · Finders fee: {fmt(ft.finders)} kr · Totalt: {fmt(ft.partnerRevenue)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten BC/CE</th><th>Avtal BC/CE</th><th>Möten F&amp;SCM</th><th>Avtal F&amp;SCM</th><th>Success-underlag kr</th><th className="text-right">Intäkt</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten BC/CE</th><th>Avtal BC/CE</th><th>Möten F&amp;SCM</th><th>Avtal F&amp;SCM</th><th>Success-underlag kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finders fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -248,7 +261,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="pr-1"><Input type="number" min={0} max={100} className="h-8 w-16" value={(r.discount) || ""} placeholder="0" onChange={(e) => setRow(p.id, { discount: Math.min(100, num(e.target.value)) }, p)} /></td>
                       {n("meetingsStd")}{n("dealsStd")}{n("meetingsFscm")}{n("dealsFscm")}
                       <td className="pr-1"><Input type="number" min={0} className="h-8 w-28" value={(r.successBasis) || ""} placeholder="0" onChange={(e) => setRow(p.id, { successBasis: num(e.target.value) }, p)} /></td>
-                      <td className="text-right whitespace-nowrap">{fmt(rev.total)} kr</td>
+                      <td className="text-right px-2 whitespace-nowrap">{fmt(rev.subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(rev.finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(rev.total)} kr</td>
                     </tr>
                   );
                 })}
@@ -272,12 +285,12 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <select className={sel} value={iFilter} onChange={(e) => setIFilter(e.target.value)}>
               <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option><option value="finders">Med finders fee-budget</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · {fmt(isvShownTotal)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · Prenumerationer: {fmt(isvShownTotals.subscription)} kr · Finders fee: {fmt(isvShownTotals.finders)} kr · Totalt: {fmt(isvShownTotals.total)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right">Intäkt</th></tr>
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finders fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {isvShown.map((v) => {
@@ -291,7 +304,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="text-xs">{v.apps}</td>
                       <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> 5 990 kr</label></td>
                       {n("extraApps")}{n("discount", "w-16")}{n("introsStd")}{n("introsFscm")}{n("successBasis", "w-28")}
-                      <td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
+                      <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
                     </tr>
                   );
                 })}
@@ -358,7 +371,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           {(() => { const est = estimateRevenue(budget.estimates); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
           <div className="mt-4 rounded-md border p-4 space-y-1 text-sm">
             <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
-            <div className="flex justify-between"><span>Grov budget per kategori</span><span>{fmt(est)} kr</span></div>
+            <div className="flex justify-between"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
+            <div className="flex justify-between"><span>Finders fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
             <div className="flex justify-between"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
             <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
             <div className="flex justify-between"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>

@@ -38,9 +38,21 @@ describe("ISV budget 2027", () => {
 
 import { detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors } from "../budget2027";
 describe("category estimates", () => {
+  it("separates subscriptions and fixed finders fees for partners and ISVs while preserving totals", () => {
+    const estimates = { year1: 2, premiumDealsStd: 3, isvPresence: 1, isvExtra: 2, isvIntroFscm: 1 };
+    const details = detailByCategory([{ ...base, forecast: "year", discount: 50, dealsStd: 1, successBasis: 400000 }], [{ presence: true, extraApps: 2, discount: 0, introsStd: 1, introsFscm: 0, successBasis: 100000 }]);
+    const summary = categoryGroupSummary(estimates, details);
+    expect(summary.partner.subscription).toEqual({ estimate: 19900, detail: 4975 });
+    expect(summary.partner.finders).toEqual({ estimate: 15000, detail: 5000 });
+    expect(summary.isv.subscription).toEqual({ estimate: 7980, detail: 7980 });
+    expect(summary.isv.finders).toEqual({ estimate: 7500, detail: 3500 });
+    expect(summary.partner.estimate + summary.isv.estimate).toBe(50380);
+    expect(estimateRevenue(estimates)).toBe(50380);
+  });
   it("separates partner and ISV budgets without double counting", () => {
     expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 9950 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
-      partner: { estimate: 19900, detail: 9950 }, isv: { estimate: 19960, detail: 5990 },
+      partner: { estimate: 19900, detail: 9950, subscription: { estimate: 19900, detail: 9950 }, finders: { estimate: 0, detail: 0 } },
+      isv: { estimate: 19960, detail: 5990, subscription: { estimate: 19960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
     });
   });
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
