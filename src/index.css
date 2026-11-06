@@ -570,6 +570,7 @@ All colors MUST be HSL.
 }
 .partner-opening-name { font-size: 3.5rem; }
 @media (min-width: 1024px) {
+  .partner-profile-premium { display: flow-root; }
   .partner-profile-premium .partner-opening {
     margin-top: calc(var(--profile-nav-height, 104px) - 4rem);
     min-height: calc(100svh - var(--profile-nav-height, 104px));
