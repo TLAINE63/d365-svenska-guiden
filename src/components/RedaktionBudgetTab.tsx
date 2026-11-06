@@ -131,24 +131,45 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <section className="space-y-3" aria-labelledby="budget-summary-title">
         <h3 id="budget-summary-title" className="text-lg font-semibold">Summering av budget 2027</h3>
-        <p className="text-sm text-muted-foreground">Budgetkolumnen visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Success fee ingår inte i jämförelsen eller resultatet.</p>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[640px] text-sm">
-            <thead className="text-left text-xs text-muted-foreground"><tr><th className="py-3 pr-3">Intäkter per år</th><th className="text-right px-3">Budget</th><th className="text-right px-3">Detaljprognos</th><th className="text-right pl-3">Skillnad (detaljer − budget)</th></tr></thead>
-            <tbody>
-              {[
-                { label: "Budget för Partners", note: "Summa prenumerationer och fasta Finders fee-avgifter.", ...groups.partner },
-                { label: "Partners: prenumerationsintäkter", note: "Premium år och Premium månad, omräknat till årsbelopp.", ...groups.partner.subscription },
-                { label: "Partners: Finders fee-intäkter", note: "Basic-möten och avtalsersättningar för Basic och Premium, utan success fee.", ...groups.partner.finders },
-                { label: "Budget för ISVs", note: "Summa prenumerationer och fasta Finders fee-avgifter.", ...groups.isv },
-                { label: "ISVs: prenumerationsintäkter", note: "Solution Presence inklusive en app samt extra appar.", ...groups.isv.subscription },
-                { label: "ISVs: Finders fee-intäkter", note: "Fasta introduktionsavgifter för BC/CRM och F&SCM, utan success fee.", ...groups.isv.finders },
-                { label: "Övriga intäkter", note: "Dina egna intäktsrader, omräknade till årsbelopp.", estimate: t.other, detail: t.other },
-                { label: "Totala intäkter", note: "Partnerbudget + ISV-budget + övriga intäkter.", estimate: grossBudget, detail: detTotal + t.other },
-              ].map((r) => <tr key={r.label} className="border-t"><th scope="row" className="py-3 pr-3 text-left font-medium">{r.label}<p className="mt-1 text-xs font-normal text-muted-foreground">{r.note}</p></th><td className="text-right px-3 whitespace-nowrap font-semibold">{fmt(r.estimate)} kr</td><td className="text-right px-3 whitespace-nowrap">{fmt(r.detail)} kr</td><td className="text-right pl-3 whitespace-nowrap">{fmtDifference(r.detail, r.estimate)} kr</td></tr>)}
-            </tbody>
-          </table>
-        </div>
+        <p className="text-sm text-muted-foreground">Budgeten visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Alla belopp per år, exklusive moms. Success fee ingår inte i jämförelsen eller resultatet.</p>
+        {([
+          { key: "estimate", title: "Budget", total: grossBudget },
+          { key: "detail", title: "Detaljprognos", total: detTotal + t.other },
+          { key: "difference", title: "Skillnad (detaljprognos − budget)", total: detTotal + t.other - grossBudget },
+        ] as const).map((view) => {
+          const value = (r: { estimate: number; detail: number }) => view.key === "difference" ? fmtDifference(r.detail, r.estimate) : fmt(r[view.key]);
+          const rows = [
+            { label: "Partners", subscription: groups.partner.subscription, finders: groups.partner.finders, other: null, sum: groups.partner },
+            { label: "ISVs", subscription: groups.isv.subscription, finders: groups.isv.finders, other: null, sum: groups.isv },
+            { label: "Övriga intäkter", subscription: null, finders: null, other: { estimate: t.other, detail: t.other }, sum: { estimate: t.other, detail: t.other } },
+          ];
+          return (
+            <div key={view.key} className="overflow-x-auto">
+              <table className="w-full min-w-[680px] text-sm">
+                <caption className="py-3 text-left font-semibold text-foreground">{view.title}</caption>
+                <thead className="text-xs text-muted-foreground"><tr>
+                  <th scope="col" className="py-3 pr-3 text-left">Intäktskälla</th>
+                  <th scope="col" className="px-3 text-right">Prenumerationer</th>
+                  <th scope="col" className="px-3 text-right">Finders fee</th>
+                  <th scope="col" className="px-3 text-right">Övrigt</th>
+                  <th scope="col" className="border-l bg-muted px-3 text-right">Summa</th>
+                </tr></thead>
+                <tbody>{rows.map((row) => <tr key={row.label} className="border-t">
+                  <th scope="row" className="py-3 pr-3 text-left font-medium">{row.label}</th>
+                  {[row.subscription, row.finders, row.other].map((amount, i) => <td key={i} className="px-3 text-right whitespace-nowrap">{amount ? `${value(amount)} kr` : <span className="text-muted-foreground" aria-label="Ej tillämpligt">–</span>}</td>)}
+                  <td className="border-l bg-muted px-3 text-right whitespace-nowrap font-semibold">{value(row.sum)} kr</td>
+                </tr>)}</tbody>
+                <tfoot className="border-t-2 border-border font-semibold"><tr>
+                  <th scope="row" className="py-3 pr-3 text-left">Totala intäkter</th>
+                  <td className="px-3 text-right whitespace-nowrap">{value({ estimate: groups.partner.subscription.estimate + groups.isv.subscription.estimate, detail: groups.partner.subscription.detail + groups.isv.subscription.detail })} kr</td>
+                  <td className="px-3 text-right whitespace-nowrap">{value({ estimate: groups.partner.finders.estimate + groups.isv.finders.estimate, detail: groups.partner.finders.detail + groups.isv.finders.detail })} kr</td>
+                  <td className="px-3 text-right whitespace-nowrap">{value({ estimate: t.other, detail: t.other })} kr</td>
+                  <td className="border-l bg-muted px-3 text-right whitespace-nowrap">{view.key === "difference" ? fmtDifference(detTotal + t.other, grossBudget) : fmt(view.total)} kr</td>
+                </tr></tfoot>
+              </table>
+            </div>
+          );
+        })}
         <div className="grid gap-3 sm:grid-cols-3 border-y py-4">
           <div><p className="text-xs text-muted-foreground">Externa kostnader per år</p><p className="text-lg font-semibold">{fmt(t.externalCosts)} kr</p></div>
           <div><p className="text-xs text-muted-foreground">Egen tid, internkostnad per år</p><p className="text-lg font-semibold">{fmt(t.ownTimeCost)} kr</p></div>
