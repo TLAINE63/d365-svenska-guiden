@@ -88,7 +88,7 @@ export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[
 }
 
 // Rough top-down estimate per category, compared against the sum of partner/ISV detail rows.
-export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv"; income: "subscription" | "finders"; success?: boolean }
+export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv"; income: "subscription" | "finders"; success?: boolean; per?: string }
 /** Success fee areas: unit = 2,5 % of the assumed average project value, only when it exceeds 100 000 kr. Default values are editable assumptions. */
 export const SUCCESS_AREAS = [
   { key: "successBc", label: "Business Central", value: 400000 },
