@@ -25,12 +25,11 @@ const PartnerCompareBar = () => {
     trackFunnelEvent({ event_type: "cta_click", event_name: "shortlist_action", metadata: { action, shortlist_size: n } });
 
   const goCompare = () => {
-    if (n < 2) return;
+    if (n < 1) return;
     track("compare");
     const qs = new URLSearchParams();
-    qs.set("a", selected[0].slug);
-    qs.set("b", selected[1].slug);
-    if (selected[2]) qs.set("c", selected[2].slug);
+    const slots = ["a", "b", "c"] as const;
+    selected.slice(0, 3).forEach((partner, index) => qs.set(slots[index], partner.slug));
     if (filterContext.product) qs.set("product", filterContext.product);
     if (filterContext.industry) qs.set("industry", filterContext.industry);
     if (filterContext.geography) qs.set("geography", filterContext.geography);
@@ -71,10 +70,10 @@ const PartnerCompareBar = () => {
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <p className="flex-1 min-w-[200px] text-xs text-muted-foreground sm:text-sm">
               {n === 1
-                ? "Lägg till en eller två till för att jämföra, eller kontakta partnern redan nu."
+                ? "Vill ni jämföra eller kontakta partnern?"
                 : "Vill ni att d365.se hjälper er att jämföra dem eller förmedlar kontakt?"}
             </p>
-            <Button size="sm" variant="outline" onClick={goCompare} disabled={n < 2} className="font-semibold">
+            <Button size="sm" variant="outline" onClick={goCompare} className="font-semibold">
               <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
               Jämför partnerna
             </Button>

@@ -29,7 +29,7 @@ export const HERO_NODES: {
 const NODES = HERO_NODES;
 
 const cardClass =
-  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded-lg border border-primary-foreground/30 bg-primary-foreground/[0.07] shadow-md p-3 sm:p-3.5 text-left transition-colors hover:border-[hsl(var(--accent-dark-zone)/0.7)] hover:bg-primary-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
+  "group flex h-full min-h-[44px] w-full flex-col items-start gap-2 rounded-lg border border-primary-foreground/30 bg-primary-foreground/[0.07] shadow-md p-3 sm:p-3.5 text-left transition-colors hover:border-primary-foreground/70 hover:bg-primary-foreground/20 focus-visible:bg-primary-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent-dark-zone))] lg:p-5";
 
 const CardBody = ({ n }: { n: (typeof NODES)[number] }) => (
   <>
@@ -92,9 +92,9 @@ const DecisionModel = ({ onStartNeedsAnalysis, onOpenCompetenceChoice }: Decisio
               });
               track("home_path_click", { path: n.title, to: destination, ...meta });
               trackFunnelEvent({ event_type: "journey", event_name: "homepage_journey_selected", metadata: { journey_type: n.journey, to: destination, ...meta } });
-              if (opensChoice) {
+              if (opensChoice && onOpenCompetenceChoice) {
                 e.preventDefault();
-                onOpenCompetenceChoice!();
+                onOpenCompetenceChoice();
               }
             }}
           >
