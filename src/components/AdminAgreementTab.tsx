@@ -38,11 +38,20 @@ interface Partner {
   monthly_fee?: number | null;
   cancellation_date?: string | null;
   product_filters?: any;
+  billing_interval?: string | null;
+  annual_fee?: number | null;
+  discount_percent?: number | null;
+  has_finders_fee?: boolean | null;
 }
 
 // Same pricing logic as the AdminDashboard partner form
 const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
 function computeMonthlyFee(p: Partner): number {
+  const disc = 1 - Math.min(100, Math.max(0, Number(p.discount_percent) || 0)) / 100;
+  if (p.billing_interval === "year" && Number(p.annual_fee) > 0) return (Number(p.annual_fee) / 12) * disc;
+  return computeListFee(p) * disc;
+}
+function computeListFee(p: Partner): number {
   // Manual override wins
   if (Number(p.monthly_fee) > 0) return Number(p.monthly_fee);
   const pf = p.product_filters || {};
@@ -491,7 +500,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     (sum, p) => sum + computeMonthlyFee(p),
     0
   );
-  const partnersWithoutFee = activeSigned.filter((p) => computeMonthlyFee(p) === 0);
+  const partnersWithoutFee = activeSigned.filter((p) => computeListFee(p) === 0 && !(Number(p.annual_fee) > 0));
   const partnersWithFee = activeSigned.length - partnersWithoutFee.length;
   const formatSEK = (n: number) =>
     new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n);
