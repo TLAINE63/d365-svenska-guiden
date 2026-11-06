@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, currentProducts, annual, isvRevenue, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, currentProducts, annual, isvRevenue, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
 
@@ -83,6 +83,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [partners, budget, q, fStatus, fForecast, fProduct, fFinders]);
 
+  const [showPartners, setShowPartners] = useState(false);
+  const [showIsv, setShowIsv] = useState(false);
   const [iq, setIq] = useState("");
   const [iFilter, setIFilter] = useState("all");
   const isvFor = (v: { name: string; apps: number }): IsvForecast => budget.isvs?.[v.name] ?? { presence: false, extraApps: Math.max(0, v.apps - 1), discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
@@ -108,6 +110,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const all = partners.map(rowFor);
   const t = totals(all, budget, ISV_VENDORS.map(isvFor));
   const ft = totals(filtered.map(rowFor), budget);
+  const det = detailByCategory(all, ISV_VENDORS.map(isvFor));
+  const detTotal = Object.values(det).reduce((x, d) => x + d.revenue, 0);
 
   if (loading) return <p className="text-sm text-muted-foreground">Laddar budget…</p>;
   const sel = "h-9 rounded-md border bg-background px-2 text-sm";
@@ -141,10 +145,50 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
+          <CardTitle className="text-base">Grov budget per kategori</CardTitle>
+          <CardDescription>Skriv in hur många du tror per kategori och jämför med summan av partner- och ISV-detaljerna. Detaljintäkten räknar med rabatter; success fee ingår inte i kategorierna.</CardDescription>
+        </CardHeader>
+        <CardContent className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-xs text-muted-foreground text-left">
+              <tr><th className="py-2 pr-2">Kategori</th><th className="text-right">Pris/st</th><th>Uppskattning antal</th><th className="text-right">Uppskattad intäkt</th><th className="text-right">Detaljer antal</th><th className="text-right">Detaljer intäkt</th><th className="text-right">Skillnad intäkt</th></tr>
+            </thead>
+            <tbody>
+              {CATEGORIES.map((c) => {
+                const e = Number(budget.estimates?.[c.key]) || 0; const d = det[c.key];
+                const diff = d.revenue - e * c.unit;
+                return (
+                  <tr key={c.key} className="border-t">
+                    <td className="py-1 pr-2">{c.label}</td>
+                    <td className="text-right whitespace-nowrap pr-2">{fmt(c.unit)} kr</td>
+                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={e} onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
+                    <td className="text-right whitespace-nowrap">{fmt(e * c.unit)} kr</td>
+                    <td className="text-right">{d.count}</td>
+                    <td className="text-right whitespace-nowrap">{fmt(d.revenue)} kr</td>
+                    <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{diff > 0 ? "+" : ""}{fmt(diff)} kr</td>
+                  </tr>
+                );
+              })}
+              <tr className="border-t font-semibold">
+                <td className="py-2">Summa</td><td /><td />
+                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates))} kr</td><td />
+                <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
+                <td className="text-right whitespace-nowrap">{fmt(detTotal - estimateRevenue(budget.estimates))} kr</td>
+              </tr>
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-start justify-between gap-3">
+            <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
+            <Button variant="outline" size="sm" onClick={() => setShowPartners((v) => !v)}>{showPartners ? "Dölj partnerdetaljer" : `Visa partnerdetaljer (${partners.length})`}</Button>
+          </div>
           <CardDescription>Välj vad du tror för varje partner, oavsett om de idag är Premium eller grundprofil. Finders fee: möten × mötesavgift + avtal × (avtalsersättning − mötesavgift), success fee 2,5 % av underlaget.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
+        {showPartners && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
             <Input placeholder="Sök partner" value={q} onChange={(e) => setQ(e.target.value)} className="w-48" />
             <select className={sel} value={fStatus} onChange={(e) => setFStatus(e.target.value)}>
@@ -188,15 +232,18 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </tbody>
             </table>
           </div>
-        </CardContent>
+        </CardContent>}
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">ISV-budget 2027</CardTitle>
+          <div className="flex items-start justify-between gap-3">
+            <CardTitle className="text-base">ISV-budget 2027</CardTitle>
+            <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
+          </div>
           <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Finders fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
+        {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
             <Input placeholder="Sök ISV" value={iq} onChange={(e) => setIq(e.target.value)} className="w-48" />
             <select className={sel} value={iFilter} onChange={(e) => setIFilter(e.target.value)}>
@@ -228,7 +275,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </tbody>
             </table>
           </div>
-        </CardContent>
+        </CardContent>}
       </Card>
 
       <Card>

@@ -5,8 +5,8 @@
   "url": "https://d365.se/partner-data.json",
   "license": "https://d365.se/friskrivning",
   "citation": "d365.se – Verifierade Microsoft Dynamics 365-partners i Sverige, https://d365.se/valjdynamics365partner",
-  "updated": "2026-11-05",
-  "count": 21,
+  "updated": "2026-11-06",
+  "count": 20,
   "partners": [
     {
       "name": "4PS Construction Software AB",
@@ -421,29 +421,6 @@
       "geography": [
         "Sverige",
         "Norden"
-      ],
-      "related_party": false
-    },
-    {
-      "name": "Yellow Solution AB",
-      "slug": "yellow-solution",
-      "url": "https://d365.se/partner/yellow-solution/",
-      "website": "https://yellowsolution.se/",
-      "description": "Dynamics 365 Business Central är kärnan i hur vi på Yellow hjälper framgångsrika företag att skapa konkurrenskraft och driva tillväxt. Som konsultföretag kombinerar vi lång erfarenhet med ett starkt personligt engagemang för att maximera effekten av era investeringar i affärssystemet. Vi säkerställer att Business Central inte bara stödjer er verksamhet – utan aktivt bidrar till ökad effektivitet, bättre beslut och hållbar utveckling.",
-      "products": [
-        "Business Central"
-      ],
-      "industries": [
-        "Bygg, Entreprenad & Installation",
-        "Grossist & Distribution",
-        "Tillverkningsindustri"
-      ],
-      "offices": null,
-      "company_size": null,
-      "geography": [
-        "Sverige",
-        "Norden",
-        "Europa"
       ],
       "related_party": false
     }

@@ -511,5 +511,12 @@
       "sales",
       "service"
     ]
+  },
+  {
+    "slug": "yellow-solution",
+    "name": "Yellow Solution AB",
+    "products": [
+      "bc"
+    ]
   }
 ]
