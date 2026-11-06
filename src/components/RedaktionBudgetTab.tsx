@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, currentProducts, annual, isvRevenue, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, currentProducts, mergeCosts, annual, isvRevenue, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
 
@@ -41,7 +41,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
       .then((r) => r.json())
       .then((d) => {
         if (d?.template) {
-          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, costs: p.costs?.length ? p.costs : DEFAULT_BUDGET.costs, otherRevenue: p.otherRevenue?.length ? p.otherRevenue : DEFAULT_BUDGET.otherRevenue, isvs: p.isvs ?? {} }); } catch { /* default */ }
+          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, costs: mergeCosts(p.costs), otherRevenue: p.otherRevenue?.length ? p.otherRevenue : DEFAULT_BUDGET.otherRevenue, isvs: p.isvs ?? {} }); } catch { /* default */ }
         }
       })
       .finally(() => setLoading(false));
@@ -161,7 +161,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                   <tr key={c.key} className="border-t">
                     <td className="py-1 pr-2">{c.label}</td>
                     <td className="text-right whitespace-nowrap pr-2">{fmt(c.unit)} kr</td>
-                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={e} onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
+                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
                     <td className="text-right whitespace-nowrap">{fmt(e * c.unit)} kr</td>
                     <td className="text-right">{d.count}</td>
                     <td className="text-right whitespace-nowrap">{fmt(d.revenue)} kr</td>
@@ -214,7 +214,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 {filtered.map((p) => {
                   const r = rowFor(p); const rev = forecastRevenue(r, budget);
                   const n = (k: keyof PartnerForecast) => (
-                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={r[k] as number} onChange={(e) => setRow(p.id, { [k]: num(e.target.value) } as any, p)} /></td>
+                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={(r[k] as number) || ""} placeholder="0" onChange={(e) => setRow(p.id, { [k]: num(e.target.value) } as any, p)} /></td>
                   );
                   return (
                     <tr key={p.id} className="border-t">
@@ -222,9 +222,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="text-xs">{status(p) === "premium" ? "Premium" : status(p) === "published" ? "Publicerad" : "Grund"}{p.has_finders_fee ? " · FF" : ""}</td>
                       <td className="pr-1"><select className={sel} value={r.forecast} onChange={(e) => setRow(p.id, { forecast: e.target.value as Forecast }, p)}>{Object.entries(FORECAST_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></td>
                       <td className="pr-1"><select className={sel} value={r.products} onChange={(e) => setRow(p.id, { products: Number(e.target.value) }, p)}>{[1, 2, 3].map((x) => <option key={x}>{x}</option>)}</select></td>
-                      <td className="pr-1"><Input type="number" min={0} max={100} className="h-8 w-16" value={r.discount} onChange={(e) => setRow(p.id, { discount: Math.min(100, num(e.target.value)) }, p)} /></td>
+                      <td className="pr-1"><Input type="number" min={0} max={100} className="h-8 w-16" value={(r.discount) || ""} placeholder="0" onChange={(e) => setRow(p.id, { discount: Math.min(100, num(e.target.value)) }, p)} /></td>
                       {n("meetingsStd")}{n("dealsStd")}{n("meetingsFscm")}{n("dealsFscm")}
-                      <td className="pr-1"><Input type="number" min={0} className="h-8 w-28" value={r.successBasis} onChange={(e) => setRow(p.id, { successBasis: num(e.target.value) }, p)} /></td>
+                      <td className="pr-1"><Input type="number" min={0} className="h-8 w-28" value={(r.successBasis) || ""} placeholder="0" onChange={(e) => setRow(p.id, { successBasis: num(e.target.value) }, p)} /></td>
                       <td className="text-right whitespace-nowrap">{fmt(rev.total)} kr</td>
                     </tr>
                   );
@@ -260,7 +260,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 {isvShown.map((v) => {
                   const r = isvFor(v);
                   const n = (k: keyof IsvForecast, w = "w-20") => (
-                    <td className="pr-1"><Input type="number" min={0} className={`h-8 ${w}`} value={r[k] as number} onChange={(e) => setIsv(v, { [k]: k === "discount" ? Math.min(100, num(e.target.value)) : num(e.target.value) } as any)} /></td>
+                    <td className="pr-1"><Input type="number" min={0} className={`h-8 ${w}`} value={(r[k] as number) || ""} placeholder="0" onChange={(e) => setIsv(v, { [k]: k === "discount" ? Math.min(100, num(e.target.value)) : num(e.target.value) } as any)} /></td>
                   );
                   return (
                     <tr key={v.name} className="border-t">
@@ -290,7 +290,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               {(budget.otherRevenue ?? []).map((l, i) => (
                 <tr key={i} className="border-t">
                   <td className="py-1 pr-2"><Input className="h-8" value={l.name} placeholder={`Egen intäkt ${i + 1}`} onChange={(e) => setLine("otherRevenue", i, { name: e.target.value })} /></td>
-                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-36" value={l.amount} onChange={(e) => setLine("otherRevenue", i, { amount: num(e.target.value) })} /></td>
+                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-36" value={(l.amount) || ""} placeholder="0" onChange={(e) => setLine("otherRevenue", i, { amount: num(e.target.value) })} /></td>
                   <td className="pr-2">{periodSel("otherRevenue", i, l.period)}</td>
                   <td className="text-right">{fmt(annual(l))} kr</td>
                 </tr>
@@ -311,8 +311,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <tbody>
               {budget.costs.map((c, i) => (
                 <tr key={i} className="border-t">
-                  <td className="py-1 pr-2">{c.custom ? <Input className="h-8" value={c.name} placeholder={`Egen kategori ${i - 4}`} onChange={(e) => setBudget((b) => ({ ...b, costs: b.costs.map((x, j) => j === i ? { ...x, name: e.target.value } : x) }))} /> : c.name}</td>
-                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-40" value={c.amount} onChange={(e) => setLine("costs", i, { amount: num(e.target.value) })} /></td>
+                  <td className="py-1 pr-2">{c.custom ? <Input className="h-8" value={c.name} placeholder={`Egen kategori ${budget.costs.slice(0, i + 1).filter((x) => x.custom).length}`} onChange={(e) => setBudget((b) => ({ ...b, costs: b.costs.map((x, j) => j === i ? { ...x, name: e.target.value } : x) }))} /> : c.name}</td>
+                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-40" value={(c.amount) || ""} placeholder="0" onChange={(e) => setLine("costs", i, { amount: num(e.target.value) })} /></td>
                   <td className="pr-2">{periodSel("costs", i, c.period)}</td>
                   <td className="text-right">{fmt(annual(c))} kr</td>
                   <td className="text-right">{fmt(annual(c) / 12)} kr</td>
@@ -323,8 +323,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <td className="py-2">Egen tid</td>
                 <td colSpan={4}>
                   <div className="flex flex-wrap items-end gap-3">
-                    <div><Label className="text-xs">Timmar per år</Label><Input type="number" min={0} className="h-8 w-28" value={budget.ownHours} onChange={(e) => setBudget((b) => ({ ...b, ownHours: num(e.target.value) }))} /></div>
-                    <div><Label className="text-xs">Internkostnad kr/tim</Label><Input type="number" min={0} className="h-8 w-28" value={budget.hourlyRate} onChange={(e) => setBudget((b) => ({ ...b, hourlyRate: num(e.target.value) }))} /></div>
+                    <div><Label className="text-xs">Timmar per år</Label><Input type="number" min={0} className="h-8 w-28" value={(budget.ownHours) || ""} placeholder="0" onChange={(e) => setBudget((b) => ({ ...b, ownHours: num(e.target.value) }))} /></div>
+                    <div><Label className="text-xs">Internkostnad kr/tim</Label><Input type="number" min={0} className="h-8 w-28" value={(budget.hourlyRate) || ""} placeholder="0" onChange={(e) => setBudget((b) => ({ ...b, hourlyRate: num(e.target.value) }))} /></div>
                     <span className="text-sm">= {fmt(t.ownTimeCost)} kr</span>
                   </div>
                 </td>
@@ -332,17 +332,18 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             </tbody>
           </table>
 
+          {(() => { const est = estimateRevenue(budget.estimates); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
           <div className="mt-4 rounded-md border p-4 space-y-1 text-sm">
-            <div className="flex justify-between"><span>Partnerintäkter</span><span>{fmt(t.partnerRevenue)} kr</span></div>
-            <div className="flex justify-between"><span>ISV-intäkter</span><span>{fmt(t.isvSubscription + t.isvFinders)} kr</span></div>
+            <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
+            <div className="flex justify-between"><span>Grov budget per kategori</span><span>{fmt(est)} kr</span></div>
             <div className="flex justify-between"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
-            <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(t.revenue)} kr</span></div>
+            <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
             <div className="flex justify-between"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
-            <div className="flex justify-between font-medium"><span>Resultat före egen tid</span><span>{fmt(t.revenue - t.externalCosts)} kr</span></div>
+            <div className="flex justify-between font-medium"><span>Resultat före egen tid</span><span>{fmt(rev - t.externalCosts)} kr</span></div>
             <div className="flex justify-between"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
-            <div className="flex justify-between text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(t.result)} kr</span></div>
-            <div className="flex justify-between text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(t.result / 12)} kr</span></div>
-          </div>
+            <div className="flex justify-between text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(res)} kr</span></div>
+            <div className="flex justify-between text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
+          </div>); })()}
         </CardContent>
       </Card>
     </div>

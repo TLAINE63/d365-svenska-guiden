@@ -37,6 +37,7 @@ export const DEFAULT_BUDGET: Budget = {
   costs: [
     { name: "Lovable", amount: 0 }, { name: "Google Ads", amount: 0 }, { name: "LinkedIn-annonsering", amount: 0 },
     { name: "Riverside", amount: 0 }, { name: "Descript", amount: 0 },
+    { name: "ChatGPT", amount: 0 }, { name: "Claude", amount: 0 }, { name: "Snitcher", amount: 0 }, { name: "TLDX", amount: 0 },
     { name: "", amount: 0, custom: true }, { name: "", amount: 0, custom: true }, { name: "", amount: 0, custom: true },
   ],
   isvs: {},
@@ -120,3 +121,11 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
   return out;
 }
 export const estimateRevenue = (est: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * c.unit, 0);
+
+/** Keeps saved cost rows and adds any fixed default rows missing from older saves, before the custom rows. */
+export function mergeCosts(saved?: CostLine[]): CostLine[] {
+  if (!saved?.length) return DEFAULT_BUDGET.costs;
+  const fixed = DEFAULT_BUDGET.costs.filter((c) => !c.custom).map((c) => saved.find((x) => !x.custom && x.name === c.name) ?? c);
+  const extra = saved.filter((x) => !x.custom && !fixed.some((f) => f.name === x.name));
+  return [...fixed, ...extra, ...saved.filter((x) => x.custom)];
+}
