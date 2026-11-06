@@ -73,6 +73,12 @@ Några råd för en starkare profil:
 • ange en namngiven kontaktperson och länka till en sida om ert erbjudande
 • titta gärna in en gång i månaden, d365.se utvecklas löpande
 
+Glöm inte heller att lägga in:
+
+• expertprofiler och roller, så att köpare som söker specialistkompetens hittar era konsulter
+• nyheter till Partnernytt, till exempel kundcase, analyser eller lanseringar
+• kommande events, webinarier och seminarier
+
 Uppdatera gärna profilen här:
 {{INVITATION_LINK}}
 
