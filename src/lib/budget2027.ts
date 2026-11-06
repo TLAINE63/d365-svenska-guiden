@@ -18,6 +18,8 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 
 // ISV Solution Presence (per year) and finders fee for accepted partner introductions.
 export const ISV_FEES = { base: 5990, extraApp: 995, introStd: 3500, introFscm: 7500, successRate: 0.025 };
+/** Provisional expert-selling fees (Thomas 2026-11-06): per sold hour, CV brokerage 40 kr, expert assignment 80 kr. */
+export const EXPERT_FEES = { cvPerHour: 40, expertPerHour: 80 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number }
 export function isvRevenue(r: IsvForecast) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
