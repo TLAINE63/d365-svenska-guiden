@@ -6,8 +6,15 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, currentProducts,
+  forecastRevenue, totals, currentProducts, annual, isvRevenue, type IsvForecast, type Period,
 } from "@/lib/budget2027";
+import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
+
+const ISV_VENDORS = (() => {
+  const m = new Map<string, number>();
+  for (const s of BC_ISV_SOLUTIONS as any[]) { const v = (s.vendor || s.name || "").trim(); if (v) m.set(v, (m.get(v) || 0) + 1); }
+  return [...m.entries()].map(([name, apps]) => ({ name, apps })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+})();
 
 interface P { id: string; name: string; is_featured?: boolean | null; agreement_signed?: boolean | null; product_filters?: any; billing_interval?: string | null; discount_percent?: number | null; has_finders_fee?: boolean | null }
 
@@ -34,7 +41,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
       .then((r) => r.json())
       .then((d) => {
         if (d?.template) {
-          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, costs: p.costs?.length ? p.costs : DEFAULT_BUDGET.costs }); } catch { /* default */ }
+          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, costs: p.costs?.length ? p.costs : DEFAULT_BUDGET.costs, otherRevenue: p.otherRevenue?.length ? p.otherRevenue : DEFAULT_BUDGET.otherRevenue, isvs: p.isvs ?? {} }); } catch { /* default */ }
         }
       })
       .finally(() => setLoading(false));
@@ -76,8 +83,30 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [partners, budget, q, fStatus, fForecast, fProduct, fFinders]);
 
+  const [iq, setIq] = useState("");
+  const [iFilter, setIFilter] = useState("all");
+  const isvFor = (v: { name: string; apps: number }): IsvForecast => budget.isvs?.[v.name] ?? { presence: false, extraApps: Math.max(0, v.apps - 1), discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
+  const setIsv = (v: { name: string; apps: number }, patch: Partial<IsvForecast>) =>
+    setBudget((b) => ({ ...b, isvs: { ...(b.isvs ?? {}), [v.name]: { ...isvFor(v), ...patch } } }));
+  const isvShown = ISV_VENDORS.filter((v) => {
+    const r = isvFor(v);
+    if (iq && !v.name.toLowerCase().includes(iq.toLowerCase())) return false;
+    if (iFilter === "presence" && !r.presence) return false;
+    if (iFilter === "none" && r.presence) return false;
+    if (iFilter === "finders" && r.introsStd + r.introsFscm + r.successBasis === 0) return false;
+    return true;
+  });
+  const isvShownTotal = isvShown.reduce((s, v) => s + isvRevenue(isvFor(v)).total, 0);
+  const setLine = (key: "costs" | "otherRevenue", i: number, patch: any) =>
+    setBudget((b) => ({ ...b, [key]: (b[key] ?? []).map((x: any, j: number) => (j === i ? { ...x, ...patch } : x)) }));
+  const periodSel = (key: "costs" | "otherRevenue", i: number, v?: Period) => (
+    <select className="h-8 rounded-md border bg-background px-2 text-sm" value={v ?? "year"} onChange={(e) => setLine(key, i, { period: e.target.value })}>
+      <option value="year">per år</option><option value="month">per månad</option>
+    </select>
+  );
+
   const all = partners.map(rowFor);
-  const t = totals(all, budget);
+  const t = totals(all, budget, ISV_VENDORS.map(isvFor));
   const ft = totals(filtered.map(rowFor), budget);
 
   if (loading) return <p className="text-sm text-muted-foreground">Laddar budget…</p>;
@@ -93,14 +122,18 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
           ["Årsprenumerationer", t.yearCount],
           ["Månadsprenumerationer", t.monthCount],
           ["Produkter totalt", t.products],
           ["Prenumerationsintäkt", `${fmt(t.subscription)} kr`],
           ["Finders fee + success fee", `${fmt(t.finders)} kr`],
+          ["ISV Presence", `${t.isvCount} st · ${fmt(t.isvSubscription)} kr`],
+          ["ISV finders fee", `${fmt(t.isvFinders)} kr`],
+          ["Övriga intäkter", `${fmt(t.other)} kr`],
           ["Total intäkt", `${fmt(t.revenue)} kr`],
+          ["Intäkt per månad", `${fmt(t.revenue / 12)} kr`],
         ].map(([l, v]) => (
           <Card key={l as string}><CardContent className="pt-4"><p className="text-xs text-muted-foreground">{l}</p><p className="text-lg font-semibold">{v}</p></CardContent></Card>
         ))}
@@ -126,7 +159,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <select className={sel} value={fFinders} onChange={(e) => setFFinders(e.target.value)}>
               <option value="all">Finders fee: alla</option><option value="yes">Med finders fee-budget</option><option value="agreement">Har finders fee-avtal</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · {fmt(ft.revenue)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · {fmt(ft.partnerRevenue)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -160,24 +193,88 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Kostnadsbudget 2027</CardTitle>
-          <CardDescription>Årsbelopp per kostnadskategori. Namnen på de tre sista raderna går att ändra.</CardDescription>
+          <CardTitle className="text-base">ISV-budget 2027</CardTitle>
+          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Finders fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex flex-wrap gap-2">
+            <Input placeholder="Sök ISV" value={iq} onChange={(e) => setIq(e.target.value)} className="w-48" />
+            <select className={sel} value={iFilter} onChange={(e) => setIFilter(e.target.value)}>
+              <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option><option value="finders">Med finders fee-budget</option>
+            </select>
+            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · {fmt(isvShownTotal)} kr i urvalet</span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="text-xs text-muted-foreground text-left">
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right">Intäkt</th></tr>
+              </thead>
+              <tbody>
+                {isvShown.map((v) => {
+                  const r = isvFor(v);
+                  const n = (k: keyof IsvForecast, w = "w-20") => (
+                    <td className="pr-1"><Input type="number" min={0} className={`h-8 ${w}`} value={r[k] as number} onChange={(e) => setIsv(v, { [k]: k === "discount" ? Math.min(100, num(e.target.value)) : num(e.target.value) } as any)} /></td>
+                  );
+                  return (
+                    <tr key={v.name} className="border-t">
+                      <td className="py-1 pr-2 font-medium">{v.name}</td>
+                      <td className="text-xs">{v.apps}</td>
+                      <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> 5 990 kr</label></td>
+                      {n("extraApps")}{n("discount", "w-16")}{n("introsStd")}{n("introsFscm")}{n("successBasis", "w-28")}
+                      <td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Övriga intäkter</CardTitle>
+          <CardDescription>Egna intäktsrader, per år eller per månad (månad räknas ×12).</CardDescription>
         </CardHeader>
         <CardContent>
           <table className="w-full text-sm">
-            <thead className="text-xs text-muted-foreground text-left"><tr><th className="py-2">Kategori</th><th>Årsbudget kr</th><th className="text-right">Per månad</th></tr></thead>
+            <thead className="text-xs text-muted-foreground text-left"><tr><th className="py-2">Intäkt</th><th>Belopp kr</th><th>Period</th><th className="text-right">Per år</th></tr></thead>
+            <tbody>
+              {(budget.otherRevenue ?? []).map((l, i) => (
+                <tr key={i} className="border-t">
+                  <td className="py-1 pr-2"><Input className="h-8" value={l.name} placeholder={`Egen intäkt ${i + 1}`} onChange={(e) => setLine("otherRevenue", i, { name: e.target.value })} /></td>
+                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-36" value={l.amount} onChange={(e) => setLine("otherRevenue", i, { amount: num(e.target.value) })} /></td>
+                  <td className="pr-2">{periodSel("otherRevenue", i, l.period)}</td>
+                  <td className="text-right">{fmt(annual(l))} kr</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Kostnadsbudget 2027</CardTitle>
+          <CardDescription>Belopp per år eller per månad (månad räknas ×12). Namnen på de tre sista raderna går att ändra.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <table className="w-full text-sm">
+            <thead className="text-xs text-muted-foreground text-left"><tr><th className="py-2">Kategori</th><th>Belopp kr</th><th>Period</th><th className="text-right">Per år</th><th className="text-right">Per månad</th></tr></thead>
             <tbody>
               {budget.costs.map((c, i) => (
                 <tr key={i} className="border-t">
                   <td className="py-1 pr-2">{c.custom ? <Input className="h-8" value={c.name} placeholder={`Egen kategori ${i - 4}`} onChange={(e) => setBudget((b) => ({ ...b, costs: b.costs.map((x, j) => j === i ? { ...x, name: e.target.value } : x) }))} /> : c.name}</td>
-                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-40" value={c.amount} onChange={(e) => setBudget((b) => ({ ...b, costs: b.costs.map((x, j) => j === i ? { ...x, amount: num(e.target.value) } : x) }))} /></td>
-                  <td className="text-right">{fmt(c.amount / 12)} kr</td>
+                  <td className="pr-2"><Input type="number" min={0} className="h-8 w-40" value={c.amount} onChange={(e) => setLine("costs", i, { amount: num(e.target.value) })} /></td>
+                  <td className="pr-2">{periodSel("costs", i, c.period)}</td>
+                  <td className="text-right">{fmt(annual(c))} kr</td>
+                  <td className="text-right">{fmt(annual(c) / 12)} kr</td>
                 </tr>
               ))}
-              <tr className="border-t font-medium"><td className="py-2">Summa externa kostnader</td><td>{fmt(t.externalCosts)} kr</td><td className="text-right">{fmt(t.externalCosts / 12)} kr</td></tr>
+              <tr className="border-t font-medium"><td className="py-2">Summa externa kostnader</td><td colSpan={2}></td><td className="text-right">{fmt(t.externalCosts)} kr</td><td className="text-right">{fmt(t.externalCosts / 12)} kr</td></tr>
               <tr className="border-t">
                 <td className="py-2">Egen tid</td>
-                <td colSpan={2}>
+                <td colSpan={4}>
                   <div className="flex flex-wrap items-end gap-3">
                     <div><Label className="text-xs">Timmar per år</Label><Input type="number" min={0} className="h-8 w-28" value={budget.ownHours} onChange={(e) => setBudget((b) => ({ ...b, ownHours: num(e.target.value) }))} /></div>
                     <div><Label className="text-xs">Internkostnad kr/tim</Label><Input type="number" min={0} className="h-8 w-28" value={budget.hourlyRate} onChange={(e) => setBudget((b) => ({ ...b, hourlyRate: num(e.target.value) }))} /></div>
@@ -189,11 +286,15 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           </table>
 
           <div className="mt-4 rounded-md border p-4 space-y-1 text-sm">
-            <div className="flex justify-between"><span>Intäkter</span><span>{fmt(t.revenue)} kr</span></div>
+            <div className="flex justify-between"><span>Partnerintäkter</span><span>{fmt(t.partnerRevenue)} kr</span></div>
+            <div className="flex justify-between"><span>ISV-intäkter</span><span>{fmt(t.isvSubscription + t.isvFinders)} kr</span></div>
+            <div className="flex justify-between"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
+            <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(t.revenue)} kr</span></div>
             <div className="flex justify-between"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
             <div className="flex justify-between font-medium"><span>Resultat före egen tid</span><span>{fmt(t.revenue - t.externalCosts)} kr</span></div>
             <div className="flex justify-between"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
             <div className="flex justify-between text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(t.result)} kr</span></div>
+            <div className="flex justify-between text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(t.result / 12)} kr</span></div>
           </div>
         </CardContent>
       </Card>

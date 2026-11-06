@@ -21,3 +21,17 @@ describe("budget 2027", () => {
     expect(forecastRevenue({ ...base, successBasis: 400000 }).finders).toBe(10000);
   });
 });
+
+import { isvRevenue, annual } from "../budget2027";
+describe("ISV budget 2027", () => {
+  const z = { presence: false, extraApps: 0, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
+  it("presence with two extra apps is 5 990 + 2 × 995 kr", () => {
+    expect(isvRevenue({ ...z, presence: true, extraApps: 2 }).subscription).toBe(7980);
+  });
+  it("accepted introductions BC/CRM 3 500, F&SCM 7 500 plus 2.5 %", () => {
+    expect(isvRevenue({ ...z, introsStd: 1, introsFscm: 1, successBasis: 100000 }).finders).toBe(13500);
+  });
+  it("monthly amount counts twelve times per year", () => {
+    expect(annual({ amount: 1000, period: "month" })).toBe(12000);
+  });
+});
