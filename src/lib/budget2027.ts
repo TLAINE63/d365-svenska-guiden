@@ -30,6 +30,8 @@ export interface Budget {
   partners: Record<string, PartnerForecast>; isvs?: Record<string, IsvForecast>; otherRevenue?: RevenueLine[];
   costs: CostLine[]; ownHours: number; hourlyRate: number;
   estimates?: Record<string, number>;
+  /** Assumed average project value (kr) per success fee area. */
+  successValues?: Record<string, number>;
 }
 
 export const DEFAULT_BUDGET: Budget = {
@@ -84,7 +86,18 @@ export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[
 }
 
 // Rough top-down estimate per category, compared against the sum of partner/ISV detail rows.
-export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv"; income: "subscription" | "finders" }
+export interface Category { key: string; label: string; description: string; unit: number; group: "partner" | "isv"; income: "subscription" | "finders"; success?: boolean }
+/** Success fee areas: unit = 2,5 % of the assumed average project value, only when it exceeds 100 000 kr. Default values are editable assumptions. */
+export const SUCCESS_AREAS = [
+  { key: "successBc", label: "Business Central", value: 400000 },
+  { key: "successCrm", label: "CRM (Customer Engagement)", value: 400000 },
+  { key: "successFscm", label: "Finance & Supply Chain Management", value: 3000000 },
+  { key: "successPp", label: "Power Platform och AI", value: 200000 },
+  { key: "successExpert", label: "CV- och expertuppdrag", value: 300000 },
+];
+export const successUnit = (value: number) => (value > 100000 ? Math.round(value * FEES.successRate) : 0);
+export const successValue = (key: string, values: Record<string, number> = {}) => Number(values[key]) || SUCCESS_AREAS.find((a) => a.key === key)?.value || 0;
+export const unitFor = (c: Category, values: Record<string, number> = {}) => (c.success ? successUnit(successValue(c.key, values)) : c.unit);
 export const CATEGORIES: Category[] = [
   ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, motsvarande 10 månadsavgifter.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
   ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const, income: "subscription" as const })),
@@ -98,6 +111,7 @@ export const CATEGORIES: Category[] = [
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
   { key: "isvIntroFscm", label: "ISV-introduktioner F&SCM", description: "Antal accepterade partnerintroduktioner för Finance & Supply Chain Management med tecknat avtal. Fast ersättning 7 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
+  ...SUCCESS_AREAS.map((a) => ({ key: a.key, label: `Success fee: ${a.label}`, description: `Antal avslutade affärer där success fee 2,5 % tas ut. Ange ett antaget snittbelopp per affär; avgiften räknas bara när beloppet överstiger 100 000 kr.`, unit: 0, group: "partner" as const, income: "finders" as const, success: true })),
 ];
 
 /** Count and revenue (after discounts) per category from the detail rows. Success fees are not categories. */
@@ -128,11 +142,11 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
   }
   return out;
 }
-export const estimateRevenue = (est: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * c.unit, 0);
+export const estimateRevenue = (est: Record<string, number> = {}, values: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * unitFor(c, values), 0);
 
-export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}) {
+export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}, values: Record<string, number> = {}) {
   const sum = (name: Category["group"], income?: Category["income"]) => CATEGORIES.filter((c) => c.group === name && (!income || c.income === income)).reduce((s, c) => ({
-    estimate: s.estimate + (Number(est[c.key]) || 0) * c.unit,
+    estimate: s.estimate + (Number(est[c.key]) || 0) * unitFor(c, values),
     detail: s.detail + (details[c.key]?.revenue ?? 0),
   }), { estimate: 0, detail: 0 });
   const group = (name: Category["group"]) => ({ ...sum(name), subscription: sum(name, "subscription"), finders: sum(name, "finders") });
