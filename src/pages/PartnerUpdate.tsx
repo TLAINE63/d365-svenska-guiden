@@ -19,6 +19,7 @@ import { PartnerNewsSubmissionSection } from "@/components/partner-update/Partne
 import { PartnerCompetenceProfilesSection } from "@/components/partner-update/PartnerCompetenceProfilesSection";
 import { StructuredProfileSection } from "@/components/partner-update/StructuredProfileSection";
 import { PartnerReviewSection } from "@/components/partner-update/PartnerReviewSection";
+import { ProfileGuideIntro, SectionTip } from "@/components/partner-update/ProfileGuidance";
 import { EMPTY_STRUCTURED_PROFILE, normalizeStructuredProfile, type StructuredProfile } from "@/data/structuredPartnerProfile";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1271,6 +1272,7 @@ const PartnerUpdate = () => {
         {/* View statistics for this partner – temporarily hidden from partners */}
 
   <form onSubmit={handleSubmit} className="space-y-8">
+  <ProfileGuideIntro />
   <Card className="border-primary/20 bg-primary/5">
     <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
       <div>
@@ -1653,9 +1655,14 @@ const PartnerUpdate = () => {
       <ul className="text-xs text-foreground/80 space-y-0.5 pl-1">
         <li>✔ 3 tydliga branscher per produkt</li>
         <li>✔ 3–4 punkter i "Varför välja er"</li>
-        <li>✔ Minst 2 kundcase med kända namn</li>
+        <li>✔ Minst 2 kundcase (bara uppgifter ni får publicera)</li>
       </ul>
     </div>
+
+    <SectionTip>
+      Beskriv inte vad produkten gör, det vet kunden redan. Beskriv hur ni levererar den: ert angreppssätt,
+      vilka tillägg ni brukar använda och varför en kund ska välja er.
+    </SectionTip>
 
     <div className="flex flex-wrap gap-2">
  {productSections.map((section) => (
@@ -2421,6 +2428,10 @@ const PartnerUpdate = () => {
     onOpenChange={() => toggleSection("ai")}
 
  >
+   <SectionTip>
+     Skilj på att själva använda AI och att införa det hos kunder. Beskriv det ni faktiskt levererar, till
+     exempel Copilot Studio, egna AI-agenter eller automatiseringar med Power Platform.
+   </SectionTip>
    <ExtendedCompetencyInputSection
      levels={competencyLevels}
      value={competencyInput}
@@ -2508,6 +2519,10 @@ const PartnerUpdate = () => {
  onOpenChange={() => toggleSection("pitches")}
  badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
  >
+ <SectionTip>
+   Texten visas när köpare tittar på en bransch. Skriv två till tre meningar om vilka branschutmaningar ni
+   har löst, till exempel spårbarhet, projektredovisning eller lagerstyrning.
+ </SectionTip>
  <PartnerIndustryPitchesEditor
  industries={industriesList}
  productsPerIndustry={productsPerIndustry}
@@ -2531,6 +2546,10 @@ const PartnerUpdate = () => {
  onOpenChange={() => toggleSection("industryApps")}
  badge={industryApps.filter((a) => a.name?.trim()).length > 0 ? <Badge variant="outline">{industryApps.filter((a) => a.name?.trim()).length} appar</Badge> : undefined}
  >
+ <SectionTip>
+   Ange färdiga produkter och appar ni implementerar, till exempel för frakt, EDI, bank, skanning eller
+   e-handel. Allmänna konsulttjänster och enstaka anpassningar hör inte hit.
+ </SectionTip>
  <div className="space-y-4">
  {industryApps.map((app, index) => (
  <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
@@ -2891,6 +2910,10 @@ const PartnerUpdate = () => {
  onOpenChange={() => toggleSection("decision")}
  >
  <div className="space-y-6">
+   <SectionTip>
+     Undvik ”vi anpassar oss efter kunden”. Berätta hur ni helst arbetar, vad som händer efter driftstart
+     och vilka uppdrag ni inte passar för. Ärlighet här skapar rätt förväntningar från start.
+   </SectionTip>
    {/* Partner-nivå: teamstorlek + implementationer per applikation */}
    <div className="grid sm:grid-cols-2 gap-4">
    <div>

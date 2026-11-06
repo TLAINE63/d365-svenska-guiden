@@ -65,6 +65,14 @@ Det här är särskilt viktigt eftersom kundens köpresa sällan börjar med ett
 
 Därför är profilen på d365.se mer än en kontaktväg. Den är en del av hur du uppfattas när kunden börjar sortera marknaden.
 
+Några råd för en starkare profil:
+
+• välj upp till tre branscher per produktområde, där ni har starkast erfarenhet och vill ta fler uppdrag
+• beskriv era typiska kunder och uppdrag: nyimplementation, migrering, förvaltning, partnerbyte eller specialistinsatser
+• ge konkreta kundexempel (bara uppgifter ni får publicera)
+• ange en namngiven kontaktperson och länka till en sida om ert erbjudande
+• titta gärna in en gång i månaden, d365.se utvecklas löpande
+
 Uppdatera gärna profilen här:
 {{INVITATION_LINK}}
 
