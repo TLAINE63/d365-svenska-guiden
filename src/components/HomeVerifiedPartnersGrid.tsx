@@ -266,12 +266,12 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 )}
                 <Link
                   to={compareHref}
-                  aria-disabled={selected.length < 2}
+                  aria-disabled={selected.length < 1}
                   onClick={(e) => {
-                    if (selected.length < 2) e.preventDefault();
+                    if (selected.length < 1) e.preventDefault();
                   }}
                   className={`inline-flex items-center gap-1.5 px-4 py-2 rounded text-[13px] font-semibold transition-all ${
-                    selected.length >= 2
+                    selected.length >= 1
                       ? "bg-[hsl(var(--cta-orange))] text-white hover:brightness-110"
                       : "bg-muted text-muted-foreground cursor-not-allowed"
                   }`}
@@ -319,8 +319,8 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
             </p>
           </div>
           <div className="mt-5 flex flex-col gap-2 sm:mt-0 sm:min-w-[230px]">
-            <Button asChild={selected.length >= 2} disabled={selected.length < 2} className="font-semibold">
-              {selected.length >= 2 ? (
+            <Button asChild={selected.length >= 1} disabled={selected.length < 1} className="font-semibold">
+              {selected.length >= 1 ? (
                 <Link to={compareHref}>
                   <ArrowLeftRight className="mr-2 h-4 w-4" />
                   Jämför valda partner
@@ -335,9 +335,6 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
             <Button type="button" variant="outline" onClick={onStartNeedsAnalysis}>
               Starta behovsanalys
             </Button>
-            {selected.length === 1 && (
-              <p className="text-center text-xs text-muted-foreground">Välj minst en partner till för att jämföra.</p>
-            )}
           </div>
         </div>
       </div>

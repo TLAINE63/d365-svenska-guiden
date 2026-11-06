@@ -1,6 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Budget och partnerprogram (2026-11-06)
+- [ ] Tydligare hovring på startsidans fyra vägval och jämförelse från popup med en partner; verifiera partneröverföring och tillägg i jämförelsen.
 - [x] Prenumerationer och Finders fee uppdelade i kategorilista, partner-/ISV-detaljer och summering; resultatunderlaget oförändrat. 16 tester godkända och inloggad visning kontrollerad.
 - [x] Separat summering av partnerbudget och ISV-budget; aktuell katalog visar 15 appar för Truvio. Inloggad visning kontrollerad och 15 tester godkända; sparade prognoser bevaras.
 - [x] Förtydliga mötesavgift endast för Basic och kategori-/kolumnbeskrivningar i Budget 2027; 13 beräkningstester godkända, partnerprogram och inloggad budget granskade i webbläsaren.
