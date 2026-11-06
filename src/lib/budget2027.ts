@@ -10,8 +10,26 @@ export interface PartnerForecast {
   forecast: Forecast; products: number; discount: number;
   meetingsStd: number; dealsStd: number; meetingsFscm: number; dealsFscm: number; successBasis: number;
 }
-export interface CostLine { name: string; amount: number; custom?: boolean }
-export interface Budget { partners: Record<string, PartnerForecast>; costs: CostLine[]; ownHours: number; hourlyRate: number }
+export type Period = "year" | "month";
+/** amount is per period; month amounts count ×12 in the annual budget. */
+export interface CostLine { name: string; amount: number; custom?: boolean; period?: Period }
+export interface RevenueLine { name: string; amount: number; period?: Period }
+export const annual = (l: { amount: number; period?: Period }) => (Number(l.amount) || 0) * (l.period === "month" ? 12 : 1);
+
+// ISV Solution Presence (per year) and finders fee for accepted partner introductions.
+export const ISV_FEES = { base: 5990, extraApp: 995, introStd: 3500, introFscm: 7500, successRate: 0.025 };
+export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number }
+export function isvRevenue(r: IsvForecast) {
+  const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
+  const subscription = r.presence ? (ISV_FEES.base + Math.max(0, r.extraApps) * ISV_FEES.extraApp) * disc : 0;
+  const finders = r.introsStd * ISV_FEES.introStd + r.introsFscm * ISV_FEES.introFscm + r.successBasis * ISV_FEES.successRate;
+  return { subscription, finders, total: subscription + finders };
+}
+
+export interface Budget {
+  partners: Record<string, PartnerForecast>; isvs?: Record<string, IsvForecast>; otherRevenue?: RevenueLine[];
+  costs: CostLine[]; ownHours: number; hourlyRate: number;
+}
 
 export const DEFAULT_BUDGET: Budget = {
   partners: {},
@@ -20,6 +38,8 @@ export const DEFAULT_BUDGET: Budget = {
     { name: "Riverside", amount: 0 }, { name: "Descript", amount: 0 },
     { name: "", amount: 0, custom: true }, { name: "", amount: 0, custom: true }, { name: "", amount: 0, custom: true },
   ],
+  isvs: {},
+  otherRevenue: [{ name: "", amount: 0, period: "month" }, { name: "", amount: 0, period: "month" }, { name: "", amount: 0, period: "year" }],
   ownHours: 0,
   hourlyRate: 0,
 };
@@ -41,7 +61,7 @@ export function forecastRevenue(r: PartnerForecast, _b?: Budget) {
   return { subscription, finders, total: subscription + finders };
 }
 
-export function totals(rows: PartnerForecast[], b: Budget) {
+export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[] = []) {
   let subscription = 0, finders = 0, yearCount = 0, monthCount = 0, products = 0;
   for (const r of rows) {
     const x = forecastRevenue(r);
@@ -50,8 +70,12 @@ export function totals(rows: PartnerForecast[], b: Budget) {
     if (r.forecast === "month") monthCount++;
     if (r.forecast === "year" || r.forecast === "month") products += r.products;
   }
-  const revenue = subscription + finders;
-  const externalCosts = b.costs.reduce((s, c) => s + (Number(c.amount) || 0), 0);
+  const partnerRevenue = subscription + finders;
+  let isvSubscription = 0, isvFinders = 0, isvCount = 0;
+  for (const r of isvRows) { const x = isvRevenue(r); isvSubscription += x.subscription; isvFinders += x.finders; if (r.presence) isvCount++; }
+  const other = (b.otherRevenue ?? []).reduce((s, l) => s + annual(l), 0);
+  const revenue = partnerRevenue + isvSubscription + isvFinders + other;
+  const externalCosts = b.costs.reduce((s, c) => s + annual(c), 0);
   const ownTimeCost = b.ownHours * b.hourlyRate;
-  return { subscription, finders, revenue, yearCount, monthCount, products, externalCosts, ownTimeCost, result: revenue - externalCosts - ownTimeCost };
+  return { subscription, finders, partnerRevenue, isvSubscription, isvFinders, isvCount, other, revenue, yearCount, monthCount, products, externalCosts, ownTimeCost, result: revenue - externalCosts - ownTimeCost };
 }
