@@ -84,3 +84,10 @@ describe("category estimates", () => {
     expect(estimateRevenue({ meetingsStd: 1, dealsStd: 1, premiumDealsStd: 1, premiumDealsFscm: 1 })).toBe(20000);
   });
 });
+
+import { successUnit, estimateRevenue as est2 } from "../budget2027";
+describe("success fee areas", () => {
+  it("2,5 % of 400 000 kr = 10 000 kr per BC deal", () => { expect(est2({ successBc: 2 })).toBe(20000); });
+  it("no fee at or below 100 000 kr", () => { expect(successUnit(100000)).toBe(0); });
+  it("custom F&SCM value 2 000 000 kr gives 50 000 kr", () => { expect(est2({ successFscm: 1 }, { successFscm: 2000000 })).toBe(50000); });
+});

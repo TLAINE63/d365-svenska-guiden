@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, isvRevenue, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
@@ -112,7 +112,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const ft = totals(filtered.map(rowFor), budget);
   const det = detailByCategory(all, ISV_VENDORS.map(isvFor));
   const detTotal = Object.values(det).reduce((x, d) => x + d.revenue, 0);
-  const groups = categoryGroupSummary(budget.estimates, det);
+  const groups = categoryGroupSummary(budget.estimates, det, budget.successValues);
   const grossBudget = groups.partner.estimate + groups.isv.estimate + t.other;
   const result = grossBudget - t.externalCosts - t.ownTimeCost;
 
@@ -198,7 +198,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ].map(([term, description]) => <div key={term}><dt className="font-medium text-foreground">{term}</dt><dd>{description}</dd></div>)}
             </dl>
           </details>
-          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) ingår inte här eller i det budgeterade resultatet.</p>
+          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område.</p>
           <div className="overflow-x-auto">
           <table className="w-full min-w-[1000px] text-sm">
             <thead className="text-xs text-muted-foreground text-left">
@@ -214,16 +214,23 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <tr className="border-t bg-muted"><th colSpan={7} scope="colgroup" className="py-3 px-2 text-left font-semibold">{section.label}</th></tr>
                 {CATEGORIES.filter((c) => c.group === section.group && c.income === section.income).map((c) => {
                 const e = Number(budget.estimates?.[c.key]) || 0; const d = det[c.key];
-                const diff = d.revenue - e * c.unit;
+                const unit = unitFor(c, budget.successValues);
+                const diff = d.revenue - e * unit;
                 return (
                   <tr key={c.key} className="border-t">
                     <td className="py-3 pr-3"><p className="font-medium">{c.label}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{c.description}</p></td>
-                    <td className="text-right whitespace-nowrap pr-2">{fmt(c.unit)} kr</td>
+                    <td className="text-right whitespace-nowrap pr-2">{c.success ? (
+                      <div className="flex flex-col items-end gap-1">
+                        <label className="text-xs text-muted-foreground">Snittbelopp/affär</label>
+                        <Input aria-label={`Snittbelopp per affär: ${c.label}`} type="number" min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: num(ev.target.value) } }))} />
+                        <span>= {fmt(unit)} kr</span>
+                      </div>
+                    ) : <>{fmt(c.unit)} kr</>}</td>
                     <td className="px-2"><Input aria-label={`Uppskattning antal: ${c.label}`} type="number" min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
-                    <td className="text-right whitespace-nowrap">{fmt(e * c.unit)} kr</td>
+                    <td className="text-right whitespace-nowrap">{fmt(e * unit)} kr</td>
                     <td className="text-right">{d.count}</td>
                     <td className="text-right whitespace-nowrap">{fmt(d.revenue)} kr</td>
-                    <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{fmtDifference(d.revenue, e * c.unit)} kr</td>
+                    <td className={`text-right whitespace-nowrap ${diff < 0 ? "text-destructive" : ""}`}>{fmtDifference(d.revenue, e * unit)} kr</td>
                   </tr>
                 );
                 })}
@@ -231,9 +238,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
-                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates))} kr</td><td />
+                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates, budget.successValues))} kr</td><td />
                 <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
-                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates))} kr</td>
+                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues))} kr</td>
               </tr>
             </tbody>
           </table>
@@ -393,7 +400,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             </tbody>
           </table>
 
-          {(() => { const est = estimateRevenue(budget.estimates); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
+          {(() => { const est = estimateRevenue(budget.estimates, budget.successValues); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
           <div className="mt-4 rounded-md border p-4 space-y-1 text-sm">
             <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
             <div className="flex justify-between"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
