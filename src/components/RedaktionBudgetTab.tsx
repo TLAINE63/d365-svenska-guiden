@@ -189,7 +189,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <dl className="mt-3 grid gap-3 sm:grid-cols-2 text-muted-foreground">
               {[
                 ["Kategori", "Typ av prenumeration eller affärshändelse. Beskrivningen på varje rad anger vad som ska räknas."],
-                ["Pris/st (årsbelopp)", "Årspris per prenumeration eller app, alternativt engångsavgift per möte eller avtal. Premium månad visas som månadspris × 12."],
+                ["Pris/st (årsbelopp)", "Årspris per prenumeration eller app, alternativt engångsavgift per möte eller avtal. Premium månad visas som månadspris × 12. För expertförsäljning anges priset per såld timme i stället, och antalet är då budgeterade sålda timmar."],
                 ["Uppskattning antal", "Din grova uppskattning av antal partners, appar, möten eller avtal under 2027, utan krav på namngivna partners."],
                 ["Uppskattad årsintäkt", "Din uppskattning antal × pris/st, före eventuella rabatter. Denna summa används i resultatet tillsammans med övriga intäkter."],
                 ["Detaljer antal", "Antal från prognoserna i partner- och ISV-listorna, inklusive förifyllda partnerprognoser. Alla räknas, även när detaljlistorna är dolda eller filtrerade."],
@@ -198,7 +198,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ].map(([term, description]) => <div key={term}><dt className="font-medium text-foreground">{term}</dt><dd>{description}</dd></div>)}
             </dl>
           </details>
-          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område.</p>
+          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område. Expertförsäljning budgeteras i sålda timmar, 40 kr per timme vid CV-förmedling och 80 kr per timme vid expertuppdrag, och saknar detaljunderlag i partnerlistorna.</p>
           <div className="overflow-x-auto">
           <table className="w-full min-w-[1000px] text-sm">
             <thead className="text-xs text-muted-foreground text-left">
@@ -225,7 +225,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                         <Input aria-label={`Snittbelopp per affär: ${c.label}`} type="number" min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: num(ev.target.value) } }))} />
                         <span>= {fmt(unit)} kr</span>
                       </div>
-                    ) : <>{fmt(c.unit)} kr</>}</td>
+                    ) : <>{fmt(c.unit)} kr{c.per ? ` per ${c.per}` : ""}</>}</td>
                     <td className="px-2"><Input aria-label={`Uppskattning antal: ${c.label}`} type="number" min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
                     <td className="text-right whitespace-nowrap">{fmt(e * unit)} kr</td>
                     <td className="text-right">{d.count}</td>
