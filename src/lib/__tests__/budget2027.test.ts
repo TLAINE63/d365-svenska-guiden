@@ -40,7 +40,8 @@ import { detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendo
 describe("category estimates", () => {
   it("separates partner and ISV budgets without double counting", () => {
     expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 9950 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
-      partner: { estimate: 19900, detail: 9950 }, isv: { estimate: 19960, detail: 5990 },
+      partner: { estimate: 19900, detail: 9950, subscription: { estimate: 19900, detail: 9950 }, finders: { estimate: 0, detail: 0 } },
+      isv: { estimate: 19960, detail: 5990, subscription: { estimate: 19960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
     });
   });
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
