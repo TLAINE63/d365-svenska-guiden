@@ -808,6 +808,13 @@ const AdminDashboard = ({ embedded = false }: { embedded?: boolean } = {}) => {
   admin_contact_email?: string;
   agreement_signed?: boolean;
   agreement_notes?: string;
+  billing_interval?: string;
+  annual_fee?: number;
+  annual_start_date?: string;
+  discount_percent?: number;
+  has_finders_fee?: boolean;
+  finders_fee_signed_at?: string;
+  finders_fee_notes?: string;
   invoice_email?: string;
   invoice_contact?: string;
   org_number?: string;
@@ -862,6 +869,20 @@ const AdminDashboard = ({ embedded = false }: { embedded?: boolean } = {}) => {
   admin_contact_email: "",
   agreement_signed: false,
   agreement_notes: "",
+ billing_interval: "month",
+ annual_fee: undefined,
+ annual_start_date: "",
+ discount_percent: 0,
+ has_finders_fee: false,
+ finders_fee_signed_at: "",
+ finders_fee_notes: "",
+ billing_interval: "month",
+ annual_fee: undefined,
+ annual_start_date: "",
+ discount_percent: 0,
+ has_finders_fee: false,
+ finders_fee_signed_at: "",
+ finders_fee_notes: "",
   invoice_email: "",
   invoice_contact: "",
   org_number: "",
@@ -1538,6 +1559,13 @@ Thomas`,
  admin_contact_email: "",
  agreement_signed: false,
  agreement_notes: "",
+ billing_interval: "month",
+ annual_fee: undefined,
+ annual_start_date: "",
+ discount_percent: 0,
+ has_finders_fee: false,
+ finders_fee_signed_at: "",
+ finders_fee_notes: "",
  invoice_email: "",
  invoice_contact: "",
   org_number: "",
@@ -1635,6 +1663,13 @@ Thomas`,
  admin_contact_email: (partner as any).admin_contact_email || "",
  agreement_signed: (partner as any).agreement_signed || false,
  agreement_notes: (partner as any).agreement_notes || "",
+ billing_interval: (partner as any).billing_interval || "month",
+ annual_fee: (partner as any).annual_fee || undefined,
+ annual_start_date: (partner as any).annual_start_date || "",
+ discount_percent: Number((partner as any).discount_percent) || 0,
+ has_finders_fee: !!(partner as any).has_finders_fee,
+ finders_fee_signed_at: (partner as any).finders_fee_signed_at || "",
+ finders_fee_notes: (partner as any).finders_fee_notes || "",
  invoice_email: (partner as any).invoice_email || "",
  invoice_contact: (partner as any).invoice_contact || "",
  org_number: (partner as any).org_number || "",
@@ -3280,6 +3315,15 @@ Thomas`,
                     )}
                   </Badge>
                 )}
+              {(partner as any).billing_interval === "year" && (
+                <Badge variant="outline" className="text-xs">Årsavgift{(partner as any).annual_start_date ? ` från ${(partner as any).annual_start_date}` : ""}</Badge>
+              )}
+              {Number((partner as any).discount_percent) > 0 && (
+                <Badge variant="outline" className="text-xs">{Number((partner as any).discount_percent)} % rabatt</Badge>
+              )}
+              {(partner as any).has_finders_fee && (
+                <Badge variant="outline" className="text-xs">Finders fee</Badge>
+              )}
               {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
  <p className="text-sm text-muted-foreground line-clamp-1">
@@ -4418,6 +4462,66 @@ Thomas`,
  </div>
 
 
+
+ <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+ <p className="text-sm font-medium">Prenumeration och rabatt</p>
+ <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+ <div>
+ <Label className="text-xs">Betalningsintervall</Label>
+ <select className="mt-1 w-full h-9 rounded-md border bg-background px-2 text-sm" value={partnerFormData.billing_interval || "month"} onChange={(e) => setPartnerFormData({ ...partnerFormData, billing_interval: e.target.value })}>
+ <option value="month">Månadsavgift</option>
+ <option value="year">Årsavgift</option>
+ </select>
+ </div>
+ {partnerFormData.billing_interval === "year" && (
+ <>
+ <div>
+ <Label className="text-xs">Årsavgift (kr, exkl. moms)</Label>
+ <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="9950 / 15950 / 19950" />
+ </div>
+ <div>
+ <Label className="text-xs">Årsperiodens startdatum</Label>
+ <SwedishDatePicker id="annual_start_date" value={partnerFormData.annual_start_date} onChange={(val) => setPartnerFormData({ ...partnerFormData, annual_start_date: val })} placeholder="Välj datum" />
+ {partnerFormData.annual_start_date && (() => { const d = new Date(partnerFormData.annual_start_date); d.setFullYear(d.getFullYear() + 1); d.setDate(d.getDate() - 1); return <p className="text-xs text-muted-foreground mt-1">Perioden löper t.o.m. {formatDateYYYYMMDD(d)}</p>; })()}
+ </div>
+ </>
+ )}
+ <div>
+ <Label className="text-xs">Rabatt (%)</Label>
+ <Input type="number" min={0} max={100} className="mt-1" value={partnerFormData.discount_percent ?? 0} onChange={(e) => setPartnerFormData({ ...partnerFormData, discount_percent: Math.min(100, Math.max(0, Number(e.target.value) || 0)) })} />
+ </div>
+ </div>
+ </div>
+
+ <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+ <div className="flex items-center gap-2">
+ <Checkbox id="has_finders_fee" checked={!!partnerFormData.has_finders_fee} onCheckedChange={(c) => setPartnerFormData({ ...partnerFormData, has_finders_fee: !!c })} />
+ <Label htmlFor="has_finders_fee" className="font-medium cursor-pointer">Avtal om finders fee (förmedlingsavtal) tecknat</Label>
+ </div>
+ {partnerFormData.has_finders_fee && (
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+ <div>
+ <Label className="text-xs">Avtalsdatum</Label>
+ <SwedishDatePicker id="finders_fee_signed_at" value={partnerFormData.finders_fee_signed_at} onChange={(val) => setPartnerFormData({ ...partnerFormData, finders_fee_signed_at: val })} placeholder="Välj datum" />
+ </div>
+ <div>
+ <Label className="text-xs">Kommentar</Label>
+ <Input className="mt-1" value={partnerFormData.finders_fee_notes || ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, finders_fee_notes: e.target.value })} placeholder="Särskilda villkor..." />
+ </div>
+ </div>
+ )}
+ <details className="text-xs text-muted-foreground">
+ <summary className="cursor-pointer">Villkor för ersättning</summary>
+ <table className="mt-2 w-full text-left">
+ <thead><tr><th className="py-1">Affärstyp</th><th>Genomfört möte</th><th>Tecknat avtal</th></tr></thead>
+ <tbody>
+ <tr><td className="py-1 pr-2">Business Central, Customer Engagement, Power Platform och andra lösningar</td><td>2 500 kr</td><td>5 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Finance &amp; Supply Chain Management</td><td>5 000 kr</td><td>10 000 kr</td></tr>
+ </tbody>
+ </table>
+ <p className="mt-2">Mötesavgiften avräknas från avtalsersättningen. Alla belopp exkl. moms. För affärer där partnerns konsult- och projektintäkter överstiger 100 000 kr utgår även success fee på 2,5 % av intäkterna från första kronan under de första nio månaderna från projektstart. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Fullständiga villkor i partner- och förmedlingsavtalet.</p>
+ </details>
+ </div>
   <div>
   <Label htmlFor="admin_notes">Interna noteringar</Label>
   <Textarea
