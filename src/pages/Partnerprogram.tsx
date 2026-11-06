@@ -699,7 +699,7 @@ const Partnerprogram = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Affärstyp</th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3 whitespace-nowrap">Genomfört möte</th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört möte<br /><span className="text-xs font-normal">Endast Basic (grundprofil)</span></th>
                   <th scope="col" className="text-right font-semibold text-foreground px-4 py-3 whitespace-nowrap">Tecknat avtal</th>
                 </tr>
               </thead>
@@ -722,7 +722,7 @@ const Partnerprogram = () => {
             </table>
           </div>
           <div className="max-w-3xl mt-5 space-y-3 text-sm text-muted-foreground">
-            <p>Mötesavgiften avräknas från avtalsersättningen. Alla belopp anges exklusive moms.</p>
+            <p>Mötesavgiften gäller endast Basicpartners (grundprofiler). Premiumpartners betalar ingen mötesavgift. För Basic avräknas den betalda mötesavgiften från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat avtal. Alla belopp anges exklusive moms.</p>
             <p>
               För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även
               en success fee på 2,5 procent av intäkterna från den första kronan under de första nio
