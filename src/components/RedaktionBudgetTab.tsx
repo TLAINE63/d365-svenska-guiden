@@ -146,12 +146,28 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Grov budget per kategori</CardTitle>
-          <CardDescription>Skriv in hur många du tror per kategori och jämför med summan av partner- och ISV-detaljerna. Detaljintäkten räknar med rabatter; success fee ingår inte i kategorierna.</CardDescription>
+          <CardDescription>Årsbudget för 2027, exklusive moms. Din uppskattning ligger till grund för resultatet; partner- och ISV-detaljerna är ett jämförelseunderlag, inte faktiska eller garanterade intäkter.</CardDescription>
         </CardHeader>
-        <CardContent className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <CardContent className="space-y-4">
+          <details className="text-sm">
+            <summary className="cursor-pointer font-medium">Förklaring av kolumnerna</summary>
+            <dl className="mt-3 grid gap-3 sm:grid-cols-2 text-muted-foreground">
+              {[
+                ["Kategori", "Typ av prenumeration eller affärshändelse. Beskrivningen på varje rad anger vad som ska räknas."],
+                ["Pris/st (årsbelopp)", "Årspris per prenumeration eller app, alternativt engångsavgift per möte eller avtal. Premium månad visas som månadspris × 12."],
+                ["Uppskattning antal", "Din grova uppskattning av antal partners, appar, möten eller avtal under 2027, utan krav på namngivna partners."],
+                ["Uppskattad årsintäkt", "Din uppskattning antal × pris/st, före eventuella rabatter. Denna summa används i resultatet tillsammans med övriga intäkter."],
+                ["Detaljer antal", "Antal från prognoserna i partner- och ISV-listorna, inklusive förifyllda partnerprognoser. Alla räknas, även när detaljlistorna är dolda eller filtrerade."],
+                ["Detaljer årsintäkt", "Summa från partner- och ISV-prognoserna, med respektive prenumerationsrabatt. Det är budgeterade, inte fakturerade intäkter."],
+                ["Skillnad årsintäkt", "Detaljer årsintäkt minus uppskattad årsintäkt. Plus betyder att detaljerna ligger högre; minus att de ligger lägre. Även rabatter kan skapa skillnader."],
+              ].map(([term, description]) => <div key={term}><dt className="font-medium text-foreground">{term}</dt><dd>{description}</dd></div>)}
+            </dl>
+          </details>
+          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) ingår inte här eller i det budgeterade resultatet.</p>
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[1000px] text-sm">
             <thead className="text-xs text-muted-foreground text-left">
-              <tr><th className="py-2 pr-2">Kategori</th><th className="text-right">Pris/st</th><th>Uppskattning antal</th><th className="text-right">Uppskattad intäkt</th><th className="text-right">Detaljer antal</th><th className="text-right">Detaljer intäkt</th><th className="text-right">Skillnad intäkt</th></tr>
+              <tr><th className="py-2 pr-3 w-80">Kategori</th><th className="text-right px-2">Pris/st<br />(årsbelopp)</th><th className="px-2">Uppskattning<br />antal</th><th className="text-right px-2">Uppskattad<br />årsintäkt</th><th className="text-right px-2">Detaljer<br />antal</th><th className="text-right px-2">Detaljer<br />årsintäkt</th><th className="text-right pl-2">Skillnad<br />årsintäkt</th></tr>
             </thead>
             <tbody>
               {CATEGORIES.map((c) => {
@@ -159,9 +175,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 const diff = d.revenue - e * c.unit;
                 return (
                   <tr key={c.key} className="border-t">
-                    <td className="py-1 pr-2">{c.label}</td>
+                    <td className="py-3 pr-3"><p className="font-medium">{c.label}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{c.description}</p></td>
                     <td className="text-right whitespace-nowrap pr-2">{fmt(c.unit)} kr</td>
-                    <td className="pr-1"><Input type="number" min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
+                    <td className="px-2"><Input aria-label={`Uppskattning antal: ${c.label}`} type="number" min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onChange={(ev) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: num(ev.target.value) } }))} /></td>
                     <td className="text-right whitespace-nowrap">{fmt(e * c.unit)} kr</td>
                     <td className="text-right">{d.count}</td>
                     <td className="text-right whitespace-nowrap">{fmt(d.revenue)} kr</td>
@@ -177,6 +193,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </tr>
             </tbody>
           </table>
+          </div>
         </CardContent>
       </Card>
 
@@ -186,7 +203,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowPartners((v) => !v)}>{showPartners ? "Dölj partnerdetaljer" : `Visa partnerdetaljer (${partners.length})`}</Button>
           </div>
-          <CardDescription>Välj vad du tror för varje partner, oavsett om de idag är Premium eller grundprofil. Finders fee: möten × mötesavgift + avtal × (avtalsersättning − mötesavgift), success fee 2,5 % av underlaget.</CardDescription>
+          <CardDescription>Prognos 2027 styr avgiften: Grundprofil (Basic) betalar mötesavgift och resterande avtalsersättning efter mötesavdrag. Premium betalar ingen mötesavgift, men hela avtalsersättningen. Mötesfält ignoreras för Premium. Success fee räknas separat på 2,5 % av underlaget när det överstiger 100 000 kr, men ingår inte i den grova budgetens resultat.</CardDescription>
         </CardHeader>
         {showPartners && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">

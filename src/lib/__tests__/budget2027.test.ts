@@ -11,10 +11,10 @@ describe("budget 2027", () => {
     expect(forecastRevenue({ ...base, forecast: "month", products: 2, discount: 100 }).subscription).toBe(0);
   });
   it("BC meeting + deal totals 5 000 kr (meeting credited)", () => {
-    expect(forecastRevenue({ ...base, meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
   });
   it("F&SCM meeting + deal totals 10 000 kr", () => {
-    expect(forecastRevenue({ ...base, meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
   });
   it("success fee 2.5 % only above 100 000 kr", () => {
     expect(forecastRevenue({ ...base, successBasis: 100000 }).finders).toBe(0);
@@ -41,7 +41,26 @@ describe("category estimates", () => {
   it("counts a yearly 2-product partner at 15 950 kr after discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
     expect(d.year2).toEqual({ count: 1, revenue: 7975 });
-    expect(d.meetingsStd.revenue).toBe(5000);
+    expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
   it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
+  it("only Basic meetings are charged at 2 500 and 5 000 kr", () => {
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(7500);
+    for (const forecast of ["month", "year"] as const) {
+      expect(forecastRevenue({ ...base, forecast, meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
+    }
+  });
+  it("Premium pays full deal fees without meeting deductions", () => {
+    for (const forecast of ["month", "year"] as const) {
+      const r = { ...base, forecast, meetingsStd: 1, meetingsFscm: 1, dealsStd: 1, dealsFscm: 1 };
+      expect(forecastRevenue(r).finders).toBe(15000);
+      const d = detailByCategory([r], []);
+      expect(d.premiumDealsStd).toEqual({ count: 1, revenue: 5000 });
+      expect(d.premiumDealsFscm).toEqual({ count: 1, revenue: 10000 });
+      expect(d.dealsStd).toEqual({ count: 0, revenue: 0 });
+    }
+  });
+  it("Basic and Premium estimates sum with their respective deal fees", () => {
+    expect(estimateRevenue({ meetingsStd: 1, dealsStd: 1, premiumDealsStd: 1, premiumDealsFscm: 1 })).toBe(20000);
+  });
 });

@@ -1,5 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Budget och partnerprogram (2026-11-06)
+- [ ] Förtydliga mötesavgift endast för Basic och kategori-/kolumnbeskrivningar i Budget 2027; kontrollera beräkningar och visning.
+
 ## Tilläggslösningar (2026-11-03)
 - [x] "Endast verifierade lösningar" förkryssat som standard i katalogen
 
