@@ -19,6 +19,14 @@ export const ProfileGuideIntro = () => (
       <strong>Snabbstart:</strong> Välj upp till tre branscher per produktområde. Välj dem där ni har
       starkast erfarenhet och vill ta fler uppdrag.
     </p>
+    <div className="mt-3 rounded-lg border border-accent/30 bg-background/60 p-3 text-sm text-foreground/90">
+      <strong>Glöm inte längre ned på sidan:</strong>
+      <ul className="mt-1 list-disc pl-5 space-y-0.5 text-muted-foreground">
+        <li><strong className="text-foreground">Expertprofiler och roller</strong>, så att köpare som söker specialistkompetens hittar era konsulter.</li>
+        <li><strong className="text-foreground">Nyheter till Partnernytt</strong>, till exempel kundcase, analyser eller lanseringar.</li>
+        <li><strong className="text-foreground">Kommande events</strong>, som webinarier, demos och frukostseminarier.</li>
+      </ul>
+    </div>
     <details className="group mt-4">
       <summary className="cursor-pointer list-none inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
         <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" aria-hidden="true" />
