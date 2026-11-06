@@ -52,3 +52,4 @@
 - Advisory conversions with Thomas send Site Intelligence `lead_submit` (lead_type consultation) only via trackConsultationLead in src/lib/siteIntelligence with three fixed form_ids (bookings link click, advisory form/mailto, ScrollCTA popup); button text and links come from organization.ts, so no channel sends PII or a second tracker.
 - Partner slug renames are listed only in src/data/partnerSlugRenames.ts, which feeds both client redirects (App.tsx) and prerendered 301s (legacy-redirects); slug columns in the database are rewritten at the same time so stats stay continuous.
 - Budget category descriptions and calculations share src/lib/budget2027.ts; keep existing estimate keys stable and split distinct fee rules into separate categories so saved budgets remain readable.
+- Budget ISV counts reuse useIsvSolutions (live catalog plus static fallback), grouped by distinct product IDs; saved per-vendor forecasts remain unchanged when catalog counts update.

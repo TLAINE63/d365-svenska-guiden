@@ -6,15 +6,9 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, currentProducts, mergeCosts, annual, isvRevenue, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, isvRevenue, type IsvForecast, type Period,
 } from "@/lib/budget2027";
-import { BC_ISV_SOLUTIONS } from "@/data/bcIsvSolutions";
-
-const ISV_VENDORS = (() => {
-  const m = new Map<string, number>();
-  for (const s of BC_ISV_SOLUTIONS as any[]) { const v = (s.vendor || s.name || "").trim(); if (v) m.set(v, (m.get(v) || 0) + 1); }
-  return [...m.entries()].map(([name, apps]) => ({ name, apps })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
-})();
+import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
 interface P { id: string; name: string; is_featured?: boolean | null; agreement_signed?: boolean | null; product_filters?: any; billing_interval?: string | null; discount_percent?: number | null; has_finders_fee?: boolean | null }
 
@@ -23,6 +17,8 @@ const FORECAST_LABEL: Record<Forecast, string> = { none: "Ingen", basic: "Grundp
 const num = (v: string) => Math.max(0, Number(v) || 0);
 
 export default function RedaktionBudgetTab({ token, partners }: { token: string | null; partners: P[] }) {
+  const solutions = useIsvSolutions();
+  const ISV_VENDORS = useMemo(() => budgetIsvVendors(solutions), [solutions]);
   const [budget, setBudget] = useState<Budget>(DEFAULT_BUDGET);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -112,6 +108,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const ft = totals(filtered.map(rowFor), budget);
   const det = detailByCategory(all, ISV_VENDORS.map(isvFor));
   const detTotal = Object.values(det).reduce((x, d) => x + d.revenue, 0);
+  const groups = categoryGroupSummary(budget.estimates, det);
+  const grossBudget = groups.partner.estimate + groups.isv.estimate + t.other;
+  const result = grossBudget - t.externalCosts - t.ownTimeCost;
 
   if (loading) return <p className="text-sm text-muted-foreground">Laddar budget…</p>;
   const sel = "h-9 rounded-md border bg-background px-2 text-sm";
@@ -126,22 +125,29 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {[
-          ["Årsprenumerationer", t.yearCount],
-          ["Månadsprenumerationer", t.monthCount],
-          ["Produkter totalt", t.products],
-          ["Prenumerationsintäkt", `${fmt(t.subscription)} kr`],
-          ["Finders fee + success fee", `${fmt(t.finders)} kr`],
-          ["ISV Presence", `${t.isvCount} st · ${fmt(t.isvSubscription)} kr`],
-          ["ISV finders fee", `${fmt(t.isvFinders)} kr`],
-          ["Övriga intäkter", `${fmt(t.other)} kr`],
-          ["Total intäkt", `${fmt(t.revenue)} kr`],
-          ["Intäkt per månad", `${fmt(t.revenue / 12)} kr`],
-        ].map(([l, v]) => (
-          <Card key={l as string}><CardContent className="pt-4"><p className="text-xs text-muted-foreground">{l}</p><p className="text-lg font-semibold">{v}</p></CardContent></Card>
-        ))}
-      </div>
+      <section className="space-y-3" aria-labelledby="budget-summary-title">
+        <h3 id="budget-summary-title" className="text-lg font-semibold">Summering av budget 2027</h3>
+        <p className="text-sm text-muted-foreground">Budgetkolumnen visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Success fee ingår inte i jämförelsen eller resultatet.</p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-sm">
+            <thead className="text-left text-xs text-muted-foreground"><tr><th className="py-3 pr-3">Intäkter per år</th><th className="text-right px-3">Budget</th><th className="text-right px-3">Detaljprognos</th><th className="text-right pl-3">Skillnad (detaljer − budget)</th></tr></thead>
+            <tbody>
+              {[
+                { label: "Budget för Partners", note: "Premium år, Premium månad och fasta finders fee-avgifter.", ...groups.partner },
+                { label: "Budget för ISVs", note: "ISV Presence, extra appar och fasta introduktionsavgifter.", ...groups.isv },
+                { label: "Övriga intäkter", note: "Dina egna intäktsrader, omräknade till årsbelopp.", estimate: t.other, detail: t.other },
+                { label: "Totala intäkter", note: "Partnerbudget + ISV-budget + övriga intäkter.", estimate: grossBudget, detail: detTotal + t.other },
+              ].map((r) => <tr key={r.label} className="border-t"><th scope="row" className="py-3 pr-3 text-left font-medium">{r.label}<p className="mt-1 text-xs font-normal text-muted-foreground">{r.note}</p></th><td className="text-right px-3 whitespace-nowrap font-semibold">{fmt(r.estimate)} kr</td><td className="text-right px-3 whitespace-nowrap">{fmt(r.detail)} kr</td><td className="text-right pl-3 whitespace-nowrap">{r.detail > r.estimate ? "+" : ""}{fmt(r.detail - r.estimate)} kr</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3 border-y py-4">
+          <div><p className="text-xs text-muted-foreground">Externa kostnader per år</p><p className="text-lg font-semibold">{fmt(t.externalCosts)} kr</p></div>
+          <div><p className="text-xs text-muted-foreground">Egen tid, internkostnad per år</p><p className="text-lg font-semibold">{fmt(t.ownTimeCost)} kr</p></div>
+          <div><p className="text-xs text-muted-foreground">Budgeterat resultat efter egen tid</p><p className="text-lg font-semibold">{fmt(result)} kr</p><p className="text-xs text-muted-foreground">{fmt(result / 12)} kr per månad</p></div>
+        </div>
+        <details className="text-sm"><summary className="cursor-pointer font-medium">Antal i partner- och ISV-detaljerna</summary><p className="mt-2 text-muted-foreground">Partners: {t.yearCount} årsprenumerationer, {t.monthCount} månadsprenumerationer och {t.products} produktområden. ISV: {t.isvCount} Presence-prenumerationer och {det.isvExtra.count} extra appar. Antalen är detaljprognoser, inte din grova budget.</p></details>
+      </section>
 
       <Card>
         <CardHeader>
@@ -258,7 +264,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Finders fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
+          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Finders fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
