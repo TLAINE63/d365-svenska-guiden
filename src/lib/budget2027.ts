@@ -29,6 +29,7 @@ export function isvRevenue(r: IsvForecast) {
 export interface Budget {
   partners: Record<string, PartnerForecast>; isvs?: Record<string, IsvForecast>; otherRevenue?: RevenueLine[];
   costs: CostLine[]; ownHours: number; hourlyRate: number;
+  estimates?: Record<string, number>;
 }
 
 export const DEFAULT_BUDGET: Budget = {
@@ -79,3 +80,43 @@ export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[
   const ownTimeCost = b.ownHours * b.hourlyRate;
   return { subscription, finders, partnerRevenue, isvSubscription, isvFinders, isvCount, other, revenue, yearCount, monthCount, products, externalCosts, ownTimeCost, result: revenue - externalCosts - ownTimeCost };
 }
+
+// Rough top-down estimate per category, compared against the sum of partner/ISV detail rows.
+export interface Category { key: string; label: string; unit: number; group: "partner" | "isv" }
+export const CATEGORIES: Category[] = [
+  ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, unit: YEAR_PRICE[p], group: "partner" as const })),
+  ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, unit: MONTH_PRICE[p] * 12, group: "partner" as const })),
+  { key: "meetingsStd", label: "Finders fee: möten BC/CE", unit: FEES.meetingStd, group: "partner" },
+  { key: "dealsStd", label: "Finders fee: avtal BC/CE", unit: FEES.dealStd - FEES.meetingStd, group: "partner" },
+  { key: "meetingsFscm", label: "Finders fee: möten F&SCM", unit: FEES.meetingFscm, group: "partner" },
+  { key: "dealsFscm", label: "Finders fee: avtal F&SCM", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner" },
+  { key: "isvPresence", label: "ISV Presence (inkl. en app)", unit: ISV_FEES.base, group: "isv" },
+  { key: "isvExtra", label: "ISV extra appar", unit: ISV_FEES.extraApp, group: "isv" },
+  { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", unit: ISV_FEES.introStd, group: "isv" },
+  { key: "isvIntroFscm", label: "ISV-introduktioner F&SCM", unit: ISV_FEES.introFscm, group: "isv" },
+];
+
+/** Count and revenue (after discounts) per category from the detail rows. Success fees are not categories. */
+export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]) {
+  const out: Record<string, { count: number; revenue: number }> = {};
+  for (const c of CATEGORIES) out[c.key] = { count: 0, revenue: 0 };
+  const add = (k: string, n: number, rev: number) => { out[k].count += n; out[k].revenue += rev; };
+  for (const r of rows) {
+    const p = Math.min(3, Math.max(1, r.products));
+    const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
+    if (r.forecast === "year") add(`year${p}`, 1, YEAR_PRICE[p] * disc);
+    if (r.forecast === "month") add(`month${p}`, 1, MONTH_PRICE[p] * 12 * disc);
+    add("meetingsStd", r.meetingsStd, r.meetingsStd * FEES.meetingStd);
+    add("dealsStd", r.dealsStd, r.dealsStd * (FEES.dealStd - FEES.meetingStd));
+    add("meetingsFscm", r.meetingsFscm, r.meetingsFscm * FEES.meetingFscm);
+    add("dealsFscm", r.dealsFscm, r.dealsFscm * (FEES.dealFscm - FEES.meetingFscm));
+  }
+  for (const r of isvRows) {
+    const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
+    if (r.presence) { add("isvPresence", 1, ISV_FEES.base * disc); add("isvExtra", r.extraApps, r.extraApps * ISV_FEES.extraApp * disc); }
+    add("isvIntroStd", r.introsStd, r.introsStd * ISV_FEES.introStd);
+    add("isvIntroFscm", r.introsFscm, r.introsFscm * ISV_FEES.introFscm);
+  }
+  return out;
+}
+export const estimateRevenue = (est: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * c.unit, 0);

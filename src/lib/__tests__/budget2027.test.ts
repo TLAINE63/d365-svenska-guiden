@@ -35,3 +35,13 @@ describe("ISV budget 2027", () => {
     expect(annual({ amount: 1000, period: "month" })).toBe(12000);
   });
 });
+
+import { detailByCategory, estimateRevenue } from "../budget2027";
+describe("category estimates", () => {
+  it("counts a yearly 2-product partner at 15 950 kr after discount", () => {
+    const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
+    expect(d.year2).toEqual({ count: 1, revenue: 7975 });
+    expect(d.meetingsStd.revenue).toBe(5000);
+  });
+  it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
+});
