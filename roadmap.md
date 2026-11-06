@@ -1,6 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Budget och partnerprogram (2026-11-06)
+- [x] Expertförsäljning lades till som egna kategorirader: CV-förmedling 40 kr och expertuppdrag 80 kr per såld timme, provisoriska nivåer som följer med resultatet.
 - [x] Tydligare hovring på startsidans fyra vägval; popup och startsidans jämförval fungerar med en partner. Två tester godkända; Columbus följde med och 4PS lades till i webbläsaren utan runtimefel.
 - [x] Prenumerationer och Finders fee uppdelade i kategorilista, partner-/ISV-detaljer och summering; resultatunderlaget oförändrat. 16 tester godkända och inloggad visning kontrollerad.
 - [x] Separat summering av partnerbudget och ISV-budget; aktuell katalog visar 15 appar för Truvio. Inloggad visning kontrollerad och 15 tester godkända; sparade prognoser bevaras.
