@@ -92,7 +92,7 @@ describe("success fee areas", () => {
   it("custom F&SCM value 2 000 000 kr gives 50 000 kr", () => { expect(est2({ successFscm: 1 }, { successFscm: 2000000 })).toBe(50000); });
 });
 
-import { EXPERT_FEES, categoryGroupSummary } from "../budget2027";
+import { EXPERT_FEES } from "../budget2027";
 describe("expert selling fees", () => {
   it("CV brokerage 40 kr and expert assignment 80 kr per sold hour", () => {
     expect(EXPERT_FEES).toEqual({ cvPerHour: 40, expertPerHour: 80 });
