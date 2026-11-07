@@ -38,8 +38,11 @@ describe("CompareStickyCTA – regression: partner routing payload", () => {
     );
     act(() => window.dispatchEvent(new Event("scroll")));
 
-    // Open dialog (desktop button)
-    fireEvent.click(await screen.findByRole("button", { name: /kontakta valda partners/i }));
+    // Both responsive controls exist in jsdom; the mobile control opens the dialog directly.
+    const contactButtons = await screen.findAllByRole("button", { name: /kontakta valda partners/i });
+    const contactButton = contactButtons[0];
+    if (!contactButton) throw new Error("Contact button missing");
+    fireEvent.click(contactButton);
 
     fireEvent.change(screen.getByLabelText(/Företag \*/i), { target: { value: "Kundbolaget AB" } });
     fireEvent.change(screen.getByLabelText(/Kontaktperson \*/i), { target: { value: "Anna Andersson" } });

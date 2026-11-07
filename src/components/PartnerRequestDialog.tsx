@@ -189,9 +189,12 @@ const PartnerRequestDialog = ({
   recipients,
 }: PartnerRequestDialogProps) => {
   const config = MODE_CONFIG[mode];
-  const multi = Array.isArray(recipients) && recipients.length > 1;
+  const targets = recipients && recipients.length > 1
+    ? recipients
+    : [{ slug: partnerSlug, name: partnerName }];
+  const multi = targets.length > 1;
   const displayName = multi
-    ? `${recipients!.length} partners`
+    ? `${targets.length} partners`
     : partnerName;
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -200,7 +203,7 @@ const PartnerRequestDialog = ({
     onSubmitting?.(submitting);
   }, [submitting, onSubmitting]);
   useEffect(() => {
-    if (open) trackContactLevel("started", "partner", { placement: `partner_request_${mode}`, partner_count: multi ? recipients!.length : 1 });
+    if (open) trackContactLevel("started", "partner", { placement: `partner_request_${mode}`, partner_count: targets.length });
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
@@ -246,9 +249,7 @@ const PartnerRequestDialog = ({
 
     setSubmitting(true);
     try {
-      const targets = multi
-        ? recipients!
-        : [{ slug: partnerSlug, name: partnerName }];
+      if (targets.length > 3) throw new Error("Välj högst tre partners per förfrågan.");
 
       const detailLines: string[] = [];
       if (mode === "quote") {
@@ -279,8 +280,7 @@ const PartnerRequestDialog = ({
 
       const submissionId = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : undefined;
       const ctx = formContextBody();
-      const sendTo = (t: (typeof targets)[number]) =>
-          supabase.functions.invoke("submit-lead", {
+      const { data, error } = await supabase.functions.invoke("submit-lead", {
             body: {
               ...ctx,
               submission_id: submissionId,
@@ -294,44 +294,26 @@ const PartnerRequestDialog = ({
               source_page: sourcePage,
               source_type: multi ? "partner_multi_quote_request" : config.sourceType,
               message: composedMessage,
-              assigned_partners: [t.slug],
+              assigned_partners: targets.map((t) => t.slug),
               _hp: form._hp,
             },
           });
-      // Första mottagaren skickas först så att hela inskickningen räknas som en händelse.
-      const [firstResult] = await Promise.allSettled(targets.slice(0, 1).map(sendTo));
-      const restResults = await Promise.allSettled(targets.slice(1).map(sendTo));
-      const results = [firstResult, ...restResults].filter(Boolean);
-
-      const failed = results.filter(
-        (r) => r.status === "rejected" || (r.status === "fulfilled" && (r.value as any)?.error)
-      );
-      if (failed.length === targets.length) {
-        const first = failed[0];
-        const errMsg = first.status === "rejected"
-          ? (first.reason as any)?.message
-          : ((first.value as any)?.error?.message);
-        throw new Error(errMsg || "Kunde inte skicka förfrågan.");
-      }
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
 
       toast({
         title: config.toastTitle,
-        description:
-          failed.length > 0
-            ? `Skickad till ${targets.length - failed.length} av ${targets.length} partners. Vi följer upp de övriga manuellt.`
-            : config.toastDescription(displayName),
+        description: config.toastDescription(displayName),
       });
       trackFormSubmitted({ slug: partnerSlug }, "verifierad", formId, selectedProduct ?? null);
-      trackFunnelStep("intro_sent", { partner_slug: partnerSlug, mode, recipients: targets.length - failed.length });
-      trackContactLevel("submitted", "partner", { placement: `partner_request_${mode}`, partner_count: targets.length - failed.length });
+      trackFunnelStep("intro_sent", { partner_slug: partnerSlug, mode, recipients: targets.length });
+      trackContactLevel("submitted", "partner", { placement: `partner_request_${mode}`, partner_count: targets.length });
       reset();
       onOpenChange(false);
       navigate(thanksPath("partnermatchning"), {
         state: {
           title: config.toastTitle,
-          description: failed.length > 0
-            ? `Skickad till ${targets.length - failed.length} av ${targets.length} partners. Vi följer upp de övriga manuellt.`
-            : config.toastDescription(displayName),
+          description: config.toastDescription(displayName),
           back: typeof window !== "undefined" ? window.location.pathname : undefined,
         },
       });
@@ -377,7 +359,7 @@ const PartnerRequestDialog = ({
           <div className="rounded-md border border-border bg-secondary/40 p-3 text-xs text-foreground">
             <p className="font-semibold mb-1">Din förfrågan skickas till:</p>
             <p className="text-muted-foreground leading-relaxed">
-              {recipients!.map((r) => r.name).join(" · ")}
+              {targets.map((r) => r.name).join(" · ")}
             </p>
           </div>
         )}
