@@ -88,11 +88,11 @@ Nu går vi vidare in i nästa fas, och när vi fortsätter att bygga trafik, inn
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 1.990 kr/månad**
+**1 produktområde: 995 kr/månad**
 
-**2 produktområden: 3.490 kr/månad**
+**2 produktområden: 1.595 kr/månad**
 
-**3 produktområden: 4.490 kr/månad**
+**3 produktområden: 1.995 kr/månad**
 
 Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
 
@@ -129,11 +129,11 @@ Vi har också sett ett tydligt intresse från marknaden. d365.se har hittills ha
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 1.990 kr/månad**
+**1 produktområde: 995 kr/månad**
 
-**2 produktområden: 3.490 kr/månad**
+**2 produktområden: 1.595 kr/månad**
 
-**3 produktområden: 4.490 kr/månad**
+**3 produktområden: 1.995 kr/månad**
 
 Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
 
@@ -174,11 +174,11 @@ För partner innebär det en möjlighet att vara synlig tidigt i kundens utvärd
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 1.990 kr/månad**
+**1 produktområde: 995 kr/månad**
 
-**2 produktområden: 3.490 kr/månad**
+**2 produktområden: 1.595 kr/månad**
 
-**3 produktområden: 4.490 kr/månad**
+**3 produktområden: 1.995 kr/månad**
 
 Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
 
