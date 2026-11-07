@@ -54,3 +54,4 @@
 - Budget category descriptions and calculations share src/lib/budget2027.ts; keep existing estimate keys stable and classify categories by partner/ISV and subscription/finders income so list subtotals and summaries agree without changing saved budgets.
 - Budget ISV counts reuse useIsvSolutions (live catalog plus static fallback), grouped by distinct product IDs; saved per-vendor forecasts remain unchanged when catalog counts update.
 - Desktop partner openings fill the viewport below the measured site navigation height, with natural growth for expanded content so nothing is clipped.
+- PartnerRequestDialog submits all selected partners in one submit-lead call, so the existing double-opt-in token releases the complete request with one buyer confirmation while partner emails stay separate.
