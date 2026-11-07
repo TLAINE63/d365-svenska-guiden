@@ -1,7 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Gemensam bekräftelse för partnerförfrågningar (2026-11-07)
-- [ ] Samla valda partners i en förfrågan och kontrollera regressionstest och formulärflöde.
+- [x] Valda partners skickas i en gemensam förfrågan; tre partners verifierade i webbläsaren med avlyssnat testanrop utan testmejl. Bekräftelsehanteraren använder hela partnerlistan.
 
 ## Budget och partnerprogram (2026-11-06)
 - [x] Expertförsäljning lades till som egna kategorirader: CV-förmedling 40 kr och expertuppdrag 80 kr per såld timme, provisoriska nivåer som följer med resultatet.
