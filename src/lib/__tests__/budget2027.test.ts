@@ -60,7 +60,7 @@ describe("category estimates", () => {
   });
   it("counts a yearly 2-product partner at 9 990 kr before discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
-    expect(d.year2).toEqual({ count: 1, revenue: 5995 });
+    expect(d.year2).toEqual({ count: 1, revenue: 4995 });
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
   it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
