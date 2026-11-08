@@ -76,12 +76,12 @@ const faqs = [
   {
     question: "Vad innebär videointervjun?",
     answer:
-      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för publicerade partners med Premium och 11 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
+      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för publicerade partners med Premium och 8 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
   },
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: ni betalar för 10 månader och får 12, det vill säga 9 950 kr per år för ett produktområde, 15 950 kr för två och 19 950 kr för tre. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 11 990 kr för två och 13 500 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
