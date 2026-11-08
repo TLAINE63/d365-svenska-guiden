@@ -32,7 +32,7 @@ const DEFAULT_CONFIG: PartnerAgreementConfig = {
       id: crypto.randomUUID(),
       title: "Avgift och produktområden",
       body:
-        "Månadsavgiften är 995 kr för 1 produktområde, 1 595 kr för 2 produktområden och 1 995 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet).\n\nFaktureras månadsvis i efterskott. Priserna anges exklusive moms.",
+        "Månadsavgiften är 995 kr för 1 produktområde, 1 295 kr för 2 produktområden och 1 495 kr för 3 produktområden (Sales och Customer Service buntas som en CRM-enhet). Vid årsvis betalning i förskott är avgiften 7 990 kr per år för 1 produktområde, 11 990 kr för 2 och 13 500 kr för 3.\n\nFaktureras månadsvis i efterskott, eller årsvis i förskott. Priserna anges exklusive moms.",
     },
     {
       id: crypto.randomUUID(),

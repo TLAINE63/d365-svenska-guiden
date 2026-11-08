@@ -53,9 +53,9 @@ Detta gäller:
 
 • 1 produktområde: 995 kr/mån
 
-• 2 produktområden: 1 595 kr/mån
+• 2 produktområden: 1 295 kr/mån
 
-• 3 produktområden: 1 995 kr/mån
+• 3 produktområden: 1 495 kr/mån
 
 Priset ligger fast under 2026
 
@@ -99,9 +99,9 @@ Detta gäller:
 
 • 1 produktområde: 995 kr/mån
 
-• 2 produktområden: 1 595 kr/mån
+• 2 produktområden: 1 295 kr/mån
 
-• 3 produktområden: 1 995 kr/mån
+• 3 produktområden: 1 495 kr/mån
 
 Priset ligger fast under 2026
 

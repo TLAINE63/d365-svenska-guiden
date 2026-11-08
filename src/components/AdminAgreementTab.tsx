@@ -45,7 +45,7 @@ interface Partner {
 }
 
 // Same pricing logic as the AdminDashboard partner form
-const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
+const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
 function computeMonthlyFee(p: Partner): number {
   const disc = 1 - Math.min(100, Math.max(0, Number(p.discount_percent) || 0)) / 100;
   if (p.billing_interval === "year" && Number(p.annual_fee) > 0) return (Number(p.annual_fee) / 12) * disc;
@@ -65,7 +65,7 @@ function computeListFee(p: Partner): number {
   if (bc) active++;
   if (fsc) active++;
   if (sales || service) active++; // Sales + Service bundle as 1
-  return PRICE_TIERS[Math.min(active, 3)] ?? 1995;
+  return PRICE_TIERS[Math.min(active, 3)] ?? 1495;
 }
 
 interface AdminAgreementTabProps {
@@ -90,11 +90,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 995 kr/månad**
 
-**2 produktområden: 1.595 kr/månad**
+**2 produktområden: 1.295 kr/månad**
 
-**3 produktområden: 1.995 kr/månad**
+**3 produktområden: 1.495 kr/månad**
 
-Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
+Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 11.990 kr för 2 och 13.500 kr för 3.
 
 Om ni vill fortsätta med er nuvarande profilering på d365.se, svara bara på detta mail med:
 
@@ -131,11 +131,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 995 kr/månad**
 
-**2 produktområden: 1.595 kr/månad**
+**2 produktområden: 1.295 kr/månad**
 
-**3 produktområden: 1.995 kr/månad**
+**3 produktområden: 1.495 kr/månad**
 
-Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
+Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 11.990 kr för 2 och 13.500 kr för 3.
 
 Fullständiga villkor finns i bifogat partneravtal.
 
@@ -176,11 +176,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 995 kr/månad**
 
-**2 produktområden: 1.595 kr/månad**
+**2 produktområden: 1.295 kr/månad**
 
-**3 produktområden: 1.995 kr/månad**
+**3 produktområden: 1.495 kr/månad**
 
-Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
+Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 11.990 kr för 2 och 13.500 kr för 3.
 
 Med en partnerverifierad profil kan ni synas inom:
 

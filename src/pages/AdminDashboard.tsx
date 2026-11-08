@@ -278,8 +278,8 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
  if (bcActive) activeProducts++;
  if (fscActive) activeProducts++;
  if (salesActive || serviceActive) activeProducts++;
- const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
- return priceTiers[Math.min(activeProducts, 3)] ?? 1995;
+ const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
+ return priceTiers[Math.min(activeProducts, 3)] ?? 1495;
 }
 
 // ==================== TAB GROUPS ====================
@@ -4432,8 +4432,8 @@ Thomas`,
  if (fscActive) activeProducts++;
  if (salesActive || serviceActive) activeProducts++;
  
- const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
- const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 1995;
+ const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
+ const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 1495;
  const crmBundleBoth = salesActive && serviceActive;
  
  return (
@@ -4443,7 +4443,7 @@ Thomas`,
  </p>
  <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
  <p>{activeProducts} produkt(er) = {totalFee.toLocaleString('sv-SE')} kr/mån</p>
- <p className="text-muted-foreground/70">1 prod: 995 kr · 2 prod: 1 595 kr · 3 prod: 1 995 kr</p>
+ <p className="text-muted-foreground/70">1 prod: 995 kr · 2 prod: 1 295 kr · 3 prod: 1 495 kr</p>
  {crmBundleBoth && (
  <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
  )}
@@ -4470,7 +4470,7 @@ Thomas`,
  <>
  <div>
  <Label className="text-xs">Årsavgift (kr, exkl. moms)</Label>
- <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="9950 / 15950 / 19950" />
+ <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="7990 / 11990 / 13500" />
  </div>
  <div>
  <Label className="text-xs">Årsperiodens startdatum</Label>

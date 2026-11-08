@@ -4,8 +4,8 @@ import { forecastRevenue, type PartnerForecast } from "../budget2027";
 const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meetingsStd: 0, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 };
 
 describe("budget 2027", () => {
-  it("annual subscription with 3 products is 19 950 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(19950);
+  it("annual subscription with 3 products is 13 500 kr", () => {
+    expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(13500);
   });
   it("100 % discount gives zero subscription", () => {
     expect(forecastRevenue({ ...base, forecast: "month", products: 2, discount: 100 }).subscription).toBe(0);
@@ -42,25 +42,25 @@ describe("category estimates", () => {
     const estimates = { year1: 2, premiumDealsStd: 3, isvPresence: 1, isvExtra: 2, isvIntroFscm: 1 };
     const details = detailByCategory([{ ...base, forecast: "year", discount: 50, dealsStd: 1, successBasis: 400000 }], [{ presence: true, extraApps: 2, discount: 0, introsStd: 1, introsFscm: 0, successBasis: 100000 }]);
     const summary = categoryGroupSummary(estimates, details);
-    expect(summary.partner.subscription).toEqual({ estimate: 19900, detail: 4975 });
+    expect(summary.partner.subscription).toEqual({ estimate: 15980, detail: 3995 });
     expect(summary.partner.finders).toEqual({ estimate: 15000, detail: 5000 });
     expect(summary.isv.subscription).toEqual({ estimate: 7980, detail: 7980 });
     expect(summary.isv.finders).toEqual({ estimate: 7500, detail: 3500 });
-    expect(summary.partner.estimate + summary.isv.estimate).toBe(50380);
-    expect(estimateRevenue(estimates)).toBe(50380);
+    expect(summary.partner.estimate + summary.isv.estimate).toBe(46460);
+    expect(estimateRevenue(estimates)).toBe(46460);
   });
   it("separates partner and ISV budgets without double counting", () => {
-    expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 9950 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
-      partner: { estimate: 19900, detail: 9950, subscription: { estimate: 19900, detail: 9950 }, finders: { estimate: 0, detail: 0 } },
+    expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 7990 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
+      partner: { estimate: 15980, detail: 7990, subscription: { estimate: 15980, detail: 7990 }, finders: { estimate: 0, detail: 0 } },
       isv: { estimate: 19960, detail: 5990, subscription: { estimate: 19960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
     });
   });
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toEqual([{ name: "Truvio", apps: 3 }]);
   });
-  it("counts a yearly 2-product partner at 15 950 kr after discount", () => {
+  it("counts a yearly 2-product partner at 11 990 kr before discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
-    expect(d.year2).toEqual({ count: 1, revenue: 7975 });
+    expect(d.year2).toEqual({ count: 1, revenue: 5995 });
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
   it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
