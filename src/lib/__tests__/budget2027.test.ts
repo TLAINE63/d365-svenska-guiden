@@ -4,8 +4,8 @@ import { forecastRevenue, type PartnerForecast } from "../budget2027";
 const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meetingsStd: 0, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 };
 
 describe("budget 2027", () => {
-  it("annual subscription with 3 products is 13 500 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(13500);
+  it("annual subscription with 3 products is 11 990 kr", () => {
+    expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(11990);
   });
   it("100 % discount gives zero subscription", () => {
     expect(forecastRevenue({ ...base, forecast: "month", products: 2, discount: 100 }).subscription).toBe(0);
@@ -58,7 +58,7 @@ describe("category estimates", () => {
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toEqual([{ name: "Truvio", apps: 3 }]);
   });
-  it("counts a yearly 2-product partner at 11 990 kr before discount", () => {
+  it("counts a yearly 2-product partner at 9 990 kr before discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
     expect(d.year2).toEqual({ count: 1, revenue: 5995 });
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });

@@ -81,7 +81,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 11 990 kr för två och 13 500 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
@@ -640,8 +640,8 @@ const Partnerprogram = () => {
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
               <ul className="text-sm text-foreground space-y-1 mb-4">
                 <li>1 produktområde: <strong>7&nbsp;990&nbsp;kr</strong></li>
-                <li>2 produktområden: <strong>11&nbsp;990&nbsp;kr</strong></li>
-                <li>3 produktområden: <strong>13&nbsp;500&nbsp;kr</strong></li>
+                <li>2 produktområden: <strong>9&nbsp;990&nbsp;kr</strong></li>
+                <li>3 produktområden: <strong>11&nbsp;990&nbsp;kr</strong></li>
               </ul>
               <p className="text-xs text-muted-foreground leading-relaxed mt-auto">
                 Avgiften faktureras årsvis i förskott

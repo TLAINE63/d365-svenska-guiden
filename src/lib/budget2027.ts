@@ -3,7 +3,7 @@ export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
 
 export const MONTH_PRICE: Record<number, number> = { 1: 995, 2: 1295, 3: 1495 };
-export const YEAR_PRICE: Record<number, number> = { 1: 7990, 2: 11990, 3: 13500 };
+export const YEAR_PRICE: Record<number, number> = { 1: 7990, 2: 9990, 3: 11990 };
 export const FEES = { meetingStd: 2500, dealStd: 5000, meetingFscm: 5000, dealFscm: 10000, successRate: 0.025 };
 
 export interface PartnerForecast {
