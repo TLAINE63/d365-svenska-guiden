@@ -129,6 +129,21 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
       </div>
 
+      {(() => { const est = estimateRevenue(budget.estimates, budget.successValues); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
+      <div className="rounded-md border bg-card p-4 space-y-1 text-sm">
+        <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
+        <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
+        <div className="flex justify-between"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
+        <div className="flex justify-between"><span>Finders fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
+        <div className="flex justify-between"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
+        <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
+        <div className="flex justify-between"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
+        <div className="flex justify-between font-medium"><span>Resultat före egen tid</span><span>{fmt(rev - t.externalCosts)} kr</span></div>
+        <div className="flex justify-between"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
+        <div className="flex justify-between text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(res)} kr</span></div>
+        <div className="flex justify-between text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
+      </div>); })()}
+
       <section className="space-y-3" aria-labelledby="budget-summary-title">
         <h3 id="budget-summary-title" className="text-lg font-semibold">Summering av budget 2027</h3>
         <p className="text-sm text-muted-foreground">Budgeten visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Alla belopp per år, exklusive moms. Success fee ingår inte i jämförelsen eller resultatet.</p>
