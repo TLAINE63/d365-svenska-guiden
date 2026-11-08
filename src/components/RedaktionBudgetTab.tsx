@@ -405,25 +405,3 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
     </div>
   );
 }
-
-function _unused() {
-  return (
-    <>
-          {(() => { return (
-          <div>
-            <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
-            <div className="flex justify-between"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
-            <div className="flex justify-between"><span>Finders fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
-            <div className="flex justify-between"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
-            <div className="flex justify-between font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
-            <div className="flex justify-between"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
-            <div className="flex justify-between font-medium"><span>Resultat före egen tid</span><span>{fmt(rev - t.externalCosts)} kr</span></div>
-            <div className="flex justify-between"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
-            <div className="flex justify-between text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(res)} kr</span></div>
-            <div className="flex justify-between text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
-          </div>); })()}
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
