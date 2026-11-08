@@ -400,8 +400,17 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             </tbody>
           </table>
 
-          {(() => { const est = estimateRevenue(budget.estimates, budget.successValues); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
-          <div className="mt-4 rounded-md border p-4 space-y-1 text-sm">
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function _unused() {
+  return (
+    <>
+          {(() => { return (
+          <div>
             <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
             <div className="flex justify-between"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
             <div className="flex justify-between"><span>Finders fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
