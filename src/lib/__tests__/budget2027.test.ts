@@ -101,8 +101,8 @@ describe("expert selling fees", () => {
     expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, months: 6, percent: 50, rate: 100 }).total).toBe(2 * 495 * 100);
   });
   it("expert hours count as partner finders fee, not subscription", () => {
-    const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, hours: 10 }, expert: { assignments: 1, hours: 5 } });
-    expect(s.partner.finders.estimate).toBe(800);
+    const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, months: 1, percent: 100 }, expert: { assignments: 1, months: 1, percent: 50 } });
+    expect(s.partner.finders.estimate).toBe(165 * 40 + 83 * 80);
     expect(s.partner.subscription.estimate).toBe(0);
   });
 });
