@@ -185,7 +185,7 @@ export function mergeCosts(saved?: CostLine[]): CostLine[] {
 }
 
 // Funnel budget (Thomas 2026-11-09): finders fee is budgeted per product as meetings → deals → won deals.
-export interface FunnelRow { meetings?: number; deals?: number; wins?: number; assignments?: number; hours?: number }
+export interface FunnelRow { meetings?: number; deals?: number; wins?: number; assignments?: number; hours?: number; rate?: number; months?: number; percent?: number }
 export type Funnel = Record<string, FunnelRow>;
 export const FUNNEL_PRODUCTS = [
   { key: "bc", label: "Business Central", fscm: false, valueKey: "successBc" },
@@ -195,8 +195,8 @@ export const FUNNEL_PRODUCTS = [
 ];
 export const EXPERT_FUNNEL = [
   // 400 h ≈ one expert at 80 % for 3 months. Keys kept so saved budgets survive.
-  { key: "cv", label: "Expertförmedling via Premiumpartner (40 kr/h)", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
-  { key: "expert", label: "Expertförmedling via Basicpartner (80 kr/h)", rate: EXPERT_FEES.basicPerHour, hours: 400 },
+  { key: "cv", label: "Expertförmedling via Premiumpartner", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
+  { key: "expert", label: "Expertförmedling via Basicpartner", rate: EXPERT_FEES.basicPerHour, hours: 400 },
 ];
 export const ISV_FUNNEL = [
   { key: "isvStd", label: "ISV: Business Central och CRM", fee: ISV_FEES.introStd, value: 200000 },
@@ -214,9 +214,13 @@ export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier
   const wins = n(r.wins) * successUnit(successValue(product.valueKey, values));
   return { meetings, deals, wins, total: meetings + deals + wins };
 }
+/** Billable hours per full-time month. */
+export const HOURS_PER_MONTH = 165;
 export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], r: FunnelRow = {}) {
-  const hours = n(r.assignments) * (r.hours ?? e.hours);
-  return { hours, total: hours * e.rate };
+  const rate = r.rate ?? e.rate, months = r.months ?? 3, percent = r.percent ?? 80;
+  const perAssignment = Math.round(months * HOURS_PER_MONTH * percent / 100);
+  const hours = n(r.assignments) * perAssignment;
+  return { rate, months, percent, perAssignment, hours, total: hours * rate };
 }
 export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}) {
   const deals = n(r.deals) * i.fee;

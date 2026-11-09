@@ -97,8 +97,8 @@ import { EXPERT_FEES, EXPERT_FUNNEL, expertFunnelRow, FUNNEL_PRODUCTS, partnerFu
 describe("expert selling fees", () => {
   it("CV brokerage 40 kr and expert assignment 80 kr per sold hour", () => {
     expect(EXPERT_FEES).toEqual({ premiumPerHour: 40, basicPerHour: 80 });
-    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, hours: 10 }).total).toBe(400);
-    expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, hours: 400 }).total).toBe(64000);
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 3, percent: 100 }).total).toBe(495 * 40);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, months: 6, percent: 50, rate: 100 }).total).toBe(2 * 495 * 100);
   });
   it("expert hours count as partner finders fee, not subscription", () => {
     const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, hours: 10 }, expert: { assignments: 1, hours: 5 } });
