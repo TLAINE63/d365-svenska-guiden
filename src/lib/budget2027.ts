@@ -4,7 +4,7 @@ export type Forecast = "none" | "basic" | "month" | "year";
 
 export const MONTH_PRICE: Record<number, number> = { 1: 995, 2: 1295, 3: 1495 };
 export const YEAR_PRICE: Record<number, number> = { 1: 7990, 2: 9990, 3: 11990 };
-export const FEES = { meetingStd: 2500, dealStd: 5000, meetingFscm: 5000, dealFscm: 10000, successRate: 0.025 };
+export const FEES = { meetingStd: 3500, dealStd: 5000, meetingFscm: 5000, dealFscm: 10000, successRate: 0.025 };
 
 export interface PartnerForecast {
   forecast: Forecast; products: number; discount: number;
@@ -106,7 +106,7 @@ export const CATEGORIES: Category[] = [
   ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, betalt i förskott.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
   ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const, income: "subscription" as const })),
   { key: "meetingsStd", label: "Basic: möten BC/CRM och övrigt", description: "Antal genomförda, avgiftsbelagda möten med Basicpartners. Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Premium har ingen mötesavgift.", unit: FEES.meetingStd, group: "partner", income: "finders" },
-  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 2 500 kr av totalt 5 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealStd - FEES.meetingStd, group: "partner", income: "finders" },
+  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade kundavtal efter ett avgiftsbelagt kundmöte. Här budgeteras resterande 1 500 kr av totalt 5 000 kr; mötesavgiften 3 500 kr budgeteras på mötesraden.", unit: FEES.dealStd - FEES.meetingStd, group: "partner", income: "finders" },
   { key: "meetingsFscm", label: "Basic: möten F&SCM", description: "Antal genomförda, avgiftsbelagda möten för Finance & Supply Chain Management med Basicpartners. Premium har ingen mötesavgift.", unit: FEES.meetingFscm, group: "partner", income: "finders" },
   { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 5 000 kr av totalt 10 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
   { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner", income: "finders" },
