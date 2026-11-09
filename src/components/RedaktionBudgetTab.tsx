@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_PRODUCTS, EXPERT_FUNNEL, ISV_FUNNEL, partnerFunnelRow, expertFunnelRow, isvFunnelRow, funnelTotals, type FunnelRow, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
@@ -112,7 +112,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const ft = totals(filtered.map(rowFor), budget);
   const det = detailByCategory(all, ISV_VENDORS.map(isvFor));
   const detTotal = Object.values(det).reduce((x, d) => x + d.revenue, 0);
-  const groups = categoryGroupSummary(budget.estimates, det, budget.successValues);
+  const groups = categoryGroupSummary(budget.estimates, det, budget.successValues, budget.funnel);
   const grossBudget = groups.partner.estimate + groups.isv.estimate + t.other;
   const result = grossBudget - t.externalCosts - t.ownTimeCost;
 
@@ -129,7 +129,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
       </div>
 
-      {(() => { const est = estimateRevenue(budget.estimates, budget.successValues); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
+      {(() => { const est = estimateRevenue(budget.estimates, budget.successValues, budget.funnel); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
       <div className="rounded-md border bg-card p-4 space-y-1 text-sm">
         <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
         <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
@@ -193,6 +193,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <details className="text-sm"><summary className="cursor-pointer font-medium">Antal i partner- och ISV-detaljerna</summary><p className="mt-2 text-muted-foreground">Partners: {t.yearCount} årsprenumerationer, {t.monthCount} månadsprenumerationer och {t.products} produktområden. ISV: {t.isvCount} Presence-prenumerationer och {det.isvExtra.count} extra appar. Antalen är detaljprognoser, inte din grova budget.</p></details>
       </section>
 
+      <FunnelBudget budget={budget} setBudget={setBudget} />
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Grov budget per kategori</CardTitle>
@@ -222,9 +224,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <tbody>
               {([
                 { label: "Partners: prenumerationsintäkter", group: "partner", income: "subscription", ...groups.partner.subscription },
-                { label: "Partners: Finders fee-intäkter", group: "partner", income: "finders", ...groups.partner.finders },
                 { label: "ISVs: prenumerationsintäkter", group: "isv", income: "subscription", ...groups.isv.subscription },
-                { label: "ISVs: Finders fee-intäkter", group: "isv", income: "finders", ...groups.isv.finders },
               ] as const).map((section) => <Fragment key={section.label}>
                 <tr className="border-t bg-muted"><th colSpan={7} scope="colgroup" className="py-3 px-2 text-left font-semibold">{section.label}</th></tr>
                 {CATEGORIES.filter((c) => c.group === section.group && c.income === section.income).map((c) => {
@@ -253,9 +253,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
-                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates, budget.successValues))} kr</td><td />
+                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates, budget.successValues, budget.funnel))} kr</td><td />
                 <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
-                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues))} kr</td>
+                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues, budget.funnel))} kr</td>
               </tr>
             </tbody>
           </table>
@@ -418,5 +418,88 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.Dispatch<React.SetStateAction<Budget>> }) {
+  const f = budget.funnel ?? {};
+  const values = budget.successValues ?? {};
+  const set = (key: string, patch: FunnelRow) => setBudget((b) => ({ ...b, funnel: { ...(b.funnel ?? {}), [key]: { ...(b.funnel?.[key] ?? {}), ...patch } } }));
+  const setValue = (key: string, v: number) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [key]: v } }));
+  const field = (label: string, v: number | undefined, on: (n: number) => void, w = "w-20") => (
+    <Input aria-label={label} type="number" min={0} className={`h-8 ${w} text-right ml-auto`} value={v || ""} placeholder="0" onChange={(e) => on(num(e.target.value))} />
+  );
+  const sub = (amount: number) => <p className="mt-1 text-xs text-muted-foreground text-right">{fmt(amount)} kr</p>;
+  const ft = funnelTotals(f, values);
+  const th = "px-2 text-right font-normal";
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">Finders fee-budget som funnel</CardTitle>
+        <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgift gäller bara Basic; Premium betalar hela avtalsersättningen. Success fee 2,5 % räknas per vunnen affär när snittbeloppet överstiger 100 000 kr.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-8">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[860px] text-sm">
+            <caption className="pb-2 text-left font-semibold text-foreground">Partners per produkt</caption>
+            <thead className="text-xs text-muted-foreground"><tr>
+              <th className="py-2 pr-3 text-left font-normal">Produkt</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+            </tr></thead>
+            <tbody>{FUNNEL_PRODUCTS.map((p) => <Fragment key={p.key}>
+              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.label}
+                <span className="ml-3 text-xs font-normal text-muted-foreground">Snittbelopp/affär <Input aria-label={`Snittbelopp per affär: ${p.label}`} type="number" min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={successValue(p.valueKey, values) || ""} placeholder="0" onChange={(e) => setValue(p.valueKey, num(e.target.value))} /> kr</span>
+              </th><td className="border-l bg-muted" /></tr>
+              {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = partnerFunnelRow(p, tier, r, values); return (
+                <tr key={k} className="border-t">
+                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
+                  <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{tier === "basic" ? sub(x.meetings) : <p className="mt-1 text-xs text-muted-foreground text-right">ingen mötesavgift</p>}</td>
+                  <td className="px-2">{field(`Avtal ${p.label} ${tier}`, r.deals, (v) => set(k, { deals: v }))}{sub(x.deals)}</td>
+                  <td className="px-2">{field(`Affärer ${p.label} ${tier}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
+                  <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
+                </tr>); })}
+            </Fragment>)}</tbody>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma partners</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.partner)} kr</td></tr></tfoot>
+          </table>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[860px] text-sm">
+            <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
+            <thead className="text-xs text-muted-foreground"><tr>
+              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className={th}>Snitt timmar<br />per uppdrag</th><th className={th}>Sålda timmar<br />× ersättning</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+            </tr></thead>
+            <tbody>{EXPERT_FUNNEL.map((e) => { const r = f[e.key] ?? {}; const x = expertFunnelRow(e, r); return (
+              <tr key={e.key} className="border-t">
+                <td className="py-2 pr-3">{e.label}</td>
+                <td className="px-2">{field(`Uppdrag ${e.label}`, r.assignments, (v) => set(e.key, { assignments: v }))}</td>
+                <td className="px-2"><Input aria-label={`Timmar per uppdrag ${e.label}`} type="number" min={0} className="h-8 w-20 text-right ml-auto" value={r.hours ?? e.hours} onChange={(ev) => set(e.key, { hours: num(ev.target.value) })} /></td>
+                <td className="px-2 text-right whitespace-nowrap">{fmt(x.hours)} h × {e.rate} kr</td>
+                <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
+              </tr>); })}</tbody>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
+          </table>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[860px] text-sm">
+            <caption className="pb-2 text-left font-semibold text-foreground">ISV:er</caption>
+            <thead className="text-xs text-muted-foreground"><tr>
+              <th className="py-2 pr-3 text-left font-normal">Område</th><th className={th}>Antal<br />introduktioner</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+            </tr></thead>
+            <tbody>{ISV_FUNNEL.map((i) => { const r = f[i.key] ?? {}; const x = isvFunnelRow(i, r, values); return (
+              <tr key={i.key} className="border-t">
+                <td className="py-2 pr-3">{i.label}
+                  <p className="text-xs text-muted-foreground">{fmt(i.fee)} kr per avtal · snittbelopp <Input aria-label={`Snittbelopp per affär: ${i.label}`} type="number" min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={Number(values[i.key]) || i.value} onChange={(e) => setValue(i.key, num(e.target.value))} /> kr</p></td>
+                <td className="px-2">{field(`Introduktioner ${i.label}`, r.meetings, (v) => set(i.key, { meetings: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym</p></td>
+                <td className="px-2">{field(`Avtal ${i.label}`, r.deals, (v) => set(i.key, { deals: v }))}{sub(x.deals)}</td>
+                <td className="px-2">{field(`Affärer ${i.label}`, r.wins, (v) => set(i.key, { wins: v }))}{sub(x.wins)}</td>
+                <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
+              </tr>); })}</tbody>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma ISV:er</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
+          </table>
+        </div>
+        <div className="flex justify-between border-t pt-3 text-base font-semibold"><span>Finders fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
+      </CardContent>
+    </Card>
   );
 }
