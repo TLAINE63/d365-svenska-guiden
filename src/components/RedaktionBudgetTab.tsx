@@ -466,17 +466,19 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className={th}>Snitt timmar<br />per uppdrag</th><th className={th}>Sålda timmar<br />× ersättning</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className={th}>Avgift<br />kr per timme</th><th className={th}>Snitt antal<br />månader</th><th className={th}>Procent<br />av heltid</th><th className={th}>Debiterade timmar<br />(165 h/mån)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{EXPERT_FUNNEL.map((e) => { const r = f[e.key] ?? {}; const x = expertFunnelRow(e, r); return (
               <tr key={e.key} className="border-t">
                 <td className="py-2 pr-3">{e.label}</td>
                 <td className="px-2">{field(`Uppdrag ${e.label}`, r.assignments, (v) => set(e.key, { assignments: v }))}</td>
-                <td className="px-2"><Input aria-label={`Timmar per uppdrag ${e.label}`} type="number" min={0} className="h-8 w-20 text-right ml-auto" value={r.hours ?? e.hours} onChange={(ev) => set(e.key, { hours: num(ev.target.value) })} /></td>
-                <td className="px-2 text-right whitespace-nowrap">{fmt(x.hours)} h × {e.rate} kr</td>
+                <td className="px-2"><Input aria-label={`Avgift per timme ${e.label}`} type="number" min={0} className="h-8 w-20 text-right ml-auto" value={x.rate} onChange={(ev) => set(e.key, { rate: num(ev.target.value) })} /></td>
+                <td className="px-2"><Input aria-label={`Snitt månader ${e.label}`} type="number" min={0} step={0.5} className="h-8 w-20 text-right ml-auto" value={x.months} onChange={(ev) => set(e.key, { months: num(ev.target.value) })} /></td>
+                <td className="px-2"><Input aria-label={`Procent av heltid ${e.label}`} type="number" min={0} max={100} step={10} className="h-8 w-20 text-right ml-auto" value={x.percent} onChange={(ev) => set(e.key, { percent: num(ev.target.value) })} /></td>
+                <td className="px-2 text-right whitespace-nowrap">{fmt(x.hours)} h<div className="text-xs text-muted-foreground">{fmt(x.perAssignment)} h per uppdrag</div></td>
                 <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
               </tr>); })}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={6} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
           </table>
         </div>
 
