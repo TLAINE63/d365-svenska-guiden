@@ -107,13 +107,13 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
       doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     }
     
-    // Bullet point in accent color
-    doc.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
-    doc.circle(margin + 2, y - 1.5, 1.2, "F");
-    
     const bulletText = text;
     const lines = doc.splitTextToSize(bulletText, contentWidth - 10);
     currentPage = checkNewPage(lines.length * 5 + 22, currentPage);
+    doc.setFontSize(10);
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
+    doc.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
+    doc.circle(margin + 2, y - 1.5, 1.2, "F");
     doc.text(lines, margin + 8, y);
     y += lines.length * 5 + 2;
   };
@@ -123,13 +123,13 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     doc.setFont("helvetica", "normal");
     doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     
-    // Checkbox
+    const lines = doc.splitTextToSize(text, contentWidth - 10);
+    currentPage = checkNewPage(lines.length * 5 + 23, currentPage);
+    doc.setFontSize(10);
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     doc.setDrawColor(primaryColor.r, primaryColor.g, primaryColor.b);
     doc.setLineWidth(0.3);
     doc.rect(margin, y - 3.5, 4, 4);
-    
-    const lines = doc.splitTextToSize(text, contentWidth - 10);
-    currentPage = checkNewPage(lines.length * 5 + 23, currentPage);
     doc.text(lines, margin + 8, y);
     y += lines.length * 5 + 3;
   };
