@@ -693,9 +693,9 @@ const ValjPartner = () => {
  return (
  <div className="min-h-screen bg-background">
  <SEOHead 
- title="Välj rätt Microsoft Dynamics 365-partner | Guide & Rådgivning"
+ title="Välja certifierad Microsoft Dynamics 365-partner i Sverige | Guide & Rådgivning"
  titleMaxLength={80}
- description="Söker du partner eller återförsäljare för Microsoft Dynamics 365 i Sverige? Jämför F&SCM- och industrispecialister eller boka 20 min kostnadsfri rådgivning."
+ description="Ska ni välja implementeringspartner för Microsoft Dynamics 365 eller Finance & Operations? Jämför certifierade partners för helhetsleverans och få kostnadsfri rådgivning."
  canonicalPath="/valjdynamics365partner"
  keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 återförsäljare, Dynamics 365 reseller, F&SCM partner, Dynamics 365 partner tillverkande industri, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"
@@ -840,6 +840,45 @@ const ValjPartner = () => {
  </div>
  </section>
 
+ <section className="py-8 sm:py-10" aria-labelledby="helhetsleverans">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+ <div className="max-w-4xl mx-auto">
+ <h2 id="helhetsleverans" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+ Vem kan implementera Dynamics{"\u00A0"}365 som helhetsleverans?
+ </h2>
+ <p className="text-muted-foreground mb-5">
+ Tre saker avgör om en partner klarar hela införandet och inte bara levererar enskilda konsulter.
+ </p>
+ <div className="grid gap-4 md:grid-cols-3">
+ <div className="rounded-lg border border-border bg-card p-5">
+ <h3 className="font-semibold text-foreground mb-2">Kriterier för helhetsleverans</h3>
+ <ul className="space-y-1.5 text-sm text-muted-foreground list-disc pl-4">
+ <li>Egen lösningsarkitekt som ansvarar för helheten</li>
+ <li>Erfarenhet av integrationer mot era övriga system</li>
+ <li>Projektledning och förändringsledning för användarna</li>
+ <li>Förvaltning med tydliga SLA-nivåer efter driftsättning</li>
+ </ul>
+ </div>
+ <div className="rounded-lg border border-border bg-card p-5">
+ <h3 className="font-semibold text-foreground mb-2">Business Central eller Finance & Operations?</h3>
+ <p className="text-sm text-muted-foreground leading-relaxed">
+ Finance & Supply Chain Management (tidigare Finance and Operations, F&O) kräver större team, längre projekt och annan specialistkompetens än Business Central. Många partners arbetar bara med det ena. Kontrollera att partnern har genomförda projekt i just er produkt och storlek. Läs mer om{" "}
+ <Link to="/finance-supply-chain/" className="text-primary underline underline-offset-2">Finance & Supply Chain</Link>.
+ </p>
+ </div>
+ <div className="rounded-lg border border-border bg-card p-5">
+ <h3 className="font-semibold text-foreground mb-2">Checklista inför partnermötet</h3>
+ <ul className="space-y-1.5 text-sm text-muted-foreground list-disc pl-4">
+ <li>Vilka namngivna seniorer sitter i vårt projekt?</li>
+ <li>Hur hanteras ändringar i omfattningen och vad kostar de?</li>
+ <li>Hur ser förvaltningsorganisationen ut efter go-live?</li>
+ <li>Vilken referenskund i vår bransch får vi prata med?</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
 
  {/* Fem viktiga frågor Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
