@@ -1,5 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Ersättning och expertkonsulter (2026-11-09)
+- [ ] Ändra Basic-mötesavgiften till 3 500 kr i partnerprogram, admin och budget; förtydliga kundmöte/kundavtal och lägg till expertkonsultförmedling. Kontrollera beräkningar och publik visning.
+
 ## Gemensam bekräftelse för partnerförfrågningar (2026-11-07)
 - [x] Valda partners skickas i en gemensam förfrågan; tre partners verifierade i webbläsaren med avlyssnat testanrop utan testmejl. Bekräftelsehanteraren använder hela partnerlistan.
 
