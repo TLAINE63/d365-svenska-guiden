@@ -72,7 +72,7 @@ export function drawBrandHeader(
  * Ritar en subtil footer på alla sidor. Anropa som sista steg innan doc.save().
  */
 export function finalizePdfWithFooter(doc: jsPDF, label: string): void {
-  doc.setProperties({ title: pdfText(label) });
+  doc.setProperties({ title: pdfText(label).replace(/\u00A0/g, " ") });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const total = doc.getNumberOfPages();

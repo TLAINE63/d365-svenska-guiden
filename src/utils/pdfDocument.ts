@@ -38,9 +38,12 @@ export async function createPdfDocument(): Promise<jsPDF> {
   doc.setProperties({ author: ORGANIZATION.name, creator: ORGANIZATION.name, subject: "Beslutsunderlag från d365.se" });
   doc.setLanguage("sv");
   const text = doc.text.bind(doc);
+  // Wrapping already protects the brand; draw ordinary spaces because jsPDF's
+  // WinAnsi encoder maps NBSP incorrectly in some viewers and text extractors.
+  const drawable = (value: string) => pdfText(value).replace(/\u00A0/g, " ");
   doc.text = ((value: string | string[], ...args: unknown[]) =>
-    Reflect.apply(text, doc, [Array.isArray(value) ? value.map(pdfText) : pdfText(value), ...args])) as typeof doc.text;
+    Reflect.apply(text, doc, [Array.isArray(value) ? value.map(drawable) : drawable(value), ...args])) as typeof doc.text;
   doc.splitTextToSize = ((value: string | string[], width: number) =>
-    wrapPdfText(Array.isArray(value) ? value.join("\n") : String(value), width, (line) => doc.getTextWidth(line))) as typeof doc.splitTextToSize;
+    wrapPdfText(Array.isArray(value) ? value.join("\n") : String(value), width, (line) => doc.getTextWidth(line.replace(/\u00A0/g, " ")))) as typeof doc.splitTextToSize;
   return doc;
 }
