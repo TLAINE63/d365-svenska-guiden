@@ -699,8 +699,8 @@ const Partnerprogram = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Affärstyp</th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört möte<br /><span className="text-xs font-normal">Endast Basic (grundprofil)</span></th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3 whitespace-nowrap">Tecknat avtal</th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört kundmöte<br /><span className="text-xs font-normal">Endast Basic (grundprofil)</span></th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Kundavtal tecknat</th>
                 </tr>
               </thead>
               <tbody>
@@ -708,7 +708,7 @@ const Partnerprogram = () => {
                   <th scope="row" className="text-left font-normal text-foreground px-4 py-3">
                     Business Central, Customer Engagement, Power Platform och andra lösningar
                   </th>
-                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">2&nbsp;500&nbsp;kr</td>
+                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">3&nbsp;500&nbsp;kr</td>
                   <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">5&nbsp;000&nbsp;kr</td>
                 </tr>
                 <tr className="border-t border-border">
@@ -731,6 +731,40 @@ const Partnerprogram = () => {
             <p>
               Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår
               inte i beräkningsunderlaget. Fullständiga villkor regleras i partner- och förmedlingsavtalet.
+            </p>
+          </div>
+
+          <div className="mt-8 max-w-4xl">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Förmedling av Expertkonsulter</h3>
+            <p className="max-w-3xl text-sm text-muted-foreground mb-4">
+              Vi förmedlar en eller flera expertkonsulter till partnern utifrån kundens behov.
+              Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.
+              Ersättningen för förmedlingen är en fast avgift per debiterad experttimme.
+            </p>
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50">
+                  <tr>
+                    <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Partnernivå</th>
+                    <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Avgift per debiterad experttimme</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-border">
+                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Premium</th>
+                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">40&nbsp;kr</td>
+                  </tr>
+                  <tr className="border-t border-border">
+                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Basic (grundprofil)</th>
+                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">80&nbsp;kr</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="max-w-3xl mt-4 text-sm text-muted-foreground">
+              Avgiften beräknas på faktiskt debiterade timmar, exklusive moms. Villkoren avtalas skriftligt
+              före uppdragsstart. Expertförmedlingen hålls separat från projektförmedling och ersättningen
+              dubbelräknas inte med mötesavgift, avtalsersättning eller success fee för samma expertuppdrag.
             </p>
           </div>
 

@@ -4506,9 +4506,9 @@ Thomas`,
  <details className="text-xs text-muted-foreground">
  <summary className="cursor-pointer">Villkor för ersättning</summary>
  <table className="mt-2 w-full text-left">
- <thead><tr><th className="py-1">Affärstyp</th><th>Genomfört möte</th><th>Tecknat avtal</th></tr></thead>
+ <thead><tr><th className="py-1">Affärstyp</th><th>Genomfört kundmöte</th><th>Kundavtal tecknat</th></tr></thead>
  <tbody>
- <tr><td className="py-1 pr-2">Business Central, Customer Engagement, Power Platform och andra lösningar</td><td>2 500 kr</td><td>5 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Business Central, Customer Engagement, Power Platform och andra lösningar</td><td>3 500 kr</td><td>5 000 kr</td></tr>
  <tr><td className="py-1 pr-2">Finance &amp; Supply Chain Management</td><td>5 000 kr</td><td>10 000 kr</td></tr>
  </tbody>
  </table>

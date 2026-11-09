@@ -62,8 +62,9 @@ describe("category estimates", () => {
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
   it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
-  it("only Basic meetings are charged at 2 500 and 5 000 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(7500);
+  it("only Basic meetings are charged at 3 500 and 5 000 kr", () => {
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1 }).finders).toBe(3500);
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(8500);
     for (const forecast of ["month", "year"] as const) {
       expect(forecastRevenue({ ...base, forecast, meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
     }
@@ -78,8 +79,11 @@ describe("category estimates", () => {
       expect(d.dealsStd).toEqual({ count: 0, revenue: 0 });
     }
   });
-  it("funnel: Basic BC meeting 2 500 + deal 2 500, Premium BC deal 5 000", () => {
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 }).total).toBe(5000);
+  it("funnel: Basic BC meeting 3 500 + deal 1 500, Premium BC deal 5 000", () => {
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 })).toEqual({ meetings: 3500, deals: 1500, wins: 0, total: 5000 });
+    const d = detailByCategory([{ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }], []);
+    expect(d.meetingsStd.revenue).toBe(3500);
+    expect(d.dealsStd.revenue).toBe(1500);
     expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 4, deals: 1 }).total).toBe(5000);
   });
   it("funnel: Basic F&SCM meeting 5 000 + deal 5 000", () => {
