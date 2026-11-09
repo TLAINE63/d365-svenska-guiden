@@ -1,6 +1,7 @@
 import { useState, type ComponentProps } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { flushSync } from "react-dom";
 
 type Props = Omit<ComponentProps<typeof Input>, "value" | "onChange" | "type"> & {
   value: number | string;
@@ -21,7 +22,7 @@ export function BudgetNumberInput({ value, onValueChange, className, min = 0, ma
       className={cn("text-right tabular-nums", className)}
       value={draft ?? (numeric === 0 ? "" : formatter.format(numeric))}
       onFocus={(event) => {
-        setDraft(numeric === 0 ? "" : String(numeric).replace(".", ","));
+        flushSync(() => setDraft(numeric === 0 ? "" : String(numeric).replace(".", ",")));
         event.currentTarget.select();
       }}
       onChange={(event) => {
