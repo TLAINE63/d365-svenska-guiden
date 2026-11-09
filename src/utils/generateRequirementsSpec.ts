@@ -2,6 +2,7 @@ import { createPdfDocument } from "@/utils/pdfDocument";
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { finalizePdfWithFooter } from "./pdfLayout";
 
 const getBase64FromUrl = async (url: string): Promise<string> => {
   const response = await fetch(url);
@@ -151,7 +152,7 @@ export const generateRequirementsSpec = async (
     await new Promise<void>((resolve) => {
       img.onload = () => resolve();
       img.onerror = () => resolve();
-      img.src = logoBase64!;
+      img.src = logoBase64 ?? "";
     });
     if (img.naturalWidth && img.naturalHeight) {
       logoAspect = img.naturalWidth / img.naturalHeight;
@@ -170,13 +171,7 @@ export const generateRequirementsSpec = async (
   };
 
   const addFooter = (pageNum: number) => {
-    doc.setDrawColor(primaryColor.r, primaryColor.g, primaryColor.b);
-    doc.setLineWidth(0.3);
-    doc.line(margin, pageHeight - 15, pageWidth - margin, pageHeight - 15);
-    doc.setFontSize(8);
-    doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
-    doc.text(`Sida ${pageNum}`, pageWidth - margin, pageHeight - 10, { align: "right" });
-    doc.text("Genererad via d365.se - Beslutsstöd för val av Microsoft Dynamics 365", margin, pageHeight - 10);
+    void pageNum;
   };
 
   const checkPageBreak = (needed: number) => {
@@ -253,6 +248,7 @@ export const generateRequirementsSpec = async (
     customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
   };
   const productName = productNames[data.product] || data.product;
+  doc.setFontSize(20);
   const titleLines = doc.splitTextToSize(productName, contentWidth);
   doc.text(titleLines, margin, y);
   y += titleLines.length * 8 + 10;
@@ -449,7 +445,7 @@ export const generateRequirementsSpec = async (
     });
   }
 
-  addFooter(doc.getNumberOfPages());
+  finalizePdfWithFooter(doc, "Kravspecifikation");
 
   if (returnBase64) {
     return doc.output("datauristring").split(",")[1];

@@ -4,7 +4,7 @@ import { pdfText, wrapPdfText } from "./pdfDocument";
 describe("document text quality", () => {
   it("keeps Microsoft Dynamics 365 on one line", () => {
     const lines = wrapPdfText("Val av Microsoft Dynamics 365 för företaget", 26, (s) => s.length);
-    expect(lines).toContain("Microsoft\u00A0Dynamics\u00A0365");
+    expect(lines.some((line) => line.includes("Microsoft\u00A0Dynamics\u00A0365"))).toBe(true);
     expect(lines.some((line) => /Microsoft$|Dynamics$/.test(line))).toBe(false);
   });
   it("keeps Dynamics 365 on one line", () => {

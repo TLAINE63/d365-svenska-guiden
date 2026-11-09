@@ -82,7 +82,6 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
     for (const row of metaRows) {
       doc.setFont("helvetica", "normal");
       doc.setTextColor(...PDF_BRAND.textMuted);
-      doc.text(safe(row.label), PDF_MARGIN, y);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(...PDF_BRAND.dark);
       const valueLines = doc.splitTextToSize(safe(row.value), contentW * 0.6);

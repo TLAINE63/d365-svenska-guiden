@@ -3,7 +3,7 @@ import { createPdfDocument } from "@/utils/pdfDocument";
 // Layout mirrors hero/look (petrol + deep charcoal) and ends with an assumptions appendix.
 
 import { PDF_BRAND } from "./pdfBrand";
-import { finalizePdfWithFooter, drawSectionHeading } from "./pdfLayout";
+import { finalizePdfWithFooter, drawSectionHeading, drawBrandHeader } from "./pdfLayout";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15]; // #15130F
@@ -90,7 +90,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
   const ensureSpace = (needed: number) => {
     if (y + needed > pageH - 18) {
       doc.addPage();
-      y = margin;
+      y = drawBrandHeader(doc, `ROI & TCO – ${data.productName}`);
     }
   };
   const sectionTitle = (text: string) => {
@@ -124,7 +124,12 @@ export async function generateRoiPdf(data: RoiPdfData) {
   const subtitle = data.companyName
     ? `Indikativ kalkyl för ${data.companyName}`
     : "Indikativ kalkyl";
-  doc.text(subtitle, margin, 52);
+  let subtitleSize = 11;
+  while (doc.getTextWidth(safe(subtitle)) > contentW && subtitleSize > 8) {
+    subtitleSize -= 0.5;
+    doc.setFontSize(subtitleSize);
+  }
+  doc.text(doc.splitTextToSize(subtitle, contentW), margin, 52);
 
   doc.setFontSize(9);
   doc.setTextColor(200, 200, 200);
@@ -259,14 +264,7 @@ export async function generateRoiPdf(data: RoiPdfData) {
 
   // ---- APPENDIX: ANTAGANDEN ----
   doc.addPage();
-  y = margin;
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 22, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Bilaga: Antaganden", margin, 14);
-  y = 32;
+  y = drawBrandHeader(doc, "Bilaga: Antaganden");
   doc.setTextColor(...MUTED);
   doc.setFont("helvetica", "italic");
   doc.setFontSize(10);

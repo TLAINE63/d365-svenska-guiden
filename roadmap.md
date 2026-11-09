@@ -1,9 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Premiumkvalitet för utgående dokument (2026-11-09)
-- [ ] Inför gemensam kvalitetssäkring av PDF-text, rubriker, avsändare och sidfötter i samtliga generatorer.
-- [ ] Rätta konstaterade överlappningar/sidbrytningsfel och granska genererade PDF-sidor visuellt.
-- [ ] Inventera statiska dokument och redovisa vad som inte är verifierat.
+- [x] Gemensam PDF-export, säkra varumärkesradbrytningar och slutlig sidnumrering i samtliga generatorer.
+- [x] Rättade rubriker, kontaktblock, logotypadresser, tabellradkontroller och bilagelänkar. 15 provfiler renderade/granskade, fyra tester godkända, rapportens verkliga nedladdning verifierad.
+- [x] Statiska dokument inventerade; begränsningar och resultat dokumenterade i docs/PDF-QUALITY-2026-11-09.md.
+- [ ] Uppdatera statiska e-bokens äldre profilering (väntar på redigerbart original) och granska avtals-PDF (befintlig adress svarar HTTP 400; korrekt fil behövs).
 
 ## Frakt, lager och logistik (2026-11-09)
 - [x] Prioritera fraktsidans söktext, TA-flöden, internlänkar och befintlig rådgivning.

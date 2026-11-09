@@ -72,7 +72,7 @@ export function drawBrandHeader(
  * Ritar en subtil footer på alla sidor. Anropa som sista steg innan doc.save().
  */
 export function finalizePdfWithFooter(doc: jsPDF, label: string): void {
-  doc.setProperties({ title: pdfText(label) });
+  doc.setProperties({ title: pdfText(label).replace(/\u00A0/g, " ") });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const total = doc.getNumberOfPages();
@@ -85,6 +85,9 @@ export function finalizePdfWithFooter(doc: jsPDF, label: string): void {
     doc.setLineWidth(0.4);
     doc.line(PDF_MARGIN, pageH - 12, pageW - PDF_MARGIN, pageH - 12);
 
+    // A white footer strip also stays legible on full-bleed dark covers.
+    doc.setFillColor(255, 255, 255);
+    doc.rect(0, pageH - 11, pageW, 11, "F");
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
     doc.setTextColor(...PDF_BRAND.textMuted);
