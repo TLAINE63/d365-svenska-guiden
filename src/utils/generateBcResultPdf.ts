@@ -65,7 +65,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
 
     if (y > pageH - 40) {
       doc.addPage();
-      y = margin;
+      y = drawBrandHeader(doc, "Business Central – Matchningstest");
     }
 
     doc.setFillColor(...CLASS_RGB[c]);
@@ -83,7 +83,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
       const lines = doc.splitTextToSize(txt, pageW - 2 * margin - 4);
       if (y + lines.length * 4.6 > pageH - 20) {
         doc.addPage();
-        y = margin;
+        y = drawBrandHeader(doc, "Business Central – Matchningstest");
       }
       doc.text(lines, margin + 4, y);
       y += lines.length * 4.6 + 1;

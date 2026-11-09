@@ -17,7 +17,7 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
   let y = drawBrandHeader(doc, "NAV till Business Central – resultat");
 
   const ensure = (need: number) => {
-    if (y + need > H - 20) { doc.addPage(); y = M + 4; }
+    if (y + need > H - 20) { doc.addPage(); y = drawBrandHeader(doc, "NAV till Business Central – resultat"); }
   };
   const para = (text: string, size = 10, color: RGB = B.text, indent = 0, lh = 4.8) => {
     doc.setFont("helvetica", "normal"); doc.setFontSize(size); doc.setTextColor(...color);

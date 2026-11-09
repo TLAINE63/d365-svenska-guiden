@@ -170,10 +170,11 @@ export async function generateMarketReportPdf(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
   doc.setTextColor(...PDF_BRAND.textMuted);
-  doc.text(
+  doc.text(doc.splitTextToSize(
     safe(
       "Gör en kostnadsfri behovsanalys på d365.se/valjdynamics365partner/ och jämför svenska Dynamics 365-partners.",
     ),
+    contentW - 10),
     PDF_MARGIN + 5,
     y + 13,
   );
