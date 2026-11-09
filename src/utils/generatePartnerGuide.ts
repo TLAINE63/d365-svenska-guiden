@@ -1,6 +1,7 @@
 import { createPdfDocument } from "@/utils/pdfDocument";
 const logoImage = "/d365-logo.png";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { finalizePdfWithFooter } from "./pdfLayout";
 
 // Convert image to base64
 const getBase64FromUrl = async (url: string): Promise<string> => {
@@ -52,14 +53,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   };
 
   const addFooter = (pageNum: number) => {
-    doc.setDrawColor(primaryColor.r, primaryColor.g, primaryColor.b);
-    doc.setLineWidth(0.5);
-    doc.line(margin, pageHeight - 15, pageWidth - margin, pageHeight - 15);
-    
-    doc.setFontSize(8);
-    doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
-    doc.text(`Sida ${pageNum}`, pageWidth / 2, pageHeight - 10, { align: "center" });
-    doc.text("© d365.se", margin, pageHeight - 10);
+    void pageNum; // All pages are numbered together after layout is complete.
   };
 
   const addTitle = (text: string, size: number = 18) => {
@@ -71,6 +65,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   };
 
   const addSectionTitle = (number: string, text: string) => {
+    currentPage = checkNewPage(45, currentPage);
     // Number in accent color
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -84,6 +79,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   };
 
   const addSubtitle = (text: string) => {
+    currentPage = checkNewPage(35, currentPage);
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
@@ -96,6 +92,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     doc.setFont("helvetica", "normal");
     doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     const lines = doc.splitTextToSize(text, contentWidth);
+    currentPage = checkNewPage(lines.length * 5 + 24, currentPage);
     doc.text(lines, margin, y);
     y += lines.length * 5 + 4;
   };
@@ -116,6 +113,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     
     const bulletText = text;
     const lines = doc.splitTextToSize(bulletText, contentWidth - 10);
+    currentPage = checkNewPage(lines.length * 5 + 22, currentPage);
     doc.text(lines, margin + 8, y);
     y += lines.length * 5 + 2;
   };
@@ -131,6 +129,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     doc.rect(margin, y - 3.5, 4, 4);
     
     const lines = doc.splitTextToSize(text, contentWidth - 10);
+    currentPage = checkNewPage(lines.length * 5 + 23, currentPage);
     doc.text(lines, margin + 8, y);
     y += lines.length * 5 + 3;
   };
@@ -402,6 +401,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
 
   addFooter(currentPage);
 
+  finalizePdfWithFooter(doc, "Så väljer du rätt partner");
   // Return base64 or save the PDF
   if (returnBase64) {
     return doc.output('datauristring').split(',')[1];
