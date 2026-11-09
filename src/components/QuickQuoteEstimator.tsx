@@ -270,7 +270,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
               <SourceNote
                 className="mt-4"
                 source="d365.se:s öppna beräkningsmodell för implementationsomfattning, med licenspriser från Microsofts prislista"
-                updated="2026-06-11"
+                updated="2026-11-09"
                 method="Spannet är ±25 % kring en medelnivå och förutsätter svenskt konsultpris om 1 350 kr/timme. Din partners offert kan avvika – använd spannet som sanity-check, inte som pris."
               />
 

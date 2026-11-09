@@ -14,7 +14,7 @@ export type CostAssumptions = {
   excluded: string[];
 };
 
-export const COST_ASSUMPTIONS_CHECKED = "2026-10-27";
+export const COST_ASSUMPTIONS_CHECKED = "2026-11-09";
 
 export const costAssumptions: Record<string, CostAssumptions> = {
   "business-central": {
@@ -42,7 +42,7 @@ export const costAssumptions: Record<string, CostAssumptions> = {
       "Licenser och eventuella tilläggslicenser",
       "Arbete i andra system som integreras (leverantören av WMS, MES, e-handel)",
       "Förändringsledning utöver utbildning",
-      "Application Management Services efter go-live (typiskt 10–20 % av projektkostnaden per år)",
+      "Application Management Services efter go-live (typiskt 15–25 % av införandekostnaden per år)",
     ],
   },
   sales: {

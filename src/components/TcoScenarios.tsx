@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { usePriceMap } from "@/hooks/usePriceMap";
 import SourceNote from "@/components/SourceNote";
+import { BC_IMPLEMENTATION, FSCM_IMPLEMENTATION, SUPPORT_SHARE, PRICING_UPDATED } from "@/data/pricing";
 
 interface Scenario {
   title: string;
@@ -13,7 +14,7 @@ interface Scenario {
   roiPath: string;
 }
 
-/** Implementationsintervall hämtade från "Liten"-nivån i costBreakdown.ts. */
+/** Implementationsintervall för minsta projektstorleken, från src/data/pricing.ts. */
 const SCENARIOS: Scenario[] = [
   {
     title: "Affärssystem, mindre bolag",
@@ -21,8 +22,8 @@ const SCENARIOS: Scenario[] = [
     licenseKey: "bc-essentials",
     licenseLabel: "Business Central Essentials. Paketerade startpaket med ren standard (utan lager) finns från ca 50 000 kr i införande",
     users: 10,
-    implLow: 150000,
-    implHigh: 300000,
+    implLow: BC_IMPLEMENTATION.small.low,
+    implHigh: BC_IMPLEMENTATION.small.high,
     roiPath: "/businesscentral/roi-kalkylator/",
   },
   {
@@ -41,14 +42,14 @@ const SCENARIOS: Scenario[] = [
     licenseKey: "finance",
     licenseLabel: "Finance",
     users: 75,
-    implLow: 1500000,
-    implHigh: 3500000,
+    implLow: FSCM_IMPLEMENTATION.small.low,
+    implHigh: FSCM_IMPLEMENTATION.small.high,
     roiPath: "/finance-supply-chain/roi-kalkylator/",
   },
 ];
 
-const SUPPORT_LOW = 0.15;
-const SUPPORT_HIGH = 0.25;
+const SUPPORT_LOW = SUPPORT_SHARE.low;
+const SUPPORT_HIGH = SUPPORT_SHARE.high;
 
 const nf = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 });
 const kr = (n: number) => `${nf.format(Math.round(n / 1000) * 1000)} kr`;
@@ -119,7 +120,7 @@ export default function TcoScenarios() {
         <SourceNote
           className="mt-6"
           source="Microsofts listpriser (prisregistret på d365.se) och d365.se:s intervall för införanden från svenska partners"
-          updated="2026-06-11"
+          updated={PRICING_UPDATED}
           method="Licens = listpris × användare × 36 månader. Införande = intervallet för minsta projektstorleken per lösning. Förvaltning = 15–25 % av införandet per år under år 2 och 3. Exkl. moms och intern tid."
         />
 

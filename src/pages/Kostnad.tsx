@@ -3,6 +3,8 @@ import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import EditorialAssessment from "@/components/EditorialAssessment";
 import EditorialSource from "@/components/EditorialSource";
+import { resolvePriceTokens } from "@/lib/productPriceFormat";
+import { PRICING_UPDATED, PRICING_BASIS_TEXT } from "@/data/pricing";
 import Navbar from "@/components/Navbar";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import Footer from "@/components/Footer";
@@ -42,7 +44,7 @@ const kostnadFaqs = [
   {
     question: "Vad kostar Dynamics 365 per användare och månad?",
     answer:
-      "Business Central Essentials kostar 70 USD per användare och månad, Premium 100 USD, Dynamics 365 Sales Enterprise 105 USD och Finance 210 USD (Microsofts listpriser, faktureras normalt i SEK via partner eller CSP). Team Members-licenser för läsande användare ligger klart lägre. Se hela listan på prissidan.",
+      resolvePriceTokens("Business Central Essentials kostar {{price:bc-essentials:short}}, Premium {{price:bc-premium:short}}, Dynamics 365 Sales Enterprise {{price:sales-enterprise:short}} och Finance {{price:finance:short}} (Microsofts listpriser exkl. moms). Team Members-licenser för läsande användare ligger klart lägre. Se hela listan på prissidan."),
   },
   {
     question: "Vad kostar det att implementera Business Central i Sverige?",
@@ -146,8 +148,8 @@ export default function Kostnad() {
             <SourceNote
               className="mb-6"
               source="Microsofts officiella listpriser samt d365.se:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners"
-              updated="2026-10-27"
-              method="Intervallen är spann, inte snittpriser: de visar vad partners normalt offererar för respektive omfattning och kan avvika i enskilda projekt."
+              updated={PRICING_UPDATED}
+              method={PRICING_BASIS_TEXT}
             />
             <div className="flex flex-wrap gap-3 text-sm">
               <Link
@@ -319,7 +321,7 @@ export default function Kostnad() {
           <PageOfferBanner />
         </div>
       </section>
-      <SourcesAndMethod externalSources={priceSources} analysis="D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad 2026-06-11. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna." />
+      <SourcesAndMethod externalSources={priceSources} analysis={`D365.SE:s sammanställning av offert- och projektintervall från svenska Dynamics 365-partners, uppdaterad ${PRICING_UPDATED}. Intervallen är spann, inte snittpriser eller bindande offerter. Kostnadsresonemang och rekommendationer är redaktionella bedömningar; Microsofts prislista belägger inte implementationskostnaderna.`} />
       <EditorialSource sourceType="Köpguide" />
       <Footer />
     </div>

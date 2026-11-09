@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
 
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
+import { PRICING_BASIS_TEXT } from "@/data/pricing";
 import Navbar from "@/components/Navbar";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -81,7 +82,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Vad kostar Business Central?",
- answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
+ answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 15–25 % av införandekostnaden per år."
  },
  {
  question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
@@ -89,7 +90,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Hur lång tid tar Business Central implementering i Sverige?",
- answer: "Business Central implementering tar typiskt 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket. Mer komplexa projekt med många anpassningar, integrationer mot befintliga system eller flera bolag tar 6–12 månader. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att hålla tidsplan och budget."
+ answer: "Ett litet projekt tar ofta 2–3 månader och ett medelstort 3–6 månader. Större projekt tar längre tid. Mindre företag med standardprocesser kan vara igång snabbare med ett startpaket. Mer komplexa projekt med många anpassningar, integrationer mot befintliga system eller flera bolag tar 6–12 månader. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att hålla tidsplan och budget."
  },
  {
  question: "Vilket företag passar Business Central bäst för?",
@@ -366,6 +367,7 @@ const BusinessCentral = () => {
  </section>
 
       <CostBreakdown product="business-central" heading="Vad kostar införande och förvaltning?" />
+      <p className="container mx-auto max-w-6xl px-4 sm:px-6 -mt-4 mb-6 text-sm text-muted-foreground">{PRICING_BASIS_TEXT}</p>
       <section className="bg-background pb-8 sm:pb-12">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="mb-4 max-w-3xl text-sm text-muted-foreground">Skilj på licenser, införande, tillägg och anpassningar, integrationer samt löpande förvaltning. Kalkylen är en uppskattning utifrån era antaganden, inte en offert.</p>

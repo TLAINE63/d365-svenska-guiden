@@ -5,7 +5,7 @@ export interface GuideSource {
   href?: string;
   updatedAt?: string;
 }
-export const priceSources: GuideSource[] = [{ name: "Microsoft licensinformation", href: "https://www.microsoft.com/sv-se/dynamics-365/pricing", supports: "Officiella listpriser. Avtal, volym, valuta och moms behöver kontrolleras separat.", updatedAt: "2026-06-11" }];
+export const priceSources: GuideSource[] = [{ name: "Microsoft licensinformation", href: "https://www.microsoft.com/sv-se/dynamics-365/pricing", supports: "Officiella listpriser. Avtal, volym, valuta och moms behöver kontrolleras separat.", updatedAt: "2026-11-09" }];
 export const partnerSources: GuideSource[] = [{ name: "D365.SE:s partnerdatabas", href: "/alla-d365-partners/", supports: "Registrerade produktområden, branscher och leveransuppgifter. Grundprofiler bygger på observerade uppgifter; partnerverifierade profiler innehåller uppgifter bekräftade av partnern. Detta är inte en kvalitetscertifiering." }];
 export function safeSourceHref(href?: string): string | undefined {
   if (!href) return undefined;
