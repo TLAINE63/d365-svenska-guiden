@@ -10,6 +10,9 @@ import { deliveryLabel } from "@/data/bcIsvSolutions";
 import { findBcCategoryPage } from "@/data/bcIsvCategoryPages";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import SourcesAndMethod from "@/components/SourcesAndMethod";
+import EditorialSource from "@/components/EditorialSource";
 
 /** Indexerbar landningssida för en utvald tilläggskategori inom Business Central. */
 const BcIsvCategoryPage = () => {
@@ -154,7 +157,18 @@ const BcIsvCategoryPage = () => {
             </div>
           </section>
 
-          {page.advisory && (
+          {page.advisory && page.slug === "dokument-frakt" ? (
+            <section className="mb-12" aria-labelledby="frakt-radgivning">
+              <h2 id="frakt-radgivning" className="text-xl font-bold text-foreground mb-4">{page.advisory.title}</h2>
+              <AdvisoryOffer
+                variant="inline"
+                placement="solution_advice"
+                pageType="bc_freight_guide"
+                cta="Diskutera systemval och arkitektur för lager och logistik"
+                text={page.advisory.text}
+              />
+            </section>
+          ) : page.advisory && (
             <section className="mb-12 rounded-lg border border-border bg-card p-5 sm:p-6">
               <h2 className="text-lg font-semibold text-card-foreground mb-2">{nowrapBrand(page.advisory.title)}</h2>
               <p className="text-sm text-muted-foreground mb-4 max-w-2xl">{nowrapBrand(page.advisory.text)}</p>
@@ -177,6 +191,7 @@ const BcIsvCategoryPage = () => {
         </div>
       </main>
 
+      {page.slug === "dokument-frakt" && <><SourcesAndMethod /><EditorialSource sourceType="Köpguide" /></>}
       <Footer />
     </div>
   );

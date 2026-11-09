@@ -190,20 +190,43 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
   {
     slug: "dokument-frakt",
     categories: ["Dokument & output", "Frakt & TA"],
-    h1: "Dokumenthantering och frakt för Business Central",
-    metaTitle: "Dokument och frakt för Business Central – tillägg",
+    h1: "Frakthantering, transportbokning och TA-system för Business Central",
+    metaTitle: "Frakthantering & TA-system i Business Central | d365.se",
     metaDescription:
-      "Dokumentlösningar, TA-system för fraktbokning, etiketter och spårning (nShift, Logtrade) samt EDI-flöden kopplade till Business Central.",
+      "Guide till frakthantering, transportbokning och TA-system (nShift/Consignor, Logtrade m.fl.) integrerat med Microsoft Dynamics 365 Business Central.",
     intro:
-      "Dokument- och outputlösningar styr hur fakturor, följesedlar och etiketter utformas och distribueras. Frakt- och TA-system hanterar bokning, etiketter och spårning mot transportörerna, och EDI kopplar ihop orderflödet med kunder och leverantörer.",
+      "Ett TA-system (transportadministration) kopplar Business Central till fraktbolagen. Bokning, fraktetiketter, spårningslänkar och tulldokument skapas från order- och lagerflödet, utan att någon behöver skriva in sändningen igen i en separat webbportal. Sidan visar också hur dokumentflöden och EDI hänger ihop med utleveransen.",
     sections: [
       {
-        id: "ta-system",
-        h2: "TA-system och transportadministration i Dynamics 365",
+        id: "ta-integrationer",
+        h2: "TA-integrationer i praktiken: nShift, Logtrade och Unifaun",
         paragraphs: [
-          "Ett TA-system (transportadministrationssystem) samlar transportörerna i ett gemensamt flöde. I stället för att boka varje sändning i transportörens egen portal skapas fraktbokningen direkt från utleveransen i Business Central. Fraktetiketter, fraktsedlar och spårningsnummer kommer sedan tillbaka till ordern, så att kundtjänst och kund kan följa leveransen.",
-          "I Sverige kopplas Business Central och övriga Dynamics 365-appar ofta till TA-tjänster som nShift och Logtrade. Via dem nås transportörer som PostNord, DHL och Bring med samma flöde för automatisk fraktbokning, spårning och etikettutskrift. Transportörer som PostNord har även egna integrationer, men med ett TA-system kan ni lägga till eller byta transportör utan att bygga nya kopplingar.",
-          "Det som brukar avgöra valet: vilka transportörer och tjänster ni använder, om etiketter ska skrivas ut vid packbordet eller i lagersystemet, hur spårningslänkar ska skickas till kunden och om returer ska hanteras i samma flöde. Kontrollera också om kopplingen är ett tillägg inuti Business Central eller en separat tjänst som synkar data.",
+          "Ett TA-system samlar transportörerna i ett gemensamt flöde. Exempel att utvärdera är nShift och Logtrade. Consignor och Unifaun är äldre namn i nShifts produktfamilj, inte två fristående leverantörsalternativ till nShift. Kontrollera vilken tjänst och Business Central-koppling som avses, särskilt om ni redan har ett äldre avtal.",
+          "När ordern plockats och packats skickas sändningsdata (mottagare, kolli, vikt, tjänst och eventuella farligt gods- eller tulluppgifter) från Business Central till TA-tjänsten. Tillbaka kommer fraktetikett, fraktsedel, sändningsnummer och spårningslänk, som sparas på utleveransen och kan skickas till kunden.",
+          "Vid export som kräver tulldokument kan kopplingen föra över varukoder, ursprungsland, värden och vikter från Business Central till TA-tjänsten. Där kan dokument som handels- eller proformafaktura skapas och skrivas ut i order- och lagerflödet, om tjänsten stöder det. Dokumentstöd och ansvar för tulldeklaration varierar mellan lösningar, transportörer och destinationer och behöver kontrolleras före införandet.",
+        ],
+      },
+      {
+        id: "transportbokning",
+        h2: "Transportadministration och bokning hos fraktbolagen",
+        paragraphs: [
+          "Med en TA-integration kan transporten bokas hos fraktbolag som PostNord, DHL, Schenker och DSV från utleveransen eller packbordet. Automatisering kräver att kopplingen stöder era transportörer och tjänster, att fraktavtalen är anslutna och att bokningsreglerna är konfigurerade. Då slipper ni dubbelarbete i separata webbportaler och kan välja transportör och tjänst utifrån land, vikt eller orderns leveranssätt.",
+          "Transportörer som PostNord har även egna integrationer, men med ett TA-system kan ni lägga till eller byta transportör utan att bygga nya kopplingar mot Business Central. Det förenklar också hämtningsbokning, fraktkostnadsuppföljning och avvikelsehantering.",
+          "Det som brukar avgöra valet: vilka transportörer och tjänster ni använder, antal sändningar per dag, om ni behöver tulldokument, hur spårningslänkar ska nå kunden och om kopplingen är ett tillägg inuti Business Central eller en separat tjänst som synkar data.",
+        ],
+      },
+      {
+        id: "lagerflode",
+        h2: "Lagerflöde: pack, plock och TA-systemet",
+        paragraphs: [
+          "Frakthanteringen fungerar bäst när den sitter ihop med lagret. Med en lagerlösning som stöder handdatorer eller scanners kan ordern plockas mot lagerplatser i Business Central och kontrolleras vid packbordet. TA-kopplingen kan sedan skriva ut fraktetiketter och fraktsedlar när kollit registreras, om det arbetsflödet stöds och är konfigurerat.",
+          "Returhantering kan ingå i samma flöde: returetikett skickas med paketet eller skapas på begäran, och returen tas emot mot ursprungsordern. Då hänger lagersaldo, kreditering och kundtjänst ihop.",
+          "Vid höga volymer, många lagerställen eller avancerade plockregler räcker inte alltid standardlagret. Då utvärderas ett WMS-tillägg till Business Central, eller Supply Chain Management för större verksamheter med centrallager.",
+        ],
+        links: [
+          { text: "Avancerat WMS och centrallager i Finance & Supply Chain Management", to: "/finance-supply-chain/#lagerstyrning-wms" },
+          { text: "WMS och lagerlösningar för Business Central", to: "/business-central/tillagg/wms/" },
+          { text: "Hitta partner för implementering och systemintegration", to: "/valjdynamics365partner/" },
         ],
       },
       {
@@ -221,10 +244,18 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
       },
     ],
     advisory: {
-      title: "Behöver ni rådgivning kring TA-system, frakt och EDI?",
-      text: "Boka ett 20 minuters kostnadsfritt rådgivningssamtal med Thomas Laine för att diskutera rätt tillägg och integrationsstrategi. Ingen partner deltar i samtalet.",
+      title: "Rådgivning kring systemval och arkitektur för lager och logistik",
+      text: "Boka 20 minuters kostnadsfri rådgivning med Thomas Laine om TA-system, WMS, EDI och hur lager och frakt ska hänga ihop med Business Central. Ingen partner deltar i samtalet.",
     },
     faq: [
+      {
+        q: "Är Consigner samma som Consignor?",
+        a: "Om ni menar TA-systemet är namnet Consignor, inte Consigner. Consignor ingår numera i nShift. Kontrollera aktuell tjänst, transportörsstöd och Business Central-koppling med leverantören.",
+      },
+      {
+        q: "Fungerar nShift (Consignor) med Business Central?",
+        a: "Ja. nShift, tidigare Consignor, kopplas till Business Central via tillägg eller integration så att bokning, etiketter och spårning skapas från utleveransen.",
+      },
       {
         q: "Behöver jag ett dokumentverktyg?",
         a: "Vid många dokumentmallar, flera språk, olika distributionssätt eller etiketthantering blir standardrapporterna snabbt begränsande.",
