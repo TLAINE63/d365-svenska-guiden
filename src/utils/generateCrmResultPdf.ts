@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import type { ProductConfig } from "@/data/crmMatchningstestConfigs";
 import type { CrmScoreResult } from "@/lib/crmMatchingScoring";
 import { topCrmProfiles } from "@/lib/crmMatchingScoring";
@@ -86,8 +87,7 @@ export async function generateCrmResultPdf(
   config: ProductConfig,
   extras?: CrmPdfExtras,
 ) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = PDF_MARGIN;

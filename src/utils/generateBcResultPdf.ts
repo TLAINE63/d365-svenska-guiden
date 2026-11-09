@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import type { BcAnswers } from "@/data/bcMatchningstest";
 import { CLASS_ORDER_LABEL, type BcClassification } from "@/lib/bcScoringConstants";
 import type { BcResult } from "@/lib/bcScoring";
@@ -24,8 +25,7 @@ export interface BcPdfExtras {
 }
 
 export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers, extras?: BcPdfExtras) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = PDF_MARGIN;

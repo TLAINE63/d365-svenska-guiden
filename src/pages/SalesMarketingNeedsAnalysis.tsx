@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { isInternalTraffic } from "@/lib/sessionPages";
@@ -896,8 +897,7 @@ const SalesMarketingNeedsAnalysis = () => {
  if (data.marketingNeeds.length >= 5) pdfKeyFactors.push("Brett behov av marketing automation");
 
  // Dynamic import to reduce initial bundle size
- const { default: jsPDF } = await import("jspdf");
- const pdf = new jsPDF();
+ const pdf = await createPdfDocument();
  const pageWidth = pdf.internal.pageSize.getWidth();
  const margin = 20;
  const contentWidth = pageWidth - margin * 2;

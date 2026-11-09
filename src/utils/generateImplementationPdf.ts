@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 // Branded PDF-export för pris- och omfattningskalkylatorn på /implementationskalkylator/.
 // Följer samma brand-layout som övriga d365.se-PDF:er (mörk header, orange accent).
 
@@ -43,8 +44,7 @@ export interface ImplementationPdfData {
 }
 
 export async function generateImplementationPdf(data: ImplementationPdfData): Promise<void> {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const contentW = pageW - PDF_MARGIN * 2;

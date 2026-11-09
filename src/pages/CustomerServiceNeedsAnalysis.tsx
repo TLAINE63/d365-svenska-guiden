@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { isInternalTraffic } from "@/lib/sessionPages";
@@ -878,8 +879,7 @@ const CustomerServiceNeedsAnalysis = () => {
  setIsSendingEmail(false);
  }
 
- const { default: jsPDF } = await import("jspdf");
- const pdf = new jsPDF();
+ const pdf = await createPdfDocument();
  const pageWidth = pdf.internal.pageSize.getWidth();
  const pageHeight = pdf.internal.pageSize.getHeight();
  const margin = 20;
