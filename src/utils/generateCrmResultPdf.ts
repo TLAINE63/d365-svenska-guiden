@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import type { ProductConfig } from "@/data/crmMatchningstestConfigs";
 import type { CrmScoreResult } from "@/lib/crmMatchingScoring";
 import { topCrmProfiles } from "@/lib/crmMatchingScoring";
@@ -86,8 +87,7 @@ export async function generateCrmResultPdf(
   config: ProductConfig,
   extras?: CrmPdfExtras,
 ) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = PDF_MARGIN;
@@ -96,7 +96,7 @@ export async function generateCrmResultPdf(
   const ensureSpace = (need: number, y: number): number => {
     if (y + need > pageH - 20) {
       doc.addPage();
-      return margin + 6;
+      return drawBrandHeader(doc, `${config.productName} – Matchningstest`);
     }
     return y;
   };
@@ -219,8 +219,8 @@ export async function generateCrmResultPdf(
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     const bodyLns = doc.splitTextToSize(s.body, bodyWidth - 4);
-    const ctaText = `→ ${s.cta}`;
-    const need = titleLines.length * 5 + bodyLns.length * 4.6 + 6;
+    const ctaText = "Läs vidare på d365.se";
+    const need = titleLines.length * 5 + bodyLns.length * 4.6 + 9;
     y = ensureSpace(need, y);
 
     doc.setFont("helvetica", "bold");
@@ -234,7 +234,7 @@ export async function generateCrmResultPdf(
     y += bodyLns.length * 4.6 + 1;
 
     doc.setTextColor(...BRAND_PETROL);
-    doc.text(ctaText, margin + 4, y);
+    doc.textWithLink(ctaText, margin + 4, y, { url: `https://${s.cta}` });
     y += 6;
   });
 

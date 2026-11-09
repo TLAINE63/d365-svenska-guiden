@@ -1,5 +1,6 @@
 import type jsPDF from "jspdf";
 import { PDF_BRAND } from "./pdfBrand";
+import { drawBrandHeader } from "./pdfLayout";
 
 export interface PdfIsvAddon {
   name: string;
@@ -28,15 +29,7 @@ export function appendIsvAddonsPage(
   const contentW = pageW - margin * 2;
 
   doc.addPage();
-  let y = margin;
-
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 22, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Tilläggslösningar att utvärdera", margin, 14);
-  y = 32;
+  let y = drawBrandHeader(doc, "Tilläggslösningar att utvärdera");
 
   doc.setTextColor(...BRAND_DARK);
   doc.setFont("helvetica", "normal");
@@ -49,36 +42,45 @@ export function appendIsvAddonsPage(
   y += introLines.length * 5 + 6;
 
   for (const a of addons) {
-    if (y > pageH - 40) {
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    const descLines = doc.splitTextToSize(a.shortDescription || "", contentW - 10);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    const nameLines = doc.splitTextToSize(a.name, contentW - 10);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    const metaLines = doc.splitTextToSize(`${a.vendor} · ${a.category}`, contentW - 10);
+    const boxH = 12 + nameLines.length * 5 + metaLines.length * 4 + descLines.length * 4.5;
+    if (y + boxH > pageH - 25) {
       doc.addPage();
-      y = margin;
+      y = drawBrandHeader(doc, "Tilläggslösningar att utvärdera");
     }
     doc.setDrawColor(225, 225, 230);
     doc.setFillColor(250, 250, 251);
-    const descLines = doc.splitTextToSize(a.shortDescription || "", contentW - 10);
-    const boxH = 18 + descLines.length * 4.5;
     doc.roundedRect(margin, y, contentW, boxH, 2, 2, "FD");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.setTextColor(...PDF_BRAND.primary);
-    doc.text(a.name, margin + 5, y + 7);
+    doc.text(nameLines, margin + 5, y + 7);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
     doc.setTextColor(...MUTED);
-    doc.text(`${a.vendor} · ${a.category}`, margin + 5, y + 12.5);
+    const metaY = y + 7 + nameLines.length * 5;
+    doc.text(metaLines, margin + 5, metaY);
 
     doc.setFontSize(9);
     doc.setTextColor(60, 60, 65);
-    doc.text(descLines, margin + 5, y + 17.5);
+    doc.text(descLines, margin + 5, metaY + metaLines.length * 4 + 1);
 
     y += boxH + 5;
   }
 
   if (y > pageH - 30) {
     doc.addPage();
-    y = margin;
+    y = drawBrandHeader(doc, "Tilläggslösningar att utvärdera");
   }
   doc.setFontSize(8.5);
   doc.setTextColor(...MUTED);

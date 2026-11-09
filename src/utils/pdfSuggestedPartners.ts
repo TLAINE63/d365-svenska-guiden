@@ -8,6 +8,7 @@ export interface PdfSuggestedPartner {
 }
 
 import { PDF_BRAND } from "./pdfBrand";
+import { drawBrandHeader } from "./pdfLayout";
 const BRAND_PETROL: [number, number, number] = PDF_BRAND.primary;
 const BRAND_DARK: [number, number, number] = [21, 19, 15];
 const MUTED: [number, number, number] = [110, 110, 120];
@@ -34,16 +35,7 @@ export function appendSuggestedPartnersPage(
   const contentW = pageW - margin * 2;
 
   doc.addPage();
-  let y = margin;
-
-  // Header bar
-  doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 22, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("Nästa steg: föreslagna partners", margin, 14);
-  y = 32;
+  let y = drawBrandHeader(doc, "Nästa steg: föreslagna partners");
 
   // Intro
   doc.setTextColor(...BRAND_DARK);
@@ -59,6 +51,8 @@ export function appendSuggestedPartnersPage(
   // Partner cards
   for (let i = 0; i < partners.length; i++) {
     const p = partners[i];
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.5);
     const desc = (p.positioning || p.description || "").trim();
     const descLines = desc
       ? doc.splitTextToSize(desc, contentW - 8)
@@ -67,7 +61,7 @@ export function appendSuggestedPartnersPage(
 
     if (y + cardH > pageH - 40) {
       doc.addPage();
-      y = margin;
+      y = drawBrandHeader(doc, "Nästa steg: föreslagna partners");
     }
 
     // Card background
@@ -96,9 +90,9 @@ export function appendSuggestedPartnersPage(
   }
 
   // Compare CTA box
-  if (y + 32 > pageH - 20) {
+  if (y + 65 > pageH - 20) {
     doc.addPage();
-    y = margin;
+    y = drawBrandHeader(doc, "Jämför föreslagna partners");
   }
   y += 4;
   doc.setDrawColor(...BRAND_PETROL);
@@ -124,11 +118,9 @@ export function appendSuggestedPartnersPage(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(...BRAND_PETROL);
-  const urlLines = doc.splitTextToSize(`→ ${opts.compareUrl}`, contentW);
-  // Make clickable
   const linkText = opts.compareUrl;
-  doc.textWithLink(`→ ${linkText}`, margin, y, { url: linkText });
-  y += urlLines.length * 5 + 2;
+  doc.textWithLink("Öppna partnerjämförelsen på d365.se", margin, y, { url: linkText });
+  y += 7;
 
   doc.setFont("helvetica", "italic");
   doc.setFontSize(8.5);

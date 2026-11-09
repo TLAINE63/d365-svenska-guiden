@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import type { BcAnswers } from "@/data/bcMatchningstest";
 import { CLASS_ORDER_LABEL, type BcClassification } from "@/lib/bcScoringConstants";
 import type { BcResult } from "@/lib/bcScoring";
@@ -24,8 +25,7 @@ export interface BcPdfExtras {
 }
 
 export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers, extras?: BcPdfExtras) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = PDF_MARGIN;
@@ -65,7 +65,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
 
     if (y > pageH - 40) {
       doc.addPage();
-      y = margin;
+      y = drawBrandHeader(doc, "Business Central – Matchningstest");
     }
 
     doc.setFillColor(...CLASS_RGB[c]);
@@ -83,7 +83,7 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
       const lines = doc.splitTextToSize(txt, pageW - 2 * margin - 4);
       if (y + lines.length * 4.6 > pageH - 20) {
         doc.addPage();
-        y = margin;
+        y = drawBrandHeader(doc, "Business Central – Matchningstest");
       }
       doc.text(lines, margin + 4, y);
       y += lines.length * 4.6 + 1;

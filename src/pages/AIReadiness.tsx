@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import { useState, useCallback, useEffect } from "react";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { markDownloadUrl } from "@/lib/thanksPages";
@@ -1006,8 +1007,7 @@ const AIReadiness = () => {
 
   // ─── PDF Generation ──────────────────────────────────
   const generatePDF = useCallback(async () => {
-    const { default: jsPDF } = await import("jspdf");
-    const doc = new jsPDF();
+    const doc = await createPdfDocument();
     const scores = calcIndexScores(foundationAnswers, selectedRole!, roleScores);
     const profile = getProfile(scores);
     const pd = profileData[profile];

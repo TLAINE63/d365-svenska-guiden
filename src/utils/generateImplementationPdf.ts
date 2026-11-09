@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 // Branded PDF-export för pris- och omfattningskalkylatorn på /implementationskalkylator/.
 // Följer samma brand-layout som övriga d365.se-PDF:er (mörk header, orange accent).
 
@@ -43,8 +44,7 @@ export interface ImplementationPdfData {
 }
 
 export async function generateImplementationPdf(data: ImplementationPdfData): Promise<void> {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const contentW = pageW - PDF_MARGIN * 2;
@@ -80,13 +80,18 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
 
     doc.setFontSize(10);
     for (const row of metaRows) {
-      ensureSpace(8);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(...PDF_BRAND.textMuted);
       doc.text(safe(row.label), PDF_MARGIN, y);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(...PDF_BRAND.dark);
       const valueLines = doc.splitTextToSize(safe(row.value), contentW * 0.6);
+      ensureSpace(valueLines.length * 5 + 2);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(...PDF_BRAND.textMuted);
+      doc.text(safe(row.label), PDF_MARGIN, y);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...PDF_BRAND.dark);
       doc.text(valueLines, pageW - PDF_MARGIN, y, { align: "right" });
       y += valueLines.length * 5 + 2;
       doc.setDrawColor(...PDF_BRAND.cardBorder);
@@ -148,16 +153,20 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
 
   doc.setFontSize(10);
   for (const row of rows) {
-    ensureSpace(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...PDF_BRAND.textMuted);
     const labelLines = doc.splitTextToSize(safe(row.label), contentW * 0.5);
-    doc.text(labelLines, PDF_MARGIN, y);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...PDF_BRAND.dark);
     const valueLines = doc.splitTextToSize(safe(row.value), contentW * 0.45);
-    doc.text(valueLines, pageW - PDF_MARGIN, y, { align: "right" });
     const lines = Math.max(labelLines.length, valueLines.length);
+    ensureSpace(lines * 5 + 2);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(...PDF_BRAND.textMuted);
+    doc.text(labelLines, PDF_MARGIN, y);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(...PDF_BRAND.dark);
+    doc.text(valueLines, pageW - PDF_MARGIN, y, { align: "right" });
     y += lines * 5 + 2;
     doc.setDrawColor(...PDF_BRAND.cardBorder);
     doc.setLineWidth(0.2);
@@ -240,21 +249,22 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
   y += 4;
 
   // ---- Disclaimer ----
-  ensureSpace(26);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9.5);
+  const disc = doc.splitTextToSize(
+    safe(`Underlaget bygger på öppna antaganden och publicerade listpriser. Verklig kostnad fastställs först efter en förstudie hos vald partner. Beräknat på ${data.pageUrl}`),
+    contentW - 10,
+  );
+  const disclaimerHeight = 16 + disc.length * 4.5;
+  ensureSpace(disclaimerHeight + 4);
   doc.setFillColor(...PDF_BRAND.warningBg);
   doc.setDrawColor(...PDF_BRAND.warningBorder);
-  doc.roundedRect(PDF_MARGIN, y, contentW, 20, 2, 2, "FD");
+  doc.roundedRect(PDF_MARGIN, y, contentW, disclaimerHeight, 2, 2, "FD");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9.5);
   doc.setTextColor(...PDF_BRAND.warningText);
   doc.text("Vägledande estimat - inte en offert", PDF_MARGIN + 5, y + 7);
   doc.setFont("helvetica", "normal");
-  const disc = doc.splitTextToSize(
-    safe(
-      `Underlaget bygger på öppna antaganden och publicerade listpriser. Verklig kostnad fastställs först efter en förstudie hos vald partner. Beräknat på ${data.pageUrl}`,
-    ),
-    contentW - 10,
-  );
   doc.text(disc, PDF_MARGIN + 5, y + 12);
 
   finalizePdfWithFooter(doc, "Pris- och omfattningskalkylator");

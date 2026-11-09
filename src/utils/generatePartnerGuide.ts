@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 const logoImage = "/d365-logo.png";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
@@ -18,8 +19,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     trackFunnelEvent({ event_type: "pdf_download", event_name: "partner_guide" });
   }
   // Dynamic import to reduce initial bundle size
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF();
+  const doc = await createPdfDocument();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 20;

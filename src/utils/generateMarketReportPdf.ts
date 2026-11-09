@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 // Branded PDF- och CSV-export av rapporten
 // "Dynamics 365 Partner Landscape Sweden 2026" (/rapporter/dynamics-365-partnersverige-2026/).
 
@@ -75,8 +76,7 @@ export function downloadMarketReportCsv(
 export async function generateMarketReportPdf(
   stats: ReportStat[] = REPORT_STATS,
 ): Promise<void> {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const contentW = pageW - PDF_MARGIN * 2;
@@ -170,10 +170,11 @@ export async function generateMarketReportPdf(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
   doc.setTextColor(...PDF_BRAND.textMuted);
-  doc.text(
+  doc.text(doc.splitTextToSize(
     safe(
       "Gör en kostnadsfri behovsanalys på d365.se/valjdynamics365partner/ och jämför svenska Dynamics 365-partners.",
     ),
+    contentW - 10),
     PDF_MARGIN + 5,
     y + 13,
   );

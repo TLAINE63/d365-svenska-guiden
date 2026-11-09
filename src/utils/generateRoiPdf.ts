@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 // Branded ROI/TCO PDF generator – used by both BC and Sales ROI calculators.
 // Layout mirrors hero/look (petrol + deep charcoal) and ends with an assumptions appendix.
 
@@ -79,8 +80,7 @@ export interface RoiPdfData {
 }
 
 export async function generateRoiPdf(data: RoiPdfData) {
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = 18;

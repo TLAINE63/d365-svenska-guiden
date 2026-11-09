@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { formatDateYYYYMMDD } from "@/lib/utils";
@@ -121,8 +122,7 @@ export const generateRequirementsSpec = async (
       event_name: `kravspec_${(data.product || "unknown").toLowerCase().replace(/\s+/g, "_")}`,
     });
   }
-  const { default: jsPDF } = await import("jspdf");
-  const doc = new jsPDF();
+  const doc = await createPdfDocument();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 20;

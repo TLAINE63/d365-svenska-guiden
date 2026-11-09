@@ -11,6 +11,7 @@
 
 import type { jsPDF } from "jspdf";
 import { PDF_BRAND } from "./pdfBrand";
+import { pdfText, wrapPdfText } from "./pdfDocument";
 
 export const PDF_HEADER_H = 30; // mm – höjd på dark header-bar
 export const PDF_MARGIN = 18;   // mm – standardmarginal
@@ -39,31 +40,39 @@ export function drawBrandHeader(
 
   // Titel (höger-justerad, medium storlek)
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text(title, PDF_MARGIN, 20);
+  const titleWidth = pageW - PDF_MARGIN * 2;
+  let titleSize = 14;
+  doc.setFontSize(titleSize);
+  while (doc.getTextWidth(pdfText(title)) > titleWidth && titleSize > 10) {
+    titleSize -= 0.5;
+    doc.setFontSize(titleSize);
+  }
+  const titleLines = wrapPdfText(title, titleWidth, (line) => doc.getTextWidth(line));
+  const headerH = PDF_HEADER_H + Math.max(0, titleLines.length - 1) * 5;
+  doc.rect(0, PDF_HEADER_H - 1, pageW, headerH - PDF_HEADER_H + 1, "F");
+  doc.text(titleLines, PDF_MARGIN, 20);
 
   // Subtitel
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
-  doc.setTextColor(255, 255, 255, 0.7 as unknown as number);
-  // jsPDF's setTextColor alpha stöd är opålitligt – använd ljus grå istället
   doc.setTextColor(180, 180, 180);
-  doc.text(subtitle, PDF_MARGIN, 26);
+  doc.text(pdfText(subtitle), PDF_MARGIN, headerH - 4);
 
   // Orange accent-stripe under headern (matchar sajtens primary CTA)
   doc.setFillColor(...PDF_BRAND.primary);
-  doc.rect(0, PDF_HEADER_H, pageW, PDF_ACCENT_H, "F");
+  doc.rect(0, headerH, pageW, PDF_ACCENT_H, "F");
 
   // Återställ text-färg till dark för brödtext
   doc.setTextColor(...PDF_BRAND.dark);
 
-  return PDF_HEADER_H + PDF_ACCENT_H + 8;
+  return headerH + PDF_ACCENT_H + 8;
 }
 
 /**
  * Ritar en subtil footer på alla sidor. Anropa som sista steg innan doc.save().
  */
 export function finalizePdfWithFooter(doc: jsPDF, label: string): void {
+  doc.setProperties({ title: pdfText(label) });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const total = doc.getNumberOfPages();
@@ -79,7 +88,12 @@ export function finalizePdfWithFooter(doc: jsPDF, label: string): void {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8);
     doc.setTextColor(...PDF_BRAND.textMuted);
-    doc.text(`d365.se – ${label}`, PDF_MARGIN, pageH - 7);
+    const footerWidth = pageW - PDF_MARGIN * 2 - 32;
+    let footerLabel = pdfText(`d365.se · ${label}`);
+    while (doc.getTextWidth(footerLabel) > footerWidth && footerLabel.length > 12) {
+      footerLabel = footerLabel.slice(0, -4).trimEnd() + "...";
+    }
+    doc.text(footerLabel, PDF_MARGIN, pageH - 7);
     doc.text(`Sida ${i} av ${total}`, pageW - PDF_MARGIN, pageH - 7, { align: "right" });
   }
 }
@@ -103,12 +117,14 @@ export function drawSectionHeading(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
   doc.setTextColor(...PDF_BRAND.dark);
-  doc.text(text, PDF_MARGIN + 5, y);
+  const lines = wrapPdfText(text, pageW - PDF_MARGIN * 2 - 5, (line) => doc.getTextWidth(line));
+  doc.text(lines, PDF_MARGIN + 5, y);
+  const extraHeight = (lines.length - 1) * 5;
 
   // Tunn petrol-linje under
   doc.setDrawColor(...PDF_BRAND.accent);
   doc.setLineWidth(0.3);
-  doc.line(PDF_MARGIN, y + 3, pageW - PDF_MARGIN, y + 3);
+  doc.line(PDF_MARGIN, y + extraHeight + 3, pageW - PDF_MARGIN, y + extraHeight + 3);
 
-  return y + 9;
+  return y + extraHeight + 9;
 }

@@ -1,3 +1,4 @@
+import { createPdfDocument } from "@/utils/pdfDocument";
 import type { jsPDF } from "jspdf";
 import { PDF_BRAND as B, type RGB } from "./pdfBrand";
 import { drawBrandHeader, finalizePdfWithFooter, drawSectionHeading, PDF_MARGIN as M } from "./pdfLayout";
@@ -7,8 +8,7 @@ import { NAV_PATH_TEXT, NAV_QUESTIONS, NAV_UNSAFE_TEXT, type NavAnswers, type Na
 const t = (s: string) => s.replace(/→/g, ">").replace(/[“”]/g, '"').replace(/\u00A0/g, " ");
 
 export async function generateNavBcResultPdf(result: NavResult, answers: NavAnswers) {
-  const { default: JsPDF } = await import("jspdf");
-  const doc: jsPDF = new JsPDF({ unit: "mm", format: "a4" });
+  const doc: jsPDF = await createPdfDocument();
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const CW = W - 2 * M;
@@ -17,7 +17,7 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
   let y = drawBrandHeader(doc, "NAV till Business Central – resultat");
 
   const ensure = (need: number) => {
-    if (y + need > H - 20) { doc.addPage(); y = M + 4; }
+    if (y + need > H - 20) { doc.addPage(); y = drawBrandHeader(doc, "NAV till Business Central – resultat"); }
   };
   const para = (text: string, size = 10, color: RGB = B.text, indent = 0, lh = 4.8) => {
     doc.setFont("helvetica", "normal"); doc.setFontSize(size); doc.setTextColor(...color);
