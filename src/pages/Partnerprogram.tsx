@@ -344,14 +344,14 @@ const Partnerprogram = () => {
             <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, utökad presentation</h4><p className="text-sm text-muted-foreground">Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. INSIDE-produktion köps separat.</p></div>
           </div>
           <div className="overflow-x-auto border border-border rounded-lg">
-            <table className="w-full text-sm">
+            <table className="w-full table-fixed text-sm [&_th]:px-2 [&_td]:px-2 sm:[&_th]:px-4 sm:[&_td]:px-4">
               <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
-              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Produktområden</th><th scope="col" className="text-right px-4 py-3">Premium Månad</th><th scope="col" className="text-right px-4 py-3">Premium År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
+              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Antal områden</th><th scope="col" className="text-right px-4 py-3">Premium Månad</th><th scope="col" className="text-right px-4 py-3">Premium År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
               <tbody>{[
                 ["1 produktområde", "995", "7 990"],
                 ["2 produktområden", "1 295", "9 990"],
                 ["3 produktområden", "1 495", "11 990"],
-              ].map(([label, month, year]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">{label}</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{month} kr/mån</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{year} kr/år</td></tr>)}</tbody>
+              ].map(([label, month, year]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal"><span className="sm:hidden">{label?.split(" ")[0]}</span><span className="hidden sm:inline">{label}</span></th><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{month} kr</span><span className="block sm:inline text-xs font-normal"> /mån</span></td><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{year} kr</span><span className="block sm:inline text-xs font-normal"> /år</span></td></tr>)}</tbody>
             </table>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
@@ -382,7 +382,7 @@ const Partnerprogram = () => {
       <PartnerProfileCheck initialSlug={partnerSlug} />
       <VerifiedPartnerBadgeEmbed />
       <details className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
-        <summary className="cursor-pointer text-lg font-semibold py-3">Se skillnaden mellan profiler och följ kundens köpresa</summary>
+        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-28">Se skillnaden mellan profiler och följ kundens köpresa</summary>
       {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
