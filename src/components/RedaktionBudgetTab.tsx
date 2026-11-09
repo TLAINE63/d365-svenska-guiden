@@ -87,6 +87,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const [showIsv, setShowIsv] = useState(false);
   const [iq, setIq] = useState("");
   const [iFilter, setIFilter] = useState("all");
+  const [openVendors, setOpenVendors] = useState<Record<string, boolean>>({});
   const isvFor = (v: { name: string; apps: number }): IsvForecast => budget.isvs?.[v.name] ?? { presence: false, extraApps: Math.max(0, v.apps - 1), discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
   const setIsv = (v: { name: string; apps: number }, patch: Partial<IsvForecast>) =>
     setBudget((b) => ({ ...b, isvs: { ...(b.isvs ?? {}), [v.name]: { ...isvFor(v), ...patch } } }));
@@ -373,14 +374,27 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                   const n = (k: keyof IsvForecast, w = "w-20") => (
                     <td className="pr-1"><BudgetNumberInput min={0} className={`h-8 ${w}`} value={(r[k] as number) || ""} placeholder="0" onValueChange={(value) => setIsv(v, { [k]: k === "discount" ? Math.min(100, value) : value } as any)} /></td>
                   );
+                  const open = !!openVendors[v.name];
                   return (
-                    <tr key={v.name} className="border-t">
-                      <td className="py-1 pr-2 font-medium">{v.name}</td>
+                    <Fragment key={v.name}>
+                    <tr className="border-t">
+                      <td className="py-1 pr-2 font-medium">
+                        <button type="button" className="flex items-center gap-1 text-left hover:underline" aria-expanded={open} onClick={() => setOpenVendors((o) => ({ ...o, [v.name]: !o[v.name] }))}>
+                          <span className="text-xs text-muted-foreground w-3">{open ? "▾" : "▸"}</span>{v.name}
+                        </button>
+                      </td>
                       <td className="text-xs">{fmt(v.apps)}</td>
                       <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> 5 990 kr</label></td>
                       {n("extraApps")}{n("discount", "w-16")}{n("introsStd")}{n("introsFscm")}{n("successBasis", "w-28")}
                       <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
                     </tr>
+                    {open && v.products.map((p, i) => (
+                      <tr key={p.id} className="bg-muted/40 text-xs text-muted-foreground">
+                        <td className="py-1 pl-6 pr-2">{p.name}</td>
+                        <td colSpan={10}>{i === 0 ? "Ingår i grundavgiften" : "Extra app, 995 kr/år om den räknas in"}</td>
+                      </tr>
+                    ))}
+                    </Fragment>
                   );
                 })}
               </tbody>
