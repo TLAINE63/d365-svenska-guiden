@@ -1,5 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Partnerprogram för partners och ISV:er (2026-11-09)
+- [x] Korta upprepningar, ge båda målgrupperna egna avsnitt och samla priser tidigare med direktmeny.
+- [x] Behåll prisvillkor, befintliga profilverktyg och kontaktflöden; fem menylänkar, ISV-dialog och fördjupningar kontrollerade på dator/mobil utan överbredd eller runtimefel. 24 budgettester godkända.
+
 ## Ersättning och expertkonsulter (2026-11-09)
 - [x] Basic-mötesavgiften ändrad till 3 500 kr i partnerprogram, admin och budget; rubrikerna förtydligade och expertkonsultförmedling tillagd. 24 beräkningstester godkända och partnerprogrammet kontrollerat på desktop/mobil.
 

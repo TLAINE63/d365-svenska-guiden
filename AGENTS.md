@@ -56,3 +56,4 @@
 - Budget numeric fields share BudgetNumberInput for Swedish grouping, decimal editing and select-on-focus, keeping display strings separate from numeric calculation values.
 - Desktop partner openings fill the viewport below the measured site navigation height, with natural growth for expanded content so nothing is clipped.
 - PartnerRequestDialog submits all selected partners in one submit-lead call, so the existing double-opt-in token releases the complete request with one buyer confirmation while partner emails stay separate.
+- Partnerprogram uses native section anchors for its local menu and reuses existing profile checks, benchmarks and contact dialogs; this keeps both audience paths on the same URL without parallel lead flows.

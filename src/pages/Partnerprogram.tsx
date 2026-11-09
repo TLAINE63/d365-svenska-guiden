@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowRight,
@@ -12,8 +12,6 @@ import {
   Eye,
   BadgeCheck,
   Video,
-  FileText,
-  Users,
   Sparkles,
 } from "lucide-react";
 
@@ -42,6 +40,14 @@ type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_ur
 
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
 
+const programSections = [
+  { id: "for-partners", label: "För partners" },
+  { id: "for-isver", label: "För ISV:er" },
+  { id: "priser-innehall", label: "Priser & innehåll" },
+  { id: "affarsmojligheter", label: "Förmedling" },
+  { id: "vanliga-fragor", label: "Vanliga frågor" },
+];
+
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
   { name: "För partners", url: "https://d365.se/partnerprogram/" },
@@ -49,9 +55,13 @@ const breadcrumbs = [
 
 const faqs = [
   {
+    question: "Är d365.se även för ISV-leverantörer?",
+    answer: "Ja. Tilläggslösningar kan finnas i katalogen utan avgift. ISV Presence kostar 5 990 kr per år inklusive en app och 995 kr per extra app, exklusive moms. Logotyp, webblänk och kontaktuppgifter kräver både betald ISV Presence och verifierad leverantör och produkt. Betalning påverkar aldrig katalogordningen.",
+  },
+  {
     question: "Finns vi på d365.se även om vi inte profilerar oss?",
     answer:
-      "Ja. Ambitionen är att kartlägga den relevanta svenska Dynamics 365-partnermarknaden. Skillnaden är hur mycket information som finns tillgänglig om respektive partner.",
+      "Ja. Ambitionen är att kartlägga den relevanta svenska Dynamics 365-partnermarknaden. Skillnaden är hur mycket information som finns tillgänglig om respektive partner.",
   },
   {
     question: "Påverkar profilering vår ranking?",
@@ -81,7 +91,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
   },
 ];
 
@@ -138,7 +148,7 @@ const Partnerprogram = () => {
   const [searchParams] = useSearchParams();
   const partnerSlug = searchParams.get("partner");
   const { data: basicPartners } = useBasicPartners();
-  const [showSticky, setShowSticky] = useState(false);
+
 
 
 
@@ -152,8 +162,6 @@ const Partnerprogram = () => {
     return null;
   }, [partnerSlug, basicPartners]);
 
-  const profileExampleUrl = "/partner/knowit/";
-  const secondaryProfileUrl = matchedPartner?.url ?? "/valjdynamics365partner/";
 
   // Page view + scroll depth
   useEffect(() => {
@@ -161,7 +169,7 @@ const Partnerprogram = () => {
     let fired50 = false;
     let fired90 = false;
     const onScroll = () => {
-      setShowSticky(window.scrollY > 700);
+
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
       if (max <= 0) return;
@@ -231,14 +239,14 @@ const Partnerprogram = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead webPageSchema={false}
-        title="För Dynamics 365-partners | Profilera er på d365.se"
-        description="d365.se kartlägger Sveriges Dynamics 365-partners. Se hur en profilerad partnerprofil stärker er synlighet när kunder jämför och väljer partner."
+        title="För partners och ISV:er | Priser och innehåll på d365.se"
+        description="Visa er kompetens eller tilläggslösning för företag som utvärderar Dynamics 365. Jämför partnerprogram och ISV Presence, priser och innehåll på d365.se."
         canonicalPath="/partnerprogram"
-        keywords="Dynamics 365 partner, partnerprofil, partnerprogram, Microsoft-partner Sverige"
+        keywords="Dynamics 365 partner, partnerprofil, partnerprogram, Microsoft-partner Sverige"
       />
       <WebPageSchema
-        name="För Dynamics 365-partners | Profilera er på d365.se"
-        description="Hur svenska Dynamics 365-partners kan verifiera och utveckla sin profil på d365.se."
+        name="För partners och ISV:er | Priser och innehåll på d365.se"
+        description="Erbjudanden, priser och innehåll för partners och ISV-leverantörer på d365.se."
         url="https://d365.se/partnerprogram/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -256,123 +264,125 @@ const Partnerprogram = () => {
               </Badge>
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
-              För Dynamics 365-partners
+              För Dynamics&nbsp;365-partners och ISV-leverantörer
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
-              Ni finns redan på d365.se.
-              <br />
-              Se till att kunder och AI förstår er kompetens.
+              Visa er kompetens och era lösningar för rätt företag.
             </h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
               d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 –
               och hjälper partners och ISV:er att komma i kontakt med företag som har relevanta behov.
             </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-7">
-              Med en partnerverifierad profil kan ni säkerställa att er kompetens, specialiseringar,
-              kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <CheckButton placement="hero" />
-              <Button asChild variant="outline" size="lg" onClick={() => profileClick("hero")}>
-                <Link to={profileExampleUrl}>
-                  Jämför med en partnerverifierad profil
-                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
-                </Link>
-              </Button>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg"><a href="#priser-innehall">Se priser och innehåll<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+              <BookButton placement="hero" label="Prata med oss om er närvaro" />
             </div>
-            <p className="text-sm text-muted-foreground mt-5 max-w-2xl">
-              d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden –
-              ett profileringsavtal krävs inte för att finnas med. Betalning ger ingen rankingvikt,
-              bonuspoäng eller köpt placering. Mer komplett och partnerverifierad information kan
-              däremot göra det möjligt för d365.se att bedöma er relevans mer precist.
-            </p>
-            <div className="mt-5 flex flex-col gap-2 max-w-2xl">
-              <p className="text-sm text-muted-foreground border-l-4 border-border pl-3">
-                Partnerprofiler kan även exponeras på d365guide.com, den nordiska versionen av
-                plattformen som täcker Norge, Finland och Danmark.
-              </p>
-            </div>
-
+            <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
+              {["Bli hittad i köpresan", "Visa rätt kompetens och lösningar", "Möt företag med relevanta behov"].map((text) => (
+                <li key={text} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{text}</li>
+              ))}
+            </ul>
 
 
           </div>
         </div>
       </header>
 
-      {/* 2. RISK ATT BLI BORTVALD */}
-      <section className="py-14 md:py-20 bg-slate-900 text-slate-100">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Vad riskerar ni med att avvakta?</h2>
-            <p className="text-slate-300 mb-8">
-              Potentiella kunder kan redan hitta och jämföra ert företag på d365.se. Med en
-              Basic-profil är beslutsunderlaget om er begränsat, samtidigt som profilerade konkurrenter
-              kan visa sin specialisering, sina kundcase, sina experter och en tydlig väg till kontakt.
-            </p>
-            <p className="text-lg md:text-2xl font-semibold leading-snug border-l-4 border-primary pl-5 mb-8">
-              Den största risken är inte att missa ett klick – utan att bli bortvald från en kortlista
-              utan att veta att affärsmöjligheten fanns.
-            </p>
-            <Button asChild size="lg" onClick={() => checkClick("risk")}>
-              <a href="#profilkoll">
-                <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
-                Se hur ert företag presenteras idag
-              </a>
-            </Button>
-          </div>
+      <nav aria-label="Partnerprogrammets avsnitt" className="border-b border-border bg-background">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 flex flex-wrap gap-1 py-3">
+          {programSections.map((section) => (
+            <Button key={section.id} asChild variant="ghost" size="sm"><a href={`#${section.id}`}>{section.label}</a></Button>
+          ))}
         </div>
-      </section>
+      </nav>
 
-      {/* 3. PROFILKOLL */}
-      <PartnerProfileCheck initialSlug={partnerSlug} />
-
-      <VerifiedPartnerBadgeEmbed />
-
-      {/* 4. FYRA HUVUDVÄRDEN */}
-      <section className="py-14 md:py-20">
+      <section id="for-partners" className="py-10 md:py-14 scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Varför profilera er?</h2>
-          <p className="text-base text-muted-foreground mb-8 max-w-3xl leading-relaxed">
-            En partnerverifierad profil hjälper företag, sökmotorer och AI-tjänster att förstå er
-            verksamhet, era specialistområden, er branscherfarenhet, era kundsegment och vilka
-            Dynamics&nbsp;365-lösningar ni arbetar med: Business Central, Finance & Supply Chain
-            Management (F&O) och CRM (Sales, Customer Service, Field Service, Contact Center och
-            Marketing), samt förmågor som Power Platform, Copilot och AI-agenter.
-          </p>
-
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">För partners: visa när er kompetens passar</h2>
+          <p className="max-w-3xl text-muted-foreground mb-6">Hjälp företag som utvärderar CRM- och affärssystem (ERP) att förstå vilka kunder, branscher och projekt ni har erfarenhet av. Er profil blir ett underlag när köparen söker, jämför och skapar sin kortlista.</p>
+          <ul className="grid md:grid-cols-3 gap-5 mb-6">
             {[
-              {
-                icon: Search,
-                title: "Bli hittad",
-                text: "Skapa fler relevanta digitala ytor där potentiella kunder kan upptäcka er – via partnerprofil, sök, filtrering, innehåll och video.",
-              },
-              {
-                icon: BadgeCheck,
-                title: "Bli rätt förstådd",
-                text: "Verifiera själva vilka Dynamics\u00A0365-produkter och branscher ni arbetar med, och beskriv med egna ord era typiska kunder och projekt.",
-              },
-              {
-                icon: Columns3,
-                title: "Bli vald",
-                text: "Ge köparen ett betydligt bättre beslutsunderlag när ni jämförs sida vid sida med andra Dynamics 365-partners.",
-              },
-              {
-                icon: Sparkles,
-                title: "Stärk digital synlighet",
-                text: "En unik, indexerbar tredjepartsprofil med expertinnehåll, kundcase och video ger Google och AI-tjänster mer relevant information om vilka ni är och när ni är relevanta.",
-              },
-            ].map((v) => (
-              <div key={v.title} className="rounded-xl border border-border bg-card p-6">
-                <v.icon className="w-6 h-6 text-accent mb-3" aria-hidden="true" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{v.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{v.text}</p>
-              </div>
-            ))}
+              { title: "Kompetens och specialisering", text: "Produktområden, branscher och era egna beskrivningar av typiska kunder och projekt." },
+              { title: "Belägg och människor", text: "Kundcase, expertprofiler, nyheter och events som visar vad ni kan bidra med." },
+              { title: "En aktuell presentation", text: "Egen profileringslänk. Med Premium ingår kvartalsvis genomgång, profilstatistik och en namngiven kontaktperson." },
+            ].map((item) => <li key={item.title}><h3 className="text-base font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.text}</p></li>)}
+          </ul>
+          <div className="flex flex-wrap gap-3">
+            <CheckButton placement="partner_intro" size="default" />
+            <Button asChild variant="outline" onClick={() => profileClick("partner_intro")}><Link to="/valjdynamics365partner/">Se hur kunder jämför partners<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>
 
+      <section id="for-isver" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-28">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">För ISV:er: visa vilka behov era produkter löser</h2>
+          <p className="max-w-3xl text-muted-foreground mb-6">Utvecklar ni tillägg till Dynamics&nbsp;365? Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain Management, Sales och Customer Service.</p>
+          <ul className="grid md:grid-cols-3 gap-5 mb-6">
+            {[
+              { title: "Produkten i rätt sammanhang", text: "Beskriv funktioner, användningsområden, målgrupp och vilka Dynamics\u00A0365-produkter lösningen kompletterar." },
+              { title: "En tydlig väg till er", text: "ISV Presence ger logotyp, webblänk och kontaktuppgifter när både leverantören och produkten är verifierade." },
+              { title: "Visa lösningen i praktiken", text: "Upp till tre aktiva YouTube-demofilmer per app. Möjlighet till visning på businesscentral.se för relevanta BC-appar." },
+            ].map((item) => <li key={item.title}><h3 className="text-base font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.text}</p></li>)}
+          </ul>
+          <div className="flex flex-wrap gap-3">
+            <ContactFormDialog buyerForm={false} title="Prata med oss om ISV Presence" subject="ISV Presence">
+              <Button onClick={() => bookClick("isv_intro")}><Mail className="w-4 h-4 mr-2" aria-hidden="true" />Prata med oss om ISV Presence</Button>
+            </ContactFormDialog>
+            <Button asChild variant="outline"><Link to="/isvprogram/">Mer om ISV-programmet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
+            <Button asChild variant="ghost"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
+          </div>
+        </div>
+      </section>
+      <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-28">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Priser &amp; innehåll</h2>
+          <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium och ISV Presence är frivilliga tillägg. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
+          <h3 className="text-lg font-semibold mb-4">Partners: Standard eller Premium</h3>
+          <div className="grid gap-6 md:grid-cols-2 mb-6">
+            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Standard (grundprofil), 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen.</p></div>
+            <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, utökad presentation</h4><p className="text-sm text-muted-foreground">Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. INSIDE-produktion köps separat.</p></div>
+          </div>
+          <div className="overflow-x-auto border border-border rounded-lg">
+            <table className="w-full table-fixed text-sm [&_th]:px-2 [&_td]:px-2 sm:[&_th]:px-4 sm:[&_td]:px-4">
+              <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
+              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Antal områden</th><th scope="col" className="text-right px-4 py-3">Premium Månad</th><th scope="col" className="text-right px-4 py-3">Premium År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
+              <tbody>{[
+                ["1 produktområde", "995", "7 990"],
+                ["2 produktområden", "1 295", "9 990"],
+                ["3 produktområden", "1 495", "11 990"],
+              ].map(([label, month, year]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal"><span className="sm:hidden">{label?.split(" ")[0]}</span><span className="hidden sm:inline">{label}</span></th><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{month} kr</span><span className="block sm:inline text-xs font-normal"> /mån</span></td><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{year} kr</span><span className="block sm:inline text-xs font-normal"> /år</span></td></tr>)}</tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground">Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
+          <h3 className="text-lg font-semibold mt-8 mb-4">ISV: kostnadsfri katalog eller ISV Presence</h3>
+          <div className="overflow-x-auto border border-border rounded-lg">
+            <table className="w-full text-sm"><caption className="sr-only">ISV-priser exklusive moms</caption>
+              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Nivå</th><th scope="col" className="text-left px-4 py-3">Innehåll</th><th scope="col" className="text-right px-4 py-3">Pris</th></tr></thead>
+              <tbody>
+                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">Standard</th><td className="px-4 py-3">Produktfakta i katalogen, utan logotyp, webblänk eller kontaktuppgifter.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">0 kr</td></tr>
+                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">ISV Presence</th><td className="px-4 py-3">En app. Logotyp, webblänk, kontakt och demofilmer för verifierad leverantör och produkt.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">5&nbsp;990 kr/år</td></tr>
+                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">Extra app</th><td className="px-4 py-3">Ytterligare verifierad produkt från samma leverantör.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">995 kr/år</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground">ISV Presence faktureras årsvis i förskott, exklusive moms. Verifieringsprocessen ingår, men leverantör och produkt kontrolleras var för sig och godkänd status garanteras inte.</p>
+          <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: D365 Verifierad eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium ger aldrig verifieringsstatus, och information som tagits fram med AI-stöd blir aldrig automatiskt verifierad.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Standard eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner eller tilläggslösning kan finnas med utan ett betalt avtal.</p></div></section>
+      <PartnerProfileCheck initialSlug={partnerSlug} />
+      <VerifiedPartnerBadgeEmbed />
+      <details className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
+        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-28">Se skillnaden mellan profiler och följ kundens köpresa</summary>
       {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
@@ -427,259 +437,32 @@ const Partnerprogram = () => {
       </section>
 
 
-      {/* 6. SEO + AI-SÖK */}
-      <section ref={seoRef} className="py-14 md:py-20">
+      </details>
+
+      <section className="py-10 md:py-14">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-            Bygg fler relevanta signaler för sökmotorer och AI
-          </h2>
-          <p className="max-w-3xl text-muted-foreground mb-8">
-            På er egen webbplats berättar ni själva vilka ni är. En profilerad närvaro på d365.se skapar
-            ytterligare en extern, indexerbar källa i ett sammanhang helt fokuserat på Dynamics&nbsp;365:
-            Business Central, Finance & Supply Chain Management (F&O) och CRM (Sales, Customer Service,
-            Field Service, Contact Center och Marketing), med Power Platform, Copilot och AI-agenter som
-            förmågor.
-          </p>
-
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: FileText,
-                title: "Partnerprofil",
-                text: "Strukturerad information per produktområde (Business Central, Finance & Supply Chain Management, CRM), branscherfarenhet, typiska kunder och erbjudande.",
-              },
-              {
-                icon: Users,
-                title: "Expertinnehåll",
-                text: "Förstahandsinformation och perspektiv från partnerns egna specialister inom ERP, CRM, Power Platform och Copilot.",
-              },
-              {
-                icon: BadgeCheck,
-                title: "Kundcase",
-                text: "Konkreta exempel som hjälper både människor och söksystem att förstå er branscherfarenhet.",
-              },
-
-              {
-                icon: Video,
-                title: "Video",
-                text: "Intervju publicerad på d365.se och d365.se:s YouTube-kanal, gärna tillsammans med sammanfattning eller transkription.",
-              },
-            ].map((c) => (
-              <div key={c.title} className="rounded-xl border border-border bg-card p-6">
-                <c.icon className="w-6 h-6 text-accent mb-3" aria-hidden="true" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{c.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 rounded-lg border border-border bg-muted/40 p-5 max-w-3xl">
-            <p className="text-sm text-muted-foreground">
-              Google rekommenderar fortsatt högkvalitativt, unikt och användbart innehåll även för
-              synlighet i generativa AI-sökresultat. d365.se lovar inte ranking eller AI-citeringar –
-              men en komplett faktabaserad tredjepartsprofil skapar bättre förutsättningar att bli
-              hittad och förstådd.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 6b. HUR AI ANVÄNDER PARTNERPROFILEN */}
-      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-            Hur använder AI er partnerprofil?
-          </h2>
-          <div className="max-w-3xl space-y-4 text-muted-foreground">
-            <p>
-              AI-baserade söktjänster som Microsoft Copilot, ChatGPT, Gemini och Google AI använder
-              innehållet på webbplatser för att förstå företags kompetenser, branscherfarenhet,
-              specialistområden och kundsegment.
-            </p>
-            <p>
-              En partnerverifierad profil ger mer strukturerad information om produkter, branscher,
-              kundtyper, erbjudanden och kundcase, vilket kan göra det enklare för AI-system att förstå
-              när er verksamhet är relevant.
-            </p>
-            <p>
-              I praktiken handlar det om frågor som ”vilken Dynamics 365-partner i Sverige har erfarenhet
-              av Business Central inom tillverkning?”, ”vem arbetar med Finance och Supply Chain
-              Management för grossister?” eller ”vilka partners kan Customer Engagement med Sales och
-              Customer Service samt Power Platform och Copilot?”. Ju tydligare produkter, branscherfarenhet
-              och kundcase beskrivs, desto större är chansen att era styrkor kommer med i svaret.
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3 mt-8">
-            {[
-              {
-                t: "Produkter",
-                d: "Business Central, Finance & Supply Chain Management (F&O) eller CRM (Sales, Customer Service, Field Service, Contact Center och Marketing), namngivna och inte underförstådda. Power Platform, Copilot och AI-agenter anges som förmågor.",
-              },
-              {
-                t: "Branscherfarenhet",
-                d: "Vilka branscher ni faktiskt levererat i, och vilken typ av verksamhet lösningarna stöttat.",
-              },
-              {
-                t: "Kundsegment och case",
-                d: "Storlek, komplexitet och konkreta kundexempel som gör bedömningen kontrollerbar.",
-              },
-            ].map((c) => (
-              <div key={c.t} className="rounded-xl border border-border bg-card p-6">
-                <h3 className="text-lg font-semibold text-foreground mb-2">{c.t}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.d}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
-            d365.se kan inte lova att en profil citeras av en AI-tjänst. Men strukturerad, faktabaserad
-            och partnerverifierad information är en förutsättning för att bli korrekt förstådd.
-          </p>
-        </div>
-      </section>
-
-
-      {/* 7. VIDEOPROFIL */}
-      <section ref={videoRef} className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 grid gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-              Låt era experter komma fram
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Som profilerad partner kan ni medverka i en redaktionell intervju där vi fokuserar på er
-              specialisering, marknadssyn och vilka typer av kunder och projekt ni passar bäst för.
-            </p>
-            <h3 className="text-base font-semibold text-foreground mb-3">Exempel på frågor</h3>
-            <ul className="space-y-2">
-              {[
-                "Vad är ni riktigt bra på?",
-                "Vilka typer av projekt passar er bäst?",
-                "Vad bör en köpare tänka på innan ett Dynamics 365-projekt?",
-                "När skulle ni rekommendera en annan lösning eller partner?",
-                "Vilka förändringar ser ni på marknaden?",
-              ].map((q) => (
-                <li key={q} className="flex gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                  {q}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <Video className="w-5 h-5 text-accent" aria-hidden="true" />
-              <h3 className="text-lg font-semibold text-foreground">Intervjun kan användas som</h3>
-            </div>
-            <ul className="space-y-2">
-              {[
-                "video på partnerprofilen",
-                "publicering på d365.se",
-                "YouTube-video",
-                "textbaserad sammanfattning",
-                "expertcitat",
-                "framtida artiklar och guider där partnerns specialistkompetens är relevant",
-              ].map((u) => (
-                <li key={u} className="flex gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                  {u}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-
-      {/* 8b. PUBLICERING OCH PRISER (Sprint 1.1: Standard är kostnadsfri) */}
-      <section className="py-14 md:py-20">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Kostar det att publiceras på d365.se?
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-3xl">
-            Nej. Grundpublicering kräver ingen betalning. En relevant Dynamics&nbsp;365-partner kan
-            publiceras som Standard utan avgift. Premium är ett frivilligt tillägg för den som vill ha en
-            utökad presentation. Ingen av nivåerna påverkar relevansordningen, och verifiering kan inte köpas.
-          </p>
-          <div className="grid gap-5 md:grid-cols-3 items-stretch">
-            <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Standard</h3>
-              <p className="text-3xl font-bold text-foreground mb-3">0 kr</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Kostnadsfri grundpublicering. Partnerprofil med produktområden, branscher, geografi och
-                partnerns egna beskrivningar, synlig i partnerväljaren, filtren och jämförelsen.
-              </p>
-            </div>
-            <div className="rounded-xl border border-border bg-card p-6 flex flex-col">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-1">Premium Månad</h3>
-              <p className="text-base font-semibold text-foreground mb-3">Utökad partnerpresentation</p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Visa mer av er kompetens, era specialiseringar och de personer som kunder kan möta hos er.
-                Premium ger utrymme för en mer innehållsrik partnerprofil, med möjlighet till expertintervju
-                och video. Det ingår också en kvartalsvis genomgång av profilen, statistik över
-                profilvisningar och en namngiven kontaktperson på d365.se.
-              </p>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Månadspris exklusive moms</p>
-              <ul className="text-sm text-foreground space-y-1 mb-4">
-                <li>1 produktområde: <strong>995&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
-                <li>2 produktområden: <strong>1&nbsp;295&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
-                <li>3 produktområden: <strong>1&nbsp;495&nbsp;kr&nbsp;/&nbsp;månad</strong></li>
-              </ul>
-              <p className="text-xs text-muted-foreground leading-relaxed mt-auto">
-                Avgiften faktureras månadsvis i efterskott (D365 CE/CRM-applikationerna räknas som ett produktområde).
-              </p>
-            </div>
-            <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg flex flex-col">
-              <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                Populärast
-              </span>
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">Premium År</h3>
-              <p className="text-base font-semibold text-foreground mb-3">Utökad partnerpresentation</p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Visa mer av er kompetens, era specialiseringar och de personer som kunder kan möta hos er.
-                Premium ger utrymme för en mer innehållsrik partnerprofil, med möjlighet till expertintervju
-                och video. Det ingår också en kvartalsvis genomgång av profilen, statistik över
-                profilvisningar och en namngiven kontaktperson på d365.se.
-              </p>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
-              <ul className="text-sm text-foreground space-y-1 mb-4">
-                <li>1 produktområde: <strong>7&nbsp;990&nbsp;kr</strong></li>
-                <li>2 produktområden: <strong>9&nbsp;990&nbsp;kr</strong></li>
-                <li>3 produktområden: <strong>11&nbsp;990&nbsp;kr</strong></li>
-              </ul>
-              <p className="text-xs text-muted-foreground leading-relaxed mt-auto">
-                Avgiften faktureras årsvis i förskott
-                (D365 CE/CRM-applikationerna räknas som ett produktområde).
-              </p>
-            </div>
-          </div>
-          <p className="mt-6 text-sm text-muted-foreground max-w-3xl">
-            För Premium Månad är uppsägningstiden 3 månader och ska meddelas i god tid före varje kvartals början.
-            Produktområden räknas på de områden ni väljer att delta i, och för varje produktområde kan ni välja upp till tre branscher.
-          </p>
-          <div className="mt-6 max-w-4xl rounded-xl border border-border bg-card p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-2">d365.se INSIDE, expertintervju</h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Intervju och produktion med redaktionellt ansvar hos d365.se. Ni betalar för produktion och distribution, inte för en viss slutsats.
-            </p>
-            <ul className="text-sm text-foreground space-y-1">
-              <li>Publicerade partners med Premium: <strong>4&nbsp;900&nbsp;kr</strong> per intervju</li>
-              <li>Övriga: <strong>8&nbsp;900&nbsp;kr</strong> per intervju</li>
-            </ul>
-            <p className="text-xs text-muted-foreground mt-2">Exklusive moms.</p>
-          </div>
-          <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: D365 Verifierad eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium ger aldrig verifieringsstatus, och information som tagits fram med AI-stöd blir aldrig automatiskt verifierad.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Standard eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
-            </ul>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-5">Fördjupning om synlighet och expertinnehåll</h2>
+          <Accordion type="multiple">
+            <AccordionItem value="synlighet">
+              <AccordionTrigger>Hur kan er profil bidra till sök- och AI-synlighet?</AccordionTrigger>
+              <AccordionContent><div ref={seoRef} className="max-w-3xl space-y-3 text-muted-foreground">
+                <p>En indexerbar profil med tydliga produktområden, branscher, kundcase och expertinnehåll ger sökmotorer och AI-tjänster ytterligare en källa om er verksamhet. Era egna beskrivningar av kunder och projekt är grunden.</p>
+                <p>d365.se garanterar inte sökplaceringar, AI-citeringar eller leadvolymer. Värdet är ett mer komplett och kontrollerbart underlag för företag som utvärderar lösningar och partners.</p>
+              </div></AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="inside">
+              <AccordionTrigger>Vad innebär d365.se INSIDE?</AccordionTrigger>
+              <AccordionContent><div ref={videoRef} className="max-w-3xl space-y-3 text-muted-foreground">
+                <p>En redaktionell intervju med era experter om specialisering, kundbehov och erfarenheter. Den kan publiceras på d365.se, på partnerprofilen och på YouTube, med sammanfattning och expertcitat.</p>
+                <p>Produktion och distribution kostar 4&nbsp;900 kr för publicerade partners med Premium och 8&nbsp;900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se; betalning köper inte en viss slutsats.</p>
+              </div></AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
       {/* 8c. KVALIFICERADE AFFÄRSMÖJLIGHETER (Thomas 2026-11-04) */}
-      <section id="affarsmojligheter" className="py-14 md:py-20 bg-secondary/30 border-y border-border">
+      <section id="affarsmojligheter" className="scroll-mt-28 py-10 md:py-14 bg-secondary/30 border-y border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Kvalificerade affärsmöjligheter
@@ -880,39 +663,8 @@ const Partnerprogram = () => {
       </section>
 
 
-      {/* 11. TRANSPARENS */}
-      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
-              Köparsidig – inte pay-to-rank
-            </h2>
-            <div className="space-y-3 text-muted-foreground">
-              <p>
-                d365.se säljer inte Dynamics 365 och representerar inte en enskild systemleverantör
-                eller konsultpartner.
-              </p>
-              <p>
-                d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden.
-                En partner behöver inte ha ett profileringsavtal för att finnas med – utan avtal
-                visas en grundprofil sammanställd från publika källor.
-              </p>
-              <p>
-                Partners med profileringsavtal kan själva granska, korrigera och komplettera sin
-                profil med kundcase, kontaktpersoner, bilder och mer detaljerad information.
-              </p>
-              <p>
-                Betalning ger ingen rankingvikt, bonuspoäng eller köpt placering. Mer komplett och
-                partnerverifierad information kan däremot göra det möjligt för d365.se att bedöma en
-                partners relevans mer precist.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 12. FAQ */}
-      <section className="py-14 md:py-20">
+      <section id="vanliga-fragor" className="py-10 md:py-14 scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Vanliga frågor</h2>
           <Accordion
@@ -935,58 +687,13 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      {/* 13. SLUT-CTA */}
-      <section className="py-16 md:py-24 bg-slate-900 text-slate-100">
+      <section className="py-12 md:py-16 bg-secondary/30 border-t border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-4xl font-bold mb-5">
-              Hur ser ert företag ut när en kund jämför er med konkurrenterna?
-            </h2>
-            <p className="text-slate-300 mb-8">
-              {matchedPartner
-                ? `${matchedPartner.name} finns redan på d365.se. Vi visar gärna hur er nuvarande profil ser ut och hur en profilerad närvaro skulle kunna utvecklas.`
-                : "Vi visar gärna hur er nuvarande profil ser ut och hur en profilerad närvaro skulle kunna utvecklas."}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <CheckButton placement="footer" />
-              <BookButton
-                placement="footer"
-                className="bg-transparent border-slate-500 text-slate-100 hover:bg-slate-800 hover:text-slate-50"
-              />
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="bg-transparent border-slate-500 text-slate-100 hover:bg-slate-800 hover:text-slate-50"
-                onClick={() => profileClick("footer")}
-              >
-                <Link to={secondaryProfileUrl}>
-                  <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Se vår profil på d365.se
-                </Link>
-              </Button>
-            </div>
-          </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Vilken närvaro passar ert företag?</h2>
+          <p className="text-muted-foreground max-w-3xl mb-6">Vi går gärna igenom partnerprofilen eller era tilläggslösningar och hjälper er att förstå vad som ingår.</p>
+          <BookButton placement="footer" variant="default" label="Prata med oss om er närvaro" />
         </div>
       </section>
-
-      {/* 14. STICKY CTA */}
-      {showSticky && (
-        <>
-          <div className="hidden md:block fixed top-20 right-6 z-40">
-            <CheckButton placement="sticky_desktop" size="sm" className="shadow-lg" label="Se er profil idag" />
-          </div>
-          <div className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur px-3 py-2">
-            <CheckButton
-              placement="sticky_mobile"
-              size="default"
-              className="w-full h-11"
-              label="Se hur ni presenteras idag"
-            />
-          </div>
-          <div className="md:hidden h-16" aria-hidden="true" />
-        </>
-      )}
 
       </main>
       <Footer />
