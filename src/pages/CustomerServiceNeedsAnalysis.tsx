@@ -31,6 +31,8 @@ import { buildCompareUrl } from "@/lib/compareUrl";
 import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { finalizePdfWithFooter } from "@/utils/pdfLayout";
+import { ORGANIZATION } from "@/data/organization";
 
 const customerServiceBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
@@ -1436,10 +1438,9 @@ const CustomerServiceNeedsAnalysis = () => {
  pdf.text("Dynamic Factory", margin + 8, yPos + 10);
  pdf.setFont("helvetica", "normal");
  pdf.setFontSize(9);
- pdf.text("Ert underlag för kundservice i Dynamics 365", margin + 8, yPos + 18);
- pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
- pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
- pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
+ pdf.text("Ert underlag för kundservice", margin + 8, yPos + 18);
+ pdf.text(ORGANIZATION.telephoneDisplay, margin + 8, yPos + 26);
+ pdf.text(ORGANIZATION.email, pageWidth - margin - 8, yPos + 26, { align: "right" });
 
  // Föreslagna partners – avslutande sida
  try {
@@ -1454,6 +1455,7 @@ const CustomerServiceNeedsAnalysis = () => {
  } catch (e) { console.warn("Suggested partners append failed", e); }
 
  const pdfFilename = `Behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+ finalizePdfWithFooter(pdf, "Behovsanalys för kundservice");
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
  pdf.save(`${pdfFilename}.pdf`);
 

@@ -36,7 +36,7 @@ export async function createPdfDocument(): Promise<jsPDF> {
   const { jsPDF: Pdf } = await import("jspdf");
   const doc = new Pdf({ unit: "mm", format: "a4", compress: true });
   doc.setProperties({ author: ORGANIZATION.name, creator: ORGANIZATION.name, subject: "Beslutsunderlag från d365.se" });
-  doc.setLanguage("sv-SE");
+  doc.setLanguage("sv");
   const text = doc.text.bind(doc);
   doc.text = ((value: string | string[], ...args: unknown[]) =>
     Reflect.apply(text, doc, [Array.isArray(value) ? value.map(pdfText) : pdfText(value), ...args])) as typeof doc.text;

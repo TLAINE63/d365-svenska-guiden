@@ -56,6 +56,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { finalizePdfWithFooter } from "@/utils/pdfLayout";
 
 // ─── TYPES ───────────────────────────────────────────────
 
@@ -1056,14 +1057,6 @@ const AIReadiness = () => {
 
     const addPageFooter = () => {
       pageNum++;
-      doc.setDrawColor(200, 210, 220);
-      doc.setLineWidth(0.3);
-      doc.line(lm, ph - 18, rm, ph - 18);
-      doc.setFontSize(7.5);
-      doc.setFont("helvetica", "normal");
-      doc.setTextColor(slate400.r, slate400.g, slate400.b);
-      doc.text("d365.se – guide till Dynamics 365 i Sverige", lm, ph - 12);
-      doc.text(`Sida ${pageNum}`, rm, ph - 12, { align: "right" });
     };
 
     const newPage = (headerTitle: string, headerColor?: { r: number; g: number; b: number }) => {
@@ -1531,12 +1524,13 @@ const AIReadiness = () => {
     doc.setFontSize(7.5);
     doc.setFont("helvetica", "italic");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);
-    const disc = "Denna analys ar vagledande och baseras pa de svar du angivit. Den ersatter inte en fullstandig forstudie. Uppskattade besparingar ar indikativa och baseras pa branschgenomsnitt. Vi rekommenderar att du diskuterar dina behov med en kvalificerad Microsoft-partner.";
+    const disc = "Denna analys är vägledande och baseras på de svar du angivit. Den ersätter inte en fullständig förstudie. Uppskattade besparingar är indikativa och baseras på branschgenomsnitt. Vi rekommenderar att du diskuterar dina behov med en kvalificerad Microsoft-partner.";
     const discLines = doc.splitTextToSize(disc, cw);
     doc.text(discLines, lm, y);
 
     addPageFooter();
 
+    finalizePdfWithFooter(doc, "AI-mognadsanalys");
     doc.save("AI-Impact-Assessment.pdf");
   }, [foundationAnswers, selectedRole, roleScores, track, reportForm]);
 

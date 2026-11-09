@@ -36,6 +36,8 @@ import { deriveAreasFromText } from "@/lib/isvSuggestions";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { finalizePdfWithFooter } from "@/utils/pdfLayout";
+import { ORGANIZATION } from "@/data/organization";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
@@ -3026,10 +3028,9 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Ditt underlag inför valet av Dynamics 365-lösning", margin + 8, yPos + 18);
-    pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
-    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
-    pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
+    pdf.text("Ditt underlag inför nästa beslut", margin + 8, yPos + 18);
+    pdf.text(ORGANIZATION.telephoneDisplay, margin + 8, yPos + 26);
+    pdf.text(ORGANIZATION.email, pageWidth - margin - 8, yPos + 26, { align: "right" });
 
     // Valda tilläggslösningar – egen sida
     try {
@@ -3056,6 +3057,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
 
     // Generate PDF
     const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
+    finalizePdfWithFooter(pdf, "Behovsanalys");
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
     pdf.save(`${pdfFilename}.pdf`);
     

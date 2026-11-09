@@ -33,6 +33,9 @@ import { buildCompareUrl } from "@/lib/compareUrl";
 import { appendSuggestedPartnersPage } from "@/utils/pdfSuggestedPartners";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { finalizePdfWithFooter } from "@/utils/pdfLayout";
+import { ORGANIZATION } from "@/data/organization";
+import analysisLogo from "@/assets/dynamic-factory-logo-new.jpg";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
@@ -923,7 +926,7 @@ const SalesMarketingNeedsAnalysis = () => {
  resolve();
  };
  logoImg.onerror = () => resolve();
- logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
+ logoImg.src = analysisLogo;
  });
  } catch {}
 
@@ -1683,10 +1686,9 @@ const SalesMarketingNeedsAnalysis = () => {
  pdf.text("Dynamic Factory", margin + 8, yPos + 10);
  pdf.setFont("helvetica", "normal");
  pdf.setFontSize(9);
- pdf.text("Ditt beslutsstöd för rätt Dynamics 365-lösning", margin + 8, yPos + 18);
- pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
- pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
- pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
+ pdf.text("Ditt underlag för sälj och marknad", margin + 8, yPos + 18);
+ pdf.text(ORGANIZATION.telephoneDisplay, margin + 8, yPos + 26);
+ pdf.text(ORGANIZATION.email, pageWidth - margin - 8, yPos + 26, { align: "right" });
 
  // Föreslagna partners – avslutande sida
  try {
@@ -1702,6 +1704,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
  // Generate PDF as base64 for email attachment
  const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+ finalizePdfWithFooter(pdf, "Behovsanalys för sälj och marknad");
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
  
  // Save PDF locally
