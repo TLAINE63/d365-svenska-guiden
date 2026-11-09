@@ -38,16 +38,14 @@ describe("ISV budget 2027", () => {
 
 import { detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors } from "../budget2027";
 describe("category estimates", () => {
-  it("separates subscriptions and fixed finders fees for partners and ISVs while preserving totals", () => {
-    const estimates = { year1: 2, premiumDealsStd: 3, isvPresence: 1, isvExtra: 2, isvIntroFscm: 1 };
-    const details = detailByCategory([{ ...base, forecast: "year", discount: 50, dealsStd: 1, successBasis: 400000 }], [{ presence: true, extraApps: 2, discount: 0, introsStd: 1, introsFscm: 0, successBasis: 100000 }]);
-    const summary = categoryGroupSummary(estimates, details);
-    expect(summary.partner.subscription).toEqual({ estimate: 15980, detail: 3995 });
-    expect(summary.partner.finders).toEqual({ estimate: 15000, detail: 5000 });
-    expect(summary.isv.subscription).toEqual({ estimate: 7980, detail: 7980 });
-    expect(summary.isv.finders).toEqual({ estimate: 7500, detail: 3500 });
-    expect(summary.partner.estimate + summary.isv.estimate).toBe(46460);
-    expect(estimateRevenue(estimates)).toBe(46460);
+  it("funnel finders fee is added to the partner and ISV summaries", () => {
+    const summary = categoryGroupSummary({ year1: 2, isvPresence: 1 }, {}, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } });
+    expect(summary.partner.finders.estimate).toBe(15000);
+    expect(summary.isv.finders.estimate).toBe(7500);
+    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 5990 + 15000 + 7500);
+  });
+  it("old per-category finders estimates are no longer counted", () => {
+    expect(estimateRevenue({ premiumDealsStd: 3, expertCvHours: 10, successBc: 2 })).toBe(0);
   });
   it("separates partner and ISV budgets without double counting", () => {
     expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 7990 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
@@ -80,26 +78,30 @@ describe("category estimates", () => {
       expect(d.dealsStd).toEqual({ count: 0, revenue: 0 });
     }
   });
-  it("Basic and Premium estimates sum with their respective deal fees", () => {
-    expect(estimateRevenue({ meetingsStd: 1, dealsStd: 1, premiumDealsStd: 1, premiumDealsFscm: 1 })).toBe(20000);
+  it("funnel: Basic BC meeting 2 500 + deal 2 500, Premium BC deal 5 000", () => {
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 }).total).toBe(5000);
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 4, deals: 1 }).total).toBe(5000);
+  });
+  it("funnel: Basic F&SCM meeting 5 000 + deal 5 000", () => {
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[2], "basic", { meetings: 1, deals: 1 }).total).toBe(10000);
   });
 });
-
 import { successUnit, estimateRevenue as est2 } from "../budget2027";
 describe("success fee areas", () => {
-  it("2,5 % of 400 000 kr = 10 000 kr per BC deal", () => { expect(est2({ successBc: 2 })).toBe(20000); });
+  it("2,5 % of 400 000 kr = 10 000 kr per BC deal", () => { expect(est2({}, {}, { bc_basic: { wins: 2 } })).toBe(20000); });
   it("no fee at or below 100 000 kr", () => { expect(successUnit(100000)).toBe(0); });
-  it("custom F&SCM value 2 000 000 kr gives 50 000 kr", () => { expect(est2({ successFscm: 1 }, { successFscm: 2000000 })).toBe(50000); });
+  it("custom F&SCM value 2 000 000 kr gives 50 000 kr", () => { expect(est2({}, { successFscm: 2000000 }, { fscm_premium: { wins: 1 } })).toBe(50000); });
 });
 
-import { EXPERT_FEES } from "../budget2027";
+import { EXPERT_FEES, EXPERT_FUNNEL, expertFunnelRow, FUNNEL_PRODUCTS, partnerFunnelRow } from "../budget2027";
 describe("expert selling fees", () => {
   it("CV brokerage 40 kr and expert assignment 80 kr per sold hour", () => {
     expect(EXPERT_FEES).toEqual({ cvPerHour: 40, expertPerHour: 80 });
-    expect(est2({ expertCvHours: 10, expertAssignmentHours: 5 })).toBe(800);
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, hours: 10 }).total).toBe(400);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, hours: 800 }).total).toBe(128000);
   });
   it("expert hours count as partner finders fee, not subscription", () => {
-    const s = categoryGroupSummary({ expertCvHours: 10, expertAssignmentHours: 5 }, {});
+    const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, hours: 10 }, expert: { assignments: 1, hours: 5 } });
     expect(s.partner.finders.estimate).toBe(800);
     expect(s.partner.subscription.estimate).toBe(0);
   });
