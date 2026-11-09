@@ -129,8 +129,27 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
       </div>
 
+      <nav aria-label="Budgetsektioner" className="flex gap-1 overflow-x-auto border-y py-2">
+        {[
+          ["budget-result", "Resultat"],
+          ["budget-summary", "Summering"],
+          ["budget-partner-funnel", "Partnerfunnel"],
+          ["budget-expert-funnel", "Expertförmedling"],
+          ["budget-isv-funnel", "ISV-funnel"],
+          ["budget-subscriptions", "Prenumerationer"],
+          ["budget-partner-details", "Partnerdetaljer"],
+          ["budget-isv-details", "ISV-detaljer"],
+          ["budget-other", "Övriga intäkter"],
+          ["budget-costs", "Kostnader och egen tid"],
+        ].map(([id, label]) => (
+          <Button key={id} variant="ghost" size="sm" asChild className="shrink-0">
+            <a href={`#${id}`}>{label}</a>
+          </Button>
+        ))}
+      </nav>
+
       {(() => { const est = estimateRevenue(budget.estimates, budget.successValues, budget.funnel); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
-      <div className="rounded-md border bg-card p-4 space-y-1 text-sm">
+      <div id="budget-result" className="scroll-mt-32 rounded-md border bg-card p-4 space-y-1 text-sm">
         <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
         <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
@@ -144,7 +163,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
       </div>); })()}
 
-      <section className="space-y-3" aria-labelledby="budget-summary-title">
+      <section id="budget-summary" className="scroll-mt-32 space-y-3" aria-labelledby="budget-summary-title">
         <h3 id="budget-summary-title" className="text-lg font-semibold">Summering av budget 2027</h3>
         <p className="text-sm text-muted-foreground">Budgeten visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Alla belopp per år, exklusive moms. Success fee ingår inte i jämförelsen eller resultatet.</p>
         {([
@@ -195,7 +214,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <FunnelBudget budget={budget} setBudget={setBudget} />
 
-      <Card>
+      <Card id="budget-subscriptions" className="scroll-mt-32">
         <CardHeader>
           <CardTitle className="text-base">Grov budget per kategori</CardTitle>
           <CardDescription>Årsbudget för 2027, exklusive moms. Din uppskattning ligger till grund för resultatet; partner- och ISV-detaljerna är ett jämförelseunderlag, inte faktiska eller garanterade intäkter.</CardDescription>
@@ -263,7 +282,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </CardContent>
       </Card>
 
-      <Card>
+      <Card id="budget-partner-details" className="scroll-mt-32">
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
@@ -318,7 +337,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </CardContent>}
       </Card>
 
-      <Card>
+      <Card id="budget-isv-details" className="scroll-mt-32">
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
@@ -361,7 +380,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </CardContent>}
       </Card>
 
-      <Card>
+      <Card id="budget-other" className="scroll-mt-32">
         <CardHeader>
           <CardTitle className="text-base">Övriga intäkter</CardTitle>
           <CardDescription>Egna intäktsrader, per år eller per månad (månad räknas ×12).</CardDescription>
@@ -383,7 +402,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </CardContent>
       </Card>
 
-      <Card>
+      <Card id="budget-costs" className="scroll-mt-32">
         <CardHeader>
           <CardTitle className="text-base">Kostnadsbudget 2027</CardTitle>
           <CardDescription>Belopp per år eller per månad (månad räknas ×12). Namnen på de tre sista raderna går att ändra.</CardDescription>
@@ -439,7 +458,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
         <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgift gäller bara Basic; Premium betalar hela avtalsersättningen. Success fee 2,5 % räknas per vunnen affär när snittbeloppet överstiger 100 000 kr.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        <div className="overflow-x-auto">
+        <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">Partners per produkt</caption>
             <thead className="text-xs text-muted-foreground"><tr>
@@ -462,7 +481,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           </table>
         </div>
 
-        <div className="overflow-x-auto">
+        <div id="budget-expert-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
             <thead className="text-xs text-muted-foreground"><tr>
@@ -482,7 +501,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           </table>
         </div>
 
-        <div className="overflow-x-auto">
+        <div id="budget-isv-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">ISV:er</caption>
             <thead className="text-xs text-muted-foreground"><tr>
