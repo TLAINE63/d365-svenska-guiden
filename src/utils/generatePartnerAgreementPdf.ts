@@ -30,7 +30,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   const width = pageW - PDF_MARGIN * 2;
   const bottom = pageH - 20;
   const title = opts.heading || "Partneravtal d365.se";
-  let y = drawBrandHeader(doc, title, `Version ${today()} · ${ORGANIZATION.legalName ?? "Dynamic Factory"}`);
+  let y = drawBrandHeader(doc, title, `Version ${today()} · ${ORGANIZATION.legalName}`);
 
   const ensure = (h: number) => { if (y + h > bottom) { doc.addPage(); y = drawBrandHeader(doc, title); } };
   const para = (text: string, size = 10) => {
@@ -53,7 +53,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
     const valLines = wrapPdfText(value, width * 0.5, (l) => doc.getTextWidth(l));
     const h = Math.max(1, valLines.length) * 4.8 + 3;
     ensure(h);
-    doc.setFillColor(...PDF_BRAND.light);
+    doc.setFillColor(...PDF_BRAND.cardBg);
     doc.rect(PDF_MARGIN, y - 4, width, h, "F");
     doc.setFont("helvetica", "bold"); doc.setTextColor(...PDF_BRAND.dark);
     doc.text(wrapPdfText(label, width * 0.46, (l) => doc.getTextWidth(l))[0], PDF_MARGIN + 2, y);
@@ -66,7 +66,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
 
   heading("Accept");
   para("Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
-  para(`${ORGANIZATION.contactName ?? "Thomas Laine"} · ${ORGANIZATION.email ?? "info@d365.se"}`);
+  para(`Thomas Laine · ${ORGANIZATION.email} · ${ORGANIZATION.telephoneDisplay}`);
 
   finalizePdfWithFooter(doc, title);
   return doc.output("blob");
