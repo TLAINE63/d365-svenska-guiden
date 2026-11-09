@@ -7,6 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Download, FileText, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
+async function downloadAgreementPdf(config: AgreementConfig) {
+  const { generatePartnerAgreementPdf } = await import("@/utils/generatePartnerAgreementPdf");
+  const blob = await generatePartnerAgreementPdf({ heading: config.heading, intro: config.intro, sections: config.sections });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `d365se-partneravtal-${new Date().toISOString().slice(0, 10)}.pdf`; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
 interface AgreementSection {
   id: string;
   title: string;
@@ -83,6 +92,24 @@ export default function PartnerAgreement() {
                     <Download className="w-4 h-4 mr-2" />
                     Ladda ner
                   </a>
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
+          {loaded && config.sections.length > 0 && (
+            <Card>
+              <CardContent className="flex items-center justify-between gap-3 py-4">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-primary" />
+                  <div>
+                    <div className="font-medium">Avtalsvillkor och prisbilaga (PDF)</div>
+                    <div className="text-xs text-muted-foreground">Skapas från villkoren nedan med aktuella priser</div>
+                  </div>
+                </div>
+                <Button variant="outline" onClick={() => downloadAgreementPdf(config)}>
+                  <Download className="w-4 h-4 mr-2" />
+                  Ladda ner PDF
                 </Button>
               </CardContent>
             </Card>

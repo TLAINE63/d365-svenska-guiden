@@ -29,6 +29,7 @@ export const PLACEMENT_LABEL: Record<string, string> = {
   next_step_help: "Fortsätt er utvärdering: hjälp med nästa steg",
   isv_product_help: "Tilläggslösning: bedöma om den passar (ISV)",
   question: "Ställ en fråga (artikel eller kunskapssida)",
+  meeting_20min: "Boka 20 minuters rådgivning",
 };
 
 export const CASE_STATUSES = [

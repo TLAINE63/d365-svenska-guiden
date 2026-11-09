@@ -195,3 +195,8 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Steg 2a: second opinion-puff på /kostnad/ och partnersökningen
 - [x] Steg 2b: second opinion-puff på partnerjämförelsen
 - [x] Steg 3: mejla resultatet + tre frågor till leverantörer efter behovsguiden och kostnadskalkylen
+
+## Rådgivning och dokument (2026-11-09)
+- [x] 20-minutersknappen öppnar formulär som blir ett ärende till Thomas, med svarsknapp i Hjälpärenden
+- [x] Partneravtalet som PDF i rapportlayout med prisbilaga
+- [ ] Mejlflöden med PDF-bilagor provkörda till inkorg (väntar: Thomas godkänner testutskick)

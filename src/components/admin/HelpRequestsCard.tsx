@@ -189,6 +189,12 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
                               <div className="space-y-2">
                                 <p><span className="font-medium">Kontakt:</span> {r.contact_name}, {r.email}{r.phone ? `, ${r.phone}` : ""}</p>
                                 <p><span className="font-medium">Ämne:</span> {r.help_with || r.advisory_cta || "–"}</p>
+                                <a
+                                  href={`mailto:${r.email}?subject=${encodeURIComponent(`Re: 20 minuters rådgivning, ${r.company}`)}&body=${encodeURIComponent(`Hej ${r.contact_name},\n\nTack för er förfrågan om ett kostnadsfritt 20-minuters möte. Passar någon av dessa tider?\n\n- \n- \n\nVänliga hälsningar\nThomas Laine, d365.se`)}`}
+                                  className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
+                                >
+                                  Svara och föreslå mötestider
+                                </a>
                                 {r.landing_page && <p className="text-xs text-muted-foreground">Sida: {r.landing_page}</p>}
                                 {r.message && <p className="whitespace-pre-line"><span className="font-medium">Meddelande:</span> {r.message}</p>}
                                 {r.project && Object.keys(r.project).length > 0 && (
