@@ -165,15 +165,19 @@ export function categoryGroupSummary(est: Record<string, number> = {}, details: 
 
 /** Counts distinct catalog products per vendor without merging different brands by guesswork. */
 export function budgetIsvVendors(solutions: { id: string; vendor: string; name: string }[]) {
-  const vendors = new Map<string, Set<string>>();
+  const vendors = new Map<string, Map<string, string>>();
   for (const s of solutions) {
     const name = (s.vendor || s.name).trim();
     if (!name) continue;
-    const ids = vendors.get(name) ?? new Set<string>();
-    ids.add(s.id);
+    const ids = vendors.get(name) ?? new Map<string, string>();
+    ids.set(s.id, s.name);
     vendors.set(name, ids);
   }
-  return [...vendors].map(([name, ids]) => ({ name, apps: ids.size })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+  return [...vendors].map(([name, ids]) => ({
+    name,
+    apps: ids.size,
+    products: [...ids].map(([id, n]) => ({ id, name: n })).sort((a, b) => a.name.localeCompare(b.name, "sv")),
+  })).sort((a, b) => a.name.localeCompare(b.name, "sv"));
 }
 
 /** Keeps saved cost rows and adds any fixed default rows missing from older saves, before the custom rows. */

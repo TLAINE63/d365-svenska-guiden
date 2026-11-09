@@ -54,7 +54,7 @@ describe("category estimates", () => {
     });
   });
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
-    expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toEqual([{ name: "Truvio", apps: 3 }]);
+    expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toMatchObject([{ name: "Truvio", apps: 3, products: [{ id: "a", name: "App A" }, { id: "b", name: "App B" }, { id: "c", name: "App C" }] }]);
   });
   it("counts a yearly 2-product partner at 9 990 kr before discount", () => {
     const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
