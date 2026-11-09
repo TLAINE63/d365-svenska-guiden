@@ -1,8 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Frakt, lager och logistik (2026-11-09)
-- [ ] Prioritera fraktsidans söktext, TA-flöden, internlänkar och befintlig rådgivning.
-- [ ] Förtydliga WMS/inköpsoptimering och 3PL/transport på befintliga sidor; kontrollera dator och mobil.
+- [x] Prioritera fraktsidans söktext, TA-flöden, internlänkar och befintlig rådgivning.
+- [x] Förtydliga WMS/inköpsoptimering och 3PL/transport på befintliga sidor; dator och mobil utan överbredd/runtimefel, rådgivningsformulär öppnat utan inskick.
 
 ## Partnerprogram för partners och ISV:er (2026-11-09)
 - [x] Korta upprepningar, ge båda målgrupperna egna avsnitt och samla priser tidigare med direktmeny.

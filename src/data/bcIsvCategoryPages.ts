@@ -201,7 +201,7 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
         id: "ta-integrationer",
         h2: "TA-integrationer i praktiken: nShift, Logtrade och Unifaun",
         paragraphs: [
-          "Ett TA-system samlar transportörerna i ett gemensamt flöde. I Sverige kopplas Business Central ofta till nShift (tidigare Consignor, i Sverige också känt via Unifaun) och Logtrade. Sökningar på \"Dynamics 365 Consignor\" eller \"Consigner\" handlar därför i praktiken oftast om en nShift-koppling.",
+          "Ett TA-system samlar transportörerna i ett gemensamt flöde. Exempel att utvärdera är nShift och Logtrade. Consignor och Unifaun är äldre namn i nShifts produktfamilj, inte två fristående leverantörsalternativ till nShift. Kontrollera vilken tjänst och Business Central-koppling som avses, särskilt om ni redan har ett äldre avtal.",
           "När ordern plockats och packats skickas sändningsdata (mottagare, kolli, vikt, tjänst och eventuella farligt gods- eller tulluppgifter) från Business Central till TA-tjänsten. Tillbaka kommer fraktetikett, fraktsedel, sändningsnummer och spårningslänk, som sparas på utleveransen och kan skickas till kunden.",
           "Vid export som kräver tulldokument kan kopplingen föra över varukoder, ursprungsland, värden och vikter från Business Central till TA-tjänsten. Där kan dokument som handels- eller proformafaktura skapas och skrivas ut i order- och lagerflödet, om tjänsten stöder det. Dokumentstöd och ansvar för tulldeklaration varierar mellan lösningar, transportörer och destinationer och behöver kontrolleras före införandet.",
         ],
@@ -248,6 +248,10 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
       text: "Boka 20 minuters kostnadsfri rådgivning med Thomas Laine om TA-system, WMS, EDI och hur lager och frakt ska hänga ihop med Business Central. Ingen partner deltar i samtalet.",
     },
     faq: [
+      {
+        q: "Är Consigner samma som Consignor?",
+        a: "Om ni menar TA-systemet är namnet Consignor, inte Consigner. Consignor ingår numera i nShift. Kontrollera aktuell tjänst, transportörsstöd och Business Central-koppling med leverantören.",
+      },
       {
         q: "Fungerar nShift (Consignor) med Business Central?",
         a: "Ja. nShift, tidigare Consignor, kopplas till Business Central via tillägg eller integration så att bokning, etiketter och spårning skapas från utleveransen.",
