@@ -8,17 +8,39 @@ const SupportForvaltning = () => (
   <SimpleGuidePage
     path={PATH}
     tool="support_guide"
-    seoTitle="Dynamics 365 Support & Förvaltning i Sverige | Jämför Partners | d365.se"
-    seoTitleMaxLength={75}
-    seoDescription="Behöver du support, förvaltning eller felavhjälpning för Microsoft Dynamics 365? Jämför partners, supportavtal och SLA-nivåer på d365.se."
+    seoTitle="Support och förvaltning av Microsoft Dynamics 365 | Guide till rätt AMS-partner"
+    seoTitleMaxLength={85}
+    seoDescription="Hur väljer ni rätt leverantör för förvaltning och support av Microsoft Dynamics 365 Finance & Operations? Kravställ SLA, One Version och vidareutveckling."
     crumbs={[{ name: "Start", url: "/" }, { name: "Redan Dynamics 365-kund", url: "/befintlig-kund/" }, { name: "Support och förvaltning", url: PATH }]}
-    h1="Support och förvaltning för Microsoft Dynamics 365"
-    intro="Snabb experthjälp vid driftstörningar, användarfrågor och löpande förvaltning. Här går vi igenom vad ett supportavtal innebär, hur SLA fungerar och hur du hittar rätt svensk partner."
+    h1="Guide: Så väljer ni rätt leverantör för förvaltning av Microsoft\u00A0Dynamics\u00A0365"
+    intro="Många företag upptäcker efter go-live att implementationspartnern inte är organiserad för löpande applikationsdrift (AMS). Här går vi igenom vad ni ska titta efter när ni upphandlar eller byter förvaltningspartner, hur SLA fungerar och hur ni hittar rätt svensk partner."
     shortAnswer="Support hanterar fel som uppstår, förvaltning håller lösningen frisk över tid och vidareutveckling förbättrar den. Ett bra avtal skiljer på de tre, anger ansvar och servicenivåer och säkrar att ni äger dokumentation, åtkomst och kod."
     afterIntro={
       <GuideCTA variant="highlight" heading={CTA.heading} text={CTA.text} buttonLabel={CTA.label} to={CTA.to} source={`${PATH}#cta-intro`} className="!my-0" />
     }
     sections={[
+      {
+        title: "Vad skiljer förvaltning (AMS) från vanlig support?",
+        cards: [
+          { t: "Microsoft One Version", d: "Finance & Supply Chain Management kräver kontinuerlig testning och hantering av Microsofts automatiska serviceuppdateringar. Bra leverantörer har automatiserade regressionstester." },
+          { t: "Strategisk vidareutveckling", d: "Tillgång till seniora F&O-arkitekter och verksamhetskonsulter på timmar eller klippkort, inte bara en junior servicedesk i första linjen." },
+          { t: "Integrationer och prestanda", d: "Aktiv övervakning av affärskritiska flöden som EDI, lager (WMS), bank och e-handel." },
+        ],
+      },
+      {
+        title: "Checklista: 5 krav att ställa vid val av förvaltningsleverantör",
+        list: [
+          "Hur hanterar ni One Version och uppdateringar? Finns automatiserade tester?",
+          "Finns ett dedikerat F&O-förvaltningsteam, eller konkurrerar våra ärenden med nya projekt?",
+          "Vilka SLA gäller vid kritiska stopp? Svarstider, åtgärdstider och eskalering till Microsoft.",
+          "Hur bred är kompetensen? Täcker partnern Finance, Supply Chain, Azure och Power Platform?",
+          "Vilken avtalsmodell erbjuds? Fast månadsavtal med SLA, klippkort eller löpande räkning?",
+        ],
+        cards: [
+          { t: "Ska ni göra ett komplett partnerbyte inklusive licensavtal?", d: "Läs vår guide om att välja Dynamics\u00A0365-partner.", h: "/valjdynamics365partner/" },
+          { t: "Finance & Supply Chain Management", d: "Läs mer om funktioner och arkitektur i Finance & Supply Chain Management.", h: "/kunskapscenter/finance-supply-chain/" },
+        ],
+      },
       {
         title: "Support, förvaltning och vidareutveckling",
         cards: [
@@ -122,9 +144,9 @@ const SupportForvaltning = () => (
         variant="inline"
         placement="partner_switch"
         pageType="support_guide"
-        heading="Söker ni ny partner för systemförvaltning eller support av Dynamics 365?"
-        text="Boka 20 minuters kostnadsfri rådgivning med Thomas Laine för att gå igenom er nuvarande förvaltningssituation och kravbild, och få förslag på lämpliga förvaltningspartners. Ingen partner deltar i samtalet."
-        cta="Boka 20 minuters rådgivning"
+        heading="Behöver ni byta eller upphandla förvaltningspartner för Dynamics\u00A0365?"
+        text="Fel förvaltningsavtal eller bristande supportkompetens i ett affärskritiskt F&O-system blir snabbt kostsamt. Som rådgivare på d365.se hjälper Thomas Laine er att granska nuvarande avtal, kravställa SLA och matcha er mot rätt certifierade förvaltningspartners. Ingen partner deltar i samtalet."
+        cta="Boka 20 minuters kostnadsfri rådgivning med Thomas"
         metadata={{ source: "support_guide", intent: "consultation" }}
       />
       </>
