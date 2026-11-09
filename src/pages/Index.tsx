@@ -111,7 +111,7 @@ const VERIFIED_PARTNER_COUNT_FALLBACK = VERIFIED_PARTNER_COUNT;
 
 
 // Senast granskat innehåll på startsidan. Ändras manuellt vid innehållsändringar.
-const HOME_LAST_UPDATED = "2026-10-30";
+const HOME_LAST_UPDATED = "2026-11-09";
 
 const HOME_SOURCES = [
   { label: "Microsoft Learn: Dynamics 365-dokumentation", url: "https://learn.microsoft.com/sv-se/dynamics365/" },
@@ -299,8 +299,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="D365 (Dynamics 365) – köparguide i Sverige"
-        description="D365 (Microsoft Dynamics 365) i Sverige: jämför ERP och CRM, räkna på kostnaden, gör en kostnadsfri behovsanalys och jämför partners per bransch."
+        title="Dynamics 365 i Sverige: översikt, kostnad och partners"
+        description="Vad är Microsoft Dynamics 365? Översikt över CRM- och affärssystem (ERP), priser i SEK, kostnadsfri behovsanalys och svenska partners per bransch."
         canonicalPath="/"
         ogImage="https://d365.se/og-erp.png"
         dateModified={HOME_LAST_UPDATED}
