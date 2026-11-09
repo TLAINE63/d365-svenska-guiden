@@ -106,3 +106,15 @@ describe("expert selling fees", () => {
     expect(s.partner.subscription.estimate).toBe(0);
   });
 });
+
+import { opexCoverage } from "../budget2027";
+describe("opexCoverage", () => {
+  it("räknar täckningsgrad och partners som saknas till självfinansiering", () => {
+    const r = opexCoverage(60000, 120000);
+    expect(r.ratio).toBe(0.5);
+    expect(r.gap).toBe(60000);
+    expect(r.extraPartners).toBe(6); // 60 000 / (995*12) = 5,03 -> 6
+    expect(r.selfFunded).toBe(false);
+    expect(opexCoverage(130000, 120000).selfFunded).toBe(true);
+  });
+});
