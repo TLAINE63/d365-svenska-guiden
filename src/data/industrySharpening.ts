@@ -37,6 +37,23 @@ export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
       },
     ],
   },
+  "logistik-transport": {
+    lead:
+      "Logistiklösningar och transportlösningar i Dynamics 365 hänger ihop med ekonomi, lager, transportadministration och kundservice. Valet beror på om ni är 3PL, åkeri eller transportföretag, och hur mycket av helheten som ska ligga i samma system.",
+    sectionsHeading: "Helhetslösningar för 3PL, åkerier och transportföretag",
+    sections: [
+      {
+        heading: "3PL och tredjepartslogistik",
+        text:
+          "3PL-företag behöver lagerstyrning per kund, avtals- och aktivitetsbaserad debitering, EDI med kunderna och tydlig spårbarhet. Supply Chain Management passar vid flera lager och höga volymer, medan Business Central med WMS- och TA-tillägg kan räcka för mindre lagerverksamheter.",
+      },
+      {
+        heading: "Åkerier och transportföretag",
+        text:
+          "Åkerier och transportföretag behöver ofta transportbokning, frakthantering, uppdragsekonomi, fordons- och förarkostnader samt fakturering per uppdrag. Specialiserade TMS- och TA-system integreras normalt med Business Central eller Finance, och Field Service kan stödja service och underhåll av fordon.",
+      },
+    ],
+  },
   "fastighet-forvaltning": {
     h1: "Affärssystem för fastighetsbolag och fastighetsförvaltning: vilken Dynamics 365-lösning och partner passar?",
     lead:
