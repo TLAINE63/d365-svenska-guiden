@@ -52,7 +52,7 @@ const SHARED_NOTE =
 export const costBreakdowns: Record<string, CostBreakdownContent> = {
   "business-central": {
     pricingModel:
-      "Total­kostnaden består av tre delar: (1) månadslicens per användare (Essentials ~765 kr eller Premium ~1 050 kr), (2) en engångs­kostnad för implementationen hos partnern och (3) löpande förvaltning efter go-live. Räkna med att implementationen första året typiskt är 3–10x årslicensen.",
+      "Total­kostnaden består av tre delar: (1) månadslicens per användare (Essentials ~765 kr eller Premium ~1 050 kr), (2) en engångs­kostnad för implementationen hos partnern och (3) löpande förvaltning efter go-live. Ett litet projekt för 10 användare (175 000–465 000 kr) motsvarar ungefär 2–5 gånger årslicensen; större projekt med lager, produktion och integrationer kan bli betydligt mer.",
     ranges: [
       {
         size: "S",
@@ -124,7 +124,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
 
   "finance-scm": {
     pricingModel:
-      "F&SCM är Microsofts tunga ERP – både licens­kostnad och implementations­kostnad ligger en bra bit över Business Central. Räkna med licens från ~2 000 kr/användare/månad (Finance eller Supply Chain) plus en engångs­kostnad där implementationen ofta är 2–5x årslicensen.",
+      "F&SCM är Microsofts tunga ERP – både licens­kostnad och implementations­kostnad ligger en bra bit över Business Central. Räkna med licens från ~2 000 kr/användare/månad (Finance eller Supply Chain) plus en engångs­kostnad för implementationen på 2–6 MSEK för ett litet projekt, 6–15 MSEK för ett medelstort och från 15 MSEK för ett stort.",
     ranges: [
       {
         size: "S",
