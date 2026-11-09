@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { usePriceMap } from "@/hooks/usePriceMap";
+import { PRICING_UPDATED } from "@/data/pricing";
 import { formatPriceByKey } from "@/lib/productPriceFormat";
 import SourceNote from "@/components/SourceNote";
 
@@ -92,7 +93,7 @@ export default function LicenseCostTable() {
           className="mt-6"
           source="Microsofts officiella prislista för Dynamics 365"
           href="https://www.microsoft.com/sv-se/dynamics-365/pricing"
-          updated="2026-06-11"
+          updated={PRICING_UPDATED}
           method="Beloppen visas som listpris per användare och månad om inget annat anges. Faktiskt pris sätts i avtalet med din partner eller CSP."
         />
 

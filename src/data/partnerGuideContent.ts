@@ -92,7 +92,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
           ],
           [
             "Finance & Supply Chain Management",
-            "Enterprise. 2–15+ miljoner kr",
+            "Litet projekt 2–6 MSEK, medelstort 6–15 MSEK, stort från 15 MSEK",
             "Cirka 50"
           ]
         ]

@@ -81,7 +81,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Vad kostar Business Central?",
- answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 10–20 % av projektkostnaden per år."
+ answer: "Business Central kostar {{price:bc-essentials:exact}} för Essentials, {{price:bc-premium:exact}} för Premium och {{price:bc-team-members:exact}} för Team Member (Microsofts listpris exkl. moms). Till licensen kommer implementering: snabbstart till fast pris från 50 000 kr, annars ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt (räknat på 11 600 kr per konsultdag). Tjänsteföretag och grossister hamnar lägst, tillverkning högst. Räkna även med löpande förvaltning på 15–25 % av införandekostnaden per år."
  },
  {
  question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
@@ -89,7 +89,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Hur lång tid tar Business Central implementering i Sverige?",
- answer: "Business Central implementering tar typiskt 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket. Mer komplexa projekt med många anpassningar, integrationer mot befintliga system eller flera bolag tar 6–12 månader. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att hålla tidsplan och budget."
+ answer: "Ett litet projekt tar ofta 2–3 månader och ett medelstort 3–6 månader. Större projekt tar längre tid. Mindre företag med standardprocesser kan vara igång snabbare med ett startpaket. Mer komplexa projekt med många anpassningar, integrationer mot befintliga system eller flera bolag tar 6–12 månader. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att hålla tidsplan och budget."
  },
  {
  question: "Vilket företag passar Business Central bäst för?",
