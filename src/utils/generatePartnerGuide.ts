@@ -93,6 +93,9 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     const lines = doc.splitTextToSize(text, contentWidth);
     currentPage = checkNewPage(lines.length * 5 + 24, currentPage);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
     doc.text(lines, margin, y);
     y += lines.length * 5 + 4;
   };

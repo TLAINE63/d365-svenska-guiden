@@ -38,6 +38,7 @@ import type { ProductKey } from "@/hooks/usePartnerFilters";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { finalizePdfWithFooter } from "@/utils/pdfLayout";
 import { ORGANIZATION } from "@/data/organization";
+import analysisLogo from "@/assets/dynamic-factory-logo-new.jpg";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
@@ -2124,7 +2125,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
           resolve();
         };
         logoImg.onerror = () => resolve();
-        logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
+        logoImg.src = analysisLogo;
       });
     } catch {}
 

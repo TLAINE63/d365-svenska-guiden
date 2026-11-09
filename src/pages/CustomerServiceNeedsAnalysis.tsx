@@ -33,6 +33,7 @@ import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { finalizePdfWithFooter } from "@/utils/pdfLayout";
 import { ORGANIZATION } from "@/data/organization";
+import analysisLogo from "@/assets/dynamic-factory-logo-new.jpg";
 
 const customerServiceBreadcrumbs = [
  { name: "Hem", url: "https://d365.se" },
@@ -974,7 +975,7 @@ const CustomerServiceNeedsAnalysis = () => {
  resolve();
  };
  logoImg.onerror = () => resolve();
- logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
+ logoImg.src = analysisLogo;
  });
  } catch {}
 
