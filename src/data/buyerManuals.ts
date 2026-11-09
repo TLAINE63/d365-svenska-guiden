@@ -31,7 +31,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Rapportering och BI – standardrapporter räcker sällan, du behöver oftast Power BI och en datamodell.",
     ],
     realCost: [
-      "Licens (Essentials/Premium) per användare/månad – men implementationen är typiskt 3–10x årslicensen första året.",
+      "Licens (Essentials/Premium) per användare/månad – men ett litet införande kostar 175 000–465 000 kr och större projekt betydligt mer.",
       "Branschapp, integrationer, ev. EDI, e-handelskoppling och rapportplattform.",
       "Intern tid: nyckel­personer behöver avlastas 20–50 % under projektet, det syns sällan i offerten.",
       "Förvaltning efter go-live: minst en partner­dag/månad för uppgraderingar, småändringar och support – räkna med 15–25 % av implementations­kostnaden årligen.",
@@ -63,7 +63,7 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
       "Licenser per användare/månad (Finance, SCM, Commerce, ev. tillägg) – men implementationen är typiskt 5–15x årslicensen.",
       "Branschvertikal, integrations­plattform (Logic Apps/Power Platform), datamigreringsverktyg och rapport­miljö.",
       "Intern tid på ekonomi, inköp, logistik och IT – 9–24 månader med betydande avlastning av nyckel­personer.",
-      "Application Management efter go-live: 10–20 % av implementations­kostnaden årligen för att hantera 2 årliga releaser, nya legala krav och förändringsbehov.",
+      "Application Management efter go-live: 15–25 % av implementations­kostnaden årligen för att hantera 2 årliga releaser, nya legala krav och förändringsbehov.",
     ],
     partnerProof: [
       "Minst 3 jämförbara F&SCM-referenser i din bransch som varit live i 12+ månader och som du får prata med utan partnerns närvaro.",
