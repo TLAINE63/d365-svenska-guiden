@@ -206,7 +206,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <dl className="mt-3 grid gap-3 sm:grid-cols-2 text-muted-foreground">
               {[
                 ["Kategori", "Typ av prenumeration eller affärshändelse. Beskrivningen på varje rad anger vad som ska räknas."],
-                ["Pris/st (årsbelopp)", "Årspris per prenumeration eller app, alternativt engångsavgift per möte eller avtal. Premium månad visas som månadspris × 12. För expertförsäljning anges priset per såld timme i stället, och antalet är då budgeterade sålda timmar."],
+                ["Pris/st (årsbelopp)", "Årspris per prenumeration eller app, alternativt engångsavgift per möte eller avtal. Premium månad visas som månadspris × 12. För expertförmedling anges priset per debiterad timme i stället, och antalet är då budgeterade debiterade timmar."],
                 ["Uppskattning antal", "Din grova uppskattning av antal partners, appar, möten eller avtal under 2027, utan krav på namngivna partners."],
                 ["Uppskattad årsintäkt", "Din uppskattning antal × pris/st, före eventuella rabatter. Denna summa används i resultatet tillsammans med övriga intäkter."],
                 ["Detaljer antal", "Antal från prognoserna i partner- och ISV-listorna, inklusive förifyllda partnerprognoser. Alla räknas, även när detaljlistorna är dolda eller filtrerade."],
