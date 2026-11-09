@@ -34,6 +34,8 @@ export interface Budget {
   estimates?: Record<string, number>;
   /** Assumed average project value (kr) per success fee area. */
   successValues?: Record<string, number>;
+  /** Finders fee funnel per product, expert selling and ISV. */
+  funnel?: Funnel;
 }
 
 export const DEFAULT_BUDGET: Budget = {
@@ -146,13 +148,17 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
   }
   return out;
 }
-export const estimateRevenue = (est: Record<string, number> = {}, values: Record<string, number> = {}) => CATEGORIES.reduce((s, c) => s + (Number(est[c.key]) || 0) * unitFor(c, values), 0);
+/** Subscriptions come from the category estimates; finders fee only from the funnel, so nothing is counted twice. */
+export const estimateRevenue = (est: Record<string, number> = {}, values: Record<string, number> = {}, funnel: Funnel = {}) =>
+  CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + (Number(est[c.key]) || 0) * unitFor(c, values), 0) + funnelTotals(funnel, values).total;
 
-export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}, values: Record<string, number> = {}) {
+export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}, values: Record<string, number> = {}, funnel: Funnel = {}) {
+  const ft = funnelTotals(funnel, values);
+  const funnelFor = (name: Category["group"]) => (name === "partner" ? ft.partner + ft.expert : ft.isv);
   const sum = (name: Category["group"], income?: Category["income"]) => CATEGORIES.filter((c) => c.group === name && (!income || c.income === income)).reduce((s, c) => ({
-    estimate: s.estimate + (Number(est[c.key]) || 0) * unitFor(c, values),
+    estimate: s.estimate + (c.income === "subscription" ? (Number(est[c.key]) || 0) * unitFor(c, values) : 0),
     detail: s.detail + (details[c.key]?.revenue ?? 0),
-  }), { estimate: 0, detail: 0 });
+  }), { estimate: income === "subscription" ? 0 : funnelFor(name), detail: 0 });
   const group = (name: Category["group"]) => ({ ...sum(name), subscription: sum(name, "subscription"), finders: sum(name, "finders") });
   return { partner: group("partner"), isv: group("isv") };
 }
@@ -176,4 +182,50 @@ export function mergeCosts(saved?: CostLine[]): CostLine[] {
   const fixed = DEFAULT_BUDGET.costs.filter((c) => !c.custom).map((c) => saved.find((x) => !x.custom && x.name === c.name) ?? c);
   const extra = saved.filter((x) => !x.custom && !fixed.some((f) => f.name === x.name));
   return [...fixed, ...extra, ...saved.filter((x) => x.custom)];
+}
+
+// Funnel budget (Thomas 2026-11-09): finders fee is budgeted per product as meetings → deals → won deals.
+export interface FunnelRow { meetings?: number; deals?: number; wins?: number; assignments?: number; hours?: number }
+export type Funnel = Record<string, FunnelRow>;
+export const FUNNEL_PRODUCTS = [
+  { key: "bc", label: "Business Central", fscm: false, valueKey: "successBc" },
+  { key: "crm", label: "CRM (Customer Engagement)", fscm: false, valueKey: "successCrm" },
+  { key: "fscm", label: "Finance & Supply Chain Management", fscm: true, valueKey: "successFscm" },
+  { key: "pp", label: "Power Platform och AI", fscm: false, valueKey: "successPp" },
+];
+export const EXPERT_FUNNEL = [
+  { key: "cv", label: "CV-förmedling", rate: EXPERT_FEES.cvPerHour, hours: 400 },
+  { key: "expert", label: "Expertuppdrag", rate: EXPERT_FEES.expertPerHour, hours: 800 },
+];
+export const ISV_FUNNEL = [
+  { key: "isvStd", label: "ISV: Business Central och CRM", fee: ISV_FEES.introStd, value: 200000 },
+  { key: "isvFscm", label: "ISV: F&SCM", fee: ISV_FEES.introFscm, value: 1000000 },
+];
+const n = (v?: number) => Math.max(0, Number(v) || 0);
+const val = (key: string, values: Record<string, number>, fallback: number) => Number(values[key]) || fallback;
+
+/** Basic pays meeting fee plus the rest at deal; Premium pays the full deal fee only. Success fee per won deal. */
+export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}) {
+  const meetingFee = product.fscm ? FEES.meetingFscm : FEES.meetingStd;
+  const dealFee = product.fscm ? FEES.dealFscm : FEES.dealStd;
+  const meetings = tier === "basic" ? n(r.meetings) * meetingFee : 0;
+  const deals = n(r.deals) * (tier === "basic" ? dealFee - meetingFee : dealFee);
+  const wins = n(r.wins) * successUnit(successValue(product.valueKey, values));
+  return { meetings, deals, wins, total: meetings + deals + wins };
+}
+export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], r: FunnelRow = {}) {
+  const hours = n(r.assignments) * (r.hours ?? e.hours);
+  return { hours, total: hours * e.rate };
+}
+export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}) {
+  const deals = n(r.deals) * i.fee;
+  const wins = n(r.wins) * successUnit(val(i.key, values, i.value));
+  return { deals, wins, total: deals + wins };
+}
+export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}) {
+  let partner = 0, expert = 0, isv = 0;
+  for (const p of FUNNEL_PRODUCTS) for (const t of ["basic", "premium"] as const) partner += partnerFunnelRow(p, t, f[`${p.key}_${t}`], values).total;
+  for (const e of EXPERT_FUNNEL) expert += expertFunnelRow(e, f[e.key]).total;
+  for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values).total;
+  return { partner, expert, isv, total: partner + expert + isv };
 }
