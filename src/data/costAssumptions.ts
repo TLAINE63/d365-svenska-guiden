@@ -14,7 +14,7 @@ export type CostAssumptions = {
   excluded: string[];
 };
 
-export const COST_ASSUMPTIONS_CHECKED = "2026-10-27";
+export const COST_ASSUMPTIONS_CHECKED = "2026-11-09";
 
 export const costAssumptions: Record<string, CostAssumptions> = {
   "business-central": {
