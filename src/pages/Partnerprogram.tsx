@@ -263,9 +263,12 @@ const Partnerprogram = () => {
               <br />
               Se till att kunder och AI förstår er kompetens.
             </h1>
+            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
+              d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 –
+              och hjälper partners och ISV:er att komma i kontakt med företag som har relevanta behov.
+            </p>
             <p className="text-base sm:text-lg text-muted-foreground mb-7">
-              d365.se hjälper företag att hitta och jämföra Dynamics 365-partners i Sverige. Med en
-              partnerverifierad profil kan ni säkerställa att er kompetens, specialiseringar,
+              Med en partnerverifierad profil kan ni säkerställa att er kompetens, specialiseringar,
               kundreferenser och erbjudanden presenteras korrekt, aktuellt och tydligt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
