@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_PRODUCTS, EXPERT_FUNNEL, ISV_FUNNEL, partnerFunnelRow, expertFunnelRow, isvFunnelRow, funnelTotals, type FunnelRow, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_PRODUCTS, EXPERT_FUNNEL, ISV_FUNNEL, partnerFunnelRow, expertFunnelRow, isvFunnelRow, funnelTotals, opexCoverage, type FunnelRow, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
@@ -161,6 +161,15 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(res)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
+        {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts); return (
+        <div className="mt-3 rounded-md border bg-muted/40 p-3 space-y-1">
+          <h4 className="font-semibold">Återkommande intäkter vs fasta kostnader</h4>
+          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV:er) sajtens externa kostnader utan Finders fee? Mål: täckningsgrad över 1,5.</p>
+          <div className="flex justify-between gap-4"><span>Återkommande intäkter per månad</span><span className="whitespace-nowrap">{fmt(rec / 12)} kr</span></div>
+          <div className="flex justify-between gap-4"><span>Fasta kostnader per månad</span><span className="whitespace-nowrap">{fmt(t.externalCosts / 12)} kr</span></div>
+          <div className="flex justify-between gap-4 font-medium"><span>Täckningsgrad</span><span className="whitespace-nowrap">{t.externalCosts > 0 ? c.ratio.toLocaleString("sv-SE", { maximumFractionDigits: 2 }) : "–"}</span></div>
+          <p className="text-sm font-medium pt-1">{t.externalCosts <= 0 ? "Lägg in kostnader för att se täckningen." : c.selfFunded ? "Driften är självfinansierad av prenumerationerna." : `Det saknas ${fmt(c.gap / 12)} kr per månad, ungefär ${c.extraPartners} Premiumpartners till (995 kr/mån).`}</p>
+        </div>); })()}
       </div>); })()}
 
       <section id="budget-summary" className="scroll-mt-32 space-y-3" aria-labelledby="budget-summary-title">

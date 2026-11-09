@@ -234,3 +234,10 @@ export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values).total;
   return { partner, expert, isv, total: partner + expert + isv };
 }
+
+/** Recurring subscription income vs fixed external costs (OPEX), per year. Extra partners needed are counted at the 1-area monthly Premium price. */
+export function opexCoverage(recurring: number, opex: number) {
+  const ratio = opex > 0 ? recurring / opex : 0;
+  const gap = Math.max(0, opex - recurring);
+  return { ratio, gap, selfFunded: opex > 0 && recurring >= opex, extraPartners: Math.ceil(gap / (MONTH_PRICE[1] * 12)) };
+}
