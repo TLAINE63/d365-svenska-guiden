@@ -49,7 +49,7 @@ const thomasAuthor = (date?: string): PageContribution[] => [
 
 // Bekräftat av Thomas Laine 2026-10-19. Utan eget datum används sidans registrerade granskningsdatum (pageReviewDates).
 export const PAGE_CONTRIBUTIONS: Record<string, PageContribution[]> = {
-  "/finance-supply-chain": thomasAuthor("2026-09-24"),
+  "/finance-supply-chain": thomasAuthor("2026-11-09"),
   ...Object.fromEntries(
     [
       "/businesscentral", "/affarssystem", "/crm", "/d365sales", "/d365marketing",

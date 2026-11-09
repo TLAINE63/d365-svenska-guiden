@@ -203,14 +203,14 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
         paragraphs: [
           "Ett TA-system samlar transportörerna i ett gemensamt flöde. I Sverige kopplas Business Central ofta till nShift (tidigare Consignor, i Sverige också känt via Unifaun) och Logtrade. Sökningar på \"Dynamics 365 Consignor\" eller \"Consigner\" handlar därför i praktiken oftast om en nShift-koppling.",
           "När ordern plockats och packats skickas sändningsdata (mottagare, kolli, vikt, tjänst och eventuella farligt gods- eller tulluppgifter) från Business Central till TA-tjänsten. Tillbaka kommer fraktetikett, fraktsedel, sändningsnummer och spårningslänk, som sparas på utleveransen och kan skickas till kunden.",
-          "För leveranser utanför EU kan TA-tjänsten också skapa tulldokument som proformafaktura och exportdeklarationsunderlag, förutsatt att artiklarna har korrekta varukoder, ursprungsland och vikter i Business Central. Vilka dokument som stöds varierar mellan TA-leverantörer och transportörer, så kontrollera det för era destinationer.",
+          "Vid export som kräver tulldokument kan kopplingen föra över varukoder, ursprungsland, värden och vikter från Business Central till TA-tjänsten. Där kan dokument som handels- eller proformafaktura skapas och skrivas ut i order- och lagerflödet, om tjänsten stöder det. Dokumentstöd och ansvar för tulldeklaration varierar mellan lösningar, transportörer och destinationer och behöver kontrolleras före införandet.",
         ],
       },
       {
         id: "transportbokning",
         h2: "Transportadministration och bokning hos fraktbolagen",
         paragraphs: [
-          "Med en TA-integration bokas transporten automatiskt hos fraktbolag som PostNord, DHL, DB Schenker och DSV när utleveransen bokförs eller packas. Ni slipper dubbelarbete i varje transportörs egen webbportal, och samma regler kan välja transportör och tjänst utifrån till exempel land, vikt eller leveranssätt på ordern.",
+          "Med en TA-integration kan transporten bokas hos fraktbolag som PostNord, DHL, Schenker och DSV från utleveransen eller packbordet. Automatisering kräver att kopplingen stöder era transportörer och tjänster, att fraktavtalen är anslutna och att bokningsreglerna är konfigurerade. Då slipper ni dubbelarbete i separata webbportaler och kan välja transportör och tjänst utifrån land, vikt eller orderns leveranssätt.",
           "Transportörer som PostNord har även egna integrationer, men med ett TA-system kan ni lägga till eller byta transportör utan att bygga nya kopplingar mot Business Central. Det förenklar också hämtningsbokning, fraktkostnadsuppföljning och avvikelsehantering.",
           "Det som brukar avgöra valet: vilka transportörer och tjänster ni använder, antal sändningar per dag, om ni behöver tulldokument, hur spårningslänkar ska nå kunden och om kopplingen är ett tillägg inuti Business Central eller en separat tjänst som synkar data.",
         ],
@@ -219,7 +219,7 @@ export const BC_CATEGORY_PAGES: BcCategoryPage[] = [
         id: "lagerflode",
         h2: "Lagerflöde: pack, plock och TA-systemet",
         paragraphs: [
-          "Frakthanteringen fungerar bäst när den sitter ihop med lagret. Med handdatorer eller scanners plockas ordern mot lagerplatser i Business Central, varorna kontrolleras vid packbordet och fraktsedeln skrivs ut direkt när kollit registreras.",
+          "Frakthanteringen fungerar bäst när den sitter ihop med lagret. Med en lagerlösning som stöder handdatorer eller scanners kan ordern plockas mot lagerplatser i Business Central och kontrolleras vid packbordet. TA-kopplingen kan sedan skriva ut fraktetiketter och fraktsedlar när kollit registreras, om det arbetsflödet stöds och är konfigurerat.",
           "Returhantering kan ingå i samma flöde: returetikett skickas med paketet eller skapas på begäran, och returen tas emot mot ursprungsordern. Då hänger lagersaldo, kreditering och kundtjänst ihop.",
           "Vid höga volymer, många lagerställen eller avancerade plockregler räcker inte alltid standardlagret. Då utvärderas ett WMS-tillägg till Business Central, eller Supply Chain Management för större verksamheter med centrallager.",
         ],
