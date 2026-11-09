@@ -148,8 +148,8 @@ const ERPOverview = () => {
  return (
  <div className="min-h-screen">
  <SEOHead 
- title="Affärssystem från Microsoft Dynamics 365 (ERP) 2026"
- description={resolvePriceTokens("Vad är ett affärssystem, vad kostar det och hur väljer ni? Jämför Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & SCM ({{price:finance:short}}).")}
+ title="Affärssystem (ERP): pris, jämförelse och val 2026"
+ description={resolvePriceTokens("Vad är ett affärssystem (ERP), vad kostar det och hur väljer ni rätt för ert bolag? Jämför Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & SCM ({{price:finance:short}}).")}
  canonicalPath="/affarssystem"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"
