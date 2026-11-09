@@ -1,0 +1,73 @@
+import { createPdfDocument, wrapPdfText } from "@/utils/pdfDocument";
+import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "@/utils/pdfLayout";
+import { PDF_BRAND } from "@/utils/pdfBrand";
+import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
+import { ORGANIZATION } from "@/data/organization";
+
+export interface AgreementPdfSection { title: string; body: string }
+
+const kr = (n: number) => `${n.toLocaleString("sv-SE")} kr`;
+const today = () => new Date().toISOString().slice(0, 10);
+
+/** Prisbilaga från samma priser som Partnerprogram och Budget 2027. */
+export function agreementPriceRows(): [string, string][] {
+  return [
+    ["Partner Presence Premium, 1 produktområde", `${kr(MONTH_PRICE[1])}/mån eller ${kr(YEAR_PRICE[1])}/år`],
+    ["Partner Presence Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
+    ["Partner Presence Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
+    ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
+    ["Genomfört kundmöte (Basicpartner)", `${kr(FEES.meetingStd)}, F&SCM ${kr(FEES.meetingFscm)}`],
+    ["Kundavtal tecknat", `${kr(FEES.dealStd)}, F&SCM ${kr(FEES.dealFscm)}`],
+    ["Förmedling av expertkonsulter", `${EXPERT_FEES.premiumPerHour} kr (Premium) / ${EXPERT_FEES.basicPerHour} kr (Basic) per debiterad timme`],
+  ];
+}
+
+/** Partneravtalet som PDF i samma layout som sajtens övriga rapporter. Avtalstexten kommer från avtalssidans redigerade avsnitt. */
+export async function generatePartnerAgreementPdf(opts: { heading: string; intro?: string; sections: AgreementPdfSection[]; partnerName?: string }): Promise<Blob> {
+  const doc = await createPdfDocument();
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const width = pageW - PDF_MARGIN * 2;
+  const bottom = pageH - 20;
+  const title = opts.heading || "Partneravtal d365.se";
+  let y = drawBrandHeader(doc, title, `Version ${today()} · ${ORGANIZATION.legalName ?? "Dynamic Factory"}`);
+
+  const ensure = (h: number) => { if (y + h > bottom) { doc.addPage(); y = drawBrandHeader(doc, title); } };
+  const para = (text: string, size = 10) => {
+    doc.setFont("helvetica", "normal"); doc.setFontSize(size); doc.setTextColor(...PDF_BRAND.dark);
+    for (const raw of text.split("\n")) {
+      const lines = raw.trim() ? wrapPdfText(raw, width, (l) => doc.getTextWidth(l)) : [""];
+      for (const line of lines) { ensure(5.2); doc.text(line, PDF_MARGIN, y); y += 5.2; }
+    }
+    y += 2;
+  };
+  const heading = (t: string) => { ensure(16); y = drawSectionHeading(doc, t, y + 2); };
+
+  if (opts.partnerName) para(`Avtalspart: ${opts.partnerName}`, 11);
+  if (opts.intro) para(opts.intro);
+  for (const s of opts.sections) { heading(s.title); para(s.body); }
+
+  heading("Bilaga: priser och ersättningar");
+  doc.setFontSize(9.5);
+  for (const [label, value] of agreementPriceRows()) {
+    const valLines = wrapPdfText(value, width * 0.5, (l) => doc.getTextWidth(l));
+    const h = Math.max(1, valLines.length) * 4.8 + 3;
+    ensure(h);
+    doc.setFillColor(...PDF_BRAND.light);
+    doc.rect(PDF_MARGIN, y - 4, width, h, "F");
+    doc.setFont("helvetica", "bold"); doc.setTextColor(...PDF_BRAND.dark);
+    doc.text(wrapPdfText(label, width * 0.46, (l) => doc.getTextWidth(l))[0], PDF_MARGIN + 2, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(valLines, PDF_MARGIN + width * 0.5, y);
+    y += h + 1;
+  }
+  y += 2;
+  para("Mötes- och avtalsersättning gäller Basicpartners. Premiumpartners betalar ingen mötesavgift. Alla priser exklusive moms.", 8.5);
+
+  heading("Accept");
+  para("Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
+  para(`${ORGANIZATION.contactName ?? "Thomas Laine"} · ${ORGANIZATION.email ?? "info@d365.se"}`);
+
+  finalizePdfWithFooter(doc, title);
+  return doc.output("blob");
+}
