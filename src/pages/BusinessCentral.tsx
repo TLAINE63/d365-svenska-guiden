@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
 
 import { resolvePriceTokens } from "@/lib/productPriceFormat";
+import { PRICING_BASIS_TEXT } from "@/data/pricing";
 import Navbar from "@/components/Navbar";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import ShortAnswer from "@/components/ShortAnswer";
@@ -366,6 +367,7 @@ const BusinessCentral = () => {
  </section>
 
       <CostBreakdown product="business-central" heading="Vad kostar införande och förvaltning?" />
+      <p className="container mx-auto max-w-6xl px-4 sm:px-6 -mt-4 mb-6 text-sm text-muted-foreground">{PRICING_BASIS_TEXT}</p>
       <section className="bg-background pb-8 sm:pb-12">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="mb-4 max-w-3xl text-sm text-muted-foreground">Skilj på licenser, införande, tillägg och anpassningar, integrationer samt löpande förvaltning. Kalkylen är en uppskattning utifrån era antaganden, inte en offert.</p>

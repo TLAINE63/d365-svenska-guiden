@@ -157,7 +157,7 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       "Test­arbete (UAT, regressionstester, cutover-rep)",
     ],
     ongoing: [
-      "Application Management Services hos partner: typiskt 10–20 % av projekt­kostnaden per år",
+      "Application Management Services hos partner: typiskt 15–25 % av införande­kostnaden per år",
       "Egen intern förvaltning (process­ägare, super­users, IT)",
       "Microsofts release-cykel: två stora uppdateringar/år som ska testas",
       "Tillägg över tid: Copilot, agenter, Customer Insights, Project Operations",
