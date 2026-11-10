@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { recordSessionPage } from "@/lib/sessionPages";
+import { recordSessionPage, recordSessionUtm } from "@/lib/sessionPages";
 
 /** Sparar besökets sökvägar i sessionStorage (d365_session_pages). Renderar inget. */
 export default function SessionPagesRecorder() {
