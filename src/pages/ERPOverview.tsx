@@ -147,9 +147,10 @@ const ERPOverview = () => {
 
  return (
  <div className="min-h-screen">
- <SEOHead 
- title="Affärssystem (ERP): pris, jämförelse och val 2026"
- description={resolvePriceTokens("Vad är ett affärssystem (ERP), vad kostar det och hur väljer ni rätt för ert bolag? Jämför Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & SCM ({{price:finance:short}}).")}
+  <SEOHead 
+ title="Köpguide: Välja & byta affärssystem för medelstora företag | d365.se"
+ titleMaxLength={70}
+ description="Komplett guide för dig som ska välja eller byta affärssystem. Jämförelser, checklista för kravspecifikation och hur du väljer rätt lösning i Microsoft Dynamics 365."
  canonicalPath="/affarssystem"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"
@@ -167,8 +168,8 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="Pelarsida · Guide inför systemvalet"
- title="Vilket affärssystem (ERP) från Microsoft Dynamics 365 passar er verksamhet?"
- subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
+ title="Välja och byta affärssystem – komplett köpguide för medelstora företag"
+ subhead="Att byta eller uppgradera affärssystem är en stor strategisk investering. Här går vi igenom vad ett modernt affärssystem innebär, när det är dags att byta, hur ni väljer rätt lösning och vad som skiljer standardlösningar från skräddarsydda plattformar."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
   />

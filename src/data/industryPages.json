@@ -2923,8 +2923,8 @@
     "id": "5309c229-98f1-4110-a1a1-309f075e310c",
     "slug": "uthyrning",
     "name": "Uthyrningsverksamhet",
-    "meta_title": "Affärssystem för Uthyrningsverksamhet | Dynamics 365",
-    "meta_description": "En guide till Microsoft Dynamics 365 för svenska uthyrningsföretag. Läs om processer, utmaningar och lösningar för att hantera uthyrning.",
+    "meta_title": "Affärssystem för uthyrning & maskinuthyrning | d365.se",
+    "meta_description": "Guide till affärssystem för maskinuthyrning och rental. Så hanterar Microsoft Dynamics 365 maskinpark, bokningsstatus, service och periodiserad hyra.",
     "hero_image_url": null,
     "intro": "Uthyrningsbranschen i Sverige genomgår en stark tillväxt, driven av en ökad efterfrågan på flexibla och kostnadseffektiva lösningar inom allt från byggmaskiner och fordon till verktyg och eventutrustning. Cirkulära affärsmodeller och ett ökat fokus på hållbarhet driver på utvecklingen där företag väljer att hyra istället för att äga, vilket ställer högre krav på uthyrningsföretagens förmåga att hantera sina tillgångar effektivt.\n\nDigitalisering är en nyckelfaktor för att lyckas i denna konkurrensutsatta marknad. Moderna affärssystem blir avgörande för att optimera beläggningsgrad, hantera service och underhåll, samt automatisera komplexa flöden kring prissättning och fakturering. Förmågan att i realtid kunna följa varje enskild tillgångs status, från tillgänglighet och uthyrning till service och reparation, är kritisk för lönsamheten.\n\nEtt integrerat systemstöd som kopplar samman uthyrningsprocessen med ekonomi, kundhantering och service är inte längre en fördel, utan en nödvändighet. Det möjliggör datadrivna beslut för att maximera intäkter, minimera stillestånd och erbjuda en kundupplevelse som bygger långsiktiga relationer.",
     "processes": [
@@ -3077,6 +3077,6 @@
     "is_published": true,
     "ai_generated_at": "2026-05-16T17:05:17.85+00:00",
     "created_at": "2026-05-16T17:05:17.881873+00:00",
-    "updated_at": "2026-06-25T12:16:23.702676+00:00"
+    "updated_at": "2026-11-10T15:34:22.661288+00:00"
   }
 ]
