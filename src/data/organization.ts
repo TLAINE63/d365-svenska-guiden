@@ -66,3 +66,7 @@ export const ADVISOR_BOOKING_URL =
 /** Fastställd knapptext för rådgivning med Thomas (beslut 2026-11-04). */
 export const ADVISOR_BOOKING_CTA = "Boka 20-minuters kostnadsfri rådgivning med Thomas";
 export const ADVISOR_EMAIL_HREF = "mailto:thomas.laine@dynamicfactory.se";
+
+/** Mötesbokning med Thomas för partners och ISV-leverantörer. */
+export const PARTNER_BOOKING_URL =
+  "https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/P-zGvTFRUE-amw1gYK5TJw2?anonymous&ismsaljsauthenabled&ep=mlink";
