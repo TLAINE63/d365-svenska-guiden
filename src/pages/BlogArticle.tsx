@@ -1,4 +1,5 @@
 import SourcesAndMethod from "@/components/SourcesAndMethod";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import EditorialSource from "@/components/EditorialSource";

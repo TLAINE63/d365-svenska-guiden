@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
 import GlobalNextStepFallback from "@/components/nextsteps/GlobalNextStepFallback";
+import ContentInvite from "@/components/ContentInvite";
+import { useLocation } from "react-router-dom";
 
 const siteLogo = "/d365-logo.svg";
 

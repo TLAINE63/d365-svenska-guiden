@@ -14,6 +14,7 @@ import { Plus, Pencil, Trash2, ExternalLink, FileText, Code2, FileUp } from "luc
 import RedaktionWordArticleDialog, { type WordArticleRecord } from "@/components/RedaktionWordArticleDialog";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { CONTENT_INVITE_THEMES } from "@/lib/contentInvite";
 
 interface KnowledgeArticle {
   id: string;

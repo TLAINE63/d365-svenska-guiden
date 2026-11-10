@@ -1,4 +1,5 @@
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
+import ContentInvite from "@/components/ContentInvite";
 import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
 import FitModel from "@/components/FitModel";

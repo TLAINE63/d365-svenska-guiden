@@ -57,6 +57,8 @@ import JourneyFunnelsCard from "@/components/JourneyFunnelsCard";
 import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
+import RedaktionWebinarTab from "@/components/RedaktionWebinarTab";
+import RedaktionNewsletterTab from "@/components/RedaktionNewsletterTab";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
