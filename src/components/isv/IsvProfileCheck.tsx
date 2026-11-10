@@ -10,6 +10,7 @@ import partnerData from "@/data/partnerData.json";
 
 const partners = partnerData as FeaturedPartnerLite[];
 const catalogue = "/kunskapscenter/dynamics-365-tillagg/";
+const brandText = (text: string) => text.replace(/Microsoft\s+Dynamics\s+365/g, "Microsoft\u00a0Dynamics\u00a0365").replace(/Dynamics\s+365/g, "Dynamics\u00a0365");
 type Entry = { id: string; name: string; subtitle: string; verified: boolean; description: string; url: string; rows: { label: string; value: string }[] };
 
 export default function IsvProfileCheck() {
@@ -24,13 +25,13 @@ export default function IsvProfileCheck() {
   const entries = useMemo<Entry[]>(() => {
     if (mode === "product") return solutions.map((s) => ({
       id: s.id, name: s.name, subtitle: s.vendor, verified: s.informationStatus === "verified",
-      description: s.shortDescription, url: `${catalogue}?losning=${encodeURIComponent(s.id)}`,
+      description: brandText(s.shortDescription), url: `${catalogue}?losning=${encodeURIComponent(s.id)}`,
       rows: [
         { label: "Produktområden", value: s.products?.join(", ") || "" },
-        { label: "Vad lösningen gör", value: s.what },
-        { label: "Användningsområden", value: s.useCases.join(" · ") },
-        { label: "När lösningen passar", value: s.bestFor || s.whenFits },
-        { label: "Att ta hänsyn till", value: s.considerations || "" },
+        { label: "Vad lösningen gör", value: brandText(s.what) },
+        { label: "Användningsområden", value: brandText(s.useCases.join(" · ")) },
+        { label: "När lösningen passar", value: brandText(s.bestFor || s.whenFits) },
+        { label: "Att ta hänsyn till", value: brandText(s.considerations || "") },
         { label: "Branscher", value: (s.industryFocus || s.industries).join(", ") },
         { label: "Kundcase", value: s.customerCases?.map((c) => c.title).join(" · ") || "" },
         { label: "Demofilm", value: s.demoVideoUrl ? "Finns" : "" },
@@ -48,10 +49,10 @@ export default function IsvProfileCheck() {
       const name = v?.name || products[0]?.vendor || id;
       const verified = isVendorVerified(v?.information_status, matchVerifiedPartner(name, id, partners));
       return { id, name, subtitle: `${products.length} produkter i katalogen`, verified,
-        description: v?.description || "Ingen separat leverantörsbeskrivning finns registrerad.",
+        description: brandText(v?.description || "Ingen separat leverantörsbeskrivning finns registrerad."),
         url: `${catalogue}?leverantor=${encodeURIComponent(products[0]?.vendor || name)}`,
         rows: [
-          { label: "Leverantörsbeskrivning", value: v?.description || "" },
+          { label: "Leverantörsbeskrivning", value: brandText(v?.description || "") },
           { label: "Produkter", value: products.map((p) => p.name).join(" · ") },
           { label: "Produktområden", value: [...new Set(products.flatMap((p) => p.products || []))].join(", ") },
           { label: "Verifierade produkter", value: `${products.filter((p) => p.informationStatus === "verified").length} av ${products.length}` },
