@@ -301,7 +301,7 @@ to="/valjdynamics365partner/#alla-partners-rubrik"
                 variant="compact"
               />
             </div>
-          <WhyTheseResults explanation="Dessa partners har publicerade profiler och profileringsavtal samt motsvarar valda produkt- och branschfilter. Här visas ett begränsat urval med dagligen slumpad ordning, inte en kvalitetsranking." className="mb-5" />
+          <WhyTheseResults explanation="Dessa partners har verifierade profiler och profileringsavtal samt motsvarar valda produkt- och branschfilter. Här visas ett begränsat urval med dagligen slumpad ordning, inte en kvalitetsranking." className="mb-5" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {filtered.map((p) => {
               let productKey: 'bc' | 'fsc' | 'crm' | 'sales' | 'service' | null = null;

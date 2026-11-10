@@ -268,7 +268,7 @@ const D365Sales = () => {
             Behöver ni hjälp att implementera eller konfigurera Dynamics{"\u00A0"}365 Sales?
           </p>
           <p className="text-sm text-muted-foreground mb-3">
-            Partnerguiden är vår huvudsida för partnerval, med alla publicerade partners och filter för CRM, affärssystem (ERP) och bransch.
+            Partnerguiden är vår huvudsida för partnerval, med alla verifierade partners och filter för CRM, affärssystem (ERP) och bransch.
           </p>
           <Link
             to="/valjdynamics365partner/#crm-partners"

@@ -116,7 +116,7 @@ export default function HomePartnerNewsSection() {
                 Aktuellt från Dynamics 365-partners
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Redaktionellt utvalda nyheter, kundcase och event från publicerade partners, samt produktnyheter från Microsoft.
+                Redaktionellt utvalda nyheter, kundcase och event från verifierade partners, samt produktnyheter från Microsoft.
               </p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">

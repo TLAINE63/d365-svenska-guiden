@@ -1409,7 +1409,7 @@ const ValjPartner = () => {
      </p>
      {fscmProfilePartners.length > 0 && (
       <div className="mb-5">
-       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger Finance & Supply Chain</p>
+       <p className="text-sm font-semibold text-foreground mb-3">Verifierade profiler som anger Finance & Supply Chain</p>
        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {fscmProfilePartners.map((p) => (
          <li key={p.id}>
@@ -1472,7 +1472,7 @@ const ValjPartner = () => {
      </p>
      {crmProfilePartners.length > 0 && (
       <div className="mb-5">
-       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger CRM-produkter</p>
+       <p className="text-sm font-semibold text-foreground mb-3">Verifierade profiler som anger CRM-produkter</p>
        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {crmProfilePartners.map((p) => (
          <li key={p.id}>
@@ -1545,7 +1545,7 @@ const ValjPartner = () => {
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
- Alla publicerade partnerprofiler
+ Alla verifierade partnerprofiler
  </h2>
  <p className="text-muted-foreground mb-5">
  Komplett lista i bokstavsordning över partners som har en profil på d365.se. Taggarna visar vilka områden partnern själv anger. Välj ett område för att visa bara de partnerna.

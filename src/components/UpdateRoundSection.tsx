@@ -270,7 +270,7 @@ const UpdateRoundSection = ({ token, partners, invitations, onSessionExpired, on
               </Badge>
               {round.label && <Badge variant="secondary">{round.label}</Badge>}
               <span className="text-muted-foreground">
-                {updatedCount} av {totalFeatured} publicerade partners har uppdaterat
+                {updatedCount} av {totalFeatured} verifierade partners har uppdaterat
               </span>
             </div>
 
@@ -286,7 +286,7 @@ const UpdateRoundSection = ({ token, partners, invitations, onSessionExpired, on
             {partnersNeedingUpdate.length === 0 ? (
               <div className="flex items-center gap-2 text-emerald-600 text-sm">
                 <CheckCircle2 className="w-4 h-4" />
-                Alla publicerade partners har uppdaterat sin profil!
+                Alla verifierade partners har uppdaterat sin profil!
               </div>
             ) : (
               <div className="space-y-3">

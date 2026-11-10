@@ -41,7 +41,7 @@ const PartnerExtendedContent = () => {
     primaryKeyword: "Dynamics 365 partner",
   }).value;
 
-  const seoDescription = `Läs den publicerade profilen för ${partner.name} och se uppgifter om kompetenser, branscher, referenser och kontaktvägar.`;
+  const seoDescription = `Läs den verifierade profilen för ${partner.name} och se uppgifter om kompetenser, branscher, referenser och kontaktvägar.`;
 
   return (
     <div className="min-h-screen bg-background">

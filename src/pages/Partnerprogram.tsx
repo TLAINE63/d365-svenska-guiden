@@ -87,7 +87,7 @@ const faqs = [
   {
     question: "Vad innebär videointervjun?",
     answer:
-      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för publicerade partners med Premium och 8 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
+      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för verifierade partners med Premium och 8 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
   },
   {
     question: "Kostar det att publiceras på d365.se?",
@@ -422,7 +422,7 @@ const Partnerprogram = () => {
               <AccordionTrigger>Vad innebär d365.se INSIDE?</AccordionTrigger>
               <AccordionContent><div ref={videoRef} className="max-w-3xl space-y-3 text-muted-foreground">
                 <p>En redaktionell intervju med era experter om specialisering, kundbehov och erfarenheter. Den kan publiceras på d365.se, på partnerprofilen och på YouTube, med sammanfattning och expertcitat.</p>
-                <p>Produktion och distribution kostar 4&nbsp;900 kr för publicerade partners med Premium och 8&nbsp;900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se; betalning köper inte en viss slutsats.</p>
+                <p>Produktion och distribution kostar 4&nbsp;900 kr för verifierade partners med Premium och 8&nbsp;900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se; betalning köper inte en viss slutsats.</p>
               </div></AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -566,7 +566,7 @@ const Partnerprogram = () => {
               {
                 n: "3",
                 t: "Vi publicerar och utvecklar profilen",
-                d: "Nya profiler granskas av d365.se innan de publiceras. Därefter syns publicerade partners egna ändringar direkt. Profilen kan kompletteras med expertintervju, video och ytterligare innehåll.",
+                d: "Nya profiler granskas av d365.se innan de publiceras. Därefter syns verifierade partners egna ändringar direkt. Profilen kan kompletteras med expertintervju, video och ytterligare innehåll.",
               },
             ].map((s) => (
               <div key={s.n} className="rounded-xl border border-border bg-card p-6">
@@ -582,7 +582,7 @@ const Partnerprogram = () => {
           <ul className="grid gap-3 md:grid-cols-2 max-w-4xl">
             {[
               "Publicering inom 10 arbetsdagar från att underlaget är komplett",
-              "Publicerade partners ändringar i profilen syns direkt",
+              "Verifierade partners ändringar i profilen syns direkt",
               "Kvartalsvis genomgång av profilen tillsammans med er",
               "Statistik över profilvisningar",
               "En namngiven kontaktperson på d365.se",

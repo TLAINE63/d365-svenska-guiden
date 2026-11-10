@@ -2029,7 +2029,7 @@ const ComparePartners = () => {
                   <p className="text-sm text-[hsl(var(--muted-foreground))] ml-1 mt-0.5">
                     {productActive || industryFilter
                       ? `${eligiblePartners.length} partner${eligiblePartners.length === 1 ? "" : "s"} matchar urvalet`
-                      : "Visar alla publicerade partners – välj produkt och bransch ovan för att smalna av"}
+                      : "Visar alla verifierade partners – välj produkt och bransch ovan för att smalna av"}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
@@ -2662,7 +2662,7 @@ const ComparePartners = () => {
               Vill du se fler Dynamics{"\u00A0"}365-partners än de du jämför här?
             </p>
             <p className="text-sm text-muted-foreground mb-3">
-              Partnerguiden är vår huvudsida för partnerval, med alla publicerade partners och filter för F&SCM, Business Central, CRM och bransch.
+              Partnerguiden är vår huvudsida för partnerval, med alla verifierade partners och filter för F&SCM, Business Central, CRM och bransch.
             </p>
             <Link to="/valjdynamics365partner/" className="inline-flex items-center gap-1.5 font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
               Gå till partnerguiden för Dynamics{"\u00A0"}365
