@@ -85,7 +85,7 @@ export default function IsvProfileCheck() {
         </div>
         {own && <div className="mt-8">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-            <div><h3 className="text-xl font-semibold">{own.name}</h3><p className="text-sm text-muted-foreground mt-1">{own.subtitle}</p><InformationStatusBadge kind="isv" partner={{ information_status: own.verified ? "verified" : "compiled" }} className="mt-2" /></div>
+            <div><h3 className="text-xl font-semibold">{own.name}</h3><p className="text-sm text-muted-foreground mt-1">{own.subtitle}</p><InformationStatusBadge kind="isv" isvProduct={mode === "product"} partner={{ information_status: own.verified ? "verified" : "compiled" }} className="mt-2" /></div>
             <div className="flex flex-wrap gap-2"><Button asChild variant="outline"><Link to={own.url}>Se som köpare<ArrowRight className="ml-2 w-4 h-4" /></Link></Button><Button variant="outline" onClick={() => setComparing(!comparing)} aria-expanded={comparing}>Jämför med en verifierad {mode === "vendor" ? "leverantör" : "produkt"}</Button></div>
           </div>
           <p className="text-sm text-muted-foreground max-w-3xl mb-6">{own.description}</p>

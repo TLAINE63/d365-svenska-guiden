@@ -22,6 +22,7 @@ interface Props {
   explain?: boolean;
   /** "isv" använder ISV-statusarnas texter. */
   kind?: "partner" | "isv";
+  isvProduct?: boolean;
   className?: string;
 }
 
@@ -29,7 +30,7 @@ interface Props {
  * Publik informationsstatus (Sprint 1.1, ISV Sprint 1.9). Beskriver hur uppgifterna har kontrollerats,
  * inte kvalitet eller kommersiell relation.
  */
-export default function InformationStatusBadge({ partner, showDate = false, explain = false, kind = "partner", className = "" }: Props) {
+export default function InformationStatusBadge({ partner, showDate = false, explain = false, kind = "partner", isvProduct = false, className = "" }: Props) {
   let status: string;
   let meta: { label: string; description: string };
   if (kind === "isv") {
@@ -49,7 +50,7 @@ export default function InformationStatusBadge({ partner, showDate = false, expl
       data-information-status={status}
     >
       <Icon className={kind === "isv" && level === "verified" ? "h-5 w-5 shrink-0" : "h-3.5 w-3.5 shrink-0"} aria-hidden="true" />
-      <span>{meta.label}</span>
+      <span>{kind === "isv" && isvProduct && level === "verified" ? "Verifierad tilläggsprodukt (ISV)" : meta.label}</span>
       {date && <span className="font-normal opacity-80">· {date}</span>}
       <span className="sr-only">. {meta.description}</span>
     </span>
