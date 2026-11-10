@@ -185,6 +185,9 @@ const ERPOverview = () => {
  överens med varandra.
  </p>
  <p className="text-lg text-muted-foreground mb-4">
+ Från traditionellt affärssystem till en modern affärsplattform: Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 knyter ihop ekonomi, logistik, sälj och AI i ett och samma ekosystem. Läs mer i <Link to="/vad-ar-dynamics-365/" className="text-primary font-medium hover:underline">Vad är Microsoft{"\u00A0"}Dynamics{"\u00A0"}365?</Link>
+ </p>
+ <p className="text-lg text-muted-foreground mb-4">
  I praktiken är affärssystemet den ryggrad som styr hur ordrar, fakturor, lagersaldon, inköp och
  redovisning hänger ihop. När en säljare lägger en order ska den synas på lagret, i ekonomin och i
  rapporterna – utan dubbelregistrering. Det är där värdet uppstår, och det är också där de flesta
