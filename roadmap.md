@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Branscher och vertikaler (2026-11-10)
+- [ ] Uppdatera uthyrningssidans SEO, H1, ingress, funktioner, Dynamics 365-avsnitt, partnerval, internlänkar och rådgivning på befintlig adress.
+- [ ] Komplettera nio befintliga branschsidor med naturliga sökordsrubriker och branschinnehåll, utan nya adresser.
+- [ ] Kontrollera publicerat innehåll, granskningsdatum, länkar och visning på dator och mobil.
+
 ## Prislista, partneravtal och budget som PDF/DOCX (2026-11-10)
 - [x] Tre separata dokument skapade i både PDF och redigerbar Word: Prislista 2027, Partneravtal 2027 och Budget 2027.
 - [x] Budgetens sparade värden och avtalets publicerade villkor hämtade; samtliga PDF-sidor visuellt granskade och Word-filer tekniskt validerade.
