@@ -328,13 +328,13 @@ const Partnerprogram = () => {
               <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
               <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Antal områden</th><th scope="col" className="text-right px-4 py-3">Premium Månad</th><th scope="col" className="text-right px-4 py-3">Premium År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
               <tbody>{[
-                ["1 produktområde", "995", "7 990"],
-                ["2 produktområden", "1 295", "9 990"],
-                ["3 produktområden", "1 495", "11 990"],
-              ].map(([label, month, year]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal"><span className="sm:hidden">{label?.split(" ")[0]}</span><span className="hidden sm:inline">{label}</span></th><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{month} kr</span><span className="block sm:inline text-xs font-normal"> /mån</span></td><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{year} kr</span><span className="block sm:inline text-xs font-normal"> /år</span></td></tr>)}</tbody>
+                ["1 produktområde", "995", "7 990", "3 950", "33"],
+                ["2 produktområden", "1 295", "9 990", "5 550", "36"],
+                ["3 produktområden", "1 495", "11 990", "5 950", "33"],
+              ].map(([label, month, year, save, pct]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal"><span className="sm:hidden">{label?.split(" ")[0]}</span><span className="hidden sm:inline">{label}</span></th><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{month} kr</span><span className="block sm:inline text-xs font-normal"> /mån</span></td><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{year} kr</span><span className="block sm:inline text-xs font-normal"> /år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">{save} kr</span> ({pct}&nbsp;%)</span></td></tr>)}</tbody>
             </table>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Prislista 2027, gäller från 2026-11-10. Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
