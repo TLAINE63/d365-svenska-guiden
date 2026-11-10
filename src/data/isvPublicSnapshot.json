@@ -5509,6 +5509,59 @@
       "updated_at": "2026-10-30T16:52:39.895232+00:00"
     },
     {
+      "solution_id": "logtrade-logtrade-connect",
+      "name": "Logtrade Connect",
+      "vendor": "Logtrade",
+      "vendor_slug": "logtrade",
+      "short_description": "Fraktbokning, etiketter, spårning och transportörsanslutning integrerat med D365 F&SCM.",
+      "category": "Frakt & TA",
+      "type": "Integration layer",
+      "tier": "Tier 1",
+      "tags": [
+        "Shipping",
+        "TA",
+        "Carriers",
+        "Labels"
+      ],
+      "industries": [
+        "Wholesale",
+        "Manufacturing",
+        "Retail",
+        "E-commerce"
+      ],
+      "geo": [],
+      "what": null,
+      "use_cases": [],
+      "when_fits": null,
+      "combos": [],
+      "products": [
+        "Finance & Supply Chain Management"
+      ],
+      "industry_focus": [
+        "Wholesale",
+        "Manufacturing",
+        "Retail",
+        "E-commerce"
+      ],
+      "partner_slugs": [],
+      "vendor_website": null,
+      "logo_url": null,
+      "delivery_model": "integration_layer",
+      "best_for": "Nordiska företag med många transporter och transportörer.",
+      "considerations": "Verifiera transportörstäckning för aktuella marknader.",
+      "information_status": "compiled",
+      "last_verified_date": null,
+      "premium_product": false,
+      "demo_video_url": null,
+      "customer_cases": [],
+      "product_gallery": [],
+      "product_features": [],
+      "integration_evidence": [],
+      "partner_evidence": [],
+      "is_published": true,
+      "updated_at": "2026-10-30T16:52:39.895232+00:00"
+    },
+    {
       "solution_id": "logtrade",
       "name": "Logtrade Connect",
       "vendor": "Logtrade",
@@ -5561,59 +5614,6 @@
       "partner_evidence": [],
       "is_published": true,
       "updated_at": "2026-10-30T17:18:27.652936+00:00"
-    },
-    {
-      "solution_id": "logtrade-logtrade-connect",
-      "name": "Logtrade Connect",
-      "vendor": "Logtrade",
-      "vendor_slug": "logtrade",
-      "short_description": "Fraktbokning, etiketter, spårning och transportörsanslutning integrerat med D365 F&SCM.",
-      "category": "Frakt & TA",
-      "type": "Integration layer",
-      "tier": "Tier 1",
-      "tags": [
-        "Shipping",
-        "TA",
-        "Carriers",
-        "Labels"
-      ],
-      "industries": [
-        "Wholesale",
-        "Manufacturing",
-        "Retail",
-        "E-commerce"
-      ],
-      "geo": [],
-      "what": null,
-      "use_cases": [],
-      "when_fits": null,
-      "combos": [],
-      "products": [
-        "Finance & Supply Chain Management"
-      ],
-      "industry_focus": [
-        "Wholesale",
-        "Manufacturing",
-        "Retail",
-        "E-commerce"
-      ],
-      "partner_slugs": [],
-      "vendor_website": null,
-      "logo_url": null,
-      "delivery_model": "integration_layer",
-      "best_for": "Nordiska företag med många transporter och transportörer.",
-      "considerations": "Verifiera transportörstäckning för aktuella marknader.",
-      "information_status": "compiled",
-      "last_verified_date": null,
-      "premium_product": false,
-      "demo_video_url": null,
-      "customer_cases": [],
-      "product_gallery": [],
-      "product_features": [],
-      "integration_evidence": [],
-      "partner_evidence": [],
-      "is_published": true,
-      "updated_at": "2026-10-30T16:52:39.895232+00:00"
     },
     {
       "solution_id": "ls-central",
@@ -9799,6 +9799,59 @@
       "updated_at": "2026-10-30T17:18:27.652936+00:00"
     },
     {
+      "solution_id": "tasklet-factory-tasklet-mobile-wms",
+      "name": "Tasklet Mobile WMS",
+      "vendor": "Tasklet Factory",
+      "vendor_slug": "tasklet-factory",
+      "short_description": "Mobilt WMS för lagerprocesser i Dynamics 365 Finance & Supply Chain Management.",
+      "category": "WMS",
+      "type": "F&SCM-native (ISV)",
+      "tier": "Tier 1",
+      "tags": [
+        "WMS",
+        "Mobile",
+        "Barcode",
+        "Warehouse"
+      ],
+      "industries": [
+        "Warehouse",
+        "Wholesale",
+        "Manufacturing",
+        "3PL"
+      ],
+      "geo": [],
+      "what": null,
+      "use_cases": [],
+      "when_fits": null,
+      "combos": [],
+      "products": [
+        "Finance & Supply Chain Management"
+      ],
+      "industry_focus": [
+        "Warehouse",
+        "Wholesale",
+        "Manufacturing",
+        "3PL"
+      ],
+      "partner_slugs": [],
+      "vendor_website": null,
+      "logo_url": null,
+      "delivery_model": "integration_layer",
+      "best_for": "Lagerverksamheter som behöver användarvänlig scanning och robust mobilitet.",
+      "considerations": "Jämför mot Microsoft Warehouse Management mobile app och STAEDEAN Anywhere.",
+      "information_status": "compiled",
+      "last_verified_date": null,
+      "premium_product": false,
+      "demo_video_url": null,
+      "customer_cases": [],
+      "product_gallery": [],
+      "product_features": [],
+      "integration_evidence": [],
+      "partner_evidence": [],
+      "is_published": true,
+      "updated_at": "2026-11-03T09:28:22.874507+00:00"
+    },
+    {
       "solution_id": "tasklet-wms",
       "name": "Tasklet Mobile WMS",
       "vendor": "Tasklet Factory",
@@ -9843,59 +9896,6 @@
       "delivery_model": "integration_layer",
       "best_for": "Lagerverksamheter som vill förbättra scanning och lagerutförande utan separat WMS.",
       "considerations": "Bedöm krav på avancerat WMS, offline och lagerkomplexitet.",
-      "information_status": "compiled",
-      "last_verified_date": null,
-      "premium_product": false,
-      "demo_video_url": null,
-      "customer_cases": [],
-      "product_gallery": [],
-      "product_features": [],
-      "integration_evidence": [],
-      "partner_evidence": [],
-      "is_published": true,
-      "updated_at": "2026-11-03T09:28:22.874507+00:00"
-    },
-    {
-      "solution_id": "tasklet-factory-tasklet-mobile-wms",
-      "name": "Tasklet Mobile WMS",
-      "vendor": "Tasklet Factory",
-      "vendor_slug": "tasklet-factory",
-      "short_description": "Mobilt WMS för lagerprocesser i Dynamics 365 Finance & Supply Chain Management.",
-      "category": "WMS",
-      "type": "F&SCM-native (ISV)",
-      "tier": "Tier 1",
-      "tags": [
-        "WMS",
-        "Mobile",
-        "Barcode",
-        "Warehouse"
-      ],
-      "industries": [
-        "Warehouse",
-        "Wholesale",
-        "Manufacturing",
-        "3PL"
-      ],
-      "geo": [],
-      "what": null,
-      "use_cases": [],
-      "when_fits": null,
-      "combos": [],
-      "products": [
-        "Finance & Supply Chain Management"
-      ],
-      "industry_focus": [
-        "Warehouse",
-        "Wholesale",
-        "Manufacturing",
-        "3PL"
-      ],
-      "partner_slugs": [],
-      "vendor_website": null,
-      "logo_url": null,
-      "delivery_model": "integration_layer",
-      "best_for": "Lagerverksamheter som behöver användarvänlig scanning och robust mobilitet.",
-      "considerations": "Jämför mot Microsoft Warehouse Management mobile app och STAEDEAN Anywhere.",
       "information_status": "compiled",
       "last_verified_date": null,
       "premium_product": false,
@@ -11028,7 +11028,7 @@
       "integration_evidence": [],
       "partner_evidence": [],
       "is_published": true,
-      "updated_at": "2026-11-03T17:16:19.778268+00:00"
+      "updated_at": "2026-11-10T10:59:46.733619+00:00"
     },
     {
       "solution_id": "xmreality-for-dynamics",
@@ -12618,13 +12618,6 @@
       "countries": []
     },
     {
-      "solution_id": "xmreality-ad9180",
-      "technical_model": null,
-      "target_size": null,
-      "price_info": null,
-      "countries": []
-    },
-    {
       "solution_id": "pryme-time-tracking",
       "technical_model": "Embedded",
       "target_size": "SMB–Midmarket (indikativt, ej leverantörsgräns)",
@@ -12731,6 +12724,13 @@
       "solution_id": "slimstock-slim4",
       "technical_model": "Hybrid",
       "target_size": "SMB–Midmarket (indikativt, ej leverantörsgräns)",
+      "price_info": null,
+      "countries": []
+    },
+    {
+      "solution_id": "xmreality-ad9180",
+      "technical_model": null,
+      "target_size": null,
       "price_info": null,
       "countries": []
     },
