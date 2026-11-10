@@ -50,6 +50,7 @@ const DELIVERY_MODELS = ["product-teams", "central-team", "combined", "external-
 const AI_CAPABILITIES = [
   "standard-copilot", "copilot-studio", "power-platform", "azure-ai", "fabric-bi",
   "ai-readiness", "ai-governance", "ai-adoption", "industry-ai",
+  "agent-d365", "agent-integration", "agent-testing", "agent-operations",
 ];
 const AI_RELEVANT_AREAS = [
   "Business Central", "Dynamics 365 Finance", "Dynamics 365 Supply Chain Management",

@@ -11,14 +11,21 @@ import {
   labelForUseCase,
   labelForExperience,
   isAiProfileEmpty,
+  agentCapabilities,
+  agentCompetenceBasis,
+  AGENT_CAPABILITY_OPTIONS,
+  AGENT_BASIS_LABEL,
+  labelForArea as areaLabel,
 } from "@/lib/aiProfile";
 
 interface Props {
   profile?: AiProfile | null;
   compact?: boolean;
+  /** Partnerns informationsstatus (sätts manuellt i admin). */
+  informationStatus?: string | null;
 }
 
-export default function AiProfilePublic({ profile, compact = false }: Props) {
+export default function AiProfilePublic({ profile, compact = false, informationStatus }: Props) {
   if (isAiProfileEmpty(profile)) return null;
   const p = profile!;
 
@@ -31,6 +38,9 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
   const topCaps = capItems.slice(0, 3);
   const topCases = cases.slice(0, 4);
   const summary = (p.ai_experience_summary || "").trim();
+  const agentKeys = agentCapabilities(p);
+  const agentBasis = agentCompetenceBasis(p, informationStatus);
+  const agentAreas = (p.relevant_areas || []).map(areaLabel).filter(Boolean);
 
   const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
     <div className="grid sm:grid-cols-[180px_1fr] gap-1 sm:gap-3 py-1.5">
@@ -133,6 +143,33 @@ export default function AiProfilePublic({ profile, compact = false }: Props) {
           </div>
         )}
       </div>
+
+      {agentKeys.length > 0 && (
+        <div className="rounded-md border border-border p-4 sm:p-5" aria-label="Kompetens för AI-agenter">
+          <h3 className="text-sm sm:text-base font-semibold mb-1">Kompetens för AI-agenter</h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            Underlag: {agentBasis.map((b) => AGENT_BASIS_LABEL[b]).join(" · ")}.
+          </p>
+          <ul className="grid gap-1.5 sm:grid-cols-2 text-sm text-foreground/90">
+            {AGENT_CAPABILITY_OPTIONS.filter((o) => agentKeys.includes(o.value)).map((o) => (
+              <li key={o.value} className="flex gap-1.5">
+                <span aria-hidden="true" className="text-accent">✓</span>
+                <span>{o.label}</span>
+              </li>
+            ))}
+          </ul>
+          {agentAreas.length > 0 && (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Avser: {agentAreas.join(", ")}
+            </p>
+          )}
+          {!agentBasis.includes("reviewed") && (
+            <p className="mt-2 text-[11px] text-muted-foreground">
+              Uppgifterna är partnerns egna. Fråga efter exempel på levererade agenter vid kontakt.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Detaljer för den som vill fördjupa sig */}
       <details className="group">

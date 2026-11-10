@@ -1,3 +1,4 @@
+import { AGENT_CAPABILITY_OPTIONS, agentCapabilities, matchesAgentCapability } from "@/lib/aiProfile";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import ContextualCta from "@/components/ContextualCta";
 import { useState, useMemo, useEffect } from "react";
@@ -346,7 +347,8 @@ const ValjPartner = () => {
  const [assignmentType, setAssignmentType] = useState<AssignmentType | null>(null);
  const [deliveryForm, setDeliveryForm] = useState<SupportLevel | null>(null);
  const [competence, setCompetence] = useState<CompetencyArea | null>(null);
- const extraFiltersActive = !!(assignmentType || deliveryForm || competence);
+ const [agentCap, setAgentCap] = useState<string | null>(null);
+ const extraFiltersActive = !!(assignmentType || deliveryForm || competence || agentCap);
  // Grundprofiler är alltid "Automatiskt sammanställd" och saknar uppgifter för de extra filtren.
  const showBasicPartners = (!infoStatus || infoStatus === "compiled") && !extraFiltersActive;
  const [nameQuery, setNameQuery] = useState("");
@@ -464,6 +466,12 @@ const ValjPartner = () => {
  };
 
  // Filter and sort partners - only show featured partners from database
+ // Visa bara agentval som minst en partner har angett.
+ const agentOptions = useMemo(() => {
+  const present = new Set(partners.flatMap((p) => agentCapabilities((p as any).ai_profile)));
+  return AGENT_CAPABILITY_OPTIONS.filter((o) => present.has(o.value)).map((o) => ({ label: o.label, value: o.value }));
+ }, [partners]);
+
  const filteredPartners = useMemo(() => {
  // Determine which product type is selected (excluding specialty products)
  const hasBCApp = selectedApplications.includes("Business Central");
@@ -569,13 +577,14 @@ const ValjPartner = () => {
    result = result.filter((p) =>
     matchesAssignmentType(p as any, assignmentType, productKeys) &&
     matchesDeliveryForm(p as any, deliveryForm, productKeys) &&
-    matchesCompetence(p as any, competence),
+    matchesCompetence(p as any, competence) &&
+    matchesAgentCapability((p as any).ai_profile, agentCap),
    );
    result = filterByInformationStatus(result, infoStatus);
    // Neutral ordning: avtal, premium eller andra kommersiella relationer påverkar inte placeringen.
    // Alla som matchar filtren har likvärdig fit, så informationsstatus är bara sekundär tiebreaker.
    return sortPartners(neutralPartnerOrder(result, seededShuffle, seed), sortOrder);
-  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery, assignmentType, deliveryForm, competence, infoStatus, sortOrder]);
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography, nameQuery, assignmentType, deliveryForm, competence, agentCap, infoStatus, sortOrder]);
 
  // Track which partners get shown in filter results (admin sales summary)
  // MUST be called before any early return to preserve hook order
@@ -1130,6 +1139,22 @@ const ValjPartner = () => {
   <li>d365.se:s bedömning av partnerns underlag. Ett val visar även partners på högre nivå.</li>
  </ul>
 
+ {agentOptions.length > 0 && (
+  <>
+   <FilterButtons
+    title="Behöver ni hjälp med AI-agenter?"
+    icon="assignment"
+    options={agentOptions}
+    selectedValue={agentCap}
+    onSelect={(v) => setAgentCap(v || null)}
+    colorScheme="amber"
+   />
+   <p className="mx-auto -mt-4 mb-8 max-w-2xl text-center text-xs text-muted-foreground">
+    Bygger på partnerns egna uppgifter i AI-profilen. Partners som inte har fyllt i AI-profilen visas bara när inget val är gjort.
+   </p>
+  </>
+ )}
+
  {/* Enda statusfiltret för köpare: visa endast partners verifierade av d365.se. */}
  <div className="mb-3 flex justify-center">
   <label className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium cursor-pointer">
@@ -1171,6 +1196,7 @@ const ValjPartner = () => {
  setAssignmentType(null);
  setDeliveryForm(null);
  setCompetence(null);
+ setAgentCap(null);
  setInfoStatus(null);
  }}
  className="mt-2 text-muted-foreground hover:text-foreground"
@@ -1209,6 +1235,7 @@ const ValjPartner = () => {
  setAssignmentType(null);
  setDeliveryForm(null);
  setCompetence(null);
+ setAgentCap(null);
  setInfoStatus(null);
  }}
  >
@@ -1357,7 +1384,7 @@ const ValjPartner = () => {
    ...(need ? [{ key: "partnerbehov", label: "Valt behov", lines: [needLabel(need) as string] }] : []),
    ...(selectedApplications.length ? [{ key: "losning", label: "Dynamics-produkt", lines: selectedApplications.map(applicationFilterLabel) }] : []),
    ...(selectedIndustry || selectedGeography || selectedCompanySize ? [{ key: "partnerurval", label: "Bransch, geografi och storlek", lines: [selectedIndustry && `Bransch: ${selectedIndustry}`, selectedGeography && `Geografi: ${selectedGeography}`, selectedCompanySize && `Storlek: ${selectedCompanySize} anställda`].filter(Boolean) as string[] }] : []),
-   ...(extraFiltersActive ? [{ key: "uppdrag", label: "Uppdragstyp, leveransform och kompetens", lines: [assignmentType && `Uppdragstyp: ${ASSIGNMENT_TYPES.find((a) => a.value === assignmentType)?.label}`, deliveryForm && `Leveransform: ${DELIVERY_FORMS.find((d) => d.value === deliveryForm)?.label}`, competence && `Kompetens: ${COMPETENCE_OPTIONS.find((c) => c.value === competence)?.label}`].filter(Boolean) as string[] }] : []),
+   ...(extraFiltersActive ? [{ key: "uppdrag", label: "Uppdragstyp, leveransform och kompetens", lines: [assignmentType && `Uppdragstyp: ${ASSIGNMENT_TYPES.find((a) => a.value === assignmentType)?.label}`, deliveryForm && `Leveransform: ${DELIVERY_FORMS.find((d) => d.value === deliveryForm)?.label}`, competence && `Kompetens: ${COMPETENCE_OPTIONS.find((c) => c.value === competence)?.label}`, agentCap && `AI-agenter: ${AGENT_CAPABILITY_OPTIONS.find((c) => c.value === agentCap)?.label}`].filter(Boolean) as string[] }] : []),
    ...(shortlistItems.length ? [{ key: "kortlista", label: "Partners i er kortlista", lines: shortlistItems.map((i) => i.name) }] : []),
   ]}
   metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}

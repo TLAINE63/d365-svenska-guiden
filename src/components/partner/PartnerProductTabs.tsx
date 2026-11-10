@@ -815,7 +815,7 @@ export default function PartnerProductTabs({
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
                   AI, Copilot &amp; automation
                 </h2>
-                <AiProfilePublic profile={(partner as any).ai_profile} />
+                <AiProfilePublic profile={(partner as any).ai_profile} informationStatus={(partner as any).information_status} />
               </section>
             )}
 
