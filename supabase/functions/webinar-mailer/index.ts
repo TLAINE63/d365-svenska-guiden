@@ -79,6 +79,7 @@ Deno.serve(async (req) => {
             includeJoinLink: settings.join,
             includeRecordingLink: settings.recording,
           }),
+          ...(kind === "confirmation" ? { attachments: [{ filename: `webinar-${webinar.slug}.ics`, content: webinarIcsBase64(webinar) }] } : {}),
         });
         if (sendError) continue;
         const { error: logError } = await db.from("webinar_email_log").insert({
