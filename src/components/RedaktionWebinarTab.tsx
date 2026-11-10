@@ -102,7 +102,7 @@ export default function RedaktionWebinarTab({ token, onSessionExpired }: { token
                 <TableCell><div className="flex justify-end gap-1">
                   <Button size="sm" variant="outline" onClick={() => openRegistrations(webinar)} title="Visa anmälningar"><Users className="h-4 w-4" /></Button>
                   {webinar.status !== "utkast" && <Button size="sm" variant="outline" asChild><a href={`/webinar/${webinar.slug}/`} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4" /></a></Button>}
-                  <Button size="sm" variant="outline" onClick={() => { setEditing({ ...webinar, starts_at: new Date(new Date(webinar.starts_at).getTime() - new Date(webinar.starts_at).getTimezoneOffset() * 60000).toISOString().slice(0, 16) }); setSlugTouched(true); }}><Pencil className="h-4 w-4" /></Button>
+                  <Button size="sm" variant="outline" onClick={() => { setEditing({ ...webinar, body: webinar.body || "", speakers: webinar.speakers || "", join_url: webinar.join_url || "", recording_url: webinar.recording_url || "", starts_at: new Date(new Date(webinar.starts_at).getTime() - new Date(webinar.starts_at).getTimezoneOffset() * 60000).toISOString().slice(0, 16) }); setSlugTouched(true); }}><Pencil className="h-4 w-4" /></Button>
                   <Button size="sm" variant="outline" onClick={() => remove(webinar)}><Trash2 className="h-4 w-4" /></Button>
                 </div></TableCell>
               </TableRow>
