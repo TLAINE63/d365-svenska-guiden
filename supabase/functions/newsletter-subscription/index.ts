@@ -120,7 +120,7 @@ Deno.serve(async (req) => {
     if (!resendKey) return json({ error: "Mejltjänsten är inte tillgänglig." }, 500);
     const resend = new Resend(resendKey);
     const confirmationUrl = `https://d365.se/nyhetsbrev/bekrafta/?t=${confirmationToken}`;
-    const { error: sendError } = await resend.emails.send({
+    const { data: sentMessage, error: sendError } = await resend.emails.send({
       from: "Thomas Laine | D365.SE <info@d365.se>",
       to: [input.email],
       subject: "Bekräfta nyhetsbrev från d365.se",

@@ -116,7 +116,7 @@ Deno.serve(async (req) => {
       .select("id").eq("registration_id", registration.id).eq("kind", "confirmation").maybeSingle();
     if (!confirmation) {
       const mailWebinar = webinar as WebinarMailRecord;
-      const { error: sendError } = await resend.emails.send({
+      const { data: sentMessage, error: sendError } = await resend.emails.send({
         from: "Thomas Laine | D365.SE <info@d365.se>",
         to: [input.email],
         subject: `Bekräftelse: ${webinar.title}`,
