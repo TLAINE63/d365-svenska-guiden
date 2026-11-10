@@ -253,6 +253,13 @@
       "when": 1794307940341,
       "tag": "0035_isv_presence_product_presentation",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1794331501829,
+      "tag": "0036_webinar_newsletter_invites",
+      "breakpoints": true
     }
   ]
 }

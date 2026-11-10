@@ -2020,6 +2020,7 @@ export type Database = {
           source_url: string | null
           tags: string[]
           target_roles: string[]
+          theme: string | null
           title: string
           topic: string | null
           updated_at: string
@@ -2063,6 +2064,7 @@ export type Database = {
           source_url?: string | null
           tags?: string[]
           target_roles?: string[]
+          theme?: string | null
           title: string
           topic?: string | null
           updated_at?: string
@@ -2106,6 +2108,7 @@ export type Database = {
           source_url?: string | null
           tags?: string[]
           target_roles?: string[]
+          theme?: string | null
           title?: string
           topic?: string | null
           updated_at?: string
@@ -2328,6 +2331,51 @@ export type Database = {
           subject?: string
           summary?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          confirmation_token_hash: string
+          confirmed_at: string | null
+          consent_text_version: string
+          created_at: string
+          email: string
+          id: string
+          source_page: string | null
+          unsubscribe_token_hash: string
+          unsubscribed_at: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          confirmation_token_hash: string
+          confirmed_at?: string | null
+          consent_text_version: string
+          created_at?: string
+          email: string
+          id?: string
+          source_page?: string | null
+          unsubscribe_token_hash: string
+          unsubscribed_at?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          confirmation_token_hash?: string
+          confirmed_at?: string | null
+          consent_text_version?: string
+          created_at?: string
+          email?: string
+          id?: string
+          source_page?: string | null
+          unsubscribe_token_hash?: string
+          unsubscribed_at?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
@@ -5834,6 +5882,184 @@ export type Database = {
         }
         Relationships: []
       }
+      webinar_email_log: {
+        Row: {
+          id: string
+          kind: string
+          registration_id: string
+          sent_at: string
+          webinar_id: string
+        }
+        Insert: {
+          id?: string
+          kind: string
+          registration_id: string
+          sent_at?: string
+          webinar_id: string
+        }
+        Update: {
+          id?: string
+          kind?: string
+          registration_id?: string
+          sent_at?: string
+          webinar_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webinar_email_log_registration_id_fkey"
+            columns: ["registration_id"]
+            isOneToOne: false
+            referencedRelation: "webinar_registrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webinar_email_log_webinar_id_fkey"
+            columns: ["webinar_id"]
+            isOneToOne: false
+            referencedRelation: "webinars"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webinar_email_log_webinar_id_fkey"
+            columns: ["webinar_id"]
+            isOneToOne: false
+            referencedRelation: "webinars_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webinar_registrations: {
+        Row: {
+          cancel_token_hash: string
+          cancelled_at: string | null
+          company: string
+          consent_followup: boolean
+          consent_reminder: boolean
+          consent_text_version: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          landing_page: string | null
+          last_name: string
+          session_pages: Json | null
+          source_page: string | null
+          title: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          webinar_id: string
+        }
+        Insert: {
+          cancel_token_hash: string
+          cancelled_at?: string | null
+          company: string
+          consent_followup?: boolean
+          consent_reminder: boolean
+          consent_text_version: string
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          landing_page?: string | null
+          last_name: string
+          session_pages?: Json | null
+          source_page?: string | null
+          title: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          webinar_id: string
+        }
+        Update: {
+          cancel_token_hash?: string
+          cancelled_at?: string | null
+          company?: string
+          consent_followup?: boolean
+          consent_reminder?: boolean
+          consent_text_version?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          landing_page?: string | null
+          last_name?: string
+          session_pages?: Json | null
+          source_page?: string | null
+          title?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          webinar_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webinar_registrations_webinar_id_fkey"
+            columns: ["webinar_id"]
+            isOneToOne: false
+            referencedRelation: "webinars"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webinar_registrations_webinar_id_fkey"
+            columns: ["webinar_id"]
+            isOneToOne: false
+            referencedRelation: "webinars_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webinars: {
+        Row: {
+          body: string | null
+          created_at: string
+          description: string
+          duration_min: number
+          id: string
+          join_url: string | null
+          recording_url: string | null
+          slug: string
+          speakers: string | null
+          starts_at: string
+          status: string
+          theme: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          description: string
+          duration_min?: number
+          id?: string
+          join_url?: string | null
+          recording_url?: string | null
+          slug: string
+          speakers?: string | null
+          starts_at: string
+          status?: string
+          theme: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          description?: string
+          duration_min?: number
+          id?: string
+          join_url?: string | null
+          recording_url?: string | null
+          slug?: string
+          speakers?: string | null
+          starts_at?: string
+          status?: string
+          theme?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       assignment_profiles_public: {
@@ -6549,6 +6775,54 @@ export type Database = {
         }
         Relationships: []
       }
+      webinars_public: {
+        Row: {
+          body: string | null
+          created_at: string | null
+          description: string | null
+          duration_min: number | null
+          id: string | null
+          recording_url: string | null
+          slug: string | null
+          speakers: string | null
+          starts_at: string | null
+          status: string | null
+          theme: string | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_min?: number | null
+          id?: string | null
+          recording_url?: string | null
+          slug?: string | null
+          speakers?: string | null
+          starts_at?: string | null
+          status?: string | null
+          theme?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          body?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_min?: number | null
+          id?: string | null
+          recording_url?: string | null
+          slug?: string | null
+          speakers?: string | null
+          starts_at?: string | null
+          status?: string | null
+          theme?: string | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       advisory_log_event: {
@@ -6682,6 +6956,7 @@ export type Database = {
           visitors90: number
         }[]
       }
+      webinar_newsletter_maintenance: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "editor"
