@@ -419,6 +419,6 @@ export function agentCompetenceBasis(
 
 export const AGENT_BASIS_LABEL: Record<AgentBasis, string> = {
   stated: "Uppgiven av partnern",
-  reviewed: "Partnerns uppgifter granskade av d365.se",
+  reviewed: "Underlag granskat av d365.se",
   delivery: "Kundexempel beskrivet av partnern",
 };
