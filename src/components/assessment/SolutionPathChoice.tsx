@@ -12,6 +12,7 @@ import {
   APPROVAL, CRITICALITY, OWNERSHIP, PATH_LABELS, PROCESS_TYPES, SYSTEMS, TASK_TYPES,
   assessSolutionPath, type PathInput, type PathResult,
 } from "@/lib/solutionPath";
+import { READINESS_DISCLAIMER, READINESS_QUESTIONS, evaluateReadiness, readinessRelevant, type ReadinessInput } from "@/lib/agentReadiness";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 const selectCls = "mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -23,6 +24,8 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
   const [input, setInput] = useState<PathInput>({});
   const [result, setResult] = useState<PathResult | null>(null);
   const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState<ReadinessInput>({});
+  const readiness = result && readinessRelevant(result) && Object.values(ready).some(Boolean) ? evaluateReadiness(input, ready) : null;
   const set = (k: keyof PathInput, v: string) => { setInput({ ...input, [k]: v || undefined }); setResult(null); };
 
   const show = () => {
@@ -93,6 +96,46 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
               ))}
             </ul>
           </div>
+          {readinessRelevant(result) && (
+            <div className="border-t border-border pt-4" id="agent-forutsattningar">
+              <p className="text-sm font-semibold text-foreground">Har ni förutsättningar för en agent eller automation?</p>
+              <p className="text-sm text-muted-foreground">Tre korta frågor till. Vi använder också era svar ovan om arbetet, godkännande och förvaltning.</p>
+              <div className="mt-3 grid gap-4 sm:grid-cols-3">
+                {READINESS_QUESTIONS.map((q) => (
+                  <div key={q.key}>
+                    <Label htmlFor={`ar-${q.key}`}>{q.label}</Label>
+                    <select id={`ar-${q.key}`} className={selectCls} value={ready[q.key] || ""} onChange={(e) => setReady({ ...ready, [q.key]: (e.target.value || undefined) as ReadinessInput[typeof q.key] })}>
+                      <option value="">Välj</option>
+                      {q.options.map((x) => <option key={x.value} value={x.value}>{x.label}</option>)}
+                    </select>
+                  </div>
+                ))}
+              </div>
+              {readiness && (
+                <div className="mt-4 rounded-md border border-border bg-muted/40 p-4 space-y-3" aria-live="polite">
+                  <p className="text-base font-semibold text-foreground">{readiness.title}</p>
+                  <p className="text-sm text-muted-foreground">{nowrapBrand(readiness.summary)}</p>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Svaren bakom bedömningen</p>
+                    <ul className="list-disc pl-5 space-y-0.5 text-sm text-muted-foreground">{readiness.basis.map((b) => <li key={b}>{b}</li>)}</ul>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{readiness.insufficient ? "Det här behöver undersökas" : "Nästa steg"}</p>
+                    <ol className="list-decimal pl-5 space-y-1 text-sm text-foreground">
+                      {readiness.nextSteps.map((s) => (
+                        <li key={s.label}>
+                          {s.href ? <Link to={s.href} className="text-primary underline-offset-4 hover:underline">{nowrapBrand(s.label)}</Link>
+                            : s.advisory ? <button type="button" onClick={() => setOpen(true)} className="text-left text-primary underline-offset-4 hover:underline">{s.label}</button>
+                            : nowrapBrand(s.label)}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{READINESS_DISCLAIMER}</p>
+                </div>
+              )}
+            </div>
+          )}
           <div className="border-t border-border pt-4">
             <p className="text-sm font-medium text-foreground">Vill ni ha en personlig bedömning?</p>
             <p className="text-sm text-muted-foreground">Ett kostnadsfritt samtal på 20 minuter med d365.se. Inget skickas till någon partner.</p>
@@ -112,6 +155,7 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
                 ...(input.need?.trim() ? [`Behov: ${input.need.trim()}`] : []),
                 `Första vägval: ${result.primary ? PATH_LABELS[result.primary] : "underlaget räcker inte"}`,
                 ...result.alternatives.map((a) => `Alternativ: ${PATH_LABELS[a]}`),
+                ...(readiness ? [`Förutsättningar för agent: ${readiness.title}`] : []),
               ] }],
               metadata: { tool: "solution_path", source_page: sourcePage, primary: result.primary ?? "insufficient" },
             }}
