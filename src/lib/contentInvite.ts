@@ -60,7 +60,7 @@ export function contentThemeForPath(pathname: string): ContentTheme | null {
 
   if (["/partners/", "/partner/", "/alla-d365-partners/", "/jamfor-partners/", "/kortlista/", "/valjdynamics365partner/", "/guider/byta-dynamics-partner/"].some((route) => starts(path, route))) return "partnerval";
   if (path.includes("pris") || ["/kostnad/", "/implementationskalkylator/"].some((route) => starts(path, route)) || path.includes("roi-kalkylator")) return "pris";
-  if (["/nav-till-business-central/", "/befintlig-kund/"].some((route) => starts(path, route)) || segments.some((segment) => ["nav", "ax", "gp"].includes(segment))) return "migrering";
+  if (["/nav-till-business-central/", "/befintlig-kund/"].some((route) => starts(path, route)) || segments.some((segment) => ["nav", "ax", "gp"].includes(segment) || /^(?:nav|ax|gp)-/.test(segment))) return "migrering";
   if (["/businesscentral/", "/business-central/"].some((route) => starts(path, route))) return "business-central";
   if (["/finance-supply-chain-management/", "/finance-supply-chain/"].some((route) => starts(path, route))) return "fscm";
   if (["/crm/", "/d365sales/", "/d365customerservice/", "/d365fieldservice/", "/d365contactcenter/", "/d365marketing/"].some((route) => starts(path, route))) return "crm";
