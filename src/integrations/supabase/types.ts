@@ -2343,6 +2343,7 @@ export type Database = {
           email: string
           id: string
           source_page: string | null
+          unsubscribe_token: string
           unsubscribe_token_hash: string
           unsubscribed_at: string | null
           utm_campaign: string | null
@@ -2357,6 +2358,7 @@ export type Database = {
           email: string
           id?: string
           source_page?: string | null
+          unsubscribe_token?: string
           unsubscribe_token_hash: string
           unsubscribed_at?: string | null
           utm_campaign?: string | null
@@ -2371,6 +2373,7 @@ export type Database = {
           email?: string
           id?: string
           source_page?: string | null
+          unsubscribe_token?: string
           unsubscribe_token_hash?: string
           unsubscribed_at?: string | null
           utm_campaign?: string | null
@@ -5930,6 +5933,7 @@ export type Database = {
       }
       webinar_registrations: {
         Row: {
+          cancel_token: string
           cancel_token_hash: string
           cancelled_at: string | null
           company: string
@@ -5951,6 +5955,7 @@ export type Database = {
           webinar_id: string
         }
         Insert: {
+          cancel_token?: string
           cancel_token_hash: string
           cancelled_at?: string | null
           company: string
@@ -5972,6 +5977,7 @@ export type Database = {
           webinar_id: string
         }
         Update: {
+          cancel_token?: string
           cancel_token_hash?: string
           cancelled_at?: string | null
           company?: string

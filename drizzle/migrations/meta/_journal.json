@@ -260,6 +260,13 @@
       "when": 1794331501829,
       "tag": "0036_webinar_newsletter_invites",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1794331549631,
+      "tag": "0037_webinar_newsletter_service_tokens",
+      "breakpoints": true
     }
   ]
 }
