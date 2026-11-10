@@ -4,7 +4,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
 import { exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
-const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages"];
+const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages", "consent_followup", "utm_source", "utm_medium", "utm_campaign"];
 
 const PRODUCT_RULES: [RegExp, string[]][] = [
   [/business central|\bbc\b/i, ["Business Central"]],
@@ -66,16 +66,17 @@ Deno.serve(async (req) => {
   try {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
     const between = <T>(q: T) => (q as any).gte("created_at", range.start).lt("created_at", range.end);
-    const [inq, leads, fwd, sub] = await Promise.all([
+    const [inq, leads, fwd, sub, webinarRegistrations] = await Promise.all([
       between(sb.from("inquiries").select("id, created_at, inquiry_type, contact_name, company, role, email, phone, message, product_area, project, is_advisory, advisory_placement, source_site, source_page, landing_page, session_pages, consent_text_version, inquiry_partners(partner_slug, share_consent)").eq("source_site", "d365.se")),
       between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id, is_partner_self").in("source_type", Object.keys(LEAD_TYPES))),
       between(sb.from("underlag_forward_requests").select("id, created_at, contact_name, company_name, email, phone, message, underlag_summary, products, partner_slugs, source_page, landing_page, session_pages, consent_partner_share, consent_text_version")),
       between(sb.from("underlag_submissions").select("id, created_at, name, company, email, phone, underlag_text, profile, source_page, landing_page, session_pages, consent_text_version")),
+      between(sb.from("webinar_registrations").select("id, created_at, first_name, last_name, company, title, email, consent_followup, consent_text_version, source_page, landing_page, session_pages, utm_source, utm_medium, utm_campaign, webinars(title, starts_at, theme)")),
     ]);
-    if (inq.error || leads.error || fwd.error || sub.error) return json({ ok: false, error: "query_failed" }, 500);
+    if (inq.error || leads.error || fwd.error || sub.error || webinarRegistrations.error) return json({ ok: false, error: "query_failed" }, 500);
 
     const rows: Record<string, string>[] = [];
-    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version) });
+    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version), consent_followup: str(r.consent_followup), utm_source: str(r.utm_source), utm_medium: str(r.utm_medium), utm_campaign: str(r.utm_campaign) });
 
     for (const r of inq.data || []) {
       const advisory = r.is_advisory === true;
@@ -119,6 +120,22 @@ Deno.serve(async (req) => {
         ...base("underlag_submissions", r), request_type: "radgivning", name: str(r.name), company: company(r.company), title: "", email: str(r.email), phone: str(r.phone),
         message: clip(r.underlag_text, 2000), product_areas: productAreas([prof.products, prof.produkter, prof.product, prof.mainArea]), selected_partners: "",
         consent_partner_share: "false",
+      });
+    }
+    for (const r of webinarRegistrations.data || []) {
+      const webinar = (r as any).webinars;
+      const themeProducts: Record<string, string> = {
+        "business-central": "Business Central",
+        fscm: "Finance | Supply Chain Management",
+        crm: "Sales | Customer Service",
+        ai: "Copilot och agenter",
+      };
+      const date = webinar?.starts_at ? isoStockholm(webinar.starts_at).slice(0, 10) : "";
+      rows.push({
+        ...base("webinar_registrations", r), request_type: "webinar",
+        name: `${str(r.first_name)} ${str(r.last_name)}`.trim(), company: company(r.company), title: str(r.title), email: str(r.email), phone: "",
+        message: `Webinar: ${str(webinar?.title)}, ${date}${r.consent_followup ? "\nVill bli kontaktad efter webinaret." : ""}`,
+        product_areas: themeProducts[str(webinar?.theme)] || "", selected_partners: "", consent_partner_share: "false",
       });
     }
     rows.sort((a, b) => a._ts.localeCompare(b._ts));
