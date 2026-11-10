@@ -134,7 +134,7 @@ export default function Partnernytt() {
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h1 className="text-3xl sm:text-4xl font-bold">Partnernytt från <span className="whitespace-nowrap">Dynamics 365</span>-partners</h1>
             <p className="mt-4 text-lg text-white/80">
-              Nyheter, kundcase, event och erbjudanden från publicerade partners på d365.se – länkade till originalkällan.
+              Nyheter, kundcase, event och erbjudanden från verifierade partners på d365.se – länkade till originalkällan.
             </p>
           </div>
         </section>

@@ -42,7 +42,7 @@ export default function CrmMarketSection() {
       <Helmet><script type="application/ld+json">{JSON.stringify(dataset)}</script></Helmet>
       <h2 className="mb-2 text-2xl font-bold text-foreground">{nowrapBrand("Svenska Dynamics 365 CRM-marknaden")}</h2>
       <p className="mb-5 max-w-3xl text-sm text-foreground/80">
-        {market.totalPartners} publicerade partners har Sales eller Customer Service i sin profil. Siffrorna anger antal partners per uppgift och bygger på partnernas egna profiluppgifter. {market.scope.split(". ")[1]} Uppdaterad {market.generatedAt}.{" "}
+        {market.totalPartners} verifierade partners har Sales eller Customer Service i sin profil. Siffrorna anger antal partners per uppgift och bygger på partnernas egna profiluppgifter. {market.scope.split(". ")[1]} Uppdaterad {market.generatedAt}.{" "}
         <a href="/data/crm-marknaden.json" className="text-primary hover:underline">Ladda ner som JSON</a>.
       </p>
       <div className="grid gap-4 sm:grid-cols-2">

@@ -42,7 +42,7 @@ const IndustryPartnerListInline = ({ industry }: Props) => {
   return (
     <section className="not-prose my-10 border-y border-border py-6">
       <h3 className="mb-2 text-lg font-semibold text-foreground">
-        Publicerade partners för {industry} ({matching.length})
+        Verifierade partners för {industry} ({matching.length})
       </h3>
       <p className="mb-5 text-sm text-muted-foreground">
         Dessa partners har registrerad branschinriktning inom {industry.toLowerCase()}.

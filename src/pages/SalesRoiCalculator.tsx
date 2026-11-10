@@ -629,7 +629,7 @@ export default function SalesRoiCalculator() {
             <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
               <div>
                 <h2 className="text-2xl font-bold text-foreground">Relevanta Dynamics 365 Sales-partners</h2>
-                <p className="text-sm text-muted-foreground mt-1">Publicerade partners med erbjudande inom Sales/CRM.</p>
+                <p className="text-sm text-muted-foreground mt-1">Verifierade partners med erbjudande inom Sales/CRM.</p>
               </div>
               <Button asChild variant="outline" size="sm">
                 <Link to="/d365sales/#partners">Se alla Sales-partners</Link>

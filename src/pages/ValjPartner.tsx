@@ -1409,7 +1409,7 @@ const ValjPartner = () => {
      </p>
      {fscmProfilePartners.length > 0 && (
       <div className="mb-5">
-       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger Finance & Supply Chain</p>
+       <p className="text-sm font-semibold text-foreground mb-3">Verifierade profiler som anger Finance & Supply Chain</p>
        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {fscmProfilePartners.map((p) => (
          <li key={p.id}>
@@ -1472,7 +1472,7 @@ const ValjPartner = () => {
      </p>
      {crmProfilePartners.length > 0 && (
       <div className="mb-5">
-       <p className="text-sm font-semibold text-foreground mb-3">Publicerade profiler som anger CRM-produkter</p>
+       <p className="text-sm font-semibold text-foreground mb-3">Verifierade profiler som anger CRM-produkter</p>
        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {crmProfilePartners.map((p) => (
          <li key={p.id}>

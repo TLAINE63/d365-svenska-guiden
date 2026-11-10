@@ -674,7 +674,7 @@ export default function BcRoiCalculator() {
             <div className="flex items-end justify-between mb-6 gap-4 flex-wrap">
               <div>
                 <h2 className="text-2xl font-bold text-foreground">Relevanta Business Central-partners</h2>
-                <p className="text-sm text-muted-foreground mt-1">Publicerade partners med Business Central-erbjudande.</p>
+                <p className="text-sm text-muted-foreground mt-1">Verifierade partners med Business Central-erbjudande.</p>
               </div>
               <Button asChild variant="outline" size="sm">
                 <Link to="/business-central-partners-sverige/">Se alla partners</Link>
