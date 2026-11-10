@@ -259,6 +259,7 @@ export default function AllD365Partners() {
 
 
 
+        <ContentInvite />
         <FitModel model="partner" />
 
         {/* Profiled partners */}

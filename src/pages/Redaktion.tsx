@@ -362,6 +362,14 @@ export default function Redaktion() {
             />
           </TabsContent>
 
+          <TabsContent value="webinar">
+            <RedaktionWebinarTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="subscribers">
+            <RedaktionNewsletterTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
           <TabsContent value="events">
             <AdminEventsTab
               token={token || ""}

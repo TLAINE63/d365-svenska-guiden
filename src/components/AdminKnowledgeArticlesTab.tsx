@@ -57,6 +57,7 @@ const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
   source_filename: a.source_filename || "",
   is_published: a.is_published,
   published_at: a.published_at,
+  theme: (a.theme || "") as WordArticleRecord["theme"],
 });
 
 interface Props {

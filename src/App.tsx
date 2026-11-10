@@ -161,6 +161,11 @@ const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
 const Aktuellt = lazy(() => import("./pages/Aktuellt"));
 const AktuelltArticle = lazy(() => import("./pages/AktuelltArticle"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
+const Webinars = lazy(() => import("./pages/Webinars"));
+const WebinarDetail = lazy(() => import("./pages/WebinarDetail"));
+const WebinarThanks = lazy(() => import("./pages/WebinarThanks"));
+const WebinarCancel = lazy(() => import("./pages/WebinarCancel"));
+const NewsletterTokenAction = lazy(() => import("./pages/NewsletterTokenAction"));
 const IsvProfile = lazy(() => import("./pages/IsvProfile"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 

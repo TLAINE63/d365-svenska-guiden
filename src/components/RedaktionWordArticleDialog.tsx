@@ -76,6 +76,7 @@ const blank = (): WordArticleRecord => ({
   body_html: "",
   source_filename: "",
   is_published: false,
+  theme: "",
 });
 
 export default function RedaktionWordArticleDialog({ open, initial, token, takenSlugs, onClose, onSaved, onSessionExpired }: Props) {
