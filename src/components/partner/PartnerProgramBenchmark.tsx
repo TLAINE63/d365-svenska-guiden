@@ -228,7 +228,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           Hur står sig din profil när kunden jämför?
         </h2>
         <p className="max-w-3xl text-base text-muted-foreground">
-          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Med en Basic-profil visas
+          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Med en grundprofil visas
           grundläggande information. En profilerad partner kan ge köparen ett betydligt rikare
           beslutsunderlag om kompetens, specialisering, kundcase och kontaktvägar.
         </p>
