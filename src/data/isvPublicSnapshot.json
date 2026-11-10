@@ -12237,6 +12237,15 @@
       "logo_url": null,
       "information_status": "verified",
       "last_verified_date": "2026-11-03"
+    },
+    {
+      "slug": "caridea-it",
+      "name": "Caridea IT",
+      "website": "https://carideait.se/",
+      "description": null,
+      "logo_url": null,
+      "information_status": "compiled",
+      "last_verified_date": null
     }
   ],
   "overrides": [

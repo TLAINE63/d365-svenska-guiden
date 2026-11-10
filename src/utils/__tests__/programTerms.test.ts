@@ -1,0 +1,18 @@
+import { describe, expect, it } from "vitest";
+import { termsPriceRows } from "../programTerms";
+
+describe("områdesspecifika prisbilagor", () => {
+  it("partner innehåller tre prenumerationsnivåer utan förmedlingsavgifter", () => {
+    expect(termsPriceRows("partner").map((row) => row[1].replace(/\s/g, " "))).toEqual([
+      "995 kr/mån eller 7 990 kr/år", "1 295 kr/mån eller 9 990 kr/år", "1 495 kr/mån eller 11 990 kr/år",
+    ]);
+  });
+  it("ISV inkluderar grundavgift och extra produkt", () => {
+    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["5 990 kr/år", "995 kr/år"]);
+  });
+  it("förmedling har mötes-, avtals-, ISV- och expertavgifter separat", () => {
+    expect(termsPriceRows("commission").map((row) => row[1].replace(/\s/g, " "))).toEqual([
+      "3 500 kr", "5 000 kr", "5 000 kr", "10 000 kr", "3 500 kr", "7 500 kr", "2,5 %", "40 kr/debiterad timme", "80 kr/debiterad timme",
+    ]);
+  });
+});
