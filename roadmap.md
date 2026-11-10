@@ -229,3 +229,14 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] 20-minutersknappen öppnar formulär som blir ett ärende till Thomas, med svarsknapp i Hjälpärenden
 - [x] Partneravtalet som PDF i rapportlayout med prisbilaga
 - [ ] Mejlflöden med PDF-bilagor provkörda till inkorg (väntar: Thomas godkänner testutskick)
+
+## Webinar, innehållsinbjudan och nyhetsbrev (2026-11-10)
+- [x] Datamodell, säkerhet, tokens och Demand Engine-händelser
+- [x] Webinar-API, anmälan, avanmälan, bekräftelser, påminnelser och inspelningsmejl
+- [x] Nyhetsbrev med dubbel bekräftelse, avregistrering och Redaktion-export
+- [x] Publika webin arsidor, tacksida, kalenderfil, Event-schema, prerender och sitemap
+- [x] Redaktion: Webinar och Nyhetsbrev samt artikeltema
+- [x] ContentInvite med temarouting, sessionsstängning och SSR-data
+- [x] UTM/sessionhistorik och Demand Engine CSV-kolumner
+- [x] Tester, säkerhetskontroller, webbläsarflöden och skärmbild på /alla-d365-partners/
+- [ ] LinkedIn Insight Tag väntar på partner-id (ska inte byggas)

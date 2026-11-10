@@ -104,6 +104,7 @@ const STATIC_ROUTES = [
   { path: "/kunskapscenter/video/inspirerad-personal/", changefreq: "monthly", priority: "0.6" },
   { path: "/kunskapscenter/video/partners-skillnader/", changefreq: "monthly", priority: "0.6" },
   { path: "/events/", changefreq: "weekly", priority: "0.7" },
+  { path: "/webinar/", changefreq: "weekly", priority: "0.8" },
   { path: "/kravspecifikation/", changefreq: "monthly", priority: "0.7" },
   { path: "/kravspecifikation-sales/", changefreq: "monthly", priority: "0.7" },
   { path: "/kravspecifikation-marketing/", changefreq: "monthly", priority: "0.7" },
@@ -284,6 +285,28 @@ if (_supaUrl && _supaKey) {
   }
 }
 
+// d365.se:s egna webinar, inklusive genomförda med inspelning.
+let webinarEntries = [];
+if (_supaUrl && _supaKey) {
+  try {
+    const res = await fetch(
+      `${_supaUrl}/rest/v1/webinars_public?select=slug,updated_at,created_at&order=starts_at.desc`,
+      { headers: { apikey: _supaKey, Authorization: `Bearer ${_supaKey}` } },
+    );
+    if (res.ok) {
+      const rows = await res.json();
+      webinarEntries = (rows || []).filter((r) => r?.slug).map((r) => ({
+        path: `/webinar/${r.slug}/`,
+        changefreq: "weekly",
+        priority: "0.7",
+        lastmod: (r.updated_at || r.created_at || "").slice(0, 10) || TODAY,
+      }));
+    }
+  } catch (e) {
+    console.warn(`[sitemap] webinars fetch failed: ${e.message}`);
+  }
+}
+
 // Aktuellt: d365.se:s publicerade analyser (endast is_published, egna URL:er)
 let aktuelltEntries = [];
 if (_supaUrl && _supaKey) {
@@ -391,7 +414,7 @@ function sitemapindex(items) {
 }
 
 // ---- Write sub-sitemaps + index ----
-const eventsLastmod = eventEntries.reduce(
+const eventsLastmod = [...eventEntries, ...webinarEntries].reduce(
   (max, e) => (e.lastmod > max ? e.lastmod : max),
   TODAY,
 );
@@ -401,7 +424,7 @@ const groups = [
   { file: "sitemap-articles.xml", entries: [...articleEntries, ...editorArticleEntries, ...aktuelltEntries], lastmod: articlesLastmod },
   { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
   { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
-  { file: "sitemap-events.xml", entries: eventEntries, lastmod: eventsLastmod },
+  { file: "sitemap-events.xml", entries: [...eventEntries, ...webinarEntries], lastmod: eventsLastmod },
 ];
 
 let total = 0;

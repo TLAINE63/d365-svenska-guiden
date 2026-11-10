@@ -56,7 +56,7 @@ const PrivacyPolicy = () => {
                 <li>
                   <strong>Kontaktuppgifter du själv lämnar</strong> – namn, e-post, telefon,
                   företag, befattning och meddelandetext via kontaktformulär, partneransökningar,
-                  e-boksnedladdningar och leadformulär.
+                  e-boksnedladdningar, leadformulär, webinaranmälningar och nyhetsbrevsanmälningar.
                 </li>
                 <li>
                   <strong>Teknisk information</strong> – IP-adress (lagras anonymiserat, se
@@ -101,9 +101,14 @@ const PrivacyPolicy = () => {
                       <td className="p-3 align-top">36 månader (för spårbarhet och tvistlösning)</td>
                     </tr>
                     <tr className="border-b border-border">
+                      <td className="p-3 align-top">Webinaranmälan, deltagarlänk, påminnelser och inspelning</td>
+                      <td className="p-3 align-top">Samtycke. Uppföljning om ditt Dynamics&nbsp;365-projekt sker bara med separat frivilligt samtycke.</td>
+                      <td className="p-3 align-top">24 månader. Avanmälan stoppar fler mejl om webinaret.</td>
+                    </tr>
+                    <tr className="border-b border-border">
                       <td className="p-3 align-top">E-bok / nyhetsbrev</td>
                       <td className="p-3 align-top">Samtycke</td>
-                      <td className="p-3 align-top">Tills samtycke återkallas</td>
+                      <td className="p-3 align-top">Tills samtycke återkallas. Obekräftade nyhetsbrevsadresser raderas efter 7 dagar.</td>
                     </tr>
                     <tr className="border-b border-border">
                       <td className="p-3 align-top">Statistik via Google Analytics 4</td>
@@ -266,6 +271,16 @@ const PrivacyPolicy = () => {
               </p>
               <p className="leading-relaxed mt-3">
                 Vi räknar hur många som slutför våra verktyg och hämtar våra underlag, utan uppgifter om vem du är. Om du själv skickar ett formulär med din e-postadress kopplar vi händelsen till din organisations domän.
+              </p>
+              <p className="leading-relaxed mt-3">
+                Om du kommer till sajten via en länk med UTM-parametrar sparas kampanjens källa, medium och namn i webbläsarens sessionslagring. Den första uppsättningen under sessionen gäller och värdena skickas endast med en webinar- eller nyhetsbrevsanmälan. Ingen information sparas om du har markerats som intern trafik.
+              </p>
+              <h3 className="text-xl font-semibold text-foreground mt-6 mb-2">Webinar och nyhetsbrev</h3>
+              <p className="leading-relaxed">
+                Vid webinaranmälan sparar vi namn, företag, roll, e-post, samtyckestext och formulärets sid- och kampanjuppgifter för att skicka bekräftelse, deltagarlänk, påminnelser och eventuell inspelning. Uppgifterna sparas i 24 månader. Varje mejl innehåller en avanmälningslänk som stoppar fler mejl om webinaret. Kontakt efteråt om ditt Dynamics&nbsp;365-projekt sker bara om du aktivt väljer det.
+              </p>
+              <p className="leading-relaxed mt-3">
+                För nyhetsbrevet krävs dubbel bekräftelse. Obekräftade adresser raderas efter sju dagar. Bekräftade adresser sparas tills du avregistrerar dig via den unika länken i utskicket. Nyhetsbrevsprenumerationer exporteras inte till Demand Engine.
               </p>
             </section>
 

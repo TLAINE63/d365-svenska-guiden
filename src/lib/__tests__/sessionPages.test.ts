@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { appendPage, cleanPath } from "@/lib/sessionPages";
+import { appendPage, cleanPath, readSessionUtm, recordSessionUtm, SESSION_PAGES_KEY, UTM_KEY, INTERNAL_KEY } from "@/lib/sessionPages";
+import { contentThemeForPath, resolveContentInvite, type ContentInviteData } from "@/lib/contentInvite";
 import { downloadSlug, thanksKindForAdvisory } from "@/lib/thanksPages";
 import { resultPath } from "@/hooks/useToolResultSignal";
 
@@ -19,6 +20,44 @@ describe("sidhistorik (d365_session_pages)", () => {
     expect(list[0]).toBe("/p0/");
     expect(list[1]).toBe("/p11/");
     expect(list[29]).toBe("/p39/");
+  });
+});
+
+describe("UTM för formulär", () => {
+  it("sparar första kampanjuppsättningen och respekterar intern trafik", () => {
+    window.sessionStorage.removeItem(UTM_KEY);
+    window.localStorage.removeItem(INTERNAL_KEY);
+    recordSessionUtm("?utm_source=linkedin&utm_medium=inlagg&utm_campaign=test");
+    recordSessionUtm("?utm_source=google&utm_medium=cpc&utm_campaign=senare");
+    expect(readSessionUtm()).toEqual({ utm_source: "linkedin", utm_medium: "inlagg", utm_campaign: "test" });
+    window.localStorage.setItem(INTERNAL_KEY, "1");
+    expect(readSessionUtm()).toBeNull();
+    window.localStorage.removeItem(INTERNAL_KEY);
+    window.sessionStorage.removeItem(UTM_KEY);
+    window.sessionStorage.removeItem(SESSION_PAGES_KEY);
+  });
+});
+
+describe("innehållsinbjudan", () => {
+  it("matchar kanoniska temasökvägar och stoppar tack- och formulärsidor", () => {
+    expect(contentThemeForPath("/alla-d365-partners/")).toBe("partnerval");
+    expect(contentThemeForPath("/businesscentral/roi-kalkylator/")).toBe("pris");
+    expect(contentThemeForPath("/kunskapscenter/businesscentral/nav-till-business-central/")).toBe("migrering");
+    expect(contentThemeForPath("/finance-supply-chain/")).toBe("fscm");
+    expect(contentThemeForPath("/d365sales/")).toBe("crm");
+    expect(contentThemeForPath("/copilot/")).toBe("ai");
+    expect(contentThemeForPath("/tack/webinar/test/")).toBeNull();
+    expect(contentThemeForPath("/ERPbehovsanalys/")).toBeNull();
+  });
+
+  it("väljer närmaste webinar före artikel och inget innehåll utan tema", () => {
+    const data: ContentInviteData = {
+      webinars: [{ id: "1", slug: "test", title: "Testwebinar", description: "Test", body: null, starts_at: "2026-12-01T08:00:00+01:00", duration_min: 45, theme: "partnerval", speakers: null, recording_url: null, status: "publicerad", created_at: "2026-11-10", updated_at: "2026-11-10" }],
+      articles: [{ id: "a", title: "Artikel", description: "Första meningen. Andra meningen.", url: "/artiklar/test/", slug: "test", theme: "partnerval", published_at: "2026-11-10", created_at: "2026-11-10" }],
+    };
+    expect(resolveContentInvite("partnerval", data, new Date("2026-11-10"))?.kind).toBe("webinar");
+    expect(resolveContentInvite("pris", data, new Date("2026-11-10"))).toBeNull();
+    expect(resolveContentInvite("partnerval", { ...data, webinars: [] }, new Date("2026-11-10"))?.sentence).toBe("Första meningen.");
   });
 });
 

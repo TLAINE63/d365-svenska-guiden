@@ -15,6 +15,7 @@ import RedirectTo from "@/components/RedirectTo";
 import { PARTNER_SLUG_RENAMES, partnerSlugTarget } from "@/data/partnerSlugRenames";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
+import { ContentInviteProvider } from "@/components/ContentInviteProvider";
 
 import Index from "./pages/Index";
 
@@ -160,6 +161,11 @@ const PartnerNewsDetail = lazy(() => import("./pages/PartnerNewsDetail"));
 const Aktuellt = lazy(() => import("./pages/Aktuellt"));
 const AktuelltArticle = lazy(() => import("./pages/AktuelltArticle"));
 const IsvCompare = lazy(() => import("./pages/IsvCompare"));
+const Webinars = lazy(() => import("./pages/Webinars"));
+const WebinarDetail = lazy(() => import("./pages/WebinarDetail"));
+const WebinarThanks = lazy(() => import("./pages/WebinarThanks"));
+const WebinarCancel = lazy(() => import("./pages/WebinarCancel"));
+const NewsletterTokenAction = lazy(() => import("./pages/NewsletterTokenAction"));
 const IsvProfile = lazy(() => import("./pages/IsvProfile"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
@@ -426,6 +432,12 @@ const AppShell = () => {
           <Route path="/business-central-tillagg" element={<RedirectTo to="/kunskapscenter/business-central-tillagg/" />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
+          <Route path="/webinar" element={<Webinars />} />
+          <Route path="/webinar/avanmal" element={<WebinarCancel />} />
+          <Route path="/webinar/:slug" element={<WebinarDetail />} />
+          <Route path="/tack/webinar/:slug" element={<WebinarThanks />} />
+          <Route path="/nyhetsbrev/bekrafta" element={<NewsletterTokenAction mode="confirm" />} />
+          <Route path="/nyhetsbrev/avregistrera" element={<NewsletterTokenAction mode="unsubscribe" />} />
           <Route path="/events" element={<Events />} />
           <Route path="/kravspecifikation/resultat?" element={<RequirementsSpec />} />
           <Route path="/kravspecifikation-sales/resultat?" element={<RequirementsSpecSales />} />
@@ -490,6 +502,7 @@ const App = () => (
         <Sonner />
       </Suspense>
       <BrowserRouter>
+        <ContentInviteProvider>
         <PartnerCompareProvider>
           <ShortlistProvider>
             <InquiryProvider>
@@ -498,6 +511,7 @@ const App = () => (
             </InquiryProvider>
           </ShortlistProvider>
         </PartnerCompareProvider>
+        </ContentInviteProvider>
 
       </BrowserRouter>
     </TooltipProvider>

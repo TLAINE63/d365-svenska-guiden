@@ -6,6 +6,59 @@
 
 export const SESSION_PAGES_KEY = "d365_session_pages";
 export const INTERNAL_KEY = "d365_internal";
+export const UTM_KEY = "d365_utm";
+
+export interface SessionUtm {
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+}
+
+function cleanUtm(value: string | null): string | null {
+  const cleaned = value?.trim().slice(0, 200) || "";
+  return cleaned || null;
+}
+
+/** Första UTM-uppsättningen under sessionen gäller. Intern trafik lagrar inget. */
+export function recordSessionUtm(search: string): void {
+  if (typeof window === "undefined" || isInternalTraffic()) return;
+  try {
+    if (window.sessionStorage.getItem(UTM_KEY)) return;
+    const params = new URLSearchParams(search);
+    if (!["utm_source", "utm_medium", "utm_campaign"].some((key) => params.has(key))) return;
+    const values: SessionUtm = {
+      utm_source: cleanUtm(params.get("utm_source")),
+      utm_medium: cleanUtm(params.get("utm_medium")),
+      utm_campaign: cleanUtm(params.get("utm_campaign")),
+    };
+    window.sessionStorage.setItem(UTM_KEY, JSON.stringify(values));
+  } catch {
+    /* formuläret skickas utan UTM */
+  }
+}
+
+export function readSessionUtm(): SessionUtm | null {
+  if (typeof window === "undefined" || isInternalTraffic()) return null;
+  try {
+    const raw = window.sessionStorage.getItem(UTM_KEY);
+    if (!raw) return null;
+    const value = JSON.parse(raw);
+    return {
+      utm_source: cleanUtm(value.utm_source),
+      utm_medium: cleanUtm(value.utm_medium),
+      utm_campaign: cleanUtm(value.utm_campaign),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function utmContextBody(): Record<string, string> {
+  const values = readSessionUtm();
+  if (!values) return {};
+  return Object.fromEntries(Object.entries(values).filter((entry): entry is [string, string] => typeof entry[1] === "string"));
+}
+
 /** Version av samtyckestexten som visas vid delning med partners. Byt vid ändrad text. */
 export const CONSENT_TEXT_VERSION = "2026-11-v1";
 const MAX = 30;

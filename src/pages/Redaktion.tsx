@@ -57,6 +57,8 @@ import JourneyFunnelsCard from "@/components/JourneyFunnelsCard";
 import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
 import AdminNewsletterCard from "@/components/AdminNewsletterCard";
+import RedaktionWebinarTab from "@/components/RedaktionWebinarTab";
+import RedaktionNewsletterTab from "@/components/RedaktionNewsletterTab";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
@@ -242,6 +244,8 @@ export default function Redaktion() {
         <Tabs defaultValue="events">
           <TabsList className="mb-6 h-auto flex-wrap">
             <TabsTrigger value="events">Event</TabsTrigger>
+            <TabsTrigger value="webinar">Webinar</TabsTrigger>
+            <TabsTrigger value="subscribers">Nyhetsbrev</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="videos">Videor</TabsTrigger>
@@ -356,6 +360,14 @@ export default function Redaktion() {
               }))}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          <TabsContent value="webinar">
+            <RedaktionWebinarTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="subscribers">
+            <RedaktionNewsletterTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
           <TabsContent value="events">

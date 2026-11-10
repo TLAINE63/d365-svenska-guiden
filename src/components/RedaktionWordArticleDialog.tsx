@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CONTENT_INVITE_THEMES } from "@/lib/contentInvite";
+import type { ContentTheme } from "@/lib/webinars";
 import { useToast } from "@/hooks/use-toast";
 import { AlertTriangle, FileUp, ImagePlus, Loader2 } from "lucide-react";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
@@ -30,6 +33,7 @@ export interface WordArticleRecord {
   source_filename: string;
   is_published: boolean;
   published_at?: string | null;
+  theme: ContentTheme | "";
 }
 
 interface Props {
@@ -72,6 +76,7 @@ const blank = (): WordArticleRecord => ({
   body_html: "",
   source_filename: "",
   is_published: false,
+  theme: "",
 });
 
 export default function RedaktionWordArticleDialog({ open, initial, token, takenSlugs, onClose, onSaved, onSessionExpired }: Props) {
@@ -301,6 +306,17 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
                 <datalist id="wa-sections">
                   {SECTIONS.map((s) => <option key={s} value={s} />)}
                 </datalist>
+              </div>
+              <div>
+                <Label htmlFor="wa-theme">Tema för innehållsinbjudan</Label>
+                <Select value={form.theme || "none"} onValueChange={(value) => set("theme", value === "none" ? "" : value as ContentTheme)}>
+                  <SelectTrigger id="wa-theme"><SelectValue placeholder="Välj tema" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Inget tema</SelectItem>
+                    {CONTENT_INVITE_THEMES.map((theme) => <SelectItem key={theme.value} value={theme.value}>{theme.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground mt-1">Artikeln kan visas som inbjudan på sidor med samma tema om inget kommande webinar finns.</p>
               </div>
               <div>
                 <Label htmlFor="wa-meta-title">SEO-titel (lämna tomt för att använda titeln)</Label>

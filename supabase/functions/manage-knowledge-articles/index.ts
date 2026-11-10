@@ -190,6 +190,9 @@ serve(async (req) => {
         format: isFullArticle ? "artikel" : (fields.format || "artikel"),
         target_roles: Array.isArray(fields.target_roles) ? fields.target_roles : [],
         image_url: fields.image_url?.trim() || null,
+        theme: ["partnerval", "pris", "migrering", "business-central", "fscm", "crm", "ai"].includes(fields.theme)
+          ? fields.theme
+          : null,
         is_published: isPublished,
         published_at: isPublished
           ? (fields.published_at || new Date().toISOString())

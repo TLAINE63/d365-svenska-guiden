@@ -2,6 +2,14 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Partnerprogram from './pages/Partnerprogram';
 import IsvProgram from './pages/IsvProgram';
+import Webinars from './pages/Webinars';
+import WebinarDetail from './pages/WebinarDetail';
+import WebinarThanks from './pages/WebinarThanks';
+import WebinarCancel from './pages/WebinarCancel';
+import NewsletterTokenAction from './pages/NewsletterTokenAction';
+import { ContentInviteProvider } from './components/ContentInviteProvider';
+import type { ContentInviteData } from './lib/contentInvite';
+import { WEBINAR_PUBLIC_SELECT, type PublicWebinar } from './lib/webinars';
 import IsvProduct from './pages/IsvProduct';
 import isvSnapshot from './data/isvPublicSnapshot.json';
 import PartnerBasicProfile from './pages/PartnerBasicProfile';
@@ -13,6 +21,8 @@ const EVENTS_BY_ID: Record<string, PartnerEvent> = {};
 const PARTNER_NEWS_BY_ID: Record<string, PartnerNewsItem> = {};
 const AKTUELLT_BY_SLUG: Record<string, AktuelltArticleData> = {};
 const EDITOR_ARTICLES_BY_SLUG: Record<string, EditorArticleRow> = {};
+const WEBINARS_BY_SLUG: Record<string, PublicWebinar> = {};
+const CONTENT_INVITES: ContentInviteData = { webinars: [], articles: [] };
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -258,6 +268,10 @@ export const routes: PrerenderRoute[] = [
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/beslutsmognad', priority: '0.7', changefreq: 'monthly' },
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
+  { path: '/webinar', priority: '0.8', changefreq: 'weekly' },
+  { path: '/webinar/avanmal', priority: '0.1', changefreq: 'yearly', sitemap: false },
+  { path: '/nyhetsbrev/bekrafta', priority: '0.1', changefreq: 'yearly', sitemap: false },
+  { path: '/nyhetsbrev/avregistrera', priority: '0.1', changefreq: 'yearly', sitemap: false },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
   { path: '/om-thomas-laine', priority: '0.6', changefreq: 'yearly' },
@@ -511,6 +525,11 @@ export function render(url: string) {
   const articleSlug = articleMatch ? articleMatch[1].replace(/\/$/, '') : null;
   const editorArticleInitialData = articleSlug ? EDITOR_ARTICLES_BY_SLUG[articleSlug] || null : null;
 
+  const webinarMatch = url.match(/^\/(?:webinar|tack\/webinar)\/([^/?#]+)/);
+  const webinarSlug = webinarMatch ? webinarMatch[1].replace(/\/$/, '') : null;
+  const webinarInitialData = webinarSlug ? WEBINARS_BY_SLUG[webinarSlug] || null : null;
+  const webinarListInitialData = Object.values(WEBINARS_BY_SLUG);
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, enabled: false },
@@ -557,6 +576,7 @@ export function render(url: string) {
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
+        <ContentInviteProvider initialData={CONTENT_INVITES}>
         <TooltipProvider>
           <StaticRouter location={url}>
             <Routes>
@@ -640,6 +660,12 @@ export function render(url: string) {
               <Route path="/d365commerce" element={<D365Commerce />} />
               <Route path="/d365humanresources" element={<D365HumanResources />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/webinar" element={<Webinars initialWebinars={webinarListInitialData} />} />
+              <Route path="/webinar/avanmal" element={<WebinarCancel />} />
+              <Route path="/webinar/:slug" element={<WebinarDetail initialWebinar={webinarInitialData} />} />
+              <Route path="/tack/webinar/:slug" element={<WebinarThanks initialWebinar={webinarInitialData} />} />
+              <Route path="/nyhetsbrev/bekrafta" element={<NewsletterTokenAction mode="confirm" />} />
+              <Route path="/nyhetsbrev/avregistrera" element={<NewsletterTokenAction mode="unsubscribe" />} />
               <Route path="/events/:eventId" element={<EventDetail initialData={eventInitialData} />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter/fragor-och-svar" element={<Navigate to="/qa/" replace />} />
@@ -732,6 +758,7 @@ export function render(url: string) {
             </Routes>
           </StaticRouter>
         </TooltipProvider>
+        </ContentInviteProvider>
       </QueryClientProvider>
     </HelmetProvider>
   );
@@ -815,6 +842,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
   // ── Events: fetch published/upcoming events from Supabase REST ──────
   const eventRoutes: PrerenderRoute[] = [];
+  const webinarRoutes: PrerenderRoute[] = [];
   const articleRoutes: PrerenderRoute[] = [];
   const partnerNewsRoutes: PrerenderRoute[] = [];
   const aktuelltRoutes: PrerenderRoute[] = [];
@@ -881,6 +909,34 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         console.log(`  📦 Found ${eventRoutes.length} event routes from Supabase`);
       } else {
         console.warn(`  ⚠️  Events fetch failed: ${res.status}`);
+      }
+
+      // ── Webinar och temainbjudningar: publika vyer utan deltagarlänkar ──
+      const webinarUrl = `${supaUrl}/rest/v1/webinars_public?select=${WEBINAR_PUBLIC_SELECT}&order=starts_at.asc`;
+      const webinarRes = await fetch(webinarUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (webinarRes.ok) {
+        const rows = (await webinarRes.json()) as PublicWebinar[];
+        CONTENT_INVITES.webinars = rows;
+        for (const webinar of rows) {
+          WEBINARS_BY_SLUG[webinar.slug] = webinar;
+          webinarRoutes.push({
+            path: `/webinar/${webinar.slug}`,
+            priority: '0.7',
+            changefreq: 'weekly',
+            lastmod: (webinar.updated_at || webinar.created_at || '').slice(0, 10) || undefined,
+            meta: { title: `${webinar.title} | Webinar`, description: webinar.description.slice(0, 155) },
+          });
+          webinarRoutes.push({ path: `/tack/webinar/${webinar.slug}`, priority: '0.1', changefreq: 'yearly', sitemap: false });
+        }
+        console.log(`  📦 Found ${rows.length} webinar routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Webinars fetch failed: ${webinarRes.status}`);
+      }
+
+      const inviteUrl = `${supaUrl}/rest/v1/knowledge_articles?select=id,title,description,url,slug,theme,published_at,created_at&is_published=eq.true&theme=not.is.null&order=published_at.desc`;
+      const inviteRes = await fetch(inviteUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (inviteRes.ok) {
+        CONTENT_INVITES.articles = (await inviteRes.json()) as ContentInviteData['articles'];
       }
 
       // ── Partnernytt: published articles with complete share metadata ──
@@ -1003,5 +1059,5 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   }
 
   const isvRoutes: PrerenderRoute[] = isvSnapshot.products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}`, priority: '0.6', changefreq: 'monthly', lastmod: s.updated_at?.slice(0, 10), meta: { title: `${s.name} | Funktioner och användning`, description: s.short_description || s.what || s.name } }));
-  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes, ...isvRoutes];
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...webinarRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes, ...isvRoutes];
 }

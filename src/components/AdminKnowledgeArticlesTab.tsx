@@ -14,6 +14,7 @@ import { Plus, Pencil, Trash2, ExternalLink, FileText, Code2, FileUp } from "luc
 import RedaktionWordArticleDialog, { type WordArticleRecord } from "@/components/RedaktionWordArticleDialog";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { CONTENT_INVITE_THEMES } from "@/lib/contentInvite";
 
 interface KnowledgeArticle {
   id: string;
@@ -37,6 +38,7 @@ interface KnowledgeArticle {
   tags?: string[] | null;
   source_filename?: string | null;
   partner_slugs?: string[] | null;
+  theme?: string | null;
 }
 
 const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
@@ -55,6 +57,7 @@ const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
   source_filename: a.source_filename || "",
   is_published: a.is_published,
   published_at: a.published_at,
+  theme: (a.theme || "") as WordArticleRecord["theme"],
 });
 
 interface Props {
@@ -76,6 +79,7 @@ const empty = (): Partial<KnowledgeArticle> => ({
   image_url: "",
   target_roles: [],
   is_published: false,
+  theme: null,
 });
 
 const formatDate = formatDateYYYYMMDD;
@@ -369,6 +373,16 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+              <div>
+                <Label>Tema för innehållsinbjudan</Label>
+                <Select value={editing.theme || "none"} onValueChange={(value) => setEditing({ ...editing, theme: value === "none" ? null : value })}>
+                  <SelectTrigger><SelectValue placeholder="Välj tema" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Inget tema</SelectItem>
+                    {CONTENT_INVITE_THEMES.map((theme) => <SelectItem key={theme.value} value={theme.value}>{theme.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
               </div>
               <div>
                 <Label>Bild-url (valfritt)</Label>

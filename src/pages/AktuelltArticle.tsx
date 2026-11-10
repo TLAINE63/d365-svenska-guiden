@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { ArticleSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { useAktuelltArticle } from "@/hooks/useAktuellt";
@@ -241,6 +242,7 @@ export default function AktuelltArticle({ initialData = null }: Props) {
           </section>
         </article>
       </main>
+      <div className="container mx-auto max-w-4xl px-4"><NewsletterSignup /></div>
       <Footer />
     </div>
   );

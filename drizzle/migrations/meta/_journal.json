@@ -253,6 +253,27 @@
       "when": 1794307940341,
       "tag": "0035_isv_presence_product_presentation",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1794331501829,
+      "tag": "0036_webinar_newsletter_invites",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1794331549631,
+      "tag": "0037_webinar_newsletter_service_tokens",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1794332041576,
+      "tag": "0038_webinar_retention_cleanup",
+      "breakpoints": true
     }
   ]
 }
