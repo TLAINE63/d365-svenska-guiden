@@ -432,6 +432,12 @@ const AppShell = () => {
           <Route path="/business-central-tillagg" element={<RedirectTo to="/kunskapscenter/business-central-tillagg/" />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />
+          <Route path="/webinar" element={<Webinars />} />
+          <Route path="/webinar/avanmal" element={<WebinarCancel />} />
+          <Route path="/webinar/:slug" element={<WebinarDetail />} />
+          <Route path="/tack/webinar/:slug" element={<WebinarThanks />} />
+          <Route path="/nyhetsbrev/bekrafta" element={<NewsletterTokenAction mode="confirm" />} />
+          <Route path="/nyhetsbrev/avregistrera" element={<NewsletterTokenAction mode="unsubscribe" />} />
           <Route path="/events" element={<Events />} />
           <Route path="/kravspecifikation/resultat?" element={<RequirementsSpec />} />
           <Route path="/kravspecifikation-sales/resultat?" element={<RequirementsSpecSales />} />

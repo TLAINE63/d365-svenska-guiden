@@ -308,6 +308,17 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
                 </datalist>
               </div>
               <div>
+                <Label htmlFor="wa-theme">Tema för innehållsinbjudan</Label>
+                <Select value={form.theme || "none"} onValueChange={(value) => set("theme", value === "none" ? "" : value as ContentTheme)}>
+                  <SelectTrigger id="wa-theme"><SelectValue placeholder="Välj tema" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Inget tema</SelectItem>
+                    {CONTENT_INVITE_THEMES.map((theme) => <SelectItem key={theme.value} value={theme.value}>{theme.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground mt-1">Artikeln kan visas som inbjudan på sidor med samma tema om inget kommande webinar finns.</p>
+              </div>
+              <div>
                 <Label htmlFor="wa-meta-title">SEO-titel (lämna tomt för att använda titeln)</Label>
                 <Input id="wa-meta-title" value={form.meta_title} onChange={(e) => set("meta_title", e.target.value)} />
                 <p className={`text-xs mt-1 ${metaTitle.length > 60 ? "text-destructive" : "text-muted-foreground"}`}>

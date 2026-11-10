@@ -79,6 +79,7 @@ const empty = (): Partial<KnowledgeArticle> => ({
   image_url: "",
   target_roles: [],
   is_published: false,
+  theme: null,
 });
 
 const formatDate = formatDateYYYYMMDD;

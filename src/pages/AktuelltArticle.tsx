@@ -242,6 +242,7 @@ export default function AktuelltArticle({ initialData = null }: Props) {
           </section>
         </article>
       </main>
+      <div className="container mx-auto max-w-4xl px-4"><NewsletterSignup /></div>
       <Footer />
     </div>
   );
