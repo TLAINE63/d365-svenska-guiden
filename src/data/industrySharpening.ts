@@ -59,4 +59,13 @@ export const INDUSTRY_SHARPENING: Record<string, IndustrySharpening> = {
     lead:
       "Ett affärssystem för fastighetsbolag och fastighetsförvaltning behöver hantera hyresavier och avtal, fastighetsekonomi per objekt, underhåll och felanmälan samt rapportering till ägare och långivare.",
   },
+  uthyrning: {
+    h1: "Affärssystem för uthyrning, maskinuthyrning och rental",
+    lead:
+      "För företag inom maskinuthyrning, byggutrustning, event och containeruthyrning ställer uthyrningsverksamheten särskilda krav på affärssystemet. Här går vi igenom hur moderna affärssystem, särskilt Microsoft Dynamics 365 med dedikerade branschlösningar för rental, hanterar tillgänglighet i realtid, maskinindivider, automatiserad hyresfakturering och serviceunderhåll.",
+    advisory: {
+      heading: "Upphandla eller byta affärssystem för uthyrning?",
+      text: "Boka ett kostnadsfritt 20-minuters rådgivningssamtal med Thomas Laine för vägledning kring systemval och partnerkrav. Ingen partner deltar i samtalet och ni förbinder er inte till något.",
+    },
+  },
 };

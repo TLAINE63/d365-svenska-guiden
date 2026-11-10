@@ -147,9 +147,10 @@ const ERPOverview = () => {
 
  return (
  <div className="min-h-screen">
- <SEOHead 
- title="Affärssystem (ERP): pris, jämförelse och val 2026"
- description={resolvePriceTokens("Vad är ett affärssystem (ERP), vad kostar det och hur väljer ni rätt för ert bolag? Jämför Dynamics 365 Business Central ({{price:bc-essentials:short}}) och Finance & SCM ({{price:finance:short}}).")}
+  <SEOHead 
+ title="Köpguide: Välja & byta affärssystem för medelstora företag | d365.se"
+ titleMaxLength={70}
+ description="Komplett guide för dig som ska välja eller byta affärssystem. Jämförelser, checklista för kravspecifikation och hur du väljer rätt lösning i Microsoft Dynamics 365."
  canonicalPath="/affarssystem"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"
@@ -167,8 +168,8 @@ const ERPOverview = () => {
  {/* Header */}
  <ProductHero
  eyebrow="Pelarsida · Guide inför systemvalet"
- title="Vilket affärssystem (ERP) från Microsoft Dynamics 365 passar er verksamhet?"
- subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilket av Microsofts två alternativ – Business Central eller Finance & Supply Chain Management – passar dig bäst? Här får du svaren utan säljpress."
+ title="Välja och byta affärssystem – komplett köpguide för medelstora företag"
+ subhead="Att byta eller uppgradera affärssystem är en stor strategisk investering. Här går vi igenom vad ett modernt affärssystem innebär, när det är dags att byta, hur ni väljer rätt lösning och vad som skiljer standardlösningar från skräddarsydda plattformar."
  primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
  secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management (F&O)", href: "#comparison" }}
   />
@@ -215,27 +216,59 @@ const ERPOverview = () => {
   <EditorialAssessment assessment="erp" />
 
   <section id="kopguide-affarssystem" className="scroll-mt-24 py-8 sm:py-12 bg-background">
-   <div className="container mx-auto max-w-6xl px-4 sm:px-6"><div className="max-w-3xl mx-auto space-y-4">
-    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Köpguide: Hur väljer och köper man rätt affärssystem?</h2>
-    <p className="text-muted-foreground">Börja i verksamheten, inte i systemet. Beskriv de processer som ska fungera bättre (order, lager, inköp, ekonomi, projekt eller produktion), vilka system affärssystemet ska prata med och hur många användare som berörs. Först därefter är det meningsfullt att jämföra produkter.</p>
-    <p className="text-muted-foreground">Ett strukturerat köp brukar gå i fem steg: behovsanalys, val av systemspår (för Microsoft oftast <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> eller Finance &amp; Supply Chain Management), kortlista med två till tre partners, demo på era egna scenarier och till sist offert som jämförs på totalkostnad över tid, inte bara licenspris.</p>
-    <p className="text-muted-foreground">Partnern avgör ofta mer än systemet. Jämför branscherfarenhet, kundexempel och hur förvaltningen fungerar efter go-live i <Link to="/valjdynamics365partner/" className="text-primary font-medium hover:underline">guiden för att välja <span className="whitespace-nowrap">Dynamics 365</span>-partner</Link>.</p>
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+    <div className="max-w-3xl mx-auto space-y-5">
+     <h2 id="modernt-affarssystem" className="scroll-mt-24 text-2xl sm:text-3xl font-bold text-foreground">Vad är ett modernt affärssystem, och vad ska det innehålla?</h2>
+     <p className="text-muted-foreground">Många företag börjar med ett renodlat ekonomisystem för bokföring och fakturering. När verksamheten växer behövs ett komplett affärssystem (ERP) som samlar fler processer i en gemensam databas:</p>
+     <ul className="space-y-3 text-muted-foreground">
+      <li><strong className="text-foreground">Ekonomi och koncernredovisning:</strong> Automatiserad fakturahantering, anläggningsregister, flerbolagshantering och valutor.</li>
+      <li><strong className="text-foreground">Lager, inköp och logistik:</strong> Realtidssaldon, automatiserade beställningspunkter och spårbarhet.</li>
+      <li><strong className="text-foreground">Order, sälj och kundservice:</strong> Integrerat flöde från offert till leverans och faktura.</li>
+      <li><strong className="text-foreground">Projektredovisning:</strong> Tidrapportering, resursplanering och löpande projektuppföljning.</li>
+     </ul>
+     <p className="text-muted-foreground">För de flesta företag är ett standardiserat affärssystem i molnet (SaaS) det mest användarvänliga och kostnadseffektiva valet. Moderna molnsystem uppdateras löpande, har öppna API:er och minskar behovet av kostsamma specialanpassningar.</p>
 
-    <h2 id="ekonomisystem-eller-affarssystem" className="scroll-mt-24 text-2xl sm:text-3xl font-bold text-foreground pt-6">Ekonomisystem eller affärssystem – vad är skillnaden?</h2>
-    <p className="text-muted-foreground">Ett ekonomisystem hanterar redovisning, leverantörs- och kundfakturor, moms och bokslut. Ett affärssystem (ERP) gör samma sak men samlar dessutom order, inköp, lager, projekt och ofta produktion i samma databas, så att en order direkt påverkar lagersaldo, fakturering och resultat.</p>
-    <p className="text-muted-foreground">För många småföretag räcker ett ekonomisystem. Vanliga tecken på att verksamheten har vuxit ur det är att lager, order eller projekt sköts i separata verktyg eller Excel, att samma uppgifter registreras flera gånger, att flera bolag ska konsolideras eller att rapporterna kräver manuellt arbete varje månad.</p>
-    <p className="text-muted-foreground">För medelstora företag som står inför steget är <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> det vanligaste Microsoft-spåret. Börja med en <Link to="/ERPbehovsanalys/" className="text-primary font-medium hover:underline">kostnadsfri behovsanalys</Link> för att se om behoven kräver ett affärssystem eller om ett ekonomisystem fortfarande räcker.</p>
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">När är det dags att byta affärssystem? Fem tydliga tecken</h2>
+     <ol className="space-y-3 text-muted-foreground list-decimal pl-5">
+      <li><strong className="text-foreground">Excel är limmet mellan era system:</strong> Information exporteras och importeras manuellt mellan olika verktyg.</li>
+      <li><strong className="text-foreground">Ingen realtidsinsyn:</strong> Ledningen får siffrorna först veckor efter månadsslut.</li>
+      <li><strong className="text-foreground">Det nuvarande systemet är en återvändsgränd:</strong> Leverantören har slutat utveckla systemet eller saknar moderna molnfunktioner.</li>
+      <li><strong className="text-foreground">Hög personberoende sårbarhet:</strong> Bara ett fåtal nyckelpersoner förstår hur integrationer och rutiner hänger ihop.</li>
+      <li><strong className="text-foreground">Systemet hämmar tillväxten:</strong> Det är svårt att starta nya dotterbolag, hantera nya valutor eller expandera internationellt.</li>
+     </ol>
 
-    <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">Kravspecifikation och process vid byte av affärssystem för medelstora företag</h2>
-    <p className="text-muted-foreground">För ett medelstort företag behöver kravspecifikationen inte vara hundratals rader. Den ska beskriva de viktigaste processerna, vad som är skallkrav och börkrav, vilka integrationer som finns (e-handel, lönesystem, bank, EDI) och vilken data som ska migreras från det gamla systemet.</p>
-    <p className="text-muted-foreground">Vid byte från ett äldre affärssystem, till exempel Dynamics NAV, Visma eller Monitor, är datamigrering, utbildning och parallellkörning de moment som oftast underskattas. Planera tid för användartester och en tydlig go-live-period, och låt partnern visa hur de har genomfört liknande byten.</p>
-    <p className="text-muted-foreground">Ta fram en kravspecifikation med <Link to="/kravspecifikation/" className="text-primary font-medium hover:underline">kravspecifikationsverktyget</Link>, läs om <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central för medelstora företag</Link> och jämför sedan partners i <Link to="/valjdynamics365partner/" className="text-primary font-medium hover:underline">partnerväljaren</Link>.</p>
-   </div></div>
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">Affärssystem för medelstora företag i Sverige: Business Central eller Finance &amp; Supply Chain?</h2>
+     <p className="text-muted-foreground">Inom Microsoft&nbsp;Dynamics&nbsp;365 finns två huvudsakliga affärssystem. Valet styrs av processernas komplexitet, inte bara av företagets storlek.</p>
+     <ul className="space-y-4 text-muted-foreground">
+      <li><strong className="text-foreground">Microsoft&nbsp;Dynamics&nbsp;365 Business&nbsp;Central:</strong> För små och medelstora företag som behöver ett komplett affärssystem för ekonomi, lager, handel och projekt. <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Läs mer om Business Central</Link>.</li>
+      <li><strong className="text-foreground">Microsoft&nbsp;Dynamics&nbsp;365 Finance &amp; Supply Chain Management:</strong> För större koncerner och multinationella bolag med komplex tillverkning, avancerad global logistik eller långtgående processkrav. <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Läs mer om Finance &amp; Supply Chain Management</Link>.</li>
+     </ul>
+
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">Hur väljer man rätt affärssystem? Checklista i fyra steg</h2>
+     <ol className="space-y-4 text-muted-foreground list-decimal pl-5">
+      <li><strong className="text-foreground">Fokusera på processer framför funktionslistor:</strong> Kartlägg var era verkliga flaskhalsar finns i stället för att skriva en hundrasidig önskelista.</li>
+      <li><strong className="text-foreground">Välj standard i första hand:</strong> Sikta på att 80–90&nbsp;% av behoven täcks av standardfunktioner och certifierade appar.</li>
+      <li><strong className="text-foreground">Räkna på totalkostnaden (TCO):</strong> Licenser är bara en del. Räkna in implementation, utbildning, integrationer och löpande förvaltning.</li>
+      <li><strong className="text-foreground">Välj partner med omsorg:</strong> Branscherfarenhet, referenser och samarbetsmodell är avgörande. <Link to="/valjdynamics365partner/" className="text-primary font-medium hover:underline">Läs guiden om att välja Dynamics&nbsp;365-partner</Link>.</li>
+     </ol>
+     <p className="text-muted-foreground">Ta fram ett gemensamt underlag med <Link to="/kravspecifikation/" className="text-primary font-medium hover:underline">kravspecifikationsverktyget</Link>. Vid byte från ett äldre system ska ni också planera för datamigrering, användartester, utbildning och en tydlig go-live-period.</p>
+
+     <h2 className="text-2xl sm:text-3xl font-bold text-foreground pt-6">Översikt: Affärssystem på den svenska marknaden</h2>
+     <p className="text-muted-foreground">När svenska företag utvärderar affärssystem jämförs Microsoft&nbsp;Dynamics&nbsp;365 ofta med lösningar i olika storleks- och komplexitetsklasser:</p>
+     <ul className="space-y-3 text-muted-foreground">
+      <li><strong className="text-foreground">Mindre ekonomisystem:</strong> Fortnox, Visma eEkonomi och Björn Lundén kan passa mindre bolag med enklare behov.</li>
+      <li><strong className="text-foreground">System för medelstora företag:</strong> Visma Administration, Jeeves och Monitor används i olika svenska branscher, där Monitor är särskilt etablerat inom tillverkning.</li>
+      <li><strong className="text-foreground">Globala molnsystem:</strong> NetSuite och SAP S/4HANA Cloud utvärderas ofta av internationella verksamheter.</li>
+     </ul>
+     <p className="text-muted-foreground">En styrka med Microsoft&nbsp;Dynamics&nbsp;365 är ekosystemet med integrationer till Microsoft 365, Teams, Power BI, Power Platform och Copilot. Jämför ändå hela lösningen, totalkostnaden och partnerns leverans utifrån era egna processer.</p>
+    </div>
+   </div>
   </section>
   <AdvisorCtaCard
    id="affarssystem-radgivning"
-   heading="Boka 20 minuters kostnadsfri rådgivning inför ert val eller byte av affärssystem med Thomas Laine"
-   text="Ett kort samtal om era krav, vilket systemspår som är rimligt och hur ni lägger upp upphandlingen. Ingen partner deltar i samtalet."
+   heading="Står ni inför att välja eller byta affärssystem?"
+   text="Att upphandla affärssystem är ett stort beslut med många fallgropar. Thomas Laine hjälper er att prioritera behoven, sålla bland leverantörerna och formulera rätt krav. Samtalet är kostnadsfritt och förutsättningslöst, och ingen partner deltar."
+   bookingLabel="Boka 20 min med Thomas"
   />
  <FitModel model="erp" heading="Vad avgör valet?" />
 

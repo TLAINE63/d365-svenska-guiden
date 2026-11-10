@@ -825,6 +825,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  />
 <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
+ <EditorialSource sourceType="Branschguide" />
  <Footer />
  </>
  );

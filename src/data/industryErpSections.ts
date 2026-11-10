@@ -94,4 +94,300 @@ export const INDUSTRY_ERP_SECTIONS: Record<string, IndustryErpSection> = {
       },
     ],
   },
+  "mode-sport-textil": {
+    heading: "Affärssystem för mode och modebranschen: säsong, varianter och handel",
+    intro:
+      "Ett affärssystem för mode behöver hålla samman kollektioner, inköp, lager och försäljning i flera kanaler. För modeföretag i Stockholm och resten av Sverige är säsongsplanering, färg- och storleksmatriser samt integrationer mot B2B-portal, retail och e-handel centrala delar av utvärderingen.",
+    points: [
+      {
+        title: "Säsongsplanering och kollektioner",
+        text: "Planera inköp, leveranser och sortiment per säsong och kollektion. Följ sedan försäljning och lagervärde så att nästa inköpsbeslut bygger på aktuella utfall.",
+      },
+      {
+        title: "Färg- och storleksmatriser",
+        text: "Hantera varianter av modell, färg och storlek utan att tappa kontrollen över artiklar, priser, lagersaldo och inköpsbehov.",
+      },
+      {
+        title: "B2B, retail och e-handel",
+        text: "Koppla B2B-portal, butiker och e-handel till samma order- och lagerflöde. Prislistor, kundorder och returer behöver följas konsekvent i alla kanaler.",
+      },
+    ],
+    packagesNote:
+      "Business Central kan passa mindre och medelstora modebolag, medan Finance & Supply Chain Management och Commerce blir aktuella vid större variantflöden, flera lager eller mer omfattande omnikanalhandel.",
+    packagesLink: { text: "Läs om Dynamics 365 Commerce", to: "/d365commerce/" },
+    cta: {
+      text: "Jämför partners med erfarenhet av mode och textil",
+      to: "/valjdynamics365partner/?industry=mode-sport-textil#hitta-partners",
+    },
+  },
+  "grossist-distribution": {
+    heading: "Affärssystem för grossister och distributionsbolag",
+    intro:
+      "När ni jämför affärssystem för grossister är prissättning, lageromsättning och leveranssäkerhet lika viktiga som ekonomin. Systemet behöver hantera pris- och rabattmatriser, EDI-ordrar och inköpsprognoser utan att informationen fastnar i separata kalkyler.",
+    points: [
+      {
+        title: "Pris- och rabattmatriser",
+        text: "Styr kundpriser, avtalspriser, volymrabatter och kampanjer med tydliga regler. Följ marginalen per kund, artikel och order.",
+      },
+      {
+        title: "Lageromsättning och inköpsprognoser",
+        text: "Använd efterfrågan, säsong och leveranstider som underlag för inköp. Målet är tillgängliga varor utan onödigt bundet kapital.",
+      },
+      {
+        title: "EDI-ordrar och distributionsflöden",
+        text: "Ta emot order elektroniskt och koppla bekräftelse, plock, leverans och faktura till samma flöde. Integrationsbehoven skiljer sig mellan kunder och handelsplattformar.",
+      },
+    ],
+    packagesNote:
+      "Business Central med handels- och integrationstillägg är vanligt för mindre och medelstora grossister. Finance & Supply Chain Management passar bättre vid avancerad lagerstyrning, stora transaktionsvolymer eller flera distributionscentraler.",
+    packagesLink: { text: "Läs om Business Central för handel och lager", to: "/businesscentral/" },
+    cta: {
+      text: "Jämför partners för grossist och distribution",
+      to: "/valjdynamics365partner/?industry=grossist-distribution#hitta-partners",
+    },
+  },
+  "retail-ehandel": {
+    heading: "Affärssystem för detaljhandel, retail och e-handel",
+    intro:
+      "Ett affärssystem för detaljhandel ska ge samma bild av kundorder, lager och ekonomi oavsett försäljningskanal. I en retail-lösning behöver omnikanal, integration mot kassasystem (POS) och realtidssynkronisering av lagersaldon samspela med det e-handelssystem ni använder.",
+    points: [
+      {
+        title: "Omnikanal och enhetliga orderflöden",
+        text: "Samla order, reservation, leverans, retur och byte över butik och e-handel. Kunden ska inte behöva påverkas av vilken kanal som hanterar steget.",
+      },
+      {
+        title: "Kassasystem och POS-integration",
+        text: "Integrationen mot kassasystemet behöver hantera försäljning, betalning, retur och prisändringar på ett kontrollerbart sätt.",
+      },
+      {
+        title: "Lagersaldo i realtid",
+        text: "Synkronisera tillgänglighet mellan lager, butiker och e-handel så att produkter inte lovas flera gånger eller blir osynliga i en kanal.",
+      },
+    ],
+    packagesNote:
+      "Commerce är relevant för större omnikanalflöden, medan Business Central kan vara ekonomi- och ordernavet för mindre handelsbolag. Rätt kombination beror på befintliga kassor, e-handel och lager.",
+    packagesLink: { text: "Utforska Dynamics 365 Commerce", to: "/d365commerce/" },
+    cta: {
+      text: "Jämför partners för retail och e-handel",
+      to: "/valjdynamics365partner/?industry=retail-ehandel#hitta-partners",
+    },
+  },
+  "livsmedel-processindustri": {
+    heading: "Affärssystem för livsmedel och processindustri",
+    intro:
+      "Ett affärssystem för livsmedel behöver stödja spårbarhet och kvalitet genom hela flödet från råvara till kund. Batch- och lotspårbarhet, bäst-före-datum, recepturhantering och relevanta livsmedelsstandarder bör därför prövas i konkreta processer, inte bara i en funktionslista.",
+    points: [
+      {
+        title: "Batch, lot och bäst-före-datum",
+        text: "Följ partier genom mottagning, produktion, lager och leverans. Datumstyrning och spårbarhet behöver fungera även vid ompackning och återkallelse.",
+      },
+      {
+        title: "Receptur och produktion",
+        text: "Hantera recept, ingredienser, avfall och kvalitetskontroller i produktionen. Utfallet ska kunna följas per batch och produktionsorder.",
+      },
+      {
+        title: "Livsmedelsstandarder och dokumentation",
+        text: "Kartlägg vilka kontroller och dokument era kunder, certifieringar och myndighetskrav kräver. Systemstödet ska ge spårbara underlag för verksamhetens rutiner.",
+      },
+    ],
+    packagesNote:
+      "Finance & Supply Chain Management har funktioner för processtillverkning. För mindre producenter kan Business Central med ett livsmedelsanpassat tillägg vara tillräckligt, beroende på kraven på recept, kvalitet och spårning.",
+    packagesLink: { text: "Läs om Finance & Supply Chain Management", to: "/finance-supply-chain/" },
+    cta: {
+      text: "Jämför partners för livsmedel och processindustri",
+      to: "/valjdynamics365partner/?industry=livsmedel-processindustri#hitta-partners",
+    },
+  },
+  "life-science-medtech": {
+    heading: "Affärssystem för läkemedel och life science",
+    intro:
+      "För läkemedels- och life science-företag behöver affärssystemet stödja kontrollerade processer och spårbar dokumentation. GMP, datoriserad systemvalidering, FDA 21 CFR Part 11 och serialisering ska bedömas utifrån er verksamhet och ert kvalitetssystem, inte antas följa med automatiskt.",
+    points: [
+      {
+        title: "GMP och kvalitetsprocesser",
+        text: "Kartlägg hur avvikelser, ändringar, godkännanden och dokumentation ska styras. Roller, arbetsflöden och spårbarhet behöver motsvara era kvalitetsrutiner.",
+      },
+      {
+        title: "Validering och elektroniska signaturer",
+        text: "Planera valideringen av den datoriserade lösningen och pröva krav från FDA 21 CFR Part 11 där de är tillämpliga, inklusive signaturer och revisionsspår.",
+      },
+      {
+        title: "Serialisering och spårbarhet",
+        text: "Följ serienummer, batcher och distribution där regelverket kräver det. Integrationer med produktion och externa spårbarhetstjänster behöver ingå i utvärderingen.",
+      },
+    ],
+    packagesNote:
+      "Valet mellan Business Central och Finance & Supply Chain Management beror på produktion, volymer och processkomplexitet. Validering och regelefterlevnad kräver alltid ett egenansvar och ett dokumenterat införande.",
+    packagesLink: { text: "Läs om Finance & Supply Chain Management", to: "/finance-supply-chain/" },
+    cta: {
+      text: "Jämför partners för life science och medtech",
+      to: "/valjdynamics365partner/?industry=life-science-medtech#hitta-partners",
+    },
+  },
+  "fastighet-forvaltning": {
+    heading: "Affärssystem för fastighet och fastighetsbolag",
+    intro:
+      "Ett affärssystem för fastighetsbolag behöver koppla avtal och ekonomi till den tekniska förvaltningen. Hyresavisering, kontraktsregister och fastighetsekonomi bör därför bedömas tillsammans med integrationen till drift- och felanmälningssystem.",
+    points: [
+      {
+        title: "Hyresavisering och avtal",
+        text: "Hantera hyresperioder, indexering, tillägg och fakturaunderlag från aktuella avtal. Ändringar ska vara spårbara och ge rätt underlag vid nästa avisering.",
+      },
+      {
+        title: "Kontraktsregister och fastighetsekonomi",
+        text: "Samla villkor, kostnader och intäkter per fastighet, objekt eller kontrakt. Uppföljningen behöver anpassas till ägare, förvaltning och redovisning.",
+      },
+      {
+        title: "Drift och felanmälan",
+        text: "Integrera felanmälan, arbetsorder och underhåll så att tekniska åtgärder kan följas ekonomiskt utan dubbelregistrering.",
+      },
+    ],
+    packagesNote:
+      "Business Central eller Finance kan utgöra ekonomikärnan, medan fastighetsspecifika avtal och teknisk förvaltning ofta kräver branschtillägg eller integrationer. Be partnern visa hela flödet från avtal till faktura och arbetsorder.",
+    packagesLink: { text: "Läs om Business Central", to: "/businesscentral/" },
+    cta: {
+      text: "Jämför partners för fastighet och förvaltning",
+      to: "/valjdynamics365partner/?industry=fastighet-forvaltning#hitta-partners",
+    },
+  },
+  "energi-utilities": {
+    heading: "Affärssystem för energibolag och utilities",
+    intro:
+      "Ett affärssystem för energibolag behöver förena ekonomi, investeringar, tekniska tillgångar och kundprocesser. Projektredovisning för nätinvesteringar, anläggningsregister och kundfakturering är därför viktiga delar av både systemvalet och integrationsarkitekturen.",
+    points: [
+      {
+        title: "Projektredovisning för nätinvesteringar",
+        text: "Följ budget, kostnader och färdigställande för investeringsprojekt. Koppla material, entreprenader och nedlagd tid till rätt projekt och anläggning.",
+      },
+      {
+        title: "Anläggningsregister och underhåll",
+        text: "Skapa en sammanhållen bild av tillgångar, service och underhåll. Klargör vad som ska ligga i affärssystemet och vad som hanteras i tekniska system.",
+      },
+      {
+        title: "Kundfakturering och integrationer",
+        text: "Kartlägg hur avtal, mätvärden och kundärenden ska möta faktureringen. Branschspecifika kund- och mätvärdessystem kräver ofta väldefinierade integrationer.",
+      },
+    ],
+    packagesNote:
+      "Finance & Supply Chain Management och Field Service kan täcka ekonomi, projekt och underhåll i större energibolag. Fakturering och mätvärdeshantering behöver utvärderas mot de branschsystem som redan används.",
+    packagesLink: { text: "Läs om Finance & Supply Chain Management", to: "/finance-supply-chain/" },
+    cta: {
+      text: "Jämför partners för energi och utilities",
+      to: "/valjdynamics365partner/?industry=energi-utilities#hitta-partners",
+    },
+  },
+  "offentlig-sektor": {
+    heading: "Affärssystem för offentlig sektor: LOU, e-faktura och säkerhet",
+    intro:
+      "Ett affärssystem för offentlig sektor behöver stödja både ekonomistyrning och rättssäkra processer. LOU-krav, e-fakturering med Peppol, budgetuppföljning och informationssäkerhet ska beskrivas konkret i upphandlingen och prövas med leverantören.",
+    points: [
+      {
+        title: "LOU och spårbar upphandling",
+        text: "Definiera krav, utvärderingsgrunder och dokumentation så att systemvalet kan följas upp. Be leverantören svara på funktion, införande och ansvar.",
+      },
+      {
+        title: "E-fakturering med Peppol",
+        text: "Pröva inkommande och utgående elektroniska fakturor, attest och koppling till ekonomin. Kontrollera format, accesspunkt och befintliga integrationsflöden.",
+      },
+      {
+        title: "Budget och informationssäkerhet",
+        text: "Följ budget och utfall på rätt nivå samtidigt som behörigheter, loggning, dataskydd och åtkomst hanteras enligt organisationens krav.",
+      },
+    ],
+    packagesNote:
+      "Business Central, Finance och applikationer för kundservice kan kombineras utifrån verksamheten. Juridiska och säkerhetsmässiga krav behöver utvärderas för varje organisation och implementation.",
+    packagesLink: { text: "Läs guiden om affärssystem och upphandling", to: "/affarssystem/" },
+    cta: {
+      text: "Jämför partners med erfarenhet av offentlig sektor",
+      to: "/valjdynamics365partner/?industry=offentlig-sektor#hitta-partners",
+    },
+  },
+  tillverkning: {
+    heading: "Affärssystem för verkstad och markentreprenad",
+    intro:
+      "Ett affärssystem för verkstad behöver stödja både produktion och eftermarknad, medan markentreprenad ställer större vikt vid projekt, maskiner och arbete på plats. Gemensamt är behovet av ekonomisk uppföljning, men serviceverkstad och projektredovisning för anläggning och entreprenad kräver olika arbetsflöden.",
+    points: [
+      {
+        title: "Eftermarknad och serviceverkstad",
+        text: "Hantera serviceavtal, arbetsorder, reservdelar och tid per maskin eller kundobjekt. Verkstadens arbete ska kunna faktureras och följas tillsammans med ekonomin.",
+      },
+      {
+        title: "Projektredovisning för anläggning",
+        text: "Följ budget, prognos, material, maskiner och arbete per projekt. Projektresultatet behöver spegla både pågående arbete och slutfakturering.",
+      },
+      {
+        title: "Rätt arbetssätt för varje verksamhet",
+        text: "Tillverkning, service och entreprenad kan finnas i samma bolag men ska inte tvingas in i samma process. Be partnern demonstrera varje flöde med era egna exempel.",
+      },
+    ],
+    packagesNote:
+      "Business Central med tillägg kan passa mindre verkstäder och entreprenader. Finance & Supply Chain Management, Project Operations och Field Service blir relevanta vid mer komplex produktion, projektstyrning eller fältservice.",
+    packagesLink: { text: "Jämför affärssystem för bygg och entreprenad", to: "/branscher/bygg-entreprenad/" },
+    cta: {
+      text: "Jämför partners för tillverkning och verkstad",
+      to: "/valjdynamics365partner/?industry=tillverkning#hitta-partners",
+    },
+  },
+  uthyrning: {
+    heading: "Viktiga funktioner i ett modernt uthyrningssystem",
+    intro:
+      "Affärssystem för uthyrning och maskinuthyrning behöver visa vad som är tillgängligt, var varje maskinindivid befinner sig och hur hyran ska faktureras. Pröva hela flödet från bokning och utlämning till retur, skadehantering och service.",
+    points: [
+      {
+        title: "Grafisk depå- och bokningsöversikt",
+        text: "Planera uthyrning per depå, period och objekt. Översikten ska visa ledig kapacitet, reservationer och kommande returer utan manuella sammanställningar.",
+      },
+      {
+        title: "Serienummer och maskinindivider",
+        text: "Följ varje maskin eller utrustning individuellt med historik för uthyrning, placering, service och underhåll.",
+      },
+      {
+        title: "Transport, utlämning och returkontroll",
+        text: "Koppla leverans och hämtning till hyresordern. Vid retur behöver kontroll, avvikelser och åtgärder dokumenteras innan objektet blir tillgängligt igen.",
+      },
+      {
+        title: "Flexibel hyrestaxa och periodisering",
+        text: "Hantera priser per dygn, vecka och månad samt avtalade kundpriser. Hyresintäkten ska periodiseras och faktureras enligt avtalets villkor.",
+      },
+      {
+        title: "Skadehantering",
+        text: "Registrera skador, ansvar och kostnader vid retur. Koppla debitering och reparation till rätt kund, hyresavtal och maskinindivid.",
+      },
+    ],
+    packagesNote:
+      "Standardfunktioner för ekonomi och lager behöver kompletteras med rental-logik för bokning, maskinindivider och hyresfakturering. Be leverantören visa vilka delar som ingår i tillägget och vilka som kräver anpassning.",
+    packagesLink: { text: "Läs om Business Central", to: "/businesscentral/" },
+    extraLinks: [
+      { text: "Så väljer ni Dynamics 365-partner", to: "/valjdynamics365partner/" },
+    ],
+    cta: {
+      text: "Jämför partners för uthyrning och rental",
+      to: "/valjdynamics365partner/?industry=uthyrning#hitta-partners",
+    },
+    subSections: [
+      {
+        id: "dynamics-365-uthyrning",
+        h2: "Microsoft Dynamics 365 för uthyrningsbranschen",
+        paragraphs: [
+          "Microsoft Dynamics 365 kan utgöra plattformen för ekonomi, lager, kundrelationer och service, medan dedikerade rental-tillägg hanterar den uthyrningsspecifika logiken. För mindre och medelstora företag är Business Central med branschlösning ett vanligt spår. Större eller mer komplexa verksamheter kan även behöva Finance & Supply Chain Management.",
+          "När certifierade rental-tillägg integreras direkt med ekonomi och lager kan hyresorder, avtal och fakturering använda samma affärsunderlag. Field Service eller verkstadsfunktioner kan koppla serviceavtal, arbetsorder och reservdelar till maskinindividen. Låt leverantören visa integrationen och ansvarsfördelningen mellan standardprodukt, tillägg och eventuella externa system.",
+        ],
+        links: [
+          { text: "Utforska Business Central", to: "/businesscentral/" },
+          { text: "Läs guiden om att välja Dynamics 365-partner", to: "/valjdynamics365partner/" },
+        ],
+      },
+      {
+        id: "valja-partner-uthyrning",
+        h2: "Hur väljer man rätt partner för uthyrning?",
+        paragraphs: [
+          "Välj en partner som kan visa dokumenterad erfarenhet av maskinparker, periodisk fakturering och serviceavtal. Be om en genomgång av er egen process från bokning till retur och kontrollera att konsulterna förstår både rental-flödet och ekonomin bakom det.",
+          "Be även om referenser från liknande uthyrningsverksamheter och tydliggör vem som ansvarar för rental-tillägget, integrationerna och den löpande förvaltningen. Det gör det lättare att jämföra både genomförande och långsiktig leverans.",
+        ],
+        links: [
+          { text: "Jämför partners och dokumenterad branscherfarenhet", to: "/valjdynamics365partner/?industry=uthyrning#hitta-partners" },
+        ],
+      },
+    ],
+  },
 };

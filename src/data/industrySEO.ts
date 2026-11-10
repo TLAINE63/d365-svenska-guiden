@@ -146,10 +146,10 @@ export const INDUSTRY_SEO: Record<string, IndustrySEO> = {
     h1: "Dynamics 365 för offentlig sektor",
   },
   uthyrning: {
-    title: "Dynamics 365 för uthyrningsverksamhet",
+    title: "Affärssystem för uthyrning & maskinuthyrning | d365.se",
     description:
-      "Utrustnings­hyra, avtal, fakturering och fältservice för svenska uthyrnings­företag med Dynamics 365 Business Central, F&SCM och Field Service.",
-    h1: "Dynamics 365 för uthyrning",
+      "Guide till affärssystem för maskinuthyrning och rental. Så hanterar Microsoft Dynamics 365 maskinpark, bokningsstatus, service och periodiserad hyra.",
+    h1: "Affärssystem för uthyrning, maskinuthyrning och rental",
   },
 };
 

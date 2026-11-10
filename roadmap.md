@@ -1,5 +1,13 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Affärssystem: köpguide för medelstora företag (2026-11-10)
+- [x] Uppdaterade befintliga /affarssystem/ med ny SEO-text, köpguide, checklistor, produktvägledning och internlänkar på samma adress; befintliga jämförelser och verktyg bevarade.
+
+## Branscher och vertikaler (2026-11-10)
+- [x] Uppdaterade uthyrningssidans SEO, H1, ingress, funktioner, Dynamics 365-avsnitt, partnerval, internlänkar och rådgivning på befintlig adress.
+- [x] Kompletterade nio befintliga branschsidor med naturliga sökordsrubriker och branschinnehåll, utan nya adresser.
+- [x] Kontrollerade publicerat innehåll, granskningsdatum, länkar och visning på dator och mobil; samtliga elva sidor utan innehållsfel eller överbredd och bygget godkänt.
+
 ## Prislista, partneravtal och budget som PDF/DOCX (2026-11-10)
 - [x] Tre separata dokument skapade i både PDF och redigerbar Word: Prislista 2027, Partneravtal 2027 och Budget 2027.
 - [x] Budgetens sparade värden och avtalets publicerade villkor hämtade; samtliga PDF-sidor visuellt granskade och Word-filer tekniskt validerade.
