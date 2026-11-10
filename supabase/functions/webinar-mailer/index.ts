@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
       const end = webinarEndsAt(webinar).getTime();
       const candidates: MailKind[] = [];
       if (!logged.has("confirmation")) candidates.push("confirmation");
-      if (now >= start - 24 * 60 * 60_000 && now < start && !logged.has("reminder_24h")) candidates.push("reminder_24h");
+      if (now >= start - 24 * 60 * 60_000 && now < start - 15 * 60_000 && !logged.has("reminder_24h")) candidates.push("reminder_24h");
       if (now >= start - 15 * 60_000 && now < start && !logged.has("reminder_15m")) candidates.push("reminder_15m");
       if (webinar.recording_url && now >= end && !logged.has("recording")) candidates.push("recording");
 

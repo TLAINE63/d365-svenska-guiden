@@ -23,6 +23,21 @@ describe("sidhistorik (d365_session_pages)", () => {
   });
 });
 
+describe("UTM för formulär", () => {
+  it("sparar första kampanjuppsättningen och respekterar intern trafik", () => {
+    window.sessionStorage.removeItem(UTM_KEY);
+    window.localStorage.removeItem(INTERNAL_KEY);
+    recordSessionUtm("?utm_source=linkedin&utm_medium=inlagg&utm_campaign=test");
+    recordSessionUtm("?utm_source=google&utm_medium=cpc&utm_campaign=senare");
+    expect(readSessionUtm()).toEqual({ utm_source: "linkedin", utm_medium: "inlagg", utm_campaign: "test" });
+    window.localStorage.setItem(INTERNAL_KEY, "1");
+    expect(readSessionUtm()).toBeNull();
+    window.localStorage.removeItem(INTERNAL_KEY);
+    window.sessionStorage.removeItem(UTM_KEY);
+    window.sessionStorage.removeItem(SESSION_PAGES_KEY);
+  });
+});
+
 describe("innehållsinbjudan", () => {
   it("matchar kanoniska temasökvägar och stoppar tack- och formulärsidor", () => {
     expect(contentThemeForPath("/alla-d365-partners/")).toBe("partnerval");
