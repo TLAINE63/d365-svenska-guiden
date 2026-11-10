@@ -38,9 +38,6 @@ interface Props {
 /** Vägar till rådgivning med Thomas: förfrågan via formulär (blir ett ärende), mejl eller direkt i kalendern. */
 export default function AdvisorContactButtons({ compact = false, dark = false, className = "", bookingLabel }: Props) {
   const [open, setOpen] = useState(false);
-  const _unused = dark
-    ? "border-primary-foreground/70 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
-    : "border-border text-foreground hover:bg-primary/10 hover:text-primary";
   return (
     <div className={className}>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
