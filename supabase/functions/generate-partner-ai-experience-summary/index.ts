@@ -58,6 +58,10 @@ const CAP_LABELS: Record<string, string> = {
   "ai-governance": "AI-governance, säkerhet och behörigheter",
   "ai-adoption": "AI-adoption och utbildning",
   "industry-ai": "Branschspecifika AI-lösningar",
+  "agent-d365": "Agenter kopplade till Dynamics 365",
+  "agent-integration": "Integration och dataåtkomst för agenter",
+  "agent-testing": "Testning, uppföljning och kvalitetssäkring av agenter",
+  "agent-operations": "Löpande förvaltning av agenter",
 };
 const USE_CASE_LABELS: Record<string, string> = {
   "readiness": "AI-readiness inför Copilot",

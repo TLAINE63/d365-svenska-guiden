@@ -32,6 +32,10 @@ describe("labelForCapability (AI-profil, AI_CAPABILITIES)", () => {
     "ai-governance": "AI-governance, säkerhet och behörigheter",
     "ai-adoption": "AI-adoption och utbildning",
     "industry-ai": "Branschspecifika AI-lösningar",
+    "agent-d365": "Agenter kopplade till Dynamics 365",
+    "agent-integration": "Integration och dataåtkomst för agenter",
+    "agent-testing": "Testning, uppföljning och kvalitetssäkring av agenter",
+    "agent-operations": "Löpande förvaltning av agenter",
   };
 
   it.each(Object.entries(expected))(
