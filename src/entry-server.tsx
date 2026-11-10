@@ -9,7 +9,7 @@ import WebinarCancel from './pages/WebinarCancel';
 import NewsletterTokenAction from './pages/NewsletterTokenAction';
 import { ContentInviteProvider } from './components/ContentInviteProvider';
 import type { ContentInviteData } from './lib/contentInvite';
-import type { PublicWebinar } from './lib/webinars';
+import { WEBINAR_PUBLIC_SELECT, type PublicWebinar } from './lib/webinars';
 import IsvProduct from './pages/IsvProduct';
 import isvSnapshot from './data/isvPublicSnapshot.json';
 import PartnerBasicProfile from './pages/PartnerBasicProfile';
@@ -842,6 +842,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
   // ── Events: fetch published/upcoming events from Supabase REST ──────
   const eventRoutes: PrerenderRoute[] = [];
+  const webinarRoutes: PrerenderRoute[] = [];
   const articleRoutes: PrerenderRoute[] = [];
   const partnerNewsRoutes: PrerenderRoute[] = [];
   const aktuelltRoutes: PrerenderRoute[] = [];
@@ -1030,5 +1031,5 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   }
 
   const isvRoutes: PrerenderRoute[] = isvSnapshot.products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}`, priority: '0.6', changefreq: 'monthly', lastmod: s.updated_at?.slice(0, 10), meta: { title: `${s.name} | Funktioner och användning`, description: s.short_description || s.what || s.name } }));
-  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes, ...isvRoutes];
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...webinarRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes, ...isvRoutes];
 }
