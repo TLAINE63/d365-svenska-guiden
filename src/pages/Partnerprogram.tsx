@@ -35,6 +35,7 @@ import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
 import VerifiedPartnerBadgeEmbed from "@/components/partner/VerifiedPartnerBadgeEmbed";
 
 import partnerData from "@/data/partnerData.json";
+import { PARTNER_BOOKING_URL } from "@/data/organization";
 
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
@@ -275,7 +276,12 @@ const Partnerprogram = () => {
             </p>
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg"><a href="#priser-innehall">Se priser och innehåll<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
-              <BookButton placement="hero" label="Prata med oss om er närvaro" />
+              <Button asChild size="lg" variant="outline" onClick={() => bookClick("hero")}>
+                <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Boka möte med Thomas
+                </a>
+              </Button>
             </div>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
               {["Bli hittad i köpresan", "Visa rätt kompetens och lösningar", "Möt företag med relevanta behov"].map((text) => (
