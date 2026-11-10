@@ -38,7 +38,7 @@ function LogoItem({ partner, hidden }: { partner: LogoPartner; hidden?: boolean 
         {partner.logo_url ? (
           <img
             src={partner.logo_url}
-            alt={hidden ? "" : partner.name}
+            alt={`${partner.name} logotyp`}
             loading="lazy"
             decoding="async"
             className="max-h-7 sm:max-h-8 max-w-full rounded-sm object-contain transition group-hover:scale-105"
