@@ -5,11 +5,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { getCorsHeaders, json, cleanText, cleanList } from "../_shared/isvAuth.ts";
+import { presentationFields } from '../_shared/isvPresentation.ts';
 
 const DELIVERY = ["native_isv", "external_saas", "integration_layer", "industry_solution"];
 const GEO = ["Sverige", "Norden", "Europa", "Global"];
 const PRODUCT_FIELDS =
-  "solution_id, name, vendor, vendor_slug, category, short_description, what, when_fits, use_cases, combos, products, industry_focus, partner_slugs, vendor_website, delivery_model, geo, is_published, information_status";
+  "solution_id, name, vendor, vendor_slug, category, short_description, what, when_fits, use_cases, combos, products, industry_focus, partner_slugs, vendor_website, delivery_model, geo, is_published, information_status, product_gallery, product_features, integration_evidence, partner_evidence";
 
 const pick = (v: unknown, allowed: string[]) => (typeof v === "string" && allowed.includes(v) ? v : null);
 const url = (v: unknown) => {
@@ -109,6 +110,7 @@ serve(async (req) => {
       } else {
         let solution_id: string;
         const payload: Record<string, unknown> = {
+          ...presentationFields(body, false),
           delivery_model: pick(body?.delivery_model, DELIVERY),
           geo: cleanList(body?.geo, 4, 40).filter((g) => GEO.includes(g)),
         };

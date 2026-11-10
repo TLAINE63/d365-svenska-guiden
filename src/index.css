@@ -545,7 +545,7 @@ All colors MUST be HSL.
 
 /* Scoped partner opening, independent of basic profiles and list cards.
    Min D365-plan (.plan-premium) shares the same approved premium palette. */
-.partner-profile-premium, .plan-premium {
+.partner-profile-premium, .plan-premium, .isv-product-premium {
   --background: 200 17.647059% 96.666667%;
   --foreground: 185.217391 56.097561% 16.078431%;
   --card: 0 0% 100%;
@@ -586,7 +586,7 @@ All colors MUST be HSL.
   }
 }
 @media (min-width: 1024px) { .partner-opening-name { font-size: clamp(2.25rem, 3.2vw, 3rem); } }
-.partner-profile-premium .partner-opening, .plan-premium .plan-opening {
+.partner-profile-premium .partner-opening, .plan-premium .plan-opening, .isv-product-opening {
   --background: 185.217391 56.097561% 16.078431%;
   --foreground: 200 17.647059% 96.666667%;
   --muted-foreground: 185 16% 76%;
@@ -606,6 +606,8 @@ All colors MUST be HSL.
   background: hsl(var(--background));
   color: hsl(var(--foreground));
 }
+.isv-product-premium { font-family: 'Manrope', sans-serif; letter-spacing: 0; }
+.isv-product-premium h1, .isv-product-premium h2, .isv-product-premium h3 { font-family: 'Sora', sans-serif; letter-spacing: 0; }
 .plan-premium .plan-opening {
   background:
     radial-gradient(ellipse 60% 90% at 92% 0%, hsl(var(--accent) / 0.16), transparent 60%),

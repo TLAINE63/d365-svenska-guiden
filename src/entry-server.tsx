@@ -2,6 +2,8 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Partnerprogram from './pages/Partnerprogram';
 import IsvProgram from './pages/IsvProgram';
+import IsvProduct from './pages/IsvProduct';
+import isvSnapshot from './data/isvPublicSnapshot.json';
 import PartnerBasicProfile from './pages/PartnerBasicProfile';
 import { normalizeBasicPartnerRow, type BasicPartner } from './hooks/useBasicPartners';
 
@@ -604,6 +606,7 @@ export function render(url: string) {
               <Route path="/kom-igang/snabbguide" element={<KomIgang />} />
               <Route path="/partnerprogram" element={<Partnerprogram />} />
               <Route path="/isvprogram" element={<IsvProgram />} />
+              <Route path="/isv/produkt/:id" element={<IsvProduct />} />
               <Route path="/basic/:slug" element={<PartnerBasicProfile initialData={basicInitialData} />} />
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
@@ -999,5 +1002,6 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     console.warn(`  ⚠️  Dynamic routes fetch error: ${err.message}`);
   }
 
-  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes];
+  const isvRoutes: PrerenderRoute[] = isvSnapshot.products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}`, priority: '0.6', changefreq: 'monthly', lastmod: s.updated_at?.slice(0, 10), meta: { title: `${s.name} | Funktioner och användning`, description: s.short_description || s.what || s.name } }));
+  return [...partnerRoutes, ...basicPartnerRoutes, ...eventRoutes, ...articleRoutes, ...partnerNewsRoutes, ...aktuelltRoutes, ...isvRoutes];
 }

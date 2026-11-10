@@ -396,7 +396,7 @@ const eventsLastmod = eventEntries.reduce(
   TODAY,
 );
 const groups = [
-  { file: "sitemap-pages.xml", entries: pagesEntries, lastmod: pagesLastmod },
+  { file: "sitemap-pages.xml", entries: [...pagesEntries, ...JSON.parse(readText('src/data/isvPublicSnapshot.json')).products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}/`, changefreq: 'monthly', priority: '0.6', lastmod: s.updated_at?.slice(0, 10) || TODAY }))], lastmod: pagesLastmod },
   { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
   { file: "sitemap-articles.xml", entries: [...articleEntries, ...editorArticleEntries, ...aktuelltEntries], lastmod: articlesLastmod },
   { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },

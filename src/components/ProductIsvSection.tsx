@@ -96,7 +96,7 @@ const ProductIsvSection = ({
   const productUrl = `${catalogBase}?produkt=${encodeURIComponent(product)}`;
   const areaUrl = (a: Area) =>
     `${productUrl}${a.categories.map((c) => `&kategori=${encodeURIComponent(c)}`).join("")}`;
-  const solutionUrl = (s: IsvSolution) => `${productUrl}&losning=${encodeURIComponent(s.id)}`;
+  const solutionUrl = (s: IsvSolution) => `/isv/produkt/${encodeURIComponent(s.id)}/`;
 
   return (
     <section className={`py-14 md:py-16 bg-muted/30 border-y border-border ${className}`}>

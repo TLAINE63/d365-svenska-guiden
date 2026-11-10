@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { getCorsHeaders, verifyAdminJWT, json, cleanText, cleanList } from "../_shared/isvAuth.ts";
+import { presentationFields } from '../_shared/isvPresentation.ts';
 
 const PUBLIC_BASE_URL = "https://www.d365.se";
 
@@ -143,6 +144,7 @@ serve(async (req) => {
         const { error } = await supabase.from("isv_solutions").insert({
           solution_id: sub.solution_id,
           name: cleanText(p.name, 200) || sub.solution_id,
+          ...presentationFields(p, false),
           vendor: v?.name || sub.vendor_slug,
           vendor_slug: sub.vendor_slug,
           category: cleanText(p.category, 100) || "Integration / iPaaS",
@@ -192,9 +194,19 @@ serve(async (req) => {
         const { data: cur } = await supabase.from("isv_solutions").select("product_source").eq("solution_id", sub.solution_id).maybeSingle();
         if (cur) {
           const upd: Record<string, unknown> = { product_source: mergedSource(cur.product_source), updated_at: now, vendor_updated_at: vendorUpdatedAt, confirmation_status: "confirmed" };
+          const proposed = presentationFields(p, false);
+          // Do not downgrade previously reviewed relations when supplier submits weaker evidence.
+          const { data: existing } = await supabase.from('isv_solutions').select('integration_evidence,partner_evidence').eq('solution_id', sub.solution_id).single();
+          for (const key of ['integration_evidence', 'partner_evidence']) {
+            if (!(key in proposed)) continue;
+            const retained = Array.isArray(existing?.[key]) ? existing[key].filter((e: Record<string, unknown>) => e.reviewed === true) : [];
+            proposed[key] = [...retained, ...(proposed[key] as Record<string, unknown>[]).filter(e => !retained.some((r: Record<string, unknown>) => r.sourceUrl === e.sourceUrl && (r.application || r.partnerSlug) === (e.application || e.partnerSlug)))];
+          }
+          Object.assign(upd, proposed);
           if (typeof p.delivery_model === "string") upd.delivery_model = p.delivery_model;
           if (Array.isArray(p.geo) && p.geo.length) upd.geo = p.geo;
-          await supabase.from("isv_solutions").update(upd).eq("solution_id", sub.solution_id);
+          const { error: contentError } = await supabase.from("isv_solutions").update(upd).eq("solution_id", sub.solution_id);
+          if (contentError) return json({ error: 'Kunde inte spara produktmaterialet' }, 400, corsHeaders);
         }
       }
 

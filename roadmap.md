@@ -2,8 +2,9 @@
 
 ## ISV Presence 2.0 (2026-11-10)
 - [x] Kartlägg katalog, verifiering, kontaktregler, produktfakta, köpresor och XMReality utan ändrade produktuppgifter.
-- [ ] Gemensamma indexerbara produktsidor, Standard/Presence, innehållsstyrda sektioner, redigering och XMReality-pilot (väntar på godkännande av planen).
-- [ ] Verifiera behörigheter, tre separata statusar, neutral relevans, förgenerering och dator/mobil efter genomförandet.
+- [x] Gemensamma indexerbara produktsidor, Standard/Presence, innehållsstyrda sektioner, redaktionell redigering och leverantörsinsändningar; XMReality-pilot med befintligt material.
+- [x] Behörighets- och presentationsregler testade, neutral relevans bevarad, faktisk SSR-text/delningstaggar och sajtkarta kontrollerade. Dator/mobil, rådgivning, gamla direktlänkar och inloggat sparande verifierade. Rapport: docs/ISV-PRESENCE-2.0.md.
+- [ ] XMRealitys bilder, video, kundcase och dokumenterade produktpartnerrelationer (väntar på verkligt leverantörsmaterial).
 
 ## Premiumkvalitet för utgående dokument (2026-11-09)
 - [x] Gemensam PDF-export, säkra varumärkesradbrytningar och slutlig sidnumrering i samtliga generatorer.

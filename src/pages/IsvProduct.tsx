@@ -1,0 +1,81 @@
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Check, ExternalLink, MessageCircle, Play, ShieldCheck } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import { Button } from '@/components/ui/button';
+import InformationStatusBadge from '@/components/partner/InformationStatusBadge';
+import ProtectedContact from '@/components/partner/ProtectedContact';
+import { useIsvSolutions, useIsvVendors, useVerifiedIsvContacts, useIsvProductFacts } from '@/hooks/useIsvSolutions';
+import { presentationFor, isvProductPath, productPartnerPath, httpsUrl } from '@/lib/isvPresentation';
+import { isvHelpLines, isvInformationStatusOf, trackIsv } from '@/lib/isvInformationStatus';
+import { extractYouTubeId } from '@/lib/youtube';
+import { nowrapBrand } from '@/lib/nowrapBrand';
+import partnerData from '@/data/partnerData.json';
+import { matchVerifiedPartner } from '@/lib/isvVisibility';
+const PlanContactDialog = lazy(() => import('@/components/plan/PlanContactDialog'));
+const countries: Record<string, string> = { SE: 'Sverige', NO: 'Norge', DK: 'Danmark', FI: 'Finland', IS: 'Island' };
+
+export default function IsvProduct() {
+  const { id } = useParams();
+  const solutions = useIsvSolutions();
+  const s = solutions.find(p => p.id === id);
+  const vendors = useIsvVendors();
+  const contacts = useVerifiedIsvContacts();
+  const allFacts = useIsvProductFacts();
+  const [help, setHelp] = useState(false);
+  const seen = useRef<string>();
+  useEffect(() => {
+    if (!s || seen.current === s.id) return;
+    seen.current = s.id;
+    trackIsv('isv_product_viewed', { product_id: s.id, vendor_slug: s.vendorSlug, information_status: isvInformationStatusOf(s.informationStatus), presentation: s.hasPresence ? 'presence' : 'standard' });
+    window.scrollTo({ top: 0 });
+  }, [s?.id]);
+  if (!s) return <><Navbar /><main className="max-w-6xl mx-auto px-5 pt-36 pb-16"><SEOHead title="Produkten finns inte | d365.se" description="Hitta tilläggslösningar i produktkatalogen." noIndex /><h1 className="text-3xl font-semibold mb-6">Produkten finns inte i katalogen</h1><Button asChild><Link to="/kunskapscenter/dynamics-365-tillagg/">Till produktkatalogen</Link></Button></main><Footer /></>;
+  const p = presentationFor(s);
+  const vendor = s.vendorSlug ? vendors[s.vendorSlug] : undefined;
+  const partner = matchVerifiedPartner(s.vendor, s.vendorSlug, partnerData);
+  const logo = p.showLogo ? httpsUrl(s.logoUrl || vendor?.logo_url || partner?.logo_url) : undefined;
+  const website = p.showWebsite ? httpsUrl(s.vendorWebsite || vendor?.website || partner?.website) : undefined;
+  const contact = p.showContact ? contacts.product[s.id] : undefined;
+  const facts = allFacts[s.id];
+  const products = s.products?.length ? s.products : ['Business Central'];
+  const industries = s.industryFocus?.length ? s.industryFocus : s.industries;
+  const documented = p.partners.flatMap(e => { const partner = partnerData.find(a => a.slug === e.partnerSlug && a.is_featured); return partner ? [{ ...e, partner }] : []; });
+  const fit = !!(s.bestFor || s.whenFits || s.considerations || industries.length || facts?.technical_model || facts?.target_size || facts?.price_info || facts?.countries.length);
+  const media = !!(p.gallery.length || p.video || p.features.length || p.integrations.length);
+  const nav = [ ['oversikt', 'Översikt'], ...(s.what || s.useCases.length ? [['behov', 'Vad löser produkten?']] : []), ...(media ? [['funktion', 'Så fungerar lösningen']] : []), ...(fit ? [['passform', 'Passar den oss?']] : []), ...(p.cases.length ? [['kundcase', 'Kundcase']] : []), ['leverantor', 'Leverantör & partners'], ['nasta-steg', 'Nästa steg'] ];
+  const youtube = p.video ? extractYouTubeId(p.video) : null;
+  const outbound = (kind: string) => trackIsv('isv_product_selfservice_clicked', { product_id: s.id, vendor_slug: s.vendorSlug, action: kind });
+  const bodySection = 'max-w-6xl mx-auto px-5 sm:px-8 py-12 sm:py-16 scroll-mt-32';
+  return <>
+    <Navbar />
+    <main className="isv-product-premium bg-background text-foreground pt-24">
+      <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" /></Helmet>
+      <SEOHead title={`${s.name} | Funktioner och användning`} description={s.shortDescription || s.what || `${s.name} från ${s.vendor}. Produktinformation och nästa steg.`} canonicalPath={isvProductPath(s.id)} dateModified="2026-11-10" breadcrumbs={[{ name: 'Tilläggslösningar', url: '/kunskapscenter/dynamics-365-tillagg/' }, { name: s.name, url: isvProductPath(s.id) }]} />
+      <header id="oversikt" className="isv-product-opening bg-background text-foreground border-b-4 border-primary">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+          <Button asChild variant="ghost" className="px-0 text-muted-foreground mb-8"><Link to="/kunskapscenter/dynamics-365-tillagg/"><ArrowLeft className="w-4 h-4" />Alla tilläggslösningar</Link></Button>
+          <div className="flex flex-wrap items-start gap-6">
+            {logo && <div className="bg-card border border-border rounded-lg w-32 h-24 p-4 flex items-center justify-center shrink-0"><img src={logo} alt={`${s.name} logotyp`} className="max-w-full max-h-full object-contain" /></div>}
+            <div className="min-w-0 flex-1"><p className="text-muted-foreground text-sm mb-3">{s.vendor} · {s.category}</p><h1 className="text-4xl sm:text-5xl font-semibold leading-tight break-words">{s.name}</h1><p className="max-w-3xl text-lg sm:text-xl leading-relaxed mt-6">{nowrapBrand(s.shortDescription)}</p></div>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 mt-7"><InformationStatusBadge kind="isv" showDate explain partner={{ information_status: s.informationStatus, information_verified_at: s.lastVerifiedDate }} />{s.hasPresence && <span className="border border-border text-muted-foreground px-3 py-1 rounded text-xs">Utökad leverantörspresentation</span>}</div>
+          <p className="text-xs text-muted-foreground mt-3">Produktinformation och presentationsabonnemang är separata. Verifieringen styr inte vilka behov produkten passar för.</p>
+          <div className="flex flex-wrap gap-3 mt-7">{products.map(app => <span key={app} className="border border-border px-3 py-2 rounded text-sm">{nowrapBrand(app)}</span>)}</div>
+          <div className="flex flex-wrap gap-3 mt-8">{website && <Button asChild><a href={website} target="_blank" rel="noopener noreferrer" onClick={() => outbound('website')}>Besök produktens webbplats<ExternalLink className="w-4 h-4" /></a></Button>}<Button variant="secondary" onClick={() => setHelp(true)}><MessageCircle className="w-4 h-4" />Få hjälp att bedöma lösningen</Button></div>
+        </div>
+      </header>
+      <nav aria-label="Produktens avsnitt" className="border-b border-border bg-card"><div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex gap-x-6 gap-y-2 flex-wrap">{nav.map(([anchor, label]) => <a key={anchor} href={`#${anchor}`} className="text-sm py-2 font-medium hover:text-primary underline-offset-4 hover:underline">{label}</a>)}</div></nav>
+      {(s.what || s.useCases.length > 0) && <section id="behov" className={bodySection}><p className="text-sm text-accent font-semibold mb-3">Behov och användning</p><h2 className="text-3xl font-semibold mb-6">Vad löser {s.name}?</h2>{s.what && <p className="text-lg leading-relaxed max-w-3xl whitespace-pre-line">{nowrapBrand(s.what)}</p>}{s.useCases.length > 0 && <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-4 mt-8">{s.useCases.map(u => <li key={u} className="flex gap-3 border-t border-border pt-4"><Check className="w-5 h-5 text-accent shrink-0 mt-1" /><span>{nowrapBrand(u)}</span></li>)}</ul>}</section>}
+      {media && <div className="bg-muted/40 border-y border-border"><section id="funktion" className={bodySection}><h2 className="text-3xl font-semibold mb-8">Så fungerar lösningen</h2>{p.gallery.length > 0 && <div className="grid sm:grid-cols-2 gap-6 mb-10">{p.gallery.map(i => <figure key={i.url}><a href={i.url} target="_blank" rel="noopener noreferrer"><img src={i.url} alt={i.caption || `${s.name}, produktbild`} loading="lazy" className="w-full aspect-video object-contain bg-card rounded-lg border border-border" /></a>{i.caption && <figcaption className="text-sm text-muted-foreground mt-3">{i.caption}</figcaption>}</figure>)}</div>}{p.video && <div className="max-w-4xl mb-10">{youtube ? <iframe title={`Demo av ${s.name}`} src={`https://www.youtube-nocookie.com/embed/${youtube}`} className="w-full aspect-video rounded-lg border border-border" loading="lazy" allowFullScreen /> : <Button asChild variant="outline"><a href={p.video} target="_blank" rel="noopener noreferrer" onClick={() => outbound('demo')}><Play className="w-4 h-4" />Se produktdemonstrationen</a></Button>}</div>}{p.features.map(f => <div key={f.title} className="border-t border-border py-6"><h3 className="text-xl font-semibold mb-3">{f.title}</h3><p className="leading-relaxed max-w-3xl">{nowrapBrand(f.text)}</p></div>)}{p.integrations.length > 0 && <div className="mt-8"><h3 className="text-xl font-semibold mb-4">Dokumenterade integrationer</h3>{p.integrations.map(e => <div key={e.application} className="border-t border-border py-5"><p className="font-semibold">{nowrapBrand(e.application)}</p><p className="mt-2">{nowrapBrand(e.statement)}</p><a className="text-sm text-accent inline-flex gap-2 items-center mt-3 underline" href={e.sourceUrl} target="_blank" rel="noopener noreferrer"><ShieldCheck className="w-4 h-4" />Integrationsuppgift styrkt, se dokumentation</a></div>)}</div>}</section></div>}
+      {fit && <section id="passform" className={bodySection}><h2 className="text-3xl font-semibold mb-8">Är lösningen rätt för oss?</h2><div className="grid md:grid-cols-2 gap-10"><div>{(s.bestFor || s.whenFits) && <><h3 className="text-xl font-semibold mb-3">När den kan passa</h3><p className="leading-relaxed">{nowrapBrand(s.bestFor || s.whenFits)}</p></>}{industries.length > 0 && <div className="mt-7"><h3 className="font-semibold mb-2">Angivna branscher</h3><p className="text-muted-foreground">{industries.join(', ')}</p></div>}</div><div>{s.considerations && <><h3 className="text-xl font-semibold mb-3">Att ta hänsyn till</h3><p className="leading-relaxed">{nowrapBrand(s.considerations)}</p></>}<dl className="space-y-4 mt-6">{facts?.technical_model && <div><dt className="font-semibold">Teknisk modell</dt><dd className="text-muted-foreground mt-1">{nowrapBrand(({ Embedded: 'Inbyggd i Dynamics 365', Connected: 'Ansluten, fristående tjänst', Hybrid: 'Hybrid, inbyggd del och extern tjänst' })[facts.technical_model])}</dd></div>}{facts?.target_size && <div><dt className="font-semibold">Målgrupp</dt><dd className="text-muted-foreground mt-1">{facts.target_size}</dd></div>}{facts?.price_info && <div><dt className="font-semibold">Prisuppgift</dt><dd className="text-muted-foreground mt-1">{facts.price_info}</dd></div>}{!!facts?.countries.length && <div><dt className="font-semibold">Marknader</dt><dd className="text-muted-foreground mt-1">{facts.countries.map(c => `${countries[c.code] || c.code} (${c.availability})`).join(', ')}</dd></div>}</dl></div></div></section>}
+      {p.cases.length > 0 && <div className="bg-muted/40 border-y border-border"><section id="kundcase" className={bodySection}><h2 className="text-3xl font-semibold mb-8">Kundcase</h2><div className="grid md:grid-cols-3 gap-6">{p.cases.map(c => <article key={c.title} className="bg-card border border-border rounded-lg p-6"><h3 className="text-xl font-semibold mb-3">{c.title}</h3>{c.text && <p className="text-muted-foreground leading-relaxed">{nowrapBrand(c.text)}</p>}{httpsUrl(c.url) && <a href={c.url} target="_blank" rel="noopener noreferrer" className="text-primary inline-flex gap-2 mt-5 items-center">Läs kundcaset<ArrowRight className="w-4 h-4" /></a>}</article>)}</div></section></div>}
+      <section id="leverantor" className={`${bodySection} border-t border-border`}><h2 className="text-3xl font-semibold mb-8">Leverantör och partners</h2><div className="max-w-3xl"><h3 className="text-xl font-semibold mb-3">{vendor?.name || s.vendor}</h3>{vendor?.description && <p className="leading-relaxed text-muted-foreground">{nowrapBrand(vendor.description)}</p>}{vendor && <div className="mt-4"><InformationStatusBadge kind="isv" partner={{ information_status: vendor.information_status, information_verified_at: vendor.last_verified_date }} /></div>}<p className="text-sm text-muted-foreground mt-4">Leverantörens status gäller företaget, produktens status gäller produktuppgifterna.</p></div>{documented.length > 0 && <div className="mt-10"><h3 className="text-xl font-semibold mb-5">Partners med dokumenterad erfarenhet av lösningen</h3>{documented.map(e => <div key={e.partnerSlug} className="border-t border-border py-5"><Link to={`/partner/${e.partnerSlug}/`} className="font-semibold text-primary">{e.partner.name}</Link><p className="mt-2">{nowrapBrand(e.statement)}</p><a href={e.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground underline mt-2 inline-block">Se dokumentation</a></div>)}</div>}<div className="mt-10 border-t border-border pt-7"><h3 className="text-xl font-semibold mb-3">Hitta en <span className="whitespace-nowrap">Dynamics 365</span>-partner inom produktområdet</h3><p className="text-muted-foreground max-w-3xl mb-5">Urvalet utgår från applikationsområdet, inte dokumenterad erfarenhet av {s.name}.</p><Button asChild variant="outline"><Link to={productPartnerPath(products)}>Hitta relevanta partners<ArrowRight className="w-4 h-4" /></Link></Button></div></section>
+      <div className="bg-muted/40 border-t border-border"><section id="nasta-steg" className={bodySection} data-next-step-block><h2 className="text-3xl font-semibold mb-7">Nästa steg</h2>{contact && <div className="mb-7"><h3 className="font-semibold text-xl mb-3">Kontakt för {s.name}</h3>{contact.contact_name && <p className="mb-3">{contact.contact_name}</p>}<div className="flex flex-wrap gap-5">{contact.contact_email && <ProtectedContact kind="email" value={contact.contact_email} />}{contact.contact_phone && <ProtectedContact kind="phone" value={contact.contact_phone} />}</div></div>}<div className="flex flex-wrap gap-3">{website && <Button asChild><a href={website} target="_blank" rel="noopener noreferrer" onClick={() => outbound('website')}>Kontakta leverantören<ExternalLink className="w-4 h-4" /></a></Button>}<Button variant={website ? 'outline' : 'default'} onClick={() => setHelp(true)}><MessageCircle className="w-4 h-4" />Få hjälp att bedöma om lösningen passar</Button></div><p className="text-sm text-muted-foreground mt-5 max-w-3xl">Ber ni om hjälp går underlaget bara till d365.se. Inget skickas till leverantören eller en partner utan ert godkännande.</p><Link to="/kunskapscenter/dynamics-365-tillagg/" className="inline-flex gap-2 items-center mt-6 text-primary text-sm">Jämför fler tilläggslösningar<ArrowRight className="w-4 h-4" /></Link></section></div>
+      {help && <Suspense fallback={null}><PlanContactDialog mode="advisory" onClose={() => setHelp(false)} topic={{ title: 'Få hjälp att bedöma om lösningen passar', description: 'd365.se går igenom ert behov och lösningen manuellt. Inget skickas till leverantören eller någon partner.', helpWith: `Bedöma tilläggslösning: ${s.name}`, startEvent: 'isv_product_help_started', submitEvent: 'isv_product_help_requested', hideFocus: true, extras: [{ key: 'isv_produkt', label: 'Lösningen ni tittar på', lines: isvHelpLines(s) }], metadata: { initial_intent: 'IsvRequirement', product_id: s.id, vendor_slug: s.vendorSlug, recipient: 'd365.se' }, advisory: { placement: 'isv_product_help', cta: 'Få hjälp att bedöma om lösningen passar', pageType: 'isv_product' } }} /></Suspense>}
+    </main><Footer />
+  </>;
+}
