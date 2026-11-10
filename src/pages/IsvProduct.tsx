@@ -45,7 +45,7 @@ export default function IsvProduct() {
   const products = s.products?.length ? s.products : ['Business Central'];
   const industries = s.industryFocus?.length ? s.industryFocus : s.industries;
   const documented = p.partners.flatMap(e => { const partner = partnerData.find(a => a.slug === e.partnerSlug && a.is_featured); return partner ? [{ ...e, partner }] : []; });
-  const fit = !!(s.bestFor || s.whenFits || s.considerations || industries.length || facts?.target_size || facts?.price_info || facts?.countries.length);
+  const fit = !!(s.bestFor || s.whenFits || s.considerations || industries.length || facts?.technical_model || facts?.target_size || facts?.price_info || facts?.countries.length);
   const media = !!(p.gallery.length || p.video || p.features.length || p.integrations.length);
   const nav = [ ['oversikt', 'Översikt'], ...(s.what || s.useCases.length ? [['behov', 'Vad löser produkten?']] : []), ...(media ? [['funktion', 'Så fungerar lösningen']] : []), ...(fit ? [['passform', 'Passar den oss?']] : []), ...(p.cases.length ? [['kundcase', 'Kundcase']] : []), ['leverantor', 'Leverantör & partners'], ['nasta-steg', 'Nästa steg'] ];
   const youtube = p.video ? extractYouTubeId(p.video) : null;
