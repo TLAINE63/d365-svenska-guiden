@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Partnersegment till Demand Engine (2026-11-10)
+- [x] Inventera målgruppsfält, produktgrupper, tomma val och exakta värden; Thomas godkände inventeringen.
+- [ ] Bygg skrivskyddad CSV/JSON-export och säker Admin-nedladdning.
+- [ ] Konfigurera delad exportnyckel och verifiera exportkontrakt samt verklig nedladdning.
+
 ## Affärssystem: köpguide för medelstora företag (2026-11-10)
 - [x] Uppdaterade befintliga /affarssystem/ med ny SEO-text, köpguide, checklistor, produktvägledning och internlänkar på samma adress; befintliga jämförelser och verktyg bevarade.
 
