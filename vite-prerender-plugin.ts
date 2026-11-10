@@ -338,7 +338,7 @@ export default function prerenderPlugin(): Plugin {
 
             let bucket = 'pages';
             if (route.path.startsWith('/partner/')) bucket = 'partners';
-            else if (route.path.startsWith('/events/')) bucket = 'events';
+            else if (route.path.startsWith('/events/') || route.path.startsWith('/webinar/')) bucket = 'events';
             else if (route.path.startsWith('/kunskapscenter/') || route.path.startsWith('/artikel/') || route.path.startsWith('/guide/')) bucket = 'articles';
             sitemapBuckets[bucket].push(entry);
           } catch (err: any) {
