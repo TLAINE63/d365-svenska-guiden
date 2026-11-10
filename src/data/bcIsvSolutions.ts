@@ -186,6 +186,10 @@ export interface IsvSolution {
   hasPresence?: boolean;          // aktiv ISV Presence (premium_product)
   demoVideoUrl?: string;          // demo/video (https)
   customerCases?: { title: string; text?: string; url?: string }[];
+  productGallery?: import('@/lib/isvPresentation').ProductImage[];
+  productFeatures?: import('@/lib/isvPresentation').ProductFeature[];
+  integrationEvidence?: import('@/lib/isvPresentation').IntegrationEvidence[];
+  partnerEvidence?: import('@/lib/isvPresentation').PartnerEvidence[];
   lastVerifiedDate?: string;      // ÅÅÅÅ-MM-DD, bara när produkten är verifierad
 }
 
