@@ -1568,6 +1568,7 @@ export type Database = {
           industries: string[]
           industry_focus: string[]
           information_status: string
+          integration_evidence: Json
           is_published: boolean
           last_verified_date: string | null
           lifecycle_note: string | null
@@ -1575,8 +1576,11 @@ export type Database = {
           logo_url: string | null
           name: string
           nordic_relevance: string | null
+          partner_evidence: Json
           partner_slugs: string[]
           premium_product: boolean
+          product_features: Json
+          product_gallery: Json
           product_source: string
           products: string[]
           publication_wave: string | null
@@ -1627,6 +1631,7 @@ export type Database = {
           industries?: string[]
           industry_focus?: string[]
           information_status?: string
+          integration_evidence?: Json
           is_published?: boolean
           last_verified_date?: string | null
           lifecycle_note?: string | null
@@ -1634,8 +1639,11 @@ export type Database = {
           logo_url?: string | null
           name: string
           nordic_relevance?: string | null
+          partner_evidence?: Json
           partner_slugs?: string[]
           premium_product?: boolean
+          product_features?: Json
+          product_gallery?: Json
           product_source?: string
           products?: string[]
           publication_wave?: string | null
@@ -1686,6 +1694,7 @@ export type Database = {
           industries?: string[]
           industry_focus?: string[]
           information_status?: string
+          integration_evidence?: Json
           is_published?: boolean
           last_verified_date?: string | null
           lifecycle_note?: string | null
@@ -1693,8 +1702,11 @@ export type Database = {
           logo_url?: string | null
           name?: string
           nordic_relevance?: string | null
+          partner_evidence?: Json
           partner_slugs?: string[]
           premium_product?: boolean
+          product_features?: Json
+          product_gallery?: Json
           product_source?: string
           products?: string[]
           publication_wave?: string | null
