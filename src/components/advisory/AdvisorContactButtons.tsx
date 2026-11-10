@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from "react";
-import { CalendarDays, Mail } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
 import { trackConsultationLead } from "@/lib/siteIntelligence";
 import type { ContactTopic } from "@/components/plan/PlanContactDialog";
@@ -38,12 +38,12 @@ interface Props {
 /** Vägar till rådgivning med Thomas: förfrågan via formulär (blir ett ärende), mejl eller direkt i kalendern. */
 export default function AdvisorContactButtons({ compact = false, dark = false, className = "", bookingLabel }: Props) {
   const [open, setOpen] = useState(false);
-  const secondary = dark
+  const _unused = dark
     ? "border-primary-foreground/70 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
     : "border-border text-foreground hover:bg-primary/10 hover:text-primary";
   return (
     <div className={className}>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -53,23 +53,15 @@ export default function AdvisorContactButtons({ compact = false, dark = false, c
           {bookingLabel ?? (compact ? ADVISOR_BOOKING_CTA_SHORT : ADVISOR_BOOKING_CTA)}
         </button>
         <a
-          href={ADVISOR_EMAIL_WITH_SUBJECT}
-          onClick={() => trackConsultationLead("email_cta_thomas")}
-          className={`inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md border px-3 py-2 font-semibold ${secondary} ${compact ? "text-xs" : "text-sm"}`}
+          href={ADVISOR_BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackConsultationLead("bookings_20min_thomas")}
+          className={`inline-flex min-h-10 items-center px-1 font-medium underline underline-offset-4 ${compact ? "text-xs" : "text-sm"} ${dark ? "text-primary-foreground/85 hover:text-primary-foreground" : "text-muted-foreground hover:text-primary"}`}
         >
-          <Mail className="h-4 w-4 shrink-0" aria-hidden />
-          {compact ? "Mejla dina frågor till redaktionen" : "Mejla gärna dina frågor till redaktionen"}
+          eller välj en tid i kalendern
         </a>
       </div>
-      <a
-        href={ADVISOR_BOOKING_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackConsultationLead("bookings_20min_thomas")}
-        className={`mt-2 inline-block text-xs underline underline-offset-2 ${dark ? "text-primary-foreground/80" : "text-muted-foreground hover:text-primary"}`}
-      >
-        Eller välj en tid direkt i kalendern
-      </a>
       {open && (
         <Suspense fallback={null}>
           <PlanContactDialog mode="advisory" topic={MEETING_TOPIC} onClose={() => setOpen(false)} />
