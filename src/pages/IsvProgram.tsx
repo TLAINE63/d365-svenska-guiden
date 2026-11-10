@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/StructuredData";
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
+import ProgramNavigation from "@/components/ProgramNavigation";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
@@ -37,6 +38,15 @@ const faqs = [
   },
 ];
 
+const programSections = [
+  { id: "for-isver", label: "Översikt" },
+  { id: "priser-innehall", label: "Priser & innehåll" },
+  { id: "isv-profilkoll", label: "Profiler & jämförelser" },
+  { id: "verifiering", label: "Verifiering" },
+  { id: "formedling", label: "Förmedling" },
+  { id: "vanliga-fragor", label: "Vanliga frågor" },
+];
+
 const IsvProgram = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -55,10 +65,10 @@ const IsvProgram = () => {
           <div className="max-w-6xl mx-auto px-4">
             <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-2">För ISV-leverantörer</p>
             <h1 className="text-3xl md:text-4xl font-bold leading-tight max-w-4xl">
-              Visa er tilläggslösning för köpare av <span className="whitespace-nowrap">Dynamics 365</span>
+              ISV-program för leverantörer av tilläggslösningar
             </h1>
             <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
-              Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. Med ISV Presence visas er lösning med verifierade uppgifter.
+              Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. ISV Presence ger en utökad produktpresentation. Verifiering och abonnemang hålls isär.
             </p>
             <ContactFormDialog subject="ISV Presence" buyerForm={false}>
               <Button size="lg" variant="secondary" className="mt-5">
@@ -68,9 +78,23 @@ const IsvProgram = () => {
           </div>
         </section>
 
-        <IsvProfileCheck />
+        <ProgramNavigation audience="isv" sections={programSections} />
 
-        <section className="pt-8 pb-14">
+        <section id="for-isver" className="py-10 md:py-14 scroll-mt-28">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Visa vilka behov era produkter löser</h2>
+            <p className="max-w-3xl text-muted-foreground mb-6">d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 och hjälper ISV:er att komma i kontakt med företag och partners som har relevanta behov.</p>
+            <ul className="grid md:grid-cols-3 gap-5">
+              {[
+                { title: "Produkten i rätt sammanhang", text: "Beskriv funktioner, användningsområden, målgrupp och vilka produktområden lösningen kompletterar." },
+                { title: "En tydlig väg till er", text: "Logotyp, webblänk och kontakt kräver både ISV Presence och verifierad leverantör och produkt." },
+                { title: "Visa lösningen i praktiken", text: "Utökad produktpresentation med bilder, demofilmer, funktioner och kundcase när material finns. Möjlighet till visning på businesscentral.se för relevanta BC-appar." },
+              ].map((item) => <li key={item.title}><h3 className="text-base font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.text}</p></li>)}
+            </ul>
+          </div>
+        </section>
+
+        <section id="priser-innehall" className="pt-8 pb-14 scroll-mt-28">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Nivåer och priser</h2>
             <div className="grid gap-5 md:grid-cols-2 items-stretch">
@@ -106,7 +130,7 @@ const IsvProgram = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
               </div>
             </div>
-            <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
+            <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-28">
               <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
                 <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Verifiering och avtal hålls isär
               </h3>
@@ -122,7 +146,21 @@ const IsvProgram = () => {
           </div>
         </section>
 
-        <section className="py-14 bg-muted/30">
+        <IsvProfileCheck />
+
+        <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-28">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Kontakt med företag och relevanta partners</h2>
+            <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
+            <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
+            <div className="flex flex-wrap gap-3">
+              <ContactFormDialog subject="ISV Presence" buyerForm={false}><Button>Prata med oss om ISV Presence<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
+              <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
+            </div>
+          </div>
+        </section>
+
+        <section id="vanliga-fragor" className="py-14 bg-muted/30 scroll-mt-28">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="max-w-4xl">
