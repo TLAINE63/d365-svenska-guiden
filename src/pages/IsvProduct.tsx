@@ -53,20 +53,29 @@ export default function IsvProduct() {
   const bodySection = 'max-w-6xl mx-auto px-5 sm:px-8 py-12 sm:py-16 scroll-mt-32';
   return <>
     <Navbar />
-    <main className="isv-product-premium bg-background text-foreground pt-24">
+    <main className={`${p.showLogo ? 'isv-product-premium' : 'isv-product-standard'} bg-background text-foreground pt-24`}>
       <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" /></Helmet>
       <SEOHead title={`${s.name} | Funktioner och användning`} description={s.shortDescription || s.what || `${s.name} från ${s.vendor}. Produktinformation och nästa steg.`} canonicalPath={isvProductPath(s.id)} dateModified="2026-11-10" breadcrumbs={[{ name: 'Tilläggslösningar', url: '/kunskapscenter/dynamics-365-tillagg/' }, { name: s.name, url: isvProductPath(s.id) }]} />
-      <header id="oversikt" className="isv-product-opening bg-background text-foreground border-b-4 border-primary">
+      <header id="oversikt" className={`${p.showLogo ? 'isv-product-opening' : ''} bg-background text-foreground border-b border-border`}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
           <Button asChild variant="ghost" className="px-0 text-muted-foreground mb-8"><Link to="/kunskapscenter/dynamics-365-tillagg/"><ArrowLeft className="w-4 h-4" />Alla tilläggslösningar</Link></Button>
+          <div className={p.showLogo ? 'grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-center' : ''}>
+          <div className="min-w-0">
           <div className="flex flex-wrap items-start gap-6">
-            {logo && <div className="bg-card border border-border rounded-lg w-32 h-24 p-4 flex items-center justify-center shrink-0"><img src={logo} alt={`${s.name} logotyp`} className="max-w-full max-h-full object-contain" /></div>}
+            {logo && <div className="bg-card border border-border rounded w-40 h-28 p-4 flex items-center justify-center shrink-0"><img src={logo} alt={`${s.name} logotyp`} className="max-w-full max-h-full object-contain" /></div>}
             <div className="min-w-0 flex-1"><p className="text-muted-foreground text-sm mb-3">{s.vendor} · {s.category}</p><h1 className="text-4xl sm:text-5xl font-semibold leading-tight break-words">{s.name}</h1><p className="max-w-3xl text-lg sm:text-xl leading-relaxed mt-6">{nowrapBrand(s.shortDescription)}</p></div>
           </div>
           <div className="flex flex-wrap items-center gap-3 mt-7"><InformationStatusBadge kind="isv" showDate explain partner={{ information_status: s.informationStatus, information_verified_at: s.lastVerifiedDate }} />{s.hasPresence && <span className="border border-border text-muted-foreground px-3 py-1 rounded text-xs">Utökad leverantörspresentation</span>}</div>
           <p className="text-xs text-muted-foreground mt-3">Produktinformation och presentationsabonnemang är separata. Verifieringen styr inte vilka behov produkten passar för.</p>
           <div className="flex flex-wrap gap-3 mt-7">{products.map(app => <span key={app} className="border border-border px-3 py-2 rounded text-sm">{nowrapBrand(app)}</span>)}</div>
           <div className="flex flex-wrap gap-3 mt-8">{website && <Button asChild><a href={website} target="_blank" rel="noopener noreferrer" onClick={() => outbound('website')}>Besök produktens webbplats<ExternalLink className="w-4 h-4" /></a></Button>}<Button variant="secondary" onClick={() => setHelp(true)}><MessageCircle className="w-4 h-4" />Få hjälp att bedöma lösningen</Button></div>
+          </div>
+          {p.showLogo && <aside aria-label="Produktöversikt" className="min-w-0 border-t lg:border-t-0 lg:border-l border-border pt-8 lg:pt-0 lg:pl-10">
+            {p.gallery[0] ? <figure><a href="#funktion"><img src={p.gallery[0].url} alt={p.gallery[0].caption || `${s.name}, produktbild`} className="w-full aspect-video object-contain bg-card rounded" /></a>{p.gallery[0].caption && <figcaption className="text-sm text-muted-foreground mt-3">{nowrapBrand(p.gallery[0].caption)}</figcaption>}</figure> : <><p className="text-sm text-accent font-semibold mb-4">Produktöversikt</p><h2 className="text-2xl font-semibold leading-snug">{nowrapBrand(s.bestFor || s.whenFits || s.category)}</h2><dl className="mt-6 space-y-4"><div><dt className="text-sm text-muted-foreground">Leverantör</dt><dd className="font-semibold mt-1">{s.vendor}</dd></div>{s.useCases.slice(0, 2).map(u => <div key={u} className="flex gap-3 border-t border-border pt-4"><Check className="w-5 h-5 shrink-0 text-accent mt-1" /><dd>{nowrapBrand(u)}</dd></div>)}</dl></>}
+            {contact && <div className="border-t border-border mt-7 pt-6"><h3 className="font-semibold mb-3">Produktkontakt</h3>{contact.contact_name && <p className="mb-3">{contact.contact_name}</p>}<div className="flex flex-wrap gap-4">{contact.contact_email && <ProtectedContact kind="email" value={contact.contact_email} />}{contact.contact_phone && <ProtectedContact kind="phone" value={contact.contact_phone} />}</div></div>}
+            <div className="flex flex-wrap gap-4 mt-6">{p.gallery.length > 0 && <a href="#funktion" className="text-sm underline underline-offset-4">Se produktbilder<ArrowRight className="inline w-4 h-4 ml-1" /></a>}{p.video && <a href="#funktion" className="text-sm underline underline-offset-4"><Play className="inline w-4 h-4 mr-1" />Se demo</a>}{p.cases.length > 0 && <a href="#kundcase" className="text-sm underline underline-offset-4">Läs kundcase</a>}</div>
+          </aside>}
+          </div>
         </div>
       </header>
       <nav aria-label="Produktens avsnitt" className="border-b border-border bg-card"><div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex gap-x-6 gap-y-2 flex-wrap">{nav.map(([anchor, label]) => <a key={anchor} href={`#${anchor}`} className="text-sm py-2 font-medium hover:text-primary underline-offset-4 hover:underline">{label}</a>)}</div></nav>
