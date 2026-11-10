@@ -64,12 +64,12 @@ const IsvProgram = () => {
       <main>
         <section className="bg-primary text-primary-foreground pt-32 lg:pt-36 pb-8 lg:pb-10">
           <div className="max-w-6xl mx-auto px-4">
-            <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-2">För ISV-leverantörer</p>
+            <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-2">För ISV-leverantörer inom Dynamics&nbsp;365</p>
             <h1 className="text-3xl md:text-4xl font-bold leading-tight max-w-4xl">
-              ISV-program för leverantörer av tilläggslösningar
+              Gör din tilläggslösning synlig under kundens köpresa
             </h1>
             <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
-              Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. ISV Premium ger en utökad produktpresentation. Verifiering och abonnemang hålls isär.
+              d365.se hjälper företag att upptäcka och utvärdera tilläggslösningar för Microsoft&nbsp;Dynamics&nbsp;365. Genom vårt ISV-program kan du presentera din lösning för potentiella kunder och partners som söker information, jämför alternativ och undersöker hur de kan utveckla sin Dynamics&nbsp;365-miljö.
             </p>
             <ContactFormDialog subject="ISV Premium" buyerForm={false}>
               <Button size="lg" variant="secondary" className="mt-5">
