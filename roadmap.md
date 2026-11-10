@@ -2,8 +2,8 @@
 
 ## Partnersegment till Demand Engine (2026-11-10)
 - [x] Inventera målgruppsfält, produktgrupper, tomma val och exakta värden; Thomas godkände inventeringen.
-- [ ] Bygg skrivskyddad CSV/JSON-export och säker Admin-nedladdning.
-- [ ] Konfigurera delad exportnyckel och verifiera exportkontrakt samt verklig nedladdning.
+- [x] Bygg skrivskyddad CSV/JSON-export och säker Admin-nedladdning; inga profiler eller matchningsregler ändrade.
+- [x] Delad exportnyckel konfigurerad. 12 tester godkända, curl-kontroller 1–5 godkända med sparad branschordning; autentiserad Admin-nedladdning identisk med exportens 61 rader, rätt filnamn och ingen överbredd vid 859 px.
 
 ## Affärssystem: köpguide för medelstora företag (2026-11-10)
 - [x] Uppdaterade befintliga /affarssystem/ med ny SEO-text, köpguide, checklistor, produktvägledning och internlänkar på samma adress; befintliga jämförelser och verktyg bevarade.
