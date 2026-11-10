@@ -1,5 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Affärssystem: köpguide för medelstora företag (2026-11-10)
+- [ ] Uppdatera befintliga /affarssystem/ med den nya SEO-texten, köpguiden, checklistorna, produktvägledningen och internlänkarna utan att skapa någon ny adress.
+
 ## Branscher och vertikaler (2026-11-10)
 - [ ] Uppdatera uthyrningssidans SEO, H1, ingress, funktioner, Dynamics 365-avsnitt, partnerval, internlänkar och rådgivning på befintlig adress.
 - [ ] Komplettera nio befintliga branschsidor med naturliga sökordsrubriker och branschinnehåll, utan nya adresser.
