@@ -59,6 +59,10 @@ const fromSource = (src: Row | null | undefined, fallback: Partial<ProductFormSt
         contact_name: src.contact_name || src.vendor_contact_name || fallback.contact_name || "",
         contact_email: src.contact_email || src.vendor_contact_email || fallback.contact_email || "",
         notes: src.notes || "",
+        product_gallery: src.product_gallery || src.payload?.product_gallery || [],
+        product_features: src.product_features || src.payload?.product_features || [],
+        integration_evidence: src.integration_evidence || src.payload?.integration_evidence || [],
+        partner_evidence: src.partner_evidence || src.payload?.partner_evidence || [],
       }
     : {}),
 });

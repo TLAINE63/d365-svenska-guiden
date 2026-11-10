@@ -34,6 +34,10 @@ export interface ProductFormState {
   notes: string;
   confirm_information: boolean;
   request_publication: boolean;
+  product_gallery?: { url: string; caption: string }[];
+  product_features?: { title: string; text: string }[];
+  integration_evidence?: { application: string; statement: string; sourceUrl: string; reviewed: boolean }[];
+  partner_evidence?: { partnerSlug: string; statement: string; sourceUrl: string; reviewed: boolean }[];
 }
 
 export const emptyProductForm: ProductFormState = {
@@ -80,6 +84,13 @@ export default function IsvProductForm({ form, setForm, isNew = false, hideConta
 
   return (
     <div className="space-y-6">
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Produktmaterial och dokumentation</h2>
+        <div><Label htmlFor="vendor-gallery">Produktbilder, en per rad: https://bildadress | bildtext</Label><Textarea id="vendor-gallery" value={(form.product_gallery || []).map(i => `${i.url} | ${i.caption}`).join('\n')} onChange={e => setForm({ ...form, product_gallery: toLines(e.target.value).map(l => { const [url, ...caption] = l.split('|'); return { url: url.trim(), caption: caption.join('|').trim() }; }) })} /></div>
+        <div><Label htmlFor="vendor-features">Funktioner, en per rad: rubrik | beskrivning</Label><Textarea id="vendor-features" value={(form.product_features || []).map(i => `${i.title} | ${i.text}`).join('\n')} onChange={e => setForm({ ...form, product_features: toLines(e.target.value).map(l => { const [title, ...text] = l.split('|'); return { title: title.trim(), text: text.join('|').trim() }; }) })} /></div>
+        <div><Label htmlFor="vendor-integration">Integrationsdokumentation, en per rad: applikation | vad som styrks | https://källa</Label><Textarea id="vendor-integration" value={(form.integration_evidence || []).map(i => `${i.application} | ${i.statement} | ${i.sourceUrl}`).join('\n')} onChange={e => setForm({ ...form, integration_evidence: toLines(e.target.value).map(l => { const [application = '', statement = '', sourceUrl = ''] = l.split('|').map(v => v.trim()); return { application, statement, sourceUrl, reviewed: false }; }) })} /></div>
+        <div><Label htmlFor="vendor-partner-evidence">Partnerdokumentation, en per rad: partnerns adressnamn | relation | https://källa</Label><Textarea id="vendor-partner-evidence" value={(form.partner_evidence || []).map(i => `${i.partnerSlug} | ${i.statement} | ${i.sourceUrl}`).join('\n')} onChange={e => setForm({ ...form, partner_evidence: toLines(e.target.value).map(l => { const [partnerSlug = '', statement = '', sourceUrl = ''] = l.split('|').map(v => v.trim()); return { partnerSlug, statement, sourceUrl, reviewed: false }; }) })} /></div>
+      </section>
       {isNew && (
         <Card>
           <CardHeader>
