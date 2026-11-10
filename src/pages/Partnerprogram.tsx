@@ -506,11 +506,11 @@ const Partnerprogram = () => {
                 <tbody>
                   <tr className="border-t border-border">
                     <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Premium</th>
-                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">40&nbsp;kr</td>
+                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">50&nbsp;kr</td>
                   </tr>
                   <tr className="border-t border-border">
                     <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Grundprofil</th>
-                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">80&nbsp;kr</td>
+                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">90&nbsp;kr</td>
                   </tr>
                 </tbody>
               </table>

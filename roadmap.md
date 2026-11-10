@@ -28,6 +28,9 @@
 - [x] Korta upprepningar, ge båda målgrupperna egna avsnitt och samla priser tidigare med direktmeny.
 - [x] Behåll prisvillkor, befintliga profilverktyg och kontaktflöden; fem menylänkar, ISV-dialog och fördjupningar kontrollerade på dator/mobil utan överbredd eller runtimefel. 24 budgettester godkända.
 
+## Expertförmedling 50/90 kr (2026-11-10)
+- [x] Experttimmen höjd från 40 till 50 kr för Premiumpartner och från 80 till 90 kr för grundprofil i partnerprogram, avtalsvillkor, avtals-PDF, Budget 2027 och beräkningstester.
+
 ## Ersättning och expertkonsulter (2026-11-09)
 - [x] Basic-mötesavgiften ändrad till 3 500 kr i partnerprogram, admin och budget; rubrikerna förtydligade och expertkonsultförmedling tillagd. 24 beräkningstester godkända och partnerprogrammet kontrollerat på desktop/mobil.
 

@@ -18,8 +18,8 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 
 // ISV Solution Presence (per year) and finders fee for accepted partner introductions.
 export const ISV_FEES = { base: 5990, extraApp: 995, introStd: 3500, introFscm: 7500, successRate: 0.025 };
-/** Expert brokerage fee per billed hour (Thomas 2026-11-09): 40 kr from Premium partners, 80 kr from Basic partners. */
-export const EXPERT_FEES = { premiumPerHour: 40, basicPerHour: 80 };
+/** Expert brokerage fee per billed hour (Thomas 2026-11-10): 50 kr from Premium partners, 90 kr from Basic partners. */
+export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 90 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number }
 export function isvRevenue(r: IsvForecast) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
@@ -111,8 +111,8 @@ export const CATEGORIES: Category[] = [
   { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 5 000 kr av totalt 10 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
   { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner", income: "finders" },
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
-  { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Debiterade experttimmar hos Premiumpartners, 40 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.premiumPerHour, per: "debiterad timme", group: "partner", income: "finders" },
-  { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 80 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
+  { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Debiterade experttimmar hos Premiumpartners, 50 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.premiumPerHour, per: "debiterad timme", group: "partner", income: "finders" },
+  { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 90 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
   { key: "isvPresence", label: "ISV Premium (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
