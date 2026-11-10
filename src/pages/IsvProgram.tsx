@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, Check } from "lucide-react";
+import { ArrowRight, BadgeCheck, Calendar, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -10,6 +10,7 @@ import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/Structu
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
 import ProgramNavigation from "@/components/ProgramNavigation";
 import { ISV_FEES } from "@/lib/budget2027";
+import { PARTNER_BOOKING_URL } from "@/data/organization";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
@@ -71,11 +72,19 @@ const IsvProgram = () => {
             <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
               d365.se hjälper företag att upptäcka och utvärdera tilläggslösningar för Microsoft&nbsp;Dynamics&nbsp;365. Genom vårt ISV-program kan du presentera din lösning för potentiella kunder och partners som söker information, jämför alternativ och undersöker hur de kan utveckla sin Dynamics&nbsp;365-miljö.
             </p>
-            <ContactFormDialog subject="ISV Premium" buyerForm={false}>
-              <Button size="lg" variant="secondary" className="mt-5">
-                Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
+            <div className="mt-5 flex flex-wrap gap-3">
+              <ContactFormDialog subject="ISV Premium" buyerForm={false}>
+                <Button size="lg" variant="secondary">
+                  Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </ContactFormDialog>
+              <Button asChild size="lg" variant="secondary">
+                <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Boka möte med Thomas
+                </a>
               </Button>
-            </ContactFormDialog>
+            </div>
           </div>
         </section>
 
