@@ -326,7 +326,7 @@ export default function IsvProfile() {
                     <div className="min-w-0">
                       <p className="font-medium text-foreground">{p.name}</p>
                       <div className="flex flex-wrap items-center gap-2 mt-1">
-                        <InformationStatusBadge kind="isv" partner={{ information_status: p.information_status }} />
+                        <InformationStatusBadge kind="isv" isvProduct partner={{ information_status: p.information_status }} />
                         {!p.is_published && <Badge variant="outline">Ej publicerad</Badge>}
                         {pendingFor(p.solution_id) && <Badge variant="outline">Ändring väntar på granskning</Badge>}
                       </div>

@@ -229,7 +229,7 @@ const SolutionCard = ({ s, onOpen, vendor }: { s: IsvSolution; onOpen: () => voi
       </div>
 
       <div className="px-7 py-5 flex flex-col flex-1 gap-4">
-        <InformationStatusBadge kind="isv" partner={{ information_status: s.informationStatus }} className="self-start" />
+        <InformationStatusBadge kind="isv" isvProduct partner={{ information_status: s.informationStatus }} className="self-start" />
         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.shortDescription}</p>
 
         {useCases.length > 0 && (
@@ -390,6 +390,7 @@ const SolutionDetail = ({
             <section aria-label="Informationsstatus för produkten" className="flex flex-wrap items-center gap-2">
               <InformationStatusBadge
                 kind="isv"
+                isvProduct
                 showDate
                 partner={{ information_status: s.informationStatus, information_verified_at: s.lastVerifiedDate }}
               />
