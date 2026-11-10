@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/StructuredData";
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
 import ProgramNavigation from "@/components/ProgramNavigation";
+import { ISV_FEES } from "@/lib/budget2027";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
@@ -150,9 +151,27 @@ const IsvProgram = () => {
 
         <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-28">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Kontakt med företag och relevanta partners</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Möten &amp; Affärsmöjligheter</h2>
             <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
             <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
+            <h3 className="text-lg font-semibold mb-3">Ersättning vid förmedling</h3>
+            <div className="max-w-4xl overflow-x-auto rounded-lg border border-border bg-card mb-5">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50"><tr>
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Affärstyp</th>
+                  <th scope="col" className="text-right font-semibold px-4 py-3">Kundavtal tecknat</th>
+                </tr></thead>
+                <tbody>
+                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV-lösningar för Business Central och CRM</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{ISV_FEES.introStd.toLocaleString("sv-SE")}&nbsp;kr</td></tr>
+                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV-lösningar för Finance &amp; Supply Chain Management</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{ISV_FEES.introFscm.toLocaleString("sv-SE")}&nbsp;kr</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="max-w-3xl space-y-3 text-sm text-muted-foreground mb-6">
+              <p>Den fasta ersättningen gäller en accepterad introduktion som leder till tecknat avtal. Alla belopp anges exklusive moms. ISV Presence och förmedlingsersättning är separata.</p>
+              <p>Success fee på {(ISV_FEES.successRate * 100).toLocaleString("sv-SE")}&nbsp;procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs innan introduktionen genomförs.</p>
+              <p>Ni får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.</p>
+            </div>
             <div className="flex flex-wrap gap-3">
               <ContactFormDialog subject="ISV Presence" buyerForm={false}><Button>Prata med oss om ISV Presence<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
               <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
