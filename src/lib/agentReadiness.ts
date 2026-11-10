@@ -54,9 +54,9 @@ export interface ReadinessResult {
 }
 
 export const READINESS_TITLES: Record<ReadinessMode, string> = {
-  pilot: "Redo att undersöka en avgränsad pilot",
-  promising: "Lovande, men vissa förutsättningar behöver lösas först",
-  foundation: "Börja med process, data eller ansvar innan agentutveckling",
+  pilot: "Ni har goda förutsättningar att gå vidare",
+  promising: "Lovande, men några frågor behöver lösas först",
+  foundation: "Börja med process och data",
 };
 
 export function evaluateReadiness(path: PathInput, a: ReadinessInput): ReadinessResult {
@@ -100,4 +100,4 @@ export function evaluateReadiness(path: PathInput, a: ReadinessInput): Readiness
   return { mode, insufficient, title: insufficient ? "Underlaget räcker inte ännu" : READINESS_TITLES[mode], summary, basis, nextSteps: nextSteps.slice(0, 3) };
 }
 
-export const READINESS_DISCLAIMER = "Bedömningen är en vägledning utifrån era svar, inte en säkerhetsgranskning, teknisk certifiering eller garanti för lönsamhet.";
+export const READINESS_DISCLAIMER = "Bedömningen bygger på era svar och är ett första beslutsstöd, inte en teknisk granskning eller garanti för att AI är rätt lösning.";
