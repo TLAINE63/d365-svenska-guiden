@@ -18,22 +18,22 @@ const breadcrumbs = [
 
 const faqs = [
   {
-    question: "Finns vår lösning i katalogen även utan ISV Presence?",
+    question: "Finns vår lösning i katalogen även utan ISV Premium?",
     answer:
       "Ja. Relevanta tilläggslösningar sammanställs i katalogen utan avgift. Utan verifiering visas ingen logotyp, ingen länk till er webbplats och inga kontaktuppgifter.",
   },
   {
-    question: "Vad kostar ISV Presence?",
+    question: "Vad kostar ISV Premium?",
     answer:
       "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Avgiften faktureras årsvis i förskott.",
   },
   {
-    question: "Påverkar ISV Presence ordningen i katalogen?",
+    question: "Påverkar ISV Premium ordningen i katalogen?",
     answer:
       "Nej. Betalning ger ingen rankingvikt eller köpt placering. Verifiering beskriver hur uppgifterna har kontrollerats, inte att lösningen är bättre.",
   },
   {
-    question: "Vi är redan verifierad partner på d365.se. Behöver vi ISV Presence?",
+    question: "Vi är redan verifierad partner på d365.se. Behöver vi ISV Premium?",
     answer:
       "Er leverantörsprofil räknas automatiskt som verifierad och era partneruppgifter kan visas på ISV-sidan. Varje produkt verifieras fortfarande för sig.",
   },
@@ -52,13 +52,13 @@ const IsvProgram = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inklusive en app, 995 kr/år per extra app."
+        title="För ISV-leverantörer | ISV Premium på d365.se"
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Premium 5 990 kr/år inklusive en app, 995 kr/år per extra app."
         webPageSchema={false}
         canonicalPath="/isvprogram"
       />
       <BreadcrumbSchema items={breadcrumbs} />
-      <WebPageSchema name="För ISV-leverantörer" description="ISV Presence för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
+      <WebPageSchema name="För ISV-leverantörer" description="ISV Premium för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
       <FAQSchema faqs={faqs} />
       <Navbar />
       <main>
@@ -69,9 +69,9 @@ const IsvProgram = () => {
               ISV-program för leverantörer av tilläggslösningar
             </h1>
             <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
-              Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. ISV Presence ger en utökad produktpresentation. Verifiering och abonnemang hålls isär.
+              Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain, Sales och Customer Service. ISV Premium ger en utökad produktpresentation. Verifiering och abonnemang hålls isär.
             </p>
-            <ContactFormDialog subject="ISV Presence" buyerForm={false}>
+            <ContactFormDialog subject="ISV Premium" buyerForm={false}>
               <Button size="lg" variant="secondary" className="mt-5">
                 Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -88,7 +88,7 @@ const IsvProgram = () => {
             <ul className="grid md:grid-cols-3 gap-5">
               {[
                 { title: "Produkten i rätt sammanhang", text: "Beskriv funktioner, användningsområden, målgrupp och vilka produktområden lösningen kompletterar." },
-                { title: "En tydlig väg till er", text: "Logotyp, webblänk och kontakt kräver både ISV Presence och verifierad leverantör och produkt." },
+                { title: "En tydlig väg till er", text: "Logotyp, webblänk och kontakt kräver både ISV Premium och verifierad leverantör och produkt." },
                 { title: "Visa lösningen i praktiken", text: "Utökad produktpresentation med bilder, demofilmer, funktioner och kundcase när material finns. Möjlighet till visning på businesscentral.se för relevanta BC-appar." },
               ].map((item) => <li key={item.title}><h3 className="text-base font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.text}</p></li>)}
             </ul>
@@ -107,8 +107,8 @@ const IsvProgram = () => {
                 </p>
               </div>
               <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg flex flex-col">
-                <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">ISV Presence</span>
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">ISV Presence</h3>
+                <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">ISV Premium</span>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">ISV Premium</h3>
                 <p className="text-base font-semibold text-foreground mb-3">Verifierad leverantör och app</p>
                 <ul className="text-sm text-muted-foreground space-y-1.5 mb-3">
                   {[
@@ -153,7 +153,7 @@ const IsvProgram = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Möten &amp; Affärsmöjligheter</h2>
             <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
-            <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
+            <p className="max-w-3xl text-muted-foreground mb-6">ISV Premium innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
             <h3 className="text-lg font-semibold mb-3">Ersättning vid förmedling</h3>
             <div className="max-w-4xl overflow-x-auto rounded-lg border border-border bg-card mb-5">
               <table className="w-full text-sm">
@@ -168,12 +168,12 @@ const IsvProgram = () => {
               </table>
             </div>
             <div className="max-w-3xl space-y-3 text-sm text-muted-foreground mb-6">
-              <p>Den fasta ersättningen gäller en accepterad introduktion som leder till tecknat avtal. Alla belopp anges exklusive moms. ISV Presence och förmedlingsersättning är separata.</p>
+              <p>Den fasta ersättningen gäller en accepterad introduktion som leder till tecknat avtal. Alla belopp anges exklusive moms. ISV Premium och förmedlingsersättning är separata.</p>
               <p>Success fee på {(ISV_FEES.successRate * 100).toLocaleString("sv-SE")}&nbsp;procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs innan introduktionen genomförs.</p>
               <p>Ni får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <ContactFormDialog subject="ISV Presence" buyerForm={false}><Button>Prata med oss om ISV Presence<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
+              <ContactFormDialog subject="ISV Premium" buyerForm={false}><Button>Prata med oss om ISV Premium<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
               <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
             </div>
           </div>
