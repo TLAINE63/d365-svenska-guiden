@@ -21,7 +21,10 @@ export default function ProgramNavigation({ audience, sections }: ProgramNavigat
         <nav aria-label={audience === "partners" ? "Partnerprogrammets avsnitt" : "ISV-programmets avsnitt"} className="flex flex-wrap gap-1 py-3">
           {sections.map((section) => (
             <Button key={section.id} asChild variant="ghost" size="sm">
-              <a href={`#${section.id}`}>{section.label}</a>
+              <a href={`#${section.id}`} onClick={() => {
+                const target = document.getElementById(section.id);
+                if (target instanceof HTMLDetailsElement) target.open = true;
+              }}>{section.label}</a>
             </Button>
           ))}
         </nav>
