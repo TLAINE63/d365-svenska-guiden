@@ -2,6 +2,7 @@
 // Never shows internal AI score, confidence, badges, tiers or numerical levels.
 
 import { Bot } from "lucide-react";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import {
   AiProfile,
   labelForDelivery,
@@ -146,7 +147,10 @@ export default function AiProfilePublic({ profile, compact = false, informationS
 
       {agentKeys.length > 0 && (
         <div className="rounded-md border border-border p-4 sm:p-5" aria-label="Kompetens för AI-agenter">
-          <h3 className="text-sm sm:text-base font-semibold mb-1">Kompetens för AI-agenter</h3>
+          <h3 className="text-sm sm:text-base font-semibold mb-1">AI-agenter och automation</h3>
+          <p className="text-xs text-muted-foreground mb-2">
+            {nowrapBrand("Här ser du vilka AI- och agentrelaterade tjänster partnern erbjuder inom Dynamics 365 och närliggande plattformar.")}
+          </p>
           <p className="text-xs text-muted-foreground mb-3">
             Underlag: {agentBasis.map((b) => AGENT_BASIS_LABEL[b]).join(" · ")}.
           </p>
@@ -168,6 +172,16 @@ export default function AiProfilePublic({ profile, compact = false, informationS
               Uppgifterna är partnerns egna. Fråga efter exempel på levererade agenter vid kontakt.
             </p>
           )}
+          <details className="mt-3 group">
+            <summary className="text-[11px] font-semibold text-muted-foreground cursor-pointer hover:text-foreground select-none">
+              Hur verifieras kompetensen?
+            </summary>
+            <p className="mt-1.5 text-[11px] text-muted-foreground leading-snug">
+              Kompetensuppgifter kan komma från partnern själv eller stödjas av granskade underlag
+              och kundreferenser. Statusen visar vilken kontroll som genomförts, inte en bedömning
+              av partnerns generella kvalitet.
+            </p>
+          </details>
         </div>
       )}
 
