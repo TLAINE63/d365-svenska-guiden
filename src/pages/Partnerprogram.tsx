@@ -296,7 +296,7 @@ const Partnerprogram = () => {
 
       <ProgramNavigation audience="partners" sections={programSections} />
 
-      <section id="for-partners" className="py-10 md:py-14 scroll-mt-28">
+      <section id="for-partners" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">För partners: visa när er kompetens passar</h2>
           <p className="max-w-3xl text-muted-foreground mb-6">Hjälp företag som utvärderar CRM- och affärssystem (ERP) att förstå vilka kunder, branscher och projekt ni har erfarenhet av. Er profil blir ett underlag när köparen söker, jämför och skapar sin kortlista.</p>
@@ -314,7 +314,7 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-28">
+      <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Priser &amp; innehåll</h2>
           <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium är en frivillig utökad presentation. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
@@ -349,8 +349,8 @@ const Partnerprogram = () => {
       <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner kan finnas med utan ett betalt avtal.</p></div></section>
       <PartnerProfileCheck initialSlug={partnerSlug} />
       <VerifiedPartnerBadgeEmbed />
-      <details id="profiljamforelse" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6 scroll-mt-28">
-        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-28">Se skillnaden mellan profiler och följ kundens köpresa</summary>
+      <details id="profiljamforelse" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6 scroll-mt-64">
+        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-64">Se skillnaden mellan profiler och följ kundens köpresa</summary>
       {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
@@ -407,7 +407,7 @@ const Partnerprogram = () => {
 
       </details>
 
-      <section id="expertinnehall" className="py-10 md:py-14 scroll-mt-28">
+      <section id="expertinnehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-5">Fördjupning om synlighet och expertinnehåll</h2>
           <Accordion type="multiple">
@@ -430,7 +430,7 @@ const Partnerprogram = () => {
       </section>
 
       {/* 8c. KVALIFICERADE AFFÄRSMÖJLIGHETER (Thomas 2026-11-04) */}
-      <section id="affarsmojligheter" className="scroll-mt-28 py-10 md:py-14 bg-secondary/30 border-y border-border">
+      <section id="affarsmojligheter" className="scroll-mt-64 py-10 md:py-14 bg-secondary/30 border-y border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Möten &amp; Affärsmöjligheter
@@ -548,7 +548,7 @@ const Partnerprogram = () => {
       </section>
 
       {/* 9. SÅ FUNGERAR DET */}
-      <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-28">
+      <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
           <div className="grid gap-5 md:grid-cols-3">
@@ -632,7 +632,7 @@ const Partnerprogram = () => {
 
 
       {/* 12. FAQ */}
-      <section id="vanliga-fragor" className="py-10 md:py-14 scroll-mt-28">
+      <section id="vanliga-fragor" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Vanliga frågor</h2>
           <Accordion

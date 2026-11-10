@@ -81,7 +81,7 @@ const IsvProgram = () => {
 
         <ProgramNavigation audience="isv" sections={programSections} />
 
-        <section id="for-isver" className="py-10 md:py-14 scroll-mt-28">
+        <section id="for-isver" className="py-10 md:py-14 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Visa vilka behov era produkter löser</h2>
             <p className="max-w-3xl text-muted-foreground mb-6">d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 och hjälper ISV:er att komma i kontakt med företag och partners som har relevanta behov.</p>
@@ -95,7 +95,7 @@ const IsvProgram = () => {
           </div>
         </section>
 
-        <section id="priser-innehall" className="pt-8 pb-14 scroll-mt-28">
+        <section id="priser-innehall" className="pt-8 pb-14 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Nivåer och priser</h2>
             <div className="grid gap-5 md:grid-cols-2 items-stretch">
@@ -131,7 +131,7 @@ const IsvProgram = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
               </div>
             </div>
-            <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-28">
+            <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-64">
               <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
                 <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Verifiering och avtal hålls isär
               </h3>
@@ -149,7 +149,7 @@ const IsvProgram = () => {
 
         <IsvProfileCheck />
 
-        <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-28">
+        <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Möten &amp; Affärsmöjligheter</h2>
             <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
@@ -179,7 +179,7 @@ const IsvProgram = () => {
           </div>
         </section>
 
-        <section id="vanliga-fragor" className="py-14 bg-muted/30 scroll-mt-28">
+        <section id="vanliga-fragor" className="py-14 bg-muted/30 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Vanliga frågor</h2>
             <Accordion type="single" collapsible className="max-w-4xl">

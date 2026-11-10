@@ -8,7 +8,7 @@ type ProgramNavigationProps = {
 
 export default function ProgramNavigation({ audience, sections }: ProgramNavigationProps) {
   return (
-    <div className="border-b border-border bg-background">
+    <div className="sticky top-16 lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <nav aria-label="Välj program" className="flex gap-2 border-b border-border py-3">
           <Button asChild variant={audience === "partners" ? "default" : "outline"}>
