@@ -827,7 +827,28 @@ const ValjPartner = () => {
  </div>
  </div>
  </div>
- </section>
+  </section>
+
+ <section className="py-8 sm:py-10" aria-labelledby="kundcase-referenser">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+ <div className="max-w-4xl mx-auto rounded-lg border border-border bg-card p-6">
+ <h2 id="kundcase-referenser" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+ Kundcase och referenstagning: vad ska du kräva av din Microsoft{"\u00A0"}Dynamics{"\u00A0"}365-partner?
+ </h2>
+ <div className="space-y-3 text-muted-foreground">
+ <p>När du ska välja partner för Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 är relevanta kundcase ett av de viktigaste beslutsunderlagen. Nöj dig inte med generiska logotyper på en webbplats. Be alltid om att få tala direkt med 2–3 referenskunder som har en liknande verksamhet, bransch och komplexitet som ert företag.</p>
+ <p className="font-semibold text-foreground">Viktiga frågor att ställa till partnerns referenser:</p>
+ <ol className="list-decimal pl-5 space-y-1">
+ <li>Höll projektet tidsplan och budget?</li>
+ <li>Hur fungerade partnerns verksamhetsförståelse under förstudien och kravarbetet?</li>
+ <li>Hur hanterades förvaltningen (AMS) efter go-live?</li>
+ </ol>
+ <p>Vill du ha vägledning inför partnervalet eller bolla vilka referensfrågor som är viktigast för ert systembyte? Boka 20{"\u00A0"}minuters kostnadsfri rådgivning med Thomas{"\u00A0"}Laine.</p>
+ </div>
+ <div className="mt-4"><AdvisorContactButtons bookingLabel="Boka 20 min rådgivning" /></div>
+ </div>
+ </div>
+  </section>
 
  <section className="py-8 sm:py-10">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
