@@ -133,6 +133,14 @@ Deno.serve(async (req) => {
       await db.from("webinar_email_log").insert({
         registration_id: registration.id, webinar_id: webinar.id, kind: "confirmation",
       });
+      await db.from("email_send_log").insert({
+        recipient_email: input.email,
+        template_name: "webinar_confirmation",
+        subject: `Bekräftelse: ${webinar.title}`,
+        status: "sent",
+        message_id: sentMessage?.id || null,
+        metadata: { webinar_id: webinar.id, slug: webinar.slug, has_ics: true },
+      });
     }
 
     return json({ ok: true, duplicate: Boolean(confirmation), email: input.email, slug: webinar.slug });

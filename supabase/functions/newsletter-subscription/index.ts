@@ -131,6 +131,14 @@ Deno.serve(async (req) => {
         <p style="margin:0;font-size:13px;color:#555">Adressen blir prenumerant först efter ditt klick. Om du inte har anmält dig kan du bortse från mejlet. Obekräftade adresser raderas efter sju dagar.</p>`,
     });
     if (sendError) return json({ error: "Bekräftelsemejlet kunde inte skickas. Försök igen." }, 500);
+    await db.from("email_send_log").insert({
+      recipient_email: input.email,
+      template_name: "newsletter_double_opt_in",
+      subject: "Bekräfta nyhetsbrev från d365.se",
+      status: "sent",
+      message_id: sentMessage?.id || null,
+      metadata: { source_page: input.source_page || null },
+    });
     return json({ ok: true, pending: true });
   } catch {
     return json({ error: "Förfrågan kunde inte genomföras just nu." }, 500);
