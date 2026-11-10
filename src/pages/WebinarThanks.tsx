@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useWebinar } from "@/hooks/useWebinars";
-import { downloadPublicWebinarIcs } from "@/lib/webinars";
+import { downloadPublicWebinarIcs, type PublicWebinar } from "@/lib/webinars";
 
-export default function WebinarThanks() {
+export default function WebinarThanks({ initialWebinar = null }: { initialWebinar?: PublicWebinar | null }) {
   const { slug } = useParams();
   const location = useLocation();
   const { data: webinar } = useWebinar(slug);
