@@ -43,7 +43,7 @@ const programSections = [
   { id: "priser-innehall", label: "Priser & innehåll" },
   { id: "isv-profilkoll", label: "Profiler & jämförelser" },
   { id: "verifiering", label: "Verifiering" },
-  { id: "formedling", label: "Förmedling" },
+  { id: "formedling", label: "Möten & Affärsmöjligheter" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 

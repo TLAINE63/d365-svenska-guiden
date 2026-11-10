@@ -48,7 +48,7 @@ const programSections = [
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
-  { id: "affarsmojligheter", label: "Förmedling" },
+  { id: "affarsmojligheter", label: "Möten & Affärsmöjligheter" },
   { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
