@@ -525,6 +525,11 @@ export function render(url: string) {
   const articleSlug = articleMatch ? articleMatch[1].replace(/\/$/, '') : null;
   const editorArticleInitialData = articleSlug ? EDITOR_ARTICLES_BY_SLUG[articleSlug] || null : null;
 
+  const webinarMatch = url.match(/^\/(?:webinar|tack\/webinar)\/([^/?#]+)/);
+  const webinarSlug = webinarMatch ? webinarMatch[1].replace(/\/$/, '') : null;
+  const webinarInitialData = webinarSlug ? WEBINARS_BY_SLUG[webinarSlug] || null : null;
+  const webinarListInitialData = Object.values(WEBINARS_BY_SLUG);
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false, enabled: false },
@@ -571,6 +576,7 @@ export function render(url: string) {
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
+        <ContentInviteProvider initialData={CONTENT_INVITES}>
         <TooltipProvider>
           <StaticRouter location={url}>
             <Routes>
@@ -654,6 +660,12 @@ export function render(url: string) {
               <Route path="/d365commerce" element={<D365Commerce />} />
               <Route path="/d365humanresources" element={<D365HumanResources />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/webinar" element={<Webinars initialWebinars={webinarListInitialData} />} />
+              <Route path="/webinar/avanmal" element={<WebinarCancel />} />
+              <Route path="/webinar/:slug" element={<WebinarDetail initialWebinar={webinarInitialData} />} />
+              <Route path="/tack/webinar/:slug" element={<WebinarThanks initialWebinar={webinarInitialData} />} />
+              <Route path="/nyhetsbrev/bekrafta" element={<NewsletterTokenAction mode="confirm" />} />
+              <Route path="/nyhetsbrev/avregistrera" element={<NewsletterTokenAction mode="unsubscribe" />} />
               <Route path="/events/:eventId" element={<EventDetail initialData={eventInitialData} />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter/fragor-och-svar" element={<Navigate to="/qa/" replace />} />
@@ -746,6 +758,7 @@ export function render(url: string) {
             </Routes>
           </StaticRouter>
         </TooltipProvider>
+        </ContentInviteProvider>
       </QueryClientProvider>
     </HelmetProvider>
   );
