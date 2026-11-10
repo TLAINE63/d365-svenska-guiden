@@ -7,8 +7,11 @@ import { useLocation } from "react-router-dom";
 const siteLogo = "/d365-logo.svg";
 
 const Footer = () => {
+  const { pathname } = useLocation();
+  const inviteAboveList = /^\/(?:partners|alla-d365-partners)\/?$/i.test(pathname);
   return (
     <>
+    {!inviteAboveList && <ContentInvite />}
     <GlobalNextStepFallback />
     <footer
       className="bg-[hsl(var(--hero-dark))] py-12 text-[hsl(var(--muted-dark))]"

@@ -244,6 +244,8 @@ export default function Redaktion() {
         <Tabs defaultValue="events">
           <TabsList className="mb-6 h-auto flex-wrap">
             <TabsTrigger value="events">Event</TabsTrigger>
+            <TabsTrigger value="webinar">Webinar</TabsTrigger>
+            <TabsTrigger value="subscribers">Nyhetsbrev</TabsTrigger>
             <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
             <TabsTrigger value="articles">Artiklar</TabsTrigger>
             <TabsTrigger value="videos">Videor</TabsTrigger>

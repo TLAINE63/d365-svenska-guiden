@@ -33,6 +33,7 @@ export interface WordArticleRecord {
   source_filename: string;
   is_published: boolean;
   published_at?: string | null;
+  theme: ContentTheme | "";
 }
 
 interface Props {

@@ -15,6 +15,7 @@ import RedirectTo from "@/components/RedirectTo";
 import { PARTNER_SLUG_RENAMES, partnerSlugTarget } from "@/data/partnerSlugRenames";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
+import { ContentInviteProvider } from "@/components/ContentInviteProvider";
 
 import Index from "./pages/Index";
 

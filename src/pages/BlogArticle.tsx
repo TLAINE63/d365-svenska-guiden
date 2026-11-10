@@ -517,6 +517,7 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
           metadata={{ article: article.slug }}
         />
       </div>
+      <div className="container mx-auto max-w-4xl px-4"><NewsletterSignup /></div>
       <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}

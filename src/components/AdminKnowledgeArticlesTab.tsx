@@ -38,6 +38,7 @@ interface KnowledgeArticle {
   tags?: string[] | null;
   source_filename?: string | null;
   partner_slugs?: string[] | null;
+  theme?: string | null;
 }
 
 const toWordRecord = (a: KnowledgeArticle): WordArticleRecord => ({
