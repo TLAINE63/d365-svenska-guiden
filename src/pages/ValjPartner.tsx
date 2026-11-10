@@ -1545,7 +1545,7 @@ const ValjPartner = () => {
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-5xl mx-auto">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
- Alla publicerade partnerprofiler
+ Alla verifierade partnerprofiler
  </h2>
  <p className="text-muted-foreground mb-5">
  Komplett lista i bokstavsordning över partners som har en profil på d365.se. Taggarna visar vilka områden partnern själv anger. Välj ett område för att visa bara de partnerna.
