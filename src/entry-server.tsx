@@ -911,6 +911,34 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
         console.warn(`  ⚠️  Events fetch failed: ${res.status}`);
       }
 
+      // ── Webinar och temainbjudningar: publika vyer utan deltagarlänkar ──
+      const webinarUrl = `${supaUrl}/rest/v1/webinars_public?select=${WEBINAR_PUBLIC_SELECT}&order=starts_at.asc`;
+      const webinarRes = await fetch(webinarUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (webinarRes.ok) {
+        const rows = (await webinarRes.json()) as PublicWebinar[];
+        CONTENT_INVITES.webinars = rows;
+        for (const webinar of rows) {
+          WEBINARS_BY_SLUG[webinar.slug] = webinar;
+          webinarRoutes.push({
+            path: `/webinar/${webinar.slug}`,
+            priority: '0.7',
+            changefreq: 'weekly',
+            lastmod: (webinar.updated_at || webinar.created_at || '').slice(0, 10) || undefined,
+            meta: { title: `${webinar.title} | Webinar`, description: webinar.description.slice(0, 155) },
+          });
+          webinarRoutes.push({ path: `/tack/webinar/${webinar.slug}`, priority: '0.1', changefreq: 'yearly', sitemap: false });
+        }
+        console.log(`  📦 Found ${rows.length} webinar routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Webinars fetch failed: ${webinarRes.status}`);
+      }
+
+      const inviteUrl = `${supaUrl}/rest/v1/knowledge_articles?select=id,title,description,url,slug,theme,published_at,created_at&is_published=eq.true&theme=not.is.null&order=published_at.desc`;
+      const inviteRes = await fetch(inviteUrl, { headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` } });
+      if (inviteRes.ok) {
+        CONTENT_INVITES.articles = (await inviteRes.json()) as ContentInviteData['articles'];
+      }
+
       // ── Partnernytt: published articles with complete share metadata ──
       const pnUrl = `${supaUrl}/rest/v1/partner_news?select=id,partner_id,source_org,editorial_title,summary,source_url,source_type,product_area,product_areas,news_type,industry,image_url,news_date,event_date,is_featured,show_on_home,show_on_partner_profile,show_on_product_page,status,published_at,created_at,updated_at&status=eq.published&order=news_date.desc`;
       const pnRes = await fetch(pnUrl, {
