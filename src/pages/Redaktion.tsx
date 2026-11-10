@@ -3,6 +3,7 @@ import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionBudgetTab from "@/components/RedaktionBudgetTab";
+import RedaktionTermsTab from "@/components/RedaktionTermsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
 import { lazy, Suspense, useState } from "react";
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
@@ -257,6 +258,7 @@ export default function Redaktion() {
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
             <TabsTrigger value="exports">Exporter</TabsTrigger>
+            <TabsTrigger value="terms">Avtalsvillkor</TabsTrigger>
             {isAdmin && <TabsTrigger value="budget">Budget 2027</TabsTrigger>}
           </TabsList>
 
@@ -301,6 +303,9 @@ export default function Redaktion() {
           <TabsContent value="exports">
             <p className="text-sm text-muted-foreground mb-4">CSV-filer för Demand Engine och partnerstatistik. Kräver att kontot har adminbehörighet.</p>
             {token && <DemandExportsPanel token={token} onUnauthorized={() => {}} />}
+          </TabsContent>
+          <TabsContent value="terms">
+            <RedaktionTermsTab />
           </TabsContent>
 
           <TabsContent value="backlinks">

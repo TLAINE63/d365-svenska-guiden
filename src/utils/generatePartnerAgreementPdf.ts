@@ -23,7 +23,7 @@ export function agreementPriceRows(): [string, string][] {
 }
 
 /** Partneravtalet som PDF i samma layout som sajtens övriga rapporter. Avtalstexten kommer från avtalssidans redigerade avsnitt. */
-export async function generatePartnerAgreementPdf(opts: { heading: string; intro?: string; sections: AgreementPdfSection[]; partnerName?: string }): Promise<Blob> {
+export async function generatePartnerAgreementPdf(opts: { heading: string; intro?: string; sections: AgreementPdfSection[]; partnerName?: string; priceRows?: [string, string][]; priceNote?: string; acceptance?: string }): Promise<Blob> {
   const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
@@ -49,23 +49,26 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
 
   heading("Bilaga: priser och ersättningar");
   doc.setFontSize(9.5);
-  for (const [label, value] of agreementPriceRows()) {
+  for (const [label, value] of opts.priceRows ?? agreementPriceRows()) {
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);
     const valLines = wrapPdfText(value, width * 0.5, (l) => doc.getTextWidth(l));
-    const h = Math.max(1, valLines.length) * 4.8 + 3;
+    doc.setFont("helvetica", "bold");
+    const labelLines = wrapPdfText(label, width * 0.46, (l) => doc.getTextWidth(l));
+    const h = Math.max(1, valLines.length, labelLines.length) * 4.8 + 3;
     ensure(h);
     doc.setFillColor(...PDF_BRAND.cardBg);
     doc.rect(PDF_MARGIN, y - 4, width, h, "F");
     doc.setFont("helvetica", "bold"); doc.setTextColor(...PDF_BRAND.dark);
-    doc.text(wrapPdfText(label, width * 0.46, (l) => doc.getTextWidth(l))[0], PDF_MARGIN + 2, y);
+    doc.text(labelLines, PDF_MARGIN + 2, y);
     doc.setFont("helvetica", "normal");
     doc.text(valLines, PDF_MARGIN + width * 0.5, y);
     y += h + 1;
   }
   y += 2;
-  para("Mötes- och avtalsersättning gäller Basicpartners. Premiumpartners betalar ingen mötesavgift. Alla priser exklusive moms.", 8.5);
+  para(opts.priceNote ?? "Mötesavgift gäller bara Basicpartners och avräknas från avtalsersättningen. Premiumpartners betalar ingen mötesavgift, men hela avtalsersättningen. Alla priser exklusive moms.", 8.5);
 
   heading("Accept");
-  para("Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
+  para(opts.acceptance ?? "Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
   para(`Thomas Laine · ${ORGANIZATION.email} · ${ORGANIZATION.telephoneDisplay}`);
 
   finalizePdfWithFooter(doc, title);

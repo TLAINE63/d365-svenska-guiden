@@ -1,5 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Avtalsvillkor i Redaktion (2026-11-10)
+- [x] Egen flik med separata PDF-sammanställningar för Partner, ISV och förmedlingsprovision, med befintliga villkor och gemensamma priser.
+- [ ] Kontrollera nedladdning inloggat och granska alla tre PDF-filer visuellt.
+
 ## Separata programsidor (2026-11-10)
 - [x] Renodla /partnerprogram/ för Solution Partners och /isvprogram/ för ISV:er med gemensamt sidval och egna sektionsmenyer.
 - [x] Behåll priser, verifieringsregler, profiljämförelser och kontaktflöden; sidbyten, sektionslänkar och öppnad partnerjämförelse kontrollerade på dator och mobil utan överbredd eller runtimefel.
