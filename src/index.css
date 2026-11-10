@@ -608,6 +608,12 @@ All colors MUST be HSL.
 }
 .isv-product-premium { font-family: 'Manrope', sans-serif; letter-spacing: 0; }
 .isv-product-premium h1, .isv-product-premium h2, .isv-product-premium h3 { font-family: 'Sora', sans-serif; letter-spacing: 0; }
+.isv-product-standard #oversikt h1 { font-size: 2rem; line-height: 1.2; }
+.isv-product-standard #oversikt > div { padding-top: 2rem; padding-bottom: 2rem; }
+.isv-product-standard #oversikt p { max-width: 48rem; }
+@media (min-width: 640px) {
+  .isv-product-standard #oversikt h1 { font-size: 2.5rem; }
+}
 .plan-premium .plan-opening {
   background:
     radial-gradient(ellipse 60% 90% at 92% 0%, hsl(var(--accent) / 0.16), transparent 60%),
