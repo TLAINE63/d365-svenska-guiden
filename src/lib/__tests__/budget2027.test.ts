@@ -99,8 +99,8 @@ describe("success fee areas", () => {
 
 import { EXPERT_FEES, EXPERT_FUNNEL, expertFunnelRow, FUNNEL_PRODUCTS, partnerFunnelRow } from "../budget2027";
 describe("expert selling fees", () => {
-  it("CV brokerage 40 kr and expert assignment 80 kr per sold hour", () => {
-    expect(EXPERT_FEES).toEqual({ premiumPerHour: 40, basicPerHour: 80 });
+  it("CV brokerage 50 kr and expert assignment 90 kr per sold hour", () => {
+    expect(EXPERT_FEES).toEqual({ premiumPerHour: 50, basicPerHour: 90 });
     expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 3, percent: 100 }).total).toBe(495 * 40);
     expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, months: 6, percent: 50, rate: 100 }).total).toBe(2 * 495 * 100);
   });

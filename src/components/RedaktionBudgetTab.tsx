@@ -244,7 +244,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ].map(([term, description]) => <div key={term}><dt className="font-medium text-foreground">{term}</dt><dd>{description}</dd></div>)}
             </dl>
           </details>
-          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område. Expertförmedling budgeteras i debiterade timmar, 40 kr per timme från Premiumpartner och 80 kr per timme från Basicpartner, och saknar detaljunderlag i partnerlistorna.</p>
+          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område. Expertförmedling budgeteras i debiterade timmar, 50 kr per timme från Premiumpartner och 90 kr per timme från Basicpartner, och saknar detaljunderlag i partnerlistorna.</p>
           <div className="overflow-x-auto">
           <table className="w-full min-w-[1000px] text-sm">
             <thead className="text-xs text-muted-foreground text-left">

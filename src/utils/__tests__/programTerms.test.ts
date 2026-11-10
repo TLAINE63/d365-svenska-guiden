@@ -12,7 +12,7 @@ describe("områdesspecifika prisbilagor", () => {
   });
   it("förmedling har mötes-, avtals-, ISV- och expertavgifter separat", () => {
     expect(termsPriceRows("commission").map((row) => row[1].replace(/\s/g, " "))).toEqual([
-      "3 500 kr", "5 000 kr", "5 000 kr", "10 000 kr", "3 500 kr", "7 500 kr", "2,5 %", "40 kr/debiterad timme", "80 kr/debiterad timme",
+      "3 500 kr", "5 000 kr", "5 000 kr", "10 000 kr", "3 500 kr", "7 500 kr", "2,5 %", "50 kr/debiterad timme", "90 kr/debiterad timme",
     ]);
   });
 });

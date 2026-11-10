@@ -8,7 +8,7 @@ describe("partneravtalets prisbilaga", () => {
   it("visar ISV Presence 5 990 kr/år", () => {
     expect(agreementPriceRows()[3][1].replace(/\s/g, " ")).toBe("5 990 kr/år");
   });
-  it("visar expertförmedling 40/80 kr per timme", () => {
-    expect(agreementPriceRows()[6][1]).toContain("40 kr (Premium) / 80 kr (grundprofil)");
+  it("visar expertförmedling 50/90 kr per timme", () => {
+    expect(agreementPriceRows()[6][1]).toContain("50 kr (Premium) / 90 kr (grundprofil)");
   });
 });
