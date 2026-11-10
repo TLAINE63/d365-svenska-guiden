@@ -57,7 +57,9 @@ Detta gäller:
 
 • 3 produktområden: 1 495 kr/mån
 
-Priset ligger fast under 2026
+Vid årsbetalning i förskott: 7 990 kr/år (1 område), 9 990 kr/år (2) och 11 990 kr/år (3), en besparing på 3 950–5 950 kr per år.
+
+Prislistan gäller för 2027
 
 3 månaders uppsägningstid
 
@@ -103,7 +105,9 @@ Detta gäller:
 
 • 3 produktområden: 1 495 kr/mån
 
-Priset ligger fast under 2026
+Vid årsbetalning i förskott: 7 990 kr/år (1 område), 9 990 kr/år (2) och 11 990 kr/år (3), en besparing på 3 950–5 950 kr per år.
+
+Prislistan gäller för 2027
 
 3 månaders uppsägningstid
 
