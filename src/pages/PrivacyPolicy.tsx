@@ -108,7 +108,7 @@ const PrivacyPolicy = () => {
                     <tr className="border-b border-border">
                       <td className="p-3 align-top">E-bok / nyhetsbrev</td>
                       <td className="p-3 align-top">Samtycke</td>
-                      <td className="p-3 align-top">Tills samtycke återkallas</td>
+                      <td className="p-3 align-top">Tills samtycke återkallas. Obekräftade nyhetsbrevsadresser raderas efter 7 dagar.</td>
                     </tr>
                     <tr className="border-b border-border">
                       <td className="p-3 align-top">Statistik via Google Analytics 4</td>

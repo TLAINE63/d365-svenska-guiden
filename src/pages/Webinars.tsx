@@ -14,7 +14,7 @@ export default function Webinars({ initialWebinars = null }: { initialWebinars?:
   const { data: webinars = [], isLoading } = useWebinars(initialWebinars);
   const now = Date.now();
   const upcoming = webinars.filter((item) => item.status === "publicerad" && new Date(item.starts_at).getTime() > now);
-  const recordings = webinars.filter((item) => item.recording_url && (item.status === "genomford" || new Date(item.starts_at).getTime() <= now));
+  const recordings = webinars.filter((item) => item.status !== "installd" && item.recording_url && (item.status === "genomford" || new Date(item.starts_at).getTime() <= now));
 
   return (
     <div className="min-h-screen bg-background">

@@ -1,6 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { Resend } from "../_shared/branded-resend.ts";
-import { webinarEmailHtml, webinarEndsAt, type WebinarMailRecord } from "../_shared/webinar.ts";
+import { webinarEmailHtml, webinarEndsAt, webinarIcsBase64, type WebinarMailRecord } from "../_shared/webinar.ts";
 
 const KINDS = ["confirmation", "reminder_24h", "reminder_15m", "recording"] as const;
 type MailKind = typeof KINDS[number];

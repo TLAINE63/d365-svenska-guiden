@@ -86,7 +86,7 @@ Deno.serve(async (req) => {
     if ((action === "registrations" || action === "registrations-csv") && req.method === "GET") {
       const webinarId = z.string().uuid().parse(url.searchParams.get("webinar_id"));
       const { data, error } = await db.from("webinar_registrations")
-        .select(REGISTRATION_COLUMNS.join(","))
+        .select(`id,${REGISTRATION_COLUMNS.join(",")}`)
         .eq("webinar_id", webinarId)
         .order("created_at", { ascending: false });
       if (error) return json({ error: "Kunde inte hämta anmälningarna." }, 500);

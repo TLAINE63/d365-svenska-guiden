@@ -267,6 +267,13 @@
       "when": 1794331549631,
       "tag": "0037_webinar_newsletter_service_tokens",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1794332041576,
+      "tag": "0038_webinar_retention_cleanup",
+      "breakpoints": true
     }
   ]
 }
