@@ -1,8 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Separata programsidor (2026-11-10)
-- [ ] Renodla /partnerprogram/ för Solution Partners och /isvprogram/ för ISV:er med gemensamt sidval och egna sektionsmenyer.
-- [ ] Behåll priser, verifieringsregler, profiljämförelser och kontaktflöden; kontrollera sidbyten och sektionslänkar på dator och mobil.
+- [x] Renodla /partnerprogram/ för Solution Partners och /isvprogram/ för ISV:er med gemensamt sidval och egna sektionsmenyer.
+- [x] Behåll priser, verifieringsregler, profiljämförelser och kontaktflöden; sidbyten, sektionslänkar och öppnad partnerjämförelse kontrollerade på dator och mobil utan överbredd eller runtimefel.
 
 ## ISV Presence 2.0 (2026-11-10)
 - [x] Kartlägg katalog, verifiering, kontaktregler, produktfakta, köpresor och XMReality utan ändrade produktuppgifter.
