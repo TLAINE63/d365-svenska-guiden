@@ -502,6 +502,7 @@ const App = () => (
         <Sonner />
       </Suspense>
       <BrowserRouter>
+        <ContentInviteProvider>
         <PartnerCompareProvider>
           <ShortlistProvider>
             <InquiryProvider>

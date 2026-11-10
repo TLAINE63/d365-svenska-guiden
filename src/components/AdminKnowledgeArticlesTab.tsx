@@ -375,6 +375,16 @@ export default function AdminKnowledgeArticlesTab({ token, onSessionExpired }: P
                 </div>
               </div>
               <div>
+                <Label>Tema för innehållsinbjudan</Label>
+                <Select value={editing.theme || "none"} onValueChange={(value) => setEditing({ ...editing, theme: value === "none" ? null : value })}>
+                  <SelectTrigger><SelectValue placeholder="Välj tema" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Inget tema</SelectItem>
+                    {CONTENT_INVITE_THEMES.map((theme) => <SelectItem key={theme.value} value={theme.value}>{theme.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
                 <Label>Bild-url (valfritt)</Label>
                 <Input value={editing.image_url || ""}
                   onChange={(e) => setEditing({ ...editing, image_url: e.target.value })}

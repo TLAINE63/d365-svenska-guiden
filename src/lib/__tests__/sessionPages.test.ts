@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { appendPage, cleanPath } from "@/lib/sessionPages";
+import { contentThemeForPath, resolveContentInvite, type ContentInviteData } from "@/lib/contentInvite";
 import { downloadSlug, thanksKindForAdvisory } from "@/lib/thanksPages";
 import { resultPath } from "@/hooks/useToolResultSignal";
 
