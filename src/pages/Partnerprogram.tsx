@@ -320,7 +320,7 @@ const Partnerprogram = () => {
           <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium är en frivillig utökad presentation. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
           <h3 className="text-lg font-semibold mb-4">Partners: Standard eller Premium</h3>
           <div className="grid gap-6 md:grid-cols-2 mb-6">
-            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Standard (grundprofil), 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen.</p></div>
+            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Grundprofil, 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen.</p></div>
             <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, utökad presentation</h4><p className="text-sm text-muted-foreground">Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. INSIDE-produktion köps separat.</p></div>
           </div>
           <div className="overflow-x-auto border border-border rounded-lg">
@@ -453,7 +453,7 @@ const Partnerprogram = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Affärstyp</th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört kundmöte<br /><span className="text-xs font-normal">Gäller endast Basic-partners med grundprofil</span></th>
+                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört kundmöte<br /><span className="text-xs font-normal">Gäller endast partners med grundprofil</span></th>
                   <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Kundavtal tecknat</th>
                 </tr>
               </thead>
@@ -476,7 +476,7 @@ const Partnerprogram = () => {
             </table>
           </div>
           <div className="max-w-3xl mt-5 space-y-3 text-sm text-muted-foreground">
-            <p><strong className="text-foreground">Mötesavgift: Gäller endast Basic-partners med grundprofil.</strong> Premiumpartners betalar ingen mötesavgift. För Basic avräknas den betalda mötesavgiften från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat avtal. Alla belopp anges exklusive moms.</p>
+            <p><strong className="text-foreground">Mötesavgift: Gäller endast partners med grundprofil.</strong> Premiumpartners betalar ingen mötesavgift. För grundprofiler avräknas den betalda mötesavgiften från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat avtal. Alla belopp anges exklusive moms.</p>
             <p>
               För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även
               en success fee på 2,5 procent av intäkterna från den första kronan under de första nio
@@ -509,7 +509,7 @@ const Partnerprogram = () => {
                     <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">40&nbsp;kr</td>
                   </tr>
                   <tr className="border-t border-border">
-                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Basic (grundprofil)</th>
+                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Grundprofil</th>
                     <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">80&nbsp;kr</td>
                   </tr>
                 </tbody>

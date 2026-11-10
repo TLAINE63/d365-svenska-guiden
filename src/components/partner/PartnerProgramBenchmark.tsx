@@ -219,7 +219,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
   };
 
   const documented = basic ? documentedProductKeys(basic) : [];
-  const ownLabel = ownBasic ? `${ownBasic.name}s profil idag` : "Exempel på Basic-profil";
+  const ownLabel = ownBasic ? `${ownBasic.name}s profil idag` : "Exempel på grundprofil";
 
   return (
     <section ref={sectionRef} className="py-14 md:py-20 bg-secondary/20 border-y border-border">
@@ -228,7 +228,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           Hur står sig din profil när kunden jämför?
         </h2>
         <p className="max-w-3xl text-base text-muted-foreground">
-          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Med en Basic-profil visas
+          d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Med en grundprofil visas
           grundläggande information. En profilerad partner kan ge köparen ett betydligt rikare
           beslutsunderlag om kompetens, specialisering, kundcase och kontaktvägar.
         </p>
@@ -268,7 +268,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           {/* Vänster: Basic */}
           <article className="flex h-full flex-col rounded-2xl border border-dashed border-border bg-muted/30 p-6 opacity-95">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {ownBasic ? "Din profil idag" : "Basic-profil"}
+              {ownBasic ? "Din profil idag" : "Grundprofil"}
             </p>
             <h3 className="mt-1 text-xl font-semibold text-foreground">{ownLabel}</h3>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -306,7 +306,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
               )}
               <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground">
                 Passar bäst för, kundcase, erbjudanden, kontaktperson och video saknas i en
-                Basic-profil.
+                grundprofil.
               </div>
             </div>
 
@@ -322,7 +322,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                 }
                 className="mt-6 inline-flex items-center gap-1 text-sm text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
               >
-                {ownBasic ? "Se din nuvarande profil" : "Se Basic-profilen"}
+                {ownBasic ? "Se din nuvarande profil" : "Se grundprofilen"}
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
             )}
@@ -527,7 +527,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
         <div className="mt-8 overflow-hidden rounded-xl border border-border bg-card">
           <table className="w-full text-sm">
             <caption className="sr-only">
-              Jämförelse av informationsdjup mellan Basic-profil och profilerad partnerprofil
+              Jämförelse av informationsdjup mellan grundprofil och profilerad partnerprofil
             </caption>
             <thead>
               <tr className="border-b border-border bg-muted/40 text-left">
@@ -535,7 +535,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
                   Innehåll i profilen
                 </th>
                 <th scope="col" className="px-4 py-3 font-semibold text-foreground">
-                  Basic
+                  Grundprofil
                 </th>
                 <th scope="col" className="px-4 py-3 font-semibold text-foreground">
                   Profilerad
@@ -612,7 +612,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
 
             <Button asChild variant="outline" size="lg">
               <Link to={basic ? `/basic/${basic.slug}/` : "/valjdynamics365partner/"}>
-                {ownBasic ? "Se vår nuvarande profil" : "Se en Basic-profil"}
+                {ownBasic ? "Se vår nuvarande profil" : "Se en grundprofil"}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
               </Link>
             </Button>

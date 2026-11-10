@@ -9,6 +9,6 @@ describe("partneravtalets prisbilaga", () => {
     expect(agreementPriceRows()[3][1].replace(/\s/g, " ")).toBe("5 990 kr/år");
   });
   it("visar expertförmedling 40/80 kr per timme", () => {
-    expect(agreementPriceRows()[6][1]).toContain("40 kr (Premium) / 80 kr (Basic)");
+    expect(agreementPriceRows()[6][1]).toContain("40 kr (Premium) / 80 kr (grundprofil)");
   });
 });

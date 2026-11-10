@@ -15,10 +15,10 @@ export function agreementPriceRows(): [string, string][] {
     ["Partner Presence Premium, 1 produktområde", `${kr(MONTH_PRICE[1])}/mån eller ${kr(YEAR_PRICE[1])}/år`],
     ["Partner Presence Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
     ["Partner Presence Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
-    ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ["Genomfört kundmöte (Basicpartner)", `${kr(FEES.meetingStd)}, F&SCM ${kr(FEES.meetingFscm)}`],
+    ["ISV Premium, grundavgift", `${kr(ISV_FEES.base)}/år`],
+    ["Genomfört kundmöte (grundprofil)", `${kr(FEES.meetingStd)}, F&SCM ${kr(FEES.meetingFscm)}`],
     ["Kundavtal tecknat", `${kr(FEES.dealStd)}, F&SCM ${kr(FEES.dealFscm)}`],
-    ["Förmedling av expertkonsulter", `${EXPERT_FEES.premiumPerHour} kr (Premium) / ${EXPERT_FEES.basicPerHour} kr (Basic) per debiterad timme`],
+    ["Förmedling av expertkonsulter", `${EXPERT_FEES.premiumPerHour} kr (Premium) / ${EXPERT_FEES.basicPerHour} kr (grundprofil) per debiterad timme`],
   ];
 }
 
@@ -65,7 +65,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
     y += h + 1;
   }
   y += 2;
-  para(opts.priceNote ?? "Mötesavgift gäller bara Basicpartners och avräknas från avtalsersättningen. Premiumpartners betalar ingen mötesavgift, men hela avtalsersättningen. Alla priser exklusive moms.", 8.5);
+  para(opts.priceNote ?? "Mötesavgift gäller bara partners med grundprofil och avräknas från avtalsersättningen. Premiumpartners betalar ingen mötesavgift, men hela avtalsersättningen. Alla priser exklusive moms.", 8.5);
 
   heading("Accept");
   para(opts.acceptance ?? "Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
