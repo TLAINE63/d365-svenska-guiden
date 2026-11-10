@@ -17,6 +17,7 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProgramNavigation from "@/components/ProgramNavigation";
 import SEOHead from "@/components/SEOHead";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Button } from "@/components/ui/button";
@@ -42,10 +43,13 @@ type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_ur
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
 
 const programSections = [
-  { id: "for-partners", label: "För partners" },
-  { id: "for-isver", label: "För ISV:er" },
+  { id: "for-partners", label: "Översikt" },
   { id: "priser-innehall", label: "Priser & innehåll" },
+  { id: "profilkoll", label: "Er partnerprofil" },
+  { id: "profiljamforelse", label: "Jämförelser" },
+  { id: "expertinnehall", label: "Synlighet & INSIDE" },
   { id: "affarsmojligheter", label: "Förmedling" },
+  { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
@@ -55,10 +59,6 @@ const breadcrumbs = [
 ];
 
 const faqs = [
-  {
-    question: "Är d365.se även för ISV-leverantörer?",
-    answer: "Ja. Tilläggslösningar kan finnas i katalogen utan avgift. ISV Presence kostar 5 990 kr per år inklusive en app och 995 kr per extra app, exklusive moms. Logotyp, webblänk och kontaktuppgifter kräver både betald ISV Presence och verifierad leverantör och produkt. Betalning påverkar aldrig katalogordningen.",
-  },
   {
     question: "Finns vi på d365.se även om vi inte profilerar oss?",
     answer:
@@ -240,14 +240,14 @@ const Partnerprogram = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead webPageSchema={false}
-        title="För partners och ISV:er | Priser och innehåll på d365.se"
-        description="Visa er kompetens eller tilläggslösning för företag som utvärderar Dynamics 365. Jämför partnerprogram och ISV Presence, priser och innehåll på d365.se."
+        title="Solution Partners | Priser och innehåll på d365.se"
+        description="Visa er kompetens för företag som utvärderar Dynamics 365. Se priser, partnerprofiler, jämförelser och förmedling för Solution Partners på d365.se."
         canonicalPath="/partnerprogram"
         keywords="Dynamics 365 partner, partnerprofil, partnerprogram, Microsoft-partner Sverige"
       />
       <WebPageSchema
-        name="För partners och ISV:er | Priser och innehåll på d365.se"
-        description="Erbjudanden, priser och innehåll för partners och ISV-leverantörer på d365.se."
+        name="Solution Partners | Priser och innehåll på d365.se"
+        description="Erbjudanden, priser och innehåll för Solution Partners på d365.se."
         url="https://d365.se/partnerprogram/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -265,13 +265,13 @@ const Partnerprogram = () => {
               </Badge>
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
-              För Dynamics&nbsp;365-partners och ISV-leverantörer
+              För Solution Partners inom Dynamics&nbsp;365
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
-              Visa er kompetens och era lösningar för rätt företag.
+              Partnerprogram för Solution Partners
             </h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
-              d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 –
+              d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365,
               och hjälper partners och ISV:er att komma i kontakt med företag som har relevanta behov.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -294,13 +294,7 @@ const Partnerprogram = () => {
         </div>
       </header>
 
-      <nav aria-label="Partnerprogrammets avsnitt" className="border-b border-border bg-background">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6 flex flex-wrap gap-1 py-3">
-          {programSections.map((section) => (
-            <Button key={section.id} asChild variant="ghost" size="sm"><a href={`#${section.id}`}>{section.label}</a></Button>
-          ))}
-        </div>
-      </nav>
+      <ProgramNavigation audience="partners" sections={programSections} />
 
       <section id="for-partners" className="py-10 md:py-14 scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
@@ -320,30 +314,10 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      <section id="for-isver" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-28">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">För ISV:er: visa vilka behov era produkter löser</h2>
-          <p className="max-w-3xl text-muted-foreground mb-6">Utvecklar ni tillägg till Dynamics&nbsp;365? Köpare och partners använder tilläggskatalogen för att hitta lösningar till Business Central, Finance &amp; Supply Chain Management, Sales och Customer Service.</p>
-          <ul className="grid md:grid-cols-3 gap-5 mb-6">
-            {[
-              { title: "Produkten i rätt sammanhang", text: "Beskriv funktioner, användningsområden, målgrupp och vilka Dynamics\u00A0365-produkter lösningen kompletterar." },
-              { title: "En tydlig väg till er", text: "ISV Presence ger logotyp, webblänk och kontaktuppgifter när både leverantören och produkten är verifierade." },
-              { title: "Visa lösningen i praktiken", text: "Upp till tre aktiva YouTube-demofilmer per app. Möjlighet till visning på businesscentral.se för relevanta BC-appar." },
-            ].map((item) => <li key={item.title}><h3 className="text-base font-semibold mb-2">{item.title}</h3><p className="text-sm text-muted-foreground">{item.text}</p></li>)}
-          </ul>
-          <div className="flex flex-wrap gap-3">
-            <ContactFormDialog buyerForm={false} title="Prata med oss om ISV Presence" subject="ISV Presence">
-              <Button onClick={() => bookClick("isv_intro")}><Mail className="w-4 h-4 mr-2" aria-hidden="true" />Prata med oss om ISV Presence</Button>
-            </ContactFormDialog>
-            <Button asChild variant="outline"><Link to="/isvprogram/">Mer om ISV-programmet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
-            <Button asChild variant="ghost"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
-          </div>
-        </div>
-      </section>
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Priser &amp; innehåll</h2>
-          <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium och ISV Presence är frivilliga tillägg. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
+          <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium är en frivillig utökad presentation. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
           <h3 className="text-lg font-semibold mb-4">Partners: Standard eller Premium</h3>
           <div className="grid gap-6 md:grid-cols-2 mb-6">
             <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Standard (grundprofil), 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen.</p></div>
@@ -361,18 +335,6 @@ const Partnerprogram = () => {
             </table>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
-          <h3 className="text-lg font-semibold mt-8 mb-4">ISV: kostnadsfri katalog eller ISV Presence</h3>
-          <div className="overflow-x-auto border border-border rounded-lg">
-            <table className="w-full text-sm"><caption className="sr-only">ISV-priser exklusive moms</caption>
-              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Nivå</th><th scope="col" className="text-left px-4 py-3">Innehåll</th><th scope="col" className="text-right px-4 py-3">Pris</th></tr></thead>
-              <tbody>
-                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">Standard</th><td className="px-4 py-3">Produktfakta i katalogen, utan logotyp, webblänk eller kontaktuppgifter.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">0 kr</td></tr>
-                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">ISV Presence</th><td className="px-4 py-3">En app. Logotyp, webblänk, kontakt och demofilmer för verifierad leverantör och produkt.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">5&nbsp;990 kr/år</td></tr>
-                <tr className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal">Extra app</th><td className="px-4 py-3">Ytterligare verifierad produkt från samma leverantör.</td><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">995 kr/år</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">ISV Presence faktureras årsvis i förskott, exklusive moms. Verifieringsprocessen ingår, men leverantör och produkt kontrolleras var för sig och godkänd status garanteras inte.</p>
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -384,10 +346,10 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner eller tilläggslösning kan finnas med utan ett betalt avtal.</p></div></section>
+      <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner kan finnas med utan ett betalt avtal.</p></div></section>
       <PartnerProfileCheck initialSlug={partnerSlug} />
       <VerifiedPartnerBadgeEmbed />
-      <details className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
+      <details id="profiljamforelse" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6 scroll-mt-28">
         <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-28">Se skillnaden mellan profiler och följ kundens köpresa</summary>
       {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
       <PartnerProgramBenchmark
@@ -445,7 +407,7 @@ const Partnerprogram = () => {
 
       </details>
 
-      <section className="py-10 md:py-14">
+      <section id="expertinnehall" className="py-10 md:py-14 scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-5">Fördjupning om synlighet och expertinnehåll</h2>
           <Accordion type="multiple">
@@ -586,7 +548,7 @@ const Partnerprogram = () => {
       </section>
 
       {/* 9. SÅ FUNGERAR DET */}
-      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
+      <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-28">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
           <div className="grid gap-5 md:grid-cols-3">
@@ -696,7 +658,7 @@ const Partnerprogram = () => {
       <section className="py-12 md:py-16 bg-secondary/30 border-t border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Vilken närvaro passar ert företag?</h2>
-          <p className="text-muted-foreground max-w-3xl mb-6">Vi går gärna igenom partnerprofilen eller era tilläggslösningar och hjälper er att förstå vad som ingår.</p>
+          <p className="text-muted-foreground max-w-3xl mb-6">Vi går gärna igenom er partnerprofil och hjälper er att förstå vad som ingår.</p>
           <BookButton placement="footer" variant="default" label="Prata med oss om er närvaro" />
         </div>
       </section>
