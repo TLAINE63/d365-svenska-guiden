@@ -124,7 +124,7 @@ export function assessSolutionPath(i: PathInput): PathResult {
     alternatives.push("combination", "isv");
   }
 
-  if (i.systems === "many" && primary !== "combination") {
+  if (i.systems === "many") {
     why.push("Med flera berörda system blir lösningen i praktiken ofta en kombination, där standard är grunden.");
     if (!alternatives.includes("combination")) alternatives.unshift("combination");
   }
