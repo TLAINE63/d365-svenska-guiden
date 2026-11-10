@@ -9,7 +9,7 @@ import { downloadPublicWebinarIcs, type PublicWebinar } from "@/lib/webinars";
 export default function WebinarThanks({ initialWebinar = null }: { initialWebinar?: PublicWebinar | null }) {
   const { slug } = useParams();
   const location = useLocation();
-  const { data: webinar } = useWebinar(slug);
+  const { data: webinar } = useWebinar(slug, initialWebinar);
   let storedEmail = "";
   try { storedEmail = window.sessionStorage.getItem("d365_webinar_email") || ""; } catch { /* no storage */ }
   const email = (location.state as { email?: string } | null)?.email || storedEmail;

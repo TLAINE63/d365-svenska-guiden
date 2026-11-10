@@ -21,6 +21,8 @@ const EVENTS_BY_ID: Record<string, PartnerEvent> = {};
 const PARTNER_NEWS_BY_ID: Record<string, PartnerNewsItem> = {};
 const AKTUELLT_BY_SLUG: Record<string, AktuelltArticleData> = {};
 const EDITOR_ARTICLES_BY_SLUG: Record<string, EditorArticleRow> = {};
+const WEBINARS_BY_SLUG: Record<string, PublicWebinar> = {};
+const CONTENT_INVITES: ContentInviteData = { webinars: [], articles: [] };
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
