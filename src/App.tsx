@@ -511,6 +511,7 @@ const App = () => (
             </InquiryProvider>
           </ShortlistProvider>
         </PartnerCompareProvider>
+        </ContentInviteProvider>
 
       </BrowserRouter>
     </TooltipProvider>

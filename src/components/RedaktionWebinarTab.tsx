@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { CONTENT_INVITE_THEMES } from "@/lib/contentInvite";
 import { formatWebinarDate, type PublicWebinar } from "@/lib/webinars";
 
-interface AdminWebinar extends PublicWebinar { registration_count: number }
+interface AdminWebinar extends PublicWebinar { registration_count: number; join_url: string | null }
 interface Registration { id: string; first_name: string; last_name: string; company: string; title: string; email: string; created_at: string; cancelled_at: string | null; consent_followup: boolean; utm_source: string | null; utm_medium: string | null; utm_campaign: string | null }
 interface FormState { id?: string; slug: string; title: string; description: string; body: string; starts_at: string; duration_min: number; theme: string; speakers: string; join_url: string; recording_url: string; status: string }
 

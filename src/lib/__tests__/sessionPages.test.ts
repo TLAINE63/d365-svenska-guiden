@@ -23,6 +23,29 @@ describe("sidhistorik (d365_session_pages)", () => {
   });
 });
 
+describe("innehållsinbjudan", () => {
+  it("matchar kanoniska temasökvägar och stoppar tack- och formulärsidor", () => {
+    expect(contentThemeForPath("/alla-d365-partners/")).toBe("partnerval");
+    expect(contentThemeForPath("/businesscentral/roi-kalkylator/")).toBe("pris");
+    expect(contentThemeForPath("/kunskapscenter/businesscentral/nav-till-business-central/")).toBe("migrering");
+    expect(contentThemeForPath("/finance-supply-chain/")).toBe("fscm");
+    expect(contentThemeForPath("/d365sales/")).toBe("crm");
+    expect(contentThemeForPath("/copilot/")).toBe("ai");
+    expect(contentThemeForPath("/tack/webinar/test/")).toBeNull();
+    expect(contentThemeForPath("/ERPbehovsanalys/")).toBeNull();
+  });
+
+  it("väljer närmaste webinar före artikel och inget innehåll utan tema", () => {
+    const data: ContentInviteData = {
+      webinars: [{ id: "1", slug: "test", title: "Testwebinar", description: "Test", body: null, starts_at: "2026-12-01T08:00:00+01:00", duration_min: 45, theme: "partnerval", speakers: null, recording_url: null, status: "publicerad", created_at: "2026-11-10", updated_at: "2026-11-10" }],
+      articles: [{ id: "a", title: "Artikel", description: "Första meningen. Andra meningen.", url: "/artiklar/test/", slug: "test", theme: "partnerval", published_at: "2026-11-10", created_at: "2026-11-10" }],
+    };
+    expect(resolveContentInvite("partnerval", data, new Date("2026-11-10"))?.kind).toBe("webinar");
+    expect(resolveContentInvite("pris", data, new Date("2026-11-10"))).toBeNull();
+    expect(resolveContentInvite("partnerval", { ...data, webinars: [] }, new Date("2026-11-10"))?.sentence).toBe("Första meningen.");
+  });
+});
+
 describe("signaladresser", () => {
   it("rådgivning från second opinion får egen tacksida", () => {
     expect(thanksKindForAdvisory("second_opinion")).toBe("second-opinion");
