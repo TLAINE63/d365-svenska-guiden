@@ -46,6 +46,10 @@ export const AI_CAPABILITIES: Opt[] = [
   { value: "ai-governance", label: "AI-governance, säkerhet och behörigheter" },
   { value: "ai-adoption", label: "AI-adoption och utbildning" },
   { value: "industry-ai", label: "Branschspecifika AI-lösningar" },
+  { value: "agent-d365", label: "Agenter kopplade till Dynamics 365" },
+  { value: "agent-integration", label: "Integration och dataåtkomst för agenter" },
+  { value: "agent-testing", label: "Testning, uppföljning och kvalitetssäkring av agenter" },
+  { value: "agent-operations", label: "Löpande förvaltning av agenter" },
 ];
 
 export const AI_RELEVANT_AREAS: Opt[] = [
@@ -150,6 +154,10 @@ export const AI_CAPABILITY_HELP: Record<string, string> = {
   "ai-governance": "Policy, säkerhet, behörigheter och regelefterlevnad kring AI – vem får använda vad och med vilken data.",
   "ai-adoption": "Utbildning, förändringsledning och användaradoption så att AI-funktionerna faktiskt kommer till nytta.",
   "industry-ai": "Branschspecifika AI-lösningar och agenter anpassade för t.ex. tillverkning, retail eller finansbranschen.",
+  "agent-d365": "Agenter som arbetar i eller mot Dynamics 365, t.ex. i sälj-, service-, ekonomi- eller lagerprocesser.",
+  "agent-integration": "Kopplar agenter till affärsdata och andra system via Dataverse, API:er och kopplingar, med rätt åtkomst.",
+  "agent-testing": "Testar agenters svar och åtgärder före driftstart och följer upp kvalitet och användning efteråt.",
+  "agent-operations": "Löpande ansvar för agenter efter driftstart: ändringar, övervakning, uppdateringar och support.",
 };
 export const helpForCapability = (v: string): string => {
   if (!v) return "";
@@ -167,6 +175,10 @@ const CAP_POINTS: Record<string, number> = {
   "ai-governance": 12,
   "ai-adoption": 10,
   "industry-ai": 16,
+  "agent-d365": 16,
+  "agent-integration": 14,
+  "agent-testing": 10,
+  "agent-operations": 10,
 };
 
 const EXPERIENCE_POINTS: Record<string, number> = {
@@ -357,3 +369,56 @@ export function migrateLegacyAi(productFilters?: ProductFilters | null): AiProfi
   out.relevant_areas = Array.from(areas);
   return out;
 }
+
+
+// ===== Agentkompetens (del av AI-profilen) =====
+// Förmågor som rör utveckling, integration, kvalitetssäkring och förvaltning av AI-agenter.
+export const AGENT_CAPABILITY_KEYS = [
+  "copilot-studio",
+  "agent-d365",
+  "agent-integration",
+  "ai-governance",
+  "agent-testing",
+  "agent-operations",
+] as const;
+
+export const AGENT_CAPABILITY_OPTIONS: Opt[] = AGENT_CAPABILITY_KEYS.map((k) => ({
+  value: k,
+  label: k === "copilot-studio" ? "Agentutveckling och Copilot Studio" : k === "ai-governance" ? "Säkerhet, behörigheter och governance" : labelFor(AI_CAPABILITIES, k),
+}));
+
+export const agentCapabilities = (profile?: AiProfile | null): string[] =>
+  (profile?.capabilities || []).filter((c) => (AGENT_CAPABILITY_KEYS as readonly string[]).includes(c));
+
+/** Saknad uppgift betyder okänt, inte avsaknad av kompetens: utan filterval matchar alla. */
+export function matchesAgentCapability(profile: AiProfile | null | undefined, key: string | null): boolean {
+  if (!key) return true;
+  return agentCapabilities(profile).includes(key);
+}
+
+export type AgentBasis = "stated" | "reviewed" | "delivery";
+
+/**
+ * Underlag för agentkompetensen, utan att bli mer än vad som finns:
+ * - stated: partnern har själv angett kompetensen (alltid när något är angivet)
+ * - reviewed: partnerns uppgifter är granskade av d365.se (informationsstatus satt manuellt i admin)
+ * - delivery: partnern har angett ett publikt eller anonymiserat kundexempel
+ * Partnerns egen kryssruta "Granskat av d365.se" räknas aldrig som granskning.
+ */
+export function agentCompetenceBasis(
+  profile: AiProfile | null | undefined,
+  informationStatus?: string | null,
+): AgentBasis[] {
+  if (agentCapabilities(profile).length === 0) return [];
+  const out: AgentBasis[] = ["stated"];
+  if (informationStatus === "verified") out.push("reviewed");
+  const ev = profile?.evidence_level || [];
+  if (ev.includes("public-case") || ev.includes("anonymized")) out.push("delivery");
+  return out;
+}
+
+export const AGENT_BASIS_LABEL: Record<AgentBasis, string> = {
+  stated: "Uppgiven av partnern",
+  reviewed: "Partnerns uppgifter granskade av d365.se",
+  delivery: "Kundexempel beskrivet av partnern",
+};
