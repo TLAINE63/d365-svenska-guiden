@@ -1,5 +1,6 @@
 import type { IsvSolution } from "@/data/bcIsvSolutions";
 import { useIsvProductFacts } from "@/hooks/useIsvSolutions";
+import { presentationFor } from '@/lib/isvPresentation';
 
 const COUNTRY: Record<string, string> = { SE: "Sverige", NO: "Norge", DK: "Danmark", FI: "Finland", IS: "Island" };
 const MODEL: Record<string, string> = {
@@ -16,14 +17,15 @@ function youtubeId(url: string): string | null {
 /** Produktfakta, demo/video och kundcase. Varje del visas bara när uppgiften är ifylld. */
 export default function IsvProductExtras({ solution: s }: { solution: IsvSolution }) {
   const facts = useIsvProductFacts()[s.id];
+  const presentation = presentationFor(s);
   const rows: [string, string][] = [];
   if (facts?.technical_model) rows.push(["Teknisk modell", MODEL[facts.technical_model]]);
   if (facts?.countries.length) rows.push(["Tillgänglig i", facts.countries.map((c) => COUNTRY[c.code] || c.code).join(", ")]);
   if (facts?.target_size) rows.push(["Målgrupp", facts.target_size]);
   if (facts?.price_info) rows.push(["Pris", facts.price_info]);
-  const yt = s.demoVideoUrl ? youtubeId(s.demoVideoUrl) : null;
-  const cases = s.customerCases || [];
-  if (!rows.length && !s.demoVideoUrl && !cases.length) return null;
+  const yt = presentation.video ? youtubeId(presentation.video) : null;
+  const cases = presentation.cases;
+  if (!rows.length && !presentation.video && !cases.length) return null;
 
   return (
     <>
@@ -41,7 +43,7 @@ export default function IsvProductExtras({ solution: s }: { solution: IsvSolutio
           <p className="text-xs text-muted-foreground mt-1">Sammanställt av d365.se. Kontrollera pris och tillgänglighet med leverantören.</p>
         </section>
       )}
-      {s.demoVideoUrl && (
+      {presentation.video && (
         <section>
           <h4 className="font-semibold text-foreground mb-2">Demo och video</h4>
           {yt ? (
@@ -56,7 +58,7 @@ export default function IsvProductExtras({ solution: s }: { solution: IsvSolutio
               />
             </div>
           ) : (
-            <a href={s.demoVideoUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            <a href={presentation.video} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
               Se demo av {s.name}
             </a>
           )}

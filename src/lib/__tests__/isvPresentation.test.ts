@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { BC_ISV_SOLUTIONS } from '@/data/bcIsvSolutions';
-import { presentationFor } from '../isvPresentation';
+import { presentationFor, productPartnerPath } from '../isvPresentation';
 import { isvPresenceYearlyPrice } from '../isvVisibility';
 const base = { ...BC_ISV_SOLUTIONS[0], productGallery: [{ url: 'https://example.org/product.jpg', caption: 'Product' }], demoVideoUrl: 'https://example.org/demo', productFeatures: [{ title: 'Feature', text: 'Details' }], customerCases: [1, 2, 3, 4].map(n => ({ title: `Case ${n}` })) };
 describe('ISV presentations', () => {
+  it('product-area partner search carries known apps without implying ISV experience', () => {
+    expect(productPartnerPath(['Customer Service', 'Field Service'])).toBe('/valjdynamics365partner/?apps=Customer%20Service%2CField%20Service');
+    expect(productPartnerPath([])).toBe('/valjdynamics365partner/');
+  });
   it('Standard keeps rich presentation disabled', () => {
     const p = presentationFor({ ...base, hasPresence: false, informationStatus: 'verified' });
     expect([p.gallery.length, p.features.length, p.cases.length]).toEqual([0, 0, 0]);

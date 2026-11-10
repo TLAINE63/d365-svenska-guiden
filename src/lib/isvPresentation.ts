@@ -6,6 +6,9 @@ export interface ProductFeature { title: string; text: string }
 export interface IntegrationEvidence { application: string; statement: string; sourceUrl: string; reviewed: boolean }
 export interface PartnerEvidence { partnerSlug: string; statement: string; sourceUrl: string; reviewed: boolean }
 export const isvProductPath = (id: string) => `/isv/produkt/${encodeURIComponent(id)}/`;
+export function productPartnerPath(products: string[]) {
+  return products.length ? `/valjdynamics365partner/?apps=${encodeURIComponent(products.join(','))}` : '/valjdynamics365partner/';
+}
 export function httpsUrl(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
   try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password ? u.href : undefined; } catch { return undefined; }
