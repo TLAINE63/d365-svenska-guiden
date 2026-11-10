@@ -25,7 +25,7 @@ export default function IsvProfileCheck() {
   const entries = useMemo<Entry[]>(() => {
     if (mode === "product") return solutions.map((s) => ({
       id: s.id, name: s.name, subtitle: s.vendor, verified: s.informationStatus === "verified",
-      description: brandText(s.shortDescription), url: `${catalogue}?losning=${encodeURIComponent(s.id)}`,
+      description: brandText(s.shortDescription), url: `/isv/produkt/${encodeURIComponent(s.id)}/`,
       rows: [
         { label: "Produktområden", value: s.products?.join(", ") || "" },
         { label: "Vad lösningen gör", value: brandText(s.what) },

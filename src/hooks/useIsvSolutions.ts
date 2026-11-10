@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import snapshot from '@/data/isvPublicSnapshot.json';
 import {
   BC_ISV_SOLUTIONS,
   deliveryModelFromType,
@@ -107,6 +108,10 @@ export interface IsvSolutionRow {
   premium_product?: boolean | null;
   demo_video_url?: string | null;
   customer_cases?: unknown;
+  product_gallery?: import('@/lib/isvPresentation').ProductImage[];
+  product_features?: import('@/lib/isvPresentation').ProductFeature[];
+  integration_evidence?: import('@/lib/isvPresentation').IntegrationEvidence[];
+  partner_evidence?: import('@/lib/isvPresentation').PartnerEvidence[];
 }
 
 /** Konverterar en databasrad till katalogens IsvSolution-format. */
@@ -153,6 +158,10 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
     vendorWebsite: r.vendor_website || undefined,
     informationStatus: r.information_status || undefined,
     hasPresence: r.premium_product === true,
+    productGallery: Array.isArray(r.product_gallery) ? r.product_gallery : [],
+    productFeatures: Array.isArray(r.product_features) ? r.product_features : [],
+    integrationEvidence: Array.isArray(r.integration_evidence) ? r.integration_evidence : [],
+    partnerEvidence: Array.isArray(r.partner_evidence) ? r.partner_evidence : [],
     demoVideoUrl: r.demo_video_url || undefined,
     customerCases: Array.isArray(r.customer_cases)
       ? (r.customer_cases as { title?: string; text?: string | null; url?: string | null }[])
@@ -177,7 +186,7 @@ export interface IsvVendorPublic {
 
 /** Leverantörer per slug. Bara publicerade profiler; produkternas status påverkas inte. */
 export function useIsvVendors(): Record<string, IsvVendorPublic> {
-  const [vendors, setVendors] = useState<Record<string, IsvVendorPublic>>({});
+  const [vendors, setVendors] = useState<Record<string, IsvVendorPublic>>(() => Object.fromEntries(snapshot.vendors.map(v => [v.slug, v])));
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -236,8 +245,8 @@ const NON_ISV_PLATFORM_IDS = new Set(["power-bi", "fabric"]);
  * Faller alltid tillbaka på den statiska katalogen (viktigt för SSG).
  */
 export function useIsvSolutions(): IsvSolution[] {
-  const [overrides, setOverrides] = useState<Record<string, IsvOverride>>({});
-  const [dbSolutions, setDbSolutions] = useState<IsvSolution[]>([]);
+  const [overrides, setOverrides] = useState<Record<string, IsvOverride>>(() => Object.fromEntries(snapshot.overrides.map(o => [o.solution_id, o])));
+  const [dbSolutions, setDbSolutions] = useState<IsvSolution[]>(() => (snapshot.products as unknown as IsvSolutionRow[]).map(rowToSolution));
 
   useEffect(() => {
     let cancelled = false;
@@ -302,7 +311,7 @@ export interface IsvProductFacts {
 }
 let factsPromise: Promise<Record<string, IsvProductFacts>> | null = null;
 export function useIsvProductFacts(): Record<string, IsvProductFacts> {
-  const [facts, setFacts] = useState<Record<string, IsvProductFacts>>({});
+  const [facts, setFacts] = useState<Record<string, IsvProductFacts>>(() => Object.fromEntries((snapshot.facts as IsvProductFacts[]).map(f => [f.solution_id, f])));
   useEffect(() => {
     let cancelled = false;
     factsPromise ??= (async () => {
