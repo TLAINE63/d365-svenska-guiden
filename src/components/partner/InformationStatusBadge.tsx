@@ -34,21 +34,21 @@ export default function InformationStatusBadge({ partner, showDate = false, expl
   let meta: { label: string; description: string };
   if (kind === "isv") {
     status = isvInformationStatusOf(partner.information_status);
-    meta = ISV_INFORMATION_STATUSES.find((s) => s.value === status)!;
+    meta = ISV_INFORMATION_STATUSES.find((s) => s.value === status) ?? ISV_INFORMATION_STATUSES[1];
   } else {
     status = informationStatusOf(partner);
-    meta = INFORMATION_STATUSES.find((s) => s.value === status)!;
+    meta = INFORMATION_STATUSES.find((s) => s.value === status) ?? INFORMATION_STATUSES[1];
   }
   const level: Level = status === "verified" ? "verified" : "compiled";
   const Icon = ICONS[level];
   const date = status === "verified" && showDate ? partner.information_verified_at?.slice(0, 10) : null;
   const badge = (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-tight ${TONE[level]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded border font-semibold leading-tight ${kind === "isv" && level === "verified" ? "px-3 py-2 text-sm border-accent bg-accent text-accent-foreground" : `px-2 py-0.5 text-[11px] ${TONE[level]}`} ${className}`}
       title={meta.description}
       data-information-status={status}
     >
-      <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+      <Icon className={kind === "isv" && level === "verified" ? "h-5 w-5 shrink-0" : "h-3.5 w-3.5 shrink-0"} aria-hidden="true" />
       <span>{meta.label}</span>
       {date && <span className="font-normal opacity-80">· {date}</span>}
       <span className="sr-only">. {meta.description}</span>
