@@ -20,21 +20,21 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["Varje extra produkt", `${kr(ISV_FEES.extraApp)}/år`],
   ];
   return [
-    ["Genomfört kundmöte, Basic (BC, CRM, Power Platform och övrigt)", kr(FEES.meetingStd)],
-    ["Genomfört kundmöte, Basic (F&SCM)", kr(FEES.meetingFscm)],
+    ["Genomfört kundmöte, grundprofil (BC, CRM, Power Platform och övrigt)", kr(FEES.meetingStd)],
+    ["Genomfört kundmöte, grundprofil (F&SCM)", kr(FEES.meetingFscm)],
     ["Kundavtal tecknat (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
     ["Kundavtal tecknat (F&SCM)", kr(FEES.dealFscm)],
     ["ISV: kundavtal tecknat (BC/CRM)", kr(ISV_FEES.introStd)],
     ["ISV: kundavtal tecknat (F&SCM)", kr(ISV_FEES.introFscm)],
     ["Success fee", `${(FEES.successRate * 100).toLocaleString("sv-SE")} %`],
     ["Expertförmedling, Premiumpartner", `${kr(EXPERT_FEES.premiumPerHour)}/debiterad timme`],
-    ["Expertförmedling, Basicpartner", `${kr(EXPERT_FEES.basicPerHour)}/debiterad timme`],
+    ["Expertförmedling, partner med grundprofil", `${kr(EXPERT_FEES.basicPerHour)}/debiterad timme`],
   ];
 }
 
 export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "partner") return [
-    { title: "Partner Presence", body: "Standard (grundprofil) är kostnadsfri. Premium ger utökad presentation. CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår." },
+    { title: "Partner Presence", body: "Grundprofil är kostnadsfri. Premium ger utökad presentation. CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår." },
     { title: "Fakturering och avtalstid", body: "Månadsabonnemang faktureras i efterskott. Avtalet löper initialt i tre månader från startdatum, med tre månaders uppsägningstid. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen." },
     { title: "Verifiering och relevans", body: "Premium ger inte verifieringsstatus. Verifiering, publicering och kommersiellt avtal hålls isär. Betalning påverkar aldrig relevansordning eller rekommendationer. Förmedling regleras separat." },
   ];
@@ -45,10 +45,10 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   ];
   return [
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
-    { title: "Kundmöten och kundavtal, partners", body: "Mötesavgift gäller endast Basicpartners. Premiumpartners betalar ingen mötesavgift. För Basic avräknas betald mötesavgift från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat kundavtal." },
+    { title: "Kundmöten och kundavtal, partners", body: "Mötesavgift gäller endast partners med grundprofil. Premiumpartners betalar ingen mötesavgift. För grundprofiler avräknas betald mötesavgift från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat kundavtal." },
     { title: "Success fee, partners", body: "Success fee är 2,5 procent av konsult- och projektintäkter från första kronan under de första nio månaderna från projektstart, när intäkterna överstiger 100 000 kr. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte i beräkningsunderlaget." },
     { title: "ISV-förmedling", body: "Fast ersättning gäller en accepterad introduktion som leder till tecknat avtal: Business Central eller CRM 3 500 kr, Finance & Supply Chain Management 7 500 kr. Success fee på 2,5 procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs före introduktionen." },
-    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen beräknas på faktiskt debiterade timmar: 40 kr per timme från Premiumpartner och 80 kr från Basicpartner. Samma expertuppdrag dubbelräknas inte med mötesavgift, avtalsersättning eller success fee." },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen beräknas på faktiskt debiterade timmar: 40 kr per timme från Premiumpartner och 80 kr från partner med grundprofil. Samma expertuppdrag dubbelräknas inte med mötesavgift, avtalsersättning eller success fee." },
   ];
 }
 

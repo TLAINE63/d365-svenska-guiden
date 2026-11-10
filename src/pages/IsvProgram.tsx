@@ -100,7 +100,7 @@ const IsvProgram = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Nivåer och priser</h2>
             <div className="grid gap-5 md:grid-cols-2 items-stretch">
               <div className="rounded-xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Standard</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Grundprofil</h3>
                 <p className="text-3xl font-bold text-foreground mb-3">0 kr</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Lösningen sammanställs i katalogen med funktioner, produktområden och branscher. Ingen logotyp, ingen länk till er webbplats och inga kontaktuppgifter.
