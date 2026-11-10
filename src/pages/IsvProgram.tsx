@@ -7,6 +7,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/StructuredData";
+import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se/" },
@@ -66,6 +67,8 @@ const IsvProgram = () => {
             </ContactFormDialog>
           </div>
         </section>
+
+        <IsvProfileCheck />
 
         <section className="pt-8 pb-14">
           <div className="max-w-6xl mx-auto px-4">
