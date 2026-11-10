@@ -433,7 +433,7 @@ const Partnerprogram = () => {
       <section id="affarsmojligheter" className="scroll-mt-28 py-10 md:py-14 bg-secondary/30 border-y border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Kvalificerade affärsmöjligheter
+            Möten &amp; Affärsmöjligheter
           </h2>
           <div className="max-w-3xl space-y-3 text-muted-foreground mb-8">
             <p>
