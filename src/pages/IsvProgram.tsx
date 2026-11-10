@@ -44,7 +44,7 @@ const programSections = [
   { id: "priser-innehall", label: "Priser & innehåll" },
   { id: "isv-profilkoll", label: "Profiler & jämförelser" },
   { id: "verifiering", label: "Verifiering" },
-  { id: "formedling", label: "Möten & Affärsmöjligheter" },
+  { id: "formedling", label: "Synlighet & Affärsmöjligheter" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
@@ -151,7 +151,7 @@ const IsvProgram = () => {
 
         <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Möten &amp; Affärsmöjligheter</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Synlighet &amp; Affärsmöjligheter</h2>
             <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
             <p className="max-w-3xl text-muted-foreground mb-6">ISV Premium innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
             <h3 className="text-lg font-semibold mb-3">Ersättning vid förmedling</h3>
