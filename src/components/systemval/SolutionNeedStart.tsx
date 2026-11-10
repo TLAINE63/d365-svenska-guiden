@@ -4,6 +4,7 @@ import { ArrowRight, Calculator, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import BuyerAssessmentLight from "@/components/assessment/BuyerAssessmentLight";
+import SolutionPathChoice from "@/components/assessment/SolutionPathChoice";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import {
   BUSINESS_NEEDS, CONCRETE_NEEDS, COST_LINK, assessmentLines, businessNeedByKey,
@@ -141,6 +142,10 @@ export default function SolutionNeedStart({ onContinue, onSkip }: Props) {
               onContinueGuide={() => onContinue(need)}
               extraActions={<Button variant="outline" onClick={() => setDialog("advice")}>Prata med d365.se <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>}
             />
+          </div>
+
+          <div className="mt-8">
+            <SolutionPathChoice key={`sp-${need.key}`} sourcePage="/kom-igang/" areas={CONCRETE_NEEDS.some((n) => n.key === need.key) ? [need.key] : []} />
           </div>
         </div>
       )}
