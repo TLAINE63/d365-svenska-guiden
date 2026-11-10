@@ -1,5 +1,10 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## ISV Presence 2.0 (2026-11-10)
+- [x] Kartlägg katalog, verifiering, kontaktregler, produktfakta, köpresor och XMReality utan ändrade produktuppgifter.
+- [ ] Gemensamma indexerbara produktsidor, Standard/Presence, innehållsstyrda sektioner, redigering och XMReality-pilot (väntar på godkännande av planen).
+- [ ] Verifiera behörigheter, tre separata statusar, neutral relevans, förgenerering och dator/mobil efter genomförandet.
+
 ## Premiumkvalitet för utgående dokument (2026-11-09)
 - [x] Gemensam PDF-export, säkra varumärkesradbrytningar och slutlig sidnumrering i samtliga generatorer.
 - [x] Rättade rubriker, kontaktblock, logotypadresser, tabellradkontroller och bilagelänkar. 15 provfiler renderade/granskade, fyra tester godkända, rapportens verkliga nedladdning verifierad.
