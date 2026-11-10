@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ShieldCheck } from "lucide-react";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import AdminIsvLogoContactDialog, { type LogoContactTarget } from "@/components/AdminIsvLogoContactDialog";
+import IsvPresentationEditor from '@/components/isv/IsvPresentationEditor';
 
 interface Props {
   token: string | null;
@@ -70,6 +71,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(false);
   const [lc, setLc] = useState<LogoContactTarget | null>(null);
+  const [presentation, setPresentation] = useState<Row | null>(null);
   const [bcEdit, setBcEdit] = useState<{ id: string; name: string; form: typeof emptyBc } | null>(null);
 
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-isv-solutions`;
@@ -244,6 +246,8 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                       <TableCell>
                         <p className="font-medium">{p.name}</p>
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
+                        <Button variant="link" size="sm" className="px-0 block" onClick={() => setPresentation(p)}>Produktpresentation och belägg</Button>
+                        {p.premium_product && <p className="text-xs text-muted-foreground mt-1">Visningar: {p.statistics?.views ?? 0} · Vidareklick: {p.statistics?.clicks ?? 0} (senaste 30 dagar)</p>}
                         <Button
                           type="button"
                           size="sm"
@@ -299,6 +303,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
       </CardContent>
 
       <AdminIsvLogoContactDialog target={lc} onClose={() => setLc(null)} onSaved={load} baseUrl={baseUrl} headers={headers} onSessionExpired={onSessionExpired} />
+      {presentation && <IsvPresentationEditor product={presentation} onClose={() => setPresentation(null)} onSaved={load} baseUrl={baseUrl} headers={headers} onSessionExpired={onSessionExpired} />}
 
       <Dialog open={!!bcEdit} onOpenChange={(o) => !o && setBcEdit(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">

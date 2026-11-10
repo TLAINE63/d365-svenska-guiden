@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { presentationFields } from '../_shared/isvPresentation.ts';
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -292,7 +293,7 @@ serve(async (req) => {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
         supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
-        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
+        supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, product_gallery, product_features, integration_evidence, partner_evidence, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
       if (vErr || pErr) throw vErr || pErr;
       const boa = new Map((internal || []).map((r) => [r.vendor_slug, r.buyer_opportunity_agreement_status]));
@@ -301,9 +302,19 @@ serve(async (req) => {
       const pc = new Map((ovRows || []).map((r) => [r.solution_id, { contact_name: r.sales_contact_name, contact_email: r.sales_contact_email, contact_phone: r.sales_contact_phone }]));
       const { data: bcRows } = await supabase.from("isv_bc_presentation").select("*");
       const bc = new Map((bcRows || []).map((r) => [r.solution_id, r]));
+      const { data: events, error: statsError } = await supabase.from('funnel_events').select('event_name,metadata').in('event_name', ['isv_product_viewed', 'isv_product_selfservice_clicked']).gte('occurred_at', new Date(Date.now() - 30 * 86400000).toISOString()).limit(10000);
+      if (statsError) throw statsError;
+      const statistics = new Map<string, { views: number; clicks: number }>();
+      for (const event of events || []) {
+        const id = event.metadata?.product_id;
+        if (typeof id !== 'string') continue;
+        const count = statistics.get(id) || { views: 0, clicks: 0 };
+        if (event.event_name === 'isv_product_viewed') count.views++; else count.clicks++;
+        statistics.set(id, count);
+      }
       return json({
         vendors: (vendors || []).map((v) => ({ ...v, buyer_opportunity_agreement_status: boa.get(v.slug) || "none", contact: vc.get(v.slug) || null })),
-        products: (products || []).map((p) => ({ ...p, bc_presentation: bc.get(p.solution_id) || null, contact: pc.get(p.solution_id) || null, vendor_contact: p.vendor_slug ? vc.get(p.vendor_slug) || null : null })),
+        products: (products || []).map((p) => ({ ...p, statistics: statistics.get(p.solution_id) || { views: 0, clicks: 0 }, bc_presentation: bc.get(p.solution_id) || null, contact: pc.get(p.solution_id) || null, vendor_contact: p.vendor_slug ? vc.get(p.vendor_slug) || null : null })),
       }, 200, corsHeaders);
     }
 
@@ -383,6 +394,7 @@ serve(async (req) => {
       const id = clean(body?.solution_id, 100);
       if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
       const fields = statusFields(body || {}, "product_source", "premium_product");
+      try { Object.assign(fields, presentationFields(body, true)); } catch { return json({ error: 'Ogiltigt produktinnehåll' }, 400, corsHeaders); }
       // Demo/video och kundcase: redaktionellt innehåll, sparas bara när fälten skickas.
       if (body && "demo_video_url" in body) {
         const v = clean(body.demo_video_url, 500);
@@ -390,7 +402,7 @@ serve(async (req) => {
         fields.demo_video_url = v || null;
       }
       if (body && Array.isArray(body.customer_cases)) {
-        fields.customer_cases = (body.customer_cases as unknown[]).slice(0, 6).map((c) => {
+        fields.customer_cases = (body.customer_cases as unknown[]).slice(0, 3).map((c) => {
           const o = (c || {}) as Record<string, unknown>;
           const url = clean(o.url, 500);
           return { title: clean(o.title, 120), text: clean(o.text, 600), url: url && /^https:\/\//i.test(url) ? url : null };

@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { isvProductPath } from '@/lib/isvPresentation';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -580,6 +582,7 @@ const SolutionDetail = ({
             })()}
 
             <section className="space-y-2 pt-3 border-t border-border" aria-label="Nästa steg">
+              <Button asChild variant="outline" className="w-full"><Link to={isvProductPath(s.id)}>Öppna produktprofilen<ArrowRight className="w-4 h-4" /></Link></Button>
               {vendorInfo(s, vendor).website && (
                 <Button asChild className="w-full h-auto min-h-10 whitespace-normal">
                   <a
@@ -675,6 +678,7 @@ const BcIsvCatalog = ({
   };
 
   const BC_ISV_SOLUTIONS = useIsvSolutions();
+  const navigate = useNavigate();
   const vendors = useIsvVendors();
   const contacts = useVerifiedIsvContacts();
 
@@ -685,12 +689,7 @@ const BcIsvCatalog = ({
   };
 
   const openSolution = (s: IsvSolution) => {
-    setOpen(s);
-    trackIsv("isv_product_viewed", {
-      product_id: s.id,
-      vendor_slug: s.vendorSlug || null,
-      information_status: isvInformationStatusOf(s.informationStatus),
-    });
+    navigate(isvProductPath(s.id));
   };
 
   // När produktfiltret visas är defaultProducts bara ett förval, inte en hård avgränsning.
