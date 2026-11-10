@@ -265,14 +265,13 @@ const Partnerprogram = () => {
               </Badge>
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
-              För Solution Partners inom Dynamics&nbsp;365
+              För partners och ISV:er inom Dynamics&nbsp;365
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
-              Partnerprogram för Solution Partners
+              Var med när kunderna väljer Dynamics&nbsp;365
             </h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
-              d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365,
-              och hjälper partners och ISV:er att komma i kontakt med företag som har relevanta behov.
+              d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV:er möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg"><a href="#priser-innehall">Se priser och innehåll<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
