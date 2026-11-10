@@ -1,5 +1,9 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
+## Prislista, partneravtal och budget som PDF/DOCX (2026-11-10)
+- [x] Tre separata dokument skapade i både PDF och redigerbar Word: Prislista 2027, Partneravtal 2027 och Budget 2027.
+- [x] Budgetens sparade värden och avtalets publicerade villkor hämtade; samtliga PDF-sidor visuellt granskade och Word-filer tekniskt validerade.
+
 ## Avtalsvillkor i Redaktion (2026-11-10)
 - [x] Egen flik med separata PDF-sammanställningar för Partner, ISV och förmedlingsprovision, med befintliga villkor och gemensamma priser.
 - [x] Alla tre PDF-filer nedladdade via inloggad Redaktion och visuellt granskade; mobil utan överbredd, 10 tester godkända.
