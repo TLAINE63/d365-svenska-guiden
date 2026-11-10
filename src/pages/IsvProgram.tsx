@@ -169,7 +169,7 @@ const IsvProgram = () => {
             </div>
             <div className="max-w-3xl space-y-3 text-sm text-muted-foreground mb-6">
               <p>Den fasta ersättningen gäller en accepterad introduktion som leder till tecknat avtal. Alla belopp anges exklusive moms. ISV Presence och förmedlingsersättning är separata.</p>
-              <p>Success fee på {ISV_FEES.successRate * 100}&nbsp;procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs innan introduktionen genomförs.</p>
+              <p>Success fee på {(ISV_FEES.successRate * 100).toLocaleString("sv-SE")}&nbsp;procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs innan introduktionen genomförs.</p>
               <p>Ni får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.</p>
             </div>
             <div className="flex flex-wrap gap-3">
