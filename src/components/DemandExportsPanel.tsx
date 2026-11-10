@@ -168,6 +168,10 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         </Button>
       </div>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+      <Button disabled={!!busy} onClick={() => download("segments", "admin-partner-segments", `partnersegment-${new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date())}`)}>
+        <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+        {busy === "segments" ? "Hämtar…" : "Partnersegment"}
+      </Button>
     </div>
   );
 }
