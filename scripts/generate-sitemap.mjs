@@ -53,7 +53,7 @@ const STATIC_ROUTES = [
   { path: "/ERPbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/CRMbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/kundservice-behovsanalys/", changefreq: "monthly", priority: "0.8" },
-  { path: "/beslutsmognad/", changefreq: "monthly", priority: "0.7" },
+  // Beslutsmognad remains reachable directly but is temporarily hidden.
   { path: "/kom-igang/", changefreq: "monthly", priority: "0.8" },
   { path: "/partnerprogram/", changefreq: "monthly", priority: "0.7" },
   { path: "/isvprogram/", changefreq: "monthly", priority: "0.6" },

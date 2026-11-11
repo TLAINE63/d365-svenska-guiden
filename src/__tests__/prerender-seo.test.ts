@@ -12,7 +12,7 @@
  *   - SEOHead removed/broken on a critical page
  */
 import { describe, it, expect } from "vitest";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - plain ESM script, no types
@@ -20,6 +20,19 @@ import { CRITICAL_ROUTES, checkRoute, validateRichShareHtml } from "../../script
 
 const distExists = existsSync(resolve(process.cwd(), "dist"));
 const d = distExists ? describe : describe.skip;
+
+describe("Temporarily hidden decision maturity page", () => {
+  it("does not require hidden /beslutsmognad HTML in the production SEO gate", () => {
+    expect(CRITICAL_ROUTES).not.toContain("/beslutsmognad");
+    expect(CRITICAL_ROUTES).toContain("/affarssystem");
+    expect(CRITICAL_ROUTES).toContain("/CRMbehovsanalys");
+  });
+
+  it("does not advertise /beslutsmognad in the generated sitemap", () => {
+    const source = readFileSync(resolve(process.cwd(), "scripts/generate-sitemap.mjs"), "utf-8");
+    expect(source).not.toMatch(/path:\s*["']\/beslutsmognad\/?["']/);
+  });
+});
 
 d("Prerendered SEO tags (dist/)", () => {
   if (!distExists) {
