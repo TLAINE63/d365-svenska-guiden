@@ -19,7 +19,6 @@ import {
   HelpCircle,
   ArrowRight,
   ArrowLeftRight,
-  BarChart3,
   Sparkles,
   BookOpen,
   ClipboardCheck,
