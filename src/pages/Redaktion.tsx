@@ -243,7 +243,7 @@ export default function Redaktion() {
           </Button>
         </div>
 
-        <Tabs defaultValue="events">
+        <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="mb-6 h-auto flex-wrap">
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="webinar">Webinar</TabsTrigger>
@@ -321,7 +321,7 @@ export default function Redaktion() {
           </TabsContent>
 
           <TabsContent value="partner-teaser">
-            <RedaktionPartnerTeaser token={token || null} />
+            <RedaktionPartnerTeaser token={token || null} initialSlug={teaserSlug} />
           </TabsContent>
 
           <TabsContent value="sales-kit">
@@ -359,6 +359,7 @@ export default function Redaktion() {
             <div className="mb-6"><IsvFreshnessCard token={token} onSessionExpired={logout} /></div>
             <RedaktionPartnerLinksTab
               token={token}
+              onOpenTeaser={(s) => { setTeaserSlug(s); setTab("partner-teaser"); window.scrollTo({ top: 0 }); }}
               isLoading={partnersLoading}
               partners={partners.map((p) => ({
                 id: p.id,

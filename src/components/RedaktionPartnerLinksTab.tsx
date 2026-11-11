@@ -46,6 +46,7 @@ interface Props {
   partners: PartnerRow[];
   isLoading?: boolean;
   onSessionExpired: () => void;
+  onOpenTeaser?: (slug: string) => void;
 }
 
 export default function RedaktionPartnerLinksTab({
@@ -53,6 +54,7 @@ export default function RedaktionPartnerLinksTab({
   partners,
   isLoading,
   onSessionExpired,
+  onOpenTeaser,
 }: Props) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
@@ -373,6 +375,12 @@ export default function RedaktionPartnerLinksTab({
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
+                        {onOpenTeaser && (
+                          <Button size="sm" variant="outline" className="gap-1" onClick={() => onOpenTeaser(p.slug)}>
+                            <FileText className="h-3.5 w-3.5" />
+                            Partnerunderlag
+                          </Button>
+                        )}
                         <Button
                           size="sm"
                           variant="outline"

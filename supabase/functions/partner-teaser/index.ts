@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
   const rows = await computePartnerMetrics(supabase, prev, start, end);
 
   // Visibility
-  let synlighet: any = null, forandring: any = null, flags: string[] = [];
+  let synlighet: any = null, forandring: any = null, snitt: any = null, flags: string[] = [];
   const pick = (m: PartnerMetrics | null | undefined) => {
     const o: any = {};
     for (const f of FIELDS) o[OUT[f]] = m ? m[f] : null;
@@ -75,6 +75,13 @@ Deno.serve(async (req) => {
     forandring = {};
     for (const k of Object.values(OUT)) forandring[k] = synlighet[k] != null && p[k] != null ? synlighet[k] - p[k] : null;
     if (!partner.is_featured) { synlighet.klick_till_webbplats = null; forandring.klick_till_webbplats = null; flags.push("ej_tillgangligt_i_grundprofil"); }
+    // Snitt för publicerade partners med samma produktområden (exkl. partnern själv), minst tre för att visas
+    const { data: peers } = await supabase.from("partners").select("slug, product_filters").eq("is_featured", true);
+    const peerSlugs = (peers || []).filter((x: any) => x.slug !== slug && areas.some((a) => x.product_filters?.[a])).map((x: any) => x.slug);
+    snitt = { antal_partners: peerSlugs.length >= 3 ? peerSlugs.length : null };
+    for (const f of FIELDS) {
+      snitt[OUT[f]] = peerSlugs.length >= 3 ? Math.round(peerSlugs.reduce((s: number, sl: string) => s + (rows.find((x) => x.slug === sl)?.current?.[f] || 0), 0) / peerSlugs.length) : null;
+    }
   } else {
     const { data: all } = await supabase.from("partners").select("slug, product_filters").eq("is_featured", true);
     const inArea = (all || []).filter((p: any) => areas.some((a) => p.product_filters?.[a])).map((p: any) => p.slug);
@@ -116,7 +123,7 @@ Deno.serve(async (req) => {
     partner: partner ? { namn: partner.name, slug: partner.slug, niva: partner.is_featured ? "premium" : "grundprofil", produktomraden: areas.map((a) => AREAS[a].label) } : null,
     produktomraden: areas.map((a) => AREAS[a].label),
     period: { typ: period, fran: d(start), till: d(new Date(end.getTime() - 1)), foregaende_fran: d(prev), foregaende_till: d(new Date(start.getTime() - 1)) },
-    synlighet, forandring, flaggor: flags,
+    synlighet, forandring, snitt, flaggor: flags,
     efterfragan_omrade: areas.length ? {
       unika_besokare_omradessidor: nz(uniq(inPeriod.filter(match(all((c) => c.pages))))),
       paborjade_behovsanalyser: nz(uniq(inPeriod.filter(match(all((c) => c.analysis))))),
