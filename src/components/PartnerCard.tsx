@@ -431,7 +431,7 @@ const PartnerCard = ({
    className="-mx-6 -mt-6 mb-4 w-auto px-6 py-5 border-b border-border"
  />
  <div className="flex flex-col flex-1 min-w-0">
- {isDatabasePartner(partner) && <div className="mb-2"><InformationStatusBadge partner={partner as any} /></div>}
+ {isDatabasePartner(partner) && partner.is_featured !== true && <div className="mb-2"><InformationStatusBadge partner={partner as any} /></div>}
  {isDatabasePartner(partner) && (partner as any).related_party && <div className="mb-2"><RelatedPartyBadge /></div>}
   {!resultView && isDatabasePartner(partner) && partner.is_featured !== false && (() => {
    const comp = normalizeCompetencies((partner as any).extended_competencies);

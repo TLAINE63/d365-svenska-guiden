@@ -17,6 +17,7 @@ interface VerifiedPartnerBadgeProps {
   iconOnly?: boolean;
   className?: string;
   logoDarkBg?: boolean | null;
+  verifiedAt?: string | null;
 }
 
 /**
@@ -28,18 +29,21 @@ export default function VerifiedPartnerBadge({
   iconOnly = false,
   className = "",
   logoDarkBg = false,
+  verifiedAt,
 }: VerifiedPartnerBadgeProps) {
+  const date = verifiedAt?.slice(0, 10);
 
   return (
     <TooltipProvider delayDuration={150}>
       <Tooltip>
         <TooltipTrigger asChild>
           <span
-            aria-label="D365 Verifierad"
+            aria-label={PROFILE_LABEL_VERIFIED}
             className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 font-semibold text-accent whitespace-nowrap ${size === "md" ? "px-3 py-1 text-sm" : "px-2.5 py-0.5 text-xs"} ${className}`}
           >
             <BadgeCheck className={size === "md" ? "h-4 w-4" : "h-3.5 w-3.5"} aria-hidden="true" />
-            D365 Verifierad
+            <span>{PROFILE_LABEL_VERIFIED}</span>
+            {date && <span className="font-normal opacity-80">· {date}</span>}
           </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[280px] text-xs">
