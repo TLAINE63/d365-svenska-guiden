@@ -17,6 +17,7 @@ interface VerifiedPartnerBadgeProps {
   iconOnly?: boolean;
   className?: string;
   logoDarkBg?: boolean | null;
+  verifiedAt?: string | null;
 }
 
 /**

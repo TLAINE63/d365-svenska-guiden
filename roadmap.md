@@ -1,7 +1,8 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
-## Verifieringsmärken för ISV (2026-11-11)
+## Verifieringsmärken för partners och ISV (2026-11-11)
 - [x] Skapa ”Verifierad ISV” och ”Verifierad tilläggslösning” med samma runda utformning som partnermärket; separata verifieringar och övriga publiceringsregler bevarade.
+- [ ] Använd ”Verifierad partner” konsekvent på befintliga verifierade partnerkort och profiler utan dubbla märken; kontrollera tillsammans med befintliga verifierade tilläggslösningar.
 
 ## Partnersegment till Demand Engine (2026-11-10)
 - [x] Inventera målgruppsfält, produktgrupper, tomma val och exakta värden; Thomas godkände inventeringen.
