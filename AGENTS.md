@@ -57,4 +57,3 @@
 - Desktop partner openings fill the viewport below the measured site navigation height, with natural growth for expanded content so nothing is clipped.
 - PartnerRequestDialog submits all selected partners in one submit-lead call, so the existing double-opt-in token releases the complete request with one buyer confirmation while partner emails stay separate.
 - Solution Partner and ISV programs use their existing separate URLs with shared ProgramNavigation audience links and native section anchors; reuse profile checks, benchmarks and contact dialogs to avoid parallel lead flows.
-- ISV vendors that are also Solution Partners set isv_vendors.partner_slug; export-isv-products emits linked_partner_slug and company_key (partner slug when linked) so external CRMs merge one company, never used for ranking.
