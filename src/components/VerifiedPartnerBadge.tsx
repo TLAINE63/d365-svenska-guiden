@@ -29,7 +29,9 @@ export default function VerifiedPartnerBadge({
   iconOnly = false,
   className = "",
   logoDarkBg = false,
+  verifiedAt,
 }: VerifiedPartnerBadgeProps) {
+  const date = verifiedAt?.slice(0, 10);
 
   return (
     <TooltipProvider delayDuration={150}>
