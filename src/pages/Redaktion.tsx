@@ -73,6 +73,8 @@ export default function Redaktion() {
     useEditorAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [tab, setTab] = useState("events");
+  const [teaserSlug, setTeaserSlug] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showSetup, setShowSetup] = useState(false);
   const [creating, setCreating] = useState(false);
