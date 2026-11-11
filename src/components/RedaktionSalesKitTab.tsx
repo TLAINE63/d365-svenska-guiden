@@ -32,6 +32,9 @@ const INCLUDED = [
   ["Nyheter som får spridning", "Vi bevakar LinkedIn-inlägg, kundcase och events från er verksamhet."],
   ["Vi lär känna era prioriteringar", "Löpande dialog om kompetens, målgrupper och uppdrag ni söker."],
   ["Aktivt arbete med affärer", "Vi fångar förfrågningar, identifierar intressesignaler och skapar relevanta kontakter."],
+  ["Direktlänk till er webbplats", "Knappen \"Till partnerns webbplats\" med UTM-mätning, så ni ser varje besök från d365.se i er egen statistik."],
+  ["Månadsrapport", "Varje månad: visningar i listan, profilvisningar, jämförelser och klick till er webbplats."],
+  ["INSIDE-intervju till halva priset", `Redaktionell videointervju för 4${"\u00A0"}900 kr i stället för 8${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube.`],
   ["Resultatbaserad förmedling", "Ingen separat mötesavgift för Premium. Finder's Fee först vid förmedlad affär."],
 ];
 
@@ -77,6 +80,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
       "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). 0 kr i separat mötesavgift, Finder's Fee först när en förmedlad kontakt blir affär.",
+      "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju till halva priset (4 900 kr i stället för 8 900 kr).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
       "Thomas Laine · thomas.laine@dynamicfactory.se · d365.se",
