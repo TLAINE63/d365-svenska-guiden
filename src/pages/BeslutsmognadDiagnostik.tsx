@@ -1,665 +1,315 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  questions as allQuestions,
-  SECTION_ROMAN,
-  termForDomain,
-  applyTerm,
-  type Dimension,
-  type Question,
-} from "@/data/beslutsmognadQuestions";
+import { Check, Boxes, Users, Megaphone, Headset, LayoutGrid } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { getBuyerProfile, saveProfile } from "@/lib/buyerProfile";
-import { findIndustryBySlug } from "@/data/standardIndustries";
+import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
+import {
+  BMI_INTRO, BMI_STEP3_INTRO, BMI_B0, BMI_B5, BMI_B3, BMI_B1, BMI_B2, BMI_B4, BMI_HINT,
+  BMI_QUESTIONS, BMI_SECTIONS, BMI_DRAFT_KEY, BMI_RESULT_KEY, bmiQuestionText, bmiTrack,
+  type BmiArea, type BmiResponse,
+} from "@/lib/bmi";
 
-const ERP_MAP: Record<string, string> = { dynax: "ax2012", dynnav: "nav", sap: "sap", oracle: "oracle", ifs: "ifs", infor: "other", visma: "other", egen: "other" };
+type Step =
+  | { kind: "intro" } | { kind: "b0" } | { kind: "b5" }
+  | { kind: "section"; index: number } | { kind: "q"; index: number }
+  | { kind: "step3" } | { kind: "b3" } | { kind: "b1" } | { kind: "b2" } | { kind: "b4" };
 
-/** Återanvänd svaren i köparunderlaget; skriver aldrig över befintliga svar. */
-function prefillBuyerProfile(answers: Record<string, string | number | string[]>, scores: Record<string, number>) {
-  try {
-    const p = getBuyerProfile();
-    const industry = typeof answers.b1 === "string" && findIndustryBySlug(answers.b1) ? answers.b1 : undefined;
-    const sys = (Array.isArray(answers.b4) ? answers.b4 : []).map((v) => ERP_MAP[v]).find(Boolean);
-    const weak = Object.entries(scores).filter(([, s]) => s <= 40).map(([d]) => d);
-    saveProfile({
-      ...(industry && !p.company?.industry ? { company: { industry } } : {}),
-      ...(sys && !p.current_erp?.erp ? { current_erp: { erp: sys } } : {}),
-      assessment: { bm_weak: weak.length ? weak : null, bm_role: typeof answers.b3 === "string" ? answers.b3 : null },
-    });
-  } catch { /* lokalt underlag är frivilligt */ }
+const FLOW: Step[] = [
+  { kind: "intro" }, { kind: "b0" }, { kind: "b5" },
+  ...BMI_QUESTIONS.flatMap((_, i): Step[] => (i % 3 === 0 && i > 0 ? [{ kind: "section", index: i / 3 }, { kind: "q", index: i }] : [{ kind: "q", index: i }])),
+  { kind: "step3" }, { kind: "b3" }, { kind: "b1" }, { kind: "b2" }, { kind: "b4" },
+];
+
+type Draft = { pos: number; b0?: BmiArea; b5?: number; answers: Record<string, number>; b3?: string; b1?: string; b2?: string; b4: string[] };
+const EMPTY: Draft = { pos: 0, answers: {}, b4: [] };
+const AREA_ICONS: Record<BmiArea, typeof Boxes> = { erp: Boxes, crm: Users, marketing: Megaphone, service: Headset, platform: LayoutGrid };
+
+function loadDraft(): Draft {
+  try { const raw = sessionStorage.getItem(BMI_DRAFT_KEY); if (raw) return { ...EMPTY, ...JSON.parse(raw) }; } catch { /* ignore */ }
+  return EMPTY;
 }
 
-
-const DRAFT_KEY = "beslutsmognadsindex_draft";
-
-type Answers = Record<string, string | number | string[]>;
-
-const TopStrip = ({
-  current,
-  total,
-  section,
-}: {
-  current: number;
-  total: number;
-  section: string;
-}) => (
-  <header className="w-full border-b border-bm-rule">
-    <div className="max-w-[1200px] mx-auto px-6 py-5 grid grid-cols-3 items-center">
-      <Link to="/beslutsmognad" className="font-bm-display text-bm-ink text-lg tracking-tight">
-        d365<span className="italic text-bm-accent-deep">.se</span>
-      </Link>
-      <p className="text-center font-bm-display italic text-bm-ink-soft text-sm">
-        {SECTION_ROMAN[section] ? `${SECTION_ROMAN[section]}. ` : ""}
-        {section}
-      </p>
-      <p className="text-right font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
-        Fråga {String(current).padStart(2, "0")} av {String(total).padStart(2, "0")}
-      </p>
-    </div>
-  </header>
-);
-
-const ProgressBar = ({ pct }: { pct: number }) => (
-  <div className="fixed bottom-0 left-0 right-0 h-px bg-bm-rule">
-    <div className="h-full bg-bm-accent-deep transition-all duration-500" style={{ width: `${pct}%` }} />
-  </div>
-);
-
-const SectionTransition = ({ section, onContinue }: { section: string; onContinue: () => void }) => {
-  useEffect(() => {
-    const t = setTimeout(onContinue, 2000);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        clearTimeout(t);
-        onContinue();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [onContinue]);
+function Progress({ step, answered }: { step: Step; answered: number }) {
+  if (step.kind !== "q" && step.kind !== "section") {
+    return <div className="text-xs text-muted-foreground mb-10">Om er</div>;
+  }
+  const qIndex = step.kind === "q" ? step.index : step.index * 3;
+  const sec = Math.floor(qIndex / 3);
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
-      <p
-        className="font-bm-display italic text-bm-accent-deep mb-6"
-        style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 360 }}
-      >
-        {SECTION_ROMAN[section]}.
-      </p>
-      <h2
-        className="font-bm-display italic text-bm-ink"
-        style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)", fontWeight: 360 }}
-      >
-        {section}
-      </h2>
-    </div>
-  );
-};
-
-const SingleSelect = ({
-  q,
-  value,
-  onPick,
-}: {
-  q: Extract<Question, { type: "single_select" }>;
-  value: string | undefined;
-  onPick: (v: string) => void;
-}) => (
-  <div className="max-w-[640px] mx-auto w-full">
-    <h2
-      className="font-bm-display text-bm-ink mb-10 leading-snug text-center"
-      style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 360 }}
-    >
-      {q.text}
-    </h2>
-    <div className="flex flex-col gap-3">
-      {q.options.map((opt, i) => {
-        const selected = value === opt.value;
-        return (
-          <button
-            key={opt.value}
-            onClick={() => onPick(opt.value)}
-            className={`text-left px-5 py-4 border transition-colors font-bm-display ${
-              selected
-                ? "border-bm-accent-deep bg-bm-accent-soft"
-                : "border-bm-rule bg-bm-paper hover:border-bm-accent hover:bg-bm-accent-soft"
-            }`}
-            style={{ fontWeight: 320, fontSize: "1.05rem" }}
-          >
-            <span className="font-bm-display italic text-bm-ink-muted mr-3">
-              {String.fromCharCode(97 + i)}.
-            </span>
-            {opt.label}
-          </button>
-        );
-      })}
-    </div>
-  </div>
-);
-
-const MultiSelect = ({
-  q,
-  value,
-  onToggle,
-}: {
-  q: Extract<Question, { type: "multi_select" }>;
-  value: string[] | undefined;
-  onToggle: (v: string) => void;
-}) => {
-  const selectedSet = new Set(value ?? []);
-  return (
-    <div className="max-w-[640px] mx-auto w-full">
-      <h2
-        className="font-bm-display text-bm-ink mb-3 leading-snug text-center"
-        style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 360 }}
-      >
-        {q.text}
-      </h2>
-      {q.hint && (
-        <p className="font-bm-display italic text-bm-ink-muted text-center mb-8 text-sm">
-          {q.hint}
-        </p>
-      )}
-      <div className="flex flex-col gap-3">
-        {q.options.map((opt, i) => {
-          const selected = selectedSet.has(opt.value);
+    <div className="mb-10">
+      <div className="flex gap-1.5">
+        {BMI_SECTIONS.map((s, i) => {
+          const fill = i < sec ? 100 : i === sec ? (Math.max(0, answered - i * 3) / 3) * 100 : 0;
           return (
-            <button
-              key={opt.value}
-              onClick={() => onToggle(opt.value)}
-              className={`text-left px-5 py-4 border transition-colors font-bm-display flex items-center gap-3 ${
-                selected
-                  ? "border-bm-accent-deep bg-bm-accent-soft"
-                  : "border-bm-rule bg-bm-paper hover:border-bm-accent hover:bg-bm-accent-soft"
-              }`}
-              style={{ fontWeight: 320, fontSize: "1.05rem" }}
-            >
-              <span
-                className={`inline-flex items-center justify-center w-5 h-5 border ${
-                  selected ? "border-bm-accent-deep bg-bm-accent-deep text-bm-paper" : "border-bm-rule bg-bm-paper"
-                }`}
-                aria-hidden
-              >
-                {selected ? "✓" : ""}
-              </span>
-              <span className="font-bm-display italic text-bm-ink-muted mr-1">
-                {String.fromCharCode(97 + i)}.
-              </span>
-              <span>{opt.label}</span>
-            </button>
+            <div key={s.id} className="h-1 flex-1 rounded-full bg-foreground/10 overflow-hidden">
+              <div className="h-full bg-primary transition-all" style={{ width: `${Math.min(100, fill)}%` }} />
+            </div>
           );
         })}
       </div>
+      <div className="flex justify-between mt-2 text-xs text-muted-foreground">
+        <span>{BMI_SECTIONS[sec].name}</span>
+        <span>Fråga {qIndex + 1} av 15</span>
+      </div>
     </div>
   );
-};
+}
 
-const Likert = ({
-  q,
-  value,
-  onPick,
-}: {
-  q: Extract<Question, { type: "likert_5" }>;
-  value: number | undefined;
-  onPick: (v: number) => void;
-}) => (
-  <div className="max-w-[680px] mx-auto w-full">
-    <h2
-      className="font-bm-display text-bm-ink mb-10 leading-snug text-center"
-      style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 360 }}
+function OptionCard({ label, selected, onSelect, index }: { label: string; selected: boolean; onSelect: () => void; index: number }) {
+  return (
+    <button
+      type="button" role="radio" aria-checked={selected} data-index={index} onClick={onSelect}
+      className={`w-full text-left flex items-center gap-3.5 min-h-[56px] px-[18px] py-4 rounded-xl border bg-card text-[16px] leading-[1.45] text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${selected ? "border-primary border-[1.5px] bg-primary/[0.08]" : "border-border hover:border-foreground/40"}`}
     >
-      {q.text}
-    </h2>
-    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-3 mb-4">
-      <span className="font-bm-display text-bm-ink text-base sm:max-w-[160px] text-center sm:text-left">
-        <span className="font-semibold">1</span> = {q.anchor_low}
+      <span className={`shrink-0 w-5 h-5 rounded-full border flex items-center justify-center ${selected ? "bg-primary border-primary" : "border-muted-foreground/50"}`}>
+        {selected && <Check className="w-3 h-3 text-primary-foreground" strokeWidth={3} />}
       </span>
-      <div className="flex flex-row sm:flex-row items-center justify-center gap-3 sm:gap-4 flex-1">
-        {[1, 2, 3, 4, 5].map((n) => {
-          const sel = value === n;
-          return (
-            <button
-              key={n}
-              onClick={() => onPick(n)}
-              aria-label={`${n} av 5`}
-              className={`w-14 h-14 rounded border-2 transition-colors font-bm-display text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper ${
-                sel
-                  ? "border-bm-accent-deep bg-bm-accent-deep text-bm-paper"
-                  : "border-bm-ink/40 bg-bm-paper text-bm-ink hover:border-bm-accent-deep hover:bg-bm-accent-soft"
-              }`}
-              style={{ fontWeight: 420 }}
-            >
-              {n}
-            </button>
-          );
-        })}
-      </div>
-      <span className="font-bm-display text-bm-ink text-base sm:max-w-[160px] text-center sm:text-right">
-        <span className="font-semibold">5</span> = {q.anchor_high}
-      </span>
-    </div>
-    <p className="text-center font-bm-display text-bm-ink-soft text-base mt-6">
-      Välj det som ligger närmast sanningen – du behöver inte tveka.
-    </p>
-  </div>
-);
+      <span>{label}</span>
+    </button>
+  );
+}
 
-const Input = ({
-  label,
-  value,
-  onChange,
-  type = "text",
-  placeholder,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  type?: string;
-  placeholder?: string;
-}) => (
-  <label className="block">
-    <span className="font-bm-display italic text-bm-ink-muted text-xs uppercase tracking-wider">
-      {label}
-    </span>
-    <input
-      type={type}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      className="block w-full bg-transparent border-0 border-b border-bm-rule-strong py-3 font-bm-display text-bm-ink placeholder:italic placeholder:text-bm-ink-muted focus:outline-none focus:border-bm-accent-deep"
-      style={{ fontWeight: 320, fontSize: "1.1rem" }}
-    />
-  </label>
-);
+function RadioList({ label, options, value, onPick }: { label: string; options: string[]; value: number | null; onPick: (i: number) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    e.preventDefault();
+    const btns = Array.from(ref.current?.querySelectorAll<HTMLButtonElement>("[role=radio]") ?? []);
+    const cur = btns.indexOf(document.activeElement as HTMLButtonElement);
+    const next = e.key === "ArrowDown" ? Math.min(btns.length - 1, cur + 1) : Math.max(0, cur - 1);
+    btns[next]?.focus();
+  };
+  return (
+    <div ref={ref} role="radiogroup" aria-label={label} onKeyDown={onKey} className="flex flex-col gap-2.5">
+      {options.map((o, i) => <OptionCard key={o} label={o} index={i} selected={value === i} onSelect={() => onPick(i)} />)}
+    </div>
+  );
+}
 
 export default function BeslutsmognadDiagnostik() {
   const navigate = useNavigate();
-  const [idx, setIdx] = useState(0);
-  const [answers, setAnswers] = useState<Answers>({});
-  const [showTransition, setShowTransition] = useState<string | null>(null);
-  const [pendingTransition, setPendingTransition] = useState<string | null>(null);
-  const [phase, setPhase] = useState<"questions" | "contact">("questions");
+  const [draft, setDraft] = useState<Draft>(EMPTY);
+  const [hydrated, setHydrated] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const startedAt = useRef(Date.now());
+  const [error, setError] = useState<string | null>(null);
+  const [industryQuery, setIndustryQuery] = useState("");
+  const timer = useRef<number | null>(null);
 
-  const domain = (answers.b0 as string) ?? "";
-  const systemTerm = termForDomain(domain);
+  useEffect(() => { setDraft(loadDraft()); setHydrated(true); }, []);
+  useEffect(() => { if (hydrated) try { sessionStorage.setItem(BMI_DRAFT_KEY, JSON.stringify(draft)); } catch { /* ignore */ } }, [draft, hydrated]);
 
-  // Hide ERP-specific question b4 for non-ERP domains
-  const questions = useMemo(() => {
-    return allQuestions.filter((qq) => {
-      if (qq.id === "b4" && domain && !["erp", "flera"].includes(domain)) return false;
-      return true;
-    });
-  }, [domain]);
-  const total = questions.length;
+  const step = FLOW[draft.pos];
+  const area: BmiArea = draft.b0 ?? "erp";
+  const answered = Object.keys(draft.answers).length;
 
-
-  // Contact phase fields
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [freeText, setFreeText] = useState("");
-  const [followup, setFollowup] = useState<string>("Rapport via mail");
-
-  // Restore draft on mount
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(DRAFT_KEY);
-      if (!raw) return;
-      const d = JSON.parse(raw);
-      if (Date.now() - (d.savedAt ?? 0) > 7 * 24 * 60 * 60 * 1000) return;
-      if (d.answers) setAnswers(d.answers);
-      if (typeof d.idx === "number") setIdx(Math.min(d.idx, total - 1));
-    } catch {
-      /* ignore */
-    }
-  }, [total]);
-
-  // Persist draft
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        DRAFT_KEY,
-        JSON.stringify({ answers, idx, savedAt: Date.now() })
-      );
-    } catch {
-      /* ignore */
-    }
-  }, [answers, idx]);
-
-  const q = questions[idx];
-  const currentSection = q?.section ?? "";
-
-  const advance = useCallback(() => {
-    setIdx((i) => {
-      const next = i + 1;
-      if (next >= total) {
-        setPhase("contact");
-        return i;
-      }
-      const nextSection = questions[next].section;
-      if (nextSection !== questions[i].section) {
-        setPendingTransition(nextSection);
-        setShowTransition(nextSection);
-      }
-      return next;
-    });
-  }, [total]);
-
+  const go = useCallback((pos: number) => {
+    setVisible(false);
+    window.setTimeout(() => { setDraft((d) => ({ ...d, pos })); setVisible(true); window.scrollTo({ top: 0 }); }, 200);
+  }, []);
+  const next = useCallback(() => go(Math.min(FLOW.length - 1, draft.pos + 1)), [go, draft.pos]);
   const back = useCallback(() => {
-    setShowTransition(null);
-    setPendingTransition(null);
-    if (phase === "contact") {
-      setPhase("questions");
+    let p = draft.pos - 1;
+    while (p > 0 && (FLOW[p].kind === "section" || FLOW[p].kind === "step3")) p--;
+    go(Math.max(0, p));
+  }, [go, draft.pos]);
+
+  // Section interstitial: auto-continue after 1.2 s.
+  useEffect(() => {
+    if (step.kind !== "section") return;
+    const t = window.setTimeout(next, 1200);
+    return () => window.clearTimeout(t);
+  }, [step, next]);
+
+  const pickAndAdvance = (update: (d: Draft) => Draft, changed: boolean) => {
+    setDraft(update);
+    if (timer.current) window.clearTimeout(timer.current);
+    if (changed) timer.current = window.setTimeout(() => go(draft.pos + 1), 400);
+  };
+
+  const submit = async (b4: string[]) => {
+    setSubmitting(true); setError(null);
+    const body = { version: 2, b0: draft.b0, b5: draft.b5, answers: draft.answers, b1: draft.b1, b2: draft.b2, b3: draft.b3, b4 };
+    const { data, error: err } = await supabase.functions.invoke("bmi-score", { body });
+    if (err || !data?.submission_id) {
+      setSubmitting(false);
+      setError("Resultatet kunde inte beräknas just nu. Försök igen om en stund.");
       return;
     }
-    setIdx((i) => Math.max(0, i - 1));
-  }, [phase]);
-
-  const handlePick = (value: string | number) => {
-    setAnswers((a) => ({ ...a, [q.id]: value }));
-    setTimeout(() => advance(), 400);
+    const payload = { result: data as BmiResponse, input: body, date: new Date().toISOString().slice(0, 10) };
+    try { sessionStorage.setItem(BMI_RESULT_KEY, JSON.stringify(payload)); sessionStorage.removeItem(BMI_DRAFT_KEY); } catch { /* ignore */ }
+    bmiTrack("analysis_complete", "bmi_complete", { b0: draft.b0, phase: data.phase, total: data.total });
+    navigate("/beslutsmognad/resultat", { state: payload });
   };
 
-  const handleToggleMulti = (value: string) => {
-    setAnswers((a) => {
-      const current = Array.isArray(a[q.id]) ? (a[q.id] as string[]) : [];
-      const next = current.includes(value)
-        ? current.filter((v) => v !== value)
-        : [...current, value];
-      return { ...a, [q.id]: next };
-    });
-  };
-
-  // Keyboard
+  // Keyboard: 1–4 picks, Backspace goes back.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (showTransition) return;
-      if (e.key === "Enter" && !(e.target instanceof HTMLTextAreaElement)) {
-        if (phase === "contact") return;
-        if (answers[q.id] !== undefined) advance();
-      } else if (e.shiftKey && e.key === "Enter") {
-        back();
-      }
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "Backspace" && draft.pos > 1) { e.preventDefault(); back(); return; }
+      const n = Number(e.key);
+      if (!Number.isInteger(n) || n < 1) return;
+      const btn = document.querySelector<HTMLButtonElement>(`[role=radiogroup] [data-index="${n - 1}"]`);
+      btn?.click();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [advance, back, answers, q, phase, showTransition]);
+  }, [draft.pos, back]);
 
-  const pct = useMemo(() => {
-    if (phase === "contact") return 100;
-    return ((idx + (answers[q?.id] !== undefined ? 1 : 0)) / (total + 1)) * 100;
-  }, [idx, answers, q, total, phase]);
+  const industries = useMemo(() => {
+    const q = industryQuery.trim().toLowerCase();
+    const list = STANDARD_INDUSTRIES.map((i) => `${i.name}${i.sniCode ? ` (SNI ${i.sniCode.replace(/\D/g, "")})` : ""}`).concat(BMI_B1.other);
+    return q ? list.filter((x) => x.toLowerCase().includes(q)) : list;
+  }, [industryQuery]);
 
-  const computeScores = useCallback(() => {
-    const dims: Dimension[] = [
-      "behovsbild",
-      "samsyn",
-      "riskinsikt",
-      "partnermarknad",
-      "beslutsstruktur",
-    ];
-    const out: Record<Dimension, number> = {} as Record<Dimension, number>;
-    dims.forEach((dim) => {
-      const vals: number[] = [];
-      allQuestions.forEach((qq) => {
-        if (qq.type === "likert_5" && qq.dimension === dim) {
-          const v = answers[qq.id];
-          if (typeof v === "number") vals.push(v);
-        }
-      });
-      out[dim] = vals.length ? vals.reduce((s, n) => s + n, 0) / vals.length : 0;
-    });
-    return out;
-  }, [answers]);
+  const heading = (text: string, hint?: boolean) => (
+    <div className="mb-8">
+      <h2 className="text-[21px] md:text-[24px] leading-[1.3] font-semibold text-foreground">{text}</h2>
+      {hint && <p className="mt-2 text-[13px] text-muted-foreground">{BMI_HINT}</p>}
+    </div>
+  );
 
-  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail);
+  const prevLink = draft.pos > 1 && (
+    <div className="mt-8 flex items-center justify-between">
+      <button type="button" onClick={back} className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">Föregående</button>
+      <span className="hidden md:inline text-xs text-muted-foreground">Tangent 1–4 fungerar också</span>
+    </div>
+  );
 
-  const handleSubmit = async () => {
-    if (!contactName || !isEmailValid || !company || !consent) return;
-    setSubmitting(true);
-    setErrorMsg(null);
-    const responses: Record<string, number> = {};
-    allQuestions.forEach((qq) => {
-      if (qq.type === "likert_5" && typeof answers[qq.id] === "number") {
-        responses[qq.id] = answers[qq.id] as number;
-      }
-    });
-    const background = {
-      domain,
-      industry: (answers.b1 as string) ?? "",
-      revenue: (answers.b2 as string) ?? "",
-      role: (answers.b3 as string) ?? "",
-      current_erp: Array.isArray(answers.b4)
-        ? (answers.b4 as string[]).join(", ")
-        : ((answers.b4 as string) ?? ""),
-      eval_stage: (answers.b5 as string) ?? "",
-    };
-
-    const dimension_scores = computeScores();
-    const meta = {
-      completion_time_seconds: Math.round((Date.now() - startedAt.current) / 1000),
-      user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-      referrer: typeof document !== "undefined" ? document.referrer : "",
-    };
-
-    try {
-      const { error: insertError } = await supabase.from("assessments").insert({
-        contact_name: contactName,
-        contact_email: contactEmail,
-        company,
-        consent,
-        background,
-        responses,
-        dimension_scores,
-        free_text: freeText || null,
-        followup_preference: followup,
-        meta,
-      });
-      if (insertError) throw insertError;
-
-      // Fire-and-forget notify (don't block redirect on email failures)
-      supabase.functions
-        .invoke("submit-assessment-notify", {
-          body: {
-            contact_name: contactName,
-            contact_email: contactEmail,
-            company,
-            background,
-            responses,
-            dimension_scores,
-            free_text: freeText,
-            followup_preference: followup,
-          },
-        })
-        .catch(() => {
-          /* ignore */
-        });
-
-      localStorage.removeItem(DRAFT_KEY);
-      prefillBuyerProfile(answers, dimension_scores as Record<string, number>);
-      navigate("/beslutsmognad/resultat", {
-        state: {
-          means: dimension_scores,
-          evalStage: background.eval_stage,
-          domain,
-          contactName,
-          company,
-        },
-      });
-
-    } catch (e) {
-      setErrorMsg(
-        "Något gick fel. Försök igen, eller hör av dig till hej@d365.se så löser vi det manuellt."
-      );
-      setSubmitting(false);
-    }
-  };
+  let content: React.ReactNode = null;
+  if (step.kind === "intro") {
+    content = (
+      <div className="text-center">
+        <h1 className="text-3xl md:text-4xl font-semibold text-foreground">{BMI_INTRO.title}</h1>
+        <p className="mt-5 text-[16px] leading-[1.45] text-muted-foreground">{BMI_INTRO.text}</p>
+        <button
+          type="button"
+          onClick={() => { bmiTrack("analysis_start", "bmi_start"); next(); }}
+          className="mt-10 inline-flex items-center justify-center rounded-xl bg-primary px-8 py-3 text-primary-foreground font-medium hover:bg-primary/90"
+        >{BMI_INTRO.button}</button>
+      </div>
+    );
+  } else if (step.kind === "b0") {
+    content = (
+      <>
+        {heading(BMI_B0.question)}
+        <div role="radiogroup" aria-label={BMI_B0.question} className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+          {BMI_B0.options.map((o, i) => {
+            const Icon = AREA_ICONS[o.value];
+            const sel = draft.b0 === o.value;
+            return (
+              <button key={o.value} type="button" role="radio" aria-checked={sel} data-index={i}
+                onClick={() => pickAndAdvance((d) => ({ ...d, b0: o.value, b4: d.b0 === o.value ? d.b4 : [] }), true)}
+                className={`aspect-square flex flex-col items-center justify-center gap-3 p-4 rounded-xl border bg-card text-center text-[15px] leading-snug transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${sel ? "border-primary border-[1.5px] bg-primary/[0.08]" : "border-border hover:border-foreground/40"}`}
+              >
+                <Icon className={`w-6 h-6 ${sel ? "text-primary" : "text-muted-foreground"}`} strokeWidth={1.5} />
+                <span>{o.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </>
+    );
+  } else if (step.kind === "b5") {
+    content = (<>{heading(BMI_B5.question)}<RadioList label={BMI_B5.question} options={BMI_B5.options.map((o) => o.label)} value={draft.b5 ? draft.b5 - 1 : null}
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b5: i + 1 }), true)} /></>);
+  } else if (step.kind === "section") {
+    const s = BMI_SECTIONS[step.index];
+    content = (
+      <button type="button" onClick={next} className="w-full py-24 text-center">
+        <p className="text-xl font-medium text-foreground">Del {step.index + 1} av 5: {s.name}</p>
+      </button>
+    );
+  } else if (step.kind === "q") {
+    const q = BMI_QUESTIONS[step.index];
+    const text = bmiQuestionText(q.text, area);
+    const cur = draft.answers[q.id];
+    content = (<>{heading(text, true)}<RadioList label={text} options={q.options} value={cur ?? null}
+      onPick={(i) => {
+        const isLastOfSection = step.index % 3 === 2;
+        if (isLastOfSection && cur === undefined) bmiTrack("analysis_step", "bmi_section_complete", { section: q.section });
+        pickAndAdvance((d) => ({ ...d, answers: { ...d.answers, [q.id]: i } }), cur !== i);
+      }} /></>);
+  } else if (step.kind === "step3") {
+    content = (
+      <div className="text-center py-10">
+        <h2 className="text-[21px] md:text-[24px] leading-[1.3] font-semibold text-foreground">{BMI_STEP3_INTRO.title}</h2>
+        <p className="mt-3 text-muted-foreground">{BMI_STEP3_INTRO.text}</p>
+        <button type="button" onClick={next} className="mt-8 inline-flex rounded-xl bg-primary px-8 py-3 text-primary-foreground font-medium hover:bg-primary/90">Fortsätt</button>
+      </div>
+    );
+  } else if (step.kind === "b3") {
+    content = (<>{heading(BMI_B3.question)}<RadioList label={BMI_B3.question} options={BMI_B3.options} value={draft.b3 ? BMI_B3.options.indexOf(draft.b3) : null}
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b3: BMI_B3.options[i] }), draft.b3 !== BMI_B3.options[i])} /></>);
+  } else if (step.kind === "b1") {
+    content = (
+      <>
+        {heading(BMI_B1.question)}
+        <input type="search" value={industryQuery} onChange={(e) => setIndustryQuery(e.target.value)} placeholder="Sök bransch"
+          aria-label="Sök bransch" className="w-full mb-4 rounded-xl border border-border bg-card px-4 py-3 text-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+        <div className="max-h-[420px] overflow-y-auto pr-1">
+          <RadioList label={BMI_B1.question} options={industries} value={draft.b1 && industries.includes(draft.b1) ? industries.indexOf(draft.b1) : null}
+            onPick={(i) => pickAndAdvance((d) => ({ ...d, b1: industries[i] }), draft.b1 !== industries[i])} />
+        </div>
+      </>
+    );
+  } else if (step.kind === "b2") {
+    content = (<>{heading(BMI_B2.question)}<RadioList label={BMI_B2.question} options={BMI_B2.options} value={draft.b2 ? BMI_B2.options.indexOf(draft.b2) : null}
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b2: BMI_B2.options[i] }), draft.b2 !== BMI_B2.options[i])} /></>);
+  } else if (step.kind === "b4") {
+    const cfg = BMI_B4[area];
+    content = (
+      <>
+        {heading(cfg.question)}
+        {cfg.groups.map((g) => (
+          <div key={g.title ?? "all"} className="mb-6">
+            {g.title && <p className="mb-3 text-sm font-medium text-foreground">{g.title}</p>}
+            <div className="flex flex-wrap gap-2">
+              {g.options.map((o) => {
+                const sel = draft.b4.includes(o);
+                return (
+                  <button key={o} type="button" aria-pressed={sel}
+                    onClick={() => setDraft((d) => ({ ...d, b4: sel ? d.b4.filter((x) => x !== o) : [...d.b4, o] }))}
+                    className={`rounded-full border px-4 py-2 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${sel ? "border-primary bg-primary/[0.08] text-foreground" : "border-border bg-card hover:border-foreground/40"}`}
+                  >{o}</button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+        {error && <p className="mb-4 text-sm text-destructive" role="alert">{error}</p>}
+        <div className="flex items-center gap-6 mt-8">
+          <button type="button" disabled={submitting} onClick={() => submit(draft.b4)}
+            className="rounded-xl bg-primary px-8 py-3 text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-60">{submitting ? "Beräknar…" : "Fortsätt"}</button>
+          <button type="button" disabled={submitting} onClick={() => submit([])} className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">Hoppa över</button>
+        </div>
+      </>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light flex flex-col">
+    <>
       <Helmet>
-        <title>Diagnostik · Beslutsmognadsindex | d365.se</title>
-        <meta name="robots" content="noindex,nofollow" />
+        <title>Beslutsmognadsindex | d365.se</title>
+        <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://d365.se/beslutsmognad/diagnostik/" />
       </Helmet>
-
-      <TopStrip
-        current={Math.min(idx + 1, total)}
-        total={total}
-        section={phase === "contact" ? "Avslut" : currentSection}
-      />
-
-      <main className="flex-1 flex flex-col">
-        <h1 className="sr-only">Beslutsmognadsindex – diagnostik</h1>
-        {showTransition && pendingTransition ? (
-          <SectionTransition
-            section={pendingTransition}
-            onContinue={() => {
-              setShowTransition(null);
-              setPendingTransition(null);
-            }}
-          />
-        ) : phase === "contact" ? (
-          <div className="max-w-[640px] mx-auto w-full px-6 py-12">
-            <p className="font-bm-display italic text-bm-accent-deep mb-3 text-lg">VII.</p>
-            <h2
-              className="font-bm-display italic text-bm-ink mb-10 leading-snug"
-              style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 360 }}
-            >
-              Var ska vi skicka din rapport?
-            </h2>
-
-            <div className="flex flex-col gap-7">
-              <Input label="För- och efternamn" value={contactName} onChange={setContactName} placeholder="Anna Andersson" />
-              <Input label="E-postadress" value={contactEmail} onChange={setContactEmail} type="email" placeholder="anna@foretag.se" />
-              <Input label="Företag" value={company} onChange={setCompany} placeholder="Företaget AB" />
-            </div>
-
-            <p className="mt-8 font-bm-display italic text-bm-ink-soft text-sm leading-relaxed">
-              Vi använder uppgifterna för att skicka rapporten samt aggregerat och
-              anonymt för Beslutsmognadsindex. Vi delar dem inte med tredje part.
-            </p>
-
-            <label className="mt-4 flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                className="mt-1 accent-bm-accent-deep"
-              />
-              <span className="font-bm-display text-bm-ink text-sm" style={{ fontWeight: 320 }}>
-                Jag godkänner detta
-              </span>
-            </label>
-
-            <div className="mt-10">
-              <p className="font-bm-display italic text-bm-ink-muted text-xs uppercase tracking-wider mb-3">
-                Vad är din enskilt största utmaning på 12–18 månaders sikt?
-              </p>
-              <textarea
-                value={freeText}
-                onChange={(e) => setFreeText(e.target.value)}
-                rows={3}
-                placeholder="Skriv kort om du vill – det hjälper oss att förbereda din rapport."
-                className="w-full bg-transparent border-0 border-b border-bm-rule-strong py-3 font-bm-display text-bm-ink placeholder:italic placeholder:text-bm-ink-muted focus:outline-none focus:border-bm-accent-deep resize-none"
-                style={{ fontWeight: 320, fontSize: "1.05rem" }}
-              />
-            </div>
-
-            <div className="mt-10">
-              <p className="font-bm-display italic text-bm-ink-muted text-xs uppercase tracking-wider mb-4">
-                Hur vill du få ut resultatet?
-              </p>
-              <div className="flex flex-col gap-3">
-                {["Rapport via mail", "30 min genomgång med rådgivare", "Workshop med beslutsgruppen"].map((opt) => {
-                  const sel = followup === opt;
-                  return (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => setFollowup(opt)}
-                      className={`text-left px-5 py-3 border font-bm-display transition-colors ${
-                        sel
-                          ? "border-bm-accent-deep bg-bm-accent-soft"
-                          : "border-bm-rule hover:border-bm-accent hover:bg-bm-accent-soft"
-                      }`}
-                      style={{ fontWeight: 320 }}
-                    >
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {errorMsg && (
-              <p className="mt-8 font-bm-display italic text-bm-highlight text-sm">{errorMsg}</p>
-            )}
-
-            <div className="mt-12 flex items-center justify-between">
-              <button
-                onClick={back}
-                className="font-bm-display italic text-bm-ink-muted hover:text-bm-ink-soft text-sm"
-              >
-                ← Tillbaka
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={!contactName || !isEmailValid || !company || !consent || submitting}
-                className="bg-bm-ink text-bm-paper px-8 py-4 font-bm-body uppercase tracking-[0.2em] text-xs hover:bg-bm-accent-deep transition-colors rounded-sm disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                {submitting ? "Skickar…" : "Skicka in och få min rapport"}
-              </button>
-            </div>
+      <main className="min-h-screen bg-background">
+        <header className="border-b border-border">
+          <div className="max-w-[1200px] mx-auto px-6 py-5">
+            <Link to="/" className="font-semibold text-foreground">d365.se</Link>
           </div>
-        ) : (() => {
-          const renderQ = { ...q, text: applyTerm(q.text, systemTerm) } as Question;
-          return (
-            <div className="flex-1 flex items-center justify-center px-6 py-12">
-              {renderQ.type === "single_select" ? (
-                <SingleSelect q={renderQ} value={answers[renderQ.id] as string | undefined} onPick={(v) => handlePick(v)} />
-              ) : renderQ.type === "multi_select" ? (
-                <MultiSelect q={renderQ} value={answers[renderQ.id] as string[] | undefined} onToggle={handleToggleMulti} />
-              ) : (
-                <Likert q={renderQ} value={answers[renderQ.id] as number | undefined} onPick={(v) => handlePick(v)} />
-              )}
-            </div>
-          );
-        })()}
-
-
-        {/* Footer nav */}
-        {!showTransition && phase === "questions" && (
-          <div className="max-w-[1200px] mx-auto w-full px-6 py-8 flex items-center justify-between">
-            <button
-              onClick={back}
-              disabled={idx === 0}
-              className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:text-bm-accent-deep px-4 py-3 border border-transparent hover:border-bm-ink/30 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
-            >
-              ← Föregående
-            </button>
-            <button
-              onClick={advance}
-              disabled={
-                answers[q.id] === undefined ||
-                (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)
-              }
-              className="border-2 border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
-            >
-              Nästa →
-            </button>
+        </header>
+        <div className="max-w-[600px] mx-auto px-5 py-12 md:py-20">
+          {step.kind !== "intro" && <Progress step={step} answered={answered} />}
+          <div className={`transition-all duration-200 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"}`}>
+            {content}
           </div>
-        )}
+          {step.kind !== "intro" && step.kind !== "section" && step.kind !== "step3" && prevLink}
+        </div>
       </main>
-
-      <ProgressBar pct={pct} />
-    </div>
+    </>
   );
 }
