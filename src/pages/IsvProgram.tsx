@@ -57,6 +57,7 @@ const IsvProgram = () => {
         description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Premium 5 990 kr/år inklusive en app, 995 kr/år per extra app."
         webPageSchema={false}
         canonicalPath="/isvprogram"
+        dateModified="2026-11-11"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <WebPageSchema name="För ISV-leverantörer" description="ISV Premium för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />

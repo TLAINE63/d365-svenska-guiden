@@ -55,7 +55,7 @@ export default function IsvProduct() {
     <Navbar />
     <main className={`${p.showLogo ? 'isv-product-premium' : 'isv-product-standard'} bg-background text-foreground pt-24`}>
       <Helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" /></Helmet>
-      <SEOHead title={`${s.name} | Funktioner och användning`} description={s.shortDescription || s.what || `${s.name} från ${s.vendor}. Produktinformation och nästa steg.`} canonicalPath={isvProductPath(s.id)} dateModified="2026-11-10" breadcrumbs={[{ name: 'Tilläggslösningar', url: '/kunskapscenter/dynamics-365-tillagg/' }, { name: s.name, url: isvProductPath(s.id) }]} />
+      <SEOHead title={`${s.name} | Funktioner och användning`} description={s.shortDescription || s.what || `${s.name} från ${s.vendor}. Produktinformation och nästa steg.`} canonicalPath={isvProductPath(s.id)} dateModified="2026-11-11" breadcrumbs={[{ name: 'Tilläggslösningar', url: '/kunskapscenter/dynamics-365-tillagg/' }, { name: s.name, url: isvProductPath(s.id) }]} />
       <header id="oversikt" className={`${p.showLogo ? 'isv-product-opening' : ''} bg-background text-foreground border-b border-border`}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
           <Button asChild variant="ghost" className="px-0 text-muted-foreground mb-8"><Link to="/kunskapscenter/dynamics-365-tillagg/"><ArrowLeft className="w-4 h-4" />Alla tilläggslösningar</Link></Button>
