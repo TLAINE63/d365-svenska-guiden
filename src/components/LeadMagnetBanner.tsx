@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import DownloadContactOptIn from "@/components/DownloadContactOptIn";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
 import { markDownloadUrl } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +21,7 @@ interface LeadMagnetBannerProps {
 export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -64,6 +67,9 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       return;
     }
 
+    const optErr = downloadConsentError(optIn, true);
+    if (optErr) { toast({ title: optErr, variant: "destructive" }); return; }
+
     // Honeypot check - if filled, silently "succeed" to fool bots
     if (honeypot) {
       setIsSubmitted(true);
@@ -79,9 +85,10 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       const response = await supabase.functions.invoke("submit-lead", {
         body: {
           ...newsAttributionForLead(),
+          ...downloadConsentBody(optIn),
           email,
-          company_name: "Lead Magnet Download",
-          contact_name: email.split("@")[0] || "Lead",
+          company_name: (optIn.consent && optIn.company.trim()) || "Lead Magnet Download",
+          contact_name: (optIn.consent && optIn.name.trim()) || email.split("@")[0] || "Lead",
           source_page: sourcePage,
           source_type: "lead_magnet",
           message: "Laddat ner guiden 'Så väljer du rätt Dynamics 365-partner'",
@@ -206,7 +213,8 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
           </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+        <form onSubmit={handleSubmit} className="w-full sm:w-auto sm:max-w-sm mt-2 sm:mt-0 space-y-2">
+          <div className="flex flex-col sm:flex-row gap-2">
           {/* Honeypot field - hidden from humans, visible to bots */}
           <input
             type="text"
@@ -236,6 +244,8 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
               </>
             )}
           </Button>
+          </div>
+          <DownloadContactOptIn idPrefix="lead-magnet" dark askName askCompany value={optIn} onChange={setOptIn} disabled={isSubmitting} />
         </form>
       </div>
     </Card>
