@@ -43,6 +43,15 @@ export default function InformationStatusBadge({ partner, showDate = false, expl
     meta = INFORMATION_STATUSES.find((s) => s.value === status) ?? INFORMATION_STATUSES[1];
   }
   const level: Level = status === "verified" ? "verified" : "compiled";
+  if (kind === "partner" && level === "verified") {
+    return (
+      <VerifiedPartnerBadge
+        size="md"
+        verifiedAt={showDate ? partner.information_verified_at : undefined}
+        className={className}
+      />
+    );
+  }
   if (kind === "isv" && level === "verified") {
     return (
       <VerifiedIsvBadge
