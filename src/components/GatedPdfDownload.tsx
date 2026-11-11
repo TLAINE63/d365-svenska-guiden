@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import DownloadContactOptIn from "@/components/DownloadContactOptIn";
-import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, type DownloadConsent } from "@/lib/downloadConsent";
 import { downloadSlug } from "@/lib/thanksPages";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Download, FileText, Loader2, Lock, ShieldCheck } from "lucide-react";

@@ -191,7 +191,7 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
           </Button>
         </form>
         <div className="mt-3 max-w-lg">
-          <DownloadContactOptIn idPrefix="roi" dark askName askCompany={!buildPdfData("").companyName} value={optIn} onChange={setOptIn} disabled={isSubmitting} />
+          <DownloadContactOptIn idPrefix="roi" dark askName askCompany value={optIn} onChange={setOptIn} disabled={isSubmitting} />
         </div>
       </CardContent>
     </Card>{planBox}</>
