@@ -1,6 +1,7 @@
 import { BadgeCheck, FileSearch } from "lucide-react";
 import { INFORMATION_STATUSES, informationStatusOf } from "@/lib/partnerInformationStatus";
 import { ISV_INFORMATION_STATUSES, isvInformationStatusOf } from "@/lib/isvInformationStatus";
+import VerifiedIsvBadge from "@/components/isv/VerifiedIsvBadge";
 
 type Level = "verified" | "compiled";
 
@@ -41,16 +42,25 @@ export default function InformationStatusBadge({ partner, showDate = false, expl
     meta = INFORMATION_STATUSES.find((s) => s.value === status) ?? INFORMATION_STATUSES[1];
   }
   const level: Level = status === "verified" ? "verified" : "compiled";
+  if (kind === "isv" && level === "verified") {
+    return (
+      <VerifiedIsvBadge
+        product={isvProduct}
+        verifiedAt={showDate ? partner.information_verified_at : undefined}
+        className={className}
+      />
+    );
+  }
   const Icon = ICONS[level];
   const date = status === "verified" && showDate ? partner.information_verified_at?.slice(0, 10) : null;
   const badge = (
     <span
-      className={`inline-flex items-center gap-1.5 rounded border font-semibold leading-tight ${kind === "isv" && level === "verified" ? "px-3 py-2 text-sm border-accent bg-accent/10 text-accent" : `px-2 py-0.5 text-[11px] ${TONE[level]}`} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded border px-2 py-0.5 text-[11px] font-semibold leading-tight ${TONE[level]} ${className}`}
       title={meta.description}
       data-information-status={status}
     >
-      <Icon className={kind === "isv" && level === "verified" ? "h-5 w-5 shrink-0" : "h-3.5 w-3.5 shrink-0"} aria-hidden="true" />
-      <span>{kind === "isv" && isvProduct && level === "verified" ? "Verifierad tilläggsprodukt (ISV)" : meta.label}</span>
+      <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+      <span>{meta.label}</span>
       {date && <span className="font-normal opacity-80">· {date}</span>}
       <span className="sr-only">. {meta.description}</span>
     </span>

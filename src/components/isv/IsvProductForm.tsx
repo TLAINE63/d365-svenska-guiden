@@ -241,7 +241,7 @@ export default function IsvProductForm({ form, setForm, isNew = false, hideConta
           </div>
           <label className="flex items-start gap-2 text-sm cursor-pointer">
             <Checkbox className="mt-0.5" checked={form.confirm_information} onCheckedChange={(v) => setForm({ ...form, confirm_information: !!v })} />
-            <span>Vi bekräftar att uppgifterna om produkten stämmer. Redaktionen granskar uppgifterna innan de kan visas som D365 Verifierad.</span>
+            <span>Vi bekräftar att uppgifterna om produkten stämmer. Redaktionen granskar uppgifterna innan produkten kan visas som Verifierad tilläggslösning.</span>
           </label>
           {isNew && (
             <label className="flex items-start gap-2 text-sm cursor-pointer">

@@ -3,6 +3,7 @@ import {
   ISV_STATUS_FILTERS,
   isvInformationStatusLabel,
   isvInformationStatusOf,
+  isvVerifiedBadgeLabel,
   matchesIsvStatusFilter,
 } from "./isvInformationStatus";
 
@@ -11,6 +12,11 @@ describe("ISV-informationsstatus", () => {
     expect(isvInformationStatusLabel("verified")).toBe("D365 Verifierad");
     expect(isvInformationStatusOf("vendor_confirmed")).toBe("compiled");
     expect(isvInformationStatusLabel("compiled")).toBe("Automatiskt sammanställd");
+  });
+
+  it("skiljer verifieringsmärket för ISV-leverantör och tilläggslösning", () => {
+    expect(isvVerifiedBadgeLabel("vendor")).toBe("Verifierad ISV");
+    expect(isvVerifiedBadgeLabel("product")).toBe("Verifierad tilläggslösning");
   });
 
   it("har Alla som förvalt filter", () => {
