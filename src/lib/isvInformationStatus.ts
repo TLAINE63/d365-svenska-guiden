@@ -42,6 +42,10 @@ export function isvInformationStatusLabel(s: IsvInformationStatus): string {
   return ISV_INFORMATION_STATUSES.find((x) => x.value === s)!.label;
 }
 
+export function isvVerifiedBadgeLabel(kind: "vendor" | "product"): string {
+  return kind === "product" ? "Verifierad tilläggslösning" : "Verifierad ISV";
+}
+
 /** Filtret ändrar bara urvalet, aldrig ordningen. "Alla" släpper igenom allt. */
 export function matchesIsvStatusFilter(status: string | null | undefined, filter: IsvStatusFilter): boolean {
   return filter === "all" || isvInformationStatusOf(status) === filter;

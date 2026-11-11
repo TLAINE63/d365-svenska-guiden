@@ -1,6 +1,7 @@
 import { BadgeCheck, FileSearch } from "lucide-react";
 import { INFORMATION_STATUSES, informationStatusOf } from "@/lib/partnerInformationStatus";
 import { ISV_INFORMATION_STATUSES, isvInformationStatusOf } from "@/lib/isvInformationStatus";
+import VerifiedIsvBadge from "@/components/isv/VerifiedIsvBadge";
 
 type Level = "verified" | "compiled";
 

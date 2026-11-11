@@ -125,7 +125,7 @@ const IsvProgram = () => {
                     "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
                     "Upp till tre aktiva demofilmer från YouTube per app",
                     "Filmerna visas under Produktdemonstrationer i d365.se INSIDE",
-                    "Badgen D365 Verifierad med datum när verifieringen är godkänd",
+                    "Märkena Verifierad ISV och Verifierad tilläggslösning med datum när respektive verifiering är godkänd",
                     "Möjlighet till visning på businesscentral.se för BC-appar",
                   ].map((t) => (
                     <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>

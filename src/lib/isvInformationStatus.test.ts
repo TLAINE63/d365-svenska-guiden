@@ -3,6 +3,7 @@ import {
   ISV_STATUS_FILTERS,
   isvInformationStatusLabel,
   isvInformationStatusOf,
+  isvVerifiedBadgeLabel,
   matchesIsvStatusFilter,
 } from "./isvInformationStatus";
 
