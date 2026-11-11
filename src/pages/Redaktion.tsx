@@ -4,6 +4,7 @@ import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
 import RedaktionBudgetTab from "@/components/RedaktionBudgetTab";
 import RedaktionSalesKitTab from "@/components/RedaktionSalesKitTab";
+import RedaktionPartnerTeaser from "@/components/RedaktionPartnerTeaser";
 import RedaktionTermsTab from "@/components/RedaktionTermsTab";
 import RedaktionPartnerMonthlyReport from "@/components/RedaktionPartnerMonthlyReport";
 import { lazy, Suspense, useState } from "react";
@@ -260,6 +261,7 @@ export default function Redaktion() {
             <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
             <TabsTrigger value="texts">Textbank</TabsTrigger>
             <TabsTrigger value="stats">Statistik</TabsTrigger>
+            <TabsTrigger value="partner-teaser">Partnerunderlag</TabsTrigger>
             <TabsTrigger value="sales-kit">Säljunderlag</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
@@ -316,6 +318,10 @@ export default function Redaktion() {
 
           <TabsContent value="backlinks">
             <RedaktionBacklinksTab token={token} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="partner-teaser">
+            <RedaktionPartnerTeaser token={token || null} />
           </TabsContent>
 
           <TabsContent value="sales-kit">
