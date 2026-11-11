@@ -3,7 +3,7 @@
     {
       "solution_id": "4ps-construct",
       "name": "4PS Construct",
-      "vendor": "4PS",
+      "vendor": "4PS Construction Software AB",
       "vendor_slug": "4ps",
       "short_description": "End-to-end bygg- och entreprenadlösning baserad på Microsoft Dynamics 365 Business Central för projekt, service, plant, procurement och planering.",
       "category": "Branschpaket",
@@ -12231,7 +12231,7 @@
     },
     {
       "slug": "4ps",
-      "name": "4PS",
+      "name": "4PS Construction Software AB",
       "website": "https://www.4psgroup.com/",
       "description": null,
       "logo_url": null,
