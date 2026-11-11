@@ -167,7 +167,7 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
               <h2 className="mt-1 text-2xl font-bold">{title}</h2>
               <p className="text-muted-foreground">{periodLabel(data.period)}</p>
             </div>
-            <img src="/d365guide-logo-new.png" alt="d365.se" className="h-10 w-auto" />
+            <img src="/d365-logo.svg" alt="d365.se" className="h-10 w-auto" />
           </header>
 
           <section className="mt-5">
