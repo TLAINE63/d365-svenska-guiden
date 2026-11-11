@@ -62,7 +62,7 @@ function downloadInfo(st: string, sp: string): { slug: string; name: string; are
   if (st === "ai_readiness") return { slug: "ai-mognad", name: "AI-mognadsrapporten", areas: "" };
   if (st.startsWith("roi_pdf_")) {
     const k = st.slice(8).replace(/-roi$/, "");
-    const areas = /\bbc\b|business-central/.test(k) ? "Business Central" : /sales/.test(k) ? "Sales" : /service/.test(k) ? "Customer Service" : "";
+    const areas = /businesscentral|business-central|^bc\b/.test(k) ? "Business Central" : /sales/.test(k) ? "Sales" : /service/.test(k) ? "Customer Service" : "";
     return { slug: `roi-${k}`, name: "ROI-kalkylen", areas };
   }
   if (st === "requirements_spec") {
