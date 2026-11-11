@@ -19,7 +19,6 @@ import {
   HelpCircle,
   ArrowRight,
   ArrowLeftRight,
-  BarChart3,
   Sparkles,
   BookOpen,
   ClipboardCheck,
@@ -278,13 +277,6 @@ const Index = () => {
       desc: "Generera ett underlag inför partnerdialog.",
       cta: "Skapa ert underlag",
       onClick: () => setDirectionPicker("kravspec"),
-    },
-    {
-      icon: BarChart3,
-      title: "Hur redo är du?",
-      desc: "Diagnostik som visar var du står i beslutsprocessen.",
-      cta: "Se er beslutsmognad",
-      to: "/beslutsmognad/",
     },
     {
       icon: Sparkles,
