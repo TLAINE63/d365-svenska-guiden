@@ -59,8 +59,8 @@ export default function InformationStatusBadge({ partner, showDate = false, expl
       title={meta.description}
       data-information-status={status}
     >
-      <Icon className={kind === "isv" && level === "verified" ? "h-5 w-5 shrink-0" : "h-3.5 w-3.5 shrink-0"} aria-hidden="true" />
-      <span>{kind === "isv" && isvProduct && level === "verified" ? "Verifierad tilläggsprodukt (ISV)" : meta.label}</span>
+      <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+      <span>{meta.label}</span>
       {date && <span className="font-normal opacity-80">· {date}</span>}
       <span className="sr-only">. {meta.description}</span>
     </span>
