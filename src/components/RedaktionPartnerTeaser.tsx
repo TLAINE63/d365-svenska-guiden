@@ -21,6 +21,7 @@ type Resp = {
   period: { typ: Period; fran: string; till: string };
   synlighet: Record<string, Num>;
   forandring: Record<string, Num>;
+  snitt?: Record<string, Num> | null;
   flaggor: string[];
   efterfragan_omrade: Record<string, Num> | null;
   sajt_totalt: { unika_besokare_period: Num; unika_besokare_sedan_lansering: Num };
@@ -46,7 +47,7 @@ function periodLabel(p: Resp["period"]) {
   return `${p.fran} – ${p.till}`;
 }
 
-export default function RedaktionPartnerTeaser({ token }: { token: string | null }) {
+export default function RedaktionPartnerTeaser({ token, initialSlug }: { token: string | null; initialSlug?: string | null }) {
   const [partners, setPartners] = useState<{ slug: string; name: string; is_featured: boolean }[]>([]);
   const [mode, setMode] = useState<"partner" | "area">("partner");
   const [slug, setSlug] = useState("");
@@ -54,6 +55,7 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
   const [period, setPeriod] = useState<Period>("last_month");
   const [data, setData] = useState<Resp | null>(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => { if (initialSlug) { setMode("partner"); setSlug(initialSlug); } }, [initialSlug]);
 
   useEffect(() => {
     (supabase as any).rpc("get_all_partner_names").then(({ data: rows }) => {
@@ -80,6 +82,8 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
   }, [token, mode, slug, areas, period]);
 
   const isBasic = data?.partner?.niva === "grundprofil";
+  const peerN = data?.mode === "partner" ? data.snitt?.antal_partners ?? null : null;
+  const avgLabel = (k: string) => peerN && data?.snitt?.[k] != null ? `Snitt ${fmt(data.snitt[k])}` : "";
   const title = data ? (data.mode === "partner" ? `Underlag för ${data.partner?.namn}` : `Efterfrågan inom ${data.produktomraden.join(", ")}`) : "";
   const areaText = data?.produktomraden.length ? data.produktomraden.join(", ") : "–";
   const vis = useMemo(() => data ? [
@@ -92,8 +96,9 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
     const L = [title, periodLabel(data.period), "", data.mode === "partner" ? "Er synlighet på d365.se" : `Snitt per partner inom området${data.synlighet.antal_partners ? ` (${data.synlighet.antal_partners} partners)` : ""}`];
     for (const [label, k] of vis) {
       const v = k === "klick_till_webbplats" && isBasic ? "Ingår i Premium" : `${fmt(data.synlighet[k])}${data.forandring[k] != null ? ` (${delta(data.forandring[k])})` : ""}`;
-      L.push(`- ${label}: ${v}`);
+      L.push(`- ${label}: ${v}${!(k === "klick_till_webbplats" && isBasic) && avgLabel(k) ? `, ${avgLabel(k).toLowerCase()}` : ""}`);
     }
+    if (data.mode === "partner") L.push(peerN ? `Snitt = publicerade partners inom samma produktområden (${peerN} st).` : "Snitt visas inte (färre än tre jämförbara partners).");
     const e = data.efterfragan_omrade;
     L.push("", `Efterfrågan inom ${areaText}`);
     if (e) L.push(`- Unika besökare på sidor om området: ${fmt(e.unika_besokare_omradessidor)}`, `- Påbörjade / slutförda behovsanalyser: ${fmt(e.paborjade_behovsanalyser)} / ${fmt(e.slutforda_behovsanalyser)}`, `- Kravspecifikationer: ${fmt(e.kravspecifikationer)}`, `- Jämförelser: ${fmt(e.jamforelser)}`);
@@ -173,12 +178,16 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
           <section className="mt-5">
             <h3 className="font-semibold">{data.mode === "partner" ? "Er synlighet på d365.se" : `Snitt per partner inom området${data.synlighet.antal_partners ? ` (${data.synlighet.antal_partners} partners)` : ""}`}</h3>
             {data.mode === "area" && data.synlighet.antal_partners == null && <p className="mt-1 text-xs text-muted-foreground">Färre än tre partners inom området, därför visas inget snitt.</p>}
+            {data.mode === "partner" && <p className="mt-1 text-xs text-muted-foreground">{peerN ? `Snitt = publicerade partners inom samma produktområden (${peerN} st), samma period.` : "Snitt visas inte, färre än tre jämförbara partners."}</p>}
             <div className="mt-3 grid grid-cols-3 gap-3">
               {vis.map(([label, k]) => (
                 <div key={k} className="rounded-lg border p-3">
                   <p className="text-xs text-muted-foreground">{label}</p>
                   {k === "klick_till_webbplats" && isBasic ? <p className="mt-1 font-semibold">Ingår i Premium</p> : (
-                    <p className="mt-1 text-xl font-bold">{fmt(data.synlighet[k])} <span className="text-xs font-normal text-muted-foreground">{delta(data.forandring[k])}</span></p>
+                    <>
+                      <p className="mt-1 text-xl font-bold">{fmt(data.synlighet[k])} <span className="text-xs font-normal text-muted-foreground">{delta(data.forandring[k])}</span></p>
+                      {avgLabel(k) && <p className="text-xs text-muted-foreground">{avgLabel(k)}</p>}
+                    </>
                   )}
                 </div>
               ))}
