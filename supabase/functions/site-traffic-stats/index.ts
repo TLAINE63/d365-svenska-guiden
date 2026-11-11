@@ -1,3 +1,4 @@
+import { isInternalPath } from "../_shared/partnerMonthlyMetrics.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 function isAllowedOrigin(origin: string): boolean {
@@ -182,6 +183,7 @@ Deno.serve(async (req) => {
 
     // Apply same filters as Sales Overview
     const filtered = all.filter((r) => {
+      if (isInternalPath(r.page_path)) return false;
       if (r.referrer) {
         const ref = r.referrer.toLowerCase();
         if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) return false;
