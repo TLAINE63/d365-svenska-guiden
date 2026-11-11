@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). 0 kr i separat mötesavgift, Finder's Fee först när en förmedlad kontakt blir affär.",
+      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder's Fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: 50 kr per debiterad timme.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju till halva priset (4 900 kr i stället för 8 900 kr).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -177,7 +177,15 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
           </div>
           <div className="rounded-lg border p-6">
             <p className="font-semibold">Möte → Affär → Finder's Fee</p>
-            <p className="mt-1 text-sm text-muted-foreground">0 kr i separat mötesavgift för Premium. Ersättning enligt avtal först när en förmedlad introduktion blir affär.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Premium betalar ingen mötesavgift. Ersättning först när en förmedlad introduktion blir affär (exkl. moms):</p>
+            <table className="mt-2 w-full text-xs">
+              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1"></th><th className="text-right font-normal">Kundmöte (endast grundprofil)</th><th className="text-right font-normal">Kundavtal tecknat</th></tr></thead>
+              <tbody>
+                <tr className="border-t"><td className="py-1">BC, CRM, Power Platform m.fl.</td><td className="text-right whitespace-nowrap">3{NB}500 kr</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Finance &amp; Supply Chain</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td><td className="text-right whitespace-nowrap">10{NB}000 kr</td></tr>
+              </tbody>
+            </table>
+            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: 50 kr (Premium) / 90 kr (grundprofil) per debiterad timme.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>
