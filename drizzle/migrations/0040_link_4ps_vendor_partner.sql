@@ -1,0 +1,2 @@
+UPDATE public.isv_vendors SET partner_slug = '4ps-sweden', name = '4PS Construction Software AB' WHERE slug = '4ps';
+UPDATE public.isv_solutions SET vendor = '4PS Construction Software AB' WHERE vendor_slug = '4ps';
