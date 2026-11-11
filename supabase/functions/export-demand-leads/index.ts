@@ -52,6 +52,28 @@ const LEAD_TYPES: Record<string, string> = {
   partner_multi_quote_request: "partnermatchning",
 };
 
+// Nedladdningar exporteras bara när besökaren aktivt kryssat i kontaktönskan (consent_contact).
+const DOWNLOAD_VERSION = "nedladdning-2026-11-v1";
+function downloadInfo(st: string, sp: string): { slug: string; name: string; areas: string } | null {
+  const p = sp.toLowerCase();
+  if (st.startsWith("buyer_guide_")) return { slug: "kopparguide-2026", name: "Köpguiden 2026", areas: "" };
+  if (st === "implementation_calculator_pdf") return { slug: "implementationskalkyl", name: "implementationskalkylen", areas: "Business Central" };
+  if (st === "partner_guide" || st === "lead_magnet") return { slug: "partnerguide", name: "partnerguiden", areas: "" };
+  if (st === "ai_readiness") return { slug: "ai-mognad", name: "AI-mognadsrapporten", areas: "" };
+  if (st.startsWith("roi_pdf_")) {
+    const k = st.slice(8).replace(/-roi$/, "");
+    const areas = /businesscentral|business-central|^bc\b/.test(k) ? "Business Central" : /sales/.test(k) ? "Sales" : /service/.test(k) ? "Customer Service" : "";
+    return { slug: `roi-${k}`, name: "ROI-kalkylen", areas };
+  }
+  if (st === "requirements_spec") {
+    if (p.includes("kravspecifikation-sales")) return { slug: "kravspec-sales", name: "kravspecifikationen för Sales", areas: "Sales" };
+    if (p.includes("kravspecifikation-marketing")) return { slug: "kravspec-marketing", name: "kravspecifikationen för Marketing", areas: "Customer Insights" };
+    if (p.includes("kravspecifikation-kundservice")) return { slug: "kravspec-kundservice", name: "kravspecifikationen för Customer Service", areas: "Customer Service" };
+    return { slug: "kravspec-erp", name: "kravspecifikationen för affärssystem (ERP)", areas: "" };
+  }
+  return null;
+}
+
 Deno.serve(async (req) => {
   const exportHeaders = { ...baseHeaders, ...exportCors(req) };
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: exportHeaders });
@@ -66,14 +88,15 @@ Deno.serve(async (req) => {
   try {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
     const between = <T>(q: T) => (q as any).gte("created_at", range.start).lt("created_at", range.end);
-    const [inq, leads, fwd, sub, webinarRegistrations] = await Promise.all([
+    const [inq, leads, dl, fwd, sub, webinarRegistrations] = await Promise.all([
       between(sb.from("inquiries").select("id, created_at, inquiry_type, contact_name, company, role, email, phone, message, product_area, project, is_advisory, advisory_placement, source_site, source_page, landing_page, session_pages, consent_text_version, inquiry_partners(partner_slug, share_consent)").eq("source_site", "d365.se")),
       between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id, is_partner_self").in("source_type", Object.keys(LEAD_TYPES))),
+      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, source_page, landing_page, session_pages").eq("consent_contact", true).not("source_type", "in", `(${Object.keys(LEAD_TYPES).join(",")})`)),
       between(sb.from("underlag_forward_requests").select("id, created_at, contact_name, company_name, email, phone, message, underlag_summary, products, partner_slugs, source_page, landing_page, session_pages, consent_partner_share, consent_text_version")),
       between(sb.from("underlag_submissions").select("id, created_at, name, company, email, phone, underlag_text, profile, source_page, landing_page, session_pages, consent_text_version")),
       between(sb.from("webinar_registrations").select("id, created_at, first_name, last_name, company, title, email, consent_followup, consent_text_version, source_page, landing_page, session_pages, utm_source, utm_medium, utm_campaign, webinars(title, starts_at, theme)")),
     ]);
-    if (inq.error || leads.error || fwd.error || sub.error || webinarRegistrations.error) return json({ ok: false, error: "query_failed" }, 500);
+    if (inq.error || leads.error || dl.error || fwd.error || sub.error || webinarRegistrations.error) return json({ ok: false, error: "query_failed" }, 500);
 
     const rows: Record<string, string>[] = [];
     const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version), consent_followup: str(r.consent_followup), utm_source: str(r.utm_source), utm_medium: str(r.utm_medium), utm_campaign: str(r.utm_campaign) });
@@ -105,6 +128,17 @@ Deno.serve(async (req) => {
         ...base("leads", r), request_type: group.some((g) => g.is_partner_self === true) ? "partneransokan" : LEAD_TYPES[r.source_type] || "kontakt", name: str(r.contact_name), company: company(r.company_name), title: str(r.role), email: str(r.email), phone: str(r.phone),
         message: clip(r.message, 2000), product_areas: productAreas([r.selected_product]), selected_partners: join(r.assigned_partners),
         consent_partner_share: str(r.consent_partner_share === true),
+      });
+    }
+    for (const r of dl.data || []) {
+      const info = downloadInfo(str(r.source_type), str(r.source_page));
+      if (!info) continue;
+      const nm = str(r.contact_name), cm = company(r.company_name);
+      rows.push({
+        ...base("leads", r), request_type: "nedladdning",
+        name: nm && nm !== str(r.email).split("@")[0] && nm !== "Lead" ? nm : "", company: cm === "ROI-kalkyl" ? "" : cm, title: str(r.role), email: str(r.email), phone: str(r.phone),
+        message: `Hämtade ${info.name}.\nVill bli kontaktad om systemval.`, product_areas: info.areas, selected_partners: "",
+        consent_partner_share: "false", consent_text_version: DOWNLOAD_VERSION, source_page: `/hamtat/${info.slug}/`, consent_followup: "true",
       });
     }
     for (const r of fwd.data || []) {

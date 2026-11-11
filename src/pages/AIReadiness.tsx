@@ -1,4 +1,6 @@
 import { createPdfDocument } from "@/utils/pdfDocument";
+import DownloadContactOptIn from "@/components/DownloadContactOptIn";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, type DownloadConsent } from "@/lib/downloadConsent";
 import { useState, useCallback, useEffect } from "react";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { markDownloadUrl } from "@/lib/thanksPages";
@@ -845,6 +847,7 @@ const AIReadiness = () => {
 
   const [showReportForm, setShowReportForm] = useState(false);
   const [reportForm, setReportForm] = useState({ name: "", company: "", role: "", email: "" });
+  const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
@@ -982,10 +985,12 @@ const AIReadiness = () => {
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
           ...newsAttributionForLead(),
+          ...downloadConsentBody(optIn),
           contact_name: reportForm.name,
           company_name: reportForm.company,
           email: reportForm.email,
-          phone: "",
+          phone: optIn.consent ? optIn.phone.trim().slice(0, 20) : "",
+          role: reportForm.role,
           message: `AI Impact Assessment – Roll: ${track!.label}, Bransch: ${foundationAnswers.industry || "Ej angiven"}, System: ${systemDisplayString(foundationAnswers.system)}`,
           source_type: "ai_readiness",
           source_page: "/ai-readiness",
@@ -2165,6 +2170,7 @@ const AIReadiness = () => {
                     <label className="text-sm font-medium text-foreground mb-1 block">E-post *</label>
                     <Input type="email" value={reportForm.email} onChange={(e) => setReportForm({ ...reportForm, email: e.target.value })} placeholder="din@epost.se" />
                   </div>
+                  <DownloadContactOptIn idPrefix="ai-readiness" value={optIn} onChange={setOptIn} disabled={submitting} />
                   <Button className="w-full mt-2" size="lg" onClick={handleReportSubmit} disabled={submitting}>
                     {submitting ? "Skickar..." : "Ladda ner PDF-rapport"}
                   </Button>

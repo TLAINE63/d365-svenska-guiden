@@ -1,4 +1,6 @@
 import { useKravProfileSync } from "@/lib/kravProfile";
+import DownloadContactOptIn from "@/components/DownloadContactOptIn";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { markDownloadUrl } from "@/lib/thanksPages";
 import { createKravJourney, readPrefillAreas } from "@/lib/calcToKrav";
@@ -94,6 +96,7 @@ const RequirementsSpecMarketing = () => {
     ? `Valda tilläggslösningar att offerera: ${isvAddons.map((a) => `${a.name} (${a.vendor})`).join(", ")}\n\n`
     : "";
   const [email, setEmail] = useState("");
+  const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [isDownloading, setIsDownloading] = useState(false);
 
   const toggleArea = (id: string) => {
@@ -137,14 +140,17 @@ const RequirementsSpecMarketing = () => {
       toast({ title: "Ange din e-postadress", variant: "destructive" });
       return;
     }
+    const optErr = downloadConsentError(optIn, true);
+    if (optErr) { toast({ title: optErr, variant: "destructive" }); return; }
     setIsDownloading(true);
     try {
       await supabase.functions.invoke("submit-lead", {
         body: {
           ...newsAttributionForLead(),
+          ...downloadConsentBody(optIn),
           email,
-          company_name: "Kravspecifikation Download",
-          contact_name: email.split("@")[0] || "Lead",
+          company_name: (optIn.consent && optIn.company.trim()) || "Kravspecifikation Download",
+          contact_name: (optIn.consent && optIn.name.trim()) || email.split("@")[0] || "Lead",
           source_page: "/kravspecifikation-marketing",
           source_type: "requirements_spec",
           industry: result.industry,
@@ -476,6 +482,7 @@ const RequirementsSpecMarketing = () => {
                       </Button>
                     </div>
                   </div>
+                  <div className="mt-4"><DownloadContactOptIn idPrefix="kravspec" dark askName askCompany value={optIn} onChange={setOptIn} disabled={isDownloading} /></div>
                 </CardContent>
               </Card>
 

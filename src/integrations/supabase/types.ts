@@ -2205,6 +2205,7 @@ export type Database = {
           attribution_source: string | null
           company_name: string
           company_size: string | null
+          consent_contact: boolean
           consent_partner_share: boolean
           consent_text_version: string | null
           contact_name: string
@@ -2233,6 +2234,7 @@ export type Database = {
           attribution_source?: string | null
           company_name: string
           company_size?: string | null
+          consent_contact?: boolean
           consent_partner_share?: boolean
           consent_text_version?: string | null
           contact_name: string
@@ -2261,6 +2263,7 @@ export type Database = {
           attribution_source?: string | null
           company_name?: string
           company_size?: string | null
+          consent_contact?: boolean
           consent_partner_share?: boolean
           consent_text_version?: string | null
           contact_name?: string

@@ -1,0 +1,2 @@
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS consent_contact boolean NOT NULL DEFAULT false;
+COMMENT ON COLUMN public.leads.consent_contact IS 'Frivillig kontaktönskan vid nedladdning; bara true exporteras till Demand Engine.';
