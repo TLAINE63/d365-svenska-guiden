@@ -1870,6 +1870,7 @@ export type Database = {
           last_verified_date: string | null
           logo_url: string | null
           name: string
+          partner_slug: string | null
           premium_vendor: boolean
           profile_source: string
           publication_status: string
@@ -1892,6 +1893,7 @@ export type Database = {
           last_verified_date?: string | null
           logo_url?: string | null
           name: string
+          partner_slug?: string | null
           premium_vendor?: boolean
           profile_source?: string
           publication_status?: string
@@ -1914,6 +1916,7 @@ export type Database = {
           last_verified_date?: string | null
           logo_url?: string | null
           name?: string
+          partner_slug?: string | null
           premium_vendor?: boolean
           profile_source?: string
           publication_status?: string

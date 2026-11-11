@@ -6,7 +6,7 @@ import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
 import { exportHeaders as baseHeaders, toCsv } from "../_shared/demandExport.ts";
 import { domainOf, dynamicsProducts, integrationType } from "./mapping.ts";
 
-const COLUMNS = ["isv_slug", "isv_name", "isv_domain", "level", "paying", "gtm", "app_slug", "app_name", "category", "dynamics_products", "integration_type", "promoted", "app_url", "resellers"];
+const COLUMNS = ["isv_slug", "isv_name", "isv_domain", "level", "paying", "gtm", "app_slug", "app_name", "category", "dynamics_products", "integration_type", "promoted", "app_url", "resellers", "linked_partner_slug", "company_key"];
 const APP_URL = "https://d365.se/kunskapscenter/dynamics-365-tillagg/?losning=";
 const GTM = new Set(["direkt", "partner", "hybrid"]);
 
@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
   try {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
     const [vendors, products, overrides, partners] = await Promise.all([
-      fetchAll(sb, "isv_vendors", "slug,name,website,information_status,premium_vendor,gtm_model,publication_status", "slug"),
+      fetchAll(sb, "isv_vendors", "slug,name,website,information_status,premium_vendor,gtm_model,publication_status,partner_slug", "slug"),
       fetchAll(sb, "isv_solutions", "solution_id,name,vendor_slug,vendor_website,category,products,delivery_model,premium_product,partner_slugs,is_published,lifecycle_status", "solution_id"),
       fetchAll(sb, "isv_solution_overrides", "solution_id,products,partner_slugs,vendor_website", "solution_id"),
       fetchAll(sb, "partners", "slug", "slug"),
@@ -62,6 +62,9 @@ Deno.serve(async (req) => {
         level: v.information_status === "verified" ? "verified" : "basic",
         paying: v.premium_vendor === true ? "true" : "false",
         gtm: GTM.has(v.gtm_model) ? v.gtm_model : "",
+        // Samma bolag som en Solution Partner: gemensam nyckel så CRM slår ihop posterna.
+        linked_partner_slug: v.partner_slug && knownPartners.has(v.partner_slug) ? v.partner_slug : "",
+        company_key: v.partner_slug && knownPartners.has(v.partner_slug) ? v.partner_slug : v.slug,
       };
       if (!list.length) {
         rows.push({ ...vendorCols, app_slug: "", app_name: "", category: "", dynamics_products: "", integration_type: "", promoted: "", app_url: "", resellers: "" });

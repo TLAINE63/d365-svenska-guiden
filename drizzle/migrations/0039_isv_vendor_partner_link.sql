@@ -1,0 +1,2 @@
+ALTER TABLE public.isv_vendors ADD COLUMN IF NOT EXISTS partner_slug text;
+COMMENT ON COLUMN public.isv_vendors.partner_slug IS 'Same company as this Solution Partner (partners.slug); used for CRM exports, never for ranking.';
