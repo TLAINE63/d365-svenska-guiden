@@ -14,6 +14,11 @@ describe("ISV-informationsstatus", () => {
     expect(isvInformationStatusLabel("compiled")).toBe("Automatiskt sammanställd");
   });
 
+  it("skiljer verifieringsmärket för ISV-leverantör och tilläggslösning", () => {
+    expect(isvVerifiedBadgeLabel("vendor")).toBe("Verifierad ISV");
+    expect(isvVerifiedBadgeLabel("product")).toBe("Verifierad tilläggslösning");
+  });
+
   it("har Alla som förvalt filter", () => {
     expect(ISV_STATUS_FILTERS[0]).toEqual({ value: "all", label: "Alla" });
   });
