@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Copy, Printer, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useSiteTrafficStats } from "@/hooks/useSiteTrafficStats";
-import { ORGANIZATION } from "@/data/organization";
 
 /**
  * Säljunderlag Premium (inspirerat av "Premium Partner – nytt erbjudande 2026").
@@ -80,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). 0 kr i separat mötesavgift, Finder's Fee först när en förmedlad kontakt blir affär.",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
-      `${ORGANIZATION.contact?.name ?? "Thomas Laine"} · thomas.laine@dynamicfactory.se · d365.se`,
+      "Thomas Laine · thomas.laine@dynamicfactory.se · d365.se",
     );
     return lines.join("\n");
   };
