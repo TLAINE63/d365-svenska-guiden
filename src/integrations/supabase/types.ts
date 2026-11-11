@@ -293,6 +293,57 @@ export type Database = {
         }
         Relationships: []
       }
+      bmi_submissions: {
+        Row: {
+          answers: Json
+          b0: string
+          b1: string | null
+          b2: string | null
+          b3: string | null
+          b4: Json
+          b5: number
+          created_at: string
+          id: string
+          level: string
+          phase: string
+          section_scores: Json
+          total: number
+          version: number
+        }
+        Insert: {
+          answers: Json
+          b0: string
+          b1?: string | null
+          b2?: string | null
+          b3?: string | null
+          b4?: Json
+          b5: number
+          created_at?: string
+          id?: string
+          level: string
+          phase: string
+          section_scores: Json
+          total: number
+          version?: number
+        }
+        Update: {
+          answers?: Json
+          b0?: string
+          b1?: string | null
+          b2?: string | null
+          b3?: string | null
+          b4?: Json
+          b5?: number
+          created_at?: string
+          id?: string
+          level?: string
+          phase?: string
+          section_scores?: Json
+          total?: number
+          version?: number
+        }
+        Relationships: []
+      }
       buyer_profiles: {
         Row: {
           assessment: Json
