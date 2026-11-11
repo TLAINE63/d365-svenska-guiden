@@ -91,6 +91,7 @@ interface LeadRequest {
   landing_page?: string;
   consent_text_version?: string;
   consent_partner_share?: boolean;
+  consent_contact?: boolean;
   submission_id?: string;
   _hp?: string; // Honeypot field
   pdfBase64?: string; // PDF attachment for lead magnet
@@ -517,6 +518,7 @@ const handler = async (req: Request): Promise<Response> => {
         landing_page: ctx.landing_page,
         consent_text_version: ctx.consent_text_version,
         consent_partner_share: data.consent_partner_share === true,
+        consent_contact: data.consent_contact === true,
         submission_id: typeof data.submission_id === "string" && UUID_RE.test(data.submission_id) ? data.submission_id : null,
         status: "new",
       })
