@@ -46,7 +46,7 @@ export const CRITICAL_ROUTES = [
   "/aktuellt",
   "/jamfor",
   "/jamfor-partners",
-  "/beslutsmognad",
+  // Beslutsmognad is temporarily hidden and not prerendered.
   "/friskrivning",
 ];
 
