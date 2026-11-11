@@ -227,7 +227,13 @@ export const BMI_PARTNER_QUESTIONS: Partial<Record<BmiQuestionId, string>> = {
 };
 
 /** Läs vidare: sektion -> artikel i kunskapscentret. Tom post = ingen länk. */
-export const BMI_READ_MORE: Partial<Record<BmiSectionId, { title: string; url: string }>> = {};
+export const BMI_READ_MORE: Partial<Record<BmiSectionId, { title: string; url: string }>> = {
+  S1: { title: "Upphandlingsguiden: från behovsanalys till beslut", url: "/upphandlingsguiden/" },
+  S2: { title: "AI-skiftet i Dynamics\u00A0365: vad ledningsgruppen behöver förstå", url: "/artiklar/ai-skiftet-dynamics-365-build-2026/" },
+  S3: { title: "Den största risken sitter sällan i systemet. Den sitter i partnern.", url: "/artiklar/partnervalet-avgor-erp-crm-projekt/" },
+  S4: { title: "När flera ERP- och CRM-system klarar kraven avgör partnern resultatet", url: "/artiklar/partnervalet-avgor-resultatet/" },
+  S5: { title: "Support och förvaltning av Dynamics\u00A0365", url: "/guider/dynamics-365-support-forvaltning/" },
+};
 
 export const BMI_RESULT_FOOTER = "Resultatet bygger på era egna svar och är en självskattning, inte en granskning.";
 
