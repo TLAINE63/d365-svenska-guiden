@@ -1,3 +1,5 @@
+import DownloadContactOptIn from "@/components/DownloadContactOptIn";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
 import { useEffect, useState } from "react";
 import { markDownloadUrl, downloadSlug } from "@/lib/thanksPages";
 import { Button } from "@/components/ui/button";
@@ -25,6 +27,7 @@ interface RoiPdfDownloadProps {
 export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }: RoiPdfDownloadProps) {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -75,6 +78,8 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       toast({ title: emailError, variant: "destructive" });
       return;
     }
+    const optErr = downloadConsentError(optIn, true);
+    if (optErr) { toast({ title: optErr, variant: "destructive" }); return; }
     if (honeypot) {
       setDone(true);
       return;
@@ -87,9 +92,10 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
       const res = await supabase.functions.invoke("submit-lead", {
         body: {
           ...newsAttributionForLead(),
+          ...downloadConsentBody(optIn),
           email,
-          company_name: data.companyName || "ROI-kalkyl",
-          contact_name: email.split("@")[0] || "Lead",
+          company_name: (optIn.consent && optIn.company.trim()) || data.companyName || "ROI-kalkyl",
+          contact_name: (optIn.consent && optIn.name.trim()) || email.split("@")[0] || "Lead",
           source_page: `/${sourceKey}/`,
           source_type: `roi_pdf_${sourceKey}`,
           message: `Laddat ned ROI/TCO-PDF för ${productLabel}`,
@@ -184,9 +190,9 @@ export default function RoiPdfDownload({ buildPdfData, sourceKey, productLabel }
             {isSubmitting ? "Förbereder…" : <><Download className="mr-2 h-4 w-4" />Ladda ned PDF</>}
           </Button>
         </form>
-        <p className="text-[11px] text-white/55 mt-2">
-          Kostnadsfri. Ingen prenumeration. Vi använder adressen för att kunna följa upp om du vill ha hjälp att tolka resultatet.
-        </p>
+        <div className="mt-3 max-w-lg">
+          <DownloadContactOptIn idPrefix="roi" dark askName askCompany={!buildPdfData("").companyName} value={optIn} onChange={setOptIn} disabled={isSubmitting} />
+        </div>
       </CardContent>
     </Card>{planBox}</>
   );

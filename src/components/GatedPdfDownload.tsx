@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import DownloadContactOptIn from "@/components/DownloadContactOptIn";
+import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
 import { downloadSlug } from "@/lib/thanksPages";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Download, FileText, Loader2, Lock, ShieldCheck } from "lucide-react";
@@ -67,6 +69,7 @@ const GatedPdfDownload = ({
   const [values, setValues] = useState({ contact_name: "", company_name: "", email: "" });
   const [touchedCompany, setTouchedCompany] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [delivering, setDelivering] = useState(false);
 
   const baseMeta = {
@@ -178,6 +181,7 @@ const GatedPdfDownload = ({
       const { data, error } = await supabase.functions.invoke("submit-lead", {
         body: {
           ...newsAttributionForLead(),
+          ...downloadConsentBody(optIn),
           contact_name: name.slice(0, 100),
           company_name: company.slice(0, 100),
           email: email.slice(0, 255),
@@ -323,6 +327,7 @@ const GatedPdfDownload = ({
                 />
               </div>
             </div>
+            <DownloadContactOptIn idPrefix="gated" value={optIn} onChange={setOptIn} disabled={submitting} />
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <Button
