@@ -56,7 +56,7 @@ export default function RedaktionPartnerTeaser({ token }: { token: string | null
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.rpc("get_all_partner_names").then(({ data: rows }) => {
+    (supabase as any).rpc("get_all_partner_names").then(({ data: rows }) => {
       setPartners(((rows as any[]) || []).map((r) => ({ slug: r.slug, name: r.name, is_featured: r.is_featured })).sort((a, b) => a.name.localeCompare(b.name, "sv")));
     });
   }, []);
