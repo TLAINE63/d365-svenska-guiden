@@ -71,7 +71,7 @@ export default function BeslutsmognadResultat() {
                 <div key={s.id}>
                   <div className="flex items-center gap-4">
                     <span className={`w-40 shrink-0 text-sm ${s.counted ? "text-foreground" : "text-muted-foreground"}`}>{s.name}</span>
-                    <div className="flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
+                    <div className="flex-1 h-2.5 rounded-full bg-foreground/10 overflow-hidden">
                       <div className={`h-full rounded-full ${s.counted ? "bg-primary" : "bg-muted-foreground/30"}`} style={{ width: `${s.score}%` }} />
                     </div>
                     <span className={`w-8 text-right text-sm tabular-nums ${s.counted ? "text-foreground" : "text-muted-foreground"}`}>{s.score}</span>

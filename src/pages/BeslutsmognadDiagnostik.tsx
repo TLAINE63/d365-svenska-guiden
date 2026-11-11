@@ -42,7 +42,7 @@ function Progress({ step, answered }: { step: Step; answered: number }) {
         {BMI_SECTIONS.map((s, i) => {
           const fill = i < sec ? 100 : i === sec ? (Math.max(0, answered - i * 3) / 3) * 100 : 0;
           return (
-            <div key={s.id} className="h-1 flex-1 rounded-full bg-muted overflow-hidden">
+            <div key={s.id} className="h-1 flex-1 rounded-full bg-foreground/10 overflow-hidden">
               <div className="h-full bg-primary transition-all" style={{ width: `${Math.min(100, fill)}%` }} />
             </div>
           );
