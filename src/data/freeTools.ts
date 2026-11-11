@@ -45,7 +45,6 @@ export const FREE_TOOLS: FreeTool[] = [
   { path: "/jamfor-partners/", label: "Jämför partners sida vid sida", category: "partnerval" },
   { path: "/upphandlingsguiden/", label: "Upphandlingsguiden", category: "diagnos" },
   { path: "/ai-readiness/", label: "AI Readiness Assessment", category: "diagnos" },
-  { path: "/beslutsmognad/", label: "Beslutsmognadsindex", category: "diagnos" },
 ];
 
 export const FREE_TOOL_COUNT = FREE_TOOLS.length;

@@ -280,13 +280,6 @@ const Index = () => {
       onClick: () => setDirectionPicker("kravspec"),
     },
     {
-      icon: BarChart3,
-      title: "Hur redo är du?",
-      desc: "Diagnostik som visar var du står i beslutsprocessen.",
-      cta: "Se er beslutsmognad",
-      to: "/beslutsmognad/",
-    },
-    {
       icon: Sparkles,
       title: "Fråga d365.se",
       desc: "Ställ frågor om Dynamics 365 och få direkta svar.",
