@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { supabase } from '@/integrations/supabase/client';
 import { isFreeEmailDomain } from '@/lib/validateBusinessEmail';
-import { ISV_ORDER_VERSION, ISV_ORDER_FEES, ISV_MAX_EXTRA_APPS, ISV_SUBSCRIPTION_TERMS, ISV_MEDIATION_TERMS, isvOrderPrice, isvOrderValidation, type IsvOrderSelection } from '@/lib/isvOrder';
+import { ISV_ORDER_VERSION, ISV_ORDER_FEES, ISV_MAX_EXTRA_APPS, ISV_SUBSCRIPTION_TERMS, ISV_MEDIATION_TERMS, isvOrderPrice, isvOrderRegularPrice, isvOrderValidation, type IsvOrderSelection } from '@/lib/isvOrder';
 import { toast } from 'sonner';
 
 const money = (n: number) => n.toLocaleString('sv-SE');
@@ -21,7 +21,7 @@ export default function IsvOrderDialog() {
   const [selection, setSelection] = useState<IsvOrderSelection>({ kind: 'isv', extra_apps: 0, mediation: false, start_date: new Date().toISOString().slice(0, 10) });
   const [accept, setAccept] = useState(false), [authority, setAuthority] = useState(false), [mediationAccept, setMediationAccept] = useState(false);
   const [fields, setFields] = useState({ company: '', organization_number: '', contact_name: '', email: '', invoice_email: '', invoice_address: '' });
-  const price = isvOrderPrice(selection);
+  const price = isvOrderPrice(selection); const regular = isvOrderRegularPrice(selection);
 
   async function pdf() {
     try {
@@ -36,11 +36,12 @@ export default function IsvOrderDialog() {
           ...(selection.mediation ? [{ title: 'Förmedlingsvillkor (Finder’s fee)', body: ISV_MEDIATION_TERMS }] : []),
         ],
         priceRows: [
-          ['ISV Premium inklusive en app', `${money(ISV_ORDER_FEES.base)} kr / år`],
+          ['ISV Premium inklusive en app, första året (introduktionspris)', `${money(ISV_ORDER_FEES.introFirstYear)} kr`],
           ...(selection.extra_apps ? [[`Extra appar (${selection.extra_apps} × ${money(ISV_ORDER_FEES.extraApp)} kr)`, `${money(selection.extra_apps * ISV_ORDER_FEES.extraApp)} kr / år`] as [string, string]] : []),
-          ['Totalt', `${money(price)} kr / år`],
+          ['Totalt första året', `${money(price)} kr`],
+          ['Ordinarie årspris från år två', `${money(regular)} kr / år`],
         ],
-        priceNote: 'Exklusive moms. Faktureras årsvis i förskott. Förmedlingsersättningar tillkommer endast enligt valda förmedlingsvillkor.',
+        priceNote: 'Exklusive moms. Faktureras årsvis i förskott. Introduktionspriset gäller de första 20 nya ISV-leverantörerna. Förmedlingsersättningar tillkommer endast enligt valda förmedlingsvillkor.',
         acceptance: 'Offertförslaget blir inte bindande genom nedladdning. Beställning görs i formuläret på d365.se/isvprogram/.',
       });
       const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'd365se-offertforslag-isv.pdf'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 2000);
@@ -67,7 +68,7 @@ export default function IsvOrderDialog() {
       {done ? <div className="space-y-4"><h2 className="text-xl font-semibold">Beställningen är registrerad</h2><p className="break-all">Beställningsnummer: {done}</p><p>Beställningen är sparad hos d365.se. Verifiering och visning aktiveras inte automatiskt.</p><Button variant="outline" onClick={pdf}><Download className="mr-2 h-4 w-4" />Hämta offertförslaget</Button></div> :
       <form onSubmit={submit} className="space-y-6">
         <div><Label htmlFor="isv-extra">Extra appar utöver den som ingår</Label><Input id="isv-extra" type="number" min={0} max={ISV_MAX_EXTRA_APPS} value={selection.extra_apps} onChange={e => setSelection(s => ({ ...s, extra_apps: Math.max(0, Math.min(ISV_MAX_EXTRA_APPS, Math.floor(Number(e.target.value) || 0))) }))} className="max-w-[10rem]" /><p className="text-xs text-muted-foreground mt-1">{money(ISV_ORDER_FEES.extraApp)} kr per år och extra app.</p></div>
-        <div className="border-y border-border py-4"><p className="text-lg font-semibold">ISV Premium: {money(price)} kr / år</p><p className="text-sm text-muted-foreground">{money(ISV_ORDER_FEES.base)} kr inklusive en app{selection.extra_apps ? ` + ${selection.extra_apps} × ${money(ISV_ORDER_FEES.extraApp)} kr` : ''}. Faktureras årsvis i förskott.</p></div>
+        <div className="border-y border-border py-4"><p className="text-lg font-semibold">ISV Premium första året: {money(price)} kr</p><p className="text-sm text-muted-foreground">Introduktionspris {money(ISV_ORDER_FEES.introFirstYear)} kr inklusive en app{selection.extra_apps ? ` + ${selection.extra_apps} × ${money(ISV_ORDER_FEES.extraApp)} kr` : ''}. Från år två {money(regular)} kr / år. Gäller de första 20 nya ISV-leverantörerna. Faktureras årsvis i förskott.</p></div>
         <details><summary className="cursor-pointer font-semibold">Innehåll och abonnemangsvillkor</summary><p className="mt-3 text-sm leading-relaxed">{ISV_SUBSCRIPTION_TERMS}</p></details>
         <label className="flex items-start gap-3"><Checkbox className="shrink-0 self-start" checked={selection.mediation} onCheckedChange={v => { setSelection(s => ({ ...s, mediation: v === true })); setMediationAccept(false); }} /><span>Jag vill även beställa förmedlingsavtalet (Finder’s fee)</span></label>
         {selection.mediation && <div className="space-y-3 border-l-2 border-accent pl-4"><h3 className="font-semibold">Förmedlingsvillkor</h3><p className="text-sm leading-relaxed">{ISV_MEDIATION_TERMS}</p><label className="flex items-start gap-3 text-sm"><Checkbox className="shrink-0 self-start" checked={mediationAccept} onCheckedChange={v => setMediationAccept(v === true)} /><span>Jag accepterar förmedlingsvillkoren separat.</span></label></div>}
