@@ -163,7 +163,6 @@ const deepDiveEntries = [];
 const seenDeep = new Set();
 for (const f of articleFiles) {
   const full = `src/data/${f}`;
-  try { deepLastmodMs = Math.max(deepLastmodMs(resolve(full)).mtime.getTime()); } catch {}
   const src = readText(full);
   const blocks = src.split(/\{\s*\n/);
   for (const b of blocks) {
