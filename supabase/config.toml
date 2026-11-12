@@ -1,5 +1,8 @@
 project_id = "vnvphfrrmoaskiwlspeo"
 
+[functions.partner-program-order]
+verify_jwt = false
+
 [functions]
   [functions.admin-login]
     verify_jwt = false
