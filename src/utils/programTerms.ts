@@ -19,12 +19,13 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
   if (area === "isv") return [
     ["ISV Premium, inklusive en produkt", `${kr(ISV_FEES.base)}/år`],
     ["Varje extra produkt", `${kr(ISV_FEES.extraApp)}/år`],
+    ["ISV Premium, introduktionspris första året (de första 20)", kr(2990)],
   ];
   return [
     ["Kundavtal tecknat (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
     ["Kundavtal tecknat (F&SCM)", kr(FEES.dealFscm)],
-    ["ISV: kundavtal tecknat (BC/CRM)", kr(ISV_FEES.introStd)],
-    ["ISV: kundavtal tecknat (F&SCM)", kr(ISV_FEES.introFscm)],
+    ["ISV Business Referral: licenser/abonnemang, första 12 månaderna", "5 %"],
+    ["ISV Business Referral: förmedlat konsultuppdrag", "2,5 %"],
     ["Success fee", `${(FEES.successRate * 100).toLocaleString("sv-SE")} %`],
     ["Expertförmedling", `${kr(EXPERT_FEES.premiumPerHour)}/debiterad timme`],
   ];

@@ -10,7 +10,6 @@ import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/Structu
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
 import IsvOrderDialog from "@/components/IsvOrderDialog";
 import ProgramNavigation from "@/components/ProgramNavigation";
-import { ISV_FEES } from "@/lib/budget2027";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
 
 const breadcrumbs = [
@@ -27,7 +26,7 @@ const faqs = [
   {
     question: "Vad kostar ISV Premium?",
     answer:
-      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Avgiften faktureras årsvis i förskott.",
+      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Introduktionserbjudande: 2 990 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
   },
   {
     question: "Påverkar ISV Premium ordningen i katalogen?",
@@ -55,10 +54,10 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Premium på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Premium 5 990 kr/år inklusive en app, 995 kr/år per extra app."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Premium 5 990 kr/år inkl. en app, introduktionspris 2 990 kr första året."
         webPageSchema={false}
         canonicalPath="/isvprogram"
-        dateModified="2026-11-11"
+        dateModified="2026-11-13"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <WebPageSchema name="För ISV-leverantörer" description="ISV Premium för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
@@ -135,7 +134,8 @@ const IsvProgram = () => {
                 </ul>
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
                 <ul className="text-sm text-foreground space-y-1 mb-4">
-                  <li>Per ISV inklusive en app: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li className="rounded-md bg-primary/10 px-3 py-2">Introduktionspris första året: <strong>2&nbsp;990&nbsp;kr</strong> <span className="text-muted-foreground">(de första 20 nya ISV-leverantörerna)</span></li>
+                  <li>Ordinarie pris per ISV inklusive en app: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Per extra app: <strong>995&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
@@ -166,26 +166,32 @@ const IsvProgram = () => {
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Synlighet &amp; Affärsmöjligheter</h2>
             <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
             <p className="max-w-3xl text-muted-foreground mb-6">ISV Premium innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
-            <h3 className="text-lg font-semibold mb-3">Ersättning vid förmedling</h3>
+            <h3 className="text-lg font-semibold mb-3">Business Referral: betala när vi bidrar till en affär</h3>
+            <p className="max-w-3xl text-muted-foreground mb-4">Frivilligt och separat från ISV Premium. När vi identifierar en konkret affärsmöjlighet kan vi, efter överenskommelse, introducera kunden för er direkt eller via en relevant Solution Partner. Ersättning utgår först när en överenskommen affär genomförs.</p>
             <div className="max-w-4xl overflow-x-auto rounded-lg border border-border bg-card mb-5">
               <table className="w-full text-sm">
                 <thead className="bg-muted/50"><tr>
-                  <th scope="col" className="text-left font-semibold px-4 py-3">Affärstyp</th>
-                  <th scope="col" className="text-right font-semibold px-4 py-3">Kundavtal tecknat</th>
+                  <th scope="col" className="text-left font-semibold px-4 py-3">Intäkt</th>
+                  <th scope="col" className="text-right font-semibold px-4 py-3">Ersättning</th>
                 </tr></thead>
                 <tbody>
-                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV-lösningar för Business Central och CRM</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{ISV_FEES.introStd.toLocaleString("sv-SE")}&nbsp;kr</td></tr>
-                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV-lösningar för Finance &amp; Supply Chain Management</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">{ISV_FEES.introFscm.toLocaleString("sv-SE")}&nbsp;kr</td></tr>
+                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV:ns nettointäkter från licenser eller abonnemang, affärens första 12 månader</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">5&nbsp;%</td></tr>
+                  <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">Nettointäkter från ett separat förmedlat implementations- eller konsultuppdrag</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">2,5&nbsp;%</td></tr>
                 </tbody>
               </table>
             </div>
-            <div className="max-w-3xl space-y-3 text-sm text-muted-foreground mb-6">
-              <p>Den fasta ersättningen gäller en accepterad introduktion som leder till tecknat avtal. Alla belopp anges exklusive moms. ISV Premium och förmedlingsersättning är separata.</p>
-              <p>Success fee på {(ISV_FEES.successRate * 100).toLocaleString("sv-SE")}&nbsp;procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs innan introduktionen genomförs.</p>
-              <p>Ni får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.</p>
-            </div>
+            <details className="max-w-3xl text-sm text-muted-foreground mb-6">
+              <summary className="cursor-pointer font-semibold text-foreground">Så beräknas ersättningen</summary>
+              <ul className="mt-3 space-y-2 list-disc pl-5">
+                <li>Gäller endast nya, registrerade och godkända affärsmöjligheter. Ni accepterar villkoren innan introduktionen.</li>
+                <li>Beräknas på betalade intäkter exklusive moms, rabatter, återbetalningar och vidarefakturerade tredjepartskostnader.</li>
+                <li>Vid försäljning via en Solution Partner räknas ISV:ns faktiska nettointäkt, inte kundens hela avtalsvärde.</li>
+                <li>Samma intäkt provisionsbeläggs aldrig dubbelt, och ersättningen gäller normalt första affären, inte förnyelser eller tilläggsbeställningar.</li>
+                <li>Ingen ersättning uppstår av enbart ett formulär, ett klick eller en obesvarad förfrågan.</li>
+              </ul>
+            </details>
             <div className="flex flex-wrap gap-3">
-              <ContactFormDialog subject="ISV Premium" buyerForm={false}><Button>Prata med oss om ISV Premium<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
+              <ContactFormDialog subject="Business Referral (ISV)" buyerForm={false}><Button>Diskutera affärssamarbete<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
               <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
             </div>
           </div>
