@@ -34,7 +34,10 @@ import { isvRevenue, annual } from "../budget2027";
 describe("ISV budget 2027", () => {
   const z = { presence: false, extraApps: 0, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
   it("presence with two extra apps is 5 990 + 2 × 995 kr", () => {
-    expect(isvRevenue({ ...z, presence: true, extraApps: 2 }).subscription).toBe(7980);
+    expect(isvRevenue({ ...z, presence: true, extraApps: 2, introPrice: false }).subscription).toBe(7980);
+  });
+  it("ny ISV räknas med 2 990 kr första året", () => {
+    expect(isvRevenue({ ...z, presence: true, extraApps: 2 }).subscription).toBe(4980);
   });
   it("Business Referral: 5 % licens, 2,5 % konsult, inga fasta avgifter", () => {
     expect(isvRevenue({ ...z, introsStd: 1, introsFscm: 1, successBasis: 100000, consultBasis: 200000 }).finders).toBe(10000);
@@ -50,7 +53,7 @@ describe("category estimates", () => {
     const summary = categoryGroupSummary({ year1: 2, isvPresence: 1 }, {}, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } });
     expect(summary.partner.finders.estimate).toBe(15000);
     expect(summary.isv.finders.estimate).toBe(10000);
-    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 5990 + 15000 + 10000);
+    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 2990 + 15000 + 10000);
   });
   it("old per-category finders estimates are no longer counted", () => {
     expect(estimateRevenue({ premiumDealsStd: 3, expertCvHours: 10, successBc: 2 })).toBe(0);
@@ -58,7 +61,7 @@ describe("category estimates", () => {
   it("separates partner and ISV budgets without double counting", () => {
     expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 7990 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
       partner: { estimate: 15980, detail: 7990, subscription: { estimate: 15980, detail: 7990 }, finders: { estimate: 0, detail: 0 } },
-      isv: { estimate: 19960, detail: 5990, subscription: { estimate: 19960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
+      isv: { estimate: 10960, detail: 5990, subscription: { estimate: 10960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
     });
   });
   it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
@@ -69,7 +72,7 @@ describe("category estimates", () => {
     expect(d.year2).toEqual({ count: 1, revenue: 4995 });
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
-  it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
+  it("estimate: 3 nya ISV Presence = 8 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(8970); });
   it("no partner pays a meeting fee (same terms for all, Thomas 2026-11-12)", () => {
     expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
     for (const forecast of ["month", "year"] as const) {
