@@ -296,8 +296,8 @@ export const routes: PrerenderRoute[] = [
     priority: '0.6',
     changefreq: 'monthly',
     meta: {
-      title: 'För ISV-leverantörer | ISV Premium på d365.se',
-      description: 'Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Premium 5 990 kr/år inkl. en app, introduktionspris 2 990 kr första året.',
+      title: 'För ISV-leverantörer | ISV Presence på d365.se',
+      description: 'Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inkl. en app, introduktionspris 2 990 kr första året.',
     },
   },
   {

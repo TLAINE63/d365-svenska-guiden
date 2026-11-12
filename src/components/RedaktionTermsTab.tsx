@@ -48,7 +48,7 @@ export default function RedaktionTermsTab({ token }: { token: string | null }) {
           <p className="break-all">Beställning: {order.id}</p>
           <p>{order.contact_name} · {order.email} · Org.nr {order.organization_number}</p>
           {(order.selection as unknown as { kind?: string; extra_apps?: number }).kind === "isv" ? (
-            <p>ISV Premium · {(order.selection as unknown as { extra_apps: number }).extra_apps} extra appar · Årsbetalning · Start {order.selection.start_date}</p>
+            <p>ISV Presence · {(order.selection as unknown as { extra_apps: number }).extra_apps} extra appar · Årsbetalning · Start {order.selection.start_date}</p>
           ) : (<>
           <p>{order.selection.level === "premium" ? "Premium" : "Grundprofil"} · {order.selection.period === "year" ? "Årsbetalning" : "Månadsbetalning"} · Start {order.selection.start_date}</p>
           <p>{order.selection.areas.map(a => ORDER_AREAS[a] ?? a).join(", ")}</p>

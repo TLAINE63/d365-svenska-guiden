@@ -7,7 +7,7 @@ const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
 export const TERMS_DATE = "2026-11-12";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
-  { id: "isv", title: "ISV", description: "ISV Premium, extra produkter och villkor för presentation och verifiering." },
+  { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
   { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla partners: ingen mötesavgift, ersättning vid tecknat kundavtal, success fee och expertförmedling. Separata villkor för ISV:er." },
 ];
 
@@ -17,9 +17,9 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     `${kr(MONTH_PRICE[n])}/mån eller ${kr(YEAR_PRICE[n])}/år`,
   ]);
   if (area === "isv") return [
-    ["ISV Premium, inklusive en produkt", `${kr(ISV_FEES.base)}/år`],
+    ["ISV Presence, inklusive en produkt", `${kr(ISV_FEES.base)}/år`],
     ["Varje extra produkt", `${kr(ISV_FEES.extraApp)}/år`],
-    ["ISV Premium, introduktionspris första året (de första 20)", kr(2990)],
+    ["ISV Presence, introduktionspris första året (de första 20)", kr(2990)],
   ];
   return [
     ["Kundavtal tecknat (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
@@ -38,9 +38,9 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Fakturering och avtalstid", body: "Prislista 2027 gäller från 2026-11-10. Månadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen." },
   ];
   if (area === "isv") return [
-    { title: "ISV Premium", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
-    { title: "Presentation och verifiering", body: "Verifiering och ISV Premium är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Premium. Utökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns. Abonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
-    { title: "Förmedling", body: "ISV Premium och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsavtal (Finder’s fee)." },
+    { title: "ISV Presence", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
+    { title: "Presentation och verifiering", body: "Verifiering och ISV Presence är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Presence. Utökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns. Abonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
+    { title: "Förmedling", body: "ISV Presence och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsavtal (Finder’s fee)." },
   ];
   return [
     ...PARTNER_PROFILE_TERMS,
