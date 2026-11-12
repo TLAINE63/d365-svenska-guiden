@@ -4817,19 +4817,67 @@
     "id": "0dc01563-c248-4059-b219-a5311fa72a8a",
     "slug": "update-affarssystem",
     "name": "Update Affärssystem AB",
-    "description": null,
-    "logo_url": null,
+    "description": "Update Affärssystem AB är en Microsoft Dynamics-partner i Askim utanför Göteborg med över 30 års erfarenhet av Dynamics NAV och Dynamics 365 Business Central. Företaget hjälper främst små och medelstora verksamheter i Västsverige med implementation, uppgradering, migrering från NAV, integrationer och anpassningar. Erbjudandet omfattar även löpande förvaltning, support samt IT-infrastruktur i form av servrar och nätverk.",
+    "logo_url": "",
     "logo_dark_bg": false,
     "website": "https://update.se",
     "email": null,
-    "contact_person": null,
-    "contact_photo_url": null,
+    "contact_person": "Anton Seglem",
+    "contact_photo_url": "",
     "phone": null,
-    "applications": [],
+    "applications": [
+      "Business Central"
+    ],
     "industries": [],
     "secondary_industries": [],
     "geography": [],
-    "product_filters": {},
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "1-24 MSEK",
+          "25-99 MSEK",
+          "100-499 MSEK"
+        ],
+        "geography": [],
+        "keyPoints": "Implementation och uppgradering av Business Central\nMigrering från Dynamics NAV till Business Central\nIntegrationer och verksamhetsanpassningar\nFörvaltning, support och IT-infrastruktur",
+        "whyChoose": "Kunder väljer Update för företagets långa erfarenhet av Dynamics NAV och Business Central, lokala närvaro i Göteborgsområdet och möjlighet att samla affärssystem och IT-infrastruktur hos samma leverantör. Företaget arbetar även med löpande support och förvaltning efter införandet.",
+        "industries": [
+          "Grossist & Distribution"
+        ],
+        "companySize": [
+          "1-49",
+          "50-99",
+          "100-249"
+        ],
+        "contactName": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "deliveryProfile": {
+          "aiAutomation": "Underlaget beskriver inte något särskilt erbjudande för AI eller automation inom Business Central. Det framgår därför inte vilka inbyggda AI-funktioner, automatiserade arbetsflöden eller kompletterande verktyg som Update implementerar. Om detta ingår i ett projekt behöver omfattning, teknik och förvaltningsansvar fastställas med partnern.",
+          "deliveryModel": "Leveranserna genomförs med lokal förankring i Göteborgsområdet och riktar sig främst till små och medelstora verksamheter i Västsverige. Update använder beprövade arbetssätt för migrering från NAV till Business Central och kan samordna affärssystem, integrationer och IT-infrastruktur. Närmare uppgifter om teamstruktur och projektmetodik framgår inte av underlaget.",
+          "managedServices": "Efter driftsättning erbjuder Update löpande förvaltning och support för Business Central. Uppdraget kan även omfatta driftrelaterade tjänster kring servrar, nätverk och övrig IT-infrastruktur. Det ger kunden möjlighet att samla hantering av affärssystem och teknisk miljö hos samma leverantör över tid.",
+          "typicalProjects": "Vanliga projekt omfattar nyimplementation av Business Central, uppgradering av befintliga lösningar och migrering från Dynamics NAV. Projekten kan även innehålla integrationer mot andra system, anpassning till verksamhetens processer samt samordning med servrar, nätverk och övrig IT-infrastruktur.",
+          "typicalCustomers": "Typiska kunder är små och medelstora företag i Göteborgsområdet och övriga Västsverige, bland annat inom grossistverksamhet och distribution. Erbjudandet passar verksamheter med upp till cirka 250 medarbetare som behöver införa eller uppgradera Business Central, eller som vill gå från Dynamics NAV till en modernare lösning med lokal support.",
+          "furtherDevelopment": "Update arbetar med fortsatt anpassning, integration och uppgradering av Business Central efter det första införandet. Vidareutvecklingen kan utgå från förändrade processer och tekniska behov samt omfatta den omgivande IT-miljön. Underlaget anger inte några särskilda modeller, utvecklingspaket eller fasta releaseplaner."
+        },
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Update Affärssystem AB levererar implementation och uppgradering av Dynamics 365 Business Central för små och medelstora företag. Erbjudandet omfattar även migrering från Dynamics NAV, integrationer, verksamhetsanpassningar och koppling till kundens IT-infrastruktur.",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
     "industry_apps": [],
     "is_featured": true,
     "customer_examples": [],
@@ -4839,29 +4887,72 @@
     "map_url": null,
     "youtube_video_id": null,
     "created_at": "2026-01-27T22:40:23.207254+00:00",
-    "updated_at": "2026-11-06T10:15:54.495816+00:00",
-    "industry_pitches": [],
+    "updated_at": "2026-11-12T11:09:46.674778+00:00",
+    "industry_pitches": [
+      {
+        "text": "Update Affärssystem stöttar grossister och distributörer med att optimera verksamhetskritiska processer genom Microsoft Dynamics 365. Partnern fokuserar på att förena inköp, orderhantering och lagerstyrning i en sammanhållen lösning för att hantera utmaningar kring marginalpress och krav på korta ledtider.\n\nGenom anpassning av Dynamics 365 hjälper Update Affärssystem företag att uppnå full spårbarhet och tillförlitlig realtidsdata över lager och leveranskedjor. Arbetet omfattar automatisering av inköpsförslag, hantering av komplexa pris- och rabattstrukturer samt effektivisering av plock- och packprocesser på lagret. Partnern bistår även med nödvändiga integrationer mot EDI, e-handelslösningar och transportadministrativa system (TA). Detta skapar ett sammanhållet informationsflöde som minskar manuell administration, minimerar plockfel och bidrar till lägre kapitalbindning i lagerhållningen.",
+        "product": null,
+        "industry": "Grossist & Distribution",
+        "edited_by": "admin",
+        "updated_at": "2026-11-12T11:08:13.575Z",
+        "generated_at": "2026-11-12T11:08:13.575Z"
+      }
+    ],
     "agreement_signed": false,
     "related_party": false,
-    "positioning_statement": null,
-    "delivery_profile": {},
-    "team_size_sweden": null,
+    "positioning_statement": "Passar särskilt företag som söker lokal kompetens i Västsverige för Business Central, NAV-migrering och samordnad IT-infrastruktur.",
+    "delivery_profile": {
+      "methodology": "",
+      "typical_length": "",
+      "bc_project_cost_band": null,
+      "bc_project_weeks_max": null,
+      "bc_project_weeks_min": null
+    },
+    "team_size_sweden": "11–25",
     "implementations_done": null,
     "not_a_fit": [],
-    "implementations_per_app": {},
+    "implementations_per_app": {
+      "Business Central": "25–100"
+    },
     "ai_summary": null,
     "ai_summary_generated_at": null,
-    "ai_profile": {},
+    "ai_profile": {
+      "use_cases": [
+        "readiness",
+        "copilot-studio-agent"
+      ],
+      "capabilities": [
+        "standard-copilot",
+        "fabric-bi",
+        "copilot-studio",
+        "agent-integration",
+        "agent-d365"
+      ],
+      "evidence_level": [
+        "self-declared"
+      ],
+      "relevant_areas": [
+        "Business Central"
+      ],
+      "experience_level": "delivered",
+      "project_count_range": "1-2"
+    },
     "extended_content": "Update Affärssystem AB är en etablerad Microsoft Dynamics-partner med över 30 års erfarenhet av NAV/Business Central. Bolaget är baserat i Askim (Göteborg) och kombinerar affärssystem med IT-infrastrukturtjänster.\n\nAktiva produktområden: Microsoft Dynamics 365 Business Central – implementation och uppgradering. NAV till BC-migrering för befintliga kunder. IT-infrastruktur – servrar, nätverk och support. Managed Services och löpande förvaltning. Integration och anpassning.\n\nTydliga styrkor: Över 30 års erfarenhet av Dynamics NAV/Business Central. Helhetsleverantör med både affärssystem och IT-infrastruktur. Lokal närvaro i Göteborgsområdet. Beprövade metoder för NAV-till-BC-migrering. Långsiktiga kundrelationer.\n\nRäckvidd och segment: Göteborg/Askim och Västsverige. Segment: små och medelstora företag i Västsverige som söker en lokal partner för BC och IT.\n\nPassar bäst: Västsvenska företag som behöver BC-implementation eller NAV-uppgradering. Organisationer som vill ha samma partner för affärssystem och IT-infrastruktur. Kunder som värderar lokal närvaro och personlig service. Mindre lämplig för nationella utrullningar eller enterprise-segment.\n\nSammanfattning: En erfaren regional BC-partner med kompletterande IT-infrastrukturkompetens. Med över 30 års NAV/BC-erfarenhet och lokal förankring i Västsverige fyller Update en roll som pålitlig lokal partner. Jämförbar med andra regionala BC-generalister.",
-    "extended_content_updated_at": "2026-07-07T17:46:56.361216+00:00",
-    "partner_size_tier": 3,
+    "extended_content_updated_at": "2026-11-12T11:08:40.148+00:00",
+    "partner_size_tier": 4,
     "partner_size_tier_needs_review": false,
     "ai_summary_full": null,
     "best_fit_for": [],
     "ai_tags": [],
     "extended_competencies": {},
     "team_size_per_app": {},
-    "key_differentiators": [],
+    "key_differentiators": [
+      "Över 30 års erfarenhet av Dynamics NAV och Business Central",
+      "Implementation, uppgradering och migrering från NAV till Business Central",
+      "Kombinerar affärssystem med servrar, nätverk och IT-support",
+      "Lokal närvaro i Askim och fokus på små och medelstora företag",
+      "Erbjuder löpande förvaltning, integrationer och anpassningar"
+    ],
     "key_differentiators_source": "partner",
     "public_profile_summary": "Analys av publika källor visar att Update Affärssystem AB är en etablerad Microsoft Dynamics-partner med över 30 års erfarenhet av NAV och Business Central. Bolaget, baserat i Askim (Göteborg), specialiserar sig på implementation och uppgradering av Microsoft Dynamics 365 Business Central, inklusive migreringar från NAV till BC för befintliga kunder.\n\nInnehållet indikerar att företaget är en helhetsleverantör som kombinerar affärssystemtjänster med IT-infrastruktur, inklusive servrar, nätverk, support, managed services och löpande förvaltning. Företaget fokuserar på små och medelstora företag i Västsverige och betonar lokal närvaro och långsiktiga kundrelationer.\n\nFöretagets webbplats innehåller information om FTI-rapportering i Business Central, Power BI-integration, e-handel, samt allmänna nyheter och webinarier relaterade till affärssystem och IT-infrastruktur. Det finns även omnämnanden av samarbeten gällande WMS-lösningar, säljstöd och betalningsflöden via webinarier.",
     "public_focus_tags": [
