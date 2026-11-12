@@ -271,3 +271,4 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [ ] LinkedIn Insight Tag väntar på partner-id (ska inte byggas)
 - [x] Säljunderlag: Finder's Fee-avgifter beskrivna (2026-11-11)
 - [x] Partnerunderlag 1-sidigt (partner-teaser) i Redaktion, partner-/redaktionssidor exkluderade från besöksstatistik
+- [x] Tillvalsprodukterna Commerce, HR och Project Operations borttagna ur offert/prislista, beskrivna som kostnadsfria via profileringslänken (2026-11-12)
