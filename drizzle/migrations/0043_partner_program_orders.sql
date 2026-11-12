@@ -1,0 +1,4 @@
+CREATE TABLE public.partner_program_orders (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), created_at timestamptz NOT NULL DEFAULT now(), request_id uuid NOT NULL UNIQUE, company text NOT NULL, organization_number text NOT NULL, contact_name text NOT NULL, email text NOT NULL, invoice_email text NOT NULL, invoice_address text NOT NULL, selection jsonb NOT NULL, price_ex_vat integer NOT NULL, terms_version text NOT NULL, terms_snapshot jsonb NOT NULL, accepted_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.partner_program_orders TO service_role;
+ALTER TABLE public.partner_program_orders ENABLE ROW LEVEL SECURITY;
+COMMENT ON TABLE public.partner_program_orders IS 'Immutable binding partner program orders; read and insert only through validated service functions. No public access.';

@@ -1,4 +1,5 @@
 import type * as React from 'npm:react@18.3.1';
+import { template as partnerOrder } from './partner-order.tsx';
 
 export interface TemplateEntry {
   component: React.ComponentType<any>;
@@ -8,4 +9,4 @@ export interface TemplateEntry {
   to?: string;
 }
 // Business sends retain their existing attachment-capable delivery until explicitly migrated.
-export const TEMPLATES: Record<string, TemplateEntry> = {};
+export const TEMPLATES: Record<string, TemplateEntry> = { 'partner-order': partnerOrder };

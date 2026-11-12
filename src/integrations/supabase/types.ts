@@ -3968,6 +3968,57 @@ export type Database = {
           },
         ]
       }
+      partner_program_orders: {
+        Row: {
+          accepted_at: string
+          company: string
+          contact_name: string
+          created_at: string
+          email: string
+          id: string
+          invoice_address: string
+          invoice_email: string
+          organization_number: string
+          price_ex_vat: number
+          request_id: string
+          selection: Json
+          terms_snapshot: Json
+          terms_version: string
+        }
+        Insert: {
+          accepted_at?: string
+          company: string
+          contact_name: string
+          created_at?: string
+          email: string
+          id?: string
+          invoice_address: string
+          invoice_email: string
+          organization_number: string
+          price_ex_vat: number
+          request_id: string
+          selection: Json
+          terms_snapshot: Json
+          terms_version: string
+        }
+        Update: {
+          accepted_at?: string
+          company?: string
+          contact_name?: string
+          created_at?: string
+          email?: string
+          id?: string
+          invoice_address?: string
+          invoice_email?: string
+          organization_number?: string
+          price_ex_vat?: number
+          request_id?: string
+          selection?: Json
+          terms_snapshot?: Json
+          terms_version?: string
+        }
+        Relationships: []
+      }
       partner_public_insights: {
         Row: {
           articles_count: number
