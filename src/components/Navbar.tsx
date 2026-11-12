@@ -128,6 +128,7 @@ const MENUS: NavMenu[] = [
         items: [
           { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
           { label: "Kravspecifikation", path: "/kravspecifikation/" },
+          { label: "Beslutsmognadsindex", path: "/beslutsmognad/" },
           { label: "Min D365-plan", path: "/underlag/" },
         ],
       },
