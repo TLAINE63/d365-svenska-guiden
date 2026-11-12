@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -6,9 +7,30 @@ type ProgramNavigationProps = {
   sections: readonly { id: string; label: string }[];
 };
 
+/** Rullar så att avsnittets rubrik hamnar med luft under sajtmenyn och programmenyn. */
+function scrollToSection(id: string, bar: HTMLElement | null, smooth: boolean) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  if (target instanceof HTMLDetailsElement) target.open = true;
+  const heading = target.querySelector("h2, h3, summary") ?? target;
+  const stickyTop = bar ? parseFloat(getComputedStyle(bar).top) || 0 : 0;
+  const offset = stickyTop + (bar?.offsetHeight ?? 0) + 24;
+  const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: smooth ? "smooth" : "auto" });
+}
+
 export default function ProgramNavigation({ audience, sections }: ProgramNavigationProps) {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id || !sections.some((s) => s.id === id)) return;
+    const t = window.setTimeout(() => scrollToSection(id, barRef.current, false), 100);
+    return () => window.clearTimeout(t);
+  }, [sections]);
+
   return (
-    <div className="sticky top-16 lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
+    <div ref={barRef} className="sticky top-16 lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <nav aria-label="Välj program" className="flex gap-2 border-b border-border py-3">
           <Button asChild variant={audience === "partners" ? "default" : "outline"}>
@@ -21,9 +43,10 @@ export default function ProgramNavigation({ audience, sections }: ProgramNavigat
         <nav aria-label={audience === "partners" ? "Partnerprogrammets avsnitt" : "ISV-programmets avsnitt"} className="flex flex-wrap gap-1 py-3">
           {sections.map((section) => (
             <Button key={section.id} asChild variant="ghost" size="sm">
-              <a href={`#${section.id}`} onClick={() => {
-                const target = document.getElementById(section.id);
-                if (target instanceof HTMLDetailsElement) target.open = true;
+              <a href={`#${section.id}`} onClick={(e) => {
+                e.preventDefault();
+                window.history.replaceState(null, "", `#${section.id}`);
+                scrollToSection(section.id, barRef.current, true);
               }}>{section.label}</a>
             </Button>
           ))}
