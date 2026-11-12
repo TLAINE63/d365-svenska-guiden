@@ -1,0 +1,2 @@
+# Agreement PDFs
+- Keep profile explanations in partnerProfileTerms and reuse them in program terms and default agreement exports, so generated documents describe the same editorial process without changing stored verification or pricing data.

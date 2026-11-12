@@ -3,6 +3,7 @@ import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN 
 import { PDF_BRAND } from "@/utils/pdfBrand";
 import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
+import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 
 export interface AgreementPdfSection { title: string; body: string }
 
@@ -16,8 +17,8 @@ export function agreementPriceRows(): [string, string][] {
     ["Partner Presence Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
     ["Partner Presence Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Premium, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ["Genomfört kundmöte (grundprofil)", `${kr(FEES.meetingStd)}, F&SCM ${kr(FEES.meetingFscm)}`],
-    ["Kundavtal tecknat", `${kr(FEES.dealStd)}, F&SCM ${kr(FEES.dealFscm)}`],
+    ["Genomfört kundmöte (endast Grundprofil)", `${kr(FEES.meetingStd)}, F&SCM ${kr(FEES.meetingFscm)}`],
+    ["Kundavtal, befintligt referensbelopp", `${kr(FEES.dealStd)}, F&SCM ${kr(FEES.dealFscm)}`],
     ["Förmedling av expertkonsulter", `${EXPERT_FEES.premiumPerHour} kr (Premium) / ${EXPERT_FEES.basicPerHour} kr (grundprofil) per debiterad timme`],
   ];
 }
@@ -33,11 +34,11 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   let y = drawBrandHeader(doc, title, `Version ${today()} · ${ORGANIZATION.legalName}`);
 
   const ensure = (h: number) => { if (y + h > bottom) { doc.addPage(); y = drawBrandHeader(doc, title); } };
-  const para = (text: string, size = 10) => {
+  const para = (text: string, size = 9.5) => {
     doc.setFont("helvetica", "normal"); doc.setFontSize(size); doc.setTextColor(...PDF_BRAND.dark);
     for (const raw of text.split("\n")) {
       const lines = raw.trim() ? wrapPdfText(raw, width, (l) => doc.getTextWidth(l)) : [""];
-      for (const line of lines) { ensure(5.2); doc.text(line, PDF_MARGIN, y); y += 5.2; }
+      for (const line of lines) { ensure(4.8); doc.text(line, PDF_MARGIN, y); y += 4.8; }
     }
     y += 2;
   };
@@ -45,7 +46,8 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
 
   if (opts.partnerName) para(`Avtalspart: ${opts.partnerName}`, 11);
   if (opts.intro) para(opts.intro);
-  for (const s of opts.sections) { heading(s.title); para(s.body); }
+  const sections = opts.priceRows ? opts.sections : [...PARTNER_PROFILE_TERMS, ...opts.sections];
+  for (const s of sections) { heading(s.title); para(s.body); }
 
   heading("Bilaga: priser och ersättningar");
   doc.setFontSize(9.5);
@@ -65,7 +67,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
     y += h + 1;
   }
   y += 2;
-  para(opts.priceNote ?? "Mötesavgift gäller bara partners med grundprofil och avräknas från avtalsersättningen. Premiumpartners betalar ingen mötesavgift, men hela avtalsersättningen. Alla priser exklusive moms.", 8.5);
+  para(opts.priceNote ?? PARTNER_FEE_NOTE, 8.5);
 
   heading("Accept");
   para(opts.acceptance ?? "Avtalet accepteras genom bekräftelse via e-post till d365.se. Vid frågor, kontakta oss:");
