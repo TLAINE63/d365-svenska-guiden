@@ -6,6 +6,8 @@ import { ArrowRight, Check, Mail, MapPin, Minus, User, Video } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
+import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
+import { Crown } from "lucide-react";
 import { PRODUCT_LABEL, useBasicPartners, type BasicPartner, type ProductKey } from "@/hooks/useBasicPartners";
 import { documentedProductKeys } from "@/components/partner/PartnerBasicCard";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -329,12 +331,16 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
           </article>
 
           {/* Höger: profilerad referens – premiumkort med mörk gradient */}
-          <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(215,45%,14%)] via-[hsl(200,55%,16%)] to-[hsl(185,65%,18%)] text-white shadow-[0_30px_80px_-20px_hsl(200_70%_20%/0.6)] ring-1 ring-white/15">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[hsl(var(--accent))] via-[hsl(var(--cta-orange))] to-[hsl(var(--accent))]" />
+          <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(215,45%,14%)] via-[hsl(200,55%,16%)] to-[hsl(185,65%,18%)] text-white shadow-[0_30px_80px_-20px_hsl(200_70%_20%/0.6)] ring-2 ring-[hsl(var(--cta-orange))]/60">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-[hsl(var(--accent))] via-[hsl(var(--cta-orange))] to-[hsl(var(--accent))]" />
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[hsl(var(--accent))]/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl" />
             <div className="relative flex flex-1 flex-col p-6 pt-7">
-            <p className="mb-2 text-[11px] font-semibold uppercase text-accent">Exempel på profilerad partner</p>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(var(--cta-orange))] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><Crown className="h-3.5 w-3.5" aria-hidden="true" />Premiumpartner</span>
+              <VerifiedPartnerBadge size="md" className="bg-white/95" />
+            </div>
+            <p className="mb-2 text-[11px] font-semibold uppercase text-accent">Exempel på Premiumpartner</p>
             {reference && <PartnerCardHeader partner={{ name: reference.name || "Referensprofil", logo_url: reference.logo_url, logo_dark_bg: reference.logo_dark_bg }} to={`/partner/${reference.slug}/`} verified className="rounded-md bg-card p-4" />}
             <p className="mt-1 text-xs text-white/60">
               Referensprofil som visar hur en komplett partnerprofil kan se ut. Inget omdöme om

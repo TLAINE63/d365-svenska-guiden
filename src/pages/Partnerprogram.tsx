@@ -375,16 +375,16 @@ const Partnerprogram = () => {
               <PartnerOrderDialog />
             </div>
             <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
-              <h3 className="text-xl font-bold mb-3">Finders Fee</h3>
-              <p className="text-sm text-muted-foreground mb-4">När vi identifierar ett konkret projekt med tydlig avsikt att gå vidare kan det erbjudas som en kvalificerad affärsmöjlighet. Partnern bedömer möjligheten och accepterar villkoren innan introduktionen.</p>
-              <h4 className="font-semibold mb-2">Processen</h4>
-              <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
-                <li>Köparen definierar sitt behov med d365.se.</li>
-                <li>Vi presenterar en kvalificerad affärsmöjlighet för relevanta partners.</li>
-                <li>Partnern bedömer möjligheten och accepterar villkoren.</li>
-                <li>Introduktion och kundmöte genomförs, med köparens samtycke.</li>
-                <li>Ersättning faktureras när kundavtal tecknats.</li>
+              <h3 className="text-xl font-bold mb-3">Finders Fee - så fungerar det</h3>
+              <p className="text-sm text-muted-foreground mb-5">Finders Fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret projekt. Ni betalar bara när det leder till ett tecknat kundavtal. Beloppen finns i prislistan.</p>
+              <ol className="space-y-4 mb-5">
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, kravspecifikation eller ett samtal med oss.</p></div></li>
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span><div><p className="font-semibold text-foreground">Vi kvalificerar affären</p><p className="text-sm text-muted-foreground">Vi går igenom behov, tidplan och budget. Bara konkreta projekt med tydlig avsikt att gå vidare blir en affärsmöjlighet.</p></div></li>
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span><div><p className="font-semibold text-foreground">Ni får frågan först</p><p className="text-sm text-muted-foreground">Vi beskriver möjligheten för relevanta partners. Ni bedömer om den passar och accepterar villkoren innan något händer.</p></div></li>
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">4</span><div><p className="font-semibold text-foreground">Köparen säger ja</p><p className="text-sm text-muted-foreground">Köparen väljer själv vilka partners (högst tre) som får kontakt och lämnar sitt samtycke. Därefter bokas introduktion och kundmöte.</p></div></li>
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">5</span><div><p className="font-semibold text-foreground">Ersättning bara vid affär</p><p className="text-sm text-muted-foreground">Ni betalar enligt prislistan först när kundavtalet är tecknat. Blir det ingen affär kostar det ingenting.</p></div></li>
               </ol>
+              <p className="text-xs text-muted-foreground mb-5">Introduktioner påverkar aldrig relevansordningen i partnersökningen.</p>
               <ContactFormDialog
                 buyerForm={false}
                 title="Begär Finders Fee-avtal"
