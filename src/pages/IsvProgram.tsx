@@ -95,7 +95,7 @@ const IsvProgram = () => {
         <section id="for-isver" className="py-10 md:py-14 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Visa vilka behov era produkter löser</h2>
-            <p className="max-w-3xl text-muted-foreground mb-6">d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 och hjälper ISV:er att komma i kontakt med företag och partners som har relevanta behov.</p>
+            <p className="max-w-3xl text-muted-foreground mb-6">d365.se hjälper företag att hitta rätt väg framåt med Microsoft&nbsp;Dynamics&nbsp;365 och hjälper ISV-leverantörer att komma i kontakt med företag och partners som har relevanta behov.</p>
             <ul className="grid md:grid-cols-3 gap-5">
               {[
                 { title: "Produkten i rätt sammanhang", text: "Beskriv funktioner, användningsområden, målgrupp och vilka produktområden lösningen kompletterar." },
@@ -165,7 +165,7 @@ const IsvProgram = () => {
         <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Synlighet &amp; Affärsmöjligheter</h2>
-            <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Solution Partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
+            <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Dynamics&nbsp;365-partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
             <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
             <div id="finders-fee" className="max-w-4xl rounded-xl border border-border bg-card p-6 mb-6 scroll-mt-64">
               <h3 className="text-xl font-bold mb-3">Finder’s fee (Business Referral) - så fungerar det</h3>
@@ -174,7 +174,7 @@ const IsvProgram = () => {
 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, tilläggskatalogen, en kravspecifikation eller ett samtal med oss.</p></div></li>
 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span><div><p className="font-semibold text-foreground">Vi kvalificerar affären</p><p className="text-sm text-muted-foreground">Vi går igenom behov, tidplan och budget. Bara konkreta projekt med tydlig avsikt att gå vidare blir en affärsmöjlighet.</p></div></li>
 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span><div><p className="font-semibold text-foreground">Ni får frågan först</p><p className="text-sm text-muted-foreground">Vi beskriver möjligheten för er. Ni bedömer om den passar och accepterar villkoren innan något händer. Affären registreras med datum och berörda parter.</p></div></li>
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">4</span><div><p className="font-semibold text-foreground">Köparen säger ja</p><p className="text-sm text-muted-foreground">Köparen lämnar sitt samtycke. Därefter introducerar vi kunden för er direkt, eller via en Solution Partner som implementerar er produkt.</p></div></li>
+<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">4</span><div><p className="font-semibold text-foreground">Köparen säger ja</p><p className="text-sm text-muted-foreground">Köparen lämnar sitt samtycke. Därefter introducerar vi kunden för er direkt, eller via en Dynamics&nbsp;365-partner som implementerar er produkt.</p></div></li>
 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">5</span><div><p className="font-semibold text-foreground">Ersättning bara vid affär</p><p className="text-sm text-muted-foreground">Ni betalar först när affären är genomförd och kunden har betalat. Blir det ingen affär kostar det ingenting.</p></div></li>
 </ol>
               <h4 className="font-semibold text-foreground mb-2">Ersättning</h4>
@@ -195,7 +195,7 @@ const IsvProgram = () => {
               <ul className="space-y-2 text-sm text-muted-foreground mb-5">
 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Gäller bara nya, registrerade och av er godkända affärsmöjligheter.</li>
 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Beräknas på betalade intäkter exklusive moms, rabatter, återbetalningar och vidarefakturerade tredjepartskostnader.</li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Säljs produkten via en Solution Partner räknas ISV:ns faktiska nettointäkt, inte kundens hela avtalsvärde.</li>
+<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Säljs produkten via en Dynamics&nbsp;365-partner räknas ISV:ns faktiska nettointäkt, inte kundens hela avtalsvärde.</li>
 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Gäller normalt första affären, inte förnyelser eller tilläggsbeställningar. Samma intäkt provisionsbeläggs aldrig dubbelt.</li>
 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen ersättning uppstår av enbart ett formulär, ett klick eller en obesvarad förfrågan.</li>
 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Köparen informeras när en förmedling kan ge ersättning till d365.se.</li>
