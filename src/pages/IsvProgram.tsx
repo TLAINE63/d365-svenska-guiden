@@ -42,11 +42,11 @@ const faqs = [
 
 const programSections = [
   { id: "for-isver", label: "Översikt" },
-  { id: "priser-innehall", label: "Priser & innehåll" },
+  { id: "priser-innehall", label: "Prislista" },
+  { id: "finders-fee", label: "Finder’s fee" },
   { id: "isv-profilkoll", label: "Profiler & jämförelser" },
   { id: "verifiering", label: "Verifiering" },
   { id: "formedling", label: "Synlighet & Affärsmöjligheter" },
-  { id: "finders-fee", label: "Finder’s fee" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
@@ -108,20 +108,20 @@ const IsvProgram = () => {
 
         <section id="priser-innehall" className="pt-8 pb-14 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Nivåer och priser</h2>
-            <div className="grid gap-5 md:grid-cols-2 items-stretch">
-              <div className="rounded-xl border border-border bg-card p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-2">Grundprofil</h3>
-                <p className="text-3xl font-bold text-foreground mb-3">0 kr</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Lösningen sammanställs i katalogen med funktioner, produktområden och branscher. Ingen logotyp, ingen länk till er webbplats och inga kontaktuppgifter.
-                </p>
-              </div>
-              <div className="relative rounded-xl border-2 border-primary bg-card p-6 shadow-lg flex flex-col">
-                <span className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">ISV Presence</span>
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-primary mb-1">ISV Presence</h3>
-                <p className="text-base font-semibold text-foreground mb-3">Verifierad leverantör och app</p>
-                <ul className="text-sm text-muted-foreground space-y-1.5 mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Prislista</h2>
+            <p className="max-w-3xl text-muted-foreground mb-8 -mt-3">ISV Presence och ett frivilligt Finder’s fee-avtal. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+            <div className="grid gap-6 lg:grid-cols-2 items-start">
+              <div className="rounded-xl border-2 border-primary bg-card p-6 md:p-8 flex flex-col">
+                <h3 className="text-2xl font-bold text-foreground mb-2">ISV Presence - Prislista</h3>
+                <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet är frivilligt. Alla priser exklusive moms.</p>
+                <div className="rounded-lg bg-secondary/30 p-5 mb-6 space-y-3 text-sm text-muted-foreground">
+                  <h4 className="text-base font-semibold text-foreground">Vad innebär ISV Presence?</h4>
+                  <p>Med ISV Presence får er app en utökad produktpresentation där köpare och Dynamics&nbsp;365-partners ser vilka behov lösningen löser, med logotyp, webblänk, kontakt och demofilmer.</p>
+                  <p><strong className="font-semibold text-foreground">Vi verifierar uppgifterna.</strong> Innan märkena Verifierad ISV och Verifierad tilläggslösning visas går d365.se-redaktionen igenom leverantör, produkt och kopplingen till Dynamics&nbsp;365. Betalningen i sig ger aldrig verifiering.</p>
+                  <p>Utan ISV Presence finns lösningen kvar som grundprofil (0 kr) i katalogen, utan logotyp, länk eller kontaktuppgifter.</p>
+                </div>
+                <h4 className="text-lg font-semibold text-foreground mb-3">Det här ingår</h4>
+                <ul className="text-sm text-muted-foreground space-y-2 mb-6">
                   {[
                     "Verifieringsprocessen (grundkontroll) ingår",
                     "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
@@ -143,32 +143,8 @@ const IsvProgram = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
                 <IsvOrderDialog />
               </div>
-            </div>
-            <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-64">
-              <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Verifiering och avtal hålls isär
-              </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Verifieringsprocessen ingår, men verifierad status kan inte köpas eller garanteras.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span>Grundkontrollen omfattar företag, produkt och centrala uppgifter samt kopplingen till <span className="whitespace-nowrap">Dynamics 365</span>. Utökad kontroll görs bara vid behov.</span></li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantör och produkt verifieras var för sig.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />En verifierad produkt betyder inte att alla länder, lokala partners eller supportuppgifter är verifierade. Varje sådan uppgift har egen källa och status.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantörer som redan är verifierade partners på d365.se räknas automatiskt som verifierade leverantörer.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Betalning påverkar aldrig ordningen i katalogen eller våra rekommendationer.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <IsvProfileCheck />
-
-        <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-64">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Synlighet &amp; Affärsmöjligheter</h2>
-            <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Dynamics&nbsp;365-partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
-            <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
-            <div id="finders-fee" className="max-w-4xl rounded-xl border border-border bg-card p-6 mb-6 scroll-mt-64">
-              <h3 className="text-xl font-bold mb-3">Finder’s fee (Business Referral) - så fungerar det</h3>
+              <div id="finders-fee" className="rounded-xl border border-border bg-card p-6 md:p-8 scroll-mt-64">
+              <h3 className="text-2xl font-bold mb-3">Finder’s fee (Business Referral) - så fungerar det</h3>
               <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret behov. Avtalet är frivilligt och separat från ISV Presence: ni kan ha båda, ett av dem eller inget. Ni betalar bara när det leder till en genomförd affär.</p>
               <ol className="space-y-4 mb-6">
 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, tilläggskatalogen, en kravspecifikation eller ett samtal med oss.</p></div></li>
@@ -205,6 +181,31 @@ const IsvProgram = () => {
                 <Button size="lg" variant="outline">Begär Finder’s fee-avtal<ArrowRight className="w-4 h-4 ml-2" /></Button>
               </ContactFormDialog>
             </div>
+            </div>
+            <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-64">
+              <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+                <BadgeCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Verifiering och avtal hålls isär
+              </h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Verifieringsprocessen ingår, men verifierad status kan inte köpas eller garanteras.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span>Grundkontrollen omfattar företag, produkt och centrala uppgifter samt kopplingen till <span className="whitespace-nowrap">Dynamics 365</span>. Utökad kontroll görs bara vid behov.</span></li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantör och produkt verifieras var för sig.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />En verifierad produkt betyder inte att alla länder, lokala partners eller supportuppgifter är verifierade. Varje sådan uppgift har egen källa och status.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Leverantörer som redan är verifierade partners på d365.se räknas automatiskt som verifierade leverantörer.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Betalning påverkar aldrig ordningen i katalogen eller våra rekommendationer.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <IsvProfileCheck />
+
+        <section id="formedling" className="py-10 md:py-14 bg-secondary/30 border-y border-border scroll-mt-64">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Synlighet &amp; Affärsmöjligheter</h2>
+            <p className="max-w-3xl text-muted-foreground mb-4">Produktprofilen hjälper köpare och Dynamics&nbsp;365-partners att förstå när er lösning passar. Belagda partnerrelationer kan visas på produktsidan; en relation antas aldrig enbart för att partnern arbetar med samma produktområde.</p>
+            <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
+            
             <div className="flex flex-wrap gap-3">
               <ContactFormDialog subject="Business Referral (ISV)" buyerForm={false}><Button>Diskutera affärssamarbete<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
               <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
