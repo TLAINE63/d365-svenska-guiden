@@ -19,3 +19,12 @@ export const PREMIUM_BENEFITS = [
   "Kvartalsvis genomgång och en namngiven kontaktperson på d365.se.",
   "Samma neutrala relevansordning som alla andra: Premium påverkar aldrig ranking eller rekommendationer.",
 ];
+
+export const ISV_BENEFITS_TITLE = "Detta ingår i ISV Premium";
+export const ISV_BENEFITS = [
+  "Verifieringsprocessen (grundkontroll) av leverantör och app; märkena Verifierad ISV och Verifierad tilläggslösning med datum efter redaktionens godkännande (aldrig automatiskt genom betalning).",
+  "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app i tilläggskatalogen.",
+  "Upp till tre aktiva demofilmer från YouTube per app, som även visas under Produktdemonstrationer i d365.se INSIDE.",
+  "Möjlighet till visning på businesscentral.se för Business Central-appar.",
+  "Samma neutrala katalogordning som alla andra: betalning påverkar aldrig ordning eller rekommendationer.",
+];
