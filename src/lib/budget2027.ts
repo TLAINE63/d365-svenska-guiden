@@ -4,7 +4,7 @@ export type Forecast = "none" | "basic" | "month" | "year";
 
 export const MONTH_PRICE: Record<number, number> = { 1: 995, 2: 1295, 3: 1495 };
 export const YEAR_PRICE: Record<number, number> = { 1: 7990, 2: 9990, 3: 11990 };
-export const FEES = { meetingStd: 3500, dealStd: 5000, meetingFscm: 5000, dealFscm: 10000, successRate: 0.025 };
+export const FEES = { meetingStd: 0, dealStd: 5000, meetingFscm: 0, dealFscm: 10000, successRate: 0.025 };
 
 export interface PartnerForecast {
   forecast: Forecast; products: number; discount: number;
@@ -18,8 +18,8 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 
 // ISV Solution Presence (per year) and finders fee for accepted partner introductions.
 export const ISV_FEES = { base: 5990, extraApp: 995, introStd: 3500, introFscm: 7500, successRate: 0.025 };
-/** Expert brokerage fee per billed hour (Thomas 2026-11-10): 50 kr from Premium partners, 90 kr from Basic partners. */
-export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 90 };
+/** Expert brokerage fee per billed hour: same 50 kr for every partner (Thomas 2026-11-12). Meeting fees removed; keys kept so saved budgets survive. */
+export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 50 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number }
 export function isvRevenue(r: IsvForecast) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
@@ -105,14 +105,14 @@ export const unitFor = (c: Category, values: Record<string, number> = {}) => (c.
 export const CATEGORIES: Category[] = [
   ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, betalt i förskott.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
   ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const, income: "subscription" as const })),
-  { key: "meetingsStd", label: "Basic: möten BC/CRM och övrigt", description: "Antal genomförda, avgiftsbelagda möten med Basicpartners. Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Premium har ingen mötesavgift.", unit: FEES.meetingStd, group: "partner", income: "finders" },
-  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade kundavtal efter ett avgiftsbelagt kundmöte. Här budgeteras resterande 1 500 kr av totalt 5 000 kr; mötesavgiften 3 500 kr budgeteras på mötesraden.", unit: FEES.dealStd - FEES.meetingStd, group: "partner", income: "finders" },
-  { key: "meetingsFscm", label: "Basic: möten F&SCM", description: "Antal genomförda, avgiftsbelagda möten för Finance & Supply Chain Management med Basicpartners. Premium har ingen mötesavgift.", unit: FEES.meetingFscm, group: "partner", income: "finders" },
-  { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal efter ett avgiftsbelagt möte. Här budgeteras resterande 5 000 kr av totalt 10 000 kr; mötesavgiften budgeteras på mötesraden.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
+  { key: "meetingsStd", label: "Basic: möten BC/CRM och övrigt", description: "Mötesavgiften är borttagen (samma villkor för alla). Raden ger 0 kr och finns kvar för sparade budgetar.", unit: FEES.meetingStd, group: "partner", income: "finders" },
+  { key: "dealsStd", label: "Basic: avtal BC/CRM och övrigt", description: "Antal tecknade kundavtal. Hela avtalsersättningen 5 000 kr, samma villkor som Premium.", unit: FEES.dealStd - FEES.meetingStd, group: "partner", income: "finders" },
+  { key: "meetingsFscm", label: "Basic: möten F&SCM", description: "Mötesavgiften är borttagen (samma villkor för alla). Raden ger 0 kr och finns kvar för sparade budgetar.", unit: FEES.meetingFscm, group: "partner", income: "finders" },
+  { key: "dealsFscm", label: "Basic: avtal F&SCM", description: "Antal tecknade avtal. Hela avtalsersättningen 10 000 kr, samma villkor som Premium.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
   { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner", income: "finders" },
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
   { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Debiterade experttimmar hos Premiumpartners, 50 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.premiumPerHour, per: "debiterad timme", group: "partner", income: "finders" },
-  { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 90 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
+  { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 50 kr per debiterad timme, samma som Premium. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
   { key: "isvPresence", label: "ISV Premium (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
