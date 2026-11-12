@@ -20,7 +20,7 @@ export const PREMIUM_BENEFITS = [
   "Samma neutrala relevansordning som alla andra: Premium påverkar aldrig ranking eller rekommendationer.",
 ];
 
-export const ISV_BENEFITS_TITLE = "Detta ingår i ISV Premium";
+export const ISV_BENEFITS_TITLE = "Detta ingår i ISV Presence";
 export const ISV_BENEFITS = [
   "Verifieringsprocessen (grundkontroll) av leverantör och app; märkena Verifierad ISV och Verifierad tilläggslösning med datum efter redaktionens godkännande (aldrig automatiskt genom betalning).",
   "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app i tilläggskatalogen.",

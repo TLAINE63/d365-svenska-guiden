@@ -353,7 +353,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV:erna.</CardDescription>
+          <CardDescription>ISV Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV:erna.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">

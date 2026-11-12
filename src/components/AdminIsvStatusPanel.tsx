@@ -16,7 +16,7 @@ import IsvPresentationEditor from '@/components/isv/IsvPresentationEditor';
 interface Props {
   token: string | null;
   onSessionExpired: () => void;
-  /** Redaktionsläge: kommersiella fält (ISV Premium, avtal) visas bara som läsbar status. */
+  /** Redaktionsläge: kommersiella fält (ISV Presence, avtal) visas bara som läsbar status. */
   editorMode?: boolean;
 }
 
@@ -173,7 +173,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
       </TableCell>
       <TableCell>
         <label className="flex items-center gap-1.5 text-xs">
-          <Checkbox disabled={editorMode} checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Premium aktiv
+          <Checkbox disabled={editorMode} checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Presence aktiv
         </label>
       </TableCell>
     </>
@@ -272,7 +272,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                             className="text-xs text-primary hover:underline mt-1"
                             onClick={() => setBcEdit({ id: p.solution_id, name: p.name, form: { ...emptyBc, ...Object.fromEntries(Object.entries(p.bc_presentation || {}).filter(([k]) => k in emptyBc).map(([k, v]) => [k, v ?? ""])) } })}
                           >
-                            Text för businesscentral.se{p.information_status !== "verified" || !p.premium_product ? " (visas först med D365 Verifierad och ISV Premium)" : ""}
+                            Text för businesscentral.se{p.information_status !== "verified" || !p.premium_product ? " (visas först med D365 Verifierad och ISV Presence)" : ""}
                           </button>
                         )}
                         <button

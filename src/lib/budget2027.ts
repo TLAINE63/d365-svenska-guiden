@@ -16,7 +16,7 @@ export interface CostLine { name: string; amount: number; custom?: boolean; peri
 export interface RevenueLine { name: string; amount: number; period?: Period }
 export const annual = (l: { amount: number; period?: Period }) => (Number(l.amount) || 0) * (l.period === "month" ? 12 : 1);
 
-// ISV Solution Presence (per year) and finders fee for accepted partner introductions.
+// ISV Presence (per year) and finders fee for accepted partner introductions.
 /** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
 export const ISV_FEES = { base: 5990, introFirstYear: 2990, extraApp: 995, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage fee per billed hour: same 50 kr for every partner (Thomas 2026-11-12). Meeting fees removed; keys kept so saved budgets survive. */
@@ -114,7 +114,7 @@ export const CATEGORIES: Category[] = [
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
   { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Debiterade experttimmar hos Premiumpartners, 50 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.premiumPerHour, per: "debiterad timme", group: "partner", income: "finders" },
   { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 50 kr per debiterad timme, samma som Premium. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
-  { key: "isvPresence", label: "ISV Premium (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
+  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV Business Referral: licenser (5 %)", description: "Business Referral räknas i ISV-tratten som 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
   { key: "isvIntroFscm", label: "ISV Business Referral: konsult (2,5 %)", description: "Business Referral räknas i ISV-tratten som 2,5 % av nettointäkterna från ett förmedlat konsultuppdrag. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
