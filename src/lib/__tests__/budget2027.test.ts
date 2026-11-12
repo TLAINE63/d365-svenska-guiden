@@ -70,9 +70,8 @@ describe("category estimates", () => {
     expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
   });
   it("estimate: 3 ISV Presence = 17 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(17970); });
-  it("only Basic meetings are charged at 3 500 and 5 000 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1 }).finders).toBe(3500);
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(8500);
+  it("no partner pays a meeting fee (same terms for all, Thomas 2026-11-12)", () => {
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
     for (const forecast of ["month", "year"] as const) {
       expect(forecastRevenue({ ...base, forecast, meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
     }
@@ -87,14 +86,14 @@ describe("category estimates", () => {
       expect(d.dealsStd).toEqual({ count: 0, revenue: 0 });
     }
   });
-  it("funnel: Basic BC meeting 3 500 + deal 1 500, Premium BC deal 5 000", () => {
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 })).toEqual({ meetings: 3500, deals: 1500, wins: 0, total: 5000 });
+  it("funnel: every BC deal pays 5 000 kr, no meeting fee", () => {
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 })).toEqual({ meetings: 0, deals: 5000, wins: 0, total: 5000 });
     const d = detailByCategory([{ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }], []);
-    expect(d.meetingsStd.revenue).toBe(3500);
-    expect(d.dealsStd.revenue).toBe(1500);
+    expect(d.meetingsStd.revenue).toBe(0);
+    expect(d.dealsStd.revenue).toBe(5000);
     expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 4, deals: 1 }).total).toBe(5000);
   });
-  it("funnel: Basic F&SCM meeting 5 000 + deal 5 000", () => {
+  it("funnel: F&SCM deal 10 000 kr", () => {
     expect(partnerFunnelRow(FUNNEL_PRODUCTS[2], "basic", { meetings: 1, deals: 1 }).total).toBe(10000);
   });
 });
@@ -107,14 +106,14 @@ describe("success fee areas", () => {
 
 import { EXPERT_FEES, EXPERT_FUNNEL, expertFunnelRow, FUNNEL_PRODUCTS, partnerFunnelRow } from "../budget2027";
 describe("expert selling fees", () => {
-  it("CV brokerage 50 kr and expert assignment 90 kr per sold hour", () => {
-    expect(EXPERT_FEES).toEqual({ premiumPerHour: 50, basicPerHour: 90 });
+  it("expert brokerage is 50 kr per hour for every partner", () => {
+    expect(EXPERT_FEES).toEqual({ premiumPerHour: 50, basicPerHour: 50 });
     expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 3, percent: 100 }).total).toBe(495 * 50);
     expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, months: 6, percent: 50, rate: 100 }).total).toBe(2 * 495 * 100);
   });
   it("expert hours count as partner finders fee, not subscription", () => {
     const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, months: 1, percent: 100 }, expert: { assignments: 1, months: 1, percent: 50 } });
-    expect(s.partner.finders.estimate).toBe(165 * 50 + 83 * 90);
+    expect(s.partner.finders.estimate).toBe(165 * 50 + 83 * 50);
     expect(s.partner.subscription.estimate).toBe(0);
   });
 });

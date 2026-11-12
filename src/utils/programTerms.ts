@@ -8,7 +8,7 @@ export const TERMS_DATE = "2026-11-12";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Premium, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Mötesavgift endast för Grundprofil. Separata villkor för kundavtal, success fee och expertförmedling för partners och ISV:er." },
+  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla partners: ingen mötesavgift, ersättning vid tecknat kundavtal, success fee och expertförmedling. Separata villkor för ISV:er." },
 ];
 
 export function termsPriceRows(area: TermsArea): [string, string][] {
@@ -21,15 +21,12 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["Varje extra produkt", `${kr(ISV_FEES.extraApp)}/år`],
   ];
   return [
-    ["Genomfört kundmöte, grundprofil (BC, CRM, Power Platform och övrigt)", kr(FEES.meetingStd)],
-    ["Genomfört kundmöte, grundprofil (F&SCM)", kr(FEES.meetingFscm)],
     ["Kundavtal tecknat (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
     ["Kundavtal tecknat (F&SCM)", kr(FEES.dealFscm)],
     ["ISV: kundavtal tecknat (BC/CRM)", kr(ISV_FEES.introStd)],
     ["ISV: kundavtal tecknat (F&SCM)", kr(ISV_FEES.introFscm)],
     ["Success fee", `${(FEES.successRate * 100).toLocaleString("sv-SE")} %`],
-    ["Expertförmedling, Premiumpartner", `${kr(EXPERT_FEES.premiumPerHour)}/debiterad timme`],
-    ["Expertförmedling, partner med grundprofil", `${kr(EXPERT_FEES.basicPerHour)}/debiterad timme`],
+    ["Expertförmedling", `${kr(EXPERT_FEES.premiumPerHour)}/debiterad timme`],
   ];
 }
 
@@ -49,7 +46,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
     { title: "Success fee, partners", body: "Success fee är 2,5 procent av konsult- och projektintäkter från första kronan under de första nio månaderna från projektstart, när intäkterna överstiger 100 000 kr. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte i beräkningsunderlaget." },
     { title: "ISV-förmedling", body: "Fast ersättning gäller en accepterad introduktion som leder till tecknat avtal: Business Central eller CRM 3 500 kr, Finance & Supply Chain Management 7 500 kr. Success fee på 2,5 procent tillkommer enligt separat förmedlingsavtal. Beräkningsunderlag och betalningsvillkor fastställs före introduktionen." },
-    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen beräknas på faktiskt debiterade timmar: 50 kr per timme från Premiumpartner och 90 kr från partner med grundprofil. Samma expertuppdrag dubbelräknas inte med mötesavgift, avtalsersättning eller success fee." },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen beräknas på faktiskt debiterade timmar: 50 kr per debiterad timme. Samma expertuppdrag dubbelräknas inte med avtalsersättning eller success fee." },
   ];
 }
 

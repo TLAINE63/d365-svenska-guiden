@@ -177,15 +177,15 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
           </div>
           <div className="rounded-lg border p-6">
             <p className="font-semibold">Möte → Affär → Finder’s fee</p>
-            <p className="mt-1 text-sm text-muted-foreground">Premium betalar ingen mötesavgift. Ersättning först när en förmedlad introduktion blir affär (exkl. moms):</p>
+            <p className="mt-1 text-sm text-muted-foreground">Samma villkor för alla, ingen mötesavgift. Ersättning först när en förmedlad introduktion blir affär (exkl. moms):</p>
             <table className="mt-2 w-full text-xs">
-              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1"></th><th className="text-right font-normal">Kundmöte (endast grundprofil)</th><th className="text-right font-normal">Kundavtal tecknat</th></tr></thead>
+              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1"></th><th className="text-right font-normal">Kundavtal tecknat</th></tr></thead>
               <tbody>
-                <tr className="border-t"><td className="py-1">BC, CRM, Power Platform m.fl.</td><td className="text-right whitespace-nowrap">3{NB}500 kr</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td></tr>
-                <tr className="border-t"><td className="py-1">Finance &amp; Supply Chain</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td><td className="text-right whitespace-nowrap">10{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">BC, CRM, Power Platform m.fl.</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Finance &amp; Supply Chain</td><td className="text-right whitespace-nowrap">10{NB}000 kr</td></tr>
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: 50 kr (Premium) / 90 kr (grundprofil) per debiterad timme.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: 50 kr per debiterad timme.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>

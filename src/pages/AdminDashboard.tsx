@@ -4506,13 +4506,13 @@ Thomas`,
  <details className="text-xs text-muted-foreground">
  <summary className="cursor-pointer">Villkor för ersättning</summary>
  <table className="mt-2 w-full text-left">
- <thead><tr><th className="py-1">Affärstyp</th><th>Genomfört kundmöte</th><th>Kundavtal tecknat</th></tr></thead>
+ <thead><tr><th className="py-1">Affärstyp</th><th>Kundavtal tecknat</th></tr></thead>
  <tbody>
- <tr><td className="py-1 pr-2">Business Central, Customer Engagement, Power Platform och andra lösningar</td><td>3 500 kr</td><td>5 000 kr</td></tr>
- <tr><td className="py-1 pr-2">Finance &amp; Supply Chain Management</td><td>5 000 kr</td><td>10 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Business Central, Customer Engagement, Power Platform och andra lösningar</td><td>5 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Finance &amp; Supply Chain Management</td><td>10 000 kr</td></tr>
  </tbody>
  </table>
- <p className="mt-2">Mötesavgiften avräknas från avtalsersättningen. Alla belopp exkl. moms. För affärer där partnerns konsult- och projektintäkter överstiger 100 000 kr utgår även success fee på 2,5 % av intäkterna från första kronan under de första nio månaderna från projektstart. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Fullständiga villkor i partner- och förmedlingsavtalet.</p>
+ <p className="mt-2">Samma villkor för alla partners, ingen mötesavgift. Alla belopp exkl. moms. För affärer där partnerns konsult- och projektintäkter överstiger 100 000 kr utgår även success fee på 2,5 % av intäkterna från första kronan under de första nio månaderna från projektstart. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Fullständiga villkor i partner- och förmedlingsavtalet.</p>
  </details>
  </div>
   <div>
