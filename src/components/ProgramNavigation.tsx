@@ -29,6 +29,21 @@ export default function ProgramNavigation({ audience, sections }: ProgramNavigat
     return () => window.clearTimeout(t);
   }, [sections]);
 
+  // Även andra länkar på sidan (t.ex. "Se prislistan") ska landa under menyerna.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement | null)?.closest?.("a[href^='#']");
+      if (!a || barRef.current?.contains(a)) return;
+      const id = decodeURIComponent((a.getAttribute("href") ?? "").slice(1));
+      if (!sections.some((s) => s.id === id)) return;
+      e.preventDefault();
+      window.history.replaceState(null, "", `#${id}`);
+      scrollToSection(id, barRef.current, true);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [sections]);
+
   return (
     <div ref={barRef} className="sticky top-16 lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
