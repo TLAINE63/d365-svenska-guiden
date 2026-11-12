@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 type ProgramNavigationProps = {
   audience: "partners" | "isv";
-  action?: React.ReactNode;
+  action?: ReactNode;
   sections: readonly { id: string; label: string }[];
 };
 
