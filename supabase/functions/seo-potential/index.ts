@@ -69,7 +69,7 @@ Deno.serve(async (req) => {
   if (report.length < 20) return json({ error: "Klistra in en rapport först." }, 400);
   if (report.length > 120_000) return json({ error: "Rapporten är för lång (max ca 120 000 tecken). Korta ned den." }, 400);
 
-  const provider = createLovableAiGatewayProvider(apiKey, getLovableAiGatewayRunId(req), { baseURL: "https://ai.gateway.lovable.dev/v1", structuredOutputs: true });
+  const provider = createLovableAiGatewayProvider(apiKey, getLovableAiGatewayRunId(req), { baseURL: "https://ai.gateway.lovable.dev/v1" });
   try {
     const result = streamText({
       model: provider("google/gemini-3.8-flash"),

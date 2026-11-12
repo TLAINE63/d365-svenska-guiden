@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +9,10 @@ import { toast } from "sonner";
 export default function RedaktionOperations({ token, isAdmin }: { token: string | null; isAdmin: boolean }) {
   const [busy, setBusy] = useState(false);
   const [synced, setSynced] = useState<string | null>(null);
-  const [month, setMonth] = useState(() => { const d = new Date(); d.setUTCMonth(d.getUTCMonth() - 1); return d.toISOString().slice(0, 7); });
+  const [month, setMonth] = useState(() => { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - 1, 1)).toISOString().slice(0, 7); });
+  useEffect(() => {
+    void supabase.from("editor_news_import_state").select("last_completed_at").eq("id", "snitcher").maybeSingle().then(({ data }) => setSynced(data?.last_completed_at ?? null));
+  }, []);
   async function run(kind: "sync" | "monthly" | "funnel") {
     if (!token || busy) return;
     setBusy(true);
@@ -19,7 +22,7 @@ export default function RedaktionOperations({ token, isAdmin }: { token: string 
       const { data, error } = await supabase.functions.invoke(name, { body });
       if (error) { const details = error.context instanceof Response ? await error.context.text() : error.message; throw new Error(details); }
       if (data?.error) throw new Error(data.error);
-      if (kind === "sync") { setSynced(new Date().toISOString()); toast.success("Snitcher är synkat"); return; }
+      if (kind === "sync") { setSynced(data.syncedAt); toast.success("Snitcher är synkat"); return; }
       const rows = kind === "monthly" ? (data.rows ?? []).map((r: Record<string, unknown>) => ({ month, name: r.name, slug: r.slug, ...(r.current as Record<string, unknown> ?? {}) })) : data.funnels ?? [];
       const keys: string[] = [...new Set<string>((rows as Record<string, unknown>[]).flatMap(r => Object.keys(r)))];
       const cell = (v: unknown) => { const text = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); return '"' + (/^[=+@-]/.test(text) ? "'" : "") + text.replace(/"/g, '""') + '"'; };
