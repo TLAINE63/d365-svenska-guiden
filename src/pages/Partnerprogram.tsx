@@ -45,11 +45,11 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 
 const programSections = [
   { id: "for-partners", label: "Översikt" },
-  { id: "priser-innehall", label: "Premium partner - Prislista" },
+  { id: "priser-innehall", label: "Prislista" },
+  { id: "affarsmojligheter", label: "Finders Fee" },
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
-  { id: "affarsmojligheter", label: "Finders Fee" },
   { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
