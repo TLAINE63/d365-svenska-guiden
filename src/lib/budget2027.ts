@@ -144,8 +144,8 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
   for (const r of isvRows) {
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
     if (r.presence) { add("isvPresence", 1, ISV_FEES.base * disc); add("isvExtra", r.extraApps, r.extraApps * ISV_FEES.extraApp * disc); }
-    add("isvIntroStd", r.introsStd, r.introsStd * ISV_FEES.introStd);
-    add("isvIntroFscm", r.introsFscm, r.introsFscm * ISV_FEES.introFscm);
+    add("isvIntroStd", r.successBasis > 0 ? 1 : 0, Math.max(0, r.successBasis) * ISV_FEES.licenseRate);
+    add("isvIntroFscm", (r.consultBasis ?? 0) > 0 ? 1 : 0, Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate);
   }
   return out;
 }
