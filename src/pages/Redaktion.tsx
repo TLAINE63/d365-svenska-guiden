@@ -1,4 +1,5 @@
 import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
+import RedaktionOperations from "@/components/RedaktionOperations";
 import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
@@ -32,11 +33,13 @@ function seedAdminSession(token: string): null {
   }
   return null;
 }
+import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useEditorAuth } from "@/hooks/useEditorAuth";
@@ -73,6 +76,7 @@ export default function Redaktion() {
     useEditorAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [remember, setRemember] = useState(false);
   const [tab, setTab] = useState("events");
   const [teaserSlug, setTeaserSlug] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -107,7 +111,7 @@ export default function Redaktion() {
     e.preventDefault();
     setLoginError(null);
     setSubmitting(true);
-    const res = await login(form.email, form.password);
+    const res = await login(form.email, form.password, remember);
     setSubmitting(false);
     if (!res.success) setLoginError(res.error ?? "Inloggningen misslyckades");
   }
@@ -123,12 +127,15 @@ export default function Redaktion() {
   }
 
   const seo = (
+    <>
+    <Helmet><link rel="manifest" href="/redaktion.webmanifest" /></Helmet>
     <SEOHead
       title="Redaktion | d365.se"
       description="Intern redaktörsvy för event, partnernytt och artiklar."
       canonicalPath="/redaktion"
       noIndex
     />
+    </>
   );
 
   if (isLoading) {
@@ -176,6 +183,10 @@ export default function Redaktion() {
                   value={form.password}
                   onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
                 />
+              </div>
+              <div className="flex items-center gap-3">
+                <Checkbox id="editor-remember" checked={remember} onCheckedChange={(value) => setRemember(value === true)} />
+                <Label htmlFor="editor-remember">Kom ihåg mig i 30 dagar</Label>
               </div>
               {(loginError || accessError) && (
                 <p className="text-sm text-destructive">{loginError || accessError}</p>
@@ -237,7 +248,7 @@ export default function Redaktion() {
               <PenLine className="h-6 w-6" /> Redaktion
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              {email} · Event, Partnernytt, Artiklar, Videor och Aktuellt
+              <span className="break-all">{email}</span> · Event, Partnernytt, Artiklar, Videor och Aktuellt
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={logout} className="gap-2">
@@ -245,8 +256,9 @@ export default function Redaktion() {
           </Button>
         </div>
 
+        <RedaktionOperations token={token} isAdmin={isAdmin} />
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="mb-6 h-auto flex-wrap">
+          <TabsList className="mb-6 h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="webinar">Webinar</TabsTrigger>
             <TabsTrigger value="subscribers">Nyhetsbrev</TabsTrigger>

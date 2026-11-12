@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CONTENT_INVITE_THEMES } from "@/lib/contentInvite";
 import type { ContentTheme } from "@/lib/webinars";
@@ -93,6 +94,7 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
   const [uploadingHero, setUploadingHero] = useState(false);
   const [saving, setSaving] = useState(false);
   const [warnings, setWarnings] = useState<string[]>([]);
+  const [keepEditorial, setKeepEditorial] = useState(true);
   const fileRef = useRef<HTMLInputElement>(null);
   const heroRef = useRef<HTMLInputElement>(null);
 
@@ -144,15 +146,15 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
     try {
       const draft = await convertWordFile(file, upload);
       setForm((f) => {
-        const title = f.title || draft.title;
+        const title = keepEditorial ? f.title || draft.title : draft.title;
         return {
           ...f,
           title,
           slug: slugTouched ? f.slug : slugifyArticle(title),
-          description: f.description || draft.ingress,
-          meta_description: f.meta_description || draft.ingress,
-          image_url: draft.heroImage || f.image_url,
-          hero_caption: draft.heroImage ? draft.heroCaption : f.hero_caption,
+          description: keepEditorial ? f.description || draft.ingress : draft.ingress,
+          meta_description: keepEditorial ? f.meta_description || draft.ingress : draft.ingress,
+          image_url: keepEditorial ? f.image_url || draft.heroImage : draft.heroImage || f.image_url,
+          hero_caption: keepEditorial && f.image_url ? f.hero_caption : draft.heroImage ? draft.heroCaption : f.hero_caption,
           body_html: draft.bodyHtml,
           source_filename: file.name,
         };
@@ -261,6 +263,8 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
             ))}
           </ul>
         )}
+
+        {form.body_html && <div className="flex items-center gap-3"><Checkbox id="wa-keep-editorial" checked={keepEditorial} onCheckedChange={v => setKeepEditorial(v === true)} /><Label htmlFor="wa-keep-editorial">Behåll redigerad rubrik, ingress och huvudbild vid ny Word-version</Label></div>}
 
         {form.body_html && (
           <>

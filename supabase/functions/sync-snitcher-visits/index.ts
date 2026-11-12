@@ -179,12 +179,16 @@ serve(async (req) => {
       page++;
     }
 
+    const syncedAt = new Date().toISOString();
+    const { error: stateError } = await supabase.from("editor_news_import_state").upsert({ id: "snitcher", last_completed_at: syncedAt });
+    if (stateError) throw stateError;
     return new Response(JSON.stringify({
       success: true,
       workspaceUuid,
       orgsScanned,
       orgsWithPartnerVisit,
       upserted,
+      syncedAt,
     }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (e: any) {
     console.error("sync-snitcher-visits error:", e);

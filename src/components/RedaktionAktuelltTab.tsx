@@ -85,6 +85,16 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
   const [saving, setSaving] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [confirmFact, setConfirmFact] = useState(false);
+  const [quick, setQuick] = useState({ url: "", title: "", lead: "", topic: "", product: "" });
+  const [quickBusy, setQuickBusy] = useState(false);
+  const quickAction = async (save: boolean) => {
+    setQuickBusy(true);
+    try {
+      const data = await call(save ? "quick-save" : "quick-info", save ? { ...quick, products: quick.product ? [quick.product] : [] } : { url: quick.url });
+      if (save) { await load(); openPreview(data.article); setQuick({ url: "", title: "", lead: "", topic: "", product: "" }); }
+      else setQuick(q => ({ ...q, title: data.title || "", lead: data.lead || "" }));
+    } catch (e) { toast.error((e as Error).message); } finally { setQuickBusy(false); }
+  };
 
   const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-aktuellt`;
   const headers = () => ({
@@ -224,6 +234,17 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
 
   return (
     <div className="space-y-6">
+      <section className="border-b border-border pb-5 space-y-3">
+        <h2 className="text-lg font-semibold">Quick Post</h2>
+        <div className="flex flex-col sm:flex-row gap-2"><Input aria-label="Quick Post käll-URL" type="url" placeholder="Käll-URL" value={quick.url} onChange={e => setQuick(q => ({ ...q, url: e.target.value }))} /><Button variant="outline" disabled={quickBusy || !quick.url} onClick={() => quickAction(false)}>Hämta info</Button></div>
+        <Input aria-label="Quick Post rubrik" placeholder="Rubrik" value={quick.title} onChange={e => setQuick(q => ({ ...q, title: e.target.value }))} />
+        <Textarea aria-label="Quick Post ingress" placeholder="Ingress" value={quick.lead} onChange={e => setQuick(q => ({ ...q, lead: e.target.value }))} />
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Select value={quick.product || "none"} onValueChange={v => setQuick(q => ({ ...q, product: v === "none" ? "" : v }))}><SelectTrigger aria-label="Quick Post produkt"><SelectValue placeholder="Produkt" /></SelectTrigger><SelectContent><SelectItem value="none">Ingen produkt vald</SelectItem>{AKTUELLT_PRODUCTS.map(p => <SelectItem key={p.key} value={p.key}>{p.label}</SelectItem>)}</SelectContent></Select>
+          <Select value={quick.topic || "none"} onValueChange={v => setQuick(q => ({ ...q, topic: v === "none" ? "" : v }))}><SelectTrigger aria-label="Quick Post ämne"><SelectValue placeholder="Ämne" /></SelectTrigger><SelectContent><SelectItem value="none">Inget ämne valt</SelectItem>{AKTUELLT_TOPICS.map(t => <SelectItem key={t.key} value={t.key}>{t.label}</SelectItem>)}</SelectContent></Select>
+        </div>
+        <Button disabled={quickBusy || !quick.title || !quick.lead || !quick.url} onClick={() => quickAction(true)}>Granska och publicera</Button>
+      </section>
       <Card>
         <CardHeader>
           <CardTitle>Aktuellt: importera från länk</CardTitle>

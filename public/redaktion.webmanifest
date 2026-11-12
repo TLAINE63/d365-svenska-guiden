@@ -1,0 +1,14 @@
+{
+  "id": "/redaktion/",
+  "name": "d365.se Redaktion",
+  "short_name": "Redaktion",
+  "start_url": "/redaktion/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#007C68",
+  "background_color": "#ffffff",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
