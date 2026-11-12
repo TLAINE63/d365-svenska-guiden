@@ -384,7 +384,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                         </button>
                       </td>
                       <td className="text-xs">{fmt(v.apps)}</td>
-                      <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> 5 990 kr</label></td>
+                      <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> {r.introPrice === false ? "5 990" : "2 990"} kr</label><label className="flex items-center gap-1 text-[11px] text-muted-foreground"><input type="checkbox" checked={r.introPrice !== false} onChange={(e) => setIsv(v, { introPrice: e.target.checked })} /> Ny (intropris)</label></td>
                       {n("extraApps")}{n("discount", "w-16")}{n("successBasis", "w-28")}{n("consultBasis", "w-28")}
                       <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
                     </tr>
