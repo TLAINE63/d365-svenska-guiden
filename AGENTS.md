@@ -57,5 +57,3 @@
 - Desktop partner openings fill the viewport below the measured site navigation height, with natural growth for expanded content so nothing is clipped.
 - PartnerRequestDialog submits all selected partners in one submit-lead call, so the existing double-opt-in token releases the complete request with one buyer confirmation while partner emails stay separate.
 - Solution Partner and ISV programs use their existing separate URLs with shared ProgramNavigation audience links and native section anchors; reuse profile checks, benchmarks and contact dialogs to avoid parallel lead flows.
-
-- Both sitemap generators omit URL lastmod without a page-specific content timestamp; filesystem and build dates are not content provenance.
