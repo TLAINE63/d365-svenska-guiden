@@ -115,7 +115,7 @@ const benchmarkRows: { label: string; basic: string; profiled: string }[] = [
   { label: "Expertinnehåll", basic: "–", profiled: "Ja" },
   { label: "Kontaktperson", basic: "–", profiled: "Ja" },
   { label: "Direkt CTA", basic: "–", profiled: "Ja" },
-  { label: "Videoprofil / intervju", basic: "–", profiled: "Ja, där det ingår" },
+  { label: "Videoprofil / intervju", basic: "–", profiled: "Ja, INSIDE för Premiumpartners" },
   { label: "Indexerbart expertinnehåll", basic: "Begränsat", profiled: "Ja" },
 ];
 
