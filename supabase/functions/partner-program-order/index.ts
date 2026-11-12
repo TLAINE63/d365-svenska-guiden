@@ -7,7 +7,7 @@ import { orderPrice, orderValidation, orderSnapshot, ORDER_VERSION, ORDER_AREAS,
 import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
 const field = (n:number) => z.string().trim().min(2).max(n);
 const email = z.string().trim().email().max(255).refine(v => !isFreeEmailDomain(v));
-const schema = z.object({ request_id:z.string().uuid(), company:field(200), organization_number:z.string().regex(/^\d{6}-?\d{4}$/), contact_name:field(100), email, invoice_email:email, invoice_address:field(500), selection:z.object({level:z.enum(['basic','premium']),period:z.enum(['month','year']),areas:z.array(z.enum(['bc','fscm','crm','commerce','hr','projects'])).min(1).max(3),mediation:z.boolean(),start_date:z.string()}), accept:z.literal(true), authority:z.literal(true), mediation_accept:z.boolean(), honeypot:z.string().max(0).optional() });
+const schema = z.object({ request_id:z.string().uuid(), company:field(200), organization_number:z.string().regex(/^\d{6}-?\d{4}$/), contact_name:field(100), email, invoice_email:email, invoice_address:field(500), selection:z.object({level:z.enum(['basic','premium']),period:z.enum(['month','year']),areas:z.array(z.enum(['bc','fscm','crm'])).min(1).max(3),mediation:z.boolean(),start_date:z.string()}), accept:z.literal(true), authority:z.literal(true), mediation_accept:z.boolean(), honeypot:z.string().max(0).optional() });
 const response=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...corsHeaders,'Content-Type':'application/json'}});
 Deno.serve(async req=>{
  if(req.method==='OPTIONS')return new Response('ok',{headers:corsHeaders});
