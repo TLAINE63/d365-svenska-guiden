@@ -60,7 +60,7 @@ export default function BeslutsmognadTack() {
               <>
                 <div
                   className="font-bm-display text-bm-accent-deep mb-4"
-                  style={{ fontSize: "2.25rem", fontWeight: 360, lineHeight: 1 }}
+                  style={{ fontSize: "2.25rem", fontWeight: 700, lineHeight: 1 }}
                 >
                   {c.num}
                 </div>
@@ -90,6 +90,7 @@ export default function BeslutsmognadTack() {
           })}
         </div>
       </main>
+      <Footer />
 
       <footer className="py-10 text-center font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
         Konfidentiellt · GDPR-säkert · Data används anonymiserat i aggregerad form

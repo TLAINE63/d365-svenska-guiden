@@ -167,7 +167,7 @@ export default function Beslutsmognadsindex() {
               <div key={c.num}>
                 <div
                   className="font-bm-display text-bm-accent-deep mb-6"
-                  style={{ fontSize: "3rem", fontWeight: 360, lineHeight: 1 }}
+                  style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1 }}
                 >
                   {c.num}
                 </div>
