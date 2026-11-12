@@ -41,6 +41,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useEditorAuth } from "@/hooks/useEditorAuth";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
@@ -258,7 +259,10 @@ export default function Redaktion() {
 
         <RedaktionOperations token={token} isAdmin={isAdmin} />
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="mb-6 h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
+          <div className="mb-5 md:hidden"><Label>Redaktionens sidor</Label><Select value={tab} onValueChange={setTab}><SelectTrigger aria-label="Redaktionens sidor" className="min-h-11"><SelectValue /></SelectTrigger><SelectContent>
+            {[["events", "Event"], ["webinar", "Webinar"], ["subscribers", "Nyhetsbrev"], ["partner-news", "Partnernytt"], ["articles", "Artiklar"], ["videos", "Videor"], ["aktuellt", "Aktuellt"], ["help-requests", "Hjälpärenden"], ["advisory", "Rådgivning"], ["partners", "Partnerprofiler"], ["isv", "ISV-katalog"], ["assignment-profiles", "Uppdragsprofiler"], ["newsletter", "Månadsbrev"], ["texts", "Textbank"], ["stats", "Statistik"], ["partner-teaser", "Partnerunderlag"], ["sales-kit", "Säljunderlag"], ["ai", "AI-synlighet"], ["backlinks", "Backlänkar"], ["exports", "Exporter"], ["terms", "Avtalsvillkor"], ...(isAdmin ? [["partner-admin", "Verifiera & profilera partners"], ["budget", "Budget 2027"]] : [])].map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}
+          </SelectContent></Select></div>
+          <TabsList className="mb-6 hidden md:flex h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
             <TabsTrigger value="events">Event</TabsTrigger>
             <TabsTrigger value="webinar">Webinar</TabsTrigger>
             <TabsTrigger value="subscribers">Nyhetsbrev</TabsTrigger>

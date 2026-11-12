@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ExternalLink, Eye, Link2, Loader2, Pencil } from "lucide-react";
 import { toast } from "sonner";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import {
   AKTUELLT_ACTIONS,
   AKTUELLT_AUDIENCES,
@@ -322,9 +323,9 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                           {r.needs_verification && <p className="mt-1 text-xs font-medium text-cta-orange">Behöver verifieras</p>}
                         </TableCell>
                         <TableCell>
-                          <p className="font-medium text-foreground">{r.title}</p>
+                          <p className="font-medium text-foreground">{nowrapBrand(r.title)}</p>
                           <p className="mt-1 text-xs text-muted-foreground">
-                            {r.source_name || "Okänd källa"}
+                            {nowrapBrand(r.source_name || "Okänd källa")}
                             {r.source_published_at ? `, ${d(r.source_published_at)}` : ", källdatum saknas"}
                             {a?.ingest_method === "agent" ? " · från agent" : ""}
                           </p>

@@ -34,7 +34,7 @@
 - Read subdir AGENTS.md (src/lib: buyer context, plan, accounts, kravspec, Systemval handoff and buyer journey sprints 1.1–2.2).
 - Buyer funnel groups by anonymous journey_id (else session_id): returning visitors = one journey, no PII.
 - SEO titles are shortened in src/lib/seoTitle.ts (drop trailing sub-title at a separator, then drop brand suffix, ellipsis last); the prerender safety net leaves Helmet (data-rh) titles alone and decodes entities first, so titles are never cut twice or mid-"&amp;".
-- Aktuellt (d365.se's own change analyses) lives in knowledge_articles with content_type "aktuellt", internal AI assessments in knowledge_article_assessments (no public access), and all writes via manage-aktuellt; the DB trigger blocks publishing without approval, primary source, fact-check date and cleared verification, so neither AI nor a future intake agent can publish; the /redaktion/ queue publishes in one editor click (approve then publish), and pages take their context from AKTUELLT_PLACEMENTS, which also tells the editor where an article will appear. Partnernytt stays a separate model.
+- Aktuellt uses knowledge_articles and private knowledge_article_assessments; manage-aktuellt controls editorial writes, while import-microsoft-news inserts unpublished feed drafts with a database lease and source deduplication. Publication retains approval, primary-source and fact-check gates; AKTUELLT_PLACEMENTS controls placement. Partnernytt remains separate.
 
 <!-- LOVABLE:BEGIN -->
 - Site Intelligence uses the unmodified exported SDK and dictionaries through one consent-gated test adapter, replacing its legacy sender without changing backend statistics.
