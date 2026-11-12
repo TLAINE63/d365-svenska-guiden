@@ -275,7 +275,7 @@ const Partnerprogram = () => {
               d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV:er möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg"><a href="#priser-innehall">Se priser och innehåll<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+              <Button asChild size="lg"><a href="#priser-innehall">Se prislistan<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
               <Button asChild size="lg" variant="outline" onClick={() => bookClick("hero")}>
                 <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
                   <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -316,12 +316,18 @@ const Partnerprogram = () => {
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista och Finders Fee</h2>
-          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finders Fee-avtal. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista</h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finders Fee-avtal. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 lg:grid-cols-2 items-start">
             <div className="rounded-xl border-2 border-primary bg-card p-6">
               <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
               <p className="text-sm text-muted-foreground mb-4">Kräver ett Finders Fee-avtal. Alla priser exklusive moms.</p>
+              <div className="rounded-lg bg-secondary/40 p-4 mb-5 text-sm text-muted-foreground space-y-2">
+                <h4 className="font-semibold text-foreground">Vad innebär det att vara Premiumpartner?</h4>
+                <p>Som Premiumpartner får ni en fördjupad profil där köpare kan se vilka kunder, branscher och projekt ni har erfarenhet av, med kundcase, experter och möjlighet till video.</p>
+                <p><strong className="font-semibold text-foreground">Vi verifierar uppgifterna.</strong> Innan profilen får märket Verifierad partner går d365.se-redaktionen igenom produktområden, branscher, kundcase och experter och stämmer av dem med er. Först när uppgifterna håller publiceras märket. Betalningen i sig ger aldrig verifiering.</p>
+                <p>Därefter följer vi upp tillsammans varje kvartal, med profilstatistik och en namngiven kontaktperson hos oss.</p>
+              </div>
               <h4 className="font-semibold mb-2">Det här ingår</h4>
               <ul className="space-y-2 text-sm text-muted-foreground mb-5">
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Redaktionell granskning och märket Verifierad partner, verifierad av d365.se-redaktionen, efter godkännande.</li>
@@ -342,20 +348,7 @@ const Partnerprogram = () => {
                 </table>
               </div>
               <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
-              <h4 className="font-semibold mb-2">Processen</h4>
-              <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
-                <li>Ni beställer Premium och tecknar Finders Fee-avtalet.</li>
-                <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
-                <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
-                <li>Profilen publiceras med märket Verifierad partner.</li>
-                <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
-              </ol>
-              <PartnerOrderDialog />
-            </div>
-            <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
-              <h3 className="text-xl font-bold mb-3">Finders Fee</h3>
-              <p className="text-sm text-muted-foreground mb-4">När vi identifierar ett konkret projekt med tydlig avsikt att gå vidare kan det erbjudas som en kvalificerad affärsmöjlighet. Partnern bedömer möjligheten och accepterar villkoren innan introduktionen.</p>
-              <h4 className="font-semibold mb-2">Ersättning vid tecknat kundavtal</h4>
+              <h4 className="font-semibold mb-2">Finders Fee: ersättning vid tecknat kundavtal</h4>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
                   <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th><th scope="col" className="text-right px-3 py-2">Success fee*</th></tr></thead>
@@ -371,6 +364,19 @@ const Partnerprogram = () => {
                 <p>Expertavgiften gäller faktiskt debiterade timmar; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
                 <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp exklusive moms. Fullständiga villkor regleras i partner- och förmedlingsavtalet.</p>
               </div>
+              <h4 className="font-semibold mb-2">Processen</h4>
+              <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
+                <li>Ni beställer Premium och tecknar Finders Fee-avtalet.</li>
+                <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
+                <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
+                <li>Profilen publiceras med märket Verifierad partner.</li>
+                <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
+              </ol>
+              <PartnerOrderDialog />
+            </div>
+            <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
+              <h3 className="text-xl font-bold mb-3">Finders Fee</h3>
+              <p className="text-sm text-muted-foreground mb-4">När vi identifierar ett konkret projekt med tydlig avsikt att gå vidare kan det erbjudas som en kvalificerad affärsmöjlighet. Partnern bedömer möjligheten och accepterar villkoren innan introduktionen.</p>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
                 <li>Köparen definierar sitt behov med d365.se.</li>
