@@ -32,6 +32,7 @@ function seedAdminSession(token: string): null {
   }
   return null;
 }
+import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -125,12 +126,15 @@ export default function Redaktion() {
   }
 
   const seo = (
+    <>
+    <Helmet><link rel="manifest" href="/redaktion.webmanifest" /></Helmet>
     <SEOHead
       title="Redaktion | d365.se"
       description="Intern redaktörsvy för event, partnernytt och artiklar."
       canonicalPath="/redaktion"
       noIndex
     />
+    </>
   );
 
   if (isLoading) {
