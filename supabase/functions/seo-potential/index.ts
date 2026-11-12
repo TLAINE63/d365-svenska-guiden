@@ -1,6 +1,6 @@
 // Admin-only: analyserar inklistrade Search Console-rapporter med Lovable AI
 // och returnerar sidor och sökfrågor med störst SEO-potential.
-import { createOpenAI } from "npm:@ai-sdk/openai";
+import { createLovableAiGatewayProvider } from "../_shared/gateway-helpers.ts";
 import { streamText, Output, jsonSchema } from "npm:ai";
 import {
   createLovableAiGatewayRunIdFetch,
@@ -69,26 +69,15 @@ Deno.serve(async (req) => {
   if (report.length < 20) return json({ error: "Klistra in en rapport först." }, 400);
   if (report.length > 120_000) return json({ error: "Rapporten är för lång (max ca 120 000 tecken). Korta ned den." }, 400);
 
-  const runIdFetch = createLovableAiGatewayRunIdFetch(getLovableAiGatewayRunId(req));
-  const provider = createOpenAI({
-    baseURL: "https://ai.gateway.lovable.dev/v1",
-    apiKey,
-    headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
-    fetch: runIdFetch.fetch,
-  });
+  const provider = createLovableAiGatewayProvider(apiKey, getLovableAiGatewayRunId(req), { baseURL: "https://ai.gateway.lovable.dev/v1" });
   try {
     const result = streamText({
-      model: provider.responses("openai/gpt-6-astra"),
+      model: provider("google/gemini-3.8-flash"),
       system: INSTRUCTIONS,
       messages: [{ role: "user", content: `Search Console-rapport:\n\n${report}` }],
       output: Output.object({ schema }),
       abortSignal: req.signal,
-      providerOptions: {
-        openai: {
-          forceReasoning: true, reasoningEffort: "medium", reasoningSummary: "auto",
-          store: false, include: ["reasoning.encrypted_content"],
-        },
-      },
+
     });
     let output: unknown;
     try { output = await result.output; }
@@ -96,7 +85,7 @@ Deno.serve(async (req) => {
       const text = (e as any)?.text ?? (await result.text.catch(() => ""));
       try { output = JSON.parse(text); } catch { throw e; }
     }
-    const rid = runIdFetch.getRunId();
+    const rid = provider.getRunId();
     return json({ result: output, generatedAt: new Date().toISOString() }, 200, rid ? { "X-Lovable-AIG-Run-ID": rid } : undefined);
   } catch (e: any) {
     if (req.signal.aborted) return json({ error: "Avbruten" }, 499);

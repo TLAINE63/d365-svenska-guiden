@@ -26,3 +26,5 @@
 - Agent readiness (src/lib/agentReadiness.ts) lives inside Lösningsvägval, shown only when automation is primary or an alternative; it reuses taskType/approval/ownership/criticality, adds three questions with "Vet inte", returns one of three modes (or insufficient) with max three next steps starting with standard/ISV comparison, so it never becomes a separate AI test or a build recommendation.
 - Beslutsmognadsindex v2: questions, texts and rules live only in supabase/functions/_shared/bmi.ts (re-exported via src/lib/bmi); scoring runs only in the bmi-score function, which stores anonymous rows in service-only bmi_submissions (v1 assessments untouched), so screen and PDF always show the server result.
 - Download forms share DownloadContactOptIn + downloadConsent.ts (never pre-ticked); only leads.consent_contact = true downloads export to Demand Engine as nedladdning, so plain downloads stay anonymous domain events.
+
+- Redaktion remember preference expires after 30 days; editor-session revalidates roles on entry and foreground renewal, never extending the HMAC token to 30 days.

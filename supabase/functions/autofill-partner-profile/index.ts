@@ -154,7 +154,7 @@ const SCHEMA = {
 };
 
 async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
-  const resp = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
+  const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -162,18 +162,10 @@ async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
       "X-Lovable-AIG-SDK": "fetch",
     },
     body: JSON.stringify({
-      model: "openai/gpt-5.6-sol",
+      model: "google/gemini-3.8-flash",
       stream: true,
-      instructions: SYSTEM,
-      input: [{ role: "user", content: [{ type: "input_text", text: prompt }] }],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "partner_profile_autofill",
-          strict: true,
-          schema: SCHEMA,
-        },
-      },
+      messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }],
+      response_format: { type: "json_schema", json_schema: { name: "partner_profile_autofill", schema: SCHEMA } },
     }),
   });
 
@@ -184,7 +176,8 @@ async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
     throw new Error("AI_GATEWAY_ERROR");
   }
 
-  const reader = resp.body!.getReader();
+  if (!resp.body) throw new Error("EMPTY_RESPONSE");
+  const reader = resp.body.getReader();
   const decoder = new TextDecoder();
   let buf = "";
   let text = "";
@@ -201,7 +194,8 @@ async function callAI(prompt: string, apiKey: string): Promise<Suggestion> {
       if (!payload || payload === "[DONE]") continue;
       try {
         const evt = JSON.parse(payload);
-        if (evt.type === "response.output_text.delta" && typeof evt.delta === "string") text += evt.delta;
+        const delta = evt.choices?.[0]?.delta?.content;
+        if (typeof delta === "string") text += delta;
         if (evt.type === "response.completed" && !text) {
           const out = evt.response?.output_text;
           if (typeof out === "string") text = out;
