@@ -50,10 +50,10 @@ export default function ProgramNavigation({ audience, sections, action }: Progra
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <nav aria-label="Välj program" className="flex flex-wrap items-center gap-2 border-b border-border py-3">
           <Button asChild variant={audience === "partners" ? "default" : "outline"}>
-            <Link to="/partnerprogram/" aria-current={audience === "partners" ? "page" : undefined}>Solution Partners</Link>
+            <Link to="/partnerprogram/" aria-current={audience === "partners" ? "page" : undefined}>Dynamics&nbsp;365-partners</Link>
           </Button>
           <Button asChild variant={audience === "isv" ? "default" : "outline"}>
-            <Link to="/isvprogram/" aria-current={audience === "isv" ? "page" : undefined}>ISV:er</Link>
+            <Link to="/isvprogram/" aria-current={audience === "isv" ? "page" : undefined}>ISV-leverantörer</Link>
           </Button>
           {action}
         </nav>

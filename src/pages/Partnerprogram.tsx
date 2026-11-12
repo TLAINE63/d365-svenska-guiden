@@ -241,14 +241,14 @@ const Partnerprogram = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead webPageSchema={false}
-        title="Solution Partners | Priser och innehåll på d365.se"
-        description="Visa er kompetens för företag som utvärderar Dynamics 365. Se priser, partnerprofiler, jämförelser och förmedling för Solution Partners på d365.se."
+        title="Partnerprogram | Priser och innehåll på d365.se"
+        description="Visa er kompetens för företag som utvärderar Dynamics 365. Se priser, partnerprofiler, jämförelser och förmedling för Dynamics 365-partners på d365.se."
         canonicalPath="/partnerprogram"
         keywords="Dynamics 365 partner, partnerprofil, partnerprogram, Microsoft-partner Sverige"
       />
       <WebPageSchema
-        name="Solution Partners | Priser och innehåll på d365.se"
-        description="Erbjudanden, priser och innehåll för Solution Partners på d365.se."
+        name="Partnerprogram | Priser och innehåll på d365.se"
+        description="Erbjudanden, priser och innehåll för Dynamics 365-partners på d365.se."
         url="https://d365.se/partnerprogram/"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -266,13 +266,13 @@ const Partnerprogram = () => {
               </Badge>
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
-              För partners och ISV:er inom Dynamics&nbsp;365
+              För partners och ISV-leverantörer inom Dynamics&nbsp;365
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
               Var med när kunderna väljer Dynamics&nbsp;365
             </h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
-              d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV:er möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
+              d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV-leverantörer möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
             </p>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
               {["Bli hittad i köpresan", "Visa rätt kompetens och lösningar", "Möt företag med relevanta behov"].map((text) => (
