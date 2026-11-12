@@ -63,9 +63,20 @@ export function useEditorAuth(): EditorAuthState {
   const [accessError, setAccessError] = useState<string | null>(null);
 
   const exchangeSession = useCallback(async () => {
+    const rememberedUntil = window.localStorage.getItem("editor_remember_until");
+    if (rememberedUntil && !editorRememberValid(rememberedUntil)) {
+      window.localStorage.removeItem("editor_remember_until");
+      safeSessionStorage.removeItem(TOKEN_KEY);
+      safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
+      setToken(null);
+      await supabase.auth.signOut();
+      return;
+    }
     const { data: sessionData } = await supabase.auth.getSession();
     const session = sessionData.session;
     if (!session) {
+      safeSessionStorage.removeItem(TOKEN_KEY);
+      safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
       setToken(null);
       setEmail(null);
       return;
@@ -74,6 +85,8 @@ export function useEditorAuth(): EditorAuthState {
 
     const { data, error } = await supabase.functions.invoke("editor-session", { body: {} });
     if (error || !data?.token) {
+      safeSessionStorage.removeItem(TOKEN_KEY);
+      safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
       const message =
         (data as { error?: string } | null)?.error ??
         "Kontot saknar redaktörsbehörighet.";
