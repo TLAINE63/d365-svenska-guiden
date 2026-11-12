@@ -382,7 +382,7 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
           {preview && (
             <>
               <DialogHeader>
-                <DialogTitle>{preview.title}</DialogTitle>
+                <DialogTitle>{nowrapBrand(preview.title)}</DialogTitle>
               </DialogHeader>
               <AssessmentBox a={assessmentOf(preview)} />
               <div className="space-y-4 text-sm">

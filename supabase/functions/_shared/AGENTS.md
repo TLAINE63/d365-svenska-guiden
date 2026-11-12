@@ -9,3 +9,4 @@
 - Result summary email (2026-11-04): EmailResultSummary calls send-result-summary, which only stores the request (service-only result_summary_requests, token hashed, 24h, max 3 per address/day) and sends a fixed-text confirmation; the summary and Thomas' follow-up notice go out only when the recipient confirms on /bekrafta-resultat/, so the public endpoint never mails caller-supplied content to an arbitrary address and nothing reaches partners.
 
 - Gemini editorial analysis uses gateway-helpers with request-local run IDs; keep partner autofill writes limited to empty fields.
+- Official news intake uses import-microsoft-news with a persisted lease and source-URL deduplication; inserts unpublished drafts only, preserving editorial publication gates.

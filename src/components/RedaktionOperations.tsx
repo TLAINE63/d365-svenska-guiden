@@ -9,9 +9,11 @@ import { toast } from "sonner";
 export default function RedaktionOperations({ token, isAdmin }: { token: string | null; isAdmin: boolean }) {
   const [busy, setBusy] = useState(false);
   const [synced, setSynced] = useState<string | null>(null);
+  const [news, setNews] = useState<{ last_completed_at: string | null; last_error: string | null; imported: number } | null>(null);
   const [month, setMonth] = useState(() => { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - 1, 1)).toISOString().slice(0, 7); });
   useEffect(() => {
     void supabase.from("editor_news_import_state").select("last_completed_at").eq("id", "snitcher").maybeSingle().then(({ data }) => setSynced(data?.last_completed_at ?? null));
+    void supabase.from("editor_news_import_state").select("last_completed_at,last_error,imported").eq("id", "microsoft").maybeSingle().then(({ data }) => setNews(data));
   }, []);
   async function run(kind: "sync" | "monthly" | "funnel") {
     if (!token || busy) return;
@@ -40,5 +42,7 @@ export default function RedaktionOperations({ token, isAdmin }: { token: string 
       <Button variant="outline" disabled={busy} onClick={() => run("funnel")} className="gap-2"><Download className="h-4 w-4" />Funnel, 30 dagar</Button>
     </div>
     {synced && <p className="text-sm text-muted-foreground">Senaste lyckade synk: {synced.slice(0, 10)} {synced.slice(11, 16)} UTC</p>}
+    {news?.last_completed_at && <p className="text-sm text-muted-foreground">Microsoft-nyheter: senast hämtat {news.last_completed_at.slice(0, 10)} {news.last_completed_at.slice(11, 16)} UTC, {news.imported} nya förslag. Daglig hämtning 06:10 UTC.</p>}
+    {news?.last_error && <p className="text-sm text-destructive">Nyhetshämtning: {news.last_error}</p>}
   </section>;
 }

@@ -1,14 +1,14 @@
 ## Redaktion: enklare och billigare underhåll (2026-11-12)
-- [ ] Mobil och hemskärmsapp utan offline-cache; valbar längre redaktionssession.
-- [ ] Quick Post med källmetadata, kategorisering och bevarade publiceringskontroller.
-- [ ] Officiella Microsoft-nyheter till granskningskö, aldrig automatisk publicering.
-- [ ] Driftåtgärder: Snitcher-synk med tidsstämpel, månadsrapport och funnel-export.
-- [ ] Förbättrad Word-import och utkastförhandsvisning.
-- [ ] Byt endast efterfrågade AI-anrop till google/gemini-2.5-flash om tillgänglig; verifiera modell och verklig kostnad.
+- [x] Mobilens kompakta sidval och hemskärmsmanifest utan offline-cache; valbar 30-dagarsinloggning, utgången åtkomst och behörighetsförnyelse kontrollerade. Faktisk telefoninstallation ej verifierad.
+- [x] Quick Post med metadata utan AI-kostnad, produkt/ämne och befintlig faktakontroll före publicering. Utkast och granskningsspärr verifierade, testutkast borttaget.
+- [x] Daglig Microsoft-bloggimport 06:10 UTC till granskningskö: högst 10 kandidater, databaslås och källdedup. Första körningen gav 10 opublicerade förslag, nästa 0 dubbletter.
+- [x] Snitcher-synk kontrollerad i Redaktion och tidsstämpel bevarad efter omladdning; månadens partnerstatistik och 30-dagars funnel-data nedladdade som CSV.
+- [x] Word återinläsning med val att behålla redigerad rubrik/ingress/bild, färdig förhandsvisning och sparat utkast verifierade; testutkast borttaget.
+- [x] Endast de tre efterfrågade AI-anropen bytta till användarens val google/gemini-3.8-flash; verkliga modellsvar verifierade, SEO-format reparerat och 23 tester godkända. Ingen garanterad 80–90-procentig besparing.
 
 ## Beslutsmognadsindex: inskick till sökmotorer
 - [x] Bing tog emot sidans URL. Google URL Inspection bekräftar redan indexerad, senast hämtad 2026-10-19.
-- [ ] Publicera uppdaterad webbplatskarta och skicka till Google/Bing (väntar på publiceringsbeslut).
+- [x] Publicerad sitemap-pages.xml innehåller Beslutsmognadsindex; Google tog emot webbplatskartan (204), Bing tog emot den (200). Google API kan inte begära omindexering; sidans tidigare indexering redan bekräftad.
 
 ## Beslutsmognadsindex: sökmotorsynlighet (2026-11-12)
 - [x] Startsidan tillagd i webbplatskarta och förrenderingslista; privata steg fortsatt utanför. Missvisande generella URL-datum borttagna. Startsida och webbplatskarta kontrollerade i webbläsaren, tio tester godkända; fullständig genererad produktions-HTML kontrolleras vid publicering.
