@@ -21,10 +21,11 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 export const ISV_FEES = { base: 5990, introFirstYear: 2990, extraApp: 995, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage fee per billed hour: same 50 kr for every partner (Thomas 2026-11-12). Meeting fees removed; keys kept so saved budgets survive. */
 export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 50 };
-export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number }
+export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 2 990 kr intro price first year; default true. */ introPrice?: boolean }
+export const isvBaseFee = (r: { introPrice?: boolean }) => (r.introPrice === false ? ISV_FEES.base : ISV_FEES.introFirstYear);
 export function isvRevenue(r: IsvForecast) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-  const subscription = r.presence ? (ISV_FEES.base + Math.max(0, r.extraApps) * ISV_FEES.extraApp) * disc : 0;
+  const subscription = r.presence ? (isvBaseFee(r) + Math.max(0, r.extraApps) * ISV_FEES.extraApp) * disc : 0;
   const finders = Math.max(0, r.successBasis) * ISV_FEES.licenseRate + Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate;
   return { subscription, finders, total: subscription + finders };
 }
@@ -114,7 +115,7 @@ export const CATEGORIES: Category[] = [
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
   { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Debiterade experttimmar hos Premiumpartners, 50 kr per debiterad timme. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.premiumPerHour, per: "debiterad timme", group: "partner", income: "finders" },
   { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 50 kr per debiterad timme, samma som Premium. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
-  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
+  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Nya ISV:er räknas med introduktionspriset 2 990 kr första året inklusive en app, före rabatt.", unit: ISV_FEES.introFirstYear, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV Business Referral: licenser (5 %)", description: "Business Referral räknas i ISV-tratten som 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
   { key: "isvIntroFscm", label: "ISV Business Referral: konsult (2,5 %)", description: "Business Referral räknas i ISV-tratten som 2,5 % av nettointäkterna från ett förmedlat konsultuppdrag. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
@@ -143,7 +144,7 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
   }
   for (const r of isvRows) {
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-    if (r.presence) { add("isvPresence", 1, ISV_FEES.base * disc); add("isvExtra", r.extraApps, r.extraApps * ISV_FEES.extraApp * disc); }
+    if (r.presence) { add("isvPresence", 1, isvBaseFee(r) * disc); add("isvExtra", r.extraApps, r.extraApps * ISV_FEES.extraApp * disc); }
     add("isvIntroStd", r.successBasis > 0 ? 1 : 0, Math.max(0, r.successBasis) * ISV_FEES.licenseRate);
     add("isvIntroFscm", (r.consultBasis ?? 0) > 0 ? 1 : 0, Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate);
   }
