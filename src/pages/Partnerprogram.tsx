@@ -93,7 +93,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Betalning ger varken automatisk verifiering eller högre relevansordning.",
+      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
   },
 ];
 
@@ -333,6 +333,7 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Redaktionell granskning och märket Verifierad partner, verifierad av d365.se-redaktionen, efter godkännande.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Tillvalsprodukterna Commerce, Human Resources och Project Operations via profileringslänken, kostnadsfritt och utanför prislistan.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen mötesavgift vid förmedlade kundmöten.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
@@ -347,7 +348,7 @@ const Partnerprogram = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
+              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
               <h4 className="font-semibold mb-2">Finders Fee: ersättning vid tecknat kundavtal</h4>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">

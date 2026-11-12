@@ -7,7 +7,7 @@ import { orderPrice, orderValidation, orderSnapshot, ORDER_VERSION, ORDER_AREAS,
 import { sendTemplateEmail } from '../_shared/transactional-email-templates/send-email.ts';
 const field = (n:number) => z.string().trim().min(2).max(n);
 const email = z.string().trim().email().max(255).refine(v => !isFreeEmailDomain(v));
-const schema = z.object({ request_id:z.string().uuid(), company:field(200), organization_number:z.string().regex(/^\d{6}-?\d{4}$/), contact_name:field(100), email, invoice_email:email, invoice_address:field(500), selection:z.object({level:z.enum(['basic','premium']),period:z.enum(['month','year']),areas:z.array(z.enum(['bc','fscm','crm','commerce','hr','projects'])).min(1).max(3),mediation:z.boolean(),start_date:z.string()}), accept:z.literal(true), authority:z.literal(true), mediation_accept:z.boolean(), honeypot:z.string().max(0).optional() });
+const schema = z.object({ request_id:z.string().uuid(), company:field(200), organization_number:z.string().regex(/^\d{6}-?\d{4}$/), contact_name:field(100), email, invoice_email:email, invoice_address:field(500), selection:z.object({level:z.enum(['basic','premium']),period:z.enum(['month','year']),areas:z.array(z.enum(['bc','fscm','crm'])).min(1).max(3),mediation:z.boolean(),start_date:z.string()}), accept:z.literal(true), authority:z.literal(true), mediation_accept:z.boolean(), honeypot:z.string().max(0).optional() });
 const response=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...corsHeaders,'Content-Type':'application/json'}});
 Deno.serve(async req=>{
  if(req.method==='OPTIONS')return new Response('ok',{headers:corsHeaders});
@@ -39,7 +39,7 @@ Deno.serve(async req=>{
   if(!row)throw new Error('No order');
   let notified=false;
   try{
-   const result=await sendTemplateEmail('partner-order','thomas.laine@dynamicfactory.se',{idempotencyKey:`partner-order-${row.id}`,replyTo:'thomas.laine@dynamicfactory.se',templateData:{company:row.company,orderId:row.id,summary:`${selection.level==='premium'?'Premium':'Grundprofil'} · ${selection.areas.map(a=>ORDER_AREAS[a]).join(', ')}\n${row.price_ex_vat} kr exklusive moms / ${selection.period==='year'?'år':'månad'}\nÖnskad start: ${selection.start_date}\nFörmedlingsavtal: ${selection.mediation?'Ja':'Nej'}`,contact:`${d.contact_name}, ${d.email}\nOrg.nr ${d.organization_number}\nFaktura: ${d.invoice_email}\n${d.invoice_address}`,terms:JSON.stringify(row.terms_snapshot)}});notified=result.sent;
+   const result=await sendTemplateEmail('partner-order','thomas.laine@dynamicfactory.se',{idempotencyKey:`partner-order-${row.id}`,replyTo:'thomas.laine@dynamicfactory.se',templateData:{company:row.company,orderId:row.id,summary:`${selection.level==='premium'?'Premium':'Grundprofil'} · ${selection.areas.map(a=>ORDER_AREAS[a]??a).join(', ')}\n${row.price_ex_vat} kr exklusive moms / ${selection.period==='year'?'år':'månad'}\nÖnskad start: ${selection.start_date}\nFörmedlingsavtal: ${selection.mediation?'Ja':'Nej'}`,contact:`${d.contact_name}, ${d.email}\nOrg.nr ${d.organization_number}\nFaktura: ${d.invoice_email}\n${d.invoice_address}`,terms:JSON.stringify(row.terms_snapshot)}});notified=result.sent;
   }catch{console.error('partner order notification failed');}
   return response({success:true,order_id:row.id,notified});
  }catch{console.error('partner order failed');return response({error:'Beställningen kunde inte sparas. Försök igen med samma beställning.'},500);}
