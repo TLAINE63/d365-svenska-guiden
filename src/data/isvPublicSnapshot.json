@@ -55,7 +55,7 @@
       "integration_evidence": [],
       "partner_evidence": [],
       "is_published": true,
-      "updated_at": "2026-11-03T10:48:33.173509+00:00"
+      "updated_at": "2026-11-11T08:44:49.465633+00:00"
     },
     {
       "solution_id": "8x8-8x8-integration-for-microsoft-dynamics",
@@ -5509,59 +5509,6 @@
       "updated_at": "2026-10-30T16:52:39.895232+00:00"
     },
     {
-      "solution_id": "logtrade-logtrade-connect",
-      "name": "Logtrade Connect",
-      "vendor": "Logtrade",
-      "vendor_slug": "logtrade",
-      "short_description": "Fraktbokning, etiketter, spårning och transportörsanslutning integrerat med D365 F&SCM.",
-      "category": "Frakt & TA",
-      "type": "Integration layer",
-      "tier": "Tier 1",
-      "tags": [
-        "Shipping",
-        "TA",
-        "Carriers",
-        "Labels"
-      ],
-      "industries": [
-        "Wholesale",
-        "Manufacturing",
-        "Retail",
-        "E-commerce"
-      ],
-      "geo": [],
-      "what": null,
-      "use_cases": [],
-      "when_fits": null,
-      "combos": [],
-      "products": [
-        "Finance & Supply Chain Management"
-      ],
-      "industry_focus": [
-        "Wholesale",
-        "Manufacturing",
-        "Retail",
-        "E-commerce"
-      ],
-      "partner_slugs": [],
-      "vendor_website": null,
-      "logo_url": null,
-      "delivery_model": "integration_layer",
-      "best_for": "Nordiska företag med många transporter och transportörer.",
-      "considerations": "Verifiera transportörstäckning för aktuella marknader.",
-      "information_status": "compiled",
-      "last_verified_date": null,
-      "premium_product": false,
-      "demo_video_url": null,
-      "customer_cases": [],
-      "product_gallery": [],
-      "product_features": [],
-      "integration_evidence": [],
-      "partner_evidence": [],
-      "is_published": true,
-      "updated_at": "2026-10-30T16:52:39.895232+00:00"
-    },
-    {
       "solution_id": "logtrade",
       "name": "Logtrade Connect",
       "vendor": "Logtrade",
@@ -5614,6 +5561,59 @@
       "partner_evidence": [],
       "is_published": true,
       "updated_at": "2026-10-30T17:18:27.652936+00:00"
+    },
+    {
+      "solution_id": "logtrade-logtrade-connect",
+      "name": "Logtrade Connect",
+      "vendor": "Logtrade",
+      "vendor_slug": "logtrade",
+      "short_description": "Fraktbokning, etiketter, spårning och transportörsanslutning integrerat med D365 F&SCM.",
+      "category": "Frakt & TA",
+      "type": "Integration layer",
+      "tier": "Tier 1",
+      "tags": [
+        "Shipping",
+        "TA",
+        "Carriers",
+        "Labels"
+      ],
+      "industries": [
+        "Wholesale",
+        "Manufacturing",
+        "Retail",
+        "E-commerce"
+      ],
+      "geo": [],
+      "what": null,
+      "use_cases": [],
+      "when_fits": null,
+      "combos": [],
+      "products": [
+        "Finance & Supply Chain Management"
+      ],
+      "industry_focus": [
+        "Wholesale",
+        "Manufacturing",
+        "Retail",
+        "E-commerce"
+      ],
+      "partner_slugs": [],
+      "vendor_website": null,
+      "logo_url": null,
+      "delivery_model": "integration_layer",
+      "best_for": "Nordiska företag med många transporter och transportörer.",
+      "considerations": "Verifiera transportörstäckning för aktuella marknader.",
+      "information_status": "compiled",
+      "last_verified_date": null,
+      "premium_product": false,
+      "demo_video_url": null,
+      "customer_cases": [],
+      "product_gallery": [],
+      "product_features": [],
+      "integration_evidence": [],
+      "partner_evidence": [],
+      "is_published": true,
+      "updated_at": "2026-10-30T16:52:39.895232+00:00"
     },
     {
       "solution_id": "ls-central",
@@ -12230,15 +12230,6 @@
       "last_verified_date": null
     },
     {
-      "slug": "4ps",
-      "name": "4PS Construction Software AB",
-      "website": "https://www.4psgroup.com/",
-      "description": null,
-      "logo_url": null,
-      "information_status": "verified",
-      "last_verified_date": "2026-11-03"
-    },
-    {
       "slug": "caridea-it",
       "name": "Caridea IT",
       "website": "https://carideait.se/",
@@ -12246,6 +12237,15 @@
       "logo_url": null,
       "information_status": "compiled",
       "last_verified_date": null
+    },
+    {
+      "slug": "4ps",
+      "name": "4PS Construction Software AB",
+      "website": "https://www.4psgroup.com/",
+      "description": null,
+      "logo_url": null,
+      "information_status": "verified",
+      "last_verified_date": "2026-11-03"
     }
   ],
   "overrides": [
@@ -12697,6 +12697,13 @@
       "countries": []
     },
     {
+      "solution_id": "celigo",
+      "technical_model": "Connected",
+      "target_size": "SMB–Midmarket (indikativt, ej leverantörsgräns)",
+      "price_info": null,
+      "countries": []
+    },
+    {
       "solution_id": "4ps-construct",
       "technical_model": "Embedded",
       "target_size": "SMB–Midmarket; större byggföretag också",
@@ -12707,13 +12714,6 @@
           "availability": "Verifierad"
         }
       ]
-    },
-    {
-      "solution_id": "celigo",
-      "technical_model": "Connected",
-      "target_size": "SMB–Midmarket (indikativt, ej leverantörsgräns)",
-      "price_info": null,
-      "countries": []
     },
     {
       "solution_id": "sana-commerce",
