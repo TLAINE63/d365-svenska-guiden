@@ -36,8 +36,8 @@ describe("ISV budget 2027", () => {
   it("presence with two extra apps is 5 990 + 2 × 995 kr", () => {
     expect(isvRevenue({ ...z, presence: true, extraApps: 2 }).subscription).toBe(7980);
   });
-  it("accepted introductions BC/CRM 3 500, F&SCM 7 500 plus 2.5 %", () => {
-    expect(isvRevenue({ ...z, introsStd: 1, introsFscm: 1, successBasis: 100000 }).finders).toBe(13500);
+  it("Business Referral: 5 % licens, 2,5 % konsult, inga fasta avgifter", () => {
+    expect(isvRevenue({ ...z, introsStd: 1, introsFscm: 1, successBasis: 100000, consultBasis: 200000 }).finders).toBe(10000);
   });
   it("monthly amount counts twelve times per year", () => {
     expect(annual({ amount: 1000, period: "month" })).toBe(12000);
@@ -49,8 +49,8 @@ describe("category estimates", () => {
   it("funnel finders fee is added to the partner and ISV summaries", () => {
     const summary = categoryGroupSummary({ year1: 2, isvPresence: 1 }, {}, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } });
     expect(summary.partner.finders.estimate).toBe(15000);
-    expect(summary.isv.finders.estimate).toBe(7500);
-    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 5990 + 15000 + 7500);
+    expect(summary.isv.finders.estimate).toBe(10000);
+    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 5990 + 15000 + 10000);
   });
   it("old per-category finders estimates are no longer counted", () => {
     expect(estimateRevenue({ premiumDealsStd: 3, expertCvHours: 10, successBc: 2 })).toBe(0);

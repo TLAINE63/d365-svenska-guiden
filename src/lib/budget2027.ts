@@ -17,14 +17,15 @@ export interface RevenueLine { name: string; amount: number; period?: Period }
 export const annual = (l: { amount: number; period?: Period }) => (Number(l.amount) || 0) * (l.period === "month" ? 12 : 1);
 
 // ISV Solution Presence (per year) and finders fee for accepted partner introductions.
-export const ISV_FEES = { base: 5990, extraApp: 995, introStd: 3500, introFscm: 7500, successRate: 0.025 };
+/** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
+export const ISV_FEES = { base: 5990, introFirstYear: 2990, extraApp: 995, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage fee per billed hour: same 50 kr for every partner (Thomas 2026-11-12). Meeting fees removed; keys kept so saved budgets survive. */
 export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 50 };
-export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number }
+export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number }
 export function isvRevenue(r: IsvForecast) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
   const subscription = r.presence ? (ISV_FEES.base + Math.max(0, r.extraApps) * ISV_FEES.extraApp) * disc : 0;
-  const finders = r.introsStd * ISV_FEES.introStd + r.introsFscm * ISV_FEES.introFscm + r.successBasis * ISV_FEES.successRate;
+  const finders = Math.max(0, r.successBasis) * ISV_FEES.licenseRate + Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate;
   return { subscription, finders, total: subscription + finders };
 }
 
@@ -115,8 +116,8 @@ export const CATEGORIES: Category[] = [
   { key: "expertAssignmentHours", label: "Expertförmedling: Basicpartner", description: "Debiterade experttimmar hos Basicpartners, 50 kr per debiterad timme, samma som Premium. Testantagande. Partnerlistorna har inga sålda timmar, så raden saknar detaljunderlag.", unit: EXPERT_FEES.basicPerHour, per: "debiterad timme", group: "partner", income: "finders" },
   { key: "isvPresence", label: "ISV Premium (inkl. en app)", description: "Antal ISV-leverantörer med Solution Presence under ett helt år. Grundavgiften inkluderar en app per leverantör, före rabatt.", unit: ISV_FEES.base, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
-  { key: "isvIntroStd", label: "ISV-introduktioner BC/CRM", description: "Antal accepterade partnerintroduktioner för Business Central eller CRM med tecknat avtal. Fast ersättning 3 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
-  { key: "isvIntroFscm", label: "ISV-introduktioner F&SCM", description: "Antal accepterade partnerintroduktioner för Finance & Supply Chain Management med tecknat avtal. Fast ersättning 7 500 kr; success fee tillkommer separat.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
+  { key: "isvIntroStd", label: "ISV Business Referral: licenser (5 %)", description: "Business Referral räknas i ISV-tratten som 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
+  { key: "isvIntroFscm", label: "ISV Business Referral: konsult (2,5 %)", description: "Business Referral räknas i ISV-tratten som 2,5 % av nettointäkterna från ett förmedlat konsultuppdrag. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
   ...SUCCESS_AREAS.map((a) => ({ key: a.key, label: `Success fee: ${a.label}`, description: `Antal avslutade affärer där success fee 2,5 % tas ut. Ange ett antaget snittbelopp per affär; avgiften räknas bara när beloppet överstiger 100 000 kr.`, unit: 0, group: "partner" as const, income: "finders" as const, success: true })),
 ];
 
@@ -203,8 +204,8 @@ export const EXPERT_FUNNEL = [
   { key: "expert", label: "Expertförmedling via Basicpartner", rate: EXPERT_FEES.basicPerHour, hours: 400 },
 ];
 export const ISV_FUNNEL = [
-  { key: "isvStd", label: "ISV: Business Central och CRM", fee: ISV_FEES.introStd, value: 200000 },
-  { key: "isvFscm", label: "ISV: F&SCM", fee: ISV_FEES.introFscm, value: 1000000 },
+  { key: "isvStd", label: "ISV: licenser och abonnemang, första 12 mån", rate: ISV_FEES.licenseRate, value: 200000 },
+  { key: "isvFscm", label: "ISV: förmedlat konsultuppdrag", rate: ISV_FEES.consultRate, value: 400000 },
 ];
 const n = (v?: number) => Math.max(0, Number(v) || 0);
 const val = (key: string, values: Record<string, number>, fallback: number) => Number(values[key]) || fallback;
@@ -227,9 +228,9 @@ export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], r: FunnelRow 
   return { rate, months, percent, perAssignment, hours, total: hours * rate };
 }
 export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}) {
-  const deals = n(r.deals) * i.fee;
-  const wins = n(r.wins) * successUnit(val(i.key, values, i.value));
-  return { deals, wins, total: deals + wins };
+  const fee = Math.round(val(i.key, values, i.value) * i.rate);
+  const deals = n(r.deals) * fee;
+  return { fee, deals, wins: 0, total: deals };
 }
 export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}) {
   let partner = 0, expert = 0, isv = 0;

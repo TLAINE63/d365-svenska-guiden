@@ -96,7 +96,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
     if (iq && !v.name.toLowerCase().includes(iq.toLowerCase())) return false;
     if (iFilter === "presence" && !r.presence) return false;
     if (iFilter === "none" && r.presence) return false;
-    if (iFilter === "finders" && r.introsStd + r.introsFscm + r.successBasis === 0) return false;
+    if (iFilter === "finders" && r.successBasis + (r.consultBasis ?? 0) === 0) return false;
     return true;
   });
   const isvShownTotals = isvShown.reduce((s, v) => { const r = isvRevenue(isvFor(v)); return { subscription: s.subscription + r.subscription, finders: s.finders + r.finders, total: s.total + r.total }; }, { subscription: 0, finders: 0, total: 0 });
@@ -353,7 +353,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Finder’s fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
+          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV:erna.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -366,7 +366,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Licensintäkter 12 mån kr (5 %)</th><th>Konsultintäkter kr (2,5 %)</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {isvShown.map((v) => {
@@ -385,7 +385,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       </td>
                       <td className="text-xs">{fmt(v.apps)}</td>
                       <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> 5 990 kr</label></td>
-                      {n("extraApps")}{n("discount", "w-16")}{n("introsStd")}{n("introsFscm")}{n("successBasis", "w-28")}
+                      {n("extraApps")}{n("discount", "w-16")}{n("successBasis", "w-28")}{n("consultBasis", "w-28")}
                       <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
                     </tr>
                     {open && v.products.map((p, i) => (
@@ -528,18 +528,17 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">ISV:er</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Område</th><th className={th}>Antal<br />introduktioner</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Område</th><th className={th}>Antal<br />introduktioner</th><th className={th}>Antal genomförda<br />affärer</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{ISV_FUNNEL.map((i) => { const r = f[i.key] ?? {}; const x = isvFunnelRow(i, r, values); return (
               <tr key={i.key} className="border-t">
                 <td className="py-2 pr-3">{i.label}
-                  <p className="text-xs text-muted-foreground">{fmt(i.fee)} kr per avtal · snittbelopp <BudgetNumberInput aria-label={`Snittbelopp per affär: ${i.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={Number(values[i.key]) || i.value} onValueChange={(value) => setValue(i.key, value)} /> kr</p></td>
+                  <p className="text-xs text-muted-foreground">{(i.rate * 100).toLocaleString("sv-SE")} % = {fmt(x.fee)} kr per affär · nettointäkt <BudgetNumberInput aria-label={`Nettointäkt per affär: ${i.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={Number(values[i.key]) || i.value} onValueChange={(value) => setValue(i.key, value)} /> kr</p></td>
                 <td className="px-2">{field(`Introduktioner ${i.label}`, r.meetings, (v) => set(i.key, { meetings: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym</p></td>
                 <td className="px-2">{field(`Avtal ${i.label}`, r.deals, (v) => set(i.key, { deals: v }))}{sub(x.deals)}</td>
-                <td className="px-2">{field(`Affärer ${i.label}`, r.wins, (v) => set(i.key, { wins: v }))}{sub(x.wins)}</td>
                 <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
               </tr>); })}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma ISV:er</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma ISV:er</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
           </table>
         </div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Finder’s fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
