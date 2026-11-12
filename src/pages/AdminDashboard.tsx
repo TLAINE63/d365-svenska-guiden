@@ -3315,7 +3315,7 @@ Thomas`,
                 <Badge variant="outline" className="text-xs">{Number((partner as any).discount_percent)} % rabatt</Badge>
               )}
               {(partner as any).has_finders_fee && (
-                <Badge variant="outline" className="text-xs">Finders fee</Badge>
+                <Badge variant="outline" className="text-xs">Finder’s fee</Badge>
               )}
               {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
@@ -4489,7 +4489,7 @@ Thomas`,
  <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
  <div className="flex items-center gap-2">
  <Checkbox id="has_finders_fee" checked={!!partnerFormData.has_finders_fee} onCheckedChange={(c) => setPartnerFormData({ ...partnerFormData, has_finders_fee: !!c })} />
- <Label htmlFor="has_finders_fee" className="font-medium cursor-pointer">Avtal om finders fee (förmedlingsavtal) tecknat</Label>
+ <Label htmlFor="has_finders_fee" className="font-medium cursor-pointer">Avtal om Finder’s fee (förmedlingsavtal) tecknat</Label>
  </div>
  {partnerFormData.has_finders_fee && (
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

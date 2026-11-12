@@ -272,3 +272,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [x] Säljunderlag: Finder's Fee-avgifter beskrivna (2026-11-11)
 - [x] Partnerunderlag 1-sidigt (partner-teaser) i Redaktion, partner-/redaktionssidor exkluderade från besöksstatistik
 - [x] Tillvalsprodukterna Commerce, HR och Project Operations borttagna ur offert/prislista, beskrivna som kostnadsfria via profileringslänken (2026-11-12)
+
+## Finder’s fee-benämning (2026-11-12)
+- [x] Beställningsrutan och sidtexter/säljunderlag/budget använder Finder’s fee; offert- och avtalsgenerering uppdaterad. Offertval och PDF-nedladdning kontrollerade, 14 tester godkända. Äldre sparade PDF-filer ändras inte automatiskt.

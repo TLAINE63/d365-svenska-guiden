@@ -46,7 +46,7 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 const programSections = [
   { id: "for-partners", label: "Översikt" },
   { id: "priser-innehall", label: "Prislista" },
-  { id: "affarsmojligheter", label: "Finders Fee" },
+  { id: "affarsmojligheter", label: "Finder’s fee" },
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
@@ -317,11 +317,11 @@ const Partnerprogram = () => {
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista</h2>
-          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finders Fee-avtal. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finder’s fee-avtal. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 lg:grid-cols-2 items-start">
             <div className="rounded-xl border-2 border-primary bg-card p-6">
               <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
-              <p className="text-sm text-muted-foreground mb-4">Kräver ett Finders Fee-avtal. Alla priser exklusive moms.</p>
+              <p className="text-sm text-muted-foreground mb-4">Kräver ett Finder’s fee-avtal. Alla priser exklusive moms.</p>
               <div className="rounded-lg bg-secondary/40 p-4 mb-5 text-sm text-muted-foreground space-y-2">
                 <h4 className="font-semibold text-foreground">Vad innebär det att vara Premiumpartner?</h4>
                 <p>Som Premiumpartner får ni en fördjupad profil där köpare kan se vilka kunder, branscher och projekt ni har erfarenhet av, med kundcase, experter och möjlighet till video.</p>
@@ -349,7 +349,7 @@ const Partnerprogram = () => {
                 </table>
               </div>
               <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
-              <h4 className="font-semibold mb-2">Finders Fee: ersättning vid tecknat kundavtal</h4>
+              <h4 className="font-semibold mb-2">Finder’s fee: ersättning vid tecknat kundavtal</h4>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
                   <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th><th scope="col" className="text-right px-3 py-2">Success fee*</th></tr></thead>
@@ -367,7 +367,7 @@ const Partnerprogram = () => {
               </div>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
-                <li>Ni beställer Premium och tecknar Finders Fee-avtalet.</li>
+                <li>Ni beställer Premium och tecknar Finder’s fee-avtalet.</li>
                 <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
                 <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
                 <li>Profilen publiceras med märket Verifierad partner.</li>
@@ -376,8 +376,8 @@ const Partnerprogram = () => {
               <PartnerOrderDialog />
             </div>
             <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
-              <h3 className="text-xl font-bold mb-3">Finders Fee - så fungerar det</h3>
-              <p className="text-sm text-muted-foreground mb-5">Finders Fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret projekt. Ni betalar bara när det leder till ett tecknat kundavtal. Beloppen finns i prislistan.</p>
+              <h3 className="text-xl font-bold mb-3">Finder’s fee - så fungerar det</h3>
+              <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret projekt. Ni betalar bara när det leder till ett tecknat kundavtal. Beloppen finns i prislistan.</p>
               <ol className="space-y-4 mb-5">
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, kravspecifikation eller ett samtal med oss.</p></div></li>
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span><div><p className="font-semibold text-foreground">Vi kvalificerar affären</p><p className="text-sm text-muted-foreground">Vi går igenom behov, tidplan och budget. Bara konkreta projekt med tydlig avsikt att gå vidare blir en affärsmöjlighet.</p></div></li>
@@ -388,13 +388,13 @@ const Partnerprogram = () => {
               <p className="text-xs text-muted-foreground mb-5">Introduktioner påverkar aldrig relevansordningen i partnersökningen.</p>
               <ContactFormDialog
                 buyerForm={false}
-                title="Begär Finders Fee-avtal"
+                title="Begär Finder’s fee-avtal"
                 description="Fyll i era kontaktuppgifter så skickar vi partner- och förmedlingsavtalet."
-                subject="Ansökan: Finders Fee-avtal"
+                subject="Ansökan: Finder’s fee-avtal"
               >
                 <Button size="lg" variant="outline" onClick={() => bookClick("affarsmojligheter")}>
                   <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Begär Finders Fee-avtal
+                  Begär Finder’s fee-avtal
                 </Button>
               </ContactFormDialog>
             </div>
