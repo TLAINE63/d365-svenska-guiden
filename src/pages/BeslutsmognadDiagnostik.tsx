@@ -122,10 +122,10 @@ export default function BeslutsmognadDiagnostik() {
     return () => window.clearTimeout(t);
   }, [step, next]);
 
-  const pickAndAdvance = (update: (d: Draft) => Draft, changed: boolean) => {
+  const pickAndAdvance = (update: (d: Draft) => Draft) => {
     setDraft(update);
     if (timer.current) window.clearTimeout(timer.current);
-    if (changed) timer.current = window.setTimeout(() => go(draft.pos + 1), 400);
+    timer.current = window.setTimeout(() => go(draft.pos + 1), 400);
   };
 
   const submit = async (b4: string[]) => {
@@ -201,7 +201,7 @@ export default function BeslutsmognadDiagnostik() {
             const sel = draft.b0 === o.value;
             return (
               <button key={o.value} type="button" role="radio" aria-checked={sel} data-index={i}
-                onClick={() => pickAndAdvance((d) => ({ ...d, b0: o.value, b4: d.b0 === o.value ? d.b4 : [] }), true)}
+                onClick={() => pickAndAdvance((d) => ({ ...d, b0: o.value, b4: d.b0 === o.value ? d.b4 : [] }))}
                 className={`aspect-square flex flex-col items-center justify-center gap-3 p-4 rounded-xl border bg-card text-center text-[15px] leading-snug transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${sel ? "border-primary border-[1.5px] bg-primary/[0.08]" : "border-border hover:border-foreground/40"}`}
               >
                 <Icon className={`w-6 h-6 ${sel ? "text-primary" : "text-muted-foreground"}`} strokeWidth={1.5} />
@@ -214,7 +214,7 @@ export default function BeslutsmognadDiagnostik() {
     );
   } else if (step.kind === "b5") {
     content = (<>{heading(BMI_B5.question)}<RadioList label={BMI_B5.question} options={BMI_B5.options.map((o) => o.label)} value={draft.b5 ? draft.b5 - 1 : null}
-      onPick={(i) => pickAndAdvance((d) => ({ ...d, b5: i + 1 }), true)} /></>);
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b5: i + 1 }))} /></>);
   } else if (step.kind === "section") {
     const s = BMI_SECTIONS[step.index];
     content = (
@@ -230,7 +230,7 @@ export default function BeslutsmognadDiagnostik() {
       onPick={(i) => {
         const isLastOfSection = step.index % 3 === 2;
         if (isLastOfSection && cur === undefined) bmiTrack("analysis_step", "bmi_section_complete", { section: q.section });
-        pickAndAdvance((d) => ({ ...d, answers: { ...d.answers, [q.id]: i } }), cur !== i);
+        pickAndAdvance((d) => ({ ...d, answers: { ...d.answers, [q.id]: i } }));
       }} /></>);
   } else if (step.kind === "step3") {
     content = (
@@ -242,7 +242,7 @@ export default function BeslutsmognadDiagnostik() {
     );
   } else if (step.kind === "b3") {
     content = (<>{heading(BMI_B3.question)}<RadioList label={BMI_B3.question} options={BMI_B3.options} value={draft.b3 ? BMI_B3.options.indexOf(draft.b3) : null}
-      onPick={(i) => pickAndAdvance((d) => ({ ...d, b3: BMI_B3.options[i] }), draft.b3 !== BMI_B3.options[i])} /></>);
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b3: BMI_B3.options[i] }))} /></>);
   } else if (step.kind === "b1") {
     content = (
       <>
@@ -251,13 +251,13 @@ export default function BeslutsmognadDiagnostik() {
           aria-label="Sök bransch" className="w-full mb-4 rounded-xl border border-border bg-card px-4 py-3 text-[16px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
         <div className="max-h-[420px] overflow-y-auto pr-1">
           <RadioList label={BMI_B1.question} options={industries} value={draft.b1 && industries.includes(draft.b1) ? industries.indexOf(draft.b1) : null}
-            onPick={(i) => pickAndAdvance((d) => ({ ...d, b1: industries[i] }), draft.b1 !== industries[i])} />
+            onPick={(i) => pickAndAdvance((d) => ({ ...d, b1: industries[i] }))} />
         </div>
       </>
     );
   } else if (step.kind === "b2") {
     content = (<>{heading(BMI_B2.question)}<RadioList label={BMI_B2.question} options={BMI_B2.options} value={draft.b2 ? BMI_B2.options.indexOf(draft.b2) : null}
-      onPick={(i) => pickAndAdvance((d) => ({ ...d, b2: BMI_B2.options[i] }), draft.b2 !== BMI_B2.options[i])} /></>);
+      onPick={(i) => pickAndAdvance((d) => ({ ...d, b2: BMI_B2.options[i] }))} /></>);
   } else if (step.kind === "b4") {
     const cfg = BMI_B4[area];
     content = (
