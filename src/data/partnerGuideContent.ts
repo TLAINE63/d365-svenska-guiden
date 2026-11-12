@@ -31,10 +31,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         "text": "Kort svar: avgör först vilken sorts upphandling du faktiskt gör. Business Central, Finance & Supply Chain Management och Customer Engagement är tre olika marknader med olika leverantörer och helt olika storleksordning på projekten. Bygg sedan en longlist på fem till åtta kandidater, gallra på branscherfarenhet och storleksmatchning, och lägg tyngdpunkten i utvärderingen på de personer som faktiskt ska leverera. Alla partners svarar bra på en bra fråga, så det avgörande är inte vilka frågor ni ställer utan hur ni bedömer svaren."
       },
       {
-        "type": "p",
-        "text": "Den här guiden är skriven av d365.se. Vi implementerar inte Dynamics 365 och vi säljer inga licenser. Vi finns för att köparen ska kunna jämföra partners på samma grunder."
-      },
-      {
         "type": "h2",
         "text": "Varför partnervalet väger tyngre än systemvalet"
       },
@@ -626,10 +622,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Den här guiden är skriven av d365.se. Vi implementerar inte Dynamics 365 och vi säljer inga licenser. Vi finns för att köparen ska kunna jämföra partners på samma grunder."
-      },
-      {
-        "type": "p",
         "text": "Den gäller specifikt Business Central. För urvalsprocessen i stort, oavsett applikation, se vår guide om hur du hittar rätt partner för Dynamics 365 i Sverige."
       },
       {
@@ -1051,10 +1043,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       {
         "type": "p",
         "text": "Kort svar: börja inte med partnerns meritlista, utan med vad ni ska lämna. En koncern som byter från AX 2012 ställer helt andra krav på leverantören än en som lämnar SAP eller konsoliderar fem olika system. Fältet av partners med verklig kapacitet är litet, så tyngdpunkten i utvärderingen ligger på personerna i teamet, på hur leveransen är organiserad mellan länder, och på vem som förvaltar lösningen när projektet är slut."
-      },
-      {
-        "type": "p",
-        "text": "Den här guiden är skriven av d365.se. Vi implementerar inte Dynamics 365 och vi säljer inga licenser. Vi finns för att köparen ska kunna jämföra partners på samma grunder."
       },
       {
         "type": "p",
@@ -1577,10 +1565,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       },
       {
         "type": "p",
-        "text": "Den här guiden är skriven av d365.se. Vi implementerar inte Dynamics 365 och vi säljer inga licenser. Vi finns för att köparen ska kunna jämföra partners på samma grunder."
-      },
-      {
-        "type": "p",
         "text": "Den gäller specifikt Dynamics 365 Sales. För urvalsprocessen i stort, oavsett applikation, se vår guide om hur du hittar rätt partner för Dynamics 365 i Sverige."
       },
       {
@@ -2004,10 +1988,6 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
       {
         "type": "p",
         "text": "Kort svar: Customer Service och Field Service hör till de Dynamics-områden där ett driftproblem snabbast blir synligt för slutkunden. Går något fel kan kunden märka det innan ni själva hinner reagera. Välj därför partner efter driftförmåga lika mycket som efter designförmåga: hur de hanterar avbrott, hur de testar inför uppdateringar, hur schemaläggning och SLA faktiskt är uppsatta och vem som svarar när fälttekniker inte kommer in i appen."
-      },
-      {
-        "type": "p",
-        "text": "Den här guiden är skriven av d365.se. Vi implementerar inte Dynamics 365 och vi säljer inga licenser. Vi finns för att köparen ska kunna jämföra partners på samma grunder."
       },
       {
         "type": "p",

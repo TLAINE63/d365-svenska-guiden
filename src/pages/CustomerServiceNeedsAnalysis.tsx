@@ -23,7 +23,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
-import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
@@ -1993,7 +1992,6 @@ const CustomerServiceNeedsAnalysis = () => {
  <p className="text-sm text-primary font-medium">🎯 Baserat på dina svar har vi sammanställt din kundserviceprofil. Fyll i kontaktuppgifter nedan för att ladda ner analysen som PDF.</p>
  </div>
 
- <AnalysisDisclaimer />
 
  {/* SAMMANFATTNING */}
  <div className="border rounded overflow-hidden ">

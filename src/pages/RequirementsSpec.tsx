@@ -12,7 +12,6 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
-import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
@@ -411,7 +410,6 @@ const RequirementsSpec = () => {
           {/* Step 4: Results */}
           {step === 4 && result && (
             <div className="space-y-8">
-              <RequirementsDisclaimer />
               <Card className="border-primary/30 bg-primary/5">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

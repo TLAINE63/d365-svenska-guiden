@@ -24,7 +24,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
-import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
@@ -3975,7 +3974,6 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
               </p>
             </div>
 
-            <AnalysisDisclaimer />
 
             {/* Sammanfattning */}
             <div className="border rounded overflow-hidden ">
@@ -4335,7 +4333,6 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
               </CardContent>
             </Card>
 
-            <AnalysisDisclaimer />
 
             {/* Complexity & Risk Summary */}
             <Card className="mb-8 border-2 border-finance-supply/40 bg-gradient-to-r from-finance-supply/5 to-finance-supply/10">
