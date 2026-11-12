@@ -93,7 +93,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Betalning ger varken automatisk verifiering eller högre relevansordning.",
+      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
   },
 ];
 
