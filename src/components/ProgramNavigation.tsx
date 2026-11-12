@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 type ProgramNavigationProps = {
   audience: "partners" | "isv";
+  action?: React.ReactNode;
   sections: readonly { id: string; label: string }[];
 };
 
@@ -19,7 +20,7 @@ function scrollToSection(id: string, bar: HTMLElement | null, smooth: boolean) {
   window.scrollTo({ top: Math.max(0, top), behavior: smooth ? "smooth" : "auto" });
 }
 
-export default function ProgramNavigation({ audience, sections }: ProgramNavigationProps) {
+export default function ProgramNavigation({ audience, sections, action }: ProgramNavigationProps) {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
