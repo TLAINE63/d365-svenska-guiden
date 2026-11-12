@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/StructuredData";
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
+import IsvOrderDialog from "@/components/IsvOrderDialog";
 import ProgramNavigation from "@/components/ProgramNavigation";
 import { ISV_FEES } from "@/lib/budget2027";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
@@ -139,6 +140,7 @@ const IsvProgram = () => {
                   <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
+                <IsvOrderDialog />
               </div>
             </div>
             <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-64">

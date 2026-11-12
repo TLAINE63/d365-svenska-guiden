@@ -3,7 +3,7 @@ import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN 
 import { PDF_BRAND } from "@/utils/pdfBrand";
 import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
-import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE } from "./partnerProfileTerms";
+import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE, ISV_BENEFITS, ISV_BENEFITS_TITLE } from "./partnerProfileTerms";
 
 export interface AgreementPdfSection { title: string; body: string }
 
@@ -23,7 +23,7 @@ export function agreementPriceRows(): [string, string][] {
 }
 
 /** Partneravtalet som PDF i samma layout som sajtens övriga rapporter. Avtalstexten kommer från avtalssidans redigerade avsnitt. */
-export async function generatePartnerAgreementPdf(opts: { heading: string; intro?: string; sections: AgreementPdfSection[]; partnerName?: string; priceRows?: [string, string][]; priceNote?: string; acceptance?: string }): Promise<Blob> {
+export async function generatePartnerAgreementPdf(opts: { heading: string; intro?: string; sections: AgreementPdfSection[]; partnerName?: string; priceRows?: [string, string][]; priceNote?: string; acceptance?: string; benefits?: "partner" | "isv" }): Promise<Blob> {
   const doc = await createPdfDocument();
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
@@ -45,8 +45,9 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
 
   if (opts.partnerName) para(`Avtalspart: ${opts.partnerName}`, 11);
   if (opts.intro) para(opts.intro);
-  heading(PREMIUM_BENEFITS_TITLE);
-  for (const b of PREMIUM_BENEFITS) {
+  const isvBenefits = opts.benefits === "isv";
+  heading(isvBenefits ? ISV_BENEFITS_TITLE : PREMIUM_BENEFITS_TITLE);
+  for (const b of isvBenefits ? ISV_BENEFITS : PREMIUM_BENEFITS) {
     doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...PDF_BRAND.dark);
     const lines = wrapPdfText(b, width - 6, (l) => doc.getTextWidth(l));
     lines.forEach((line, i) => { ensure(4.8); if (i === 0) doc.text("\u2022", PDF_MARGIN + 1, y); doc.text(line, PDF_MARGIN + 6, y); y += 4.8; });
