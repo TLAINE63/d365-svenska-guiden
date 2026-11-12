@@ -34,7 +34,7 @@ const INCLUDED = [
   ["Aktivt arbete med affärer", "Vi fångar förfrågningar, identifierar intressesignaler och skapar relevanta kontakter."],
   ["Direktlänk till er webbplats", "Knappen \"Till partnerns webbplats\" med UTM-mätning, så ni ser varje besök från d365.se i er egen statistik."],
   ["Månadsrapport", "Varje månad: visningar i listan, profilvisningar, jämförelser och klick till er webbplats."],
-  ["INSIDE-intervju till halva priset", `Redaktionell videointervju för 4${"\u00A0"}900 kr i stället för 8${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube.`],
+  ["INSIDE-intervju, endast Premium", `Redaktionell videointervju för 4${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube. INSIDE gäller endast partners med Premium.`],
   ["Resultatbaserad förmedling", "Ingen separat mötesavgift för Premium. Finder's Fee först vid förmedlad affär."],
 ];
 
