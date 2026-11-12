@@ -25,7 +25,8 @@ Deno.serve(async req=>{
   const d=parsed.data;const selection=d.selection as OrderSelection;
   const invalid=orderValidation(selection,d.accept,d.authority,d.mediation_accept);if(invalid)return response({error:invalid},400);
   const {data:prior}=await db.from('partner_program_orders').select('id,email,selection,company,contact_name,price_ex_vat,terms_snapshot').eq('request_id',d.request_id).maybeSingle();
-  if(prior && (prior.email!==d.email.toLowerCase() || JSON.stringify(prior.selection)!==JSON.stringify(selection) || prior.company!==d.company || prior.contact_name!==d.contact_name))return response({error:'Beställningen har redan sparats med andra uppgifter. Ändra inte en redan skickad beställning.'},409);
+  const sameSelection = prior && prior.selection.level===selection.level && prior.selection.period===selection.period && prior.selection.start_date===selection.start_date && prior.selection.mediation===selection.mediation && JSON.stringify(prior.selection.areas)===JSON.stringify(selection.areas);
+  if(prior && (prior.email!==d.email.toLowerCase() || !sameSelection || prior.company!==d.company || prior.contact_name!==d.contact_name))return response({error:'Beställningen har redan sparats med andra uppgifter. Ändra inte en redan skickad beställning.'},409);
   if(!prior){
    const {count,error:countError}=await db.from('partner_program_orders').select('id',{count:'exact',head:true}).eq('email',d.email.toLowerCase()).gte('created_at',new Date(Date.now()-86400000).toISOString());
    if(countError)throw countError;if((count??0)>=3)return response({error:'För många beställningar. Kontakta oss för hjälp.'},429);
