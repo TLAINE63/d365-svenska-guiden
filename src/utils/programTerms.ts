@@ -23,8 +23,8 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
   return [
     ["Genomfört kundmöte, grundprofil (BC, CRM, Power Platform och övrigt)", kr(FEES.meetingStd)],
     ["Genomfört kundmöte, grundprofil (F&SCM)", kr(FEES.meetingFscm)],
-    ["Kundavtal, befintligt referensbelopp (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
-    ["Kundavtal, befintligt referensbelopp (F&SCM)", kr(FEES.dealFscm)],
+    ["Kundavtal tecknat (BC, CRM, Power Platform och övrigt)", kr(FEES.dealStd)],
+    ["Kundavtal tecknat (F&SCM)", kr(FEES.dealFscm)],
     ["ISV: kundavtal tecknat (BC/CRM)", kr(ISV_FEES.introStd)],
     ["ISV: kundavtal tecknat (F&SCM)", kr(ISV_FEES.introFscm)],
     ["Success fee", `${(FEES.successRate * 100).toLocaleString("sv-SE")} %`],
@@ -37,7 +37,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "partner") return [
     ...PARTNER_PROFILE_TERMS,
     { title: "Produktområden", body: "CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår i Premium." },
-    { title: "Fakturering och avtalstid", body: "Månadsabonnemang faktureras i efterskott. Avtalet löper initialt i tre månader från startdatum, med tre månaders uppsägningstid. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen." },
+    { title: "Fakturering och avtalstid", body: "Prislista 2027 gäller från 2026-11-10. Månadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen." },
   ];
   if (area === "isv") return [
     { title: "ISV Premium", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },

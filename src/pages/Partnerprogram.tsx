@@ -92,7 +92,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan publiceras som Standard utan avgift. Premium är en betald utökad presentation: 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Premium påverkar inte relevansordningen och ger aldrig verifieringsstatus.",
+      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 7 990 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Betalning ger varken automatisk verifiering eller högre relevansordning.",
   },
 ];
 
@@ -316,11 +316,11 @@ const Partnerprogram = () => {
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Priser &amp; innehåll</h2>
-          <p className="text-muted-foreground mb-6 max-w-3xl">Grundpublicering är kostnadsfri. Premium är en frivillig utökad presentation. Betalning ger aldrig högre placering, och verifierad status kan inte köpas.</p>
-          <h3 className="text-lg font-semibold mb-4">Partners: Standard eller Premium</h3>
+          <p className="text-muted-foreground mb-6 max-w-3xl">Grundprofil är kostnadsfri. Premium omfattar fördjupad presentation, redaktionell granskning inför verifiering och löpande uppföljning. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <h3 className="text-lg font-semibold mb-4">Partners: Grundprofil eller Premium</h3>
           <div className="grid gap-6 md:grid-cols-2 mb-6">
-            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Grundprofil, 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen.</p></div>
-            <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, utökad presentation</h4><p className="text-sm text-muted-foreground">Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. INSIDE-produktion köps separat.</p></div>
+            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Grundprofil, 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen. Grundprofil innebär inte att uppgifterna är verifierade av d365.se-redaktionen. Mötesavgift vid förmedling gäller endast Grundprofil.</p></div>
+            <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, granskning och fördjupad presentation</h4><p className="text-sm text-muted-foreground">Redaktionell granskning inför verifiering av partneruppgifterna ingår. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. Premium har ingen mötesavgift. INSIDE-produktion köps separat.</p></div>
           </div>
           <div className="overflow-x-auto border border-border rounded-lg">
             <table className="w-full table-fixed text-sm [&_th]:px-2 [&_td]:px-2 sm:[&_th]:px-4 sm:[&_td]:px-4">
@@ -338,8 +338,8 @@ const Partnerprogram = () => {
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: Verifierad partner eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium ger aldrig verifieringsstatus, och information som tagits fram med AI-stöd blir aldrig automatiskt verifierad.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Standard eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium inkluderar granskning inför verifiering. Verifieringsstatus beslutas manuellt av d365.se-redaktionen efter godkänd granskning, aldrig automatiskt genom betalning eller AI-stöd.</li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Grundprofil eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
             </ul>
           </div>
         </div>
