@@ -1,8 +1,7 @@
-import { writeFileSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { writeFileSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 
 const BASE_URL = "https://d365.se";
-const TODAY = new Date().toISOString().slice(0, 10);
 
 const STATIC_ROUTES = [
   { path: "/businesscentral/matchningstest/", changefreq: "monthly", priority: "0.7" },
@@ -53,7 +52,7 @@ const STATIC_ROUTES = [
   { path: "/ERPbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/CRMbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/kundservice-behovsanalys/", changefreq: "monthly", priority: "0.8" },
-  // Beslutsmognad remains reachable directly but is temporarily hidden.
+  { path: "/beslutsmognad/", changefreq: "monthly", priority: "0.7" },
   { path: "/kom-igang/", changefreq: "monthly", priority: "0.8" },
   { path: "/partnerprogram/", changefreq: "monthly", priority: "0.7" },
   { path: "/isvprogram/", changefreq: "monthly", priority: "0.6" },
@@ -130,16 +129,6 @@ const STATIC_ROUTES = [
 function readText(p) {
   try { return readFileSync(resolve(p), "utf8"); } catch { return ""; }
 }
-function mtimeISO(p) {
-  try { return statSync(resolve(p)).mtime.toISOString().slice(0, 10); } catch { return TODAY; }
-}
-function maxMtime(paths) {
-  const dates = paths.map((p) => {
-    try { return statSync(resolve(p)).mtime.getTime(); } catch { return 0; }
-  });
-  const m = Math.max(0, ...dates);
-  return m ? new Date(m).toISOString().slice(0, 10) : TODAY;
-}
 function uniqueSlugs(content) {
   const slugs = new Set();
   for (const m of content.matchAll(/slug:\s*"([^"]+)"/g)) slugs.add(m[1]);
@@ -149,34 +138,22 @@ function uniqueSlugs(content) {
 // ---- Build entry lists per sub-sitemap ----
 
 // Pages (static + tool)
-const pagesLastmod = maxMtime([
-  "src/App.tsx",
-  "src/pages/Index.tsx",
-  "src/pages/BusinessCentral.tsx",
-  "src/pages/BcRoiCalculator.tsx",
-  "src/pages/SalesRoiCalculator.tsx",
-  "src/pages/BcMatchningstest.tsx",
-]);
-const pagesEntries = STATIC_ROUTES.map((e) => ({ ...e, lastmod: pagesLastmod }));
+const pagesEntries = STATIC_ROUTES.map((e) => ({ ...e }));
 
 // Industries
 const industrySrc = "src/data/standardIndustries.ts";
-const industryLastmod = mtimeISO(industrySrc);
 const industryEntries = uniqueSlugs(readText(industrySrc)).map((slug) => ({
   path: `/branscher/${slug}/`,
   changefreq: "monthly",
   priority: "0.7",
-  lastmod: industryLastmod,
 }));
 
 // Articles (deep-dive + blog)
 const blogSrc = "src/data/blogArticles.tsx";
-const blogLastmod = mtimeISO(blogSrc);
 const blogEntries = uniqueSlugs(readText(blogSrc)).map((slug) => ({
   path: `/artiklar/${slug}/`,
   changefreq: "monthly",
   priority: "0.6",
-  lastmod: blogLastmod,
 }));
 
 const articleFiles = readdirSync("src/data").filter(
@@ -184,10 +161,9 @@ const articleFiles = readdirSync("src/data").filter(
 );
 const deepDiveEntries = [];
 const seenDeep = new Set();
-let deepLastmodMs = 0;
 for (const f of articleFiles) {
   const full = `src/data/${f}`;
-  try { deepLastmodMs = Math.max(deepLastmodMs, statSync(resolve(full)).mtime.getTime()); } catch {}
+  try { deepLastmodMs = Math.max(deepLastmodMs(resolve(full)).mtime.getTime()); } catch {}
   const src = readText(full);
   const blocks = src.split(/\{\s*\n/);
   for (const b of blocks) {
@@ -206,20 +182,15 @@ for (const f of articleFiles) {
     }
   }
 }
-const deepLastmod = deepLastmodMs ? new Date(deepLastmodMs).toISOString().slice(0, 10) : TODAY;
-deepDiveEntries.forEach((e) => (e.lastmod = deepLastmod));
-const articlesLastmod = blogLastmod > deepLastmod ? blogLastmod : deepLastmod;
 const articleEntries = [...deepDiveEntries, ...blogEntries];
 
 // Partners
 const partnerRoutesSrc = "src/data/partnerRoutes.json";
-const partnersLastmod = mtimeISO(partnerRoutesSrc);
 const partners = JSON.parse(readText(partnerRoutesSrc));
 const partnerEntries = partners.map((p) => ({
   path: `/partner/${p.slug}/`,
   changefreq: "monthly",
   priority: "0.6",
-  lastmod: partnersLastmod,
 }));
 
 // Basic partners: fetch slugs live from Supabase (observed data only)
@@ -252,7 +223,7 @@ if (_supaUrl && _supaKey) {
           path: `/basic/${r.slug}/`,
           changefreq: "monthly",
           priority: "0.4",
-          lastmod: (r.updated_at || "").slice(0, 10) || TODAY,
+          lastmod: (r.updated_at || "").slice(0, 10) || undefined,
         }));
     }
   } catch (e) {
@@ -277,7 +248,7 @@ if (_supaUrl && _supaKey) {
           path: `/events/${r.id}/`,
           changefreq: "weekly",
           priority: "0.5",
-          lastmod: (r.updated_at || "").slice(0, 10) || TODAY,
+          lastmod: (r.updated_at || "").slice(0, 10) || undefined,
         }));
     }
   } catch (e) {
@@ -299,7 +270,7 @@ if (_supaUrl && _supaKey) {
         path: `/webinar/${r.slug}/`,
         changefreq: "weekly",
         priority: "0.7",
-        lastmod: (r.updated_at || r.created_at || "").slice(0, 10) || TODAY,
+        lastmod: (r.updated_at || r.created_at || "").slice(0, 10) || undefined,
       }));
     }
   } catch (e) {
@@ -323,7 +294,7 @@ if (_supaUrl && _supaKey) {
           path: `/aktuellt/${r.slug}/`,
           changefreq: "monthly",
           priority: "0.6",
-          lastmod: (r.fact_checked_at || r.updated_at || "").slice(0, 10) || TODAY,
+          lastmod: (r.fact_checked_at || r.updated_at || "").slice(0, 10) || undefined,
         }));
     }
   } catch (e) {
@@ -347,7 +318,7 @@ if (_supaUrl && _supaKey) {
           path: `/artiklar/${r.slug}/`,
           changefreq: "monthly",
           priority: "0.7",
-          lastmod: (r.updated_at || r.published_at || "").slice(0, 10) || TODAY,
+          lastmod: (r.updated_at || r.published_at || "").slice(0, 10) || undefined,
         }));
     }
   } catch (e) {
@@ -357,13 +328,11 @@ if (_supaUrl && _supaKey) {
 
 // Jämför (ERP comparisons)
 const jamforSrc = "src/data/erpComparisons.ts";
-const jamforLastmod = mtimeISO(jamforSrc);
 const jamforSlugs = [...readText(jamforSrc).matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
 const jamforEntries = jamforSlugs.map((slug) => ({
   path: `/jamfor/${slug}/`,
   changefreq: "monthly",
   priority: "0.7",
-  lastmod: jamforLastmod,
 }));
 
 // ---- XML helpers ----
@@ -380,7 +349,7 @@ function urlset(entries) {
     [
       "  <url>",
       `    <loc>${BASE_URL}${e.path}</loc>`,
-      `    <lastmod>${e.lastmod || TODAY}</lastmod>`,
+      e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
       e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
       e.priority ? `    <priority>${e.priority}</priority>` : null,
       "  </url>",
@@ -400,7 +369,6 @@ function sitemapindex(items) {
     [
       "  <sitemap>",
       `    <loc>${BASE_URL}/${it.file}</loc>`,
-      `    <lastmod>${it.lastmod}</lastmod>`,
       "  </sitemap>",
     ].join("\n")
   );
@@ -414,17 +382,13 @@ function sitemapindex(items) {
 }
 
 // ---- Write sub-sitemaps + index ----
-const eventsLastmod = [...eventEntries, ...webinarEntries].reduce(
-  (max, e) => (e.lastmod > max ? e.lastmod : max),
-  TODAY,
-);
 const groups = [
-  { file: "sitemap-pages.xml", entries: [...pagesEntries, ...JSON.parse(readText('src/data/isvPublicSnapshot.json')).products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}/`, changefreq: 'monthly', priority: '0.6', lastmod: s.updated_at?.slice(0, 10) || TODAY }))], lastmod: pagesLastmod },
-  { file: "sitemap-branscher.xml", entries: industryEntries, lastmod: industryLastmod },
-  { file: "sitemap-articles.xml", entries: [...articleEntries, ...editorArticleEntries, ...aktuelltEntries], lastmod: articlesLastmod },
-  { file: "sitemap-partners.xml", entries: allPartnerEntries, lastmod: partnersLastmod },
-  { file: "sitemap-jamfor.xml", entries: jamforEntries, lastmod: jamforLastmod },
-  { file: "sitemap-events.xml", entries: [...eventEntries, ...webinarEntries], lastmod: eventsLastmod },
+  { file: "sitemap-pages.xml", entries: [...pagesEntries, ...JSON.parse(readText('src/data/isvPublicSnapshot.json')).products.filter(s => !['power-bi', 'fabric'].includes(s.solution_id)).map(s => ({ path: `/isv/produkt/${s.solution_id}/`, changefreq: 'monthly', priority: '0.6', lastmod: s.updated_at?.slice(0, 10) || undefined }))] },
+  { file: "sitemap-branscher.xml", entries: industryEntries },
+  { file: "sitemap-articles.xml", entries: [...articleEntries, ...editorArticleEntries, ...aktuelltEntries] },
+  { file: "sitemap-partners.xml", entries: allPartnerEntries },
+  { file: "sitemap-jamfor.xml", entries: jamforEntries },
+  { file: "sitemap-events.xml", entries: [...eventEntries, ...webinarEntries] },
 ];
 
 let total = 0;

@@ -1,3 +1,6 @@
+## Beslutsmognadsindex: sökmotorsynlighet (2026-11-12)
+- [ ] Lägg startsidan i webbplatskarta och förrendering; bevara privata steg utanför indexering, kontrollera datum och SEO-tester.
+
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Avtals-PDF: Grundprofil och Premium (2026-11-12)
