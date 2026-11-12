@@ -1,6 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Avtals-PDF: Grundprofil och Premium (2026-11-12)
+- [ ] Offert och bindande beställning på Partnerprogram: produktområden, betalning, separat förmedlingsaccept, PDF, sparat underlag, Redaktion och mejl till Thomas.
 - [x] Förtydligat mötesavgift endast Grundprofil och Premiums redaktionella granskning inför verifiering i genererade avtals-PDF:er; alla tre hämtade via inloggad Redaktion, layout granskad och sex prisbilagetester godkända.
 - [x] Partnerprogram beskriver Premiums granskning inför verifiering; angivna avtalsbelopp och mötesavdrag återställda i PDF:erna utan preliminära skrivningar. 32 tester godkända, mobil/dator utan överbredd och PDF-layout kontrollerad (2026-11-12).
 

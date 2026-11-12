@@ -315,7 +315,7 @@ export default function Redaktion() {
             {token && <DemandExportsPanel token={token} onUnauthorized={() => {}} />}
           </TabsContent>
           <TabsContent value="terms">
-            <RedaktionTermsTab />
+            <RedaktionTermsTab token={token} />
           </TabsContent>
 
           <TabsContent value="backlinks">

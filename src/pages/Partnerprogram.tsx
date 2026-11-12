@@ -18,6 +18,7 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProgramNavigation from "@/components/ProgramNavigation";
+import PartnerOrderDialog from "@/components/PartnerOrderDialog";
 import SEOHead from "@/components/SEOHead";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Button } from "@/components/ui/button";
@@ -334,6 +335,7 @@ const Partnerprogram = () => {
             </table>
           </div>
           <p className="mt-4 text-sm text-muted-foreground">Prislista 2027, gäller från 2026-11-10. Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
+          <PartnerOrderDialog />
           <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">

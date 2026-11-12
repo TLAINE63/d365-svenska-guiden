@@ -1,2 +1,3 @@
 # Agreement PDFs
 - Keep profile explanations in partnerProfileTerms and reuse them in program terms and default agreement exports, so generated documents describe the same editorial process without changing stored verification or pricing data.
+- Binding partner orders use the versioned shared partnerOrder model for UI, PDF and server-calculated price/acceptance snapshots; only the dedicated order function can insert or list immutable orders, with no automatic partner changes.
