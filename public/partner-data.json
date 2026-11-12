@@ -383,8 +383,10 @@
       "slug": "update-affarssystem",
       "url": "https://d365.se/partner/update-affarssystem/",
       "website": "https://update.se",
-      "description": null,
-      "products": [],
+      "description": "Update Affärssystem AB är en Microsoft Dynamics-partner i Askim utanför Göteborg med över 30 års erfarenhet av Dynamics NAV och Dynamics 365 Business Central. Företaget hjälper främst små och medelstora verksamheter i Västsverige med implementation, uppgradering, migrering från NAV, integrationer och anpassningar. Erbjudandet omfattar även löpande förvaltning, support samt IT-infrastruktur i form av servrar och nätverk.",
+      "products": [
+        "Business Central"
+      ],
       "industries": [],
       "offices": null,
       "company_size": null,
