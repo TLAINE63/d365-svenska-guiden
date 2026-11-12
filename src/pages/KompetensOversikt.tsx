@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import {
   SENIORITY_OPTIONS, specialismGroups, getExpertDraft, saveExpertDraft, startExpertSearch, type ExpertDraft,
 } from "@/lib/expertRequirement";
-import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { COMPETENCE_GUIDES, guidePath } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import type { CompetenceFilterState } from "@/lib/competenceMatching";
@@ -270,7 +269,6 @@ const KompetensOversikt = () => {
             </p>
           </section>
 
-          <MatchInfoDisclosure />
         </div>
       </main>
       <Footer />

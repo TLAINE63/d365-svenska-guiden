@@ -617,7 +617,6 @@ export default function BcRoiCalculator() {
                       { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare har en grundnivå (fast belopp eller andel av omsättning, taklagd) som skalas med antal användare – baseline 25 användare = 1,0×, sublinjärt så att 10 användare ger ~0,55× och 100 användare ~2,3×. Summan justeras sedan med andelen manuella processer (0,5×–1,5×) och komplexitetsfaktor (0,6 / 1,0 / 1,3). Integrationer ger dessutom 50 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment (oktober 2025) och svenska partnerbenchmarks." },
                       { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × (licens + förvaltning). 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet, intern tidsåtgång, integrationsplattform (iPaaS), ISV-licenser och hårdvara hanteras separat." },
-                      { title: "Disclaimer", body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners." },
                     ],
                     ...(() => {
                       const sugg = pickSuggestedPartners(partners, { product: "bc", industry: v.industry, limit: 5 });

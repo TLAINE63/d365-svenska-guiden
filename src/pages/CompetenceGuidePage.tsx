@@ -13,7 +13,6 @@ import CompetencePartnerSection from "@/components/kompetens/CompetencePartnerSe
 import CompetenceResultSummary from "@/components/kompetens/CompetenceResultSummary";
 import ExpertRequirementExit from "@/components/kompetens/ExpertRequirementExit";
 import { getExpertDraft, saveExpertDraft, type ExpertDraft } from "@/lib/expertRequirement";
-import { MatchInfoDisclosure } from "@/components/kompetens/GuideNotices";
 import { guideBySlug, guidePath, type DeliveryMode } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import type { CompetenceFilterState } from "@/lib/competenceMatching";
@@ -180,7 +179,6 @@ const CompetenceGuidePage = ({ slug: slugProp }: Props) => {
             onOpenChange={setNeedOpen}
           />
 
-          <MatchInfoDisclosure />
         </div>
       <SourcesAndMethod variant="competence" partnerEvidence={partnerSources} />
       </main>

@@ -11,7 +11,6 @@ import { trackBuyerToolEvent, startBuyerToolRun } from "@/utils/trackBuyerToolEv
 import { useLocation } from "react-router-dom";
 import heroKravspecKundservice from "@/assets/hero-kravspec-kundservice.jpg";
 import Navbar from "@/components/Navbar";
-import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import RelatedPages, { requirementsCsRelatedPages } from "@/components/RelatedPages";
 import SuggestedPartnersCTA from "@/components/SuggestedPartnersCTA";
@@ -387,7 +386,6 @@ const RequirementsSpecCustomerService = () => {
 
           {step === 4 && result && (
             <div className="space-y-8">
-              <RequirementsDisclaimer />
               <Card className="border-primary/30 bg-primary/5">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

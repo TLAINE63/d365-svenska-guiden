@@ -25,7 +25,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, SoftwareApplicationSchema } from "@/components/StructuredData";
-import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { isServicesIndustry } from "@/lib/industryFilters";
 import { usePartners } from "@/hooks/usePartners";
 import { pickSuggestedPartners } from "@/lib/suggestPartners";
@@ -3191,7 +3190,6 @@ const SalesMarketingNeedsAnalysis = () => {
  </p>
  </div>
 
- <AnalysisDisclaimer />
 
  {/* Sammanfattning */}
  <div className="border rounded overflow-hidden ">

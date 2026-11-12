@@ -30,18 +30,15 @@ function SourceList({ sources }: { sources: GuideSource[] }) {
     </div>;
   })}</dl>;
 }
-export default function SourcesAndMethod({ externalSources = [], partnerEvidence = [], variant = "guide", analysis = "Analys och sammanställning: d365.se. Vi tolkar uppgifterna ur köparens perspektiv och beskriver avvägningar, begränsningar och frågor att kontrollera. Slutsatserna är D365.SE:s analys, inte källornas rekommendationer eller en garanti för projektresultat.", className }: Props) {
+export default function SourcesAndMethod({ externalSources = [], partnerEvidence = [], variant = "guide", analysis = "Analys och sammanställning: d365.se. Vi tolkar uppgifterna ur köparens perspektiv och beskriver avvägningar, begränsningar och frågor att kontrollera.", className }: Props) {
   const id = useId();
   return <section data-sources-and-method aria-labelledby={id} className={cn("border-t border-border py-8 sm:py-10", className)}>
     <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-      <div className="mb-7 max-w-3xl"><h2 className="mb-2 text-base font-semibold text-foreground">Om innehållet</h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">Innehållet är framtaget av d365.se-redaktionen. d365.se är en svensk kunskaps- och jämförelsetjänst för organisationer som utvärderar Microsoft{"\u00A0"}{nowrapBrand("Dynamics 365")} och relaterade tjänster. d365.se är inte Microsoft och representerar inte Microsoft officiellt.</p>
-      </div>
       <h2 id={id} className="mb-3 text-xl font-bold text-foreground">Källor och metod</h2>
       <p className="mb-6 max-w-3xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(METHOD[variant])}</p>
       <div className="grid min-w-0 gap-7 md:grid-cols-2">
         <div className="min-w-0"><h3 className="mb-3 text-base font-semibold text-foreground">Fakta från extern källa</h3>
-          {externalSources.length ? <SourceList sources={externalSources} /> : <p className="text-sm leading-relaxed text-muted-foreground">Separata externa källhänvisningar är inte specificerade för den här guiden. Faktapåståenden utan angiven källa behöver kontrolleras före beslut.</p>}
+          {externalSources.length ? <SourceList sources={externalSources} /> : <p className="text-sm leading-relaxed text-muted-foreground">Separata externa källhänvisningar är inte specificerade för den här guiden.</p>}
         </div>
         <div className="min-w-0"><h3 className="mb-3 text-base font-semibold text-foreground">Redaktionell bedömning</h3><p className="text-sm leading-relaxed text-muted-foreground">{nowrapBrand(analysis)}</p>
           <Link to="/agande-och-intressen/" className="mt-3 inline-block text-xs text-primary underline underline-offset-4">Avsändare och kommersiella intressen</Link>

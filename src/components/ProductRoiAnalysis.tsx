@@ -567,10 +567,6 @@ export default function ProductRoiAnalysis({
                   title: "Vad ingår inte",
                   body: "Förändringsledning, datakvalitet, intern tidsåtgång, integrationsplattform (iPaaS), ISV-licenser och hårdvara hanteras separat.",
                 },
-                {
-                  title: "Disclaimer",
-                  body: "Kalkylen är en förenklad uppskattning och bör användas som beslutsstöd – inte som en slutlig offert eller affärskalkyl. Validera alltid utfall med två–tre relevanta partners.",
-                },
               ],
             })}
           />

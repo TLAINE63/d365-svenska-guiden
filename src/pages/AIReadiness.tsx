@@ -53,7 +53,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
-import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { newsAttributionForLead } from "@/utils/newsAttribution";
@@ -1838,7 +1837,6 @@ const AIReadiness = () => {
             <p className="text-lg text-muted-foreground">{pd.subtitle}</p>
           </div>
 
-          <AnalysisDisclaimer />
 
           {/* 1️⃣ AI Effect Potential – 3 dimensions */}
           <div className="border rounded overflow-hidden  mt-8">
