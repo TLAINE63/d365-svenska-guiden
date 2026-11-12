@@ -397,7 +397,7 @@ for (const g of groups) {
 }
 writeFileSync(
   resolve("public/sitemap.xml"),
-  sitemapindex(groups.map((g) => ({ file: g.file, lastmod: g.lastmod })))
+  sitemapindex(groups.map((g) => ({ file: g.file })))
 );
 
 console.log(

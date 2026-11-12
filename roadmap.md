@@ -1,5 +1,5 @@
 ## Beslutsmognadsindex: sökmotorsynlighet (2026-11-12)
-- [ ] Lägg startsidan i webbplatskarta och förrendering; bevara privata steg utanför indexering, kontrollera datum och SEO-tester.
+- [x] Startsidan tillagd i webbplatskarta och förrenderingslista; privata steg fortsatt utanför. Missvisande generella URL-datum borttagna. Startsida och webbplatskarta kontrollerade i webbläsaren, tio tester godkända; fullständig genererad produktions-HTML kontrolleras vid publicering.
 
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
