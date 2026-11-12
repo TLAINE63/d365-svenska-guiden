@@ -6,7 +6,6 @@ import { ArrowRight, Check, Mail, MapPin, Minus, User, Video } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
-import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 import { Crown } from "lucide-react";
 import { PRODUCT_LABEL, useBasicPartners, type BasicPartner, type ProductKey } from "@/hooks/useBasicPartners";
 import { documentedProductKeys } from "@/components/partner/PartnerBasicCard";
@@ -338,7 +337,7 @@ export default function PartnerProgramBenchmark({ partnerSlug, renderBookCta }: 
             <div className="relative flex flex-1 flex-col p-6 pt-7">
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(var(--cta-orange))] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white"><Crown className="h-3.5 w-3.5" aria-hidden="true" />Premiumpartner</span>
-              <VerifiedPartnerBadge size="md" className="bg-white/95" />
+              <span className="text-xs text-white/80">med märket Verifierad partner efter redaktionens granskning</span>
             </div>
             <p className="mb-2 text-[11px] font-semibold uppercase text-accent">Exempel på Premiumpartner</p>
             {reference && <PartnerCardHeader partner={{ name: reference.name || "Referensprofil", logo_url: reference.logo_url, logo_dark_bg: reference.logo_dark_bg }} to={`/partner/${reference.slug}/`} verified className="rounded-md bg-card p-4" />}
