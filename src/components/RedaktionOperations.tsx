@@ -21,8 +21,8 @@ export default function RedaktionOperations({ token, isAdmin }: { token: string 
       if (data?.error) throw new Error(data.error);
       if (kind === "sync") { setSynced(new Date().toISOString()); toast.success("Snitcher är synkat"); return; }
       const rows = kind === "monthly" ? (data.rows ?? []).map((r: Record<string, unknown>) => ({ month, name: r.name, slug: r.slug, ...(r.current as Record<string, unknown> ?? {}) })) : data.funnels ?? [];
-      const keys = [...new Set(rows.flatMap((r: Record<string, unknown>) => Object.keys(r)))];
-      const cell = (v: unknown) => { const text = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); return '"' + (/^[=+@-]/.test(text) ? "'" : "") + text.replaceAll('"', '""') + '"'; };
+      const keys: string[] = [...new Set<string>((rows as Record<string, unknown>[]).flatMap(r => Object.keys(r)))];
+      const cell = (v: unknown) => { const text = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); return '"' + (/^[=+@-]/.test(text) ? "'" : "") + text.replace(/"/g, '""') + '"'; };
       const csv = [keys.map(cell).join(";"), ...rows.map((r: Record<string, unknown>) => keys.map(k => cell(r[k])).join(";"))].join("\r\n");
       const url = URL.createObjectURL(new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" }));
       const a = document.createElement("a"); a.href = url; a.download = kind === "monthly" ? `d365-manadsrapport-${month}.csv` : "d365-funnel-30-dagar.csv"; a.click(); URL.revokeObjectURL(url);
