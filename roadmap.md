@@ -1,3 +1,15 @@
+## Redaktion: enklare och billigare underhåll (2026-11-12)
+- [ ] Mobil och hemskärmsapp utan offline-cache; valbar längre redaktionssession.
+- [ ] Quick Post med källmetadata, kategorisering och bevarade publiceringskontroller.
+- [ ] Officiella Microsoft-nyheter till granskningskö, aldrig automatisk publicering.
+- [ ] Driftåtgärder: Snitcher-synk med tidsstämpel, månadsrapport och funnel-export.
+- [ ] Förbättrad Word-import och utkastförhandsvisning.
+- [ ] Byt endast efterfrågade AI-anrop till google/gemini-2.5-flash om tillgänglig; verifiera modell och verklig kostnad.
+
+## Beslutsmognadsindex: inskick till sökmotorer
+- [x] Bing tog emot sidans URL. Google URL Inspection bekräftar redan indexerad, senast hämtad 2026-10-19.
+- [ ] Publicera uppdaterad webbplatskarta och skicka till Google/Bing (väntar på publiceringsbeslut).
+
 ## Beslutsmognadsindex: sökmotorsynlighet (2026-11-12)
 - [x] Startsidan tillagd i webbplatskarta och förrenderingslista; privata steg fortsatt utanför. Missvisande generella URL-datum borttagna. Startsida och webbplatskarta kontrollerade i webbläsaren, tio tester godkända; fullständig genererad produktions-HTML kontrolleras vid publicering.
 
