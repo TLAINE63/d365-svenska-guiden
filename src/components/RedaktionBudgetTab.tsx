@@ -154,7 +154,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
         <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
-        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Finders fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
+        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Finder’s fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
@@ -165,7 +165,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts); return (
         <div className="mt-3 rounded-md border bg-muted/40 p-3 space-y-1">
           <h4 className="font-semibold">Återkommande intäkter vs fasta kostnader</h4>
-          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV:er) sajtens externa kostnader utan Finders fee? Mål: täckningsgrad över 1,5.</p>
+          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV:er) sajtens externa kostnader utan Finder’s fee? Mål: täckningsgrad över 1,5.</p>
           <div className="flex justify-between gap-4"><span>Återkommande intäkter per månad</span><span className="whitespace-nowrap">{fmt(rec / 12)} kr</span></div>
           <div className="flex justify-between gap-4"><span>Fasta kostnader per månad</span><span className="whitespace-nowrap">{fmt(t.externalCosts / 12)} kr</span></div>
           <div className="flex justify-between gap-4 font-medium"><span>Täckningsgrad</span><span className="whitespace-nowrap">{t.externalCosts > 0 ? c.ratio.toLocaleString("sv-SE", { maximumFractionDigits: 2 }) : "–"}</span></div>
@@ -194,7 +194,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <thead className="text-xs text-muted-foreground"><tr>
                   <th scope="col" className="py-3 pr-3 text-left">Intäktskälla</th>
                   <th scope="col" className="px-3 text-right">Prenumerationer</th>
-                  <th scope="col" className="px-3 text-right">Finders fee</th>
+                  <th scope="col" className="px-3 text-right">Finder’s fee</th>
                   <th scope="col" className="px-3 text-right">Övrigt</th>
                   <th scope="col" className="border-l bg-muted px-3 text-right">Summa</th>
                 </tr></thead>
@@ -313,14 +313,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               <option value="all">Alla produkter</option><option value="bc">Business Central</option><option value="fsc">Finance &amp; SCM</option><option value="sales">Sales</option><option value="service">Customer Service</option>
             </select>
             <select className={sel} value={fFinders} onChange={(e) => setFFinders(e.target.value)}>
-              <option value="all">Finders fee: alla</option><option value="yes">Med finders fee-budget</option><option value="agreement">Har finders fee-avtal</option>
+              <option value="all">Finder’s fee: alla</option><option value="yes">Med Finder’s fee-budget</option><option value="agreement">Har Finder’s fee-avtal</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · Prenumerationer: {fmt(ft.subscription)} kr · Finders fee: {fmt(ft.finders)} kr · Totalt: {fmt(ft.partnerRevenue)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · Prenumerationer: {fmt(ft.subscription)} kr · Finder’s fee: {fmt(ft.finders)} kr · Totalt: {fmt(ft.partnerRevenue)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten BC/CE</th><th>Avtal BC/CE</th><th>Möten F&amp;SCM</th><th>Avtal F&amp;SCM</th><th>Success-underlag kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finders fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten BC/CE</th><th>Avtal BC/CE</th><th>Möten F&amp;SCM</th><th>Avtal F&amp;SCM</th><th>Success-underlag kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -353,20 +353,20 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Finders fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
+          <CardDescription>ISV Solution Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Finder’s fee per accepterad partnerintroduktion: BC/CRM 3 500 kr, F&amp;SCM 7 500 kr vid avtal, plus 2,5 % av första nio månadernas intäkter.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
             <Input placeholder="Sök ISV" value={iq} onChange={(e) => setIq(e.target.value)} className="w-48" />
             <select className={sel} value={iFilter} onChange={(e) => setIFilter(e.target.value)}>
-              <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option><option value="finders">Med finders fee-budget</option>
+              <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option><option value="finders">Med Finder’s fee-budget</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · Prenumerationer: {fmt(isvShownTotals.subscription)} kr · Finders fee: {fmt(isvShownTotals.finders)} kr · Totalt: {fmt(isvShownTotals.total)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · Prenumerationer: {fmt(isvShownTotals.subscription)} kr · Finder’s fee: {fmt(isvShownTotals.finders)} kr · Totalt: {fmt(isvShownTotals.total)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finders fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Introduktioner BC/CRM</th><th>Introduktioner F&amp;SCM</th><th>Intäkter 9 mån kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {isvShown.map((v) => {
@@ -477,7 +477,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Finders fee-budget som funnel</CardTitle>
+        <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
         <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgift gäller bara Basic; Premium betalar hela avtalsersättningen. Success fee 2,5 % räknas per vunnen affär när snittbeloppet överstiger 100 000 kr.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
@@ -542,7 +542,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
             <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma ISV:er</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
           </table>
         </div>
-        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Finders fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
+        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Finder’s fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
       </CardContent>
     </Card>
   );

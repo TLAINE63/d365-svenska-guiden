@@ -8,7 +8,7 @@ export const TERMS_DATE = "2026-11-12";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Premium, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Förmedlingsprovision", description: "Mötesavgift endast för Grundprofil. Separata villkor för kundavtal, success fee och expertförmedling för partners och ISV:er." },
+  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Mötesavgift endast för Grundprofil. Separata villkor för kundavtal, success fee och expertförmedling för partners och ISV:er." },
 ];
 
 export function termsPriceRows(area: TermsArea): [string, string][] {
@@ -42,7 +42,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "isv") return [
     { title: "ISV Premium", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
     { title: "Presentation och verifiering", body: "Verifiering och ISV Premium är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Premium. Utökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns. Abonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
-    { title: "Förmedling", body: "ISV Premium och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsprovision." },
+    { title: "Förmedling", body: "ISV Premium och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsavtal (Finder’s fee)." },
   ];
   return [
     ...PARTNER_PROFILE_TERMS,

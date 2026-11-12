@@ -49,7 +49,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/jamfor-partners/": "2026-11-04",
   "/partnerprogram/": "2026-11-12",
   "/isvprogram/": "2026-11-10",
-  "/redaktion/": "2026-11-10",
+  "/redaktion/": "2026-11-12",
   "/vad-ar-dynamics-365/": "2026-11-10",
   "/befintlig-kund/": "2026-10-30",
   "/businesscentral/": "2026-11-09",

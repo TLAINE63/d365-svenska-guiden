@@ -35,7 +35,7 @@ const INCLUDED = [
   ["Direktlänk till er webbplats", "Knappen \"Till partnerns webbplats\" med UTM-mätning, så ni ser varje besök från d365.se i er egen statistik."],
   ["Månadsrapport", "Varje månad: visningar i listan, profilvisningar, jämförelser och klick till er webbplats."],
   ["INSIDE-intervju, endast Premium", `Redaktionell videointervju för 4${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube. INSIDE gäller endast partners med Premium.`],
-  ["Resultatbaserad förmedling", "Ingen separat mötesavgift för Premium. Finder's Fee först vid förmedlad affär."],
+  ["Resultatbaserad förmedling", "Ingen separat mötesavgift för Premium. Finder’s fee först vid förmedlad affär."],
 ];
 
 export default function RedaktionSalesKitTab({ token }: { token: string | null }) {
@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder's Fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: 50 kr per debiterad timme.",
+      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder’s fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: 50 kr per debiterad timme.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -176,7 +176,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
             <p className="text-sm text-muted-foreground">exkl. moms, årsbetalning. Spara 3{NB}950 kr (33 %) mot 995 kr/mån.</p>
           </div>
           <div className="rounded-lg border p-6">
-            <p className="font-semibold">Möte → Affär → Finder's Fee</p>
+            <p className="font-semibold">Möte → Affär → Finder’s fee</p>
             <p className="mt-1 text-sm text-muted-foreground">Premium betalar ingen mötesavgift. Ersättning först när en förmedlad introduktion blir affär (exkl. moms):</p>
             <table className="mt-2 w-full text-xs">
               <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1"></th><th className="text-right font-normal">Kundmöte (endast grundprofil)</th><th className="text-right font-normal">Kundavtal tecknat</th></tr></thead>
