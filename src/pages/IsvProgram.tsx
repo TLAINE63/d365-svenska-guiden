@@ -10,7 +10,6 @@ import { BreadcrumbSchema, FAQSchema, WebPageSchema } from "@/components/Structu
 import IsvProfileCheck from "@/components/isv/IsvProfileCheck";
 import IsvOrderDialog from "@/components/IsvOrderDialog";
 import ProgramNavigation from "@/components/ProgramNavigation";
-import { ISV_FEES } from "@/lib/budget2027";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
 
 const breadcrumbs = [

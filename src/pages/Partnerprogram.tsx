@@ -279,8 +279,18 @@ const Partnerprogram = () => {
                 <li key={text} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{text}</li>
               ))}
             </ul>
-
-
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border-2 border-primary bg-card p-6 flex flex-col">
+              <h2 className="text-lg font-bold text-foreground mb-2">För Dynamics&nbsp;365-partners</h2>
+              <p className="text-sm text-muted-foreground mb-4">Visa er kompetens, era kundcase och era erbjudanden för företag som utvärderar Dynamics&nbsp;365 eller söker ny kompetens.</p>
+              <Button asChild className="mt-auto self-start"><a href="#for-partners">Utforska partnerprogrammet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-6 flex flex-col">
+              <h2 className="text-lg font-bold text-foreground mb-2">För ISV-leverantörer</h2>
+              <p className="text-sm text-muted-foreground mb-4">Hjälp svenska Dynamics&nbsp;365-kunder att upptäcka, förstå och utvärdera era produkter och tilläggslösningar. Introduktionspris 2&nbsp;990&nbsp;kr första året.</p>
+              <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV-programmet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
+            </div>
           </div>
         </div>
       </header>
