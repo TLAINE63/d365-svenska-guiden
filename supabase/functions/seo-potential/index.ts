@@ -50,7 +50,8 @@ const INSTRUCTIONS = `Du är SEO-analytiker för d365.se, en svensk köparguide 
 Du får rådata från Google Search Console (sidor och/eller sökfrågor med klick, visningar, CTR, position).
 Identifiera störst SEO-potential: t.ex. många visningar men låg CTR, position 4-20 (nära topp), frågor utan matchande sida.
 Använd bara siffror som finns i underlaget, hitta aldrig på data. Svara på svenska. Använd aldrig långt tankstreck.
-Ge högst 10 sidor och 10 sökfrågor, sorterade efter potential. "metric" = de relevanta siffrorna kort. "action" = konkret åtgärd.`;
+Ge högst 10 sidor och 10 sökfrågor, sorterade efter potential. "metric" = de relevanta siffrorna kort. "action" = konkret åtgärd.
+Returnera JSON med exakt nycklarna summary (sträng), pages (lista), queries (lista). Varje listpost måste ha target, metric, why, action och priority (hög, medel eller låg). Översätt inte nyckelnamnen.`;
 
 Deno.serve(async (req) => {
   const ch = cors(req);
@@ -85,6 +86,7 @@ Deno.serve(async (req) => {
       const text = (e as any)?.text ?? (await result.text.catch(() => ""));
       try { output = JSON.parse(text); } catch { throw e; }
     }
+    if (!output || typeof output !== "object" || !("summary" in output) || !("pages" in output) || !("queries" in output)) throw new Error("AI-svaret saknar rapportens obligatoriska fält");
     const rid = provider.getRunId();
     return json({ result: output, generatedAt: new Date().toISOString() }, 200, rid ? { "X-Lovable-AIG-Run-ID": rid } : undefined);
   } catch (e: any) {

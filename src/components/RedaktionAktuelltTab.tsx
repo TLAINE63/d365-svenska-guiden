@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ExternalLink, Eye, Link2, Loader2, Pencil } from "lucide-react";
 import { toast } from "sonner";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import {
   AKTUELLT_ACTIONS,
   AKTUELLT_AUDIENCES,
@@ -322,9 +323,9 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                           {r.needs_verification && <p className="mt-1 text-xs font-medium text-cta-orange">Behöver verifieras</p>}
                         </TableCell>
                         <TableCell>
-                          <p className="font-medium text-foreground">{r.title}</p>
+                          <p className="font-medium text-foreground">{nowrapBrand(r.title)}</p>
                           <p className="mt-1 text-xs text-muted-foreground">
-                            {r.source_name || "Okänd källa"}
+                            {nowrapBrand(r.source_name || "Okänd källa")}
                             {r.source_published_at ? `, ${d(r.source_published_at)}` : ", källdatum saknas"}
                             {a?.ingest_method === "agent" ? " · från agent" : ""}
                           </p>
@@ -381,11 +382,11 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
           {preview && (
             <>
               <DialogHeader>
-                <DialogTitle>{preview.title}</DialogTitle>
+                <DialogTitle>{nowrapBrand(preview.title)}</DialogTitle>
               </DialogHeader>
               <AssessmentBox a={assessmentOf(preview)} />
               <div className="space-y-4 text-sm">
-                {preview.description && <p className="text-base text-muted-foreground">{preview.description}</p>}
+                {preview.description && <p className="text-base text-muted-foreground">{nowrapBrand(preview.description)}</p>}
                 <PreviewBlock title="Vad har hänt?" text={preview.analysis?.what_happened} />
                 <PreviewBlock title="Vad innebär det för verksamheten?" text={preview.analysis?.business_impact} />
                 {(preview.customer_status === "evaluating" || preview.customer_status === "both") && <PreviewBlock title="För er som utvärderar Dynamics 365" text={preview.analysis?.for_evaluators} />}
@@ -394,7 +395,7 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                 {(preview.analysis?.partner_questions?.length ?? 0) > 0 && (
                   <div>
                     <p className="font-semibold">Frågor att ta med till partnern</p>
-                    <ul className="mt-1 list-disc pl-5">{preview.analysis!.partner_questions!.map((q, i) => <li key={i}>{q}</li>)}</ul>
+                    <ul className="mt-1 list-disc pl-5">{preview.analysis?.partner_questions?.map((q, i) => <li key={i}>{nowrapBrand(q)}</li>)}</ul>
                   </div>
                 )}
                 <p className="text-xs text-muted-foreground">
@@ -592,8 +593,8 @@ function PreviewBlock({ title, text }: { title: string; text?: string | null }) 
   if (!text) return null;
   return (
     <div>
-      <p className="font-semibold text-foreground">{title}</p>
-      <p className="mt-1 whitespace-pre-line text-foreground/90">{text}</p>
+      <p className="font-semibold text-foreground">{nowrapBrand(title)}</p>
+      <p className="mt-1 whitespace-pre-line text-foreground/90">{nowrapBrand(text)}</p>
     </div>
   );
 }

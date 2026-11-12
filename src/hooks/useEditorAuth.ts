@@ -63,6 +63,11 @@ export function useEditorAuth(): EditorAuthState {
   const [accessError, setAccessError] = useState<string | null>(null);
 
   const exchangeSession = useCallback(async () => {
+    if (window.localStorage.getItem("editor_remember_mode") === "session" && !safeSessionStorage.getItem("editor_login_scope")) {
+      setToken(null);
+      setEmail(null);
+      return;
+    }
     const rememberedUntil = window.localStorage.getItem("editor_remember_until");
     if (rememberedUntil && !editorRememberValid(rememberedUntil)) {
       window.localStorage.removeItem("editor_remember_until");
@@ -151,6 +156,8 @@ export function useEditorAuth(): EditorAuthState {
       if (error) {
         return { success: false, error: "Fel e-postadress eller lösenord" };
       }
+      safeSessionStorage.setItem("editor_login_scope", "active");
+      window.localStorage.setItem("editor_remember_mode", remember ? "remember" : "session");
       if (remember) window.localStorage.setItem("editor_remember_until", String(Date.now() + EDITOR_REMEMBER_MS));
       else window.localStorage.removeItem("editor_remember_until");
       await exchangeSession();
@@ -161,6 +168,8 @@ export function useEditorAuth(): EditorAuthState {
 
   const logout = useCallback(async () => {
     window.localStorage.removeItem("editor_remember_until");
+    window.localStorage.removeItem("editor_remember_mode");
+    safeSessionStorage.removeItem("editor_login_scope");
     safeSessionStorage.removeItem(TOKEN_KEY);
     safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
     setToken(null);
