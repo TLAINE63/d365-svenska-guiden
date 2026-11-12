@@ -274,15 +274,6 @@ const Partnerprogram = () => {
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
               d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV:er möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg"><a href="#priser-innehall">Se prislistan<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
-              <Button asChild size="lg" variant="outline" onClick={() => bookClick("hero")}>
-                <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
-                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Boka möte med Thomas
-                </a>
-              </Button>
-            </div>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
               {["Bli hittad i köpresan", "Visa rätt kompetens och lösningar", "Möt företag med relevanta behov"].map((text) => (
                 <li key={text} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{text}</li>
@@ -294,7 +285,14 @@ const Partnerprogram = () => {
         </div>
       </header>
 
-      <ProgramNavigation audience="partners" sections={programSections} />
+      <ProgramNavigation audience="partners" sections={programSections} action={
+        <Button asChild variant="outline" className="ml-auto" onClick={() => bookClick("program-nav")}>
+          <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+            <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+            Boka avtalsmöte med Thomas
+          </a>
+        </Button>
+      } />
 
       <section id="for-partners" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
