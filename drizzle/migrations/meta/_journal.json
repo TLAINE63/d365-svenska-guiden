@@ -309,6 +309,13 @@
       "when": 1794492515354,
       "tag": "0043_partner_program_orders",
       "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1794495246049,
+      "tag": "0044_editor_news_import_state",
+      "breakpoints": true
     }
   ]
 }

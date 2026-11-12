@@ -840,6 +840,33 @@ export type Database = {
         }
         Relationships: []
       }
+      editor_news_import_state: {
+        Row: {
+          id: string
+          imported: number
+          last_completed_at: string | null
+          last_error: string | null
+          lease_owner: string | null
+          lease_until: string | null
+        }
+        Insert: {
+          id: string
+          imported?: number
+          last_completed_at?: string | null
+          last_error?: string | null
+          lease_owner?: string | null
+          lease_until?: string | null
+        }
+        Update: {
+          id?: string
+          imported?: number
+          last_completed_at?: string | null
+          last_error?: string | null
+          lease_owner?: string | null
+          lease_until?: string | null
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
