@@ -325,11 +325,11 @@ export default function prerenderPlugin(): Plugin {
 
             // Collect sitemap entry
             const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
-            const lastmod = (route as any).lastmod || today;
+            const lastmod = route.lastmod;
             const entry = [
               '  <url>',
               `    <loc>${baseUrl}${trailingPath}</loc>`,
-              `    <lastmod>${lastmod}</lastmod>`,
+              ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
               `    <changefreq>${route.changefreq}</changefreq>`,
               `    <priority>${route.priority}</priority>`,
               '  </url>',
