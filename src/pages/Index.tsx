@@ -74,7 +74,6 @@ const VideoComingSoon = () => (
 
 import LatestArticlesStrip from "@/components/LatestArticlesStrip";
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
-import TrustBanner from "@/components/TrustBanner";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import partnerData from "@/data/partnerData.json";
 import HeroPartnerLogoMarquee from "@/components/HeroPartnerLogoMarquee";
@@ -916,8 +915,6 @@ const Index = () => {
         </div>
         </div>
       </section>
-      {/* Transparensrutan "Så fungerar d365.se" ligger alltid längst ned, direkt ovanför footern. */}
-      <TrustBanner variant="compact" />
       <Footer />
     </div>
   );

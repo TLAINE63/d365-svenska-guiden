@@ -14,7 +14,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Users, CheckCircle2 } from "lucide-react";
 import { usePartners, type DatabasePartner } from "@/hooks/usePartners";
-import TrustBanner from "@/components/TrustBanner";
 import { useBasicPartners } from "@/hooks/useBasicPartners";
 import { hasAnyObservedProduct, hasObservedProduct } from "@/lib/basicPartnerMatch";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -269,9 +268,6 @@ export default function AllD365Partners() {
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                 Partnerverifierade profiler på d365.se
               </h2>
-              <p className="text-sm text-muted-foreground">
-                d365.se kartlägger löpande relevanta Dynamics 365-partners på den svenska marknaden. Partners utan profileringsavtal visas med en grundprofil sammanställd från publika källor, medan partners med profileringsavtal själva kan granska och komplettera sin profil. Vilka partners som matchar ett företag avgörs av relevans och behov.
-              </p>
             </div>
             <WhyTheseResults order="alphabetical" criteria={[productFilter === "all" ? null : productOptions.find(o => o.key === productFilter)?.label, q ? `namnsökning: ${query}` : null]} className="mb-5" />
             {profiledAll.length === 0 ? (
@@ -380,7 +376,6 @@ export default function AllD365Partners() {
 </main>
 
       <BasicProfilesDirectory />
-      <TrustBanner variant="compact" />
       <Footer />
     </div>
   );

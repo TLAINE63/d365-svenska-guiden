@@ -11,7 +11,6 @@ import {
 import { useParams, useSearchParams, useNavigate, Navigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import TrustBanner from "@/components/TrustBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -546,7 +545,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
  </div>
  </div>
- <TrustBanner variant="compact" />
 
 
  </main>
