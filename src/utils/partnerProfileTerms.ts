@@ -6,3 +6,16 @@ export const PARTNER_PROFILE_TERMS = [
 ];
 
 export const PARTNER_FEE_NOTE = "Samma villkor för alla partners: ingen mötesavgift, ersättning endast vid tecknat kundavtal. Alla priser exklusive moms.";
+
+/** Every Premium benefit, printed in every agreement PDF so it stands alone when forwarded internally. */
+export const PREMIUM_BENEFITS_TITLE = "Detta ingår i Premiumavtalet";
+export const PREMIUM_BENEFITS = [
+  "Märket Verifierad partner efter redaktionell granskning av d365.se-redaktionen (beslutas manuellt, aldrig automatiskt genom betalning).",
+  "Utökad partnerprofil med fördjupad presentation per produktområde, kundcase och namngivna experter.",
+  "Knappen \u201dTill partnerns webbplats\u201d och länk till egen landningssida per produktområde, med mätbara klick.",
+  "Möjlighet att visa video på profilen samt INSIDE-produktion (endast för Premiumpartners, 4 900 kr exkl. moms).",
+  "Commerce, Human Resources och Project Operations ingår kostnadsfritt som tilläggsområden.",
+  "Profilstatistik och månadsbrev med partnerns egna siffror jämfört med föregående månad.",
+  "Kvartalsvis genomgång och en namngiven kontaktperson på d365.se.",
+  "Samma neutrala relevansordning som alla andra: Premium påverkar aldrig ranking eller rekommendationer.",
+];
