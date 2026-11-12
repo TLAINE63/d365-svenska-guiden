@@ -1,7 +1,7 @@
 # Roadmap – tydligare skillnad Grundprofil / Partnerverifierad profil
 
 ## Avtals-PDF: Grundprofil och Premium (2026-11-12)
-- [ ] Förtydliga mötesavgift endast Grundprofil och Premiums redaktionella granskning inför verifiering i genererade avtals-PDF:er; kontrollera nedladdning och layout.
+- [x] Förtydligat mötesavgift endast Grundprofil och Premiums redaktionella granskning inför verifiering i genererade avtals-PDF:er; alla tre hämtade via inloggad Redaktion, layout granskad och sex prisbilagetester godkända.
 - [ ] Differentiera avtalspriser för Grundprofil och Premium (väntar på Thomas belopp; befintliga priser bevaras).
 
 ## Verifieringsmärken för partners och ISV (2026-11-11)
