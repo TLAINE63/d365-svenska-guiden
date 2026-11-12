@@ -110,7 +110,7 @@ export default function RedaktionPartnerTeaser({ token, initialSlug }: { token: 
     `Hej,`, "",
     `Bifogat finns ett underlag med ${data?.mode === "partner" ? "era egna siffror" : "efterfrågan inom ert område"} på d365.se för ${data ? periodLabel(data.period).toLowerCase() : "perioden"}.`, "",
     "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval). d365.se finns med i den tidiga delen av köpresan.", "",
-    `Premium kostar ${YEAR_PRICE[1].toLocaleString("sv-SE")} kr/år exkl. moms (eller ${MONTH_PRICE[1].toLocaleString("sv-SE")} kr/mån) och ger verifierad profil, direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju till halva priset. Ingen separat mötesavgift, Finder's Fee först vid förmedlad affär.`, "",
+    `Premium kostar ${YEAR_PRICE[1].toLocaleString("sv-SE")} kr/år exkl. moms (eller ${MONTH_PRICE[1].toLocaleString("sv-SE")} kr/mån) och ger verifierad profil, direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt möjlighet till INSIDE-intervju (4 900 kr exkl. moms, endast för Premiumpartners). Ingen separat mötesavgift, Finder's Fee först vid förmedlad affär.`, "",
     "Vi lovar inte ett visst antal leads. Säg till om ni vill gå igenom siffrorna tillsammans.", "",
     "Thomas Laine · thomas.laine@dynamicfactory.se · d365.se",
   ].join("\n");
