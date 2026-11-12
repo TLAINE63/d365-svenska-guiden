@@ -4,6 +4,14 @@ import { forecastRevenue, type PartnerForecast } from "../budget2027";
 const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meetingsStd: 0, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 };
 
 describe("budget 2027", () => {
+  it("Grundprofil credits its BC meeting against 5 000 kr, Premium pays 5 000 kr with no meeting fee", () => {
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
+    expect(forecastRevenue({ ...base, forecast: "month", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
+  });
+  it("Grundprofil credits its F&SCM meeting against 10 000 kr, Premium pays 10 000 kr with no meeting fee", () => {
+    expect(forecastRevenue({ ...base, forecast: "basic", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
+    expect(forecastRevenue({ ...base, forecast: "year", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
+  });
   it("annual subscription with 3 products is 11 990 kr", () => {
     expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(11990);
   });
