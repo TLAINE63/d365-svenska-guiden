@@ -1,4 +1,5 @@
 import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
+import RedaktionOperations from "@/components/RedaktionOperations";
 import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
@@ -255,6 +256,7 @@ export default function Redaktion() {
           </Button>
         </div>
 
+        <RedaktionOperations token={token} isAdmin={isAdmin} />
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="mb-6 h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
             <TabsTrigger value="events">Event</TabsTrigger>
