@@ -3,7 +3,7 @@ import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN 
 import { PDF_BRAND } from "@/utils/pdfBrand";
 import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
-import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
+import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE } from "./partnerProfileTerms";
 
 export interface AgreementPdfSection { title: string; body: string }
 
@@ -45,6 +45,14 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
 
   if (opts.partnerName) para(`Avtalspart: ${opts.partnerName}`, 11);
   if (opts.intro) para(opts.intro);
+  heading(PREMIUM_BENEFITS_TITLE);
+  for (const b of PREMIUM_BENEFITS) {
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...PDF_BRAND.dark);
+    const lines = wrapPdfText(b, width - 6, (l) => doc.getTextWidth(l));
+    lines.forEach((line, i) => { ensure(4.8); if (i === 0) doc.text("\u2022", PDF_MARGIN + 1, y); doc.text(line, PDF_MARGIN + 6, y); y += 4.8; });
+    y += 0.8;
+  }
+  y += 2;
   const sections = opts.priceRows ? opts.sections : [...PARTNER_PROFILE_TERMS, ...opts.sections];
   for (const s of sections) { heading(s.title); para(s.body); }
 
