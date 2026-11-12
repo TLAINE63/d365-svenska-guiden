@@ -1,40 +1,19 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 
-const TopBar = () => (
-  <header className="w-full border-b border-bm-rule">
-    <div className="max-w-[1200px] mx-auto px-6 py-5 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <Link to="/" className="font-bm-display text-bm-ink text-lg tracking-tight">
-          d365<span className="italic text-bm-accent-deep">.se</span>
-        </Link>
-        <span className="h-5 w-px bg-bm-rule-strong" />
-        <span className="font-bm-display italic text-bm-ink-soft text-sm hidden sm:inline">
-          Beslutsstöd inför valet av Microsoft Dynamics&nbsp;365-partner
-        </span>
-      </div>
-      <span className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
-        Volym 01 · Kvartal 2 · 2026
-      </span>
-    </div>
-  </header>
-);
 
 const TrustBand = () => (
   <div className="border-t border-bm-rule-strong">
-    <p className="max-w-[760px] mx-auto px-6 py-8 text-center font-bm-display italic text-bm-ink-soft text-base leading-relaxed">
+    <p className="max-w-[760px] mx-auto px-6 py-8 text-center font-bm-body text-bm-ink-soft text-base leading-relaxed">
       Beslutsmognadsindex publiceras kvartalsvis av d365.se. Tvärsnittet speglar
       samtliga branscher och sektorer på plattformen.
     </p>
   </div>
 );
 
-const FooterBand = () => (
-  <footer className="py-10 text-center font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
-    Konfidentiellt · GDPR-säkert · Data används anonymiserat i aggregerad form
-  </footer>
-);
 
 export default function Beslutsmognadsindex() {
   const [hasDraft, setHasDraft] = useState(false);
@@ -57,7 +36,7 @@ export default function Beslutsmognadsindex() {
   };
 
   return (
-    <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light">
+    <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-body">
       <Helmet>
         <title>Beslutsmognadsindex – diagnostik inför partnerval | d365.se</title>
         <meta
@@ -99,23 +78,23 @@ export default function Beslutsmognadsindex() {
         </script>
       </Helmet>
 
-      <TopBar />
+      <Navbar />
 
       <main>
         {/* Hero */}
         <section className="max-w-[720px] mx-auto px-6 pt-24 lg:pt-32 pb-12 text-center">
-          <p className="font-bm-display italic text-bm-ink-muted text-base mb-6">
+          <p className="font-bm-body text-bm-ink-muted text-base mb-6">
             En studie från d365.se
           </p>
           <h1
             className="font-bm-display text-bm-ink leading-[1.05] tracking-tight mb-8"
-            style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", fontWeight: 360 }}
+            style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)" }}
           >
-            Beslutsmognads<em className="italic text-bm-accent-deep" style={{ fontWeight: 360 }}>index</em>.
+            Beslutsmognads<span className="text-bm-accent-deep">index</span>.
           </h1>
           <p
-            className="font-bm-display italic text-bm-ink-soft leading-snug mb-10"
-            style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)", fontWeight: 320 }}
+            className="font-bm-body text-bm-ink-soft leading-snug mb-10"
+            style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)" }}
           >
             Hur moget är ditt beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice?
           </p>
@@ -124,8 +103,8 @@ export default function Beslutsmognadsindex() {
             8–10 minuter · 25 frågor · konfidentiell sammanställning
           </p>
           <h2
-            className="font-bm-display italic text-bm-accent-deep mb-4"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 360 }}
+            className="font-bm-display text-bm-accent-deep mb-4"
+            style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
           >
             Var i systemlivscykeln står du?
           </h2>
@@ -135,7 +114,7 @@ export default function Beslutsmognadsindex() {
         <section className="px-6 pb-16 text-center">
           {hasDraft && (
             <div className="max-w-[560px] mx-auto mb-8 border-t border-b border-bm-rule py-5">
-              <p className="font-bm-display italic text-bm-ink-soft text-base mb-4">
+              <p className="font-bm-body text-bm-ink-soft text-base mb-4">
                 Du har en påbörjad diagnostik. Vill du fortsätta där du slutade?
               </p>
               <div className="flex items-center justify-center gap-4">
@@ -147,7 +126,7 @@ export default function Beslutsmognadsindex() {
                 </Link>
                 <button
                   onClick={clearDraft}
-                  className="font-bm-display italic text-bm-ink-muted text-sm hover:text-bm-ink-soft"
+                  className="font-bm-body text-bm-ink-muted text-sm hover:text-bm-ink-soft"
                 >
                   Börja om
                 </button>
@@ -160,7 +139,7 @@ export default function Beslutsmognadsindex() {
           >
             Starta diagnostiken
           </Link>
-          <p className="mt-5 font-bm-display italic text-bm-ink-muted text-sm">
+          <p className="mt-5 font-bm-body text-bm-ink-muted text-sm">
             Inga svar sparas innan du väljer att skicka in.
           </p>
         </section>
@@ -187,20 +166,20 @@ export default function Beslutsmognadsindex() {
             ].map((c) => (
               <div key={c.num}>
                 <div
-                  className="font-bm-display italic text-bm-accent-deep mb-6"
-                  style={{ fontSize: "3rem", fontWeight: 360, lineHeight: 1 }}
+                  className="font-bm-body text-bm-accent-deep mb-6"
+                  style={{ fontSize: "3rem", fontWeight: 700, lineHeight: 1 }}
                 >
                   {c.num}
                 </div>
                 <h2
                   className="font-bm-display text-bm-ink mb-3 leading-snug"
-                  style={{ fontSize: "1.25rem", fontWeight: 380 }}
+                  style={{ fontSize: "1.25rem" }}
                 >
                   {c.title}
                 </h2>
                 <p
-                  className="font-bm-display text-bm-ink-soft leading-relaxed"
-                  style={{ fontWeight: 320 }}
+                  className="font-bm-body text-bm-ink-soft leading-relaxed"
+                 
                 >
                   {c.body}
                 </p>
@@ -210,8 +189,8 @@ export default function Beslutsmognadsindex() {
         </section>
 
         {/* Förklarande text */}
-        <section className="max-w-[720px] mx-auto px-6 py-16 border-t border-bm-rule font-bm-display text-bm-ink-soft leading-relaxed" style={{ fontWeight: 320 }}>
-          <h2 className="text-bm-ink mb-4 leading-snug" style={{ fontSize: "1.5rem", fontWeight: 380 }}>
+        <section className="max-w-[720px] mx-auto px-6 py-16 border-t border-bm-rule font-bm-body text-bm-ink-soft leading-relaxed">
+          <h2 className="text-bm-ink mb-4 leading-snug" style={{ fontSize: "1.5rem" }}>
             Vad mäter beslutsmognaden?
           </h2>
           <p className="mb-4">
@@ -234,8 +213,9 @@ export default function Beslutsmognadsindex() {
         </section>
 
         <TrustBand />
-        <FooterBand />
+        
       </main>
+      <Footer />
     </div>
   );
 }

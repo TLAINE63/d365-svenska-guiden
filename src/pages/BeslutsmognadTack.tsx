@@ -1,40 +1,30 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-const TopBar = () => (
-  <header className="w-full border-b border-bm-rule">
-    <div className="max-w-[1200px] mx-auto px-6 py-5 flex items-center justify-between">
-      <Link to="/" className="font-bm-display text-bm-ink text-lg tracking-tight">
-        d365<span className="italic text-bm-accent-deep">.se</span>
-      </Link>
-      <span className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
-        Volym 01 · Kvartal 2 · 2026
-      </span>
-    </div>
-  </header>
-);
 
 export default function BeslutsmognadTack() {
   return (
-    <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light">
+    <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-body">
       <Helmet>
         <title>Tack · Beslutsmognadsindex | d365.se</title>
         <meta name="robots" content="noindex,nofollow" />
         <link rel="canonical" href="https://d365.se/beslutsmognad/tack/" />
       </Helmet>
-      <TopBar />
+      <Navbar />
 
       <main className="max-w-[720px] mx-auto px-6 pt-24 lg:pt-32 pb-12 text-center">
-        <p className="font-bm-display italic text-bm-ink-muted text-base mb-6">Tack.</p>
+        <p className="font-bm-body text-bm-ink-muted text-base mb-6">Tack.</p>
         <h1
           className="font-bm-display text-bm-ink leading-tight tracking-tight mb-8"
-          style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)", fontWeight: 360 }}
+          style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)" }}
         >
-          Din sammanställning <em className="italic text-bm-accent-deep" style={{ fontWeight: 360 }}>är hos oss</em>.
+          Din sammanställning <span className="text-bm-accent-deep">är hos oss</span>.
         </h1>
         <p
-          className="font-bm-display italic text-bm-ink-soft leading-relaxed max-w-[560px] mx-auto"
-          style={{ fontSize: "1.125rem", fontWeight: 320 }}
+          className="font-bm-body text-bm-ink-soft leading-relaxed max-w-[560px] mx-auto"
+          style={{ fontSize: "1.125rem" }}
         >
           Vi går igenom dina svar manuellt innan vi skickar dig den personliga
           rapporten. Det tar normalt 24–48 timmar och säkerställer att
@@ -43,7 +33,7 @@ export default function BeslutsmognadTack() {
 
         <div className="border-t border-bm-rule-strong my-16" />
 
-        <p className="font-bm-display italic text-bm-ink-soft text-base mb-10">Under tiden</p>
+        <p className="font-bm-body text-bm-ink-soft text-base mb-10">Under tiden</p>
         <div className="grid md:grid-cols-3 gap-10 text-left">
           {[
             {
@@ -69,20 +59,20 @@ export default function BeslutsmognadTack() {
             const Inner = (
               <>
                 <div
-                  className="font-bm-display italic text-bm-accent-deep mb-4"
-                  style={{ fontSize: "2.25rem", fontWeight: 360, lineHeight: 1 }}
+                  className="font-bm-body text-bm-accent-deep mb-4"
+                  style={{ fontSize: "2.25rem", fontWeight: 700, lineHeight: 1 }}
                 >
                   {c.num}
                 </div>
                 <h3
                   className="font-bm-display text-bm-ink mb-2 leading-snug"
-                  style={{ fontSize: "1.05rem", fontWeight: 380 }}
+                  style={{ fontSize: "1.05rem" }}
                 >
                   {c.title}
                 </h3>
                 <p
-                  className="font-bm-display text-bm-ink-soft leading-relaxed text-sm"
-                  style={{ fontWeight: 320 }}
+                  className="font-bm-body text-bm-ink-soft leading-relaxed text-sm"
+                 
                 >
                   {c.body}
                 </p>
@@ -100,6 +90,7 @@ export default function BeslutsmognadTack() {
           })}
         </div>
       </main>
+      <Footer />
 
       <footer className="py-10 text-center font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
         Konfidentiellt · GDPR-säkert · Data används anonymiserat i aggregerad form
