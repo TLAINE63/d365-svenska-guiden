@@ -45,11 +45,11 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 
 const programSections = [
   { id: "for-partners", label: "Översikt" },
-  { id: "priser-innehall", label: "Priser & innehåll" },
+  { id: "priser-innehall", label: "Premium partner - Prislista" },
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
-  { id: "affarsmojligheter", label: "Möten & Affärsmöjligheter" },
+  { id: "affarsmojligheter", label: "Finders Fee" },
   { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
@@ -316,34 +316,83 @@ const Partnerprogram = () => {
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Priser &amp; innehåll</h2>
-          <p className="text-muted-foreground mb-6 max-w-3xl">Grundprofil är kostnadsfri. Premium omfattar fördjupad presentation, redaktionell granskning inför verifiering och löpande uppföljning. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
-          <h3 className="text-lg font-semibold mb-4">Partners: Grundprofil eller Premium</h3>
-          <div className="grid gap-6 md:grid-cols-2 mb-6">
-            <div className="border-l-2 border-border pl-5"><h4 className="font-semibold mb-2">Grundprofil, 0 kr</h4><p className="text-sm text-muted-foreground">Partnerprofil med produktområden, branscher, geografi och egna beskrivningar. Synlig i partnerväljaren, filtren och jämförelsen. Grundprofil innebär inte att uppgifterna är verifierade av d365.se-redaktionen. Mötesavgift vid förmedling gäller endast Grundprofil.</p></div>
-            <div className="border-l-2 border-primary pl-5"><h4 className="font-semibold mb-2">Premium, granskning och fördjupad presentation</h4><p className="text-sm text-muted-foreground">Redaktionell granskning inför verifiering av partneruppgifterna ingår. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Mer innehåll med kundcase, experter och möjlighet till video. Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson ingår. Premium har ingen mötesavgift. INSIDE-produktion köps separat.</p></div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista och Finders Fee</h2>
+          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finders Fee-avtal. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <div className="grid gap-6 lg:grid-cols-2 items-start">
+            <div className="rounded-xl border-2 border-primary bg-card p-6">
+              <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
+              <p className="text-sm text-muted-foreground mb-4">Kräver ett Finders Fee-avtal. Alla priser exklusive moms.</p>
+              <h4 className="font-semibold mb-2">Det här ingår</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground mb-5">
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Redaktionell granskning och märket Verifierad partner, verifierad av d365.se-redaktionen, efter godkännande.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen mötesavgift vid förmedlade kundmöten.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE-produktion köps separat (4&nbsp;900 kr).</li>
+              </ul>
+              <div className="overflow-x-auto border border-border rounded-lg mb-3">
+                <table className="w-full text-sm">
+                  <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Områden</th><th scope="col" className="text-right px-3 py-2">Månad</th><th scope="col" className="text-right px-3 py-2">År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
+                  <tbody>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">1</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">995&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">7&nbsp;990&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">3&nbsp;950&nbsp;kr</span> (33&nbsp;%)</span></td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">2</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">1&nbsp;295&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">9&nbsp;990&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">5&nbsp;550&nbsp;kr</span> (36&nbsp;%)</span></td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">3</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">1&nbsp;495&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">11&nbsp;990&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">5&nbsp;950&nbsp;kr</span> (33&nbsp;%)</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
+              <h4 className="font-semibold mb-2">Processen</h4>
+              <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
+                <li>Ni beställer Premium och tecknar Finders Fee-avtalet.</li>
+                <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
+                <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
+                <li>Profilen publiceras med märket Verifierad partner.</li>
+                <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
+              </ol>
+              <PartnerOrderDialog />
+            </div>
+            <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
+              <h3 className="text-xl font-bold mb-3">Finders Fee</h3>
+              <p className="text-sm text-muted-foreground mb-4">När vi identifierar ett konkret projekt med tydlig avsikt att gå vidare kan det erbjudas som en kvalificerad affärsmöjlighet. Partnern bedömer möjligheten och accepterar villkoren innan introduktionen.</p>
+              <h4 className="font-semibold mb-2">Ersättning vid tecknat kundavtal</h4>
+              <div className="overflow-x-auto border border-border rounded-lg mb-3">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th></tr></thead>
+                  <tbody>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="space-y-2 text-xs text-muted-foreground mb-5">
+                <p>För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även en success fee på 2,5 procent av intäkterna från första kronan under de första nio månaderna från projektstart.</p>
+                <p>Expertavgiften gäller faktiskt debiterade timmar; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
+                <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp exklusive moms. Fullständiga villkor regleras i partner- och förmedlingsavtalet.</p>
+              </div>
+              <h4 className="font-semibold mb-2">Processen</h4>
+              <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
+                <li>Köparen definierar sitt behov med d365.se.</li>
+                <li>Vi presenterar en kvalificerad affärsmöjlighet för relevanta partners.</li>
+                <li>Partnern bedömer möjligheten och accepterar villkoren.</li>
+                <li>Introduktion och kundmöte genomförs, med köparens samtycke.</li>
+                <li>Ersättning faktureras när kundavtal tecknats.</li>
+              </ol>
+              <ContactFormDialog
+                buyerForm={false}
+                title="Begär Finders Fee-avtal"
+                description="Fyll i era kontaktuppgifter så skickar vi partner- och förmedlingsavtalet."
+                subject="Ansökan: Finders Fee-avtal"
+              >
+                <Button size="lg" variant="outline" onClick={() => bookClick("affarsmojligheter")}>
+                  <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
+                  Begär Finders Fee-avtal
+                </Button>
+              </ContactFormDialog>
+            </div>
           </div>
-          <div className="overflow-x-auto border border-border rounded-lg">
-            <table className="w-full table-fixed text-sm [&_th]:px-2 [&_td]:px-2 sm:[&_th]:px-4 sm:[&_td]:px-4">
-              <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
-              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-4 py-3">Antal områden</th><th scope="col" className="text-right px-4 py-3">Premium Månad</th><th scope="col" className="text-right px-4 py-3">Premium År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
-              <tbody>{[
-                ["1 produktområde", "995", "7 990", "3 950", "33"],
-                ["2 produktområden", "1 295", "9 990", "5 550", "36"],
-                ["3 produktområden", "1 495", "11 990", "5 950", "33"],
-              ].map(([label, month, year, save, pct]) => <tr key={label} className="border-t border-border"><th scope="row" className="text-left px-4 py-3 font-normal"><span className="sm:hidden">{label?.split(" ")[0]}</span><span className="hidden sm:inline">{label}</span></th><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{month} kr</span><span className="block sm:inline text-xs font-normal"> /mån</span></td><td className="text-right px-4 py-3 font-semibold"><span className="whitespace-nowrap">{year} kr</span><span className="block sm:inline text-xs font-normal"> /år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">{save} kr</span> ({pct}&nbsp;%)</span></td></tr>)}</tbody>
-            </table>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">Prislista 2027, gäller från 2026-11-10. Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område.</p>
-          <PartnerOrderDialog />
-          <div className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-3">Informationsstatus och kommersiella avtal hålls isär</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Varje profil visar en informationsstatus: Verifierad partner eller Automatiskt sammanställd. Statusen beskriver hur uppgifterna har kontrollerats.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Premium inkluderar granskning inför verifiering. Verifieringsstatus beslutas manuellt av d365.se-redaktionen efter godkänd granskning, aldrig automatiskt genom betalning eller AI-stöd.</li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Resultatbaserade förmedlingsavtal och outboundsamarbeten är separata avtal. De kan kombineras fritt med Grundprofil eller Premium och påverkar inte vilka partners som visas eller i vilken ordning.</li>
-            </ul>
-          </div>
+          <p className="mt-8 max-w-3xl text-sm text-muted-foreground">Kommersiella avtal påverkar aldrig vilka lösningar eller partners som bedöms relevanta för köparen. Verifiering beslutas manuellt av d365.se-redaktionen, aldrig automatiskt genom betalning.</p>
         </div>
       </section>
 
@@ -430,125 +479,6 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      {/* 8c. KVALIFICERADE AFFÄRSMÖJLIGHETER (Thomas 2026-11-04) */}
-      <section id="affarsmojligheter" className="scroll-mt-64 py-10 md:py-14 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Möten &amp; Affärsmöjligheter
-          </h2>
-          <div className="max-w-3xl space-y-3 text-muted-foreground mb-8">
-            <p>
-              d365.se hjälper köpare att definiera sina behov och hitta relevanta lösningar och
-              leveranspartners. När vi identifierar ett konkret projekt med en tydlig avsikt att gå vidare
-              kan det erbjudas som en kvalificerad affärsmöjlighet.
-            </p>
-            <p className="text-foreground font-medium border-l-4 border-primary pl-4">
-              Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen
-              genomförs.
-            </p>
-          </div>
-
-          <h3 className="text-lg font-semibold text-foreground mb-3">Ersättning</h3>
-          <div className="max-w-4xl overflow-x-auto rounded-xl border border-border bg-card">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50">
-                <tr>
-                  <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Affärstyp</th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Genomfört kundmöte<br /><span className="text-xs font-normal">Gäller endast partners med grundprofil</span></th>
-                  <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Kundavtal tecknat</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-t border-border">
-                  <th scope="row" className="text-left font-normal text-foreground px-4 py-3">
-                    Business Central, Customer Engagement, Power Platform och andra lösningar
-                  </th>
-                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">3&nbsp;500&nbsp;kr</td>
-                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">5&nbsp;000&nbsp;kr</td>
-                </tr>
-                <tr className="border-t border-border">
-                  <th scope="row" className="text-left font-normal text-foreground px-4 py-3">
-                    Finance &amp; Supply Chain Management
-                  </th>
-                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">5&nbsp;000&nbsp;kr</td>
-                  <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">10&nbsp;000&nbsp;kr</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="max-w-3xl mt-5 space-y-3 text-sm text-muted-foreground">
-            <p><strong className="text-foreground">Mötesavgift: Gäller endast partners med grundprofil.</strong> Premiumpartners betalar ingen mötesavgift. För grundprofiler avräknas den betalda mötesavgiften från avtalsersättningen. För Premium gäller hela avtalsersättningen vid tecknat avtal. Alla belopp anges exklusive moms.</p>
-            <p>
-              För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även
-              en success fee på 2,5 procent av intäkterna från den första kronan under de första nio
-              månaderna från projektstart.
-            </p>
-            <p>
-              Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår
-              inte i beräkningsunderlaget. Fullständiga villkor regleras i partner- och förmedlingsavtalet.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-4xl">
-            <h3 className="text-lg font-semibold text-foreground mb-3">Förmedling av Expertkonsulter</h3>
-            <p className="max-w-3xl text-sm text-muted-foreground mb-4">
-              Vi förmedlar en eller flera expertkonsulter till partnern utifrån kundens behov.
-              Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.
-              Ersättningen för förmedlingen är en fast avgift per debiterad experttimme.
-            </p>
-            <div className="overflow-x-auto rounded-lg border border-border bg-card">
-              <table className="w-full text-sm">
-                <thead className="bg-muted/50">
-                  <tr>
-                    <th scope="col" className="text-left font-semibold text-foreground px-4 py-3">Partnernivå</th>
-                    <th scope="col" className="text-right font-semibold text-foreground px-4 py-3">Avgift per debiterad experttimme</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-t border-border">
-                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Premium</th>
-                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">50&nbsp;kr</td>
-                  </tr>
-                  <tr className="border-t border-border">
-                    <th scope="row" className="text-left font-normal text-foreground px-4 py-3">Grundprofil</th>
-                    <td className="text-right px-4 py-3 whitespace-nowrap font-semibold text-foreground">90&nbsp;kr</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="max-w-3xl mt-4 text-sm text-muted-foreground">
-              Avgiften beräknas på faktiskt debiterade timmar, exklusive moms. Villkoren avtalas skriftligt
-              före uppdragsstart. Expertförmedlingen hålls separat från projektförmedling och ersättningen
-              dubbelräknas inte med mötesavgift, avtalsersättning eller success fee för samma expertuppdrag.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl rounded-xl border border-border bg-card p-6">
-            <h3 className="text-lg font-semibold text-foreground mb-2">Köparens behov styr rekommendationerna</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Kommersiella avtal och partnernivå påverkar aldrig vilka lösningar eller partners som bedöms
-              vara relevanta för köparen. Matchningen utgår alltid från köparens behov och projektets
-              förutsättningar.
-            </p>
-          </div>
-
-          <div className="mt-8">
-            <ContactFormDialog
-              buyerForm={false}
-              title="Ansök om att ta emot affärsmöjligheter"
-              description="Fyll i era kontaktuppgifter så återkommer vi med partner- och förmedlingsavtalet och hur kvalificerade affärsmöjligheter går till."
-              subject="Ansökan: kvalificerade affärsmöjligheter"
-            >
-              <Button size="lg" onClick={() => bookClick("affarsmojligheter")}>
-                <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
-                Ansök om att ta emot affärsmöjligheter
-              </Button>
-            </ContactFormDialog>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. SÅ FUNGERAR DET */}
       <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
