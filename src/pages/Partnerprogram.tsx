@@ -358,16 +358,16 @@ const Partnerprogram = () => {
               <h4 className="font-semibold mb-2">Ersättning vid tecknat kundavtal</h4>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
-                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th></tr></thead>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th><th scope="col" className="text-right px-3 py-2">Success fee*</th></tr></thead>
                   <tbody>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td><td className="text-right px-3 py-2 text-muted-foreground">–</td></tr>
                   </tbody>
                 </table>
               </div>
               <div className="space-y-2 text-xs text-muted-foreground mb-5">
-                <p>För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även en success fee på 2,5 procent av intäkterna från första kronan under de första nio månaderna från projektstart.</p>
+                <p>*För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även en <strong className="font-semibold text-foreground">success fee på 2,5 procent av intäkterna</strong> från första kronan under de första nio månaderna från projektstart.</p>
                 <p>Expertavgiften gäller faktiskt debiterade timmar; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
                 <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp exklusive moms. Fullständiga villkor regleras i partner- och förmedlingsavtalet.</p>
               </div>
