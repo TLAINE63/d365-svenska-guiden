@@ -165,7 +165,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts); return (
         <div className="mt-3 rounded-md border bg-muted/40 p-3 space-y-1">
           <h4 className="font-semibold">Återkommande intäkter vs fasta kostnader</h4>
-          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV:er) sajtens externa kostnader utan Finder’s fee? Mål: täckningsgrad över 1,5.</p>
+          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV-leverantörer) sajtens externa kostnader utan Finder’s fee? Mål: täckningsgrad över 1,5.</p>
           <div className="flex justify-between gap-4"><span>Återkommande intäkter per månad</span><span className="whitespace-nowrap">{fmt(rec / 12)} kr</span></div>
           <div className="flex justify-between gap-4"><span>Fasta kostnader per månad</span><span className="whitespace-nowrap">{fmt(t.externalCosts / 12)} kr</span></div>
           <div className="flex justify-between gap-4 font-medium"><span>Täckningsgrad</span><span className="whitespace-nowrap">{t.externalCosts > 0 ? c.ratio.toLocaleString("sv-SE", { maximumFractionDigits: 2 }) : "–"}</span></div>
@@ -353,7 +353,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV:erna.</CardDescription>
+          <CardDescription>ISV Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV-leverantörerna.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -526,7 +526,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
 
         <div id="budget-isv-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
-            <caption className="pb-2 text-left font-semibold text-foreground">ISV:er</caption>
+            <caption className="pb-2 text-left font-semibold text-foreground">ISV-leverantörer</caption>
             <thead className="text-xs text-muted-foreground"><tr>
               <th className="py-2 pr-3 text-left font-normal">Område</th><th className={th}>Antal<br />introduktioner</th><th className={th}>Antal genomförda<br />affärer</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
@@ -538,7 +538,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
                 <td className="px-2">{field(`Avtal ${i.label}`, r.deals, (v) => set(i.key, { deals: v }))}{sub(x.deals)}</td>
                 <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
               </tr>); })}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma ISV:er</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma ISV-leverantörer</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.isv)} kr</td></tr></tfoot>
           </table>
         </div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Finder’s fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
