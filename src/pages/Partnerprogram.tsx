@@ -88,7 +88,7 @@ const faqs = [
   {
     question: "Vad innebär videointervjun?",
     answer:
-      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. Intervju och produktion kostar 4 900 kr för verifierade partners med Premium och 8 900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
+      "En redaktionell intervju (d365.se INSIDE) med en eller flera av partnerns experter som kan publiceras på d365.se och YouTube och användas som innehåll på partnerprofilen. INSIDE gäller endast partners med Premium. Intervju och produktion kostar 4 900 kr, exklusive moms. Redaktionellt ansvar ligger hos d365.se.",
   },
   {
     question: "Kostar det att publiceras på d365.se?",
@@ -328,7 +328,7 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen mötesavgift vid förmedlade kundmöten.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE-produktion köps separat (4&nbsp;900 kr).</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
@@ -472,7 +472,7 @@ const Partnerprogram = () => {
               <AccordionTrigger>Vad innebär d365.se INSIDE?</AccordionTrigger>
               <AccordionContent><div ref={videoRef} className="max-w-3xl space-y-3 text-muted-foreground">
                 <p>En redaktionell intervju med era experter om specialisering, kundbehov och erfarenheter. Den kan publiceras på d365.se, på partnerprofilen och på YouTube, med sammanfattning och expertcitat.</p>
-                <p>Produktion och distribution kostar 4&nbsp;900 kr för verifierade partners med Premium och 8&nbsp;900 kr för övriga, exklusive moms. Redaktionellt ansvar ligger hos d365.se; betalning köper inte en viss slutsats.</p>
+                <p>INSIDE gäller endast partners med Premium. Produktion och distribution kostar 4&nbsp;900 kr, exklusive moms. Redaktionellt ansvar ligger hos d365.se; betalning köper inte en viss slutsats.</p>
               </div></AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -497,7 +497,7 @@ const Partnerprogram = () => {
               {
                 n: "3",
                 t: "Vi publicerar och utvecklar profilen",
-                d: "Nya profiler granskas av d365.se innan de publiceras. Därefter syns verifierade partners egna ändringar direkt. Profilen kan kompletteras med expertintervju, video och ytterligare innehåll.",
+                d: "Nya profiler granskas av d365.se innan de publiceras. Därefter syns verifierade partners egna ändringar direkt. För Premiumpartners kan profilen kompletteras med expertintervju i d365.se INSIDE.",
               },
             ].map((s) => (
               <div key={s.n} className="rounded-xl border border-border bg-card p-6">

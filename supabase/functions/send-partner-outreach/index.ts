@@ -136,7 +136,7 @@ Sedan start har vi identifierat **570+ företag och organisationer** som besökt
 [KNAPP]
 
 ## Synas i d365.se INSIDE
-Vi intervjuar partners om kompetens, kunder och arbetssätt, som artikel och video kopplad till profilen. Se avsnitten på [YouTube-kanalen d365.se INSIDE](https://www.youtube.com/@d365.se-inside). Svara på detta mejl så bokar vi en tid.
+Vi intervjuar partners med Premium om kompetens, kunder och arbetssätt, som artikel och video kopplad till profilen. Se avsnitten på [YouTube-kanalen d365.se INSIDE](https://www.youtube.com/@d365.se-inside). Svara på detta mejl så bokar vi en tid.
 
 Läs mer om upplägget på [d365.se/partnerprogram](${PARTNERPROGRAM_URL}).
 

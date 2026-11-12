@@ -80,7 +80,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
       "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder's Fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: 50 kr per debiterad timme.",
-      "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju till halva priset (4 900 kr i stället för 8 900 kr).",
+      "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
       "Thomas Laine · thomas.laine@dynamicfactory.se · d365.se",
