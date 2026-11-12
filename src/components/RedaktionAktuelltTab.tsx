@@ -386,7 +386,7 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
               </DialogHeader>
               <AssessmentBox a={assessmentOf(preview)} />
               <div className="space-y-4 text-sm">
-                {preview.description && <p className="text-base text-muted-foreground">{preview.description}</p>}
+                {preview.description && <p className="text-base text-muted-foreground">{nowrapBrand(preview.description)}</p>}
                 <PreviewBlock title="Vad har hänt?" text={preview.analysis?.what_happened} />
                 <PreviewBlock title="Vad innebär det för verksamheten?" text={preview.analysis?.business_impact} />
                 {(preview.customer_status === "evaluating" || preview.customer_status === "both") && <PreviewBlock title="För er som utvärderar Dynamics 365" text={preview.analysis?.for_evaluators} />}
@@ -395,7 +395,7 @@ export default function RedaktionAktuelltTab({ token, onSessionExpired }: Props)
                 {(preview.analysis?.partner_questions?.length ?? 0) > 0 && (
                   <div>
                     <p className="font-semibold">Frågor att ta med till partnern</p>
-                    <ul className="mt-1 list-disc pl-5">{preview.analysis!.partner_questions!.map((q, i) => <li key={i}>{q}</li>)}</ul>
+                    <ul className="mt-1 list-disc pl-5">{preview.analysis?.partner_questions?.map((q, i) => <li key={i}>{nowrapBrand(q)}</li>)}</ul>
                   </div>
                 )}
                 <p className="text-xs text-muted-foreground">
@@ -593,8 +593,8 @@ function PreviewBlock({ title, text }: { title: string; text?: string | null }) 
   if (!text) return null;
   return (
     <div>
-      <p className="font-semibold text-foreground">{title}</p>
-      <p className="mt-1 whitespace-pre-line text-foreground/90">{text}</p>
+      <p className="font-semibold text-foreground">{nowrapBrand(title)}</p>
+      <p className="mt-1 whitespace-pre-line text-foreground/90">{nowrapBrand(text)}</p>
     </div>
   );
 }
