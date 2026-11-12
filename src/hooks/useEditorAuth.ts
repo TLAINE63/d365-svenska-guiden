@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { EDITOR_REMEMBER_MS, editorRememberValid } from "@/lib/editorRemember";
 
 const TOKEN_KEY = "editor_token";
 const TOKEN_EXPIRY_KEY = "editor_token_expiry";
@@ -50,7 +51,7 @@ export interface EditorAuthState {
   token: string | null;
   email: string | null;
   accessError: string | null;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  login: (email: string, password: string, remember?: boolean) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
 }
@@ -70,13 +71,6 @@ export function useEditorAuth(): EditorAuthState {
       return;
     }
     setEmail(session.user.email ?? null);
-
-    const existing = getStoredToken();
-    if (existing) {
-      setToken(existing);
-      setAccessError(null);
-      return;
-    }
 
     const { data, error } = await supabase.functions.invoke("editor-session", { body: {} });
     if (error || !data?.token) {
@@ -117,8 +111,25 @@ export function useEditorAuth(): EditorAuthState {
     };
   }, [exchangeSession]);
 
+  useEffect(() => {
+    if (!token) return;
+    const refresh = () => {
+      const rememberedUntil = window.localStorage.getItem("editor_remember_until");
+      if (rememberedUntil && !editorRememberValid(rememberedUntil)) {
+        window.localStorage.removeItem("editor_remember_until");
+        void logout();
+        return;
+      }
+      void exchangeSession();
+    };
+    const interval = window.setInterval(refresh, 30 * 60 * 1000);
+    const visible = () => { if (document.visibilityState === "visible") refresh(); };
+    document.addEventListener("visibilitychange", visible);
+    return () => { window.clearInterval(interval); document.removeEventListener("visibilitychange", visible); };
+  }, [token, exchangeSession]);
+
   const login = useCallback(
-    async (loginEmail: string, password: string) => {
+    async (loginEmail: string, password: string, remember = false) => {
       setAccessError(null);
       const { error } = await supabase.auth.signInWithPassword({
         email: loginEmail.trim(),
@@ -127,6 +138,8 @@ export function useEditorAuth(): EditorAuthState {
       if (error) {
         return { success: false, error: "Fel e-postadress eller lösenord" };
       }
+      if (remember) window.localStorage.setItem("editor_remember_until", String(Date.now() + EDITOR_REMEMBER_MS));
+      else window.localStorage.removeItem("editor_remember_until");
       await exchangeSession();
       return { success: true };
     },
@@ -134,6 +147,7 @@ export function useEditorAuth(): EditorAuthState {
   );
 
   const logout = useCallback(async () => {
+    window.localStorage.removeItem("editor_remember_until");
     safeSessionStorage.removeItem(TOKEN_KEY);
     safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
     setToken(null);
