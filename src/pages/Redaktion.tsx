@@ -128,7 +128,7 @@ export default function Redaktion() {
 
   const seo = (
     <>
-    <Helmet><link rel="manifest" href="/redaktion.webmanifest" /></Helmet>
+    <Helmet><link rel="manifest" href="/redaktion.webmanifest" /><meta name="theme-color" content="#007C68" /><link rel="apple-touch-icon" href="/favicon-192.png" /></Helmet>
     <SEOHead
       title="Redaktion | d365.se"
       description="Intern redaktörsvy för event, partnernytt och artiklar."

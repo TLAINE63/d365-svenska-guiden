@@ -112,6 +112,7 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
     setTagsText(start.tags.join(", "));
     setSlugTouched(!!initial?.slug);
     setWarnings([]);
+    setKeepEditorial(true);
   }, [open, initial]);
 
   const upload: ImageUploader = async ({ base64, contentType }) => {
@@ -406,10 +407,10 @@ export default function RedaktionWordArticleDialog({ open, initial, token, taken
                 Förhandsvisning av texten
               </p>
               <h1 className="text-xl md:text-3xl font-bold text-foreground leading-tight tracking-tight text-balance">
-                {form.title || "Titel saknas"}
+                {(form.title || "Titel saknas").replace(/Microsoft\s+Dynamics\s+365/g, "Microsoft\u00a0Dynamics\u00a0365").replace(/Dynamics\s+365/g, "Dynamics\u00a0365")}
               </h1>
               {form.description && (
-                <p className="text-muted-foreground mt-3 text-base md:text-lg leading-relaxed">{form.description}</p>
+                <p className="text-muted-foreground mt-3 text-base md:text-lg leading-relaxed">{form.description.replace(/Microsoft\s+Dynamics\s+365/g, "Microsoft\u00a0Dynamics\u00a0365").replace(/Dynamics\s+365/g, "Dynamics\u00a0365")}</p>
               )}
               {form.image_url && (
                 <figure className="mt-6">
