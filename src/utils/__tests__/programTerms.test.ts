@@ -8,7 +8,7 @@ describe("områdesspecifika prisbilagor", () => {
     ]);
   });
   it("ISV inkluderar grundavgift och extra produkt", () => {
-    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["5 990 kr/år", "995 kr/år"]);
+    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["5 990 kr/år", "995 kr/år", "2 990 kr"]);
   });
   it("förmedling har samma villkor för alla, utan mötesavgift", () => {
     expect(termsPriceRows("commission").map((row) => row[1].replace(/\s/g, " "))).toEqual([
