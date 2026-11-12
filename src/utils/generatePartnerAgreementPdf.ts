@@ -34,11 +34,11 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   let y = drawBrandHeader(doc, title, `Version ${today()} · ${ORGANIZATION.legalName}`);
 
   const ensure = (h: number) => { if (y + h > bottom) { doc.addPage(); y = drawBrandHeader(doc, title); } };
-  const para = (text: string, size = 10) => {
+  const para = (text: string, size = 9.5) => {
     doc.setFont("helvetica", "normal"); doc.setFontSize(size); doc.setTextColor(...PDF_BRAND.dark);
     for (const raw of text.split("\n")) {
       const lines = raw.trim() ? wrapPdfText(raw, width, (l) => doc.getTextWidth(l)) : [""];
-      for (const line of lines) { ensure(5.2); doc.text(line, PDF_MARGIN, y); y += 5.2; }
+      for (const line of lines) { ensure(4.8); doc.text(line, PDF_MARGIN, y); y += 4.8; }
     }
     y += 2;
   };
