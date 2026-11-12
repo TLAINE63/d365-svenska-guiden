@@ -15,7 +15,7 @@ export default function BeslutsmognadTack() {
       <Navbar />
 
       <main className="max-w-[720px] mx-auto px-6 pt-24 lg:pt-32 pb-12 text-center">
-        <p className="font-bm-display text-bm-ink-muted text-base mb-6">Tack.</p>
+        <p className="font-bm-body text-bm-ink-muted text-base mb-6">Tack.</p>
         <h1
           className="font-bm-display text-bm-ink leading-tight tracking-tight mb-8"
           style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)" }}
@@ -23,7 +23,7 @@ export default function BeslutsmognadTack() {
           Din sammanställning <span className="text-bm-accent-deep">är hos oss</span>.
         </h1>
         <p
-          className="font-bm-display text-bm-ink-soft leading-relaxed max-w-[560px] mx-auto"
+          className="font-bm-body text-bm-ink-soft leading-relaxed max-w-[560px] mx-auto"
           style={{ fontSize: "1.125rem" }}
         >
           Vi går igenom dina svar manuellt innan vi skickar dig den personliga
@@ -33,7 +33,7 @@ export default function BeslutsmognadTack() {
 
         <div className="border-t border-bm-rule-strong my-16" />
 
-        <p className="font-bm-display text-bm-ink-soft text-base mb-10">Under tiden</p>
+        <p className="font-bm-body text-bm-ink-soft text-base mb-10">Under tiden</p>
         <div className="grid md:grid-cols-3 gap-10 text-left">
           {[
             {
@@ -59,7 +59,7 @@ export default function BeslutsmognadTack() {
             const Inner = (
               <>
                 <div
-                  className="font-bm-display text-bm-accent-deep mb-4"
+                  className="font-bm-body text-bm-accent-deep mb-4"
                   style={{ fontSize: "2.25rem", fontWeight: 700, lineHeight: 1 }}
                 >
                   {c.num}
@@ -71,7 +71,7 @@ export default function BeslutsmognadTack() {
                   {c.title}
                 </h3>
                 <p
-                  className="font-bm-display text-bm-ink-soft leading-relaxed text-sm"
+                  className="font-bm-body text-bm-ink-soft leading-relaxed text-sm"
                  
                 >
                   {c.body}
