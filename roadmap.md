@@ -2,7 +2,7 @@
 
 ## Avtals-PDF: Grundprofil och Premium (2026-11-12)
 - [x] Förtydligat mötesavgift endast Grundprofil och Premiums redaktionella granskning inför verifiering i genererade avtals-PDF:er; alla tre hämtade via inloggad Redaktion, layout granskad och sex prisbilagetester godkända.
-- [ ] Differentiera avtalspriser för Grundprofil och Premium (väntar på Thomas belopp; befintliga priser bevaras).
+- [x] Partnerprogram beskriver Premiums granskning inför verifiering; angivna avtalsbelopp och mötesavdrag återställda i PDF:erna utan preliminära skrivningar. 32 tester godkända, mobil/dator utan överbredd och PDF-layout kontrollerad (2026-11-12).
 
 ## Verifieringsmärken för partners och ISV (2026-11-11)
 - [x] Skapa ”Verifierad ISV” och ”Verifierad tilläggslösning” med samma runda utformning som partnermärket; separata verifieringar och övriga publiceringsregler bevarade.
