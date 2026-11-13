@@ -1,3 +1,5 @@
+import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
+import { ROI_DEFAULTS, salesIndustryModel } from "@/lib/calculatorDefaults";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calculator, Info, TrendingUp, Clock, Wallet, PiggyBank } from "lucide-react";
@@ -30,8 +32,6 @@ import PartnerCard from "@/components/PartnerCard";
 import {
   SALES_INDUSTRY_DRIVERS,
   SALES_INDUSTRY_IMPL_FACTOR,
-  defaultEnabledSalesDrivers,
-  type SalesIndustry,
 } from "@/data/salesRoiDrivers";
 import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
@@ -50,7 +50,7 @@ type SalesLicense = "Professional" | "Enterprise" | "Premium";
 
 interface Inputs {
   companyName: string;
-  industry: SalesIndustry;
+  industry: string;
   sellers: number;
   salesOps: number;
   license: SalesLicense;
@@ -63,20 +63,20 @@ interface Inputs {
   currentItCost: number;
 }
 
-const initialIndustry: SalesIndustry = "B2B-tjänster";
+const initialIndustry = "";
 const DEFAULTS: Inputs = {
   companyName: "",
   industry: initialIndustry,
-  sellers: 15,
-  salesOps: 2,
-  license: "Enterprise",
+  sellers: ROI_DEFAULTS.users,
+  salesOps: ROI_DEFAULTS.additionalUsers,
+  license: "Professional",
   revenue: 80_000_000,
   avgDealSize: 250_000,
-  complexity: "Medel",
-  adminPct: 35,
-  enabledDrivers: defaultEnabledSalesDrivers(initialIndustry),
-  integrations: 2,
-  currentItCost: 250_000,
+  complexity: ROI_DEFAULTS.complexity,
+  adminPct: ROI_DEFAULTS.manualPct,
+  enabledDrivers: ROI_DEFAULTS.enabledDrivers,
+  integrations: ROI_DEFAULTS.integrations,
+  currentItCost: ROI_DEFAULTS.currentItCost,
 };
 
 const fmtSek = (n: number) =>
@@ -120,7 +120,8 @@ export default function SalesRoiCalculator() {
   const perOpsPrice = entPrice ?? perSellerPrice;
 
   // ----- Aktiva drivare för vald bransch -----
-  const industryDrivers = SALES_INDUSTRY_DRIVERS[v.industry];
+  const modelIndustry = salesIndustryModel(v.industry);
+  const industryDrivers = SALES_INDUSTRY_DRIVERS[modelIndustry];
   const activeDrivers = useMemo(
     () => industryDrivers.filter((d) => v.enabledDrivers.includes(d.id)),
     [industryDrivers, v.enabledDrivers]
@@ -139,7 +140,7 @@ export default function SalesRoiCalculator() {
       Medel: 275_000,
       Hög: 600_000,
     };
-    const industryFactor = SALES_INDUSTRY_IMPL_FACTOR[v.industry];
+    const industryFactor = SALES_INDUSTRY_IMPL_FACTOR[modelIndustry];
     // Skalas mjukt med antal säljare över 15 (baseline för CRM-projekt).
     const usersFactor = 1 + Math.max(0, v.sellers - 15) * 0.015;
     const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
@@ -288,28 +289,9 @@ export default function SalesRoiCalculator() {
                       />
                     </div>
 
-                    {/* Bransch */}
-                    <div className="space-y-2">
-                      <Label>Bransch</Label>
-                      <Select
-                        value={v.industry}
-                        onValueChange={(val) => {
-                          const next = val as SalesIndustry;
-                          setV((prev) => ({
-                            ...prev,
-                            industry: next,
-                            enabledDrivers: defaultEnabledSalesDrivers(next),
-                          }));
-                        }}
-                      >
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {(Object.keys(SALES_INDUSTRY_DRIVERS) as SalesIndustry[]).map(i => (
-                            <SelectItem key={i} value={i}>{i}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <CalculatorIndustryPicker value={v.industry} onChange={(industry) =>
+                      setV((prev) => ({ ...prev, industry, enabledDrivers: [] }))
+                    } />
 
                     {/* Säljare / sales ops */}
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -397,7 +379,7 @@ export default function SalesRoiCalculator() {
                     {/* Branschspecifika drivare */}
                     <div className="space-y-3">
                       <div>
-                        <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
+                        <Label>Effektiviseringar för {v.industry ? v.industry.toLowerCase() : "er verksamhet"}</Label>
                         <p className="text-xs text-muted-foreground mt-1">
                           Bocka i de områden där du ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden.
                         </p>

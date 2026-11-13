@@ -1,3 +1,4 @@
+import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CostNextSteps from "@/components/cost/CostNextSteps";
 import { SOLUTION_TO_COST, costDrivers, orgSizeForUsers, startCostJourney, trackCost } from "@/lib/costJourney";
@@ -126,15 +127,15 @@ export default function ImplementationCalculator() {
 
   const [solutions, setSolutions] = useState<SolutionKey[]>(["bc"]);
   // Förval: lägsta alternativet överallt och 0 integrationer (Thomas 2026-10-30).
-  const [users, setUsers] = useState(5);
-  const [premiumLicense, setPremiumLicense] = useState(false);
-  const [complexity, setComplexity] = useState<Complexity>("standardnara");
-  const [integrations, setIntegrations] = useState(0);
-  const [legalEntities, setLegalEntities] = useState(1);
-  const [dataMigration, setDataMigration] = useState(true);
-  const [customDevelopment, setCustomDevelopment] = useState(false);
-  const [training, setTraining] = useState(true);
-  const [hourlyRate, setHourlyRate] = useState(1350);
+  const [users, setUsers] = useState(IMPLEMENTATION_DEFAULTS.users);
+  const [premiumLicense, setPremiumLicense] = useState(IMPLEMENTATION_DEFAULTS.premiumLicense);
+  const [complexity, setComplexity] = useState<Complexity>(IMPLEMENTATION_DEFAULTS.complexity);
+  const [integrations, setIntegrations] = useState(IMPLEMENTATION_DEFAULTS.integrations);
+  const [legalEntities, setLegalEntities] = useState(IMPLEMENTATION_DEFAULTS.legalEntities);
+  const [dataMigration, setDataMigration] = useState(IMPLEMENTATION_DEFAULTS.dataMigration);
+  const [customDevelopment, setCustomDevelopment] = useState(IMPLEMENTATION_DEFAULTS.customDevelopment);
+  const [training, setTraining] = useState(IMPLEMENTATION_DEFAULTS.training);
+  const [hourlyRate, setHourlyRate] = useState(IMPLEMENTATION_DEFAULTS.hourlyRate);
 
   const priceLookup = useMemo(
     () => (key: string) => {
