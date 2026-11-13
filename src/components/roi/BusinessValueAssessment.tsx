@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
-  evaluateBusinessValue, workRowValue, leakRowValue, costRowValue,
+  evaluateBusinessValue, workRowValue, leakRowValue, costRowValue, challengeRowValue,
   EMPTY_BUSINESS_VALUE, exampleFor, type BusinessValueInput,
 } from "@/lib/businessValue";
 
@@ -80,7 +80,7 @@ export default function BusinessValueAssessment({ value: v, onChange, productNam
               <h3 className="font-semibold text-foreground">{k === "challenges" ? "3. Verksamhetsutmaningar" : "4. Kostnader som ersätts"} <span className="text-muted-foreground font-normal">· {fmt(k === "challenges" ? r.challenges : r.itFees)}/år</span></h3>
               {v[k].map((row) => (
                 <div key={row.id} className="border-t border-border pt-3">
-                  <div className="flex justify-between gap-2 text-sm mb-2"><Label>{row.label}</Label><span className="text-muted-foreground shrink-0">{fmt(costRowValue(row))}</span></div>
+                  <div className="flex justify-between gap-2 text-sm mb-2"><Label>{row.label}</Label><span className="text-muted-foreground shrink-0">{fmt(k === "challenges" ? challengeRowValue(row) : costRowValue(row))}</span></div>
                   <div className="grid grid-cols-2 gap-2">
                     <NumField label="Kostnad per år" value={row.yearly} onChange={(n) => patch(k, row.id, { yearly: n })} suffix="kr" />
                     <NumField label="Andel som försvinner" value={row.savingPct} onChange={(n) => patch(k, row.id, { savingPct: n })} suffix="%" />
@@ -92,6 +92,7 @@ export default function BusinessValueAssessment({ value: v, onChange, productNam
         </div>
       </div>
       <p className="mt-4 text-lg font-semibold text-foreground">Möjlig verksamhetsnytta: {fmt(r.total)} per år</p>
+      <p className="mt-1 text-xs text-muted-foreground max-w-3xl">Försiktigt räknat: högst 80 % sparad tid per moment, högst 75 % räddade affärer och högst 30 % av en verksamhetsutmaning. Allt utom ersatta kostnader räknas dessutom ned med 15 % för att allt sällan fungerar fullt ut.</p>
     </section>
   );
 }
