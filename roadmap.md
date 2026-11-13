@@ -1,3 +1,8 @@
+## Kalkyler och branschval (2026-11-13)
+- [ ] Visa samma 21 klickbara branscher i kalkylernas befintliga branschval och behåll branschen till kravspecifikation.
+- [ ] Börja kostnads-, ROI- och TCO-kalkyler med lägsta omfattning och inga tillval; testa startvärden och sidflöden.
+- [ ] Kontrollera och förklara varför en användare kan ge över 500 tkr på fem år utan att ändra prisantaganden godtyckligt.
+
 ## Fit Model och intresselänkar (2026-11-13)
 - [x] Breddat modellens tabell till sidans marginaler; direktlänkar, sparade prioriteringar och dator/725 px/mobil verifierade. Fyra befintliga tester godkända, inga sidfel.
 - [x] Tagit bort upprepade intresselänkar från urvals-, käll- och rådgivningsytor; behållit sidfot och sakuppgifter på Om oss/juridiska sidor.
