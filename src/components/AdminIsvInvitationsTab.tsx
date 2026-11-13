@@ -350,7 +350,8 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
             <div className="space-y-3 text-sm">
               <div><Label>Om leverantören</Label><p className="mt-1 whitespace-pre-line">{review.payload?.description || "(oförändrat)"}</p></div>
               <div><Label>Webbplats</Label><p className="mt-1">{review.payload?.website || "(oförändrat)"}</p></div>
-              <div><Label>Logotyp</Label><p className="mt-1 break-all">{review.payload?.logo_url || "(oförändrat)"}</p></div>
+              <div><Label>Logotyp</Label>{review.payload?.logo_url ? <a href={review.payload.logo_url} target="_blank" rel="noreferrer"><img src={review.payload.logo_url} alt="Logotyp" className="mt-1 h-12 object-contain" /></a> : <p className="mt-1">(oförändrat)</p>}</div>
+              <div><Label>Foto på säljare</Label>{review.payload?.contact_photo_url ? <a href={review.payload.contact_photo_url} target="_blank" rel="noreferrer"><img src={review.payload.contact_photo_url} alt="Säljare" className="mt-1 h-16 w-16 object-cover rounded-full" /></a> : <p className="mt-1">(inget)</p>}</div>
               <div className="text-muted-foreground">{review.contact_name} · {review.contact_email}{review.notes && <p className="mt-2 italic">{review.notes}</p>}</div>
             </div>
           )}
