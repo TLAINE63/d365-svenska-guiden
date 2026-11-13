@@ -5,12 +5,12 @@ import { nowrapBrand } from "@/lib/nowrapBrand";
 import FitPrioritySelect from "@/components/FitPrioritySelect";
 import { Button } from "@/components/ui/button";
 
-/** framed: renderas inuti förälderns innehållsbredd (t.ex. som kort i Min D365-plan) i stället för eget smalt band. */
+/** framed: renderas inuti förälderns innehållsbredd (t.ex. Min D365-plan). */
 export default function FitModel({ model, heading, framed = false, className = "" }: { model: FitModelKey; heading?: string; framed?: boolean; className?: string }) {
   const value = fitModels[model];
   return (
     <section id={`d365-${model}-fit-model`} data-fit-model={model} aria-labelledby={`${model}-fit-title`} className={framed ? `scroll-mt-28 ${className}` : "scroll-mt-24 border-y border-border py-8 sm:py-10"}>
-      <div className={framed ? "" : "container mx-auto max-w-3xl px-4 sm:px-6"}>
+      <div className={framed ? "min-w-0" : "container mx-auto max-w-6xl px-4 sm:px-6"}>
         {framed && <p className="plan-eyebrow mb-2">Beslutsstöd</p>}
         <h2 id={`${model}-fit-title`} className={`${framed ? "text-2xl sm:text-3xl" : "text-xl"} font-semibold text-foreground`}>{nowrapBrand(heading ?? value.name)}</h2>
         <p className="mt-1 text-xs text-muted-foreground">{value.name} · Redaktionellt beslutsstöd</p>
@@ -21,7 +21,7 @@ export default function FitModel({ model, heading, framed = false, className = "
             <ChevronDown aria-hidden="true" className="h-4 w-4 shrink-0 group-open:rotate-180" />
           </summary>
         <p className="mt-3 text-sm leading-relaxed text-foreground">Inga godtyckliga poäng används. Saknat underlag betyder att frågan behöver utredas, inte att ett system eller en partner är lämplig eller olämplig. Kritiska krav måste beläggas innan beslut.</p>
-        <div className="mt-5 max-w-full overflow-x-auto">
+        <div role="region" aria-label={`${value.name}: bedömningsunderlag`} tabIndex={0} className="mt-5 max-w-full overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           <table className="w-full min-w-[800px] table-fixed border-collapse text-left text-xs sm:text-sm">
             <caption className="sr-only">{value.name}: dimensioner, underlag och beslutstolkning</caption>
             <thead><tr className="border-b border-border bg-muted"><th scope="col" className="w-1/5 p-2 sm:p-3">Bedömningsdimension</th><th scope="col" className="w-1/4 p-2 sm:p-3">Underlag att kontrollera</th><th scope="col" className="p-2 sm:p-3">Så påverkar det beslutet</th><th scope="col" className="w-1/5 p-2 sm:p-3">Er prioritering</th></tr></thead>

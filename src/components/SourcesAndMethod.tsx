@@ -41,7 +41,6 @@ export default function SourcesAndMethod({ externalSources = [], partnerEvidence
           {externalSources.length ? <SourceList sources={externalSources} /> : <p className="text-sm leading-relaxed text-muted-foreground">Separata externa källhänvisningar är inte specificerade för den här guiden.</p>}
         </div>
         <div className="min-w-0"><h3 className="mb-3 text-base font-semibold text-foreground">Redaktionell bedömning</h3><p className="text-sm leading-relaxed text-muted-foreground">{nowrapBrand(analysis)}</p>
-          <Link to="/agande-och-intressen/" className="mt-3 inline-block text-xs text-primary underline underline-offset-4">Avsändare och kommersiella intressen</Link>
         </div>
       </div>
       {partnerEvidence.length > 0 && <div className="mt-7 border-t border-border pt-5"><h3 className="mb-3 text-base font-semibold text-foreground">Partnerunderlag</h3><SourceList sources={partnerEvidence} /></div>}

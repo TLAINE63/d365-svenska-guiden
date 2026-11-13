@@ -765,10 +765,6 @@ const ValjPartner = () => {
       <p className="text-muted-foreground leading-relaxed mb-2">
        Står ni inför att välja eller utvärdera implementeringspartner för Microsoft{"\u00A0"}Dynamics{"\u00A0"}365? Jag hjälper er att bena ut behoven och hitta partners som passar er bransch och storlek. Det kostar ingenting för er.
       </p>
-      <p className="text-xs text-muted-foreground mb-4">
-       Hur d365.se finansieras läser ni under{" "}
-       <Link to="/agande-och-intressen/" className="underline underline-offset-2 hover:text-primary">Ägande och intressen</Link>.
-      </p>
       <AdvisorContactButtons bookingLabel="Boka 20 min rådgivning" />
      </div>
     </div>
