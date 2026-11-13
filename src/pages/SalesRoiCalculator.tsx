@@ -40,6 +40,13 @@ import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { readSalesRoiPrefill } from "@/lib/salesChainLinks";
 import CalcToKravNext from "@/components/CalcToKravNext";
+import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
+import { EMPTY_BUSINESS_VALUE, evaluateBusinessValue, realizedBenefit, type BusinessValueInput } from "@/lib/businessValue";
+import { REALIZATION, type CaseIndustry } from "@/lib/bcInvestmentCase";
+
+/** CRM-branschmodell till gemensam realiserings- och exempelbransch. */
+const salesToCase = (m: string): CaseIndustry =>
+  m === "Tillverkning" ? "Tillverkning" : m === "Distribution & grossist" ? "Distribution" : m === "B2B-tjänster" || m === "Tech & SaaS" ? "Tjänster" : "Annan";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -101,6 +108,9 @@ export default function SalesRoiCalculator() {
   const [showAssumptions, setShowAssumptions] = useState(false);
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(15);
+  const [bva, setBva] = useState<BusinessValueInput>(EMPTY_BUSINESS_VALUE);
+  const bvaRes = useMemo(() => evaluateBusinessValue(bva), [bva]);
+  const itFees = bvaRes.itFees;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -175,13 +185,14 @@ export default function SalesRoiCalculator() {
     const integrationSavings = v.integrations * 40_000;
     const annualBenefit =
       (driverSavings * adminMultiplier * userFactor + integrationSavings) *
-      complexityFactor[v.complexity];
+      complexityFactor[v.complexity] + (bvaRes.total - bvaRes.itFees);
+    const ramp = REALIZATION[salesToCase(salesIndustryModel(v.industry))].custom;
 
-    const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
+    const netAnnual = annualBenefit + itFees - licenseYearly - supportYearly;
     const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
 
     const tco5 = implementation + 5 * licenseYearly + supportYear1 + 4 * supportYearly;
-    const benefit5 = 5 * annualBenefit + 5 * v.currentItCost;
+    const benefit5 = realizedBenefit(annualBenefit, 5, ramp) + 5 * itFees;
     const net5 = benefit5 - tco5;
     const roiPct = implementation > 0 ? (net5 / implementation) * 100 : 0;
 
@@ -206,7 +217,7 @@ export default function SalesRoiCalculator() {
       roiPct,
       incrementalDealsPerYear,
     };
-  }, [v, perSellerPrice, perOpsPrice, activeDrivers, implementationOverride, supportPercent]);
+  }, [v, perSellerPrice, perOpsPrice, activeDrivers, implementationOverride, supportPercent, bvaRes, itFees]);
 
   const priceMissing = perSellerPrice == null;
 
@@ -449,20 +460,8 @@ export default function SalesRoiCalculator() {
 
                     <RoiCostControls estimated={calc.estimatedImplementation} override={implementationOverride} onImplementation={setImplementationOverride} supportPercent={supportPercent} onSupportPercent={setSupportPercent} />
 
-                    {/* Nuvarande IT-kostnad */}
-                    <div className="space-y-2">
-                      <Label htmlFor="cur">Nuvarande CRM-/IT-kostnad per år</Label>
-                      <Input
-                        id="cur"
-                        inputMode="numeric"
-                        value={fmtSekInput(v.currentItCost)}
-                        onChange={(e) => update("currentItCost", parseNum(e.target.value))}
-                      />
-                      <p className="text-xs text-muted-foreground">{fmtSek(v.currentItCost)}</p>
-                    </div>
-
-                    <div className="flex gap-3 pt-2">
-                      <Button variant="ghost" onClick={() => { setV(DEFAULTS); setImplementationOverride(null); setSupportPercent(15); }}>Återställ värden</Button>
+<div className="flex gap-3 pt-2">
+                      <Button variant="ghost" onClick={() => { setV(DEFAULTS); setImplementationOverride(null); setSupportPercent(15); setBva(EMPTY_BUSINESS_VALUE); }}>Återställ värden</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -531,6 +530,8 @@ export default function SalesRoiCalculator() {
               </div>
             </div>
 
+            <BusinessValueAssessment value={bva} onChange={setBva} productName="Sales" productKey="sales" industry={salesToCase(modelIndustry)} />
+
             {/* PDF DOWNLOAD */}
             <div className="mt-10 max-w-3xl mx-auto">
               <RoiPdfDownload
@@ -560,7 +561,8 @@ export default function SalesRoiCalculator() {
                       { label: "Säljprocessens komplexitet", value: v.complexity },
                       { label: "Andel adminstid idag", value: `${v.adminPct}%` },
                       { label: "Antal integrationer", value: String(v.integrations) },
-                      { label: "Nuvarande CRM-/IT-kostnad/år", value: fmtSek(v.currentItCost) },
+                      { label: "Kostnader som ersätts/år", value: fmtSek(itFees) },
+                      { label: "Verksamhetsvärdering (nytta/år)", value: fmtSek(bvaRes.total - bvaRes.itFees) },
                     ],
                     costRows: [
                       { label: `Säljarlicenser (${v.license})`, value: fmtSek(calc.sellerCost), sub: "/mån" },
@@ -586,7 +588,8 @@ export default function SalesRoiCalculator() {
                       { title: "Implementation", body: `Vald införandekostnad: ${fmtSek(calc.implementation)} (${implementationOverride === null ? "beräknad" : "eget antagande"}). Bas: Låg 120 000 kr, Medel 275 000 kr, Hög 600 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform).` },
                       { title: "Förvaltning", body: `År 1: 10 % av vald införandekostnad. Från år 2: ${supportPercent} % per år (${fmtSek(calc.supportYearly)}).` },
                       { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare är en kombination av per säljare-belopp och en liten andel av omsättning (taklagd). Summan skalas med antal säljare – baseline 10 säljare = 1,0×, sublinjärt så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden." },
-                      { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × licens + förvaltning år 1 + 4 × förvaltning år 2+. 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
+                      { title: "Verksamhetsvärdering", body: "Nyttan från verksamhetsvärderingen läggs till. Spärrar: högst 80 % sparad tid per moment, högst 75 % räddade affärer, högst 30 % av en verksamhetsutmaning, och allt utom ersatta kostnader räknas ned med 15 % för införandeförluster." },
+                      { title: "Payback & TCO", body: `Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × licens + förvaltning år 1 + 4 × förvaltning år 2+. Nyttan realiseras stegvis: ${Math.round(REALIZATION[salesToCase(modelIndustry)].custom[0]*100)} % år 1, ${Math.round(REALIZATION[salesToCase(modelIndustry)].custom[1]*100)} % år 2, full därefter (beror på bransch). 5-årig ROI = (realiserad nytta + 5 × ersatt IT-kostnad − TCO) / implementation.` },
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet och datamigrering, säljträning, externa marketing automation-licenser, Power Platform-tillägg utöver standard samt integrationsplattform (iPaaS) hanteras separat." },
                     ],
                     ...(() => {

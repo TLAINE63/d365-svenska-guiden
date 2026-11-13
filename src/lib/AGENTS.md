@@ -29,3 +29,4 @@
 
 - Redaktion remember preference expires after 30 days; editor-session revalidates roles on entry and foreground renewal, never extending the HMAC token to 30 days.
 - ROI calculators (BC and ProductRoiAnalysis) add the product-neutral Business Value Assessment from src/lib/businessValue.ts (manual work, lost business on contribution margin, business challenges, replaced costs; empty by default with an example button), so benefit comes from the buyer's own problems.
+- Business Value Assessment caps savings in src/lib/businessValue.ts (row caps + REALISM_FACTOR, replaced costs uncapped) and ramps benefit via REALIZATION per industry; Sales, BC, ProductRoi and /verksamhetsvardering/ share it, so no calculator can inflate benefit on its own.

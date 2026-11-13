@@ -127,6 +127,7 @@ const MENUS: NavMenu[] = [
         heading: "Planera investeringen",
         items: [
           { label: "Pris- och omfattningskalkylator", path: "/implementationskalkylator/" },
+          { label: "Verksamhetsvärdering", path: "/verksamhetsvardering/" },
           { label: "Kravspecifikation", path: "/kravspecifikation/" },
           { label: "Beslutsmognadsindex", path: "/beslutsmognad/" },
           { label: "Min D365-plan", path: "/underlag/" },

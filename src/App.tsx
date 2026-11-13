@@ -117,6 +117,7 @@ const GuiderIndex = lazy(() => import("./pages/GuiderIndex"));
 const KompetensOversikt = lazy(() => import("./pages/KompetensOversikt"));
 const CompetenceGuidePage = lazy(() => import("./pages/CompetenceGuidePage"));
 const RoleGuidance = lazy(() => import("./pages/RoleGuidance"));
+const BusinessValuePage = lazy(() => import("./pages/BusinessValuePage"));
 const BefintligKund = lazy(() => import("./pages/BefintligKund"));
 const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
@@ -256,6 +257,7 @@ const AppShell = () => {
           <Route path="/kompetens" element={<KompetensOversikt />} />
           <Route path="/kompetens/:slug" element={<CompetenceGuidePage />} />
           <Route path="/roller" element={<RoleGuidance />} />
+          <Route path="/verksamhetsvardering" element={<BusinessValuePage />} />
           <Route path="/befintlig-kund/resultat?" element={<BefintligKund />} />
           <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
           <Route path="/second-opinion" element={<SecondOpinion />} />

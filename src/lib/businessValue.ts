@@ -23,19 +23,27 @@ export interface BusinessValueResult {
 }
 
 const pos = (n: number) => (Number.isFinite(n) && n > 0 ? n : 0);
-const pct = (n: number) => Math.min(100, pos(n)) / 100;
+const pct = (n: number, max = 100) => Math.min(max, pos(n)) / 100;
+
+/** Spärrar så att nyttan inte skenar: tak per rad och en försiktighetsfaktor för införandeförluster. */
+export const MAX_WORK_SAVING = 80; // % av tiden som kan sparas i ett moment
+export const MAX_LEAK_SAVING = 75; // % av förlorade affärer som kan räddas
+export const MAX_CHALLENGE_SAVING = 30; // % av en verksamhetsutmaning som systemet påverkar
+export const REALISM_FACTOR = 0.85; // allt fungerar inte fullt ut i praktiken
+/** Ersatta kostnader räknas fullt (de försvinner), övriga delar dämpas. */
 
 export const workRowValue = (r: WorkRow, hourlyCost: number) =>
-  ((pos(r.minutes) * pos(r.perMonth) * 12) / 60) * pos(hourlyCost) * pct(r.savingPct);
+  ((pos(r.minutes) * pos(r.perMonth) * 12) / 60) * pos(hourlyCost) * pct(r.savingPct, MAX_WORK_SAVING) * REALISM_FACTOR;
 export const leakRowValue = (r: LeakRow, marginPct: number) =>
-  pos(r.value) * pos(r.perYear) * pct(marginPct) * pct(r.savingPct);
+  pos(r.value) * pos(r.perYear) * pct(marginPct) * pct(r.savingPct, MAX_LEAK_SAVING) * REALISM_FACTOR;
+export const challengeRowValue = (r: CostRow) => pos(r.yearly) * pct(r.savingPct, MAX_CHALLENGE_SAVING) * REALISM_FACTOR;
 export const costRowValue = (r: CostRow) => pos(r.yearly) * pct(r.savingPct);
 
 export function evaluateBusinessValue(i: BusinessValueInput): BusinessValueResult {
   const work = i.work.reduce((s, r) => s + workRowValue(r, i.hourlyCost), 0);
-  const hoursFreed = i.work.reduce((s, r) => s + ((pos(r.minutes) * pos(r.perMonth) * 12) / 60) * pct(r.savingPct), 0);
+  const hoursFreed = i.work.reduce((s, r) => s + ((pos(r.minutes) * pos(r.perMonth) * 12) / 60) * pct(r.savingPct, MAX_WORK_SAVING) * REALISM_FACTOR, 0);
   const leakage = i.leakage.reduce((s, r) => s + leakRowValue(r, i.marginPct), 0);
-  const challenges = i.challenges.reduce((s, r) => s + costRowValue(r), 0);
+  const challenges = i.challenges.reduce((s, r) => s + challengeRowValue(r), 0);
   const itFees = i.itFees.reduce((s, r) => s + costRowValue(r), 0);
   return { work, leakage, challenges, itFees, hoursFreed, total: work + leakage + challenges + itFees };
 }
@@ -166,7 +174,24 @@ export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
 const CRM_KEYS = ["sales", "customer-service", "field-service", "contact-center", "customer-insights", "crm"];
 /** Rätt exempelbolag per produkt: CRM-produkter får CRM-modellen, övriga ERP-modellen. */
 export const exampleFor = (productKey?: string, industry?: string): BusinessValueInput =>
-  productKey && CRM_KEYS.includes(productKey) ? CRM_EXAMPLE_BUSINESS_VALUE : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
+  productKey && CRM_KEYS.includes(productKey) ? crmExampleForIndustry(industry) : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
+
+const CRM = CRM_EXAMPLE_BUSINESS_VALUE;
+const crmCommon = CRM.work.filter((r) => ["lead", "sales"].includes(r.id));
+/** CRM-exempelbolag per branschmodell. */
+export const CRM_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
+  Tillverkning: { ...CRM, work: [...crmCommon, w("config", "Offert med produktkonfiguration", 30, 40, 50), w("aftersales", "Service- och reservdelsförfrågningar", 10, 100, 50)],
+    leakage: [l("missed", "Missade affärer", 150_000, 3, 80), l("renewal", "Missade serviceavtal och eftermarknad", 40_000, 4, 70), l("lost", "Förlorade kunder", 300_000, 1, 50)] },
+  Distribution: { ...CRM, work: [...crmCommon, w("reorder", "Uppföljning av återköp", 5, 200, 60), w("quote", "Offert och prisförfrågningar", 10, 150, 50)],
+    leakage: [l("missed", "Missade merförsäljningar", 30_000, 10, 70), l("churn", "Kunder som tyst minskar köpen", 100_000, 2, 50), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
+  Tjänster: { ...CRM, hourlyCost: 800, work: [...crmCommon, w("proposal", "Anbud och uppdragsförslag", 120, 8, 40), w("crm2proj", "Överlämning från affär till uppdrag", 30, 10, 70)],
+    leakage: [l("missed", "Missade uppdrag", 200_000, 2, 70), l("renewal", "Förlängningar som uteblir", 100_000, 2, 60), l("lost", "Förlorade kunder", 250_000, 1, 50)] },
+};
+export const crmExampleForIndustry = (industry?: string): BusinessValueInput => (industry && CRM_INDUSTRY_EXAMPLES[industry]) || CRM;
+
+/** Nytta över N år med realiseringstakt (andel år 1, år 2, därefter full). */
+export const realizedBenefit = (annual: number, years: number, ramp: [number, number]) =>
+  Array.from({ length: years }, (_, i) => (i === 0 ? ramp[0] : i === 1 ? ramp[1] : 1)).reduce((s, f) => s + annual * f, 0);
 
 const BC = BC_EXAMPLE_BUSINESS_VALUE;
 const common = BC.work.filter((r) => ["invoice", "close", "ap", "bank"].includes(r.id));
