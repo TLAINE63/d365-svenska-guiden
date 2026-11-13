@@ -28,3 +28,4 @@
 - Download forms share DownloadContactOptIn + downloadConsent.ts (never pre-ticked); only leads.consent_contact = true downloads export to Demand Engine as nedladdning, so plain downloads stay anonymous domain events.
 
 - Redaktion remember preference expires after 30 days; editor-session revalidates roles on entry and foreground renewal, never extending the HMAC token to 30 days.
+- ROI calculators (BC and ProductRoiAnalysis) add the product-neutral Business Value Assessment from src/lib/businessValue.ts (manual work, lost business on contribution margin, business challenges, replaced costs; empty by default with an example button), so benefit comes from the buyer's own problems.
