@@ -140,7 +140,7 @@ export default function ProductRoiPage({ productKey }: Props) {
                 </Assumption>
                 <Assumption title="Förvaltning">
                   År 1 ≈ {(cfg.supportPctYear1 * 100).toFixed(0)} % av implementationskostnaden
-                  (projektet pågår). Från år 2 ≈ {(cfg.supportPctYearly * 100).toFixed(0)} % per år.
+                  (projektet pågår). Från år 2 används procenten ni valt i kalkylen (förval {(cfg.supportPctYearly * 100).toFixed(0)} %).
                 </Assumption>
                 <Assumption title="Årlig nytta">
                   Nyttan summeras från de drivare du bockat i. Varje drivare har en grundnivå
