@@ -23,9 +23,9 @@ function NumField({ label, value, onChange, suffix }: { label: string; value: nu
   );
 }
 
-interface Props { value: BusinessValueInput; onChange: (v: BusinessValueInput) => void; productName?: string; productKey?: string }
+interface Props { value: BusinessValueInput; onChange: (v: BusinessValueInput) => void; productName?: string; productKey?: string; industry?: string }
 
-export default function BusinessValueAssessment({ value: v, onChange, productName = "Dynamics\u00A0365", productKey }: Props) {
+export default function BusinessValueAssessment({ value: v, onChange, productName = "Dynamics\u00A0365", productKey, industry }: Props) {
   const r = useMemo(() => evaluateBusinessValue(v), [v]);
   const set = <K extends keyof BusinessValueInput>(k: K, val: BusinessValueInput[K]) => onChange({ ...v, [k]: val });
   const patch = <K extends "work" | "leakage" | "challenges" | "itFees">(k: K, id: string, p: Partial<BusinessValueInput[K][number]>) =>
@@ -40,7 +40,7 @@ export default function BusinessValueAssessment({ value: v, onChange, productNam
       <div className="flex flex-wrap gap-3 mb-6 items-end">
         <div className="w-40"><NumField label="Intern kostnad per timme" value={v.hourlyCost} onChange={(n) => set("hourlyCost", n)} suffix="kr" /></div>
         <div className="w-40"><NumField label="Täckningsgrad på förlorad försäljning" value={v.marginPct} onChange={(n) => set("marginPct", n)} suffix="%" /></div>
-        <Button variant="outline" size="sm" onClick={() => onChange(exampleFor(productKey))}>Fyll i exempelbolag</Button>
+        <Button variant="outline" size="sm" onClick={() => onChange(exampleFor(productKey, industry))}>Fyll i exempelbolag</Button>
         <Button variant="ghost" size="sm" onClick={() => onChange(EMPTY_BUSINESS_VALUE)}>Töm</Button>
       </div>
 

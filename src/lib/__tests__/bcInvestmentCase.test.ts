@@ -30,3 +30,13 @@ describe("NPV", () => {
     expect(Math.round(r.npv)).toBe(Math.round((105_000 - 50_000) / 1.05 + 105_000 / 1.05 ** 2 + 105_000 / 1.05 ** 3));
   });
 });
+
+import { REALIZATION } from "@/lib/bcInvestmentCase";
+describe("industry realization", () => {
+  it("manufacturing realizes custom benefit slower than services", () => {
+    const b = { currentYearly: 0, licenseYearly: 0, supportPercent: 0, customImplementation: 300_000, annualBenefit: 100_000, scenario: "normal" as const, years: 3 as const };
+    expect(evaluatePath("custom", { ...b, industry: "Tillverkning" }).benefit).toBe(100_000 * (0.35 + 0.7 + 1));
+    expect(evaluatePath("custom", { ...b, industry: "Tjänster" }).benefit).toBe(100_000 * (0.6 + 0.9 + 1));
+    expect(REALIZATION.Annan.custom).toEqual([0.5, 0.8]);
+  });
+});

@@ -1,12 +1,21 @@
 import { useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { evaluateAll, QUICKSTART_PRICE, type DeliveryPath, type Scenario, type CaseInput } from "@/lib/bcInvestmentCase";
+import { evaluateAll, QUICKSTART_PRICE, REALIZATION, type DeliveryPath, type Scenario, type CaseInput } from "@/lib/bcInvestmentCase";
 import { BC_QUICKSTARTS } from "@/data/bcProjectEstimates";
 
 const fmt = (n: number) => new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
 
-const PATHS: Record<DeliveryPath, { title: string; body: string }> = {
+const pc = (n: number) => `${Math.round(n * 100)} %`;
+const paths = (ind: keyof typeof REALIZATION): Record<DeliveryPath, { title: string; body: string }> => {
+  const r = REALIZATION[ind];
+  return {
+    quickstart: { title: "Paketerad snabbstart", body: `Från ${fmt(QUICKSTART_PRICE)} för behov som ryms i ett standardpaket.` },
+    phased: { title: "Etappvis införande", body: `Liten investering år 1 (bara standardflöden, ${pc(r.phased[0])} av nyttan, ${pc(r.phased[1])} år 2). Resten år 2 med 10 % extra för ny uppstart. Lägre risk, något dyrare totalt.` },
+    custom: { title: "Anpassad implementation", body: `Hela omfattningen enligt kalkylen ovan. ${pc(r.custom[0])} av nyttan år 1, ${pc(r.custom[1])} år 2${ind === "Annan" ? "" : ` (typiskt för ${ind.toLowerCase()})`}.` },
+  };
+};
+const UNUSED: Record<DeliveryPath, { title: string; body: string }> = {
   quickstart: { title: "Paketerad snabbstart", body: `Från ${fmt(QUICKSTART_PRICE)} för behov som ryms i ett standardpaket.` },
   phased: { title: "Etappvis införande", body: "Liten investering år 1 (bara standardflöden, 30 % av nyttan). Resten år 2 med 10 % extra för ny uppstart. Lägre risk, något dyrare totalt." },
   custom: { title: "Anpassad implementation", body: "Hela omfattningen enligt kalkylen ovan. Halv nytta första året." },
@@ -17,6 +26,7 @@ type Props = Omit<CaseInput, "scenario" | "years">;
 export default function BcInvestmentCase(props: Props) {
   const [scenario, setScenario] = useState<Scenario>("normal");
   const [years, setYears] = useState<3 | 5>(5);
+  const PATHS = paths(props.industry ?? "Annan");
   const results = useMemo(() => evaluateAll({ ...props, scenario, years }), [props, scenario, years]);
 
   return (
