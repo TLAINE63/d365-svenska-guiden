@@ -25,6 +25,11 @@ export default function BcInvestmentCase(props: Props) {
       <p className="text-muted-foreground mb-5 max-w-3xl">
         Tre sätt att införa Business&nbsp;Central, jämförda med att behålla nuvarande lösning ({fmt(props.currentYearly)} per år). Merkostnaden är engångsinvestering plus skillnaden i årlig kostnad.
       </p>
+      {(props.annualBenefit === 0 || props.currentYearly === 0) && (
+        <p className="mb-5 text-sm text-foreground bg-secondary/60 rounded-md p-3 max-w-3xl">
+          Fyll i nuvarande IT-kostnad och välj nyttoområden ovan för att se ett rättvisande resultat. Utan dem räknas bara kostnaden.
+        </p>
+      )}
       <div className="flex flex-wrap gap-4 mb-6">
         <ToggleGroup type="single" value={scenario} onValueChange={(x) => x && setScenario(x as Scenario)} aria-label="Scenario">
           <ToggleGroupItem value="cautious">Försiktigt (−25 %)</ToggleGroupItem>
