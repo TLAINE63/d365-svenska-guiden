@@ -1,3 +1,5 @@
+import RoiCostControls from "@/components/RoiCostControls";
+import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import { ROI_DEFAULTS } from "@/lib/calculatorDefaults";
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
@@ -63,6 +65,8 @@ export default function ProductRoiAnalysis({
   const priceMap = usePriceMap();
 
   const [companyName, setCompanyName] = useState("");
+  const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
+  const [supportPercent, setSupportPercent] = useState(cfg.supportPctYearly * 100);
   const [csPrefill] = useState(() =>
     typeof window === "undefined" || !["customer-service", "field-service", "contact-center"].includes(productKey) ? {} : readServiceRoiPrefill(window.location.search)
   );
@@ -118,13 +122,12 @@ export default function ProductRoiAnalysis({
     };
     const usersFactor = 1 + Math.max(0, totalUsers - 25) * cfg.implUserScale;
     const driverImplCost = activeDrivers.reduce((s, d) => s + d.implCost, 0);
-    const implementation =
+    const estimatedImplementation =
       cfg.baseImplementation * complexityImplFactor[complexity] * usersFactor +
       integrations * 30_000 +
       driverImplCost;
 
-    const supportYear1 = implementation * cfg.supportPctYear1;
-    const supportYearly = implementation * cfg.supportPctYearly;
+    const { implementation, supportYear1, supportYearly } = roiProjectCosts(estimatedImplementation, implementationOverride, cfg.supportPctYear1, supportPercent);
 
     const complexityFactor: Record<Complexity, number> = {
       Låg: 0.6,
@@ -156,6 +159,7 @@ export default function ProductRoiAnalysis({
     const roiPct = implementation > 0 ? (net5 / implementation) * 100 : 0;
 
     return {
+      estimatedImplementation,
       implementation,
       supportYear1,
       supportYearly,
@@ -168,6 +172,8 @@ export default function ProductRoiAnalysis({
     };
   }, [
     cfg,
+    implementationOverride,
+    supportPercent,
     activeDrivers,
     complexity,
     integrations,
@@ -362,6 +368,8 @@ export default function ProductRoiAnalysis({
                   </div>
                 </div>
 
+                    <RoiCostControls estimated={calc.estimatedImplementation} override={implementationOverride} onImplementation={setImplementationOverride} supportPercent={supportPercent} onSupportPercent={setSupportPercent} />
+
                 {/* Integrationer / nuvarande IT */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -543,7 +551,7 @@ export default function ProductRoiAnalysis({
                 },
                 {
                   title: "Implementation",
-                  body: `Bas: ${fmtSek(cfg.baseImplementation)} (Medel). Skalas med komplexitet (Låg 0,6× / Medel 1,0× / Hög 1,5×), användarvolym (+${(
+                  body: `Vald införandekostnad: ${fmtSek(calc.implementation)} (${implementationOverride === null ? "beräknad" : "eget antagande"}). Bas: ${fmtSek(cfg.baseImplementation)} (Medel). Skalas med komplexitet (Låg 0,6× / Medel 1,0× / Hög 1,5×), användarvolym (+${(
                     cfg.implUserScale * 100
                   ).toFixed(1)} % per användare över 25), + 30 000 kr per integration och en engångskostnad per vald drivare.`,
                 },
@@ -552,7 +560,7 @@ export default function ProductRoiAnalysis({
                   body: `År 1 ≈ ${(cfg.supportPctYear1 * 100).toFixed(
                     0
                   )} % av implementation (projektet pågår). Från år 2 ≈ ${(
-                    cfg.supportPctYearly * 100
+                    supportPercent
                   ).toFixed(0)} % per år.`,
                 },
                 {

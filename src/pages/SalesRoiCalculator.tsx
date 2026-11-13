@@ -1,3 +1,5 @@
+import RoiCostControls from "@/components/RoiCostControls";
+import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
 import { ROI_DEFAULTS, salesIndustryModel } from "@/lib/calculatorDefaults";
 import { useEffect, useMemo, useState } from "react";
@@ -97,6 +99,8 @@ export default function SalesRoiCalculator() {
     typeof window === "undefined" ? DEFAULTS : { ...DEFAULTS, ...readSalesRoiPrefill(window.location.search) },
   );
   const [showAssumptions, setShowAssumptions] = useState(false);
+  const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
+  const [supportPercent, setSupportPercent] = useState(15);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -146,7 +150,7 @@ export default function SalesRoiCalculator() {
     const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
     const premiumAddon = v.license === "Premium" ? 150_000 : 0;
     const enterpriseAddon = v.license === "Enterprise" ? 50_000 : 0;
-    const implementation =
+    const estimatedImplementation =
       complexityImpl[v.complexity] * usersFactor * industryFactor +
       v.integrations * 35_000 +
       driverImplCost +
@@ -155,8 +159,7 @@ export default function SalesRoiCalculator() {
 
     // CRM-förvaltning ligger ofta lite lägre än ERP – mer konfiguration, mindre tung integration.
     // År 1: ~10 % av implementation (projekt pågår). År 2–5: ~15 %/år.
-    const supportYear1 = implementation * 0.1;
-    const supportYearly = implementation * 0.15;
+    const { implementation, supportYear1, supportYearly } = roiProjectCosts(estimatedImplementation, implementationOverride, 0.1, supportPercent);
 
     const complexityFactor: Record<Complexity, number> = { Låg: 0.7, Medel: 1, Hög: 1.25 };
     // Hur stor del av säljarens tid som idag går till admin styr hur mycket Copilot/CRM-effektiviseringar slår.
@@ -190,6 +193,7 @@ export default function SalesRoiCalculator() {
       licenseYearly,
       sellerCost,
       opsCost,
+      estimatedImplementation,
       implementation,
       supportYear1,
       supportYearly,
@@ -202,7 +206,7 @@ export default function SalesRoiCalculator() {
       roiPct,
       incrementalDealsPerYear,
     };
-  }, [v, perSellerPrice, perOpsPrice, activeDrivers]);
+  }, [v, perSellerPrice, perOpsPrice, activeDrivers, implementationOverride, supportPercent]);
 
   const priceMissing = perSellerPrice == null;
 
@@ -443,6 +447,8 @@ export default function SalesRoiCalculator() {
                         onChange={(e) => update("integrations", Math.max(0, Number(e.target.value) || 0))} />
                     </div>
 
+                    <RoiCostControls estimated={calc.estimatedImplementation} override={implementationOverride} onImplementation={setImplementationOverride} supportPercent={supportPercent} onSupportPercent={setSupportPercent} />
+
                     {/* Nuvarande IT-kostnad */}
                     <div className="space-y-2">
                       <Label htmlFor="cur">Nuvarande CRM-/IT-kostnad per år</Label>
@@ -456,7 +462,7 @@ export default function SalesRoiCalculator() {
                     </div>
 
                     <div className="flex gap-3 pt-2">
-                      <Button variant="ghost" onClick={() => setV(DEFAULTS)}>Återställ värden</Button>
+                      <Button variant="ghost" onClick={() => { setV(DEFAULTS); setImplementationOverride(null); setSupportPercent(15); }}>Återställ värden</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -577,8 +583,8 @@ export default function SalesRoiCalculator() {
 
                     assumptions: [
                       { title: "Licens", body: "Priser hämtas från d365.se centrala prisregister (Microsofts listpriser för Sales Professional, Enterprise och Premium, SEK/mån exkl. moms). Faktiskt pris beror på avtalsform (EA, CSP), volym och förhandling. Sales Ops antas använda Enterprise-licens." },
-                      { title: "Implementation", body: "Bas: Låg 120 000 kr, Medel 275 000 kr, Hög 600 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform)." },
-                      { title: "Förvaltning", body: "CRM-förvaltning ligger normalt lägre än ERP. År 1 antas cirka 10 % av implementationskostnaden, eftersom huvuddelen av insatsen går till själva projektet. Från år 2 antas normal förvaltningsnivå om cirka 15 % per år." },
+                      { title: "Implementation", body: `Vald införandekostnad: ${fmtSek(calc.implementation)} (${implementationOverride === null ? "beräknad" : "eget antagande"}). Bas: Låg 120 000 kr, Medel 275 000 kr, Hög 600 000 kr. Skalas mjukt med antal säljare (+1,5 % per säljare över 15) och med en branschfaktor som speglar typisk projekttyngd för CRM-införanden: Tillverkning 1,3× · Finans & försäkring 1,3× · Distribution 1,1× · Tech & SaaS 1,0× · Bygg 1,0× · B2B-tjänster 0,9× · Annan 1,0×. Därtill + 35 000 kr per integration, + engångskostnad per vald effektiviseringsdrivare (60–150 000 kr beroende på område), + 150 000 kr om Premium krävs och + 50 000 kr för Enterprise (anpassning & Power Platform).` },
+                      { title: "Förvaltning", body: `År 1: 10 % av vald införandekostnad. Från år 2: ${supportPercent} % per år (${fmtSek(calc.supportYearly)}).` },
                       { title: "Årlig nytta", body: "Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare är en kombination av per säljare-belopp och en liten andel av omsättning (taklagd). Summan skalas med antal säljare – baseline 10 säljare = 1,0×, sublinjärt så att 5 säljare ger ~0,7× och 50 säljare ~2,5×. Den justeras sedan med andelen säljaradminstid (0,6×–1,8×) och komplexitetsfaktor (0,7 / 1,0 / 1,25). Integrationer ger dessutom 40 000 kr/år vardera. Estimaten är baserade på Microsofts Business Value Assessment och svenska partnerbenchmarks för CRM-införanden." },
                       { title: "Payback & TCO", body: "Payback = implementation / (årlig nettonytta inkl. ersatt IT-kostnad). 5-årig TCO = implementation + 5 × licens + förvaltning år 1 + 4 × förvaltning år 2+. 5-årig ROI = (5 × årlig nytta + 5 × ersatt IT-kostnad − TCO) / implementation." },
                       { title: "Vad ingår inte", body: "Förändringsledning, datakvalitet och datamigrering, säljträning, externa marketing automation-licenser, Power Platform-tillägg utöver standard samt integrationsplattform (iPaaS) hanteras separat." },
@@ -658,7 +664,7 @@ export default function SalesRoiCalculator() {
                 </Assumption>
                 <Assumption title="Förvaltning">
                   CRM-förvaltning ligger normalt lägre än ERP. År 1 antas cirka 10 % av implementationskostnaden,
-                  eftersom huvuddelen av insatsen går till själva projektet. Från år 2 antas normal förvaltningsnivå om cirka 15 % per år.
+                  eftersom huvuddelen av insatsen går till själva projektet. Från år 2 räknas {supportPercent} % per år enligt ert val.
                 </Assumption>
                 <Assumption title="Årlig nytta">
                   Nyttan summeras från de drivare du bockat i för din bransch. Varje drivare är en kombination av per säljare-belopp och en
