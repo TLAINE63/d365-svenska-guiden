@@ -83,7 +83,7 @@ const IsvProgram = () => {
               <Button asChild size="lg" variant="secondary">
                 <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
                   <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Boka möte med Thomas
+                  Boka kostnadsfritt rådgivningsmöte med Thomas (d365.se)
                 </a>
               </Button>
             </div>
