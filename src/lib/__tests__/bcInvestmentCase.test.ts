@@ -18,7 +18,8 @@ describe("bcInvestmentCase", () => {
     expect(evaluatePath("quickstart", { ...base, scenario: "cautious" }).benefit).toBe(250_000 * 0.75 * 5);
   });
   it("phased invests quickstart plus remaining scope", () => {
-    expect(evaluatePath("phased", base).oneOff).toBe(300_000);
+    expect(evaluatePath("phased", base).oneOff).toBe(325_000);
+    expect(evaluatePath("phased", base).firstYearInvest).toBe(50_000);
   });
 });
 

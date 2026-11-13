@@ -8,7 +8,7 @@ const fmt = (n: number) => new Intl.NumberFormat("sv-SE", { maximumFractionDigit
 
 const PATHS: Record<DeliveryPath, { title: string; body: string }> = {
   quickstart: { title: "Paketerad snabbstart", body: `Från ${fmt(QUICKSTART_PRICE)} för behov som ryms i ett standardpaket.` },
-  phased: { title: "Etappvis införande", body: "Snabbstart år 1, resterande omfattning år 2. Nyttan växer stegvis." },
+  phased: { title: "Etappvis införande", body: "Liten investering år 1 (bara standardflöden, 30 % av nyttan). Resten år 2 med 10 % extra för ny uppstart. Lägre risk, något dyrare totalt." },
   custom: { title: "Anpassad implementation", body: "Hela omfattningen enligt kalkylen ovan. Halv nytta första året." },
 };
 
@@ -59,7 +59,8 @@ export default function BcInvestmentCase(props: Props) {
                 <dt className="text-muted-foreground">Nuvärde (NPV, 5 %)</dt><dd className="text-right font-medium">{fmt(r.npv)}</dd>
                 <dt className="text-muted-foreground">Merkostnad</dt><dd className="text-right font-medium">{fmt(r.extraCost)}</dd>
                 <dt className="text-muted-foreground">Verksamhetsnytta</dt><dd className="text-right font-medium">{fmt(r.benefit)}</dd>
-                <dt className="text-muted-foreground">Engångsinvestering</dt><dd className="text-right font-medium">{fmt(r.oneOff)}</dd>
+                <dt className="text-muted-foreground">Investering år 1</dt><dd className="text-right font-medium">{fmt(r.firstYearInvest)}</dd>
+                <dt className="text-muted-foreground">Engångsinvestering totalt</dt><dd className="text-right font-medium">{fmt(r.oneOff)}</dd>
               </dl>
             </CardContent>
           </Card>
