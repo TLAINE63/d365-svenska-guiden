@@ -143,7 +143,7 @@ export default function BusinessValuePage() {
           </CardContent></Card>
           <div className="flex flex-wrap gap-3 mt-5">
             <Button onClick={pdf} disabled={busy}><FileDown className="w-4 h-4 mr-2" />{busy ? "Skapar PDF…" : "Ladda ner som PDF"}</Button>
-            <Button variant="outline" asChild><Link to={PRODUCTS[product].roi}>Räkna vidare med kostnader och ROI</Link></Button>
+            {PRODUCTS[product].roi && <Button variant="outline" asChild><Link to={PRODUCTS[product].roi}>Räkna vidare med kostnader och ROI</Link></Button>}
           </div>
         </section>
       </main>
