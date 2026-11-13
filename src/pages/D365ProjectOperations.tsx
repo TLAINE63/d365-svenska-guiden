@@ -63,7 +63,7 @@ const D365ProjectOperations = () => {
           label: "Hitta rätt Project Operations-partner",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc&fokus=project-operations", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc&fokus=project-operations&omraden=projekt", icon: FileText }}
       />
       <ProductPageBody items={PROJOPS_SECTIONS}>
 
