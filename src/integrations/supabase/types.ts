@@ -1626,6 +1626,9 @@ export type Database = {
       }
       isv_solutions: {
         Row: {
+          appsource_rating: number | null
+          appsource_rating_count: number | null
+          appsource_url: string | null
           best_for: string | null
           category: string
           combos: string[]
@@ -1668,6 +1671,7 @@ export type Database = {
           sales_relevance: string | null
           short_description: string | null
           solution_id: string
+          solution_kind: string | null
           sort_order: number
           source_status: string | null
           source_url: string | null
@@ -1689,6 +1693,9 @@ export type Database = {
           when_fits: string | null
         }
         Insert: {
+          appsource_rating?: number | null
+          appsource_rating_count?: number | null
+          appsource_url?: string | null
           best_for?: string | null
           category?: string
           combos?: string[]
@@ -1731,6 +1738,7 @@ export type Database = {
           sales_relevance?: string | null
           short_description?: string | null
           solution_id: string
+          solution_kind?: string | null
           sort_order?: number
           source_status?: string | null
           source_url?: string | null
@@ -1752,6 +1760,9 @@ export type Database = {
           when_fits?: string | null
         }
         Update: {
+          appsource_rating?: number | null
+          appsource_rating_count?: number | null
+          appsource_url?: string | null
           best_for?: string | null
           category?: string
           combos?: string[]
@@ -1794,6 +1805,7 @@ export type Database = {
           sales_relevance?: string | null
           short_description?: string | null
           solution_id?: string
+          solution_kind?: string | null
           sort_order?: number
           source_status?: string | null
           source_url?: string | null
@@ -1948,6 +1960,9 @@ export type Database = {
           last_verified_date: string | null
           logo_url: string | null
           name: string
+          office_city: string | null
+          office_country: string | null
+          office_scope: string | null
           partner_slug: string | null
           premium_vendor: boolean
           profile_source: string
@@ -1971,6 +1986,9 @@ export type Database = {
           last_verified_date?: string | null
           logo_url?: string | null
           name: string
+          office_city?: string | null
+          office_country?: string | null
+          office_scope?: string | null
           partner_slug?: string | null
           premium_vendor?: boolean
           profile_source?: string
@@ -1994,6 +2012,9 @@ export type Database = {
           last_verified_date?: string | null
           logo_url?: string | null
           name?: string
+          office_city?: string | null
+          office_country?: string | null
+          office_scope?: string | null
           partner_slug?: string | null
           premium_vendor?: boolean
           profile_source?: string
