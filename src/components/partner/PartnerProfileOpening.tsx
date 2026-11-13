@@ -85,7 +85,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
           </div>
         </div>
         <div className="mt-8 sm:mt-10 lg:mt-6 max-w-3xl">
-          {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl lg:text-lg leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
+          {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl lg:text-lg leading-relaxed">{nowrapBrand(description && !addsBeyondShort(description, shortDescription) ? description : shortDescription)}</p></>}
           {description && addsBeyondShort(description, shortDescription) && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
         </div>
