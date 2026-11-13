@@ -59,6 +59,10 @@ const fromSource = (src: Row | null | undefined, fallback: Partial<ProductFormSt
         contact_name: src.contact_name || src.vendor_contact_name || fallback.contact_name || "",
         contact_email: src.contact_email || src.vendor_contact_email || fallback.contact_email || "",
         notes: src.notes || "",
+        sales_contact_name: src.payload?.sales_contact_name || src.sales_contact_name || "",
+        sales_contact_email: src.payload?.sales_contact_email || src.sales_contact_email || "",
+        sales_contact_phone: src.payload?.sales_contact_phone || src.sales_contact_phone || "",
+        sales_contact_photo_url: src.payload?.sales_contact_photo_url || "",
         product_gallery: src.product_gallery || src.payload?.product_gallery || [],
         product_features: src.product_features || src.payload?.product_features || [],
         integration_evidence: src.integration_evidence || src.payload?.integration_evidence || [],
@@ -186,9 +190,9 @@ export default function IsvProfile() {
     }
   };
 
-  const uploadImage = async (kind: "logo" | "photo", file: File | undefined) => {
-    if (!file || !token) return;
-    if (file.size > 2 * 1024 * 1024) { toast.error("Bilden får vara högst 2 MB"); return; }
+  const uploadFile = async (kind: "logo" | "photo", file: File): Promise<string | null> => {
+    if (!token) return null;
+    if (file.size > 2 * 1024 * 1024) { toast.error("Bilden får vara högst 2 MB"); return null; }
     setUploading(kind);
     try {
       const data = await new Promise<string>((resolve, reject) => {
@@ -204,13 +208,20 @@ export default function IsvProfile() {
       });
       const out = await res.json();
       if (!res.ok) throw new Error(out?.error || "Kunde inte ladda upp bilden");
-      setVendorForm((f) => ({ ...f, [kind === "logo" ? "logo_url" : "contact_photo_url"]: out.url }));
-      toast.success(kind === "logo" ? "Logotypen är uppladdad. Skicka profilen för att spara." : "Fotot är uppladdat. Skicka profilen för att spara.");
+      toast.success("Bilden är uppladdad. Skicka formuläret för att spara.");
+      return out.url as string;
     } catch (e) {
       toast.error((e as Error).message);
+      return null;
     } finally {
       setUploading(null);
     }
+  };
+
+  const uploadImage = async (kind: "logo" | "photo", file: File | undefined) => {
+    if (!file) return;
+    const u = await uploadFile(kind, file);
+    if (u) setVendorForm((f) => ({ ...f, [kind === "logo" ? "logo_url" : "contact_photo_url"]: u }));
   };
 
   const submitVendor = async () => {
@@ -233,7 +244,7 @@ export default function IsvProfile() {
           d365.se kartlägger tillägg och ISV-lösningar för Microsoft Dynamics&nbsp;365 på den svenska marknaden. Fyll i med era egna ord, redaktionen granskar innan något publiceras.
         </p>
       </div>
-      <IsvProductForm form={form} setForm={setForm} isNew={isNew} hideContact={isVendor} categories={CATEGORIES as string[]} />
+      <IsvProductForm onUploadPhoto={(f) => uploadFile("photo", f)} form={form} setForm={setForm} isNew={isNew} hideContact={isVendor} categories={CATEGORIES as string[]} />
       {honeypotInput}
       <div className="flex flex-wrap items-center gap-3">
         <Button onClick={submitProduct} disabled={!productFormValid(form, isNew) || saving}>
