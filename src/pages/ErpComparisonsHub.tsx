@@ -70,7 +70,7 @@ const ErpComparisonsHub = () => {
               </p>
               <ol className="list-decimal space-y-1.5 pl-5 text-muted-foreground">
                 <li>Standardfunktionalitet jämfört med branschtillägg (Microsoft Marketplace).</li>
-                <li>Integrationsmöjligheter med Power BI och Microsoft Fabric.</li>
+                <li>Integrationsmöjligheter med övrig infrastruktur (Microsoft 365, Fabric, Power BI osv) eller andra produkter.</li>
                 <li>Tillgång till svenska partners med djup branscherfarenhet.</li>
               </ol>
             </div>
