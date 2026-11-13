@@ -239,7 +239,7 @@ export const FSCM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
 };
 
 export const exampleFor = (productKey?: string, industry?: string): BusinessValueInput =>
-  productKey && CRM_KEYS.includes(productKey) ? crmExampleForIndustry(industry) : productKey === "finance-scm" ? FSCM_EXAMPLE_BUSINESS_VALUE : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
+  productKey && PRODUCT_EXAMPLES[productKey] ? PRODUCT_EXAMPLES[productKey](industry) : productKey && CRM_KEYS.includes(productKey) ? crmExampleForIndustry(industry) : productKey === "finance-scm" ? FSCM_EXAMPLE_BUSINESS_VALUE : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
 
 const CRM = CRM_EXAMPLE_BUSINESS_VALUE;
 const crmCommon = CRM.work.filter((r) => ["lead", "sales"].includes(r.id));
@@ -328,3 +328,110 @@ export const BC_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
     leakage: [l("missed", "Ej fakturerad tid", 1_200, 200, 100), l("wrong", "Kreditfakturor och tvister", 10_000, 4, 70), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
 };
 export const bcExampleForIndustry = (industry?: string): BusinessValueInput => (industry && BC_INDUSTRY_EXAMPLES[industry]) || BC;
+
+/* ---------- Produktspecifika modeller (Thomas underlag 2026-11-13) ----------
+ * Varje CRM-/specialprodukt får egna drivare i samma fyra delar. Siffrorna är räkneillustrationer,
+ * inte förväntade produkteffekter, och passerar samma spärrar (tak per rad, REALISM_FACTOR). */
+const noCapital = DEFAULT_CAPITAL(0, 0);
+
+/** Customer Service: kostnad per ärende. 40 000 ärenden/år, 350 kr/tim. */
+export const CUSTOMER_SERVICE_EXAMPLE: BusinessValueInput = {
+  hourlyCost: 350, marginPct: 30, workingCapital: noCapital, capitalRatePct: 8, aiPct: 30,
+  work: [
+    w("case", "Handläggning per ärende (minuter, ärenden per månad)", 12, 3300, 30),
+    w("reopen", "Återöppnade och dubbla ärenden", 15, 300, 50),
+    w("selfservice", "Ärenden som kan lösas via självbetjäning och kunskapsbank", 10, 400, 60),
+    w("search", "Leta kundhistorik mellan system", 3, 3300, 50),
+  ],
+  leakage: [l("churn", "Kunder som lämnar efter dålig service", 60_000, 10, 30)],
+  challenges: [c("sla", "Missade servicenivåer och viten", 150_000, 25), c("insight", "Brist på uppföljning av orsaker", 100_000, 20)],
+  itFees: [c("ticket", "Nuvarande ärendesystem", 120_000, 100), c("kb", "Fristående kunskapsbank", 40_000, 100), c("support", "Support och drift", 60_000, 90)],
+};
+
+/** Field Service: 20 tekniker, 220 dagar, 500 kr/tim. */
+export const FIELD_SERVICE_EXAMPLE: BusinessValueInput = {
+  hourlyCost: 500, marginPct: 35, workingCapital: DEFAULT_CAPITAL(2_000_000, 3_000_000), capitalRatePct: 8, aiPct: 20,
+  work: [
+    w("travel", "Restid och planering (minuter per tekniker och dag, 20 tekniker × 18 dagar)", 30, 367, 40),
+    w("admin", "Arbetsorder, rapportering och administration", 15, 367, 60),
+    w("dispatch", "Manuell schemaläggning och omplanering", 10, 400, 60),
+    w("serviceinv", "Fakturering av serviceuppdrag", 10, 300, 70),
+  ],
+  leakage: [
+    l("revisit", "Återbesök (fel del eller kompetens)", 2_500, 400, 40),
+    l("unbilled", "Ej fakturerade timmar och delar", 1_500, 500, 60),
+    l("contracts", "Serviceavtal som inte förnyas", 50_000, 6, 50),
+  ],
+  challenges: [c("parts", "Reservdelar på fel plats", 150_000, 25), c("sla", "Missade servicenivåer", 100_000, 25)],
+  itFees: [c("fsm", "Nuvarande planerings- och mobilverktyg", 150_000, 100), c("support", "Support och drift", 50_000, 90)],
+};
+
+/** Contact Center: 100 000 kontakter/år, AI-agenter tar en del. */
+export const CONTACT_CENTER_EXAMPLE: BusinessValueInput = {
+  hourlyCost: 380, marginPct: 30, workingCapital: noCapital, capitalRatePct: 8, aiPct: 30,
+  work: [
+    w("handle", "Samtals- och efterarbetstid (minuter, kontakter per månad)", 6, 8300, 20),
+    w("automate", "Kontakter som AI-agent eller bot kan lösa", 7, 1700, 60),
+    w("transfer", "Onödiga överlämningar mellan kanaler och team", 4, 1000, 60),
+    w("wfm", "Manuell bemanningsplanering", 960, 1, 50),
+  ],
+  leakage: [l("abandon", "Kunder som ger upp i kön", 3_000, 300, 40)],
+  challenges: [c("peak", "Överbemanning för att klara toppar", 300_000, 20)],
+  itFees: [c("telephony", "Nuvarande telefoniplattform", 250_000, 80), c("channels", "Separata chatt- och kanalverktyg", 80_000, 100), c("support", "Support och drift", 60_000, 90)],
+};
+
+/** Project Operations: 30 konsulter × 1 600 tim, +2 %-enheter debitering (960 tim), 1 200 kr/tim, 40 % marginal. */
+export const PROJECT_OPERATIONS_EXAMPLE: BusinessValueInput = {
+  hourlyCost: 700, marginPct: 40, workingCapital: DEFAULT_CAPITAL(0, 8_000_000), capitalRatePct: 8, aiPct: 25,
+  work: [
+    w("time", "Tidrapportering och attest (per konsult och månad)", 30, 30, 60),
+    w("projinv", "Projektfakturering och fakturaunderlag", 60, 40, 70),
+    w("proj", "Projektuppföljning, prognoser och sammanställningar", 240, 10, 60),
+    w("resource", "Resursplanering och bemanning", 480, 4, 50),
+  ],
+  leakage: [
+    l("billable", "Högre debiteringsgrad (+2 %-enheter, timmar per år)", 1_200, 960, 60),
+    l("missed", "Missade eller ej fakturerade timmar", 1_200, 400, 60),
+    l("overrun", "Budgetöverskridanden i fastprisprojekt", 100_000, 4, 40),
+  ],
+  challenges: [c("pricing", "Felaktigt prissatta projekt och offerter", 300_000, 25), c("insight", "Sen insikt om olönsamma projekt", 200_000, 20)],
+  itFees: [c("psa", "Nuvarande tid- och projektverktyg", 120_000, 100), c("support", "Support och integrationer", 60_000, 80)],
+};
+
+/** Commerce B2C: 1 000 000 besök, +0,3 %-enheter konvertering (3 000 order), 1 200 kr, 30 % TB. */
+export const COMMERCE_EXAMPLE: BusinessValueInput = {
+  hourlyCost: 450, marginPct: 30, workingCapital: DEFAULT_CAPITAL(20_000_000, 1_000_000), capitalRatePct: 8, aiPct: 20,
+  work: [
+    w("order", "Manuell orderhantering och undantag", 5, 1500, 60),
+    w("returns", "Returhantering", 10, 400, 50),
+    w("price", "Pris-, kampanj- och rabattuppdatering", 30, 30, 70),
+    w("stock", "Lagersaldo mellan butik, webb och lager", 60, 20, 60),
+  ],
+  leakage: [
+    l("conversion", "Högre konvertering (+0,3 %-enheter, fler order per år)", 1_200, 3_000, 60),
+    l("aov", "Högre snittorder genom rekommendationer", 100, 20_000, 40),
+    l("outofstock", "Förlorade köp på grund av fel lagerinformation", 1_200, 800, 50),
+  ],
+  challenges: [c("campaign", "Olönsamma kampanjer och rabatter", 300_000, 20), c("omni", "Bristande omnikanal mellan butik och webb", 200_000, 20)],
+  itFees: [c("ecom", "Nuvarande e-handelsplattform", 300_000, 80), c("pos", "Nuvarande kassasystem", 150_000, 80), c("integration", "Integrationer och drift", 150_000, 70)],
+};
+
+/** Commerce B2B: självbetjäning och kundspecifika priser i stället för webbkonvertering. */
+export const COMMERCE_B2B_EXAMPLE: BusinessValueInput = {
+  ...COMMERCE_EXAMPLE,
+  work: [
+    w("order", "Manuell registrering av B2B-order", 10, 800, 70),
+    w("reorder", "Återkommande beställningar via självbetjäning", 8, 400, 70),
+    w("pricelist", "Kundspecifika prislistor och avtalspriser", 60, 20, 60),
+    w("returns", "Returhantering", 10, 100, 50),
+  ],
+  leakage: [l("outofstock", "Förlorade order på grund av fel lagerinformation", 8_000, 60, 50), l("lost", "Kunder som köper hos konkurrent", 200_000, 1, 40)],
+};
+
+export const PRODUCT_EXAMPLES: Record<string, (industry?: string) => BusinessValueInput> = {
+  "customer-service": () => CUSTOMER_SERVICE_EXAMPLE,
+  "field-service": () => FIELD_SERVICE_EXAMPLE,
+  "contact-center": () => CONTACT_CENTER_EXAMPLE,
+  "project-operations": () => PROJECT_OPERATIONS_EXAMPLE,
+  commerce: (industry) => (industry === "Distribution" || industry === "Tillverkning" ? COMMERCE_B2B_EXAMPLE : COMMERCE_EXAMPLE),
+};

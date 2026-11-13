@@ -22,7 +22,11 @@ const PRODUCTS = {
   "business-central": { name: "Business\u00A0Central", roi: "/businesscentral/roi-kalkylator/" },
   "finance-scm": { name: "Finance & Supply Chain", roi: "/finance-supply-chain/roi-kalkylator/" },
   sales: { name: "Sales (CRM)", roi: "/d365sales/roi-kalkylator/" },
-  "customer-service": { name: "Customer Service (CRM)", roi: "/d365customerservice/roi-kalkylator/" },
+  "customer-service": { name: "Customer Service", roi: "/d365customerservice/roi-kalkylator/" },
+  "contact-center": { name: "Contact Center", roi: "/d365contactcenter/roi-kalkylator/" },
+  "field-service": { name: "Field Service", roi: "/d365fieldservice/roi-kalkylator/" },
+  "project-operations": { name: "Project Operations", roi: "" },
+  commerce: { name: "Commerce", roi: "" },
 } as const;
 type ProductKey = keyof typeof PRODUCTS;
 
