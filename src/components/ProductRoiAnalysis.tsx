@@ -1,6 +1,8 @@
 import RoiCostControls from "@/components/RoiCostControls";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import { ROI_DEFAULTS } from "@/lib/calculatorDefaults";
+import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
+import { evaluateBusinessValue, EMPTY_BUSINESS_VALUE } from "@/lib/businessValue";
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
 import { readServiceRoiPrefill } from "@/lib/serviceChainLinks";
@@ -65,6 +67,8 @@ export default function ProductRoiAnalysis({
   const priceMap = usePriceMap();
 
   const [companyName, setCompanyName] = useState("");
+  const [bva, setBva] = useState(EMPTY_BUSINESS_VALUE);
+  const bvaTotal = useMemo(() => evaluateBusinessValue(bva).total, [bva]);
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(cfg.supportPctYearly * 100);
   const [csPrefill] = useState(() =>
@@ -146,7 +150,8 @@ export default function ProductRoiAnalysis({
     const integrationSavings = integrations * 50_000;
     const annualBenefit =
       (driverSavings * manualMultiplier + integrationSavings) *
-      complexityFactor[complexity];
+      complexityFactor[complexity] +
+      bvaTotal;
 
     const netAnnual =
       annualBenefit + currentItCost - licenseYearly - supportYearly;
@@ -182,6 +187,7 @@ export default function ProductRoiAnalysis({
     currentItCost,
     licenseYearly,
     totalUsers,
+    bvaTotal,
   ]);
 
   return (
@@ -468,6 +474,8 @@ export default function ProductRoiAnalysis({
             </div>
           </div>
         </div>
+
+        <BusinessValueAssessment value={bva} onChange={setBva} productName={cfg.productName} />
 
         {/* PDF */}
         <div className="mt-10 max-w-3xl mx-auto">
