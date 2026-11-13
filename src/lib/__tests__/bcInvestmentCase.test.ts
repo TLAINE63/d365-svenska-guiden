@@ -21,3 +21,11 @@ describe("bcInvestmentCase", () => {
     expect(evaluatePath("phased", base).oneOff).toBe(300_000);
   });
 });
+
+import { evaluatePath as ep } from "../bcInvestmentCase";
+describe("NPV", () => {
+  it("diskonterar med 5 %", () => {
+    const r = ep("quickstart", { currentYearly: 0, licenseYearly: 0, supportPercent: 0, customImplementation: 0, annualBenefit: 105_000, scenario: "normal", years: 3 });
+    expect(Math.round(r.npv)).toBe(Math.round((105_000 - 50_000) / 1.05 + 105_000 / 1.05 ** 2 + 105_000 / 1.05 ** 3));
+  });
+});

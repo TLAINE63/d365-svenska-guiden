@@ -56,6 +56,7 @@ export default function BcInvestmentCase(props: Props) {
               <dl className="grid grid-cols-2 gap-2 text-sm">
                 <dt className="text-muted-foreground">ROI på merkostnad</dt><dd className="text-right font-medium">{r.roiPct == null ? "–" : `${Math.round(r.roiPct)} %`}</dd>
                 <dt className="text-muted-foreground">Återbetalning</dt><dd className="text-right font-medium">{r.paybackMonths == null ? `Ej inom ${years} år` : `${Math.round(r.paybackMonths)} mån`}</dd>
+                <dt className="text-muted-foreground">Nuvärde (NPV, 5 %)</dt><dd className="text-right font-medium">{fmt(r.npv)}</dd>
                 <dt className="text-muted-foreground">Merkostnad</dt><dd className="text-right font-medium">{fmt(r.extraCost)}</dd>
                 <dt className="text-muted-foreground">Verksamhetsnytta</dt><dd className="text-right font-medium">{fmt(r.benefit)}</dd>
                 <dt className="text-muted-foreground">Engångsinvestering</dt><dd className="text-right font-medium">{fmt(r.oneOff)}</dd>
