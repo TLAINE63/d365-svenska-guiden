@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface ShortAnswerProps {
-  /** Heading shown above the answer. Defaults to "Kort svar". */
+  /** Heading shown above the answer. Omitted when not given. */
   title?: string;
   /** 2–4 sentences answering the page's main question. Plain text or ReactNode. */
   children: React.ReactNode;
@@ -20,20 +20,16 @@ interface ShortAnswerProps {
  * Answers the visitor's main question before deeper decision support.
  * Keeps a semantic heading and any existing next-step link.
  */
-const ShortAnswer = ({ title = "Kort svar", children, className = "", cta }: ShortAnswerProps) => {
+const ShortAnswer = ({ title, children, className = "", cta }: ShortAnswerProps) => {
   return (
     <section
-      aria-label={title}
+      aria-label={title ?? "Sammanfattning"}
       className={`py-6 sm:py-8 bg-background ${className}`}
     >
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-4xl">
           <div>
-            <div className="mb-3">
-              <h2 className="text-lg font-semibold text-foreground m-0">
-                {nowrapBrand(title)}
-              </h2>
-            </div>
+            {title && (<div className="mb-3"><h2 className="text-lg font-semibold text-foreground m-0">{nowrapBrand(title)}</h2></div>)}
             <div className="text-base leading-relaxed text-foreground [&>p]:m-0 [&>p+p]:mt-3">
               {typeof children === "string" ? <p>{nowrapBrand(children)}</p> : children}
             </div>

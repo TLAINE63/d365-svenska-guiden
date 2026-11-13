@@ -176,9 +176,7 @@ const ERPOverview = () => {
    <section className="py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <div className="max-w-3xl mx-auto">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
- Kort svar
- </h2>
+ {/* Kort svar */}
  <p className="text-lg text-muted-foreground mb-4">
  Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar
  ekonomi, lager, inköp, försäljning, produktion och ofta även projekt och service i en gemensam

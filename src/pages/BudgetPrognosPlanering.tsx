@@ -85,7 +85,7 @@ const BudgetPrognosPlanering = () => {
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight mb-5">{nowrapBrand(BUDGET_GUIDE_H1)}</h1>
             <p className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-6">{nowrapBrand(BUDGET_GUIDE_INTRO)}</p>
             <div className="rounded-lg border border-border border-l-4 border-l-accent bg-muted/40 p-5">
-              <h2 className="text-lg font-bold mb-2">Kort svar</h2>
+              
               <p className="text-[15px] leading-relaxed text-muted-foreground">{nowrapBrand(BUDGET_GUIDE_SHORT_ANSWER)}</p>
             </div>
           </header>

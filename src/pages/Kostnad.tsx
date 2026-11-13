@@ -135,7 +135,7 @@ export default function Kostnad() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
               {nowrapBrand("Vad kostar Dynamics 365, inklusive införande och förvaltning?")}
             </h1>
-            <h2 className="text-xl font-bold mb-3">Kort svar</h2>
+            
             <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Total­kostnaden består av tre delar: <strong>abonnemang</strong> (licens per
               användare och månad), <strong>implementation</strong> (en engångs­kostnad hos

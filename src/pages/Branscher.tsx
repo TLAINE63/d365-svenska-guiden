@@ -132,7 +132,7 @@ const Branscher = () => {
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               {nowrapBrand("Hur påverkar er bransch valet av Dynamics 365 och partner?")}
             </h1>
-            <h2 className="text-lg font-bold mb-2">Kort svar</h2>
+            
             <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Dynamics 365 ser olika ut i tillverkning, handel, fastighet, service, konsultverksamhet och andra branscher. Rätt lösning beror inte bara på produktvalet, utan på processer, integrationsbehov, rapportering, regelverk och vilken typ av partner som krävs för att lyckas.
             </p>

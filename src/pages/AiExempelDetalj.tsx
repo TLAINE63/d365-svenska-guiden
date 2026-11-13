@@ -71,9 +71,8 @@ const AiExempelDetalj = () => {
             {ex.productStatus === "preview" && <span className="rounded-full border border-border px-2.5 py-0.5 font-medium text-foreground">Förhandsversion</span>}
           </div>
           <h1 className="mt-4 text-3xl font-bold text-foreground md:text-4xl">{ex.title}</h1>
-          <section aria-labelledby="kort-svar" className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
-            <h2 id="kort-svar" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Kort svar</h2>
-            <p className="mt-1 text-foreground">{shortAnswer}</p>
+          <section aria-label="Sammanfattning" className="mt-5 rounded-xl border border-border bg-muted/40 p-4">
+                        <p className="text-foreground">{shortAnswer}</p>
           </section>
 
           <Section id="vad" title="Vad vill du göra?"><p className="text-lg italic text-foreground">"{ex.userGoal}"</p></Section>
