@@ -58,7 +58,7 @@ const D365Commerce = () => {
           label: "Hitta rätt Commerce-partner",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc&fokus=commerce", icon: FileText }}
       />
       <ProductPageBody items={COMMERCE_SECTIONS}>
 
