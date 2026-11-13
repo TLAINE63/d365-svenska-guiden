@@ -83,6 +83,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/affarssystem/": "2026-11-13",
   "/kostnad/": "2026-11-13",
   "/implementationskalkylator/": "2026-11-13",
+  "/verksamhetsvardering/": "2026-11-13",
   "/priser/": "2026-10-22",
   "/upphandlingsguiden/": "2026-10-24",
   "/kundservicesystem/": "2026-10-05",

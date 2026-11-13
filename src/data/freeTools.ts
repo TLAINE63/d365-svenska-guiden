@@ -26,6 +26,7 @@ export const FREE_TOOLS: FreeTool[] = [
 
   // Kalkylatorer
   { path: "/implementationskalkylator/", label: "Pris- och omfattningskalkylator", category: "kalkylator" },
+  { path: "/verksamhetsvardering/", label: "Verksamhetsvärdering (nytta, kassaflöde och PDF)", category: "kalkylator" },
   { path: "/businesscentral/roi-kalkylator/", label: "ROI-kalkylator Business Central", category: "kalkylator" },
   { path: "/finance-supply-chain/roi-kalkylator/", label: "ROI-kalkylator Finance & Supply Chain Management (F&O)", category: "kalkylator" },
   { path: "/d365sales/roi-kalkylator/", label: "ROI-kalkylator Sales", category: "kalkylator" },
