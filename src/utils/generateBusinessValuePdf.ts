@@ -24,7 +24,7 @@ export async function generateBusinessValuePdf(d: BusinessValuePdfData) {
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const w = pageW - PDF_MARGIN * 2;
-  const title = `Verksamhetsvärdering - ${d.productName}`;
+  const title = `Affärsnytta & ROI - ${d.productName}`;
   let y = drawBrandHeader(doc, title);
   const r = evaluateBusinessValue(d.input);
   const space = (h: number) => { if (y + h > pageH - 20) { doc.addPage(); y = drawBrandHeader(doc, title); } };
