@@ -53,7 +53,7 @@ export default function BusinessValuePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="Verksamhetsvärdering: vad kostar nuvarande arbetssätt? | d365.se" description="Räkna fram nyttan av ett nytt CRM- eller affärssystem (ERP) utifrån manuellt arbete, förlorade affärer och kostnader som ersätts. Försiktigt räknat, med PDF." canonical="https://d365.se/verksamhetsvardering/" />
+      <SEOHead title="Verksamhetsvärdering: vad kostar nuvarande arbetssätt? | d365.se" description="Räkna fram nyttan av ett nytt CRM- eller affärssystem (ERP) utifrån manuellt arbete, förlorade affärer och kostnader som ersätts. Försiktigt räknat, med PDF." canonicalPath="/verksamhetsvardering/" />
       <Navbar />
       <main className="container mx-auto px-4 pt-24 pb-16">
         <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
