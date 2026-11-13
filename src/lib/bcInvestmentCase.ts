@@ -3,6 +3,7 @@ export type DeliveryPath = "quickstart" | "phased" | "custom";
 export type Scenario = "cautious" | "normal" | "optimistic";
 
 export const QUICKSTART_PRICE = 50_000;
+export const PHASE_OVERHEAD = 0.1;
 export const DISCOUNT_RATE = 0.05; // kalkylränta (WACC) som i Excel-modellen
 export const SCENARIO_FACTOR: Record<Scenario, number> = { cautious: 0.75, normal: 1, optimistic: 1.25 };
 
@@ -18,6 +19,7 @@ export interface CaseInput {
 
 export interface PathResult {
   path: DeliveryPath;
+  firstYearInvest: number;
   oneOff: number; // summa engångsinvesteringar över perioden
   extraCost: number; // merkostnad mot nuläget
   benefit: number;
@@ -42,10 +44,11 @@ function yearly(path: DeliveryPath, i: CaseInput) {
       share = y === 1 ? 0.5 : y === 2 ? 0.8 : 1; // realiseringstakt enligt Excel-modellen
     } else {
       // Etappvis: snabbstart år 1, resterande omfattning år 2.
-      const rest = Math.max(0, i.customImplementation - QUICKSTART_PRICE);
+      // Andra etappen kräver ny uppstart och viss omarbetning: +10 % på resterande omfattning.
+      const rest = Math.max(0, i.customImplementation - QUICKSTART_PRICE) * (1 + PHASE_OVERHEAD);
       invest = y === 1 ? QUICKSTART_PRICE : y === 2 ? rest : 0;
       base = y === 1 ? QUICKSTART_PRICE : QUICKSTART_PRICE + rest;
-      share = y === 1 ? 0.5 : y === 2 ? 0.75 : 1;
+      share = y === 1 ? 0.3 : y === 2 ? 0.7 : 1; // år 1 bara standardflöden
     }
     const support = y === 1 ? 0 : (base * i.supportPercent) / 100;
     rows.push({ invest, run: i.licenseYearly + support, benefit: b * share });
@@ -75,7 +78,7 @@ export function evaluatePath(path: DeliveryPath, i: CaseInput): PathResult {
     cum += monthly * 12;
   });
   const net = benefit - extraCost;
-  return { path, oneOff, extraCost, benefit, net, roiPct: extraCost > 0 ? (net / extraCost) * 100 : null, paybackMonths, npv };
+  return { path, firstYearInvest: rows[0]?.invest ?? 0, oneOff, extraCost, benefit, net, roiPct: extraCost > 0 ? (net / extraCost) * 100 : null, paybackMonths, npv };
 }
 
 export function evaluateAll(i: CaseInput): PathResult[] {
