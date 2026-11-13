@@ -79,6 +79,23 @@ serve(async (req) => {
 
     if (req.method === "POST") {
       const body = await req.json();
+      // Bilduppladdning (logotyp eller säljarfoto): sparas i lagringen, länken följer med inskicket.
+      if (body?.upload === "logo" || body?.upload === "photo") {
+        if (!isVendor) return json({ error: "Uppladdning gäller leverantörsprofilen" }, 400, corsHeaders);
+        const TYPES: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/svg+xml": "svg" };
+        const ext = TYPES[String(body?.content_type || "")];
+        if (!ext || (body.upload === "photo" && ext === "svg")) return json({ error: "Bilden måste vara PNG, JPG, WebP eller SVG (logotyp)" }, 400, corsHeaders);
+        const b64 = String(body?.data || "");
+        if (b64.length > 2_800_000) return json({ error: "Bilden får vara högst 2 MB" }, 400, corsHeaders);
+        let bytes: Uint8Array;
+        try { bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)); } catch { return json({ error: "Ogiltig bild" }, 400, corsHeaders); }
+        if (ext === "svg" && /<script|on\w+=|javascript:/i.test(new TextDecoder().decode(bytes))) return json({ error: "SVG-filen innehåller otillåtet innehåll" }, 400, corsHeaders);
+        const path = `isv-profil/${invitation.vendor_slug}/${body.upload}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
+        const { error: upErr } = await supabase.storage.from("partner-documents").upload(path, bytes, { contentType: body.content_type, upsert: false });
+        if (upErr) { console.error("isv-profile upload", upErr); return json({ error: "Kunde inte ladda upp bilden" }, 400, corsHeaders); }
+        const { data: pub } = supabase.storage.from("partner-documents").getPublicUrl(path);
+        return json({ url: pub.publicUrl }, 200, corsHeaders);
+      }
       if (cleanText(body?.company_website_hp, 200)) return json({ success: true }, 200, corsHeaders);
 
       const kind = isVendor ? pick(body?.kind, ["vendor_profile", "solution_update", "new_solution"]) : "solution_update";
@@ -102,8 +119,9 @@ serve(async (req) => {
           website: url(body?.website),
           description: cleanText(body?.description, 2000),
           logo_url: url(body?.logo_url),
+          contact_photo_url: url(body?.contact_photo_url),
         };
-        if (!payload.description && !payload.website && !base.confirm_information) {
+        if (!payload.description && !payload.website && !payload.logo_url && !payload.contact_photo_url && !base.confirm_information) {
           return json({ error: "Fyll i en uppgift eller bekräfta att profilen stämmer" }, 400, corsHeaders);
         }
         row = { ...base, solution_id: `vendor:${invitation.vendor_slug}`, payload };

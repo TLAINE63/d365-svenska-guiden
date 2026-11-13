@@ -85,7 +85,8 @@ export default function IsvProfile() {
 
   // Leverantörsläge
   const [vendor, setVendor] = useState<VendorData | null>(null);
-  const [vendorForm, setVendorForm] = useState({ website: "", description: "", logo_url: "", contact_name: "", contact_email: "", confirm_information: false });
+  const [vendorForm, setVendorForm] = useState({ website: "", description: "", logo_url: "", contact_photo_url: "", contact_name: "", contact_email: "", confirm_information: false });
+  const [uploading, setUploading] = useState<string | null>(null);
   const [products, setProducts] = useState<Row[]>([]);
   const [overrides, setOverrides] = useState<Record<string, Row>>({});
   const [submissions, setSubmissions] = useState<Row[]>([]);
@@ -109,6 +110,7 @@ export default function IsvProfile() {
           website: v?.website || "",
           description: v?.description || "",
           logo_url: v?.logo_url || "",
+          contact_photo_url: "",
           contact_name: v?.contact_name || "",
           contact_email: v?.contact_email || data.invitation?.email || "",
           confirm_information: false,
@@ -181,6 +183,33 @@ export default function IsvProfile() {
       await load();
     } else {
       setDone("Din beskrivning är inskickad och granskas av redaktionen innan den publiceras i katalogen.");
+    }
+  };
+
+  const uploadImage = async (kind: "logo" | "photo", file: File | undefined) => {
+    if (!file || !token) return;
+    if (file.size > 2 * 1024 * 1024) { toast.error("Bilden får vara högst 2 MB"); return; }
+    setUploading(kind);
+    try {
+      const data = await new Promise<string>((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result).split(",")[1] || "");
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+      const res = await fetch(`${baseUrl}?token=${encodeURIComponent(token)}`, {
+        method: "POST",
+        headers: { apikey, Authorization: `Bearer ${apikey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ upload: kind, content_type: file.type, data }),
+      });
+      const out = await res.json();
+      if (!res.ok) throw new Error(out?.error || "Kunde inte ladda upp bilden");
+      setVendorForm((f) => ({ ...f, [kind === "logo" ? "logo_url" : "contact_photo_url"]: out.url }));
+      toast.success(kind === "logo" ? "Logotypen är uppladdad. Skicka profilen för att spara." : "Fotot är uppladdat. Skicka profilen för att spara.");
+    } catch (e) {
+      toast.error((e as Error).message);
+    } finally {
+      setUploading(null);
     }
   };
 
@@ -287,8 +316,20 @@ export default function IsvProfile() {
                     <Input id="v-web" placeholder="https://" value={vendorForm.website} onChange={(e) => setVendorForm({ ...vendorForm, website: e.target.value })} />
                   </div>
                   <div>
-                    <Label htmlFor="v-logo">Länk till logotyp (valfritt)</Label>
-                    <Input id="v-logo" placeholder="https://" value={vendorForm.logo_url} onChange={(e) => setVendorForm({ ...vendorForm, logo_url: e.target.value })} />
+                    <Label htmlFor="v-logo">Logotyp (PNG, SVG, JPG eller WebP, max 2 MB)</Label>
+                    <div className="flex items-center gap-3">
+                      {vendorForm.logo_url && <img src={vendorForm.logo_url} alt="Logotyp" className="h-12 w-20 object-contain rounded border bg-card" />}
+                      <Input id="v-logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" disabled={uploading === "logo"} onChange={(e) => uploadImage("logo", e.target.files?.[0])} />
+                    </div>
+                    {uploading === "logo" && <p className="text-xs text-muted-foreground mt-1">Laddar upp…</p>}
+                  </div>
+                  <div>
+                    <Label htmlFor="v-photo">Foto på säljare (JPG, PNG eller WebP, max 2 MB)</Label>
+                    <div className="flex items-center gap-3">
+                      {vendorForm.contact_photo_url && <img src={vendorForm.contact_photo_url} alt="Säljare" className="h-12 w-12 object-cover rounded-full border" />}
+                      <Input id="v-photo" type="file" accept="image/png,image/jpeg,image/webp" disabled={uploading === "photo"} onChange={(e) => uploadImage("photo", e.target.files?.[0])} />
+                    </div>
+                    {uploading === "photo" && <p className="text-xs text-muted-foreground mt-1">Laddar upp…</p>}
                   </div>
                   <div>
                     <Label htmlFor="v-cname">Kontaktperson</Label>
