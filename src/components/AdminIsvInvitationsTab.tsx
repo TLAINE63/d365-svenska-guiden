@@ -207,7 +207,7 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
           <CardDescription>
             Skicka en personlig länk där leverantören själv beskriver lösningen, väljer vilka
             Dynamics 365-produkter den är byggd för och vilka branscher den passar för. Länken är
-            giltig i 14 dagar och du granskar innan publicering.
+            giltig i 90 dagar och du granskar innan publicering.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
