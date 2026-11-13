@@ -86,7 +86,7 @@ serve(async (req) => {
                   <p>Via länken nedan anger ni bland annat vilka Dynamics 365-produkter lösningen är byggd för,
                   vilka branscher den passar för, vad den gör och när den passar.</p>
                   <p><a href="${link}" style="background:#D64A1F;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">Fyll i er profil</a></p>
-                  <p style="font-size:13px;color:#52606d">Länken är personlig och giltig i 14 dagar.<br>${link}</p>
+                  <p style="font-size:13px;color:#52606d">Länken är personlig och giltig i 90 dagar.<br>${link}</p>
                   <p style="font-size:13px;color:#52606d">Frågor? Svara på detta mejl eller kontakta thomas.laine@dynamicfactory.se.</p>
                 </div>`,
             });
