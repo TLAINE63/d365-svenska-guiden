@@ -382,7 +382,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </span>
  </div>
  {page?.intro && (
- <section aria-label="Kort svar"><h2 className="text-lg font-bold mb-2">Kort svar</h2>
+ <section aria-label="Om branschen">
  <p className="text-xs md:text-sm text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
  {page.intro}
  </p></section>
