@@ -284,7 +284,7 @@ export const BC_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
     leakage: [l("missed", "Restorder och missade order", 15_000, 6, 100), l("wrong", "Felleveranser", 15_000, 8, 80), l("lost", "Förlorade kunder", 100_000, 1, 50)] },
   Tillverkning: { ...BC, work: [w("order", "Manuell orderregistrering", 10, 150, 70), w("bom", "Stycklistor och produktionsorder", 20, 60, 60), w("plan", "Material- och kapacitetsplanering", 480, 4, 60), w("trace", "Spårbarhet och batchhantering", 15, 40, 70), w("purchase", "Inköpsförslag och beställningar", 20, 40, 70), ...common],
     leakage: [l("missed", "Försenade leveranser och viten", 25_000, 4, 80), l("wrong", "Kassationer och omarbete", 20_000, 6, 60), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
-  Tjänster: { ...BC, hourlyCost: 600, work: [w("time", "Tidrapportering och attest", 10, 300, 70), w("projinv", "Projektfakturering", 20, 60, 80), w("proj", "Projektuppföljning och prognos", 240, 4, 60), w("expense", "Utlägg och reseräkningar", 10, 60, 80), ...common],
+  Tjänster: { ...BC, hourlyCost: 600, workingCapital: DEFAULT_CAPITAL(0, 3_000_000), work: [w("time", "Tidrapportering och attest", 10, 300, 70), w("projinv", "Projektfakturering", 20, 60, 80), w("proj", "Projektuppföljning och prognos", 240, 4, 60), w("expense", "Utlägg och reseräkningar", 10, 60, 80), ...common],
     leakage: [l("missed", "Ej fakturerad tid", 1_200, 200, 100), l("wrong", "Kreditfakturor och tvister", 10_000, 4, 70), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
 };
 export const bcExampleForIndustry = (industry?: string): BusinessValueInput => (industry && BC_INDUSTRY_EXAMPLES[industry]) || BC;
