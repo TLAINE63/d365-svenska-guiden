@@ -92,7 +92,7 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Läs vidare</p>
             <ul className="mt-1 flex flex-wrap gap-2">
               {result.links.map((l) => (
-                <li key={l.href}><Link to={l.href} className="inline-flex rounded-md border border-border px-3 py-1.5 text-sm text-primary hover:bg-muted">{nowrapBrand(l.label)}</Link></li>
+                <li key={l.href}><Link to={l.href} className="inline-block rounded-md border border-border px-3 py-1.5 text-sm text-primary hover:bg-muted">{nowrapBrand(l.label)}</Link></li>
               ))}
             </ul>
           </div>
