@@ -31,6 +31,8 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ISV_PRODUCT_GROUPS, ISV_TOP_NEEDS } from "@/lib/isvProductGroups";
 import { ISV_BUYER_NEEDS, needForCategory, categoriesForQuery } from "@/lib/isvBuyerNeeds";
 import { standardIndustriesFor } from "@/lib/isvIndustries";
+import { categoryLabelSv } from "@/lib/isvCategoryLabels";
+import { ISV_SOLUTION_KINDS, ISV_SOLUTION_KIND_LABEL, solutionKindOf, type IsvSolutionKind } from "@/lib/isvSolutionKind";
 import { isvPartnerDestination } from "@/lib/isvPartnerDestination";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import ProtectedContact from "@/components/partner/ProtectedContact";
@@ -222,8 +224,11 @@ const SolutionCard = ({ s, onOpen, vendor }: { s: IsvSolution; onOpen: () => voi
           <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/25 bg-white/10 text-white backdrop-blur-sm">
             {deliveryText(s)}
           </span>
+          <span className="px-2 py-0.5 text-[11px] font-semibold rounded border border-white/30 bg-white/15 text-white">
+            {ISV_SOLUTION_KIND_LABEL[solutionKindOf(s)]}
+          </span>
           <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/15 bg-white/5 text-white/80">
-            {s.category}
+            {categoryLabelSv(s.category)}
           </span>
         </div>
       </div>
@@ -373,8 +378,11 @@ const SolutionDetail = ({
               <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/25 bg-white/10 text-white backdrop-blur-sm">
                 {deliveryText(s)}
               </span>
+              <span className="px-2 py-0.5 text-[11px] font-semibold rounded border border-white/30 bg-white/15 text-white">
+                {ISV_SOLUTION_KIND_LABEL[solutionKindOf(s)]}
+              </span>
               <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/15 bg-white/5 text-white/80">
-                {s.category}
+                {categoryLabelSv(s.category)}
               </span>
               {s.subcategory && (
                 <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/15 bg-white/5 text-white/60">
@@ -662,6 +670,7 @@ const BcIsvCatalog = ({
   const [deliveries, setDeliveries] = useState<Set<DeliveryModel>>(new Set());
   const [industries, setIndustries] = useState<Set<string>>(new Set());
   const [focus, setFocus] = useState<Set<FocusFilter>>(new Set());
+  const [kinds, setKinds] = useState<Set<IsvSolutionKind>>(new Set());
   const [products, setProducts] = useState<Set<string>>(new Set(defaultProducts));
   const [query, setQuery] = useState(defaultQuery);
   const [vendorSel, setVendorSel] = useState(defaultVendor);
@@ -728,7 +737,7 @@ const BcIsvCatalog = ({
     };
   }, [scoped]);
 
-  type Facet = "products" | "industries" | "cats" | "vendor";
+  type Facet = "products" | "industries" | "cats" | "vendor" | "kind";
   // skip = facetten vars egna knappar räknas, så antal speglar övriga aktiva val.
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -739,6 +748,7 @@ const BcIsvCatalog = ({
       // Informationsstatus ändrar bara urvalet, aldrig ordningen.
       if (statusSel.size && !matchesIsvStatusFilter(s.informationStatus, [...statusSel][0])) return false;
       if (deliveries.size && !deliveries.has(model(s))) return false;
+      if (skip !== "kind" && kinds.size && !kinds.has(solutionKindOf(s))) return false;
       if (skip !== "industries" && industries.size) {
         if (!solutionIndustries(s).some((i) => industries.has(i.name))) return false;
       }
@@ -758,6 +768,8 @@ const BcIsvCatalog = ({
           s.name,
           s.vendor,
           s.category,
+          categoryLabelSv(s.category),
+          ISV_SOLUTION_KIND_LABEL[solutionKindOf(s)],
           s.subcategory || "",
           deliveryText(s),
           s.shortDescription,
@@ -779,7 +791,7 @@ const BcIsvCatalog = ({
       }
       return true;
     };
-  }, [cats, deliveries, industries, focus, products, ceSel, query, statusSel, vendorSel]);
+  }, [cats, deliveries, industries, focus, products, ceSel, query, statusSel, vendorSel, kinds]);
 
   const filtered = useMemo(() => scoped.filter((s) => matches(s)), [scoped, matches]);
 
@@ -789,6 +801,7 @@ const BcIsvCatalog = ({
     const ind = new Map<string, number>();
     const cat = new Map<string, number>();
     const ven = new Map<string, number>();
+    const kind = new Map<string, number>();
     let prodAll = 0;
     for (const s of scoped) {
       if (matches(s, "products")) {
@@ -796,13 +809,14 @@ const BcIsvCatalog = ({
         for (const p of solutionProducts(s)) prod.set(p, (prod.get(p) || 0) + 1);
       }
       if (matches(s, "industries")) for (const i of solutionIndustries(s)) ind.set(i.name, (ind.get(i.name) || 0) + 1);
+      if (matches(s, "kind")) { const k = solutionKindOf(s); kind.set(k, (kind.get(k) || 0) + 1); }
       if (matches(s, "cats") && s.category) cat.set(s.category, (cat.get(s.category) || 0) + 1);
       if (matches(s, "vendor")) {
         const v = s.vendor.trim();
         if (v) ven.set(v, (ven.get(v) || 0) + 1);
       }
     }
-    return { prod, ind, cat, ven, prodAll };
+    return { prod, ind, cat, ven, kind, prodAll };
   }, [scoped, matches]);
 
   // Alla leverantörer i katalogen, alfabetiskt; antal räknas om efter övriga val.
@@ -881,6 +895,7 @@ const BcIsvCatalog = ({
     deliveries.size +
     industries.size +
     focus.size +
+    kinds.size +
     ceSel.size +
     (showProductFilter ? products.size : 0) +
     statusSel.size +
@@ -892,6 +907,7 @@ const BcIsvCatalog = ({
     setDeliveries(new Set());
     setIndustries(new Set());
     setFocus(new Set());
+    setKinds(new Set());
     setCeSel(new Set());
     setQuery("");
     setVendorSel("");
@@ -1039,6 +1055,40 @@ const BcIsvCatalog = ({
                 {showMoreNeeds ? "Visa färre behov" : `Fler behov (${needs.rest.length})`}
               </button>
             )}
+            {selectedNeeds.size > 0 && (
+              <div className="mt-4">
+                <FilterRow
+                  label="Funktion"
+                  options={options.categories.filter((c) => selectedNeeds.has(needForCategory(c).id))}
+                  selected={cats}
+                  onToggle={(c) => {
+                    const need = needForCategory(c).id;
+                    const ofNeed = options.categories.filter((x) => needForCategory(x).id === need);
+                    const next = new Set(cats);
+                    if (ofNeed.every((x) => next.has(x))) {
+                      ofNeed.forEach((x) => next.delete(x));
+                      next.add(c);
+                    } else if (next.has(c)) next.delete(c);
+                    else next.add(c);
+                    setCats(next);
+                  }}
+                  onClear={() => setCats(new Set())}
+                  labelFor={categoryLabelSv}
+                  countFor={(c) => facetCounts.cat.get(c) || 0}
+                />
+              </div>
+            )}
+            <div className="mt-4">
+              <FilterRow
+                label="Lösningstyp"
+                options={ISV_SOLUTION_KINDS}
+                selected={kinds}
+                onToggle={toggle(kinds, setKinds)}
+                onClear={() => setKinds(new Set())}
+                labelFor={(k) => ISV_SOLUTION_KIND_LABEL[k]}
+                countFor={(k) => facetCounts.kind.get(k) || 0}
+              />
+            </div>
           </section>
 
           <section aria-labelledby="isv-step-industry" className="pt-5 border-t border-border/60">
