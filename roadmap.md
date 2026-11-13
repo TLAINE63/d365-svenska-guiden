@@ -1,3 +1,7 @@
+## Fit Model och intresselänkar (2026-11-13)
+- [x] Breddat modellens tabell till sidans marginaler; direktlänkar, sparade prioriteringar och dator/725 px/mobil verifierade. Fyra befintliga tester godkända, inga sidfel.
+- [x] Tagit bort upprepade intresselänkar från urvals-, käll- och rådgivningsytor; behållit sidfot och sakuppgifter på Om oss/juridiska sidor.
+
 ## Redaktion: enklare och billigare underhåll (2026-11-12)
 - [x] Mobilens kompakta sidval och hemskärmsmanifest utan offline-cache; valbar 30-dagarsinloggning, utgången åtkomst och behörighetsförnyelse kontrollerade. Faktisk telefoninstallation ej verifierad.
 - [x] Quick Post med metadata utan AI-kostnad, produkt/ämne och befintlig faktakontroll före publicering. Utkast och granskningsspärr verifierade, testutkast borttaget.
