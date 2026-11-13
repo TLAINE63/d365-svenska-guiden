@@ -28,6 +28,7 @@ import PartnerProfileNewsSection from "@/components/PartnerProfileNewsSection";
 import AiProfilePublic from "@/components/partner/AiProfilePublic";
 import PartnerQuickFacts from "@/components/partner/PartnerQuickFacts";
 import { buildPartnerProductPath } from "@/lib/partnerProductSlug";
+import PartnerResoldIsvProducts from "@/components/isv/PartnerResoldIsvProducts";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { appToProductFilterKey, type ProductFilterKey } from "@/lib/productFilterGroup";
 import ProductDeliveryProfile from "@/components/partner/ProductDeliveryProfile";
@@ -783,6 +784,9 @@ export default function PartnerProductTabs({
                 </ul>
               </section>
             )}
+
+            {/* ISV-produkter där partnern angetts som återförsäljare */}
+            <PartnerResoldIsvProducts partnerSlug={partner.slug} partnerName={partner.name} tab={active} />
 
             {/* Geografi redovisas i Partnerfakta – ingen dubblering här */}
 

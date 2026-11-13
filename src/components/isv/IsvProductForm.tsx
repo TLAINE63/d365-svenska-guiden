@@ -171,9 +171,9 @@ export default function IsvProductForm({ form, setForm, isNew = false, hideConta
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Handshake className="w-4 h-4" /> Återförsäljare / partners
+            <Handshake className="w-4 h-4" /> Återförsäljare (ÅF)
           </CardTitle>
-          <CardDescription>Vilka svenska Dynamics 365-partners säljer eller implementerar lösningen?</CardDescription>
+          <CardDescription>Vilka Dynamics&nbsp;365-partners är återförsäljare av produkten? De visas på produktens sida och på partnerns profil under respektive produkt.</CardDescription>
         </CardHeader>
         <CardContent>
           <IsvPartnerPicker value={form.partner_slugs} onChange={(partner_slugs) => setForm({ ...form, partner_slugs })} />
