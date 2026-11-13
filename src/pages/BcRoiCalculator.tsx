@@ -42,7 +42,7 @@ import { readCalcPrefill } from "@/lib/systemvalHandoff";
 import CalcToKravNext from "@/components/CalcToKravNext";
 import BcInvestmentCase from "@/components/roi/BcInvestmentCase";
 import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
-import { evaluateBusinessValue, EMPTY_BUSINESS_VALUE } from "@/lib/businessValue";
+import { evaluateBusinessValue, exampleFor } from "@/lib/businessValue";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -111,7 +111,7 @@ export default function BcRoiCalculator() {
   const [showAssumptions, setShowAssumptions] = useState(false);
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(18);
-  const [bva, setBva] = useState(EMPTY_BUSINESS_VALUE);
+  const [bva, setBva] = useState(() => exampleFor("business-central"));
   const bvaResult = useMemo(() => evaluateBusinessValue(bva), [bva]);
 
   useEffect(() => {

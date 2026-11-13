@@ -2,7 +2,7 @@ import RoiCostControls from "@/components/RoiCostControls";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import { ROI_DEFAULTS } from "@/lib/calculatorDefaults";
 import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
-import { evaluateBusinessValue, EMPTY_BUSINESS_VALUE } from "@/lib/businessValue";
+import { evaluateBusinessValue, exampleFor } from "@/lib/businessValue";
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
 import { readServiceRoiPrefill } from "@/lib/serviceChainLinks";
@@ -67,7 +67,7 @@ export default function ProductRoiAnalysis({
   const priceMap = usePriceMap();
 
   const [companyName, setCompanyName] = useState("");
-  const [bva, setBva] = useState(EMPTY_BUSINESS_VALUE);
+  const [bva, setBva] = useState(() => exampleFor(productKey));
   const bvaRes = useMemo(() => evaluateBusinessValue(bva), [bva]);
   const bvaTotal = bvaRes.total - bvaRes.itFees;
   const currentItCost = bvaRes.itFees;
