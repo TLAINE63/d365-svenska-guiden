@@ -33,7 +33,7 @@ type ProductKey = keyof typeof PRODUCTS;
 const breadcrumbs = [
   { name: "Start", url: "/" },
   { name: "Guider", url: "/guider/" },
-  { name: "Verksamhetsvärdering", url: "/verksamhetsvardering/" },
+  { name: "Affärsnytta & ROI", url: "/verksamhetsvardering/" },
 ];
 
 export default function BusinessValuePage() {
@@ -65,9 +65,9 @@ export default function BusinessValuePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="Verksamhetsvärdering: vad kostar nuvarande arbetssätt? | d365.se" description="Räkna fram nyttan av ett nytt CRM- eller affärssystem (ERP) utifrån manuellt arbete, förlorade affärer och kostnader som ersätts. Försiktigt räknat, med PDF." canonicalPath="/verksamhetsvardering/" />
+      <SEOHead title="Affärsnytta & ROI: vad kostar nuvarande arbetssätt? | d365.se" description="Räkna fram nyttan av ett nytt CRM- eller affärssystem (ERP) utifrån manuellt arbete, förlorade affärer och kostnader som ersätts. Försiktigt räknat, med PDF." canonicalPath="/verksamhetsvardering/" />
       <Navbar />
-      <main className="container mx-auto px-4 pt-24 pb-16">
+      <main className="container mx-auto px-4 pt-28 lg:pt-36 pb-16">
         <GuideBreadcrumb items={breadcrumbs} className="mb-5" />
         <header className="max-w-3xl mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Vad kostar ert nuvarande arbetssätt?</h1>
