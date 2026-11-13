@@ -86,3 +86,84 @@ export const EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
   challenges: EMPTY_BUSINESS_VALUE.challenges.map((r) => ({ ...r, yearly: ({ deadline: 50_000, quality: 50_000, price: 50_000, margin: 50_000, regulatory: 50_000 } as Record<string, number>)[r.id] ?? 0 })),
   itFees: EMPTY_BUSINESS_VALUE.itFees.map((r) => ({ ...r, yearly: ({ server: 50_000, onprem: 48_000, support: 30_000, consult: 100_000 } as Record<string, number>)[r.id] ?? 0 })),
 };
+
+const w = (id: string, label: string, minutes: number, perMonth: number, savingPct: number): WorkRow => ({ id, label, minutes, perMonth, savingPct });
+const l = (id: string, label: string, value: number, perYear: number, savingPct: number): LeakRow => ({ id, label, value, perYear, savingPct });
+const c = (id: string, label: string, yearly: number, savingPct: number): CostRow => ({ id, label, yearly, savingPct });
+
+/** Intern timkostnad som i Thomas BC 2026-modell: (lön + 32 % sociala + verktyg + OH) / 1 600 tim. */
+export const internalHourlyCost = (monthlySalary: number, tools = 50_000, overhead = 50_000) =>
+  (monthlySalary * 12 * 1.32 + tools + overhead) / 1600;
+
+/** Exempelbolag från Thomas Excel "Business Value Assessment – Business Central 2026". */
+export const BC_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
+  hourlyCost: Math.round(internalHourlyCost(40_000) * 2) / 2, // 458,5 kr
+  marginPct: 30,
+  work: [
+    w("order", "Manuell orderregistrering", 15, 500, 80),
+    w("invoice", "Fakturering (automatisk/batch)", 2, 700, 80),
+    w("web", "Webborder och dubbelregistrering", 15, 200, 90),
+    w("quote", "Offert till order", 15, 200, 80),
+    w("close", "Månadsbokslut (automatiserat)", 7200, 1, 80),
+    w("ap", "Leverantörsfakturor (AI-tolkning och kontering)", 0, 0, 70),
+    w("bank", "Bankavstämning (AI-förslag)", 0, 0, 70),
+  ],
+  leakage: [
+    l("missed", "Missade order", 15_000, 4, 100),
+    l("wrong", "Felleveranser", 15_000, 6, 80),
+    l("lost", "Förlorade kunder", 100_000, 1, 50),
+  ],
+  challenges: [
+    c("forecast", "Brister i prognoser", 10_000, 20),
+    c("quality", "Kvalitetsbrister", 5_000, 20),
+    c("supply", "Försenade leveranskedjor", 15_000, 20),
+    c("price", "Pris- och valutaförändringar", 5_000, 20),
+    c("margin", "Ordermarginaler", 5_000, 20),
+    c("regulatory", "Nya regelkrav", 5_000, 20),
+    c("insight", "Brist på beslutsunderlag", 5_000, 20),
+  ],
+  itFees: [
+    c("server", "Servrar och drift", 30_000, 100),
+    c("onprem", "Licenser för nuvarande system", 50_000, 100),
+    c("support", "Supportavtal", 30_000, 100),
+    c("consult", "Konsultkostnad för nuvarande system", 50_000, 100),
+  ],
+};
+
+/** Exempelbolag från Thomas Excel "Business Value Assessment SEK – CRM". */
+export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
+  hourlyCost: 750,
+  marginPct: 30,
+  work: [
+    w("lead", "Manuell registrering av leads och affärsmöjligheter", 7, 500, 80),
+    w("invoice", "Fakturaunderlag", 2, 500, 80),
+    w("sales", "Säljprocessens effektivitet (administration per säljare)", 1200, 500, 5),
+    w("quote", "Offert till order", 10, 400, 50),
+  ],
+  leakage: [
+    l("missed", "Missade affärer", 75_000, 4, 90),
+    l("wrong", "Fel leveranser och åtaganden", 50_000, 4, 80),
+    l("lost", "Förlorade kunder", 200_000, 2, 50),
+    l("winrate", "Högre vinstfrekvens (fler vunna affärer)", 50_000, 10, 90),
+  ],
+  challenges: [
+    c("forecast", "Brister i prognoser", 100_000, 20),
+    c("quality", "Kvalitetsbrister", 50_000, 20),
+    c("behavior", "Ändrat kundbeteende", 50_000, 20),
+    c("price", "Pris- och valutaförändringar", 50_000, 20),
+    c("margin", "Ordermarginaler", 50_000, 20),
+    c("regulatory", "Nya regelkrav", 50_000, 20),
+    c("insight", "Brist på beslutsunderlag", 50_000, 20),
+  ],
+  itFees: [
+    c("server", "Servrar och drift", 100_000, 90),
+    c("onprem", "Licenser för nuvarande CRM", 75_000, 90),
+    c("support", "Supportavtal", 50_000, 90),
+    c("consult", "Konsultkostnad för nuvarande CRM", 150_000, 90),
+  ],
+};
+
+const CRM_KEYS = ["sales", "customer-service", "field-service", "contact-center", "customer-insights", "crm"];
+/** Rätt exempelbolag per produkt: CRM-produkter får CRM-modellen, övriga ERP-modellen. */
+export const exampleFor = (productKey?: string): BusinessValueInput =>
+  productKey && CRM_KEYS.includes(productKey) ? CRM_EXAMPLE_BUSINESS_VALUE : productKey ? BC_EXAMPLE_BUSINESS_VALUE : EXAMPLE_BUSINESS_VALUE;

@@ -3,6 +3,7 @@ export type DeliveryPath = "quickstart" | "phased" | "custom";
 export type Scenario = "cautious" | "normal" | "optimistic";
 
 export const QUICKSTART_PRICE = 50_000;
+export const DISCOUNT_RATE = 0.05; // kalkylränta (WACC) som i Excel-modellen
 export const SCENARIO_FACTOR: Record<Scenario, number> = { cautious: 0.75, normal: 1, optimistic: 1.25 };
 
 export interface CaseInput {
@@ -23,6 +24,7 @@ export interface PathResult {
   net: number;
   roiPct: number | null;
   paybackMonths: number | null;
+  npv: number; // nuvärde av årligt nettokassaflöde mot i dag, 5 % ränta
 }
 
 /** Kassaflöde per år (kostnad, nytta) för en leveransväg. */
@@ -37,7 +39,7 @@ function yearly(path: DeliveryPath, i: CaseInput) {
     } else if (path === "custom") {
       invest = y === 1 ? i.customImplementation : 0;
       base = i.customImplementation;
-      share = y === 1 ? 0.5 : 1;
+      share = y === 1 ? 0.5 : y === 2 ? 0.8 : 1; // realiseringstakt enligt Excel-modellen
     } else {
       // Etappvis: snabbstart år 1, resterande omfattning år 2.
       const rest = Math.max(0, i.customImplementation - QUICKSTART_PRICE);
@@ -55,7 +57,9 @@ export function evaluatePath(path: DeliveryPath, i: CaseInput): PathResult {
   const rows = yearly(path, i);
   let oneOff = 0, extraCost = 0, benefit = 0, cum = 0;
   let paybackMonths: number | null = null;
+  let npv = 0;
   rows.forEach((r, idx) => {
+    npv += (r.benefit - (r.invest + r.run - i.currentYearly)) / Math.pow(1 + DISCOUNT_RATE, idx + 1);
     oneOff += r.invest;
     const extra = r.invest + r.run - i.currentYearly;
     extraCost += extra;
@@ -71,7 +75,7 @@ export function evaluatePath(path: DeliveryPath, i: CaseInput): PathResult {
     cum += monthly * 12;
   });
   const net = benefit - extraCost;
-  return { path, oneOff, extraCost, benefit, net, roiPct: extraCost > 0 ? (net / extraCost) * 100 : null, paybackMonths };
+  return { path, oneOff, extraCost, benefit, net, roiPct: extraCost > 0 ? (net / extraCost) * 100 : null, paybackMonths, npv };
 }
 
 export function evaluateAll(i: CaseInput): PathResult[] {

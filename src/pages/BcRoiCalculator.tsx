@@ -562,7 +562,7 @@ export default function BcRoiCalculator() {
               </div>
             </div>
 
-            <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" />
+            <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" productKey="business-central" />
 
             <BcInvestmentCase currentYearly={v.currentItCost} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
 
