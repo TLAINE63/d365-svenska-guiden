@@ -16,3 +16,4 @@
 - HelpRequestsCard (admin Rådgivning + /redaktion Hjälpärenden) lists every advisory inquiry via manage-advisory help_requests/update_help_status, the only actions editors may call; need and Dynamics 365 product come from advisory_cases.journey_selection (enum-only values PlanContactDialog sends from topic.metadata) via src/lib/helpRequests.ts, so nothing is guessed from free text and partner introductions stay admin-only.
 
 - /redaktion has an ISV-katalog tab reusing AdminIsvCatalogTab without editorMode: editors have the same ISV rights as admin (content, status, invitations, deletion, ISV Presence, agreement status, sales model), enforced in manage-isv-solutions, so both views stay one component.
+- ISV resellers come only from the ISV's own partner_slugs (profile link); shown on the ISV product page and on partner profile product tabs via PartnerResoldIsvProducts, never inferred.
