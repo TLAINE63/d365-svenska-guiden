@@ -295,3 +295,7 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 ## Finder’s fee-benämning (2026-11-12)
 - [x] Beställningsrutan och sidtexter/säljunderlag/budget använder Finder’s fee; offert- och avtalsgenerering uppdaterad. Offertval och PDF-nedladdning kontrollerade, 14 tester godkända. Äldre sparade PDF-filer ändras inte automatiskt.
+
+## ROI-kalkyler synkade med Thomas Excel-modeller BC 2026 och CRM (2026-11-13)
+- [x] Produktvisa exempelbolag (BC 2026 / CRM), realiseringstakt 50/80/100 % för anpassad implementation, NPV 5 %
+- [ ] PDF med verksamhetsvärdering väntar

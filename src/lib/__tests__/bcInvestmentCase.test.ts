@@ -11,8 +11,8 @@ describe("bcInvestmentCase", () => {
     // 300 000 + 5 × (350 000 − 250 000) = 800 000
     expect(evaluatePath("custom", base).extraCost).toBe(800_000);
   });
-  it("custom gives half benefit year 1", () => {
-    expect(evaluatePath("custom", base).benefit).toBe(250_000 * 4.5);
+  it("custom ramps benefit 50 % / 80 % / 100 %", () => {
+    expect(evaluatePath("custom", base).benefit).toBe(250_000 * 4.3);
   });
   it("cautious scenario reduces benefit by 25 %", () => {
     expect(evaluatePath("quickstart", { ...base, scenario: "cautious" }).benefit).toBe(250_000 * 0.75 * 5);
