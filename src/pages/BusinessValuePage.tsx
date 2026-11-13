@@ -22,7 +22,11 @@ const PRODUCTS = {
   "business-central": { name: "Business\u00A0Central", roi: "/businesscentral/roi-kalkylator/" },
   "finance-scm": { name: "Finance & Supply Chain", roi: "/finance-supply-chain/roi-kalkylator/" },
   sales: { name: "Sales (CRM)", roi: "/d365sales/roi-kalkylator/" },
-  "customer-service": { name: "Customer Service (CRM)", roi: "/d365customerservice/roi-kalkylator/" },
+  "customer-service": { name: "Customer Service", roi: "/d365customerservice/roi-kalkylator/" },
+  "contact-center": { name: "Contact Center", roi: "/d365contactcenter/roi-kalkylator/" },
+  "field-service": { name: "Field Service", roi: "/d365fieldservice/roi-kalkylator/" },
+  "project-operations": { name: "Project Operations", roi: "" },
+  commerce: { name: "Commerce", roi: "" },
 } as const;
 type ProductKey = keyof typeof PRODUCTS;
 
@@ -139,7 +143,7 @@ export default function BusinessValuePage() {
           </CardContent></Card>
           <div className="flex flex-wrap gap-3 mt-5">
             <Button onClick={pdf} disabled={busy}><FileDown className="w-4 h-4 mr-2" />{busy ? "Skapar PDF…" : "Ladda ner som PDF"}</Button>
-            <Button variant="outline" asChild><Link to={PRODUCTS[product].roi}>Räkna vidare med kostnader och ROI</Link></Button>
+            {PRODUCTS[product].roi && <Button variant="outline" asChild><Link to={PRODUCTS[product].roi}>Räkna vidare med kostnader och ROI</Link></Button>}
           </div>
         </section>
       </main>
