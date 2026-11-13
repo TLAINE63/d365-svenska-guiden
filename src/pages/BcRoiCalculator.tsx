@@ -550,9 +550,9 @@ export default function BcRoiCalculator() {
               </div>
             </div>
 
-            <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" productKey="business-central" />
+            <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" productKey="business-central" industry={modelIndustry} />
 
-            <BcInvestmentCase currentYearly={bvaResult.itFees} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
+            <BcInvestmentCase industry={modelIndustry} currentYearly={bvaResult.itFees} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
 
             {/* PDF DOWNLOAD */}
             <div className="mt-10 max-w-3xl mx-auto">

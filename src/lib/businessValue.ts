@@ -165,5 +165,19 @@ export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
 
 const CRM_KEYS = ["sales", "customer-service", "field-service", "contact-center", "customer-insights", "crm"];
 /** Rätt exempelbolag per produkt: CRM-produkter får CRM-modellen, övriga ERP-modellen. */
-export const exampleFor = (productKey?: string): BusinessValueInput =>
-  productKey && CRM_KEYS.includes(productKey) ? CRM_EXAMPLE_BUSINESS_VALUE : productKey ? BC_EXAMPLE_BUSINESS_VALUE : EXAMPLE_BUSINESS_VALUE;
+export const exampleFor = (productKey?: string, industry?: string): BusinessValueInput =>
+  productKey && CRM_KEYS.includes(productKey) ? CRM_EXAMPLE_BUSINESS_VALUE : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
+
+const BC = BC_EXAMPLE_BUSINESS_VALUE;
+const common = BC.work.filter((r) => ["invoice", "close", "ap", "bank"].includes(r.id));
+/** BC-exempelbolag per branschmodell: samma ekonomirader, branschtypiska flöden och förluster. */
+export const BC_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
+  Handel: { ...BC, work: [w("order", "Manuell orderregistrering", 8, 250, 70), w("web", "Webborder och dubbelregistrering", 10, 200, 90), w("price", "Pris- och kampanjuppdatering", 30, 20, 70), w("stock", "Lagersaldo och inventering", 120, 4, 60), ...common] },
+  Distribution: { ...BC, work: [w("order", "Manuell orderregistrering", 10, 250, 70), w("edi", "EDI-order och leveransaviseringar", 6, 200, 85), w("pick", "Plock och utleverans", 5, 300, 40), w("purchase", "Inköpsförslag och beställningar", 20, 40, 70), ...common],
+    leakage: [l("missed", "Restorder och missade order", 15_000, 6, 100), l("wrong", "Felleveranser", 15_000, 8, 80), l("lost", "Förlorade kunder", 100_000, 1, 50)] },
+  Tillverkning: { ...BC, work: [w("order", "Manuell orderregistrering", 10, 150, 70), w("bom", "Stycklistor och produktionsorder", 20, 60, 60), w("plan", "Material- och kapacitetsplanering", 480, 4, 60), w("trace", "Spårbarhet och batchhantering", 15, 40, 70), w("purchase", "Inköpsförslag och beställningar", 20, 40, 70), ...common],
+    leakage: [l("missed", "Försenade leveranser och viten", 25_000, 4, 80), l("wrong", "Kassationer och omarbete", 20_000, 6, 60), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
+  Tjänster: { ...BC, hourlyCost: 600, work: [w("time", "Tidrapportering och attest", 10, 300, 70), w("projinv", "Projektfakturering", 20, 60, 80), w("proj", "Projektuppföljning och prognos", 240, 4, 60), w("expense", "Utlägg och reseräkningar", 10, 60, 80), ...common],
+    leakage: [l("missed", "Ej fakturerad tid", 1_200, 200, 100), l("wrong", "Kreditfakturor och tvister", 10_000, 4, 70), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
+};
+export const bcExampleForIndustry = (industry?: string): BusinessValueInput => (industry && BC_INDUSTRY_EXAMPLES[industry]) || BC;

@@ -7,7 +7,18 @@ export const PHASE_OVERHEAD = 0.1;
 export const DISCOUNT_RATE = 0.05; // kalkylränta (WACC) som i Excel-modellen
 export const SCENARIO_FACTOR: Record<Scenario, number> = { cautious: 0.75, normal: 1, optimistic: 1.25 };
 
+export type CaseIndustry = "Handel" | "Distribution" | "Tillverkning" | "Tjänster" | "Annan";
+/** Realiseringstakt år 1 och 2 per bransch (andel av full nytta). Tillverkning tar längst tid, tjänsteföretag kommer igång snabbast. */
+export const REALIZATION: Record<CaseIndustry, { custom: [number, number]; phased: [number, number] }> = {
+  Tjänster: { custom: [0.6, 0.9], phased: [0.4, 0.8] },
+  Handel: { custom: [0.5, 0.8], phased: [0.3, 0.7] },
+  Distribution: { custom: [0.5, 0.8], phased: [0.3, 0.7] },
+  Tillverkning: { custom: [0.35, 0.7], phased: [0.2, 0.6] },
+  Annan: { custom: [0.5, 0.8], phased: [0.3, 0.7] },
+};
+
 export interface CaseInput {
+  industry?: CaseIndustry;
   currentYearly: number; // nuvarande IT-kostnad per år
   licenseYearly: number;
   supportPercent: number; // förvaltning från år 2, % av införandet
@@ -32,6 +43,7 @@ export interface PathResult {
 /** Kassaflöde per år (kostnad, nytta) för en leveransväg. */
 function yearly(path: DeliveryPath, i: CaseInput) {
   const b = i.annualBenefit * SCENARIO_FACTOR[i.scenario];
+  const rz = REALIZATION[i.industry ?? "Annan"];
   const rows: { invest: number; run: number; benefit: number }[] = [];
   for (let y = 1; y <= i.years; y++) {
     let invest = 0, base = 0, share = 1;
@@ -41,14 +53,14 @@ function yearly(path: DeliveryPath, i: CaseInput) {
     } else if (path === "custom") {
       invest = y === 1 ? i.customImplementation : 0;
       base = i.customImplementation;
-      share = y === 1 ? 0.5 : y === 2 ? 0.8 : 1; // realiseringstakt enligt Excel-modellen
+      share = y === 1 ? rz.custom[0] : y === 2 ? rz.custom[1] : 1; // realiseringstakt per bransch
     } else {
       // Etappvis: snabbstart år 1, resterande omfattning år 2.
       // Andra etappen kräver ny uppstart och viss omarbetning: +10 % på resterande omfattning.
       const rest = Math.max(0, i.customImplementation - QUICKSTART_PRICE) * (1 + PHASE_OVERHEAD);
       invest = y === 1 ? QUICKSTART_PRICE : y === 2 ? rest : 0;
       base = y === 1 ? QUICKSTART_PRICE : QUICKSTART_PRICE + rest;
-      share = y === 1 ? 0.3 : y === 2 ? 0.7 : 1; // år 1 bara standardflöden
+      share = y === 1 ? rz.phased[0] : y === 2 ? rz.phased[1] : 1; // år 1 bara standardflöden
     }
     const support = y === 1 ? 0 : (base * i.supportPercent) / 100;
     rows.push({ invest, run: i.licenseYearly + support, benefit: b * share });
