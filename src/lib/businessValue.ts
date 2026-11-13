@@ -198,8 +198,48 @@ export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
 
 const CRM_KEYS = ["sales", "customer-service", "field-service", "contact-center", "customer-insights", "crm"];
 /** Rätt exempelbolag per produkt: CRM-produkter får CRM-modellen, övriga ERP-modellen. */
+/** Större exempelbolag för Finance & Supply Chain: cirka 500 MSEK, flera bolag och länder, 150 användare. */
+export const FSCM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
+  hourlyCost: Math.round(internalHourlyCost(48_000) * 2) / 2,
+  marginPct: 25,
+  work: [
+    w("order", "Manuell orderregistrering", 10, 1500, 70),
+    w("edi", "EDI-order och leveransaviseringar", 5, 2000, 80),
+    w("invoice", "Fakturering och kreditfakturor", 3, 2500, 75),
+    w("ap", "Leverantörsfakturor (AI-tolkning och kontering)", 5, 2000, 70),
+    w("intercompany", "Koncerninterna transaktioner och elimineringar", 30, 150, 70),
+    w("close", "Månads- och koncernbokslut", 9600, 1, 50),
+    w("plan", "Material- och kapacitetsplanering", 960, 4, 50),
+    w("purchase", "Inköpsförslag och beställningar", 20, 300, 60),
+    w("report", "Rapporter och sammanställningar i Excel", 480, 8, 60),
+    w("bank", "Bankavstämning (AI-förslag)", 60, 40, 70),
+  ],
+  leakage: [
+    l("missed", "Restorder och missade order", 50_000, 20, 60),
+    l("wrong", "Felleveranser och reklamationer", 40_000, 25, 60),
+    l("lost", "Förlorade kunder", 1_000_000, 1, 40),
+  ],
+  challenges: [
+    c("forecast", "Brister i prognoser", 500_000, 20),
+    c("quality", "Kvalitetsbrister och kassationer", 400_000, 20),
+    c("supply", "Försenade leveranskedjor", 500_000, 20),
+    c("regulatory", "Regelkrav och revision (flera länder)", 300_000, 25),
+    c("insight", "Brist på beslutsunderlag", 200_000, 20),
+  ],
+  itFees: [
+    c("server", "Servrar och drift", 400_000, 100),
+    c("onprem", "Licenser för nuvarande system", 600_000, 100),
+    c("support", "Supportavtal", 300_000, 100),
+    c("consult", "Konsultkostnad för nuvarande system", 500_000, 80),
+    c("tools", "Fristående verktyg (konsolidering, fakturatolkning, rapporter)", 200_000, 70),
+  ],
+  workingCapital: DEFAULT_CAPITAL(60_000_000, 50_000_000),
+  capitalRatePct: 8,
+  aiPct: 25,
+};
+
 export const exampleFor = (productKey?: string, industry?: string): BusinessValueInput =>
-  productKey && CRM_KEYS.includes(productKey) ? crmExampleForIndustry(industry) : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
+  productKey && CRM_KEYS.includes(productKey) ? crmExampleForIndustry(industry) : productKey === "finance-scm" ? FSCM_EXAMPLE_BUSINESS_VALUE : productKey ? bcExampleForIndustry(industry) : EXAMPLE_BUSINESS_VALUE;
 
 const CRM = CRM_EXAMPLE_BUSINESS_VALUE;
 const crmCommon = CRM.work.filter((r) => ["lead", "sales"].includes(r.id));
@@ -272,7 +312,7 @@ export const AREAS_TO_EVALUATE: Record<string, string> = {
   bom: "Produktionsorder och stycklistor", plan: "Material- och kapacitetsplanering", trace: "Spårbarhet och batch", time: "Tidrapportering",
   projinv: "Projektfakturering", proj: "Projektuppföljning", lead: "Lead- och affärsmöjlighetshantering", sales: "Säljprocess och Copilot för säljare",
   missed: "Uppföljning av affärer och order", wrong: "Leveranskvalitet", lost: "Kunduppföljning", receivables: "Kundreskontra och påminnelser",
-  ai: "Copilot och agenter för återstående manuella moment", renewal: "Avtals- och förnyelsehantering",
+  ai: "Copilot och agenter för återstående manuella moment", intercompany: "Koncernredovisning och interna transaktioner", renewal: "Avtals- och förnyelsehantering",
 };
 
 const BC = BC_EXAMPLE_BUSINESS_VALUE;
