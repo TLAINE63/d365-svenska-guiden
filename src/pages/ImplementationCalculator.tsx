@@ -315,9 +315,9 @@ export default function ImplementationCalculator() {
         </section>
 
         <section id="kalkylator" className="py-8 sm:py-12 scroll-mt-24">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid gap-6 lg:grid-cols-5">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl grid grid-cols-1 gap-6 lg:grid-cols-5">
             {/* Inputs */}
-            <div className="lg:col-span-3 space-y-6">
+            <div className="min-w-0 lg:col-span-3 space-y-6">
               <Card>
                 <CardContent className="pt-6 space-y-6">
                   <div>
@@ -496,7 +496,7 @@ export default function ImplementationCalculator() {
             </div>
 
             {/* Results */}
-            <div className="lg:col-span-2 space-y-4 lg:sticky lg:top-24 lg:self-start">
+            <div className="min-w-0 lg:col-span-2 space-y-4 lg:sticky lg:top-24 lg:self-start">
               <Card className="border-primary/30">
                 <CardContent className="pt-6 space-y-5">
                   <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
