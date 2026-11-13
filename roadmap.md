@@ -1,5 +1,5 @@
 ## Konsultpris per timme (2026-11-13)
-- [ ] Ändra utgångspunkt till 1 490 kr/timme, räkna om dagbaserad BC-modell och kontrollera kostnadsguiden och kalkylen.
+- [x] Utgångspunkt 1 490 kr/timme; dagbaserad BC-modell räknas med åtta timmar per dag. Kostnadsguiden och BC-kalkylens omräknade belopp verifierade i webbläsaren; 12 tester godkända.
 
 ## Justerbara ROI/TCO-antaganden (2026-11-13)
 - [x] Reglage för införandebelopp och förvaltningsprocent från år 2 i samtliga sju ROI/TCO-kalkyler; resultat och PDF-underlag använder samma valda belopp och procent. Faktisk PDF-nedladdning ej omtestad.
