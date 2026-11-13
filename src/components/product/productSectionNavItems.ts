@@ -11,7 +11,7 @@ const tail = (product: string): ProductSectionNavItem[] => [
 ];
 
 export const FSCM_SECTIONS: ProductSectionNavItem[] = [
-  { id: "oversikt", label: "Översikt", match: "Kort svar" },
+  { id: "oversikt", label: "Översikt", match: "Vad är Dynamics 365 Finance" },
   { id: "fscm-beslut", label: "Var står ni i beslutet?", match: "Var befinner ni er" },
   { id: "fscm-passform", label: "Passar F&SCM?", match: "Passar Finance" },
   { id: "vanliga-fragor", label: "Vanliga frågor", match: "Vanliga frågor" },

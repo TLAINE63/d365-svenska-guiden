@@ -216,7 +216,7 @@ const FinanceSupplyChain = () => {
   }}
   />
       <ProductPageBody items={FSCM_SECTIONS}>
-  <ShortAnswer>
+  <ShortAnswer title="Vad är Dynamics 365 Finance & Supply Chain Management?">
  <p>Dynamics 365 Finance & Supply Chain Management är Microsofts affärssystem för större och internationella organisationer. Det passar när ni har avancerad ekonomi, flera bolag och valutor, tillverkning eller komplex logistik.</p>
  <p>Mindre organisationer med enklare processer klarar sig ofta med Business Central. Skillnaden ligger i komplexitet, inte bara i antal användare.</p>
  </ShortAnswer>
