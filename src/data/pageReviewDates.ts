@@ -4,6 +4,7 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
+  "/qa/": "2026-11-13",
   "/businesscentral/roi-kalkylator/": "2026-11-13",
   "/d365sales/roi-kalkylator/": "2026-11-13",
   "/finance-supply-chain/roi-kalkylator/": "2026-11-13",
@@ -60,7 +61,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/redaktion/": "2026-11-12",
   "/vad-ar-dynamics-365/": "2026-11-10",
   "/befintlig-kund/": "2026-10-30",
-  "/businesscentral/": "2026-11-09",
+  "/businesscentral/": "2026-11-13",
   "/finance-supply-chain/": "2026-11-09",
   "/branscher/bygg-entreprenad/": "2026-11-05",
   "/branscher/energi-utilities/": "2026-11-10",

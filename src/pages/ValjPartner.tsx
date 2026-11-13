@@ -115,7 +115,7 @@ const partnerFaqsRaw = [
  },
  {
  question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
- answer: "Implementeringskostnader varierar kraftigt: Business Central finns som snabbstart till fast pris från 50 000 kr. Ett traditionellt projekt räknat på 11 600 kr per konsultdag ligger på ca 175 000–465 000 kr för ett litet projekt, 465 000 kr–1,2 MSEK för ett medelstort och 1,2–2,9 MSEK för ett stort projekt. Finance & Supply Chain Management (F&O) för större företag kostar typiskt 2–6 MSEK (litet), 6–15 MSEK (medelstort) eller från 15 MSEK (stort). Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav (tjänsteföretag och grossister ligger lägst, tillverkning högst) och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
+ answer: "Implementeringskostnader varierar kraftigt: Business Central finns som snabbstart till fast pris från 50 000 kr. Ett traditionellt projekt räknat på 1 490 kr per timme (8 timmar per konsultdag) ligger på ca 180 000–475 000 kr för ett litet projekt, 475 000 kr–1,2 MSEK för ett medelstort och 1,2–3,0 MSEK för ett stort projekt. Finance & Supply Chain Management (F&O) för större företag kostar typiskt 2–6 MSEK (litet), 6–15 MSEK (medelstort) eller från 15 MSEK (stort). Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav (tjänsteföretag och grossister ligger lägst, tillverkning högst) och vald partner. Licenskostnaden tillkommer – Business Central från {{price:bc-essentials}}."
  },
  {
  question: "Har partnern erfarenhet av vår bransch?",

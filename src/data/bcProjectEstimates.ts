@@ -1,13 +1,21 @@
 /**
  * Gemensam räknemodell för Business Central-införanden.
  *
- * Synkad med businesscentral.se (src/lib/project-size.ts, src/content/bransch/*,
- * src/content/kostnad.ts), kontrollerad 2026-10-12. Beloppen är räkneexempel:
- * konsultdagar × dagspris. Inget listpris och ingen offert.
+ * Projekt- och branschdagar från businesscentral.se, kontrollerade 2026-10-12.
+ * Beloppen är räkneexempel: konsultdagar × timmar per dag × gemensamt timpris.
+ * Inget listpris och ingen offert.
  */
+import { CONSULTANT_DAY_SEK } from "./pricing";
 
-export const BC_DAY_RATE = 11_600;
-export const BC_ESTIMATES_CHECKED = "2026-10-12";
+export const BC_DAY_RATE = CONSULTANT_DAY_SEK;
+export const BC_ESTIMATES_CHECKED = "2026-11-13";
+
+/** Midpoint project scope, priced using the shared hourly assumption. */
+export const BC_ROI_IMPLEMENTATION = {
+  Låg: 27.5 * BC_DAY_RATE,
+  Medel: 70 * BC_DAY_RATE,
+  Hög: 175 * BC_DAY_RATE,
+} as const;
 
 export type BcQuickstart = { partner: string; name: string; price: string; duration: string };
 
