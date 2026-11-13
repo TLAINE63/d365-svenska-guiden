@@ -86,7 +86,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
         </div>
         <div className="mt-8 sm:mt-10 lg:mt-6 max-w-3xl">
           {shortDescription && <><p className="text-xs font-semibold text-accent mb-3">Partnerns information</p><p className="text-lg sm:text-xl lg:text-lg leading-relaxed">{nowrapBrand(shortDescription)}</p></>}
-          {description && description !== shortDescription && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
+          {description && addsBeyondShort(description, shortDescription) && <details className="mt-3 text-sm text-muted-foreground"><summary className="cursor-pointer">Läs hela presentationen</summary><p className="mt-3 whitespace-pre-line leading-relaxed">{nowrapBrand(description)}</p></details>}
         </div>
         </div>
         <div className="min-w-0 mt-6 lg:mt-0 lg:row-span-2 lg:rounded-xl lg:border lg:border-border lg:p-4">
@@ -138,4 +138,14 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
       </div>
     </header>
   </>;
+}
+
+function addsBeyondShort(full: string, short?: string | null): boolean {
+  if (!short) return true;
+  const norm = (t: string) => t.replace(/(\.\.\.|\u2026)\s*$/, "").replace(/\s+/g, " ").trim();
+  const f = norm(full), sh = norm(short);
+  if (f === sh) return false;
+  // Short is a truncation of full: only worth expanding if a meaningful amount is hidden
+  if (f.startsWith(sh)) return f.length - sh.length > 200;
+  return true;
 }
