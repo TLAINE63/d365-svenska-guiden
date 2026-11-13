@@ -191,14 +191,14 @@ export default function BcRoiCalculator() {
     const integrationSavings = v.integrations * 50_000;
     const annualBenefit =
       (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity] +
-      bvaResult.total;
+      bvaResult.total - bvaResult.itFees;
 
     // Payback baseras på steady-state (efter år 1)
-    const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
+    const netAnnual = annualBenefit + bvaResult.itFees - licenseYearly - supportYearly;
     const paybackMonths = netAnnual > 0 ? (implementation / netAnnual) * 12 : null;
 
     const tco5 = implementation + 5 * licenseYearly + supportYear1 + 4 * supportYearly;
-    const benefit5 = 5 * annualBenefit + 5 * v.currentItCost;
+    const benefit5 = 5 * annualBenefit + 5 * bvaResult.itFees;
     const net5 = benefit5 - tco5;
     const roiPct = implementation > 0 ? (net5 / implementation) * 100 : 0;
 
@@ -481,18 +481,6 @@ export default function BcRoiCalculator() {
 
                     <RoiCostControls estimated={calc.estimatedImplementation} override={implementationOverride} onImplementation={setImplementationOverride} supportPercent={supportPercent} onSupportPercent={setSupportPercent} />
 
-                    {/* Nuvarande IT-kostnad */}
-                    <div className="space-y-2">
-                      <Label htmlFor="cur">Nuvarande ERP-/IT-kostnad per år</Label>
-                      <Input
-                        id="cur"
-                        inputMode="numeric"
-                        value={fmtSekInput(v.currentItCost)}
-                        onChange={(e) => update("currentItCost", parseNum(e.target.value))}
-                      />
-                      <p className="text-xs text-muted-foreground">{fmtSek(v.currentItCost)}</p>
-                    </div>
-
                     <div className="flex gap-3 pt-2">
                       <Button variant="ghost" onClick={() => { setV(DEFAULTS); setImplementationOverride(null); setSupportPercent(18); }}>Återställ värden</Button>
                     </div>
@@ -564,7 +552,7 @@ export default function BcRoiCalculator() {
 
             <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" productKey="business-central" />
 
-            <BcInvestmentCase currentYearly={v.currentItCost} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
+            <BcInvestmentCase currentYearly={bvaResult.itFees} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
 
             {/* PDF DOWNLOAD */}
             <div className="mt-10 max-w-3xl mx-auto">
@@ -596,7 +584,7 @@ export default function BcRoiCalculator() {
                       { label: "Affärskomplexitet", value: v.complexity },
                       { label: "Andel manuella processer", value: `${v.manualPct}%` },
                       { label: "Antal integrationer", value: String(v.integrations) },
-                      { label: "Nuvarande IT-kostnad/år", value: fmtSek(v.currentItCost) },
+                      { label: "Nuvarande IT-kostnad/år", value: fmtSek(bvaResult.itFees) },
                     ],
                     costRows: [
                       { label: `Licens (${perFullUserLabel})`, value: fmtSek(calc.fullCost), sub: "/mån" },

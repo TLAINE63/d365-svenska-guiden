@@ -20,8 +20,8 @@ describe("businessValue", () => {
 import { BC_EXAMPLE_BUSINESS_VALUE, CRM_EXAMPLE_BUSINESS_VALUE, exampleFor, internalHourlyCost, evaluateBusinessValue as ev } from "../businessValue";
 describe("Excel-exempel", () => {
   it("BC 2026: intern timkostnad 458,5 kr", () => expect(internalHourlyCost(40_000)).toBe(458.5));
-  it("BC 2026: 3 596 frigjorda timmar per år som i Excel", () => expect(Math.round(ev(BC_EXAMPLE_BUSINESS_VALUE).hoursFreed)).toBe(3596));
+  it("BC 2026: mindre exempelbolag frigör 918 timmar per år", () => expect(Math.round(ev(BC_EXAMPLE_BUSINESS_VALUE).hoursFreed)).toBe(918));
   it("BC 2026: ersatta IT-kostnader 160 000 kr/år", () => expect(ev(BC_EXAMPLE_BUSINESS_VALUE).itFees).toBe(160_000));
-  it("CRM: 7 120 frigjorda timmar per år som i Excel", () => expect(Math.round(ev(CRM_EXAMPLE_BUSINESS_VALUE).hoursFreed)).toBe(7120));
+  it("CRM: mindre säljteam frigör 392 timmar per år", () => expect(Math.round(ev(CRM_EXAMPLE_BUSINESS_VALUE).hoursFreed)).toBe(392));
   it("CRM-produkter får CRM-exemplet", () => { expect(exampleFor("sales")).toBe(CRM_EXAMPLE_BUSINESS_VALUE); expect(exampleFor("business-central")).toBe(BC_EXAMPLE_BUSINESS_VALUE); });
 });
