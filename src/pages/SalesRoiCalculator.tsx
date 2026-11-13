@@ -41,7 +41,7 @@ import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { readSalesRoiPrefill } from "@/lib/salesChainLinks";
 import CalcToKravNext from "@/components/CalcToKravNext";
 import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
-import { EMPTY_BUSINESS_VALUE, evaluateBusinessValue, realizedBenefit, type BusinessValueInput } from "@/lib/businessValue";
+import { EMPTY_BUSINESS_VALUE, evaluateBusinessValue, exampleFor, realizedBenefit, type BusinessValueInput } from "@/lib/businessValue";
 import { REALIZATION, type CaseIndustry } from "@/lib/bcInvestmentCase";
 
 /** CRM-branschmodell till gemensam realiserings- och exempelbransch. */
@@ -108,7 +108,7 @@ export default function SalesRoiCalculator() {
   const [showAssumptions, setShowAssumptions] = useState(false);
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(15);
-  const [bva, setBva] = useState<BusinessValueInput>(EMPTY_BUSINESS_VALUE);
+  const [bva, setBva] = useState<BusinessValueInput>(() => exampleFor("sales"));
   const bvaRes = useMemo(() => evaluateBusinessValue(bva), [bva]);
   const itFees = bvaRes.itFees;
 

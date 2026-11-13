@@ -241,6 +241,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://d365.se/verksamhetsvardering/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://d365.se/kom-igang/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -867,7 +872,7 @@
   </url>
   <url>
     <loc>https://d365.se/isv/produkt/continia-document-capture/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

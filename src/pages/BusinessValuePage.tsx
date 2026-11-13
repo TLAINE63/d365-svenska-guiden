@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { bcIndustryModel } from "@/lib/calculatorDefaults";
-import { EMPTY_BUSINESS_VALUE, evaluateBusinessValue, cashFlow, topPotential, AREAS_TO_EVALUATE, type BusinessValueInput } from "@/lib/businessValue";
+import { evaluateBusinessValue, exampleFor, cashFlow, topPotential, AREAS_TO_EVALUATE, type BusinessValueInput } from "@/lib/businessValue";
 import { REALIZATION } from "@/lib/bcInvestmentCase";
 
 const fmt = (n: number) => new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
@@ -40,7 +40,7 @@ export default function BusinessValuePage() {
   const [product, setProduct] = useState<ProductKey>("business-central");
   const [industry, setIndustry] = useState("");
   const [company, setCompany] = useState("");
-  const [bva, setBva] = useState<BusinessValueInput>(EMPTY_BUSINESS_VALUE);
+  const [bva, setBva] = useState<BusinessValueInput>(() => exampleFor("business-central"));
   const [busy, setBusy] = useState(false);
   const model = bcIndustryModel(industry);
   const [ramp, setRamp] = useState<number[] | null>(null);
@@ -77,7 +77,7 @@ export default function BusinessValuePage() {
         <Card className="max-w-6xl mx-auto"><CardContent className="p-5 space-y-5">
           <div className="space-y-2">
             <Label>Vilket system utvärderar ni?</Label>
-            <ToggleGroup type="single" value={product} onValueChange={(p) => p && setProduct(p as ProductKey)} className="flex flex-wrap justify-start">
+            <ToggleGroup type="single" value={product} onValueChange={(p) => { if (!p) return; setProduct(p as ProductKey); setBva(exampleFor(p)); }} className="flex flex-wrap justify-start">
               {(Object.keys(PRODUCTS) as ProductKey[]).map((k) => <ToggleGroupItem key={k} value={k} variant="outline">{PRODUCTS[k].name}</ToggleGroupItem>)}
             </ToggleGroup>
           </div>
