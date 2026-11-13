@@ -1,6 +1,7 @@
 # data
 
 - Calculator inputs share calculatorDefaults.ts and CalculatorIndustryPicker (standardIndustries); exact industry names feed existing broad ROI models via explicit mappings and survive requirement-spec links, so no new industry estimates are invented.
+- ROI calculators share RoiCostControls and roiProjectCosts; a nullable total-cost override preserves automatic estimates until edited, and the selected annual support percentage applies only from year two, so results and PDF assumptions agree.
 
 - Public partner counts (verified, basic, total) come only from partnerCounts.ts (build-time partner data); keeps prerendered HTML, hydrated pages and the market report identical.
 - Business Central project-cost figures mirror businesscentral.se's day-rate model and industry spans via bcProjectEstimates.ts, so both sites show the same estimates.

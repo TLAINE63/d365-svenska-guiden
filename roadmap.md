@@ -1,3 +1,7 @@
+## Justerbara ROI/TCO-antaganden (2026-11-13)
+- [ ] Reglage för införandebelopp och förvaltningsprocent från år 2 i samtliga ROI/TCO-kalkyler; resultat och PDF följer valen.
+- [ ] Testa ändrade belopp, procent, återställning och mobilvisning.
+
 ## Kalkyler och branschval (2026-11-13)
 - [x] Samma 21 klickbara branscher i BC, Sales och snabbkalkyl; exakt bransch följer till kravspecifikation.
 - [x] Lägsta omfattning och inga förvalda tillval i sju ROI/TCO-kalkyler, implementationskalkyl och snabbkalkyl; 31 tester godkända, sidflöden och mobil kontrollerade utan runtimefel. Tidigare uttryckliga val via länkar och sparade utkast bevaras.
