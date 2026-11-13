@@ -53,6 +53,7 @@ const STATIC_ROUTES = [
   { path: "/CRMbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/kundservice-behovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/beslutsmognad/", changefreq: "monthly", priority: "0.7" },
+  { path: "/verksamhetsvardering/", changefreq: "monthly", priority: "0.7" },
   { path: "/kom-igang/", changefreq: "monthly", priority: "0.8" },
   { path: "/partnerprogram/", changefreq: "monthly", priority: "0.7" },
   { path: "/isvprogram/", changefreq: "monthly", priority: "0.6" },

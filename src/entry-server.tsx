@@ -116,6 +116,7 @@ import BcRoiCalculator from './pages/BcRoiCalculator';
 import SalesRoiCalculator from './pages/SalesRoiCalculator';
 import ProductRoiPage from './pages/ProductRoiPage';
 import Beslutsmognadsindex from './pages/Beslutsmognadsindex';
+import BusinessValuePage from './pages/BusinessValuePage';
 import D365TillaggKatalog from './pages/D365TillaggKatalog';
 import CeIsvCategoryPage from './pages/CeIsvCategoryPage';
 import { CE_CATEGORY_PAGES } from './data/ceIsvCategoryPages';
@@ -267,6 +268,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/CRMbehovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/beslutsmognad', priority: '0.7', changefreq: 'monthly' },
+  { path: '/verksamhetsvardering', priority: '0.7', changefreq: 'monthly' },
   
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/webinar', priority: '0.8', changefreq: 'weekly' },
@@ -727,6 +729,7 @@ export function render(url: string) {
               <Route path="/d365contactcenter/matchningstest/resultat" element={<CrmMatchningstestResultat productKey="contact-center" />} />
               <Route path="/d365contactcenter/roi-kalkylator" element={<ProductRoiPage productKey="contact-center" />} />
               <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
+              <Route path="/verksamhetsvardering" element={<BusinessValuePage />} />
               <Route path="/kunskapscenter/dynamics-365-tillagg" element={<D365TillaggKatalog />} />
               <Route path="/customer-engagement/tillagg/:kategori" element={<CeIsvCategoryPage />} />
               <Route path="/business-central/tillagg/:kategori" element={<BcIsvCategoryPage />} />
