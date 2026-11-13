@@ -1,3 +1,7 @@
+import IndustryIsvPicker from "@/components/IndustryIsvPicker";
+import { prioritizeResellers, isResellerOf } from "@/lib/industryIsvSolutions";
+import type { IsvSolution } from "@/data/bcIsvSolutions";
+import { crmApplications as CRM_APPS } from "@/data/partners";
 import SecondOpinionNudge from "@/components/SecondOpinionNudge";
 import KeyTakeaways from "@/components/guide/KeyTakeaways";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
@@ -111,6 +115,8 @@ const geographyFilters = [
 const CRM = () => {
  const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+ const [isvChoice, setIsvChoice] = useState<IsvSolution | null>(null);
+ useEffect(() => { setIsvChoice(null); }, [selectedIndustry]);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
@@ -759,10 +765,13 @@ const CRM = () => {
  </>
  )}
 
+ {selectedIndustry && <IndustryIsvPicker industry={selectedIndustry} product={selectedApplications.length ? selectedApplications : CRM_APPS} selectedId={isvChoice?.id ?? null} onSelect={setIsvChoice} />}
  <WhyTheseResults order="alphabetical" criteria={[selectedApplications.length ? selectedApplications.join(", ") : "Sales / Customer Service / Field Service", selectedIndustry, selectedGeography]} className="mb-6" />
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
- {crmPartners.map((partner, index) => (
- <IndustryVerifiedPartnerCard
+ {prioritizeResellers(crmPartners, isvChoice).map((partner, index) => (
+<div key={partner.slug} className="flex flex-col gap-2">
+{isResellerOf(partner.slug, isvChoice) && <Badge variant="secondary" className="self-start">Återförsäljare av {isvChoice?.name}</Badge>}
+<IndustryVerifiedPartnerCard
  key={index}
  partner={partner}
  profileUrl={`/partner/${partner.slug}/`}
@@ -773,6 +782,7 @@ const CRM = () => {
  revenue={selectedRevenue}
  geography={selectedGeography}
  />
+</div>
  ))}
  </div>
 

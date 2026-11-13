@@ -9,11 +9,12 @@ const productsOf = (s: IsvSolution): string[] => (s.products?.length ? s.product
  * (namn eller slug), valfritt avgränsat till en Dynamics 365-produkt.
  * Sorteras alfabetiskt – kommersiell status påverkar aldrig ordningen.
  */
-export function isvSolutionsForIndustry(all: IsvSolution[], industry: string, product?: string): IsvSolution[] {
+export function isvSolutionsForIndustry(all: IsvSolution[], industry: string, product?: string | string[]): IsvSolution[] {
+  const wanted = product == null ? [] : Array.isArray(product) ? product : [product];
   const key = industry.trim().toLowerCase();
   if (!key) return [];
   return all
-    .filter((s) => !product || productsOf(s).includes(product))
+    .filter((s) => !wanted.length || productsOf(s).some((p) => wanted.includes(p)))
     .filter((s) => standardIndustriesFor(s.industryFocus || []).some((i) => i.slug === key || i.name.toLowerCase() === key))
     .sort((a, b) => a.name.localeCompare(b.name, "sv"));
 }

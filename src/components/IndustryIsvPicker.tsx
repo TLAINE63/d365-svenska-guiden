@@ -6,7 +6,7 @@ import type { IsvSolution } from "@/data/bcIsvSolutions";
 
 interface Props {
   industry: string;
-  product: string;
+  product: string | string[];
   selectedId: string | null;
   onSelect: (s: IsvSolution | null) => void;
 }
