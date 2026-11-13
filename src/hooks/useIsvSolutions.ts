@@ -79,6 +79,10 @@ export interface IsvSolutionRow {
   partner_slugs: string[] | null;
   vendor_website: string | null;
   logo_url?: string | null;
+  solution_kind?: string | null;
+  appsource_url?: string | null;
+  appsource_rating?: number | null;
+  appsource_rating_count?: number | null;
   is_published?: boolean;
   sort_order?: number;
   // Utökad modell
@@ -170,6 +174,10 @@ export function rowToSolution(r: IsvSolutionRow): IsvSolution {
       : undefined,
     lastVerifiedDate: r.last_verified_date || undefined,
     logoUrl: r.logo_url || undefined,
+    solutionKind: r.solution_kind || undefined,
+    appsourceUrl: r.appsource_url || undefined,
+    appsourceRating: r.appsource_rating ?? undefined,
+    appsourceRatingCount: r.appsource_rating_count ?? undefined,
   };
 }
 
@@ -182,6 +190,9 @@ export interface IsvVendorPublic {
   logo_url: string | null;
   information_status: string | null;
   last_verified_date: string | null;
+  office_scope?: string | null;
+  office_city?: string | null;
+  office_country?: string | null;
 }
 
 /** Leverantörer per slug. Bara publicerade profiler; produkternas status påverkas inte. */
@@ -192,11 +203,11 @@ export function useIsvVendors(): Record<string, IsvVendorPublic> {
     (async () => {
       const { data, error } = await supabase
         .from("isv_vendors")
-        .select("slug, name, website, description, logo_url, information_status, last_verified_date")
+        .select("slug, name, website, description, logo_url, information_status, last_verified_date, office_scope, office_city, office_country")
         .eq("publication_status", "published");
       if (error || cancelled || !data) return;
       const map: Record<string, IsvVendorPublic> = {};
-      for (const v of data as IsvVendorPublic[]) map[v.slug] = v;
+      for (const v of data as unknown as IsvVendorPublic[]) map[v.slug] = v;
       setVendors(map);
     })();
     return () => { cancelled = true; };

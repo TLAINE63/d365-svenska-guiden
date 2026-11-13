@@ -38,6 +38,7 @@ const VERIFY: [string, string][] = [
 ];
 const PUBLICATION: [string, string][] = [["draft", "Utkast"], ["submitted", "Inskickad"], ["published", "Publicerad"], ["hidden", "Dold"]];
 const BOA: [string, string][] = [["none", "Inget"], ["offered", "Erbjudet"], ["signed", "Signerat"], ["ended", "Avslutat"]];
+const OFFICE: [string, string][] = [["", "Kontor: okänt"], ["se", "Svenskt kontor"], ["nordic", "Nordiskt kontor"], ["hq", "Huvudkontor"]];
 const GTM: [string, string][] = [["", "Försäljning: okänd"], ["direkt", "Säljer själv"], ["partner", "Via partners"], ["hybrid", "Hybrid"]];
 
 const BC_USE_CASES: [string, string][] = [
@@ -236,6 +237,9 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                           <Select label="Publicering" value={v.publication_status} options={PUBLICATION} onChange={(x) => save("vendor", v.slug, { publication_status: x })} />
  {!editorMode && <Select label="Buyer Opportunity Agreement" value={v.buyer_opportunity_agreement_status} options={BOA} onChange={(x) => save("vendor", v.slug, { buyer_opportunity_agreement_status: x })} />}
                           {!editorMode && <Select label="Försäljningsmodell" value={v.gtm_model || ""} options={GTM} onChange={(x) => save("vendor", v.slug, { gtm_model: x })} />}
+                          <Select label="Kontor" value={v.office_scope || ""} options={OFFICE} onChange={(x) => save("vendor", v.slug, { office_scope: x })} />
+                          <input aria-label="Ort" placeholder="Ort" defaultValue={v.office_city || ""} className={sel} onBlur={(e) => e.target.value !== (v.office_city || "") && save("vendor", v.slug, { office_city: e.target.value })} />
+                          <input aria-label="Land" placeholder="Land" defaultValue={v.office_country || ""} className={sel} onBlur={(e) => e.target.value !== (v.office_country || "") && save("vendor", v.slug, { office_country: e.target.value })} />
                         </div>
                       </TableCell>
                       {publishCells(v, "vendor", v.slug)}

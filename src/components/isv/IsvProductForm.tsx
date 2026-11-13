@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { groupedCategories, categoryLabelSv } from "@/lib/isvCategoryLabels";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -105,7 +106,11 @@ export default function IsvProductForm({ form, setForm, isNew = false, hideConta
               <Label htmlFor="isv-new-cat">Kategori</Label>
               <select id="isv-new-cat" className={sel} value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
                 <option value="">Välj kategori</option>
-                {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                {groupedCategories(categories).map((g) => (
+                  <optgroup key={g.label} label={g.label}>
+                    {g.categories.map((c) => <option key={c} value={c}>{categoryLabelSv(c)}</option>)}
+                  </optgroup>
+                ))}
               </select>
             </div>
           </CardContent>
