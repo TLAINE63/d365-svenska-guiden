@@ -40,6 +40,7 @@ import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { readCalcPrefill } from "@/lib/systemvalHandoff";
 import CalcToKravNext from "@/components/CalcToKravNext";
+import BcInvestmentCase from "@/components/roi/BcInvestmentCase";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -555,6 +556,8 @@ export default function BcRoiCalculator() {
                 </div>
               </div>
             </div>
+
+            <BcInvestmentCase currentYearly={v.currentItCost} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
 
             {/* PDF DOWNLOAD */}
             <div className="mt-10 max-w-3xl mx-auto">
