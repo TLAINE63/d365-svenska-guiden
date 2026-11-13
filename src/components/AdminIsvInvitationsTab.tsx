@@ -374,6 +374,14 @@ export default function AdminIsvInvitationsTab({ token, onSessionExpired, onAppr
                     : <span className="text-muted-foreground">Generell</span>}
                 </div>
               </div>
+              {(review.payload?.sales_contact_name || review.payload?.sales_contact_email) && (
+                <div><Label>Säljkontakt för produkten</Label>
+                  <div className="mt-1 flex items-center gap-3">
+                    {review.payload?.sales_contact_photo_url && <img src={review.payload.sales_contact_photo_url} alt="Säljare" className="h-12 w-12 object-cover rounded-full" />}
+                    <p>{[review.payload?.sales_contact_name, review.payload?.sales_contact_email, review.payload?.sales_contact_phone].filter(Boolean).join(" · ")}</p>
+                  </div>
+                </div>
+              )}
               <div><Label>Kort beskrivning</Label><p className="mt-1">{review.short_description}</p></div>
               <div><Label>Vad lösningen är</Label><p className="mt-1 whitespace-pre-line">{review.what}</p></div>
               <div><Label>När den passar</Label><p className="mt-1 whitespace-pre-line">{review.when_fits}</p></div>
