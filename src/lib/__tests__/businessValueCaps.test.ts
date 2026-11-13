@@ -29,3 +29,10 @@ describe("rörelsekapital, AI och kassaflöde", () => {
     expect(r.irr).toBeGreaterThan(0.5);
   });
 });
+
+import { FSCM_EXAMPLE_BUSINESS_VALUE, BC_EXAMPLE_BUSINESS_VALUE as BCX } from "../businessValue";
+describe("Finance & Supply Chain-exempel", () => {
+  it("F&SCM får eget exempelbolag", () => expect(exampleFor("finance-scm")).toBe(FSCM_EXAMPLE_BUSINESS_VALUE));
+  it("F&SCM-exemplet är minst fem gånger större än BC-exemplet", () =>
+    expect(evaluateBusinessValue(FSCM_EXAMPLE_BUSINESS_VALUE).total).toBeGreaterThan(5 * evaluateBusinessValue(BCX).total));
+});
