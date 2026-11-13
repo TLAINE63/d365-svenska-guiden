@@ -66,10 +66,7 @@ const ErpComparisonsHub = () => {
               <p className="text-muted-foreground mb-3">
                 Ett standardiserat <Link to="/businesscentral/" className="text-primary underline underline-offset-2">affärssystem</Link> räcker
                 sällan för företag med unika <Link to="/branscher/" className="text-primary underline underline-offset-2">branschprocesser</Link>.
-                När du utvärderar Dynamics&nbsp;365 mot nischade system (som{" "}
-                <Link to="/jamfor/business-central-vs-monitor-erp/" className="text-primary underline underline-offset-2">Monitor för tillverkning</Link> eller{" "}
-                <Link to="/jamfor/business-central-vs-jeeves/" className="text-primary underline underline-offset-2">Jeeves för partihandel</Link>) bör
-                du fokusera på tre faktorer:
+                När du utvärderar Dynamics&nbsp;365 mot nischade system bör du fokusera på tre faktorer:
               </p>
               <ol className="list-decimal space-y-1.5 pl-5 text-muted-foreground">
                 <li>Standardfunktionalitet jämfört med branschtillägg (AppSource).</li>
