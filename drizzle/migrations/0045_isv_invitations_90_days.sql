@@ -1,0 +1,2 @@
+ALTER TABLE public.isv_invitations ALTER COLUMN expires_at SET DEFAULT (now() + interval '90 days');
+UPDATE public.isv_invitations SET expires_at = created_at + interval '90 days' WHERE status = 'pending' AND created_at + interval '90 days' > expires_at;
