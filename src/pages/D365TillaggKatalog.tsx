@@ -68,6 +68,7 @@ const D365TillaggKatalog = () => {
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-10 sm:py-14">
           <h2 className="sr-only">Tilläggslösningar</h2>
           <BcIsvCatalog
+            key={params.toString()}
             showProductFilter
             defaultProducts={preselected}
             openSolutionId={solutionId}
