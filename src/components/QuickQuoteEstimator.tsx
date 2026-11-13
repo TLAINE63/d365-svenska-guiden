@@ -21,7 +21,8 @@ import {
   type Complexity,
 } from "@/lib/implementationEstimate";
 import type { ProductKey } from "@/hooks/usePartnerFilters";
-import { allIndustries } from "@/data/partners";
+import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
+import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
 import SendUnderlagToPartners from "@/components/SendUnderlagToPartners";
 import SourceNote from "@/components/SourceNote";
 import CostNextSteps from "@/components/cost/CostNextSteps";
@@ -87,10 +88,10 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
           complexity,
           integrations,
           legalEntities: 1,
-          dataMigration: true,
-          customDevelopment: complexity === "komplex",
-          training: true,
-          hourlyRate: 1350,
+          dataMigration: IMPLEMENTATION_DEFAULTS.dataMigration,
+          customDevelopment: IMPLEMENTATION_DEFAULTS.customDevelopment,
+          training: IMPLEMENTATION_DEFAULTS.training,
+          hourlyRate: IMPLEMENTATION_DEFAULTS.hourlyRate,
         },
         priceLookup,
       ),
@@ -203,19 +204,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
             </div>
 
             <div className="md:col-span-2">
-              <Label htmlFor="qq-industry">Bransch (valfritt – ger bättre partnerförslag)</Label>
-              <Select value={industry} onValueChange={setIndustry}>
-                <SelectTrigger id="qq-industry" className="mt-1.5">
-                  <SelectValue placeholder="Välj bransch" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[min(50vh,320px)]">
-                  {allIndustries.map((i) => (
-                    <SelectItem key={i} value={i}>
-                      {i}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <CalculatorIndustryPicker value={industry} onChange={setIndustry} />
             </div>
           </div>
 
@@ -291,7 +280,7 @@ export default function QuickQuoteEstimator({ onEstimateShown }: { onEstimateSho
             area={SOLUTION_TO_COST[solution]?.area}
             costAnchor={SOLUTION_TO_COST[solution]?.anchor}
             size={bucket.label}
-            drivers={costDrivers({ usersLabel: bucket.label, complexityLabel, integrations, dataMigration: true, legalEntities: 1, supportYearly: fmtSek(result.supportYearly) })}
+            drivers={costDrivers({ usersLabel: bucket.label, complexityLabel, integrations, dataMigration: IMPLEMENTATION_DEFAULTS.dataMigration, legalEntities: 1, supportYearly: fmtSek(result.supportYearly) })}
             estimateLines={[`Snabbkalkyl: implementation ${fmtSek(result.costLow)}–${fmtSek(result.costHigh)}, licens ${result.licenseYearly ? `${fmtSek(result.licenseYearly)} per år` : "offert"}.`]}
           />
         )}

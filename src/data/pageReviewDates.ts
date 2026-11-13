@@ -80,7 +80,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/d365marketing/": "2026-11-02",
   "/d365contactcenter/": "2026-11-04",
   "/affarssystem/": "2026-11-13",
-  "/kostnad/": "2026-11-09",
+  "/kostnad/": "2026-11-13",
   "/implementationskalkylator/": "2026-11-13",
   "/priser/": "2026-10-22",
   "/upphandlingsguiden/": "2026-10-24",

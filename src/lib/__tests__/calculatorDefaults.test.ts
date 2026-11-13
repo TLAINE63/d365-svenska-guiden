@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ROI_DEFAULTS, IMPLEMENTATION_DEFAULTS, canonicalCalculatorIndustry, bcIndustryModel, salesIndustryModel } from "../calculatorDefaults";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
+import { calcToKravLink } from "../calcToKrav";
 
 describe("calculator starting rules", () => {
   it("starts ROI at lowest complexity and zero integrations", () => {
@@ -33,5 +34,11 @@ describe("calculator starting rules", () => {
     expect(bcIndustryModel("Tillverkningsindustri")).toBe("Tillverkning");
     expect(salesIndustryModel("Finans & Försäkring")).toBe("Finans & försäkring");
     expect(bcIndustryModel("Medlemsorganisationer")).toBe("Annan");
+  });
+  it("carries each exact industry from calculator to requirement specification", () => {
+    for (const name of INDUSTRY_NAMES) {
+      const link = calcToKravLink({ product: "bc", drivers: [], integrations: 0, calcIndustry: name });
+      expect(new URLSearchParams(link.href.split("?")[1]).get("bransch")).toBe(name);
+    }
   });
 });

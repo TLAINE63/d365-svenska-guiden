@@ -199,6 +199,7 @@ export default function BcRoiCalculator() {
       teamCost,
       deviceCost,
       implementation,
+      supportYear1,
       supportYearly,
       annualBenefit,
       netAnnual,
@@ -530,8 +531,13 @@ export default function BcRoiCalculator() {
                       <Row label="Licens helår" value={fmtSek(calc.licenseYearly)} />
                       <div className="border-t border-border my-2" />
                       <Row label="Implementation (engångs)" value={fmtSek(calc.implementation)} />
-                      <Row label="Förvaltning" value={fmtSek(calc.supportYearly)} sub="/år" />
+                      <Row label="Förvaltning år 1" value={fmtSek(calc.supportYear1)} />
+                      <Row label="Förvaltning år 2–5" value={fmtSek(calc.supportYearly * 4)} />
+                      <Row label="Licenser, 5 år" value={fmtSek(calc.licenseYearly * 5)} />
                       <Row label="Estimerad årlig nytta" value={fmtSek(calc.annualBenefit)} />
+                      <p className="pt-3 text-xs text-muted-foreground border-t border-border">
+                        TCO gäller hela införandet, inte bara användarens licens. Grundprojektet räknas här till {fmtSek(calc.implementation)} även för en användare. Ett standardnära snabbstartspaket kan ha en annan omfattning och finns från 50 000 kr.
+                      </p>
                     </CardContent>
                   </Card>
 
