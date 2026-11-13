@@ -1,7 +1,7 @@
 ## Kalkyler och branschval (2026-11-13)
-- [ ] Visa samma 21 klickbara branscher i kalkylernas befintliga branschval och behåll branschen till kravspecifikation.
-- [ ] Börja kostnads-, ROI- och TCO-kalkyler med lägsta omfattning och inga tillval; testa startvärden och sidflöden.
-- [ ] Kontrollera och förklara varför en användare kan ge över 500 tkr på fem år utan att ändra prisantaganden godtyckligt.
+- [x] Samma 21 klickbara branscher i BC, Sales och snabbkalkyl; exakt bransch följer till kravspecifikation.
+- [x] Lägsta omfattning och inga förvalda tillval i sju ROI/TCO-kalkyler, implementationskalkyl och snabbkalkyl; 31 tester godkända, sidflöden och mobil kontrollerade utan runtimefel. Tidigare uttryckliga val via länkar och sparade utkast bevaras.
+- [x] BC med en användare: 319 000 kr införande + 255 200 kr förvaltning + 45 882 kr licens = 620 082 kr på fem år. Modellens fasta bas minskar inte under 25 användare; uppdelning och snabbstartsalternativ förtydligade utan ändrade prisantaganden.
 
 ## Fit Model och intresselänkar (2026-11-13)
 - [x] Breddat modellens tabell till sidans marginaler; direktlänkar, sparade prioriteringar och dator/725 px/mobil verifierade. Fyra befintliga tester godkända, inga sidfel.
