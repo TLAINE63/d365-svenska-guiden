@@ -364,7 +364,7 @@ const Partnerprogram = () => {
                   <tbody>
                     <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
                     <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td><td className="text-right px-3 py-2 text-muted-foreground">–</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td></tr>
                   </tbody>
                 </table>
               </div>
