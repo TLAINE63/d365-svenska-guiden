@@ -1278,7 +1278,7 @@ export const BC_ISV_SOLUTIONS: IsvSolution[] = [
     editorialTier: "Tier 2",
     nordicRelevance: "medium",
     publicationWave: "now",
-    sourceStatus: "Befintlig d365.se – kontrollverifiera AppSource",
+    sourceStatus: "Befintlig d365.se – kontrollverifiera Microsoft Marketplace",
     lifecycleStatus: "active",
     tags: ["Peppol","E-invoice","E-documents"],
     industries: ["Public sector","B2B"],

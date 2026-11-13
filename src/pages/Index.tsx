@@ -116,7 +116,7 @@ const HOME_SOURCES = [
   { label: "Microsoft: Dynamics 365-priser", url: "https://www.microsoft.com/sv-se/dynamics-365/pricing" },
   { label: "Microsoft: Business Central-priser", url: "https://www.microsoft.com/sv-se/dynamics-365/products/business-central/pricing" },
   { label: "Microsoft Licensing Guide för Dynamics 365", url: "https://go.microsoft.com/fwlink/?LinkId=866544" },
-  { label: "Microsoft AppSource: partnerkatalog", url: "https://appsource.microsoft.com/sv-se/marketplace/partner-dir" },
+  { label: "Microsoft Marketplace: partnerkatalog", url: "https://appsource.microsoft.com/sv-se/marketplace/partner-dir" },
 ];
 
 const HOME_APP_TABLE = [

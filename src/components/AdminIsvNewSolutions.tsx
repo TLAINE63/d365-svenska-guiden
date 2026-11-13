@@ -372,12 +372,12 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                   </select>
                 </div>
                 <div>
-                  <Label>Länk till Microsoft AppSource</Label>
+                  <Label>Länk till Microsoft Marketplace</Label>
                   <Input value={form.appsource_url} onChange={(e) => setForm({ ...form, appsource_url: e.target.value })} placeholder="https://marketplace.microsoft.com/…" />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <Label>AppSource-betyg (0–5)</Label>
+                    <Label>Microsoft Marketplace-betyg (0–5)</Label>
                     <Input inputMode="decimal" value={form.appsource_rating} onChange={(e) => setForm({ ...form, appsource_rating: e.target.value })} placeholder="4,8" />
                   </div>
                   <div>

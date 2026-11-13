@@ -4,7 +4,7 @@
  *  - essentials   : ingår i BC Essentials (standard)
  *  - premium      : kräver BC Premium (tillverkning, service mm.)
  *  - config       : kräver konfiguration eller anpassning av BC
- *  - isv          : kräver ISV-tillägg (AppSource) ovanpå BC
+ *  - isv          : kräver ISV-tillägg (Microsoft Marketplace) ovanpå BC
  *  - outside      : ligger utanför BC – annan plattform/produkt
  *
  * Branching styrs av q_segment (steg 2) och i förekommande fall q_sub_industry (steg 3).

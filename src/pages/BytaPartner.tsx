@@ -31,7 +31,7 @@ const paths = [
 ];
 
 const productFocus = [
-  { p: "Business Central", items: ["Extensions och kundunika anpassningar", "Branschappar och ISV-appar från AppSource", "Integrationer", "Förvaltning av uppdateringar"] },
+  { p: "Business Central", items: ["Extensions och kundunika anpassningar", "Branschappar och ISV-appar från Microsoft Marketplace", "Integrationer", "Förvaltning av uppdateringar"] },
   { p: "Finance & Supply Chain Management", items: ["Anpassningar och utvecklingsgrenar", "Integrationer och kringliggande lösningar", "Teknisk dokumentation", "Förvaltning och releaseplanering"] },
   { p: "Sales och Customer Service", items: ["Lösningar i Dataverse", "Power Platform: appar och automationer", "Kundunika lösningar", "Integrationer"] },
 ];
