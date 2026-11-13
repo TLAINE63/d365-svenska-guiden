@@ -475,7 +475,7 @@ export default function ProductRoiAnalysis({
           </div>
         </div>
 
-        <BusinessValueAssessment value={bva} onChange={setBva} productName={cfg.productName} />
+        <BusinessValueAssessment value={bva} onChange={setBva} productName={cfg.productName} productKey={productKey} />
 
         {/* PDF */}
         <div className="mt-10 max-w-3xl mx-auto">
