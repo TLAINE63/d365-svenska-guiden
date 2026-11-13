@@ -81,7 +81,7 @@ serve(async (req) => {
       const body = await req.json();
       // Bilduppladdning (logotyp eller säljarfoto): sparas i lagringen, länken följer med inskicket.
       if (body?.upload === "logo" || body?.upload === "photo") {
-        if (!isVendor) return json({ error: "Uppladdning gäller leverantörsprofilen" }, 400, corsHeaders);
+        if (!isVendor && body.upload !== "photo") return json({ error: "Logotyp laddas upp i leverantörsprofilen" }, 400, corsHeaders);
         const TYPES: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/svg+xml": "svg" };
         const ext = TYPES[String(body?.content_type || "")];
         if (!ext || (body.upload === "photo" && ext === "svg")) return json({ error: "Bilden måste vara PNG, JPG, WebP eller SVG (logotyp)" }, 400, corsHeaders);
@@ -90,7 +90,7 @@ serve(async (req) => {
         let bytes: Uint8Array;
         try { bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)); } catch { return json({ error: "Ogiltig bild" }, 400, corsHeaders); }
         if (ext === "svg" && /<script|on\w+=|javascript:/i.test(new TextDecoder().decode(bytes))) return json({ error: "SVG-filen innehåller otillåtet innehåll" }, 400, corsHeaders);
-        const path = `isv-profil/${invitation.vendor_slug}/${body.upload}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
+        const path = `isv-profil/${invitation.vendor_slug || invitation.solution_id}/${body.upload}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
         const { error: upErr } = await supabase.storage.from("partner-documents").upload(path, bytes, { contentType: body.content_type, upsert: false });
         if (upErr) { console.error("isv-profile upload", upErr); return json({ error: "Kunde inte ladda upp bilden" }, 400, corsHeaders); }
         const { data: pub } = supabase.storage.from("partner-documents").getPublicUrl(path);
@@ -131,6 +131,10 @@ serve(async (req) => {
           ...presentationFields(body, false),
           delivery_model: pick(body?.delivery_model, DELIVERY),
           geo: cleanList(body?.geo, 4, 40).filter((g) => GEO.includes(g)),
+          sales_contact_name: cleanText(body?.sales_contact_name, 200),
+          sales_contact_email: cleanText(body?.sales_contact_email, 200),
+          sales_contact_phone: cleanText(body?.sales_contact_phone, 60),
+          sales_contact_photo_url: url(body?.sales_contact_photo_url),
         };
         if (kind === "new_solution") {
           const name = cleanText(body?.name, 200);

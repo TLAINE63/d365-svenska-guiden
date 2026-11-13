@@ -32,6 +32,10 @@ export interface ProductFormState {
   geo: string[];
   contact_name: string;
   contact_email: string;
+  sales_contact_name?: string;
+  sales_contact_email?: string;
+  sales_contact_phone?: string;
+  sales_contact_photo_url?: string;
   notes: string;
   confirm_information: boolean;
   request_publication: boolean;
@@ -75,10 +79,12 @@ interface Props {
   /** Dölj kontaktkortet (leverantörsläget har kontakt i leverantörsprofilen). */
   hideContact?: boolean;
   categories?: string[];
+  /** Laddar upp säljarens foto och returnerar bildens adress. */
+  onUploadPhoto?: (file: File) => Promise<string | null>;
 }
 
 /** Produktformuläret i leverantörens självservice. Inget publiceras utan redaktionens granskning. */
-export default function IsvProductForm({ form, setForm, isNew = false, hideContact = false, categories = [] }: Props) {
+export default function IsvProductForm({ form, setForm, isNew = false, hideContact = false, categories = [], onUploadPhoto }: Props) {
   const toggle = (key: "products" | "industries" | "geo", value: string) =>
     setForm({ ...form, [key]: form[key].includes(value) ? form[key].filter((v) => v !== value) : [...form[key], value] });
   const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm";
@@ -214,6 +220,36 @@ export default function IsvProductForm({ form, setForm, isNew = false, hideConta
             <Label htmlFor="isv-web">Produktens webbplats</Label>
             <Input id="isv-web" placeholder="https://" value={form.vendor_website} onChange={(e) => setForm({ ...form, vendor_website: e.target.value })} />
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Säljkontakt för den här produkten</CardTitle>
+          <CardDescription>Fyll i om produkten har en egen säljare, till exempel en för Business Central och en annan för CRM. Lämnas tomt gäller leverantörens kontakt.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid sm:grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="isv-sname">Säljarens namn</Label>
+            <Input id="isv-sname" value={form.sales_contact_name || ""} onChange={(e) => setForm({ ...form, sales_contact_name: e.target.value })} />
+          </div>
+          <div>
+            <Label htmlFor="isv-smail">E-post</Label>
+            <Input id="isv-smail" type="email" value={form.sales_contact_email || ""} onChange={(e) => setForm({ ...form, sales_contact_email: e.target.value })} />
+          </div>
+          <div>
+            <Label htmlFor="isv-sphone">Telefon</Label>
+            <Input id="isv-sphone" value={form.sales_contact_phone || ""} onChange={(e) => setForm({ ...form, sales_contact_phone: e.target.value })} />
+          </div>
+          {onUploadPhoto && (
+            <div>
+              <Label htmlFor="isv-sphoto">Foto på säljaren (JPG, PNG eller WebP, max 2 MB)</Label>
+              <div className="flex items-center gap-3">
+                {form.sales_contact_photo_url && <img src={form.sales_contact_photo_url} alt="Säljare" className="h-12 w-12 object-cover rounded-full border" />}
+                <Input id="isv-sphoto" type="file" accept="image/png,image/jpeg,image/webp" onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; const u = await onUploadPhoto(f); if (u) setForm({ ...form, sales_contact_photo_url: u }); }} />
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
