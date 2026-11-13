@@ -23,7 +23,7 @@ describe("calculator starting rules", () => {
     expect(IMPLEMENTATION_DEFAULTS.complexity).toBe("standardnara");
     expect(IMPLEMENTATION_DEFAULTS.integrations).toBe(0);
     expect(IMPLEMENTATION_DEFAULTS.legalEntities).toBe(1);
-    expect(IMPLEMENTATION_DEFAULTS.hourlyRate).toBe(900);
+    expect(IMPLEMENTATION_DEFAULTS.hourlyRate).toBe(1490);
   });
   it("accepts every one of the site's 21 industries without collapsing its name", () => {
     expect(INDUSTRY_NAMES).toHaveLength(21);

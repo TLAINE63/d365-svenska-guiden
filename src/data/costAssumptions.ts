@@ -14,12 +14,12 @@ export type CostAssumptions = {
   excluded: string[];
 };
 
-export const COST_ASSUMPTIONS_CHECKED = "2026-11-09";
+export const COST_ASSUMPTIONS_CHECKED = "2026-11-13";
 
 export const costAssumptions: Record<string, CostAssumptions> = {
   "business-central": {
     scope:
-      "Intervallen är konsultdagar × 11 600 kr per dag (samma modell som businesscentral.se). Snabbstart från 50 000 kr gäller ren standard med partnerns mallar; så fort lager, egna rapporter eller anpassade flöden tillkommer räknas projektet som litet projekt (15–40 dagar) eller större.",
+      "Intervallen är konsultdagar × 1 490 kr per timme × 8 timmar per dag. Snabbstart från 50 000 kr gäller ren standard med partnerns mallar; så fort lager, egna rapporter eller anpassade flöden tillkommer räknas projektet som litet projekt (15–40 dagar) eller större.",
     integrations:
       "Litet projekt räknar med 1–2 enkla kopplingar (t.ex. bank), medel 2–4. Varje ytterligare koppling mot e-handel, EDI, lön eller lagerautomation flyttar projektet uppåt i spannet. Be partnern specificera dagar per integration.",
     internal:

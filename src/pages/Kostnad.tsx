@@ -49,12 +49,12 @@ const kostnadFaqs = [
   {
     question: "Vad kostar det att implementera Business Central i Sverige?",
     answer:
-      "Snabbstart till fast pris i standardversion finns från 50 000 kr (Update Rapid Start, cirka 2 veckor; NAB Solutions Business Central Start, 1–3 veckor). Ett traditionellt projekt räknat på 11 600 kr per konsultdag ligger på ca 175 000–465 000 kr för ett litet projekt (15–40 dagar), 465 000 kr–1,2 MSEK för ett medelstort (40–100 dagar) och 1,2–2,9 MSEK för ett stort (100–250 dagar). Beloppen är räkneexempel, inte offerter.",
+      "Snabbstart till fast pris i standardversion finns från 50 000 kr (Update Rapid Start, cirka 2 veckor; NAB Solutions Business Central Start, 1–3 veckor). Ett traditionellt projekt räknat på 1 490 kr per timme (8 timmar per konsultdag) ligger på ca 180 000–475 000 kr för ett litet projekt (15–40 dagar), 475 000 kr–1,2 MSEK för ett medelstort (40–100 dagar) och 1,2–3,0 MSEK för ett stort (100–250 dagar). Beloppen är räkneexempel, inte offerter.",
   },
   {
     question: "Hur påverkar branschen kostnaden för att införa Business Central?",
     answer:
-      "Branschen avgör ofta var i spannet projektet hamnar. Ett litet projekt i tjänste-, grossist- eller e-handelsföretag ligger på ca 175 000–350 000 kr (15–30 dagar), i bygg, livsmedel, mode eller fältservice ca 230 000–465 000 kr (20–40 dagar) och i tillverkning ca 290 000–580 000 kr (25–50 dagar). För stora projekt är spannet ca 1,0–2,1 MSEK för tjänsteföretag och 1,7–3,5 MSEK för tillverkning, bygg och livsmedel.",
+      "Branschen avgör ofta var i spannet projektet hamnar. Ett litet projekt i tjänste-, grossist- eller e-handelsföretag ligger på ca 180 000–360 000 kr (15–30 dagar), i bygg, livsmedel, mode eller fältservice ca 240 000–475 000 kr (20–40 dagar) och i tillverkning ca 300 000–595 000 kr (25–50 dagar). För stora projekt är spannet ca 1,1–2,1 MSEK för tjänsteföretag och 1,8–3,6 MSEK för tillverkning, bygg och livsmedel.",
   },
   {
     question: "Vad kostar Finance & Supply Chain Management jämfört med Business Central?",

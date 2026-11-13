@@ -1,3 +1,4 @@
+import { CONSULTANT_HOUR_SEK } from "@/data/pricing";
 import { INDUSTRY_NAMES } from "@/data/standardIndustries";
 import type { Industry } from "@/data/bcRoiDrivers";
 import type { SalesIndustry } from "@/data/salesRoiDrivers";
@@ -21,7 +22,7 @@ export const IMPLEMENTATION_DEFAULTS = {
   dataMigration: false,
   customDevelopment: false,
   training: false,
-  hourlyRate: 900,
+  hourlyRate: CONSULTANT_HOUR_SEK,
 };
 
 // Reuse existing broad models; do not invent estimates for newly selectable industries.

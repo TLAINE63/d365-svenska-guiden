@@ -52,32 +52,32 @@ const SHARED_NOTE =
 export const costBreakdowns: Record<string, CostBreakdownContent> = {
   "business-central": {
     pricingModel:
-      "Total­kostnaden består av tre delar: (1) månadslicens per användare (Essentials ~765 kr eller Premium ~1 050 kr), (2) en engångs­kostnad för implementationen hos partnern och (3) löpande förvaltning efter go-live. Ett litet projekt för 10 användare (175 000–465 000 kr) motsvarar ungefär 2–5 gånger årslicensen; större projekt med lager, produktion och integrationer kan bli betydligt mer.",
+      "Total­kostnaden består av tre delar: (1) månadslicens per användare (Essentials ~765 kr eller Premium ~1 050 kr), (2) en engångs­kostnad för implementationen hos partnern och (3) löpande förvaltning efter go-live. Ett litet projekt för 10 användare (180 000–475 000 kr) motsvarar ungefär 2–5 gånger årslicensen; större projekt med lager, produktion och integrationer kan bli betydligt mer.",
     ranges: [
       {
         size: "S",
         label: "Liten – 5–15 användare",
         scope: "Ekonomi, order och inköp, grundläggande datamigrering, 1–2 enkla kopplingar (t.ex. bank). Snabbstart till fast pris i standardversion finns från 50 000 kr.",
-        oneTime: "175 000 – 465 000 kr (15–40 dagar)",
+        oneTime: "180 000 – 475 000 kr (15–40 dagar)",
         weeks: "8–14 veckor",
       },
       {
         size: "M",
         label: "Medel – 15–35 användare",
         scope: "Lager och logistik, branschapp, 2–4 integrationer och Power BI.",
-        oneTime: "465 000 kr – 1,2 MSEK (40–100 dagar)",
+        oneTime: "475 000 kr – 1,2 MSEK (40–100 dagar)",
         weeks: "14–24 veckor",
       },
       {
         size: "L",
         label: "Stor – 35+ användare",
         scope: "Produktion, avancerad lagerstyrning, flera bolag/valutor, EDI och egna integrationer.",
-        oneTime: "1,2 – 2,9 MSEK (100–250 dagar)",
+        oneTime: "1,2 – 3,0 MSEK (100–250 dagar)",
         weeks: "24–40 veckor",
       },
     ],
     drivers: [
-      "Bransch: litet projekt ca 175 000–350 000 kr för tjänster, grossist och e-handel, 230 000–465 000 kr för bygg, livsmedel, mode och fältservice, 290 000–580 000 kr för tillverkning",
+      "Bransch: litet projekt ca 180 000–360 000 kr för tjänster, grossist och e-handel, 240 000–475 000 kr för bygg, livsmedel, mode och fältservice, 300 000–595 000 kr för tillverkning",
       "Antal användare, bolag och valutor",
       "Datamigreringens omfång och kvalitet i artiklar/kunder/leverantörer",
       "Antal integrationer (lön, bank, EDI, e-handel, WMS, CRM)",
@@ -95,8 +95,8 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
     examples: [
       {
         title: "Snabbstart och små standardimplementationer",
-        scope: "Snabbstart till fast pris från 50 000 kr, litet traditionellt projekt ca 175 000–465 000 kr",
-        range: "50 000 – 465 000 kr",
+        scope: "Snabbstart till fast pris från 50 000 kr, litet traditionellt projekt ca 180 000–475 000 kr",
+        range: "50 000 – 475 000 kr",
         bullets: [
           "Snabbstart: fast pris, standardversion, grundregister och utbildning (t.ex. Update Rapid Start, NAB Solutions Business Central Start)",
           "Mindre projekt: 2–4 månader, ekonomi, order och inköp",
@@ -109,11 +109,11 @@ export const costBreakdowns: Record<string, CostBreakdownContent> = {
       {
         title: "Mer avancerade implementationer",
         scope: "Lager, produktion och integrationer",
-        range: "465 000 kr – 2,9 MSEK",
+        range: "475 000 kr – 3,0 MSEK",
         bullets: [
           "4–8 månaders projekt",
-          "Medelstort projekt (15–35 användare): 465 000 kr – 1,2 MSEK",
-          "Större projekt (35+ användare): 1,2 – 2,9 MSEK",
+          "Medelstort projekt (15–35 användare): 475 000 kr – 1,2 MSEK",
+          "Större projekt (35+ användare): 1,2 – 3,0 MSEK",
           "Tillverkande industri hamnar ofta i övre delen även med få användare",
           "Flera systemintegrationer",
           "Komplex datamigration",
