@@ -4,6 +4,7 @@
  * som matchningstesterna använder (bransch, storlek, omraden, produkt) plus kalla=kalkyl.
  * Ingen ny lagring: kravspecen sparar själv tillbaka till köparprofilen (useKravProfileSync).
  */
+import { canonicalCalculatorIndustry } from "@/lib/calculatorDefaults";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 export type CalcProduct =
@@ -131,7 +132,7 @@ export function calcToKravLink(i: CalcKravInput): CalcKravLink {
   for (const d of i.drivers) for (const a of map[d] ?? []) areas.add(a);
   if (i.integrations > 0) areas.add(t.integrationArea);
 
-  const industry = !i.profileHasIndustry && i.calcIndustry ? CALC_INDUSTRY_TO_NAME[i.calcIndustry] : undefined;
+  const industry = !i.profileHasIndustry && i.calcIndustry ? (canonicalCalculatorIndustry(i.calcIndustry) ?? CALC_INDUSTRY_TO_NAME[i.calcIndustry]) : undefined;
   const size = t.sizeFromUsers && i.users ? usersToTeamSize(i.users) : undefined;
 
   const sp = new URLSearchParams();

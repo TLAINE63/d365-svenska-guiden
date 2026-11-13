@@ -1,3 +1,5 @@
+import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
+import { ROI_DEFAULTS, bcIndustryModel } from "@/lib/calculatorDefaults";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calculator, Info, AlertTriangle, TrendingUp, Clock, Wallet, PiggyBank } from "lucide-react";
@@ -29,7 +31,7 @@ import { filterAndSortPartners } from "@/hooks/usePartnerFilters";
 import PartnerCard from "@/components/PartnerCard";
 import { BC_ISV_SOLUTIONS, type SolutionIndustry } from "@/data/bcIsvSolutions";
 import { Checkbox } from "@/components/ui/checkbox";
-import { INDUSTRY_DRIVERS, defaultEnabledDrivers, type Industry } from "@/data/bcRoiDrivers";
+import { INDUSTRY_DRIVERS, type Industry } from "@/data/bcRoiDrivers";
 import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
@@ -47,7 +49,7 @@ type LicenseModel = "Essentials" | "Premium";
 
 interface Inputs {
   companyName: string;
-  industry: Industry;
+  industry: string;
   fullUsers: number;
   teamMembers: number;
   deviceUsers: number;
@@ -60,20 +62,20 @@ interface Inputs {
   currentItCost: number;
 }
 
-const initialIndustry: Industry = "Handel";
+const initialIndustry = "";
 const DEFAULTS: Inputs = {
   companyName: "",
   industry: initialIndustry,
-  fullUsers: 25,
-  teamMembers: 10,
+  fullUsers: ROI_DEFAULTS.users,
+  teamMembers: ROI_DEFAULTS.additionalUsers,
   deviceUsers: 0,
   license: "Essentials",
   revenue: 45_000_000,
-  complexity: "Medel",
-  manualPct: 60,
-  enabledDrivers: defaultEnabledDrivers(initialIndustry),
-  integrations: 3,
-  currentItCost: 300_000,
+  complexity: ROI_DEFAULTS.complexity,
+  manualPct: ROI_DEFAULTS.manualPct,
+  enabledDrivers: ROI_DEFAULTS.enabledDrivers,
+  integrations: ROI_DEFAULTS.integrations,
+  currentItCost: ROI_DEFAULTS.currentItCost,
 };
 
 const fmtSek = (n: number) =>
@@ -127,7 +129,8 @@ export default function BcRoiCalculator() {
   const perFullUserLabel = v.license === "Premium" ? "Premium" : "Essentials";
 
   // ----- Aktiva drivare för vald bransch -----
-  const industryDrivers = INDUSTRY_DRIVERS[v.industry];
+  const modelIndustry = bcIndustryModel(v.industry);
+  const industryDrivers = INDUSTRY_DRIVERS[modelIndustry];
   const activeDrivers = useMemo(
     () => industryDrivers.filter((d) => v.enabledDrivers.includes(d.id)),
     [industryDrivers, v.enabledDrivers]
@@ -159,7 +162,7 @@ export default function BcRoiCalculator() {
     const usersFactor = 1 + Math.max(0, v.fullUsers - 25) * 0.012;
     const driverImplCost = activeDrivers.reduce((sum, d) => sum + d.implCost, 0);
     const implementation =
-      complexityImpl[v.complexity] * usersFactor * industryImplFactor[v.industry] +
+      complexityImpl[v.complexity] * usersFactor * industryImplFactor[modelIndustry] +
       v.integrations * 30_000 +
       driverImplCost +
       (v.license === "Premium" ? 200_000 : 0);
@@ -196,6 +199,7 @@ export default function BcRoiCalculator() {
       teamCost,
       deviceCost,
       implementation,
+      supportYear1,
       supportYearly,
       annualBenefit,
       netAnnual,
@@ -208,11 +212,11 @@ export default function BcRoiCalculator() {
   }, [v, perFullUser, teamPrice, devicePrice, activeDrivers]);
 
   const priceMissing = perFullUser == null || teamPrice == null;
-  const tillverkningEssentialsWarning = v.industry === "Tillverkning" && v.license === "Essentials";
+  const tillverkningEssentialsWarning = modelIndustry === "Tillverkning" && v.license === "Essentials";
 
   // ----- ISV-rekommendationer baserat på bransch/val -----
   const isvSuggestions = useMemo(() => {
-    const want = INDUSTRY_TO_ISV[v.industry];
+    const want = INDUSTRY_TO_ISV[modelIndustry];
     const all = BC_ISV_SOLUTIONS.filter((s) =>
       s.industries.some((i) => want.includes(i) || i === "Generell")
     );
@@ -312,28 +316,9 @@ export default function BcRoiCalculator() {
                       />
                     </div>
 
-                    {/* Bransch */}
-                    <div className="space-y-2">
-                      <Label>Bransch</Label>
-                      <Select
-                        value={v.industry}
-                        onValueChange={(val) => {
-                          const next = val as Industry;
-                          setV((prev) => ({
-                            ...prev,
-                            industry: next,
-                            enabledDrivers: defaultEnabledDrivers(next),
-                          }));
-                        }}
-                      >
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {(["Handel","Distribution","Tillverkning","Tjänster","Annan"] as Industry[]).map(i => (
-                            <SelectItem key={i} value={i}>{i}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <CalculatorIndustryPicker value={v.industry} onChange={(industry) =>
+                      setV((prev) => ({ ...prev, industry, enabledDrivers: [] }))
+                    } />
 
                     {/* Användare */}
                     <div className="grid sm:grid-cols-3 gap-4">
@@ -418,7 +403,7 @@ export default function BcRoiCalculator() {
                     {/* Branschspecifika effektiviseringsdrivare */}
                     <div className="space-y-3">
                       <div>
-                        <Label>Effektiviseringar för {v.industry.toLowerCase()}</Label>
+                        <Label>Effektiviseringar för {v.industry ? v.industry.toLowerCase() : "er verksamhet"}</Label>
                         <p className="text-xs text-muted-foreground mt-1">
                           Bocka i de områden där du ser potential. Estimaten baseras på Microsofts Business Value Assessment och svenska partnerbenchmarks.
                         </p>
@@ -546,8 +531,13 @@ export default function BcRoiCalculator() {
                       <Row label="Licens helår" value={fmtSek(calc.licenseYearly)} />
                       <div className="border-t border-border my-2" />
                       <Row label="Implementation (engångs)" value={fmtSek(calc.implementation)} />
-                      <Row label="Förvaltning" value={fmtSek(calc.supportYearly)} sub="/år" />
+                      <Row label="Förvaltning år 1" value={fmtSek(calc.supportYear1)} />
+                      <Row label="Förvaltning år 2–5" value={fmtSek(calc.supportYearly * 4)} />
+                      <Row label="Licenser, 5 år" value={fmtSek(calc.licenseYearly * 5)} />
                       <Row label="Estimerad årlig nytta" value={fmtSek(calc.annualBenefit)} />
+                      <p className="pt-3 text-xs text-muted-foreground border-t border-border">
+                        TCO gäller hela införandet, inte bara användarens licens. Grundprojektet räknas här till {fmtSek(calc.implementation)} även för en användare. Ett standardnära snabbstartspaket kan ha en annan omfattning och finns från 50 000 kr.
+                      </p>
                     </CardContent>
                   </Card>
 

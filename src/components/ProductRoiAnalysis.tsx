@@ -1,3 +1,4 @@
+import { ROI_DEFAULTS } from "@/lib/calculatorDefaults";
 import { useMemo, useState } from "react";
 import { readRoiPrefill } from "@/lib/fscmChainLinks";
 import { readServiceRoiPrefill } from "@/lib/serviceChainLinks";
@@ -23,7 +24,6 @@ import RoiPdfDownload from "@/components/RoiPdfDownload";
 import type { RoiPdfData } from "@/utils/generateRoiPdf";
 import {
   PRODUCT_ROI_CONFIGS,
-  defaultEnabledDrivers,
   type ProductRoiKey,
 } from "@/data/productRoiConfigs";
 
@@ -67,16 +67,16 @@ export default function ProductRoiAnalysis({
     typeof window === "undefined" || !["customer-service", "field-service", "contact-center"].includes(productKey) ? {} : readServiceRoiPrefill(window.location.search)
   );
   const [counts, setCounts] = useState<Record<string, number>>(() =>
-    Object.fromEntries(cfg.licenseLines.map((l, i) => [l.skuKey, i === 0 && csPrefill.agents ? csPrefill.agents : l.defaultCount]))
+    Object.fromEntries(cfg.licenseLines.map((l, i) => [l.skuKey, i === 0 ? (csPrefill.agents ?? ROI_DEFAULTS.users) : ROI_DEFAULTS.additionalUsers]))
   );
   const [prefill] = useState(() => (typeof window === "undefined" ? {} : readRoiPrefill(window.location.search)));
   const [revenue, setRevenue] = useState(prefill.revenue ?? cfg.defaultRevenue);
-  const [complexity, setComplexity] = useState<Complexity>(prefill.complexity ?? "Medel");
-  const [manualPct, setManualPct] = useState(60);
-  const [integrations, setIntegrations] = useState(csPrefill.integrations ?? cfg.defaultIntegrations);
-  const [currentItCost, setCurrentItCost] = useState(cfg.defaultCurrentItCost);
+  const [complexity, setComplexity] = useState<Complexity>(prefill.complexity ?? ROI_DEFAULTS.complexity);
+  const [manualPct, setManualPct] = useState(ROI_DEFAULTS.manualPct);
+  const [integrations, setIntegrations] = useState(csPrefill.integrations ?? ROI_DEFAULTS.integrations);
+  const [currentItCost, setCurrentItCost] = useState(ROI_DEFAULTS.currentItCost);
   const [enabled, setEnabled] = useState<string[]>(() =>
-    defaultEnabledDrivers(productKey)
+    ROI_DEFAULTS.enabledDrivers
   );
 
   const updateCount = (sku: string, val: number) =>
@@ -88,7 +88,7 @@ export default function ProductRoiAnalysis({
     const unitPrice = sku?.price_sek ?? l.fallbackPrice ?? null;
     const qty = counts[l.skuKey] ?? l.defaultCount;
     const monthly =
-      unitPrice == null ? 0 : l.perTenant ? unitPrice * Math.max(1, qty) : unitPrice * qty;
+      unitPrice == null ? 0 : l.perTenant ? unitPrice * qty : unitPrice * qty;
     return {
       ...l,
       unitPrice,

@@ -4,6 +4,14 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
+  "/businesscentral/roi-kalkylator/": "2026-11-13",
+  "/d365sales/roi-kalkylator/": "2026-11-13",
+  "/finance-supply-chain/roi-kalkylator/": "2026-11-13",
+  "/d365customerservice/roi-kalkylator/": "2026-11-13",
+  "/d365marketing/roi-kalkylator/": "2026-11-13",
+  "/d365contactcenter/roi-kalkylator/": "2026-11-13",
+  "/d365fieldservice/roi-kalkylator/": "2026-11-13",
+
   "/kompetens/": "2026-10-30",
   "/kompetens/dynamics-365-projektledare/": "2026-10-30",
   "/kompetens/dynamics-365-testledare/": "2026-10-30",
@@ -72,8 +80,8 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/d365marketing/": "2026-11-02",
   "/d365contactcenter/": "2026-11-04",
   "/affarssystem/": "2026-11-13",
-  "/kostnad/": "2026-11-09",
-  "/implementationskalkylator/": "2026-11-04",
+  "/kostnad/": "2026-11-13",
+  "/implementationskalkylator/": "2026-11-13",
   "/priser/": "2026-10-22",
   "/upphandlingsguiden/": "2026-10-24",
   "/kundservicesystem/": "2026-10-05",
