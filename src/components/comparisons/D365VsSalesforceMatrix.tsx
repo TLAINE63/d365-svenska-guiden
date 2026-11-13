@@ -35,7 +35,7 @@ const D365VsSalesforceMatrix = () => {
     },
     {
       area: "Branschflexibilitet",
-      d365: "Branschlösningar från Microsoft och partners, bland annat via AppSource.",
+      d365: "Branschlösningar från Microsoft och partners, bland annat via Microsoft Marketplace.",
       sf: "Branschlösningar inom Salesforce Industries och via AppExchange.",
       note: "Båda plattformarna erbjuder djupa branschlösningar.",
     },

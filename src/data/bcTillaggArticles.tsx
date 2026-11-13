@@ -316,7 +316,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Peppol720 (ON720.COM)</h2>
         <p>
-          AppSource-produkt för att skicka och ta emot elektroniska dokument via Peppol med
+          Microsoft Marketplace-produkt för att skicka och ta emot elektroniska dokument via Peppol med
           Sverige som stödd marknad.
         </p>
         <p>Direkt- eller partnerkanal verifieras per affär.</p>
@@ -445,7 +445,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Sana Commerce Cloud</h2>
         <p>
-          Sanas AppSource-erbjudande stödjer Sverige och hämtar produkter, priser, kunder, lager
+          Sanas Microsoft Marketplace-erbjudande stödjer Sverige och hämtar produkter, priser, kunder, lager
           och order direkt från BC i realtid.
         </p>
         <p>
@@ -455,7 +455,7 @@ export const BC_TILLAGG_ARTICLES: DeepDiveArticle[] = [
         <h2>Connector-alternativ</h2>
         <p>
           Om du redan kör Shopify, Magento eller WooCommerce finns flera lättare connector-tillägg
-          på AppSource som synkroniserar artiklar, lager och order mot BC.
+          på Microsoft Marketplace som synkroniserar artiklar, lager och order mot BC.
         </p>
         <p>Valet beror på hur djup integration du behöver.</p>
 

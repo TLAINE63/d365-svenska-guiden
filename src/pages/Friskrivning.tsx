@@ -146,7 +146,7 @@ export default function Friskrivning() {
           </ul>
           <p className="text-muted-foreground leading-relaxed mt-3">
             Observerade branscher, storlekar, omsättning och geografi bygger på öppen
-            information (partnerns egna webbsidor, Microsoft AppSource, offentliga
+            information (partnerns egna webbsidor, Microsoft Marketplace, offentliga
             referenser). De är tolkningar och kan skilja sig från partnerns egen
             positionering.
           </p>

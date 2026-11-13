@@ -26,7 +26,7 @@ export const costAssumptions: Record<string, CostAssumptions> = {
       "Ekonomiansvarig, processägare och nyckelanvändare behöver tid till workshops, test och utbildning. Den tiden ingår inte i partnerns pris.",
     excluded: [
       "Licenser (löpande, per användare och månad)",
-      "Tilläggsappar från AppSource och deras egna licenser",
+      "Tilläggsappar från Microsoft Marketplace och deras egna licenser",
       "Tvätt av gammal data innan migrering",
       "Förvaltningsavtal efter go-live",
     ],

@@ -631,7 +631,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
       <>
         <p>
           <strong>Business Centrals styrka ligger i kombinationen av kärnsystem och tillägg.</strong> Snarare än att lista
-          alla appar i AppSource fokuserar vi här på de 10 tilläggskategorier som återkommer i nästan varje svensk
+          alla appar i Microsoft Marketplace fokuserar vi här på de 10 tilläggskategorier som återkommer i nästan varje svensk
           BC-affär. Klicka vidare till respektive kategorisida för ISV:er, exempel på BC-partners som är offentligt
           listade av ISV:n och vägledning kring när tillägget är relevant.
         </p>

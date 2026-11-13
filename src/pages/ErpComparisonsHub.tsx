@@ -69,7 +69,7 @@ const ErpComparisonsHub = () => {
                 När du utvärderar Dynamics&nbsp;365 mot nischade system bör du fokusera på tre faktorer:
               </p>
               <ol className="list-decimal space-y-1.5 pl-5 text-muted-foreground">
-                <li>Standardfunktionalitet jämfört med branschtillägg (AppSource).</li>
+                <li>Standardfunktionalitet jämfört med branschtillägg (Microsoft Marketplace).</li>
                 <li>Integrationsmöjligheter med Power BI och Microsoft Fabric.</li>
                 <li>Tillgång till svenska partners med djup branscherfarenhet.</li>
               </ol>
