@@ -39,7 +39,7 @@ export default function BusinessValueAssessment({ value: v, onChange, productNam
       <p className="text-muted-foreground mb-4 max-w-3xl">
         Räkna nyttan utifrån era egna problem: tid i manuella moment, förlorade affärer, verksamhetsutmaningar och kostnader för system som ersätts. Moderna funktioner som AI-tolkning av fakturor och automatiska avstämningar ingår som egna rader. Summan läggs till nyttan i kalkylen för {productName}.
       </p>
-      {!onOwnPage && <p className="text-sm mb-4"><Link to="/verksamhetsvardering/" className="underline underline-offset-4 text-primary">Vill du se kassaflöde, internränta och spara som PDF? Öppna verksamhetsvärderingen</Link></p>}
+      {!onOwnPage && <p className="text-sm mb-4"><Link to="/verksamhetsvardering/" className="underline underline-offset-4 text-primary">Vill du se kassaflöde, internränta och spara som PDF? Öppna Affärsnytta & ROI</Link></p>}
       <div className="flex flex-wrap gap-3 mb-6 items-end">
         <div className="w-40"><NumField label="Intern kostnad per timme" value={v.hourlyCost} onChange={(n) => set("hourlyCost", n)} suffix="kr" /></div>
         <div className="w-40"><NumField label="Täckningsgrad på förlorad försäljning" value={v.marginPct} onChange={(n) => set("marginPct", n)} suffix="%" /></div>
