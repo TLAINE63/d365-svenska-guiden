@@ -141,7 +141,6 @@ const Upphandlingsguiden = () => {
  <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
  {" "}– de 7 stadierna från behov till partner?
  </h1>
- <h2 className="text-xl font-bold text-primary-foreground mb-3">Kort svar</h2>
  <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
  En upphandling av affärssystem eller CRM rör sig genom sju stadier – från de första signalerna att något skaver, via behovsanalys och kravspecifikation, till partnerval och avtal. Här får du vägledning genom varje stadie, med verktyg och guider som hjälper dig att fatta trygga beslut hela vägen.
  </p>

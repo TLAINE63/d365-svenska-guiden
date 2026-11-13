@@ -266,7 +266,7 @@ const PartnerGuidePage = ({ guideKey }: Props) => {
           <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-6">
             {nowrapBrand(partnerQuestion(content.h1))}
           </h1>
-          {introBlocks.length > 0 && <section aria-label="Kort svar"><h2 className="text-xl font-bold mb-3">Kort svar</h2>{introBlocks.map(renderBlock)}</section>}
+          {introBlocks.length > 0 && <section aria-label="Sammanfattning">{introBlocks.map(renderBlock)}</section>}
 
           {INTRO_CTA[guideKey] && (
             <GuideCTA

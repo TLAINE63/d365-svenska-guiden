@@ -4937,7 +4937,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
 
         <div className="!mb-10 rounded-lg border border-border bg-muted/40 p-5">
-          <p className="!mt-0 !mb-3 !font-semibold">Kort svar för dig som ska välja system</p>
+          <p className="!mt-0 !mb-3 !font-semibold">För dig som ska välja system</p>
           <ul className="!mb-0">
             <li>
               <strong>Projektredovisning:</strong> budget, prognos och successiv

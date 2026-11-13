@@ -28,7 +28,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
     "blocks": [
       {
         "type": "p",
-        "text": "Kort svar: avgör först vilken sorts upphandling du faktiskt gör. Business Central, Finance & Supply Chain Management och Customer Engagement är tre olika marknader med olika leverantörer och helt olika storleksordning på projekten. Bygg sedan en longlist på fem till åtta kandidater, gallra på branscherfarenhet och storleksmatchning, och lägg tyngdpunkten i utvärderingen på de personer som faktiskt ska leverera. Alla partners svarar bra på en bra fråga, så det avgörande är inte vilka frågor ni ställer utan hur ni bedömer svaren."
+        "text": "Avgör först vilken sorts upphandling du faktiskt gör. Business Central, Finance & Supply Chain Management och Customer Engagement är tre olika marknader med olika leverantörer och helt olika storleksordning på projekten. Bygg sedan en longlist på fem till åtta kandidater, gallra på branscherfarenhet och storleksmatchning, och lägg tyngdpunkten i utvärderingen på de personer som faktiskt ska leverera. Alla partners svarar bra på en bra fråga, så det avgörande är inte vilka frågor ni ställer utan hur ni bedömer svaren."
       },
       {
         "type": "h2",
@@ -618,7 +618,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
     "blocks": [
       {
         "type": "p",
-        "text": "Kort svar: partnerfältet är bredast här av alla Dynamics-områden, vilket gör storleksmatchningen till den viktigaste gallringen. Ni ska vara en kund som syns hos leverantören, inte den minsta hos en stor eller den största hos en liten. Utgå sedan från vilket system ni lämnar, ta reda på vilka appar som ingår och vem som äger dem, och kontrollera hur partnern hanterar Business Centrals två stora uppdateringscykler per år och de mindre löpande uppdateringarna."
+        "text": "Partnerfältet är bredast här av alla Dynamics-områden, vilket gör storleksmatchningen till den viktigaste gallringen. Ni ska vara en kund som syns hos leverantören, inte den minsta hos en stor eller den största hos en liten. Utgå sedan från vilket system ni lämnar, ta reda på vilka appar som ingår och vem som äger dem, och kontrollera hur partnern hanterar Business Centrals två stora uppdateringscykler per år och de mindre löpande uppdateringarna."
       },
       {
         "type": "p",
@@ -1042,7 +1042,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
     "blocks": [
       {
         "type": "p",
-        "text": "Kort svar: börja inte med partnerns meritlista, utan med vad ni ska lämna. En koncern som byter från AX 2012 ställer helt andra krav på leverantören än en som lämnar SAP eller konsoliderar fem olika system. Fältet av partners med verklig kapacitet är litet, så tyngdpunkten i utvärderingen ligger på personerna i teamet, på hur leveransen är organiserad mellan länder, och på vem som förvaltar lösningen när projektet är slut."
+        "text": "Börja inte med partnerns meritlista, utan med vad ni ska lämna. En koncern som byter från AX 2012 ställer helt andra krav på leverantören än en som lämnar SAP eller konsoliderar fem olika system. Fältet av partners med verklig kapacitet är litet, så tyngdpunkten i utvärderingen ligger på personerna i teamet, på hur leveransen är organiserad mellan länder, och på vem som förvaltar lösningen när projektet är slut."
       },
       {
         "type": "p",
@@ -1561,7 +1561,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
     "blocks": [
       {
         "type": "p",
-        "text": "Kort svar: den avgörande risken i ett CRM-projekt är inte teknisk. Den är att säljarna inte använder systemet. Välj därför partner efter hur de arbetar med det som avgör användningen: säljprocessen, vardagsfriktionen, integrationen mot affärssystemet och vad som händer efter lansering. Be varje kandidat visa hur de följer upp faktisk användning hos tidigare kunder. Om de inte kan beskriva det säger det något om hur systematiskt de arbetar med adoption."
+        "text": "Den avgörande risken i ett CRM-projekt är inte teknisk. Den är att säljarna inte använder systemet. Välj därför partner efter hur de arbetar med det som avgör användningen: säljprocessen, vardagsfriktionen, integrationen mot affärssystemet och vad som händer efter lansering. Be varje kandidat visa hur de följer upp faktisk användning hos tidigare kunder. Om de inte kan beskriva det säger det något om hur systematiskt de arbetar med adoption."
       },
       {
         "type": "p",
@@ -1987,7 +1987,7 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
     "blocks": [
       {
         "type": "p",
-        "text": "Kort svar: Customer Service och Field Service hör till de Dynamics-områden där ett driftproblem snabbast blir synligt för slutkunden. Går något fel kan kunden märka det innan ni själva hinner reagera. Välj därför partner efter driftförmåga lika mycket som efter designförmåga: hur de hanterar avbrott, hur de testar inför uppdateringar, hur schemaläggning och SLA faktiskt är uppsatta och vem som svarar när fälttekniker inte kommer in i appen."
+        "text": "Customer Service och Field Service hör till de Dynamics-områden där ett driftproblem snabbast blir synligt för slutkunden. Går något fel kan kunden märka det innan ni själva hinner reagera. Välj därför partner efter driftförmåga lika mycket som efter designförmåga: hur de hanterar avbrott, hur de testar inför uppdateringar, hur schemaläggning och SLA faktiskt är uppsatta och vem som svarar när fälttekniker inte kommer in i appen."
       },
       {
         "type": "p",

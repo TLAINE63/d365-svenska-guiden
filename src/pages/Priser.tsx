@@ -185,7 +185,7 @@ export default function Priser() {
               <p className="text-base sm:text-lg text-muted-foreground mb-6">
                 Vad kostar Microsoft {D365}? Det beror på vilka appar ni behöver, hur många användare som ska arbeta i systemet och hur implementationen ska genomföras. Här får du en översikt över licenser, löpande kostnader och faktorer som påverkar den totala investeringen.
               </p>
-              <h2 className="text-xl font-bold mb-3">Kort svar</h2>
+              
               <p className="text-base sm:text-lg text-muted-foreground">
                 Microsoft {D365} licensieras per användare och månad. Business Central kostar från {price("bc-essentials")} och Finance & Supply Chain Management från {price("finance")} (listpris, SEK exkl. moms). Det faktiska priset beror på avtalsform (EA, CSP), volym och förhandling, och licensen är bara en del av totalkostnaden. Införande, integration och förvaltning står normalt för en betydligt större andel över tid.
               </p>

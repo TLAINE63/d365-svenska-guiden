@@ -8,8 +8,7 @@ import { fitModels, type FitModelKey } from "@/data/fitModels";
 describe("Human-first buyer guide presentation", () => {
   it("keeps the short answer and existing next step without a decorative frame", () => {
     const html = renderToStaticMarkup(<MemoryRouter><ShortAnswer cta={{ label: "Nästa steg", to: "/kom-igang/" }}>Dynamics 365 hjälper er utvärdera valet.</ShortAnswer></MemoryRouter>);
-    expect(html).toContain("<h2");
-    expect(html).toContain("Kort svar");
+    expect(html).not.toContain("Kort svar");
     expect(html).toContain('href="/kom-igang/"');
     expect(html).toContain("whitespace-nowrap");
     expect(html).not.toContain("<svg");
