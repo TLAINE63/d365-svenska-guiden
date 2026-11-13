@@ -15,3 +15,16 @@ describe("solutionKindOf", () => {
     expect(solutionKindOf({ category: "AP automation", deliveryModel: "integration_layer" })).toBe("funktion");
   });
 });
+
+import { vendorOfficeText } from "./isvVendorOffice";
+describe("vendorOfficeText", () => {
+  it("Swedish office shows city only", () => {
+    expect(vendorOfficeText({ office_scope: "se", office_city: "Stockholm", office_country: "Sverige" })).toBe("Kontor i Sverige: Stockholm");
+  });
+  it("HQ shows city and country", () => {
+    expect(vendorOfficeText({ office_scope: "hq", office_city: "Köpenhamn", office_country: "Danmark" })).toBe("Huvudkontor: Köpenhamn, Danmark");
+  });
+  it("empty when not set", () => {
+    expect(vendorOfficeText({})).toBe("");
+  });
+});
