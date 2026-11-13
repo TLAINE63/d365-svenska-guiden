@@ -100,13 +100,13 @@ export const BC_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
   hourlyCost: Math.round(internalHourlyCost(40_000) * 2) / 2, // 458,5 kr
   marginPct: 30,
   work: [
-    w("order", "Manuell orderregistrering", 15, 500, 80),
-    w("invoice", "Fakturering (automatisk/batch)", 2, 700, 80),
-    w("web", "Webborder och dubbelregistrering", 15, 200, 90),
-    w("quote", "Offert till order", 15, 200, 80),
-    w("close", "Månadsbokslut (automatiserat)", 7200, 1, 80),
-    w("ap", "Leverantörsfakturor (AI-tolkning och kontering)", 0, 0, 70),
-    w("bank", "Bankavstämning (AI-förslag)", 0, 0, 70),
+    w("order", "Manuell orderregistrering", 10, 200, 70),
+    w("invoice", "Fakturering (automatisk/batch)", 2, 300, 80),
+    w("web", "Webborder och dubbelregistrering", 10, 100, 90),
+    w("quote", "Offert till order", 10, 60, 60),
+    w("close", "Månadsbokslut (automatiserat)", 1440, 1, 60),
+    w("ap", "Leverantörsfakturor (AI-tolkning och kontering)", 3, 200, 70),
+    w("bank", "Bankavstämning (AI-förslag)", 60, 4, 70),
   ],
   leakage: [
     l("missed", "Missade order", 15_000, 4, 100),
@@ -135,16 +135,16 @@ export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
   hourlyCost: 750,
   marginPct: 30,
   work: [
-    w("lead", "Manuell registrering av leads och affärsmöjligheter", 7, 500, 80),
-    w("invoice", "Fakturaunderlag", 2, 500, 80),
-    w("sales", "Säljprocessens effektivitet (administration per säljare)", 1200, 500, 5),
-    w("quote", "Offert till order", 10, 400, 50),
+    w("lead", "Manuell registrering av leads och affärsmöjligheter", 5, 200, 70),
+    w("invoice", "Fakturaunderlag", 2, 200, 70),
+    w("sales", "Säljadministration (timmar per månad för hela säljteamet)", 4800, 1, 10),
+    w("quote", "Offert till order", 10, 100, 50),
   ],
   leakage: [
     l("missed", "Missade affärer", 75_000, 4, 90),
     l("wrong", "Fel leveranser och åtaganden", 50_000, 4, 80),
-    l("lost", "Förlorade kunder", 200_000, 2, 50),
-    l("winrate", "Högre vinstfrekvens (fler vunna affärer)", 50_000, 10, 90),
+    l("lost", "Förlorade kunder", 150_000, 1, 50),
+    l("winrate", "Högre vinstfrekvens (fler vunna affärer)", 50_000, 4, 75),
   ],
   challenges: [
     c("forecast", "Brister i prognoser", 100_000, 20),

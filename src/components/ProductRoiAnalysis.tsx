@@ -68,7 +68,9 @@ export default function ProductRoiAnalysis({
 
   const [companyName, setCompanyName] = useState("");
   const [bva, setBva] = useState(EMPTY_BUSINESS_VALUE);
-  const bvaTotal = useMemo(() => evaluateBusinessValue(bva).total, [bva]);
+  const bvaRes = useMemo(() => evaluateBusinessValue(bva), [bva]);
+  const bvaTotal = bvaRes.total - bvaRes.itFees;
+  const currentItCost = bvaRes.itFees;
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(cfg.supportPctYearly * 100);
   const [csPrefill] = useState(() =>
@@ -82,7 +84,6 @@ export default function ProductRoiAnalysis({
   const [complexity, setComplexity] = useState<Complexity>(prefill.complexity ?? ROI_DEFAULTS.complexity);
   const [manualPct, setManualPct] = useState(ROI_DEFAULTS.manualPct);
   const [integrations, setIntegrations] = useState(csPrefill.integrations ?? ROI_DEFAULTS.integrations);
-  const [currentItCost, setCurrentItCost] = useState(ROI_DEFAULTS.currentItCost);
   const [enabled, setEnabled] = useState<string[]>(() =>
     ROI_DEFAULTS.enabledDrivers
   );
@@ -389,16 +390,6 @@ export default function ProductRoiAnalysis({
                         setIntegrations(Math.max(0, Number(e.target.value) || 0))
                       }
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor={`${id}-cur`}>Nuvarande IT-kostnad/år</Label>
-                    <Input
-                      id={`${id}-cur`}
-                      inputMode="numeric"
-                      value={fmtSekInput(currentItCost)}
-                      onChange={(e) => setCurrentItCost(parseNum(e.target.value))}
-                    />
-                    <p className="text-xs text-muted-foreground">{fmtSek(currentItCost)}</p>
                   </div>
                 </div>
               </CardContent>
