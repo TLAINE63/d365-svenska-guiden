@@ -14,6 +14,7 @@ import { INDUSTRY_SHARPENING } from "@/data/industrySharpening";
 import AdvisorCtaCard from "@/components/advisory/AdvisorCtaCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
+import { saveProfile } from "@/lib/buyerProfile";
 import Footer from "@/components/Footer";
 import IndustryIsvAccordionItem from "@/components/IndustryIsvAccordionItem";
 import SEOHead from "@/components/SEOHead";
@@ -188,6 +189,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  }, [selected, meta, selectedGeography, selectedCompanySize, selectedRevenue, setCompareFilters]);
 
  const industryName = page?.name || meta?.name || "Bransch";
+ // Besökt bransch följer med till kravspecifikationer och verktyg, så besökaren slipper välja igen.
+ useEffect(() => { if (meta?.slug) saveProfile({ company: { industry: meta.slug } }); }, [meta?.slug]);
  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
  const seoDefaults = getIndustrySEO(slug);
  const sharpening = slug ? INDUSTRY_SHARPENING[slug] : undefined;
@@ -823,8 +826,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   text={`Svara på sex frågor och få en kortlista där erfarenhet från ${industryName.toLowerCase()} väger tyngst.`}
   industry={industryName}
   source={`industry:${slug}`}
-  secondaryLabel="Gör en djupare behovsanalys"
-  secondaryTo="/ERPbehovsanalys/"
+  secondaryLabel="Skapa en kravspecifikation för er bransch"
+  secondaryTo={`/kravspecifikation/?bransch=${encodeURIComponent(industryName)}`}
  />
 <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
