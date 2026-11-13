@@ -35,8 +35,8 @@ import { REALIZATION } from "@/lib/bcInvestmentCase";
 describe("industry realization", () => {
   it("manufacturing realizes custom benefit slower than services", () => {
     const b = { currentYearly: 0, licenseYearly: 0, supportPercent: 0, customImplementation: 300_000, annualBenefit: 100_000, scenario: "normal" as const, years: 3 as const };
-    expect(evaluatePath("custom", { ...b, industry: "Tillverkning" }).benefit).toBe(100_000 * (0.35 + 0.7 + 1));
-    expect(evaluatePath("custom", { ...b, industry: "Tjänster" }).benefit).toBe(100_000 * (0.6 + 0.9 + 1));
+    expect(evaluatePath("custom", { ...b, industry: "Tillverkning" }).benefit).toBeCloseTo(205_000);
+    expect(evaluatePath("custom", { ...b, industry: "Tjänster" }).benefit).toBeCloseTo(250_000);
     expect(REALIZATION.Annan.custom).toEqual([0.5, 0.8]);
   });
 });
