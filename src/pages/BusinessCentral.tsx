@@ -1,3 +1,6 @@
+import IndustryIsvPicker from "@/components/IndustryIsvPicker";
+import { prioritizeResellers, isResellerOf } from "@/lib/industryIsvSolutions";
+import type { IsvSolution } from "@/data/bcIsvSolutions";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import { ProductSectionNav } from "@/components/product/ProductSectionNav";
 const BC_SECTIONS = [
@@ -166,6 +169,8 @@ const BusinessCentral = () => {
   return () => { main.removeEventListener("click", onClick); observer?.disconnect(); };
  }, []);
  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+ const [isvChoice, setIsvChoice] = useState<IsvSolution | null>(null);
+ useEffect(() => { setIsvChoice(null); }, [selectedIndustry]);
  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
@@ -548,6 +553,7 @@ const BusinessCentral = () => {
  </>
  )}
 
+ {selectedIndustry && <IndustryIsvPicker industry={selectedIndustry} product="Business Central" selectedId={isvChoice?.id ?? null} onSelect={setIsvChoice} />}
  <WhyTheseResults criteria={["Business Central", selectedIndustry, selectedGeography]} className="mb-6" />
  {bcPartners.length === 0 ? (
  <div className="text-center py-6">
@@ -558,7 +564,7 @@ const BusinessCentral = () => {
  </div>
  ) : (
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
- {bcPartners.map((partner, index) => {
+ {prioritizeResellers(bcPartners, isvChoice).map((partner, index) => {
  const basePath = buildPartnerProductPath(partner.slug, "Business Central");
  const params = new URLSearchParams();
  if (selectedIndustry) params.set("industry", selectedIndustry);
@@ -569,7 +575,9 @@ const BusinessCentral = () => {
  const profileUrl = qs ? `${basePath}?${qs}` : basePath;
 
  return (
- <IndustryVerifiedPartnerCard
+ <div key={partner.slug} className="flex flex-col gap-2">
+{isResellerOf(partner.slug, isvChoice) && <Badge variant="secondary" className="self-start">Återförsäljare av {isvChoice?.name}</Badge>}
+<IndustryVerifiedPartnerCard
  key={index}
  partner={partner}
  profileUrl={profileUrl}
@@ -580,6 +588,7 @@ const BusinessCentral = () => {
  companySize={selectedCompanySize}
  revenue={selectedRevenue}
  />
+</div>
  );
  })}
  </div>

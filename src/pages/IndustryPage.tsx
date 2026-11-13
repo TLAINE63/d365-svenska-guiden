@@ -15,6 +15,7 @@ import AdvisorCtaCard from "@/components/advisory/AdvisorCtaCard";
 import Navbar from "@/components/Navbar";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
+import IndustryIsvAccordionItem from "@/components/IndustryIsvAccordionItem";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema, ArticleSchema } from "@/components/StructuredData";
 
@@ -522,6 +523,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </AccordionContent>
  </AccordionItem>
  )}
+
+ {slug && meta && <IndustryIsvAccordionItem industrySlug={slug} industryName={meta.name} />}
 
  {page?.faq && page.faq.length > 0 && (
  <AccordionItem value="faq" className="border border-border rounded-lg bg-card px-5">
