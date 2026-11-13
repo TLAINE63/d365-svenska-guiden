@@ -79,6 +79,10 @@ export interface IsvSolutionRow {
   partner_slugs: string[] | null;
   vendor_website: string | null;
   logo_url?: string | null;
+  solution_kind?: string | null;
+  appsource_url?: string | null;
+  appsource_rating?: number | null;
+  appsource_rating_count?: number | null;
   is_published?: boolean;
   sort_order?: number;
   // Utökad modell
