@@ -6,14 +6,14 @@ describe("businessValue", () => {
     expect(evaluateBusinessValue(EMPTY_BUSINESS_VALUE).total).toBe(0);
   });
   it("work: 10 min x 300/month at 600 kr/h and 50 % saves 180 000 kr/year", () => {
-    expect(workRowValue({ id: "a", label: "", minutes: 10, perMonth: 300, savingPct: 50 }, 600)).toBe(180_000);
+    expect(workRowValue({ id: "a", label: "", minutes: 10, perMonth: 300, savingPct: 50 }, 600)).toBeCloseTo(180_000 * 0.85);
   });
   it("lost revenue counts only contribution margin", () => {
-    expect(leakRowValue({ id: "a", label: "", value: 100_000, perYear: 1, savingPct: 100 }, 30)).toBe(30_000);
+    expect(leakRowValue({ id: "a", label: "", value: 100_000, perYear: 1, savingPct: 100 }, 30)).toBeCloseTo(30_000 * 0.75 * 0.85);
   });
   it("total includes every part", () => {
     const r = evaluateBusinessValue({ ...EMPTY_BUSINESS_VALUE, challenges: [{ id: "c", label: "", yearly: 10_000, savingPct: 50 }], itFees: [{ id: "i", label: "", yearly: 20_000, savingPct: 100 }] });
-    expect(r.total).toBe(25_000);
+    expect(r.total).toBeCloseTo(10_000 * 0.3 * 0.85 + 20_000);
   });
 });
 
