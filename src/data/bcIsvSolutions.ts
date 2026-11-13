@@ -139,6 +139,11 @@ export interface IsvSolution {
   name: string;
   /** Produktlogotyp (visas bara när produkten är verifierad). */
   logoUrl?: string;
+  /** Redaktionellt satt lösningstyp (bransch/funktion/teknik); annars härledd. */
+  solutionKind?: string;
+  appsourceUrl?: string;
+  appsourceRating?: number;
+  appsourceRatingCount?: number;
   vendor: string;
   shortDescription: string;       // 1 rad till kortet
   type: SolutionType;

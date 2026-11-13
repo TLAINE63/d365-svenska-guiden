@@ -185,6 +185,10 @@ serve(async (req) => {
         short_description: clean(body?.short_description, 400),
         category: clean(body?.category, 100) || "Integration / iPaaS",
         subcategory: clean(body?.subcategory, 120),
+        solution_kind: pick(body?.solution_kind, ["bransch", "funktion", "teknik"]),
+        appsource_url: (() => { const u = clean(body?.appsource_url, 500); return u && /^https:\/\/(marketplace\.microsoft\.com|appsource\.microsoft\.com)\//i.test(u) ? u : null; })(),
+        appsource_rating: (() => { const n = Number(String(body?.appsource_rating ?? "").replace(",", ".")); return String(body?.appsource_rating ?? "").trim() && Number.isFinite(n) && n >= 0 && n <= 5 ? Math.round(n * 100) / 100 : null; })(),
+        appsource_rating_count: (() => { const n = parseInt(String(body?.appsource_rating_count ?? ""), 10); return Number.isFinite(n) && n >= 0 ? n : null; })(),
         delivery_model: pick(body?.delivery_model, DELIVERY) || "native_isv",
         type: clean(body?.type, 100) || "BC-native (ISV)",
         tier: clean(body?.tier, 40) || "Tier 2",
@@ -291,7 +295,7 @@ serve(async (req) => {
 
     if (action === "list_status" && req.method === "GET") {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
-        supabase.from("isv_vendors").select("slug, name, website, logo_url, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendors").select("slug, name, website, logo_url, office_scope, office_city, office_country, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
         supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, product_gallery, product_features, integration_evidence, partner_evidence, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
@@ -330,6 +334,11 @@ serve(async (req) => {
         const g = body.gtm_model === "" || body.gtm_model === null ? null : pickV(body.gtm_model, ["direkt", "partner", "hybrid"]);
         if (g !== undefined) fields.gtm_model = g;
       }
+      if (body && "office_scope" in body) {
+        fields.office_scope = body.office_scope === "" || body.office_scope === null ? null : (pickV(body.office_scope, ["se", "nordic", "hq"]) ?? null);
+      }
+      if (body && "office_city" in body) fields.office_city = clean(body.office_city, 100);
+      if (body && "office_country" in body) fields.office_country = clean(body.office_country, 100);
       if (Object.keys(fields).length) {
         const { error } = await supabase.from("isv_vendors").update({ ...fields, updated_at: new Date().toISOString() }).eq("slug", slug);
         if (error) return json({ error: error.message }, 400, corsHeaders);

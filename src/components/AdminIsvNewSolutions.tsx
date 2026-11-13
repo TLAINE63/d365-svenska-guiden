@@ -13,6 +13,8 @@ import { Plus, Pencil, Trash2, PackagePlus } from "lucide-react";
 import { ISV_PRODUCTS, ISV_INDUSTRIES } from "@/data/isvProfileOptions";
 import IsvPartnerPicker from "@/components/IsvPartnerPicker";
 import type { IsvSolutionRow } from "@/hooks/useIsvSolutions";
+import { groupedCategories, categoryLabelSv } from "@/lib/isvCategoryLabels";
+import { ISV_SOLUTION_KINDS, ISV_SOLUTION_KIND_LABEL } from "@/lib/isvSolutionKind";
 import { CATEGORIES as CATALOG_CATEGORIES, DELIVERY_MODELS } from "@/data/bcIsvSolutions";
 
 interface Props {
@@ -48,6 +50,10 @@ const emptyForm = {
   short_description: "",
   category: CATEGORIES[0] as string,
   subcategory: "",
+  solution_kind: "",
+  appsource_url: "",
+  appsource_rating: "",
+  appsource_rating_count: "",
   delivery_model: "native_isv",
   type: "BC-native (ISV)",
   tier: "Tier 2",
@@ -133,6 +139,10 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
       short_description: r.short_description || "",
       category: r.category,
       subcategory: r.subcategory || "",
+      solution_kind: r.solution_kind || "",
+      appsource_url: r.appsource_url || "",
+      appsource_rating: r.appsource_rating != null ? String(r.appsource_rating).replace(".", ",") : "",
+      appsource_rating_count: r.appsource_rating_count != null ? String(r.appsource_rating_count) : "",
       delivery_model: r.delivery_model || "native_isv",
       type: r.type,
       tier: r.tier,
@@ -343,10 +353,37 @@ export default function AdminIsvNewSolutions({ token, onSessionExpired, onChange
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
                   >
-                    {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
+                    {groupedCategories(CATEGORIES).map((g) => (
+                      <optgroup key={g.label} label={g.label}>
+                        {g.categories.map((c) => <option key={c} value={c}>{categoryLabelSv(c)}</option>)}
+                      </optgroup>
                     ))}
                   </select>
+                </div>
+                <div>
+                  <Label>Lösningstyp</Label>
+                  <select
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+                    value={form.solution_kind}
+                    onChange={(e) => setForm({ ...form, solution_kind: e.target.value })}
+                  >
+                    <option value="">Automatiskt (från kategori)</option>
+                    {ISV_SOLUTION_KINDS.map((k) => <option key={k} value={k}>{ISV_SOLUTION_KIND_LABEL[k]}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <Label>Länk till Microsoft AppSource</Label>
+                  <Input value={form.appsource_url} onChange={(e) => setForm({ ...form, appsource_url: e.target.value })} placeholder="https://marketplace.microsoft.com/…" />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label>AppSource-betyg (0–5)</Label>
+                    <Input inputMode="decimal" value={form.appsource_rating} onChange={(e) => setForm({ ...form, appsource_rating: e.target.value })} placeholder="4,8" />
+                  </div>
+                  <div>
+                    <Label>Antal omdömen</Label>
+                    <Input inputMode="numeric" value={form.appsource_rating_count} onChange={(e) => setForm({ ...form, appsource_rating_count: e.target.value })} placeholder="68" />
+                  </div>
                 </div>
                 <div>
                   <Label>Underkategori</Label>
