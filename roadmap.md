@@ -1,3 +1,7 @@
+## Sammanhängande införandekalkyl (2026-11-13)
+- [ ] Ta bort fasta integrations-/migreringsposter vid bortval, visa valda tillval separat och stäm av totalsummor.
+- [ ] Skilj snabbstart från traditionellt införande och beskriv AI-stödd onboarding med faktisk leverantörskälla utan löfte om komplett införande på minuter.
+
 ## Konsultpris per timme (2026-11-13)
 - [x] Utgångspunkt 1 490 kr/timme; dagbaserad BC-modell räknas med åtta timmar per dag. Kostnadsguiden och BC-kalkylens omräknade belopp verifierade i webbläsaren; 12 tester godkända.
 

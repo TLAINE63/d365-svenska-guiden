@@ -141,6 +141,16 @@ export async function generateImplementationPdf(data: ImplementationPdfData): Pr
   );
   y += 38;
 
+  if (r.quickStartRelevant) {
+    y = drawSectionHeading(doc, "Separat alternativ: paketerad snabbstart", y);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.5);
+    const lines = doc.splitTextToSize(safe("Era val kan passa ett avgränsat standardpaket. Update Rapid Start: från 50 000 kr, cirka 2 veckor. NAB Solutions Business Central Start: från 50 000 kr, 1-3 veckor. Bekräfta omfattning och villkor med partnern. Paketpriserna ersätter inte timkalkylen; licenser och förvaltning tillkommer."), contentW);
+    ensureSpace(lines.length * 5 + 6);
+    doc.text(lines, PDF_MARGIN, y);
+    y += lines.length * 5 + 6;
+  }
+
   // ---- Lösningar & förutsättningar ----
   ensureSpace(30);
   y = drawSectionHeading(doc, "Era förutsättningar", y);

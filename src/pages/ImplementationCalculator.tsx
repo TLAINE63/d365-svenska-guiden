@@ -1,4 +1,5 @@
 import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
+import { BC_QUICKSTARTS } from "@/data/bcProjectEstimates";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CostNextSteps from "@/components/cost/CostNextSteps";
 import { SOLUTION_TO_COST, costDrivers, orgSizeForUsers, startCostJourney, trackCost } from "@/lib/costJourney";
@@ -41,7 +42,9 @@ import {
 } from "@/lib/implementationEstimate";
 
 const ASSUMPTIONS = [
-  "Grundomfattningen utgår från typiska projekt per lösning och skalas med antal användare (inte linjärt – stora projekt blir effektivare per användare).",
+  "Traditionellt införande: grundarbetet omfattar förstudie, konfiguration, test och go-live. Integrationer, migrering, egen utveckling och utbildning räknas endast när de väljs.",
+  "Business Central kan även köpas som paketerad snabbstart: Update Rapid Start från 50 000 kr (cirka 2 veckor) och NAB Solutions Business Central Start från 50 000 kr (1–3 veckor). Paketpriserna är separata från timkalkylen; kontrollera omfattningen med partnern.",
+  "Qwyk beskriver automatiserad onboarding och migrering från utvalda ekonomisystem på så lite som 30 minuter. Det är leverantörens uppgift om onboarding, inte en verifierad tid eller ett pris för ett komplett svenskt införande. Källa: https://www.qwyk.co.uk/watch (läst 2026-11-13).",
   "Komplexitetsvalet multiplicerar omfattningen med 1,0 / 1,35 / 1,85.",
   "Varje integration räknas som ca 45 timmar, varje extra bolag som ca 60 timmar.",
   "Datamigrering +12 %, egen utveckling +20 %, utbildning tillkommer utifrån antal användare.",
@@ -480,7 +483,7 @@ export default function ImplementationCalculator() {
                       value={[hourlyRate]}
                       min={900}
                       max={2200}
-                      step={50}
+                      step={10}
                       onValueChange={(v) => setHourlyRate(v[0])}
                       aria-label="Konsultpris per timme"
                     />
@@ -502,8 +505,18 @@ export default function ImplementationCalculator() {
                   </h2>
 
                   <div>
+                    {result.quickStartRelevant && (
+                      <div className="mb-5 border-b border-border pb-5 space-y-2">
+                        <h3 className="text-base font-semibold text-foreground">En snabbstart kan räcka för era behov</h3>
+                        <p className="text-sm text-muted-foreground">För standardnära Business Central utan egna integrationer kan ett paketerat införande vara ett alternativ till timkalkylen nedan.</p>
+                        <ul className="space-y-2 text-sm">
+                          {BC_QUICKSTARTS.map((p) => <li key={p.partner}><strong>{p.partner}: {p.name}, från 50 000 kr</strong><span className="block text-muted-foreground">{p.duration}. Bekräfta vilka funktioner, data och stöd som ingår med partnern.</span></li>)}
+                        </ul>
+                        <p className="text-xs text-muted-foreground">Fastprispaketen räknas inte om till konsulttimmar och ersätter inte automatiskt kalkylen. Licens och löpande förvaltning tillkommer.</p>
+                      </div>
+                    )}
                     <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                      Implementation (engångskostnad)
+                      Traditionellt införande (engångskostnad)
                     </p>
                     <p className="text-2xl sm:text-3xl font-bold text-foreground">
                       {fmtSek(result.costLow)} – {fmtSek(result.costHigh)}
@@ -798,10 +811,9 @@ export default function ImplementationCalculator() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-xl border border-border bg-card p-5">
                   <p className="text-xs uppercase tracking-wide text-muted-foreground">Business Central</p>
-                  <p className="text-2xl font-bold text-foreground mt-1">3–6 månader</p>
+                  <p className="text-2xl font-bold text-foreground mt-1">Snabbstart: cirka 1–3 veckor</p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    Typiskt för ett svenskt bolag med standardnära processer. Med många
-                    anpassningar, integrationer eller flera bolag blir det ofta 6–12 månader.
+                    Update Rapid Start och NAB Solutions Business Central Start finns från 50 000 kr för avgränsade standardbehov. Ett traditionellt införande kan ta 3–6 månader; många anpassningar, integrationer eller flera bolag kan kräva 6–12 månader.
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card p-5">
@@ -812,6 +824,11 @@ export default function ImplementationCalculator() {
                     Globala utrullningar delas oftast upp i flera etapper.
                   </p>
                 </div>
+              </div>
+              <div className="mt-5 border-l-2 border-accent pl-4 max-w-3xl">
+                <h3 className="text-base font-semibold text-foreground">AI-stödd onboarding kan korta starten</h3>
+                <p className="text-sm text-muted-foreground mt-2">Qwyk beskriver automatiserad onboarding och migrering från Xero, QuickBooks, Sage och Dynamics GP till Business Central på så lite som 30 minuter. Det är leverantörens uppgift om ett avgränsat moment, inte ett löfte om komplett införande. Svenska skatte- och redovisningskrav, datakvalitet, processer och godkännande behöver fortfarande kontrolleras.</p>
+                <a href="https://www.qwyk.co.uk/watch" target="_blank" rel="noopener noreferrer" className="text-sm text-primary underline">Qwyks egen beskrivning (läst 2026-11-13)</a>
               </div>
               <p className="text-sm text-muted-foreground mt-4 max-w-3xl">
                 Kalkylatorn ovan räknar fram en tidplan utifrån era egna val och visar hur
@@ -862,8 +879,7 @@ export default function ImplementationCalculator() {
                 </h2>
                 <ul className="text-sm text-muted-foreground space-y-2 list-disc pl-5">
                   <li>
-                    Grundomfattningen utgår från typiska projekt per lösning och skalas med
-                    antal användare (inte linjärt – stora projekt blir effektivare per användare).
+                    Grundomfattningen gäller traditionellt införande: förstudie, konfiguration, test och go-live. Den tidigare fasta integrations-/migreringsandelen är borttagen. Endast valda tillval får kostnadsposter. Paketerad snabbstart från 50 000 kr är ett separat alternativ.
                   </li>
                   <li>
                     Komplexitetsvalet multiplicerar omfattningen med 1,0 / 1,35 / 1,85.

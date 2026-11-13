@@ -1,6 +1,6 @@
 /**
  * Enkel, transparent modell för att uppskatta omfattning och kostnad för en
- * Dynamics 365-implementation. Alla antaganden är medvetet öppna (TAYA) och
+ * Dynamics 365-implementation. Alla antaganden är medvetet öppna och
  * visas för besökaren i UI:t.
  */
 
@@ -155,17 +155,17 @@ export interface EstimateResult {
   licenseYearly: number | null;
   threeYearTotal: number | null;
   supportYearly: number;
+  quickStartRelevant: boolean;
   /** Steg-för-steg-spår över hur timmar, kostnad och tid räknas fram. */
   steps: CalculationStep[];
 }
 
 
-const PHASES: { name: string; share: number }[] = [
-  { name: "Förstudie & lösningsdesign", share: 0.15 },
-  { name: "Konfiguration & uppsättning", share: 0.3 },
-  { name: "Integrationer & datamigrering", share: 0.25 },
-  { name: "Test & kvalitetssäkring", share: 0.15 },
-  { name: "Utbildning & go-live", share: 0.15 },
+const CORE_PHASES: { name: string; share: number }[] = [
+  { name: "Förstudie & lösningsdesign", share: 0.2 },
+  { name: "Konfiguration & uppsättning", share: 0.4 },
+  { name: "Test & kvalitetssäkring", share: 0.2 },
+  { name: "Go-live", share: 0.2 },
 ];
 
 /** Skalfaktor på antal användare – fler användare ger mer, men inte linjärt. */
@@ -192,23 +192,23 @@ export function estimateImplementation(
   const baseHours = sortedSelected.reduce(
     (sum, s, i) => sum + (i === 0 ? s.baseHours : s.baseHours * 0.7),
     0,
-  );
+  ) * 0.75;
 
   steps.push({
     label: "1. Grundomfattning per vald lösning",
     value: tim(baseHours),
     formula:
-      sortedSelected
+      "(" + sortedSelected
         .map((s, i) => (i === 0 ? `${s.baseHours}` : `${s.baseHours} × 0,7`))
-        .join(" + ") + ` = ${tim(baseHours)}`,
+        .join(" + ") + `) × 0,75 = ${tim(baseHours)}`,
     drivers: sortedSelected.map((s) => ({
       label: s.label,
-      value: `${s.baseHours} bastimmar`,
+      value: `${s.baseHours * 0.75} bastimmar utan integrationer och migrering`,
     })),
     note:
       sortedSelected.length > 1
         ? "Den mest omfattande lösningen räknas med full vikt. Övriga räknas till 70 % eftersom förstudie, projektledning, testmiljöer och utbildningsupplägg delvis kan återanvändas i ett gemensamt program."
-        : "Bastimmarna motsvarar ett typiskt, standardnära införande av lösningen för ca 25 användare – innan hänsyn tagits till era förutsättningar.",
+        : "Traditionellt införande för ca 25 användare. Den tidigare fasta andelen för integrationer och migrering (25 %) är borttagen. Dessa arbeten, egen utveckling och utbildning läggs endast till när ni väljer dem. Ett paketerat snabbstartsavtal är ett separat alternativ.",
     impact: "timmar",
   });
 
@@ -222,7 +222,7 @@ export function estimateImplementation(
       { label: "Antal användare", value: `${inputs.users} st` },
       { label: "Skalfaktor", value: nf(uf, 2) },
     ],
-    note: "Skalfaktorn är 0,65 + (användare / 25)^0,55 × 0,5. Fler användare ger mer arbete med roller, behörigheter, utbildning och test – men inte linjärt, eftersom stora projekt blir effektivare per användare.",
+    note: "Skalfaktorn är 0,65 + (användare / 25)^0,55 × 0,5. Fler användare ger mer arbete med roller, behörigheter och test. Utbildning räknas separat, endast om den väljs.",
     impact: "timmar",
   });
 
@@ -244,6 +244,7 @@ export function estimateImplementation(
 
   const integrationHours = inputs.integrations * 45;
   const entityHours = Math.max(0, inputs.legalEntities - 1) * 60;
+  const coreHours = hours;
   const beforeAddons = hours;
   hours += integrationHours + entityHours;
   steps.push({
@@ -267,8 +268,10 @@ export function estimateImplementation(
   const beforeOptions = hours;
   if (inputs.dataMigration) hours *= 1.12;
   const afterMigration = hours;
+  const migrationHours = afterMigration - beforeOptions;
   if (inputs.customDevelopment) hours *= 1.2;
   const afterCustom = hours;
+  const customHours = afterCustom - afterMigration;
   const trainingHours = inputs.training ? Math.min(160, 12 + inputs.users * 1.5) : 0;
   hours += trainingHours;
 
@@ -326,22 +329,30 @@ export function estimateImplementation(
     impact: "tid",
   });
 
-  const phases = PHASES.map((p) => ({
-    name: p.name,
-    share: p.share,
-    hours: Math.round(hours * p.share),
-    cost: Math.round(costMid * p.share),
-  }));
+  const allocations = [
+    ...CORE_PHASES.map((p) => ({ name: p.name, hours: coreHours * p.share })),
+    { name: "Integrationer", hours: integrationHours },
+    { name: "Extra bolag", hours: entityHours },
+    { name: "Datamigrering", hours: migrationHours },
+    { name: "Egen utveckling", hours: customHours },
+    { name: "Utbildning", hours: trainingHours },
+  ].filter((p) => p.hours > 0);
+  let allocatedHours = 0;
+  const phases = allocations.map((p, i) => {
+    const phaseHours = i === allocations.length - 1 ? hours - allocatedHours : Math.round(p.hours);
+    allocatedHours += phaseHours;
+    return { name: p.name, share: hours > 0 ? phaseHours / hours : 0, hours: phaseHours, cost: phaseHours * inputs.hourlyRate };
+  });
 
   steps.push({
     label: "8. Fördelning per projektfas",
     value: `${phases.length} faser`,
-    formula: PHASES.map((p) => `${p.name} ${Math.round(p.share * 100)} %`).join(" · "),
+    formula: phases.map((p) => `${p.name} ${p.hours} tim`).join(" · "),
     drivers: phases.map((p) => ({
       label: p.name,
       value: `${tim(p.hours)} · ${sek(p.cost)}`,
     })),
-    note: "Fasfördelningen är en branschtypisk normalkurva. Vid många integrationer förskjuts vikten mot integrationsfasen, vid många användare mot utbildning.",
+    note: "Grundarbetet fördelas på förstudie, konfiguration, test och go-live. Endast valda integrationer, extra bolag, migrering, utveckling och utbildning får egna kostnadsposter. Fasernas timmar och kostnader summerar till kalkylens mittvärde.",
     impact: "kostnad",
   });
 
@@ -411,6 +422,7 @@ export function estimateImplementation(
     licenseYearly: licenseYearly == null ? null : Math.round(licenseYearly),
     threeYearTotal,
     supportYearly,
+    quickStartRelevant: inputs.solutions.length === 1 && inputs.solutions[0] === "bc" && inputs.complexity === "standardnara" && inputs.integrations === 0 && inputs.legalEntities === 1 && !inputs.customDevelopment && !inputs.premiumLicense,
     steps,
 
   };
