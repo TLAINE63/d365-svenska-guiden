@@ -1,6 +1,6 @@
 ## Sammanhängande införandekalkyl (2026-11-13)
-- [ ] Ta bort fasta integrations-/migreringsposter vid bortval, visa valda tillval separat och stäm av totalsummor.
-- [ ] Skilj snabbstart från traditionellt införande och beskriv AI-stödd onboarding med faktisk leverantörskälla utan löfte om komplett införande på minuter.
+- [x] Fasta integrations-/migreringsandelen borttagen; valda tillval får egna poster och fasernas timmar/priser summerar exakt. 15 tester godkända; integration, migrering och utbildning provade i webbläsaren på dator och mindre skärmar utan överbredd.
+- [x] Snabbstart från 50 000 kr visas separat för enkla BC-val, även i PDF-underlaget. AI-stödd onboarding beskriven med Qwyks egen källa utan löfte om komplett införande på minuter. Faktisk PDF-nedladdning inte omtestad.
 
 ## Konsultpris per timme (2026-11-13)
 - [x] Utgångspunkt 1 490 kr/timme; dagbaserad BC-modell räknas med åtta timmar per dag. Kostnadsguiden och BC-kalkylens omräknade belopp verifierade i webbläsaren; 12 tester godkända.
