@@ -60,7 +60,7 @@ const D365HumanResources = () => {
           label: "Hitta rätt Human Resources-partner",
           onClick: () => document.getElementById("partners")?.scrollIntoView({ behavior: "smooth" }),
         }}
-        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc", icon: FileText }}
+        secondary={{ label: "Generera en kravspecifikation", to: "/kravspecifikation/?produkt=fsc&fokus=human-resources&omraden=hr", icon: FileText }}
       />
       <ProductPageBody items={HR_SECTIONS}>
 

@@ -75,6 +75,14 @@ const RequirementsSpec = () => {
   // Produktsidorna kan skicka med vilken ERP-app besökaren tittar på (?produkt=bc|fsc)
   // så att partnerförslagen begränsas till rätt produkt.
   const produktParam = searchParams.get("produkt");
+  // Specialsidorna (Project Operations, HR, Commerce) skickar ?fokus= så att kravspecen bara handlar om den appen.
+  const FOCUS: Record<string, { label: string; areas: string[] }> = {
+    "project-operations": { label: "Project Operations", areas: ["projekt"] },
+    "human-resources": { label: "Human Resources", areas: ["hr"] },
+    commerce: { label: "Commerce", areas: [] },
+  };
+  const focusKey = searchParams.get("fokus") || "";
+  const focus = FOCUS[focusKey] ? { key: focusKey, ...FOCUS[focusKey] } : null;
   const productKeys: ProductKey[] =
     produktParam === "bc" ? ["bc"] : produktParam === "fsc" ? ["fsc"] : ["bc", "fsc"];
   // Bransch/storlek kan komma från Kom igång via state eller URL (?bransch=&storlek=), så valen överlever omladdning.
@@ -99,7 +107,8 @@ const RequirementsSpec = () => {
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>(prefilledSize);
-  const prefilledAreas = readKravAreas(location.search);
+  const urlAreas = readKravAreas(location.search);
+  const prefilledAreas = urlAreas.length ? urlAreas : focus?.areas || [];
   const [selectedAreas, setSelectedAreas] = useState<string[]>(prefilledAreas);
   useKravProfileSync({ product: "erp", industries: allIndustries, sizes: erpTeamSizes, areaIds: areaOptions.map((o) => o.id), industry, setIndustry, companySize, setCompanySize, areas: selectedAreas, setAreas: setSelectedAreas, step, setStep });
   const fromTest = prefilledAreas.length > 0;
@@ -154,7 +163,7 @@ const RequirementsSpec = () => {
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
-      const data = await invokeWithRetry("generate-requirements", { product: "erp", industry, companySize, areas: selectedAreas });
+      const data = await invokeWithRetry("generate-requirements", { product: "erp", industry, companySize, areas: selectedAreas, focus: focus?.key });
       setResult(data);
       kj.started();
       kj.completed(selectedAreas.length);
@@ -267,15 +276,15 @@ const RequirementsSpec = () => {
       <main className="min-h-screen bg-background pb-12">
         <div className="relative bg-cover bg-center pt-24 lg:pt-32 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecErp})` }}>
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative container mx-auto px-4 max-w-4xl text-center">
+          <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
             <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded text-sm font-medium mb-4">
               <FileText className="h-4 w-4" />
-              Kravspecifikation – ERP/Affärssystem
+              {focus ? <>Kravspecifikation – <span className="whitespace-nowrap">Dynamics&nbsp;365</span> {focus.label}</> : "Kravspecifikation – ERP/Affärssystem"}
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
               En kravspec som gör offerter jämförbara
             </h1>
-            <p className="text-white/80 max-w-2xl mx-auto">
+            <p className="text-white/80 max-w-2xl">
               Fånga dina verksamhetskrav systemneutralt – så att partnernas svar går att läsa sida vid sida. AI-berikad med branschspecifika krav och KPI:er anpassade efter bransch och storlek.
             </p>
           </div>
@@ -285,7 +294,7 @@ const RequirementsSpec = () => {
         En ERP-kravspecifikation är ett strukturerat dokument där du beskriver verksamhetens behov, processer och KPI:er – innan du väljer system och partner. Vår generator skapar ett systemneutralt underlag med branschspecifika krav som AI-berikar listan, så du kan jämföra Business Central, Finance & Supply Chain Management och andra alternativ på lika villkor.
       </ShortAnswer>
 
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
 
           {/* Progress */}
           {step < 4 && (

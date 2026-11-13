@@ -355,7 +355,13 @@ serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    const { product, industry, companySize, areas } = await req.json();
+    const { product, industry, companySize, areas, focus } = await req.json();
+    const FOCUS_TEXT: Record<string, string> = {
+      "project-operations": `Kravspecen gäller ENBART Microsoft Dynamics 365 Project Operations (inte ett helt affärssystem). Fokusera på projektförsäljning och offert, projektplanering, resursplanering och bemanning, tid och utlägg, projektekonomi och fakturering (löpande/fast pris/milstolpar), WIP och intäktsredovisning, samt integration mot Business Central eller Finance. Anpassa kravnivån efter företagsstorlek och hur många som arbetar i projekt (t.ex. konsulter, projektledare, resursägare) och ställ frågor om antal samtidiga projekt och projekttyper. Ge ingen rekommendation om Business Central eller Finance & SCM som huvudsystem.`,
+      "human-resources": `Kravspecen gäller ENBART Microsoft Dynamics 365 Human Resources: personaladministration, organisation, förmåner, ledighet och frånvaro, kompetens och utbildning samt integration mot svensk lönehantering. Anpassa kravnivån efter antal anställda. Ge ingen rekommendation om huvudsystem.`,
+      commerce: `Kravspecen gäller ENBART Microsoft Dynamics 365 Commerce: butik/POS, e-handel, kundorder, priser och kampanjer, lojalitet, sortiment och omnikanal samt integration mot Finance & SCM. Anpassa kravnivån efter antal butiker och kanaler. Ge ingen rekommendation om huvudsystem.`,
+    };
+    const focusText = typeof focus === "string" ? FOCUS_TEXT[focus] || "" : "";
 
     if (!product || !industry) {
       return new Response(JSON.stringify({ error: "Product and industry are required" }), {
@@ -389,7 +395,7 @@ serve(async (req) => {
       customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
     };
 
-    const isErp = product === "erp";
+    const isErp = product === "erp" && !focusText;
 
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
@@ -397,7 +403,7 @@ Produkt: ${productNames[product] || product}
 Bransch: ${industry}
 Företagsstorlek: ${companySize || "Ej angiven"}
 Valda funktionsområden: ${selectedAreas.join(", ")}
-
+${focusText ? `\nFOKUS: ${focusText}\nBranschkraven ska bara handla om detta fokus.\n` : ""}
 Returnera JSON med denna exakta struktur:
 {
   "industryRequirements": [
@@ -480,7 +486,7 @@ Returnera JSON med denna exakta struktur:
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: getSystemPrompt(product) + PROMPT_CONFIDENTIALITY_SV },
+          { role: "system", content: getSystemPrompt(focusText ? "focus" : product) + PROMPT_CONFIDENTIALITY_SV },
           { role: "user", content: userPrompt },
         ],
         tools: [
