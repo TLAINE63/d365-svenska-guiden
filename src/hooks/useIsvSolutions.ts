@@ -207,7 +207,7 @@ export function useIsvVendors(): Record<string, IsvVendorPublic> {
         .eq("publication_status", "published");
       if (error || cancelled || !data) return;
       const map: Record<string, IsvVendorPublic> = {};
-      for (const v of data as IsvVendorPublic[]) map[v.slug] = v;
+      for (const v of data as unknown as IsvVendorPublic[]) map[v.slug] = v;
       setVendors(map);
     })();
     return () => { cancelled = true; };
