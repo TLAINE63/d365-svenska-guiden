@@ -3,7 +3,7 @@ import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN 
 import { PDF_BRAND } from "@/utils/pdfBrand";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import {
-  evaluateBusinessValue, workRowValue, leakRowValue, challengeRowValue, costRowValue, type BusinessValueInput,
+  evaluateBusinessValue, workRowValue, capitalRowValue, AREAS_TO_EVALUATE, type CashFlowResult, leakRowValue, challengeRowValue, costRowValue, type BusinessValueInput,
 } from "@/lib/businessValue";
 
 const fmt = (n: number) => new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " kr";
@@ -13,8 +13,10 @@ export interface BusinessValuePdfData {
   industry: string;
   companyName?: string;
   input: BusinessValueInput;
-  ramp: [number, number];
+  ramp: number[];
   fiveYear: number;
+  cash?: CashFlowResult;
+  top?: { id: string; label: string; value: number }[];
 }
 
 export async function generateBusinessValuePdf(d: BusinessValuePdfData) {
@@ -42,7 +44,18 @@ export async function generateBusinessValuePdf(d: BusinessValuePdfData) {
   y = drawSectionHeading(doc, "Sammanfattning", y + 2);
   row("Möjlig nytta per år (full effekt)", fmt(r.total), true);
   row("Frigjord tid per år", `${Math.round(r.hoursFreed)} timmar`);
-  row(`Nytta över 5 år med realiseringstakt (${Math.round(d.ramp[0] * 100)} % år 1, ${Math.round(d.ramp[1] * 100)} % år 2)`, fmt(d.fiveYear), true);
+  row(`Nytta över 5 år med realiseringstakt (${d.ramp.map((f) => Math.round(f * 100) + " %").join(", ")})`, fmt(d.fiveYear), true);
+  if (d.cash) {
+    row("Nuvärde (NPV, 5 %)", fmt(d.cash.npv));
+    row("Internränta (IRR)", d.cash.irr === null ? "-" : `${Math.round(d.cash.irr * 100)} %`);
+    row("Återbetalning", d.cash.paybackMonths === null ? "Inte inom 5 år" : `${Math.max(1, Math.round(d.cash.paybackMonths))} mån`);
+    y += 2; y = drawSectionHeading(doc, "Kassaflöde år för år", y + 2);
+    d.cash.rows.forEach((c) => row(`År ${c.year}: nytta ${fmt(c.benefit)}, projekt ${fmt(c.project)}, licenser ${fmt(c.running)}`, `netto ${fmt(c.net)}`));
+  }
+  if (d.top?.length) {
+    y += 2; space(16); y = drawSectionHeading(doc, "Största affärspotential", y + 2);
+    d.top.forEach((t, i) => row(`${i + 1}. ${t.label}${AREAS_TO_EVALUATE[t.id] ? ` (utvärdera: ${AREAS_TO_EVALUATE[t.id]})` : ""}`, `${fmt(t.value)}/år`));
+  }
 
   const section = (h: string, total: number, items: { label: string; value: number }[]) => {
     y += 2; space(16); y = drawSectionHeading(doc, `${h} · ${fmt(total)}/år`, y + 2);
@@ -54,9 +67,11 @@ export async function generateBusinessValuePdf(d: BusinessValuePdfData) {
   section("3. Verksamhetsutmaningar", r.challenges, d.input.challenges.map((x) => ({ label: `${x.label} (${fmt(x.yearly)}, ${x.savingPct} %)`, value: challengeRowValue(x) })));
   section("4. Kostnader som ersätts", r.itFees, d.input.itFees.map((x) => ({ label: `${x.label} (${fmt(x.yearly)}, ${x.savingPct} %)`, value: costRowValue(x) })));
 
+  section("5. Rörelsekapital", r.workingCapital, (d.input.workingCapital ?? []).map((x) => ({ label: `${x.label} (${fmt(x.yearly)}, ${x.savingPct} %)`, value: capitalRowValue(x, d.input.capitalRatePct) })));
+  section("6. AI, Copilot och agenter", r.ai, [{ label: `${d.input.aiPct ?? 0} % av återstående manuell tid`, value: r.ai }]);
   y += 2; space(30); y = drawSectionHeading(doc, "Antaganden", y + 2);
   text(`Intern kostnad ${fmt(d.input.hourlyCost)} per timme, täckningsgrad ${d.input.marginPct} % på förlorad försäljning.`, 9);
-  text("Spärrar: högst 80 % sparad tid per moment, högst 75 % räddade affärer, högst 30 % av en verksamhetsutmaning. Allt utom ersatta kostnader räknas ned med 15 % för införandeförluster. Realiseringstakten beror på bransch.", 9);
+  text("Spärrar: högst 80 % sparad tid per moment, högst 75 % räddade affärer, högst 30 % av en verksamhetsutmaning. Allt utom ersatta kostnader räknas ned med 15 % för införandeförluster. AI räknas bara på tid som återstår efter systembytet (högst 50 %). Rörelsekapital värderas med kapitalkostnaden och högst 30 % minskning. NPV med 5 % kalkylränta.", 9);
   text("Indikativt underlag från d365.se. Verkligt utfall beror på processer, förändringsledning och vald partner.", 9, false, [110, 110, 110]);
 
   finalizePdfWithFooter(doc, title);

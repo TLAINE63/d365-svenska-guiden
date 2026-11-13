@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
-  evaluateBusinessValue, workRowValue, leakRowValue, costRowValue, challengeRowValue,
+  evaluateBusinessValue, workRowValue, leakRowValue, costRowValue, challengeRowValue, capitalRowValue, MAX_AI_PCT,
   EMPTY_BUSINESS_VALUE, exampleFor, type BusinessValueInput,
 } from "@/lib/businessValue";
 
@@ -90,6 +90,27 @@ export default function BusinessValueAssessment({ value: v, onChange, productNam
             </CardContent></Card>
           ))}
         </div>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2 mt-4">
+        <Card><CardContent className="p-5 space-y-4">
+          <h3 className="font-semibold text-foreground">5. Rörelsekapital <span className="text-muted-foreground font-normal">· {fmt(r.workingCapital)}/år</span></h3>
+          <p className="text-xs text-muted-foreground">Kapital som frigörs värderas med kapitalkostnaden, inte hela beloppet. Högst 30 % minskning.</p>
+          <div className="w-40"><NumField label="Kapitalkostnad" value={v.capitalRatePct ?? 8} onChange={(n) => set("capitalRatePct", n)} suffix="%" /></div>
+          {(v.workingCapital ?? []).map((row) => (
+            <div key={row.id} className="border-t border-border pt-3">
+              <div className="flex justify-between gap-2 text-sm mb-2"><Label>{row.label}</Label><span className="text-muted-foreground shrink-0">{fmt(capitalRowValue(row, v.capitalRatePct))}</span></div>
+              <div className="grid grid-cols-2 gap-2">
+                <NumField label="Bundet kapital" value={row.yearly} onChange={(n) => set("workingCapital", (v.workingCapital ?? []).map((x) => (x.id === row.id ? { ...x, yearly: n } : x)))} suffix="kr" />
+                <NumField label="Minskning" value={row.savingPct} onChange={(n) => set("workingCapital", (v.workingCapital ?? []).map((x) => (x.id === row.id ? { ...x, savingPct: n } : x)))} suffix="%" />
+              </div>
+            </div>
+          ))}
+        </CardContent></Card>
+        <Card><CardContent className="p-5 space-y-4">
+          <h3 className="font-semibold text-foreground">6. AI, Copilot och agenter <span className="text-muted-foreground font-normal">· {fmt(r.ai)}/år</span></h3>
+          <p className="text-xs text-muted-foreground">Nästa nivå efter systembytet och processförbättringen. Räknas bara på den manuella tid som återstår i del 1, högst {MAX_AI_PCT} %.</p>
+          <div className="w-48"><NumField label="Andel av återstående tid som AI tar" value={v.aiPct ?? 0} onChange={(n) => set("aiPct", n)} suffix="%" /></div>
+        </CardContent></Card>
       </div>
       <p className="mt-4 text-lg font-semibold text-foreground">Möjlig verksamhetsnytta: {fmt(r.total)} per år</p>
       <p className="mt-1 text-xs text-muted-foreground max-w-3xl">Försiktigt räknat: högst 80 % sparad tid per moment, högst 75 % räddade affärer och högst 30 % av en verksamhetsutmaning. Allt utom ersatta kostnader räknas dessutom ned med 15 % för att allt sällan fungerar fullt ut.</p>

@@ -15,13 +15,23 @@ export interface BusinessValueInput {
   leakage: LeakRow[];
   challenges: CostRow[];
   itFees: CostRow[];
+  /** Bundet kapital (yearly = kapital i kr, savingPct = minskning). Värderas med kapitalkostnad. */
+  workingCapital?: CostRow[];
+  capitalRatePct?: number;
+  /** Andel av kvarvarande manuell tid efter systembytet som AI, Copilot och agenter kan ta (0–50 %). */
+  aiPct?: number;
 }
 
 export interface BusinessValueResult {
   work: number; leakage: number; challenges: number; itFees: number;
+  workingCapital: number; ai: number;
   hoursFreed: number; total: number;
 }
 
+const DEFAULT_CAPITAL = (stock: number, receivables: number): CostRow[] => [
+  { id: "stock", label: "Lagervärde som kan minskas", yearly: stock, savingPct: 10 },
+  { id: "receivables", label: "Kundfordringar (snabbare fakturering och betalning)", yearly: receivables, savingPct: 10 },
+];
 const pos = (n: number) => (Number.isFinite(n) && n > 0 ? n : 0);
 const pct = (n: number, max = 100) => Math.min(max, pos(n)) / 100;
 
@@ -38,6 +48,14 @@ export const leakRowValue = (r: LeakRow, marginPct: number) =>
   pos(r.value) * pos(r.perYear) * pct(marginPct) * pct(r.savingPct, MAX_LEAK_SAVING) * REALISM_FACTOR;
 export const challengeRowValue = (r: CostRow) => pos(r.yearly) * pct(r.savingPct, MAX_CHALLENGE_SAVING) * REALISM_FACTOR;
 export const costRowValue = (r: CostRow) => pos(r.yearly) * pct(r.savingPct);
+export const MAX_CAPITAL_REDUCTION = 30; // % av bundet kapital
+export const MAX_AI_PCT = 50; // % av kvarvarande tid
+export const capitalRowValue = (r: CostRow, ratePct = 8) => pos(r.yearly) * pct(r.savingPct, MAX_CAPITAL_REDUCTION) * pct(ratePct, 20) * REALISM_FACTOR;
+/** AI räknas bara på den tid som återstår efter ERP/CRM-effekten. */
+export const aiRowValue = (r: WorkRow, hourlyCost: number, aiPct = 0) => {
+  const remainingShare = 1 - pct(r.savingPct, MAX_WORK_SAVING);
+  return ((pos(r.minutes) * pos(r.perMonth) * 12) / 60) * remainingShare * pct(aiPct, MAX_AI_PCT) * pos(hourlyCost) * REALISM_FACTOR;
+};
 
 export function evaluateBusinessValue(i: BusinessValueInput): BusinessValueResult {
   const work = i.work.reduce((s, r) => s + workRowValue(r, i.hourlyCost), 0);
@@ -45,7 +63,9 @@ export function evaluateBusinessValue(i: BusinessValueInput): BusinessValueResul
   const leakage = i.leakage.reduce((s, r) => s + leakRowValue(r, i.marginPct), 0);
   const challenges = i.challenges.reduce((s, r) => s + challengeRowValue(r), 0);
   const itFees = i.itFees.reduce((s, r) => s + costRowValue(r), 0);
-  return { work, leakage, challenges, itFees, hoursFreed, total: work + leakage + challenges + itFees };
+  const workingCapital = (i.workingCapital ?? []).reduce((s, r) => s + capitalRowValue(r, i.capitalRatePct), 0);
+  const ai = i.work.reduce((s, r) => s + aiRowValue(r, i.hourlyCost, i.aiPct), 0);
+  return { work, leakage, challenges, itFees, workingCapital, ai, hoursFreed, total: work + leakage + challenges + itFees + workingCapital + ai };
 }
 
 /** Tomma rader (startvärden noll) med förslag på typiska områden, inklusive AI-agenter. */
@@ -81,6 +101,9 @@ export const EMPTY_BUSINESS_VALUE: BusinessValueInput = {
     { id: "consult", label: "Konsultkostnad för nuvarande system", yearly: 0, savingPct: 100 },
     { id: "tools", label: "Fristående verktyg (fakturatolkning, rapportverktyg)", yearly: 0, savingPct: 100 },
   ],
+  workingCapital: DEFAULT_CAPITAL(0, 0),
+  capitalRatePct: 8,
+  aiPct: 0,
 };
 
 /** Exempelbolag från säljcoachningsmodellen, i kronor. */
@@ -105,6 +128,7 @@ export const internalHourlyCost = (monthlySalary: number, tools = 50_000, overhe
 
 /** Exempelbolag från Thomas Excel "Business Value Assessment – Business Central 2026". */
 export const BC_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
+  workingCapital: DEFAULT_CAPITAL(3_000_000, 2_000_000), capitalRatePct: 8, aiPct: 30,
   hourlyCost: Math.round(internalHourlyCost(40_000) * 2) / 2, // 458,5 kr
   marginPct: 30,
   work: [
@@ -140,6 +164,7 @@ export const BC_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
 
 /** Exempelbolag från Thomas Excel "Business Value Assessment SEK – CRM". */
 export const CRM_EXAMPLE_BUSINESS_VALUE: BusinessValueInput = {
+  workingCapital: DEFAULT_CAPITAL(0, 0), capitalRatePct: 8, aiPct: 30,
   hourlyCost: 750,
   marginPct: 30,
   work: [
@@ -189,9 +214,66 @@ export const CRM_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
 };
 export const crmExampleForIndustry = (industry?: string): BusinessValueInput => (industry && CRM_INDUSTRY_EXAMPLES[industry]) || CRM;
 
-/** Nytta över N år med realiseringstakt (andel år 1, år 2, därefter full). */
-export const realizedBenefit = (annual: number, years: number, ramp: [number, number]) =>
-  Array.from({ length: years }, (_, i) => (i === 0 ? ramp[0] : i === 1 ? ramp[1] : 1)).reduce((s, f) => s + annual * f, 0);
+/** Nytta över N år med realiseringstakt: [år1, år2] (därefter full) eller en andel per år. */
+export const rampYears = (ramp: number[], years: number) =>
+  Array.from({ length: years }, (_, i) => (ramp.length > 2 ? ramp[i] ?? 1 : i === 0 ? ramp[0] : i === 1 ? ramp[1] : 1));
+export const realizedBenefit = (annual: number, years: number, ramp: number[]) =>
+  rampYears(ramp, years).reduce((s, f) => s + annual * Math.min(1, Math.max(0, f)), 0);
+
+export interface CashYear { year: number; benefit: number; project: number; running: number; net: number; cumulative: number }
+export interface CashFlowResult { rows: CashYear[]; npv: number; irr: number | null; paybackMonths: number | null; roiPct: number | null }
+
+/** Kassaflöde år för år som i en klassisk investeringskalkyl. Ersatta kostnader följer inte realiseringstakten. */
+export function cashFlow(o: { benefit: number; replaced: number; ramp: number[]; implementation: number; licenseYearly: number; supportPct: number; ratePct?: number; years?: number }): CashFlowResult {
+  const years = o.years ?? 5, rate = (o.ratePct ?? 5) / 100;
+  let cum = 0; let payback: number | null = null;
+  const rows = rampYears(o.ramp, years).map((f, i) => {
+    const benefit = o.benefit * Math.min(1, Math.max(0, f)) + o.replaced;
+    const project = i === 0 ? o.implementation : (o.implementation * o.supportPct) / 100;
+    const running = o.licenseYearly;
+    const net = benefit - project - running;
+    const before = cum; cum += net;
+    if (payback === null && cum >= 0 && net > 0) payback = i * 12 + Math.max(0, (-before / net) * 12);
+    return { year: i + 1, benefit, project, running, net, cumulative: cum };
+  });
+  const flows = rows.map((r) => r.net);
+  const npvAt = (r: number) => flows.reduce((s, f, i) => s + f / Math.pow(1 + r, i + 1), 0);
+  // IRR: investeringen i början, årets nytta minus löpande som inbetalning.
+  const irrFlows = [-o.implementation, ...rows.map((r) => r.benefit - r.running - (r.year === 1 ? 0 : r.project))];
+  const f = (r: number) => irrFlows.reduce((s, c, i) => s + c / Math.pow(1 + r, i), 0);
+  let irr: number | null = null;
+  if (o.implementation > 0 && f(-0.99) * f(10) < 0) {
+    let lo = -0.99, hi = 10;
+    for (let k = 0; k < 200; k++) { const mid = (lo + hi) / 2; if (f(lo) * f(mid) <= 0) hi = mid; else lo = mid; }
+    irr = (lo + hi) / 2;
+  }
+  const cost = rows.reduce((s, r) => s + r.project + r.running, 0);
+  const total = rows.reduce((s, r) => s + r.benefit, 0);
+  return { rows, npv: npvAt(rate), irr, paybackMonths: payback, roiPct: cost > 0 ? (total / cost - 1) * 100 : null };
+}
+
+/** Största potential: alla rader med värde, sorterade. */
+export function topPotential(i: BusinessValueInput, n = 5) {
+  const items = [
+    ...i.work.map((r) => ({ id: r.id, label: r.label, value: workRowValue(r, i.hourlyCost) })),
+    ...i.leakage.map((r) => ({ id: r.id, label: r.label, value: leakRowValue(r, i.marginPct) })),
+    ...i.challenges.map((r) => ({ id: r.id, label: r.label, value: challengeRowValue(r) })),
+    ...(i.workingCapital ?? []).map((r) => ({ id: r.id, label: r.label, value: capitalRowValue(r, i.capitalRatePct) })),
+    { id: "ai", label: "AI, Copilot och agenter", value: i.work.reduce((s, r) => s + aiRowValue(r, i.hourlyCost, i.aiPct), 0) },
+  ];
+  return items.filter((x) => x.value > 0).sort((a, b) => b.value - a.value).slice(0, n);
+}
+
+/** Områden att utvärdera per rad (visas under största potential). */
+export const AREAS_TO_EVALUATE: Record<string, string> = {
+  order: "Orderautomatisering", web: "Webbshop-integration", edi: "EDI med kunder och leverantörer", quote: "Offert- och prisregler",
+  invoice: "Automatiserad fakturering", ap: "Leverantörsfakturor med AI", bank: "Bankintegration och avstämning", close: "Bokslut och rapportering",
+  report: "Rapportering och Power BI", stock: "Lagerstyrning och beställningspunkter", pick: "WMS, plock och leverans", purchase: "Inköpsplanering",
+  bom: "Produktionsorder och stycklistor", plan: "Material- och kapacitetsplanering", trace: "Spårbarhet och batch", time: "Tidrapportering",
+  projinv: "Projektfakturering", proj: "Projektuppföljning", lead: "Lead- och affärsmöjlighetshantering", sales: "Säljprocess och Copilot för säljare",
+  missed: "Uppföljning av affärer och order", wrong: "Leveranskvalitet", lost: "Kunduppföljning", receivables: "Kundreskontra och påminnelser",
+  ai: "Copilot och agenter för återstående manuella moment", renewal: "Avtals- och förnyelsehantering",
+};
 
 const BC = BC_EXAMPLE_BUSINESS_VALUE;
 const common = BC.work.filter((r) => ["invoice", "close", "ap", "bank"].includes(r.id));
@@ -202,7 +284,7 @@ export const BC_INDUSTRY_EXAMPLES: Record<string, BusinessValueInput> = {
     leakage: [l("missed", "Restorder och missade order", 15_000, 6, 100), l("wrong", "Felleveranser", 15_000, 8, 80), l("lost", "Förlorade kunder", 100_000, 1, 50)] },
   Tillverkning: { ...BC, work: [w("order", "Manuell orderregistrering", 10, 150, 70), w("bom", "Stycklistor och produktionsorder", 20, 60, 60), w("plan", "Material- och kapacitetsplanering", 480, 4, 60), w("trace", "Spårbarhet och batchhantering", 15, 40, 70), w("purchase", "Inköpsförslag och beställningar", 20, 40, 70), ...common],
     leakage: [l("missed", "Försenade leveranser och viten", 25_000, 4, 80), l("wrong", "Kassationer och omarbete", 20_000, 6, 60), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
-  Tjänster: { ...BC, hourlyCost: 600, work: [w("time", "Tidrapportering och attest", 10, 300, 70), w("projinv", "Projektfakturering", 20, 60, 80), w("proj", "Projektuppföljning och prognos", 240, 4, 60), w("expense", "Utlägg och reseräkningar", 10, 60, 80), ...common],
+  Tjänster: { ...BC, hourlyCost: 600, workingCapital: DEFAULT_CAPITAL(0, 3_000_000), work: [w("time", "Tidrapportering och attest", 10, 300, 70), w("projinv", "Projektfakturering", 20, 60, 80), w("proj", "Projektuppföljning och prognos", 240, 4, 60), w("expense", "Utlägg och reseräkningar", 10, 60, 80), ...common],
     leakage: [l("missed", "Ej fakturerad tid", 1_200, 200, 100), l("wrong", "Kreditfakturor och tvister", 10_000, 4, 70), l("lost", "Förlorade kunder", 150_000, 1, 50)] },
 };
 export const bcExampleForIndustry = (industry?: string): BusinessValueInput => (industry && BC_INDUSTRY_EXAMPLES[industry]) || BC;
