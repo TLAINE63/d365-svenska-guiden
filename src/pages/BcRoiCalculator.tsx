@@ -41,6 +41,8 @@ import { usePartnerImpressions } from "@/hooks/usePartnerImpressions";
 import { readCalcPrefill } from "@/lib/systemvalHandoff";
 import CalcToKravNext from "@/components/CalcToKravNext";
 import BcInvestmentCase from "@/components/roi/BcInvestmentCase";
+import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
+import { evaluateBusinessValue, EMPTY_BUSINESS_VALUE } from "@/lib/businessValue";
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
@@ -109,6 +111,8 @@ export default function BcRoiCalculator() {
   const [showAssumptions, setShowAssumptions] = useState(false);
   const [implementationOverride, setImplementationOverride] = useState<number | null>(null);
   const [supportPercent, setSupportPercent] = useState(18);
+  const [bva, setBva] = useState(EMPTY_BUSINESS_VALUE);
+  const bvaResult = useMemo(() => evaluateBusinessValue(bva), [bva]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -186,7 +190,8 @@ export default function BcRoiCalculator() {
     const driverSavings = activeDrivers.reduce((sum, d) => sum + d.savings(v.revenue) * userFactor, 0);
     const integrationSavings = v.integrations * 50_000;
     const annualBenefit =
-      (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity];
+      (driverSavings * manualMultiplier + integrationSavings) * complexityFactor[v.complexity] +
+      bvaResult.total;
 
     // Payback baseras på steady-state (efter år 1)
     const netAnnual = annualBenefit + v.currentItCost - licenseYearly - supportYearly;
@@ -215,7 +220,7 @@ export default function BcRoiCalculator() {
       net5,
       roiPct,
     };
-  }, [v, perFullUser, teamPrice, devicePrice, activeDrivers, implementationOverride, supportPercent]);
+  }, [v, perFullUser, teamPrice, devicePrice, activeDrivers, implementationOverride, supportPercent, bvaResult]);
 
   const priceMissing = perFullUser == null || teamPrice == null;
   const tillverkningEssentialsWarning = modelIndustry === "Tillverkning" && v.license === "Essentials";
@@ -556,6 +561,8 @@ export default function BcRoiCalculator() {
                 </div>
               </div>
             </div>
+
+            <BusinessValueAssessment value={bva} onChange={setBva} productName="Business\u00A0Central" />
 
             <BcInvestmentCase currentYearly={v.currentItCost} licenseYearly={calc.licenseYearly} supportPercent={supportPercent} customImplementation={calc.implementation} annualBenefit={calc.annualBenefit} />
 
