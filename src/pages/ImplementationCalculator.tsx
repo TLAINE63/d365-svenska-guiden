@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import NastaSteg from "@/components/NastaSteg";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
@@ -867,6 +868,7 @@ export default function ImplementationCalculator() {
 
         <section className="pb-8">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <ToolResultNextStep tool="implementation" product={solutions[0]} className="mb-6" />
             <BookingOffer placement="implementation" />
             <CostNextSteps
               hideAdvisory

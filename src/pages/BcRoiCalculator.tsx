@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { BC_ROI_IMPLEMENTATION } from "@/data/bcProjectEstimates";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
@@ -756,6 +757,7 @@ export default function BcRoiCalculator() {
         </section>
       </main>
 
+      <div className="container mx-auto max-w-6xl px-4 mb-6"><ToolResultNextStep tool="roi_bc" product="business-central" /></div>
       <BookingOffer placement="roi-bc" className="container mx-auto max-w-6xl px-4" />
       <SuggestedPartnersCTA product="bc" industry={v.industry} />
       <Footer />

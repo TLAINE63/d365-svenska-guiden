@@ -1,3 +1,4 @@
+import { findTool, toolSummary } from "@/lib/toolUnderlag";
 import { readInquiryPartners } from "@/lib/inquirySelection";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -47,7 +48,9 @@ const Forfragan = () => {
   useEffect(() => {
     const p = parseForfraganParams(sp);
     setPre({ ...p, partners: p.partners.length ? p.partners : readInquiryPartners() });
-    setF((s) => ({ ...s, produkt: s.produkt || p.produkt, bransch: s.bransch || p.bransch }));
+    const u = (sp.get("underlag") || "").trim();
+    const t = /^[a-z0-9_-]{1,40}$/.test(u) ? findTool(u) : undefined;
+    setF((s) => ({ ...s, produkt: s.produkt || p.produkt, bransch: s.bransch || p.bransch, beskrivning: s.beskrivning || (t ? toolSummary(t) : "") }));
   }, [sp]);
 
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
