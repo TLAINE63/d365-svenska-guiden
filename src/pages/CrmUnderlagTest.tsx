@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -81,6 +82,7 @@ export default function CrmUnderlagTest() {
               </div>
             </div>
           )}
+          {done && <BookingOffer placement="crm-test" className="mt-8" />}
         </div>
       </main>
       <Footer />

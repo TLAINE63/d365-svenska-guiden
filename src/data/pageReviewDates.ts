@@ -5,7 +5,10 @@
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/businesscentral/matchningstest/": "2026-11-16",
-  "/finance-supply-chain/matchningstest/": "2026-11-16",
+  "/finance-supply-chain-management/matchningstest/": "2026-11-16",
+  "/kundservice-behovsanalys/": "2026-11-16",
+  "/crm/matchningstest/": "2026-11-16",
+  "/kom-igang/snabbguide/": "2026-11-16",
   "/beslutsmognad/resultat/": "2026-11-16",
   "/ERPbehovsanalys/": "2026-11-16",
   "/CRMbehovsanalys/": "2026-11-16",
