@@ -1142,7 +1142,7 @@ serve(async (req) => {
 
         const { data: visits, error: vErr } = await supabase
           .from("snitcher_visits")
-          .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, company_logo_url, session_started_at, session_ended_at, visited_urls, partner_slugs, synced_at")
+          .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, company_logo_url, session_started_at, session_ended_at, visited_urls, partner_slugs, synced_at, company_city:raw_data->address->>city, company_revenue:raw_data->>annual_revenue")
           .gte("session_ended_at", `${range.start}T00:00:00Z`)
           .lte("session_ended_at", `${range.end}T23:59:59Z`)
           .order("session_ended_at", { ascending: false })
@@ -1161,6 +1161,8 @@ serve(async (req) => {
         for (const v of visits || []) {
           const urls: { url: string }[] = (v.visited_urls || []) as any;
           const urlList = urls.map(u => u.url).filter((u: string) => u && isOwnSiteUrl(u));
+          // Endast företag som faktiskt besökt d365.se tas med (andra sajter har egna exporter).
+          if (urlList.length === 0) continue;
 
           let entry = byOrg.get(v.organisation_uuid);
           if (!entry) {
@@ -1172,6 +1174,8 @@ serve(async (req) => {
               company_size: v.company_size,
               company_country: v.company_country,
               company_logo_url: v.company_logo_url,
+              company_city: (v as any).company_city ?? null,
+              company_revenue: (v as any).company_revenue ?? null,
               first_seen: v.session_started_at,
               last_seen: v.session_ended_at,
               partner_slugs: new Set<string>(),
