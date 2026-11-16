@@ -138,5 +138,16 @@ export function formContextBody(): Record<string, unknown> {
   const out: Record<string, unknown> = { source_page: c.source_page, consent_text_version: c.consent_text_version };
   if (c.session_pages) out.session_pages = c.session_pages;
   if (c.landing_page) out.landing_page = c.landing_page;
+  const tools = readToolContextSafe();
+  if (tools.length) out.tool_context = tools;
   return out;
+}
+
+/** Verktygskontext (kalkylatorer, guider) läses här för att undvika cirkulärt beroende. */
+function readToolContextSafe(): unknown[] {
+  if (typeof window === "undefined" || isInternalTraffic()) return [];
+  try {
+    const v = JSON.parse(window.sessionStorage.getItem("d365_tool_context") || "[]");
+    return Array.isArray(v) ? v.slice(-8) : [];
+  } catch { return []; }
 }
