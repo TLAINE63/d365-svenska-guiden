@@ -1,7 +1,11 @@
+## Premium-PDF för Spara underlaget (2026-11-17)
+- [x] Word-nedladdningen ersatt med gemensam premium-PDF; Min D365-plan och förfrågans förifyllnad bevarade.
+- [x] Verklig PDF-nedladdning från Affärsnytta & ROI och sparande verifierade; en sida och femsidigt långt underlag visuellt granskade utan överlapp eller klippning. Sex tester godkända, inga runtimefel.
+
 ## Verktygen, del 3 (2026-11-17)
-- [x] "Spara underlaget" (Word-fil + Min D365-plan) och länk till förfrågan med förifylld beskrivning på BC-, Sales-, affärsnytta- och implementationskalkyl. BC-flödet provat i webbläsaren.
+- [x] "Spara underlaget" (premium-PDF + Min D365-plan) och länk till förfrågan med förifylld beskrivning på BC-, Sales-, affärsnytta- och implementationskalkyl. BC-flödet provat i webbläsaren.
 - [x] Samma ruta i tre behovsanalyser, fyra kravspecifikationer och matchningstesterna (BC, F&SCM, CRM); kodkontroll OK, inte klickade till resultat i webbläsaren.
-- [ ] Mejlutskick av Word-filen (kräver eget utskick från servern).
+- [ ] Mejlutskick av PDF-underlaget (separat utskicksflöde återstår).
 
 ## Nästa steg på djupsidor, del 2 (2026-11-16)
 - [x] Gemensamma nästa steg i jämförelse-, pris/kostnads- och partnerlistmallar; två placeringar i innehållet. Tolv sidor verifierade med två block och oförändrade canonical-adresser.
