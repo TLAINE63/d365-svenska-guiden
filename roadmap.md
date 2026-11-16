@@ -1,3 +1,7 @@
+## Premium-PDF för Spara underlaget (2026-11-17)
+- [ ] Byt Word-nedladdningen till gemensam premium-PDF, behåll Min D365-plan och förfrågans förifyllnad.
+- [ ] Kontrollera verklig nedladdning och granska korta/långa PDF-underlag visuellt.
+
 ## Verktygen, del 3 (2026-11-17)
 - [x] "Spara underlaget" (Word-fil + Min D365-plan) och länk till förfrågan med förifylld beskrivning på BC-, Sales-, affärsnytta- och implementationskalkyl. BC-flödet provat i webbläsaren.
 - [x] Samma ruta i tre behovsanalyser, fyra kravspecifikationer och matchningstesterna (BC, F&SCM, CRM); kodkontroll OK, inte klickade till resultat i webbläsaren.
