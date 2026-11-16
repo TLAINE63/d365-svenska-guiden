@@ -7,13 +7,14 @@ vi.mock("@/lib/siJourney", () => ({ forwardFunnelEvent: vi.fn() }));
 
 describe("direct booking rules", () => {
   beforeEach(() => { localStorage.clear(); sessionStorage.clear(); vi.restoreAllMocks(); });
-  it("sends only placement and path, without storing an identifier", () => {
-    const sendBeacon = vi.fn(() => true);
+  it("sends only placement and path, without storing an identifier", async () => {
+    const sendBeacon = vi.fn((_url: string, _blob: Blob) => true);
     Object.defineProperty(navigator, "sendBeacon", { value: sendBeacon, configurable: true });
     trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", page_path: "/verksamhetsvardering/", metadata: { placement: "affarsnytta", company_domain: "not-allowed.example" } });
     expect(sendBeacon).toHaveBeenCalledTimes(1);
     const blob = sendBeacon.mock.calls[0][1] as Blob;
-    expect(blob.size).toBe(new Blob([JSON.stringify({ event_type: "cta_click", event_name: "booking_click", page_path: "/verksamhetsvardering/", metadata: { placement: "affarsnytta", path: "/verksamhetsvardering/" } })]).size);
+    const text = await new Promise<string>((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.readAsText(blob); });
+    expect(JSON.parse(text)).toEqual({ event_type: "cta_click", event_name: "booking_click", page_path: "/verksamhetsvardering/", metadata: { placement: "affarsnytta", path: "/verksamhetsvardering/" } });
     expect(localStorage.length).toBe(0);
     expect(sessionStorage.length).toBe(0);
   });
