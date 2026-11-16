@@ -45,6 +45,7 @@ import AiExempelDetalj from './pages/AiExempelDetalj';
 import { AI_EXAMPLES } from './data/aiExamples';
 import AIReadiness from './pages/AIReadiness';
 import ContactUs from './pages/ContactUs';
+import Forfragan from './pages/Forfragan';
 import ValjPartner from './pages/ValjPartner';
 import BuyerGuide2026 from './pages/BuyerGuide2026';
 import PartnerGuidePage from './pages/PartnerGuidePage';
@@ -277,6 +278,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/nyhetsbrev/avregistrera', priority: '0.1', changefreq: 'yearly', sitemap: false },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
+  { path: '/forfragan', priority: '0.8', changefreq: 'monthly' },
   { path: '/om-thomas-laine', priority: '0.6', changefreq: 'yearly' },
   { path: '/om-michael-uhman', priority: '0.6', changefreq: 'yearly' },
   { path: '/agande-och-intressen', priority: '0.5', changefreq: 'yearly' },
@@ -605,6 +607,7 @@ export function render(url: string) {
               <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
+              <Route path="/forfragan" element={<Forfragan />} />
               <Route path="/valjdynamics365partner" element={<ValjPartner />} />
               <Route path="/guider" element={<GuiderIndex />} />
               <Route path="/kompetens" element={<KompetensOversikt />} />
