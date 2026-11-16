@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import RoiCostControls from "@/components/RoiCostControls";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
@@ -705,6 +706,7 @@ export default function SalesRoiCalculator() {
         </section>
       </main>
 
+      <BookingOffer placement="roi-sales" className="container mx-auto max-w-6xl px-4" />
       <SuggestedPartnersCTA product="sales" industry={v.industry} />
       <Footer />
     </div>

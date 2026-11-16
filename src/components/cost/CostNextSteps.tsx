@@ -32,6 +32,7 @@ interface Props {
   /** Kalkylresultatet i klartext, följer med om besökaren ber om hjälp. */
   estimateLines?: string[];
   className?: string;
+  hideAdvisory?: boolean;
 }
 
 /**
@@ -39,7 +40,7 @@ interface Props {
  * "Vad vill ni göra härnäst?" och Conversion Exit "Få hjälp att bedöma kostnadsbilden"
  * (PlanContactDialog advisory → internt ärende hos d365.se, inget skickas till partners).
  */
-export default function CostNextSteps({ sourcePage, area, costAnchor, size, drivers, estimateLines = [], className = "" }: Props) {
+export default function CostNextSteps({ sourcePage, area, costAnchor, size, drivers, estimateLines = [], className = "", hideAdvisory = false }: Props) {
   const [draft, setDraft] = useState<CostHelpDraft>({ area, size });
   const [open, setOpen] = useState(false);
   useEffect(() => { setDraft((d) => ({ ...d, area: area ?? d.area, size: size ?? d.size })); }, [area, size]);
@@ -87,7 +88,7 @@ export default function CostNextSteps({ sourcePage, area, costAnchor, size, driv
         ))}
       </ul>
 
-      <div className="rounded-lg border border-border bg-muted/30 p-5">
+      {!hideAdvisory && <div className="rounded-lg border border-border bg-muted/30 p-5">
         <h3 className="text-lg font-semibold text-foreground mb-1">Vill ni ha hjälp att bedöma kostnadsbilden?</h3>
         <p className="text-sm text-muted-foreground mb-4">d365.se går igenom underlaget manuellt. Allt nedan är frivilligt och inget skickas till någon partner.</p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -123,7 +124,7 @@ export default function CostNextSteps({ sourcePage, area, costAnchor, size, driv
         <Button className="mt-4" onClick={() => setOpen(true)}>
           Få hjälp att bedöma kostnadsbilden <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Button>
-      </div>
+      </div>}
 
       <p className="mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
         <span className="font-semibold text-foreground">Har ni redan fått ett förslag eller tidsestimat från en partner?</span>{" "}

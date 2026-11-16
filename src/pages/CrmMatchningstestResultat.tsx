@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2, Download, FileDown, MessageSquare, RotateCcw, Users } from "lucide-react";
@@ -442,6 +443,8 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
                 resultUrl={typeof window !== "undefined" ? window.location.href : undefined}
               />
 
+
+              <BookingOffer placement={`matchning-${productKey}`} />
 
               {/* Vidare läsning */}
               <Card>

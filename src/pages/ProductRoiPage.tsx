@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calculator } from "lucide-react";
@@ -164,6 +165,7 @@ export default function ProductRoiPage({ productKey }: Props) {
         </section>
       </main>
 
+      <BookingOffer placement={`roi-${productKey}`} className="container mx-auto max-w-6xl px-4" />
       <SuggestedPartnersCTA product={ROI_TO_PARTNER_PRODUCT[productKey]} />
       <Footer />
     </div>

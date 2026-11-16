@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import DownloadContactOptIn from "@/components/DownloadContactOptIn";
 import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, type DownloadConsent } from "@/lib/downloadConsent";
@@ -2193,6 +2194,7 @@ const AIReadiness = () => {
             </Card>
           )}
 
+          <BookingOffer placement="ai-readiness" className="mt-8" />
           <div className="text-center mt-8">
             <Button variant="ghost" onClick={resetAll}>Gör om analysen</Button>
           </div>

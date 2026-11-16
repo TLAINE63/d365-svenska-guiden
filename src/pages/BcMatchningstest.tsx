@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useMemo, useState } from "react";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link, useNavigate } from "react-router-dom";
@@ -206,6 +207,7 @@ const BcMatchningstest = () => {
         </div>
       </main>
 
+      {result && showResult && <BookingOffer placement="matchning-bc" className="container mx-auto max-w-4xl px-4" />}
       {result && showResult && <SuggestedPartnersCTA product="bc" />}
       <Footer />
     </div>

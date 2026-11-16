@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { AGENT_CAPABILITY_OPTIONS, agentCapabilities, matchesAgentCapability } from "@/lib/aiProfile";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import ContextualCta from "@/components/ContextualCta";
@@ -56,7 +57,6 @@ import {
 import { trackUnderlagEvent } from "@/utils/trackUnderlagEvent";
 import EditorialSource from "@/components/EditorialSource";
 import ShortlistButton from "@/components/ShortlistButton";
-import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 
 import { PARTNER_CATEGORIES, partnerCategoryKeys, partnerCategoryLabel, type PartnerCategoryKey } from "@/lib/partnerCategoryTags";
@@ -1385,17 +1385,9 @@ const ValjPartner = () => {
 
 
  {/* Sprint 1.1 Conversion Exit B: hjälp från d365.se (internt granskningsärende, inget skickas till partner) */}
- <AdvisoryOffer
+ <BookingOffer
   className="max-w-4xl mx-auto mt-12"
-  variant="inline"
-  placement="partner_search"
-  pageType={intentForNeed(need)}
-  cta="Få hjälp att bedöma vilka partners som passar"
-  heading="Vill ni ha hjälp att bedöma vilka partners som passar?"
-  text="Beskriv ert behov så gör d365.se en manuell genomgång och ger råd om relevanta nästa steg. Inget skickas automatiskt till någon partner, och en namngiven introduktion görs bara efter ert godkännande."
-  dialogTitle="Få hjälp att bedöma vilka partners som passar"
-  dialogDescription="d365.se går igenom ert behov manuellt och återkommer med råd om nästa steg. Inget skickas till någon partner. Vill ni bli introducerade till en namngiven partner frågar vi er först."
-  messageLabel="Kort beskrivning av behovet (valfritt)"
+  placement="partnerlista" advisoryPlacement="partner_search"
   submitEvent="partner_selection_help_requested"
   sections={[
    ...(need ? [{ key: "partnerbehov", label: "Valt behov", lines: [needLabel(need) as string] }] : []),

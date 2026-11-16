@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { BC_ROI_IMPLEMENTATION } from "@/data/bcProjectEstimates";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import RoiCostControls from "@/components/RoiCostControls";
@@ -755,6 +756,7 @@ export default function BcRoiCalculator() {
         </section>
       </main>
 
+      <BookingOffer placement="roi-bc" className="container mx-auto max-w-6xl px-4" />
       <SuggestedPartnersCTA product="bc" industry={v.industry} />
       <Footer />
     </div>
