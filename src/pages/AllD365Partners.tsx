@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import ContentInvite from "@/components/ContentInvite";
 import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
@@ -353,24 +354,7 @@ export default function AllD365Partners() {
           </section>
         )}
 
-        {/* CTA */}
-        <section className="py-8 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-              Vill du ha hjälp att hitta rätt partner?
-            </h2>
-            <p className="text-base text-muted-foreground mb-6">
-              Vi vägleder dig kostnadsfritt utifrån dina behov – berätta vad du behöver
-              så återkopplar vi med 2–3 lämpliga partners att jämföra.
-            </p>
-            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-              <Link to="/kontakt/">
-                <MessageSquare className="w-4 h-4 mr-2" />
-                Kontakta oss för matchning
-              </Link>
-            </Button>
-          </div>
-        </section>
+        <div className="container mx-auto max-w-6xl px-4"><BookingOffer placement="partnerlista" advisoryPlacement="partner_search" /></div>
 
       <ContextualCta source="next-step:alla-partners" heading="Svårt att välja bland alla partners?" text="Listan visar alla. Guiden sorterar fram de som passar er produkt, bransch och storlek." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
 </main>

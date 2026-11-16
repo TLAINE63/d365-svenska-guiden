@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
@@ -2244,6 +2245,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
 
+ <BookingOffer placement="behov-service" />
  {/* FÖRESLAGNA PARTNERS */}
  <SuggestedPartnersCTA
  product="service"

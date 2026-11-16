@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { Link, useSearchParams } from "react-router-dom";
@@ -14,7 +15,6 @@ import SolutionResultView, { type AnswerSummaryItem } from "@/components/systemv
 import { buildSolutionPicture } from "@/lib/systemval/solutions";
 import { buildSolutionMap } from "@/lib/systemval/solutionMap";
 import { buildSystemvalResult, CLARITY_LABEL, type Cta } from "@/lib/systemval/result";
-import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import EmailResultSummary from "@/components/EmailResultSummary";
 import { ADVISORY_CTA } from "@/lib/advisory";
 import { savePlanSolution } from "@/lib/d365Plan";
@@ -267,14 +267,9 @@ export default function Systemval() {
           )}
 
           {!question && picture && result && !deepMode && (
-            <AdvisoryOffer
+            <BookingOffer
               className="mt-10"
-              variant="inline"
-              placement="needs_guide"
-              pageType="tool"
-              cta={ADVISORY_CTA.needs_guide}
-              heading={result.clarity === "clear" ? "Vill ni pröva bedömningen innan ni går vidare?" : "Vill ni ha hjälp att tolka resultatet?"}
-              text="Gå igenom behovsanalysen med en rådgivare innan ni pratar med partners. Ni får hjälp att väga alternativen och reda ut de öppna frågorna, utan att någon partner deltar."
+              placement="systemval" advisoryPlacement="needs_guide"
               sections={[
                 { key: "behovsguide_resultat", label: "Resultat från behovsguiden", lines: [
                   `Bedömning: ${CLARITY_LABEL[result.clarity]}`,

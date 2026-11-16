@@ -271,6 +271,14 @@ export function trackFunnelEvent(payload: FunnelEventPayload): void {
 
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-funnel-event`;
     const pagePath = payload.page_path ?? window.location.pathname;
+    // Direct booking is count-only: no session/journey id, attribution or companion tracker.
+    if (payload.event_name === "booking_click") {
+      if (localStorage.getItem("d365_internal") === "1") return;
+      const placement = payload.metadata?.placement;
+      if (typeof placement !== "string" || !/^[a-z0-9_-]{1,60}$/.test(placement)) return;
+      send(url, JSON.stringify({ event_type: "cta_click", event_name: "booking_click", page_path: pagePath, metadata: { placement, path: pagePath } }));
+      return;
+    }
     const attribution = getAttribution();
     const meta: Record<string, unknown> = { journey_id: getJourneyId(), ...planSegment(), ...((payload.metadata || {}) as Record<string, unknown>) };
     payload = { ...payload, metadata: meta };

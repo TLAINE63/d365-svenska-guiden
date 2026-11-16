@@ -60,9 +60,9 @@ export const BUYER_SIDE_EXPLAINER = siteText("buyer.explainer");
 export const BUYER_SIDE_LINK_TEXT = siteText("buyer.link_text");
 export const ORGANIZATION_SCHEMA_DESCRIPTION = rawSiteText("org.schema_description");
 
-/** Thomas Laines bokningssida. Används som genomförandealternativ efter att besökaren pratat med d365.se, aldrig som själva erbjudandet. */
+/** Thomas Laines gemensamma direktbokningssida för kostnadsfri rådgivning. */
 export const ADVISOR_BOOKING_URL =
-  "https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink";
+  "https://bookings.cloud.microsoft/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mcard";
 /** Fastställd knapptext för rådgivning med Thomas (beslut 2026-11-04). */
 export const ADVISOR_BOOKING_CTA = "Boka 20-minuters kostnadsfri rådgivning med Thomas";
 export const ADVISOR_EMAIL_HREF = "mailto:thomas.laine@dynamicfactory.se";

@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
@@ -3531,6 +3532,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </CardContent>
  </Card>
 
+ <BookingOffer placement="behov-crm" className="mt-8" />
  {/* FÖRESLAGNA PARTNERS */}
  <SuggestedPartnersCTA
  product="sales"

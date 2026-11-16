@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { trackJourney } from "@/lib/siJourney";
 import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
 import { useInquiry } from "@/contexts/InquiryContext";
@@ -44,7 +45,6 @@ import BasicPartnerInquiryDialog from "@/components/BasicPartnerInquiryDialog";
 import VerifiedOnlyToggle from "@/components/VerifiedOnlyToggle";
 import CompareStickyCTA from "@/components/CompareStickyCTA";
 import AiCompareInsights from "@/components/AiCompareInsights";
-import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { ADVISORY_CTA } from "@/lib/advisory";
 import { PARTNER_COMPARE_CTA } from "@/lib/conversionCtas";
@@ -2625,14 +2625,9 @@ const ComparePartners = () => {
 
                     {hasBoth && (
                       <div id="jamforelse-radgivning" className="scroll-mt-28">
-                      <AdvisoryOffer
+                      <BookingOffer
                         className="mt-8"
-                        variant="inline"
-                        placement="compare"
-                        pageType="comparison"
-                        cta={ADVISORY_CTA.compare}
-                        heading="Vill ni gå igenom jämförelsen innan ni tar kontakt?"
-                        text="Före partnerdialogen går en rådgivare igenom era valda partners mot ert behov, så att ni vet vad ni ska fråga och jämföra. Vill ni hellre kontakta partnerna direkt gör ni det ovan."
+                        placement="compare" advisoryPlacement="compare"
                         sections={[
                           { key: "valda_partners", label: "Valda partners", lines: [a, b, c].filter((p): p is DatabasePartner => Boolean(p)).map((p) => p.name) },
                           ...((productFilters.length || industryFilter) ? [{ key: "jamforelse_urval", label: "Jämförelsens urval", lines: [

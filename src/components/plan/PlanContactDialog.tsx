@@ -61,7 +61,7 @@ function usePlanSections(): Section[] {
 export type AdvisoryPlacement = "compare" | "partner_switch" | "needs_guide" | "tool_result" | "second_opinion" | "home" | "partner_search" | "expert_requirement" | "existing_dynamics" | "partner_relationship_review" | "solution_assessment" | "solution_advice" | "cost_help" | "next_step_help" | "isv_product_help" | "question" | "meeting_20min";
 /** Var rådgivningen bokas. Följer med till bokningen (Advisory Booking) och mätningen, inga personuppgifter. */
 export interface AdvisoryOrigin { placement: AdvisoryPlacement; cta: string; pageType: string }
-export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean; hideFocus?: boolean }
+export interface ContactTopic { title: string; description: string; helpWith: string; startEvent: string; submitEvent: string; extra?: Section; extras?: Section[]; metadata?: Record<string, unknown>; advisory?: AdvisoryOrigin; messageLabel?: string; doneTitle?: string; doneNotes?: string[]; showDoneSummary?: boolean; hideFocus?: boolean; sourcePage?: string }
 export type { Section as ContactSection };
 
 export default function PlanContactDialog({ mode, onClose: closeDialog, topic }: { mode: PlanContactMode; onClose: () => void; topic?: ContactTopic }) {
@@ -128,6 +128,7 @@ export default function PlanContactDialog({ mode, onClose: closeDialog, topic }:
           partners: advisory ? [] : chosen.map((p) => ({ slug: p.slug, name: p.name, consent: true })),
           advisory_context: advisory && topic?.advisory ? { placement: topic.advisory.placement, cta: topic.advisory.cta, page_type: topic.advisory.pageType, page_path: typeof window !== "undefined" ? window.location.pathname : null, selection: cleanSelection(topic.metadata) } : null,
           ...formContextBody(),
+          ...(topic?.sourcePage ? { source_page: topic.sourcePage } : {}),
           ...getTrackSource(), session_id: getTrackSession(),
         }),
       });

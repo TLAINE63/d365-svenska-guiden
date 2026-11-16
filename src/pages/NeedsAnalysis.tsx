@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
@@ -4572,6 +4573,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
               />
             </div>
 
+            <BookingOffer placement="behov-erp" className="mb-8" />
             {/* FÖRESLAGNA PARTNERS */}
             <SuggestedPartnersCTA
               product={isBC ? "bc" : "fsc"}

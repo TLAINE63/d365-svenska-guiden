@@ -1,4 +1,5 @@
 import { useShortlist } from "@/contexts/ShortlistContext";
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
 import { useInquiry } from "@/contexts/InquiryContext";
 import { track as trackEvent } from "@/lib/track";
@@ -858,10 +859,8 @@ const KomIgang = () => {
                 <Button variant="ghost" onClick={handleRestart}>
                   <RotateCcw className="mr-2 h-4 w-4" /> Börja om
                 </Button>
-                <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                  <Link to="/kontakt/">Vill du ha hjälp? Kontakta oss</Link>
-                </Button>
               </div>
+              <BookingOffer placement="snabbguide" advisoryPlacement="needs_guide" className="mt-8" />
             </div>
           </div>
         </main>

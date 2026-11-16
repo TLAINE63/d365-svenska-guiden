@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, Navigate, useLocation } from "react-router-dom";
@@ -139,6 +140,7 @@ export default function TackNedladdning() {
             </Button>
           ) : null}
         </div>
+        {location.pathname.startsWith("/hamtat/") && <BookingOffer placement="hamtat" className="mt-8" />}
       </main>
 
       <Footer />

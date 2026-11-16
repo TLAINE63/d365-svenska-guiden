@@ -1,8 +1,8 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { ADVISOR_BOOKING_URL } from "@/data/organization";
 import {
   BMI_B0, BMI_B5, BMI_NO_ACTIONS_TEXT, BMI_QUESTIONS, BMI_RESULT_FOOTER, BMI_SECTIONS, BMI_RESULT_KEY,
   bmiQuestionText, bmiTrack, type BmiArea, type BmiResponse,
@@ -152,10 +152,7 @@ export default function BeslutsmognadResultat() {
               <button type="button" onClick={downloadPdf} disabled={pdfBusy} className="rounded-xl bg-primary px-6 py-3 text-primary-foreground font-medium hover:bg-primary/90 disabled:opacity-60">{pdfBusy ? "Skapar PDF…" : "Ladda ner som PDF"}</button>
               <button type="button" onClick={restart} className="rounded-xl border border-border bg-card px-6 py-3 font-medium text-foreground hover:border-foreground/40">Gör om testet</button>
             </div>
-            <p className="mt-5 text-sm text-muted-foreground">
-              Vill du gå igenom resultatet med någon som följt marknaden länge?{" "}
-              <a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Boka ett samtal</a>.
-            </p>
+            <BookingOffer placement="beslutsmognad" className="mt-8" />
           </section>
 
           <p className="text-xs text-muted-foreground border-t border-border pt-6">{BMI_RESULT_FOOTER}</p>

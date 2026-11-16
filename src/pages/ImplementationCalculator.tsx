@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import { BC_QUICKSTARTS } from "@/data/bcProjectEstimates";
@@ -863,7 +864,9 @@ export default function ImplementationCalculator() {
 
         <section className="pb-8">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <BookingOffer placement="implementation" />
             <CostNextSteps
+              hideAdvisory
               sourcePage="/implementationskalkylator/"
               area={SOLUTION_TO_COST[solutions[0]]?.area}
               costAnchor={SOLUTION_TO_COST[solutions[0]]?.anchor}

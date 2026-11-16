@@ -1,3 +1,4 @@
+import BookingOffer from "@/components/advisory/BookingOffer";
 import PartnerCardHeader from "@/components/partner/PartnerCardHeader";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useState } from "react";
@@ -1085,16 +1086,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               </div>
             )}
 
-            {suggestedPartners.length > 0 && (
-              <LeadCTA
-                sourcePage="partner-guide-dialog"
-                selectedProducts={selectedApp ? [selectedApp] : []}
-                selectedIndustry={selectedIndustry}
-                selectedCompanySize={sizeOptions.find(o => o.value === selectedSize)?.label}
-                title="Låt oss hjälpa dig vidare"
-                description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
-              />
-            )}
+            <BookingOffer placement="partner-matchning" advisoryPlacement="partner_search" />
           </div>
         )}
 
