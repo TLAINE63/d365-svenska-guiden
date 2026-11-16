@@ -191,7 +191,7 @@ export default function ProductRoiAnalysis({
     totalUsers,
     bvaTotal,
   ]);
-  useRecordTool({ tool: `roi_${productKey}`.slice(0, 40), label: `ROI-kalkyl ${productKey}`, users: calc.totalUsers, values: {
+  useRecordTool({ tool: `roi_${productKey}`.slice(0, 40), label: `ROI-kalkyl ${productKey}`, users: totalUsers, values: {
     Komplexitet: String(complexity), Integrationer: String(integrations), "Omsättning": kr(revenue),
     Implementation: kr(calc.implementation), "Payback": months(calc.paybackMonths), "ROI 5 år": pct(calc.roiPct), "Frigjorda timmar/år": String(Math.round(bvaRes.hoursFreed)) } });
 

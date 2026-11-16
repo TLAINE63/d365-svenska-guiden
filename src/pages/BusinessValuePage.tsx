@@ -54,7 +54,7 @@ export default function BusinessValuePage() {
   const cf = useMemo(() => cashFlow({ benefit: r.total - r.itFees, replaced: r.itFees, ramp: yearsRamp, implementation, licenseYearly: license, supportPct }), [r, yearsRamp, implementation, license, supportPct]);
   useRecordTool({ tool: "affarsnytta", label: `Affärsnytta & ROI (${product})`, industry, values: {
     "Årlig nytta": kr(r.total), "Frigjorda timmar/år": String(Math.round(r.hoursFreed)), Implementation: kr(implementation), "Licens/år": kr(license),
-    NPV: kr(cf.npv), IRR: pct(cf.irr == null ? null : cf.irr * (Math.abs(cf.irr) <= 1 ? 100 : 1)), Payback: months(cf.paybackMonths) } });
+    NPV: kr(cf.npv), IRR: pct(cf.irr == null ? null : cf.irr * 100), Payback: months(cf.paybackMonths) } });
   const five = cf.rows.reduce((s, x) => s + x.benefit, 0);
   const top = topPotential(bva);
   const num = (s: string) => { const n = Number(s.replace(/\s/g, "").replace(",", ".")); return Number.isFinite(n) && n >= 0 ? n : 0; };
