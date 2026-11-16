@@ -1,7 +1,7 @@
 import { brandEmail } from "../_shared/email-branding.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { formContextFields } from "../_shared/formContext.ts";
+import { cleanToolContext, formContextFields } from "../_shared/formContext.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -205,6 +205,7 @@ serve(async (req: Request): Promise<Response> => {
           landing_page: ctx.landing_page,
           session_pages: ctx.session_pages,
           consent_text_version: ctx.consent_text_version,
+          tool_context: cleanToolContext((body as any).tool_context),
           status: "new",
         });
         if (storeErr) console.error("contact store failed");
