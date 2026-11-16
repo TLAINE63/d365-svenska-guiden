@@ -5,17 +5,25 @@ import { Download, ArrowRight, Check } from "lucide-react";
 import { savePlanCalculation } from "@/lib/d365Plan";
 import { inquiryHref } from "@/lib/inquirySelection";
 import { findTool, toolWordHtml } from "@/lib/toolUnderlag";
+import { recordTool, type ToolEntry } from "@/lib/toolContext";
 
-interface Props { tool: string; product?: string; className?: string }
+interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool"> }
 
 /** Del 3: "Spara underlaget" (Word-fil + Min plan) och länk till förfrågan med svaren förifyllda. */
-export default function ToolResultNextStep({ tool, product, className = "" }: Props) {
+export default function ToolResultNextStep({ tool, product, className = "", entry }: Props) {
   const { pathname } = useLocation();
   const [saved, setSaved] = useState(false);
   const [missing, setMissing] = useState(false);
 
+  const resolve = (): ToolEntry | undefined => {
+    if (!entry) return findTool(tool);
+    const e = { ...entry, tool, values: Object.fromEntries(Object.entries(entry.values).filter(([, v]) => v)) };
+    recordTool(e);
+    return { ...e, at: new Date().toISOString() };
+  };
+
   const save = () => {
-    const t = findTool(tool);
+    const t = resolve();
     if (!t) { setMissing(true); return; }
     const date = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Stockholm" });
     savePlanCalculation({ id: tool, product: t.label, url: pathname, rows: Object.entries(t.values).map(([label, value]) => ({ label, value })) });
@@ -27,7 +35,7 @@ export default function ToolResultNextStep({ tool, product, className = "" }: Pr
   };
 
   const href = () => {
-    const t = findTool(tool);
+    const t = resolve();
     return `${inquiryHref({ product, industry: t?.industry, source: pathname })}&underlag=${encodeURIComponent(tool)}`;
   };
 

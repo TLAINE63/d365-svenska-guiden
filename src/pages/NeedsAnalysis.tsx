@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
@@ -4573,6 +4574,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
               />
             </div>
 
+            <ToolResultNextStep tool="behov_erp" className="mb-8" entry={{ label: "Behovsanalys affärssystem (ERP)", industry: data.industry || undefined, values: { Anställda: data.employees } }} />
             <BookingOffer placement="behov-erp" className="mb-8" />
             {/* FÖRESLAGNA PARTNERS */}
             <SuggestedPartnersCTA

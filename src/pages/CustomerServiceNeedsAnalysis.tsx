@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
@@ -2245,6 +2246,7 @@ const CustomerServiceNeedsAnalysis = () => {
  </div>
  </div>
 
+ <ToolResultNextStep tool="behov_service" product="customer-service" className="mb-8" entry={{ label: "Behovsanalys Customer Service", industry: data.industry || undefined, values: {  } }} />
  <BookingOffer placement="behov-service" />
  {/* FÖRESLAGNA PARTNERS */}
  <SuggestedPartnersCTA

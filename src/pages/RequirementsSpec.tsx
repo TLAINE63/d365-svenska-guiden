@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import { useKravProfileSync } from "@/lib/kravProfile";
 import DownloadContactOptIn from "@/components/DownloadContactOptIn";
 import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, downloadConsentError, type DownloadConsent } from "@/lib/downloadConsent";
@@ -517,6 +518,7 @@ const RequirementsSpec = () => {
               )}
 
               <Card className="border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))] text-white">
+                <ToolResultNextStep tool="krav_erp" className="mb-6" entry={{ label: "Kravspecifikation affärssystem (ERP)", industry, values: { Storlek: companySize, "Områden": selectedAreas.join(", ") } }} />
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div className="flex-1">

@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import PartnerCtaBlock from "@/components/PartnerCtaBlock";
@@ -3532,6 +3533,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </CardContent>
  </Card>
 
+ <ToolResultNextStep tool="behov_crm" product="sales" className="mb-8" entry={{ label: "Behovsanalys Sales & Marketing", industry: data.industry || undefined, values: {  } }} />
  <BookingOffer placement="behov-crm" className="mt-8" />
  {/* FÖRESLAGNA PARTNERS */}
  <SuggestedPartnersCTA
