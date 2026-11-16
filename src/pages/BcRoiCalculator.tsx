@@ -1,4 +1,5 @@
 import { BC_ROI_IMPLEMENTATION } from "@/data/bcProjectEstimates";
+import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import RoiCostControls from "@/components/RoiCostControls";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
@@ -221,6 +222,10 @@ export default function BcRoiCalculator() {
       roiPct,
     };
   }, [v, perFullUser, teamPrice, devicePrice, activeDrivers, implementationOverride, supportPercent, bvaResult]);
+  useRecordTool({ tool: "roi_bc", label: "ROI-kalkyl Business Central", industry: v.industry, users: v.fullUsers + v.teamMembers + v.deviceUsers, values: {
+    Licens: v.license, Komplexitet: v.complexity, Integrationer: String(v.integrations), "Omsättning": kr(v.revenue),
+    Implementation: kr(calc.implementation), "Licens/år": kr(calc.licenseYearly), "Årlig nytta": kr(calc.annualBenefit),
+    "Payback": months(calc.paybackMonths), "ROI 5 år": pct(calc.roiPct), "Frigjorda timmar/år": String(Math.round(bvaResult.hoursFreed)) } });
 
   const priceMissing = perFullUser == null || teamPrice == null;
   const tillverkningEssentialsWarning = modelIndustry === "Tillverkning" && v.license === "Essentials";

@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { cleanSessionPages, cleanPagePath, cleanConsentVersion } from "../_shared/formContext.ts";
+import { cleanToolContext, cleanSessionPages, cleanPagePath, cleanConsentVersion } from "../_shared/formContext.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
@@ -74,6 +74,7 @@ interface Payload {
   landing_page?: string;
   consent_text_version?: string;
   consent_partner_share?: boolean;
+  tool_context?: unknown;
 }
 
 serve(async (req) => {
@@ -190,6 +191,7 @@ serve(async (req) => {
         session_pages: cleanSessionPages(payload.session_pages),
         landing_page: cleanPagePath(payload.landing_page),
         consent_text_version: cleanConsentVersion(payload.consent_text_version),
+        tool_context: cleanToolContext(payload.tool_context),
         consent_partner_share: payload.consent_partner_share === true,
         pdf_filename: pdfBytes
           ? (payload.pdf_filename && /\.pdf$/i.test(payload.pdf_filename) ? payload.pdf_filename : "underlag.pdf")

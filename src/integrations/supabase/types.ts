@@ -1110,6 +1110,7 @@ export type Database = {
           source_page: string | null
           source_site: string
           timeframe: string | null
+          tool_context: Json | null
           utm_campaign: string | null
           utm_content: string | null
           utm_medium: string | null
@@ -1151,6 +1152,7 @@ export type Database = {
           source_page?: string | null
           source_site?: string
           timeframe?: string | null
+          tool_context?: Json | null
           utm_campaign?: string | null
           utm_content?: string | null
           utm_medium?: string | null
@@ -1192,6 +1194,7 @@ export type Database = {
           source_page?: string | null
           source_site?: string
           timeframe?: string | null
+          tool_context?: Json | null
           utm_campaign?: string | null
           utm_content?: string | null
           utm_medium?: string | null
@@ -2273,6 +2276,7 @@ export type Database = {
           source_type: string | null
           status: string
           submission_id: string | null
+          tool_context: Json | null
           updated_at: string
         }
         Insert: {
@@ -2302,6 +2306,7 @@ export type Database = {
           source_type?: string | null
           status?: string
           submission_id?: string | null
+          tool_context?: Json | null
           updated_at?: string
         }
         Update: {
@@ -2331,6 +2336,7 @@ export type Database = {
           source_type?: string | null
           status?: string
           submission_id?: string | null
+          tool_context?: Json | null
           updated_at?: string
         }
         Relationships: [
@@ -5810,6 +5816,7 @@ export type Database = {
           session_pages: string[] | null
           source_page: string | null
           status: string
+          tool_context: Json | null
           total: number | null
           underlag_summary: string
           updated_at: string
@@ -5840,6 +5847,7 @@ export type Database = {
           session_pages?: string[] | null
           source_page?: string | null
           status?: string
+          tool_context?: Json | null
           total?: number | null
           underlag_summary: string
           updated_at?: string
@@ -5870,6 +5878,7 @@ export type Database = {
           session_pages?: string[] | null
           source_page?: string | null
           status?: string
+          tool_context?: Json | null
           total?: number | null
           underlag_summary?: string
           updated_at?: string
@@ -5893,6 +5902,7 @@ export type Database = {
           profile: Json
           session_pages: string[] | null
           source_page: string | null
+          tool_context: Json | null
           underlag_text: string
         }
         Insert: {
@@ -5911,6 +5921,7 @@ export type Database = {
           profile?: Json
           session_pages?: string[] | null
           source_page?: string | null
+          tool_context?: Json | null
           underlag_text?: string
         }
         Update: {
@@ -5929,6 +5940,7 @@ export type Database = {
           profile?: Json
           session_pages?: string[] | null
           source_page?: string | null
+          tool_context?: Json | null
           underlag_text?: string
         }
         Relationships: []
@@ -6105,6 +6117,7 @@ export type Database = {
           session_pages: Json | null
           source_page: string | null
           title: string
+          tool_context: Json | null
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
@@ -6127,6 +6140,7 @@ export type Database = {
           session_pages?: Json | null
           source_page?: string | null
           title: string
+          tool_context?: Json | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
@@ -6149,6 +6163,7 @@ export type Database = {
           session_pages?: Json | null
           source_page?: string | null
           title?: string
+          tool_context?: Json | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null

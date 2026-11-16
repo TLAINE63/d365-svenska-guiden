@@ -1,4 +1,5 @@
 import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
+import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import { BC_QUICKSTARTS } from "@/data/bcProjectEstimates";
 import { useEffect, useMemo, useRef, useState } from "react";
 import CostNextSteps from "@/components/cost/CostNextSteps";
@@ -180,6 +181,10 @@ export default function ImplementationCalculator() {
       priceLookup,
     ],
   );
+  useRecordTool({ tool: "implementation", label: "Implementationskalkyl", users, values: {
+    "Lösning": solutions.join(", "), Komplexitet: String(complexity), Integrationer: String(integrations), "Juridiska enheter": String(legalEntities),
+    Datamigrering: dataMigration ? "ja" : "nej", Utveckling: customDevelopment ? "ja" : "nej", "Kostnad (mitt)": kr(result.costMid),
+    "Spann": `${kr(result.costLow)}–${kr(result.costHigh)}`, "Månader": String(result.months), "Licens/år": kr(result.licenseYearly), "3 år totalt": kr(result.threeYearTotal) } });
 
   // Sprint 1.5: kostnadsresan startar här också; beräkningen räknas som klar efter besökarens första ändring.
   useEffect(() => { startCostJourney("/implementationskalkylator/"); }, []);
