@@ -13,6 +13,9 @@ interface SnitcherCompany {
   company_industry: string | null;
   company_size: string | null;
   company_country: string | null;
+  company_city?: string | null;
+  company_revenue?: string | null;
+  urls?: string[];
   session_count: number;
   url_count: number;
   partner_slugs: string[];
@@ -61,20 +64,24 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         return;
       }
       const companies: SnitcherCompany[] = data.companies || [];
-      const header = ["Företag", "Domän", "Bransch", "Storlek", "Land", "Sessioner", "Sidor", "Partner-besök", "Första", "Senaste"];
+      const header = ["Företag", "Domän", "Bransch", "Storlek", "Omsättning", "Ort", "Land", "Först sedd", "Senast sedd", "Besök", "Sidvisningar", "Besökta sidor", "Partner-besök"];
+      const toPath = (u: string) => { try { const x = new URL(u); return x.pathname + x.search; } catch { return u; } };
       const csv = [header.join(";")].concat(companies.map((r) => [
         r.company_name ?? "",
         r.company_domain ?? "",
         r.company_industry ?? "",
         r.company_size ?? "",
+        r.company_revenue ?? "",
+        r.company_city ?? "",
         r.company_country ?? "",
+        (r.first_seen ?? "").slice(0, 10),
+        (r.last_seen ?? "").slice(0, 10),
         r.session_count,
         r.url_count,
+        (r.urls ?? []).map(toPath).join(" | "),
         r.partner_slugs.join("|"),
-        r.first_seen ?? "",
-        r.last_seen ?? "",
-      ].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(";"))).join("\n");
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      ].map((v) => { const t = String(v); return `"${(/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""')}"`; }).join(";"))).join("\n");
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = `d365se-snitcher-besokare-${snitcherRange.from}-${snitcherRange.to}.csv`;
