@@ -4,7 +4,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { exportAuthOk, exportCors } from "../_shared/demandExportAuth.ts";
 import { exportHeaders as baseHeaders, isoStockholm, parseRange, str, toCsv } from "../_shared/demandExport.ts";
 
-const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages", "consent_followup", "utm_source", "utm_medium", "utm_campaign"];
+const COLUMNS = ["external_id", "site", "created_at", "request_type", "name", "company", "title", "email", "phone", "message", "product_areas", "selected_partners", "consent_partner_share", "consent_text_version", "source_page", "landing_page", "session_pages", "consent_followup", "utm_source", "utm_medium", "utm_campaign", "industry", "user_count", "tools_used", "tool_results"];
 
 const PRODUCT_RULES: [RegExp, string[]][] = [
   [/business central|\bbc\b/i, ["Business Central"]],
@@ -74,6 +74,19 @@ function downloadInfo(st: string, sp: string): { slug: string; name: string; are
   return null;
 }
 
+/** Kalkylator- och guidedata från besöket till fyra CRM-kolumner. Senaste verktyget vinner för bransch och användare. */
+function toolColumns(ctx: unknown, fallbackIndustry?: unknown, fallbackSize?: unknown): Record<string, string> {
+  const tools = Array.isArray(ctx) ? (ctx as any[]).filter((t) => t && typeof t === "object") : [];
+  const last = <T>(f: (t: any) => T | undefined) => { for (let i = tools.length - 1; i >= 0; i--) { const v = f(tools[i]); if (v !== undefined && v !== null && v !== "") return v; } return undefined; };
+  const industry = last((t) => str(t.industry)) || str(fallbackIndustry);
+  const users = last((t) => (Number(t.users) > 0 ? String(Math.round(Number(t.users))) : undefined)) || str(fallbackSize);
+  return {
+    industry, user_count: users,
+    tools_used: tools.map((t) => str(t.label) || str(t.tool)).join(" | "),
+    tool_results: tools.map((t) => `${str(t.label) || str(t.tool)}: ${Object.entries(t.values || {}).map(([k, v]) => `${k} ${str(v)}`).join("; ")}`).join(" || ").slice(0, 3000),
+  };
+}
+
 Deno.serve(async (req) => {
   const exportHeaders = { ...baseHeaders, ...exportCors(req) };
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: exportHeaders });
@@ -89,17 +102,17 @@ Deno.serve(async (req) => {
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
     const between = <T>(q: T) => (q as any).gte("created_at", range.start).lt("created_at", range.end);
     const [inq, leads, dl, fwd, sub, webinarRegistrations] = await Promise.all([
-      between(sb.from("inquiries").select("id, created_at, inquiry_type, contact_name, company, role, email, phone, message, product_area, project, is_advisory, advisory_placement, source_site, source_page, landing_page, session_pages, consent_text_version, inquiry_partners(partner_slug, share_consent)").eq("source_site", "d365.se")),
-      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id, is_partner_self").in("source_type", Object.keys(LEAD_TYPES))),
-      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, source_page, landing_page, session_pages").eq("consent_contact", true).not("source_type", "in", `(${Object.keys(LEAD_TYPES).join(",")})`)),
-      between(sb.from("underlag_forward_requests").select("id, created_at, contact_name, company_name, email, phone, message, underlag_summary, products, partner_slugs, source_page, landing_page, session_pages, consent_partner_share, consent_text_version")),
-      between(sb.from("underlag_submissions").select("id, created_at, name, company, email, phone, underlag_text, profile, source_page, landing_page, session_pages, consent_text_version")),
-      between(sb.from("webinar_registrations").select("id, created_at, first_name, last_name, company, title, email, consent_followup, consent_text_version, source_page, landing_page, session_pages, utm_source, utm_medium, utm_campaign, webinars(title, starts_at, theme)")),
+      between(sb.from("inquiries").select("id, created_at, inquiry_type, contact_name, company, role, email, phone, message, product_area, project, is_advisory, advisory_placement, source_site, source_page, landing_page, session_pages, consent_text_version, tool_context, inquiry_partners(partner_slug, share_consent)")),
+      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, message, industry, company_size, selected_product, assigned_partners, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, submission_id, is_partner_self, tool_context").in("source_type", Object.keys(LEAD_TYPES))),
+      between(sb.from("leads").select("id, created_at, source_type, contact_name, company_name, role, email, phone, source_page, landing_page, session_pages, tool_context").eq("consent_contact", true).not("source_type", "in", `(${Object.keys(LEAD_TYPES).join(",")})`)),
+      between(sb.from("underlag_forward_requests").select("id, created_at, contact_name, company_name, email, phone, message, underlag_summary, products, partner_slugs, source_page, landing_page, session_pages, consent_partner_share, consent_text_version, tool_context")),
+      between(sb.from("underlag_submissions").select("id, created_at, name, company, email, phone, underlag_text, profile, source_page, landing_page, session_pages, consent_text_version, tool_context")),
+      between(sb.from("webinar_registrations").select("id, created_at, first_name, last_name, company, title, email, consent_followup, consent_text_version, source_page, landing_page, session_pages, utm_source, utm_medium, utm_campaign, tool_context, webinars(title, starts_at, theme)")),
     ]);
     if (inq.error || leads.error || dl.error || fwd.error || sub.error || webinarRegistrations.error) return json({ ok: false, error: "query_failed" }, 500);
 
     const rows: Record<string, string>[] = [];
-    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: "d365.se", created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version), consent_followup: str(r.consent_followup), utm_source: str(r.utm_source), utm_medium: str(r.utm_medium), utm_campaign: str(r.utm_campaign) });
+    const base = (table: string, r: any) => ({ external_id: `${table}:${r.id}`, site: str(r.source_site) || "d365.se", ...toolColumns(r.tool_context, r.industry, r.company_size), created_at: isoStockholm(r.created_at), _ts: str(r.created_at), session_pages: join(r.session_pages), landing_page: str(r.landing_page), source_page: str(r.source_page).split("?")[0].split("#")[0], consent_text_version: str(r.consent_text_version), consent_followup: str(r.consent_followup), utm_source: str(r.utm_source), utm_medium: str(r.utm_medium), utm_campaign: str(r.utm_campaign) });
 
     for (const r of inq.data || []) {
       const advisory = r.is_advisory === true;
