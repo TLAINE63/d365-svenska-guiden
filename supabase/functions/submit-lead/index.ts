@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { formContextFields } from "../_shared/formContext.ts";
+import { cleanToolContext, formContextFields } from "../_shared/formContext.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "../_shared/branded-resend.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
@@ -517,6 +517,7 @@ const handler = async (req: Request): Promise<Response> => {
         session_pages: ctx.session_pages,
         landing_page: ctx.landing_page,
         consent_text_version: ctx.consent_text_version,
+        tool_context: cleanToolContext((data as any).tool_context),
         consent_partner_share: data.consent_partner_share === true,
         consent_contact: data.consent_contact === true,
         submission_id: typeof data.submission_id === "string" && UUID_RE.test(data.submission_id) ? data.submission_id : null,

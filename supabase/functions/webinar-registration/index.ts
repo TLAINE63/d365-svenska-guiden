@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { cleanToolContext } from "../_shared/formContext.ts";
 import { z } from "npm:zod@3";
 import { getCorsHeaders } from "../_shared/cors.ts";
 import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDomains.ts";
@@ -21,6 +22,7 @@ const registrationSchema = z.object({
   source_page: optionalText(300),
   landing_page: optionalText(300),
   session_pages: z.array(z.string().trim().max(300)).max(30).optional().nullable(),
+  tool_context: z.array(z.unknown()).max(20).optional().nullable(),
   utm_source: optionalText(200),
   utm_medium: optionalText(200),
   utm_campaign: optionalText(200),
@@ -102,6 +104,7 @@ Deno.serve(async (req) => {
         source_page: input.source_page || null,
         landing_page: input.landing_page || null,
         session_pages: input.session_pages || null,
+        tool_context: cleanToolContext(input.tool_context),
         utm_source: input.utm_source || null,
         utm_medium: input.utm_medium || null,
         utm_campaign: input.utm_campaign || null,

@@ -26,3 +26,17 @@ export function formContextFields(d: Record<string, unknown>, existingLanding?: 
     consent_text_version: cleanConsentVersion(d.consent_text_version),
   };
 }
+
+/** Verktygskontext från kalkylatorer och guider: högst 8 verktyg, 12 korta värden var, inga fria långa texter. */
+export function cleanToolContext(v: unknown): Record<string, unknown>[] | null {
+  if (!Array.isArray(v)) return null;
+  const s = (x: unknown, n: number) => (typeof x === "string" ? x.trim().slice(0, n) : "");
+  const out = v.slice(-8).flatMap((t: any) => {
+    if (!t || typeof t !== "object" || !/^[a-z0-9_-]{1,40}$/i.test(String(t.tool || ""))) return [];
+    const values = Object.fromEntries(Object.entries(t.values && typeof t.values === "object" ? t.values : {})
+      .map(([k, x]) => [s(k, 60), s(x, 120)]).filter(([k, x]) => k && x).slice(0, 12));
+    const users = Number(t.users);
+    return [{ tool: String(t.tool), label: s(t.label, 80), at: s(t.at, 30), ...(s(t.industry, 120) ? { industry: s(t.industry, 120) } : {}), ...(Number.isFinite(users) && users > 0 && users < 1e6 ? { users: Math.round(users) } : {}), values }];
+  });
+  return out.length ? out : null;
+}
