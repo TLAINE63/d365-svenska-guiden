@@ -1,0 +1,47 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Download, ArrowRight, Check } from "lucide-react";
+import { savePlanCalculation } from "@/lib/d365Plan";
+import { inquiryHref } from "@/lib/inquirySelection";
+import { findTool, toolWordHtml } from "@/lib/toolUnderlag";
+
+interface Props { tool: string; product?: string; className?: string }
+
+/** Del 3: "Spara underlaget" (Word-fil + Min plan) och länk till förfrågan med svaren förifyllda. */
+export default function ToolResultNextStep({ tool, product, className = "" }: Props) {
+  const { pathname } = useLocation();
+  const [saved, setSaved] = useState(false);
+  const [missing, setMissing] = useState(false);
+
+  const save = () => {
+    const t = findTool(tool);
+    if (!t) { setMissing(true); return; }
+    const date = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Stockholm" });
+    savePlanCalculation({ id: tool, product: t.label, url: pathname, rows: Object.entries(t.values).map(([label, value]) => ({ label, value })) });
+    const url = URL.createObjectURL(new Blob(["\ufeff", toolWordHtml(t, date)], { type: "application/msword" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = `d365-underlag-${tool}-${date}.doc`; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setSaved(true); setMissing(false);
+  };
+
+  const href = () => {
+    const t = findTool(tool);
+    return `${inquiryHref({ product, industry: t?.industry, source: pathname })}&underlag=${encodeURIComponent(tool)}`;
+  };
+
+  return (
+    <section data-next-step-block className={`rounded-xl border bg-card p-5 sm:p-6 ${className}`}>
+      <h2 className="text-lg font-semibold">Spara underlaget</h2>
+      <p className="mt-1 text-sm text-muted-foreground">Ladda ner resultatet som Word-fil. Det sparas också i Min D365-plan.</p>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <Button onClick={save} variant="default">{saved ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}{saved ? "Sparat" : "Spara underlaget"}</Button>
+        <Link to={href()} onClick={(e) => { (e.currentTarget as HTMLAnchorElement).href = href(); }} className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline">
+          Få förslag på partners utifrån underlaget <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+      {missing && <p className="mt-2 text-sm text-muted-foreground">Ändra något i kalkylen först, så finns ett underlag att spara.</p>}
+    </section>
+  );
+}

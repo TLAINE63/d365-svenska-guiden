@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { useMemo, useState } from "react";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
@@ -151,6 +152,7 @@ export default function BusinessValuePage() {
             {PRODUCTS[product].roi && <Button variant="outline" asChild><Link to={PRODUCTS[product].roi}>Räkna vidare med kostnader och ROI</Link></Button>}
           </div>
         </section>
+        <ToolResultNextStep tool="affarsnytta" product={product} className="mt-8 max-w-6xl mx-auto" />
         <BookingOffer placement="affarsnytta" className="mt-8 max-w-6xl mx-auto" />
       </main>
       <Footer />

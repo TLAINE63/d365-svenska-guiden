@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import RoiCostControls from "@/components/RoiCostControls";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
@@ -706,6 +707,7 @@ export default function SalesRoiCalculator() {
         </section>
       </main>
 
+      <div className="container mx-auto max-w-6xl px-4 mb-6"><ToolResultNextStep tool="roi_sales" product="sales" /></div>
       <BookingOffer placement="roi-sales" className="container mx-auto max-w-6xl px-4" />
       <SuggestedPartnersCTA product="sales" industry={v.industry} />
       <Footer />
