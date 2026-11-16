@@ -64,6 +64,7 @@ const OmMichaelUhman = lazy(() => import("./pages/OmMichaelUhman"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const BuyerGuide2026 = lazy(() => import("./pages/BuyerGuide2026"));
 const Shortlist = lazy(() => import("./pages/Shortlist"));
+const Forfragan = lazy(() => import("./pages/Forfragan"));
 const InquiryThanks = lazy(() => import("./pages/InquiryThanks"));
 const ThanksPage = lazy(() => import("./pages/ThanksPage"));
 const BekraftaResultat = lazy(() => import("./pages/BekraftaResultat"));
@@ -278,6 +279,7 @@ const AppShell = () => {
           <Route path="/crm-koparguiden-2026" element={<BuyerGuide2026 variant="crm" />} />
           <Route path="/kortlista" element={<Shortlist />} />
           <Route path="/shortlist" element={<RedirectTo to="/kortlista/" />} />
+          <Route path="/forfragan" element={<Forfragan />} />
           <Route path="/forfragan/tack" element={<InquiryThanks />} />
           <Route path="/tack/:kind" element={<ThanksPage />} />
           <Route path="/bekrafta-resultat" element={<BekraftaResultat />} />

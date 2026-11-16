@@ -957,6 +957,69 @@ export type Database = {
         }
         Relationships: []
       }
+      forfragningar: {
+        Row: {
+          antal_anstallda: string
+          beskrivning: string
+          bransch: string | null
+          created_at: string
+          email: string
+          id: string
+          kalla: string | null
+          landing_page: string | null
+          namn: string
+          partner_slugs: string[]
+          prefill: Json
+          produkt: string
+          roll: string | null
+          samtycke: boolean
+          session_pages: string[] | null
+          source_page: string | null
+          status: string
+          tidplan: string
+        }
+        Insert: {
+          antal_anstallda: string
+          beskrivning: string
+          bransch?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          kalla?: string | null
+          landing_page?: string | null
+          namn: string
+          partner_slugs?: string[]
+          prefill?: Json
+          produkt: string
+          roll?: string | null
+          samtycke?: boolean
+          session_pages?: string[] | null
+          source_page?: string | null
+          status?: string
+          tidplan: string
+        }
+        Update: {
+          antal_anstallda?: string
+          beskrivning?: string
+          bransch?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          kalla?: string | null
+          landing_page?: string | null
+          namn?: string
+          partner_slugs?: string[]
+          prefill?: Json
+          produkt?: string
+          roll?: string | null
+          samtycke?: boolean
+          session_pages?: string[] | null
+          source_page?: string | null
+          status?: string
+          tidplan?: string
+        }
+        Relationships: []
+      }
       funnel_events: {
         Row: {
           device: string | null

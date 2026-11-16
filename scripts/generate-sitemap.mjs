@@ -31,6 +31,7 @@ const STATIC_ROUTES = [
   { path: "/ai-readiness/", changefreq: "monthly", priority: "0.8" },
   { path: "/qa/", changefreq: "weekly", priority: "0.7" },
   { path: "/kontakt/", changefreq: "monthly", priority: "0.7" },
+  { path: "/forfragan/", changefreq: "monthly", priority: "0.8" },
   { path: "/valjdynamics365partner/", changefreq: "weekly", priority: "0.9" },
   { path: "/guider/", changefreq: "monthly", priority: "0.7" },
   // Kompetensguider läggs till här först när de är publicerade (status published).
