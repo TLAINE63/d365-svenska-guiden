@@ -1,3 +1,10 @@
+## Nästa steg på djupsidor, del 2 (2026-11-16)
+- [x] Gemensamma nästa steg i jämförelse-, pris/kostnads- och partnerlistmallar; två placeringar i innehållet. Tolv sidor verifierade med två block och oförändrade canonical-adresser.
+- [x] Partnerprofiler: högst tre lokala val och länk med produkt, bransch, partners och ursprung till befintlig förfrågan; kontaktvägar bevaras. Tre publicerade partners valda, fjärde spärrad, val lästa i formuläret och borttagning provad.
+- [x] Kunskapsartiklar: två ämnesanpassade länkar till jämförelse/pris, utan omskriven artikeltext. Kodade artiklar och djupartikel verifierade; Word-HTML delas mellan kompletta block.
+- [x] Åtta tester godkända; dator/mobil visuellt granskade, ingen mobil överbredd eller runtimefel, build OK.
+- [ ] Publicerad rå HTML väntar på publicering; lokal separat SSR-kontroll blockerades av befintlig CommonJS/ESM-modulhantering. Del 3–5 byggs inte i denna del.
+
 ## Direktbokning med Thomas (2026-11-16)
 - [x] Gemensamt bokningserbjudande efter resultat, partnerlistor, jämförelse och hämtat underlag; befintligt rådgivningsformulär med placeringskälla. Rubrik utan ”oberoende”.
 - [x] Anonyma bokningsklick utan IP/id, internflagga och adminöversikt för sex månader; inga CRM-exportändringar. Tjänsterna driftsatta, inga booking_click i demand_events.

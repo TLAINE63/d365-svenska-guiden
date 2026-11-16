@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import EditorialSource from "@/components/EditorialSource";
 import GuideCTA from "@/components/guides/GuideCTA";
 import { Link } from "react-router-dom";
@@ -109,6 +110,8 @@ const ErpComparisonsHub = () => {
               </p>
             </div>
 
+            <NastaSteg typ="jamforelse" />
+
             {PRODUCT_GROUPS.map((group) => {
               const items = getComparisonsByProduct(group.key);
               if (items.length === 0) return null;
@@ -167,6 +170,7 @@ const ErpComparisonsHub = () => {
             </div>
           </div>
         </section>
+        <NastaSteg typ="jamforelse" />
       </main>
 
       <EditorialSource sourceType="Jämförelse" />

@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { partnerSources } from "@/lib/guideSources";
@@ -553,6 +554,8 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
  </div>
  </section>
 
+ <NastaSteg typ="partnerlista" industry={industryName} product={selected.length === 1 ? PRODUCT_FILTERS.find(p => p.key === selected[0])?.label : undefined} />
+
  {slug && INDUSTRY_ERP_SECTIONS[slug] && (() => {
    const erp = INDUSTRY_ERP_SECTIONS[slug];
    return (
@@ -829,6 +832,7 @@ const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   secondaryLabel="Skapa en kravspecifikation för er bransch"
   secondaryTo={`/kravspecifikation/?bransch=${encodeURIComponent(industryName)}`}
  />
+<NastaSteg typ="partnerlista" industry={industryName} product={selected.length === 1 ? PRODUCT_FILTERS.find(p => p.key === selected[0])?.label : undefined} />
 <SourcesAndMethod partnerEvidence={partnerSources} />
       </main>
  <EditorialSource sourceType="Branschguide" />

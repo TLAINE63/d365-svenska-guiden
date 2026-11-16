@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -198,6 +199,8 @@ export default function Kostnad() {
 
         <QuickQuoteEstimator onEstimateShown={() => setEstimated(true)} />
 
+        <NastaSteg typ="pris-kostnad" />
+
         {/* Genvägar */}
         <section className="py-8 bg-secondary/30 border-y border-border" id="per-applikation">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -314,6 +317,7 @@ export default function Kostnad() {
             </div>
           </section>
         )}
+        <NastaSteg typ="pris-kostnad" />
       </main>
 
       <section className="py-8">

@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import ShortAnswer from "@/components/ShortAnswer";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -113,6 +114,8 @@ const ErpComparisonPage = () => {
             </div>
           </div>
         </section>
+
+        <NastaSteg typ="jamforelse" product={data.productKey} />
 
         {/* SUMMARIES */}
         <section className="py-8 sm:py-10">
@@ -324,6 +327,7 @@ const ErpComparisonPage = () => {
             </div>
           </section>
         )}
+      <NastaSteg typ="jamforelse" product={data.productKey} />
       <SourcesAndMethod variant="comparison" />
       </main>
 

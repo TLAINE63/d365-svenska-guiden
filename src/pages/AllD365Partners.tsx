@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import ContentInvite from "@/components/ContentInvite";
@@ -262,6 +263,8 @@ export default function AllD365Partners() {
         <ContentInvite />
         <FitModel model="partner" />
 
+        <NastaSteg typ="partnerlista" product={productFilter === "bc" || productFilter === "fsc" ? productFilter : undefined} />
+
         {/* Profiled partners */}
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -357,6 +360,7 @@ export default function AllD365Partners() {
         <div className="container mx-auto max-w-6xl px-4"><BookingOffer placement="partnerlista" advisoryPlacement="partner_search" /></div>
 
       <ContextualCta source="next-step:alla-partners" heading="Svårt att välja bland alla partners?" text="Listan visar alla. Guiden sorterar fram de som passar er produkt, bransch och storlek." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Se partners för tillverkning", to: "/branscher/tillverkning/" }, { label: "Fråga d365.se", to: "/fraga/" }]} />
+<NastaSteg typ="partnerlista" product={productFilter === "bc" || productFilter === "fsc" ? productFilter : undefined} />
 </main>
 
       <BasicProfilesDirectory />

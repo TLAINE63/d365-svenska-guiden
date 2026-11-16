@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import SimpleGuidePage from "@/components/guides/SimpleGuidePage";
 import GuideCTA from "@/components/guides/GuideCTA";
 import D365VsSalesforceMatrix from "@/components/comparisons/D365VsSalesforceMatrix";
@@ -24,7 +25,7 @@ const Dynamics365VsSalesforce = () => (
     ]}
     h1="Microsoft Dynamics 365 vs Salesforce – Vilken CRM-plattform passar er?"
     shortAnswer="Båda är mogna CRM-plattformar, och valet avgörs sällan av enskilda funktioner. Det avgörs av var ert dagliga arbete sker, om CRM ska dela data med affärssystemet och vad lösningen kostar med de integrationer och tillägg ni faktiskt behöver. Jämför därför per område: sälj, kundservice, marknadsföring och fältservice."
-    afterIntro={<D365VsSalesforceMatrix />}
+    afterIntro={<><D365VsSalesforceMatrix /><NastaSteg typ="jamforelse" /></>}
     sections={[
       {
         title: "Helhet eller renodlat CRM?",
@@ -79,6 +80,7 @@ const Dynamics365VsSalesforce = () => (
       ],
     }}
     afterNext={
+      <>
       <GuideCTA
         variant="final"
         heading="Utvärderar ni byte mellan Salesforce och Dynamics 365?"
@@ -88,6 +90,8 @@ const Dynamics365VsSalesforce = () => (
         source={`${PATH}#cta-final`}
         className="!mt-0"
       />
+      <NastaSteg typ="jamforelse" />
+      </>
     }
     faq={[
       {

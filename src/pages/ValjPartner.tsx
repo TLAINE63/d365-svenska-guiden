@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { AGENT_CAPABILITY_OPTIONS, agentCapabilities, matchesAgentCapability } from "@/lib/aiProfile";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
@@ -1188,6 +1189,8 @@ const ValjPartner = () => {
   Verifierad betyder att d365.se har granskat partnerns uppgifter. Det påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
  </p>
 
+ <NastaSteg typ="partnerlista" product={selectedApplications.length === 1 ? selectedApplications[0] : undefined} industry={selectedIndustry} />
+
  {/* Ankare för startsidans sökruta: landa precis ovanför resultatlistan. */}
  <div id="partner-resultat" className="relative -top-10 scroll-mt-28" aria-hidden="true" />
  {/* Filter Results Summary */}
@@ -1706,6 +1709,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
 
  <RelatedPages heading="Skapa underlag innan du kontaktar partners" pages={valjPartnerRelatedPages} />
  <ContextualCta source="next-step:valj-partner" heading="Vet ni vad ni ska leta efter hos en partner nu?" text="Gör kriterierna konkreta. Svara på sex frågor så får ni en kortlista att jämföra mot det ni just läst." primaryLabel="Få rekommenderad partnerlista" links={[{ label: "Jämför relevanta partners", to: "/jamfor-partners/" }, { label: "Skapa kravspecifikation", to: "/kravspecifikation/" }, { label: "Se partners per bransch", to: "/branscher/" }]} />
+<NastaSteg typ="partnerlista" product={selectedApplications.length === 1 ? selectedApplications[0] : undefined} industry={selectedIndustry} />
 </main>
  <EditorialSource sourceType="Partnerguide" />
  <Footer />

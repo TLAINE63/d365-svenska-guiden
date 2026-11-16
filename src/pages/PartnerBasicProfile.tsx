@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import { useParams, Link } from "react-router-dom";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { Helmet } from "react-helmet-async";
@@ -125,6 +126,7 @@ export default function PartnerBasicProfile({
             )}
           </div>
         </section>
+        {partner && <NastaSteg typ="partnerprofil" partnerSlug={partner.slug} partnerName={partner.name} />}
         {partner && (
           <div className="-mt-4">
             <PartnerPublicSourcesSection partner={partner} />

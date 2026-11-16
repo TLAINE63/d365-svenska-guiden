@@ -1,3 +1,5 @@
+import NastaSteg from "@/components/NastaSteg";
+import { articleBuyingStep } from "@/lib/inquirySelection";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
@@ -151,6 +153,8 @@ export default function AktuelltArticle({ initialData = null }: Props) {
           {showEval && <Section title="För er som utvärderar Dynamics 365"><p>{nowrapBrand(a.for_evaluators!)}</p></Section>}
           {showExisting && <Section title="För er som redan använder Dynamics 365"><p>{nowrapBrand(a.for_customers!)}</p></Section>}
 
+          <NastaSteg typ="kunskapsartikel" articleStep={articleBuyingStep(productLabels.join(" ") || item.title)} />
+
           {item.recommended_action && (
             <Section title="Behöver ni agera?">
               <p className="text-lg font-semibold text-foreground">{aktuelltActionLabel(item.recommended_action)}</p>
@@ -240,6 +244,7 @@ export default function AktuelltArticle({ initialData = null }: Props) {
               )}
             </div>
           </section>
+          <NastaSteg typ="kunskapsartikel" articleStep={articleBuyingStep(productLabels.join(" ") || item.title)} />
         </article>
       </main>
       <div className="container mx-auto max-w-4xl px-4"><NewsletterSignup /></div>

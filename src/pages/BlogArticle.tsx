@@ -1,3 +1,4 @@
+import ArticleNextSteps from "@/components/ArticleNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
@@ -338,7 +339,7 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
             <article
               className={ARTICLE_BODY_CLASS}
             >
-              {article.content}
+              <ArticleNextSteps content={article.content} topic={`${article.title} ${article.category} ${article.tags.join(" ")}`} />
             </article>
 
             {/* Redaktionell not – för ämnen med snabb utveckling */}

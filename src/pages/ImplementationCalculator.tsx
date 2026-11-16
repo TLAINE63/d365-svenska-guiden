@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { IMPLEMENTATION_DEFAULTS } from "@/lib/calculatorDefaults";
 import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
@@ -764,6 +765,8 @@ export default function ImplementationCalculator() {
           </div>
         </section>
 
+        <NastaSteg typ="pris-kostnad" />
+
         <section id="faser" className="py-10 sm:py-14 border-t border-border scroll-mt-24" aria-labelledby="faser-rubrik">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
@@ -991,6 +994,7 @@ export default function ImplementationCalculator() {
             />
           </div>
         </section>
+        <NastaSteg typ="pris-kostnad" />
       </main>
 
       <Footer />
