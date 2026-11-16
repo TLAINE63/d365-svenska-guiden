@@ -132,6 +132,10 @@ Deno.serve(async (req) => {
       req.headers.get("x-real-ip") ||
       "unknown";
     const anonIp = clientIp !== "unknown" ? anonymizeIp(clientIp) : null;
+    const bookingClick = event_name === "booking_click";
+    if (bookingClick && (event_type !== "cta_click" || typeof metadata?.placement !== "string" || !/^[a-z0-9_-]{1,60}$/.test(metadata.placement))) {
+      return new Response(JSON.stringify({ error: "Invalid booking placement" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -142,18 +146,18 @@ Deno.serve(async (req) => {
       event_type,
       event_name: String(event_name).slice(0, 80),
       page_path: page_path ? String(page_path).slice(0, 500) : null,
-      session_id: session_id ? String(session_id).slice(0, 80) : null,
+      session_id: !bookingClick && session_id ? String(session_id).slice(0, 80) : null,
       step_number: typeof step_number === "number" ? step_number : null,
       // Sajten sätts på servern utifrån anropets ursprung, så d365.se och businesscentral.se kan skiljas åt i rapporten.
-      metadata: { ...(metadata && typeof metadata === "object" ? metadata : {}), source_site: /businesscentral\.se$/.test((req.headers.get("origin") || "").replace(/^https?:\/\//, "")) ? "businesscentral.se" : "d365.se" },
-      ip_anonymized: anonIp,
-      user_agent: userAgent,
+      metadata: bookingClick ? { placement: metadata.placement, path: clip(page_path, 500) } : { ...(metadata && typeof metadata === "object" ? metadata : {}), source_site: /businesscentral\.se$/.test((req.headers.get("origin") || "").replace(/^https?:\/\//, "")) ? "businesscentral.se" : "d365.se" },
+      ip_anonymized: bookingClick ? null : anonIp,
+      user_agent: bookingClick ? null : userAgent,
       step: typeof step === "string" && STEPS.has(step) ? step : null,
-      landing_path: clip(landing_path, 500),
-      traffic_source: typeof traffic_source === "string" && SOURCES.has(traffic_source) ? traffic_source : null,
-      tool: clip(tool, 60),
-      device: typeof device === "string" && DEVICES.has(device) ? device : null,
-      partner_slug: clip(partner_slug, 120),
+      landing_path: bookingClick ? null : clip(landing_path, 500),
+      traffic_source: !bookingClick && typeof traffic_source === "string" && SOURCES.has(traffic_source) ? traffic_source : null,
+      tool: bookingClick ? null : clip(tool, 60),
+      device: !bookingClick && typeof device === "string" && DEVICES.has(device) ? device : null,
+      partner_slug: bookingClick ? null : clip(partner_slug, 120),
     });
 
     if (error) {

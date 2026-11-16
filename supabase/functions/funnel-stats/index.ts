@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { aggregateBookingClicks, bookingMonths, type BookingClickRow } from "../_shared/bookingStats.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -104,6 +105,19 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
+
+    if (body?.action === "booking_clicks") {
+      const months = bookingMonths();
+      const since = `${months[5]}-01T00:00:00+02:00`;
+      const rows: BookingClickRow[] = [];
+      for (let from = 0; ; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("occurred_at, metadata").eq("event_name", "booking_click").gte("occurred_at", since).order("occurred_at").order("id").range(from, from + 999);
+        if (error) throw error;
+        rows.push(...(data || []));
+        if (!data || data.length < 1000) break;
+      }
+      return new Response(JSON.stringify({ months, rows: aggregateBookingClicks(rows, months) }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
 
     if (body?.action === "underlag") {
       const since = new Date(Date.now() - 30 * 86400000).toISOString();

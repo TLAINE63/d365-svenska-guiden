@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BookingClicksTable from "@/components/admin/BookingClicksTable";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -218,6 +219,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         <Download className="w-4 h-4 mr-2" aria-hidden="true" />
         {busy === "segments" ? "Hämtar…" : "Partnersegment"}
       </Button>
+      <BookingClicksTable token={token} onUnauthorized={onUnauthorized} />
     </div>
   );
 }
