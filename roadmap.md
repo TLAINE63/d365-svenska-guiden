@@ -1,3 +1,8 @@
+## Direktbokning med Thomas (2026-11-16)
+- [ ] Gemensamt bokningserbjudande efter resultat, partnerlistor, jämförelse och hämtat underlag; befintligt rådgivningsformulär med placeringskälla.
+- [ ] Anonyma bokningsklick utan IP/id, internflagga och adminöversikt för sex månader; inga CRM-exportändringar.
+- [ ] Tester och kontroll på mobil/dator, direktbokning och formulär.
+
 ## Sammanhängande införandekalkyl (2026-11-13)
 - [x] Fasta integrations-/migreringsandelen borttagen; valda tillval får egna poster och fasernas timmar/priser summerar exakt. 15 tester godkända; integration, migrering och utbildning provade i webbläsaren på dator och mindre skärmar utan överbredd.
 - [x] Snabbstart från 50 000 kr visas separat för enkla BC-val, även i PDF-underlaget. AI-stödd onboarding beskriven med Qwyks egen källa utan löfte om komplett införande på minuter. Faktisk PDF-nedladdning inte omtestad.
