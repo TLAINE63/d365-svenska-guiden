@@ -102,7 +102,7 @@ Deno.serve(async (req) => {
         headers: {
           ...cors,
           "Content-Type": "text/csv; charset=utf-8",
-          "Content-Disposition": `attachment; filename="webinar-anmalningar-${webinarId}.csv"`,
+          "Content-Disposition": `attachment; filename="d365-webinar-anmalningar-${webinarId}.csv"`,
           "Cache-Control": "no-store",
         },
       });

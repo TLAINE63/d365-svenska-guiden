@@ -112,7 +112,7 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
     const a = document.createElement("a");
     const today = new Date().toISOString().slice(0, 10);
     a.href = url;
-    a.download = `forsaljningsunderlag-${partnerSlug}-${today}.csv`;
+    a.download = `d365se-forsaljningsunderlag-${partnerSlug}-${today}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -113,5 +113,5 @@ export async function generateBmiPdf(result: BmiResponse, input: { b0: BmiArea; 
     doc.text(`Sida ${i} av ${total}`, pageW - PDF_MARGIN, pageH - 7, { align: "right" });
   }
   doc.setProperties({ title });
-  doc.save(`Beslutsmognadsindex_${date}.pdf`);
+  doc.save(`d365-beslutsmognadsindex-${date}.pdf`);
 }

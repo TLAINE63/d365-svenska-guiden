@@ -67,7 +67,7 @@ export function downloadMarketReportCsv(
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "dynamics-365-partner-landscape-sweden-2026.csv";
+  a.download = "d365-partner-landscape-sweden-2026.csv";
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -180,5 +180,5 @@ export async function generateMarketReportPdf(
   );
 
   finalizePdfWithFooter(doc, safe(REPORT_TITLE));
-  doc.save("dynamics-365-partner-landscape-sweden-2026.pdf");
+  doc.save("d365-partner-landscape-sweden-2026.pdf");
 }

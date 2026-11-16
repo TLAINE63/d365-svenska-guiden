@@ -72,7 +72,7 @@ export default function RedaktionWebinarTab({ token, onSessionExpired }: { token
     const url = URL.createObjectURL(await response.blob());
     const link = document.createElement("a");
     link.href = url;
-    link.download = `webinar-${registrationsFor.slug}-anmalningar.csv`;
+    link.download = `d365-webinar-${registrationsFor.slug}-anmalningar.csv`;
     link.click();
     URL.revokeObjectURL(url);
   };

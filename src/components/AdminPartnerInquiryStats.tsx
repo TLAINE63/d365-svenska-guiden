@@ -45,7 +45,7 @@ export default function AdminPartnerInquiryStats({ token, onSessionExpired }: { 
   const download = (p: Partner) => {
     const blob = new Blob(["\uFEFF" + toCsv(p, month)], { type: "text/csv;charset=utf-8" });
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = `partnerstatistik-${p.slug}-${month}.csv`; a.click();
+    a.href = URL.createObjectURL(blob); a.download = `d365se-partnerstatistik-${p.slug}-${month}.csv`; a.click();
     URL.revokeObjectURL(a.href);
   };
 

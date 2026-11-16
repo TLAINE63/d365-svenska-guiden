@@ -21,7 +21,7 @@ export async function partnerSegmentResponse(req: Request, cors: Record<string, 
     return new Response(options.format === 'json' ? JSON.stringify(rows) : segmentCsv(rows), {
       headers: { ...headers,
         'Content-Type': options.format === 'json' ? 'application/json; charset=utf-8' : 'text/csv; charset=utf-8',
-        'Content-Disposition': `attachment; filename="partnersegment-${todayStockholm()}.${options.format}"`,
+        'Content-Disposition': `attachment; filename="d365se-partnersegment-${todayStockholm()}.${options.format}"`,
       },
     });
   } catch {

@@ -410,5 +410,5 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     return doc.output('datauristring').split(',')[1];
   }
   
-  doc.save("valj-ratt-dynamics-365-partner.pdf");
+  doc.save("d365-valj-ratt-partner.pdf");
 };

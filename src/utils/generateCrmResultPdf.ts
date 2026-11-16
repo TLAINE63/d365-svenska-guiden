@@ -252,5 +252,5 @@ export async function generateCrmResultPdf(
   finalizePdfWithFooter(doc, `${config.productName} Matchningstest`);
 
   const date = new Date().toISOString().slice(0, 10);
-  doc.save(`${config.key}-matchningstest-${date}.pdf`);
+  doc.save(`d365-${config.key}-matchningstest-${date}.pdf`);
 }

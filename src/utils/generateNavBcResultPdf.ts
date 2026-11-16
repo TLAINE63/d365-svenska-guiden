@@ -191,5 +191,5 @@ export async function generateNavBcResultPdf(result: NavResult, answers: NavAnsw
   ensure(5); doc.textWithLink("d365.se/nav-till-business-central/", M, y, { url: "https://d365.se/nav-till-business-central/" });
 
   finalizePdfWithFooter(doc, "NAV till Business Central");
-  doc.save(`nav-till-business-central-resultat-${date}.pdf`);
+  doc.save(`d365-nav-till-business-central-resultat-${date}.pdf`);
 }

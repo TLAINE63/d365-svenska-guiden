@@ -101,5 +101,5 @@ export async function generateBcResultPdf(result: BcResult, _answers: BcAnswers,
   }
 
   finalizePdfWithFooter(doc, "Business Central Matchningstest");
-  doc.save(`bc-matchningstest-${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`d365-bc-matchningstest-${new Date().toISOString().slice(0, 10)}.pdf`);
 }
