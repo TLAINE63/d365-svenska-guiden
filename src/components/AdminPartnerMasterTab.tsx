@@ -225,7 +225,7 @@ export default function AdminPartnerMasterTab({ token, onSessionExpired }: Props
     const blob = new Blob(["\uFEFF" + [head.map(esc).join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = `migreringsrapport-bc-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `d365se-migreringsrapport-bc-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
   };
 

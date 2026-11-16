@@ -1536,7 +1536,7 @@ const AIReadiness = () => {
     addPageFooter();
 
     finalizePdfWithFooter(doc, "AI-mognadsanalys");
-    doc.save("AI-Impact-Assessment.pdf");
+    doc.save("d365-ai-impact-assessment.pdf");
   }, [foundationAnswers, selectedRole, roleScores, track, reportForm]);
 
   const resetAll = () => {

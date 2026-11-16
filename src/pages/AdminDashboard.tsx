@@ -2982,7 +2982,7 @@ Thomas`,
  const url = URL.createObjectURL(blob);
  const a = document.createElement('a');
  a.href = url;
- a.download = `partners-kontakter-${new Date().toISOString().slice(0,10)}.xls`;
+ a.download = `d365se-partners-kontakter-${new Date().toISOString().slice(0,10)}.xls`;
  a.click();
  URL.revokeObjectURL(url);
  }}>

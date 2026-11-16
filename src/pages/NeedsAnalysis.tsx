@@ -3057,7 +3057,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
     } catch (e) { console.warn("Suggested partners append failed", e); }
 
     // Generate PDF
-    const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
+    const pdfFilename = `d365-behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
     finalizePdfWithFooter(pdf, "Behovsanalys");
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
     pdf.save(`${pdfFilename}.pdf`);

@@ -1455,7 +1455,7 @@ const CustomerServiceNeedsAnalysis = () => {
  })), { compareUrl: _compareUrl, productLabel: "Customer Service", industry: _industry });
  } catch (e) { console.warn("Suggested partners append failed", e); }
 
- const pdfFilename = `Behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+ const pdfFilename = `d365-behovsanalys_${focusCfg.pdfSubTitle.replace(/[^a-zA-ZåäöÅÄÖ0-9]+/g, "_")}_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
  finalizePdfWithFooter(pdf, "Behovsanalys för kundservice");
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
  pdf.save(`${pdfFilename}.pdf`);

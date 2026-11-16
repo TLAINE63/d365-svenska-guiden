@@ -573,7 +573,7 @@ export default function BcRoiCalculator() {
                     pageUrl: "d365.se/businesscentral/roi-kalkylator/",
                     companyName: v.companyName || undefined,
                     recipientEmail: email,
-                    fileName: `bc-roi-tco-${v.companyName ? v.companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" : ""}${new Date().toISOString().slice(0, 10)}.pdf`,
+                    fileName: `d365bc-roi-tco-${v.companyName ? v.companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" : ""}${new Date().toISOString().slice(0, 10)}.pdf`,
                     kpis: [
                       { label: "5-årig ROI", value: `${Math.round(calc.roiPct)}%` },
                       { label: "Payback", value: calc.paybackMonths == null ? "–" : `${Math.round(calc.paybackMonths)} mån`, sub: calc.paybackMonths == null ? "Nytta täcker inte löpande kostnad" : undefined },

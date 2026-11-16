@@ -63,7 +63,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  trackFunnelEvent({ event_type: "pdf_download", event_name: "ebook_partnervalet", metadata: { source_page: sourcePage } });
  const link = document.createElement("a");
  link.href = "/ebooks/det-viktiga-partnervalet.pdf";
- link.download = "Det-viktiga-partnervalet-d365.pdf";
+ link.download = "d365-det-viktiga-partnervalet.pdf";
  document.body.appendChild(link);
  link.click();
  document.body.removeChild(link);
@@ -97,7 +97,7 @@ const EbookBanner = ({ variant = "full", sourcePage = "homepage" }: EbookBannerP
  Fick du inte filen?{" "}
   <a
   href="/ebooks/det-viktiga-partnervalet.pdf"
-  download="Det-viktiga-partnervalet-d365.pdf"
+  download="d365-det-viktiga-partnervalet.pdf"
   className="text-primary hover:underline font-medium"
   >
   Ladda ner e-boken direkt här

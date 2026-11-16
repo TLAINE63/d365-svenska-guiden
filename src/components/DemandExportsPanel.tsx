@@ -147,8 +147,8 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
       if (!leads) return;
       const events = await fetchExport(`export-demand-events?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&company=1`);
       if (!events) return;
-      saveBlob(leads, `demand-leads-${from}-${to}`);
-      saveBlob(events, `demand-events-${from}-${to}`);
+      saveBlob(leads, `d365-demand-leads-${from}-${to}`);
+      saveBlob(events, `d365-demand-events-${from}-${to}`);
     } catch {
       setError("Exporten misslyckades.");
     } finally {
@@ -215,7 +215,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         </Button>
       </div>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-      <Button disabled={!!busy} onClick={() => download("segments", "admin-partner-segments", `partnersegment-${new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date())}`)}>
+      <Button disabled={!!busy} onClick={() => download("segments", "admin-partner-segments", `d365se-partnersegment-${new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date())}`)}>
         <Download className="w-4 h-4 mr-2" aria-hidden="true" />
         {busy === "segments" ? "Hämtar…" : "Partnersegment"}
       </Button>

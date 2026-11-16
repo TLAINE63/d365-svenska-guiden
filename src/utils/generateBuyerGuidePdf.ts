@@ -90,5 +90,5 @@ export async function generateBuyerGuidePdf(guide: BuyerGuide): Promise<void> {
   );
 
   finalizePdfWithFooter(doc, guide.title);
-  doc.save(`${guide.slug}.pdf`);
+  doc.save(`d365-${guide.slug}.pdf`);
 }

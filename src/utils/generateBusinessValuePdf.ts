@@ -75,5 +75,5 @@ export async function generateBusinessValuePdf(d: BusinessValuePdfData) {
   text("Indikativt underlag från d365.se. Verkligt utfall beror på processer, förändringsledning och vald partner.", 9, false, [110, 110, 110]);
 
   finalizePdfWithFooter(doc, title);
-  doc.save(`verksamhetsvardering-${d.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${formatDateYYYYMMDD(new Date())}.pdf`);
+  doc.save(`d365-affarsnytta-${d.productName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${formatDateYYYYMMDD(new Date())}.pdf`);
 }

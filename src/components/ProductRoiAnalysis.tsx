@@ -482,7 +482,7 @@ export default function ProductRoiAnalysis({
               pageUrl: `d365.se#${id}`,
               companyName: companyName || undefined,
               recipientEmail: email,
-              fileName: `${cfg.fileSlug}-roi-tco-${
+              fileName: `d365-${cfg.fileSlug}-roi-tco-${
                 companyName
                   ? companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-"
                   : ""

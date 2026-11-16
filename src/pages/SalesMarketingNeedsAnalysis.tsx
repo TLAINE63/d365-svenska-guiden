@@ -1703,7 +1703,7 @@ const SalesMarketingNeedsAnalysis = () => {
  } catch (e) { console.warn("Suggested partners append failed", e); }
 
  // Generate PDF as base64 for email attachment
- const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+ const pdfFilename = `d365-behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
  finalizePdfWithFooter(pdf, "Behovsanalys för sälj och marknad");
  const pdfBase64 = pdf.output('datauristring').split(',')[1];
  

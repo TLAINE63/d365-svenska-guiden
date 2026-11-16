@@ -451,5 +451,5 @@ export const generateRequirementsSpec = async (
     return doc.output("datauristring").split(",")[1];
   }
 
-  doc.save(`kravspecifikation-${data.product}-${data.industry.toLowerCase().replace(/[^a-zåäö0-9]/g, "-")}.pdf`);
+  doc.save(`d365-kravspecifikation-${data.product}-${data.industry.toLowerCase().replace(/[^a-zåäö0-9]/g, "-")}.pdf`);
 };
