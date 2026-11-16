@@ -1,4 +1,5 @@
 # components
+- BookingOffer keeps Bookings external, reuses organization.ts and PlanContactDialog, and retains source_page#placement for callbacks; booking_click is count-only via the existing funnel sender (no IP/id or companion tracker), with admin-only six-month funnel-stats aggregation, never CRM demand events.
 - CountUp preserves supplied counts in server HTML and retargets client animations on async updates, cancelling superseded frames to avoid stale totals.
 - BuyerFunnelCard (Sprint 6, /redaktion + admin) reads only funnel_events via funnel-stats action "buyer" (admin+editor); trackFunnelEvent auto-attaches plan segment (main_area/journey_state) from the local plan, so no PII or new tables.
 - Public cards and profile openings show the "D365 Verifierad" pill via VerifiedPartnerBadge (requiring is_featured), the only public verification label; the embed SVG for partner sites is separate.

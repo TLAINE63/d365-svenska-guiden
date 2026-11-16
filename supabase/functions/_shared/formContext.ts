@@ -7,6 +7,14 @@ export function cleanPagePath(v: unknown): string | null {
   return PATH.test(p) ? p : null;
 }
 
+/** Only the callback booking source retains a bounded, structured placement fragment. */
+export function cleanBookingSource(v: unknown): string | null {
+  const path = cleanPagePath(v);
+  if (!path || typeof v !== "string") return path;
+  const fragment = v.trim().split("#")[1];
+  return fragment && /^[a-z0-9_-]{1,60}$/.test(fragment) && `${path}#${fragment}`.length <= 300 ? `${path}#${fragment}` : path;
+}
+
 export function cleanSessionPages(v: unknown): string[] | null {
   if (!Array.isArray(v)) return null;
   const out = v.map(cleanPagePath).filter((x): x is string => !!x).slice(0, 30);
