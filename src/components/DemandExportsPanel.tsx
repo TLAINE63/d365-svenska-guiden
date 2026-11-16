@@ -6,6 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { defaultFromDate, previousMonth } from "@/lib/adminExports";
 import { supabase } from "@/integrations/supabase/client";
+import { zipSync, strToU8 } from "fflate";
+
+const ALL_KEY = "crm_paket_senast";
+const stockholmToday = () => new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date());
+function allFromDefault(): string {
+  try { const v = localStorage.getItem(ALL_KEY); if (v && /^\d{4}-\d{2}-\d{2}$/.test(v)) return v; } catch { /* ignore */ }
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date(Date.now() - 35 * 864e5));
+}
 
 interface SnitcherCompany {
   company_name: string | null;
@@ -29,6 +37,26 @@ function last30Days(): { from: string; to: string } {
   return { from, to };
 }
 
+function snitcherCsv(companies: SnitcherCompany[]): string {
+      const header = ["Företag", "Domän", "Bransch", "Storlek", "Omsättning", "Ort", "Land", "Först sedd", "Senast sedd", "Besök", "Sidvisningar", "Besökta sidor", "Partner-besök"];
+      const toPath = (u: string) => { try { const x = new URL(u); return x.pathname + x.search; } catch { return u; } };
+      return [header.join(";")].concat(companies.map((r) => [
+        r.company_name ?? "",
+        r.company_domain ?? "",
+        r.company_industry ?? "",
+        r.company_size ?? "",
+        r.company_revenue ?? "",
+        r.company_city ?? "",
+        r.company_country ?? "",
+        (r.first_seen ?? "").slice(0, 10),
+        (r.last_seen ?? "").slice(0, 10),
+        r.session_count,
+        r.url_count,
+        [...new Set((r.urls ?? []).map(toPath))].slice(0, 150).join(" | "),
+        r.partner_slugs.join("|"),
+      ].map((v) => { const t = String(v); return `"${(/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""')}"`; }).join(";"))).join("\n");
+}
+
 /** CSV-exporter (admin). Nyckeln finns bara på servern; panelen skickar inloggningstoken. */
 const DATE_EXPORTS = [
   { id: "leads", label: "Förfrågningar", fn: "export-demand-leads", extra: "", file: "d365se-forfragningar" },
@@ -45,6 +73,8 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
   const [month, setMonth] = useState(previousMonth());
   const [snitcherRange, setSnitcherRange] = useState(last30Days);
   const [busy, setBusy] = useState<string | null>(null);
+  const [allFrom, setAllFrom] = useState(allFromDefault);
+  const [allNote, setAllNote] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const downloadSnitcher = async () => {
@@ -63,24 +93,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         }
         return;
       }
-      const companies: SnitcherCompany[] = data.companies || [];
-      const header = ["Företag", "Domän", "Bransch", "Storlek", "Omsättning", "Ort", "Land", "Först sedd", "Senast sedd", "Besök", "Sidvisningar", "Besökta sidor", "Partner-besök"];
-      const toPath = (u: string) => { try { const x = new URL(u); return x.pathname + x.search; } catch { return u; } };
-      const csv = [header.join(";")].concat(companies.map((r) => [
-        r.company_name ?? "",
-        r.company_domain ?? "",
-        r.company_industry ?? "",
-        r.company_size ?? "",
-        r.company_revenue ?? "",
-        r.company_city ?? "",
-        r.company_country ?? "",
-        (r.first_seen ?? "").slice(0, 10),
-        (r.last_seen ?? "").slice(0, 10),
-        r.session_count,
-        r.url_count,
-        (r.urls ?? []).map(toPath).join(" | "),
-        r.partner_slugs.join("|"),
-      ].map((v) => { const t = String(v); return `"${(/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""')}"`; }).join(";"))).join("\n");
+      const csv = snitcherCsv(data.companies || []);
       const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
@@ -163,8 +176,60 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
     }
   };
 
+  /** En zip med alla CRM-filer. Filer som misslyckas utelämnas och listas i meddelandet. */
+  const downloadAll = async () => {
+    setBusy("all");
+    setError(null);
+    setAllNote(null);
+    try {
+      const to = stockholmToday();
+      const f = encodeURIComponent(allFrom), t = encodeURIComponent(to);
+      const files: Record<string, Uint8Array> = {};
+      const get = async (name: string, query: string) => {
+        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${query}`, { headers: { Authorization: `Bearer ${token}` } });
+        if (res.status === 401) throw new Error("401");
+        if (res.ok) files[name] = new Uint8Array(await res.arrayBuffer());
+      };
+      await get("demand-leads.csv", `export-demand-leads?from=${f}&to=${t}`);
+      await get("demand-events.csv", `export-demand-events?from=${f}&to=${t}&company=1`);
+      const { data, error: sErr } = await supabase.functions.invoke("manage-partner-reports", {
+        body: { action: "list_all_visitors", token, period_start: allFrom, period_end: to },
+      });
+      if (!sErr && !data?.error) files["snitcher-besokare.csv"] = strToU8("\uFEFF" + snitcherCsv(data.companies || []));
+      await get("partnersegment.csv", "admin-partner-segments");
+      await get("isv-produkter.csv", "export-isv-products");
+      await get("partnerstatistik.csv", `export-partner-stats?month=${encodeURIComponent(previousMonth())}`);
+      const names = Object.keys(files);
+      if (names.length === 0) { setError("Exporten misslyckades."); return; }
+      const zip = zipSync(files);
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([zip], { type: "application/zip" }));
+      a.download = `d365se-crm-paket-${to}.zip`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      try { localStorage.setItem(ALL_KEY, to); } catch { /* ignore */ }
+      setAllNote(`Med i paketet: ${names.join(", ")}.`);
+    } catch (e) {
+      if (String((e as Error)?.message) === "401") { setError("Exporterna kräver admininloggning."); onUnauthorized(); }
+      else setError("Exporten misslyckades.");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   return (
     <div className="space-y-6">
+      <div className="space-y-3 rounded-lg border border-border bg-card p-4">
+        <div className="space-y-1.5 max-w-xs">
+          <Label htmlFor="all-from">Från-datum (till och med i dag)</Label>
+          <Input id="all-from" type="date" value={allFrom} onChange={(e) => setAllFrom(e.target.value)} />
+        </div>
+        <Button disabled={!!busy || !allFrom} onClick={downloadAll}>
+          <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+          {busy === "all" ? "Hämtar…" : "Ladda ner allt för CRM"}
+        </Button>
+        {allNote && <p className="text-sm text-muted-foreground">{allNote}</p>}
+      </div>
       <div className="space-y-3">
         <div className="space-y-1.5 max-w-xs">
           <Label htmlFor="export-from">Från-datum</Label>
