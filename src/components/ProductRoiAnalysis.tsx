@@ -1,4 +1,5 @@
 import RoiCostControls from "@/components/RoiCostControls";
+import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import { ROI_DEFAULTS } from "@/lib/calculatorDefaults";
 import BusinessValueAssessment from "@/components/roi/BusinessValueAssessment";
@@ -190,6 +191,9 @@ export default function ProductRoiAnalysis({
     totalUsers,
     bvaTotal,
   ]);
+  useRecordTool({ tool: `roi_${productKey}`.slice(0, 40), label: `ROI-kalkyl ${productKey}`, users: calc.totalUsers, values: {
+    Komplexitet: String(complexity), Integrationer: String(integrations), "Omsättning": kr(revenue),
+    Implementation: kr(calc.implementation), "Payback": months(calc.paybackMonths), "ROI 5 år": pct(calc.roiPct), "Frigjorda timmar/år": String(Math.round(bvaRes.hoursFreed)) } });
 
   return (
     <section

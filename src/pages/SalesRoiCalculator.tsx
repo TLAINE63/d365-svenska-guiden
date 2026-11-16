@@ -1,4 +1,5 @@
 import RoiCostControls from "@/components/RoiCostControls";
+import { useRecordTool, kr, months, pct } from "@/lib/toolContext";
 import { roiProjectCosts } from "@/lib/roiCostOverrides";
 import CalculatorIndustryPicker from "@/components/CalculatorIndustryPicker";
 import { ROI_DEFAULTS, salesIndustryModel } from "@/lib/calculatorDefaults";
@@ -218,6 +219,9 @@ export default function SalesRoiCalculator() {
       incrementalDealsPerYear,
     };
   }, [v, perSellerPrice, perOpsPrice, activeDrivers, implementationOverride, supportPercent, bvaRes, itFees]);
+  useRecordTool({ tool: "roi_sales", label: "ROI-kalkyl Sales", industry: v.industry, users: v.sellers + v.salesOps, values: {
+    Licens: v.license, Komplexitet: v.complexity, Integrationer: String(v.integrations), "Omsättning": kr(v.revenue), "Snittaffär": kr(v.avgDealSize),
+    Implementation: kr(calc.implementation), "Payback": months(calc.paybackMonths), "ROI 5 år": pct(calc.roiPct), "Frigjorda timmar/år": String(Math.round(bvaRes.hoursFreed)) } });
 
   const priceMissing = perSellerPrice == null;
 
