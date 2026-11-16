@@ -93,7 +93,7 @@ Deno.serve(async (req) => {
       });
     }
     // Underlag action is also readable by editors (Redaktion); all other actions stay admin-only.
-    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "buyer_paths" || body?.action === "journey_funnels" || body?.action === "ai_library" ? ["admin", "editor"] : ["admin"]);
+    const v = await verifyJWT(token, JWT_SECRET, body?.action === "underlag" || body?.action === "buyer" || body?.action === "buyer_paths" || body?.action === "journey_funnels" || body?.action === "ai_library" || body?.action === "lead_steps" ? ["admin", "editor"] : ["admin"]);
     if (!v.valid) {
       return new Response(
         JSON.stringify({ error: v.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
@@ -117,6 +117,29 @@ Deno.serve(async (req) => {
         if (!data || data.length < 1000) break;
       }
       return new Response(JSON.stringify({ months, rows: aggregateBookingClicks(rows, months) }), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+
+    if (body?.action === "lead_steps") {
+      const now = Date.now();
+      const since90 = new Date(now - 90 * 86400000).toISOString();
+      const since30 = now - 30 * 86400000;
+      const NAMES = ["nasta_steg_visad", "nasta_steg_klick", "forfragan_paborjad", "forfragan_skickad", "verktyg_resultat", "verktyg_sparat", "partner_tillagd"];
+      const agg: Record<string, Record<string, { d30: number; d90: number }>> = {};
+      for (let from = 0; from < 500000; from += 1000) {
+        const { data, error } = await supabase.from("funnel_events").select("event_name, page_path, occurred_at").eq("event_type", "lead_steg").gte("occurred_at", since90).order("id").range(from, from + 999);
+        if (error) throw error;
+        for (const r of data || []) {
+          if (!NAMES.includes(r.event_name)) continue;
+          const path = String(r.page_path || "/").split("?")[0].slice(0, 200);
+          const row = (agg[path] ??= {});
+          const c = (row[r.event_name] ??= { d30: 0, d90: 0 });
+          c.d90++;
+          if (new Date(r.occurred_at).getTime() >= since30) c.d30++;
+        }
+        if (!data || data.length < 1000) break;
+      }
+      const rows = Object.entries(agg).map(([path, counts]) => ({ path, counts }));
+      return new Response(JSON.stringify({ events: NAMES, rows }), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
     if (body?.action === "underlag") {
