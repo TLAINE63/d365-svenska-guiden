@@ -1,3 +1,4 @@
+import ArticleNextSteps from "@/components/ArticleNextSteps";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import ContinueEvaluation from "@/components/ContinueEvaluation";
@@ -213,7 +214,7 @@ const DeepDiveArticle = () => {
                 ? "prose prose-slate dark:prose-invert max-w-[68ch] prose-headings:text-foreground prose-p:text-foreground/85 prose-p:leading-[1.9] prose-p:text-[1.0625rem] prose-li:text-foreground/85 prose-li:leading-[1.8] prose-li:text-[1.0625rem] prose-strong:text-foreground prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-5 prose-h3:mt-10 prose-h3:mb-3 prose-p:mb-7 prose-ul:my-7 prose-li:my-2.5 prose-ul:pl-6"
                 : "prose prose-slate dark:prose-invert max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-li:leading-relaxed prose-strong:text-foreground prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-p:mb-5 prose-ul:my-6 prose-li:my-1"
             }>
-              {article.content}
+              <ArticleNextSteps content={article.content} topic={`${article.product} ${article.title}`} />
             </article>
 
           </div>

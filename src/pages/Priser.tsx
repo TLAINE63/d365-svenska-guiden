@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { priceSources } from "@/lib/guideSources";
 import SourcesAndMethod from "@/components/SourcesAndMethod";
@@ -220,6 +221,8 @@ export default function Priser() {
           </div>
         </section>
 
+        <NastaSteg typ="pris-kostnad" />
+
         {/* Snabb översikt */}
         <section className="py-10 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -434,6 +437,7 @@ export default function Priser() {
           </div>
         </section>
         <AktuelltContextSection placement="priser" heading="Aktuellt om licenser och priser" />
+        <NastaSteg typ="pris-kostnad" />
       </main>
 
       <section className="py-8">

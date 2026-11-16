@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import CrmMarketSection from "@/components/crm/CrmMarketSection";
 import WhyTheseResults from "@/components/WhyTheseResults";
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
@@ -211,6 +212,8 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           </section>
         )}
 
+        <NastaSteg typ="partnerlista" product={cfg.productLabel} />
+
         {/* Partners – plain HTML list */}
         <section className="py-8 sm:py-12">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
@@ -343,6 +346,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
           secondaryLabel="Jämför partners direkt"
           secondaryTo="/jamfor-partners/"
         />
+        <NastaSteg typ="partnerlista" product={cfg.productLabel} />
       </main>
 
       <Footer />

@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 import BasicPartnersReveal from "@/components/partner/BasicPartnersReveal";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
@@ -172,6 +173,8 @@ const PartnersPerBransch = () => {
           </div>
         </section>
 
+        <NastaSteg typ="partnerlista" />
+
         {/* Basic partners per bransch – observed data, same layout as /alla-d365-partners/ */}
         {!verifiedOnly && basicPartners.length > 0 && (
         <section className="py-10 bg-secondary/40 border-t border-border">
@@ -227,6 +230,7 @@ const PartnersPerBransch = () => {
             </div>
           </section>
         )}
+        <NastaSteg typ="partnerlista" />
       </main>
       <Footer />
     </>

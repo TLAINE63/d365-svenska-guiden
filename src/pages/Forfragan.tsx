@@ -1,3 +1,4 @@
+import { readInquiryPartners } from "@/lib/inquirySelection";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -45,7 +46,7 @@ const Forfragan = () => {
 
   useEffect(() => {
     const p = parseForfraganParams(sp);
-    setPre(p);
+    setPre({ ...p, partners: p.partners.length ? p.partners : readInquiryPartners() });
     setF((s) => ({ ...s, produkt: s.produkt || p.produkt, bransch: s.bransch || p.bransch }));
   }, [sp]);
 

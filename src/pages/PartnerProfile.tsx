@@ -1,3 +1,4 @@
+import NastaSteg from "@/components/NastaSteg";
 
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import { useState, useEffect, useMemo } from "react";
@@ -483,6 +484,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     <PartnerProfileOpening partner={partner} product={activeTabProduct || selectedProduct} industry={selectedIndustry} onIntro={() => openRequest("contact")} onVideo={() => setVideoOpen(true)} />
     <PartnerRequestDialog open={requestOpen} onOpenChange={setRequestOpen} partnerSlug={partner.slug} partnerName={partner.name} selectedProduct={activeTabProduct || selectedProduct} industry={selectedIndustry} mode={requestMode} />
     <PartnerDecisionOverview partner={partner} />
+    <NastaSteg typ="partnerprofil" partnerSlug={partner.slug} partnerName={partner.name} product={activeTabProduct || selectedProduct} industry={selectedIndustry} />
 
  <div className="partner-profile-continuation">
  <PartnerAiInsights partner={partner as any} />
