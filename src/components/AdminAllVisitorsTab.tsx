@@ -17,6 +17,8 @@ interface Company {
   company_size: string | null;
   company_country: string | null;
   company_logo_url: string | null;
+  company_city?: string | null;
+  company_revenue?: string | null;
   first_seen: string | null;
   last_seen: string | null;
   partner_slugs: string[];

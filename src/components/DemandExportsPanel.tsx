@@ -13,6 +13,9 @@ interface SnitcherCompany {
   company_industry: string | null;
   company_size: string | null;
   company_country: string | null;
+  company_city?: string | null;
+  company_revenue?: string | null;
+  urls?: string[];
   session_count: number;
   url_count: number;
   partner_slugs: string[];
