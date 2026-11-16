@@ -1,7 +1,8 @@
 ## Direktbokning med Thomas (2026-11-16)
-- [ ] Gemensamt bokningserbjudande efter resultat, partnerlistor, jämförelse och hämtat underlag; befintligt rådgivningsformulär med placeringskälla.
-- [ ] Anonyma bokningsklick utan IP/id, internflagga och adminöversikt för sex månader; inga CRM-exportändringar.
-- [ ] Tester och kontroll på mobil/dator, direktbokning och formulär.
+- [x] Gemensamt bokningserbjudande efter resultat, partnerlistor, jämförelse och hämtat underlag; befintligt rådgivningsformulär med placeringskälla. Rubrik utan ”oberoende”.
+- [x] Anonyma bokningsklick utan IP/id, internflagga och adminöversikt för sex månader; inga CRM-exportändringar. Tjänsterna driftsatta, inga booking_click i demand_events.
+- [x] 18 tester godkända; sju ROI-sidor, affärsnytta, implementation och båda partnerlistorna visar en ruta. CRM-test slutfört med verkliga svar och jämförelse med två publicerade partners kontrollerad; mobil/dator och formuläröppning granskade utan sidfel.
+- [ ] Liveklick → inloggad admin samt verklig formulärleverans och förrenderad produktions-HTML väntar på adminsession/publicering; formulärinskick provat med avlyssnat svar, inte med verkligt mejl.
 
 ## Sammanhängande införandekalkyl (2026-11-13)
 - [x] Fasta integrations-/migreringsandelen borttagen; valda tillval får egna poster och fasernas timmar/priser summerar exakt. 15 tester godkända; integration, migrering och utbildning provade i webbläsaren på dator och mindre skärmar utan överbredd.
