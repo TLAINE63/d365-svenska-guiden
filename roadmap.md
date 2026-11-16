@@ -1,6 +1,7 @@
 ## Verktygen, del 3 (2026-11-17)
 - [x] "Spara underlaget" (Word-fil + Min D365-plan) och länk till förfrågan med förifylld beskrivning på BC-, Sales-, affärsnytta- och implementationskalkyl. BC-flödet provat i webbläsaren.
-- [ ] Mejlutskick av Word-filen, behovsanalys, kravspecifikationer och matchningstest ej kopplade ännu.
+- [x] Samma ruta i tre behovsanalyser, fyra kravspecifikationer och matchningstesterna (BC, F&SCM, CRM); kodkontroll OK, inte klickade till resultat i webbläsaren.
+- [ ] Mejlutskick av Word-filen (kräver eget utskick från servern).
 
 ## Nästa steg på djupsidor, del 2 (2026-11-16)
 - [x] Gemensamma nästa steg i jämförelse-, pris/kostnads- och partnerlistmallar; två placeringar i innehållet. Tolv sidor verifierade med två block och oförändrade canonical-adresser.

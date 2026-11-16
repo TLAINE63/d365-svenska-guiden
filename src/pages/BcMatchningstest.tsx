@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useMemo, useState } from "react";
 import { useToolResultSignal } from "@/hooks/useToolResultSignal";
@@ -207,6 +208,7 @@ const BcMatchningstest = () => {
         </div>
       </main>
 
+      {result && showResult && <div className="container mx-auto max-w-4xl px-4 mb-6"><ToolResultNextStep tool="match_bc" product="business-central" entry={{ label: "Matchningstest Business Central", industry: result.segmentLabel || undefined, values: { Segment: result.segmentLabel || "" } }} /></div>}
       {result && showResult && <BookingOffer placement="matchning-bc" className="container mx-auto max-w-4xl px-4" />}
       {result && showResult && <SuggestedPartnersCTA product="bc" />}
       <Footer />

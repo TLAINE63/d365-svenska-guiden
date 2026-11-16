@@ -1,3 +1,4 @@
+import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -444,6 +445,7 @@ const CrmMatchningstestResultat = ({ productKey }: Props) => {
               />
 
 
+              <ToolResultNextStep tool={`match_${productKey}`.slice(0, 40)} product={productKey} className="mb-6" entry={{ label: `Matchningstest ${config.productName}`, values: { Matchningsgrad: `${score.total}/100`, Resultat: level.headline, "Starkaste behov": tops.map((t) => t.key).join(", ") } }} />
               <BookingOffer placement={`matchning-${productKey}`} />
 
               {/* Vidare läsning */}
