@@ -3,7 +3,7 @@
  * tillsammans med tre frågor att ställa till leverantörer. Thomas får bara veta
  * om det när besökaren själv kryssat i att han får höra av sig.
  */
-export type ResultSummaryTool = "kostnad" | "behovsguide";
+export type ResultSummaryTool = "kostnad" | "behovsguide" | "underlag";
 
 export const RESULT_SUMMARY_MAX_LINES = 15;
 export const RESULT_SUMMARY_MAX_LINE_LENGTH = 200;

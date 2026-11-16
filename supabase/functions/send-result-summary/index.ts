@@ -8,6 +8,8 @@ import { isFreeEmailDomain, FREE_EMAIL_ERROR_SV } from "../_shared/freeEmailDoma
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const THOMAS = "thomas.laine@dynamicfactory.se";
+const PDF_BUCKET = "email-documents";
+const MAX_PDF_BASE64 = 2_000_000;
 
 const QUESTIONS: Record<string, { title: string; subject: string; questions: string[] }> = {
   kostnad: {
@@ -17,6 +19,15 @@ const QUESTIONS: Record<string, { title: string; subject: string; questions: str
       "Vilka delar av projektet är fastpris och vilka är löpande räkning, och vad händer om omfattningen växer?",
       "Hur många timmar har ni räknat för datamigrering, integrationer och utbildning, och vem gör vad hos oss?",
       "Vilka licenser behöver vi från start, och vilka kan vänta tills vi vet hur systemet används?",
+    ],
+  },
+  underlag: {
+    title: "Ert beslutsunderlag",
+    subject: "Ert beslutsunderlag från d365.se (PDF)",
+    questions: [
+      "Vilka antaganden i underlaget stämmer inte för oss, och hur påverkar det kostnad och nytta?",
+      "Hur ser ert förslag ut för att komma igång i etapper, och vad kostar första steget?",
+      "Vilka liknande kunder har ni hjälpt, och vilket resultat fick de efter ett år?",
     ],
   },
   behovsguide: {
@@ -111,7 +122,19 @@ Deno.serve(async (req) => {
       const { data: claimed } = await db.from("result_summary_requests")
         .update({ confirmed_at: new Date().toISOString() }).eq("id", row.id).is("confirmed_at", null).select("id");
       if (!claimed?.length) return json({ ok: true, already: true });
-      await send({ from: "Thomas Laine på d365.se <info@d365.se>", to: [row.email], reply_to: THOMAS, subject: cfg.subject, html: summaryHtml(cfg, lines) });
+      // Underlags-PDF (verktyg) lagras privat och bifogas först efter bekräftelse.
+      let attachments: { filename: string; content: string }[] | undefined;
+      if (row.tool === "underlag") {
+        const path = `resultat/${await sha256(token)}.pdf`;
+        const { data: file } = await db.storage.from(PDF_BUCKET).download(path);
+        if (file) {
+          const buf = new Uint8Array(await file.arrayBuffer());
+          let bin = ""; for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode(...buf.subarray(i, i + 0x8000));
+          attachments = [{ filename: "d365-beslutsunderlag.pdf", content: btoa(bin) }];
+          await db.storage.from(PDF_BUCKET).remove([path]).catch(() => {});
+        }
+      }
+      await send({ from: "Thomas Laine på d365.se <info@d365.se>", to: [row.email], reply_to: THOMAS, subject: cfg.subject, html: summaryHtml(cfg, lines), ...(attachments ? { attachments } : {}) });
       if (row.follow_up) {
         await send({
           from: "d365.se <info@d365.se>", to: [THOMAS], reply_to: row.email,
@@ -143,6 +166,14 @@ Deno.serve(async (req) => {
 
     const bytes = crypto.getRandomValues(new Uint8Array(32));
     const token = Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
+    if (tool === "underlag") {
+      const pdf = typeof body.pdf_base64 === "string" ? body.pdf_base64 : "";
+      if (!pdf || pdf.length > MAX_PDF_BASE64 || !/^[A-Za-z0-9+/=]+$/.test(pdf)) return json({ error: "PDF-filen kunde inte tas emot." }, 400);
+      const bytes = Uint8Array.from(atob(pdf), (c) => c.charCodeAt(0));
+      if (new TextDecoder().decode(bytes.subarray(0, 5)) !== "%PDF-") return json({ error: "PDF-filen kunde inte tas emot." }, 400);
+      const { error: upErr } = await db.storage.from(PDF_BUCKET).upload(`resultat/${await sha256(token)}.pdf`, bytes, { contentType: "application/pdf", upsert: true });
+      if (upErr) throw upErr;
+    }
     const { error: insErr } = await db.from("result_summary_requests").insert({
       token_hash: await sha256(token), email, tool, lines, follow_up: followUp, source_page: sourcePage,
     });
