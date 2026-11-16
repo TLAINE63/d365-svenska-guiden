@@ -170,6 +170,10 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
               {busy === e.id ? "Hämtar…" : e.label}
             </Button>
           ))}
+          <Button disabled={!!busy || !from} onClick={downloadCrmPackage}>
+            <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+            {busy === "crm" ? "Hämtar…" : "Ladda ner CRM-paket"}
+          </Button>
         </div>
       </div>
       <div className="space-y-3">
