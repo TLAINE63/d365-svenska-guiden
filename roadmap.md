@@ -1,3 +1,9 @@
+## Nästa steg på djupsidor, del 2 (2026-11-16)
+- [ ] Gemensamma, förrenderingsbara nästa steg på jämförelser, pris/kostnad och partnerlistor, cirka en tredjedel in och vid slutet.
+- [ ] Partnerprofiler: högst tre lokala val och länk med produkt, bransch, partners och ursprung till befintlig förfrågan; kontaktvägar bevaras.
+- [ ] Kunskapsartiklar: två ämnesanpassade länkar till jämförelse/pris, utan omskriven artikeltext.
+- [ ] Tester och dator/mobilflöde; publicerad rå HTML kontrolleras efter publicering. Del 3–5 byggs inte i denna del.
+
 ## Direktbokning med Thomas (2026-11-16)
 - [x] Gemensamt bokningserbjudande efter resultat, partnerlistor, jämförelse och hämtat underlag; befintligt rådgivningsformulär med placeringskälla. Rubrik utan ”oberoende”.
 - [x] Anonyma bokningsklick utan IP/id, internflagga och adminöversikt för sex månader; inga CRM-exportändringar. Tjänsterna driftsatta, inga booking_click i demand_events.
