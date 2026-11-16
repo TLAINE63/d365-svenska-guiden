@@ -284,6 +284,13 @@ const Index = () => {
       cta: "Få svar",
       to: "/fraga/",
     },
+    {
+      icon: Sparkles,
+      title: "Affärsnytta & ROI",
+      desc: "Räkna på nyttan, återbetalningstiden och kassaflödet.",
+      cta: "Räkna på nyttan",
+      to: "/verksamhetsvardering/",
+    },
   ];
 
 
@@ -322,10 +329,16 @@ const Index = () => {
             <p className="mb-5 sm:mb-6 max-w-2xl sm:max-w-3xl text-[14px] sm:text-[15px] lg:text-[17px] leading-relaxed text-primary-foreground/75">
               Ska ni välja nytt CRM- eller affärssystem (ERP), förstå vad Dynamics&nbsp;365 kostar eller få ut mer av en lösning ni redan använder? Här får ni hjälp att förstå alternativen och hitta rätt nästa steg utifrån era behov.
             </p>
-            <p className="mb-2 sm:mb-3 text-[13.5px] sm:text-[15px] lg:text-[17px] font-semibold leading-relaxed text-primary-foreground">
-
-              Vad stämmer bäst in på er situation?
-            </p>
+            <div className="mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+              <Button asChild size="lg" className="w-full sm:w-auto h-12 px-6 text-base font-bold">
+                <Link to="/forfragan/?kalla=startsida" data-home-primary-cta>
+                  Få förslag på partners
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+              <span className="text-[13px] text-primary-foreground/65">Kostnadsfritt. Ni väljer själva vilka partners som får ert underlag.</span>
+            </div>
+            <p className="mb-2 text-[13px] font-semibold text-primary-foreground/80">Eller välj utifrån er situation:</p>
             <DecisionModel onStartNeedsAnalysis={() => setDirectionPicker("behovsanalys")} onOpenCompetenceChoice={() => setCompetenceChoiceOpen(true)} />
             <CompetenceChoiceDialog open={competenceChoiceOpen} onOpenChange={setCompetenceChoiceOpen} />
             <AdvisoryOffer
