@@ -59,6 +59,7 @@ import PostHogStatsCard from "@/components/PostHogStatsCard";
 import AdminUnderlagFunnel from "@/components/AdminUnderlagFunnel";
 import BuyerFunnelCard from "@/components/BuyerFunnelCard";
 import BuyerPathsReportCard from "@/components/BuyerPathsReportCard";
+import LeadStepsReportCard from "@/components/LeadStepsReportCard";
 import JourneyFunnelsCard from "@/components/JourneyFunnelsCard";
 import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import AiLibraryStatsCard from "@/components/AiLibraryStatsCard";
@@ -349,6 +350,7 @@ export default function Redaktion() {
           <TabsContent value="stats" className="space-y-6">
             <JourneyFunnelsCard token={token} onSessionExpired={logout} />
             <BuyerPathsReportCard token={token} onSessionExpired={logout} />
+            <LeadStepsReportCard token={token} onSessionExpired={logout} />
             <BuyerFunnelCard token={token} onSessionExpired={logout} />
             <AiLibraryStatsCard token={token} onSessionExpired={logout} />
             <PostHogStatsCard token={token} onSessionExpired={logout} />

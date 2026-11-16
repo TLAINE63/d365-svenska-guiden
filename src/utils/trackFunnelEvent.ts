@@ -50,7 +50,8 @@ export type FunnelEventType =
   | "role_guidance"
   | "underlag"
   | "ai_library"
-  | "advisory";
+  | "advisory"
+  | "lead_steg";
 
 /** Fasta steg i köparresan. */
 export type FunnelStep =

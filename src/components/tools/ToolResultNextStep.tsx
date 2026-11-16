@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { trackLeadStep } from "@/lib/leadSteps";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowRight, Check } from "lucide-react";
@@ -17,6 +18,8 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
   const [saving, setSaving] = useState(false);
   const [failed, setFailed] = useState(false);
 
+  useEffect(() => { trackLeadStep("verktyg_resultat", tool, { once: true }); }, [tool]);
+
   const resolve = (): ToolEntry | undefined => {
     if (!entry) return findTool(tool);
     const e = { ...entry, tool, values: Object.fromEntries(Object.entries(entry.values).filter(([, v]) => v)) };
@@ -34,6 +37,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
       await generateToolUnderlagPdf(t, date);
       savePlanCalculation({ id: tool, product: t.label, url: pathname, rows: Object.entries(t.values).map(([label, value]) => ({ label, value })) });
       setSaved(true);
+      trackLeadStep("verktyg_sparat", tool);
     } catch {
       setFailed(true);
     } finally {
@@ -52,7 +56,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
       <p className="mt-1 text-sm text-muted-foreground">Ladda ner resultatet som PDF. Det sparas också i Min D365-plan.</p>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <Button onClick={save} disabled={saving} variant="default">{saved ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}{saving ? "Skapar PDF…" : saved ? "Sparat" : "Spara underlaget"}</Button>
-        <Link to={href()} onClick={(e) => { (e.currentTarget as HTMLAnchorElement).href = href(); }} className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline">
+        <Link to={href()} onClick={(e) => { (e.currentTarget as HTMLAnchorElement).href = href(); trackLeadStep("nasta_steg_klick", tool); }} className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline">
           Få förslag på partners utifrån underlaget <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

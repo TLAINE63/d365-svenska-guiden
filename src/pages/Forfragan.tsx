@@ -1,6 +1,7 @@
 import { findTool, toolSummary } from "@/lib/toolUnderlag";
 import { readInquiryPartners } from "@/lib/inquirySelection";
 import { useEffect, useState } from "react";
+import { trackLeadStep } from "@/lib/leadSteps";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -54,7 +55,7 @@ const Forfragan = () => {
   }, [sp]);
 
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setF((s) => ({ ...s, [k]: e.target.value }));
+    { trackLeadStep("forfragan_paborjad", "forfragan", { once: true }); setF((s) => ({ ...s, [k]: e.target.value })); }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +71,7 @@ const Forfragan = () => {
     setBusy(false);
     if (error) return setErr("Förfrågan kunde inte skickas. Försök igen om en stund.");
     setDone(true);
+    trackLeadStep("forfragan_skickad", pre.kalla ? "forfragan_" + pre.kalla.replace(/[^a-z0-9_-]/gi, "").slice(0, 20) : "forfragan");
     window.scrollTo({ top: 0 });
   };
 
