@@ -113,6 +113,48 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
     }
   };
 
+  /** Hämtar en export och returnerar blobben, eller null vid fel (felmeddelande sätts). */
+  const fetchExport = async (query: string): Promise<Blob | null> => {
+    const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${query}`, { headers: { Authorization: `Bearer ${token}` } });
+    if (res.status === 401) {
+      setError("Exporterna kräver admininloggning.");
+      onUnauthorized();
+      return null;
+    }
+    if (!res.ok) {
+      setError(res.status === 400 ? "Ogiltigt datum eller månad." : "Exporten misslyckades.");
+      return null;
+    }
+    return res.blob();
+  };
+
+  const saveBlob = (blob: Blob, file: string) => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${file}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  /** Laddar ner leads och händelser som två separata CSV-filer, Från-datum till och med i dag (Stockholmstid). */
+  const downloadCrmPackage = async () => {
+    setBusy("crm");
+    setError(null);
+    try {
+      const to = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm" }).format(new Date());
+      const leads = await fetchExport(`export-demand-leads?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+      if (!leads) return;
+      const events = await fetchExport(`export-demand-events?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&company=1`);
+      if (!events) return;
+      saveBlob(leads, `demand-leads-${from}-${to}`);
+      saveBlob(events, `demand-events-${from}-${to}`);
+    } catch {
+      setError("Exporten misslyckades.");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-3">
@@ -128,6 +170,10 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
               {busy === e.id ? "Hämtar…" : e.label}
             </Button>
           ))}
+          <Button disabled={!!busy || !from} onClick={downloadCrmPackage}>
+            <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+            {busy === "crm" ? "Hämtar…" : "Ladda ner CRM-paket"}
+          </Button>
         </div>
       </div>
       <div className="space-y-3">
