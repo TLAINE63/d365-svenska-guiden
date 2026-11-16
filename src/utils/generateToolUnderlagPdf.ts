@@ -89,3 +89,8 @@ export async function generateToolUnderlagPdf(entry: ToolEntry, date: string) {
   const doc = await createToolUnderlagPdf(entry, date);
   doc.save(toolPdfFilename(entry.tool, date));
 }
+/** Same PDF as base64 for the e-mail flow (no download). */
+export async function toolUnderlagPdfBase64(entry: ToolEntry, date: string): Promise<string> {
+  const doc = await createToolUnderlagPdf(entry, date);
+  return (doc.output("datauristring") as string).split(",")[1] ?? "";
+}
