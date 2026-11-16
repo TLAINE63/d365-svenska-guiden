@@ -330,6 +330,13 @@
       "when": 1794824514619,
       "tag": "0046_add_tool_context",
       "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1794867588544,
+      "tag": "0047_create_forfragningar",
+      "breakpoints": true
     }
   ]
 }
