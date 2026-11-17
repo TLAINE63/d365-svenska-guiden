@@ -16,7 +16,6 @@ import FindersFeeSection from "@/components/partner/FindersFeeSection";
 import ProgramNavigation from "@/components/ProgramNavigation";
 import PartnerOrderDialog from "@/components/PartnerOrderDialog";
 import PremiumBenefitsVisual from "@/components/PremiumBenefitsVisual";
-import { AGREEMENT_DURATION_TERMS } from '@/lib/partnerOrder';
 import SEOHead from "@/components/SEOHead";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Button } from "@/components/ui/button";
@@ -352,7 +351,6 @@ const Partnerprogram = () => {
 
       <MarketPulseSection />
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
-        <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 1 · Premium</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Premium partner, er presentation och prislista</h2>
