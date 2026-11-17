@@ -5,9 +5,9 @@ const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meet
 const isv = { presence: true, extraApps: 2, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 100000, consultBasis: 200000 };
 
 describe("Budget 2027 editable assumptions", () => {
-  it("small deal: no meeting fee, 2.5 percent and minimum 3000", () => {
-    expect(dealPricing(50000, "basic", budgetPricing())).toEqual({ meeting: 0, commission: 3000 });
-    expect(dealPricing(200000, "premium", budgetPricing())).toEqual({ meeting: 0, commission: 5000 });
+  it("small deal: 1500 kr meeting, 2.5 percent and minimum 3000", () => {
+    expect(dealPricing(50000, "basic", budgetPricing())).toEqual({ meeting: 1500, commission: 3000 });
+    expect(dealPricing(200000, "premium", budgetPricing())).toEqual({ meeting: 1500, commission: 5000 });
   });
   it("250000–1000000: Premium meeting 3000, Basic 5000, 2.5 percent", () => {
     expect(dealPricing(250000, "premium", budgetPricing())).toEqual({ meeting: 3000, commission: 6250 });
@@ -60,7 +60,7 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("partner and ISV group totals never double-count legacy estimates", () => {
     const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
-    expect(s.partner.estimate).toBe(15980 + 3000 + 25000);
+    expect(s.partner.estimate).toBe(15980 + 3000 + 22000);
     expect(s.isv.estimate).toBe(2990);
   });
   it("expert fee per filled assignment: 7500/12500 short, 15000/25000 long", () => {
