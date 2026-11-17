@@ -13,9 +13,9 @@ function scrollToSection(id: string, bar: HTMLElement | null, smooth: boolean) {
   const target = document.getElementById(id);
   if (!target) return;
   if (target instanceof HTMLDetailsElement) target.open = true;
-  const heading = target.querySelector("h2, h3, summary") ?? target;
+  const heading = target.querySelector("p, h2, h3, summary") ?? target;
   const stickyTop = bar ? parseFloat(getComputedStyle(bar).top) || 0 : 0;
-  const offset = stickyTop + (bar?.offsetHeight ?? 0) + 24;
+  const offset = stickyTop + (bar?.offsetHeight ?? 0) + 32;
   const top = heading.getBoundingClientRect().top + window.scrollY - offset;
   window.scrollTo({ top: Math.max(0, top), behavior: smooth ? "smooth" : "auto" });
 }
