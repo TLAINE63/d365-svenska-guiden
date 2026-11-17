@@ -1,6 +1,7 @@
 import { MONTH_PRICE, YEAR_PRICE, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import type { AgreementPdfSection } from "./generatePartnerAgreementPdf";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
+import { AGREEMENT_DURATION_TERMS } from '@/lib/partnerOrder';
 
 export type TermsArea = "partner" | "isv" | "commission";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
@@ -42,15 +43,17 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "partner") return [
     ...PARTNER_PROFILE_TERMS,
     { title: "Produktområden", body: "CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår i Premium." },
-    { title: "Fakturering och avtalstid", body: "Prislista 2027 gäller från 2026-11-10. Månadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen." },
+    { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 gäller från 2026-11-10. Månadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post. Årsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
   ];
   if (area === "isv") return [
+    { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "ISV Presence", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
     { title: "Presentation och verifiering", body: "Verifiering och ISV Presence är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Presence. Utökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns. Abonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
     { title: "Förmedling", body: "ISV Presence och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsavtal (Finder’s fee)." },
   ];
   return [
     ...PARTNER_PROFILE_TERMS,
+    { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
     { title: "Nya projekt", body: "Mötesavgift per kvalificerat möte och avgift vid affär på 2,5 procent av affärens konsult- och projektvärde. Under 250 tkr gäller lägsta avgift 3 000 kr, över 1 Mkr högst 100 000 kr. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär; avräkningen blir aldrig negativ. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte." },
     { title: "Partnerbyte", body: "Endast mötesavgift enligt prisbilagan, ingen avgift vid affär." },
