@@ -396,7 +396,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="text-xs">{status(p) === "premium" ? "Premium" : status(p) === "published" ? "Publicerad" : "Grund"}{p.has_finders_fee ? " · FF" : ""}</td>
                       <td className="pr-1"><select className={sel} value={r.forecast} onChange={(e) => setRow(p.id, { forecast: e.target.value as Forecast }, p)}>{Object.entries(FORECAST_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></td>
                       <td className="pr-1"><select className={sel} value={r.products} onChange={(e) => setRow(p.id, { products: Number(e.target.value) }, p)}>{[1, 2, 3].map((x) => <option key={x}>{x}</option>)}</select></td>
-                      <td className="pr-1"><BudgetNumberInput min={0} max={100} className="h-8 w-16" value={(r.discount) || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { discount: Math.min(100, value) }, p)} /></td>
+                      <td className="pr-1"><BudgetNumberInput min={0} max={100} className="h-8 w-12" value={(r.discount) || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { discount: Math.min(100, value) }, p)} /></td>
                       {(() => { const d = partnerDeals(r); return DEAL_BAND_KEYS.flatMap((k) => (["meetings", "wins"] as const).map((f) => (
                         <td key={k + f} className="pr-1"><BudgetNumberInput min={0} className="h-8 w-12" value={d[k][f] || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { deals: { ...d, [k]: { ...d[k], [f]: value } } }, p)} /></td>
                       ))); })()}
