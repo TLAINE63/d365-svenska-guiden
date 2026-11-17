@@ -6,6 +6,9 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import GuideBreadcrumb from "@/components/guides/GuideBreadcrumb";
 import EditorialSource from "@/components/EditorialSource";
+import PhotoSteps from "@/components/PhotoSteps";
+import buyerAsks from "@/assets/journey/buyer-asks.jpg";
+import advisorAnswers from "@/assets/journey/advisor-answers.jpg";
 import { Button } from "@/components/ui/button";
 import PlanContactDialog, { type ContactTopic } from "@/components/plan/PlanContactDialog";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -111,6 +114,14 @@ const SecondOpinion = () => {
             <div className="grid gap-4 md:grid-cols-2">
               {reviewable.map((r) => <div key={r.t} className="rounded-lg border border-border bg-card p-5"><h3 className="font-semibold mb-1">{r.t}</h3><p className="text-sm text-muted-foreground">{nowrapBrand(r.d)}</p></div>)}
             </div>
+          </section>
+
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4">Så går en genomgång till</h2>
+            <PhotoSteps cols={2} steps={[
+              { img: buyerAsks, alt: "Beslutsfattare med underlag och frågor", title: "Ert underlag och era frågor", text: "En offert, en kravbild eller en känsla av att projektet inte går som tänkt. Det räcker att börja där." },
+              { img: advisorAnswers, alt: "Rådgivare som går igenom underlag", title: "Vår genomgång", text: "Vi bedömer rimlighet, pekar på risker och dolda kostnader och ger konkreta frågor att ställa innan ni bestämmer er." },
+            ]} />
           </section>
 
           <section className="mb-12 grid gap-8 md:grid-cols-2">

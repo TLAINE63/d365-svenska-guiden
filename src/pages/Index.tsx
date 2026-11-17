@@ -8,6 +8,11 @@ import DecisionModel from "@/components/home/DecisionModel";
 import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialog";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import Footer from "@/components/Footer";
+import PhotoSteps from "@/components/PhotoSteps";
+import journeyResearch from "@/assets/journey/scene1-research.jpg";
+import journeyDiscussion from "@/assets/journey/scene2-discussion.jpg";
+import journeyAdvice from "@/assets/journey/scene4-advice.jpg";
+import journeyPartner from "@/assets/journey/scene5-partner.jpg";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import CountUp from "@/components/CountUp";
@@ -756,6 +761,19 @@ const Index = () => {
 
 
 
+
+        <section aria-labelledby="kopresan-rubrik" className="section-divider py-14 sm:py-20 bg-secondary/40 border-b border-border">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+            <h2 id="kopresan-rubrik" className="text-2xl sm:text-3xl font-bold text-center mb-3">Från första research till rätt partner</h2>
+            <p className="text-center text-sm text-muted-foreground mb-10 max-w-2xl mx-auto">Ni styr takten. Varje steg går att ta på egen hand, och hjälp finns när ni vill ha den.</p>
+            <PhotoSteps steps={[
+              { img: journeyResearch, alt: "Person som gör research vid datorn", title: "Research på era villkor", text: "Undersök behov, jämför lösningar och räkna på affärsnytta helt utan säljkontakt." },
+              { img: journeyDiscussion, alt: "Ledningsgrupp i diskussion runt ett bord", title: "Intern förankring", text: "Skapa samsyn mellan ledning, IT och verksamhet kring prioriteringar och budget." },
+              { img: journeyAdvice, alt: "Rådgivningssamtal mellan två personer", title: "Kostnadsfritt bollplank", text: "Gå igenom underlaget med d365.se och undvik vanliga fallgropar." },
+              { img: journeyPartner, alt: "Möte mellan kund och partner", title: "Rätt partnerdialog", text: "Möt upp till tre partners med erfarenhet från er bransch och era Dynamics 365-produkter." },
+            ]} />
+          </div>
+        </section>
 
         {/* FAQ */}
         <section id="questions" className="section-divider py-12 sm:py-16 bg-background">

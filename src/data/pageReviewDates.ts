@@ -303,7 +303,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/dynamics-365-partners-in-sweden/": "2026-10-22",
   "/dynamics-365-crm-partners-sverige/": "2026-11-16",
   "/guider/valja-dynamics-365-sales-partner/": "2026-10-30",
-  "/second-opinion/": "2026-10-24",
+  "/second-opinion/": "2026-11-17",
   "/guider/optimera-dynamics-365/": "2026-10-24",
   "/guider/dynamics-365-support-forvaltning/": "2026-11-09",
   "/valjdynamics365partner/": "2026-11-16",
