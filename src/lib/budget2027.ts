@@ -104,7 +104,7 @@ export const SUCCESS_AREAS = [
   { key: "successExpert", label: "CV- och expertuppdrag", value: 300000 },
 ];
 export const successUnit = (value: number) => (value > 100000 ? Math.round(value * FEES.successRate) : 0);
-export const successValue = (key: string, values: Record<string, number> = {}) => values[key] ?? SUCCESS_AREAS.find((a) => a.key === key)?.value || 0;
+export const successValue = (key: string, values: Record<string, number> = {}) => values[key] ?? SUCCESS_AREAS.find((a) => a.key === key)?.value ?? 0;
 export const unitFor = (c: Category, values: Record<string, number> = {}, pricing = budgetPricing()) => (c.success ? dealPricing(successValue(c.key, values), "premium", pricing).commission : (pricing.units[c.key] ?? c.unit) * (c.key.startsWith("month") ? 12 : 1));
 export const CATEGORIES: Category[] = [
   ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, betalt i förskott.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
