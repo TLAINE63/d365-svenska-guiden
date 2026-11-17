@@ -184,7 +184,7 @@ export default function AllD365Partners() {
         </section>
 
         {/* Search & filter */}
-        <section data-sticky-offset className="py-6 border-b border-border bg-background sticky top-16 z-20 backdrop-blur">
+        <section data-sticky-offset className="py-6 border-b border-border bg-background lg:sticky lg:top-16 z-20 backdrop-blur">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="flex flex-col gap-3">
               <div className="relative">

@@ -1182,7 +1182,7 @@ const Kunskapscenter = () => {
 
 
  {/* Filters */}
- <section className="border-b border-border sticky top-16 z-40 bg-background/95 supports-[backdrop-filter]:bg-background/60 ">
+ <section className="border-b border-border lg:sticky lg:top-16 z-40 bg-background/95 supports-[backdrop-filter]:bg-background/60 ">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-3">
  <div className="flex flex-wrap items-center gap-3">
  {/* Category pills */}
