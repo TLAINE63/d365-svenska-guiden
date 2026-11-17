@@ -272,9 +272,11 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <li>Befintlig kundrelation, partnern visar aktiv dialog inom: 5 arbetsdagar</li>
           </ul>
         </details>
+        {saveRow}
       </section>
 
       <FunnelBudget budget={budget} setBudget={setBudget} />
+      {saveRow}
 
       <Card id="budget-subscriptions" className="scroll-mt-32">
         <CardHeader>
