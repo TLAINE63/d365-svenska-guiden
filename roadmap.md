@@ -1,3 +1,8 @@
+## Budget 2027, redigerbara antaganden (2026-11-17)
+- [ ] Redigerbara kostnadsnamn och samtliga intäktspriser/provisioner, med sparade budgetvärden.
+- [ ] Ny justerbar modell för möten och affärsprovision i tre beloppsintervall; ISV-provision som utgångspunkt 0 %.
+- [ ] Beräkningstester och inloggad kontroll av redigering, summering och sparande.
+
 ## Premium-PDF för Spara underlaget (2026-11-17)
 - [x] Word-nedladdningen ersatt med gemensam premium-PDF; Min D365-plan och förfrågans förifyllnad bevarade.
 - [x] Verklig PDF-nedladdning från Affärsnytta & ROI och sparande verifierade; en sida och femsidigt långt underlag visuellt granskade utan överlapp eller klippning. Sex tester godkända, inga runtimefel.
