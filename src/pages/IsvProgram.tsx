@@ -43,7 +43,6 @@ const faqs = [
 const programSections = [
   { id: "for-isver", label: "Översikt" },
   { id: "priser-innehall", label: "Prislista" },
-  { id: "finders-fee", label: "Finder’s fee" },
   { id: "isv-profilkoll", label: "Profiler & jämförelser" },
   { id: "verifiering", label: "Verifiering" },
   { id: "formedling", label: "Synlighet & Affärsmöjligheter" },
@@ -143,44 +142,6 @@ const IsvProgram = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>
                 <IsvOrderDialog />
               </div>
-              <div id="finders-fee" className="rounded-xl border border-border bg-card p-6 md:p-8 scroll-mt-64">
-              <h3 className="text-2xl font-bold mb-3">Finder’s fee (Business Referral) - så fungerar det</h3>
-              <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret behov. Avtalet är frivilligt och separat från ISV Presence: ni kan ha båda, ett av dem eller inget. Ni betalar bara när det leder till en genomförd affär.</p>
-              <ol className="space-y-4 mb-6">
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, tilläggskatalogen, en kravspecifikation eller ett samtal med oss.</p></div></li>
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span><div><p className="font-semibold text-foreground">Vi kvalificerar affären</p><p className="text-sm text-muted-foreground">Vi går igenom behov, tidplan och budget. Bara konkreta projekt med tydlig avsikt att gå vidare blir en affärsmöjlighet.</p></div></li>
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span><div><p className="font-semibold text-foreground">Ni får frågan först</p><p className="text-sm text-muted-foreground">Vi beskriver möjligheten för er. Ni bedömer om den passar och accepterar villkoren innan något händer. Affären registreras med datum och berörda parter.</p></div></li>
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">4</span><div><p className="font-semibold text-foreground">Köparen säger ja</p><p className="text-sm text-muted-foreground">Köparen lämnar sitt samtycke. Därefter introducerar vi kunden för er. Finder’s fee gäller när ni säljer direkt till kunden.</p></div></li>
-<li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">5</span><div><p className="font-semibold text-foreground">Ersättning bara vid affär</p><p className="text-sm text-muted-foreground">Ni betalar först när affären är genomförd och kunden har betalat. Blir det ingen affär kostar det ingenting.</p></div></li>
-</ol>
-              <h4 className="font-semibold text-foreground mb-2">Ersättning</h4>
-              <div className="overflow-x-auto rounded-lg border border-border mb-4">
-                <table className="w-full text-sm">
-                  <thead className="bg-muted/50"><tr>
-                    <th scope="col" className="text-left font-semibold px-4 py-3">Intäkt</th>
-                    <th scope="col" className="text-right font-semibold px-4 py-3">Success fee</th>
-                  </tr></thead>
-                  <tbody>
-                    <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">ISV:ns nettointäkter från licenser eller abonnemang, affärens första 12 månader</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">5&nbsp;%</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left font-normal px-4 py-3">Nettointäkter från ett separat förmedlat implementations- eller konsultuppdrag</th><td className="text-right px-4 py-3 whitespace-nowrap font-semibold">2,5&nbsp;%</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-sm text-muted-foreground mb-5">Ingen fast avgift och ingen mötesavgift. <strong className="font-semibold text-foreground">Success fee på 5 procent av licensintäkterna under första året och 2,5 procent av konsultintäkterna</strong>, exklusive moms.</p>
-              <h4 className="font-semibold text-foreground mb-2">Villkor i korthet</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground mb-5">
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Gäller bara nya, registrerade och av er godkända affärsmöjligheter.</li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Beräknas på betalade intäkter exklusive moms, rabatter, återbetalningar och vidarefakturerade tredjepartskostnader.</li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span>Gäller bara när ni säljer <strong className="font-semibold text-foreground">direkt till slutkunden</strong>. Säljs produkten via en återförsäljande Dynamics&nbsp;365-partner som får marginal eller provision av er utgår ingen Finder’s fee.</span></li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Gäller normalt första affären, inte förnyelser eller tilläggsbeställningar. Samma intäkt provisionsbeläggs aldrig dubbelt.</li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen ersättning uppstår av enbart ett formulär, ett klick eller en obesvarad förfrågan.</li>
-<li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Köparen informeras när en förmedling kan ge ersättning till d365.se.</li>
-</ul>
-              <p className="text-xs text-muted-foreground mb-5">Introduktioner påverkar aldrig ordningen i katalogen eller våra rekommendationer.</p>
-              <ContactFormDialog buyerForm={false} title="Begär Finder’s fee-avtal för ISV" description="Fyll i era kontaktuppgifter så skickar vi förmedlingsavtalet." subject="Ansökan: Finder’s fee-avtal (ISV)">
-                <Button size="lg" variant="outline">Begär Finder’s fee-avtal<ArrowRight className="w-4 h-4 ml-2" /></Button>
-              </ContactFormDialog>
-            </div>
             </div>
             <div id="verifiering" className="mt-8 max-w-4xl rounded-xl border border-border bg-secondary/30 p-6 scroll-mt-64">
               <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -207,7 +168,6 @@ const IsvProgram = () => {
             <p className="max-w-3xl text-muted-foreground mb-6">ISV Presence innebär inte garanterade leads. Eventuell förmedling och kommersiella villkor diskuteras separat och påverkar aldrig katalogordningen eller rekommendationerna.</p>
             
             <div className="flex flex-wrap gap-3">
-              <ContactFormDialog subject="Business Referral (ISV)" buyerForm={false}><Button>Diskutera affärssamarbete<ArrowRight className="w-4 h-4 ml-2" /></Button></ContactFormDialog>
               <Button asChild variant="outline"><Link to="/kunskapscenter/dynamics-365-tillagg/">Se tilläggskatalogen<ArrowRight className="w-4 h-4 ml-2" /></Link></Button>
             </div>
           </div>
