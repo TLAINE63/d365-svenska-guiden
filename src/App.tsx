@@ -53,6 +53,7 @@ const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
 const AIOverview = lazy(() => import("./pages/AIOverview"));
+const AiHub = lazy(() => import("./pages/AiHub"));
 const AiExempel = lazy(() => import("./pages/AiExempel"));
 const AiExempelDetalj = lazy(() => import("./pages/AiExempelDetalj"));
 const AIReadiness = lazy(() => import("./pages/AIReadiness"));
@@ -239,6 +240,7 @@ const AppShell = () => {
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/aioversikt" element={<AIOverview />} />
+          <Route path="/ai" element={<AiHub />} />
           <Route path="/ai/exempel" element={<AiExempel />} />
           <Route path="/ai/exempel/bc-agent-repetitiv" element={<RedirectTo to="/ai/exempel/bc-sales-order-agent/" />} />
           <Route path="/ai/exempel/finance-hitta-ekonomisk-information" element={<RedirectTo to="/ai/exempel/finance-fraga-data/" />} />

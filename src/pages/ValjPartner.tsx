@@ -1157,6 +1157,18 @@ const ValjPartner = () => {
   <li>d365.se:s bedömning av partnerns underlag. Ett val visar även partners på högre nivå.</li>
  </ul>
 
+ <FilterButtons
+  title="Behöver ni Copilot- eller AI-kompetens?"
+  icon="competence"
+  options={COMPETENCE_OPTIONS.filter((c) => c.value !== "power_platform").map((c) => ({ label: c.label, value: c.value }))}
+  selectedValue={competence}
+  onSelect={(v) => setCompetence((v as CompetencyArea) || null)}
+  colorScheme="amber"
+ />
+ <p className="mx-auto -mt-4 mb-8 max-w-2xl text-center text-xs text-muted-foreground">
+  Visar partners där d365.se har bedömt minst dokumenterad kompetens. Uppgifter som inte är bekräftade räknas inte. Ordningen påverkas inte.
+ </p>
+
  {agentOptions.length > 0 && (
   <>
    <FilterButtons

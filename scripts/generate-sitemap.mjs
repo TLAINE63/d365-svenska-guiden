@@ -25,6 +25,7 @@ const STATIC_ROUTES = [
   { path: "/finance-supply-chain-management/matchningstest/", changefreq: "monthly", priority: "0.7" },
   { path: "/affarssystem/", changefreq: "monthly", priority: "0.9" },
   { path: "/copilot/", changefreq: "monthly", priority: "0.8" },
+  { path: "/ai/", changefreq: "weekly", priority: "0.9" },
   { path: "/agents/", changefreq: "monthly", priority: "0.8" },
   { path: "/aioversikt/", changefreq: "monthly", priority: "0.8" },
   { path: "/ai/exempel/", changefreq: "monthly", priority: "0.7" },

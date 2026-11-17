@@ -27,7 +27,7 @@ import { findIndustryBySlug } from "@/data/standardIndustries";
 import { ARTICLE_BODY_CLASS } from "@/lib/articleBodyClass";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import { useEditorArticle } from "@/hooks/useEditorArticle";
-import { editorRowToBlogArticle, type EditorArticleRow } from "@/lib/editorArticle";
+import { editorRowToBlogArticle, editorArticleSources, type EditorArticleRow } from "@/lib/editorArticle";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
@@ -522,7 +522,7 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
       <ContinueEvaluation template="article" />
       <RelatedPages heading="Utforska Dynamics 365" pages={articleRelatedPages} />
       {/* Källor och redaktionsruta samlas längst ned, direkt ovanför footern. */}
-      <SourcesAndMethod externalSources={getArticleMicrosoftSources(article.content)} />
+      <SourcesAndMethod externalSources={!staticArticle && editorRow ? editorArticleSources(editorRow) : getArticleMicrosoftSources(article.content)} />
       <EditorialSource sourceType={/migr|uppgradering|nav till|ax till/i.test(article.title) ? "Migrationsguide" : "Köpguide"} updatedAt={new Date(KNOWLEDGE_CENTER_LAST_REVIEWED) > new Date(article.publishedAt) ? KNOWLEDGE_CENTER_LAST_REVIEWED : article.publishedAt} />
       <Footer />
     </>

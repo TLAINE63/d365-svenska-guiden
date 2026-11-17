@@ -40,6 +40,7 @@ import ERPOverview from './pages/ERPOverview';
 import Copilot from './pages/Copilot';
 import Agents from './pages/Agents';
 import AIOverview from './pages/AIOverview';
+import AiHub from './pages/AiHub';
 import AiExempel from './pages/AiExempel';
 import AiExempelDetalj from './pages/AiExempelDetalj';
 import { AI_EXAMPLES } from './data/aiExamples';
@@ -260,6 +261,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365commerce', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365humanresources', priority: '0.8', changefreq: 'monthly' },
   { path: '/copilot', priority: '0.8', changefreq: 'monthly' },
+  { path: '/ai', priority: '0.9', changefreq: 'weekly' },
   { path: '/agents', priority: '0.9', changefreq: 'monthly' },
   { path: '/aioversikt', priority: '0.7', changefreq: 'monthly' },
   { path: '/ai/exempel', priority: '0.7', changefreq: 'monthly' },
@@ -602,6 +604,7 @@ export function render(url: string) {
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />
               <Route path="/aioversikt" element={<AIOverview />} />
+              <Route path="/ai" element={<AiHub />} />
               <Route path="/ai/exempel" element={<AiExempel />} />
               <Route path="/ai/exempel/:slug" element={<AiExempelDetalj />} />
               <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />

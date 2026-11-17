@@ -33,6 +33,7 @@ import {
   Check,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -772,6 +773,21 @@ const Index = () => {
               { img: journeyAdvice, alt: "Rådgivningssamtal mellan två personer", title: "Kostnadsfritt bollplank", text: "Gå igenom underlaget med d365.se och undvik vanliga fallgropar." },
               { img: journeyPartner, alt: "Möte mellan kund och partner", title: "Rätt partnerdialog", text: "Möt upp till tre partners med erfarenhet från er bransch och era Dynamics 365-produkter." },
             ]} />
+          </div>
+        </section>
+
+        {/* AI & agenter: diskret ingång till AI-hubben */}
+        <section className="py-10 bg-background">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+            <Card>
+              <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+                <div>
+                  <h2 className="text-xl font-bold mb-1">AI och agenter i Dynamics&nbsp;365</h2>
+                  <p className="text-sm text-muted-foreground">Våra analyser av Microsofts AI-nyheter, konkreta agentexempel och partners med AI-kompetens.</p>
+                </div>
+                <Link to="/ai/" className="inline-flex items-center gap-1 text-sm font-semibold text-foreground underline underline-offset-4 whitespace-nowrap">Utforska AI & agenter<ArrowRight className="h-4 w-4" /></Link>
+              </CardContent>
+            </Card>
           </div>
         </section>
 

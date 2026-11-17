@@ -339,3 +339,5 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 ## ROI-kalkyler synkade med Thomas Excel-modeller BC 2026 och CRM (2026-11-13)
 - [x] Produktvisa exempelbolag (BC 2026 / CRM), realiseringstakt 50/80/100 % för anpassad implementation, NPV 5 %
 - [ ] PDF med verksamhetsvärdering väntar
+- [x] AI-hubb /ai (sprint 1)
+- [x] Ignite-artikel som huvudnyhet, Microsofts original som primärkälla
