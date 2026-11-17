@@ -10,6 +10,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { isFreeEmailDomain } from '@/lib/validateBusinessEmail';
 import { ISV_ORDER_VERSION, ISV_ORDER_FEES, ISV_MAX_EXTRA_APPS, ISV_SUBSCRIPTION_TERMS, isvOrderPrice, isvOrderRegularPrice, isvOrderValidation, type IsvOrderSelection } from '@/lib/isvOrder';
 import { toast } from 'sonner';
+import OfferPreview from '@/components/OfferPreview';
+import { ISV_BENEFITS } from '@/utils/partnerProfileTerms';
 
 const money = (n: number) => n.toLocaleString('sv-SE');
 const FIELDS = [['company', 'Företagsnamn'], ['organization_number', 'Organisationsnummer'], ['contact_name', 'Beställarens namn'], ['email', 'Företagsmejl'], ['invoice_email', 'Fakturamejl'], ['invoice_address', 'Fakturaadress']] as const;
@@ -52,14 +54,15 @@ export default function IsvOrderDialog() {
       <form onSubmit={submit} className="space-y-6">
         <div><Label htmlFor="isv-extra">Extra appar utöver den som ingår</Label><Input id="isv-extra" type="number" min={0} max={ISV_MAX_EXTRA_APPS} value={selection.extra_apps} onChange={e => setSelection(s => ({ ...s, extra_apps: Math.max(0, Math.min(ISV_MAX_EXTRA_APPS, Math.floor(Number(e.target.value) || 0))) }))} className="max-w-[10rem]" /><p className="text-xs text-muted-foreground mt-1">{money(ISV_ORDER_FEES.extraApp)} kr per år och extra app.</p></div>
         <div className="border-y border-border py-4"><p className="text-lg font-semibold">ISV Presence första året: {money(price)} kr</p><p className="text-sm text-muted-foreground">Introduktionspris {money(ISV_ORDER_FEES.introFirstYear)} kr inklusive en app{selection.extra_apps ? ` + ${selection.extra_apps} × ${money(ISV_ORDER_FEES.extraApp)} kr` : ''}. Från år två {money(regular)} kr / år. Gäller de första 20 nya ISV-leverantörerna. Faktureras årsvis i förskott.</p></div>
-        <p className="text-xs text-muted-foreground">Beslutsunderlaget som PDF kan laddas ner utan att fylla i fälten nedan; företagsnamn och kontaktperson tas med om de är ifyllda.</p>
+        <p className="text-xs text-muted-foreground">Offertförslaget som PDF kan laddas ner utan att fylla i fälten nedan; företagsnamn och kontaktperson tas med om de är ifyllda.</p>
+        <OfferPreview onDownload={pdf} offer="ISV Presence för ISV-leverantörer" scope={`1 app ingår${selection.extra_apps?` + ${selection.extra_apps} extra`:''}`} price={`${money(price)} kr första året, därefter ${money(regular)} kr / år exklusive moms`} included={ISV_BENEFITS} addons={[`Extra appar: ${money(ISV_ORDER_FEES.extraApp)} kr / år och app`]} finders="Kundförmedling för ISV är för närvarande pausad och ingår inte." />
         <details><summary className="cursor-pointer font-semibold">Innehåll och abonnemangsvillkor</summary><p className="mt-3 text-sm leading-relaxed">{ISV_SUBSCRIPTION_TERMS}</p></details>
         <div><Label htmlFor="isv-start">Önskat startdatum</Label><Input id="isv-start" type="text" placeholder="ÅÅÅÅ-MM-DD" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required value={selection.start_date} onChange={e => setSelection(s => ({ ...s, start_date: e.target.value }))} /></div>
         <div className="grid gap-4 sm:grid-cols-2">{FIELDS.map(([key, label]) => <div key={key}><Label htmlFor={'isv-' + key}>{label} *</Label><Input id={'isv-' + key} required maxLength={key === 'invoice_address' ? 500 : 200} type={key.includes('email') ? 'email' : 'text'} value={fields[key]} onChange={e => setFields(f => ({ ...f, [key]: e.target.value }))} /></div>)}</div>
         <label className="flex items-start gap-3 text-sm"><Checkbox className="shrink-0 self-start" checked={accept} onCheckedChange={v => setAccept(v === true)} /><span>Jag accepterar abonnemangsvillkor, pris och fakturering. Beställningen är bindande och medför betalningsskyldighet.</span></label>
         <label className="flex items-start gap-3 text-sm"><Checkbox className="shrink-0 self-start" checked={authority} onCheckedChange={v => setAuthority(v === true)} /><span>Jag har rätt att företräda företaget och ingå detta avtal.</span></label>
         <p className="text-xs text-muted-foreground">Moveahead AB (Dynamic Factory) behandlar uppgifterna för beställning och fakturering. <a className="underline" href="/dataskydd/" target="_blank" rel="noreferrer">Integritetspolicy</a></p>
-        <div className="flex flex-wrap gap-3"><Button type="button" variant="outline" onClick={pdf} disabled={busy}><Download className="mr-2 h-4 w-4" />Ladda ner beslutsunderlag (PDF)</Button><Button type="submit" disabled={busy || !accept || !authority}>{busy ? 'Sparar beställning…' : 'Beställ med betalningsskyldighet'}</Button></div>
+        <div className="flex flex-wrap gap-3"><Button type="submit" disabled={busy || !accept || !authority}>{busy ? 'Sparar beställning…' : 'Beställ med betalningsskyldighet'}</Button></div>
       </form>}
     </DialogContent>
   </Dialog>;
