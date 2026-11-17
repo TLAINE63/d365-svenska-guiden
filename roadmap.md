@@ -1,3 +1,8 @@
+## Export till CRM, städning (2026-11-17)
+- [ ] Samla CRM-exporterna på /admin/exporter med gemensamt Från datum, hopfällda enskilda filer och senast nedladdat; oförändrade exportfunktioner och zip-innehåll.
+- [ ] Ersätt dubbla CRM-exportknappar med länkar och verifiera inloggad nedladdning, datum, layout och skärmbilder.
+- [ ] Kontrollera publicerade namn efter publicering (väntar på publicering).
+
 ## Budget 2027, redigerbara antaganden (2026-11-17)
 - [x] Huvudfunneln: tre affärsstorlekar och redigerbart maxbelopp; gamla produktvolymer förs över till rätt intervall. 20 tester godkända, inloggad omräkning till 26 000 kr och 732 px utan sidöverbredd verifierade; inga teständringar sparade.
 - [x] Partnerbytesarvode i funneln: mötesavgift per produktgrupp och nivå (BC/CRM/Power Platform 3 000/5 000 kr, F&SCM 6 000/9 000 kr), ingen provision; redigerbart under Priser och provision. 16 tester godkända, build OK.
