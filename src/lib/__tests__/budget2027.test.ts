@@ -30,10 +30,10 @@ describe("Budget 2027 editable assumptions", () => {
     expect(isvRevenue(isv).finders).toBe(0);
     expect(funnelTotals({ isvStd: { deals: 10 }, isvFscm: { deals: 10 } }).isv).toBe(0);
   });
-  it("ISV percentages remain editable", () => {
+  it("ISV Finder's fee is paused: older saved percentages give 0 kr", () => {
     const p = budgetPricing({ isvLicensePercent: 1, isvConsultPercent: 2 });
-    expect(isvRevenue(isv, p).finders).toBe(5000);
-    expect(funnelTotals({ isvStd: { deals: 2 } }, {}, p).isv).toBe(4000);
+    expect(isvRevenue(isv, p).finders).toBe(0);
+    expect(funnelTotals({ isvStd: { deals: 2 } }, {}, p).isv).toBe(0);
   });
   it("subscription prices sync estimates and discounted detail rows", () => {
     const pricing = budgetPricing(); pricing.units.year2 = 12000; pricing.units.month1 = 1000;

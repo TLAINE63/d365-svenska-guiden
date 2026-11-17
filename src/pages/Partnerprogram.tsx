@@ -14,6 +14,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProgramNavigation from "@/components/ProgramNavigation";
 import PartnerOrderDialog from "@/components/PartnerOrderDialog";
+import PremiumBenefitsVisual from "@/components/PremiumBenefitsVisual";
 import { AGREEMENT_DURATION_TERMS } from '@/lib/partnerOrder';
 import SEOHead from "@/components/SEOHead";
 import ContactFormDialog from "@/components/ContactFormDialog";
@@ -319,6 +320,7 @@ const Partnerprogram = () => {
       <BuyerJourneyStory />
       <BuyerQuestionsSection />
       <TwoWaysSection />
+      <PremiumBenefitsVisual />
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>

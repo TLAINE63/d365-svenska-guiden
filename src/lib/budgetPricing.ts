@@ -37,7 +37,9 @@ export function budgetPricing(saved?: Partial<BudgetPricing>): BudgetPricing {
   }, expertFee: {
     short: { ...DEFAULT_PRICING.expertFee.short, ...saved?.expertFee?.short },
     long: { ...DEFAULT_PRICING.expertFee.long, ...saved?.expertFee?.long },
-  } };
+  },
+  // ISV Finder's fee is paused: always 0 % regardless of older saved budgets.
+  isvLicensePercent: 0, isvConsultPercent: 0 };
 }
 export function dealPricing(value: number, tier: "basic" | "premium", pricing: BudgetPricing) {
   const band = value < pricing.smallLimit ? pricing.bands.small : value <= pricing.largeLimit ? pricing.bands.medium : pricing.bands.large;

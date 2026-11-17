@@ -233,7 +233,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <h3 className="text-lg font-semibold">Priser och provision, budgetantaganden</h3>
         <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär, aldrig negativt (ingen återbetalning).</p>
         <div className="grid gap-4 sm:grid-cols-3">
-          {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["isvLicensePercent", "ISV licensprovision, %"], ["isvConsultPercent", "ISV konsultprovision, %"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
+          {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
         </div>
         <div className="overflow-x-auto"><table className="w-full min-w-[840px] text-sm">
           <thead><tr><th className="text-left py-2">Typ av affär</th><th>Möte Premium, kr</th><th>Möte Basic, kr</th><th>Vid affär, %</th><th>Lägst, kr</th><th>Högst, kr (0 = inget tak)</th></tr></thead>
@@ -437,14 +437,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="flex flex-wrap gap-2">
             <Input placeholder="Sök ISV" value={iq} onChange={(e) => setIq(e.target.value)} className="w-48" />
             <select className={sel} value={iFilter} onChange={(e) => setIFilter(e.target.value)}>
-              <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option><option value="finders">Med Finder’s fee-budget</option>
+              <option value="all">Alla ISV</option><option value="presence">Med Presence</option><option value="none">Utan Presence</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · Prenumerationer: {fmt(isvShownTotals.subscription)} kr · Finder’s fee: {fmt(isvShownTotals.finders)} kr · Totalt: {fmt(isvShownTotals.total)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{isvShown.length} ISV · Prenumerationer: {fmt(isvShownTotals.subscription)} kr · Totalt: {fmt(isvShownTotals.total)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Licensintäkter 12 mån kr</th><th>Konsultintäkter kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {isvShown.map((v) => {
@@ -463,13 +463,13 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       </td>
                       <td className="text-xs">{fmt(v.apps)}</td>
                       <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> {fmt(r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence)} kr</label><label className="flex items-center gap-1 text-[11px] text-muted-foreground"><input type="checkbox" checked={r.introPrice !== false} onChange={(e) => setIsv(v, { introPrice: e.target.checked })} /> Ny (intropris)</label></td>
-                      {n("extraApps")}{n("discount", "w-16")}{n("successBasis", "w-28")}{n("consultBasis", "w-28")}
-                      <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r, pricing).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r, pricing).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r, pricing).total)} kr</td>
+                      {n("extraApps")}{n("discount", "w-16")}
+                      <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r, pricing).subscription)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r, pricing).total)} kr</td>
                     </tr>
                     {open && v.products.map((p, i) => (
                       <tr key={p.id} className="bg-muted/40 text-xs text-muted-foreground">
                         <td className="py-1 pl-6 pr-2">{p.name}</td>
-                        <td colSpan={10}>{i === 0 ? "Ingår i grundavgiften" : `Extra app, ${fmt(pricing.units.isvExtra)} kr/år om den räknas in`}</td>
+                        <td colSpan={7}>{i === 0 ? "Ingår i grundavgiften" : `Extra app, ${fmt(pricing.units.isvExtra)} kr/år om den räknas in`}</td>
                       </tr>
                     ))}
                     </Fragment>
@@ -566,7 +566,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">Partners per typ av affär</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(avgift vid affär)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{FUNNEL_DEAL_TYPES.map((p) => <Fragment key={p.key}>
               <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.band === "small" ? `Under ${fmt(pricing.smallLimit)} kr` : p.band === "medium" ? `${fmt(pricing.smallLimit)} - ${fmt(pricing.largeLimit)} kr` : `Över ${fmt(pricing.largeLimit)} kr`}
@@ -605,7 +605,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           </table>
         </div>
 
-        <div id="budget-isv-funnel" className="scroll-mt-32 overflow-x-auto">
+        <div id="budget-isv-funnel" hidden className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">ISV-leverantörer</caption>
             <thead className="text-xs text-muted-foreground"><tr>
