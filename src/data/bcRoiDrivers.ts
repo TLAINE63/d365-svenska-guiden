@@ -255,7 +255,7 @@ export const INDUSTRY_DRIVERS: Record<Industry, RoiDriver[]> = {
       label: "Resursplanering & beläggning",
       hint: "Högre nyttjandegrad konsulter/specialister",
       detail:
-        "Visuell beläggning gör att fler konsulttimmar säljs istället för att hamna i 'bench'. Att lyfta nyttjandegraden med 2–4 procentenheter ger stora effekter i tjänstebolag. Estimat: 0,5 % av omsättning, takat vid 400 000 kr/år.",
+        "Visuell beläggning gör att fler konsulttimmar säljs istället för att hamna i 'bench'. Att lyfta nyttjandegraden med 2–4%enheter ger stora effekter i tjänstebolag. Estimat: 0,5 % av omsättning, takat vid 400 000 kr/år.",
       savings: pctOfRev(0.005, 400_000),
       implCost: 80_000,
       isvCategories: ["Projekt / PSA"],

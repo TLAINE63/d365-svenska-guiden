@@ -65,7 +65,7 @@ const kostnadFaqs = [
   {
     question: "Vilka kostnader tillkommer efter go-live?",
     answer:
-      "Löpande kostnader består av licenser, förvaltningsavtal eller supporttimmar, vidareutveckling vid förändrade processer, integrationsdrift samt konsumtionsbaserade kostnader för Copilot, AI-agenter och Azure-tjänster. Budgetera 15–25 procent av implementationskostnaden per år för förvaltning och vidareutveckling.",
+      "Löpande kostnader består av licenser, förvaltningsavtal eller supporttimmar, vidareutveckling vid förändrade processer, integrationsdrift samt konsumtionsbaserade kostnader för Copilot, AI-agenter och Azure-tjänster. Budgetera 15–25% av implementationskostnaden per år för förvaltning och vidareutveckling.",
   },
   {
     question: "Hur vet jag om en offert är rimlig?",

@@ -237,7 +237,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Finder’s fee, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte, och en rörlig avgift (2,5 procent) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift från 250 tkr och vid partnerbyte. Villkoren regleras i ett separat förmedlingsavtal.");
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte, och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift från 250 tkr och vid partnerbyte. Villkoren regleras i ett separat förmedlingsavtal.");
     table([
       ["Nya projekt under 250 tkr", "Möte 1 500 kr · 2,5 %, lägst 3 000 kr"],
       ["Nya projekt 250 tkr – 1 Mkr", "Möte 3 000 / 5 000 kr · 2,5 %"],

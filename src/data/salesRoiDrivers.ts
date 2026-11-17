@@ -50,7 +50,7 @@ export const SALES_INDUSTRY_DRIVERS: Record<SalesIndustry, SalesRoiDriver[]> = {
       label: "Förbättrad vinstgrad i pipeline",
       hint: "Playbooks, sales stages, Copilot-coaching",
       detail:
-        "Definierade säljsteg, playbooks per dealtyp och Copilot-coaching på samtal/mejl höjer typiskt vinstgraden 2–5 procentenheter genom bättre disciplin i mid-funnel. Estimat: 0,5 % av omsättning (takat 500 000 kr) + 22 000 kr per säljare.",
+        "Definierade säljsteg, playbooks per dealtyp och Copilot-coaching på samtal/mejl höjer typiskt vinstgraden 2–5%enheter genom bättre disciplin i mid-funnel. Estimat: 0,5 % av omsättning (takat 500 000 kr) + 22 000 kr per säljare.",
       savings: revAndSeller(0.005, 500_000, 22_000),
       implCost: 90_000,
       defaultOn: true,
@@ -209,7 +209,7 @@ export const SALES_INDUSTRY_DRIVERS: Record<SalesIndustry, SalesRoiDriver[]> = {
       label: "Högre win-rate via Copilot-coaching",
       hint: "Samtalsanalys, deal-rådgivning i realtid",
       detail:
-        "Copilot för Sales analyserar samtal/mejl, föreslår nästa steg och flaggar deal-risk i realtid. Tidiga referensimplementationer visar 3–7 procentenheter högre win-rate. Estimat: 0,6 % av omsättning (takat 800 000 kr) + 30 000 kr per säljare.",
+        "Copilot för Sales analyserar samtal/mejl, föreslår nästa steg och flaggar deal-risk i realtid. Tidiga referensimplementationer visar 3–7%enheter högre win-rate. Estimat: 0,6 % av omsättning (takat 800 000 kr) + 30 000 kr per säljare.",
       savings: revAndSeller(0.006, 800_000, 30_000),
       implCost: 100_000,
       defaultOn: true,
@@ -239,7 +239,7 @@ export const SALES_INDUSTRY_DRIVERS: Record<SalesIndustry, SalesRoiDriver[]> = {
       label: "Lägre kundbortfall (kopplat till CS)",
       hint: "Tidig varning & strukturerad förlängning",
       detail:
-        "Riskindikatorer (låg användning, support­ärenden, NPS) plus strukturerade förlängnings­processer minskar logo-churn med 1–3 procentenheter. Estimat: 0,4 % av omsättning, takat vid 600 000 kr/år.",
+        "Riskindikatorer (låg användning, support­ärenden, NPS) plus strukturerade förlängnings­processer minskar logo-churn med 1–3%enheter. Estimat: 0,4 % av omsättning, takat vid 600 000 kr/år.",
       savings: pctOfRev(0.004, 600_000),
       implCost: 90_000,
       defaultOn: false,

@@ -640,14 +640,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           >
             G2 frågade 1 076 B2B-köpare
           </a>{" "}
-          i mars 2026 hur de gör sin research. 51 procent inleder numera oftare
-          i en AI-chatt än i Google. Ett år tidigare var siffran 29 procent. 71
-          procent använder en AI-chatt någonstans i processen.
+          i mars 2026 hur de gör sin research. 51% inleder numera oftare
+          i en AI-chatt än i Google. Ett år tidigare var siffran 29%. 71%
+          använder en AI-chatt någonstans i processen.
         </p>
         <p>
           Sedan kommer siffran som brukar få det tyst i rummet:{" "}
           <strong>
-            69 procent valde en annan leverantör än de först tänkt sig
+            69% valde en annan leverantör än de först tänkt sig
           </strong>
           , efter att AI:n pekat åt annat håll. Var tredje köpte av någon de
           aldrig hört talas om innan.
@@ -789,7 +789,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           >
             en systematisk forskningsöversikt
           </a>{" "}
-          anger att omkring 70 procent av implementeringarna inte når sina
+          anger att omkring 70% av implementeringarna inte når sina
           förväntade mål.
         </p>
         <p>
@@ -2582,11 +2582,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Samtidigt visar Microsofts egen rapport en obekväm sak: bara{" "}
-          <strong>19 procent</strong> av AI-användarna befinner sig i det
+          <strong>19%</strong> av AI-användarna befinner sig i det
           Microsoft kallar "Frontier-zonen" – där både individuell förmåga och
-          organisatorisk beredskap är på plats. 65 procent är oroliga för att
-          hamna efter, men 45 procent tycker det känns säkrare att fokusera på
-          nuvarande mål än att designa om arbetet. Endast 13 procent säger att
+          organisatorisk beredskap är på plats. 65% är oroliga för att
+          hamna efter, men 45% tycker det känns säkrare att fokusera på
+          nuvarande mål än att designa om arbetet. Endast 13% säger att
           de belönas för att förändra hur arbetet utförs.
         </p>
         <p>
@@ -2596,18 +2596,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         </p>
         <p>
           Microsofts bild kompletteras intressant av fristående analytiker.
-          Gartner konstaterar i sin 2026 Hype Cycle att endast 17 procent av
-          organisationer faktiskt har deployat AI-agenter, även om över 60
-          procent säger sig planera det inom två år. Än mer påtagligt: Gartner
-          förutspår att <strong>över 40 procent av alla agentic AI-projekt
+          Gartner konstaterar i sin 2026 Hype Cycle att endast 17% av
+          organisationer faktiskt har deployat AI-agenter, även om över 60%
+          säger sig planera det inom två år. Än mer påtagligt: Gartner
+          förutspår att <strong>över 40% av alla agentic AI-projekt
           kommer avbrytas till slutet av 2027</strong> – ofta för att kostnader
           skenar, affärsvärdet inte blir tillräckligt tydligt eller för att
           governance och riskkontroller inte hinner byggas i samma takt som
           tekniken.
         </p>
         <p>
-          McKinseys State of AI-rapport pekar i samma riktning: 88 procent av
-          organisationer använder AI i någon funktion, men bara 6 procent
+          McKinseys State of AI-rapport pekar i samma riktning: 88% av
+          organisationer använder AI i någon funktion, men bara 6%
           kvalificerar som "AI high performers" med mätbar EBIT-effekt. Resten
           har piloter, demos och initiativ – men inte transformation.
         </p>
@@ -2667,9 +2667,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
         <p>
           Det här ligger nära en av rapportens starkaste statistiska
           observationer: organisatoriska faktorer som kultur, chefsstöd och
-          kompetensutveckling står för ungefär <strong>67 procent</strong> av
+          kompetensutveckling står för ungefär <strong>67%</strong> av
           AI:s reella påverkan, medan individuell mindset och beteende står för
-          cirka 32 procent. Med andra ord – det är inte i första hand de
+          cirka 32%. Med andra ord – det är inte i första hand de
           enskilda medarbetarnas AI-kunskaper som avgör utfallet. Det är hur
           organisationen som helhet är riggad för att fånga upp och bygga
           vidare på det som agenter producerar.
@@ -2749,7 +2749,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Flera delar av organisationen behöver vara med – IT, verksamheten,
           ledningen. Annars blir den ägda intelligensen i praktiken ett par
           personers projekt, inte bolagets. Microsofts rapport bekräftar detta
-          indirekt: bara 26 procent av AI-användarna säger att deras ledning är
+          indirekt: bara 26% av AI-användarna säger att deras ledning är
           tydligt och konsekvent samkörda kring AI. Det är en av de starkaste
           indikatorerna i hela materialet på var organisationer fastnar.
         </p>

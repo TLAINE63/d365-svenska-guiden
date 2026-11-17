@@ -222,7 +222,7 @@ export const PRODUCT_ROI_CONFIGS: Record<ProductRoiKey, ProductRoiConfig> = {
         label: "Högre vinstandel",
         hint: "Pipeline-hygien + AI-scoring",
         detail:
-          "Lead/opportunity scoring, nästa-bästa-aktion och bättre pipeline-hygien ger 2–5 procentenheter högre vinstandel. Estimeras som % av påverkbar pipeline.",
+          "Lead/opportunity scoring, nästa-bästa-aktion och bättre pipeline-hygien ger 2–5%enheter högre vinstandel. Estimeras som % av påverkbar pipeline.",
         savings: pctOfRev(0.008, 6_000_000),
         implCost: 150_000,
         defaultOn: true,
@@ -463,7 +463,7 @@ export const PRODUCT_ROI_CONFIGS: Record<ProductRoiKey, ProductRoiConfig> = {
         label: "Högre first-time-fix",
         hint: "Rätt tekniker, rätt delar, rätt info",
         detail:
-          "Smart schemaläggning och Copilot-stöd höjer first-time-fix 5–15 procentenheter. Färre återbesök, lägre kostnad och nöjdare kunder.",
+          "Smart schemaläggning och Copilot-stöd höjer first-time-fix 5–15%enheter. Färre återbesök, lägre kostnad och nöjdare kunder.",
         savings: flat(900_000),
         implCost: 150_000,
         defaultOn: true,

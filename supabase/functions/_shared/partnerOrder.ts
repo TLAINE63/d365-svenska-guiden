@@ -20,7 +20,7 @@ ${AGREEMENT_DURATION_TERMS}
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
 export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-17. Samma villkor för alla partners; Premium och Basic avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
-Nya projekt: mötesavgift per genomfört kvalificerat möte samt avgift vid affär på 2,5 procent av affärens konsult- och projektvärde.
+Nya projekt: mötesavgift per genomfört kvalificerat möte samt avgift vid affär på 2,5% av affärens konsult- och projektvärde.
 • Under 250 tkr: mötesavgift 1 500 kr (Premium och Basic), lägsta avgift vid affär 3 000 kr.
 • 250 tkr–1 Mkr: mötesavgift 3 000 kr (Premium) / 5 000 kr (Basic).
 • Över 1 Mkr: mötesavgift 6 000 kr (Premium) / 9 000 kr (Basic), avgiften vid affär är högst 100 000 kr.
