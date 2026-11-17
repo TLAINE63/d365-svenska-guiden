@@ -67,8 +67,8 @@ export default function TwoWaysSection() {
           </article>
         </div>
 
-        <p className="mt-8 max-w-3xl text-sm text-muted-foreground">
-          Premium köper aldrig högre relevansordning. Partners utan Premium kan också vara relevanta och rekommenderas, och verifiering är ingen automatisk Premiumförmån.
+        <p className="mt-8 max-w-3xl lg:max-w-none text-sm text-muted-foreground">
+          Premium köper aldrig högre relevansordning. Partners utan Premium kan också vara relevanta och rekommenderas. Verifiering är ingen automatisk Premiumförmån.
         </p>
       </div>
     </section>
