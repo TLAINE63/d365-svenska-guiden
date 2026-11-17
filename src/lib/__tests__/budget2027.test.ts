@@ -5,9 +5,9 @@ const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meet
 const isv = { presence: true, extraApps: 2, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 100000, consultBasis: 200000 };
 
 describe("Budget 2027 editable assumptions", () => {
-  it("small deal: no meeting fee, 2.5 percent and minimum 3000", () => {
-    expect(dealPricing(50000, "basic", budgetPricing())).toEqual({ meeting: 0, commission: 3000 });
-    expect(dealPricing(200000, "premium", budgetPricing())).toEqual({ meeting: 0, commission: 5000 });
+  it("small deal: 1500 kr meeting, 2.5 percent and minimum 3000", () => {
+    expect(dealPricing(50000, "basic", budgetPricing())).toEqual({ meeting: 1500, commission: 3000 });
+    expect(dealPricing(200000, "premium", budgetPricing())).toEqual({ meeting: 1500, commission: 5000 });
   });
   it("250000–1000000: Premium meeting 3000, Basic 5000, 2.5 percent", () => {
     expect(dealPricing(250000, "premium", budgetPricing())).toEqual({ meeting: 3000, commission: 6250 });
@@ -60,25 +60,24 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("partner and ISV group totals never double-count legacy estimates", () => {
     const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
-    expect(s.partner.estimate).toBe(15980 + 3000 + 25000);
+    expect(s.partner.estimate).toBe(15980 + 3000 + 22000);
     expect(s.isv.estimate).toBe(2990);
   });
-  it("expert rate remains editable", () => {
-    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 1, percent: 100, rate: 90 }).total).toBe(14850);
+  it("expert fee per filled assignment: 7500/12500 short, 15000/25000 long", () => {
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], "premium", { assignments: 2 }).total).toBe(15000);
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], "basic", { assignments: 1 }).total).toBe(12500);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], "premium", { assignments: 1 }).total).toBe(15000);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], "basic", { assignments: 1 }).total).toBe(25000);
   });
-  it("partner switch: meeting fee only, 0 under 250 tkr, 3000/5000 medium and 6000/9000 large", () => {
-    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2 }).total).toBe(0);
-    expect(switchFunnelRow(SWITCH_FUNNEL[0], "basic", { meetings: 2 }).total).toBe(0);
-    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 2 }).total).toBe(6000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[1], "basic", { meetings: 2 }).total).toBe(10000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[2], "premium", { meetings: 1 }).total).toBe(6000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[2], "basic", { meetings: 1 }).total).toBe(9000);
+  it("partner switch: meeting fee only, BC/CRM/PP 3000/5000 and F&SCM 6000/9000", () => {
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2 }).total).toBe(6000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "basic", { meetings: 2 }).total).toBe(10000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 1 }).total).toBe(6000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[1], "basic", { meetings: 1 }).total).toBe(9000);
   });
   it("partner switch fees are editable and included in funnel totals", () => {
-    const p = budgetPricing(); p.switchMeeting.medium.premium = 4000; p.switchMeeting.large.basic = 12000;
-    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 3 }, p).total).toBe(12000);
-    expect(funnelTotals({ switchMedium_premium: { meetings: 1 }, switchLarge_basic: { meetings: 1 } }, {}, p).partnerSwitch).toBe(16000);
-    expect(funnelTotals({ switchMedium_premium: { meetings: 1 }, switchLarge_basic: { meetings: 1 } }, {}, p).total).toBe(16000);
+    const p = budgetPricing(); p.switchMeeting.std.premium = 4000; p.switchMeeting.fscm.basic = 12000;
+    expect(funnelTotals({ switchStd_premium: { meetings: 1 }, switchFscm_basic: { meetings: 1 } }, {}, p).partnerSwitch).toBe(16000);
   });
   it("catalog counts distinct products", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "A" }, { id: "a", vendor: "Truvio", name: "A" }, { id: "b", vendor: "Truvio", name: "B" }])[0].apps).toBe(2);
@@ -87,12 +86,12 @@ describe("Budget 2027 editable assumptions", () => {
     expect(FUNNEL_DEAL_TYPES.map((p) => p.band)).toEqual(["small", "medium", "large"]);
     expect(FUNNEL_DEAL_TYPES.map((p) => funnelMaxValue(p))).toEqual([250000, 1000000, 3000000]);
   });
-  it("small maximum at 250000 retains the small band's zero meeting fee", () => {
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "basic", { meetings: 3, wins: 1 })).toEqual({ meetings: 0, deals: 0, wins: 6250, total: 6250 });
+  it("small band: 1500 kr meeting, deal fee credited by the paid meeting", () => {
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "basic", { meetings: 3, wins: 1 })).toEqual({ meetings: 4500, deals: 0, wins: 4750, total: 9250 });
   });
   it("editable maximum changes commission but keeps the selected band's meeting fee", () => {
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { meetings: 2, wins: 1 }, { maxMedium: 800000 }).total).toBe(26000);
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[2], "basic", { meetings: 1, wins: 1 }, { maxLarge: 5000000 }).total).toBe(109000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { meetings: 2, wins: 1 }, { maxMedium: 800000 }).total).toBe(23000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[2], "basic", { meetings: 1, wins: 1 }, { maxLarge: 5000000 }).total).toBe(100000);
     expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { wins: 1 }, { maxMedium: 0 }).total).toBe(0);
   });
   it("legacy product volumes migrate once without loss or double counting", () => {
