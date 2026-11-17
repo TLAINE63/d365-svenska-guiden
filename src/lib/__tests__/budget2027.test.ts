@@ -66,17 +66,19 @@ describe("Budget 2027 editable assumptions", () => {
   it("expert rate remains editable", () => {
     expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 1, percent: 100, rate: 90 }).total).toBe(14850);
   });
-  it("partner switch: meeting fee only, 3000/5000 standard and 6000/9000 F&SCM", () => {
-    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2 }).total).toBe(6000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[0], "basic", { meetings: 2 }).total).toBe(10000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 1 }).total).toBe(6000);
-    expect(switchFunnelRow(SWITCH_FUNNEL[1], "basic", { meetings: 1 }).total).toBe(9000);
+  it("partner switch: meeting fee only, 0 under 250 tkr, 3000/5000 medium and 6000/9000 large", () => {
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2 }).total).toBe(0);
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "basic", { meetings: 2 }).total).toBe(0);
+    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 2 }).total).toBe(6000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[1], "basic", { meetings: 2 }).total).toBe(10000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[2], "premium", { meetings: 1 }).total).toBe(6000);
+    expect(switchFunnelRow(SWITCH_FUNNEL[2], "basic", { meetings: 1 }).total).toBe(9000);
   });
   it("partner switch fees are editable and included in funnel totals", () => {
-    const p = budgetPricing(); p.switchMeeting.std.premium = 4000; p.switchMeeting.fscm.basic = 12000;
-    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 3 }, p).total).toBe(12000);
-    expect(funnelTotals({ switchStd_premium: { meetings: 1 }, switchFscm_basic: { meetings: 1 } }, {}, p).partnerSwitch).toBe(16000);
-    expect(funnelTotals({ switchStd_premium: { meetings: 1 }, switchFscm_basic: { meetings: 1 } }, {}, p).total).toBe(16000);
+    const p = budgetPricing(); p.switchMeeting.medium.premium = 4000; p.switchMeeting.large.basic = 12000;
+    expect(switchFunnelRow(SWITCH_FUNNEL[1], "premium", { meetings: 3 }, p).total).toBe(12000);
+    expect(funnelTotals({ switchMedium_premium: { meetings: 1 }, switchLarge_basic: { meetings: 1 } }, {}, p).partnerSwitch).toBe(16000);
+    expect(funnelTotals({ switchMedium_premium: { meetings: 1 }, switchLarge_basic: { meetings: 1 } }, {}, p).total).toBe(16000);
   });
   it("catalog counts distinct products", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "A" }, { id: "a", vendor: "Truvio", name: "A" }, { id: "b", vendor: "Truvio", name: "B" }])[0].apps).toBe(2);

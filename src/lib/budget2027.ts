@@ -203,11 +203,12 @@ export const EXPERT_FUNNEL = [
   { key: "cv", label: "Expertförmedling via Premiumpartner", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
   { key: "expert", label: "Expertförmedling via Basicpartner", rate: EXPERT_FEES.basicPerHour, hours: 400 },
 ];
-// Partnerbytesarvode (Thomas 2026-11-17): mötesavgift per produktgrupp och nivå, ingen provision.
+// Partnerbytesarvode (Thomas 2026-11-17): mötesavgift per affärsstorlek och nivå, ingen provision.
 export const SWITCH_FUNNEL = [
-  { key: "switchStd", label: "Partnerbyte: BC, CRM och Power Platform", fscm: false },
-  { key: "switchFscm", label: "Partnerbyte: Finance & Supply Chain Management", fscm: true },
-];
+  { key: "switchSmall", label: "Partnerbyte: under 250 tkr", band: "small" },
+  { key: "switchMedium", label: "Partnerbyte: 250 tkr–1 Mkr", band: "medium" },
+  { key: "switchLarge", label: "Partnerbyte: över 1 Mkr", band: "large" },
+] as const;
 export const ISV_FUNNEL = [
   { key: "isvStd", label: "ISV: licenser och abonnemang, första 12 mån", rate: ISV_FEES.licenseRate, value: 200000 },
   { key: "isvFscm", label: "ISV: förmedlat konsultuppdrag", rate: ISV_FEES.consultRate, value: 400000 },
@@ -240,7 +241,7 @@ export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, 
 }
 /** Partnerbyte debiteras bara per bokat möte; affären ger ingen provision i budgeten. */
 export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing()) {
-  const fee = pricing.switchMeeting[s.fscm ? "fscm" : "std"][tier];
+  const fee = pricing.switchMeeting[s.band][tier];
   const meetings = n(r.meetings) * fee;
   return { fee, meetings, total: meetings };
 }
