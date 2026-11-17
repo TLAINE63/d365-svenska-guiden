@@ -25,16 +25,14 @@ export default function AdminExporter() {
             </CardContent>
           </Card>
         ) : (
-          <Card>
-            <CardHeader>
-              <h1 className="text-2xl font-semibold leading-none tracking-tight">Exporter</h1>
-              <CardDescription>CSV-filer för Demand Engine. Datum i formatet ÅÅÅÅ-MM-DD, till och med i dag.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              {token && <DemandExportsPanel token={token} onUnauthorized={logout} />}
-              <Link to="/admin" className="text-sm underline text-muted-foreground">Tillbaka till Admin</Link>
-            </CardContent>
-          </Card>
+          <div className="space-y-6">
+            <header className="space-y-3">
+              <h1 className="text-2xl font-semibold">Export till Claude CRM</h1>
+              <p className="text-sm text-muted-foreground">En gång i veckan: klicka på Ladda ner allt för CRM och släpp zip-filen i Claude CRM under Importera. Från datum fylls i automatiskt med dagen för förra nedladdningen.</p>
+            </header>
+            {token && <DemandExportsPanel token={token} onUnauthorized={logout} />}
+            <Link to="/admin" className="inline-block text-sm underline text-muted-foreground">Tillbaka till Admin</Link>
+          </div>
         )}
       </main>
     </div>

@@ -69,7 +69,7 @@ import RedaktionNewsletterTab from "@/components/RedaktionNewsletterTab";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
-import DemandExportsPanel from "@/components/DemandExportsPanel";
+import { Link } from "react-router-dom";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -261,7 +261,7 @@ export default function Redaktion() {
         <RedaktionOperations token={token} isAdmin={isAdmin} />
         <Tabs value={tab} onValueChange={setTab}>
           <div className="mb-5 md:hidden"><Label>Redaktionens sidor</Label><Select value={tab} onValueChange={setTab}><SelectTrigger aria-label="Redaktionens sidor" className="min-h-11"><SelectValue /></SelectTrigger><SelectContent>
-            {[["events", "Event"], ["webinar", "Webinar"], ["subscribers", "Nyhetsbrev"], ["partner-news", "Partnernytt"], ["articles", "Artiklar"], ["videos", "Videor"], ["aktuellt", "Aktuellt"], ["help-requests", "Hjälpärenden"], ["advisory", "Rådgivning"], ["partners", "Partnerprofiler"], ["isv", "ISV-katalog"], ["assignment-profiles", "Uppdragsprofiler"], ["newsletter", "Månadsbrev"], ["texts", "Textbank"], ["stats", "Statistik"], ["partner-teaser", "Partnerunderlag"], ["sales-kit", "Säljunderlag"], ["ai", "AI-synlighet"], ["backlinks", "Backlänkar"], ["exports", "Exporter"], ["terms", "Avtalsvillkor"], ...(isAdmin ? [["partner-admin", "Verifiera & profilera partners"], ["budget", "Budget 2027"]] : [])].map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}
+            {[["events", "Event"], ["webinar", "Webinar"], ["subscribers", "Nyhetsbrev"], ["partner-news", "Partnernytt"], ["articles", "Artiklar"], ["videos", "Videor"], ["aktuellt", "Aktuellt"], ["help-requests", "Hjälpärenden"], ["advisory", "Rådgivning"], ["partners", "Partnerprofiler"], ["isv", "ISV-katalog"], ["assignment-profiles", "Uppdragsprofiler"], ["newsletter", "Månadsbrev"], ["texts", "Textbank"], ["stats", "Statistik"], ["partner-teaser", "Partnerunderlag"], ["sales-kit", "Säljunderlag"], ["ai", "AI-synlighet"], ["backlinks", "Backlänkar"], ["exports", "Export till CRM"], ["terms", "Avtalsvillkor"], ...(isAdmin ? [["partner-admin", "Verifiera & profilera partners"], ["budget", "Budget 2027"]] : [])].map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}
           </SelectContent></Select></div>
           <TabsList className="mb-6 hidden md:flex h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
             <TabsTrigger value="events">Event</TabsTrigger>
@@ -284,7 +284,7 @@ export default function Redaktion() {
             <TabsTrigger value="sales-kit">Säljunderlag</TabsTrigger>
             <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
             <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
-            <TabsTrigger value="exports">Exporter</TabsTrigger>
+            <TabsTrigger value="exports">Export till CRM</TabsTrigger>
             <TabsTrigger value="terms">Avtalsvillkor</TabsTrigger>
             {isAdmin && <TabsTrigger value="budget">Budget 2027</TabsTrigger>}
           </TabsList>
@@ -328,8 +328,9 @@ export default function Redaktion() {
             </TabsContent>
           )}
           <TabsContent value="exports">
-            <p className="text-sm text-muted-foreground mb-4">CSV-filer för Demand Engine och partnerstatistik. Kräver att kontot har adminbehörighet.</p>
-            {token && <DemandExportsPanel token={token} onUnauthorized={() => {}} />}
+            <Button variant="outline" asChild>
+              <Link to="/admin/exporter" onClick={() => { if (token) seedAdminSession(token); }}>Export till CRM</Link>
+            </Button>
           </TabsContent>
           <TabsContent value="terms">
             <RedaktionTermsTab token={token} />
