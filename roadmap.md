@@ -1,3 +1,6 @@
+## Partneroffert och mejlbeställning (2026-11-17)
+- [ ] Nedladdningsbar premiumoffert för profil och förmedling, enkel mejlbeställning till Thomas; kontrollera PDF och mejlunderlag.
+
 ## Export till CRM, städning (2026-11-17)
 - [x] Samla CRM-exporterna på /admin/exporter med gemensamt Från datum, hopfällda enskilda filer och senast nedladdat; oförändrade exportfunktioner och zip-innehåll.
 - [x] Ersätt dubbla CRM-exportknappar med länkar. Verifierat med riktig admininloggning: sex befintliga zip-filer, gemensamt datum, sparat datum efter omladdning, 401 utan behörighet, dator/732 px utan överbredd eller runtimefel; fyra datumtester och build OK. Skärmbilder stängd/öppen sparade.
