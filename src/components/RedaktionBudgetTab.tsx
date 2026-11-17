@@ -347,6 +347,21 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
                 <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues, budget.funnel, pricing))} kr</td>
               </tr>
+              {(() => {
+                const estSub = CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + (Number(budget.estimates[c.key]) || 0) * unitFor(c, budget.successValues, pricing), 0);
+                const estFind = funnelTotals(budget.funnel, budget.successValues, pricing).total;
+                const detSub = CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + det[c.key].revenue, 0);
+                const detFind = CATEGORIES.filter((c) => c.income === "finders").reduce((s, c) => s + det[c.key].revenue, 0);
+                const split = (sub: number, find: number) => (<span className="block leading-tight"><span className="block">Prenum. {fmt(sub)} kr</span><span className="block">Finder’s fee {fmt(find)} kr</span></span>);
+                return (
+                  <tr className="text-xs text-muted-foreground">
+                    <td className="pb-2">varav</td><td /><td />
+                    <td className="text-right whitespace-nowrap align-top">{split(estSub, estFind)}</td><td />
+                    <td className="text-right whitespace-nowrap align-top">{split(detSub, detFind)}</td>
+                    <td className="text-right whitespace-nowrap align-top">{split(detSub - estSub, detFind - estFind)}</td>
+                  </tr>
+                );
+              })()}
             </tbody>
           </table>
           </div>
