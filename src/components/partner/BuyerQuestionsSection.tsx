@@ -120,7 +120,7 @@ export default function BuyerQuestionsSection() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-xs text-muted-foreground max-w-3xl">
+          <p className="mt-6 text-xs text-muted-foreground max-w-3xl lg:max-w-none">
             Det här är möjligheter, inte garanterade resultat. d365.se säljer inga besöksuppgifter, och betald partnerstatus påverkar aldrig relevansordningen.
           </p>
         </div>
