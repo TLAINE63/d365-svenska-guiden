@@ -1,5 +1,6 @@
 /** Internal budget assumptions only; published program terms never read these. */
 export interface DealBand { premiumMeeting: number; basicMeeting: number; percent: number; minimum: number; maximum: number }
+export interface SwitchMeetingFee { premium: number; basic: number }
 export interface BudgetPricing {
   units: Record<string, number>;
   isvAnnual: number;
@@ -8,6 +9,8 @@ export interface BudgetPricing {
   smallLimit: number;
   largeLimit: number;
   bands: { small: DealBand; medium: DealBand; large: DealBand };
+  /** Partnerbytesarvode: mötesavgift per produktgrupp och nivå, ingen provision. */
+  switchMeeting: { std: SwitchMeetingFee; fscm: SwitchMeetingFee };
 }
 export const DEFAULT_PRICING: BudgetPricing = {
   units: { year1: 7990, year2: 9990, year3: 11990, month1: 995, month2: 1295, month3: 1495, isvPresence: 2990, isvExtra: 995 },
@@ -18,12 +21,16 @@ export const DEFAULT_PRICING: BudgetPricing = {
     medium: { premiumMeeting: 3000, basicMeeting: 5000, percent: 2.5, minimum: 0, maximum: 0 },
     large: { premiumMeeting: 6000, basicMeeting: 9000, percent: 2.5, minimum: 0, maximum: 100000 },
   },
+  switchMeeting: { std: { premium: 3000, basic: 5000 }, fscm: { premium: 6000, basic: 9000 } },
 };
 export function budgetPricing(saved?: Partial<BudgetPricing>): BudgetPricing {
   return { ...DEFAULT_PRICING, ...saved, units: { ...DEFAULT_PRICING.units, ...saved?.units }, bands: {
     small: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small },
     medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.medium },
     large: { ...DEFAULT_PRICING.bands.large, ...saved?.bands?.large },
+  }, switchMeeting: {
+    std: { ...DEFAULT_PRICING.switchMeeting.std, ...saved?.switchMeeting?.std },
+    fscm: { ...DEFAULT_PRICING.switchMeeting.fscm, ...saved?.switchMeeting?.fscm },
   } };
 }
 export function dealPricing(value: number, tier: "basic" | "premium", pricing: BudgetPricing) {
