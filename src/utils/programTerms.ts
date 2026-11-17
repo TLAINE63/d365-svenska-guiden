@@ -4,7 +4,7 @@ import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 
 export type TermsArea = "partner" | "isv" | "commission";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
-export const TERMS_DATE = "2026-11-13";
+export const TERMS_DATE = "2026-11-17";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
