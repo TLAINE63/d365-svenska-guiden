@@ -70,7 +70,7 @@ const IsvProgram = () => {
             <h1 className="text-3xl md:text-4xl font-bold leading-tight max-w-4xl">
               Gör din tilläggslösning synlig under kundens köpresa
             </h1>
-            <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl">
+            <p className="mt-3 text-base lg:text-lg opacity-90 max-w-3xl lg:max-w-5xl">
               d365.se hjälper företag att upptäcka och utvärdera tilläggslösningar för Microsoft&nbsp;Dynamics&nbsp;365. Genom vårt ISV-program kan du presentera din lösning för potentiella kunder och partners som söker information, jämför alternativ och undersöker hur de kan utveckla sin Dynamics&nbsp;365-miljö.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
