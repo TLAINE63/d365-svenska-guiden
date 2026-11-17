@@ -54,6 +54,7 @@ const programSections = [
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
+  { id: "marknadspuls", label: "Marknadspuls" },
   { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
@@ -349,7 +350,6 @@ const Partnerprogram = () => {
       <TwoWaysSection />
       <PremiumBenefitsVisual />
 
-      <MarketPulseSection />
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 1 · Premium</p>
@@ -470,6 +470,7 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      <MarketPulseSection />
       <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
