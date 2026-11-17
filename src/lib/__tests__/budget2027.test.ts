@@ -105,3 +105,10 @@ describe("Budget 2027 editable assumptions", () => {
     expect(funnelTotals(saved).partner).toBe(funnelTotals(migrated).partner);
   });
 });
+
+describe("Partner detail uses deal bands", () => {
+  it("medium Premium: 2 meetings × 3000 + 1 win (2.5% of 1 Mkr − 3000)", () => {
+    const r = { ...base, forecast: "month" as const, deals: { medium: { meetings: 2, wins: 1 } } };
+    expect(forecastRevenue(r, DEFAULT_BUDGET).finders).toBe(6000 + 22000);
+  });
+});

@@ -10,6 +10,31 @@ export const FEES = { meetingStd: 0, dealStd: 5000, meetingFscm: 0, dealFscm: 10
 export interface PartnerForecast {
   forecast: Forecast; products: number; discount: number;
   meetingsStd: number; dealsStd: number; meetingsFscm: number; dealsFscm: number; successBasis: number;
+  /** Möten och vunna affärer per affärsstorlek (samma band som tratten). Ersätter de gamla produktfälten. */
+  deals?: Partial<Record<DealBandKey, { meetings?: number; wins?: number }>>;
+}
+export type DealBandKey = "small" | "medium" | "large";
+export const DEAL_BAND_KEYS: DealBandKey[] = ["small", "medium", "large"];
+/** Per-band volumes; old saved rows map BC/CE to medium and F&SCM to large, and a success basis to one win in its band. */
+export function partnerDeals(r: PartnerForecast, pricing = budgetPricing()): Record<DealBandKey, { meetings: number; wins: number }> {
+  const z = (v?: number) => Math.max(0, Number(v) || 0);
+  if (r.deals) return Object.fromEntries(DEAL_BAND_KEYS.map((k) => [k, { meetings: z(r.deals?.[k]?.meetings), wins: z(r.deals?.[k]?.wins) }])) as any;
+  const out = { small: { meetings: 0, wins: 0 }, medium: { meetings: z(r.meetingsStd), wins: z(r.dealsStd) }, large: { meetings: z(r.meetingsFscm), wins: z(r.dealsFscm) } };
+  const b = z(r.successBasis);
+  if (b > 0 && out.medium.wins + out.large.wins === 0) out[b < pricing.smallLimit ? "small" : b <= pricing.largeLimit ? "medium" : "large"].wins += 1;
+  return out;
+}
+/** Finder's fee per partner with the funnel's band rules: meeting fee, deal fee minus paid meeting (never negative). */
+export function partnerFinders(r: PartnerForecast, b?: Budget) {
+  const pricing = budgetPricing(b?.pricing);
+  const tier = r.forecast === "basic" ? "basic" : "premium";
+  const d = partnerDeals(r, pricing);
+  let meetings = 0, wins = 0;
+  for (const t of FUNNEL_DEAL_TYPES) {
+    const row = dealFunnelRow(t, tier, d[t.band], b?.successValues ?? {}, pricing);
+    meetings += row.meetings; wins += row.wins;
+  }
+  return { meetings, wins, total: meetings + wins, d };
 }
 export type Period = "year" | "month";
 /** amount is per period; month amounts count ×12 in the annual budget. */
@@ -68,9 +93,8 @@ export function forecastRevenue(r: PartnerForecast, b?: Budget) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
   const subscription = r.forecast === "month" ? pricing.units[`month${p}`] * 12 * disc : r.forecast === "year" ? pricing.units[`year${p}`] * disc : 0;
   const tier = r.forecast === "basic" ? "basic" : "premium";
-  const std = dealPricing(successValue("successBc", b?.successValues), tier, pricing);
-  const fscm = dealPricing(successValue("successFscm", b?.successValues), tier, pricing);
-  const finders = r.meetingsStd * std.meeting + r.meetingsFscm * fscm.meeting + dealPricing(r.successBasis, tier, pricing).commission;
+  void tier;
+  const finders = partnerFinders(r, b).total;
   return { subscription, finders, total: subscription + finders };
 }
 
@@ -135,12 +159,9 @@ export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
     if (r.forecast === "year") add(`year${p}`, 1, pricing.units[`year${p}`] * disc);
     if (r.forecast === "month") add(`month${p}`, 1, pricing.units[`month${p}`] * 12 * disc);
-    const tier = r.forecast === "basic" ? "basic" : "premium";
-    const std = dealPricing(successValue("successBc", b?.successValues), tier, pricing);
-    const fscm = dealPricing(successValue("successFscm", b?.successValues), tier, pricing);
-    add("meetingsStd", r.meetingsStd, r.meetingsStd * std.meeting);
-    add("meetingsFscm", r.meetingsFscm, r.meetingsFscm * fscm.meeting);
-    add("successBc", r.successBasis > 0 ? 1 : 0, dealPricing(r.successBasis, tier, pricing).commission);
+    const f = partnerFinders(r, b);
+    add("meetingsStd", DEAL_BAND_KEYS.reduce((s, k) => s + f.d[k].meetings, 0), f.meetings);
+    add("successBc", DEAL_BAND_KEYS.reduce((s, k) => s + f.d[k].wins, 0), f.wins);
   }
   for (const r of isvRows) {
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
