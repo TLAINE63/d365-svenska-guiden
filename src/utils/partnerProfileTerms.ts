@@ -2,10 +2,10 @@
 export const PARTNER_PROFILE_TERMS = [
   { title: "Grundprofil", body: "Grundprofil är kostnadsfri och ger en grundläggande presentation av partnerns produktområden och kompetenser. Grundprofil innebär inte att uppgifterna har verifierats av d365.se-redaktionen." },
   { title: "Premium: presentation, granskning och uppföljning", body: "Premium är mer än en utökad presentation. Redaktionell granskning inför verifiering av partneruppgifterna ingår. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Verifieringen beslutas manuellt och sker aldrig automatiskt genom betalning. Premium omfattar även fördjupat innehåll med kundcase och experter, möjlighet till video, kvartalsvis genomgång, profilstatistik och en namngiven kontaktperson. INSIDE-produktion köps separat och gäller endast Premiumpartners." },
-  { title: "Förmedling och neutral relevans", body: "Finder’s fee-avtalet har samma villkor för alla partners. Ingen mötesavgift tas ut; ersättning utgår först vid tecknat kundavtal. Avtalsersättning, success fee och expertförmedling regleras i förmedlingsavtalet. Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Betalning påverkar aldrig relevansordning eller rekommendationer." },
+  { title: "Förmedling och neutral relevans", body: "Finder’s fee-avtalet har samma villkor för alla partners. Mötesavgift tas ut per kvalificerat möte och räknas av i sin helhet mot avgiften vid affär (2,5 procent). Nya projekt, partnerbyte och expertförmedling regleras i förmedlingsavtalet. Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Betalning påverkar aldrig relevansordning eller rekommendationer." },
 ];
 
-export const PARTNER_FEE_NOTE = "Samma villkor för alla partners: ingen mötesavgift, ersättning endast vid tecknat kundavtal. Alla priser exklusive moms.";
+export const PARTNER_FEE_NOTE = "Samma villkor för alla partners. Betald mötesavgift räknas av mot avgiften vid affär och avräkningen blir aldrig negativ. Alla priser exklusive moms.";
 
 /** Every Premium benefit, printed in every agreement PDF so it stands alone when forwarded internally. */
 export const PREMIUM_BENEFITS_TITLE = "Detta ingår i Premiumavtalet";
