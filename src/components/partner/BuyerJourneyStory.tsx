@@ -103,7 +103,7 @@ export default function BuyerJourneyStory() {
           </div>
         </div>
 
-        <div className="mb-12 flex gap-3 rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground max-w-3xl">
+        <div className="mb-12 flex gap-3 rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground max-w-3xl lg:max-w-none">
           <Info className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
           <p>
             <strong className="font-semibold text-foreground">En illustrativ kundresa.</strong> Vi följer ett fiktivt, medelstort svenskt grossistföretag som överväger att byta affärssystem: ekonomichefen, IT-ansvarig, verksamhetschefen, en rådgivare från d365.se och konsulter från en Dynamics-partner. Bilderna är AI-genererade illustrationer, inte dokumentation av verkliga kundmöten eller projekt. Alla köpare går inte igenom samtliga steg. Köparen kan gå framåt, tillbaka eller avbryta, välja partner utan rådgivningssamtal och göra stora delar av resan på egen hand. d365.se finns tillgängligt under hela vägen.
