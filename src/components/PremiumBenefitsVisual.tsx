@@ -1,6 +1,6 @@
 import { BadgeCheck, BarChart3, Check, Minus, PlayCircle, Users } from "lucide-react";
-import openingShot from "@/assets/premium-profil-oppning.webp.asset.json";
-import industryShot from "@/assets/premium-profil-branscher.webp.asset.json";
+import openingShot from "@/assets/truvio-exflow-profil-oppning.webp.asset.json";
+import industryShot from "@/assets/truvio-exflow-profil-behov.webp.asset.json";
 import insideShot from "@/assets/inside-intervju-4ps.webp.asset.json";
 
 const COMPARE: { label: string; basic: boolean; premium: boolean }[] = [
@@ -28,7 +28,7 @@ export default function PremiumBenefitsVisual() {
           <div>
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent mb-2"><Users className="w-4 h-4" aria-hidden="true" />1. Visa er kompetens</span>
             <h3 className="text-xl font-bold mb-3">En profil som visar vad ni faktiskt gör</h3>
-            <p className="text-muted-foreground mb-5">Så här ser en publicerad Premiumprofil ut på d365.se. Köparen ser specialiseringar, branscherfarenhet, kundcase, experter och en fördjupad företagspresentation på ett ställe.</p>
+            <p className="text-muted-foreground mb-5">Så här kan en utökad och verifierad presentation se ut på d365.se, här med Truvios ExFlow. En Premiumprofil för en Dynamics-partner samlar på samma sätt specialiseringar, branscherfarenhet, kundcase, experter och en fördjupad företagspresentation på ett ställe.</p>
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-sm">
                 <caption className="sr-only">Jämförelse mellan Grundprofil och Premium</caption>
@@ -48,17 +48,17 @@ export default function PremiumBenefitsVisual() {
             <a href="#profiljamforelse" className="mt-3 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline">Jämför med er egen profil</a>
           </div>
           <figure className="space-y-3">
-            <img src={openingShot.url} alt="Skärmbild av inledningen på en publicerad Premiumprofil på d365.se, med presentation, kontakt och märket Verifierad partner" loading="lazy" width={1160} height={620} className="w-full rounded-lg border border-border shadow-md" />
-            <img src={industryShot.url} alt="Skärmbild av branscherfarenhet, referenser och kompetenser på samma Premiumprofil" loading="lazy" width={1160} height={585} className="w-full rounded-lg border border-border shadow-md" />
-            <figcaption className="text-xs text-muted-foreground">Skärmbilder från 4PS Construction Software AB:s publicerade profil på d365.se.</figcaption>
+            <img src={openingShot.url} alt="Skärmbild av inledningen på Truvios produktsida för ExFlow Business Central på d365.se, med märket Verifierad tilläggslösning, utökad presentation och produktkontakt" loading="lazy" decoding="async" width={1160} height={610} className="w-full rounded-lg border border-border shadow-md" />
+            <img src={industryShot.url} alt="Skärmbild av avsnitten om vad ExFlow Business Central löser och när lösningen kan passa" loading="lazy" decoding="async" width={1160} height={585} className="w-full rounded-lg border border-border shadow-md" />
+            <figcaption className="text-xs text-muted-foreground">Riktiga skärmbilder från Truvios publicerade, verifierade presentation av ExFlow Business Central på d365.se (2026-11-17).</figcaption>
           </figure>
         </div>
 
         {/* 2. Förtroende */}
         <div className="grid gap-8 lg:grid-cols-2 items-center mb-14">
           <figure className="lg:order-2">
-            <img src={insideShot.url} alt="Bild från d365.se INSIDE-intervjun med 4PS om hur bygg- och projektbolag väljer affärssystem" loading="lazy" width={1280} height={720} className="w-full rounded-lg border border-border shadow-md" />
-            <figcaption className="mt-2 text-xs text-muted-foreground">Från en genomförd d365.se INSIDE-intervju med 4PS.</figcaption>
+            <img src={insideShot.url} alt="Bild från d365.se INSIDE-intervjun med 4PS om hur bygg- och projektbolag väljer affärssystem" loading="lazy" decoding="async" width={1280} height={720} className="w-full rounded-lg border border-border shadow-md" />
+            <figcaption className="mt-2 text-xs text-muted-foreground">Bild från en genomförd d365.se INSIDE-intervju (med 4PS).</figcaption>
           </figure>
           <div className="lg:order-1">
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent mb-2"><BadgeCheck className="w-4 h-4" aria-hidden="true" />2. Bygg förtroende före första mötet</span>

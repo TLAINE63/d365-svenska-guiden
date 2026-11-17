@@ -81,7 +81,7 @@ const SCENES: Scene[] = [
     alt: "Gemensamt projektteam med kundens medarbetare och konsulter i en workshop om processer",
     stage: "Projekt och genomförande",
     title: "Nu börjar det verkliga arbetet",
-    text: "Ett lyckat systemprojekt kräver mer än ett bra produktval. Rätt partner, tydliga mål och ett genomtänkt genomförande är avgörande.",
+    text: "Köpresans mål är inte ett möte eller en förfrågan. Kundens mål är att lyckas med sin investering. Det kräver rätt partner, tydliga mål och ett genomtänkt genomförande.",
     roleTitle: "d365.se:s roll",
     role: "Vår roll är främst att hjälpa kunden fram till ett välgrundat val och en relevant introduktion, inte att automatiskt delta i genomförandet.",
   },
@@ -106,7 +106,7 @@ export default function BuyerJourneyStory() {
         <div className="mb-12 flex gap-3 rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground max-w-3xl">
           <Info className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
           <p>
-            <strong className="font-semibold text-foreground">En illustrativ kundresa.</strong> Alla köpare går inte igenom samtliga steg. Köparen kan gå framåt, tillbaka eller avbryta, välja partner utan rådgivningssamtal och göra stora delar av resan på egen hand. d365.se finns tillgängligt under hela vägen.
+            <strong className="font-semibold text-foreground">En illustrativ kundresa.</strong> Vi följer ett fiktivt, medelstort svenskt grossistföretag som överväger att byta affärssystem: ekonomichefen, IT-ansvarig, verksamhetschefen, en rådgivare från d365.se och konsulter från en Dynamics-partner. Bilderna är AI-genererade illustrationer, inte dokumentation av verkliga kundmöten eller projekt. Alla köpare går inte igenom samtliga steg. Köparen kan gå framåt, tillbaka eller avbryta, välja partner utan rådgivningssamtal och göra stora delar av resan på egen hand. d365.se finns tillgängligt under hela vägen.
           </p>
         </div>
 
@@ -157,6 +157,24 @@ export default function BuyerJourneyStory() {
         <p className="mt-14 max-w-3xl text-base md:text-lg text-foreground font-medium border-l-4 border-primary pl-4">
           Er egen webbplats är viktig när kunden redan känner till er. d365.se har en annan roll: att hjälpa företag som fortfarande försöker förstå vilka lösningar och partners som är relevanta.
         </p>
+
+        <div className="mt-8 max-w-3xl rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground space-y-2">
+          <p className="font-semibold text-foreground">Så arbetar d365.se med köparen</p>
+          <p>Köparen kan göra research, jämföra lösningar och partners och använda verktygen helt utan säljkontakt. Rådgivning är frivillig, och kunden väljer själv om och när den vill träffa en partner.</p>
+          <p>d365.se kan också arbeta aktivt med att upptäcka och följa upp relevanta behov. En företagssignal, till exempel att ett företag besökt sajten, är inte samma sak som en identifierad person eller ett kvalificerat kundprojekt.</p>
+        </div>
+
+        <div className="mt-12 rounded-2xl border-2 border-primary/30 bg-card p-6 md:p-8">
+          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-4">Varför spelar detta roll för er som Dynamics-partner?</h3>
+          <ul className="grid gap-4 md:grid-cols-2 text-muted-foreground">
+            {[
+              "Kunden kan ha undersökt både lösningar och partners långt innan ni får möjlighet att träffas.",
+              "Därför behöver er kompetens vara tydlig och begriplig redan under kundens research.",
+              "Med Premium kan ni ge köparen ett bättre underlag för att bedöma er.",
+              "När kunden är redo att gå vidare arbetar d365.se för att hjälpa rätt kund att hitta rätt partner.",
+            ].map((t) => <li key={t} className="flex gap-2"><Check className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+          </ul>
+        </div>
       </div>
     </section>
   );
