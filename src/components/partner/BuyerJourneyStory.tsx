@@ -45,9 +45,9 @@ const SCENES: Scene[] = [
     alt: "Två kollegor jämför lösningar och partners på en gemensam skärm",
     stage: "Fördjupad research och jämförelse",
     title: "Vilka lösningar och partners passar oss?",
-    text: "Köparen undersöker kostnader, risker, lösningar och möjliga leverantörer. Mycket av utvärderingen kan ske utan kontakt med en säljare.",
+    text: "Köparen undersöker kostnader, risker, lösningar och möjliga leverantörer, och vilka tilläggslösningar som kan behövas. Mycket av utvärderingen kan ske utan kontakt med en säljare.",
     roleTitle: "d365.se:s roll",
-    role: ["Kalkylatorer och jämförelser", "Partnerprofiler och kundcase", "Beslutsstöd"],
+    role: ["Kalkylatorer och jämförelser", "Partnerprofiler och kundcase", "Kompletterande tilläggslösningar (ISV), till exempel för lager, e-handel eller dokumenthantering"],
   },
   {
     img: scene4,

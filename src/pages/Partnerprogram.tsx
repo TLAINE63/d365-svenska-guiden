@@ -275,18 +275,44 @@ const Partnerprogram = () => {
               ))}
             </ul>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border-2 border-primary bg-card p-6 flex flex-col">
-              <h2 className="text-lg font-bold text-foreground mb-2">För Dynamics&nbsp;365-partners</h2>
-              <p className="text-sm text-muted-foreground mb-4">Visa er kompetens, era kundcase och era erbjudanden för företag som utvärderar Dynamics&nbsp;365 eller söker ny kompetens.</p>
-              <Button asChild className="mt-auto self-start"><a href="#for-partners">Utforska partnerprogrammet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+          <section aria-labelledby="tva-program-rubrik" className="mt-10">
+            <h2 id="tva-program-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">För Dynamics-partners och ISV-leverantörer</h2>
+            <div className="max-w-3xl space-y-2 text-muted-foreground mb-6">
+              <p>d365.se hjälper företag att hitta både rätt Dynamics-partner och kompletterande lösningar.</p>
+              <p>Vi erbjuder därför två olika presentationsprogram, anpassade efter vad ni erbjuder och hur köparen utvärderar sina alternativ.</p>
             </div>
-            <div className="rounded-xl border border-border bg-card p-6 flex flex-col">
-              <h2 className="text-lg font-bold text-foreground mb-2">För ISV-leverantörer</h2>
-              <p className="text-sm text-muted-foreground mb-4">Hjälp svenska Dynamics&nbsp;365-kunder att upptäcka, förstå och utvärdera era produkter och tilläggslösningar. Introduktionspris 2&nbsp;990&nbsp;kr första året.</p>
-              <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV-programmet<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-xl border-2 border-primary bg-card p-6 flex flex-col">
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-2">Premium · Jag är Dynamics-partner</p>
+                <h3 className="text-xl font-bold text-foreground mb-2">Visa varför ni är rätt partner</h3>
+                <p className="text-sm text-muted-foreground mb-4">När kunden jämför implementationspartners hjälper en komplett profil köparen att förstå er kompetens, era branscher, kundcase och experter. Köparen får svar om projekt, kostnader, risker och genomförande.</p>
+                <ul className="space-y-1.5 text-sm text-muted-foreground mb-5">
+                  {["Fördjupad partnerprofil med kundcase och experter", "Redaktionell granskning inför verifiering", "Kundintroduktioner enligt Finder’s fee-avtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+                </ul>
+                <div className="mt-auto flex flex-wrap gap-2">
+                  <Button asChild><a href="#premium-formaner">Se vad Premium ger<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+                  <Button asChild variant="outline"><a href="#priser-innehall">Prislista</a></Button>
+                </div>
+              </div>
+              <div className="rounded-xl border-2 border-accent/40 bg-card p-6 flex flex-col">
+                <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-2">ISV Presence · Jag är ISV-leverantör</p>
+                <h3 className="text-xl font-bold text-foreground mb-2">Hjälp kunden att upptäcka och förstå era lösningar</h3>
+                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central kan samtidigt behöva lagerhantering, budgetering, e-handel, dokumenthantering eller branschtillägg. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
+                <ul className="space-y-1.5 text-sm text-muted-foreground mb-3">
+                  {["Leverantörspresentation och egna produktsidor per app", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+                </ul>
+                <details className="mb-4 text-sm text-muted-foreground">
+                  <summary className="cursor-pointer font-medium text-foreground">Frågor köpare vill ha svar på innan de kontaktar en säljare</summary>
+                  <ul className="mt-2 list-disc pl-5 space-y-1">
+                    {["Vilket problem löser produkten?", "När behöver vi den?", "Hur fungerar integrationen?", "Vad kostar lösningen?", "Vilka begränsningar finns?", "Hur skiljer den sig från alternativen?"].map((q) => <li key={q}>{q}</li>)}
+                  </ul>
+                </details>
+                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en app, introduktionspris 2&nbsp;990&nbsp;kr första året, exklusive moms. Produktrelaterade kundintroduktioner kan diskuteras separat; Finder’s fee för ISV är pausad och partnervillkoren gäller inte automatiskt.</p>
+                <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
+              </div>
             </div>
-          </div>
+            <p className="mt-4 text-sm text-muted-foreground">Premium och ISV Presence är två separata erbjudanden. Betalning påverkar aldrig relevansordningen, och inget av dem innebär garanterade leads.</p>
+          </section>
         </div>
       </header>
 
