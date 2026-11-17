@@ -19,6 +19,7 @@ export function getHeaderOffset(target?: HTMLElement): number {
   if (target) {
     document.querySelectorAll<HTMLElement>("[data-sticky-offset]").forEach((s) => {
       if (s.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_PRECEDING) return;
+      if (getComputedStyle(s).position !== "sticky") return;
       sticky += s.offsetHeight;
     });
   }
