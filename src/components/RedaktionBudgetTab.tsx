@@ -123,6 +123,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
   if (loading) return <p className="text-sm text-muted-foreground">Laddar budget…</p>;
   const sel = "h-9 rounded-md border bg-background px-2 text-sm";
+  const saveBtn = <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>;
+  const saveRow = <div className="flex justify-end pt-2">{saveBtn}</div>;
 
   return (
     <div className="space-y-6 tabular-nums [&_td.text-right]:whitespace-nowrap">
@@ -131,7 +133,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <h2 className="text-xl font-semibold">Budget 2027</h2>
           <p className="text-sm text-muted-foreground">Intern prognos per partner. Påverkar aldrig profiler, listor eller ordning. Alla belopp exkl. moms.</p>
         </div>
-        <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara budget"}</Button>
+        {saveBtn}
       </div>
 
       <nav aria-label="Budgetsektioner" className="flex gap-1 overflow-x-auto border-y py-2">
@@ -270,9 +272,11 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <li>Befintlig kundrelation, partnern visar aktiv dialog inom: 5 arbetsdagar</li>
           </ul>
         </details>
+        {saveRow}
       </section>
 
       <FunnelBudget budget={budget} setBudget={setBudget} />
+      {saveRow}
 
       <Card id="budget-subscriptions" className="scroll-mt-32">
         <CardHeader>
@@ -346,6 +350,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             </tbody>
           </table>
           </div>
+          {saveRow}
         </CardContent>
       </Card>
 
@@ -479,6 +484,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ))}
             </tbody>
           </table>
+          {saveRow}
         </CardContent>
       </Card>
 
@@ -513,9 +519,10 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </tr>
             </tbody>
           </table>
-
+          {saveRow}
         </CardContent>
       </Card>
+      {saveRow}
     </div>
   );
 }
