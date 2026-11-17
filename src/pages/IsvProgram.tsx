@@ -109,11 +109,11 @@ const IsvProgram = () => {
         <section id="priser-innehall" className="pt-8 pb-14 scroll-mt-64">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Prislista</h2>
-            <p className="max-w-3xl text-muted-foreground mb-8 -mt-3">ISV Presence och ett frivilligt Finder’s fee-avtal. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
-            <div className="grid gap-6 lg:grid-cols-2 items-start">
-              <div className="rounded-xl border-2 border-primary bg-card p-6 md:p-8 flex flex-col">
+            <p className="max-w-3xl text-muted-foreground mb-8 -mt-3">ISV Presence. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+            <div className="grid gap-6 items-start">
+              <div className="rounded-xl border-2 border-primary bg-card p-6 md:p-8 flex flex-col max-w-2xl">
                 <h3 className="text-2xl font-bold text-foreground mb-2">ISV Presence - Prislista</h3>
-                <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet är frivilligt. Alla priser exklusive moms.</p>
+                <p className="text-sm text-muted-foreground mb-5">Alla priser exklusive moms.</p>
                 <div className="rounded-lg bg-secondary/30 p-5 mb-6 space-y-3 text-sm text-muted-foreground">
                   <h4 className="text-base font-semibold text-foreground">Vad innebär ISV Presence?</h4>
                   <p>Med ISV Presence får er app en utökad produktpresentation där köpare och Dynamics&nbsp;365-partners ser vilka behov lösningen löser, med logotyp, webblänk, kontakt och demofilmer.</p>
