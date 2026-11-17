@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder’s fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7 500 kr (Premium) / 12 500 kr (Basic) upp till 6 månader eller under halvtid, 15 000 / 25 000 kr vid längre uppdrag.",
+      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Premium och Finder’s fee kan tecknas var för sig. Finder’s fee för nya projekt: mötesavgift per kvalificerat möte (under 250 tkr 1 500 kr; 250 tkr–1 Mkr 3 000 kr Premium / 5 000 kr Basic; över 1 Mkr 6 000 / 9 000 kr) samt 2,5 % vid affär (lägst 3 000 kr under 250 tkr, högst 100 000 kr över 1 Mkr), där betald mötesavgift räknas av. Partnerbyte: endast mötesavgift. Expertkonsulter: fast avgift per tillsatt uppdrag, 7 500 kr (Premium) / 12 500 kr (Basic) upp till 6 månader eller under halvtid, 15 000 / 25 000 kr vid längre uppdrag.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",

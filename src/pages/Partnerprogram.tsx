@@ -324,11 +324,11 @@ const Partnerprogram = () => {
         <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista</h2>
-          <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finder’s fee-avtal. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <p className="text-muted-foreground mb-8 max-w-3xl">Premium och Finder’s fee är två separata erbjudanden som kan tecknas var för sig eller tillsammans. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 lg:grid-cols-2 items-start">
             <div className="rounded-xl border-2 border-primary bg-card p-6">
               <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
-              <p className="text-sm text-muted-foreground mb-4">Kräver ett Finder’s fee-avtal. Alla priser exklusive moms.</p>
+              <p className="text-sm text-muted-foreground mb-4">Kan tecknas med eller utan Finder’s fee-avtal. Alla priser exklusive moms.</p>
               <div className="rounded-lg bg-secondary/40 p-4 mb-5 text-sm text-muted-foreground space-y-2">
                 <h4 className="font-semibold text-foreground">Vad innebär det att vara Premiumpartner?</h4>
                 <p>Som Premiumpartner får ni en fördjupad profil där köpare kan se vilka kunder, branscher och projekt ni har erfarenhet av, med kundcase, experter och möjlighet till video.</p>
@@ -341,7 +341,7 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Tillvalsprodukterna Commerce, Human Resources och Project Operations via profileringslänken, kostnadsfritt och utanför prislistan.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Ingen mötesavgift vid förmedlade kundmöten.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Lägre mötesavgift vid förmedlade kundmöten från 250&nbsp;tkr och vid partnerbyte, om ni även har Finder’s fee-avtal.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
@@ -387,7 +387,7 @@ const Partnerprogram = () => {
               </div>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
-                <li>Ni beställer Premium och tecknar Finder’s fee-avtalet.</li>
+                <li>Ni beställer Premium (och vid behov Finder’s fee-avtalet).</li>
                 <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
                 <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
                 <li>Profilen publiceras med märket Verifierad partner.</li>
