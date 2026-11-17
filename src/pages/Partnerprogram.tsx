@@ -357,21 +357,33 @@ const Partnerprogram = () => {
                 </table>
               </div>
               <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
-              <h4 className="font-semibold mb-2">Finder’s fee: ersättning vid tecknat kundavtal</h4>
+              <h4 className="font-semibold mb-2">Finder’s fee: nya projekt</h4>
               <div className="overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
-                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Affärstyp</th><th scope="col" className="text-right px-3 py-2">Kundavtal tecknat</th><th scope="col" className="text-right px-3 py-2">Success fee*</th></tr></thead>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ av affär</th><th scope="col" className="text-right px-3 py-2">Mötesavgift Premium / Basic</th><th scope="col" className="text-right px-3 py-2">Avgift vid affär*</th></tr></thead>
                   <tbody>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter, uppdrag upp till 6 månader eller under halvtid</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">7&nbsp;500&nbsp;kr (Premium) / 12&nbsp;500&nbsp;kr (Basic)</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter, längre uppdrag eller minst halvtid</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">15&nbsp;000&nbsp;kr (Premium) / 25&nbsp;000&nbsp;kr (Basic)</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Under 250 tkr</th><td className="text-right px-3 py-2 font-semibold">1&nbsp;500&nbsp;kr&nbsp;/&nbsp;1&nbsp;500&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">2,5&nbsp;%<span className="block text-xs font-normal text-muted-foreground">lägst 3&nbsp;000&nbsp;kr</span></td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">250 tkr – 1 Mkr</th><td className="text-right px-3 py-2 font-semibold">3&nbsp;000&nbsp;kr&nbsp;/&nbsp;5&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">2,5&nbsp;%</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Över 1 Mkr</th><td className="text-right px-3 py-2 font-semibold">6&nbsp;000&nbsp;kr&nbsp;/&nbsp;9&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">2,5&nbsp;%<span className="block text-xs font-normal text-muted-foreground">högst 100&nbsp;000&nbsp;kr</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h4 className="font-semibold mb-2">Partnerbyte och expertförmedling</h4>
+              <div className="overflow-x-auto border border-border rounded-lg mb-3">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Basic</th></tr></thead>
+                  <tbody>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Partnerbyte, Business Central, CRM och Power Platform (mötesavgift)</th><td className="text-right px-3 py-2 font-semibold">3&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">5&nbsp;000&nbsp;kr</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Partnerbyte, Finance &amp; Supply Chain Management (mötesavgift)</th><td className="text-right px-3 py-2 font-semibold">6&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">9&nbsp;000&nbsp;kr</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Expertkonsult, uppdrag upp till 6 månader eller under halvtid</th><td className="text-right px-3 py-2 font-semibold">7&nbsp;500&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">12&nbsp;500&nbsp;kr</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Expertkonsult, längre uppdrag eller minst halvtid</th><td className="text-right px-3 py-2 font-semibold">15&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold">25&nbsp;000&nbsp;kr</td></tr>
                   </tbody>
                 </table>
               </div>
               <div className="space-y-2 text-xs text-muted-foreground mb-5">
-                <p>*För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även en <strong className="font-semibold text-foreground">success fee på 2,5 procent av intäkterna</strong> från första kronan under de första nio månaderna från projektstart.</p>
-                <p>Expertavgiften är en fast avgift per tillsatt uppdrag; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
+                <p>*Avgiften vid affär är 2,5 procent av affärens konsult- och projektvärde. <strong className="font-semibold text-foreground">Betald mötesavgift räknas av i sin helhet</strong> mot avgiften vid affär, och avräkningen blir aldrig negativ. Vid partnerbyte tas bara mötesavgift ut.</p>
+                <p>Expertavgiften är en fast avgift per tillsatt uppdrag; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.</p>
+                <p>Tidsgränser: reklamation av kvalificering inom 5 arbetsdagar efter mötet, offert som flyttar mötet till lägre band inom 60 dagar, vunnen affär rapporteras inom 14 dagar efter avtal med kund, tidsfönster 9 månader från mötet (nya projekt och partnerbyte) och 6 månader från förfrågan (expertförmedling), befintlig kundrelation visas med aktiv dialog inom 5 arbetsdagar.</p>
                 <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp exklusive moms. Fullständiga villkor regleras i partner- och förmedlingsavtalet.</p>
               </div>
               <h4 className="font-semibold mb-2">Processen</h4>
@@ -386,13 +398,13 @@ const Partnerprogram = () => {
             </div>
             <div id="affarsmojligheter" className="rounded-xl border border-border bg-card p-6 scroll-mt-64">
               <h3 className="text-xl font-bold mb-3">Finder’s fee - så fungerar det</h3>
-              <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret projekt. Ni betalar bara när det leder till ett tecknat kundavtal. Beloppen finns i prislistan.</p>
+              <p className="text-sm text-muted-foreground mb-5">Finder’s fee-avtalet gör att vi kan introducera er för köpare som redan har ett konkret projekt. Ni betalar en mötesavgift per kvalificerat möte, som räknas av mot avgiften om det blir affär. Beloppen finns i prislistan.</p>
               <ol className="space-y-4 mb-5">
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">1</span><div><p className="font-semibold text-foreground">Köparen beskriver sitt behov</p><p className="text-sm text-muted-foreground">Ett företag använder d365.se för att förstå sitt behov, till exempel via guider, kravspecifikation eller ett samtal med oss.</p></div></li>
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">2</span><div><p className="font-semibold text-foreground">Vi kvalificerar affären</p><p className="text-sm text-muted-foreground">Vi går igenom behov, tidplan och budget. Bara konkreta projekt med tydlig avsikt att gå vidare blir en affärsmöjlighet.</p></div></li>
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">3</span><div><p className="font-semibold text-foreground">Ni får frågan först</p><p className="text-sm text-muted-foreground">Vi beskriver möjligheten för relevanta partners. Ni bedömer om den passar och accepterar villkoren innan något händer.</p></div></li>
                 <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">4</span><div><p className="font-semibold text-foreground">Köparen säger ja</p><p className="text-sm text-muted-foreground">Köparen väljer själv vilka partners (högst tre) som får kontakt och lämnar sitt samtycke. Därefter bokas introduktion och kundmöte.</p></div></li>
-                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">5</span><div><p className="font-semibold text-foreground">Ersättning bara vid affär</p><p className="text-sm text-muted-foreground">Ni betalar enligt prislistan först när kundavtalet är tecknat. Blir det ingen affär kostar det ingenting.</p></div></li>
+                <li className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">5</span><div><p className="font-semibold text-foreground">Mötesavgift och avgift vid affär</p><p className="text-sm text-muted-foreground">Efter mötet betalar ni mötesavgiften. Blir det affär betalar ni 2,5 procent, minus den mötesavgift ni redan betalat.</p></div></li>
               </ol>
               <p className="text-xs text-muted-foreground mb-5">Introduktioner påverkar aldrig relevansordningen i partnersökningen.</p>
               <ContactFormDialog

@@ -1,7 +1,7 @@
 import { createPdfDocument, wrapPdfText } from "@/utils/pdfDocument";
 import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "@/utils/pdfLayout";
 import { PDF_BRAND } from "@/utils/pdfBrand";
-import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
+import { MONTH_PRICE, YEAR_PRICE, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE, ISV_BENEFITS, ISV_BENEFITS_TITLE } from "./partnerProfileTerms";
 

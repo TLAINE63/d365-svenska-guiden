@@ -1,4 +1,4 @@
-import { MONTH_PRICE, YEAR_PRICE, FEES, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
+import { MONTH_PRICE, YEAR_PRICE, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
 import type { AgreementPdfSection } from "./generatePartnerAgreementPdf";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 
