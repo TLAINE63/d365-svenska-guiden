@@ -239,12 +239,12 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </table></div>
         <div className="space-y-2">
           <h4 className="text-sm font-semibold">Partnerbytesarvode, mötesavgift</h4>
-          <p className="text-xs text-muted-foreground">Partnerbyte debiteras bara per bokat möte, ingen provision vid affär.</p>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {([["std", "BC, CRM och Power Platform"], ["fscm", "Finance & SCM"]] as const).flatMap(([group, groupLabel]) =>
+          <p className="text-xs text-muted-foreground">Partnerbyte debiteras bara per bokat möte, ingen provision vid affär. Avgiften följer affärens storlek.</p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {([["small", `Under ${fmt(pricing.smallLimit)} kr`], ["medium", `${fmt(pricing.smallLimit)}–${fmt(pricing.largeLimit)} kr`], ["large", `Över ${fmt(pricing.largeLimit)} kr`]] as const).flatMap(([band, bandLabel]) =>
               (["premium", "basic"] as const).map((tier) => {
-                const label = `Partnerbyte ${groupLabel}, möte ${tier === "premium" ? "Premium" : "Basic"}, kr`;
-                return <label key={`${group}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.switchMeeting[group][tier]} onValueChange={(value) => setPricing({ switchMeeting: { ...pricing.switchMeeting, [group]: { ...pricing.switchMeeting[group], [tier]: value } } })} /></label>;
+                const label = `Partnerbyte ${bandLabel}, möte ${tier === "premium" ? "Premium" : "Basic"}, kr`;
+                return <label key={`${band}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.switchMeeting[band][tier]} onValueChange={(value) => setPricing({ switchMeeting: { ...pricing.switchMeeting, [band]: { ...pricing.switchMeeting[band], [tier]: value } } })} /></label>;
               }))}
           </div>
         </div>
@@ -575,7 +575,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">Partnerbyten</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Produkt</th><th className={th}>Mötesavgift<br />kr per möte</th><th className={th}>Antal möten</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Mötesavgift<br />kr per möte</th><th className={th}>Antal möten</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{SWITCH_FUNNEL.map((s) => <Fragment key={s.key}>
               <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{s.label}</th><td className="border-l bg-muted" /></tr>
