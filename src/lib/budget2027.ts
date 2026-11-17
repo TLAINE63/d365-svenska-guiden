@@ -203,6 +203,11 @@ export const EXPERT_FUNNEL = [
   { key: "cv", label: "Expertförmedling via Premiumpartner", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
   { key: "expert", label: "Expertförmedling via Basicpartner", rate: EXPERT_FEES.basicPerHour, hours: 400 },
 ];
+// Partnerbytesarvode (Thomas 2026-11-17): mötesavgift per produktgrupp och nivå, ingen provision.
+export const SWITCH_FUNNEL = [
+  { key: "switchStd", label: "Partnerbyte: BC, CRM och Power Platform", fscm: false },
+  { key: "switchFscm", label: "Partnerbyte: Finance & Supply Chain Management", fscm: true },
+];
 export const ISV_FUNNEL = [
   { key: "isvStd", label: "ISV: licenser och abonnemang, första 12 mån", rate: ISV_FEES.licenseRate, value: 200000 },
   { key: "isvFscm", label: "ISV: förmedlat konsultuppdrag", rate: ISV_FEES.consultRate, value: 400000 },
@@ -233,12 +238,19 @@ export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, 
   const deals = n(r.deals) * fee;
   return { fee, deals, wins: 0, total: deals };
 }
+/** Partnerbyte debiteras bara per bokat möte; affären ger ingen provision i budgeten. */
+export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing()) {
+  const fee = pricing.switchMeeting[s.fscm ? "fscm" : "std"][tier];
+  const meetings = n(r.meetings) * fee;
+  return { fee, meetings, total: meetings };
+}
 export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
-  let partner = 0, expert = 0, isv = 0;
+  let partner = 0, expert = 0, isv = 0, partnerSwitch = 0;
   for (const p of FUNNEL_PRODUCTS) for (const t of ["basic", "premium"] as const) partner += partnerFunnelRow(p, t, f[`${p.key}_${t}`], values, pricing).total;
   for (const e of EXPERT_FUNNEL) expert += expertFunnelRow(e, f[e.key]).total;
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
-  return { partner, expert, isv, total: partner + expert + isv };
+  for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing).total;
+  return { partner, expert, isv, partnerSwitch, total: partner + expert + isv + partnerSwitch };
 }
 
 /** Recurring subscription income vs fixed external costs (OPEX), per year. Extra partners needed are counted at the 1-area monthly Premium price. */
