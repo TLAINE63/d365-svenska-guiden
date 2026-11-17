@@ -254,7 +254,7 @@ const Partnerprogram = () => {
       {/* 1. HERO */}
       <header className="pt-28 pb-14 md:pt-32 md:pb-20 bg-gradient-to-b from-secondary/40 to-background border-b border-border">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl lg:max-w-none">
             {matchedPartner && (
               <Badge variant="secondary" className="mb-4 text-sm">
                 {matchedPartner.name} finns redan på d365.se – se hur profilen kan utvecklas
@@ -266,7 +266,7 @@ const Partnerprogram = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
               Var med när kunderna väljer Dynamics&nbsp;365
             </h1>
-            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl">
+            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl lg:max-w-none">
               d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV-leverantörer möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
             </p>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
