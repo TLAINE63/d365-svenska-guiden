@@ -4,15 +4,10 @@ import {
   ArrowRight,
   Calendar,
   Check,
-  Search,
-  SlidersHorizontal,
-  Columns3,
-  ListChecks,
   Mail,
   Eye,
   BadgeCheck,
   Video,
-  Sparkles,
 } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
@@ -36,6 +31,7 @@ import { useBasicPartners } from "@/hooks/useBasicPartners";
 import PartnerProgramBenchmark from "@/components/partner/PartnerProgramBenchmark";
 import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
 import VerifiedPartnerBadgeEmbed from "@/components/partner/VerifiedPartnerBadgeEmbed";
+import BuyerJourneyStory from "@/components/partner/BuyerJourneyStory";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
@@ -46,6 +42,7 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 
 const programSections = [
   { id: "for-partners", label: "Översikt" },
+  { id: "kopresan", label: "Köpresan" },
   { id: "priser-innehall", label: "Prislista" },
   { id: "affarsmojligheter", label: "Finder’s fee" },
   { id: "profilkoll", label: "Er partnerprofil" },
@@ -98,14 +95,6 @@ const faqs = [
   },
 ];
 
-const journeySteps = [
-  { label: "Behov / systemval", icon: Sparkles },
-  { label: "Hitta relevanta partners", icon: Search },
-  { label: "Filtrera", icon: SlidersHorizontal },
-  { label: "Jämför", icon: Columns3 },
-  { label: "Kortlista", icon: ListChecks },
-  { label: "Be om introduktion", icon: Mail },
-];
 
 /** Fire one analytics event per page load. */
 function track(
@@ -323,6 +312,8 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      <BuyerJourneyStory />
+
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
@@ -430,7 +421,7 @@ const Partnerprogram = () => {
       <PartnerProfileCheck initialSlug={partnerSlug} />
       <VerifiedPartnerBadgeEmbed />
       <details id="profiljamforelse" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6 scroll-mt-64">
-        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-64">Se skillnaden mellan profiler och följ kundens köpresa</summary>
+        <summary className="cursor-pointer text-lg font-semibold py-3 scroll-mt-64">Se skillnaden mellan profiler</summary>
       {/* 2b. BENCHMARK: Basic vs profilerad referensprofil */}
       <PartnerProgramBenchmark
         partnerSlug={partnerSlug}
@@ -453,37 +444,6 @@ const Partnerprogram = () => {
           </ContactFormDialog>
         )}
       />
-
-      {/* 3. KÖPRESAN */}
-
-      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
-        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-            Var i köpresan kommer d365.se in?
-          </h2>
-          <ol className="flex flex-col md:flex-row md:items-stretch gap-3">
-            {journeySteps.map((s, i) => (
-              <li key={s.label} className="flex md:flex-col md:flex-1 items-center gap-3">
-                <div className="flex-1 w-full rounded-lg border border-border bg-card p-4 text-center">
-                  <s.icon className="w-5 h-5 text-accent mx-auto mb-2" aria-hidden="true" />
-                  <span className="text-sm font-medium text-foreground">{s.label}</span>
-                </div>
-                {i < journeySteps.length - 1 && (
-                  <ArrowRight
-                    className="w-4 h-4 text-muted-foreground shrink-0 rotate-90 md:rotate-0 md:hidden"
-                    aria-hidden="true"
-                  />
-                )}
-              </li>
-            ))}
-          </ol>
-          <p className="mt-8 max-w-3xl text-base md:text-lg text-foreground font-medium border-l-4 border-primary pl-4">
-            Er egen webbplats är viktig när kunden redan känner till er. d365.se har en annan roll: att
-            hjälpa företag som fortfarande försöker förstå vilka partners som är relevanta.
-          </p>
-        </div>
-      </section>
-
 
       </details>
 
