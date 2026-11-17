@@ -1,5 +1,5 @@
 // Marknadspuls: aggregerade 90-dagarssiffror (inga företagsnamn eller personuppgifter).
-// Hämtade ur sajtstatistik, Snitcher och Google Search Console. Uppdateras manuellt.
+// Hämtade ur sajtstatistik, Snitcher och Google Search Console. Reservvärden för förgenererad HTML; sidan hämtar aktuella siffror via public_market_pulse.
 export const MARKET_PULSE = {
   periodStart: "2026-08-19",
   periodEnd: "2026-11-17",

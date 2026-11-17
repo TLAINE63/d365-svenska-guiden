@@ -1,8 +1,20 @@
-import { MARKET_PULSE as m } from "@/data/marketPulse";
+import { useEffect, useState } from "react";
+import { MARKET_PULSE } from "@/data/marketPulse";
+import { mapMarketPulse } from "@/lib/marketPulse";
+import { supabase } from "@/integrations/supabase/client";
 
 const fmt = (n: number) => n.toLocaleString("sv-SE");
 
 export default function MarketPulseSection() {
+  const [m, setM] = useState(MARKET_PULSE);
+  useEffect(() => {
+    let alive = true;
+    (supabase.rpc as any)("public_market_pulse").then(({ data }: any) => {
+      const live = mapMarketPulse(data);
+      if (alive && live) setM(live);
+    });
+    return () => { alive = false; };
+  }, []);
   const stats = [
     { value: fmt(m.companies), label: "identifierade företag i aktiv research" },
     { value: fmt(m.searchImpressions), label: "visningar i Google-sök" },
