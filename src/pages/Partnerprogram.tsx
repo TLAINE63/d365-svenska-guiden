@@ -263,7 +263,7 @@ const Partnerprogram = () => {
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
               För partners och ISV-leverantörer inom Dynamics&nbsp;365
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-5">
+            <h1 className="text-3xl md:text-4xl xl:text-5xl sm:whitespace-nowrap font-bold leading-tight text-foreground mb-5">
               Var med när kunderna väljer Dynamics&nbsp;365
             </h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl lg:max-w-none">
