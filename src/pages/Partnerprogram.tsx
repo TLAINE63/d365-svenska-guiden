@@ -307,7 +307,7 @@ const Partnerprogram = () => {
                     {["Vilket problem löser produkten?", "När behöver vi den?", "Hur fungerar integrationen?", "Vad kostar lösningen?", "Vilka begränsningar finns?", "Hur skiljer den sig från alternativen?"].map((q) => <li key={q}>{q}</li>)}
                   </ul>
                 </details>
-                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en app, introduktionspris 2&nbsp;990&nbsp;kr första året, exklusive moms. Produktrelaterade kundintroduktioner kan diskuteras separat; Finder’s fee för ISV är pausad och partnervillkoren gäller inte automatiskt.</p>
+                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en app, <span className="font-semibold text-destructive">introduktionspris 2&nbsp;990&nbsp;kr första året</span>, exklusive moms. Produktrelaterade kundintroduktioner kan diskuteras separat; Finder’s fee för ISV är pausad och partnervillkoren gäller inte automatiskt.</p>
                 <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
               </div>
             </div>
