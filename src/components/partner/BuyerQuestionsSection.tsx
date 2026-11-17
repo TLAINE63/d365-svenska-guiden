@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import buyerAsks from "@/assets/journey/buyer-asks.jpg";
+import advisorAnswers from "@/assets/journey/advisor-answers.jpg";
 import { ArrowRight, Eye, MessageSquareText, Search } from "lucide-react";
 
 /** Köparens verkliga frågor och varför det är värdefullt för partners. Länkar endast till befintliga sidor. */
@@ -66,6 +68,21 @@ export default function BuyerQuestionsSection() {
             <p>Vi utgår från köparens verkliga frågor och försöker ge tydliga, användbara och ärliga svar.</p>
             <p>Även när frågorna handlar om kostnader, risker, nackdelar eller situationer där Dynamics&nbsp;365 kanske inte är rätt lösning.</p>
           </div>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 mb-12 max-w-4xl">
+          {[
+            { img: buyerAsks, alt: "Ekonomichef ställer en fråga om ett nytt affärssystem", label: "Köparen frågar", quote: "Vad kostar det egentligen, och vad kan gå fel?" },
+            { img: advisorAnswers, alt: "Rådgivare från d365.se svarar lugnt och sakligt", label: "Vi svarar", quote: "Öppet och sakligt, även när svaret är obekvämt." },
+          ].map((f) => (
+            <figure key={f.label} className="rounded-xl overflow-hidden border border-border bg-card">
+              <img src={f.img} alt={f.alt} width={1024} height={1024} loading="lazy" decoding="async" className="w-full aspect-[4/3] object-cover object-top" />
+              <figcaption className="p-4">
+                <span className="text-xs font-semibold uppercase tracking-wide text-accent">{f.label}</span>
+                <p className="mt-1 text-foreground font-medium">”{f.quote}”</p>
+              </figcaption>
+            </figure>
+          ))}
         </div>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-16">
