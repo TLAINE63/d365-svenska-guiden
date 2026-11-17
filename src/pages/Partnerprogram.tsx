@@ -277,7 +277,7 @@ const Partnerprogram = () => {
           </div>
           <section aria-labelledby="tva-program-rubrik" className="mt-10">
             <h2 id="tva-program-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">För Dynamics-partners och ISV-leverantörer</h2>
-            <div className="max-w-3xl space-y-2 text-muted-foreground mb-6">
+            <div className="max-w-3xl lg:max-w-none space-y-2 text-muted-foreground mb-6">
               <p>d365.se hjälper företag att hitta både rätt Dynamics-partner och kompletterande lösningar.</p>
               <p>Vi erbjuder därför två olika presentationsprogram, anpassade efter vad ni erbjuder och hur köparen utvärderar sina alternativ.</p>
             </div>
