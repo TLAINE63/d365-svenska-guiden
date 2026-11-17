@@ -1,134 +1,72 @@
 import { describe, it, expect } from "vitest";
-import { forecastRevenue, type PartnerForecast } from "../budget2027";
-
+import { budgetPricing, dealPricing } from "../budgetPricing";
+import { DEFAULT_BUDGET, forecastRevenue, isvRevenue, detailByCategory, estimateRevenue, categoryGroupSummary, mergeCosts, annual, partnerFunnelRow, FUNNEL_PRODUCTS, funnelTotals, expertFunnelRow, EXPERT_FUNNEL, budgetIsvVendors, type PartnerForecast } from "../budget2027";
 const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meetingsStd: 0, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 };
+const isv = { presence: true, extraApps: 2, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 100000, consultBasis: 200000 };
 
-describe("budget 2027", () => {
-  it("Grundprofil credits its BC meeting against 5 000 kr, Premium pays 5 000 kr with no meeting fee", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
-    expect(forecastRevenue({ ...base, forecast: "month", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
+describe("Budget 2027 editable assumptions", () => {
+  it("small deal: no meeting fee, 2.5 percent and minimum 3000", () => {
+    expect(dealPricing(50000, "basic", budgetPricing())).toEqual({ meeting: 0, commission: 3000 });
+    expect(dealPricing(200000, "premium", budgetPricing())).toEqual({ meeting: 0, commission: 5000 });
   });
-  it("Grundprofil credits its F&SCM meeting against 10 000 kr, Premium pays 10 000 kr with no meeting fee", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
-    expect(forecastRevenue({ ...base, forecast: "year", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
+  it("250000–1000000: Premium meeting 3000, Basic 5000, 2.5 percent", () => {
+    expect(dealPricing(250000, "premium", budgetPricing())).toEqual({ meeting: 3000, commission: 6250 });
+    expect(dealPricing(1000000, "basic", budgetPricing())).toEqual({ meeting: 5000, commission: 25000 });
   });
-  it("annual subscription with 3 products is 11 990 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "year", products: 3 }).subscription).toBe(11990);
+  it("over 1000000: Premium meeting 6000, Basic 9000, commission capped at 100000", () => {
+    expect(dealPricing(5000000, "premium", budgetPricing())).toEqual({ meeting: 6000, commission: 100000 });
+    expect(dealPricing(1000001, "basic", budgetPricing()).meeting).toBe(9000);
   });
-  it("100 % discount gives zero subscription", () => {
-    expect(forecastRevenue({ ...base, forecast: "month", products: 2, discount: 100 }).subscription).toBe(0);
+  it("editable meeting, percentage, minimum and maximum affect funnel", () => {
+    const p = budgetPricing(); p.bands.medium = { premiumMeeting: 2000, basicMeeting: 4000, percent: 1, minimum: 6000, maximum: 7000 };
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 2, deals: 10, wins: 1 }, {}, p)).toEqual({ meetings: 4000, deals: 0, wins: 6000, total: 10000 });
+    expect(dealPricing(900000, "basic", p).commission).toBe(7000);
   });
-  it("BC meeting + deal totals 5 000 kr (meeting credited)", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }).finders).toBe(5000);
+  it("agreements are pipeline volume, not another fee", () => {
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1, wins: 1 }).total).toBe(15000);
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { deals: 20 }).total).toBe(0);
   });
-  it("F&SCM meeting + deal totals 10 000 kr", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsFscm: 1, dealsFscm: 1 }).finders).toBe(10000);
+  it("ISV defaults to zero in detail and funnel even with saved volumes", () => {
+    expect(isvRevenue(isv).finders).toBe(0);
+    expect(funnelTotals({ isvStd: { deals: 10 }, isvFscm: { deals: 10 } }).isv).toBe(0);
   });
-  it("success fee 2.5 % only above 100 000 kr", () => {
-    expect(forecastRevenue({ ...base, successBasis: 100000 }).finders).toBe(0);
-    expect(forecastRevenue({ ...base, successBasis: 400000 }).finders).toBe(10000);
+  it("ISV percentages remain editable", () => {
+    const p = budgetPricing({ isvLicensePercent: 1, isvConsultPercent: 2 });
+    expect(isvRevenue(isv, p).finders).toBe(5000);
+    expect(funnelTotals({ isvStd: { deals: 2 } }, {}, p).isv).toBe(4000);
   });
-});
-
-import { isvRevenue, annual } from "../budget2027";
-describe("ISV budget 2027", () => {
-  const z = { presence: false, extraApps: 0, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 0 };
-  it("presence with two extra apps is 5 990 + 2 × 995 kr", () => {
-    expect(isvRevenue({ ...z, presence: true, extraApps: 2, introPrice: false }).subscription).toBe(7980);
+  it("subscription prices sync estimates and discounted detail rows", () => {
+    const pricing = budgetPricing(); pricing.units.year2 = 12000; pricing.units.month1 = 1000;
+    expect(estimateRevenue({ year2: 2, month1: 1 }, {}, {}, pricing)).toBe(36000);
+    expect(forecastRevenue({ ...base, forecast: "year", products: 2, discount: 50 }, { ...DEFAULT_BUDGET, pricing }).subscription).toBe(6000);
+    expect(detailByCategory([{ ...base, forecast: "year", products: 2, discount: 50 }], [], { ...DEFAULT_BUDGET, pricing }).year2.revenue).toBe(6000);
   });
-  it("ny ISV räknas med 2 990 kr första året", () => {
-    expect(isvRevenue({ ...z, presence: true, extraApps: 2 }).subscription).toBe(4980);
+  it("editable ISV base, intro and extra app prices", () => {
+    const p = budgetPricing({ isvAnnual: 7000 }); p.units.isvPresence = 3000; p.units.isvExtra = 1000;
+    expect(isvRevenue(isv, p).subscription).toBe(5000);
+    expect(isvRevenue({ ...isv, introPrice: false }, p).subscription).toBe(9000);
   });
-  it("Business Referral: 5 % licens, 2,5 % konsult, inga fasta avgifter", () => {
-    expect(isvRevenue({ ...z, introsStd: 1, introsFscm: 1, successBasis: 100000, consultBasis: 200000 }).finders).toBe(10000);
+  it("zero price and zero project value are retained", () => {
+    const p = budgetPricing(); p.units.year1 = 0;
+    expect(estimateRevenue({ year1: 2 }, {}, {}, p)).toBe(0);
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { wins: 1 }, { successBc: 0 }).total).toBe(0);
   });
-  it("monthly amount counts twelve times per year", () => {
-    expect(annual({ amount: 1000, period: "month" })).toBe(12000);
+  it("cost names and amounts survive reload without duplicate default rows", () => {
+    const saved = DEFAULT_BUDGET.costs.map((r, i) => ({ ...r, name: i === 0 ? "Ny tjänst" : r.name, amount: i === 0 ? 4000 : 0, period: "month" as const }));
+    const reloaded = mergeCosts(JSON.parse(JSON.stringify(mergeCosts(saved))));
+    expect(reloaded).toHaveLength(saved.length);
+    expect(reloaded[0].name).toBe("Ny tjänst");
+    expect(annual(reloaded[0])).toBe(48000);
   });
-});
-
-import { detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors } from "../budget2027";
-describe("category estimates", () => {
-  it("funnel finders fee is added to the partner and ISV summaries", () => {
-    const summary = categoryGroupSummary({ year1: 2, isvPresence: 1 }, {}, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } });
-    expect(summary.partner.finders.estimate).toBe(15000);
-    expect(summary.isv.finders.estimate).toBe(10000);
-    expect(estimateRevenue({ year1: 2, isvPresence: 1 }, {}, { bc_premium: { deals: 3 }, isvFscm: { deals: 1 } })).toBe(15980 + 2990 + 15000 + 10000);
+  it("partner and ISV group totals never double-count legacy estimates", () => {
+    const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
+    expect(s.partner.estimate).toBe(15980 + 3000 + 10000);
+    expect(s.isv.estimate).toBe(2990);
   });
-  it("old per-category finders estimates are no longer counted", () => {
-    expect(estimateRevenue({ premiumDealsStd: 3, expertCvHours: 10, successBc: 2 })).toBe(0);
+  it("expert rate remains editable", () => {
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 1, percent: 100, rate: 90 }).total).toBe(14850);
   });
-  it("separates partner and ISV budgets without double counting", () => {
-    expect(categoryGroupSummary({ year1: 2, isvPresence: 3, isvExtra: 2 }, { year1: { count: 1, revenue: 7990 }, isvPresence: { count: 1, revenue: 5990 } })).toEqual({
-      partner: { estimate: 15980, detail: 7990, subscription: { estimate: 15980, detail: 7990 }, finders: { estimate: 0, detail: 0 } },
-      isv: { estimate: 10960, detail: 5990, subscription: { estimate: 10960, detail: 5990 }, finders: { estimate: 0, detail: 0 } },
-    });
-  });
-  it("counts multiple distinct Truvio apps without capping or duplicating them", () => {
-    expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "App A" }, { id: "b", vendor: "Truvio", name: "App B" }, { id: "c", vendor: "Truvio", name: "App C" }, { id: "a", vendor: "Truvio", name: "App A" }])).toMatchObject([{ name: "Truvio", apps: 3, products: [{ id: "a", name: "App A" }, { id: "b", name: "App B" }, { id: "c", name: "App C" }] }]);
-  });
-  it("counts a yearly 2-product partner at 9 990 kr before discount", () => {
-    const d = detailByCategory([{ forecast: "year", products: 2, discount: 50, meetingsStd: 2, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 }], []);
-    expect(d.year2).toEqual({ count: 1, revenue: 4995 });
-    expect(d.meetingsStd).toEqual({ count: 0, revenue: 0 });
-  });
-  it("estimate: 3 nya ISV Presence = 8 970 kr", () => { expect(estimateRevenue({ isvPresence: 3 })).toBe(8970); });
-  it("no partner pays a meeting fee (same terms for all, Thomas 2026-11-12)", () => {
-    expect(forecastRevenue({ ...base, forecast: "basic", meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
-    for (const forecast of ["month", "year"] as const) {
-      expect(forecastRevenue({ ...base, forecast, meetingsStd: 1, meetingsFscm: 1 }).finders).toBe(0);
-    }
-  });
-  it("Premium pays full deal fees without meeting deductions", () => {
-    for (const forecast of ["month", "year"] as const) {
-      const r = { ...base, forecast, meetingsStd: 1, meetingsFscm: 1, dealsStd: 1, dealsFscm: 1 };
-      expect(forecastRevenue(r).finders).toBe(15000);
-      const d = detailByCategory([r], []);
-      expect(d.premiumDealsStd).toEqual({ count: 1, revenue: 5000 });
-      expect(d.premiumDealsFscm).toEqual({ count: 1, revenue: 10000 });
-      expect(d.dealsStd).toEqual({ count: 0, revenue: 0 });
-    }
-  });
-  it("funnel: every BC deal pays 5 000 kr, no meeting fee", () => {
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1 })).toEqual({ meetings: 0, deals: 5000, wins: 0, total: 5000 });
-    const d = detailByCategory([{ ...base, forecast: "basic", meetingsStd: 1, dealsStd: 1 }], []);
-    expect(d.meetingsStd.revenue).toBe(0);
-    expect(d.dealsStd.revenue).toBe(5000);
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 4, deals: 1 }).total).toBe(5000);
-  });
-  it("funnel: F&SCM deal 10 000 kr", () => {
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[2], "basic", { meetings: 1, deals: 1 }).total).toBe(10000);
-  });
-});
-import { successUnit, estimateRevenue as est2 } from "../budget2027";
-describe("success fee areas", () => {
-  it("2,5 % of 400 000 kr = 10 000 kr per BC deal", () => { expect(est2({}, {}, { bc_basic: { wins: 2 } })).toBe(20000); });
-  it("no fee at or below 100 000 kr", () => { expect(successUnit(100000)).toBe(0); });
-  it("custom F&SCM value 2 000 000 kr gives 50 000 kr", () => { expect(est2({}, { successFscm: 2000000 }, { fscm_premium: { wins: 1 } })).toBe(50000); });
-});
-
-import { EXPERT_FEES, EXPERT_FUNNEL, expertFunnelRow, FUNNEL_PRODUCTS, partnerFunnelRow } from "../budget2027";
-describe("expert selling fees", () => {
-  it("expert brokerage is 50 kr per hour for every partner", () => {
-    expect(EXPERT_FEES).toEqual({ premiumPerHour: 50, basicPerHour: 50 });
-    expect(expertFunnelRow(EXPERT_FUNNEL[0], { assignments: 1, months: 3, percent: 100 }).total).toBe(495 * 50);
-    expect(expertFunnelRow(EXPERT_FUNNEL[1], { assignments: 2, months: 6, percent: 50, rate: 100 }).total).toBe(2 * 495 * 100);
-  });
-  it("expert hours count as partner finders fee, not subscription", () => {
-    const s = categoryGroupSummary({}, {}, {}, { cv: { assignments: 1, months: 1, percent: 100 }, expert: { assignments: 1, months: 1, percent: 50 } });
-    expect(s.partner.finders.estimate).toBe(165 * 50 + 83 * 50);
-    expect(s.partner.subscription.estimate).toBe(0);
-  });
-});
-
-import { opexCoverage } from "../budget2027";
-describe("opexCoverage", () => {
-  it("räknar täckningsgrad och partners som saknas till självfinansiering", () => {
-    const r = opexCoverage(60000, 120000);
-    expect(r.ratio).toBe(0.5);
-    expect(r.gap).toBe(60000);
-    expect(r.extraPartners).toBe(6); // 60 000 / (995*12) = 5,03 -> 6
-    expect(r.selfFunded).toBe(false);
-    expect(opexCoverage(130000, 120000).selfFunded).toBe(true);
+  it("catalog counts distinct products", () => {
+    expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "A" }, { id: "a", vendor: "Truvio", name: "A" }, { id: "b", vendor: "Truvio", name: "B" }])[0].apps).toBe(2);
   });
 });
