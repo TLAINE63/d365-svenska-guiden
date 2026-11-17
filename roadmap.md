@@ -1,5 +1,5 @@
 ## Budget 2027, redigerbara antaganden (2026-11-17)
-- [ ] Huvudfunneln: tre affärsstorlekar, redigerbart maxbelopp och bevarade gamla volymer; verifiera beräkningar.
+- [x] Huvudfunneln: tre affärsstorlekar och redigerbart maxbelopp; gamla produktvolymer förs över till rätt intervall. 20 tester godkända, inloggad omräkning till 26 000 kr och 732 px utan sidöverbredd verifierade; inga teständringar sparade.
 - [x] Partnerbytesarvode i funneln: mötesavgift per produktgrupp och nivå (BC/CRM/Power Platform 3 000/5 000 kr, F&SCM 6 000/9 000 kr), ingen provision; redigerbart under Priser och provision. 16 tester godkända, build OK.
 - [x] Redigerbara kostnadsnamn och samtliga intäktspriser/provisioner, med sparade budgetvärden; publika villkor oförändrade.
 - [x] Ny justerbar modell för möten och affärsprovision i tre beloppsintervall; ISV-provision som utgångspunkt 0 %. Avtal är volym, provision räknas en gång per vunnen affär.
