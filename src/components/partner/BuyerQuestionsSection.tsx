@@ -66,7 +66,7 @@ export default function BuyerQuestionsSection() {
           </h2>
           <div className="space-y-3 text-base md:text-lg text-muted-foreground">
             <p>Vi utgår från köparens verkliga frågor och försöker ge tydliga, användbara och ärliga svar.</p>
-            <p>Även när frågorna handlar om kostnader, risker, nackdelar eller situationer där Dynamics&nbsp;365 kanske inte är rätt lösning.</p>
+            <p>Det gäller också frågor om kostnader, risker, nackdelar eller situationer där Dynamics&nbsp;365 kanske inte är rätt lösning.</p>
           </div>
         </div>
 
