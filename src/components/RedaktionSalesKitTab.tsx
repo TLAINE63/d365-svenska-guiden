@@ -177,15 +177,16 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
           </div>
           <div className="rounded-lg border p-6">
             <p className="font-semibold">Möte → Affär → Finder’s fee</p>
-            <p className="mt-1 text-sm text-muted-foreground">Samma villkor för alla, ingen mötesavgift. Ersättning först när en förmedlad introduktion blir affär (exkl. moms):</p>
+            <p className="mt-1 text-sm text-muted-foreground">Tecknas separat från Premium. Mötesavgift per kvalificerat möte, 2,5 % vid affär där betald mötesavgift räknas av (exkl. moms):</p>
             <table className="mt-2 w-full text-xs">
-              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1"></th><th className="text-right font-normal">Kundavtal tecknat</th></tr></thead>
+              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1">Nya projekt</th><th className="text-right font-normal">Möte Premium / Basic</th></tr></thead>
               <tbody>
-                <tr className="border-t"><td className="py-1">BC, CRM, Power Platform m.fl.</td><td className="text-right whitespace-nowrap">5{NB}000 kr</td></tr>
-                <tr className="border-t"><td className="py-1">Finance &amp; Supply Chain</td><td className="text-right whitespace-nowrap">10{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Under 250 tkr (lägst 3{NB}000 kr vid affär)</td><td className="text-right whitespace-nowrap">1{NB}500 / 1{NB}500 kr</td></tr>
+                <tr className="border-t"><td className="py-1">250 tkr – 1 Mkr</td><td className="text-right whitespace-nowrap">3{NB}000 / 5{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Över 1 Mkr (högst 100{NB}000 kr vid affär)</td><td className="text-right whitespace-nowrap">6{NB}000 / 9{NB}000 kr</td></tr>
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7{NB}500 kr (Premium) / 12{NB}500 kr (Basic) upp till 6 månader eller under halvtid, 15{NB}000 / 25{NB}000 kr vid längre uppdrag.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Partnerbyte: endast mötesavgift, BC/CRM/Power Platform 3{NB}000 / 5{NB}000 kr, F&amp;SCM 6{NB}000 / 9{NB}000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7{NB}500 / 12{NB}500 kr upp till 6 månader eller under halvtid, 15{NB}000 / 25{NB}000 kr vid längre uppdrag.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>
