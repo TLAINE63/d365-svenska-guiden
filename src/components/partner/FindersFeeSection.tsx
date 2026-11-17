@@ -71,7 +71,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
           <div className="overflow-x-auto border border-border rounded-lg bg-card">
             <table className="w-full text-sm">
               <caption className="text-left px-3 pt-3 font-semibold text-foreground">Nya projekt</caption>
-              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ av affär</th><th scope="col" className="text-right px-3 py-2">Mötesavgift Premium / Basic</th><th scope="col" className="text-right px-3 py-2">Avgift vid affär*</th></tr></thead>
+              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ av affär</th><th scope="col" className="text-right px-3 py-2">Mötesavgift Premium / Grundprofil</th><th scope="col" className="text-right px-3 py-2">Avgift vid affär*</th></tr></thead>
               <tbody>
                 <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Under 250 tkr</th><td className="text-right px-3 py-2 font-semibold">{nb("1 500 kr / 1 500 kr")}</td><td className="text-right px-3 py-2 font-semibold">2,5%<span className="block text-xs font-normal text-muted-foreground">lägst {nb("3 000 kr")}</span></td></tr>
                 <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">250 tkr – 1 Mkr</th><td className="text-right px-3 py-2 font-semibold">{nb("3 000 kr / 5 000 kr")}</td><td className="text-right px-3 py-2 font-semibold">2,5%</td></tr>
@@ -82,7 +82,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
           <div className="overflow-x-auto border border-border rounded-lg bg-card">
             <table className="w-full text-sm">
               <caption className="text-left px-3 pt-3 font-semibold text-foreground">Partnerbyte och expertförmedling</caption>
-              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Basic</th></tr></thead>
+              <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Typ</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Grundprofil (utan avtal)</th></tr></thead>
               <tbody>
                 <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Partnerbyte, Business Central, CRM och Power Platform (mötesavgift)</th><td className="text-right px-3 py-2 font-semibold">{nb("3 000 kr")}</td><td className="text-right px-3 py-2 font-semibold">{nb("5 000 kr")}</td></tr>
                 <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Partnerbyte, Finance &amp; Supply Chain Management (mötesavgift)</th><td className="text-right px-3 py-2 font-semibold">{nb("6 000 kr")}</td><td className="text-right px-3 py-2 font-semibold">{nb("9 000 kr")}</td></tr>
