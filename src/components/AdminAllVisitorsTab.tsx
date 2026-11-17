@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Globe, Building2, ExternalLink, Download } from "lucide-react";
+import { Loader2, RefreshCw, Globe, Building2, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 
 interface Company {
@@ -129,35 +130,6 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
     persistIncluded(next);
   };
 
-  const exportCsv = () => {
-    const rows = filtered.filter(c => included.has(c.organisation_uuid));
-    if (rows.length === 0) {
-      toast({ title: "Inga rader markerade", variant: "destructive" });
-      return;
-    }
-    const header = ["Företag", "Domän", "Bransch", "Storlek", "Omsättning", "Ort", "Land", "Först sedd", "Senast sedd", "Besök", "Sidvisningar", "Besökta sidor", "Partner-besök"];
-      const toPath = (u: string) => { try { const x = new URL(u); return x.pathname + x.search; } catch { return u; } };
-      const csv = [header.join(";")].concat(rows.map((r) => [
-        r.company_name ?? "",
-        r.company_domain ?? "",
-        r.company_industry ?? "",
-        r.company_size ?? "",
-        r.company_revenue ?? "",
-        r.company_city ?? "",
-        r.company_country ?? "",
-        (r.first_seen ?? "").slice(0, 10),
-        (r.last_seen ?? "").slice(0, 10),
-        r.session_count,
-        r.url_count,
-        (r.urls ?? []).map(toPath).join(" | "),
-        r.partner_slugs.join("|"),
-      ].map((v) => { const t = String(v); return `"${(/^[=+\-@]/.test(t) ? "'" + t : t).replace(/"/g, '""')}"`; }).join(";"))).join("\n");
-    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url; a.download = `d365se-snitcher-besokare-${start}-${end}.csv`; a.click();
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <Card>
@@ -205,8 +177,8 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
             <Checkbox checked={onlyPartner} onCheckedChange={(v) => setOnlyPartner(!!v)} />
             Endast partnerbesök
           </label>
-          <Button onClick={exportCsv} size="sm" variant="outline">
-            <Download className="h-4 w-4 mr-1" /> Exportera markerade
+          <Button asChild size="sm" variant="outline">
+            <Link to="/admin/exporter">Export till CRM</Link>
           </Button>
         </div>
 
@@ -302,7 +274,7 @@ export default function AdminAllVisitorsTab({ token }: { token: string | null })
         )}
 
         <p className="text-xs text-muted-foreground">
-          Markerade företag sparas lokalt och kan exporteras till CSV. Listan inkluderar alla identifierade besökare från Snitcher, inte bara de som besökt en partnerprofil.
+          Markerade företag sparas lokalt. Listan inkluderar alla identifierade besökare från Snitcher, inte bara de som besökt en partnerprofil.
         </p>
       </CardContent>
     </Card>
