@@ -350,6 +350,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             </tbody>
           </table>
           </div>
+          {saveRow}
         </CardContent>
       </Card>
 
