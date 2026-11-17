@@ -46,7 +46,7 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 
 const programSections = [
   { id: "for-partners", label: "Översikt" },
-  { id: "kopresan", label: "Köpresan" },
+  { id: "kopresan", label: "Den moderna köpresan" },
   { id: "kopares-fragor", label: "Köparens frågor" },
   { id: "samarbeta", label: "Två sätt att samarbeta" },
   { id: "priser-innehall", label: "Premium & pris" },
