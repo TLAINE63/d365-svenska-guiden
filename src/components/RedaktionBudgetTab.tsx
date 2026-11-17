@@ -484,6 +484,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ))}
             </tbody>
           </table>
+          {saveRow}
         </CardContent>
       </Card>
 
@@ -518,9 +519,10 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </tr>
             </tbody>
           </table>
-
+          {saveRow}
         </CardContent>
       </Card>
+      {saveRow}
     </div>
   );
 }
