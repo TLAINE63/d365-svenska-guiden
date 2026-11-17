@@ -46,7 +46,7 @@ export default function ProgramNavigation({ audience, sections, action }: Progra
   }, [sections]);
 
   return (
-    <div ref={barRef} className="sticky top-16 lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
+    <div ref={barRef} className="relative lg:sticky lg:top-[104px] z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <nav aria-label="Välj program" className="flex flex-wrap items-center gap-2 border-b border-border py-3">
           <Button asChild variant={audience === "partners" ? "default" : "outline"}>
@@ -57,9 +57,9 @@ export default function ProgramNavigation({ audience, sections, action }: Progra
           </Button>
           {action}
         </nav>
-        <nav aria-label={audience === "partners" ? "Partnerprogrammets avsnitt" : "ISV-programmets avsnitt"} className="flex flex-wrap gap-1 py-3">
+        <nav aria-label={audience === "partners" ? "Partnerprogrammets avsnitt" : "ISV-programmets avsnitt"} className="-mx-4 flex gap-1 overflow-x-auto whitespace-nowrap px-4 py-2 sm:mx-0 sm:px-0 lg:flex-wrap lg:py-3">
           {sections.map((section) => (
-            <Button key={section.id} asChild variant="ghost" size="sm">
+            <Button key={section.id} asChild variant="ghost" size="sm" className="shrink-0">
               <a href={`#${section.id}`} onClick={(e) => {
                 e.preventDefault();
                 window.history.replaceState(null, "", `#${section.id}`);
