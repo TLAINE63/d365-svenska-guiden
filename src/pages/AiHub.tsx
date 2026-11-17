@@ -12,7 +12,7 @@ import { AGENTS_ARTICLES } from "@/data/agentsArticles";
 
 /** Samlande ingång till befintligt AI-innehåll. Inga egna artiklar, bara länkar till publicerat innehåll. */
 const AI_RE = /\b(ai|copilot|agent|agenter|ignite|build)\b/i;
-const FEATURED_RE = /ignite/i;
+const FEATURED_RE = /ignite|flyttar in i copilot/i;
 
 type Item = { title: string; summary: string; to: string; date: string };
 
@@ -59,7 +59,8 @@ const AiHub = () => {
   const seen = new Set<string>();
   const all = [...editorItems, ...staticArticles].filter((i) => (seen.has(i.to) ? false : (seen.add(i.to), true)))
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  const featured = all.find((i) => FEATURED_RE.test(`${i.title} ${i.to}`)) ?? null;
+  // Ignite-analysen när den är publicerad, annars senaste befintliga AI-artikel.
+  const featured = all.find((i) => FEATURED_RE.test(`${i.title} ${i.to}`)) ?? all[0] ?? null;
   const rest = all.filter((i) => i !== featured).slice(0, 6);
 
   return (

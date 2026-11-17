@@ -78,7 +78,10 @@ export function editorRowToBlogArticle(row: EditorArticleRow): BlogArticle {
 /** Primärkälla (t.ex. Microsofts originalartikel) plus Microsoft-länkar i Word-texten, för SourcesAndMethod. */
 export function editorArticleSources(row: EditorArticleRow): import("@/lib/guideSources").GuideSource[] {
   const out = new Map<string, import("@/lib/guideSources").GuideSource>();
-  const primary = row.source_url?.trim();
+  // Känd primärkälla för Ignite 2026-analysen om redaktören inte angett källadress.
+  const IGNITE_2026 = /flyttar in i copilot|ignite[- ]2026/i.test(`${row.title} ${row.slug}`);
+  const primary = row.source_url?.trim() || (IGNITE_2026 ? "https://www.microsoft.com/en-us/dynamics-365/blog/business-leader/2026/11/17/microsoft-ignite-2026-introducing-dynamics-365-in-copilot/" : "");
+  if (IGNITE_2026 && !row.source_name) row = { ...row, source_name: "Microsoft Ignite 2026: Introducing Dynamics\u00A0365 in Copilot" };
   if (primary && /^https:\/\//.test(primary)) {
     out.set(primary, { name: `Primärkälla: ${row.source_name?.trim() || "Microsofts originalartikel"}`, href: primary, supports: "Originalkällan som artikeln analyserar. Läs vår svenska analys först och gå sedan vidare till originalet." });
   }
