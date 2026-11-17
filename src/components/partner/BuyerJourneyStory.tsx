@@ -171,7 +171,7 @@ export default function BuyerJourneyStory() {
               "Kunden kan ha undersökt både lösningar och partners långt innan ni får möjlighet att träffas.",
               "Därför behöver er kompetens vara tydlig och begriplig redan under kundens research.",
               "Med Premium kan ni ge köparen ett bättre underlag för att bedöma er.",
-              "När kunden är redo att gå vidare arbetar d365.se för att hjälpa rätt kund att hitta rätt partner.",
+              "d365.se hjälper rätt kund att hitta rätt partner, i den takt kunden själv vill gå vidare.",
             ].map((t) => <li key={t} className="flex gap-2"><Check className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
           </ul>
         </div>
