@@ -33,6 +33,7 @@ import PartnerProfileCheck from "@/components/partner/PartnerProfileCheck";
 import VerifiedPartnerBadgeEmbed from "@/components/partner/VerifiedPartnerBadgeEmbed";
 import BuyerJourneyStory from "@/components/partner/BuyerJourneyStory";
 import BuyerQuestionsSection from "@/components/partner/BuyerQuestionsSection";
+import TwoWaysSection from "@/components/partner/TwoWaysSection";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
@@ -45,6 +46,7 @@ const programSections = [
   { id: "for-partners", label: "Översikt" },
   { id: "kopresan", label: "Köpresan" },
   { id: "kopares-fragor", label: "Köparens frågor" },
+  { id: "samarbeta", label: "Två sätt att samarbeta" },
   { id: "priser-innehall", label: "Prislista" },
   { id: "affarsmojligheter", label: "Finder’s fee" },
   { id: "profilkoll", label: "Er partnerprofil" },
@@ -316,6 +318,7 @@ const Partnerprogram = () => {
 
       <BuyerJourneyStory />
       <BuyerQuestionsSection />
+      <TwoWaysSection />
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
