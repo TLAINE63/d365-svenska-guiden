@@ -328,7 +328,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                   </tr>
                 );
                 })}
-                <tr className="border-t font-medium"><td className="py-3 pr-3">Delsumma: {section.label}</td><td /><td /><td className="text-right whitespace-nowrap">{fmt(section.estimate)} kr</td><td /><td className="text-right whitespace-nowrap">{fmt(section.detail)} kr</td><td className="text-right whitespace-nowrap">{fmtDifference(section.detail, section.estimate)} kr</td></tr>
+                {(() => {
+                  const cats = CATEGORIES.filter((c) => c.group === section.group && c.income === section.income);
+                  const estCount = cats.reduce((s, c) => s + (Number(budget.estimates?.[c.key]) || 0), 0);
+                  const detCount = cats.reduce((s, c) => s + (det[c.key]?.count || 0), 0);
+                  return (
+                    <tr className="border-t font-medium"><td className="py-3 pr-3">Delsumma: {section.label}</td><td /><td className="text-center">{fmt(estCount)}</td><td className="text-right whitespace-nowrap">{fmt(section.estimate)} kr</td><td className="text-right">{fmt(detCount)}</td><td className="text-right whitespace-nowrap">{fmt(section.detail)} kr</td><td className="text-right whitespace-nowrap">{fmtDifference(section.detail, section.estimate)} kr</td></tr>
+                  );
+                })()}
               </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
