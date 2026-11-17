@@ -8,5 +8,5 @@ describe('ISV-beställning', () => {
   it('995 kr/år per extra app', () => expect(isvOrderRegularPrice({kind:'isv',extra_apps:2,mediation:false,start_date:today})).toBe(7980));
   it('förmedling 5 % licens och 2,5 % konsult', () => { expect(ISV_ORDER_FEES.licenseRate).toBe(0.05); expect(ISV_ORDER_FEES.consultRate).toBe(0.025); });
   it('samma priser som budgeten', () => expect(ISV_FEES.base).toBe(5990));
-  it('Finder’s fee kräver separat accept', () => expect(isvOrderValidation({kind:'isv',extra_apps:0,mediation:true,start_date:today},true,true,false)).not.toBeNull());
+  it('Finder’s fee är pausad men historiska valideringar fungerar', () => expect(isvOrderValidation({kind:'isv',extra_apps:0,mediation:true,start_date:today},true,true,false)).not.toBeNull());
 });

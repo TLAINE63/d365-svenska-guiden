@@ -15,6 +15,6 @@ describe("områdesspecifika prisbilagor", () => {
     expect(v["Nya projekt under 250 tkr: mötesavgift"]).toBe("1 500 kr (Premium och Basic)");
     expect(v["Nya projekt över 1 Mkr: avgift vid affär"]).toBe("2,5 %, högst 100 000 kr");
     expect(v["Partnerbyte Finance & SCM: mötesavgift"]).toBe("6 000 kr (Premium) / 9 000 kr (Basic)");
-    expect(v["ISV: Finder’s fee"]).toBe("0 %");
+    expect(v["ISV: Finder’s fee"]).toBe("Pausad tills vidare");
   });
 });
