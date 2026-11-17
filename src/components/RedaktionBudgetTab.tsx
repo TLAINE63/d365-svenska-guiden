@@ -382,7 +382,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten liten</th><th>Vunna liten</th><th>Möten medel</th><th>Vunna medel</th><th>Möten stor</th><th>Vunna stor</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th title="Möten liten affär">M liten</th><th title="Vunna liten affär">V liten</th><th title="Möten medel affär">M medel</th><th title="Vunna medel affär">V medel</th><th title="Möten stor affär">M stor</th><th title="Vunna stor affär">V stor</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -398,7 +398,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="pr-1"><select className={sel} value={r.products} onChange={(e) => setRow(p.id, { products: Number(e.target.value) }, p)}>{[1, 2, 3].map((x) => <option key={x}>{x}</option>)}</select></td>
                       <td className="pr-1"><BudgetNumberInput min={0} max={100} className="h-8 w-16" value={(r.discount) || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { discount: Math.min(100, value) }, p)} /></td>
                       {(() => { const d = partnerDeals(r); return DEAL_BAND_KEYS.flatMap((k) => (["meetings", "wins"] as const).map((f) => (
-                        <td key={k + f} className="pr-1"><BudgetNumberInput min={0} className="h-8 w-16" value={d[k][f] || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { deals: { ...d, [k]: { ...d[k], [f]: value } } }, p)} /></td>
+                        <td key={k + f} className="pr-1"><BudgetNumberInput min={0} className="h-8 w-12" value={d[k][f] || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { deals: { ...d, [k]: { ...d[k], [f]: value } } }, p)} /></td>
                       ))); })()}
                       <td className="text-right px-2 whitespace-nowrap">{fmt(rev.subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(rev.finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(rev.total)} kr</td>
                     </tr>
