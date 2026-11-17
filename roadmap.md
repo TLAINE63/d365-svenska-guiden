@@ -1,6 +1,6 @@
 ## Export till CRM, städning (2026-11-17)
-- [ ] Samla CRM-exporterna på /admin/exporter med gemensamt Från datum, hopfällda enskilda filer och senast nedladdat; oförändrade exportfunktioner och zip-innehåll.
-- [ ] Ersätt dubbla CRM-exportknappar med länkar och verifiera inloggad nedladdning, datum, layout och skärmbilder.
+- [x] Samla CRM-exporterna på /admin/exporter med gemensamt Från datum, hopfällda enskilda filer och senast nedladdat; oförändrade exportfunktioner och zip-innehåll.
+- [x] Ersätt dubbla CRM-exportknappar med länkar. Verifierat med riktig admininloggning: sex befintliga zip-filer, gemensamt datum, sparat datum efter omladdning, 401 utan behörighet, dator/732 px utan överbredd eller runtimefel; fyra datumtester och build OK. Skärmbilder stängd/öppen sparade.
 - [ ] Kontrollera publicerade namn efter publicering (väntar på publicering).
 
 ## Budget 2027, redigerbara antaganden (2026-11-17)
