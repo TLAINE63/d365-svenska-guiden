@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { orderPrice, orderValidation, orderSnapshot, ORDER_AREAS, ADDON_PRODUCTS, ADDON_PRODUCT_NOTE, SUBSCRIPTION_TERMS, type OrderSelection } from '../partnerOrder';
+import { orderPrice, orderValidation, orderSnapshot, termsDisplayText, ORDER_AREAS, ADDON_PRODUCTS, ADDON_PRODUCT_NOTE, SUBSCRIPTION_TERMS, MEDIATION_TERMS, type OrderSelection } from '../partnerOrder';
 import { MONTH_PRICE, YEAR_PRICE } from '../budget2027';
 const base: OrderSelection = { level: 'premium', period: 'month', areas: ['bc'], mediation: false, start_date: '2099-01-01' };
 describe('partnerbeställning', () => {
@@ -35,5 +35,21 @@ describe('partnerbeställning', () => {
     expect(snapshot.price_ex_vat).toBe(995);
     expect(snapshot.mediation).toBeNull();
     expect(orderSnapshot({...base,mediation:true}).mediation).toBeTruthy();
+  });
+  it('villkorstexterna är luftiga med radbrytning', () => {
+    expect(SUBSCRIPTION_TERMS.split('\n\n').length).toBeGreaterThanOrEqual(5);
+    expect(SUBSCRIPTION_TERMS).toContain('Alla priser exklusive moms.');
+    const bullets = MEDIATION_TERMS.split('\n').filter(line => line.startsWith('• '));
+    expect(bullets.length).toBeGreaterThanOrEqual(10);
+    expect(MEDIATION_TERMS).toContain('Tidsgränser:');
+    expect(MEDIATION_TERMS).toContain('Expertförmedling: fast avgift per tillsatt uppdrag.');
+    expect(MEDIATION_TERMS).not.toContain('\u2014');
+  });
+  it('termsDisplayText ger läslig villkorstext med godkännanden', () => {
+    const out = termsDisplayText({ ...orderSnapshot({ ...base, mediation: true }), accept: true, authority: true, mediation_accept: false });
+    expect(out.startsWith('Villkorsversion 2026-11-17')).toBe(true);
+    expect(out).toContain('Grundprofil är kostnadsfri.');
+    expect(out).toContain('Förmedlingsvillkor accepterade: Nej');
+    expect(termsDisplayText(null)).toBe('Abonnemangsvillkor accepterade: Nej\nBehörighet att företräda företaget: Nej');
   });
 });

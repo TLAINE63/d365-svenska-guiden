@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { downloadProgramTerms, TERMS_AREAS, TERMS_DATE, type TermsArea } from "@/utils/programTerms";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { ORDER_AREAS, type OrderSelection } from "@/lib/partnerOrder";
+import { ORDER_AREAS, termsDisplayText, type OrderSelection } from "@/lib/partnerOrder";
 
 export default function RedaktionTermsTab({ token }: { token: string | null }) {
   const [orders, setOrders] = useState<Array<{ id: string; created_at: string; company: string; email: string; contact_name: string; invoice_email: string; invoice_address: string; organization_number: string; price_ex_vat: number; selection: OrderSelection; terms_snapshot: unknown }>>([]);
