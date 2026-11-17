@@ -182,22 +182,22 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
         <summary className="cursor-pointer font-medium">Enskilda filer (behövs normalt inte)</summary>
         <div className="flex flex-col items-start gap-3 pt-4">
           {DATE_EXPORTS.map((e) => (
-            <Button key={e.id} variant="outline" disabled={!!busy || !allFrom}
+            <Button key={e.id} variant="secondary" disabled={!!busy || !allFrom}
               onClick={() => download(e.id, `${e.fn}?from=${encodeURIComponent(allFrom)}${e.extra}`, `${e.file}-${allFrom}`)}>
               <Download className="w-4 h-4 mr-2" aria-hidden="true" />
               {busy === e.id ? "Hämtar…" : e.label}
             </Button>
           ))}
-          <Button variant="outline" disabled={!!busy || !allFrom} onClick={downloadSnitcher}>
+          <Button variant="secondary" disabled={!!busy || !allFrom} onClick={downloadSnitcher}>
             <Download className="w-4 h-4 mr-2" aria-hidden="true" />
             {busy === "snitcher" ? "Hämtar…" : "Snitcher-besökare"}
           </Button>
-          <Button variant="outline" disabled={!!busy} onClick={() => download("segments", "admin-partner-segments", `d365se-partnersegment-${stockholmToday()}`)}>
+          <Button variant="secondary" disabled={!!busy} onClick={() => download("segments", "admin-partner-segments", `d365se-partnersegment-${stockholmToday()}`)}>
             <Download className="w-4 h-4 mr-2" aria-hidden="true" />
             {busy === "segments" ? "Hämtar…" : "Partnersegment"}
           </Button>
           <div className="flex flex-wrap items-end gap-3">
-            <Button variant="outline" disabled={!!busy || !month}
+            <Button variant="secondary" disabled={!!busy || !month}
               onClick={() => download("partners", `export-partner-stats?month=${encodeURIComponent(month)}`, `d365se-partnerstatistik-${month}`)}>
               <Download className="w-4 h-4 mr-2" aria-hidden="true" />
               {busy === "partners" ? "Hämtar…" : "Partnerstatistik"}
@@ -207,7 +207,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
               <Input id="export-month" type="month" value={month} onChange={(e) => setMonth(e.target.value)} />
             </div>
           </div>
-          <Button variant="outline" disabled={!!busy} onClick={() => download("isv", "export-isv-products", "d365se-isv-produkter")}>
+          <Button variant="secondary" disabled={!!busy} onClick={() => download("isv", "export-isv-products", "d365se-isv-produkter")}>
             <Download className="w-4 h-4 mr-2" aria-hidden="true" />
             {busy === "isv" ? "Hämtar…" : "ISV-produkter"}
           </Button>
