@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_PRODUCTS, EXPERT_FUNNEL, ISV_FUNNEL, SWITCH_FUNNEL, partnerFunnelRow, expertFunnelRow, isvFunnelRow, switchFunnelRow, funnelTotals, opexCoverage, type FunnelRow, type IsvForecast, type Period,
+  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_DEAL_TYPES, funnelMaxValue, migratePartnerFunnel, dealFunnelRow, EXPERT_FUNNEL, ISV_FUNNEL, SWITCH_FUNNEL, expertFunnelRow, isvFunnelRow, switchFunnelRow, funnelTotals, opexCoverage, type FunnelRow, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
@@ -45,7 +45,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
       .then((r) => r.json())
       .then((d) => {
         if (d?.template) {
-          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, costs: mergeCosts(p.costs), otherRevenue: p.otherRevenue?.length ? p.otherRevenue : DEFAULT_BUDGET.otherRevenue, isvs: p.isvs ?? {} }); } catch { /* default */ }
+          try { const p = JSON.parse(d.template); setBudget({ ...DEFAULT_BUDGET, ...p, funnel: migratePartnerFunnel(p.funnel, p.successValues, budgetPricing(p.pricing)), costs: mergeCosts(p.costs), otherRevenue: p.otherRevenue?.length ? p.otherRevenue : DEFAULT_BUDGET.otherRevenue, isvs: p.isvs ?? {} }); } catch { /* default */ }
         }
       })
       .finally(() => setLoading(false));
@@ -293,8 +293,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                     <td className="py-3 pr-3"><p className="font-medium">{c.label}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{c.description}</p></td>
                     <td className="text-right whitespace-nowrap pr-2">{c.success ? (
                       <div className="flex flex-col items-end gap-1">
-                        <label className="text-xs text-muted-foreground">Snittbelopp/affär</label>
-                        <BudgetNumberInput aria-label={`Snittbelopp per affär: ${c.label}`} min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: value } }))} />
+                        <label className="text-xs text-muted-foreground">Maxbelopp</label>
+                        <BudgetNumberInput aria-label={`Maxbelopp: ${c.label}`} min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: value } }))} />
                         <span>= {fmt(unit)} kr</span>
                       </div>
                     ) : <div className="flex flex-col items-end gap-1"><BudgetNumberInput aria-label={`Pris: ${c.label}`} min={0} className="h-8 w-28" value={pricing.units[c.key] ?? c.unit} onValueChange={(value) => setUnit(c.key, value)} /><span className="text-xs text-muted-foreground">{c.key.startsWith("month") ? "kr/månad ×12" : "kr/år"}</span></div>}</td>
@@ -507,20 +507,20 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
     <Card>
       <CardHeader>
         <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
-        <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgifter och provision följer den redigerbara tabellen ovan. Avtal är ett volymsteg utan extra avgift. Provision beräknas en gång per vunnen affär, med valt minimum och tak.</CardDescription>
+        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Maxbeloppet används som provisionsunderlag per vunnen affär. Summan ingår i resultatet. Mötesavgift, procent, minimum och provisionstak följer respektive affärstyp i tabellen ovan. Avtal är ett volymsteg utan extra avgift.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
-            <caption className="pb-2 text-left font-semibold text-foreground">Partners per produkt</caption>
+            <caption className="pb-2 text-left font-semibold text-foreground">Partners per typ av affär</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Produkt</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(success fee)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
-            <tbody>{FUNNEL_PRODUCTS.map((p) => <Fragment key={p.key}>
-              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.label}
-                <span className="ml-3 text-xs font-normal text-muted-foreground">Snittbelopp/affär <BudgetNumberInput aria-label={`Snittbelopp per affär: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={successValue(p.valueKey, values) || ""} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
+            <tbody>{FUNNEL_DEAL_TYPES.map((p) => <Fragment key={p.key}>
+              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.band === "small" ? `Under ${fmt(pricing.smallLimit)} kr` : p.band === "medium" ? `${fmt(pricing.smallLimit)} - ${fmt(pricing.largeLimit)} kr` : `Över ${fmt(pricing.largeLimit)} kr`}
+                <span className="ml-3 text-xs font-normal text-muted-foreground">Maxbelopp <BudgetNumberInput aria-label={`Maxbelopp: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={funnelMaxValue(p, values, pricing)} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
               </th><td className="border-l bg-muted" /></tr>
-              {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = partnerFunnelRow(p, tier, r, values, pricing); return (
+              {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = dealFunnelRow(p, tier, r, values, pricing); return (
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
                   <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>

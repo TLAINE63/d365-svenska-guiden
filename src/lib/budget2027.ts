@@ -1,4 +1,4 @@
-import { budgetPricing, dealPricing, type BudgetPricing } from "./budgetPricing";
+import { budgetPricing, dealPricing, dealBandPricing, type BudgetPricing } from "./budgetPricing";
 // Budget 2027: pure calculation helpers, prices from the partner program (excl. VAT).
 export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
@@ -35,9 +35,9 @@ export interface Budget {
   partners: Record<string, PartnerForecast>; isvs?: Record<string, IsvForecast>; otherRevenue?: RevenueLine[];
   costs: CostLine[]; ownHours: number; hourlyRate: number;
   estimates?: Record<string, number>;
-  /** Assumed average project value (kr) per success fee area. */
+  /** Editable calculation basis: maximum deal value (kr) per funnel band; legacy product values retained. */
   successValues?: Record<string, number>;
-  /** Finders fee funnel per product, expert selling and ISV. */
+  /** Finders fee funnel per deal band, expert selling and ISV. */
   funnel?: Funnel;
   pricing?: BudgetPricing;
 }
@@ -198,6 +198,38 @@ export const FUNNEL_PRODUCTS = [
   { key: "fscm", label: "Finance & Supply Chain Management", fscm: true, valueKey: "successFscm" },
   { key: "pp", label: "Power Platform och AI", fscm: false, valueKey: "successPp" },
 ];
+export const FUNNEL_DEAL_TYPES = [
+  { key: "dealSmall", band: "small", valueKey: "maxSmall", label: "Under 250 tkr" },
+  { key: "dealMedium", band: "medium", valueKey: "maxMedium", label: "250 tkr - 1 Mkr" },
+  { key: "dealLarge", band: "large", valueKey: "maxLarge", label: "Över 1 Mkr" },
+] as const;
+export function funnelMaxValue(p: (typeof FUNNEL_DEAL_TYPES)[number], values: Record<string, number> = {}, pricing = budgetPricing()) {
+  return values[p.valueKey] ?? (p.band === "small" ? pricing.smallLimit : p.band === "medium" ? pricing.largeLimit : 3000000);
+}
+/** Convert saved product volumes once; keep the original budget untouched until explicitly saved. */
+export function migratePartnerFunnel(f: Funnel = {}, values: Record<string, number> = {}, pricing = budgetPricing()): Funnel {
+  const out = { ...f };
+  for (const p of FUNNEL_PRODUCTS) for (const tier of ["basic", "premium"] as const) {
+    const oldKey = `${p.key}_${tier}`;
+    const row = out[oldKey];
+    if (!row) continue;
+    const value = successValue(p.valueKey, values);
+    const band = value < pricing.smallLimit ? "small" : value <= pricing.largeLimit ? "medium" : "large";
+    const target = FUNNEL_DEAL_TYPES.find((d) => d.band === band);
+    if (!target) continue;
+    const key = `${target.key}_${tier}`;
+    const existing = out[key] ?? {};
+    out[key] = { ...existing, meetings: n(existing.meetings) + n(row.meetings), deals: n(existing.deals) + n(row.deals), wins: n(existing.wins) + n(row.wins) };
+    delete out[oldKey];
+  }
+  return out;
+}
+export function dealFunnelRow(p: (typeof FUNNEL_DEAL_TYPES)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
+  const fee = dealBandPricing(funnelMaxValue(p, values, pricing), tier, pricing.bands[p.band]);
+  const meetings = n(r.meetings) * fee.meeting;
+  const wins = n(r.wins) * fee.commission;
+  return { meetings, deals: 0, wins, total: meetings + wins };
+}
 export const EXPERT_FUNNEL = [
   // 400 h ≈ one expert at 80 % for 3 months. Keys kept so saved budgets survive.
   { key: "cv", label: "Expertförmedling via Premiumpartner", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
@@ -247,7 +279,8 @@ export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic"
 }
 export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   let partner = 0, expert = 0, isv = 0, partnerSwitch = 0;
-  for (const p of FUNNEL_PRODUCTS) for (const t of ["basic", "premium"] as const) partner += partnerFunnelRow(p, t, f[`${p.key}_${t}`], values, pricing).total;
+  const partnerRows = migratePartnerFunnel(f, values, pricing);
+  for (const p of FUNNEL_DEAL_TYPES) for (const t of ["basic", "premium"] as const) partner += dealFunnelRow(p, t, partnerRows[`${p.key}_${t}`], values, pricing).total;
   for (const e of EXPERT_FUNNEL) expert += expertFunnelRow(e, f[e.key]).total;
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
   for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing).total;

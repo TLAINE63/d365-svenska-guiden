@@ -36,6 +36,9 @@ export function budgetPricing(saved?: Partial<BudgetPricing>): BudgetPricing {
 }
 export function dealPricing(value: number, tier: "basic" | "premium", pricing: BudgetPricing) {
   const band = value < pricing.smallLimit ? pricing.bands.small : value <= pricing.largeLimit ? pricing.bands.medium : pricing.bands.large;
+  return dealBandPricing(value, tier, band);
+}
+export function dealBandPricing(value: number, tier: "basic" | "premium", band: DealBand) {
   const raw = Math.max(0, value) * band.percent / 100;
   const commission = value > 0 && band.percent > 0 ? Math.min(band.maximum > 0 ? band.maximum : Infinity, Math.max(band.minimum, raw)) : 0;
   return { meeting: tier === "basic" ? band.basicMeeting : band.premiumMeeting, commission };

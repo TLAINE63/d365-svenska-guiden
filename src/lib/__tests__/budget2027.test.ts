@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { budgetPricing, dealPricing } from "../budgetPricing";
-import { DEFAULT_BUDGET, forecastRevenue, isvRevenue, detailByCategory, estimateRevenue, categoryGroupSummary, mergeCosts, annual, partnerFunnelRow, FUNNEL_PRODUCTS, SWITCH_FUNNEL, switchFunnelRow, funnelTotals, expertFunnelRow, EXPERT_FUNNEL, budgetIsvVendors, type PartnerForecast } from "../budget2027";
+import { DEFAULT_BUDGET, forecastRevenue, isvRevenue, detailByCategory, estimateRevenue, categoryGroupSummary, mergeCosts, annual, partnerFunnelRow, FUNNEL_PRODUCTS, FUNNEL_DEAL_TYPES, dealFunnelRow, funnelMaxValue, migratePartnerFunnel, SWITCH_FUNNEL, switchFunnelRow, funnelTotals, expertFunnelRow, EXPERT_FUNNEL, budgetIsvVendors, type PartnerForecast } from "../budget2027";
 const base: PartnerForecast = { forecast: "none", products: 1, discount: 0, meetingsStd: 0, dealsStd: 0, meetingsFscm: 0, dealsFscm: 0, successBasis: 0 };
 const isv = { presence: true, extraApps: 2, discount: 0, introsStd: 0, introsFscm: 0, successBasis: 100000, consultBasis: 200000 };
 
@@ -60,7 +60,7 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("partner and ISV group totals never double-count legacy estimates", () => {
     const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
-    expect(s.partner.estimate).toBe(15980 + 3000 + 10000);
+    expect(s.partner.estimate).toBe(15980 + 3000 + 25000);
     expect(s.isv.estimate).toBe(2990);
   });
   it("expert rate remains editable", () => {
@@ -82,5 +82,27 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("catalog counts distinct products", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "A" }, { id: "a", vendor: "Truvio", name: "A" }, { id: "b", vendor: "Truvio", name: "B" }])[0].apps).toBe(2);
+  });
+  it("funnel has three deal sizes instead of four products", () => {
+    expect(FUNNEL_DEAL_TYPES.map((p) => p.band)).toEqual(["small", "medium", "large"]);
+    expect(FUNNEL_DEAL_TYPES.map((p) => funnelMaxValue(p))).toEqual([250000, 1000000, 3000000]);
+  });
+  it("small maximum at 250000 retains the small band's zero meeting fee", () => {
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "basic", { meetings: 3, wins: 1 })).toEqual({ meetings: 0, deals: 0, wins: 6250, total: 6250 });
+  });
+  it("editable maximum changes commission but keeps the selected band's meeting fee", () => {
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { meetings: 2, wins: 1 }, { maxMedium: 800000 }).total).toBe(26000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[2], "basic", { meetings: 1, wins: 1 }, { maxLarge: 5000000 }).total).toBe(109000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { wins: 1 }, { maxMedium: 0 }).total).toBe(0);
+  });
+  it("legacy product volumes migrate once without loss or double counting", () => {
+    const saved = { bc_basic: { meetings: 3, deals: 1, wins: 1 }, crm_basic: { meetings: 4, deals: 2, wins: 2 }, fscm_premium: { meetings: 6, wins: 2 }, pp_basic: { meetings: 1 } };
+    const migrated = migratePartnerFunnel(saved);
+    expect(migrated.dealMedium_basic).toEqual({ meetings: 7, deals: 3, wins: 3 });
+    expect(migrated.dealSmall_basic.meetings).toBe(1);
+    expect(migrated.dealLarge_premium.wins).toBe(2);
+    expect(migratePartnerFunnel(migrated)).toEqual(migrated);
+    expect(saved.bc_basic.meetings).toBe(3);
+    expect(funnelTotals(saved).partner).toBe(funnelTotals(migrated).partner);
   });
 });
