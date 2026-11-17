@@ -86,7 +86,7 @@ const faqs = [
   {
     question: "Kan profilen hjälpa vår SEO eller synlighet i AI-sök?",
     answer:
-      "En indexerbar tredjepartsprofil, expertinnehåll och video skapar fler relevanta källor om ert företag. Det kan stärka förutsättningarna att bli hittad och förstådd, men d365.se garanterar aldrig Google-ranking eller AI-citeringar.",
+      "Sökmotorer och AI-tjänster värderar vad andra säger om ert företag. En verifierad tredjepartsprofil som bekräftar era produktområden, branscher och kundcase ger era egna uppgifter mer tyngd, och expertinnehåll och video skapar fler relevanta källor. Det kan stärka förutsättningarna att bli hittad och förstådd, men d365.se garanterar aldrig Google-ranking eller AI-citeringar.",
   },
   {
     question: "Vad innebär videointervjun?",
@@ -488,6 +488,7 @@ const Partnerprogram = () => {
             <AccordionItem value="synlighet">
               <AccordionTrigger>Hur kan er profil bidra till sök- och AI-synlighet?</AccordionTrigger>
               <AccordionContent><div ref={seoRef} className="max-w-3xl space-y-3 text-muted-foreground">
+                <p className="font-medium text-foreground">Sökmotorer och AI-tjänster värderar vad andra säger om ett företag, inte bara vad företaget säger om sig självt. En verifierad profil på d365.se är en utomstående källa som bekräftar era produktområden, branscher och kundcase. Det ger era egna uppgifter mer tyngd och gör det lättare för både köpare och AI-tjänster att förstå vad ni är bra på.</p>
                 <p>En indexerbar profil med tydliga produktområden, branscher, kundcase och expertinnehåll ger sökmotorer och AI-tjänster ytterligare en källa om er verksamhet. Era egna beskrivningar av kunder och projekt är grunden.</p>
                 <p>d365.se garanterar inte sökplaceringar, AI-citeringar eller leadvolymer. Värdet är ett mer komplett och kontrollerbart underlag för företag som utvärderar lösningar och partners.</p>
               </div></AccordionContent>
