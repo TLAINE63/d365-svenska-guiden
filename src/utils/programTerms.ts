@@ -27,7 +27,8 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["ISV Business Referral: licenser/abonnemang, första 12 månaderna", "5 %"],
     ["ISV Business Referral: förmedlat konsultuppdrag", "2,5 %"],
     ["Success fee", `${(FEES.successRate * 100).toLocaleString("sv-SE")} %`],
-    ["Expertförmedling", `${kr(EXPERT_FEES.premiumPerHour)}/debiterad timme`],
+    ["Expertförmedling, uppdrag upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Basic)`],
+    ["Expertförmedling, längre uppdrag eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Basic)`],
   ];
 }
 
@@ -47,7 +48,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
     { title: "Success fee, partners", body: "Success fee är 2,5 procent av konsult- och projektintäkter från första kronan under de första nio månaderna från projektstart, när intäkterna överstiger 100 000 kr. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte i beräkningsunderlaget." },
     { title: "ISV Business Referral", body: "Gäller endast när ISV-leverantören säljer direkt till kunden efter en accepterad introduktion. Ingen fast avgift och ingen mötesavgift. Ersättningen är 5 procent av licens- och abonnemangsintäkterna under de första 12 månaderna och 2,5 procent av förmedlade konsultintäkter, exklusive moms. Säljs lösningen via kundens Dynamics 365-partner gäller partnerns villkor i stället. Beräkningsunderlag och betalningsvillkor fastställs före introduktionen." },
-    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen beräknas på faktiskt debiterade timmar: 50 kr per debiterad timme. Samma expertuppdrag dubbelräknas inte med avtalsersättning eller success fee." },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen är en fast avgift per tillsatt uppdrag: 7 500 kr (Premium) respektive 12 500 kr (Basic) för uppdrag upp till sex månader eller under halvtid, och 15 000 kr (Premium) respektive 25 000 kr (Basic) för längre uppdrag eller minst halvtid. Samma expertuppdrag dubbelräknas inte med avtalsersättning eller success fee." },
   ];
 }
 

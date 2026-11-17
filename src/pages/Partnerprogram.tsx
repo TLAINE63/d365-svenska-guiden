@@ -364,13 +364,14 @@ const Partnerprogram = () => {
                   <tbody>
                     <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Business Central, Customer Engagement, Power Platform och andra lösningar</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">5&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
                     <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Finance &amp; Supply Chain Management</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">10&nbsp;000&nbsp;kr</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">2,5&nbsp;%</td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">50&nbsp;kr/timme</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter, uppdrag upp till 6 månader eller under halvtid</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">7&nbsp;500&nbsp;kr (Premium) / 12&nbsp;500&nbsp;kr (Basic)</td></tr>
+                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">Förmedling av expertkonsulter, längre uppdrag eller minst halvtid</th><td colSpan={2} className="text-center px-3 py-2 font-semibold whitespace-nowrap">15&nbsp;000&nbsp;kr (Premium) / 25&nbsp;000&nbsp;kr (Basic)</td></tr>
                   </tbody>
                 </table>
               </div>
               <div className="space-y-2 text-xs text-muted-foreground mb-5">
                 <p>*För affärer där partnerns konsult- och projektintäkter överstiger 100&nbsp;000 kronor utgår även en <strong className="font-semibold text-foreground">success fee på 2,5 procent av intäkterna</strong> från första kronan under de första nio månaderna från projektstart.</p>
-                <p>Expertavgiften gäller faktiskt debiterade timmar; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
+                <p>Expertavgiften är en fast avgift per tillsatt uppdrag; partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Den dubbelräknas inte med avtalsersättning eller success fee för samma uppdrag.</p>
                 <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp exklusive moms. Fullständiga villkor regleras i partner- och förmedlingsavtalet.</p>
               </div>
               <h4 className="font-semibold mb-2">Processen</h4>
