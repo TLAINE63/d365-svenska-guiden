@@ -287,7 +287,7 @@ const Partnerprogram = () => {
                 <h3 className="text-xl font-bold text-foreground mb-2">Visa varför ni är rätt partner</h3>
                 <p className="text-sm text-muted-foreground mb-4">När kunden jämför implementationspartners hjälper en komplett profil köparen att förstå er kompetens, era branscher, kundcase och experter. Köparen får svar om projekt, kostnader, risker och genomförande.</p>
                 <ul className="space-y-1.5 text-sm text-muted-foreground mb-5">
-                  {["Fördjupad partnerprofil med kundcase och experter", "Redaktionell granskning inför verifiering", "Kundintroduktioner enligt Finder’s fee-avtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+                  {["Fördjupad partnerprofil per produktområde med kundcase och namngivna experter", "Knappen till er webbplats och egen landningssida per produktområde, med mätbara klick", "Redaktionell granskning inför märket Verifierad partner", "Profilstatistik och kvartalsvis genomgång med namngiven kontakt hos d365.se", "Egen profileringslänk för att hålla kundcase, experter och branscher aktuella", "Kundintroduktioner enligt Finder’s fee-avtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
                 </ul>
                 <div className="mt-auto flex flex-wrap gap-2">
                   <Button asChild><a href="#premium-formaner">Se vad Premium ger<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
@@ -297,7 +297,7 @@ const Partnerprogram = () => {
               <div className="rounded-xl border-2 border-accent/40 bg-card p-6 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-2">ISV Presence · Jag är ISV-leverantör</p>
                 <h3 className="text-xl font-bold text-foreground mb-2">Hjälp kunden att upptäcka och förstå era lösningar</h3>
-                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central kan samtidigt behöva lagerhantering, budgetering, e-handel, dokumenthantering eller branschtillägg. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
+                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central, Finance &amp; Supply Chain, Sales, Customer Service eller någon annan Dynamics&nbsp;365-produkt kan samtidigt behöva lagerhantering, budgetering, e-handel, dokumenthantering eller branschtillägg. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
                 <ul className="space-y-1.5 text-sm text-muted-foreground mb-3">
                   {["Leverantörspresentation och egna produktsidor per app", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
                 </ul>
