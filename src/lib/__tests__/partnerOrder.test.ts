@@ -3,6 +3,18 @@ import { orderPrice, orderValidation, orderSnapshot, termsDisplayText, ORDER_ARE
 import { MONTH_PRICE, YEAR_PRICE } from '../budget2027';
 const base: OrderSelection = { level: 'premium', period: 'month', areas: ['bc'], mediation: false, start_date: '2099-01-01' };
 describe('partnerbeställning', () => {
+  it('både abonnemangs- och förmedlingsavtal gäller tills vidare', () => {
+    const snapshot = orderSnapshot({ ...base, mediation: true });
+    for (const terms of [snapshot.subscription, snapshot.mediation]) {
+      expect(terms).toContain('Avtalen gäller tills vidare.');
+    }
+  });
+  it('båda avtalen medger indexreglering inför varje nytt kalenderår', () => {
+    const snapshot = orderSnapshot({ ...base, mediation: true });
+    for (const terms of [snapshot.subscription, snapshot.mediation]) {
+      expect(terms).toContain('Priserna kan komma att indexregleras inför varje nytt kalenderår.');
+    }
+  });
   it('Premium har samma månad/årspriser som prislistan', () => {
     for (const areas of [['bc'], ['bc','crm'], ['bc','crm','fscm']] as OrderSelection['areas'][]) {
       expect(orderPrice({...base,areas})).toBe(MONTH_PRICE[areas.length]);

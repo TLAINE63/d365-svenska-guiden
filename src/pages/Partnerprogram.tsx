@@ -19,6 +19,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProgramNavigation from "@/components/ProgramNavigation";
 import PartnerOrderDialog from "@/components/PartnerOrderDialog";
+import { AGREEMENT_DURATION_TERMS } from '@/lib/partnerOrder';
 import SEOHead from "@/components/SEOHead";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { Button } from "@/components/ui/button";
@@ -323,6 +324,7 @@ const Partnerprogram = () => {
       </section>
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
+        <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Prislista</h2>
           <p className="text-muted-foreground mb-8 max-w-3xl">Ett upplägg för alla partners: Premium partner tillsammans med ett Finder’s fee-avtal. Alla priser står i prislistan nedan. Betalning ger aldrig högre placering eller automatisk verifiering.</p>

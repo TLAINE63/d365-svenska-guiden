@@ -1,5 +1,6 @@
 ## Partneroffert och mejlbeställning (2026-11-17)
-- [ ] Dela Premiumtexten i PDF i värdeavsnitt, med INSIDE som tydligt separat tillval; granska genererad PDF.
+- [x] Premiumtexten uppdelad i värdeavsnitt, med INSIDE som separat tillval; tvåsidig PDF visuellt granskad.
+- [x] Tillsvidareavtal och möjlig indexreglering inför varje nytt kalenderår tillagda på partnersidan, i offertvillkor och avtals-PDF. PDF-text verifierad, 20 tester godkända och beställningstjänsten uppdaterad; befintliga sparade avtal orörda.
 - [x] Tre tydliga val: endast Premium, båda delarna eller endast Finder’s fee. Samtliga provade i webbläsaren; enbart förmedling utesluter abonnemangsaccept och Premiuminnehåll i PDF och mejl. 15 tester godkända och PDF visuellt granskad.
 - [x] Nedladdningsbar premiumoffert för profil och förmedling, mejlbeställning till Thomas med kopieringsalternativ. Tvåsidig PDF visuellt granskad, verklig nedladdning och kopierad beställning verifierade; 12 tester godkända, dator/732 px utan runtimefel. Mejlet skickas av partnern i eget mejlprogram, ingen leverans påstås.
 

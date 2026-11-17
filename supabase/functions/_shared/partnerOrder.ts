@@ -4,6 +4,7 @@ export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operation
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
 export type OrderSelection = { level: 'basic' | 'premium'; period: 'month' | 'year'; areas: (keyof typeof ORDER_AREAS)[]; mediation: boolean; start_date: string };
 export const ORDER_PRICES = { month: [0, 995, 1295, 1495], year: [0, 7990, 9990, 11990] };
+export const AGREEMENT_DURATION_TERMS = 'Avtalen gäller tills vidare. Priserna kan komma att indexregleras inför varje nytt kalenderår.';
 export const SUBSCRIPTION_TERMS = `Grundprofil är kostnadsfri. Premium omfattar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.
 
 Märket Verifierad partner ges efter redaktionens godkännande, aldrig automatiskt genom betalning. INSIDE-produktion köps separat och gäller endast Premiumpartners.
@@ -13,6 +14,8 @@ Premium Månad faktureras i efterskott med tre månaders uppsägningstid, meddel
 CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår.
 
 Commerce, Human Resources och Project Operations är tillvalsprodukter som ingår kostnadsfritt via profileringslänken och räknas inte som produktområden.
+
+${AGREEMENT_DURATION_TERMS}
 
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
 export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-17. Samma villkor för alla partners; Premium och Basic avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
@@ -39,6 +42,8 @@ Tidsgränser:
 • Vunnen affär rapporteras inom 14 dagar efter avtal med kund.
 • Tidsfönster 9 månader från mötet för nya projekt och partnerbyte, samt 6 månader från förfrågan för expertförmedling.
 • Befintlig kundrelation ska visas med aktiv dialog inom 5 arbetsdagar.
+
+${AGREEMENT_DURATION_TERMS}
 
 Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte i affärsvärdet. Alla belopp exklusive moms.`;
 export function orderPrice(s: OrderSelection): number { return s.level === 'basic' ? 0 : ORDER_PRICES[s.period][s.areas.length] ?? 0; }
