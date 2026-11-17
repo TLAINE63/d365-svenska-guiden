@@ -328,7 +328,7 @@ const Partnerprogram = () => {
       <section id="for-partners" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">För partners: visa när er kompetens passar</h2>
-          <p className="max-w-3xl text-muted-foreground mb-6">Hjälp företag som utvärderar CRM- och affärssystem (ERP) att förstå vilka kunder, branscher och projekt ni har erfarenhet av. Er profil blir ett underlag när köparen söker, jämför och skapar sin kortlista.</p>
+          <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-6">Hjälp företag som utvärderar CRM- och affärssystem (ERP) att förstå vilka kunder, branscher och projekt ni har erfarenhet av. Er profil blir ett underlag när köparen söker, jämför och skapar sin kortlista.</p>
           <ul className="grid md:grid-cols-3 gap-5 mb-6">
             {[
               { title: "Kompetens och specialisering", text: "Produktområden, branscher och era egna beskrivningar av typiska kunder och projekt." },
