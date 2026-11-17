@@ -59,9 +59,9 @@ export default function BuyerQuestionsSection() {
   return (
     <section id="kopares-fragor" aria-labelledby="kopares-fragor-rubrik" className="py-14 md:py-20 scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-3xl mb-10">
+        <div className="max-w-3xl lg:max-w-none mb-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">Så arbetar d365.se</p>
-          <h2 id="kopares-fragor-rubrik" className="text-2xl md:text-4xl font-bold text-foreground mb-5 leading-tight">
+          <h2 id="kopares-fragor-rubrik" className="text-2xl md:text-4xl lg:text-[2rem] xl:text-4xl lg:whitespace-nowrap font-bold text-foreground mb-5 leading-tight">
             Vi svarar på frågorna innan kunden vill prata med en säljare
           </h2>
           <div className="space-y-3 text-base md:text-lg text-muted-foreground">
