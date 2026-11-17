@@ -18,7 +18,8 @@ export function agreementPriceRows(): [string, string][] {
     ["Partner Presence Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
     ["Kundavtal tecknat (Finder’s fee)", `${kr(FEES.dealStd)}, F&SCM ${kr(FEES.dealFscm)}`],
-    ["Förmedling av expertkonsulter", `${EXPERT_FEES.premiumPerHour} kr per debiterad timme`],
+    ["Förmedling av expertkonsulter, upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Basic)`],
+    ["Förmedling av expertkonsulter, längre eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Basic)`],
   ];
 }
 
