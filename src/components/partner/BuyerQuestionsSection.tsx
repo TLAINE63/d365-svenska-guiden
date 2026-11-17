@@ -23,10 +23,11 @@ const QUESTIONS: { q: string; help: string; links: { to: string; label: string }
     ],
   },
   {
-    q: "När passar Business Central och när bör vi överväga andra alternativ?",
-    help: "Saklig information om produkten och jämförelser mot andra system, även när ett annat val kan passa bättre.",
+    q: "Vilken Dynamics\u00A0365-lösning passar oss, och när bör vi överväga andra alternativ?",
+    help: "Saklig information om CRM- och affärssystem (ERP) i Dynamics\u00A0365 och jämförelser mot andra system, även när ett annat val kan passa bättre.",
     links: [
-      { to: "/businesscentral/", label: "Business Central" },
+      { to: "/crm/", label: "CRM-lösningar" },
+      { to: "/affarssystem/", label: "Affärssystem (ERP)" },
       { to: "/jamfor/", label: "Jämförelser med andra system" },
     ],
   },
