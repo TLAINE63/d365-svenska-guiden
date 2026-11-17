@@ -13,5 +13,11 @@ it("genererar förmedlingsvillkoren som PDF för visuell kontroll", async () => 
     priceNote: PARTNER_FEE_NOTE,
     acceptance: "Bekräfta de individuella villkoren skriftligen innan samarbetet startar.",
   });
-  writeFileSync("/tmp/browser/terms-commission.pdf", Buffer.from(await blob.arrayBuffer()));
+  const buf = await new Promise<ArrayBuffer>((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result as ArrayBuffer);
+    r.onerror = rej;
+    r.readAsArrayBuffer(blob);
+  });
+  writeFileSync("/tmp/browser/terms-commission.pdf", Buffer.from(buf));
 });
