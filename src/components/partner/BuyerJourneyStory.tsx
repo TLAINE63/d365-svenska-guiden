@@ -91,7 +91,7 @@ export default function BuyerJourneyStory() {
   return (
     <section id="kopresan" aria-labelledby="kopresan-rubrik" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-3xl mb-10 md:mb-14">
+        <div className="max-w-3xl lg:max-w-none mb-10 md:mb-14">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">Den moderna köpresan</p>
           <h2 id="kopresan-rubrik" className="text-2xl md:text-4xl font-bold text-foreground mb-5 leading-tight">
             Köparen gör allt mer själv. Vi hjälper till längs vägen.
