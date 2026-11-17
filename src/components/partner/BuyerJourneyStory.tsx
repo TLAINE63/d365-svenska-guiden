@@ -158,7 +158,7 @@ export default function BuyerJourneyStory() {
           Er egen webbplats är viktig när kunden redan känner till er. d365.se har en annan roll:{" "}<span className="lg:whitespace-nowrap">att hjälpa företag som fortfarande försöker förstå vilka lösningar och partners som är relevanta.</span>
         </p>
 
-        <div className="mt-8 max-w-3xl rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground space-y-2">
+        <div className="mt-8 max-w-3xl lg:max-w-none rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground space-y-2">
           <p className="font-semibold text-foreground">Så arbetar d365.se med köparen</p>
           <p>Köparen kan göra research, jämföra lösningar och partners och använda verktygen helt utan säljkontakt. Rådgivning är frivillig, och kunden väljer själv om och när den vill träffa en partner.</p>
           <p>d365.se kan också arbeta aktivt med att upptäcka och följa upp relevanta behov. En företagssignal, till exempel att ett företag besökt sajten, är inte samma sak som en identifierad person eller ett kvalificerat kundprojekt.</p>
