@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Vad kostar ISV Presence?",
     answer:
-      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad app. Varje ytterligare verifierad app kostar 995 kr per år. Introduktionserbjudande: 2 990 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
+      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad produkt. Varje ytterligare verifierad produkt kostar 995 kr per år. Introduktionserbjudande: 2 990 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
   },
   {
     question: "Påverkar ISV Presence ordningen i katalogen?",
@@ -54,10 +54,10 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inkl. en app, introduktionspris 2 990 kr första året."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inkl. en produkt, introduktionspris 2 990 kr första året."
         webPageSchema={false}
         canonicalPath="/isvprogram"
-        dateModified="2026-11-13"
+        dateModified="2026-11-17"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <WebPageSchema name="För ISV-leverantörer" description="ISV Presence för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
@@ -115,7 +115,7 @@ const IsvProgram = () => {
                 <p className="text-sm text-muted-foreground mb-5">Alla priser exklusive moms.</p>
                 <div className="rounded-lg bg-secondary/30 p-5 mb-6 space-y-3 text-sm text-muted-foreground">
                   <h4 className="text-base font-semibold text-foreground">Vad innebär ISV Presence?</h4>
-                  <p>Med ISV Presence får er app en utökad produktpresentation där köpare och Dynamics&nbsp;365-partners ser vilka behov lösningen löser, med logotyp, webblänk, kontakt och demofilmer.</p>
+                  <p>Med ISV Presence får er produkt en utökad produktpresentation där köpare och Dynamics&nbsp;365-partners ser vilka behov lösningen löser, med logotyp, webblänk, kontakt och demofilmer.</p>
                   <p><strong className="font-semibold text-foreground">Vi verifierar uppgifterna.</strong> Innan märkena Verifierad ISV och Verifierad tilläggslösning visas går d365.se-redaktionen igenom leverantör, produkt och kopplingen till Dynamics&nbsp;365. Betalningen i sig ger aldrig verifiering.</p>
                   <p>Utan ISV Presence finns lösningen kvar som grundprofil (0 kr) i katalogen, utan logotyp, länk eller kontaktuppgifter.</p>
                 </div>
@@ -123,8 +123,8 @@ const IsvProgram = () => {
                 <ul className="text-sm text-muted-foreground space-y-2 mb-6">
                   {[
                     "Verifieringsprocessen (grundkontroll) ingår",
-                    "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och app",
-                    "Upp till tre aktiva demofilmer från YouTube per app",
+                    "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och produkt",
+                    "Upp till tre aktiva demofilmer från YouTube per produkt",
                     "Filmerna visas under Produktdemonstrationer i d365.se INSIDE",
                     "Märkena Verifierad ISV och Verifierad tilläggslösning med datum när respektive verifiering är godkänd",
                     "Möjlighet till visning på businesscentral.se för BC-appar",
@@ -135,8 +135,8 @@ const IsvProgram = () => {
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
                 <ul className="text-sm text-foreground space-y-1 mb-4">
                   <li className="rounded-md bg-primary/10 px-3 py-2">Introduktionspris första året: <strong>2&nbsp;990&nbsp;kr</strong> <span className="text-muted-foreground">(de första 20 nya ISV-leverantörerna)</span></li>
-                  <li>Ordinarie pris per ISV inklusive en app: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
-                  <li>Per extra app: <strong>995&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Ordinarie pris per ISV inklusive en produkt: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Per extra produkt: <strong>995&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>

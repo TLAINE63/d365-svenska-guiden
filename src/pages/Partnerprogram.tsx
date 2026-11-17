@@ -299,7 +299,7 @@ const Partnerprogram = () => {
                 <h3 className="text-xl font-bold text-foreground mb-2">Hjälp kunden att upptäcka och förstå era lösningar</h3>
                 <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central, Finance &amp; Supply Chain, Sales, Customer Service eller någon annan Dynamics&nbsp;365-produkt kan samtidigt behöva lagerhantering, budgetering, e-handel, dokumenthantering eller branschtillägg. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
                 <ul className="space-y-1.5 text-sm text-muted-foreground mb-3">
-                  {["Leverantörspresentation och egna produktsidor per app", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+                  {["Leverantörspresentation och egna produktsidor per produkt", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
                 </ul>
                 <details className="mb-4 text-sm text-muted-foreground">
                   <summary className="cursor-pointer font-medium text-foreground">Frågor köpare vill ha svar på innan de kontaktar en säljare</summary>
@@ -307,11 +307,11 @@ const Partnerprogram = () => {
                     {["Vilket problem löser produkten?", "När behöver vi den?", "Hur fungerar integrationen?", "Vad kostar lösningen?", "Vilka begränsningar finns?", "Hur skiljer den sig från alternativen?"].map((q) => <li key={q}>{q}</li>)}
                   </ul>
                 </details>
-                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en app, <span className="font-semibold text-destructive">introduktionspris 2&nbsp;990&nbsp;kr första året</span>, exklusive moms. Produktrelaterade kundintroduktioner kan diskuteras separat; Finder’s fee för ISV är pausad och partnervillkoren gäller inte automatiskt.</p>
+                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en produkt, <span className="font-semibold text-destructive">introduktionspris 2&nbsp;990&nbsp;kr första året</span>, exklusive moms. Eventuell förmedling och kommersiella villkor diskuteras separat.</p>
                 <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
               </div>
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">Premium och ISV Presence är två separata erbjudanden. Betalning påverkar aldrig relevansordningen, och inget av dem innebär garanterade leads.</p>
+            <p className="mt-4 text-sm text-muted-foreground">Premium och ISV Presence är två separata erbjudanden. Betalning påverkar aldrig relevansordningen och inget av dem innebär garanterade leads.</p>
           </section>
         </div>
       </header>
