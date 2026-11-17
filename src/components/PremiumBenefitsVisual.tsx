@@ -18,7 +18,7 @@ export default function PremiumBenefitsVisual() {
     <section id="premium-formaner" className="py-12 md:py-16 bg-secondary/30 border-y border-border scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-semibold text-primary mb-2">Premium</p>
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 max-w-3xl">Premium hjälper kunden att förstå varför ni kan vara rätt partner</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 max-w-3xl lg:max-w-none lg:whitespace-nowrap">Premium hjälper kunden att förstå varför ni kan vara rätt partner</h2>
         <blockquote className="max-w-3xl border-l-4 border-accent pl-4 text-lg text-foreground mb-10">
           Premium handlar inte om att köpa fler rekommendationer. Det handlar om att ge köparen ett bättre underlag för att förstå och välja er.
         </blockquote>
