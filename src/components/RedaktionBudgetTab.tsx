@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   BUDGET_KEY, DEFAULT_BUDGET, type Budget, type PartnerForecast, type Forecast,
-  forecastRevenue, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_DEAL_TYPES, funnelMaxValue, migratePartnerFunnel, dealFunnelRow, EXPERT_FUNNEL, ISV_FUNNEL, SWITCH_FUNNEL, expertFunnelRow, isvFunnelRow, switchFunnelRow, funnelTotals, opexCoverage, type FunnelRow, type IsvForecast, type Period,
+  forecastRevenue, partnerDeals, DEAL_BAND_KEYS, totals, CATEGORIES, detailByCategory, estimateRevenue, categoryGroupSummary, budgetIsvVendors, currentProducts, mergeCosts, annual, unitFor, successValue, isvRevenue, FUNNEL_DEAL_TYPES, funnelMaxValue, migratePartnerFunnel, dealFunnelRow, EXPERT_FUNNEL, ISV_FUNNEL, SWITCH_FUNNEL, expertFunnelRow, isvFunnelRow, switchFunnelRow, funnelTotals, opexCoverage, type FunnelRow, type IsvForecast, type Period,
 } from "@/lib/budget2027";
 import { useIsvSolutions } from "@/hooks/useIsvSolutions";
 
@@ -80,7 +80,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
     if (fStatus !== "all" && status(p) !== fStatus) return false;
     if (fForecast !== "all" && r.forecast !== fForecast) return false;
     if (fProduct !== "all" && !(p.product_filters?.[fProduct]?.industries?.length > 0)) return false;
-    const ff = r.meetingsStd + r.dealsStd + r.meetingsFscm + r.dealsFscm + r.successBasis > 0;
+    const pd = partnerDeals(r); const ff = DEAL_BAND_KEYS.some((k) => pd[k].meetings + pd[k].wins > 0);
     if (fFinders === "yes" && !ff) return false;
     if (fFinders === "agreement" && !p.has_finders_fee) return false;
     return true;
@@ -382,7 +382,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten BC/CE</th><th>Avtal BC/CE</th><th>Möten F&amp;SCM</th><th>Avtal F&amp;SCM</th><th>Success-underlag kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten liten</th><th>Vunna liten</th><th>Möten medel</th><th>Vunna medel</th><th>Möten stor</th><th>Vunna stor</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -397,8 +397,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                       <td className="pr-1"><select className={sel} value={r.forecast} onChange={(e) => setRow(p.id, { forecast: e.target.value as Forecast }, p)}>{Object.entries(FORECAST_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></td>
                       <td className="pr-1"><select className={sel} value={r.products} onChange={(e) => setRow(p.id, { products: Number(e.target.value) }, p)}>{[1, 2, 3].map((x) => <option key={x}>{x}</option>)}</select></td>
                       <td className="pr-1"><BudgetNumberInput min={0} max={100} className="h-8 w-16" value={(r.discount) || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { discount: Math.min(100, value) }, p)} /></td>
-                      {n("meetingsStd")}{n("dealsStd")}{n("meetingsFscm")}{n("dealsFscm")}
-                      <td className="pr-1"><BudgetNumberInput min={0} className="h-8 w-28" value={(r.successBasis) || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { successBasis: value }, p)} /></td>
+                      {(() => { const d = partnerDeals(r); return DEAL_BAND_KEYS.flatMap((k) => (["meetings", "wins"] as const).map((f) => (
+                        <td key={k + f} className="pr-1"><BudgetNumberInput min={0} className="h-8 w-16" value={d[k][f] || ""} placeholder="0" onValueChange={(value) => setRow(p.id, { deals: { ...d, [k]: { ...d[k], [f]: value } } }, p)} /></td>
+                      ))); })()}
                       <td className="text-right px-2 whitespace-nowrap">{fmt(rev.subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(rev.finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(rev.total)} kr</td>
                     </tr>
                   );
