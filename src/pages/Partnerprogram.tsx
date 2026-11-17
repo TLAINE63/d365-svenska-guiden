@@ -36,6 +36,7 @@ import VerifiedPartnerBadgeEmbed from "@/components/partner/VerifiedPartnerBadge
 import BuyerJourneyStory from "@/components/partner/BuyerJourneyStory";
 import BuyerQuestionsSection from "@/components/partner/BuyerQuestionsSection";
 import TwoWaysSection from "@/components/partner/TwoWaysSection";
+import MarketPulseSection from "@/components/partner/MarketPulseSection";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
@@ -349,6 +350,7 @@ const Partnerprogram = () => {
       <TwoWaysSection />
       <PremiumBenefitsVisual />
 
+      <MarketPulseSection />
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <p className="container mx-auto max-w-6xl px-4 sm:px-6 mb-6 text-sm text-muted-foreground">{AGREEMENT_DURATION_TERMS}</p>
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
