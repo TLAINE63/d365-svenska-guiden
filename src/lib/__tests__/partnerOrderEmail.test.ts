@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { partnerOrderEmail } from '../partnerOrderEmail';
+import { partnerOrderEmail, partnerOrderParts } from '../partnerOrderEmail';
 import type { OrderSelection } from '../partnerOrder';
 
 const selection: OrderSelection = { level: 'premium', period: 'year', areas: ['bc'], mediation: true, start_date: '2027-01-01' };
@@ -13,5 +13,14 @@ describe('partnerbeställning via mejl', () => {
   });
   it('inkluderar inte förmedling när partnern väljer bort den', () => {
     expect(partnerOrderEmail({ ...selection, mediation: false }, 'Exempel AB', 'Anna').body).not.toContain('förmedlings');
+  });
+  it('endast Finder’s fee innebär inget Premiumabonnemang', () => {
+    expect(partnerOrderParts({ ...selection, level: 'basic' })).toEqual({ subscription: false, mediation: true });
+  });
+  it('båda delarna kan beställas tillsammans', () => {
+    expect(partnerOrderParts(selection)).toEqual({ subscription: true, mediation: true });
+  });
+  it('endast Premium innebär inget förmedlingsavtal', () => {
+    expect(partnerOrderParts({ ...selection, mediation: false })).toEqual({ subscription: true, mediation: false });
   });
 });
