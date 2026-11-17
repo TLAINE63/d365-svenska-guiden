@@ -1,3 +1,4 @@
+import { budgetPricing } from "@/lib/budgetPricing";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const solutions = useIsvSolutions();
   const ISV_VENDORS = useMemo(() => budgetIsvVendors(solutions), [solutions]);
   const [budget, setBudget] = useState<Budget>(DEFAULT_BUDGET);
+  const pricing = budgetPricing(budget.pricing);
+  const setPricing = (patch: Partial<typeof pricing>) => setBudget((b) => ({ ...b, pricing: { ...budgetPricing(b.pricing), ...patch } }));
+  const setUnit = (key: string, value: number) => setPricing({ units: { ...pricing.units, [key]: value } });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [q, setQ] = useState("");
@@ -99,7 +103,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
     if (iFilter === "finders" && r.successBasis + (r.consultBasis ?? 0) === 0) return false;
     return true;
   });
-  const isvShownTotals = isvShown.reduce((s, v) => { const r = isvRevenue(isvFor(v)); return { subscription: s.subscription + r.subscription, finders: s.finders + r.finders, total: s.total + r.total }; }, { subscription: 0, finders: 0, total: 0 });
+  const isvShownTotals = isvShown.reduce((s, v) => { const r = isvRevenue(isvFor(v), pricing); return { subscription: s.subscription + r.subscription, finders: s.finders + r.finders, total: s.total + r.total }; }, { subscription: 0, finders: 0, total: 0 });
   const setLine = (key: "costs" | "otherRevenue", i: number, patch: any) =>
     setBudget((b) => ({ ...b, [key]: (b[key] ?? []).map((x: any, j: number) => (j === i ? { ...x, ...patch } : x)) }));
   const periodSel = (key: "costs" | "otherRevenue", i: number, v?: Period) => (
@@ -111,9 +115,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
   const all = partners.map(rowFor);
   const t = totals(all, budget, ISV_VENDORS.map(isvFor));
   const ft = totals(filtered.map(rowFor), budget);
-  const det = detailByCategory(all, ISV_VENDORS.map(isvFor));
+  const det = detailByCategory(all, ISV_VENDORS.map(isvFor), budget);
   const detTotal = Object.values(det).reduce((x, d) => x + d.revenue, 0);
-  const groups = categoryGroupSummary(budget.estimates, det, budget.successValues, budget.funnel);
+  const groups = categoryGroupSummary(budget.estimates, det, budget.successValues, budget.funnel, pricing);
   const grossBudget = groups.partner.estimate + groups.isv.estimate + t.other;
   const result = grossBudget - t.externalCosts - t.ownTimeCost;
 
@@ -134,6 +138,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         {[
           ["budget-result", "Resultat"],
           ["budget-summary", "Summering"],
+          ["budget-pricing", "Priser och provision"],
           ["budget-partner-funnel", "Partnerfunnel"],
           ["budget-expert-funnel", "Expertförmedling"],
           ["budget-isv-funnel", "ISV-funnel"],
@@ -149,7 +154,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         ))}
       </nav>
 
-      {(() => { const est = estimateRevenue(budget.estimates, budget.successValues, budget.funnel); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
+      {(() => { const est = estimateRevenue(budget.estimates, budget.successValues, budget.funnel, pricing); const rev = est + t.other; const res = rev - t.externalCosts - t.ownTimeCost; return (
       <div id="budget-result" className="scroll-mt-32 rounded-md border bg-card p-4 space-y-1 text-sm">
         <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
         <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
@@ -162,20 +167,20 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Egen tid (internkostnad)</span><span>−{fmt(t.ownTimeCost)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap text-base font-semibold border-t pt-2"><span>Resultat</span><span>{fmt(res)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap text-xs text-muted-foreground"><span>Resultat per månad</span><span>{fmt(res / 12)} kr</span></div>
-        {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts); return (
+        {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts, pricing.units.month1); return (
         <div className="mt-3 rounded-md border bg-muted/40 p-3 space-y-1">
           <h4 className="font-semibold">Återkommande intäkter vs fasta kostnader</h4>
           <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV-leverantörer) sajtens externa kostnader utan Finder’s fee? Mål: täckningsgrad över 1,5.</p>
           <div className="flex justify-between gap-4"><span>Återkommande intäkter per månad</span><span className="whitespace-nowrap">{fmt(rec / 12)} kr</span></div>
           <div className="flex justify-between gap-4"><span>Fasta kostnader per månad</span><span className="whitespace-nowrap">{fmt(t.externalCosts / 12)} kr</span></div>
           <div className="flex justify-between gap-4 font-medium"><span>Täckningsgrad</span><span className="whitespace-nowrap">{t.externalCosts > 0 ? c.ratio.toLocaleString("sv-SE", { maximumFractionDigits: 2 }) : "–"}</span></div>
-          <p className="text-sm font-medium pt-1">{t.externalCosts <= 0 ? "Lägg in kostnader för att se täckningen." : c.selfFunded ? "Driften är självfinansierad av prenumerationerna." : `Det saknas ${fmt(c.gap / 12)} kr per månad, ungefär ${c.extraPartners} Premiumpartners till (995 kr/mån).`}</p>
+          <p className="text-sm font-medium pt-1">{t.externalCosts <= 0 ? "Lägg in kostnader för att se täckningen." : c.selfFunded ? "Driften är självfinansierad av prenumerationerna." : `Det saknas ${fmt(c.gap / 12)} kr per månad, ungefär ${c.extraPartners} Premiumpartners till (${fmt(pricing.units.month1)} kr/mån).`}</p>
         </div>); })()}
       </div>); })()}
 
       <section id="budget-summary" className="scroll-mt-32 space-y-3" aria-labelledby="budget-summary-title">
         <h3 id="budget-summary-title" className="text-lg font-semibold">Summering av budget 2027</h3>
-        <p className="text-sm text-muted-foreground">Budgeten visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Alla belopp per år, exklusive moms. Success fee ingår inte i jämförelsen eller resultatet.</p>
+        <p className="text-sm text-muted-foreground">Budgeten visar dina grova uppskattningar och används i resultatet. Detaljprognosen visar underlaget från namngivna partners och ISV-leverantörer, efter rabatter. Alla belopp per år, exklusive moms. Provision vid vunnen affär ingår i budgeten via tratten och i detaljprognosen via angivet provisionsunderlag.</p>
         {([
           { key: "estimate", title: "Budget", total: grossBudget },
           { key: "detail", title: "Detaljprognos", total: detTotal + t.other },
@@ -222,6 +227,18 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <details className="text-sm"><summary className="cursor-pointer font-medium">Antal i partner- och ISV-detaljerna</summary><p className="mt-2 text-muted-foreground">Partners: {t.yearCount} årsprenumerationer, {t.monthCount} månadsprenumerationer och {t.products} produktområden. ISV: {t.isvCount} Presence-prenumerationer och {det.isvExtra.count} extra appar. Antalen är detaljprognoser, inte din grova budget.</p></details>
       </section>
 
+      <section id="budget-pricing" className="scroll-mt-32 space-y-4">
+        <h3 className="text-lg font-semibold">Priser och provision, budgetantaganden</h3>
+        <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Mötesavgift och provision vid vunnen affär räknas separat, utan ytterligare avtalsavgift.</p>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["isvLicensePercent", "ISV licensprovision, %"], ["isvConsultPercent", "ISV konsultprovision, %"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
+        </div>
+        <div className="overflow-x-auto"><table className="w-full min-w-[840px] text-sm">
+          <thead><tr><th className="text-left py-2">Typ av affär</th><th>Möte Premium, kr</th><th>Möte Basic, kr</th><th>Vid affär, %</th><th>Lägst, kr</th><th>Högst, kr (0 = inget tak)</th></tr></thead>
+          <tbody>{(["small", "medium", "large"] as const).map((band, i) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{i === 0 ? `Under ${fmt(pricing.smallLimit)} kr, inklusive startpaket` : i === 1 ? `${fmt(pricing.smallLimit)}–${fmt(pricing.largeLimit)} kr` : `Över ${fmt(pricing.largeLimit)} kr`}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum", "maximum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
+        </table></div>
+      </section>
+
       <FunnelBudget budget={budget} setBudget={setBudget} />
 
       <Card id="budget-subscriptions" className="scroll-mt-32">
@@ -244,7 +261,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               ].map(([term, description]) => <div key={term}><dt className="font-medium text-foreground">{term}</dt><dd>{description}</dd></div>)}
             </dl>
           </details>
-          <p className="text-xs text-muted-foreground">Mötesavgift gäller bara Basic. Basic-avtalsraderna visar ersättningen efter mötesavdrag; Premium har egna avtalsrader med hela ersättningen. Tidigare sparade avtalsuppskattningar ligger kvar på Basic-raderna, så kontrollera fördelningen. Success fee (2,5 %) budgeteras per område med ett antaget snittbelopp per affär och ingår i resultatet; detaljlistorna har inga success fee-rader per område. Expertförmedling budgeteras i debiterade timmar, 50 kr per timme från Premiumpartner och 90 kr per timme från Basicpartner, och saknar detaljunderlag i partnerlistorna.</p>
+          <p className="text-xs text-muted-foreground">Prenumerationspriserna kan ändras här. Månadspriser anges per månad och räknas ×12. Möten och provision budgeteras separat i tratten enligt dina prisantaganden ovan.</p>
           <div className="overflow-x-auto">
           <table className="w-full min-w-[1000px] text-sm">
             <thead className="text-xs text-muted-foreground text-left">
@@ -258,7 +275,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <tr className="border-t bg-muted"><th colSpan={7} scope="colgroup" className="py-3 px-2 text-left font-semibold">{section.label}</th></tr>
                 {CATEGORIES.filter((c) => c.group === section.group && c.income === section.income).map((c) => {
                 const e = Number(budget.estimates?.[c.key]) || 0; const d = det[c.key];
-                const unit = unitFor(c, budget.successValues);
+                const unit = unitFor(c, budget.successValues, pricing);
                 const diff = d.revenue - e * unit;
                 return (
                   <tr key={c.key} className="border-t">
@@ -269,7 +286,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                         <BudgetNumberInput aria-label={`Snittbelopp per affär: ${c.label}`} min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: value } }))} />
                         <span>= {fmt(unit)} kr</span>
                       </div>
-                    ) : <>{fmt(c.unit)} kr{c.per ? ` per ${c.per}` : ""}</>}</td>
+                    ) : <div className="flex flex-col items-end gap-1"><BudgetNumberInput aria-label={`Pris: ${c.label}`} min={0} className="h-8 w-28" value={pricing.units[c.key] ?? c.unit} onValueChange={(value) => setUnit(c.key, value)} /><span className="text-xs text-muted-foreground">{c.key.startsWith("month") ? "kr/månad ×12" : "kr/år"}</span></div>}</td>
                     <td className="px-2"><BudgetNumberInput aria-label={`Uppskattning antal: ${c.label}`} min={0} className="h-8 w-20" value={(e) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, estimates: { ...(b.estimates ?? {}), [c.key]: value } }))} /></td>
                     <td className="text-right whitespace-nowrap">{fmt(e * unit)} kr</td>
                     <td className="text-right">{fmt(d.count)}</td>
@@ -282,9 +299,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               </Fragment>)}
               <tr className="border-t font-semibold">
                 <td className="py-2">Summa</td><td /><td />
-                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates, budget.successValues, budget.funnel))} kr</td><td />
+                <td className="text-right whitespace-nowrap">{fmt(estimateRevenue(budget.estimates, budget.successValues, budget.funnel, pricing))} kr</td><td />
                 <td className="text-right whitespace-nowrap">{fmt(detTotal)} kr</td>
-                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues, budget.funnel))} kr</td>
+                <td className="text-right whitespace-nowrap">{fmtDifference(detTotal, estimateRevenue(budget.estimates, budget.successValues, budget.funnel, pricing))} kr</td>
               </tr>
             </tbody>
           </table>
@@ -298,7 +315,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowPartners((v) => !v)}>{showPartners ? "Dölj partnerdetaljer" : `Visa partnerdetaljer (${partners.length})`}</Button>
           </div>
-          <CardDescription>Prognos 2027 styr avgiften: Grundprofil (Basic) betalar mötesavgift och resterande avtalsersättning efter mötesavdrag. Premium betalar ingen mötesavgift, men hela avtalsersättningen. Mötesfält ignoreras för Premium. Success fee räknas separat på 2,5 % av underlaget när det överstiger 100 000 kr, men ingår inte i den grova budgetens resultat.</CardDescription>
+          <CardDescription>Priser följer budgetantagandena. Mötesavgift beräknas på snittaffären för BC respektive F&amp;SCM. Avtal är volymuppgifter utan separat avgift; provision tas en gång på success-underlaget.</CardDescription>
         </CardHeader>
         {showPartners && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -353,7 +370,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Presence: 5 990 kr/år per ISV inklusive en app, 995 kr/år per extra app. Appar i katalogen hämtas från den aktuella publicerade katalogen, inte bara den äldre listan. Extra appar är ditt budgeterade antal och kan ändras fritt. Business Referral (Finder’s fee): 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader och 2,5 % av ett förmedlat konsultuppdrag. Introduktionspris 2 990 kr första året för de första 20 nya ISV-leverantörerna.</CardDescription>
+          <CardDescription>ISV Presence följer budgetens redigerbara priser. ISV har som utgångspunkt 0 % Finder’s fee. Sparade volymer behålls.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -366,7 +383,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Licensintäkter 12 mån kr (5 %)</th><th>Konsultintäkter kr (2,5 %)</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">ISV</th><th>Appar i katalogen</th><th>Grundavgift</th><th>Extra appar</th><th>Rabatt %</th><th>Licensintäkter 12 mån kr</th><th>Konsultintäkter kr</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {isvShown.map((v) => {
@@ -384,14 +401,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                         </button>
                       </td>
                       <td className="text-xs">{fmt(v.apps)}</td>
-                      <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> {r.introPrice === false ? "5 990" : "2 990"} kr</label><label className="flex items-center gap-1 text-[11px] text-muted-foreground"><input type="checkbox" checked={r.introPrice !== false} onChange={(e) => setIsv(v, { introPrice: e.target.checked })} /> Ny (intropris)</label></td>
+                      <td className="pr-1"><label className="flex items-center gap-1 text-xs"><input type="checkbox" checked={r.presence} onChange={(e) => setIsv(v, { presence: e.target.checked })} /> {fmt(r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence)} kr</label><label className="flex items-center gap-1 text-[11px] text-muted-foreground"><input type="checkbox" checked={r.introPrice !== false} onChange={(e) => setIsv(v, { introPrice: e.target.checked })} /> Ny (intropris)</label></td>
                       {n("extraApps")}{n("discount", "w-16")}{n("successBasis", "w-28")}{n("consultBasis", "w-28")}
-                      <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r).total)} kr</td>
+                      <td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r, pricing).subscription)} kr</td><td className="text-right px-2 whitespace-nowrap">{fmt(isvRevenue(r, pricing).finders)} kr</td><td className="text-right whitespace-nowrap">{fmt(isvRevenue(r, pricing).total)} kr</td>
                     </tr>
                     {open && v.products.map((p, i) => (
                       <tr key={p.id} className="bg-muted/40 text-xs text-muted-foreground">
                         <td className="py-1 pl-6 pr-2">{p.name}</td>
-                        <td colSpan={10}>{i === 0 ? "Ingår i grundavgiften" : "Extra app, 995 kr/år om den räknas in"}</td>
+                        <td colSpan={10}>{i === 0 ? "Ingår i grundavgiften" : `Extra app, ${fmt(pricing.units.isvExtra)} kr/år om den räknas in`}</td>
                       </tr>
                     ))}
                     </Fragment>
@@ -428,7 +445,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
       <Card id="budget-costs" className="scroll-mt-32">
         <CardHeader>
           <CardTitle className="text-base">Kostnadsbudget 2027</CardTitle>
-          <CardDescription>Belopp per år eller per månad (månad räknas ×12). Namnen på de tre sista raderna går att ändra.</CardDescription>
+          <CardDescription>Belopp per år eller per månad (månad räknas ×12). Alla kostnadsnamn, belopp och perioder kan ändras.</CardDescription>
         </CardHeader>
         <CardContent>
           <table className="w-full text-sm">
@@ -436,7 +453,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <tbody>
               {budget.costs.map((c, i) => (
                 <tr key={i} className="border-t">
-                  <td className="py-1 pr-2">{c.custom ? <Input className="h-8" value={c.name} placeholder={`Egen kategori ${budget.costs.slice(0, i + 1).filter((x) => x.custom).length}`} onChange={(e) => setBudget((b) => ({ ...b, costs: b.costs.map((x, j) => j === i ? { ...x, name: e.target.value } : x) }))} /> : c.name}</td>
+                  <td className="py-1 pr-2"><Input aria-label={`Kostnadsnamn ${i + 1}`} className="h-8" value={c.name} placeholder={`Egen kategori ${i + 1}`} onChange={(e) => setLine("costs", i, { name: e.target.value })} /></td>
                   <td className="pr-2"><BudgetNumberInput min={0} className="h-8 w-40" value={(c.amount) || ""} placeholder="0" onValueChange={(value) => setLine("costs", i, { amount: value })} /></td>
                   <td className="pr-2">{periodSel("costs", i, c.period)}</td>
                   <td className="text-right">{fmt(annual(c))} kr</td>
@@ -464,6 +481,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 }
 
 function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.Dispatch<React.SetStateAction<Budget>> }) {
+  const pricing = budgetPricing(budget.pricing);
   const f = budget.funnel ?? {};
   const values = budget.successValues ?? {};
   const set = (key: string, patch: FunnelRow) => setBudget((b) => ({ ...b, funnel: { ...(b.funnel ?? {}), [key]: { ...(b.funnel?.[key] ?? {}), ...patch } } }));
@@ -472,13 +490,13 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
     <BudgetNumberInput aria-label={label} min={0} className={`h-8 ${w} text-right ml-auto`} value={v || ""} placeholder="0" onValueChange={(value) => on(value)} />
   );
   const sub = (amount: number) => <p className="mt-1 text-xs text-muted-foreground text-right">{fmt(amount)} kr</p>;
-  const ft = funnelTotals(f, values);
+  const ft = funnelTotals(f, values, pricing);
   const th = "px-2 text-right font-normal";
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
-        <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgift gäller bara Basic; Premium betalar hela avtalsersättningen. Success fee 2,5 % räknas per vunnen affär när snittbeloppet överstiger 100 000 kr.</CardDescription>
+        <CardDescription>Fyll i möten, avtal och affärer per produkt. Summan räknas direkt och ingår i resultatet. Mötesavgifter och provision följer den redigerbara tabellen ovan. Avtal är ett volymsteg utan extra avgift. Provision beräknas en gång per vunnen affär, med valt minimum och tak.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
@@ -491,11 +509,11 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
               <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.label}
                 <span className="ml-3 text-xs font-normal text-muted-foreground">Snittbelopp/affär <BudgetNumberInput aria-label={`Snittbelopp per affär: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={successValue(p.valueKey, values) || ""} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
               </th><td className="border-l bg-muted" /></tr>
-              {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = partnerFunnelRow(p, tier, r, values); return (
+              {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = partnerFunnelRow(p, tier, r, values, pricing); return (
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
-                  <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{tier === "basic" ? sub(x.meetings) : <p className="mt-1 text-xs text-muted-foreground text-right">ingen mötesavgift</p>}</td>
-                  <td className="px-2">{field(`Avtal ${p.label} ${tier}`, r.deals, (v) => set(k, { deals: v }))}{sub(x.deals)}</td>
+                  <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
+                  <td className="px-2">{field(`Avtal ${p.label} ${tier}`, r.deals, (v) => set(k, { deals: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym, ingen extra avgift</p></td>
                   <td className="px-2">{field(`Affärer ${p.label} ${tier}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
@@ -530,10 +548,10 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
             <thead className="text-xs text-muted-foreground"><tr>
               <th className="py-2 pr-3 text-left font-normal">Område</th><th className={th}>Antal<br />introduktioner</th><th className={th}>Antal genomförda<br />affärer</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
-            <tbody>{ISV_FUNNEL.map((i) => { const r = f[i.key] ?? {}; const x = isvFunnelRow(i, r, values); return (
+            <tbody>{ISV_FUNNEL.map((i) => { const r = f[i.key] ?? {}; const x = isvFunnelRow(i, r, values, pricing); return (
               <tr key={i.key} className="border-t">
                 <td className="py-2 pr-3">{i.label}
-                  <p className="text-xs text-muted-foreground">{(i.rate * 100).toLocaleString("sv-SE")} % = {fmt(x.fee)} kr per affär · nettointäkt <BudgetNumberInput aria-label={`Nettointäkt per affär: ${i.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={Number(values[i.key]) || i.value} onValueChange={(value) => setValue(i.key, value)} /> kr</p></td>
+                  <p className="text-xs text-muted-foreground">{(i.key === "isvStd" ? pricing.isvLicensePercent : pricing.isvConsultPercent).toLocaleString("sv-SE")} % = {fmt(x.fee)} kr per affär · nettointäkt <BudgetNumberInput aria-label={`Nettointäkt per affär: ${i.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={values[i.key] ?? i.value} onValueChange={(value) => setValue(i.key, value)} /> kr</p></td>
                 <td className="px-2">{field(`Introduktioner ${i.label}`, r.meetings, (v) => set(i.key, { meetings: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym</p></td>
                 <td className="px-2">{field(`Avtal ${i.label}`, r.deals, (v) => set(i.key, { deals: v }))}{sub(x.deals)}</td>
                 <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
