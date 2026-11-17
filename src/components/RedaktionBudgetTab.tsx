@@ -229,7 +229,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <section id="budget-pricing" className="scroll-mt-32 space-y-4">
         <h3 className="text-lg font-semibold">Priser och provision, budgetantaganden</h3>
-        <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Mötesavgift och provision vid vunnen affär räknas separat, utan ytterligare avtalsavgift.</p>
+        <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär, aldrig negativt (ingen återbetalning).</p>
         <div className="grid gap-4 sm:grid-cols-3">
           {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["isvLicensePercent", "ISV licensprovision, %"], ["isvConsultPercent", "ISV konsultprovision, %"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
         </div>
@@ -239,15 +239,37 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         </table></div>
         <div className="space-y-2">
           <h4 className="text-sm font-semibold">Partnerbytesarvode, mötesavgift</h4>
-          <p className="text-xs text-muted-foreground">Partnerbyte debiteras bara per bokat möte, ingen provision vid affär. Avgiften följer affärens storlek.</p>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {([["small", `Under ${fmt(pricing.smallLimit)} kr`], ["medium", `${fmt(pricing.smallLimit)}–${fmt(pricing.largeLimit)} kr`], ["large", `Över ${fmt(pricing.largeLimit)} kr`]] as const).flatMap(([band, bandLabel]) =>
+          <p className="text-xs text-muted-foreground">Förvaltning och vidareutveckling, endast mötesavgift, ingen avgift vid affär.</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {([["std", "BC, CRM, Power Platform"], ["fscm", "Finance & SCM"]] as const).flatMap(([band, bandLabel]) =>
               (["premium", "basic"] as const).map((tier) => {
                 const label = `Partnerbyte ${bandLabel}, möte ${tier === "premium" ? "Premium" : "Basic"}, kr`;
                 return <label key={`${band}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.switchMeeting[band][tier]} onValueChange={(value) => setPricing({ switchMeeting: { ...pricing.switchMeeting, [band]: { ...pricing.switchMeeting[band], [tier]: value } } })} /></label>;
               }))}
           </div>
         </div>
+        <div className="space-y-2">
+          <h4 className="text-sm font-semibold">Expertförmedling, avgift per tillsatt uppdrag</h4>
+          <p className="text-xs text-muted-foreground">Kunden och konsultbolaget avtalar direkt. Förlängning ger ingen ny avgift. Ingen avgift om ingen tillsätts.</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {([["short", "Upp till 6 mån eller under halvtid"], ["long", "Längre eller minst halvtid"]] as const).flatMap(([scope, scopeLabel]) =>
+              (["premium", "basic"] as const).map((tier) => {
+                const label = `Expert ${scopeLabel}, ${tier === "premium" ? "Premium" : "Basic"}, kr`;
+                return <label key={`${scope}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.expertFee[scope][tier]} onValueChange={(value) => setPricing({ expertFee: { ...pricing.expertFee, [scope]: { ...pricing.expertFee[scope], [tier]: value } } })} /></label>;
+              }))}
+          </div>
+        </div>
+        <details className="text-sm"><summary className="cursor-pointer font-medium">Tidsgränser (utkast 2026-11-17)</summary>
+          <ul className="mt-2 space-y-1 text-muted-foreground">
+            <li>Reklamation av kvalificering efter mötet: 5 arbetsdagar</li>
+            <li>Offertregeln, offert som flyttar mötet till lägre band: 60 dagar efter mötet</li>
+            <li>Partnern rapporterar vunnen affär: 14 dagar efter avtal med kund</li>
+            <li>Tidsfönster, nya projekt: 9 månader från mötet</li>
+            <li>Tidsfönster, partnerbyte: 9 månader från mötet</li>
+            <li>Tidsfönster, expertförmedling: 6 månader från förfrågan</li>
+            <li>Befintlig kundrelation, partnern visar aktiv dialog inom: 5 arbetsdagar</li>
+          </ul>
+        </details>
       </section>
 
       <FunnelBudget budget={budget} setBudget={setBudget} />
@@ -507,7 +529,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
     <Card>
       <CardHeader>
         <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
-        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Maxbeloppet används som provisionsunderlag per vunnen affär. Summan ingår i resultatet. Mötesavgift, procent, minimum och provisionstak följer respektive affärstyp i tabellen ovan. Avtal är ett volymsteg utan extra avgift.</CardDescription>
+        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Maxbeloppet används som provisionsunderlag per vunnen affär, minus redan betald mötesavgift. Summan ingår i resultatet. Mötesavgift, procent, minimum och provisionstak följer respektive affärstyp i tabellen ovan. Avtal är ett volymsteg utan extra avgift.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
@@ -537,19 +559,19 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className={th}>Avgift<br />kr per timme</th><th className={th}>Snitt antal<br />månader</th><th className={th}>Procent<br />av heltid</th><th className={th}>Debiterade timmar<br />(165 h/mån)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Avgift<br />kr per uppdrag</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
-            <tbody>{EXPERT_FUNNEL.map((e) => { const r = f[e.key] ?? {}; const x = expertFunnelRow(e, r); return (
-              <tr key={e.key} className="border-t">
-                <td className="py-2 pr-3">{e.label}</td>
-                <td className="px-2">{field(`Uppdrag ${e.label}`, r.assignments, (v) => set(e.key, { assignments: v }))}</td>
-                <td className="px-2"><BudgetNumberInput aria-label={`Avgift per timme ${e.label}`} min={0} className="h-8 w-20 text-right ml-auto" value={x.rate} onValueChange={(value) => set(e.key, { rate: value })} /></td>
-                <td className="px-2"><BudgetNumberInput aria-label={`Snitt månader ${e.label}`} min={0} step={0.5} className="h-8 w-20 text-right ml-auto" value={x.months} onValueChange={(value) => set(e.key, { months: value })} /></td>
-                <td className="px-2"><BudgetNumberInput aria-label={`Procent av heltid ${e.label}`} min={0} max={100} step={10} className="h-8 w-20 text-right ml-auto" value={x.percent} onValueChange={(value) => set(e.key, { percent: value })} /></td>
-                <td className="px-2 text-right whitespace-nowrap">{fmt(x.hours)} h<div className="text-xs text-muted-foreground">{fmt(x.perAssignment)} h per uppdrag</div></td>
-                <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
-              </tr>); })}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={6} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
+            <tbody>{EXPERT_FUNNEL.map((e) => <Fragment key={e.key}>
+              <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{e.label}</th><td className="border-l bg-muted" /></tr>
+              {(["basic", "premium"] as const).map((tier) => { const k = `${e.key}_${tier}`; const r = f[k] ?? {}; const x = expertFunnelRow(e, tier, r, pricing); return (
+                <tr key={k} className="border-t">
+                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
+                  <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
+                  <td className="px-2">{field(`Uppdrag ${e.label} ${tier}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
+                  <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
+                </tr>); })}
+            </Fragment>)}</tbody>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
           </table>
         </div>
 

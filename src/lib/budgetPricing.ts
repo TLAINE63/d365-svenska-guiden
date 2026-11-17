@@ -10,18 +10,21 @@ export interface BudgetPricing {
   largeLimit: number;
   bands: { small: DealBand; medium: DealBand; large: DealBand };
   /** Partnerbytesarvode: mötesavgift per affärsstorlek och nivå, ingen provision. */
-  switchMeeting: { small: SwitchMeetingFee; medium: SwitchMeetingFee; large: SwitchMeetingFee };
+  switchMeeting: { std: SwitchMeetingFee; fscm: SwitchMeetingFee };
+  /** Expertförmedling: fast avgift per tillsatt uppdrag (utkast 2026-11-17). */
+  expertFee: { short: SwitchMeetingFee; long: SwitchMeetingFee };
 }
 export const DEFAULT_PRICING: BudgetPricing = {
   units: { year1: 7990, year2: 9990, year3: 11990, month1: 995, month2: 1295, month3: 1495, isvPresence: 2990, isvExtra: 995 },
   isvAnnual: 5990, isvLicensePercent: 0, isvConsultPercent: 0,
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
-    small: { premiumMeeting: 0, basicMeeting: 0, percent: 2.5, minimum: 3000, maximum: 0 },
+    small: { premiumMeeting: 1500, basicMeeting: 1500, percent: 2.5, minimum: 3000, maximum: 0 },
     medium: { premiumMeeting: 3000, basicMeeting: 5000, percent: 2.5, minimum: 0, maximum: 0 },
     large: { premiumMeeting: 6000, basicMeeting: 9000, percent: 2.5, minimum: 0, maximum: 100000 },
   },
-  switchMeeting: { small: { premium: 0, basic: 0 }, medium: { premium: 3000, basic: 5000 }, large: { premium: 6000, basic: 9000 } },
+  switchMeeting: { std: { premium: 3000, basic: 5000 }, fscm: { premium: 6000, basic: 9000 } },
+  expertFee: { short: { premium: 7500, basic: 12500 }, long: { premium: 15000, basic: 25000 } },
 };
 export function budgetPricing(saved?: Partial<BudgetPricing>): BudgetPricing {
   return { ...DEFAULT_PRICING, ...saved, units: { ...DEFAULT_PRICING.units, ...saved?.units }, bands: {
@@ -29,9 +32,11 @@ export function budgetPricing(saved?: Partial<BudgetPricing>): BudgetPricing {
     medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.medium },
     large: { ...DEFAULT_PRICING.bands.large, ...saved?.bands?.large },
   }, switchMeeting: {
-    small: { ...DEFAULT_PRICING.switchMeeting.small, ...(saved?.switchMeeting as Record<string, SwitchMeetingFee> | undefined)?.small },
-    medium: { ...DEFAULT_PRICING.switchMeeting.medium, ...(saved?.switchMeeting as Record<string, SwitchMeetingFee> | undefined)?.medium },
-    large: { ...DEFAULT_PRICING.switchMeeting.large, ...(saved?.switchMeeting as Record<string, SwitchMeetingFee> | undefined)?.large },
+    std: { ...DEFAULT_PRICING.switchMeeting.std, ...(saved?.switchMeeting as any)?.std },
+    fscm: { ...DEFAULT_PRICING.switchMeeting.fscm, ...(saved?.switchMeeting as any)?.fscm },
+  }, expertFee: {
+    short: { ...DEFAULT_PRICING.expertFee.short, ...saved?.expertFee?.short },
+    long: { ...DEFAULT_PRICING.expertFee.long, ...saved?.expertFee?.long },
   } };
 }
 export function dealPricing(value: number, tier: "basic" | "premium", pricing: BudgetPricing) {

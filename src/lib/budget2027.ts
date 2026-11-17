@@ -227,19 +227,19 @@ export function migratePartnerFunnel(f: Funnel = {}, values: Record<string, numb
 export function dealFunnelRow(p: (typeof FUNNEL_DEAL_TYPES)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   const fee = dealBandPricing(funnelMaxValue(p, values, pricing), tier, pricing.bands[p.band]);
   const meetings = n(r.meetings) * fee.meeting;
-  const wins = n(r.wins) * fee.commission;
+  // Paid meeting fee is credited in full against the deal fee, never below zero.
+  const wins = n(r.wins) * Math.max(0, fee.commission - fee.meeting);
   return { meetings, deals: 0, wins, total: meetings + wins };
 }
+// Expertförmedling (utkast 2026-11-17): fast avgift per tillsatt uppdrag och omfattning.
 export const EXPERT_FUNNEL = [
-  // 400 h ≈ one expert at 80 % for 3 months. Keys kept so saved budgets survive.
-  { key: "cv", label: "Expertförmedling via Premiumpartner", rate: EXPERT_FEES.premiumPerHour, hours: 400 },
-  { key: "expert", label: "Expertförmedling via Basicpartner", rate: EXPERT_FEES.basicPerHour, hours: 400 },
-];
+  { key: "expertShort", scope: "short", label: "Upp till 6 månader eller under halvtid" },
+  { key: "expertLong", scope: "long", label: "Längre eller minst halvtid" },
+] as const;
 // Partnerbytesarvode (Thomas 2026-11-17): mötesavgift per affärsstorlek och nivå, ingen provision.
 export const SWITCH_FUNNEL = [
-  { key: "switchSmall", label: "Partnerbyte: under 250 tkr", band: "small" },
-  { key: "switchMedium", label: "Partnerbyte: 250 tkr–1 Mkr", band: "medium" },
-  { key: "switchLarge", label: "Partnerbyte: över 1 Mkr", band: "large" },
+  { key: "switchStd", label: "Partnerbyte: BC, CRM, Power Platform", band: "std" },
+  { key: "switchFscm", label: "Partnerbyte: Finance & SCM", band: "fscm" },
 ] as const;
 export const ISV_FUNNEL = [
   { key: "isvStd", label: "ISV: licenser och abonnemang, första 12 mån", rate: ISV_FEES.licenseRate, value: 200000 },
@@ -259,11 +259,9 @@ export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier
 }
 /** Billable hours per full-time month. */
 export const HOURS_PER_MONTH = 165;
-export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], r: FunnelRow = {}) {
-  const rate = r.rate ?? e.rate, months = r.months ?? 3, percent = r.percent ?? 80;
-  const perAssignment = Math.round(months * HOURS_PER_MONTH * percent / 100);
-  const hours = n(r.assignments) * perAssignment;
-  return { rate, months, percent, perAssignment, hours, total: hours * rate };
+export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing()) {
+  const fee = pricing.expertFee[e.scope][tier];
+  return { fee, total: n(r.assignments) * fee };
 }
 export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   const rate = i.key === "isvStd" ? pricing.isvLicensePercent : pricing.isvConsultPercent;
@@ -281,7 +279,7 @@ export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}
   let partner = 0, expert = 0, isv = 0, partnerSwitch = 0;
   const partnerRows = migratePartnerFunnel(f, values, pricing);
   for (const p of FUNNEL_DEAL_TYPES) for (const t of ["basic", "premium"] as const) partner += dealFunnelRow(p, t, partnerRows[`${p.key}_${t}`], values, pricing).total;
-  for (const e of EXPERT_FUNNEL) expert += expertFunnelRow(e, f[e.key]).total;
+  for (const e of EXPERT_FUNNEL) for (const t of ["basic", "premium"] as const) expert += expertFunnelRow(e, t, f[`${e.key}_${t}`], pricing).total;
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
   for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing).total;
   return { partner, expert, isv, partnerSwitch, total: partner + expert + isv + partnerSwitch };
