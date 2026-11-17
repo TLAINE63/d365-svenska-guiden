@@ -25,7 +25,7 @@ export default function TwoWaysSection() {
   return (
     <section id="samarbeta" aria-labelledby="samarbeta-rubrik" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-3xl mb-10">
+        <div className="max-w-3xl lg:max-w-none mb-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">Samarbete</p>
           <h2 id="samarbeta-rubrik" className="text-2xl md:text-4xl font-bold text-foreground mb-5 leading-tight">Två sätt att samarbeta med d365.se</h2>
           <div className="space-y-3 text-base md:text-lg text-muted-foreground">
