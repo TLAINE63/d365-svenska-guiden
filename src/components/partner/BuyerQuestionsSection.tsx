@@ -107,10 +107,9 @@ export default function BuyerQuestionsSection() {
 
         <div className="rounded-2xl border border-border bg-secondary/40 p-6 md:p-10">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">Varför är detta värdefullt för er som partner?</h2>
-          <div className="max-w-3xl space-y-3 text-muted-foreground mb-8">
-            <p>När kunden kontaktar en leverantör har den ofta redan undersökt marknaden och bildat sig en uppfattning om möjliga lösningar och partners.</p>
-            <p>Därför är det viktigt att kunna visa sin kompetens redan under kundens research.</p>
-            <p>d365.se ger köparen möjlighet att upptäcka, undersöka och jämföra partners utan att först behöva boka ett säljmöte.</p>
+          <div className="max-w-3xl lg:max-w-none space-y-2 text-muted-foreground mb-8">
+            <p>Kunden har ofta redan jämfört lösningar och partners innan den hör av sig, så er kompetens behöver synas under researchen.</p>
+            <p>På d365.se kan köparen upptäcka och jämföra partners utan att först boka ett säljmöte.</p>
           </div>
           <ul className="grid gap-5 md:grid-cols-3">
             {BENEFITS.map((b) => (
