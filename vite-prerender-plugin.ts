@@ -23,6 +23,8 @@ import { isSignalPath, SIGNAL_PATHS, withSignalNoindex } from './src/lib/signalP
  * - Uses __VITE_PRERENDER env flag to prevent re-entry
  * - SSR build uses configFile: false to avoid loading this plugin again
  */
+const SITEMAP_OWNED_BY_SCRIPT = true;
+
 export default function prerenderPlugin(): Plugin {
   let outDir: string;
   let root: string;
@@ -339,7 +341,7 @@ export default function prerenderPlugin(): Plugin {
             let bucket = 'pages';
             if (route.path.startsWith('/partner/')) bucket = 'partners';
             else if (route.path.startsWith('/events/') || route.path.startsWith('/webinar/')) bucket = 'events';
-            else if (route.path.startsWith('/kunskapscenter/') || route.path.startsWith('/artikel/') || route.path.startsWith('/guide/')) bucket = 'articles';
+            else if (route.path.startsWith('/kunskapscenter/') || route.path.startsWith('/artiklar/') || route.path.startsWith('/aktuellt/') || route.path.startsWith('/guider/')) bucket = 'articles';
             sitemapBuckets[bucket].push(entry);
           } catch (err: any) {
             console.warn(`  ⚠️  Skipped ${route.path}: ${err.message}`);
@@ -357,7 +359,10 @@ export default function prerenderPlugin(): Plugin {
           '',
         ].join('\n');
 
-        for (const [name, entries] of Object.entries(sitemapBuckets)) {
+        // Sajtkartorna ägs av scripts/generate-sitemap.mjs (körs i prebuild och
+        // kopieras från public/). Prerendern skriver inte längre över dem, så
+        // branscher-, jämför- och eventkartorna försvinner inte ur indexet.
+        for (const [name, entries] of (SITEMAP_OWNED_BY_SCRIPT ? [] : Object.entries(sitemapBuckets))) {
           if (!entries.length) continue;
           if (entries.length <= MAX_PER_FILE) {
             const file = `sitemap-${name}.xml`;
