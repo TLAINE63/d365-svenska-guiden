@@ -154,8 +154,8 @@ export default function BuyerJourneyStory() {
           })}
         </ol>
 
-        <p className="mt-14 max-w-3xl text-base md:text-lg text-foreground font-medium border-l-4 border-primary pl-4">
-          Er egen webbplats är viktig när kunden redan känner till er. d365.se har en annan roll: att hjälpa företag som fortfarande försöker förstå vilka lösningar och partners som är relevanta.
+        <p className="mt-14 max-w-3xl lg:max-w-none text-base md:text-lg text-foreground font-medium border-l-4 border-primary pl-4">
+          Er egen webbplats är viktig när kunden redan känner till er. d365.se har en annan roll:{" "}<span className="lg:whitespace-nowrap">att hjälpa företag som fortfarande försöker förstå vilka lösningar och partners som är relevanta.</span>
         </p>
 
         <div className="mt-8 max-w-3xl rounded-xl border border-border bg-card p-4 md:p-5 text-sm text-muted-foreground space-y-2">
