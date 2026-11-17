@@ -309,7 +309,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/valjdynamics365partner/": "2026-11-16",
   "/jamfor-partners/": "2026-11-16",
   "/partnerprogram/": "2026-11-17",
-  "/isvprogram/": "2026-11-10",
+  "/isvprogram/": "2026-11-17",
   "/redaktion/": "2026-11-17",
   "/admin/": "2026-11-17",
   "/admin/exporter/": "2026-11-17",

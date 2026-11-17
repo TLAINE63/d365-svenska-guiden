@@ -431,7 +431,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Presence följer budgetens redigerbara priser. ISV har som utgångspunkt 0 % Finder’s fee. Sparade volymer behålls.</CardDescription>
+          <CardDescription>ISV Presence följer budgetens redigerbara priser. ISV Finder’s fee är pausad tills vidare. Sparade volymer behålls.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">

@@ -30,7 +30,7 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["Nya projekt över 1 Mkr: avgift vid affär", "2,5 %, högst 100 000 kr"],
     ["Partnerbyte BC, CRM, Power Platform: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Basic)"],
     ["Partnerbyte Finance & SCM: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Basic)"],
-    ["ISV: Finder’s fee", "0 %"],
+    ["ISV: Finder’s fee", "Pausad tills vidare"],
     ["ISV Business Referral: licenser/abonnemang, första 12 månaderna", "5 %"],
     ["ISV Business Referral: förmedlat konsultuppdrag", "2,5 %"],
     ["Expertförmedling, uppdrag upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Basic)`],
@@ -55,7 +55,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Nya projekt", body: "Mötesavgift per kvalificerat möte och avgift vid affär på 2,5 procent av affärens konsult- och projektvärde. Under 250 tkr gäller lägsta avgift 3 000 kr, över 1 Mkr högst 100 000 kr. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär; avräkningen blir aldrig negativ. Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte." },
     { title: "Partnerbyte", body: "Endast mötesavgift enligt prisbilagan, ingen avgift vid affär." },
     { title: "Tidsgränser", body: "Reklamation av kvalificering: 5 arbetsdagar efter mötet. Offert som flyttar mötet till lägre band: inom 60 dagar efter mötet. Vunnen affär rapporteras inom 14 dagar efter avtal med kund. Tidsfönster: 9 månader från mötet för nya projekt och partnerbyte, 6 månader från förfrågan för expertförmedling. Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar." },
-    { title: "ISV Business Referral", body: "Gäller endast när ISV-leverantören säljer direkt till kunden efter en accepterad introduktion. ISV:er har ingen Finder’s fee (0 procent) och ingen mötesavgift. Ersättningen är 5 procent av licens- och abonnemangsintäkterna under de första 12 månaderna och 2,5 procent av förmedlade konsultintäkter, exklusive moms. Säljs lösningen via kundens Dynamics 365-partner gäller partnerns villkor i stället. Beräkningsunderlag och betalningsvillkor fastställs före introduktionen." },
+    { title: "ISV Business Referral", body: "ISV:ernas Finder’s fee är pausad tills vidare och erbjuds inte just nu. Tidigare modell: gäller endast när ISV-leverantören säljer direkt till kunden efter en accepterad introduktion, utan mötesavgift. Ersättningen är 5 procent av licens- och abonnemangsintäkterna under de första 12 månaderna och 2,5 procent av förmedlade konsultintäkter, exklusive moms. Säljs lösningen via kundens Dynamics 365-partner gäller partnerns villkor i stället. Beräkningsunderlag och betalningsvillkor fastställs före introduktionen." },
     { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret. Ersättningen är en fast avgift per tillsatt uppdrag: 7 500 kr (Premium) respektive 12 500 kr (Basic) för uppdrag upp till sex månader eller under halvtid, och 15 000 kr (Premium) respektive 25 000 kr (Basic) för längre uppdrag eller minst halvtid. Samma expertuppdrag dubbelräknas inte med avtalsersättning eller success fee." },
   ];
 }
