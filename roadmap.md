@@ -1,3 +1,6 @@
+## Partneroffert och mejlbeställning (2026-11-17)
+- [x] Nedladdningsbar premiumoffert för profil och förmedling, mejlbeställning till Thomas med kopieringsalternativ. Tvåsidig PDF visuellt granskad, verklig nedladdning och kopierad beställning verifierade; 12 tester godkända, dator/732 px utan runtimefel. Mejlet skickas av partnern i eget mejlprogram, ingen leverans påstås.
+
 ## Export till CRM, städning (2026-11-17)
 - [x] Samla CRM-exporterna på /admin/exporter med gemensamt Från datum, hopfällda enskilda filer och senast nedladdat; oförändrade exportfunktioner och zip-innehåll.
 - [x] Ersätt dubbla CRM-exportknappar med länkar. Verifierat med riktig admininloggning: sex befintliga zip-filer, gemensamt datum, sparat datum efter omladdning, 401 utan behörighet, dator/732 px utan överbredd eller runtimefel; fyra datumtester och build OK. Skärmbilder stängd/öppen sparade.
