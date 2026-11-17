@@ -28,9 +28,9 @@ export default function TwoWaysSection() {
         <div className="max-w-3xl lg:max-w-none mb-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">Samarbete</p>
           <h2 id="samarbeta-rubrik" className="text-2xl md:text-4xl font-bold text-foreground mb-5 leading-tight">Två sätt att samarbeta med d365.se</h2>
-          <div className="space-y-3 text-base md:text-lg text-muted-foreground">
+          <div className="space-y-3 text-base md:text-lg lg:text-base xl:text-lg text-muted-foreground">
             <p>d365.se hjälper företag att undersöka Dynamics&nbsp;365, jämföra partners och komma vidare i sina projekt.</p>
-            <p>Som partner kan ni utveckla er presentation på plattformen genom Premium och samarbeta med oss kring kvalificerade kundintroduktioner genom ett separat Finder’s fee-avtal.</p>
+            <p>Som partner kan ni stärka er presentation med Premium och samarbeta kring kvalificerade kundintroduktioner via ett separat Finder’s fee-avtal.</p>
           </div>
         </div>
 
