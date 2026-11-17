@@ -1,3 +1,4 @@
+import { budgetPricing, dealPricing, type BudgetPricing } from "./budgetPricing";
 // Budget 2027: pure calculation helpers, prices from the partner program (excl. VAT).
 export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
@@ -12,7 +13,7 @@ export interface PartnerForecast {
 }
 export type Period = "year" | "month";
 /** amount is per period; month amounts count ×12 in the annual budget. */
-export interface CostLine { name: string; amount: number; custom?: boolean; period?: Period }
+export interface CostLine { name: string; amount: number; id?: string; custom?: boolean; period?: Period }
 export interface RevenueLine { name: string; amount: number; period?: Period }
 export const annual = (l: { amount: number; period?: Period }) => (Number(l.amount) || 0) * (l.period === "month" ? 12 : 1);
 
@@ -22,11 +23,11 @@ export const ISV_FEES = { base: 5990, introFirstYear: 2990, extraApp: 995, intro
 /** Expert brokerage fee per billed hour: same 50 kr for every partner (Thomas 2026-11-12). Meeting fees removed; keys kept so saved budgets survive. */
 export const EXPERT_FEES = { premiumPerHour: 50, basicPerHour: 50 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 2 990 kr intro price first year; default true. */ introPrice?: boolean }
-export const isvBaseFee = (r: { introPrice?: boolean }) => (r.introPrice === false ? ISV_FEES.base : ISV_FEES.introFirstYear);
-export function isvRevenue(r: IsvForecast) {
+export const isvBaseFee = (r: { introPrice?: boolean }, pricing = budgetPricing()) => (r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence);
+export function isvRevenue(r: IsvForecast, pricing = budgetPricing()) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-  const subscription = r.presence ? (isvBaseFee(r) + Math.max(0, r.extraApps) * ISV_FEES.extraApp) * disc : 0;
-  const finders = Math.max(0, r.successBasis) * ISV_FEES.licenseRate + Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate;
+  const subscription = r.presence ? (isvBaseFee(r, pricing) + Math.max(0, r.extraApps) * pricing.units.isvExtra) * disc : 0;
+  const finders = Math.max(0, r.successBasis) * pricing.isvLicensePercent / 100 + Math.max(0, r.consultBasis ?? 0) * pricing.isvConsultPercent / 100;
   return { subscription, finders, total: subscription + finders };
 }
 
@@ -38,6 +39,7 @@ export interface Budget {
   successValues?: Record<string, number>;
   /** Finders fee funnel per product, expert selling and ISV. */
   funnel?: Funnel;
+  pricing?: BudgetPricing;
 }
 
 export const DEFAULT_BUDGET: Budget = {
@@ -60,22 +62,22 @@ export function currentProducts(pf: any): number {
 }
 
 /** Basic pays for meetings with credit against deals; Premium pays only the full deal fee. */
-export function forecastRevenue(r: PartnerForecast, _b?: Budget) {
+export function forecastRevenue(r: PartnerForecast, b?: Budget) {
+  const pricing = budgetPricing(b?.pricing);
   const p = Math.min(3, Math.max(1, r.products));
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-  const subscription = r.forecast === "month" ? MONTH_PRICE[p] * 12 * disc : r.forecast === "year" ? YEAR_PRICE[p] * disc : 0;
-  const basic = r.forecast === "basic";
-  const finders =
-    (basic ? r.meetingsStd * FEES.meetingStd : 0) + r.dealsStd * (FEES.dealStd - (basic ? FEES.meetingStd : 0)) +
-    (basic ? r.meetingsFscm * FEES.meetingFscm : 0) + r.dealsFscm * (FEES.dealFscm - (basic ? FEES.meetingFscm : 0)) +
-    (r.successBasis > 100000 ? r.successBasis * FEES.successRate : 0);
+  const subscription = r.forecast === "month" ? pricing.units[`month${p}`] * 12 * disc : r.forecast === "year" ? pricing.units[`year${p}`] * disc : 0;
+  const tier = r.forecast === "basic" ? "basic" : "premium";
+  const std = dealPricing(successValue("successBc", b?.successValues), tier, pricing);
+  const fscm = dealPricing(successValue("successFscm", b?.successValues), tier, pricing);
+  const finders = r.meetingsStd * std.meeting + r.meetingsFscm * fscm.meeting + dealPricing(r.successBasis, tier, pricing).commission;
   return { subscription, finders, total: subscription + finders };
 }
 
 export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[] = []) {
   let subscription = 0, finders = 0, yearCount = 0, monthCount = 0, products = 0;
   for (const r of rows) {
-    const x = forecastRevenue(r);
+    const x = forecastRevenue(r, b);
     subscription += x.subscription; finders += x.finders;
     if (r.forecast === "year") yearCount++;
     if (r.forecast === "month") monthCount++;
@@ -83,7 +85,7 @@ export function totals(rows: PartnerForecast[], b: Budget, isvRows: IsvForecast[
   }
   const partnerRevenue = subscription + finders;
   let isvSubscription = 0, isvFinders = 0, isvCount = 0;
-  for (const r of isvRows) { const x = isvRevenue(r); isvSubscription += x.subscription; isvFinders += x.finders; if (r.presence) isvCount++; }
+  for (const r of isvRows) { const x = isvRevenue(r, budgetPricing(b.pricing)); isvSubscription += x.subscription; isvFinders += x.finders; if (r.presence) isvCount++; }
   const other = (b.otherRevenue ?? []).reduce((s, l) => s + annual(l), 0);
   const revenue = partnerRevenue + isvSubscription + isvFinders + other;
   const externalCosts = b.costs.reduce((s, c) => s + annual(c), 0);
@@ -102,8 +104,8 @@ export const SUCCESS_AREAS = [
   { key: "successExpert", label: "CV- och expertuppdrag", value: 300000 },
 ];
 export const successUnit = (value: number) => (value > 100000 ? Math.round(value * FEES.successRate) : 0);
-export const successValue = (key: string, values: Record<string, number> = {}) => Number(values[key]) || SUCCESS_AREAS.find((a) => a.key === key)?.value || 0;
-export const unitFor = (c: Category, values: Record<string, number> = {}) => (c.success ? successUnit(successValue(c.key, values)) : c.unit);
+export const successValue = (key: string, values: Record<string, number> = {}) => values[key] ?? SUCCESS_AREAS.find((a) => a.key === key)?.value || 0;
+export const unitFor = (c: Category, values: Record<string, number> = {}, pricing = budgetPricing()) => (c.success ? dealPricing(successValue(c.key, values), "premium", pricing).commission : (pricing.units[c.key] ?? c.unit) * (c.key.startsWith("month") ? 12 : 1));
 export const CATEGORIES: Category[] = [
   ...[1, 2, 3].map((p) => ({ key: `year${p}`, label: `Premium år, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"} och en hel årsprenumeration. Årspris före rabatt, betalt i förskott.`, unit: YEAR_PRICE[p], group: "partner" as const, income: "subscription" as const })),
   ...[1, 2, 3].map((p) => ({ key: `month${p}`, label: `Premium månad, ${p} produkt${p > 1 ? "er" : ""}`, description: `Antal partners med ${p === 3 ? "minst 3" : p} produktområd${p > 1 ? "en" : "e"}. ${MONTH_PRICE[p].toLocaleString("sv-SE")} kr/månad × 12 månader, före rabatt.`, unit: MONTH_PRICE[p] * 12, group: "partner" as const, income: "subscription" as const })),
@@ -123,42 +125,40 @@ export const CATEGORIES: Category[] = [
 ];
 
 /** Count and revenue (after discounts) per category from the detail rows. Success fees are not categories. */
-export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[]) {
+export function detailByCategory(rows: PartnerForecast[], isvRows: IsvForecast[], b?: Budget) {
+  const pricing = budgetPricing(b?.pricing);
   const out: Record<string, { count: number; revenue: number }> = {};
   for (const c of CATEGORIES) out[c.key] = { count: 0, revenue: 0 };
   const add = (k: string, n: number, rev: number) => { out[k].count += n; out[k].revenue += rev; };
   for (const r of rows) {
     const p = Math.min(3, Math.max(1, r.products));
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-    if (r.forecast === "year") add(`year${p}`, 1, YEAR_PRICE[p] * disc);
-    if (r.forecast === "month") add(`month${p}`, 1, MONTH_PRICE[p] * 12 * disc);
-    if (r.forecast === "basic") {
-      add("meetingsStd", r.meetingsStd, r.meetingsStd * FEES.meetingStd);
-      add("dealsStd", r.dealsStd, r.dealsStd * (FEES.dealStd - FEES.meetingStd));
-      add("meetingsFscm", r.meetingsFscm, r.meetingsFscm * FEES.meetingFscm);
-      add("dealsFscm", r.dealsFscm, r.dealsFscm * (FEES.dealFscm - FEES.meetingFscm));
-    } else {
-      add("premiumDealsStd", r.dealsStd, r.dealsStd * FEES.dealStd);
-      add("premiumDealsFscm", r.dealsFscm, r.dealsFscm * FEES.dealFscm);
-    }
+    if (r.forecast === "year") add(`year${p}`, 1, pricing.units[`year${p}`] * disc);
+    if (r.forecast === "month") add(`month${p}`, 1, pricing.units[`month${p}`] * 12 * disc);
+    const tier = r.forecast === "basic" ? "basic" : "premium";
+    const std = dealPricing(successValue("successBc", b?.successValues), tier, pricing);
+    const fscm = dealPricing(successValue("successFscm", b?.successValues), tier, pricing);
+    add("meetingsStd", r.meetingsStd, r.meetingsStd * std.meeting);
+    add("meetingsFscm", r.meetingsFscm, r.meetingsFscm * fscm.meeting);
+    add("successBc", r.successBasis > 0 ? 1 : 0, dealPricing(r.successBasis, tier, pricing).commission);
   }
   for (const r of isvRows) {
     const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
-    if (r.presence) { add("isvPresence", 1, isvBaseFee(r) * disc); add("isvExtra", r.extraApps, r.extraApps * ISV_FEES.extraApp * disc); }
-    add("isvIntroStd", r.successBasis > 0 ? 1 : 0, Math.max(0, r.successBasis) * ISV_FEES.licenseRate);
-    add("isvIntroFscm", (r.consultBasis ?? 0) > 0 ? 1 : 0, Math.max(0, r.consultBasis ?? 0) * ISV_FEES.consultRate);
+    if (r.presence) { add("isvPresence", 1, isvBaseFee(r, pricing) * disc); add("isvExtra", r.extraApps, r.extraApps * pricing.units.isvExtra * disc); }
+    add("isvIntroStd", r.successBasis > 0 ? 1 : 0, Math.max(0, r.successBasis) * pricing.isvLicensePercent / 100);
+    add("isvIntroFscm", (r.consultBasis ?? 0) > 0 ? 1 : 0, Math.max(0, r.consultBasis ?? 0) * pricing.isvConsultPercent / 100);
   }
   return out;
 }
 /** Subscriptions come from the category estimates; finders fee only from the funnel, so nothing is counted twice. */
-export const estimateRevenue = (est: Record<string, number> = {}, values: Record<string, number> = {}, funnel: Funnel = {}) =>
-  CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + (Number(est[c.key]) || 0) * unitFor(c, values), 0) + funnelTotals(funnel, values).total;
+export const estimateRevenue = (est: Record<string, number> = {}, values: Record<string, number> = {}, funnel: Funnel = {}, pricing = budgetPricing()) =>
+  CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + (Number(est[c.key]) || 0) * unitFor(c, values, pricing), 0) + funnelTotals(funnel, values, pricing).total;
 
-export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}, values: Record<string, number> = {}, funnel: Funnel = {}) {
-  const ft = funnelTotals(funnel, values);
+export function categoryGroupSummary(est: Record<string, number> = {}, details: Record<string, { count: number; revenue: number }> = {}, values: Record<string, number> = {}, funnel: Funnel = {}, pricing = budgetPricing()) {
+  const ft = funnelTotals(funnel, values, pricing);
   const funnelFor = (name: Category["group"]) => (name === "partner" ? ft.partner + ft.expert : ft.isv);
   const sum = (name: Category["group"], income?: Category["income"]) => CATEGORIES.filter((c) => c.group === name && (!income || c.income === income)).reduce((s, c) => ({
-    estimate: s.estimate + (c.income === "subscription" ? (Number(est[c.key]) || 0) * unitFor(c, values) : 0),
+    estimate: s.estimate + (c.income === "subscription" ? (Number(est[c.key]) || 0) * unitFor(c, values, pricing) : 0),
     detail: s.detail + (details[c.key]?.revenue ?? 0),
   }), { estimate: income === "subscription" ? 0 : funnelFor(name), detail: 0 });
   const group = (name: Category["group"]) => ({ ...sum(name), subscription: sum(name, "subscription"), finders: sum(name, "finders") });
@@ -185,9 +185,8 @@ export function budgetIsvVendors(solutions: { id: string; vendor: string; name: 
 /** Keeps saved cost rows and adds any fixed default rows missing from older saves, before the custom rows. */
 export function mergeCosts(saved?: CostLine[]): CostLine[] {
   if (!saved?.length) return DEFAULT_BUDGET.costs;
-  const fixed = DEFAULT_BUDGET.costs.filter((c) => !c.custom).map((c) => saved.find((x) => !x.custom && x.name === c.name) ?? c);
-  const extra = saved.filter((x) => !x.custom && !fixed.some((f) => f.name === x.name));
-  return [...fixed, ...extra, ...saved.filter((x) => x.custom)];
+  // Row identity is independent of its editable display name; never re-add renamed costs.
+  return saved.map((row, i) => ({ ...row, id: row.id ?? `cost-${i}` }));
 }
 
 // Funnel budget (Thomas 2026-11-09): finders fee is budgeted per product as meetings → deals → won deals.
@@ -212,13 +211,13 @@ const n = (v?: number) => Math.max(0, Number(v) || 0);
 const val = (key: string, values: Record<string, number>, fallback: number) => Number(values[key]) || fallback;
 
 /** Basic pays meeting fee plus the rest at deal; Premium pays the full deal fee only. Success fee per won deal. */
-export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}) {
-  const meetingFee = product.fscm ? FEES.meetingFscm : FEES.meetingStd;
-  const dealFee = product.fscm ? FEES.dealFscm : FEES.dealStd;
-  const meetings = tier === "basic" ? n(r.meetings) * meetingFee : 0;
-  const deals = n(r.deals) * (tier === "basic" ? dealFee - meetingFee : dealFee);
-  const wins = n(r.wins) * successUnit(successValue(product.valueKey, values));
-  return { meetings, deals, wins, total: meetings + deals + wins };
+export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
+  const fee = dealPricing(successValue(product.valueKey, values), tier, pricing);
+  const meetings = n(r.meetings) * fee.meeting;
+  // Agreements are pipeline volume only; commission is counted once on won business.
+  const deals = 0;
+  const wins = n(r.wins) * fee.commission;
+  return { meetings, deals, wins, total: meetings + wins };
 }
 /** Billable hours per full-time month. */
 export const HOURS_PER_MONTH = 165;
@@ -228,22 +227,23 @@ export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], r: FunnelRow 
   const hours = n(r.assignments) * perAssignment;
   return { rate, months, percent, perAssignment, hours, total: hours * rate };
 }
-export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}) {
-  const fee = Math.round(val(i.key, values, i.value) * i.rate);
+export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
+  const rate = i.key === "isvStd" ? pricing.isvLicensePercent : pricing.isvConsultPercent;
+  const fee = Math.round((values[i.key] ?? i.value) * rate / 100);
   const deals = n(r.deals) * fee;
   return { fee, deals, wins: 0, total: deals };
 }
-export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}) {
+export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   let partner = 0, expert = 0, isv = 0;
-  for (const p of FUNNEL_PRODUCTS) for (const t of ["basic", "premium"] as const) partner += partnerFunnelRow(p, t, f[`${p.key}_${t}`], values).total;
+  for (const p of FUNNEL_PRODUCTS) for (const t of ["basic", "premium"] as const) partner += partnerFunnelRow(p, t, f[`${p.key}_${t}`], values, pricing).total;
   for (const e of EXPERT_FUNNEL) expert += expertFunnelRow(e, f[e.key]).total;
-  for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values).total;
+  for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
   return { partner, expert, isv, total: partner + expert + isv };
 }
 
 /** Recurring subscription income vs fixed external costs (OPEX), per year. Extra partners needed are counted at the 1-area monthly Premium price. */
-export function opexCoverage(recurring: number, opex: number) {
+export function opexCoverage(recurring: number, opex: number, monthlyPrice = MONTH_PRICE[1]) {
   const ratio = opex > 0 ? recurring / opex : 0;
   const gap = Math.max(0, opex - recurring);
-  return { ratio, gap, selfFunded: opex > 0 && recurring >= opex, extraPartners: Math.ceil(gap / (MONTH_PRICE[1] * 12)) };
+  return { ratio, gap, selfFunded: opex > 0 && recurring >= opex, extraPartners: monthlyPrice > 0 ? Math.ceil(gap / (monthlyPrice * 12)) : 0 };
 }
