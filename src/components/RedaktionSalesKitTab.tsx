@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder’s fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: 50 kr per debiterad timme.",
+      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Ingen mötesavgift. Finder’s fee först när en förmedlad kontakt blir affär: 5 000 kr per tecknat kundavtal (F&SCM 10 000 kr), plus 2,5 % success fee i nio månader vid affärer över 100 000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7 500 kr (Premium) / 12 500 kr (Basic) upp till 6 månader eller under halvtid, 15 000 / 25 000 kr vid längre uppdrag.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -185,7 +185,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
                 <tr className="border-t"><td className="py-1">Finance &amp; Supply Chain</td><td className="text-right whitespace-nowrap">10{NB}000 kr</td></tr>
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: 50 kr per debiterad timme.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Success fee 2,5 % av konsult- och projektintäkter i nio månader vid affärer över 100{NB}000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7{NB}500 kr (Premium) / 12{NB}500 kr (Basic) upp till 6 månader eller under halvtid, 15{NB}000 / 25{NB}000 kr vid längre uppdrag.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>
