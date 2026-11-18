@@ -9,7 +9,7 @@ import agreementImg from "@/assets/journey/scene6-agreement.jpg";
 const STEPS = [
   { img: adviceImg, alt: "Köpare i rådgivningssamtal om sitt Dynamics 365-projekt", who: "Köparen", title: "Verklig efterfrågan", text: "Ett företag använder guider, kalkyler och rådgivning på d365.se för att förstå sitt behov.", filter: "Inga kalla listor. Ett sajtbesök är aldrig ett lead." },
   { img: discussionImg, alt: "Rådgivare går igenom behov, tidplan och budget med ett företag", who: "d365.se", title: "Vi kvalificerar", text: "Vi går igenom behov, omfattning, tidplan och budget tillsammans med köparen.", filter: "Bara konkreta projekt med tydlig avsikt att välja partner går vidare." },
-  { img: partnerImg, alt: "Partner bedömer en beskriven affärsmöjlighet", who: "Ni", title: "Ni får frågan först", text: "Vi beskriver möjligheten för partners med rätt produkt- och branschkompetens.", filter: "Ni bedömer och accepterar villkoren innan något händer." },
+  { img: partnerImg, alt: "Partner bedömer en beskriven affärsmöjlighet", who: "Ni", title: "Ni avgör om ni vill gå vidare", text: "Vi presenterar affärsmöjligheten för partners med rätt kompetens.", filter: "Ni bedömer projektet och accepterar villkoren innan vi går vidare med introduktionen." },
   { img: agreementImg, alt: "Kundmöte mellan köpare och partner runt ett mötesbord", who: "Köparen", title: "Kundmötet bokas", text: "Köparen väljer själv vilka partners som får kontakt och lämnar sitt samtycke.", filter: "Högst tre partners. Ni möter en köpare som redan vet vilka ni är." },
 ];
 
@@ -20,8 +20,8 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
     <section id="affarsmojligheter" aria-labelledby="ff-rubrik" className="py-12 md:py-16 bg-secondary/30 border-y border-border scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Finder’s fee</p>
-        <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Kvalificerade kundmöten, betala först när det ger resultat</h2>
-        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi introducerar er för köpare som redan har ett konkret projekt. Ni betalar en mötesavgift per kvalificerat möte. Blir det affär räknas den av mot avgiften på 2,5%.</p>
+        <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Vi hittar och kvalificerar kunder. Ni väljer affärsmöjligheterna.</h2>
+        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni betalar för genomförda kundmöten. Blir det affär tillkommer 2,5% av projektvärdet, med mötesavgiften avräknad.</p>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-12">
           {STEPS.map((s, i) => (
