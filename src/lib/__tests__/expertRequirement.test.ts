@@ -1,8 +1,18 @@
 import { describe, it, expect } from "vitest";
-import { specialismGroups, draftSummary, requirementsToClarify } from "@/lib/expertRequirement";
+import { specialismGroups, draftSummary, requirementsToClarify, orderedByLabel, assignmentRoleLabel } from "@/lib/expertRequirement";
 import { COMPETENCE_GUIDES } from "@/data/competenceGuides";
 
 describe("Sprint 1.2 expertvägen", () => {
+  it("behåller slutkundens beställare och roll i det delade underlaget", () => {
+    expect(draftSummary({ orderedBy: "end_customer", assignmentRole: "customer_org" })).toEqual([
+      { label: "Beställare", value: "Slutkund" },
+      { label: "Roll i uppdraget", value: "Resurs i kundens egen projektorganisation" },
+    ]);
+  });
+  it("behåller partnerns beställare och leveransroll", () => {
+    expect(orderedByLabel("partner")).toBe("Dynamics-partner");
+    expect(assignmentRoleLabel("delivery")).toBe("Leveransresurs i implementations- eller vidareutvecklingsprojekt");
+  });
   it("alla sju roller från uppdraget finns i den befintliga taxonomin", () => {
     const titles = COMPETENCE_GUIDES.map((g) => g.title);
     for (const t of ["Solution Architect", "Projektledare", "Testledare", "Applikationskonsult", "Utvecklare/Developer", "Förvaltningsledare", "Support & servicedesk"]) {

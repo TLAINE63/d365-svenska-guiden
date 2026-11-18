@@ -31,6 +31,17 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
   const open = openProp ?? openState;
   const setOpen = (v: boolean) => { setOpenState(v); onOpenChange?.(v); };
   const summary = draftSummary(draft);
+  const metadata = {
+    intent_type: "ExpertRequirement",
+    ordered_by: draft.orderedBy ?? null,
+    assignment_role: draft.assignmentRole ?? null,
+    role: draft.role ?? null,
+    product: draft.product ?? null,
+    specialism: draft.specialism ?? null,
+    seniority: draft.seniority ?? null,
+    delivery: draft.delivery ?? null,
+  };
+  const extras = summary.length ? [{ key: "kompetensbehov", label: "Kompetensbehov", lines: summary.map((r) => `${r.label}: ${r.value}`) }] : [];
   const toClarify = requirementsToClarify(draft);
 
   return (
@@ -84,7 +95,8 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
         dialogDescription="Resonera med oss om vilken kompetens ni behöver och vilken väg som passar. Kostnadsfritt och utan förpliktelser. Inget skickas till någon partner utan ert godkännande."
         messageLabel="Vad funderar ni på? (valfritt)"
         submitEvent="expert_requirement_submitted"
-        metadata={{ intent_type: "ExpertRequirement", role: draft.role ?? null, product: draft.product ?? null }}
+        metadata={metadata}
+        sections={extras}
       />
 
       {open && (
@@ -100,17 +112,8 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
               submitEvent: "expert_requirement_submitted",
               messageLabel: "Beskrivning av behovet (valfritt)",
               hideFocus: true,
-              extras: summary.length ? [{ key: "kompetensbehov", label: "Kompetensbehov", lines: summary.map((r) => `${r.label}: ${r.value}`) }] : [],
-              metadata: {
-                intent_type: "ExpertRequirement",
-                ordered_by: draft.orderedBy ?? null,
-                assignment_role: draft.assignmentRole ?? null,
-                role: draft.role ?? null,
-                product: draft.product ?? null,
-                specialism: draft.specialism ?? null,
-                seniority: draft.seniority ?? null,
-                delivery: draft.delivery ?? null,
-              },
+              extras,
+              metadata,
               advisory: { placement: "expert_requirement", cta: COMPETENCE_CTA.primary, pageType },
               doneTitle: "Ert kompetensbehov är registrerat",
               showDoneSummary: true,

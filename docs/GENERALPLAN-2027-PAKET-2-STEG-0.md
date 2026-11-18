@@ -17,6 +17,27 @@ Steg 0:s visningshinder är därmed undanröjt. Paket 2:s produktarbete påbörj
 
 ## Ursprunglig kontroll och tidigare hinder
 
+## Kompletterande kontroll av hela uppgiftskedjan
+
+Regel: inskickade specialistuppgifter ska följa ärendet och visas i både admin och redaktionen. Befintliga avslutade/skickade uppgifter och behörigheter ändras inte.
+
+| Plats | Kontroll och resultat |
+| --- | --- |
+| `/kompetens/`, val och sessionsutkast | Kodläst: beställare och uppdragsroll ingår i utkastet. |
+| Specialistguider, inklusive tomresultatets formulär | Kodläst: bevarar utkastet och använder samma ExpertRequirementExit. |
+| Primärt specialistformulär | Kodläst och tidigare adminavläsning: metadata och delat underlag finns med. |
+| Alternativt specialistformulär | Avvikelse rättad: delade tidigare endast roll/produkt. Båda knapparna använder nu samma metadata och underlag. Verifierat i webbläsaren med avlyssnat inskick: beställare, uppdragsroll, start och omfattning finns med; inga mejl skickades. |
+| PlanContactDialog | Kodläst: filtrerar markerat underlag och skickar strukturerade val i advisory_context. |
+| submit-inquiry | Kodläst: sparar val i journey_selection och markerat underlag i journey_context/project. Samma underlag används i framtida mejl. Inkorgsleverans inte verifierad. |
+| advisory_cases/inquiries och databasfunktioner | Schema och aktiva triggers lästa: valen lagras separat, statussäkring och händelser ändrar inte specialistmetadata. Inget jobb skapar specialistuppgifterna. |
+| manage-advisory help_requests/list | Kodläst och tidigare inloggad kontroll: strukturerade val och underlag läses tillbaka. Uppdateringar rör status/anteckningar, inte valen. |
+| Admin, Ärenden från hjälpvägarna | Inloggat verifierat för slutkund, partner och äldre ärende. |
+| Admin, separat expanderat rådgivningsärende | Kodläst avvikelse rättad: visar nu också beställare och uppdragsroll från journey_selection, även utan delat underlag. Denna tillagda rad är kodkontrollerad, inte separat klickverifierad efter ändringen. |
+| Redaktion, Hjälpärenden och Rådgivning | Kodläst: återanvänder exakt samma två ärendevyer. Ingen separat inloggad redaktionskontroll gjordes. |
+| Funnelrapport och CRM-export | Kodlästa: räknar specialistärenden respektive exporterar kontaktförfrågan, inte specialistdetaljer. Dessa är inte ärendevyer och har inte utökats inom uppdraget. |
+
+26 riktade tester godkända efter kompletteringarna. Byggkontroll OK. Befintlig mobilöverbredd vid 390 px kvarstår och ingen inkorgsleverans påstås. Produktarbete i paket 2 har inte påbörjats.
+
 Båda verkliga specialistförfrågningarna skickades från `/kompetens/` via det befintliga formuläret. Testerna märktes TESTDATA och använde Thomas registrerade företagsadress för bekräftelse. Inga partners valdes eller kontaktades. Befintligt utskick till d365.se och bekräftelsemejl kunde utlösas; inkorgsleverans har inte verifierats.
 
 | Kontroll | Faktiskt resultat |

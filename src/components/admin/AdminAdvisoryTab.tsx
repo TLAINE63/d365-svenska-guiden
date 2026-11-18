@@ -10,6 +10,7 @@ import { Loader2, RefreshCw, ChevronDown, ChevronRight, Plus } from "lucide-reac
 import { useToast } from "@/hooks/use-toast";
 import HelpRequestsCard from "@/components/admin/HelpRequestsCard";
 import { formatDateYYYYMMDD } from "@/lib/utils";
+import { assignmentRoleLabel, orderedByLabel } from "@/lib/expertRequirement";
 import {
   BOOKING_STATUSES, CASE_STATUSES, CONSENT_SCOPE_OPTIONS, INTRO_STATUSES, PARTNER_RESPONSES, PLACEMENT_LABEL,
   allowedStatuses, qualificationGaps, sendBlockers,
@@ -129,6 +130,11 @@ export default function AdminAdvisoryTab({ token, onSessionExpired }: Props) {
               {isOpen && (
                 <CardContent className="space-y-6 border-t border-border pt-5">
                   <CaseEditor c={c} busy={busy} onSave={(f) => run("update_case", { id: c.id, ...f })} />
+                  {(c.journey_selection?.ordered_by || c.journey_selection?.assignment_role) && (
+                    <p className="text-sm"><span className="font-medium">Specialistförfrågan:</span>{" "}
+                      {[orderedByLabel(c.journey_selection.ordered_by) && `Beställare: ${orderedByLabel(c.journey_selection.ordered_by)}`, assignmentRoleLabel(c.journey_selection.assignment_role) && `Roll: ${assignmentRoleLabel(c.journey_selection.assignment_role)}`].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
                   <JourneyContext ctx={c.journey_context} />
                   <section>
                     <h4 className="font-semibold mb-2">Bokningar</h4>
