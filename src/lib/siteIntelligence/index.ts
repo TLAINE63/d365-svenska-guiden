@@ -2,6 +2,7 @@ import connection from './package.json';
 import routes from './providerRoutes.json';
 import { createTrackingService } from './sdk/tracking-service';
 import { containsPersonalData, type CommonEvent } from './sdk/tracking-contract';
+import { trackAdsBookingConversion } from '@/utils/googleAdsConversion';
 const providers: Record<string, { provider_id: string; provider_type: 'dynamics_partner' }> = routes as Record<string, { provider_id: string; provider_type: 'dynamics_partner' }>;
 export function analyticsConsentGranted(): boolean {
   try { return typeof window !== 'undefined' && navigator.doNotTrack !== '1' && JSON.parse(localStorage.getItem('cookie-consent-v2') || 'null')?.statistics === true; } catch { return false; }
@@ -60,6 +61,7 @@ export function trackConfirmedForm(formId: string): void {
 export type ConsultationFormId = 'bookings_20min_thomas' | 'email_cta_thomas' | 'popup_20min_thomas';
 export function trackConsultationLead(formId: ConsultationFormId): void {
   sendEvent('lead_submit', { lead_type: 'consultation', form_id: formId, submission_status: 'confirmed' });
+  if (formId === 'bookings_20min_thomas') trackAdsBookingConversion();
 }
 export function installTracking(): () => void {
   if (typeof window === 'undefined') return () => {};

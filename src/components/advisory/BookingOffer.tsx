@@ -3,6 +3,7 @@ import { CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ADVISOR_BOOKING_URL, ORGANIZATION } from "@/data/organization";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { trackAdsBookingConversion } from "@/utils/googleAdsConversion";
 import type { AdvisoryPlacement, ContactSection } from "@/components/plan/PlanContactDialog";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
@@ -30,7 +31,7 @@ export default function BookingOffer({ placement, advisoryPlacement = "tool_resu
       </ul>
       <p className="mt-5 text-sm text-muted-foreground">{thomas.name} har arbetat med Dynamics i 30 år, bland annat 13 år på Microsoft, och är medgrundare av d365.se.</p>
       <div className="mt-5 flex flex-col items-start gap-2">
-        <Button asChild><a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", metadata: { placement, path: window.location.pathname } })}><CalendarDays className="h-4 w-4 mr-2" aria-hidden="true" />Boka 20 minuter</a></Button>
+        <Button asChild><a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={() => { trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", metadata: { placement, path: window.location.pathname } }); trackAdsBookingConversion(); }}><CalendarDays className="h-4 w-4 mr-2" aria-hidden="true" />Boka 20 minuter</a></Button>
         <Button variant="link" className="px-0 h-auto whitespace-normal text-left" onClick={() => { setSourcePage(`${window.location.pathname}#${placement}`); setOpen(true); }}>Hellre att jag hör av mig</Button>
       </div>
       {open && <Suspense fallback={null}><PlanContactDialog mode="advisory" onClose={() => setOpen(false)} topic={{ title: "Prata med d365.se", description: "Thomas hör av sig för att resonera om ert behov. Kostnadsfritt. Inget skickas till någon partner utan ert godkännande.", helpWith: "En second opinion inför ert val", startEvent: "advisory_form_opened", submitEvent, sourcePage, extras: sections, metadata, advisory: { placement: advisoryPlacement, cta: "Hellre att jag hör av mig", pageType: placement } }} /></Suspense>}
