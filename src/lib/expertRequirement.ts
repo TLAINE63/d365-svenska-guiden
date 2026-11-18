@@ -30,7 +30,22 @@ export function specialismGroups(product?: string | null): SpecialismGroup[] {
 
 export const SENIORITY_OPTIONS = ["Junior", "Erfaren", "Senior", "Spelar ingen roll"] as const;
 
+/** Implementationspaket 1: vem som beställer och vilken roll konsulten får. */
+export const ORDERED_BY_OPTIONS = [
+  { value: "end_customer", label: "Slutkund" },
+  { value: "partner", label: "Dynamics-partner" },
+] as const;
+export const ASSIGNMENT_ROLE_OPTIONS = [
+  { value: "delivery", label: "Leveransresurs i implementations- eller vidareutvecklingsprojekt" },
+  { value: "customer_org", label: "Resurs i kundens egen projektorganisation" },
+  { value: "advisor", label: "Rådgivare eller kundrepresentant" },
+] as const;
+export const orderedByLabel = (v?: string) => ORDERED_BY_OPTIONS.find((o) => o.value === v)?.label;
+export const assignmentRoleLabel = (v?: string) => ASSIGNMENT_ROLE_OPTIONS.find((o) => o.value === v)?.label;
+
 export interface ExpertDraft {
+  orderedBy?: string;
+  assignmentRole?: string;
   role?: string;          // kompetensguidens slug
   product?: string;
   specialism?: string;
@@ -74,6 +89,8 @@ export const roleTitle = (slug?: string) => COMPETENCE_GUIDES.find((g) => g.slug
 /** Sammanställningen som visas för och skickas av besökaren. Bara ifyllda fält. */
 export function draftSummary(d: ExpertDraft): { label: string; value: string }[] {
   const rows: [string, string | undefined][] = [
+    ["Beställare", orderedByLabel(d.orderedBy)],
+    ["Roll i uppdraget", assignmentRoleLabel(d.assignmentRole)],
     ["Dynamics-produkt", d.product],
     ["Roll", roleTitle(d.role)],
     ["Specialistområde", d.specialism],
@@ -90,6 +107,8 @@ export function draftSummary(d: ExpertDraft): { label: string; value: string }[]
 /** Krav som ofta behöver preciseras. De ej ifyllda fälten listas först. */
 export function requirementsToClarify(d: ExpertDraft): string[] {
   const missing: string[] = [];
+  if (!d.orderedBy) missing.push("Om ni beställer som slutkund eller som Dynamics-partner.");
+  if (!d.assignmentRole) missing.push("Vilken roll konsulten ska ha i uppdraget.");
   if (!d.product) missing.push("Vilken Dynamics\u00A0365-produkt uppdraget gäller.");
   if (!d.specialism) missing.push("Vilket specialistområde som är viktigast.");
   if (!d.seniority) missing.push("Vilken senioritet rollen kräver.");

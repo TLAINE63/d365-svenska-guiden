@@ -18,7 +18,7 @@ import ExpertRequirementExit from "@/components/kompetens/ExpertRequirementExit"
 import { COMPETENCE_CTA } from "@/lib/conversionCtas";
 import { Input } from "@/components/ui/input";
 import {
-  SENIORITY_OPTIONS, specialismGroups, getExpertDraft, saveExpertDraft, startExpertSearch, type ExpertDraft,
+  SENIORITY_OPTIONS, ORDERED_BY_OPTIONS, ASSIGNMENT_ROLE_OPTIONS, specialismGroups, getExpertDraft, saveExpertDraft, startExpertSearch, type ExpertDraft,
 } from "@/lib/expertRequirement";
 import { COMPETENCE_GUIDES, guidePath } from "@/data/competenceGuides";
 import { nowrapBrand } from "@/lib/nowrapBrand";
@@ -36,7 +36,7 @@ const KompetensOversikt = () => {
   const [role, setRole] = useState<string>("");
   const [filters, setFilters] = useState<CompetenceFilterState>({});
   // Sprint 1.2: specialistområde, senioritet, start och omfattning (sparas bara under besöket).
-  const [extra, setExtra] = useState<Pick<ExpertDraft, "specialism" | "seniority" | "start" | "length">>({});
+  const [extra, setExtra] = useState<Pick<ExpertDraft, "orderedBy" | "assignmentRole" | "specialism" | "seniority" | "start" | "length">>({});
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const KompetensOversikt = () => {
     const d = getExpertDraft();
     if (d.role && COMPETENCE_GUIDES.some((g) => g.slug === d.role)) setRole(d.role);
     setFilters({ product: d.product, industry: d.industry, region: d.region, delivery: d.delivery as CompetenceFilterState["delivery"] });
-    setExtra({ specialism: d.specialism, seniority: d.seniority, start: d.start, length: d.length });
+    setExtra({ orderedBy: d.orderedBy, assignmentRole: d.assignmentRole, specialism: d.specialism, seniority: d.seniority, start: d.start, length: d.length });
     setLoaded(true);
   }, []);
 
@@ -200,6 +200,22 @@ const KompetensOversikt = () => {
             </div>
 
             <h3 className="text-base font-semibold mb-3">Steg 2: Beskriv behovet</h3>
+            <div className="grid gap-4 sm:grid-cols-2 mb-4">
+              <div>
+                <Label htmlFor="ex-ordered-by" className="text-xs font-semibold mb-1.5 block">Vem beställer?</Label>
+                <select id="ex-ordered-by" value={extra.orderedBy ?? ""} onChange={(e) => setExtra((x) => ({ ...x, orderedBy: e.target.value || undefined }))} className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">Ej angivet</option>
+                  {ORDERED_BY_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="ex-assignment-role" className="text-xs font-semibold mb-1.5 block">Roll i uppdraget</Label>
+                <select id="ex-assignment-role" value={extra.assignmentRole ?? ""} onChange={(e) => setExtra((x) => ({ ...x, assignmentRole: e.target.value || undefined }))} className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">Ej angiven</option>
+                  {ASSIGNMENT_ROLE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-4">
               <div>
                 <Label htmlFor="ex-seniority" className="text-xs font-semibold mb-1.5 block">Senioritet</Label>

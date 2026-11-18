@@ -103,6 +103,8 @@ export default function ExpertRequirementExit({ draft, showRequirements = true, 
               extras: summary.length ? [{ key: "kompetensbehov", label: "Kompetensbehov", lines: summary.map((r) => `${r.label}: ${r.value}`) }] : [],
               metadata: {
                 intent_type: "ExpertRequirement",
+                ordered_by: draft.orderedBy ?? null,
+                assignment_role: draft.assignmentRole ?? null,
                 role: draft.role ?? null,
                 product: draft.product ?? null,
                 specialism: draft.specialism ?? null,

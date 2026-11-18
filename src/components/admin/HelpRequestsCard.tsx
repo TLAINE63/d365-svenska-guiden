@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import { formatDateYYYYMMDD } from "@/lib/utils";
 import { BOOKING_STATUSES, CASE_STATUSES } from "@/lib/advisory";
 import { helpPathLabel, selectedNeed, selectedProducts } from "@/lib/helpRequests";
+import { BUYER_JOURNEY_LABEL, JOURNEY_BASIS_LABEL, classifyBuyerJourney } from "@/lib/buyerJourneys";
+import { assignmentRoleLabel, orderedByLabel } from "@/lib/expertRequirement";
 
 type Row = Record<string, any>;
 interface Props { token: string | null; onSessionExpired: () => void }
@@ -67,6 +69,7 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
     _path: r.advisory_placement || "plan",
     _need: selectedNeed(r.selection),
     _products: selectedProducts(r.selection, r.project),
+    _journey: classifyBuyerJourney(r.selection, r.project, r.advisory_placement),
   })), [rows]);
 
   const paths = useMemo(() => {
@@ -141,6 +144,7 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
                   <th className="p-2 w-6"><span className="sr-only">Visa</span></th>
                   <th className="p-2">Inkom</th>
                   <th className="p-2">Hjälpväg</th>
+                  <th className="p-2">Köpresa</th>
                   <th className="p-2">Valt behov</th>
                   <th className="p-2">Dynamics 365-produkt</th>
                   <th className="p-2">Företag</th>
@@ -165,6 +169,13 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
                           {helpPathLabel(r._path)}
                           {r.source_site === "businesscentral.se" && <Badge variant="outline" className="ml-1 text-[10px]">businesscentral.se</Badge>}
                         </td>
+                        <td className="p-2">
+                          {r._journey.primary ? BUYER_JOURNEY_LABEL[r._journey.primary as keyof typeof BUYER_JOURNEY_LABEL] : <span className="text-muted-foreground">Ej fastställd</span>}
+                          {r._journey.secondary.length > 0 && (
+                            <span className="block text-xs">Även: {r._journey.secondary.map((j: keyof typeof BUYER_JOURNEY_LABEL) => BUYER_JOURNEY_LABEL[j]).join(", ")}</span>
+                          )}
+                          {r._journey.primary && <span className="block text-xs text-muted-foreground">{JOURNEY_BASIS_LABEL[r._journey.basis as keyof typeof JOURNEY_BASIS_LABEL]}</span>}
+                        </td>
                         <td className="p-2">{r._need ?? <span className="text-muted-foreground">Inget valt</span>}</td>
                         <td className="p-2">{r._products.length ? r._products.join(", ") : <span className="text-muted-foreground">Ingen vald</span>}</td>
                         <td className="p-2">{r.company}<span className="block text-xs text-muted-foreground">{r.contact_name}</span></td>
@@ -184,10 +195,16 @@ export default function HelpRequestsCard({ token, onSessionExpired }: Props) {
                       {isOpen && (
                         <tr className="border-t bg-muted/20">
                           <td />
-                          <td colSpan={7} className="p-3">
+                          <td colSpan={8} className="p-3">
                             <div className="grid gap-4 md:grid-cols-2">
                               <div className="space-y-2">
                                 <p><span className="font-medium">Kontakt:</span> {r.contact_name}, {r.email}{r.phone ? `, ${r.phone}` : ""}</p>
+                                {(r.selection?.ordered_by || r.selection?.assignment_role) && (
+                                  <p>
+                                    <span className="font-medium">Specialistförfrågan:</span>{" "}
+                                    {[orderedByLabel(r.selection.ordered_by) && `Beställare: ${orderedByLabel(r.selection.ordered_by)}`, assignmentRoleLabel(r.selection.assignment_role) && `Roll: ${assignmentRoleLabel(r.selection.assignment_role)}`].filter(Boolean).join(" · ")}
+                                  </p>
+                                )}
                                 <p><span className="font-medium">Ämne:</span> {r.help_with || r.advisory_cta || "–"}</p>
                                 <a
                                   href={`mailto:${r.email}?subject=${encodeURIComponent(`Re: 20 minuters rådgivning, ${r.company}`)}&body=${encodeURIComponent(`Hej ${r.contact_name},\n\nTack för er förfrågan om ett kostnadsfritt 20-minuters möte. Passar någon av dessa tider?\n\n- \n- \n\nVänliga hälsningar\nThomas Laine, d365.se`)}`}
