@@ -394,7 +394,7 @@ const Partnerprogram = () => {
                 <li>Profilen publiceras med märket Verifierad partner.</li>
                 <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
               </ol>
-              <PartnerOrderDialog />
+              <div className="flex flex-wrap gap-3"><PartnerOrderDialog /><Button asChild size="lg" variant="outline"><a href="/downloads/d365-partnererbjudande-2027.pdf" download="d365-partnererbjudande-2027.pdf">Ladda ner partnererbjudandet (PDF)</a></Button></div>
             </div>
           </div>
           <p className="mt-8 max-w-3xl text-sm text-muted-foreground">Kommersiella avtal påverkar aldrig vilka lösningar eller partners som bedöms relevanta för köparen. Verifiering beslutas manuellt av d365.se-redaktionen, aldrig automatiskt genom betalning.</p>
@@ -414,6 +414,7 @@ const Partnerprogram = () => {
               Begär Finder’s fee-avtal
             </Button>
           </ContactFormDialog>
+          <Button asChild size="lg" variant="outline"><a href="/downloads/d365-partnererbjudande-2027.pdf" download="d365-partnererbjudande-2027.pdf">Ladda ner partnererbjudandet (PDF)</a></Button>
         </div>
       } />
 
