@@ -1,6 +1,7 @@
 ## Generalplan 2027, paket 2 (2026-11-18)
+- [x] Admininloggning HTTP 200; specialistuppgifter för slutkund/partner och äldre ärende verifierade i admin. 24 tester godkända, testärenden rensade. Ingen ändring av behörighet behövdes.
 - [x] Två verkliga specialistförfrågningar sparade med beställare, uppdragsroll och delat underlag; samtyckesspärr provad, status ny och noll partnerkopplingar. Testärenden rensade, 24 tester godkända.
-- [ ] Steg 0: öppna testärenden och äldre ärenden i admin. Blockerat: admin använder egen session som tillgänglig kontoinloggning inte ger åtkomst till. Se docs/GENERALPLAN-2027-PAKET-2-STEG-0.md.
+- [x] Steg 0: testärenden och äldre ärende öppnade med riktig admininloggning. Se docs/GENERALPLAN-2027-PAKET-2-STEG-0.md.
 - [ ] Paket 2 stoppat tills steg 0 är godkänt: inventera och komplettera produktkopplingar, verifiera mobil/länkar/kontext och oförändrad SEO. Ingen automatisk publicering.
 
 ## Partneroffert och mejlbeställning (2026-11-17)
