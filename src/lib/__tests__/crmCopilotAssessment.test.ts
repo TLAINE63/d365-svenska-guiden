@@ -60,3 +60,22 @@ describe("PDF-innehåll", () => {
     expect(assess(d365Adoption).observations.join(" ")).toContain("systemägarskapet behöver tydliggöras");
   });
 });
+
+import { toggleMulti, QUESTIONS as Q2, assess as assess2 } from "@/lib/crmCopilotAssessment";
+describe("flerval (Thomas 2026-11-19)", () => {
+  it("fråga 1, 5 och 6 är flerval, övriga enkelval", () => {
+    expect(Q2.filter((q) => q.multi).map((q) => q.key)).toEqual(["goal", "friction", "integration"]);
+  });
+  it("max tre val och Vet inte rensar övriga", () => {
+    expect(toggleMulti(["a", "b", "c"], "d")).toEqual(["a", "b", "c"]);
+    expect(toggleMulti(["a", "b"], "unknown")).toEqual(["unknown"]);
+    expect(toggleMulti(["unknown"], "a")).toEqual(["a"]);
+  });
+  it("flera mål och friktioner ger vägar för båda", () => {
+    const r = assess2({ goal: ["admin", "erp"], base: "d365", m365: "no", process: "complex", friction: ["admin", "data"], integration: ["basic", "marketing"], maturity: "capable" });
+    const keys = r.paths.map((p) => p.key);
+    expect(keys).toContain("copilot_workspace");
+    expect(keys).toContain("integration");
+    expect(keys).toContain("change");
+  });
+});

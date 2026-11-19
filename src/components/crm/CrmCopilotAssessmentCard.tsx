@@ -1,10 +1,10 @@
 import { lazy, Suspense, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, RotateCcw } from "lucide-react";
+import { ArrowRight, RotateCcw, Link2, Check } from "lucide-react";
 import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
-import { QUESTIONS, COPILOT_PRODUCTS, MICROSOFT_SOURCES, assess, pdfContent, answerLabel, type Answers, type QuestionKey } from "@/lib/crmCopilotAssessment";
+import { QUESTIONS, COPILOT_PRODUCTS, MICROSOFT_SOURCES, assess, pdfContent, answerLabel, isAnswered, toggleMulti, vals, MAX_MULTI, type Answers, type QuestionKey } from "@/lib/crmCopilotAssessment";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
@@ -15,23 +15,37 @@ export default function CrmCopilotAssessmentCard({ sourcePage }: { sourcePage: s
   const [dialog, setDialog] = useState(false);
   const result = useMemo(() => assess(answers), [answers]);
 
+  const [copied, setCopied] = useState(false);
+  const copyLink = async () => {
+    const url = `https://d365.se${sourcePage}#copilot-crm-underlag`;
+    try { await navigator.clipboard.writeText(url); } catch { window.prompt("Kopiera länken:", url); }
+    setCopied(true); setTimeout(() => setCopied(false), 2500);
+    trackFunnelEvent({ event_type: "engagement", event_name: "crm_copilot_link_copied", metadata: { page: sourcePage } });
+  };
+
   const pick = (k: QuestionKey, v: string) => {
     if (!started) { setStarted(true); trackFunnelEvent({ event_type: "engagement", event_name: "crm_copilot_assessment_started", metadata: { page: sourcePage } }); }
-    const next = { ...answers, [k]: v };
+    const q0 = QUESTIONS.find((q) => q.key === k);
+    const next: Answers = { ...answers, [k]: q0?.multi ? toggleMulti(vals(answers, k), v) : v };
     setAnswers(next);
-    if (QUESTIONS.every((q) => next[q.key]) && !QUESTIONS.every((q) => answers[q.key])) {
+    if (QUESTIONS.every((q) => isAnswered(next, q.key)) && !QUESTIONS.every((q) => isAnswered(answers, q.key))) {
       const r = assess(next);
       trackFunnelEvent({ event_type: "engagement", event_name: "crm_copilot_assessment_completed", metadata: { page: sourcePage, paths: r.paths.map((p) => p.key).join(","), limited: r.limited } });
     }
   };
 
   const pdfData = pdfContent(answers, result);
-  const answered = QUESTIONS.filter((q) => answers[q.key]).length;
+  const answered = QUESTIONS.filter((q) => isAnswered(answers, q.key)).length;
 
   return (
     <section id="copilot-crm-underlag" className="py-10 sm:py-12 bg-muted/30 scroll-mt-24" data-next-step-block>
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-        <p className="text-sm font-semibold text-primary mb-2">Beslutsunderlag, cirka 2 minuter</p>
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <p className="text-sm font-semibold text-primary">Beslutsunderlag, cirka 2 minuter</p>
+          <Button type="button" variant="outline" size="sm" onClick={copyLink} aria-live="polite">
+            {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Link2 className="h-4 w-4" aria-hidden="true" />} {copied ? "Länken är kopierad" : "Kopiera direktlänk"}
+          </Button>
+        </div>
         <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Behöver ni fortfarande ett CRM när Copilot kan göra delar av jobbet?</h2>
         <p className="text-muted-foreground mb-4">Copilot är en arbetsyta för mejl, möten och sökning. CRM är systemgrunden för kundregister, pipeline, behörigheter och affärslogik. Svara på sju frågor så får ni ett första underlag om vilka vägar som kan vara relevanta att undersöka. Det är inte en produktrekommendation.</p>
 
@@ -47,13 +61,13 @@ export default function CrmCopilotAssessmentCard({ sourcePage }: { sourcePage: s
           {QUESTIONS.map((q, i) => (
             <li key={q.key} className="rounded-lg border border-border bg-card p-4">
               <fieldset>
-                <legend className="font-semibold text-foreground mb-3">{i + 1}. {q.label}</legend>
+                <legend className="font-semibold text-foreground mb-3">{i + 1}. {q.label}{q.multi && <span className="block text-sm font-normal text-muted-foreground mt-1">Välj upp till {MAX_MULTI} alternativ.</span>}</legend>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {q.options.map((o) => {
-                    const on = answers[q.key] === o.value;
+                    const on = vals(answers, q.key).includes(o.value);
                     return (
                       <label key={o.value} className={`flex cursor-pointer items-start gap-2 rounded-md border p-3 text-sm min-w-0 ${on ? "border-primary bg-primary/5 text-foreground" : "border-border text-muted-foreground hover:border-primary/50"}`}>
-                        <input type="radio" name={`cc-${q.key}`} value={o.value} checked={on} onChange={() => pick(q.key, o.value)} className="mt-0.5 accent-primary" />
+                        <input type={q.multi ? "checkbox" : "radio"} name={`cc-${q.key}`} value={o.value} checked={on} onChange={() => pick(q.key, o.value)} className="mt-0.5 accent-primary" />
                         <span className="break-words">{o.label}</span>
                       </label>
                     );
