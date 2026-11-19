@@ -1,4 +1,5 @@
 import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
+import CrmCopilotAssessmentCard from "@/components/crm/CrmCopilotAssessmentCard";
 import { ProductPageBody } from "@/components/product/ProductSectionNav";
 import { SALES_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
@@ -153,6 +154,7 @@ const D365Sales = () => {
       </ShortAnswer>
       <BuyerFitSection fitKey="sales" />
       <EditorialAssessment assessment="sales" />
+      <CrmCopilotAssessmentCard sourcePage="/d365sales/" />
 
 
       {/* Video Section */}

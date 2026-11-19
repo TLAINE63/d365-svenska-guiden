@@ -30,7 +30,7 @@ export default function CrmCopilotAssessmentCard({ sourcePage }: { sourcePage: s
 
   return (
     <section id="copilot-crm-underlag" className="py-10 sm:py-12 bg-muted/30 scroll-mt-24" data-next-step-block>
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <p className="text-sm font-semibold text-primary mb-2">Beslutsunderlag, cirka 2 minuter</p>
         <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Behöver ni fortfarande ett CRM när Copilot kan göra delar av jobbet?</h2>
         <p className="text-muted-foreground mb-4">Copilot är en arbetsyta för mejl, möten och sökning. CRM är systemgrunden för kundregister, pipeline, behörigheter och affärslogik. Svara på sju frågor så får ni ett första underlag om vilka vägar som kan vara relevanta att undersöka. Det är inte en produktrekommendation.</p>
