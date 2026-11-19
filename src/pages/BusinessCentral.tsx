@@ -111,7 +111,7 @@ const bcFaqsRaw = [
  },
  {
  question: "Hur fungerar Business Central med Microsoft 365 och Copilot AI?",
- answer: "Business Central integreras nativt med Outlook, Excel och Teams. Copilot är inbyggt och kan, efter aktivering, föreslå produktbeskrivningar, matchningar vid bankavstämning och analyser av data, varav vissa i förhandsversion. Det är också enkelt att koppla ihop med e-handel (inbyggd Shopify-koppling), Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace."
+ answer: "Business Central integreras nativt med Outlook, Excel och Teams. Copilot är inbyggt och kan föreslå produktbeskrivningar, matchningar vid bankavstämning och analyser av data. Det är också enkelt att koppla ihop med e-handel (inbyggd Shopify-koppling), Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace."
  },
  {
  question: "Behöver man en partner för att implementera Business Central?",
