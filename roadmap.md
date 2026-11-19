@@ -3,7 +3,9 @@
 - [x] Admininloggning HTTP 200; specialistuppgifter för slutkund/partner och äldre ärende verifierade i admin. 24 tester godkända, testärenden rensade. Ingen ändring av behörighet behövdes.
 - [x] Två verkliga specialistförfrågningar sparade med beställare, uppdragsroll och delat underlag; samtyckesspärr provad, status ny och noll partnerkopplingar. Testärenden rensade, 24 tester godkända.
 - [x] Steg 0: testärenden och äldre ärende öppnade med riktig admininloggning. Se docs/GENERALPLAN-2027-PAKET-2-STEG-0.md.
-- [ ] Paket 2 stoppat tills steg 0 är godkänt: inventera och komplettera produktkopplingar, verifiera mobil/länkar/kontext och oförändrad SEO. Ingen automatisk publicering.
+- [x] Paket 2: naturliga nästa steg (BC, F&SCM, Sales, Customer Service m.fl.) på sju produktsidor; 7 tester, dator/375 px utan överbredd eller fel, titlar och canonical oförändrade. Leverantörsfakturapiloten utgår.
+- [ ] Publicering väntar på Thomas godkännande.
+- [ ] Paket 3 (Dynamics 365 i Copilot) påbörjas inte förrän paket 2 är godkänt.
 
 ## Partneroffert och mejlbeställning (2026-11-17)
 - [x] Premiumtexten uppdelad i värdeavsnitt, med INSIDE som separat tillval; tvåsidig PDF visuellt granskad.

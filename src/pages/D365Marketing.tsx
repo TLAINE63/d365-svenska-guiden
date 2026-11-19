@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import { ProductPageBody } from "@/components/product/ProductSectionNav";
 import { INSIGHTS_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
@@ -283,6 +284,7 @@ const D365Marketing = () => {
 
       </ProductPageBody>
       </main>
+      <ProductExpansionPaths product="marketing" />
       <ProductNextSteps product="marketing" pageSource="D365 Marketing" />
       <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />

@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import { ProductPageBody } from "@/components/product/ProductSectionNav";
 import { SERVICE_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
@@ -323,6 +324,7 @@ const D365CustomerService = () => {
 </main>
       <BasicProfilesDirectory products={["service"]} />
       <AiExamplesEntry apps={["service"]} label={"Se hur AI förändrar arbetet i Customer Service"} source="d365customerservice" />
+      <ProductExpansionPaths product="customer-service" />
       <ProductNextSteps product="customer-service" pageSource="D365 Customer Service" />
       <PartnerSwitchCta />
       <SourcesAndMethod variant="product" />

@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import { ProductPageBody } from "@/components/product/ProductSectionNav";
 import { FIELD_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
@@ -310,6 +311,7 @@ const D365FieldService = () => {
       </ProductPageBody>
       </main>
       <AiExamplesEntry apps={["fieldservice"]} label={"Se hur AI förändrar arbetet i Field Service"} source="d365fieldservice" />
+      <ProductExpansionPaths product="field-service" />
       <ProductNextSteps product="field-service" pageSource="D365 Field Service" />
       <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />

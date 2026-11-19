@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import { ProductPageBody } from "@/components/product/ProductSectionNav";
 import { CONTACT_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
@@ -299,6 +300,7 @@ const D365ContactCenter = () => {
 
       </ProductPageBody>
       </main>
+      <ProductExpansionPaths product="contact-center" />
       <ProductNextSteps product="contact-center" pageSource="D365 Contact Center" />
       <SourcesAndMethod variant="product" />
       <EditorialSource sourceType="Köpguide" />

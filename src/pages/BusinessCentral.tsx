@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import IndustryIsvPicker from "@/components/IndustryIsvPicker";
 import { prioritizeResellers, isResellerOf } from "@/lib/industryIsvSolutions";
 import type { IsvSolution } from "@/data/bcIsvSolutions";
@@ -677,6 +678,7 @@ const BusinessCentral = () => {
       <ProductPartnerNewsSection productArea="business-central" heading="Relaterat om Business Central" />
       <RelatedPages pages={bcRelatedPages.map(page => ({ ...page, description: page.description.replace(/Dynamics 365/g, "Dynamics\u00a0365"), href: page.href === "/affarssystem/" ? "/affarssystem/#comparison" : page.href === "/valjdynamics365partner/" ? "/business-central-partners-sverige/" : page.href }))} heading="Fördjupning om produktval, kostnad och partner" />
       <BcOptionalDeepDive />
+      <ProductExpansionPaths product="business-central" />
       <BcNextSteps />
   </div>
   </div>

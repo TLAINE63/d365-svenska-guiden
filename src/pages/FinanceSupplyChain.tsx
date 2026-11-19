@@ -1,3 +1,4 @@
+import ProductExpansionPaths from "@/components/product/ProductExpansionPaths";
 import IndustryIsvPicker from "@/components/IndustryIsvPicker";
 import { prioritizeResellers, isResellerOf } from "@/lib/industryIsvSolutions";
 import type { IsvSolution } from "@/data/bcIsvSolutions";
@@ -808,6 +809,7 @@ const FinanceSupplyChain = () => {
       <RelatedPages pages={fscRelatedPages} heading="Fördjupning om produktval, kostnad och partner" />
       <AiExamplesEntry apps={["finance","scm"]} label={"Se hur AI förändrar arbetet i Finance och Supply Chain Management"} source="finance-supply-chain" />
 <PartnerSwitchCta />
+ <ProductExpansionPaths product="finance-supply-chain" />
  <ProductNextSteps product="finance-supply-chain" pageSource="Finance SCM" />
       </ProductPageBody>
       </main>
