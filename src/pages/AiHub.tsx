@@ -45,7 +45,8 @@ const SECTIONS = [
   { id: "forsta", icon: Brain, title: "Förstå AI och agenter", text: "Vad Copilot och agenter är, och hur de skiljer sig åt.", links: [
     { to: "/aioversikt/", label: "AI-översikt per roll" }, { to: "/copilot/", label: "Copilot i Dynamics\u00A0365" }, { to: "/agents/", label: "Agenter i Dynamics\u00A0365" } ] },
   { id: "omraden", icon: Sparkles, title: "AI inom olika verksamhetsområden", text: "Så används AI i ekonomi, sälj, service och supply chain.", links: [
-    { to: "/finance-supply-chain/", label: "Finance & Supply Chain" }, { to: "/businesscentral/", label: "Business Central" }, { to: "/d365sales/", label: "Sales" }, { to: "/d365customerservice/", label: "Customer Service" } ] },
+    { to: "/finance-supply-chain/", label: "Finance & Supply Chain" }, { to: "/businesscentral/", label: "Business Central" }, { to: "/d365sales/", label: "Sales" }, { to: "/d365customerservice/", label: "Customer Service" },
+    { to: "/crm/#copilot-crm-underlag", label: "Behöver vi fortfarande CRM när Copilot kan göra jobbet?", desc: "Utforska hur Copilot förändrar säljarens arbetssätt och vad det betyder för behovet av CRM, kunddata och affärsprocesser." } ] },
   { id: "kostnad", icon: Calculator, title: "Kostnader och affärsnytta", text: "Räkna på nyttan innan ni investerar.", links: [
     { to: "/verksamhetsvardering/", label: "Affärsnytta & ROI" }, { to: "/ai-readiness/", label: "AI-mognadsanalys" }, { to: "/kostnad/", label: "Vad kostar Dynamics\u00A0365?" } ] },
   { id: "exempel", icon: Bot, title: "Konkreta agentexempel", text: "Verifierade exempel med källa från Microsoft.", links: [
@@ -113,7 +114,7 @@ const AiHub = () => {
                 <p className="text-sm text-muted-foreground mb-4">{s.text}</p>
                 <ul className="space-y-2">
                   {s.links.map((l) => (
-                    <li key={l.to}><Link to={l.to} className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary"><ArrowRight className="h-3.5 w-3.5" />{l.label}</Link></li>
+                    <li key={l.to}><Link to={l.to} className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary"><ArrowRight className="h-3.5 w-3.5" />{l.label}</Link>{"desc" in l && l.desc && <p className="mt-1 pl-[1.125rem] text-xs text-muted-foreground">{l.desc}</p>}</li>
                   ))}
                 </ul>
               </CardContent>

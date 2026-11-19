@@ -20,7 +20,7 @@ type Area = {
   title: string;
   text: string;
   points: string[];
-  links: { label: string; href: string }[];
+  links: { label: string; href: string; desc?: string }[];
 };
 
 const areas: Area[] = [
@@ -47,7 +47,7 @@ const areas: Area[] = [
       "Är datan i systemet tillräckligt bra för att AI ska ge rätt svar?",
       "Vem ansvarar för behörigheter och uppföljning?",
     ],
-    links: [{ label: "AI och Copilot i Dynamics 365", href: "/aioversikt/" }],
+    links: [{ label: "AI och Copilot i Dynamics 365", href: "/aioversikt/" }, { label: "Kan Copilot göra ert CRM enklare att använda?", href: "/crm/#copilot-crm-underlag", desc: "Undersök hur ni kan minska administrationen, förbättra användningen och utveckla ert befintliga CRM utan att automatiskt behöva byta system." }],
   },
   {
     icon: LifeBuoy,
@@ -133,6 +133,7 @@ const BefintligKund = () => (
                     <Link to={l.href} className={i === 0 ? "inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90" : "inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"}>
                       {nowrapBrand(l.label)} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
                     </Link>
+                    {l.desc && <p className="mt-1 text-xs text-muted-foreground">{l.desc}</p>}
                   </li>
                 ))}
               </ul>
