@@ -157,7 +157,7 @@ const BcMatchningstest = () => {
       <SEOHead
         breadcrumbs={[{ name: "Hem", url: "/" }, { name: "Business Central", url: "/businesscentral/" }, { name: "Matchningstest", url: "/businesscentral/matchningstest/" }]}
         title="Matchar Business Central dina behov? – Test | d365.se"
-        description="Funktionsorienterat matchningstest för Microsoft Dynamics 365 Business Central. 20–25 frågor som visar vad som ingår i standard, kräver Premium, ISV eller ligger utanför BC."
+        description="Matchningstest för Dynamics 365 Business Central: 20–25 frågor som visar vad som ingår i standard, kräver Premium eller ISV eller ligger utanför BC."
         canonicalPath="/businesscentral/matchningstest"
         keywords="Business Central matchningstest, BC behovsanalys, Dynamics 365 Business Central, Essentials Premium ISV"
       />

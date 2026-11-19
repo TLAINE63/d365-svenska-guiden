@@ -325,7 +325,7 @@ const Branschlosningar = () => {
  <div className="min-h-screen bg-background">
  <SEOHead 
  title="Dynamics 365 Branschlösningar – ERP & CRM | d365.se"
- description="Dynamics 365 per bransch: tillverkning, grossist, bygg, fastighet, handel m.fl. Jämför Business Central, Finance & SCM och CRM – och hitta partner som kan din bransch."
+ description="Dynamics 365 per bransch: tillverkning, grossist, bygg, fastighet, handel m.fl. Jämför Business Central, Finance & SCM och CRM och hitta rätt partner."
  canonicalPath="/branschlosningar/"
  keywords="Dynamics 365 branschlösningar, Microsoft ERP tillverkning Sverige, Business Central grossist, Dynamics 365 bygg entreprenad, affärssystem bransch Sverige, Microsoft ERP CRM bransch, Business Central tillverkning, CRM fastighet Sverige, Dynamics 365 handel distribution, ERP life science Sverige, Microsoft partner branschkunskap"
  ogImage="https://d365.se/og-bransch.png"

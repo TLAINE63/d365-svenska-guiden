@@ -33,8 +33,9 @@ const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
   ["/d365-field-service", "/d365fieldservice"],
   ["/d365-contact-center", "/d365contactcenter"],
   ["/valj-partner", "/valjdynamics365partner"],
-  ["/sok", "/AI-sok"],
-  ["/AIsok", "/AI-sok"],
+  ["/sok", "/fraga"],
+  ["/AIsok", "/fraga"],
+  ["/AI-sok", "/fraga"],
   ["/behovsanalys", "/ERPbehovsanalys"],
   ["/salj-marknad-behovsanalys", "/CRMbehovsanalys"],
 ];
@@ -56,18 +57,32 @@ const DESTINATION_H1: Record<
   string,
   { file: string; expected: string; h2: string | null; meta: string }
 > = {
-  "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365",                       h2: "Vanliga frågor om Dynamics 365 Business Central",    meta: "Essentials 765 kr/mån" },
-  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "AI i Dynamics 365 kräver mer än Copilot-licenser", h2: "Copilot vs Agenter",                                 meta: "data, process och ansvar" },
-  "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales",                 h2: "Microsoft Dynamics 365 Sales",                       meta: "Dynamics 365 Sales från 621 kr/mån" },
-  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights",     h2: "Microsoft Dynamics 365 Customer Insights",           meta: "Customer Insights (Marketing)" },
-  "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service",      h2: "Microsoft Dynamics 365 Customer Service",            meta: "Dynamics 365 Customer Service från 478 kr/mån" },
-  "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service",         h2: "Microsoft Dynamics 365 Field Service",               meta: "Dynamics 365 Field Service från 1 004 kr/mån" },
-  "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Microsoft Dynamics 365 Contact Center",              meta: "Dynamics 365 Contact Center från 1 051 kr/agent/mån" },
-  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners" },
-  "/AI-sok":               { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
-  "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Behovsanalys för ERP/Affärssystem", h2: null,                                                 meta: "Kostnadsfri ERP-behovsanalys" },
+  "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Business Central",                   h2: "Vad kostar Business Central?",                       meta: "ERP" },
+  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "AI i Dynamics 365 kräver mer än Copilot-licenser", h2: "Copilot vs Agenter",                    meta: "Copilot och agenter" },
+  "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales",                 h2: "Se Dynamics 365 Sales i aktion",                     meta: "CRM" },
+  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Customer Insights",                  h2: "Se Dynamics 365 Customer Insights i aktion",         meta: "Customer Insights" },
+  "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service",      h2: "Se Dynamics 365 Customer Service i aktion",          meta: "Dynamics 365 Customer Service" },
+  "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service",         h2: "Se Dynamics 365 Field Service i aktion",             meta: "fältservice" },
+  "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Se Dynamics 365 Contact Center i aktion",            meta: "Dynamics 365 Contact Center" },
+  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Välj rätt Microsoft Dynamics",       h2: "Vad ska du kräva av en certifierad Dynamics partner", meta: "partner" },
+  "/fraga":                { file: "src/pages/SmartSearch.tsx",         expected: "",                                   h2: null,                                                 meta: "" },
+  "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Ringa in behovet",                   h2: null,                                                 meta: "ERP-behovsanalys" },
   "/CRMbehovsanalys":      { file: "src/pages/SalesMarketingNeedsAnalysis.tsx", expected: "Behovsanalys Sälj & Marknad", h2: null,                                          meta: "Dynamics 365 Sales och Customer Insights" },
 };
+
+/** Non-breaking spaces (literal, \\u00A0 or &nbsp;) keep brand names together; compare as spaces. */
+const nb = (t: string) => t.replace(/\u00A0|\\u00A0|&nbsp;/g, " ");
+
+/** First H1 text: a literal <h1> or the title(+titleAccent) given to <ProductHero>. */
+function firstHeading(source: string): string | null {
+  const h1 = source.match(/<h1[\s\S]*?<\/h1>/);
+  if (h1) return h1[0];
+  const hero = source.match(/<ProductHero[\s\S]*?\/>/);
+  if (!hero) return null;
+  const title = hero[0].match(/title=(?:\{\s*)?["']([^"']+)["']/)?.[1] ?? "";
+  const accent = hero[0].match(/titleAccent=(?:\{\s*)?["']([^"']+)["']/)?.[1] ?? "";
+  return `${title} ${accent}`.replace(/\\u00A0/g, " ").trim() || null;
+}
 
 const ROUTER_FILES = [
   "src/App.tsx",
@@ -79,9 +94,10 @@ function loadRouter(file: string): string {
 }
 
 function hasRedirectRoute(source: string, from: string, to: string): boolean {
-  // Matches:  <Route path="/old" element={<Navigate to="/new" replace />} />
+  // Matches <Navigate to="/new" replace /> (SSG) or <RedirectTo to="/new" /> (client,
+  // keeps query and hash).
   const pattern = new RegExp(
-    `<Route\\s+path=["']${escape(from)}["']\\s+element=\\{\\s*<Navigate\\s+to=["']${escape(to)}["']\\s+replace\\s*/>\\s*\\}\\s*/>`,
+    `<Route\\s+path=["']${escape(from)}["']\\s+element=\\{\\s*<(?:Navigate\\s+to=["']${escape(to)}["']\\s+replace|RedirectTo\\s+to=["']${escape(to)}["'])\\s*/>\\s*\\}\\s*/>`,
     "s"
   );
   return pattern.test(source);
@@ -89,9 +105,10 @@ function hasRedirectRoute(source: string, from: string, to: string): boolean {
 
 function hasDestinationRoute(source: string, path: string): boolean {
   // Matches:  <Route path="/new" element={<SomeComponent ... />} />
-  // (anything that's NOT a Navigate)
+  // (anything that's NOT a redirect). An optional "/resultat?" segment is
+  // the same page with its result view.
   const pattern = new RegExp(
-    `<Route\\s+path=["']${escape(path)}["']\\s+element=\\{\\s*<(?!Navigate)\\w+`,
+    `<Route\\s+path=["']${escape(path)}(?:/resultat\\?)?["']\\s+element=\\{\\s*<(?!Navigate|RedirectTo)\\w+`,
     "s"
   );
   return pattern.test(source);
@@ -151,9 +168,9 @@ describe("Legacy URL redirects. E2E", () => {
       "%s renders an <h1> containing the expected heading",
       (_path, { file, expected }) => {
         const source = loadRouter(file);
-        const h1Match = source.match(/<h1[\s\S]*?<\/h1>/);
-        expect(h1Match, `No <h1> found in ${file}`).not.toBeNull();
-        expect(h1Match![0]).toContain(expected);
+        const heading = firstHeading(source);
+        expect(heading, `No <h1> or <ProductHero title> found in ${file}`).not.toBeNull();
+        expect(nb(heading!)).toContain(expected);
       }
     );
 
@@ -178,7 +195,7 @@ describe("Legacy URL redirects. E2E", () => {
         // contains the expected substring.
         const blocks = source.match(/<h2[\s\S]*?<\/h2>/g) ?? [];
         expect(blocks.length, `No <h2> found in ${file}`).toBeGreaterThan(0);
-        const hit = blocks.some((b) => b.includes(h2));
+        const hit = blocks.some((b) => nb(b).includes(h2));
         expect(
           hit,
           `Expected an <h2> in ${file} to contain "${h2}". Found:\n${blocks

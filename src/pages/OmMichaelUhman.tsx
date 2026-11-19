@@ -46,7 +46,7 @@ const OmMichaelUhman = () => {
     <div className="min-h-screen">
       <SEOHead
         title="Om Michael Uhman – medgrundare av d365.se"
-        description="Michael Uhman har arbetat med affärssystem och partnerkanaler i över 35 år. Tidigare VD för Damgaard Sverige och Navision Sverige, försäljningsdirektör på Microsoft Sverige, grundare av 1ClickFactory."
+        description="Michael Uhman har arbetat med affärssystem i över 35 år: VD för Damgaard och Navision Sverige, säljdirektör på Microsoft Sverige, grundare av 1ClickFactory."
         canonicalPath="/om-michael-uhman/"
         keywords="Michael Uhman, d365.se, Dynamics 365, Damgaard, Navision, Microsoft, 1ClickFactory, partnerkanal"
         ogImage="https://d365.se/og-kontakt.png"

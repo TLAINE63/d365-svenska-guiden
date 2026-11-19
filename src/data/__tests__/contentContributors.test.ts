@@ -8,11 +8,11 @@ describe("content contributors", () => {
   it("credits Thomas Laine as author of Business Central", () => {
     expect(contributionsFor("/businesscentral/")[0].person.name).toBe("Thomas Laine");
   });
-  it("credits Thomas Laine as author of F&SCM, reviewed 2026-09-24", () => {
+  it("credits Thomas Laine as author of F&SCM, reviewed 2026-11-09", () => {
     const [c] = contributionsFor("/finance-supply-chain/");
     expect(c.person.name).toBe("Thomas Laine");
     expect(c.role).toBe("Författare");
-    expect(c.date).toBe("2026-09-24");
+    expect(c.date).toBe("2026-11-09");
     expect(c.title).toBe("Redaktör och affärsrådgivare");
   });
   it("returns a contribution only once it is explicitly registered", () => {

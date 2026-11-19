@@ -151,7 +151,7 @@ const ERPOverview = () => {
   <SEOHead 
  title="Köpguide: Välja & byta affärssystem för medelstora företag | d365.se"
  titleMaxLength={70}
- description="Komplett guide för dig som ska välja eller byta affärssystem. Jämförelser, checklista för kravspecifikation och hur du väljer rätt lösning i Microsoft Dynamics 365."
+ description="Guide för dig som ska välja eller byta affärssystem: jämförelser, checklista för kravspecifikation och hur du väljer rätt lösning i Microsoft Dynamics 365."
  canonicalPath="/affarssystem"
  keywords="affärssystem, erp, erp system, erp system sverige, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, microsoft erp, dynamics 365 erp, business central vs finance scm, dynamics 365 finance supply chain, microsoft affärssystem"
  ogImage="https://d365.se/og-erp.png"

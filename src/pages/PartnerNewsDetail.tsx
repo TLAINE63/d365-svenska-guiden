@@ -72,7 +72,7 @@ export default function PartnerNewsDetail({ initialData = null }: PartnerNewsDet
       <div className="min-h-screen bg-background">
         <SEOHead
           title="Artikeln hittades inte | Partnernytt | d365.se"
-          description="Artikeln kunde inte hittas."
+          description="Artikeln kunde inte hittas. Läs fler nyheter, kundcase och erbjudanden från Dynamics 365-partners i Sverige i arkivet Partnernytt på d365.se."
           canonicalPath="/partnernytt/"
         />
         <Navbar />

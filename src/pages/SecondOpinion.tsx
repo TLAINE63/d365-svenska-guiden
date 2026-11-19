@@ -80,7 +80,7 @@ const SecondOpinion = () => {
     <>
       <SEOHead
         title="Second opinion på Dynamics 365: lösning, offert eller partner"
-        description="Osäkra på er Dynamics 365-lösning, offert, implementation eller partner? Se när en second opinion är relevant, vad som granskas och vilka beslut den kan leda till."
+        description="Osäker på er Dynamics 365-lösning, offert, implementation eller partner? Se när en second opinion passar, vad som granskas och vad den kan leda till."
         canonicalPath={PATH}
         breadcrumbs={breadcrumbs}
       />

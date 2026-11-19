@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import PartnerCardHeader from "../PartnerCardHeader";
+import { PROFILE_LABEL_VERIFIED } from "@/data/profileModel";
 
 const partner = { name: "Testpartner", logo_url: "/test-logo.svg", is_featured: true, logo_dark_bg: false };
 
@@ -16,16 +17,17 @@ describe("PartnerCardHeader", () => {
     expect(link.querySelector("button, a")).toBeNull();
     fireEvent.click(link);
     expect(onClick).toHaveBeenCalledOnce();
-    expect(screen.getByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toHaveAttribute("src", "/badges/verifierad-partner-dark.svg");
+    expect(link).toContainElement(screen.getByLabelText(PROFILE_LABEL_VERIFIED));
   });
 
-  it("selects the light badge for a dark-background logo", () => {
+  it("keeps the verified pill and a dark logo frame for a dark-background logo", () => {
     render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, logo_dark_bg: true }} to="/partner/testpartner/" /></MemoryRouter>);
-    expect(screen.getByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toHaveAttribute("src", "/badges/verifierad-partner-light.svg");
+    expect(screen.getByLabelText(PROFILE_LABEL_VERIFIED)).toBeInTheDocument();
+    expect(screen.getByAltText("Testpartner logotyp").parentElement).toHaveClass("bg-foreground");
   });
 
   it("does not give a basic profile a verified badge", () => {
     render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, is_featured: false }} to="/basic/testpartner/" /></MemoryRouter>);
-    expect(screen.queryByAltText(/Verifierad Dynamics\s+365-partner på d365.se/)).toBeNull();
+    expect(screen.queryByLabelText(PROFILE_LABEL_VERIFIED)).toBeNull();
   });
 });

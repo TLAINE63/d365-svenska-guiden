@@ -705,7 +705,7 @@ const ValjPartner = () => {
  <SEOHead 
  title="Välja certifierad Microsoft Dynamics 365-partner i Sverige | Guide & Rådgivning"
  titleMaxLength={80}
- description="Ska ni välja implementeringspartner för Microsoft Dynamics 365 eller Finance & Operations? Jämför certifierade partners för helhetsleverans och få kostnadsfri rådgivning."
+ description="Ska ni välja implementeringspartner för Microsoft Dynamics 365 eller Finance & Operations? Jämför certifierade partners och få kostnadsfri rådgivning."
  canonicalPath="/valjdynamics365partner"
  keywords="Dynamics 365 partner, Microsoft Dynamics partner, Dynamics 365 återförsäljare, Dynamics 365 reseller, F&SCM partner, Dynamics 365 partner tillverkande industri, Dynamics 365 konsult, Dynamics 365 konsultbolag, Business Central partner jämförelse, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Business Central konsult"
  ogImage="https://d365.se/og-partner.png"

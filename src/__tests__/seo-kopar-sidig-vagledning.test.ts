@@ -83,8 +83,15 @@ describe("SEO – publika undersidor", () => {
     });
   });
 
-  it("alla metabeskrivningar är unika mellan sidor", () => {
-    const descs = blocks.map((b) => b.description);
+  it("alla metabeskrivningar är unika mellan sidor (samma fil får dela beskrivning)", () => {
+    // Flera SEOHead-block i samma fil är villkorade tillstånd av samma sida
+    // (t.ex. laddning i Events.tsx) och ska ha samma beskrivning.
+    const perFile = new Map<string, Set<string>>();
+    for (const b of blocks) {
+      if (!perFile.has(b.file)) perFile.set(b.file, new Set());
+      perFile.get(b.file)!.add(b.description);
+    }
+    const descs = [...perFile.values()].flatMap((set) => [...set]);
     const dupes = descs.filter((d, i) => descs.indexOf(d) !== i);
     expect(dupes).toEqual([]);
   });

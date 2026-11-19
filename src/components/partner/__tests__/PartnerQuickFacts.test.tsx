@@ -38,15 +38,14 @@ describe("PartnerQuickFacts", () => {
 
   it("sorterar geografi Sverige → Norden → Europa", () => {
     render(<PartnerQuickFacts partner={makePartner()} activeTab="bc" />);
-    const geo = screen.getByText(/Levererar i/);
-    expect(geo.textContent).toBe("Levererar i Sverige, Norden och Europa");
+    const geo = screen.getByText("Geografi").nextElementSibling;
+    expect(geo?.textContent).toBe("Sverige / Norden / Europa");
   });
 
-  it("visar branscher som starkast inom", () => {
+  it("visar huvudbranscher i partnerfakta", () => {
     render(<PartnerQuickFacts partner={makePartner()} activeTab="bc" />);
-    expect(
-      screen.getByText(/Starkast inom Tillverkningsindustri, Grossist & Distribution/),
-    ).toBeInTheDocument();
+    const ind = screen.getByText("Huvudbranscher").nextElementSibling;
+    expect(ind?.textContent).toBe("Tillverkningsindustri, Grossist & Distribution");
   });
 
   it("faller tillbaka till revenue-baserad storleksetikett när companySize saknas", () => {
@@ -57,7 +56,8 @@ describe("PartnerQuickFacts", () => {
       geography: ["Sverige"],
     });
     render(<PartnerQuickFacts partner={partner} activeTab="bc" />);
-    expect(screen.getByText(/Passar främst stora företag/)).toBeInTheDocument();
+    const size = screen.getByText("Företagsstorlek").nextElementSibling;
+    expect(size?.textContent).toMatch(/stora företag/);
   });
 
   it("visar sammanhängande intervall utan lucka som ett enda spann", () => {

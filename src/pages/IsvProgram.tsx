@@ -54,7 +54,7 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 990 kr/år inkl. en produkt, introduktionspris 2 990 kr första året."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontakt. ISV Presence 5 990 kr/år inkl. en produkt, introduktionspris 2 990 kr första året."
         webPageSchema={false}
         canonicalPath="/isvprogram"
         dateModified="2026-11-17"
