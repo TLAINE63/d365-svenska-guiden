@@ -12,6 +12,14 @@ export interface PdfSection { heading: string; intro?: string; items: PdfBullet[
 /** Optional structured content: headed bullet sections after the table and a tool-specific note. */
 export interface ToolPdfOptions { sections?: PdfSection[]; note?: string; tableHeading?: string }
 
+/** Only calculators (ROI, implementation, business value) contain calculations. */
+export const isCalculatorTool = (tool: string) => /^(roi_|implementation$|affarsnytta$)/.test(tool);
+export function defaultToolNote(tool: string): string {
+  return isCalculatorTool(tool)
+    ? "Underlaget återger dina val och resultat från verktyget på d365.se. Beräkningar är indikativa uppskattningar, inte offerter eller garantier. Bedömningar bygger på dina svar och behöver stämmas av mot verksamhetens krav och vald lösning."
+    : "Underlaget återger dina val och resultat från verktyget på d365.se. Det innehåller inga beräkningar. Bedömningar bygger på dina svar och behöver stämmas av mot verksamhetens krav och vald lösning.";
+}
+
 /** Shared premium layout, with both columns wrapped and long rows continued safely. */
 export async function createToolUnderlagPdf(entry: ToolEntry, date: string, opts: ToolPdfOptions = {}) {
   const doc = await createPdfDocument();
@@ -122,7 +130,7 @@ export async function createToolUnderlagPdf(entry: ToolEntry, date: string, opts
   }
   if (y + 35 > bottom) newPage();
   y = drawSectionHeading(doc, "Om underlaget", y);
-  paragraph(opts.note ?? "Underlaget återger dina val och resultat från verktyget på d365.se. Beräkningar är indikativa uppskattningar, inte offerter eller garantier. Bedömningar bygger på dina svar och behöver stämmas av mot verksamhetens krav och vald lösning.", 9);
+  paragraph(opts.note ?? defaultToolNote(entry.tool), 9);
   finalizePdfWithFooter(doc, entry.label);
   return doc;
 }
