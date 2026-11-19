@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
-import { QUESTIONS, COPILOT_PRODUCTS, MICROSOFT_SOURCES, assess, summaryRows, answerLabel, type Answers, type QuestionKey } from "@/lib/crmCopilotAssessment";
+import { QUESTIONS, COPILOT_PRODUCTS, MICROSOFT_SOURCES, assess, pdfContent, answerLabel, type Answers, type QuestionKey } from "@/lib/crmCopilotAssessment";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
@@ -25,7 +25,7 @@ export default function CrmCopilotAssessmentCard({ sourcePage }: { sourcePage: s
     }
   };
 
-  const rows = summaryRows(answers, result);
+  const pdfData = pdfContent(answers, result);
   const answered = QUESTIONS.filter((q) => answers[q.key]).length;
 
   return (
@@ -91,7 +91,7 @@ export default function CrmCopilotAssessmentCard({ sourcePage }: { sourcePage: s
               <p className="mt-4 text-xs text-muted-foreground">Detta är ett första beslutsunderlag baserat på era sju svar. Det är inte en kravspecifikation, en CRM-upphandling eller en produktrekommendation.</p>
             </div>
 
-            <ToolResultNextStep tool="copilot_crm" product="sales" entry={{ label: "Beslutsunderlag: Copilot och CRM", values: rows }} />
+            <ToolResultNextStep tool="copilot_crm" product="sales" entry={{ label: "Beslutsunderlag: Copilot och CRM", values: pdfData.values }} pdf={pdfData.pdf} />
 
             <div className="flex flex-wrap gap-3">
               <Button onClick={() => setDialog(true)}>Diskutera underlaget med d365.se <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>

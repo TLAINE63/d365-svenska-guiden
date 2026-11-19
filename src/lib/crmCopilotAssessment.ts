@@ -123,7 +123,7 @@ export function assess(a: Answers): AssessmentResult {
   if (needsIntegration) obs.push(a.integration === "advanced"
     ? "Era svar tyder på att prislogik, produktkonfiguration eller branschkrav kan vara avgörande, vilket brukar kräva mer än standardfunktioner."
     : "Era svar tyder på att kopplingen mellan försäljning och affärssystem (ERP) är en viktig del av beslutet.");
-  if (a.maturity === "no_owner") obs.push("Ni saknar i dag en tydlig systemägare. Det påverkar oftast utfallet mer än valet av verktyg.");
+  if (a.maturity === "no_owner") obs.push("Era svar visar att systemägarskapet behöver tydliggöras. Det är en viktig förutsättning för att få bättre användning av CRM och Copilot.");
   if (limited) obs.push("Många svar är \"Vet inte\". Underlaget blir därför översiktligt och pekar främst på vad som behöver klargöras först.");
 
   // B. Vägar att undersöka (flera kan gälla samtidigt)
@@ -165,7 +165,27 @@ export function assess(a: Answers): AssessmentResult {
   return { complete, limited, observations: obs, paths, openQuestions: qs };
 }
 
-/** Samma innehåll som skärmen, för PDF och delat underlag. */
+export const PDF_NOTE = "Ett första beslutsunderlag baserat på era sju svar på d365.se. Det innehåller inga beräkningar och är inte en kravspecifikation, en CRM-upphandling eller en produktrekommendation. Funktioner och licensvillkor behöver kontrolleras mot Microsofts aktuella dokumentation.";
+
+/** PDF: svaren i tabellen, A/B/C som rubricerade punktlistor (samma innehåll som skärmen). */
+export function pdfContent(a: Answers, r: AssessmentResult) {
+  const values: Record<string, string> = {};
+  for (const q of QUESTIONS) values[q.label] = answerLabel(q.key, a[q.key]) || "Ej besvarad";
+  return {
+    values,
+    pdf: {
+      note: PDF_NOTE,
+      tableHeading: "Era svar",
+      sections: [
+        { heading: "A. Vad svaren indikerar", items: r.observations.map((text) => ({ text })) },
+        { heading: "B. Vägar som kan vara relevanta att undersöka", intro: "Flera vägar kan gälla samtidigt. Ordningen är ingen rangordning.", items: r.paths.map((p) => ({ title: p.title, text: p.why })) },
+        { heading: "C. Frågor som behöver utredas vidare", items: r.openQuestions.map((text) => ({ text })) },
+      ],
+    },
+  };
+}
+
+/** Samma innehåll som skärmen, för delat underlag. */
 export function summaryRows(a: Answers, r: AssessmentResult): Record<string, string> {
   const rows: Record<string, string> = {};
   for (const q of QUESTIONS) rows[q.label] = answerLabel(q.key, a[q.key]) || "Ej besvarad";

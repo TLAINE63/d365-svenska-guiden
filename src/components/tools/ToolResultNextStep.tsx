@@ -12,11 +12,12 @@ import { savePlanCalculation } from "@/lib/d365Plan";
 import { inquiryHref } from "@/lib/inquirySelection";
 import { findTool } from "@/lib/toolUnderlag";
 import { recordTool, type ToolEntry } from "@/lib/toolContext";
+import type { ToolPdfOptions } from "@/utils/generateToolUnderlagPdf";
 
-interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool"> }
+interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool">; pdf?: ToolPdfOptions }
 
 /** Del 3: premium-PDF + Min plan och förfrågan med svaren förifyllda. */
-export default function ToolResultNextStep({ tool, product, className = "", entry }: Props) {
+export default function ToolResultNextStep({ tool, product, className = "", entry, pdf }: Props) {
   const { pathname } = useLocation();
   const [saved, setSaved] = useState(false);
   const [missing, setMissing] = useState(false);
@@ -39,7 +40,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
     setSaving(true); setFailed(false); setMissing(false);
     try {
       const { generateToolUnderlagPdf } = await import("@/utils/generateToolUnderlagPdf");
-      await generateToolUnderlagPdf(t, date);
+      await generateToolUnderlagPdf(t, date, pdf);
       savePlanCalculation({ id: tool, product: t.label, url: pathname, rows: Object.entries(t.values).map(([label, value]) => ({ label, value })) });
       setSaved(true);
       trackLeadStep("verktyg_sparat", tool);
@@ -66,7 +67,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
     try {
       const date = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Stockholm" });
       const { toolUnderlagPdfBase64 } = await import("@/utils/generateToolUnderlagPdf");
-      const pdf = await toolUnderlagPdfBase64(t, date);
+      const pdf = await toolUnderlagPdfBase64(t, date, pdf);
       const lines = cleanSummaryLines([t.label, ...(t.industry ? [`Bransch: ${t.industry}`] : []), ...Object.entries(t.values).map(([k, v]) => `${k}: ${v}`)]);
       const { data, error } = await supabase.functions.invoke("send-result-summary", {
         body: { email, tool: "underlag", lines, follow_up: followUp, source_page: pathname, pdf_base64: pdf },

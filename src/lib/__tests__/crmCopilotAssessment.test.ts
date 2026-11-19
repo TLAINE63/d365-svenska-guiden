@@ -46,3 +46,17 @@ describe("crmCopilotAssessment", () => {
     expect(rows["C. Frågor att utreda vidare"]).toContain(r.openQuestions.at(-1)!);
   });
 });
+
+import { pdfContent } from "@/lib/crmCopilotAssessment";
+describe("PDF-innehåll", () => {
+  it("A, B och C blir egna avsnitt med en punkt per post och inga beräkningar nämns", () => {
+    const r = assess(salesforce);
+    const { values, pdf } = pdfContent(salesforce, r);
+    expect(Object.keys(values)).toHaveLength(7);
+    expect(pdf.sections.map((s) => s.items.length)).toEqual([r.observations.length, r.paths.length, r.openQuestions.length]);
+    expect(pdf.note).not.toMatch(/indikativa/);
+  });
+  it("systemägarskap formuleras nyanserat", () => {
+    expect(assess(d365Adoption).observations.join(" ")).toContain("systemägarskapet behöver tydliggöras");
+  });
+});
