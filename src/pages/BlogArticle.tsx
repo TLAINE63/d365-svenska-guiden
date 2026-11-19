@@ -5,6 +5,7 @@ import ContinueEvaluation from "@/components/ContinueEvaluation";
 import { getArticleMicrosoftSources } from "@/lib/guideSources";
 import EditorialSource from "@/components/EditorialSource";
 import ContextualCta from "@/components/ContextualCta";
+import CrmCopilotAssessmentCard from "@/components/crm/CrmCopilotAssessmentCard";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
@@ -366,6 +367,8 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
                 </aside>
               );
             })()}
+
+            {article.slug === "dynamics-365-flyttar-in-i-copilot" && <div className="-mx-4 sm:mx-0 mt-12"><CrmCopilotAssessmentCard sourcePage="/artiklar/dynamics-365-flyttar-in-i-copilot/" /></div>}
 
             <ContextualCta
               eyebrow={article.category}

@@ -328,7 +328,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/branscher/livsmedel-processindustri/": "2026-11-16",
   "/branscher/life-science-medtech/": "2026-11-16",
   "/branscher/offentlig-sektor/": "2026-11-16",
-  "/crm/": "2026-11-13",
+  "/crm/": "2026-11-19",
   "/d365sales/": "2026-11-19",
   "/d365customerservice/": "2026-11-19",
   "/d365fieldservice/": "2026-11-19",

@@ -18,6 +18,7 @@ import ProductHero from "@/components/ProductHero";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import ShortAnswer from "@/components/ShortAnswer";
 import CrmBuyerGuideIntro from "@/components/crm/CrmBuyerGuideIntro";
+import CrmCopilotAssessmentCard from "@/components/crm/CrmCopilotAssessmentCard";
 import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -266,6 +267,7 @@ const CRM = () => {
   <CrmBuyerGuideIntro />
   <EditorialAssessment assessment="crm" />
   <FitModel model="crm" heading="Vad avgör valet?" />
+  <CrmCopilotAssessmentCard sourcePage="/crm/" />
 
   {/* CRM-nav (Thomas 2026-11-04): behov först, produktnamn sedan, länkar till varje modulsida. */}
   <section id="crm-appar" className="py-10 sm:py-12 bg-background scroll-mt-24">

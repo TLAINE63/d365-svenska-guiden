@@ -350,3 +350,6 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 - [ ] PDF med verksamhetsvärdering väntar
 - [x] AI-hubb /ai (sprint 1)
 - [x] Ignite-artikel som huvudnyhet, Microsofts original som primärkälla
+
+- [x] Paket 3: Copilot/CRM-beslutsunderlag på /crm/ och Ignite-artikeln (byggt och testat 2026-11-19)
+- [ ] Paket 3: publicering väntar på Thomas godkännande
