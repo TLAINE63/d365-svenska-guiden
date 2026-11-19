@@ -79,3 +79,10 @@ describe("flerval (Thomas 2026-11-19)", () => {
     expect(keys).toContain("change");
   });
 });
+
+describe("varför-frågan (Thomas 2026-11-19)", () => {
+  it("automatisering leder till Copilot-vägen", () => {
+    const r = assess2({ goal: ["automate"], base: "light", m365: "no", process: "simple", friction: ["info"], integration: ["none"], maturity: "standard" });
+    expect(r.paths.map((p) => p.key)).toContain("copilot_workspace");
+  });
+});

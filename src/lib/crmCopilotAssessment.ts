@@ -19,14 +19,15 @@ export const EXCLUSIVE = new Set(["unknown", "none"]);
 const UNKNOWN: Option = { value: "unknown", label: "Vet inte" };
 
 export const QUESTIONS: Question[] = [
-  { key: "goal", label: "Vad vill ni främst förbättra?", multi: true, options: [
-    { value: "admin", label: "Minska administration och dubbelregistrering för säljarna" },
-    { value: "adoption", label: "Få säljarna att använda CRM mer konsekvent" },
-    { value: "pipeline", label: "Förbättra pipeline, prognoser och beslutsunderlag" },
-    { value: "customer_view", label: "Få en samlad kundbild över historik, avtal och dialog" },
-    { value: "erp", label: "Koppla samman försäljningen med affärssystem (ERP) och leverans" },
-    { value: "switch", label: "Byta från ett befintligt CRM till en modernare lösning" },
-    { value: "copilot", label: "Undersöka vad Copilot och agenter kan förändra i arbetssättet" },
+  { key: "goal", label: "Vilket av följande beskriver bäst varför ni tittar på CRM, Copilot eller AI just nu?", multi: true, options: [
+    { value: "switch", label: "Vi funderar på att byta CRM" },
+    { value: "adoption", label: "Vi har CRM men användningen är låg" },
+    { value: "admin", label: "Vi vill minska administrationen för säljarna" },
+    { value: "pipeline", label: "Vi vill förbättra prognoserna och beslutsunderlaget" },
+    { value: "customer_view", label: "Vi vill få en samlad kundbild" },
+    { value: "erp", label: "Vi vill koppla ihop CRM och affärssystem (ERP) bättre" },
+    { value: "copilot", label: "Vi vill förstå vad Copilot förändrar" },
+    { value: "automate", label: "Vi vill automatisera fler arbetsmoment" },
     UNKNOWN,
   ] },
   { key: "base", label: "Vad har ni för CRM-grund idag?", options: [
@@ -147,6 +148,7 @@ export function assess(a: Answers): AssessmentResult {
       : "Era svar tyder på att kopplingar till andra system, som kundservice, marknadsföring, e-handel eller dokument, är en viktig del av beslutet.");
   if (is(a, "friction", "data") || is(a, "friction", "forecast")) obs.push("Era svar tyder på att kunddatans kvalitet påverkar både prognoser och vad AI-funktioner kan ge, och behöver därför ses över tidigt.");
   if (vals(a, "goal").filter((v) => v !== "unknown").length > 1) obs.push("Ni har flera mål samtidigt. Det kan vara klokt att enas om vilket mål som ska styra de första stegen.");
+  if (is(a, "goal", "automate")) obs.push("Era svar tyder på intresse för att automatisera arbetsmoment. Det kan vara relevant att först undersöka vad standardfunktioner klarar innan egna agenter byggs.");
   if (is(a, "maturity", "no_owner")) obs.push("Era svar visar att systemägarskapet behöver tydliggöras. Det är en viktig förutsättning för att få bättre användning av CRM och Copilot.");
   if (limited) obs.push("Många svar är \"Vet inte\". Underlaget blir därför översiktligt och pekar främst på vad som behöver klargöras först.");
 
@@ -163,7 +165,7 @@ export function assess(a: Answers): AssessmentResult {
   if ((is(a, "base", "none") || is(a, "base", "light") || is(a, "base", "unknown")) && (structuredNeed || is(a, "goal", "switch"))) add(P("evaluate_crm", `Utvärdera CRM-alternativ, däribland ${SALES}`,
     "Det kan vara relevant att jämföra lösningar utifrån er säljprocess, integrationer och förmåga att förvalta, inte utifrån ett enskilt produktnamn.",
     [{ label: "CRM-guiden", to: "/crm/" }, { label: `Om ${SALES}`, to: "/d365sales/" }]));
-  if (adminPain || is(a, "goal", "copilot") || is(a, "m365", "active") || is(a, "m365", "pilot")) add(P("copilot_workspace", "Undersök hur Copilot kan minska administrationen",
+  if (adminPain || is(a, "goal", "copilot") || is(a, "goal", "automate") || is(a, "m365", "active") || is(a, "m365", "pilot")) add(P("copilot_workspace", "Undersök hur Copilot kan minska administrationen",
     `Det kan vara relevant att undersöka om säljarna kan arbeta mer i Outlook och Teams. Skilj mellan ${M365C} och Copilot-funktioner kopplade till CRM, och kontrollera vad som faktiskt finns tillgängligt för er.`,
     [{ label: "AI och Copilot i Dynamics\u00A0365", to: "/ai/" }]));
   if (needsIntegration) add(P("integration", is(a, "integration", "advanced") ? "Kartlägg integrations-, ISV- och branschkrav" : ((is(a, "integration", "basic") || is(a, "goal", "erp")) ? "Kartlägg kopplingen till affärssystemet (ERP)" : "Kartlägg kopplingarna till andra system"),
@@ -181,7 +183,7 @@ export function assess(a: Answers): AssessmentResult {
   qs.push(`Vilka licenser och roller behövs? Kontrollera mot Microsofts aktuella dokumentation vad som ingår i ${M365C}, i ${SALES} och i Copilot-funktioner med särskilda villkor.`);
   qs.push("Vad blir totalkostnaden, inklusive införande, anpassning, integration och löpande förvaltning?");
   if (adminPain || is(a, "base", "d365")) qs.push("Vem ansvarar för att arbetssättet etableras så att verktygen faktiskt används?");
-  if (is(a, "m365", "active") || is(a, "m365", "pilot") || is(a, "goal", "copilot")) qs.push("Är kunddatan tillräckligt komplett och behörighetsstyrd för att AI-funktioner ska ge tillförlitliga svar?");
+  if (is(a, "m365", "active") || is(a, "m365", "pilot") || is(a, "goal", "copilot") || is(a, "goal", "automate")) qs.push("Är kunddatan tillräckligt komplett och behörighetsstyrd för att AI-funktioner ska ge tillförlitliga svar?");
   if (is(a, "base", "other_crm")) qs.push("Vad kostar och innebär en migrering av data, integrationer och anpassningar från nuvarande CRM?");
   if (needsIntegration) qs.push("Vilka data ska synkas med affärssystemet, i vilken riktning och hur ofta?");
   for (const q of QUESTIONS) if (is(a, q.key, "unknown")) qs.push(`Ej besvarat: ${q.label.replace(/\?$/, "")}. Ta reda på detta inför nästa steg.`);
