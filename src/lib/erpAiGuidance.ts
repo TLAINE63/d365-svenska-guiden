@@ -21,25 +21,35 @@ export const FSCM_CONTROL_LEVELS = [
 /** Faktorer som avgör lämplig kontrollnivå. */
 export const FSCM_CONTROL_FACTORS = ["Risk och belopp", "Behörigheter och rollfördelning", "Regelverk och revision", "Hur väl processen är beskriven"];
 
-export type BcAvailability = "standard" | "activate" | "consumption" | "preview" | "partner";
-export const BC_AVAILABILITY_LABEL: Record<BcAvailability, string> = {
-  standard: "Standardfunktion",
-  activate: "Behöver aktiveras",
-  consumption: "Förbrukningsbaserad kostnad",
-  preview: "Förhandsversion",
-  partner: "Partner eller ISV",
+/** Fyra separata dimensioner per funktion; en funktion bär flera markeringar samtidigt. */
+export type BcLicense = "included" | "credits" | "partner";
+export type BcMaturity = "ga" | "preview";
+export const BC_LICENSE_LABEL: Record<BcLicense, string> = {
+  included: "Ingår i licensen",
+  credits: "Kräver Copilot Credits",
+  partner: "Partner- eller ISV-licens kan tillkomma",
 };
+export const BC_MATURITY_LABEL: Record<BcMaturity, string> = { ga: "Allmänt tillgänglig (GA)", preview: "Förhandsversion (Preview)" };
+export const BC_ACTIVATION_LABEL = "Kräver administratörsaktivering";
 
-export interface BcCapability { title: string; text: string; tags: BcAvailability[]; example?: string; sourceUrl?: string }
+export interface BcCapability {
+  title: string; text: string;
+  license: BcLicense[];
+  /** true bara när Microsoft Learn anger att en administratör måste slå på funktionen. */
+  requiresActivation: boolean;
+  /** Utelämnas när mognadsgraden inte är en fast egenskap (t.ex. partnerlösningar). */
+  maturity?: BcMaturity;
+  example?: string; sourceUrl?: string;
+}
 
 /** Business Central: status per funktion enligt Microsoft Learn (VERIFIED_AT). */
 export const BC_CAPABILITIES: BcCapability[] = [
-  { title: "Produkt- och marknadstexter", text: "Copilot föreslår texter för artiklar. En administratör aktiverar funktionen.", tags: ["standard", "activate"], example: "bc-skapa-produkttext", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/item-marketing-text" },
-  { title: "Bankavstämning med Copilot", text: "Copilot föreslår matchningar mellan bankrader och poster. Användaren granskar innan bokföring.", tags: ["preview", "activate"], example: "bc-bankavstamning", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/bank-reconciliation-with-copilot" },
-  { title: "Analys av listor med naturligt språk", text: "Beskriv analysen med egna ord. Kräver aktivering och behörighet till analysläget.", tags: ["preview", "activate"], example: "bc-analysera-lista", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/analysis-assist" },
-  { title: "Chatt med Copilot i Business Central", text: "Fråga efter kunder, order, fakturor och hur processer fungerar.", tags: ["preview"], example: "bc-hitta-faktura", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/chat-with-copilot" },
-  { title: "Sales Order Agent", text: "Agenten tolkar kundförfrågningar och skapar orderutkast. Utgående meddelanden granskas av en användare. Användningen debiteras med Copilot Credits.", tags: ["consumption", "activate"], example: "bc-sales-order-agent", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/sales-order-agent" },
-  { title: "Egna agenter och branschtillägg", text: "Agenter för era egna processer byggs av partner eller ISV, ofta med Copilot Studio. Licens och förbrukning beror på lösningen.", tags: ["partner", "consumption"] },
+  { title: "Produkt- och marknadstexter", text: "Copilot föreslår texter för artiklar. En administratör aktiverar funktionen.", license: ["included"], requiresActivation: true, maturity: "ga", example: "bc-skapa-produkttext", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/item-marketing-text" },
+  { title: "Bankavstämning med Copilot", text: "Copilot föreslår matchningar mellan bankrader och poster. Användaren granskar innan bokföring.", license: ["included"], requiresActivation: true, maturity: "preview", example: "bc-bankavstamning", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/bank-reconciliation-with-copilot" },
+  { title: "Analys av listor med naturligt språk", text: "Beskriv analysen med egna ord. Kräver aktivering och behörighet till analysläget.", license: ["included"], requiresActivation: true, maturity: "preview", example: "bc-analysera-lista", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/analysis-assist" },
+  { title: "Chatt med Copilot i Business Central", text: "Fråga efter kunder, order, fakturor och hur processer fungerar.", license: ["included"], requiresActivation: false, maturity: "preview", example: "bc-hitta-faktura", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/chat-with-copilot" },
+  { title: "Sales Order Agent", text: "Agenten tolkar kundförfrågningar och skapar orderutkast. Utgående meddelanden granskas av en användare. Användningen debiteras med Copilot Credits.", license: ["credits"], requiresActivation: true, example: "bc-sales-order-agent", sourceUrl: "https://learn.microsoft.com/sv-se/dynamics365/business-central/sales-order-agent" },
+  { title: "Egna agenter och branschtillägg", text: "Agenter för era egna processer byggs av partner eller ISV, ofta med Copilot Studio. Licens och förbrukning beror på lösningen.", license: ["partner", "credits"], requiresActivation: false },
 ];
 
 /** Kontrollfrågorna återanvänds ordagrant från agentReadiness.ts. */

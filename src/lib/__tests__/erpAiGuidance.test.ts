@@ -10,11 +10,20 @@ describe("erpAiGuidance", () => {
   it("preview examples are never labelled as plain standard in BC", () => {
     for (const c of BC_CAPABILITIES) {
       const ex = c.example ? exampleBySlug(c.example) : undefined;
-      if (ex && isPreviewExample(ex)) expect(c.tags).toContain("preview");
+      if (ex && isPreviewExample(ex)) expect(c.maturity).toBe("preview");
     }
   });
   it("Sales Order Agent is marked as consumption-billed", () => {
-    expect(BC_CAPABILITIES.find((c) => c.example === "bc-sales-order-agent")!.tags).toContain("consumption");
+    expect(BC_CAPABILITIES.find((c) => c.example === "bc-sales-order-agent")!.license).toEqual(["credits"]);
+  });
+  it("bank reconciliation is included in the licence yet separately preview and activation-gated", () => {
+    const c = BC_CAPABILITIES.find((x) => x.example === "bc-bankavstamning")!;
+    expect(c.license).toEqual(["included"]);
+    expect(c.requiresActivation).toBe(true);
+    expect(c.maturity).toBe("preview");
+  });
+  it("included and Copilot Credits are never combined on a standard feature", () => {
+    for (const c of BC_CAPABILITIES) if (c.license.includes("included")) expect(c.license).toHaveLength(1);
   });
   it("no BC capability claims Copilot is free", () => {
     for (const c of BC_CAPABILITIES) expect(c.text).not.toMatch(/gratis|utan extra kostnad|kostnadsfri/i);

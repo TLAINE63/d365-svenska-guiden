@@ -1,7 +1,7 @@
 import { ExternalLink, Sparkles } from "lucide-react";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import ExampleLinks from "./ExampleLinks";
-import { BC_AVAILABILITY_LABEL, BC_CAPABILITIES, BC_READINESS_QUESTIONS, VERIFIED_AT } from "@/lib/erpAiGuidance";
+import { BC_ACTIVATION_LABEL, BC_CAPABILITIES, BC_LICENSE_LABEL, BC_MATURITY_LABEL, BC_READINESS_QUESTIONS, VERIFIED_AT } from "@/lib/erpAiGuidance";
 
 export default function BcAiValueSection() {
   return (
@@ -13,13 +13,19 @@ export default function BcAiValueSection() {
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {BC_CAPABILITIES.map((c) => (
             <div key={c.title} className="flex flex-col rounded-xl border border-border bg-card p-5">
-              <ul className="flex flex-wrap gap-1.5">
-                {c.tags.map((t) => <li key={t} className="rounded bg-muted px-2 py-0.5 text-xs font-medium text-foreground">{BC_AVAILABILITY_LABEL[t]}</li>)}
-              </ul>
+              <dl className="space-y-1 text-xs">
+                <div className="flex flex-wrap items-center gap-1.5"><dt className="sr-only">Licens och kostnad</dt>{c.license.map((l) => <dd key={l} className="rounded bg-muted px-2 py-0.5 font-medium text-foreground">{BC_LICENSE_LABEL[l]}</dd>)}</div>
+                {(c.requiresActivation || c.maturity) && (
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {c.requiresActivation && <><dt className="sr-only">Aktivering</dt><dd className="rounded border border-border px-2 py-0.5 text-muted-foreground">{BC_ACTIVATION_LABEL}</dd></>}
+                    {c.maturity && <><dt className="sr-only">Mognadsgrad</dt><dd className="rounded border border-border px-2 py-0.5 text-muted-foreground">{BC_MATURITY_LABEL[c.maturity]}</dd></>}
+                  </div>
+                )}
+              </dl>
               <h3 className="mt-3 font-semibold text-card-foreground">{c.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{c.text}</p>
               {c.example && <ExampleLinks slugs={[c.example]} />}
-              {c.sourceUrl && <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground hover:underline">Källa: Microsoft Learn <ExternalLink className="h-3 w-3" aria-hidden /></a>}
+              {c.sourceUrl && <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground hover:underline">Källa: Microsoft Learn, kontrollerad <span className="whitespace-nowrap">{VERIFIED_AT}</span> <ExternalLink className="h-3 w-3" aria-hidden /></a>}
             </div>
           ))}
         </div>
