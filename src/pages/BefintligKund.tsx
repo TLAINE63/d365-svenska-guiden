@@ -141,6 +141,27 @@ const BefintligKund = () => (
           ))}
         </div>
 
+        <section id="copilot-styrning" aria-labelledby="copilot-styrning-rubrik" className="mt-12 rounded-lg border border-border bg-secondary/40 p-6 sm:p-8 scroll-mt-32">
+          <Sparkles className="h-6 w-6 text-accent mb-3" aria-hidden />
+          <h2 id="copilot-styrning-rubrik" className="text-2xl font-bold text-foreground mb-2">När Dynamics flyttar in i Copilot: vem får se och göra vad?</h2>
+          <p className="text-muted-foreground mb-5">
+            {nowrapBrand("När medarbetare börjar arbeta med Dynamics 365-data från Microsoft 365 och Teams i stället för inne i systemet blir styrningen en ledningsfråga. Tre frågor att ta ställning till innan ni breddar användningen:")}
+          </p>
+          <ol className="grid gap-4 md:grid-cols-3">
+            {[
+              { t: "Vilka Dynamics-data får Copilot komma åt för respektive användare?", d: "Bestäm vilka uppgifter varje roll ska kunna se och sammanfatta, och vem som äger det beslutet." },
+              { t: "Vilka åtgärder får Copilot föreslå respektive genomföra?", d: "Skilj på vad som bara får presenteras som information och vad som får ändra uppgifter i systemet." },
+              { t: "Vilka förändringar kräver godkännande och hur blir de spårbara?", d: "Klargör vem som godkänner, hur det dokumenteras och hur ni följer upp i efterhand." },
+            ].map((x, i) => (
+              <li key={x.t} className="rounded-md border border-border bg-card p-4">
+                <span className="text-xs font-semibold uppercase tracking-wide text-accent">Fråga {i + 1}</span>
+                <h3 className="font-semibold text-foreground mt-1 mb-1">{x.t}</h3>
+                <p className="text-sm text-muted-foreground">{x.d}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section className="mt-12 rounded-lg border border-border bg-card p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-foreground mb-2">Vill ni utvärdera partnersamarbetet?</h2>
           <p className="text-muted-foreground mb-6 max-w-3xl">

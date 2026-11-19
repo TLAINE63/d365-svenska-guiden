@@ -370,6 +370,19 @@ export const GUIDE_CONTENT: Record<string, GuideContent> = {
         ]
       },
       {
+        "type": "callout",
+        "title": "Tre frågor att ställa till en Dynamics-partner om AI och Copilot",
+        "items": [
+          "Kan ni visa hur Dynamics-data används från Microsoft 365 och Copilot, inte bara Copilot-funktioner inne i Dynamics?",
+          "Hur säkerställer ni behörigheter, datagränser och godkännandeflöden när agenter och Copilot får agera mot affärsdata?",
+          "Vilken kompetens har ni inom Dataverse, Power Platform eller Copilot Studio och Microsoft 365, utöver själva Dynamics-applikationen?"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Frågorna är ett stöd för er egen bedömning av kompetensen. De påverkar inte i vilken ordning partners visas på d365.se."
+      },
+      {
         "type": "h2",
         "text": "Strategisk partner vs. teknisk leverantör för komplexa organisationer"
       },
