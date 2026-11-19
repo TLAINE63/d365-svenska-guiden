@@ -7,6 +7,7 @@ import { FSCM_SECTIONS } from "@/components/product/productSectionNavItems";
 import SystemvalHandoffNote from "@/components/SystemvalHandoffNote";
 import PartnerSwitchCta from "@/components/PartnerSwitchCta";
 import AiExamplesEntry from "@/components/ai-examples/AiExamplesEntry";
+import FscmAiControlSection from "@/components/erp-ai/FscmAiControlSection";
 import ProductNextSteps from "@/components/product/ProductNextSteps";
 import FscmDecisionGuide from "@/components/product/FscmDecisionGuide";
 import BasicProfilesDirectory from "@/components/BasicProfilesDirectory";
@@ -426,136 +427,7 @@ const FinanceSupplyChain = () => {
 
 
 
- {/* AI & Agents Section for Finance & Supply Chain */}
- <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
- <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div>
- <div className="text-center mb-8 sm:mb-10">
- <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
- AI & Agenter för Finance & Supply Chain Management (F&O)
- </h2>
- <p className="text-lg text-muted-foreground">
- Enterprise AI för komplex finans- och supply chain-hantering
- </p>
- </div>
-
- <div className="space-y-6">
- {/* Copilot Features */}
- <div className="bg-card rounded p-6 sm:p-8 border border-border">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">👤</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot för Finance & Supply Chain Management (F&O)</h3>
- <p className="text-muted-foreground mb-4">
- AI-assistent för ekonomi, leveranskedja och produktion
- </p>
- </div>
- </div>
- <div className="grid sm:grid-cols-2 gap-4 text-sm">
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Avancerad ekonomisk analys och prognoser</li>
- <li>• Identifierar avvikelser i transaktioner</li>
- <li>• Supply chain-insikter och rekommendationer</li>
- <li>• Prediktiva underhållsförslag</li>
- </ul>
- </div>
- <div>
- <ul className="space-y-2 text-muted-foreground">
- <li>• Genererar budgetförslag</li>
- <li>• Analyserar leverantörsprestanda</li>
- <li>• Optimerar produktionsscheman</li>
- <li>• Förutsäger kassaflöde</li>
- </ul>
- </div>
- </div>
- </div>
-
- {/* Agents Features */}
- <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded p-6 sm:p-8 border-2 border-primary/30">
- <div className="flex items-start gap-4 mb-4">
- <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
- <span className="text-xl">⚡</span>
- </div>
- <div>
- <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain Management (F&O)</h3>
- <p className="text-muted-foreground mb-4">
- Autonoma AI-system för enterprise-processer
- </p>
- </div>
- </div>
- <div className="space-y-4">
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>💰</span> Treasury Management Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Övervakar kassaflöde globalt i realtid, optimerar likviditet mellan juridiska enheter, 
- hanterar valutaexponering automatiskt och placerar överskottslikvid enligt policy
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📊</span> Financial Planning Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Skapar rullande prognoser automatiskt, identifierar trender och avvikelser, 
- distribuerar budgetar mellan kostnadsställen och varnar för budgetöverskridanden proaktivt
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>📦</span> Supply Chain Orchestration Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Optimerar hela leveranskedjan från råmaterial till slutkund, hanterar störningar proaktivt, 
- omdirigerar transporter automatiskt och balanserar lager mellan platser baserat på efterfrågan
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🏭</span> Production Optimization Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Schemalägger produktion för maximal effektivitet, justerar planer baserat på orderändringar och kapacitet, 
- koordinerar med leverantörer för just-in-time leverans och minimerar stillestånd
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🤝</span> Vendor Management Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Utvärderar leverantörsprestanda kontinuerligt, förhandlar priser och villkor automatiskt enligt ramar, 
- diversifierar leverantörsbas för riskreducering och identifierar alternativa källor proaktivt
- </p>
- </div>
- <div className="bg-card/50 rounded-lg p-4">
- <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
- <span>🔧</span> Predictive Maintenance Agent
- </h4>
- <p className="text-sm text-muted-foreground">
- Analyserar IoT-data från maskiner för att förutsäga fel, schemalägger underhåll vid optimal tidpunkt, 
- beställer reservdelar automatiskt och minimerar oplanerade produktionsstopp
- </p>
- </div>
- </div>
- </div>
- </div>
-
- <div className="mt-8 text-center">
- <Button asChild size="lg" variant="outline">
- <Link to="/agents/">
- Utforska Agenter för Enterprise
- <span className="ml-2">→</span>
- </Link>
- </Button>
- </div>
- </div>
- </div>
- </section>
+ <FscmAiControlSection />
 
 
  {/* Pricing Section */}
