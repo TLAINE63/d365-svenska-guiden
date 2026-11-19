@@ -1,5 +1,6 @@
 import { useLocation, Link, Navigate, useNavigate } from "react-router-dom";
 import { resolveD365GuidePath } from "@/lib/d365guidePaths";
+import { resolveNotFoundAlias } from "@/lib/notFoundAliases";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -16,7 +17,7 @@ const NotFound = () => {
   const viewed = useRef(false);
   // Besökare från d365guide.com:s språkväljare landar på engelska/norska/
   // danska/finska adresser; led dem till motsvarande svenska sida.
-  const guideTarget = resolveD365GuidePath(location.pathname);
+  const guideTarget = resolveD365GuidePath(location.pathname) ?? resolveNotFoundAlias(location.pathname);
   const redirectTo =
     guideTarget && guideTarget.replace(/\/+$/, "") !== location.pathname.replace(/\/+$/, "")
       ? guideTarget

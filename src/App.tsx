@@ -406,6 +406,7 @@ const AppShell = () => {
           <Route path="/priser" element={<Priser />} />
           <Route path="/kostnad/resultat?" element={<Kostnad />} />
           <Route path="/implementationskalkylator" element={<ImplementationCalculator />} />
+          <Route path="/businesscentral/kostnad" element={<RedirectTo to="/kostnad" />} />
           <Route path="/kostnadskalkylator" element={<RedirectTo to="/implementationskalkylator" />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Navigate to="/upphandlingsguiden/" replace />} />
           <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />

@@ -119,6 +119,9 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/dynamics-365-customer-engagement-crm", to: "/crm",            intendedStatus: 301 },
   { from: "/dynamics-365-erp-business-central",    to: "/businesscentral", intendedStatus: 301 },
 
+  // Gammal BC-kostnadsadress som fortfarande finns i Google (404-loggen 2026-11)
+  { from: "/businesscentral/kostnad", to: "/kostnad", intendedStatus: 301 },
+
   // Beslutsmognad – kortat namn (gammalt: beslutsmognadsindex)
   { from: "/beslutsmognadsindex",            to: "/beslutsmognad",           intendedStatus: 301 },
   { from: "/beslutsmognadsindex/diagnostik", to: "/beslutsmognad/diagnostik", intendedStatus: 301 },
