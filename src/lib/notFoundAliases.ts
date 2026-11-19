@@ -23,8 +23,16 @@ function distance(a: string, b: string): number {
   return d[a.length][b.length];
 }
 
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
 export function resolveNotFoundAlias(pathname: string): string | null {
-  const key = decodeURIComponent(pathname).toLowerCase().replace(/^\/+|[/.,:;!]+$/g, "");
+  const key = safeDecode(pathname).toLowerCase().replace(/^\/+|[/.,:;!]+$/g, "");
   if (!key) return null;
   if (EXACT[key]) return EXACT[key];
   if (key.includes("/")) return null;

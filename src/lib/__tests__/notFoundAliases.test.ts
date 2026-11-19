@@ -14,4 +14,7 @@ describe("404-alias", () => {
   it("okända adresser förblir 404", () => {
     for (const p of ["/ledning/", "/YnVzaW5lc3/", "/businesscentral.se:", "/partner/", "/program/"]) expect(r(p)).toBeNull();
   });
+  it("trasig procentkodning kraschar inte", () => {
+    for (const p of ["/rabatt-50%", "/rabatt-50%/", "/foo%zz", "/%", "/%25", "/partner%2Fprogram"]) expect(r(p)).toBeNull();
+  });
 });
