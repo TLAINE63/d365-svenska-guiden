@@ -1,7 +1,7 @@
 import { ExternalLink, Sparkles } from "lucide-react";
 import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import ExampleLinks from "./ExampleLinks";
-import { BC_ACTIVATION_LABEL, BC_CAPABILITIES, BC_LICENSE_LABEL, BC_MATURITY_LABEL, BC_READINESS_QUESTIONS, VERIFIED_AT } from "@/lib/erpAiGuidance";
+import { BC_ACTIVATION_LABEL, BC_CAPABILITIES, BC_LICENSE_LABEL, BC_LICENSE_SOURCE_URL, BC_MATURITY_LABEL, BC_READINESS_QUESTIONS, VERIFIED_AT } from "@/lib/erpAiGuidance";
 
 export default function BcAiValueSection() {
   return (
@@ -25,7 +25,8 @@ export default function BcAiValueSection() {
               <h3 className="mt-3 font-semibold text-card-foreground">{c.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{c.text}</p>
               {c.example && <ExampleLinks slugs={[c.example]} />}
-              {c.sourceUrl && <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground hover:underline">Källa: Microsoft Learn, kontrollerad <span className="whitespace-nowrap">{VERIFIED_AT}</span> <ExternalLink className="h-3 w-3" aria-hidden /></a>}
+              {c.license.includes("included") && <a href={BC_LICENSE_SOURCE_URL} target="_blank" rel="noopener noreferrer" className="mt-auto pt-3 inline-flex items-center gap-1 text-xs text-muted-foreground hover:underline">Licens: Microsoft Learn, Copilot-översikt <ExternalLink className="h-3 w-3" aria-hidden /></a>}
+              {c.sourceUrl && <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className={`${c.license.includes("included") ? "pt-1" : "mt-auto pt-3"} inline-flex items-center gap-1 text-xs text-muted-foreground hover:underline`}>Källa: Microsoft Learn, kontrollerad <span className="whitespace-nowrap">{VERIFIED_AT}</span> <ExternalLink className="h-3 w-3" aria-hidden /></a>}
             </div>
           ))}
         </div>

@@ -16,11 +16,15 @@ describe("erpAiGuidance", () => {
   it("Sales Order Agent is marked as consumption-billed", () => {
     expect(BC_CAPABILITIES.find((c) => c.example === "bc-sales-order-agent")!.license).toEqual(["credits"]);
   });
-  it("bank reconciliation is included in the licence yet separately preview and activation-gated", () => {
+  it("bank reconciliation: included, active by default, no unverified maturity label", () => {
     const c = BC_CAPABILITIES.find((x) => x.example === "bc-bankavstamning")!;
     expect(c.license).toEqual(["included"]);
-    expect(c.requiresActivation).toBe(true);
-    expect(c.maturity).toBe("preview");
+    expect(c.requiresActivation).toBe(false);
+    expect(c.maturity).toBeUndefined();
+  });
+  it("only chat is labelled preview, as Microsoft Learn states explicitly", () => {
+    expect(BC_CAPABILITIES.filter((c) => c.maturity === "preview").map((c) => c.example)).toEqual(["bc-hitta-faktura"]);
+    expect(BC_CAPABILITIES.find((c) => c.example === "bc-sales-order-agent")!.requiresActivation).toBe(true);
   });
   it("included and Copilot Credits are never combined on a standard feature", () => {
     for (const c of BC_CAPABILITIES) if (c.license.includes("included")) expect(c.license).toHaveLength(1);
