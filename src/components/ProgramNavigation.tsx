@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { safeDecode } from "@/lib/safeDecode";
 
 type ProgramNavigationProps = {
   audience: "partners" | "isv";
@@ -24,7 +25,7 @@ export default function ProgramNavigation({ audience, sections, action }: Progra
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.slice(1));
+    const id = safeDecode(window.location.hash.slice(1));
     if (!id || !sections.some((s) => s.id === id)) return;
     const t = window.setTimeout(() => scrollToSection(id, barRef.current, false), 100);
     return () => window.clearTimeout(t);
@@ -35,7 +36,7 @@ export default function ProgramNavigation({ audience, sections, action }: Progra
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement | null)?.closest?.("a[href^='#']");
       if (!a || barRef.current?.contains(a)) return;
-      const id = decodeURIComponent((a.getAttribute("href") ?? "").slice(1));
+      const id = safeDecode((a.getAttribute("href") ?? "").slice(1));
       if (!sections.some((s) => s.id === id)) return;
       e.preventDefault();
       window.history.replaceState(null, "", `#${id}`);

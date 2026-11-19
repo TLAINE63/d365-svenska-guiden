@@ -9,6 +9,7 @@
  * Slug-tabellen speglar D365Guide:s routeSlugs.ts (en/no/dk/fi -> sv) men
  * pekar på d365.se:s faktiska adresser.
  */
+import { safeDecode } from "@/lib/safeDecode";
 
 const LOCALE_PREFIXES = new Set(["en", "no", "dk", "fi", "sv"]);
 
@@ -114,14 +115,6 @@ function fill(template: string, params: Record<string, string>): string {
       return key === "hub" ? HUB_ALIASES[value] ?? value : value;
     })
     .join("/");
-}
-
-function safeDecode(s: string): string {
-  try {
-    return decodeURIComponent(s);
-  } catch {
-    return s;
-  }
 }
 
 /**

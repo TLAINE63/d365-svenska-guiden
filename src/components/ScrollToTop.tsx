@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
+import { safeDecode } from "@/lib/safeDecode";
 
 /**
  * Hanterar scrollposition vid navigering. Vid ankarlänkar (t.ex. #partners)
@@ -18,7 +19,7 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     if (!hash) return;
-    const id = decodeURIComponent(hash.replace("#", ""));
+    const id = safeDecode(hash.replace("#", ""));
     return scrollToAnchorWhenReady(id);
   }, [pathname, hash]);
 

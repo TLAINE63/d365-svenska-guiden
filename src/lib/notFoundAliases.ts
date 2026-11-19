@@ -2,6 +2,7 @@
  * Felstavningar och kortnamn från 404-loggen som leds till rätt sida i stället för 404.
  * Explicita mål (inga gissningar): stavfel nära ett känt mål och kända kortnamn.
  */
+import { safeDecode } from "@/lib/safeDecode";
 const FUZZY_TARGETS: Record<string, string> = {
   partnerprogram: "/partnerprogram/",
   isvprogram: "/isvprogram/",
@@ -21,14 +22,6 @@ function distance(a: string, b: string): number {
       if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
     }
   return d[a.length][b.length];
-}
-
-function safeDecode(s: string): string {
-  try {
-    return decodeURIComponent(s);
-  } catch {
-    return s;
-  }
 }
 
 export function resolveNotFoundAlias(pathname: string): string | null {

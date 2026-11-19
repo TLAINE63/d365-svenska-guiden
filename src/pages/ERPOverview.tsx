@@ -8,6 +8,7 @@ import EditorialAssessment from "@/components/EditorialAssessment";
 import ContextualCta from "@/components/ContextualCta";
 import ProductHero from "@/components/ProductHero";
 import { scrollToAnchorWhenReady } from "@/lib/anchorScroll";
+import { safeDecode } from "@/lib/safeDecode";
 import FunnelCTA from "@/components/FunnelCTA";
 import PageOfferBanner from "@/components/PageOfferBanner";
 import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
@@ -139,7 +140,7 @@ import AktuelltContextSection from "@/components/aktuellt/AktuelltContextSection
 const ERPOverview = () => {
  useEffect(() => {
  if (window.location.hash) {
- return scrollToAnchorWhenReady(decodeURIComponent(window.location.hash.replace("#", "")));
+ return scrollToAnchorWhenReady(safeDecode(window.location.hash.replace("#", "")));
  } else {
  window.scrollTo(0, 0);
  }
