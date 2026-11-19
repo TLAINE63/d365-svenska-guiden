@@ -62,7 +62,7 @@ const salesFaqsRaw = [
   { question: "Vad är skillnaden mellan Sales Professional och Sales Enterprise?", answer: "Sales Professional ({{price:sales-professional:short}}) är grundlicensen med lead- och affärshantering, kontakthantering och Microsoft 365-integration. Sales Enterprise ({{price:sales-enterprise:short}}) lägger till inbyggd Copilot AI, förutsägande poängsättning av leads, avancerad försäljningsanalys och anpassningsbar automatisering via Power Automate." },
   { question: "Hur fungerar Microsoft Copilot AI i Dynamics 365 Sales?", answer: "Microsoft Copilot i Dynamics 365 Sales analyserar kunddata och ger realtidsrekommendationer för säljare. Det sammanfattar e-postkonversationer, föreslår nästa bästa åtgärd, prioriterar leads baserat på konverteringssannolikhet och kan skriva uppföljningsmail automatiskt. Copilot ingår i Sales Enterprise och Premium utan extra licensavgift." },
   { question: "Kan Dynamics 365 Sales integreras med vårt ERP-system?", answer: "Ja. Dynamics 365 Sales integreras nativt med Microsoft Business Central och Finance & Supply Chain Management, vilket ger säljarna tillgång till lagerdata, orderstatus och kundreskontro direkt i CRM-systemet. Integration med tredjepartsERP-system görs via Power Platform eller Microsofts standardkopplingar." },
-  { question: "Hur lång tid tar det att implementera Dynamics 365 Sales?", answer: "En standardimplementering för 10–30 användare tar normalt 2–3 månader. Större implementeringar med anpassade säljprocesser, systemintegrationer och multipla säljteam tar 4–6 månader. Valet av erfaren Microsoft-partner är avgörande för att hålla tid och budget." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365 Sales?", answer: "Ett avgränsat standardinförande för 10–30 användare med en definierad säljprocess kan ofta genomföras på några månader. Integrationer, datamigrering, anpassningar och er interna kapacitet avgör tidsplanen, och större införanden tar längre tid. Valet av erfaren Microsoft-partner är avgörande för att hålla tid och budget." },
   { question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 Sales?", answer: "Ja, Dynamics 365 Sales implementeras via certifierade Microsoft-partners med CRM-specialistkompetens. En bra partner tar fram rätt konfiguration, utbildar säljteamet och säkerställer adoption. På d365.se kan du filtrera och jämföra certifierade Dynamics 365 Sales-partners i Sverige." },
 ];
 const salesFaqs = salesFaqsRaw.map((f) => ({ ...f, answer: resolvePriceTokens(f.answer) }));
@@ -148,11 +148,27 @@ const D365Sales = () => {
       <ShortAnswer title="Vad är Dynamics 365 Sales? Säljstöd och CRM för säljare">
         <p>Dynamics 365 Sales är Microsofts moderna CRM för B2B-säljorganisationer som vill lyfta sitt sälj från magkänsla och spridda Excel-listor till en gemensam, datadriven affärsprocess.</p>
         <p>Plattformen samlar leads, kontakter, affärsmöjligheter, offerter, order och prognoser i en strukturerad pipeline där varje säljare ser sina viktigaste affärer, nästa-bästa-åtgärd och realtidsinsikter om kundens engagemang.</p>
-        <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator arbetar säljaren kvar i sina vana verktyg samtidigt som all aktivitet automatiskt loggas i CRM:et – inga dubbla registreringar, ingen administrativ friktion.</p>
+        <p>Genom djup integration med Outlook, Teams, Excel, SharePoint och LinkedIn Sales Navigator kan säljaren arbeta kvar i sina vana verktyg. Med rätt integrationer och Copilot-funktioner kan säljarna utföra fler CRM-uppgifter i Outlook, Teams och Copilot. Det kan minska behovet av manuell registrering och göra CRM enklare att använda.</p>
         <p>Inbyggd AI via Microsoft Copilot och nya autonoma säljagenter sammanfattar mejlkonversationer, förbereder mötesunderlag, föreslår rätt budskap baserat på affärsläge och kan till och med kvalificera inkommande leads och boka in möten på egen hand. Resultatet är mer kvalitativ säljtid, snabbare offertprocesser, bättre prognosprecision och en pipeline som faktiskt speglar verkligheten.</p>
         <p>Det blir riktigt vasst när partnern modellerar din specifika säljprocess, dina kvalificeringskriterier och dina nyckeltal – standardinstallationen ger sällan full effekt på egen hand, men rätt konfigurerad blir Dynamics 365 Sales motorn som skalar hela din säljorganisation.</p>
       </ShortAnswer>
       <BuyerFitSection fitKey="sales" />
+      <aside className="container mx-auto max-w-6xl px-4 sm:px-6 my-8" aria-labelledby="copilot-ingang">
+        <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
+          <h2 id="copilot-ingang" className="text-xl sm:text-2xl font-bold text-foreground mb-2">Behöver vi fortfarande ett CRM när säljarna arbetar i Copilot?</h2>
+          <p className="text-muted-foreground mb-3">AI förändrar hur säljarna arbetar, men vad betyder det för behovet av kunddata, pipeline, prognoser och affärsprocesser? Och behöver ni byta CRM eller utveckla det ni redan har?</p>
+          <ul className="text-sm text-muted-foreground space-y-1 mb-4 list-disc pl-5">
+            <li>Behöver säljarna arbeta i CRM-systemet, eller räcker Outlook, Teams och Copilot som arbetsyta?</li>
+            <li>Vad behöver fortfarande finnas bakom Copilot: kunddata, pipeline, affärslogik och behörigheter?</li>
+            <li>Kan ni behålla ert befintliga CRM och använda AI?</li>
+            <li>Ska ni köpa ett etablerat CRM eller bygga själva?</li>
+          </ul>
+          <a href="#copilot-crm-underlag" className="inline-flex items-center gap-1.5 font-semibold text-primary underline underline-offset-4 hover:text-primary/80">
+            Utforska vad Copilot-skiftet betyder för ert CRM-val <ArrowRight className="h-4 w-4" aria-hidden />
+          </a>
+          <p className="text-xs text-muted-foreground mt-4">Skillnaden mellan verktygen: <Link to="/d365sales/matchningstest/" className="underline">matchningstestet</Link> bedömer om Dynamics{"\u00A0"}365 Sales passar er. Copilot-underlaget nedan hjälper er avgöra vilken roll CRM ska ha när Copilot gör delar av jobbet.</p>
+        </div>
+      </aside>
       <EditorialAssessment assessment="sales" />
       <CrmCopilotAssessmentCard sourcePage="/d365sales/" />
 
@@ -217,7 +233,7 @@ const D365Sales = () => {
                   Hur lång tid tar det att implementera Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om du har möjlighet att lägga den interna tiden som ofta krävs och om du har en god bild över hur du vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
+                  Ett avgränsat standardinförande av Dynamics 365 Sales för 10–30 användare kan ofta genomföras på några månader, förutsatt att säljprocessen är definierad. Tiden kan variera beroende på om du har möjlighet att lägga den interna tiden som ofta krävs och om du har en god bild över hur du vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

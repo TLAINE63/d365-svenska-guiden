@@ -79,18 +79,18 @@ export const buyerManuals: Record<string, BuyerManualContent> = {
     notFit: [
       "Säljteam under 5–10 personer utan tydlig process – då är HubSpot eller Pipedrive ofta snabbare och billigare att komma igång med.",
       "Rent transaktionellt B2C där en e-handelsplattform räcker.",
-      "Organisationer där säljcheferna inte är beredda att kräva CRM-disciplin av säljarna – då adopteras systemet aldrig.",
+      "Organisationer där säljledningen inte är beredd att förankra ett gemensamt arbetssätt i CRM – då blir användningen ofta låg.",
       "Bolag som vill ha 'CRM ur lådan' utan att designa stadier, kvalifikationskriterier, prognosmodell och uppföljning.",
     ],
     underestimated: [
       "Datakvalitet i kunder, kontakter och historik – ofta är CRM-projektet i praktiken ett städprojekt först.",
       "Integration mot ERP/orderdata, marknadsplattform och e-post – utan dem blir CRM en isolerad ö.",
-      "Säljarnas faktiska adoption – utbildning, coaching och chefer som följer upp i systemet är 50 % av framgången.",
+      "Säljarnas faktiska adoption – utbildning, coaching och chefer som följer upp i systemet är en avgörande del av framgången.",
       "Anpassning av prognos, pipeline-stadier och Copilot-prompts till din specifika säljmodell.",
     ],
     realCost: [
       "Licens per säljare/månad (Professional/Enterprise/Premium) – Enterprise behövs ofta för Copilot och avancerade flöden.",
-      "Implementation: 150–600 kkr för 10–30 säljare beroende på integrationer och anpassningar.",
+      "Implementation: d365.se uppskattar ett standardinförande för 10–30 användare till cirka 75–300 kkr; integrationer och anpassningar kan göra projektet större (se kostnadsguiden).",
       "Förvaltning, vidareutveckling och löpande coaching av säljteamet – 50–150 kkr/år är vanligt.",
       "Tilläggsmoduler (Sales Premium, Conversation Intelligence, Customer Insights) som ofta läggs till efter ett år.",
     ],
