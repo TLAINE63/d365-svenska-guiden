@@ -274,7 +274,7 @@ const ERPOverview = () => {
   {/* Introduction Section */}
   <section id="comparison-intro" className="py-8 sm:py-12 md:py-16 bg-background scroll-mt-24">
   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-  <div className="max-w-4xl mx-auto text-center">
+  <div className="text-center">
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
   Vilket ERP passar er verksamhet?
   </h2>
@@ -318,7 +318,7 @@ const ERPOverview = () => {
  {/* TAYA: Ärliga fakta */}
  <section className="py-8 sm:py-12 bg-secondary/40">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
+ <div className="w-full">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 text-center">
  Risker att tänka på vid ett ERP-införande
  </h2>
@@ -348,7 +348,7 @@ const ERPOverview = () => {
  {/* Comparison Section */}
  <section id="comparison" className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
+ <div className="w-full">
  <div className="text-center mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
  Jämförelse: Business Central och Finance & Supply Chain Management (F&O)
