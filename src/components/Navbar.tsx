@@ -61,18 +61,21 @@ const MENUS: NavMenu[] = [
     label: "CRM",
     groups: [
       {
-        heading: "Välj system",
+        heading: "Välja eller byta system",
         items: [
-          { label: "Välj CRM-system", path: "/crm/", strong: true },
-          { label: "Välj system för kundservice", path: "/kundservicesystem/" },
+          { label: "Välja eller byta CRM-system", path: "/crm/", strong: true },
+          { label: "Priser & licenser för CRM", path: "/kostnad/" },
+          { label: "Välj system för kundservice & ärenden", path: "/kundservicesystem/" },
+          { label: "Välj system för marketing automation (MA)", path: "/d365marketing" },
           { label: "Välj system för fältservice", path: "/faltservicesystem/" },
+          { label: "Copilot vs CRM: beslutsstöd", path: "/crm/#copilot-crm-underlag" },
         ],
       },
       {
         heading: "Microsofts lösningar",
         items: [
           { label: "Sälj och kundrelationer", product: "Dynamics\u00A0365 Sales", path: "/d365sales" },
-          { label: "Marknadsföring och kunddata", product: "Customer Insights", path: "/d365marketing" },
+          { label: "Marketing automation (MA)", product: "Customer Insights", path: "/d365marketing" },
           { label: "Kundservice och ärenden", product: "Customer Service", path: "/d365customerservice" },
           { label: "Kontaktcenter och kundkommunikation", product: "Contact Center", path: "/d365contactcenter" },
           { label: "Service ute hos kund", product: "Field Service", path: "/d365fieldservice" },
