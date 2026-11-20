@@ -269,7 +269,7 @@ export default function Kostnad() {
 
 
         <section className="py-8 sm:py-12">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="rounded-xl border border-primary/40 bg-card p-6 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Nästa steg</p>
               <h2 className="mt-1 text-2xl sm:text-3xl font-bold text-foreground mb-3">
@@ -295,7 +295,7 @@ export default function Kostnad() {
         <LicenseCostTable />
 
         <section className="py-8 sm:py-12 bg-secondary/30 border-t border-border" id="vanliga-fragor">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
               Vanliga frågor om vad Dynamics 365 kostar
             </h2>

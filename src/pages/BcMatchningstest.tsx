@@ -208,8 +208,8 @@ const BcMatchningstest = () => {
         </div>
       </main>
 
-      {result && showResult && <div className="container mx-auto max-w-4xl px-4 mb-6"><ToolResultNextStep tool="match_bc" product="business-central" entry={{ label: "Matchningstest Business Central", industry: result.segmentLabel || undefined, values: { Segment: result.segmentLabel || "" } }} /></div>}
-      {result && showResult && <BookingOffer placement="matchning-bc" className="container mx-auto max-w-4xl px-4" />}
+      {result && showResult && <div className="container mx-auto max-w-6xl px-4 mb-6"><ToolResultNextStep tool="match_bc" product="business-central" entry={{ label: "Matchningstest Business Central", industry: result.segmentLabel || undefined, values: { Segment: result.segmentLabel || "" } }} /></div>}
+      {result && showResult && <BookingOffer placement="matchning-bc" className="container mx-auto max-w-6xl px-4" />}
       {result && showResult && <SuggestedPartnersCTA product="bc" />}
       <Footer />
     </div>

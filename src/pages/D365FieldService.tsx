@@ -131,7 +131,7 @@ const D365FieldService = () => {
       <BuyerFitSection fitKey="field" />
       <EditorialAssessment assessment="field" />
       <section id="arbetsordersystem" className="py-8 sm:py-10 bg-background scroll-mt-24">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4"><span className="whitespace-nowrap">Microsoft Dynamics 365</span> Field Service som arbetsordersystem</h2>
           <div className="space-y-4 text-muted-foreground mb-10">
             <p>Field Service hanterar hela arbetsorderflödet: från ärende eller serviceavtal till arbetsorder, planering, utförande, tidrapport och fakturaunderlag.</p>
@@ -150,7 +150,7 @@ const D365FieldService = () => {
         </div>
       </section>
       <section className="py-8 bg-background">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
             <h3 className="text-lg font-semibold text-card-foreground mb-2">Boka 20 minuters kostnadsfri rådgivning med Thomas</h3>
             <p className="text-sm text-muted-foreground mb-4">Utvärderar ni arbetsorder- och fältservicesystem? Gå igenom era krav och alternativ på 20 minuter. Ingen partner deltar i samtalet.</p>

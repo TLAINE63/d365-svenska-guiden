@@ -3479,7 +3479,7 @@ const SalesMarketingNeedsAnalysis = () => {
  En CRM-behovsanalys för sälj och marknad klargör hur din pipeline, leadshantering, kampanjer och kunddata ska fungera – innan du jämför verktyg. Vår kostnadsfria analys ger en rekommendation om Dynamics 365 Sales och Customer Insights baserat på din säljmodell, B2B/B2C-fokus och datamognad.
  </ShortAnswer>
 
- <div className="container mx-auto px-4 max-w-4xl">
+ <div className="container mx-auto px-4 max-w-6xl">
  <Card className="border-2 border-crm/30">
  <CardHeader className="text-center bg-gradient-to-r from-crm/10 to-crm/5">
  <div className="flex justify-center mb-4">
@@ -3574,7 +3574,7 @@ const SalesMarketingNeedsAnalysis = () => {
  <main className="pb-12">
  <div className="relative bg-cover bg-center pt-36 pb-10 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
  <div className="absolute inset-0 bg-black/60" />
- <div className="relative container mx-auto px-4 max-w-4xl text-center">
+ <div className="relative container mx-auto px-4 max-w-6xl text-center">
  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
  Behovsanalys Sälj & Marknad
  </h1>
@@ -3583,7 +3583,7 @@ const SalesMarketingNeedsAnalysis = () => {
  </p>
  </div>
  </div>
- <div className="container mx-auto px-4 max-w-4xl">
+ <div className="container mx-auto px-4 max-w-6xl">
 
  <div className="mb-4">
  <div className="flex justify-between items-center mb-1">

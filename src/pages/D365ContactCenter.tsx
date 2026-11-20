@@ -130,7 +130,7 @@ const D365ContactCenter = () => {
       <BuyerFitSection fitKey="contact" />
       <EditorialAssessment assessment="contact" />
       <section id="val-av-kontaktcentersystem" className="py-8 sm:py-10 bg-background scroll-mt-24">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Val av kontaktcentersystem – krav och integrationer</h2>
           <div className="space-y-4 text-muted-foreground">
             <p>Börja kravställningen i kanalerna och volymerna: vilka kanaler ska hanteras (röst, chatt, e-post, sociala medier), hur många agenter arbetar samtidigt och vilka svarstider och SLA ni behöver följa.</p>
@@ -140,7 +140,7 @@ const D365ContactCenter = () => {
         </div>
       </section>
       <section className="py-8 bg-background">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <div className="rounded-lg border border-border bg-card p-5 sm:p-6">
             <h3 className="text-lg font-semibold text-card-foreground mb-2">Planerar ni att modernisera ert kontaktcenter?</h3>
             <p className="text-sm text-muted-foreground mb-4">Boka 20 minuters kostnadsfri rådgivning med Thomas för en genomgång av era krav och alternativ. Ingen partner deltar i samtalet.</p>

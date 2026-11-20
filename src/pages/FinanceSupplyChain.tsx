@@ -278,7 +278,7 @@ const FinanceSupplyChain = () => {
    </section>
 
   <section id="lagerstyrning-wms" className="py-8 sm:py-12 bg-secondary/30 scroll-mt-24">
-   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Affärssystem för lager och logistik: lagerstyrningssystem (WMS) i <span className="whitespace-nowrap">Microsoft Dynamics 365</span></h2>
     <div className="space-y-4 text-muted-foreground">
      <ul className="list-disc pl-5 space-y-1">
@@ -305,7 +305,7 @@ const FinanceSupplyChain = () => {
    </section>
 
   <section id="uppgradera-fran-dynamics-ax" className="py-8 sm:py-12 scroll-mt-24">
-   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Uppgradera från Dynamics AX till <span className="whitespace-nowrap">Dynamics 365</span> Finance &amp; Supply Chain</h2>
     <div className="space-y-4 text-muted-foreground">
      <p>

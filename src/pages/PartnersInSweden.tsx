@@ -167,7 +167,7 @@ export default function PartnersInSweden() {
         </section>
 
         <section className="py-12 sm:py-16">
-          <div className="container mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 text-center sm:px-6">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Find the right partner for your project</h2>
             <p className="mt-3 text-muted-foreground">
               Browse the full directory of partners, or get in touch with d365.se for a buyer-side recommendation.
@@ -186,7 +186,7 @@ export default function PartnersInSweden() {
         </section>
 
         <section className="border-t border-border py-8">
-          <div className="container mx-auto max-w-3xl px-4 text-center text-sm text-muted-foreground sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
             <p>
               How d365.se works: d365.se continuously maps relevant {D365} partners in the Swedish market. Partners without a profile agreement are shown with a basic profile compiled from public sources, while partners with a profile agreement can review and complete their own profile. Which partners match a company depends on relevance and needs. Ownership and interests are disclosed on{" "}
               <Link to="/agande-och-intressen/" className="font-semibold text-primary hover:underline">our transparency page</Link> (in Swedish).

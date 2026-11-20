@@ -4323,7 +4323,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
         En ERP-behovsanalys hjälper dig klargöra vilka processer, integrationer och rapporter ditt affärssystem ska stötta – innan du pratar med leverantörer. Vår kostnadsfria analys ger en rekommendation av lämplig D365-inriktning (Business Central eller Finance & Supply Chain Management) baserat på bransch, storlek och komplexitet.
       </ShortAnswer>
 
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-6xl">
             {/* Success Message */}
             <Card className="text-center mb-8">
               <CardContent className="pt-8 pb-6">
@@ -4630,7 +4630,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
       <main className="flex-grow pb-12">
         <div className="relative bg-cover bg-center pt-36 pb-10 mb-8" style={{ backgroundImage: `url(${heroBehovsanalysErp})` }}>
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative container mx-auto px-4 max-w-4xl text-center">
+          <div className="relative container mx-auto px-4 max-w-6xl text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
               Ringa in behovet – innan partnerdialogen börjar
             </h1>
@@ -4639,7 +4639,7 @@ Finance & Supply Chain Management (F&O) passar organisationer med höga krav på
             </p>
           </div>
         </div>
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-6xl">
 
           {/* Progress */}
           <div className="mb-4">

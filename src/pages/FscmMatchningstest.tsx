@@ -261,7 +261,7 @@ const FscmMatchningstest = () => {
  </div>
  </section>
 
- <div className="container mx-auto px-4 sm:px-6 max-w-3xl py-8 sm:py-12">
+ <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12">
  {!showResult ? (
  <WizardView
  current={current}
@@ -283,8 +283,8 @@ const FscmMatchningstest = () => {
  </div>
  </main>
 
- {score && showResult && <div className="container mx-auto max-w-4xl px-4 mb-6"><ToolResultNextStep tool="match_fscm" product="finance-supply-chain" entry={{ label: "Matchningstest Finance & Supply Chain", industry: typeof answers.q3_industry === "string" ? answers.q3_industry : undefined, values: { Matchning: `${score.total ?? ""}` } }} /></div>}
- {score && showResult && <BookingOffer placement="matchning-fscm" className="container mx-auto max-w-4xl px-4" />}
+ {score && showResult && <div className="container mx-auto max-w-6xl px-4 mb-6"><ToolResultNextStep tool="match_fscm" product="finance-supply-chain" entry={{ label: "Matchningstest Finance & Supply Chain", industry: typeof answers.q3_industry === "string" ? answers.q3_industry : undefined, values: { Matchning: `${score.total ?? ""}` } }} /></div>}
+ {score && showResult && <BookingOffer placement="matchning-fscm" className="container mx-auto max-w-6xl px-4" />}
  {score && <SuggestedPartnersCTA product="fsc" />}
  <Footer />
  </div>
