@@ -30,9 +30,10 @@ const MENUS: NavMenu[] = [
     label: "Affärssystem / ERP",
     groups: [
       {
-        heading: "Välja affärssystem",
+        heading: "Välja eller byta affärssystem",
         items: [
-          { label: "ERP-guiden: välja affärssystem", path: "/affarssystem/", strong: true },
+          { label: "Välja eller byta affärssystem", path: "/affarssystem/", strong: true },
+          { label: "Priser & kostnadskalkylator", path: "/kostnad/" },
           { label: "Jämför: Business Central vs F&SCM", path: "/affarssystem/#comparison-intro" },
           { label: "NAV/Navision till Business Central", path: "/nav-till-business-central/" },
         ],
