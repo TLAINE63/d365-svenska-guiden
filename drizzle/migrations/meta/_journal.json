@@ -351,6 +351,13 @@
       "when": 1795004574635,
       "tag": "0049_add_primary_source_copilot_article",
       "breakpoints": true
+    },
+    {
+      "idx": 50,
+      "version": "7",
+      "when": 1795161090519,
+      "tag": "0050_harden_partner_names_and_has_role",
+      "breakpoints": true
     }
   ]
 }
