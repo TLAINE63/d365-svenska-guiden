@@ -9,6 +9,31 @@ import { defineMcp } from "npm:@lovable.dev/mcp-js@0.26.1";
 import { createClient } from "npm:@supabase/supabase-js@^2.110.0";
 import { defineTool } from "npm:@lovable.dev/mcp-js@0.26.1";
 import { z } from "npm:zod@^4.4.3";
+
+// src/lib/mcp/publicPartnerColumns.ts
+var MCP_PUBLIC_PARTNER_COLUMNS = [
+  "slug",
+  "name",
+  "description",
+  "website",
+  "applications",
+  "industries",
+  "secondary_industries",
+  "geography",
+  "office_cities",
+  "customer_examples",
+  "positioning_statement",
+  "team_size_sweden",
+  "implementations_done",
+  "ai_summary"
+];
+function pickPublicPartner(row) {
+  const out = {};
+  for (const k of MCP_PUBLIC_PARTNER_COLUMNS) if (k in row) out[k] = row[k];
+  return out;
+}
+
+// src/lib/mcp/tools/search-partners.ts
 function supabaseAnon() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_ANON_KEY;
@@ -36,7 +61,7 @@ var search_partners_default = defineTool({
       return { content: [{ type: "text", text: `Fel: ${error.message}` }], isError: true };
     }
     const rows = (data ?? []).map((p) => ({
-      ...p,
+      ...pickPublicPartner(p),
       profile_url: `https://d365.se/partner/${p.slug}`
     }));
     return {
@@ -77,7 +102,7 @@ var get_partner_default = defineTool2({
         isError: true
       };
     }
-    const enriched = { ...data, profile_url: `https://d365.se/partner/${data.slug}` };
+    const enriched = { ...pickPublicPartner(data), profile_url: `https://d365.se/partner/${data.slug}` };
     return {
       content: [{ type: "text", text: JSON.stringify(enriched, null, 2) }],
       structuredContent: enriched

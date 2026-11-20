@@ -148,7 +148,8 @@ async function routeToPartners(supabase: any, resend: any, sanitizedData: Saniti
           const { data: partnerRows } = await supabase
             .from("partners")
             .select("slug, name, email, contactPerson, product_filters")
-            .in("slug", sanitizedData.assigned_partners);
+            .eq("is_featured", true)
+            .in("slug", sanitizedData.assigned_partners.slice(0, 3));
 
           for (const p of partnerRows || []) {
             const keys = productToKeys(sanitizedData.selected_product);
@@ -421,7 +422,7 @@ const handler = async (req: Request): Promise<Response> => {
         phone: row.phone || "", company_size: row.company_size || "", industry: row.industry || "",
         selected_product: row.selected_product || "", source_page: row.source_page || "",
         source_type: row.source_type || "", message: row.message || "",
-        assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 5) : [],
+        assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 3) : [],
       };
       const key = Deno.env.get("RESEND_API_KEY");
       if (!key || !isPartnerBound(stored)) return json({ error: "Förfrågan kan inte skickas." }, 400);
@@ -480,7 +481,7 @@ const handler = async (req: Request): Promise<Response> => {
             .filter((s) => typeof s === "string")
             .map((s) => sanitizeInput(s).slice(0, 100))
             .filter(Boolean)
-            .slice(0, 5)
+            .slice(0, 3)
         : [],
       attribution_news_id:
         typeof data.attribution_news_id === "string" && UUID_RE.test(data.attribution_news_id.trim())

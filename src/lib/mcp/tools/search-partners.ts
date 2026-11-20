@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
+import { pickPublicPartner } from "../publicPartnerColumns";
 
 function supabaseAnon() {
   const url = process.env.SUPABASE_URL!;
@@ -37,7 +38,7 @@ export default defineTool({
       return { content: [{ type: "text", text: `Fel: ${error.message}` }], isError: true };
     }
     const rows = (data ?? []).map((p: any) => ({
-      ...p,
+      ...pickPublicPartner(p),
       profile_url: `https://d365.se/partner/${p.slug}`,
     }));
     return {

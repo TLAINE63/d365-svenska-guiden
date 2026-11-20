@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
+import { pickPublicPartner } from "../publicPartnerColumns";
 
 function supabaseAnon() {
   const url = process.env.SUPABASE_URL!;
@@ -37,7 +38,7 @@ export default defineTool({
         isError: true,
       };
     }
-    const enriched = { ...data, profile_url: `https://d365.se/partner/${data.slug}` };
+    const enriched = { ...pickPublicPartner(data), profile_url: `https://d365.se/partner/${data.slug}` };
     return {
       content: [{ type: "text", text: JSON.stringify(enriched, null, 2) }],
       structuredContent: enriched,
