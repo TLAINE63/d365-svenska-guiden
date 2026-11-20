@@ -176,7 +176,7 @@ const ERPOverview = () => {
   />
    <section className="py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-3xl mx-auto">
+ <div className="max-w-5xl">
  {/* Kort svar */}
  <p className="text-lg text-muted-foreground mb-4">
  Ett affärssystem (ERP – Enterprise Resource Planning) är ett samlat verksamhetssystem som hanterar
@@ -194,14 +194,14 @@ const ERPOverview = () => {
  ERP-projekt misslyckas: när processerna inte är genomtänkta innan systemet införs.
  </p>
  <p className="text-lg text-muted-foreground">
- Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
+ Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
  <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central ERP</Link> för mindre och medelstora bolag, och&nbsp;
  <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Jämförelsen längre ned visar var skillnaderna får praktisk betydelse – i ekonomi, supply chain, internationell drift och i hur mycket som kan konfigureras kontra utvecklas. Se även <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central pris</Link> för aktuella licensintervall och implementationskostnader.
  </p>
  </div>
  </div>
  </section>
-  <div className="container mx-auto max-w-6xl px-4 sm:px-6"><div className="max-w-3xl mx-auto">
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6"><div className="max-w-5xl">
   <KeyTakeaways
    partnersAnchor="guide-partners"
    items={[
@@ -216,7 +216,7 @@ const ERPOverview = () => {
 
   <section id="kopguide-affarssystem" className="scroll-mt-24 py-8 sm:py-12 bg-background">
    <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-    <div className="max-w-3xl mx-auto space-y-5">
+    <div className="max-w-5xl space-y-5">
      <h2 id="modernt-affarssystem" className="scroll-mt-24 text-2xl sm:text-3xl font-bold text-foreground">Vad är ett modernt affärssystem, och vad ska det innehålla?</h2>
      <p className="text-muted-foreground">Många företag börjar med ett renodlat ekonomisystem för bokföring och fakturering. När verksamheten växer behövs ett komplett affärssystem (ERP) som samlar fler processer i en gemensam databas:</p>
      <ul className="space-y-3 text-muted-foreground">
@@ -470,7 +470,7 @@ const ERPOverview = () => {
  {/* FAQ */}
  <section className="py-8 sm:py-12 bg-background">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-3xl mx-auto">
+ <div className="max-w-5xl">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
  Vanliga frågor om affärssystem
  </h2>

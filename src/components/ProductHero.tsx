@@ -113,7 +113,7 @@ const ProductHero = ({
               </div>
             )}
 
-            <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-6 sm:mb-12 max-w-3xl">
+            <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-semibold leading-[1.2] sm:leading-[1.25] tracking-tight text-white mb-6 sm:mb-12 max-w-5xl">
               <span className="block mb-2 sm:mb-6">{nowrapBrand(title)}</span>
               {titleAccent && (
                 <span className="block text-[hsl(var(--muted-dark))] font-normal italic">
@@ -122,8 +122,8 @@ const ProductHero = ({
               )}
             </h1>
 
-            <p className="text-[15px] sm:text-lg text-white/70 font-light leading-[1.65] sm:leading-[1.9] mt-4 mb-8 sm:mt-10 sm:mb-14 max-w-2xl">
-              {subhead}
+            <p className="text-[15px] sm:text-lg text-white/70 font-light leading-[1.65] sm:leading-[1.9] mt-4 mb-8 sm:mt-10 sm:mb-14 max-w-4xl">
+              {nowrapBrand(subhead)}
             </p>
 
             <div
