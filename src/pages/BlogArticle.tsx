@@ -368,6 +368,8 @@ const BlogArticle = ({ initialEditorArticle = null }: BlogArticleProps) => {
               );
             })()}
 
+            {article.slug === "copilot-affarssystem-work-iq" && <AdvisoryOffer className="mt-12" variant="compact" placement="next_step_help" pageType="artikel" cta="Boka kostnadsfri rådgivning" heading="Vad betyder Copilot i affärssystemet för er?" text="20 minuter med d365.se om rätt frågor inför ert beslut." metadata={{ topic: "copilot_erp", article: article.slug }} />}
+
             {article.slug === "dynamics-365-flyttar-in-i-copilot" && <div className="-mx-4 sm:mx-0 mt-12"><CrmCopilotAssessmentCard sourcePage="/artiklar/dynamics-365-flyttar-in-i-copilot/" /></div>}
 
             <ContextualCta

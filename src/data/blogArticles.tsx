@@ -94,6 +94,80 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "copilot-affarssystem-work-iq",
+    title: "Copilot blir ingången till affärssystemet – vad betyder det för er som köpare?",
+    metaTitle: "Copilot blir ingången till affärssystemet – vad betyder det för er? | d365.se",
+    metaDescription:
+      "Microsoft låter nu Copilot och AI-agenter arbeta direkt i Dynamics 365 Finance och Supply Chain. Vad är lanserat, vad är förhandsversion och vilka frågor bör ni ställa före ett beslut?",
+    summary:
+      "Under Microsoft Ignite i november 2026 gav Microsoft besked: medarbetarna ska arbeta via Copilot och AI-agenter, medan affärssystemet blir grunden för data, regler och behörigheter.",
+    category: "AI och Copilot",
+    tags: ["ai", "copilot", "agenter", "ignite", "work iq", "business skills", "finance & supply chain management", "egen analys"],
+    products: ["Finance & SCM", "AI/Copilot/Agents"],
+    publishedAt: "2026-11-20",
+    author: { name: "Thomas Laine", role: "Redaktör och affärsrådgivare", url: "https://d365.se/om-thomas-laine/" },
+    heroImage: workIqApisHero,
+    readingTimeMinutes: 6,
+    content: (
+      <>
+        <p className="!text-sm text-muted-foreground">Kategori: <a href="/ai/">AI och Copilot</a> · Finance &amp; Supply Chain Management · Egen analys</p>
+        <p className="lead">
+          Under Microsoft Ignite i november 2026 gav Microsoft ett tydligt besked om vart affärssystemen är på väg: medarbetarna ska i allt större utsträckning arbeta via Copilot och AI-agenter, medan affärssystemet blir grunden där data, regler och behörigheter finns. Här går vi igenom vad som faktiskt är nytt, vad som är lanserat och vad som fortfarande är förhandsversion – och vilka frågor ni bör ställa innan det påverkar ert systemval.
+        </p>
+
+        <h2>Vad har Microsoft aviserat?</h2>
+        <p>Tre saker är viktigast för den som äger, utvärderar eller upphandlar Dynamics 365 <a href="/finance-supply-chain/">Finance och Supply Chain Management</a>:</p>
+        <ul>
+          <li><strong>Affärssystemet kopplas in i Copilot.</strong> Medarbetare ska kunna ställa frågor om affärsdata och utföra uppgifter i affärssystemet direkt från Copilot, utan att öppna systemet. Frågor kan kombinera affärsdata med e-post, möten och dokument.</li>
+          <li><strong>"Business skills" – era rutiner som instruktioner till agenterna.</strong> En business skill beskriver hur en viss uppgift ska utföras just hos er: vilka steg, vilka attestgränser och vilka data som ska användas. Microsoft levererar färdiga skills för bland annat inköp, utlägg och ekonomi, och ni kan anpassa dem eller bygga egna. Även partners kan paketera sitt kunnande som skills.</li>
+          <li><strong>Samma behörigheter som i dag.</strong> Agenterna arbetar inom de säkerhetsroller och behörigheter som redan finns i affärssystemet. Människor fattar fortfarande besluten där omdöme eller attest krävs.</li>
+        </ul>
+        <p>Microsoft beskriver också att arkitekturen ska göra det möjligt att välja vilka agentupplevelser och AI-modeller som passar verksamheten – det är alltså inte låst till ett enda AI-gränssnitt.</p>
+
+        <h2>Vad är lanserat och vad är förhandsversion?</h2>
+        <p>Det här är viktigt att hålla isär inför ett beslut:</p>
+        <ul>
+          <li><strong>Lanserat (allmänt tillgängligt):</strong> Microsofts tillägg (plugin) för Dynamics 365 ERP i Copilot, med fler än 39 färdiga skills för ekonomi och verksamhet enligt Microsoft.</li>
+          <li><strong>Förhandsversion:</strong> kopplingen av Dynamics 365 ERP till Work IQ, inklusive business skills. Microsoft anger att tillgång och användning beror på konfiguration, licenser och organisationens policyer.</li>
+        </ul>
+        <p>Planera alltså inte ett projekt som förutsätter att förhandsfunktioner är färdiga på ett visst datum. Be om besked om status och licensvillkor skriftligt.</p>
+
+        <h2>Vad betyder det för er?</h2>
+        <p>Vår bedömning är att tyngdpunkten i ett affärssystemsval förskjuts. Funktionerna i själva systemet är fortfarande viktiga, men tre nya frågor väger tyngre än tidigare:</p>
+        <ul>
+          <li><strong>Hur väl går systemet att använda via Copilot och agenter?</strong> Om allt fler uppgifter utförs utanför systemets egna skärmbilder blir data, struktur och behörigheter viktigare än gränssnittet.</li>
+          <li><strong>Vem formulerar era rutiner som skills?</strong> Det är i grunden processarbete, inte teknik. Det kräver att någon – internt eller hos partnern – kan beskriva hur ni faktiskt arbetar.</li>
+          <li><strong>Vad kostar det?</strong> Licens- och användningsvillkor för AI-funktionerna är en del av totalkostnaden och bör finnas med i kalkylen från början.</li>
+        </ul>
+        <p>Samtidigt: detta är ingen anledning att stressa fram ett beslut. Ett affärssystem väljs för många år. Funktionerna utvecklas snabbt och flera delar är ännu förhandsversioner.</p>
+
+        <h2>Fem frågor att ställa till partner eller leverantör</h2>
+        <ol>
+          <li>Vilka av AI-funktionerna ni visar är lanserade i dag, och vilka är förhandsversioner?</li>
+          <li>Vilka licenser och eventuella användningsavgifter krävs för att använda dem hos oss?</li>
+          <li>Vilka business skills har ni själva byggt eller infört hos andra kunder – kan vi se ett exempel?</li>
+          <li>Hur säkerställer vi att agenterna bara gör det som respektive användare har behörighet till, och hur följer vi upp vad de har gjort?</li>
+          <li>Vad behöver vara på plats i vår data och våra processer innan agenterna kan göra nytta?</li>
+        </ol>
+        <p>Be gärna partnern visa ett konkret scenario med era egna processer i stället för en standarddemo.</p>
+
+        <h2>Gäller detta Business Central?</h2>
+        <p>Aviseringarna ovan gäller Dynamics 365 Finance och Supply Chain Management. Business Central har en egen koppling för AI-assistenter och egna agenter, men har inte omfattats av de här beskeden. Utvärderar ni Business Central hittar ni en genomgång av AI och Copilot på vår systersajt <a href="https://businesscentral.se/" target="_blank" rel="noopener noreferrer">businesscentral.se</a>.</p>
+
+        <h2>Nästa steg</h2>
+        <p>Vill ni förstå vad det här betyder för just er – oavsett om ni utvärderar ett nytt system eller vill <a href="/befintlig-kund/">utveckla en befintlig Dynamics-lösning</a> – kan ni boka en kostnadsfri rådgivning. Vi hjälper er att formulera rätt frågor och, om ni vill, att hitta partners som kan visa det i praktiken.</p>
+
+        <h2>Källor</h2>
+        <ul>
+          <li>Microsoft Dynamics 365 Blog, 19 november 2026: <a href="https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2026/11/19/unlock-new-possibilities-for-dynamics-365-erp-with-work-iq-and-business-skills/" target="_blank" rel="noopener noreferrer">Unlock new possibilities for Dynamics 365 ERP with Work IQ and business skills</a></li>
+          <li>Microsoft Dynamics 365 Blog, 17 november 2026: <a href="https://www.microsoft.com/en-us/dynamics-365/blog/business-leader/2026/11/17/microsoft-ignite-2026-introducing-dynamics-365-in-copilot/" target="_blank" rel="noopener noreferrer">Microsoft Ignite 2026: Introducing Dynamics 365 in Copilot</a></li>
+          <li>Microsoft Dynamics 365 Blog, 18 november 2026: <a href="https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2026/11/18/business-applications-work-iq-generally-available/" target="_blank" rel="noopener noreferrer">Business Applications in Work IQ is now generally available</a></li>
+        </ul>
+        <p className="!text-sm text-muted-foreground">Uppgifterna bygger på Microsofts egna aviseringar per 2026-11-20. Status och villkor kan ändras – kontrollera alltid med Microsoft eller er partner.</p>
+      </>
+    ),
+  },
+  {
     slug: "branschkunskap-konkurrensfordelen",
     title: "När alla får samma AI blir branschkunskap konkurrensfördelen",
     metaTitle: "Branschkunskap blir konkurrensfördelen när AI jämnar ut tekniken",

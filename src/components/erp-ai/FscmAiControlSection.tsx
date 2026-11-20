@@ -27,6 +27,7 @@ export default function FscmAiControlSection() {
           </ul>
           <p className="mt-3 text-sm text-muted-foreground">Läs mer i analysen <Link to="/artiklar/ai-i-erp-riskbild/" className="font-medium text-primary hover:underline">När AI gör jobbet i ERP: ett skifte i riskbild</Link>.</p>
         </div>
+        <p className="mt-4 text-sm"><Link to="/artiklar/copilot-affarssystem-work-iq/" className="font-medium text-primary hover:underline">Nytt från Microsoft Ignite: så förändrar Copilot arbetet i Finance &amp; SCM →</Link></p>
         <p className="mt-4 text-xs text-muted-foreground">Exemplen är granskade mot Microsoft Learn. Funktioner i förhandsversion är markerade. Status kontrollerad <span className="whitespace-nowrap">{VERIFIED_AT}</span>.</p>
         <AdvisoryOffer className="mt-6" variant="compact" placement="next_step_help" pageType="finance-supply-chain" cta="Diskutera kontroll och ansvar" heading="Vill ni resonera kring var gränsen ska gå hos er?" text="20 minuter med d365.se om vilka moment som passar AI och vilken kontroll ni behöver." metadata={{ topic: "fscm_ai_control" }} />
       </div>

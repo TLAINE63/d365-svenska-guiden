@@ -46,7 +46,8 @@ const SECTIONS = [
     { to: "/aioversikt/", label: "AI-översikt per roll" }, { to: "/copilot/", label: "Copilot i Dynamics\u00A0365" }, { to: "/agents/", label: "Agenter i Dynamics\u00A0365" } ] },
   { id: "omraden", icon: Sparkles, title: "AI inom olika verksamhetsområden", text: "Så används AI i ekonomi, sälj, service och supply chain.", links: [
     { to: "/finance-supply-chain/", label: "Finance & Supply Chain" }, { to: "/businesscentral/", label: "Business Central" }, { to: "/d365sales/", label: "Sales" }, { to: "/d365customerservice/", label: "Customer Service" },
-    { to: "/crm/#copilot-crm-underlag", label: "Behöver vi fortfarande CRM när Copilot kan göra jobbet?", desc: "Utforska hur Copilot förändrar säljarens arbetssätt och vad det betyder för behovet av CRM, kunddata och affärsprocesser." } ] },
+    { to: "/crm/#copilot-crm-underlag", label: "Behöver vi fortfarande CRM när Copilot kan göra jobbet?", desc: "Utforska hur Copilot förändrar säljarens arbetssätt och vad det betyder för behovet av CRM, kunddata och affärsprocesser." },
+    { to: "/artiklar/copilot-affarssystem-work-iq/", label: "Copilot blir ingången till affärssystemet – vad betyder det för er?", desc: "Vad Microsoft aviserade på Ignite för Finance & Supply Chain Management, vad som är lanserat och vilka frågor ni bör ställa." } ] },
   { id: "kostnad", icon: Calculator, title: "Kostnader och affärsnytta", text: "Räkna på nyttan innan ni investerar.", links: [
     { to: "/verksamhetsvardering/", label: "Affärsnytta & ROI" }, { to: "/ai-readiness/", label: "AI-mognadsanalys" }, { to: "/kostnad/", label: "Vad kostar Dynamics\u00A0365?" } ] },
   { id: "exempel", icon: Bot, title: "Konkreta agentexempel", text: "Verifierade exempel med källa från Microsoft.", links: [
