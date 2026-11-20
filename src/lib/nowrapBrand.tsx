@@ -10,7 +10,7 @@ const BRANDS = new Set(["Microsoft Dynamics 365","Dynamics 365 Finance & Supply 
 
 export function nowrapBrand(text: string): ReactNode {
   const parts = text.split(BRAND_RE);
-  return parts.map((part, i) =>
+  return <span>{parts.map((part, i) =>
     BRANDS.has(part) ? (
       <span key={i} className="whitespace-nowrap">
         {part}
@@ -18,5 +18,5 @@ export function nowrapBrand(text: string): ReactNode {
     ) : (
       <Fragment key={i}>{part}</Fragment>
     )
-  );
+  )}</span>;
 }
