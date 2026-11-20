@@ -226,7 +226,7 @@ const ErpComparisonPage = () => {
 
         {/* FAQ */}
         <section className="py-8 sm:py-10 bg-secondary/40 border-y border-border">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">Vanliga frågor</h2>
             <div className="space-y-4">
               {data.faqs.map((f) => (

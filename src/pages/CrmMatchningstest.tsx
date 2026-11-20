@@ -132,7 +132,7 @@ const CrmMatchningstest = ({ productKey }: Props) => {
           </div>
         </section>
 
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12 [&>*]:max-w-3xl">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8 sm:py-12 [&>*]:max-w-6xl">
           <div className="mb-6">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
               <span>

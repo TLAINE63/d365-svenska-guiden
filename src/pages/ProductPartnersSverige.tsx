@@ -299,7 +299,7 @@ export default function ProductPartnersSverige({ configSlug }: Props) {
         {/* FAQ */}
         {faqs.length > 0 && (
           <section className="py-8 sm:py-12 bg-secondary/40 border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
                 Vanliga frågor
               </h2>

@@ -102,7 +102,7 @@ export default function PartnerBasicProfile({
       <Navbar />
       <main className="pt-10">
         <section className="py-8 sm:py-12">
-          <div className="container mx-auto max-w-2xl px-4 sm:px-6">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6">
             <Button
               asChild
               variant="default"

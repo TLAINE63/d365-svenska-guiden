@@ -871,7 +871,7 @@ const CRM = () => {
 
  {/* Vad kostar ett CRM-system? */}
  <section id="crm-kostnad" className="py-10 bg-background">
- <div className="container mx-auto max-w-3xl px-4 sm:px-6">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Vad kostar ett CRM-system?</h2>
  <p className="text-muted-foreground mb-4">
  Frågan om CRM pris eller CRM kostnad har sällan ett enda svar. Ett CRM system pris består av flera delar, och totalkostnaden styrs av hur många som ska använda systemet, hur mycket det behöver anpassas och vilka andra system det ska prata med. Därför anger vi inga exakta belopp här, eftersom listpriser och villkor ändras. Så här brukar kostnaden för Microsoft&nbsp;Dynamics&nbsp;365 CRM se ut:

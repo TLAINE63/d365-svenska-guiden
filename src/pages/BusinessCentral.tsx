@@ -322,7 +322,7 @@ const BusinessCentral = () => {
   <EditorialAssessment assessment="bc" />
 
   <section id="vad-ar-bc" className="scroll-mt-28 py-8 sm:py-10 bg-background">
-   <div className="container mx-auto max-w-4xl px-4 sm:px-6">
+   <div className="container mx-auto max-w-6xl px-4 sm:px-6">
     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Vad är <span className="whitespace-nowrap">Dynamics 365</span> BC?</h2>
     <p className="text-muted-foreground mb-3">
      BC är den vanliga förkortningen för <span className="whitespace-nowrap">Dynamics 365</span> Business Central, Microsofts affärssystem (ERP) för små och medelstora bolag. Det samlar ekonomi, inköp, lager, försäljning, projekt och, i Premium, tillverkning och service i en molntjänst. Jämför med andra alternativ i vår <Link to="/affarssystem/" className="text-primary underline underline-offset-4">översikt över affärssystem</Link>.
