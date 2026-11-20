@@ -92,8 +92,8 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
         </aside>
       ) : variant === "hero" ? (
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13.5px] sm:text-[14.5px] text-primary-foreground/70">
-          <MessageCircle className="h-4 w-4 shrink-0 text-[hsl(var(--accent-dark-zone))]" aria-hidden />
-          <span>{nowrapBrand(text)}</span>
+          <img src={advisorPhoto.url} alt="Thomas Laine, rådgivare på d365.se" width={40} height={40} loading="lazy" className="h-10 w-10 shrink-0 rounded-full object-cover object-[50%_0%] ring-2 ring-primary-foreground/20" />
+          <span>{nowrapBrand(text)} <span className="text-primary-foreground/55">20 min med Thomas Laine, kostnadsfritt och utan säljare.</span></span>
           <AdvisorContactButtons compact dark />
         </div>
       ) : (

@@ -112,7 +112,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
               trackEvent("shortlist_add", null, partner.slug);
             }} className="min-h-12"><Bookmark className="h-4 w-4" />Lägg till i kortlista</Button>
           )}
-          {website && <Button asChild variant="ghost" className="min-h-12"><a href={website} target="_blank" rel="noopener" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_profil" }); trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
+          {website && <Button asChild variant="outline" className="min-h-12 font-semibold"><a href={website} target="_blank" rel="noopener" onClick={() => { trackPartnerFunnel("partner_selfservice_clicked", { partner_slug: partner.slug, via: "webbplats_profil" }); trackEvent("partner_outbound_click", { via: "profil" }, partner.slug); trackPartnerEvent({ event: "klick_utgaende_partnersajt", partnerSlug: partner.slug, metadata: { via: "profilknapp" } }); }}><ExternalLink className="h-4 w-4" />Besök partnerns webbplats</a></Button>}
         </div>
         <p className="mt-3 lg:mt-1 max-w-2xl text-xs text-muted-foreground">Förfrågan går bara till {partner.name}, och bara om ni godkänner det i formuläret. Partnern kontaktar er sedan direkt.</p>
         <AdvisoryOffer
