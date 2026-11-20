@@ -83,10 +83,10 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           {heading && <h3 className="mb-1.5 text-lg font-bold leading-snug text-foreground">{nowrapBrand(heading)}</h3>}
           <p className="mb-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(text)}</p>
           <AdvisorContactButtons />
-          <button type="button" onClick={start} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary">
+          {sections.length > 0 && <button type="button" onClick={start} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary">
             {sections.length ? "Eller skicka ert underlag via formulär" : "Eller beskriv behovet i ett formulär"}
             <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-          </button>
+          </button>}
           <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</p>
           </div>
         </aside>

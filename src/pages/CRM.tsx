@@ -23,6 +23,7 @@ import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import Footer from "@/components/Footer";
 import CeIsvSection from "@/components/CeIsvSection";
 import RelevantVideosSection from "@/components/RelevantVideosSection";
@@ -330,6 +331,17 @@ const CRM = () => {
     </div>
    </div>
   </section>
+
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
+   <AdvisoryOffer
+    variant="inline"
+    placement="next_step_help"
+    pageType="crm"
+    cta="Boka 20 min rådgivning"
+    heading="Osäker på vilket system som passar er?"
+    text="Boka 20 minuter med Thomas Laine. Ni får en neutral genomgång av er situation, ungefärlig budget och vilka partners som brukar passa, innan ni pratar med någon leverantör."
+   />
+  </div>
 
   {/* Snabbfakta – svarar direkt på pris-, tids- och passformsfrågor */}
   <section className="py-10 sm:py-12 bg-background">

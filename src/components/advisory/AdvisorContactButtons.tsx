@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from "react";
 import { CalendarDays } from "lucide-react";
 import { ADVISOR_BOOKING_URL, ADVISOR_BOOKING_CTA, ADVISOR_EMAIL_HREF } from "@/data/organization";
 import { trackConsultationLead } from "@/lib/siteIntelligence";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import type { ContactTopic } from "@/components/plan/PlanContactDialog";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
@@ -45,7 +46,7 @@ export default function AdvisorContactButtons({ compact = false, dark = false, c
           href={ADVISOR_BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackConsultationLead("bookings_20min_thomas")}
+          onClick={() => { trackConsultationLead("bookings_20min_thomas"); trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", metadata: { placement: "advisor_buttons", path: window.location.pathname } }); }}
           className={`inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 font-semibold text-primary-foreground hover:bg-primary/90 ${compact ? "text-xs" : "text-sm"}`}
         >
           <CalendarDays className="h-4 w-4 shrink-0" aria-hidden />

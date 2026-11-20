@@ -15,6 +15,7 @@ import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import ShortAnswer from "@/components/ShortAnswer";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -213,6 +214,17 @@ const ERPOverview = () => {
   />
   </div></div>
   <EditorialAssessment assessment="erp" />
+
+  <div className="container mx-auto max-w-6xl px-4 sm:px-6 py-6">
+   <AdvisoryOffer
+    variant="inline"
+    placement="next_step_help"
+    pageType="affarssystem"
+    cta="Boka 20 min rådgivning"
+    heading="Osäker på vilket system som passar er?"
+    text="Boka 20 minuter med Thomas Laine. Ni får en neutral genomgång av er situation, ungefärlig budget och vilka partners som brukar passa, innan ni pratar med någon leverantör."
+   />
+  </div>
 
   <section id="kopguide-affarssystem" className="scroll-mt-24 py-8 sm:py-12 bg-background">
    <div className="container mx-auto max-w-6xl px-4 sm:px-6">
