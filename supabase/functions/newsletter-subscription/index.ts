@@ -90,10 +90,15 @@ Deno.serve(async (req) => {
     if (isFreeEmailDomain(input.email)) return json({ error: FREE_EMAIL_ERROR_SV }, 400);
 
     const { data: existing } = await db.from("newsletter_subscribers")
-      .select("id, confirmed_at, unsubscribed_at")
+      .select("id, confirmed_at, unsubscribed_at, created_at")
       .eq("email", input.email)
       .maybeSingle();
     if (existing?.confirmed_at && !existing.unsubscribed_at) return json({ ok: true, pending: false });
+    // A pending signup keeps its tokens for 24 h, so nobody can reset another person's link.
+    if (existing && !existing.confirmed_at && !existing.unsubscribed_at &&
+        Date.now() - new Date(existing.created_at).getTime() < 24 * 60 * 60 * 1000) {
+      return json({ ok: true, pending: true });
+    }
 
     const confirmationToken = randomToken();
     const unsubscribeToken = randomToken();
@@ -111,8 +116,10 @@ Deno.serve(async (req) => {
       unsubscribe_token_hash: await sha256(unsubscribeToken),
       unsubscribe_token: unsubscribeToken,
     };
+    // Existing rows keep their unsubscribe link; only the confirmation link is re-issued.
+    const { unsubscribe_token: _u, unsubscribe_token_hash: _uh, ...updatePayload } = payload;
     const { error } = existing
-      ? await db.from("newsletter_subscribers").update(payload).eq("id", existing.id)
+      ? await db.from("newsletter_subscribers").update(updatePayload).eq("id", existing.id)
       : await db.from("newsletter_subscribers").insert(payload);
     if (error) return json({ error: "Anmälan kunde inte sparas." }, 500);
 

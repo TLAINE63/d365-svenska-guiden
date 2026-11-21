@@ -187,15 +187,19 @@ Deno.serve(async (req) => {
     }
 
     // Get client IP
-    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-                     req.headers.get("x-real-ip") ||
-                     "unknown";
+    // Prefer the edge-set connecting IP; forwarded headers are caller-controlled.
+    const rawIp = req.headers.get("cf-connecting-ip")?.trim() ||
+                  req.headers.get("x-real-ip")?.trim() ||
+                  req.headers.get("x-forwarded-for")?.split(",").pop()?.trim() ||
+                  "unknown";
+    const clientIp = /^[0-9a-fA-F:.]{3,45}$/.test(rawIp) ? rawIp : "unknown";
 
     // Anonymize IP BEFORE any third-party lookup to avoid transmitting raw PII.
     // Use the /24-zeroed IP for the geo lookup (preserves country/region/city accuracy
     // for IPv4 in practice while never sending the full visitor IP off our infrastructure).
     const anonymizedIp = clientIp !== "unknown" ? anonymizeIp(clientIp) : "unknown";
-    const geoLookupIp = clientIp !== "unknown" && clientIp.includes(".")
+    const geoLookupIp = clientIp !== "unknown" && /^(\d{1,3}\.){3}\d{1,3}$/.test(clientIp) &&
+      !/^(10\.|127\.|0\.|169\.254\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(clientIp)
       ? clientIp.split(".").slice(0, 3).join(".") + ".0"
       : null;
     const geoData = geoLookupIp ? await getGeoData(geoLookupIp) : null;

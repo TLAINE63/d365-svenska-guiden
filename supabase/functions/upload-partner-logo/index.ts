@@ -272,7 +272,8 @@ serve(async (req: Request): Promise<Response> => {
 
     // Generate filename - kind suffix prevents overwriting logo when uploading contact photo
     // Allow "logo", "contact" (legacy main contact) or "contact-<productKey>" (per-product contact)
-    const ext = file.name.split('.').pop() || 'png';
+    const EXT_BY_TYPE: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/svg+xml": "svg" };
+    const ext = EXT_BY_TYPE[file.type] || 'png'; // derived from validated MIME type, never the client filename
     const safeKind = /^[a-z0-9-]{1,40}$/.test(kind) ? kind : "logo";
     const filename = safeKind === "logo" ? `${effectiveSlug}.${ext}` : `${effectiveSlug}-${safeKind}.${ext}`;
     const { data, error } = await supabase.storage

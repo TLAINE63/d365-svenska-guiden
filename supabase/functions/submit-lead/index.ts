@@ -417,11 +417,15 @@ const handler = async (req: Request): Promise<Response> => {
       if (!claimed?.length) return json({ success: true, already: true });
       const { data: row } = await db.from("leads").select("*").eq("id", conf.lead_id).maybeSingle();
       if (!row) return json({ error: "Förfrågan hittades inte." }, 404);
+      // Partner staff asking about their own profile are never routed back to partners.
+      if (row.is_partner_self) return json({ success: true, sent: 0 });
       const stored: SanitizedLead = {
         company_name: row.company_name || "", contact_name: row.contact_name || "", email: row.email || "",
         phone: row.phone || "", company_size: row.company_size || "", industry: row.industry || "",
         selected_product: row.selected_product || "", source_page: row.source_page || "",
-        source_type: row.source_type || "", message: row.message || "",
+        source_type: row.source_type || "",
+        // Links are removed before partner delivery so the form cannot be used to spread spam/phishing.
+        message: String(row.message || "").replace(/(https?:\/\/|www\.)\S+/gi, "[länk borttagen]").slice(0, 1000),
         assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 3) : [],
       };
       const key = Deno.env.get("RESEND_API_KEY");

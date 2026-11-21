@@ -1,6 +1,7 @@
 import type { BlogArticle } from "@/data/blogArticles";
 import YouTubeLite from "@/components/YouTubeLite";
 import { splitArticleVideos } from "@/lib/articleVideoEmbeds";
+import { sanitizeArticleHtml } from "@/lib/sanitizeArticleHtml";
 import { D365_INSIDE_CHANNEL_URL } from "@/data/d365Inside";
 
 /**
@@ -67,7 +68,7 @@ export function editorRowToBlogArticle(row: EditorArticleRow): BlogArticle {
               </figcaption>
             </figure>
           ) : (
-            <div key={i} dangerouslySetInnerHTML={{ __html: part.html }} />
+            <div key={i} dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(part.html) }} />
           )
         )}
       </div>

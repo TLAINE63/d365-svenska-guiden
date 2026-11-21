@@ -5,6 +5,14 @@ import { buildDraftStats, renderStatsHtml, renderVisibilityHtml, renderCompanyBl
 import { computePartnerMetrics } from "../_shared/partnerMonthlyMetrics.ts";
 import { buildBasicTeaserStats, renderBasicTeaserHtml, DEFAULT_TEASER_BENEFITS, type BasicTeaserStats } from "./basicTeaser.ts";
 
+// Test/preview mails may only go to the site's own mailboxes, never arbitrary recipients.
+const INTERNAL_TEST_DOMAINS = ["dynamicfactory.se", "d365.se", "moveahead.se"];
+function isInternalTestRecipient(email: unknown): boolean {
+  if (typeof email !== "string" || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return false;
+  const domain = email.trim().toLowerCase().split("@")[1];
+  return INTERNAL_TEST_DOMAINS.includes(domain);
+}
+
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
   const allowed = [
@@ -628,7 +636,7 @@ serve(async (req) => {
       case "basic_teaser_send_test": {
 
         const { id, test_email } = data as { id: string; test_email: string };
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email || "")) {
+        if (!isInternalTestRecipient(test_email)) {
           return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
           });
@@ -1596,7 +1604,7 @@ serve(async (req) => {
         });
 
         if (test_email) {
-          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email)) {
+          if (!isInternalTestRecipient(test_email)) {
             return new Response(JSON.stringify({ error: "Ogiltig e-postadress" }), {
               status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
             });
@@ -1624,7 +1632,7 @@ serve(async (req) => {
         if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY saknas");
         const resend = new Resend(RESEND_API_KEY);
         const { id, test_email } = data as { id: string; test_email: string };
-        if (!test_email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email)) {
+        if (!isInternalTestRecipient(test_email)) {
           return new Response(JSON.stringify({ error: "Ogiltig testadress" }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
           });
@@ -1670,7 +1678,7 @@ serve(async (req) => {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
           });
         }
-        if (!test_email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(test_email)) {
+        if (!isInternalTestRecipient(test_email)) {
           return new Response(JSON.stringify({ error: "Ogiltig testadress" }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" }
           });
