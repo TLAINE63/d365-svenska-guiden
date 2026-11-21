@@ -123,6 +123,7 @@ const BusinessValuePage = lazy(() => import("./pages/BusinessValuePage"));
 const BefintligKund = lazy(() => import("./pages/BefintligKund"));
 const BytaPartner = lazy(() => import("./pages/BytaPartner"));
 const KravspecCrmGuide = lazy(() => import("./pages/KravspecCrmGuide"));
+const KravspecErpGuide = lazy(() => import("./pages/KravspecErpGuide"));
 const SecondOpinion = lazy(() => import("./pages/SecondOpinion"));
 const PartnersInSweden = lazy(() => import("./pages/PartnersInSweden"));
 const OptimeraDynamics365 = lazy(() => import("./pages/OptimeraDynamics365"));
@@ -271,6 +272,7 @@ const AppShell = () => {
           <Route path="/befintlig-kund/resultat" element={<BefintligKund />} />
           <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
           <Route path="/guider/kravspecifikation-crm" element={<KravspecCrmGuide />} />
+          <Route path="/guider/kravspecifikation-affarssystem" element={<KravspecErpGuide />} />
           <Route path="/second-opinion" element={<SecondOpinion />} />
           <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
           <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />

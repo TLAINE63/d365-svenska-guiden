@@ -100,6 +100,7 @@ import Kostnad from './pages/Kostnad';
 import BefintligKund from './pages/BefintligKund';
 import BytaPartner from './pages/BytaPartner';
 import KravspecCrmGuide from './pages/KravspecCrmGuide';
+import KravspecErpGuide from './pages/KravspecErpGuide';
 import SecondOpinion from './pages/SecondOpinion';
 import PartnersInSweden from './pages/PartnersInSweden';
 import OptimeraDynamics365 from './pages/OptimeraDynamics365';
@@ -290,6 +291,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/befintlig-kund', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/byta-dynamics-partner', priority: '0.8', changefreq: 'monthly' },
   { path: '/guider/kravspecifikation-crm', priority: '0.8', changefreq: 'monthly' },
+  { path: '/guider/kravspecifikation-affarssystem', priority: '0.8', changefreq: 'monthly' },
   { path: '/second-opinion', priority: '0.8', changefreq: 'monthly' },
   { path: '/dynamics-365-partners-in-sweden', priority: '0.7', changefreq: 'monthly' },
   { path: '/guider/optimera-dynamics-365', priority: '0.8', changefreq: 'monthly' },
@@ -686,6 +688,7 @@ export function render(url: string) {
               <Route path="/befintlig-kund" element={<BefintligKund />} />
               <Route path="/guider/byta-dynamics-partner" element={<BytaPartner />} />
               <Route path="/guider/kravspecifikation-crm" element={<KravspecCrmGuide />} />
+              <Route path="/guider/kravspecifikation-affarssystem" element={<KravspecErpGuide />} />
               <Route path="/second-opinion" element={<SecondOpinion />} />
               <Route path="/dynamics-365-partners-in-sweden" element={<PartnersInSweden />} />
               <Route path="/guider/optimera-dynamics-365" element={<OptimeraDynamics365 />} />
