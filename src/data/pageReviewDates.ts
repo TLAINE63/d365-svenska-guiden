@@ -283,6 +283,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/valja-business-central-partner/": "2026-10-30",
   "/guider/valja-finance-supply-chain-partner/": "2026-10-30",
   "/guider/byta-dynamics-partner/": "2026-10-24",
+  "/guider/kravspecifikation-crm/": "2026-11-21",
   "/guider/valja-dynamics-365-partner/": "2026-11-19",
   "/erp-koparguiden-2026/": "2026-11-04",
   "/crm-koparguiden-2026/": "2026-11-04",
