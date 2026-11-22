@@ -324,7 +324,7 @@ serve(async (req: Request): Promise<Response> => {
       const { data: events, error } = await supabase
         .from("partner_events")
         .select(`
-          *,
+          id, title, description, event_date, event_time, end_time, event_link, image_url, is_online, location, partner_id, recording_available, recording_url, registration_deadline, registration_link, status, created_at, updated_at,
           partners:partner_id (
             id,
             name,
@@ -356,7 +356,7 @@ serve(async (req: Request): Promise<Response> => {
       const { data: events, error } = await supabase
         .from("partner_events")
         .select(`
-          *,
+          id, title, description, event_date, event_time, end_time, event_link, image_url, is_online, location, partner_id, recording_available, recording_url, registration_deadline, registration_link, status, created_at, updated_at,
           partners:partner_id (
             id,
             name,
@@ -395,7 +395,7 @@ serve(async (req: Request): Promise<Response> => {
       const { data: event, error } = await supabase
         .from("partner_events")
         .select(`
-          *,
+          id, title, description, event_date, event_time, end_time, event_link, image_url, is_online, location, partner_id, recording_available, recording_url, registration_deadline, registration_link, status, created_at, updated_at,
           partners:partner_id (
             id,
             name,
@@ -427,7 +427,7 @@ serve(async (req: Request): Promise<Response> => {
       const { data: events, error } = await supabase
         .from("partner_events")
         .select(`
-          *,
+          id, title, description, event_date, event_time, end_time, event_link, image_url, is_online, location, partner_id, recording_available, recording_url, registration_deadline, registration_link, status, created_at, updated_at,
           partners:partner_id (
             id,
             name,

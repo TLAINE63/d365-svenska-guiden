@@ -32,7 +32,8 @@ function getCorsHeaders(req: Request): Record<string, string> {
 
 // Renderar ett textstycke som HTML och framhäver prisrader (995/1 295/1 495 kr/mån)
 // samt prisuppdateringar ("Ingångspriset är nu ... (tidigare ...)") med stor fetstil + callout box.
-function renderParagraph(trimmed: string): string {
+function renderParagraph(rawParagraph: string): string {
+  const trimmed = escH(rawParagraph);
   const withBr = trimmed.replace(/\n/g, "<br>");
   const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
   const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
