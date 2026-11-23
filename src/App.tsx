@@ -383,6 +383,8 @@ const AppShell = () => {
           <Route path="/admin/exporter" element={<AdminExporter />} />
           <Route path="/redaktion" element={<Redaktion />} />
           <Route path="/redaktion/" element={<Redaktion />} />
+          <Route path="/redaktion/nyhetsbrev" element={<Redaktion />} />
+          <Route path="/redaktion/export" element={<Redaktion />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/admin/mcp-test" element={<AdminMcpTest />} />
           <Route path="/admin/relevans-test" element={<AdminRelevanceTest />} />

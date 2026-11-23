@@ -14,10 +14,10 @@ import { findTool } from "@/lib/toolUnderlag";
 import { recordTool, type ToolEntry } from "@/lib/toolContext";
 import type { ToolPdfOptions } from "@/utils/generateToolUnderlagPdf";
 
-interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool">; pdf?: ToolPdfOptions }
+interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool">; pdf?: ToolPdfOptions; onDownloaded?: () => void }
 
 /** Del 3: premium-PDF + Min plan och förfrågan med svaren förifyllda. */
-export default function ToolResultNextStep({ tool, product, className = "", entry, pdf: pdfOptions }: Props) {
+export default function ToolResultNextStep({ tool, product, className = "", entry, pdf: pdfOptions, onDownloaded }: Props) {
   const { pathname } = useLocation();
   const [saved, setSaved] = useState(false);
   const [missing, setMissing] = useState(false);
@@ -43,6 +43,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
       await generateToolUnderlagPdf(t, date, pdfOptions);
       savePlanCalculation({ id: tool, product: t.label, url: pathname, rows: Object.entries(t.values).map(([label, value]) => ({ label, value })) });
       setSaved(true);
+      onDownloaded?.();
       trackLeadStep("verktyg_sparat", tool);
     } catch {
       setFailed(true);

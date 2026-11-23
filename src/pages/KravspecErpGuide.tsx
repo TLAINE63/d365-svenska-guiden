@@ -1,3 +1,4 @@
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, ArrowRight, Check, FileText } from "lucide-react";
@@ -147,6 +148,7 @@ const KravspecErpGuide = () => {
           <EditorialSource sourceType="Köpguide" />
         </div>
       </main>
+      <NewsletterSignup />
       <Footer />
     </>
   );

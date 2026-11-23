@@ -1,5 +1,7 @@
 # _shared
 
+- Newsletter lists share newsletter_subscribers and newsletterHandler (legacy endpoint retained); private three-list exports never include tokens, business-contact sync only inserts missing addresses, and re-subscription preserves opt-out until a fresh 24-hour confirmation, so profile edits cannot reactivate recipients. Partner mail uses active list recipients and one unsubscribe link per recipient; permanent email suppression marks every list opted out.
+
 - Existing business emails apply email-branding at the provider boundary, preserving attachments and consent; auth emails share the frame through the verified auth queue, so branding does not change delivery semantics.
 
 - Partner Review Queue: all logik (klass A/B/C, regelbaserad förifyllning, partnersvar, redaktionella beslut) ligger i supabase/functions/_shared/partner-review.ts och används av manage-partner-master (admin) och partner-invitations (token); partnerns ändringar blir rader i partner_review_changes ; för publicerade partners (is_featured) publiceras ändringarna direkt och loggas som auto-godkända (Thomas beslut 2026-09-29), övriga väntar på redaktionellt godkännande. Förifyllning läser aldrig AI-genererade texter.

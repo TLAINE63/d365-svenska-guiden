@@ -4,6 +4,12 @@
  * här visar inget datum (inga påhittade datum).
  */
 export const PAGE_REVIEW_DATES: Record<string, string> = {
+  "/kravspecifikation/": "2026-11-23",
+  "/kravspecifikation-sales/": "2026-11-23",
+  "/kravspecifikation-marketing/": "2026-11-23",
+  "/kravspecifikation-kundservice/": "2026-11-23",
+  "/redaktion/nyhetsbrev/": "2026-11-23",
+  "/redaktion/export/": "2026-11-23",
   "/aktuellt/copilot-introduktion-utan-konkreta-besked-om-dynamics-365/": "2026-11-16",
   "/aktuellt/demo-visar-agentbaserad-inventering-med-dynamics-365-finance-mcp/": "2026-11-16",
   "/aktuellt/expense-agent-for-utlagg-i-business-central-finns-i-publik-forhandsversion/": "2026-11-16",
@@ -283,8 +289,8 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/guider/valja-business-central-partner/": "2026-10-30",
   "/guider/valja-finance-supply-chain-partner/": "2026-10-30",
   "/guider/byta-dynamics-partner/": "2026-10-24",
-  "/guider/kravspecifikation-crm/": "2026-11-21",
-  "/guider/kravspecifikation-affarssystem/": "2026-11-21",
+  "/guider/kravspecifikation-crm/": "2026-11-23",
+  "/guider/kravspecifikation-affarssystem/": "2026-11-23",
   "/guider/valja-dynamics-365-partner/": "2026-11-19",
   "/erp-koparguiden-2026/": "2026-11-04",
   "/crm-koparguiden-2026/": "2026-11-04",
@@ -312,7 +318,7 @@ export const PAGE_REVIEW_DATES: Record<string, string> = {
   "/jamfor-partners/": "2026-11-16",
   "/partnerprogram/": "2026-11-17",
   "/isvprogram/": "2026-11-17",
-  "/redaktion/": "2026-11-17",
+  "/redaktion/": "2026-11-23",
   "/admin/": "2026-11-17",
   "/admin/exporter/": "2026-11-17",
   "/vad-ar-dynamics-365/": "2026-11-10",

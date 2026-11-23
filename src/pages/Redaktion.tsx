@@ -69,7 +69,8 @@ import RedaktionNewsletterTab from "@/components/RedaktionNewsletterTab";
 import AdminAdvisoryTab from "@/components/admin/AdminAdvisoryTab";
 import AdminVideosTab from "@/components/AdminVideosTab";
 import AdminIsvCatalogTab from "@/components/AdminIsvCatalogTab";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import DemandExportsPanel from "@/components/DemandExportsPanel";
 import { Lock, Loader2, LogOut, PenLine } from "lucide-react";
 import { toast } from "sonner";
 
@@ -79,7 +80,8 @@ export default function Redaktion() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
   const [remember, setRemember] = useState(false);
-  const [tab, setTab] = useState("events");
+  const { pathname } = useLocation();
+  const [tab, setTab] = useState(pathname.includes("nyhetsbrev") ? "subscribers" : pathname.includes("export") ? "exports" : "events");
   const [teaserSlug, setTeaserSlug] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showSetup, setShowSetup] = useState(false);
@@ -328,9 +330,7 @@ export default function Redaktion() {
             </TabsContent>
           )}
           <TabsContent value="exports">
-            <Button variant="outline" asChild>
-              <Link to="/admin/exporter" onClick={() => { if (token) seedAdminSession(token); }}>Export till CRM</Link>
-            </Button>
+            {token && <DemandExportsPanel token={token} onUnauthorized={logout} />}
           </TabsContent>
           <TabsContent value="terms">
             <RedaktionTermsTab token={token} />

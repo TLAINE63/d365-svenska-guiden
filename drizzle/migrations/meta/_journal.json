@@ -365,6 +365,27 @@
       "when": 1795437896935,
       "tag": "0051_partners_mcp_v1_view",
       "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1795470721826,
+      "tag": "0052_newsletter_three_lists",
+      "breakpoints": true
+    },
+    {
+      "idx": 53,
+      "version": "7",
+      "when": 1795470949934,
+      "tag": "0053_newsletter_isv_catalog_contacts",
+      "breakpoints": true
+    },
+    {
+      "idx": 54,
+      "version": "7",
+      "when": 1795471146983,
+      "tag": "0054_newsletter_isv_stable_product_keys",
+      "breakpoints": true
     }
   ]
 }

@@ -1,3 +1,4 @@
+import NewsletterSignup from "@/components/NewsletterSignup";
 import ToolResultNextStep from "@/components/tools/ToolResultNextStep";
 import { useKravProfileSync } from "@/lib/kravProfile";
 import DownloadContactOptIn from "@/components/DownloadContactOptIn";
@@ -98,6 +99,7 @@ const RequirementsSpecMarketing = () => {
   const [email, setEmail] = useState("");
   const [optIn, setOptIn] = useState<DownloadConsent>(EMPTY_DOWNLOAD_CONSENT);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [hasDownloaded, setHasDownloaded] = useState(false);
 
   const toggleArea = (id: string) => {
     setSelectedAreas((prev) =>
@@ -173,6 +175,7 @@ const RequirementsSpecMarketing = () => {
           ? isvAddons.map((a) => ({ name: a.name, vendor: a.vendor, category: a.category, shortDescription: a.shortDescription }))
           : undefined,
       });
+      setHasDownloaded(true);
       toast({ title: "Kravspecifikationen har laddats ner!" });
       markDownloadUrl("kravspec-marketing");
     } catch (err: any) {
@@ -449,7 +452,8 @@ const RequirementsSpecMarketing = () => {
               )}
 
               <Card className="border-[hsl(var(--line-dark))] bg-[hsl(var(--hero-dark))] text-white">
-                <ToolResultNextStep tool="krav_marketing" className="mb-6" entry={{ label: "Kravspecifikation Marketing", industry, values: { Storlek: companySize, "Områden": selectedAreas.join(", ") } }} />
+                {hasDownloaded && <NewsletterSignup placement="download" />}
+                <ToolResultNextStep onDownloaded={() => setHasDownloaded(true)} tool="krav_marketing" className="mb-6" entry={{ label: "Kravspecifikation Marketing", industry, values: { Storlek: companySize, "Områden": selectedAreas.join(", ") } }} />
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <div className="flex-1">

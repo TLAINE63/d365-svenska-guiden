@@ -12,16 +12,16 @@ export default function NewsletterTokenAction({ mode }: { mode: "confirm" | "uns
   useEffect(() => {
     const token = params.get("t") || "";
     if (!/^[a-f0-9]{64}$/.test(token)) { setStatus("error"); return; }
-    supabase.functions.invoke("newsletter-subscription", { body: { action: mode, token } })
+    supabase.functions.invoke(`newsletter-${mode}`, { body: { token } })
       .then(({ error }) => setStatus(error ? "error" : "done"));
   }, [mode, params]);
   return (
     <div className="min-h-screen bg-background">
       <SEOHead title={confirm ? "Bekräfta nyhetsbrev" : "Avregistrera nyhetsbrev"} description="Hantera din prenumeration på d365.se." canonicalPath={confirm ? "/nyhetsbrev/bekrafta" : "/nyhetsbrev/avregistrera"} noIndex />
       <Navbar />
-      <main className="pt-28 pb-16"><div className="container mx-auto max-w-2xl px-4 text-center">
+      <main className="pt-28 pb-16"><div className="container mx-auto max-w-6xl px-4 text-center">
         <h1 className="text-3xl font-bold mb-5">{status === "loading" ? "Sparar…" : status === "done" ? (confirm ? "Prenumerationen är bekräftad" : "Du är avregistrerad") : "Länken är ogiltig"}</h1>
-        <p className="text-muted-foreground mb-7">{status === "done" ? (confirm ? "Du får nya artiklar och webinarinbjudningar, högst två gånger i månaden." : "Adressen ingår inte längre i nyhetsbrevslistan.") : status === "error" ? "Kontrollera att du använder hela länken från mejlet." : "Vänta medan ditt val sparas."}</p>
+        <p className="text-muted-foreground mb-7">{status === "done" ? (confirm ? "Tack. Du får månadsbrevet från d365.se." : "Adressen ingår inte längre i nyhetsbrevslistan.") : status === "error" ? "Kontrollera att du använder hela länken från mejlet." : "Vänta medan ditt val sparas."}</p>
         <Link to="/kunskapscenter/" className="text-primary hover:underline">Till Kunskapscentret</Link>
       </div></main>
       <Footer />

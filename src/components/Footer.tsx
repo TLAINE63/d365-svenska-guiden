@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ORGANIZATION } from "@/data/organization";
 import GlobalNextStepFallback from "@/components/nextsteps/GlobalNextStepFallback";
 import ContentInvite from "@/components/ContentInvite";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { useLocation } from "react-router-dom";
 
 const siteLogo = "/d365-logo.svg";
@@ -13,6 +14,7 @@ const Footer = () => {
     <>
     {!inviteAboveList && <ContentInvite />}
     <GlobalNextStepFallback />
+    <NewsletterSignup placement="footer" />
     <footer
       className="bg-[hsl(var(--hero-dark))] py-12 text-[hsl(var(--muted-dark))]"
       style={{ borderTop: "3px solid hsl(var(--signature))" }}

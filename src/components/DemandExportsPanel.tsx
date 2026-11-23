@@ -145,6 +145,8 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
       await get("partnersegment.csv", "admin-partner-segments");
       await get("isv-produkter.csv", "export-isv-products");
       await get("partnerstatistik.csv", `export-partner-stats?month=${encodeURIComponent(previousMonth())}`);
+      await get("prenumeranter.csv", "newsletter-subscription?action=csv");
+      if (!files["prenumeranter.csv"]) throw new Error("Prenumerantlistan kunde inte hämtas. CRM-paketet avbröts för att inte missa avregistreringar.");
       const names = Object.keys(files);
       if (names.length === 0) { setError("Exporten misslyckades."); return; }
       const zip = zipSync(files);
@@ -181,6 +183,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
       <details className="border-y border-border py-4">
         <summary className="cursor-pointer font-medium">Enskilda filer (behövs normalt inte)</summary>
         <div className="flex flex-col items-start gap-3 pt-4">
+          <Button variant="secondary" disabled={!!busy} onClick={() => download("subscribers", "newsletter-subscription?action=csv", "prenumeranter")}><Download className="w-4 h-4 mr-2" />Prenumeranter</Button>
           {DATE_EXPORTS.map((e) => (
             <Button key={e.id} variant="secondary" disabled={!!busy || !allFrom}
               onClick={() => download(e.id, `${e.fn}?from=${encodeURIComponent(allFrom)}${e.extra}`, `${e.file}-${allFrom}`)}>

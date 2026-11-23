@@ -1,3 +1,10 @@
+## Nyhetsbrev (2026-11-23)
+- [x] Gemensamma tre listor, bekräftelse, avregistrering och permanent studs.
+- [x] Anmälan i sidfot, efter CRM-/affärssystemsguider och efter kravspecifikationsnedladdning.
+- [x] Sökbar redaktionsvy och prenumeranter.csv i CRM-paketet, verifierade inloggat och på mobil.
+- [x] Ogiltig anmälan, publik lässpärr, export och automatiska regeltester verifierade.
+- [x] Fullständigt mejltest med Thomas godkända adress: anmälan och dubblett HTTP 200, ett levererat mejl, bekräftelse och avregistrering via UI samt avregistrerad rad i CRM-export. Nedladdningsformuläret verifierat med riktig PDF. Ingen aktiv testprenumeration kvar.
+
 ## Generalplan 2027, paket 2 (2026-11-18)
 - [x] Kontrollerat specialistuppgifternas övriga vägar: alternativa formuläret bevarar nu samma val/underlag och separat rådgivningsärende visar beställare/uppdragsroll. 26 tester godkända; alternativa formuläret provat utan utskick. Redaktion kodläst, inte separat inloggat provad.
 - [x] Admininloggning HTTP 200; specialistuppgifter för slutkund/partner och äldre ärende verifierade i admin. 24 tester godkända, testärenden rensade. Ingen ändring av behörighet behövdes.

@@ -417,6 +417,15 @@ Deno.serve(async (req) => {
         .eq("is_featured", !unv)
         .order("name");
       if (pErr) throw pErr;
+      const newsletterSubscribers: Array<{email: string; partner_slug: string; unsubscribe_token: string}> = [];
+      if (NEWSLETTER_ACTIONS.includes(rawBody.action)) {
+        for (let offset = 0; ; offset += 1000) {
+          const { data, error } = await sb.from("newsletter_subscribers").select("email,partner_slug,unsubscribe_token").eq("list", "partner").eq("status", "aktiv").order("id").range(offset, offset + 999);
+          if (error) throw error;
+          newsletterSubscribers.push(...(data || []));
+          if (!data || data.length < 1000) break;
+        }
+      }
       const now = Date.now();
       const { data: logs } = await sb.from("email_send_log")
         .select("metadata,created_at,status")
@@ -430,7 +439,7 @@ Deno.serve(async (req) => {
         return {
           id: p.id, name: p.name, slug: (p.slug as string | null) ?? null,
           email: (p.admin_contact_email || p.email || "").trim() || null,
-          recipients: newsletterRecipients(p),
+          recipients: NEWSLETTER_ACTIONS.includes(rawBody.action) ? newsletterSubscribers.filter(n => n.partner_slug === p.slug).map(n => n.email) : newsletterRecipients(p),
           token: inv?.token ?? null,
           last_sent_at: last?.created_at ?? null,
         };
@@ -541,19 +550,30 @@ Deno.serve(async (req) => {
           const subject = live ? baseSubject : `[Granskning${unv ? " ej verifierad" : ""}: ${p.name}] ${baseSubject}`;
           const to = live ? p.recipients : [REVIEW_RECIPIENT];
           const stats = await statsFor(p, content);
-          const { data, error } = await rsNl.emails.send({
-            from: "Thomas Laine via d365.se <info@d365.se>",
-            to, reply_to: REVIEW_RECIPIENT, subject,
-            html: newsletterEmail(p.name, p.token ?? "", content, stats, audience),
-          });
-          const status = error ? "failed" : "sent";
-          resultsNl.push({ partner: p.name, status, ...(live ? { reason: to.join(", ") } : {}) });
-          await sb.from("email_send_log").insert({
-            recipient_email: to.join(", "), template_name: live ? "partner-newsletter" : "partner-newsletter-review", subject, status,
-            message_id: data?.id ?? null,
-            error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
-            metadata: { partner_id: p.id, partner_name: p.name, audience },
-          });
+          for (const recipient of to) {
+            const subscriber = newsletterSubscribers.find(n => n.partner_slug === p.slug && n.email === recipient);
+            // Recheck immediately before sending; never reuse profile addresses after opt-out.
+            if (live && subscriber) {
+              const { data: current, error: currentError } = await sb.from("newsletter_subscribers").select("status").eq("email", recipient).eq("list", "partner").maybeSingle();
+              if (currentError) throw currentError;
+              if (current?.status !== "aktiv") continue;
+            }
+            const unsubscribe = subscriber ? `${PUBLIC_BASE_URL}/nyhetsbrev/avregistrera/?t=${subscriber.unsubscribe_token}` : null;
+            const html = newsletterEmail(p.name, p.token ?? "", content, stats, audience).replace("</body>", `${unsubscribe ? `<p style="text-align:center"><a href="${escapeHtml(unsubscribe)}">Avregistrera dig från partnerbrevet</a></p>` : ""}</body>`);
+            const { data, error } = await rsNl.emails.send({
+              from: "Thomas Laine | D365.SE <info@d365.se>",
+              to: [recipient], reply_to: REVIEW_RECIPIENT, subject, html,
+            });
+            const status = error ? "failed" : "sent";
+            resultsNl.push({ partner: p.name, status });
+            await sb.from("email_send_log").insert({
+              recipient_email: recipient, template_name: live ? "partner-newsletter" : "partner-newsletter-review", subject, status,
+              message_id: data?.id ?? null,
+              error_message: error ? JSON.stringify(error).slice(0, 1000) : null,
+              metadata: { partner_id: p.id, partner_name: p.name, audience },
+            });
+            await new Promise(r => setTimeout(r, 600));
+          }
           await new Promise((r) => setTimeout(r, 600));
         }
         const failedNl = resultsNl.filter((r) => r.status === "failed");

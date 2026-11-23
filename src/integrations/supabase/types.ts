@@ -2510,46 +2510,85 @@ export type Database = {
       }
       newsletter_subscribers: {
         Row: {
+          company: string | null
+          confirmation_expires_at: string | null
+          confirmation_sent_at: string | null
           confirmation_token_hash: string
           confirmed_at: string | null
           consent_text_version: string
           created_at: string
           email: string
+          first_name: string | null
           id: string
+          isv_slug: string | null
+          last_name: string | null
+          list: string
+          partner_slug: string | null
+          pending_details: Json | null
           source_page: string | null
+          status: string
+          subscribed_at: string
+          title: string | null
           unsubscribe_token: string
           unsubscribe_token_hash: string
           unsubscribed_at: string | null
+          updated_at: string
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
         }
         Insert: {
-          confirmation_token_hash: string
+          company?: string | null
+          confirmation_expires_at?: string | null
+          confirmation_sent_at?: string | null
+          confirmation_token_hash?: string
           confirmed_at?: string | null
           consent_text_version: string
           created_at?: string
           email: string
+          first_name?: string | null
           id?: string
+          isv_slug?: string | null
+          last_name?: string | null
+          list?: string
+          partner_slug?: string | null
+          pending_details?: Json | null
           source_page?: string | null
+          status?: string
+          subscribed_at?: string
+          title?: string | null
           unsubscribe_token?: string
-          unsubscribe_token_hash: string
+          unsubscribe_token_hash?: string
           unsubscribed_at?: string | null
+          updated_at?: string
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
         }
         Update: {
+          company?: string | null
+          confirmation_expires_at?: string | null
+          confirmation_sent_at?: string | null
           confirmation_token_hash?: string
           confirmed_at?: string | null
           consent_text_version?: string
           created_at?: string
           email?: string
+          first_name?: string | null
           id?: string
+          isv_slug?: string | null
+          last_name?: string | null
+          list?: string
+          partner_slug?: string | null
+          pending_details?: Json | null
           source_page?: string | null
+          status?: string
+          subscribed_at?: string
+          title?: string | null
           unsubscribe_token?: string
           unsubscribe_token_hash?: string
           unsubscribed_at?: string | null
+          updated_at?: string
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
@@ -7162,6 +7201,21 @@ export type Database = {
       journey_type_for_placement: {
         Args: { _placement: string }
         Returns: string
+      }
+      newsletter_claim_confirmation: {
+        Args: { _details: Json; _email: string; _hash: string }
+        Returns: boolean
+      }
+      newsletter_confirm_token: { Args: { _hash: string }; Returns: boolean }
+      newsletter_register_contact: {
+        Args: {
+          _company: string
+          _email: string
+          _list: string
+          _name?: string
+          _slug: string
+        }
+        Returns: undefined
       }
       partner_mark_self_update: {
         Args: { _partner_id: string }
