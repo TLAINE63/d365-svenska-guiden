@@ -13,9 +13,9 @@ const today = () => new Date().toISOString().slice(0, 10);
 /** Prisbilaga från samma priser som Partnerprogram och Budget 2027. */
 export function agreementPriceRows(): [string, string][] {
   return [
-    ["Partner Presence Premium, 1 produktområde", `${kr(MONTH_PRICE[1])}/mån eller ${kr(YEAR_PRICE[1])}/år`],
-    ["Partner Presence Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
-    ["Partner Presence Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
+    ["Premium, 1 produktområde", `${kr(MONTH_PRICE[1])}/mån eller ${kr(YEAR_PRICE[1])}/år`],
+    ["Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
+    ["Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
     ["Finder’s fee, nya projekt: mötesavgift", "1 500 kr (<250 tkr), 3 000/5 000 kr (250 tkr–1 Mkr), 6 000/9 000 kr (>1 Mkr) (Premium/Basic)"],
     ["Finder’s fee, nya projekt: avgift vid affär", "2,5 %, lägst 3 000 kr (<250 tkr), högst 100 000 kr (>1 Mkr), med avräkning av mötesavgift"],

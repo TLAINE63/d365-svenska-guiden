@@ -81,7 +81,7 @@ export async function downloadProgramTerms(area: TermsArea) {
   const blob = await generatePartnerAgreementPdf({
     heading: `Avtalsvillkor: ${title}`,
     intro: `Sammanställning av publicerade kommersiella villkor, uppdaterad ${TERMS_DATE}. Dokumentet ersätter inte ett individuellt undertecknat avtal. Startdatum, eventuella rabatter och kompletterande villkor fastställs separat.`,
-    sections: termsSections(area), priceRows: termsPriceRows(area),
+    sections: termsSections(area), benefits: area === "isv" ? "isv" : area === "commission" ? "none" : "partner", priceRows: termsPriceRows(area),
     priceNote: area === "isv" ? "Alla belopp anges exklusive moms. Individuella rabatter och överenskommelser framgår av respektive avtal." : PARTNER_FEE_NOTE,
     acceptance: "Bekräfta de individuella villkoren skriftligen innan samarbetet startar. Vid frågor, kontakta oss:",
   });
