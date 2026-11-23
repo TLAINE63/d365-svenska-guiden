@@ -8,7 +8,7 @@ describe("områdesspecifika prisbilagor", () => {
     ]);
   });
   it("ISV inkluderar grundavgift och extra produkt", () => {
-    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["5 990 kr/år", "995 kr/år", "2 990 kr"]);
+    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["4 990 kr/år", "499 kr/år", "2 990 kr"]);
   });
   it("förmedling följer prismodellen 2026-11-17 med mötesavgift, 2,5 % och ISV 0 %", () => {
     const v = Object.fromEntries(termsPriceRows("commission").map(([k, val]) => [k, val.replace(/\s/g, " ")]));

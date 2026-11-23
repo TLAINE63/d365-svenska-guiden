@@ -20,8 +20,9 @@ describe("isv visibility", () => {
   it("unknown vendor without verification is not verified", () => {
     expect(isVendorVerified("compiled", matchVerifiedPartner("Okänd", "okand", partners))).toBe(false);
   });
-  it("ISV Presence: 5 990 kr incl one app, +995 kr per extra app", () => {
-    expect(isvPresenceYearlyPrice(1)).toBe(5990);
-    expect(isvPresenceYearlyPrice(3)).toBe(7980);
+  it("ISV Presence: 4 990 kr incl three apps, +499 kr per extra app", () => {
+    expect(isvPresenceYearlyPrice(1)).toBe(4990);
+    expect(isvPresenceYearlyPrice(3)).toBe(4990);
+    expect(isvPresenceYearlyPrice(4)).toBe(5489);
   });
 });

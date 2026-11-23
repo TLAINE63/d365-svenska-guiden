@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Vad kostar ISV Presence?",
     answer:
-      "5 990 kr per år och ISV, exklusive moms, inklusive en verifierad produkt. Varje ytterligare verifierad produkt kostar 995 kr per år. Introduktionserbjudande: 2 990 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
+      "4 990 kr per år och ISV, exklusive moms, inklusive tre verifierade produkter. Varje ytterligare verifierad produkt kostar 499 kr per år. Introduktionserbjudande: 2 990 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
   },
   {
     question: "Påverkar ISV Presence ordningen i katalogen?",
@@ -54,7 +54,7 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontakt. ISV Presence 5 990 kr/år inkl. en produkt, introduktionspris 2 990 kr första året."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontakt. ISV Presence 4 990 kr/år inkl. tre produkter, introduktionspris 2 990 kr första året."
         webPageSchema={false}
         canonicalPath="/isvprogram"
         dateModified="2026-11-17"
@@ -135,8 +135,8 @@ const IsvProgram = () => {
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
                 <ul className="text-sm text-foreground space-y-1 mb-4">
                   <li className="rounded-md bg-primary/10 px-3 py-2">Introduktionspris första året: <strong>2&nbsp;990&nbsp;kr</strong> <span className="text-muted-foreground">(de första 20 nya ISV-leverantörerna)</span></li>
-                  <li>Ordinarie pris per ISV inklusive en produkt: <strong>5&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
-                  <li>Per extra produkt: <strong>995&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Ordinarie pris per ISV inklusive tre produkter: <strong>4&nbsp;990&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Per extra produkt utöver de tre som ingår: <strong>499&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>

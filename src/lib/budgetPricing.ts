@@ -15,8 +15,8 @@ export interface BudgetPricing {
   expertFee: { short: SwitchMeetingFee; long: SwitchMeetingFee };
 }
 export const DEFAULT_PRICING: BudgetPricing = {
-  units: { year1: 7990, year2: 9990, year3: 11990, month1: 995, month2: 1295, month3: 1495, isvPresence: 2990, isvExtra: 995 },
-  isvAnnual: 5990, isvLicensePercent: 0, isvConsultPercent: 0,
+  units: { year1: 7990, year2: 9990, year3: 11990, month1: 995, month2: 1295, month3: 1495, isvPresence: 2990, isvExtra: 499 },
+  isvAnnual: 4990, isvLicensePercent: 0, isvConsultPercent: 0,
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
     small: { premiumMeeting: 1500, basicMeeting: 1500, percent: 2.5, minimum: 3000, maximum: 0 },

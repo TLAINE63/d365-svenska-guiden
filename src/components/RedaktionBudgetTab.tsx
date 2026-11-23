@@ -469,7 +469,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                     {open && v.products.map((p, i) => (
                       <tr key={p.id} className="bg-muted/40 text-xs text-muted-foreground">
                         <td className="py-1 pl-6 pr-2">{p.name}</td>
-                        <td colSpan={7}>{i === 0 ? "Ingår i grundavgiften" : `Extra app, ${fmt(pricing.units.isvExtra)} kr/år om den räknas in`}</td>
+                        <td colSpan={7}>{i < 3 ? "Ingår i grundavgiften" : `Extra app, ${fmt(pricing.units.isvExtra)} kr/år om den räknas in`}</td>
                       </tr>
                     ))}
                     </Fragment>

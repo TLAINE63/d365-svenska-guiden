@@ -55,10 +55,11 @@ export function vendorExposure(vendorVerified: boolean): IsvExposure {
   return { showLogo: vendorVerified, showWebsite: vendorVerified, showContact: vendorVerified };
 }
 
-/** ISV Presence: årspris inkluderar en app, varje extra verifierad app kostar extra. */
-export const ISV_PRESENCE_BASE_SEK = 5990;
-export const ISV_PRESENCE_EXTRA_APP_SEK = 995;
+/** ISV Presence: årspris inkluderar tre appar, varje extra verifierad app kostar extra. */
+export const ISV_PRESENCE_BASE_SEK = 4990;
+export const ISV_PRESENCE_EXTRA_APP_SEK = 499;
+export const ISV_PRESENCE_INCLUDED_APPS = 3;
 export function isvPresenceYearlyPrice(verifiedApps: number): number {
   if (verifiedApps <= 0) return 0;
-  return ISV_PRESENCE_BASE_SEK + (verifiedApps - 1) * ISV_PRESENCE_EXTRA_APP_SEK;
+  return ISV_PRESENCE_BASE_SEK + Math.max(0, verifiedApps - ISV_PRESENCE_INCLUDED_APPS) * ISV_PRESENCE_EXTRA_APP_SEK;
 }
