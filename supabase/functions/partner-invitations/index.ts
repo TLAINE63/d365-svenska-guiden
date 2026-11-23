@@ -1596,7 +1596,7 @@ D365.se`;
                   return part
                     .split("\n\n")
                     .map((paragraph: string) => {
-                      const trimmed = paragraph.trim();
+                      const trimmed = escH(paragraph.trim());
                       if (!trimmed) return "";
                       const withBr = trimmed.replace(/\n/g, "<br>");
                       const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');

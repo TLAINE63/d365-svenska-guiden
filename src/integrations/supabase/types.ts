@@ -6844,6 +6844,60 @@ export type Database = {
         }
         Relationships: []
       }
+      partners_mcp_v1: {
+        Row: {
+          ai_summary: string | null
+          applications: string[] | null
+          customer_examples: string[] | null
+          description: string | null
+          geography: string[] | null
+          implementations_done: string | null
+          industries: string[] | null
+          is_featured: boolean | null
+          name: string | null
+          office_cities: string[] | null
+          positioning_statement: string | null
+          secondary_industries: string[] | null
+          slug: string | null
+          team_size_sweden: string | null
+          website: string | null
+        }
+        Insert: {
+          ai_summary?: string | null
+          applications?: string[] | null
+          customer_examples?: string[] | null
+          description?: string | null
+          geography?: string[] | null
+          implementations_done?: string | null
+          industries?: string[] | null
+          is_featured?: boolean | null
+          name?: string | null
+          office_cities?: string[] | null
+          positioning_statement?: string | null
+          secondary_industries?: string[] | null
+          slug?: string | null
+          team_size_sweden?: string | null
+          website?: string | null
+        }
+        Update: {
+          ai_summary?: string | null
+          applications?: string[] | null
+          customer_examples?: string[] | null
+          description?: string | null
+          geography?: string[] | null
+          implementations_done?: string | null
+          industries?: string[] | null
+          is_featured?: boolean | null
+          name?: string | null
+          office_cities?: string[] | null
+          positioning_statement?: string | null
+          secondary_industries?: string[] | null
+          slug?: string | null
+          team_size_sweden?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       partners_public: {
         Row: {
           agreement_signed: boolean | null

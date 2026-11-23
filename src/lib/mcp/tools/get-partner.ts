@@ -21,7 +21,7 @@ export default defineTool({
   handler: async ({ slug }) => {
     const sb = supabaseAnon();
     const { data, error } = await sb
-      .from("partners_public")
+      .from("partners_mcp_v1")
       .select(
         "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,positioning_statement,team_size_sweden,implementations_done,ai_summary",
       )

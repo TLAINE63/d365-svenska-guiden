@@ -24,7 +24,7 @@ export default defineTool({
   handler: async ({ application, industry, geography, limit }) => {
     const sb = supabaseAnon();
     let q = sb
-      .from("partners_public")
+      .from("partners_mcp_v1")
       .select("slug,name,description,applications,industries,geography,office_cities,website")
       .eq("is_featured", true)
       .limit(limit ?? 20);

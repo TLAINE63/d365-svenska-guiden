@@ -52,7 +52,7 @@ var search_partners_default = defineTool({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ application, industry, geography, limit }) => {
     const sb = supabaseAnon();
-    let q = sb.from("partners_public").select("slug,name,description,applications,industries,geography,office_cities,website").eq("is_featured", true).limit(limit ?? 20);
+    let q = sb.from("partners_mcp_v1").select("slug,name,description,applications,industries,geography,office_cities,website").eq("is_featured", true).limit(limit ?? 20);
     if (application) q = q.contains("applications", [application]);
     if (industry) q = q.contains("industries", [industry]);
     if (geography) q = q.contains("geography", [geography]);
@@ -90,7 +90,7 @@ var get_partner_default = defineTool2({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ slug }) => {
     const sb = supabaseAnon2();
-    const { data, error } = await sb.from("partners_public").select(
+    const { data, error } = await sb.from("partners_mcp_v1").select(
       "slug,name,description,website,applications,industries,secondary_industries,geography,office_cities,customer_examples,positioning_statement,team_size_sweden,implementations_done,ai_summary"
     ).eq("slug", slug).eq("is_featured", true).maybeSingle();
     if (error) {

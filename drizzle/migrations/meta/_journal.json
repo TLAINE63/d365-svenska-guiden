@@ -358,6 +358,13 @@
       "when": 1795161090519,
       "tag": "0050_harden_partner_names_and_has_role",
       "breakpoints": true
+    },
+    {
+      "idx": 51,
+      "version": "7",
+      "when": 1795437896935,
+      "tag": "0051_partners_mcp_v1_view",
+      "breakpoints": true
     }
   ]
 }
