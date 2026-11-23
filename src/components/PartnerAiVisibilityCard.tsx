@@ -48,8 +48,14 @@ export default function PartnerAiVisibilityCard({ slug, partnerName, forceVisibl
     if (!allowed) return;
     let cancelled = false;
     (async () => {
+      let staffToken = "";
+      try {
+        staffToken = sessionStorage.getItem("admin_token") || sessionStorage.getItem("editor_token") || "";
+      } catch { /* ignore */ }
+      if (!staffToken) return;
       const { data, error } = await supabase.functions.invoke("partner-ai-visibility", {
         body: { slug },
+        headers: { "x-staff-token": staffToken },
       });
       if (cancelled || error || !data || data.error) return;
       setSite(data.site as SiteStats);

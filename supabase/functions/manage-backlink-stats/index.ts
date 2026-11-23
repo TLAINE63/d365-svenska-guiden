@@ -69,6 +69,7 @@ function json(body: unknown, status: number, headers: Record<string, string>) {
 
 const SEMRUSH_GATEWAY = "https://connector-gateway.lovable.dev/semrush";
 const DEFAULT_DOMAIN = "d365.se";
+const ALLOWED_FETCH_DOMAINS = new Set(["d365.se"]);
 
 function parseSemrushCsv(text: string): Record<string, string>[] {
   const lines = text.trim().split(/\r?\n/).filter(Boolean);
@@ -261,6 +262,10 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     if (action === "fetch" && req.method === "POST") {
+      // Betalda uppslag görs bara för sajtens egna domäner.
+      if (!ALLOWED_FETCH_DOMAINS.has(domain)) {
+        return json({ error: "Domänen är inte tillåten." }, 400, cors);
+      }
       const overview = await semrush("/backlinks/backlinks_overview", {
         target: domain,
         target_type: "root_domain",

@@ -23,6 +23,8 @@ serve(async (req) => {
     if (!bearer || !(await verifyAdminJWT(bearer, serviceKey, ["admin", "editor"]))) {
       return json({ error: "Unauthorized" }, 401, corsHeaders);
     }
+    // Bara admin får skicka inbjudningsmejl till externa adresser.
+    const isAdmin = await verifyAdminJWT(bearer, serviceKey, ["admin"]);
 
     const supabase = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
     const url = new URL(req.url);
@@ -67,7 +69,9 @@ serve(async (req) => {
       const link = `${PUBLIC_BASE_URL}/isv-profil/${token}`;
       let emailError: string | null = null;
 
-      if (body?.send_email) {
+      if (body?.send_email && !isAdmin) {
+        emailError = "Endast admin kan skicka inbjudningsmejl";
+      } else if (body?.send_email) {
         const resendApiKey = Deno.env.get("RESEND_API_KEY");
         if (!resendApiKey) {
           emailError = "RESEND_API_KEY saknas";

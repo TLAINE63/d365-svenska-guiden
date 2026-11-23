@@ -95,9 +95,10 @@ Deno.serve(async (req) => {
       .maybeSingle();
     if (existing?.confirmed_at && !existing.unsubscribed_at) return json({ ok: true, pending: false });
     // A pending signup keeps its tokens for 24 h, so nobody can reset another person's link.
-    if (existing && !existing.confirmed_at && !existing.unsubscribed_at &&
-        Date.now() - new Date(existing.created_at).getTime() < 24 * 60 * 60 * 1000) {
-      return json({ ok: true, pending: true });
+    // Existing rows are never modified by an anonymous caller: a pending or
+    // unsubscribed address keeps its data and tokens untouched.
+    if (existing) {
+      return json({ ok: true, pending: !existing.confirmed_at });
     }
 
     const confirmationToken = randomToken();

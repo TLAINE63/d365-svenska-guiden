@@ -2,6 +2,7 @@
 // Returnerar dels d365.se:s AI-synlighet totalt, dels robotbesök på just
 // den partnerns profilsida. Ingen persondata exponeras.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { verifyAdminJWT } from "../_shared/isvAuth.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -63,6 +64,14 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
   try {
+    // Endast inloggad admin eller redaktör får se trafiksiffrorna.
+    const bearer = (req.headers.get("x-staff-token") || "").trim();
+    if (!bearer || !(await verifyAdminJWT(bearer, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "", ["admin", "editor"]))) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...cors, "Content-Type": "application/json" },
+      });
+    }
     const body = await req.json().catch(() => ({}));
     const slug = String(body?.slug || "").trim().toLowerCase().slice(0, 120);
     if (!/^[a-z0-9-]*$/.test(slug)) {
