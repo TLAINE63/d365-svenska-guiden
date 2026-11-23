@@ -122,6 +122,7 @@ const IsvProgram = () => {
                 <h4 className="text-lg font-semibold text-foreground mb-3">Det här ingår</h4>
                 <ul className="text-sm text-muted-foreground space-y-2 mb-6">
                   {[
+                    "Tre tilläggsprodukter ingår i grundpriset",
                     "Verifieringsprocessen (grundkontroll) ingår",
                     "Logotyp, webblänk och kontaktuppgifter för verifierad leverantör och produkt",
                     "Upp till tre aktiva demofilmer från YouTube per produkt",
