@@ -838,6 +838,31 @@ serve(async (req: Request): Promise<Response> => {
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
+      // Bound the recipient: exactly one valid address, tied to the partner's own domain when a partner is given.
+      const recipients = parseRecipients(String(email));
+      if (recipients.length !== 1 || String(email).length > 254) {
+        return new Response(
+          JSON.stringify({ error: "Ange exakt en giltig e-postadress" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      if (partner_id) {
+        const { data: pRow } = await supabase.from("partners")
+          .select("email, admin_contact_email, website").eq("id", partner_id).maybeSingle();
+        const domainOf = (v: string | null | undefined) => {
+          if (!v) return "";
+          const s = String(v).trim().toLowerCase();
+          if (s.includes("@")) return s.split("@").pop() || "";
+          try { return new URL(s.startsWith("http") ? s : `https://${s}`).hostname.replace(/^www\./, ""); } catch { return ""; }
+        };
+        const allowed = new Set([domainOf(pRow?.email), domainOf(pRow?.admin_contact_email), domainOf(pRow?.website)].filter(Boolean));
+        if (!pRow || !allowed.has(domainOf(recipients[0]))) {
+          return new Response(
+            JSON.stringify({ error: "Mottagaren måste ha partnerns egen e-postdomän" }),
+            { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+      }
       // Remove existing pending invitations for the same partner
       if (partner_id) {
         await supabase
@@ -1025,7 +1050,7 @@ D365.se`;
             
             const emailResponse = await resend.emails.send({
               from: "D365 Guiden <info@d365.se>",
-              to: parseRecipients(email),
+              to: recipients,
               bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
               html: fullHtml,

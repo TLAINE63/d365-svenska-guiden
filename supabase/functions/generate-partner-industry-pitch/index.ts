@@ -158,7 +158,7 @@ serve(async (req: Request): Promise<Response> => {
           status: 401, headers: { "Content-Type": "application/json", ...corsHeaders },
         });
       }
-      if (inv.status === "pending" && new Date(inv.expires_at) < new Date()) {
+      if (inv.status === "rejected" || (inv.expires_at && new Date(inv.expires_at) < new Date())) {
         return new Response(JSON.stringify({ error: "Inbjudan har gått ut" }), {
           status: 410, headers: { "Content-Type": "application/json", ...corsHeaders },
         });
@@ -203,7 +203,12 @@ serve(async (req: Request): Promise<Response> => {
       .eq("endpoint", "generate-partner-industry-pitch")
       .eq("usage_day", today)
       .eq("ip_hash", `partner:${effectivePartnerId}`);
-    if ((count || 0) >= 30) {
+    const { count: globalCount } = await supabase
+      .from("ai_usage_log")
+      .select("*", { count: "exact", head: true })
+      .eq("endpoint", "generate-partner-industry-pitch")
+      .eq("usage_day", today);
+    if ((count || 0) >= (isAdmin ? 30 : 10) || (!isAdmin && (globalCount || 0) >= 150)) {
       return new Response(JSON.stringify({ error: "Dagsgräns nådd" }), {
         status: 429, headers: { "Content-Type": "application/json", ...corsHeaders },
       });

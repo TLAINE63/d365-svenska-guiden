@@ -146,7 +146,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    return json({ ok: true, duplicate: Boolean(confirmation), email: input.email, slug: webinar.slug });
+    return json({ ok: true, email: input.email, slug: webinar.slug });
   } catch {
     return json({ error: "Anmälan kunde inte genomföras just nu." }, 500);
   }
