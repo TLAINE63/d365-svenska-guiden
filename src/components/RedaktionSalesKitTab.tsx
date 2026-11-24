@@ -35,7 +35,7 @@ const INCLUDED = [
   ["Direktlänk till er webbplats", "Knappen \"Till partnerns webbplats\" med UTM-mätning, så ni ser varje besök från d365.se i er egen statistik."],
   ["Månadsrapport", "Varje månad: visningar i listan, profilvisningar, jämförelser och klick till er webbplats."],
   ["INSIDE-intervju, endast Premium", `Redaktionell videointervju för 4${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube. INSIDE gäller endast partners med Premium.`],
-  ["Resultatbaserad förmedling", "Ingen separat mötesavgift för Premium. Finder’s fee först vid förmedlad affär."],
+  ["Resultatbaserad förmedling", "Lägre mötesavgift för Premium. Premium innehåller inga utlovade möten."],
 ];
 
 export default function RedaktionSalesKitTab({ token }: { token: string | null }) {
@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Premium och Finder’s fee kan tecknas var för sig. Finder’s fee för nya projekt: mötesavgift per kvalificerat möte (under 250 tkr 1 500 kr; 250 tkr–1 Mkr 3 000 kr Premium / 5 000 kr Basic; över 1 Mkr 6 000 / 9 000 kr) samt 2,5 % vid affär (lägst 3 000 kr under 250 tkr, högst 100 000 kr över 1 Mkr), där betald mötesavgift räknas av. Partnerbyte: endast mötesavgift. Expertkonsulter: fast avgift per tillsatt uppdrag, 7 500 kr (Premium) / 12 500 kr (Basic) upp till 6 månader eller under halvtid, 15 000 / 25 000 kr vid längre uppdrag.",
+      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Premium och Finder’s fee kan tecknas var för sig. Finder’s fee: mötesavgift per kvalificerat möte efter produktområde, Business Central 1 000 kr (Premium) / 3 000 kr (Grundprofil), CRM 1 500 / 4 000 kr, Finance, SCM, Project Operations, Commerce och Human Resources 2 000 / 5 000 kr. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr, med betald mötesavgift avräknad.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -179,14 +179,14 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
             <p className="font-semibold">Möte → Affär → Finder’s fee</p>
             <p className="mt-1 text-sm text-muted-foreground">Tecknas separat från Premium. Mötesavgift per kvalificerat möte, 2,5 % vid affär där betald mötesavgift räknas av (exkl. moms):</p>
             <table className="mt-2 w-full text-xs">
-              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1">Nya projekt</th><th className="text-right font-normal">Möte Premium / Basic</th></tr></thead>
+              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1">Produktområde</th><th className="text-right font-normal">Möte Premium / Grundprofil</th></tr></thead>
               <tbody>
-                <tr className="border-t"><td className="py-1">Under 250 tkr (lägst 3{NB}000 kr vid affär)</td><td className="text-right whitespace-nowrap">1{NB}500 / 1{NB}500 kr</td></tr>
-                <tr className="border-t"><td className="py-1">250 tkr – 1 Mkr</td><td className="text-right whitespace-nowrap">3{NB}000 / 5{NB}000 kr</td></tr>
-                <tr className="border-t"><td className="py-1">Över 1 Mkr (högst 100{NB}000 kr vid affär)</td><td className="text-right whitespace-nowrap">6{NB}000 / 9{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Band 1: Business Central, fristående Power Platform och Copilot</td><td className="text-right whitespace-nowrap">1{NB}000 / 3{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Band 2: CRM</td><td className="text-right whitespace-nowrap">1{NB}500 / 4{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Band 3: Finance, SCM, Project Operations, Commerce, Human Resources</td><td className="text-right whitespace-nowrap">2{NB}000 / 5{NB}000 kr</td></tr>
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-muted-foreground">Partnerbyte: endast mötesavgift, BC/CRM/Power Platform 3{NB}000 / 5{NB}000 kr, F&amp;SCM 6{NB}000 / 9{NB}000 kr. Expertkonsulter: fast avgift per tillsatt uppdrag, 7{NB}500 / 12{NB}500 kr upp till 6 månader eller under halvtid, 15{NB}000 / 25{NB}000 kr vid längre uppdrag.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100{NB}000 kr per affär.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>

@@ -18,34 +18,28 @@ Commerce, Human Resources och Project Operations är tillvalsprodukter som ingå
 ${AGREEMENT_DURATION_TERMS}
 
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
-export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-17. Samma villkor för alla partners; Premium och Basic avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
+export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
-Nya projekt: mötesavgift per genomfört kvalificerat möte samt avgift vid affär på 2,5% av affärens konsult- och projektvärde.
-• Under 250 tkr: mötesavgift 1 500 kr (Premium och Basic), lägsta avgift vid affär 3 000 kr.
-• 250 tkr–1 Mkr: mötesavgift 3 000 kr (Premium) / 5 000 kr (Basic).
-• Över 1 Mkr: mötesavgift 6 000 kr (Premium) / 9 000 kr (Basic), avgiften vid affär är högst 100 000 kr.
-Betald mötesavgift räknas av i sin helhet mot avgiften vid affär; avräkningen blir aldrig negativ och mötesavgiften återbetalas inte.
+Mötesavgift per genomfört kvalificerat möte, efter produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
+• Band 1: Business Central. Power Platform och Copilot som fristående projekt: 1 000 kr (Premium) / 3 000 kr (Grundprofil).
+• Band 2: CRM: Sales, Customer Service, Contact Center, Field Service, Customer Insights: 1 500 kr (Premium) / 4 000 kr (Grundprofil).
+• Band 3: Finance, Supply Chain Management, Project Operations, Commerce, Human Resources: 2 000 kr (Premium) / 5 000 kr (Grundprofil).
+Ingår Power Platform eller Copilot i ett CRM- eller ERP-projekt följer de det produktområdets band. Omfattar affären flera produktområden gäller det högsta bandet. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
 
-Partnerbyte: endast mötesavgift, ingen avgift vid affär.
-• Business Central, CRM och Power Platform: 3 000 kr (Premium) / 5 000 kr (Basic).
-• Finance & Supply Chain Management: 6 000 kr (Premium) / 9 000 kr (Basic).
+Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Högst 100 000 kr per affär. Betald mötesavgift räknas av i sin helhet, och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.
 
-Expertförmedling: fast avgift per tillsatt uppdrag.
-• Upp till sex månader eller under halvtid: 7 500 kr (Premium) / 12 500 kr (Basic).
-• Längre uppdrag eller minst halvtid: 15 000 kr (Premium) / 25 000 kr (Basic).
-
-Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.
+Vid expertförmedling tecknar partnern kundavtalet, debiterar kunden och har leveransansvaret.
 
 Tidsgränser:
-• Reklamation av kvalificering inom 5 arbetsdagar efter mötet.
-• Offert som flyttar mötet till lägre band inom 60 dagar efter mötet.
+• Reklamation av kvalificering: 5 arbetsdagar efter mötet.
 • Vunnen affär rapporteras inom 14 dagar efter avtal med kund.
-• Tidsfönster 9 månader från mötet för nya projekt och partnerbyte, samt 6 månader från förfrågan för expertförmedling.
-• Befintlig kundrelation ska visas med aktiv dialog inom 5 arbetsdagar.
+• Fakturerat konsult- och projektvärde rapporteras kvartalsvis under de första 12 månaderna.
+• Tidsfönster: 12 månader från mötet. För expertförmedling: 12 månader från intervjun.
+• Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar.
 
 ${AGREEMENT_DURATION_TERMS}
 
-Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte i affärsvärdet. Alla belopp exklusive moms.`;
+Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms.`;
 export function orderPrice(s: OrderSelection): number { return s.level === 'basic' ? 0 : ORDER_PRICES[s.period][s.areas.length] ?? 0; }
 export function orderValidation(s: OrderSelection, accept: boolean, authority: boolean, mediationAccept: boolean): string | null {
  if (!['basic','premium'].includes(s.level) || !['month','year'].includes(s.period)) return 'Välj profil och betalningsperiod.';

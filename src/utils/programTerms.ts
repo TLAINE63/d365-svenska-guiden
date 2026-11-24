@@ -1,15 +1,26 @@
-import { MONTH_PRICE, YEAR_PRICE, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
+import { MONTH_PRICE, YEAR_PRICE, ISV_FEES } from "@/lib/budget2027";
 import type { AgreementPdfSection } from "./generatePartnerAgreementPdf";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 import { AGREEMENT_DURATION_TERMS } from '@/lib/partnerOrder';
 
+export const KVALIFICERAT_MOTE = "Ett kvalificerat möte är ett genomfört möte mellan partnern och en potentiell kund, där d365.se före introduktionen har:\n• identifierat ett konkret affärs-, system- eller förändringsbehov\n• bedömt att behovet är relevant för partnerns erbjudande\n• haft kontakt med en beslutsfattare eller projektansvarig hos kunden\n• dokumenterat kundens nuläge, behov och tidsram, samt en uppskattad omfattning\n• fått kundens önskemål om att träffa partnern\n• fått partnerns accept av de kommersiella villkoren.\n\nMötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. Ett kvalificerat möte innebär ingen garanti för att kunden genomför ett projekt eller väljer partnern.";
+export const KOPARENS_FRIA_VAL = "Köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut. Finder’s fee gäller endast när d365.se har genomfört behovsanalysen och introduktionen.";
+export const UPPFOLJNING = "d365.se följer upp med köparen efter mötet. Partnern lämnar på begäran underlag för rapporterat konsult- och projektvärde.";
+export const TIDSGRANSER = [
+  "Reklamation av kvalificering: 5 arbetsdagar efter mötet.",
+  "Vunnen affär rapporteras inom 14 dagar efter avtal med kund.",
+  "Fakturerat konsult- och projektvärde rapporteras kvartalsvis under de första 12 månaderna.",
+  "Tidsfönster: 12 månader från mötet. För expertförmedling: 12 månader från intervjun.",
+  "Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar.",
+];
+
 export type TermsArea = "partner" | "isv" | "commission";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
-export const TERMS_DATE = "2026-11-17";
+export const TERMS_DATE = "2026-11-24";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla partners: mötesavgift med avräkning, 2,5 % vid affär, partnerbyte och expertförmedling. Separata villkor för ISV:er." },
+  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla partners inom respektive nivå: mötesavgift efter produktområde, 2,5 % vid affär med avräkning, för nya projekt, partnerbyte och expertförmedling." },
 ];
 
 export function termsPriceRows(area: TermsArea): [string, string][] {
@@ -23,19 +34,12 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["ISV Presence, introduktionspris första året (de första 20)", kr(2990)],
   ];
   return [
-    ["Nya projekt under 250 tkr: mötesavgift", "1 500 kr (Premium och Grundprofil)"],
-    ["Nya projekt under 250 tkr: avgift vid affär", "2,5 %, lägst 3 000 kr"],
-    ["Nya projekt 250 tkr–1 Mkr: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Grundprofil)"],
-    ["Nya projekt 250 tkr–1 Mkr: avgift vid affär", "2,5 %"],
-    ["Nya projekt över 1 Mkr: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Grundprofil)"],
-    ["Nya projekt över 1 Mkr: avgift vid affär", "2,5 %, högst 100 000 kr"],
-    ["Partnerbyte BC, CRM, Power Platform: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Grundprofil)"],
-    ["Partnerbyte Finance & SCM: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Grundprofil)"],
+    ["Band 1: Business Central, fristående Power Platform och Copilot", "Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)"],
+    ["Band 2: CRM", "Mötesavgift 1 500 kr (Premium) / 4 000 kr (Grundprofil)"],
+    ["Band 3: Finance, SCM, Project Operations, Commerce, Human Resources", "Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil)"],
+    ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
+    ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär"],
     ["ISV: Finder’s fee", "Pausad tills vidare"],
-    ["ISV Business Referral: licenser/abonnemang, första 12 månaderna", "5 %"],
-    ["ISV Business Referral: förmedlat konsultuppdrag", "2,5 %"],
-    ["Expertförmedling, uppdrag upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Grundprofil)`],
-    ["Expertförmedling, längre uppdrag eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Grundprofil)`],
   ];
 }
 
@@ -55,11 +59,14 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     ...PARTNER_PROFILE_TERMS,
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
-    { title: "Nya projekt", body: "Mötesavgift per kvalificerat möte och avgift vid affär på 2,5% av affärens konsult- och projektvärde.\n\nUnder 250 tkr gäller lägsta avgift 3 000 kr, över 1 Mkr högst 100 000 kr.\n\nBetald mötesavgift räknas av i sin helhet mot avgiften vid affär; avräkningen blir aldrig negativ.\n\nLicenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte." },
-    { title: "Partnerbyte", body: "Endast mötesavgift enligt prisbilagan, ingen avgift vid affär." },
-    { title: "Tidsgränser", body: "Reklamation av kvalificering: 5 arbetsdagar efter mötet.\n\nOffert som flyttar mötet till lägre band: inom 60 dagar efter mötet.\n\nVunnen affär rapporteras inom 14 dagar efter avtal med kund.\n\nTidsfönster: 9 månader från mötet för nya projekt och partnerbyte, 6 månader från förfrågan för expertförmedling.\n\nBefintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar." },
-    { title: "ISV Business Referral", body: "ISV:ernas Finder’s fee är pausad tills vidare och erbjuds inte just nu." },
-    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.\n\nErsättningen är en fast avgift per tillsatt uppdrag: 7 500 kr (Premium) respektive 12 500 kr (Grundprofil) för uppdrag upp till sex månader eller under halvtid, och 15 000 kr (Premium) respektive 25 000 kr (Grundprofil) för längre uppdrag eller minst halvtid.\n\nSamma expertuppdrag dubbelräknas inte med avgift vid affär." },
+    { title: "Mötesavgift efter produktområde", body: "Mötesavgiften bestäms av produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.\n\nBand 1: Business Central. Power Platform och Copilot som fristående projekt. Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil).\n\nBand 2: CRM: Sales, Customer Service, Contact Center, Field Service, Customer Insights. Mötesavgift 1 500 kr (Premium) / 4 000 kr (Grundprofil).\n\nBand 3: Finance, Supply Chain Management, Project Operations, Commerce, Human Resources. Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil).\n\nIngår Power Platform eller Copilot i ett CRM- eller ERP-projekt följer de det produktområdets band. Omfattar affären flera produktområden gäller det högsta bandet.\n\nVid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert." },
+    { title: "Avgift vid affär", body: "Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Högst 100 000 kr per affär. Betald mötesavgift räknas av i sin helhet, och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.\n\nLicenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms." },
+    { title: "Kvalificerat möte", body: KVALIFICERAT_MOTE },
+    { title: "Köparens fria val", body: KOPARENS_FRIA_VAL },
+    { title: "Uppföljning", body: UPPFOLJNING },
+    { title: "Tidsgränser", body: TIDSGRANSER.join("\n\n") },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret." },
+    { title: "ISV", body: "ISV: Finder’s fee: pausad tills vidare och erbjuds inte just nu." },
   ];
 }
 

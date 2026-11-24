@@ -4507,14 +4507,14 @@ Thomas`,
  <details className="text-xs text-muted-foreground">
  <summary className="cursor-pointer">Villkor för ersättning</summary>
  <table className="mt-2 w-full text-left">
- <thead><tr><th className="py-1">Nya projekt</th><th>Mötesavgift Premium / Grundprofil</th><th>Vid affär</th></tr></thead>
+ <thead><tr><th className="py-1">Produktområde</th><th>Mötesavgift Premium / Grundprofil</th></tr></thead>
  <tbody>
- <tr><td className="py-1 pr-2">Under 250 tkr</td><td>1 500 / 1 500 kr</td><td>2,5 %, lägst 3 000 kr</td></tr>
- <tr><td className="py-1 pr-2">250 tkr – 1 Mkr</td><td>3 000 / 5 000 kr</td><td>2,5 %</td></tr>
- <tr><td className="py-1 pr-2">Över 1 Mkr</td><td>6 000 / 9 000 kr</td><td>2,5 %, högst 100 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Band 1: Business Central, fristående Power Platform och Copilot</td><td>1 000 / 3 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Band 2: CRM</td><td>1 500 / 4 000 kr</td></tr>
+ <tr><td className="py-1 pr-2">Band 3: Finance, SCM, Project Operations, Commerce, Human Resources</td><td>2 000 / 5 000 kr</td></tr>
  </tbody>
  </table>
- <p className="mt-2">Prismodell 2026-11-17. Betald mötesavgift räknas av mot avgiften vid affär. Partnerbyte: endast mötesavgift (BC/CRM/Power Platform 3 000 / 5 000 kr, F&amp;SCM 6 000 / 9 000 kr). Expertförmedling: 7 500 / 12 500 kr eller 15 000 / 25 000 kr per uppdrag. Premium och Finder’s fee tecknas var för sig. Alla belopp exkl. moms.</p>
+ <p className="mt-2">Prismodell 2026-11-24. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär, med betald mötesavgift avräknad. Premium och Finder’s fee tecknas var för sig. Alla belopp exkl. moms.</p>
  </details>
  </div>
   <div>

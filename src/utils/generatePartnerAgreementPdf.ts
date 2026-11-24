@@ -1,7 +1,7 @@
 import { createPdfDocument, wrapPdfText } from "@/utils/pdfDocument";
 import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "@/utils/pdfLayout";
 import { PDF_BRAND } from "@/utils/pdfBrand";
-import { MONTH_PRICE, YEAR_PRICE, ISV_FEES, EXPERT_FEES } from "@/lib/budget2027";
+import { MONTH_PRICE, YEAR_PRICE, ISV_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE, ISV_BENEFITS, ISV_BENEFITS_TITLE } from "./partnerProfileTerms";
 
@@ -17,11 +17,11 @@ export function agreementPriceRows(): [string, string][] {
     ["Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
     ["Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ["Finder’s fee, nya projekt: mötesavgift", "1 500 kr (<250 tkr), 3 000/5 000 kr (250 tkr–1 Mkr), 6 000/9 000 kr (>1 Mkr) (Premium/Grundprofil)"],
-    ["Finder’s fee, nya projekt: avgift vid affär", "2,5 %, lägst 3 000 kr (<250 tkr), högst 100 000 kr (>1 Mkr), med avräkning av mötesavgift"],
-    ["Partnerbyte: mötesavgift", "BC/CRM/Power Platform 3 000/5 000 kr, F&SCM 6 000/9 000 kr (Premium/Grundprofil)"],
-    ["Förmedling av expertkonsulter, upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Grundprofil)`],
-    ["Förmedling av expertkonsulter, längre eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Grundprofil)`],
+    ["Finder’s fee, band 1: Business Central, fristående Power Platform och Copilot", "Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)"],
+    ["Finder’s fee, band 2: CRM", "Mötesavgift 1 500 kr (Premium) / 4 000 kr (Grundprofil)"],
+    ["Finder’s fee, band 3: Finance, SCM, Project Operations, Commerce, Human Resources", "Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil)"],
+    ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
+    ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär"],
   ];
 }
 
