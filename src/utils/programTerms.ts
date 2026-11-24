@@ -1,7 +1,7 @@
 import { MONTH_PRICE, YEAR_PRICE, ISV_FEES } from "@/lib/budget2027";
 import type { AgreementPdfSection } from "./generatePartnerAgreementPdf";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
-import { AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_MEETINGS, FINDERS_FEE_AFFAR } from '@/lib/partnerOrder';
+import { AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_MEETINGS, FINDERS_FEE_AFFAR, COMMERCIAL_PRINCIPLES } from '@/lib/partnerOrder';
 
 export const KVALIFICERAT_MOTE = "Ett kvalificerat möte är ett genomfört möte mellan partnern och en potentiell kund, där d365.se före introduktionen har:\n• identifierat ett konkret affärs-, system- eller förändringsbehov\n• bedömt att behovet är relevant för partnerns erbjudande\n• haft kontakt med en beslutsfattare eller projektansvarig hos kunden\n• dokumenterat kundens nuläge, behov och tidsram, samt en uppskattad omfattning\n• fått kundens önskemål om att träffa partnern\n• fått partnerns accept av de kommersiella villkoren.\n\nMötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. Ett kvalificerat möte innebär ingen garanti för att kunden genomför ett projekt eller väljer partnern.";
 export const KOPARENS_FRIA_VAL = "Köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut. Affärsförmedling gäller endast när d365.se har genomfört behovsanalysen och introduktionen.";
@@ -44,10 +44,12 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
 export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "partner") return [
     ...PARTNER_PROFILE_TERMS,
+    { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Produktområden", body: "CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår i Premium." },
     { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 uppdaterad 2026-11-24.\n\n${MONTHLY_BILLING_TERMS}\n\n${PREMIUM_MEETING_TERMS}\n\nÅrsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
   ];
   if (area === "isv") return [
+    { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "ISV Presence", body: "Grundavgiften gäller per ISV-leverantör och inkluderar tre produkter. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
     { title: "Presentation och verifiering", body: "Verifiering och ISV Presence är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Presence.\n\nUtökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns.\n\nAbonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
@@ -55,6 +57,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   ];
   return [
     ...PARTNER_PROFILE_TERMS,
+    { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
     { title: "Mötesavgift för alla produktområden", body: `Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.

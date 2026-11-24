@@ -39,7 +39,7 @@ import MarketPulseSection from "@/components/partner/MarketPulseSection";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
-import { premiumPriceComparison, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
+import { premiumPriceComparison, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, COMMERCIAL_PRINCIPLES } from "@/lib/partnerOrder";
 
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
@@ -423,7 +423,7 @@ const Partnerprogram = () => {
         </div>
       } />
 
-      <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner kan finnas med utan ett betalt avtal.</p></div></section>
+      <section className="py-8 bg-secondary/30 border-y border-border"><div className="container mx-auto max-w-6xl px-4 sm:px-6"><h2 className="text-2xl font-bold mb-3">Bli hittad utan köpt placering</h2><p className="max-w-3xl text-muted-foreground">Kommersiella avtal påverkar aldrig relevansordningen eller rekommendationerna. Mer komplett information hjälper oss att bedöma när ni passar. En relevant partner kan finnas med utan ett betalt avtal.</p><h3 className="mt-6 text-lg font-semibold">Generella kommersiella principer</h3><ul className="mt-2 max-w-3xl list-disc pl-5 space-y-1 text-sm text-muted-foreground">{COMMERCIAL_PRINCIPLES.map((p) => <li key={p}>{p}</li>)}</ul></div></section>
       <PartnerProfileCheck initialSlug={partnerSlug} />
       <VerifiedPartnerBadgeEmbed />
       <details id="profiljamforelse" className="container mx-auto max-w-6xl px-4 sm:px-6 py-6 scroll-mt-64">

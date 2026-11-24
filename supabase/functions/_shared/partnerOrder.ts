@@ -25,6 +25,15 @@ export function premiumPriceComparison(areas: number) {
  const savings = monthlyTotal - annual;
  return { areas, monthly, monthlyTotal, annual, savings, savingsPercent: Math.round(savings / monthlyTotal * 100) };
 }
+/** Generella kommersiella principer (prislista 2027); gäller partner, ISV och affärsförmedling. */
+export const COMMERCIAL_PRINCIPLES = [
+ 'Samtliga priser exklusive moms.',
+ 'Ordinarie priser kan indexregleras årligen.',
+ 'Betalning påverkar aldrig relevansordning, rekommendationer eller verifieringsbeslut.',
+ 'Ingen garanterad volym av kundmöten.',
+ 'INSIDE-produktion prissätts separat.',
+] as const;
+export const COMMERCIAL_PRINCIPLES_TEXT = `Generella kommersiella principer:\n${COMMERCIAL_PRINCIPLES.map(p => `• ${p}`).join('\n')}`;
 export const AGREEMENT_DURATION_TERMS = 'Avtalen gäller tills vidare. Priserna kan komma att indexregleras inför varje nytt kalenderår.';
 export const SUBSCRIPTION_TERMS = `Grundprofil är kostnadsfri. Premium omfattar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.
 
@@ -40,7 +49,7 @@ Commerce, Human Resources och Project Operations är tillvalsprodukter som ingå
 
 ${AGREEMENT_DURATION_TERMS}
 
-Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
+${COMMERCIAL_PRINCIPLES_TEXT}`;
 export const MEDIATION_TERMS = `Affärsförmedlingsavtal, prislista 2027. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
 Mötesavgift per genomfört kvalificerat möte, oavsett produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
@@ -61,7 +70,9 @@ Tidsgränser:
 
 ${AGREEMENT_DURATION_TERMS}
 
-Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms.`;
+Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms.
+
+${COMMERCIAL_PRINCIPLES_TEXT}`;
 export function orderPrice(s: OrderSelection): number { return s.level === 'basic' ? 0 : ORDER_PRICES[s.period][s.areas.length] ?? 0; }
 export function orderValidation(s: OrderSelection, accept: boolean, authority: boolean, mediationAccept: boolean): string | null {
  if (!['basic','premium'].includes(s.level) || !['month','year'].includes(s.period)) return 'Välj profil och betalningsperiod.';
