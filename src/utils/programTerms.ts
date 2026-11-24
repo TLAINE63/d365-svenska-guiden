@@ -29,9 +29,9 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     `${kr(MONTH_PRICE[n])}/mån eller ${kr(YEAR_PRICE[n])}/år`,
   ]);
   if (area === "isv") return [
-    ["ISV Presence, inklusive en produkt", `${kr(ISV_FEES.base)}/år`],
+    ["ISV Presence, inklusive en produkt", `${kr(ISV_FEES.introFirstYear)} första året (ordinarie ${kr(ISV_FEES.base)}/år)`],
     ["Varje extra produkt utöver den som ingår", `${kr(ISV_FEES.extraApp)}/år`],
-    ["ISV Presence, introduktionspris första året (de första 20)", kr(ISV_FEES.introFirstYear)],
+    ["Introduktionspriset gäller", "De första 20 ISV-leverantörerna, första avtalsåret"],
   ];
   return [
     ["Band 1: Business Central, fristående Power Platform och Copilot", "Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)"],
