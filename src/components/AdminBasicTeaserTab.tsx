@@ -135,7 +135,7 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
 
   const sendSelected = async () => {
     if (selected.size === 0) return;
-    if (!confirm(`Skicka teaser-mejl till ${selected.size} Basic-partners?`)) return;
+    if (!confirm(`Skicka teaser-mejl till ${selected.size} partners med grundprofil?`)) return;
     setBusy("send");
     const data = await call("basic_teaser_send", { ids: Array.from(selected) });
     setBusy(null);
@@ -189,10 +189,10 @@ export default function AdminBasicTeaserTab({ token }: { token: string | null })
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5" /> Basic-teaser
+            <Sparkles className="h-5 w-5" /> Grundprofil-teaser
           </CardTitle>
           <CardDescription>
-            Månadsöversikt till partners med grundprofil (Basic). Visar deras egna siffror, marknadssiffror
+            Månadsöversikt till partners med grundprofil. Visar deras egna siffror, marknadssiffror
             för d365.se och vad en partnerverifierad profil ger – med länk till /partnerprogram. Skickas alltid manuellt.
           </CardDescription>
         </CardHeader>

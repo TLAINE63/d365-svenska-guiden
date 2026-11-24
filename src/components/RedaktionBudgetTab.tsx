@@ -575,9 +575,9 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
               {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = dealFunnelRow(p, tier, r, values, pricing); return (
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
-                  <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
-                  <td className="px-2">{field(`Avtal ${p.label} ${tier}`, r.deals, (v) => set(k, { deals: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym, ingen extra avgift</p></td>
-                  <td className="px-2">{field(`Affärer ${p.label} ${tier}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
+                  <td className="px-2">{field(`Möten ${p.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
+                  <td className="px-2">{field(`Avtal ${p.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.deals, (v) => set(k, { deals: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym, ingen extra avgift</p></td>
+                  <td className="px-2">{field(`Affärer ${p.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>
@@ -597,7 +597,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
-                  <td className="px-2">{field(`Uppdrag ${e.label} ${tier}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
+                  <td className="px-2">{field(`Uppdrag ${e.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>
@@ -635,7 +635,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
-                  <td className="px-2">{field(`Möten ${s.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
+                  <td className="px-2">{field(`Möten ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>

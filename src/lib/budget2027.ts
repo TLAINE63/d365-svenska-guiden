@@ -46,7 +46,7 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 /** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
 export const ISV_FEES = { base: 5000, introFirstYear: 3000, extraApp: 500, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage: flat fee per placed assignment (Thomas 2026-11-17). Short = up to 6 months or under half-time; long = longer or at least half-time. */
-export const EXPERT_FEES = { shortPremium: 7500, shortBasic: 12500, longPremium: 15000, longBasic: 25000 };
+export const EXPERT_FEES = { shortPremium: 1500, shortBasic: 4000, longPremium: 2000, longBasic: 5000 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 3 000 kr intro price first year; default true. */ introPrice?: boolean }
 export const isvBaseFee = (r: { introPrice?: boolean }, pricing = budgetPricing()) => (r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence);
 export function isvRevenue(r: IsvForecast, pricing = budgetPricing()) {
@@ -86,7 +86,7 @@ export function currentProducts(pf: any): number {
   return Math.min(3, (has("bc") ? 1 : 0) + (has("fsc") ? 1 : 0) + (has("sales") || has("service") ? 1 : 0));
 }
 
-/** Basic pays for meetings with credit against deals; Premium pays only the full deal fee. */
+/** Grundprofil pays for meetings with credit against deals; Premium pays only the full deal fee. */
 export function forecastRevenue(r: PartnerForecast, b?: Budget) {
   const pricing = budgetPricing(b?.pricing);
   const p = Math.min(3, Math.max(1, r.products));
@@ -139,8 +139,8 @@ export const CATEGORIES: Category[] = [
   { key: "dealsFscm", label: "Grundprofil: avtal F&SCM", description: "Antal tecknade avtal. Hela avtalsersättningen 10 000 kr, samma villkor som Premium.", unit: FEES.dealFscm - FEES.meetingFscm, group: "partner", income: "finders" },
   { key: "premiumDealsStd", label: "Premium: avtal BC/CRM och övrigt", description: "Antal tecknade avtal för Business Central, Customer Engagement (CRM), Power Platform och andra lösningar. Hela avtalsersättningen 5 000 kr, utan mötesavdrag.", unit: FEES.dealStd, group: "partner", income: "finders" },
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
-  { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Fast avgift per tillsatt uppdrag hos Premiumpartners: 7 500 kr upp till 6 månader eller under halvtid, 15 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortPremium, per: "tillsatt uppdrag", group: "partner", income: "finders" },
-  { key: "expertAssignmentHours", label: "Expertförmedling: Grundprofil", description: "Fast avgift per tillsatt uppdrag hos partners med Grundprofil: 12 500 kr upp till 6 månader eller under halvtid, 25 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortBasic, per: "tillsatt uppdrag", group: "partner", income: "finders" },
+  { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Fast avgift per tillsatt uppdrag hos Premiumpartners: 1 500 kr upp till 6 månader eller under halvtid, 2 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortPremium, per: "tillsatt uppdrag", group: "partner", income: "finders" },
+  { key: "expertAssignmentHours", label: "Expertförmedling: Grundprofil", description: "Fast avgift per tillsatt uppdrag hos partners med Grundprofil: 4 000 kr upp till 6 månader eller under halvtid, 5 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortBasic, per: "tillsatt uppdrag", group: "partner", income: "finders" },
   { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Nya ISV:er räknas med introduktionspriset 3 000 kr första året inklusive en app, före rabatt.", unit: ISV_FEES.introFirstYear, group: "isv", income: "subscription" },
   { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV Business Referral: licenser (5 %)", description: "Business Referral räknas i ISV-tratten som 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
@@ -269,7 +269,7 @@ export const ISV_FUNNEL = [
 const n = (v?: number) => Math.max(0, Number(v) || 0);
 const val = (key: string, values: Record<string, number>, fallback: number) => Number(values[key]) || fallback;
 
-/** Basic pays meeting fee plus the rest at deal; Premium pays the full deal fee only. Success fee per won deal. */
+/** Grundprofil pays meeting fee plus the rest at deal; Premium pays the full deal fee only. Success fee per won deal. */
 export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   const fee = dealPricing(successValue(product.valueKey, values), tier, pricing);
   const meetings = n(r.meetings) * fee.meeting;

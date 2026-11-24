@@ -19,7 +19,7 @@ export function partnerOrderEmail(selection: OrderSelection, company: string, co
     `Företag: ${company.trim()}`,
     `Kontaktperson: ${contact.trim()}`,
     `Produktområden: ${selection.areas.map(area => ORDER_AREAS[area]).join(', ')}`,
-    ...(parts.subscription ? [`Abonnemangspris exklusive moms: ${orderPrice(selection).toLocaleString('sv-SE')} kr/${selection.period === 'year' ? 'år' : 'månad'}`] : ['Inget Premiumabonnemang beställs. Förmedlingsavgifter enligt förmedlingsvillkoren (Basic).']),
+    ...(parts.subscription ? [`Abonnemangspris exklusive moms: ${orderPrice(selection).toLocaleString('sv-SE')} kr/${selection.period === 'year' ? 'år' : 'månad'}`] : ['Inget Premiumabonnemang beställs. Förmedlingsavgifter enligt förmedlingsvillkoren (Grundprofil).']),
     `Önskat startdatum: ${selection.start_date}`,
     '', ...(parts.subscription ? ['Vi accepterar abonnemangsvillkoren, priset och faktureringen.'] : []),
     ...(selection.mediation ? ['Vi accepterar även förmedlingsvillkoren separat.'] : []),
