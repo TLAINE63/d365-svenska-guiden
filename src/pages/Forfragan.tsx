@@ -16,13 +16,13 @@ import { validateBusinessEmail } from "@/lib/validateBusinessEmail";
 import { formContextBody } from "@/lib/sessionPages";
 import { CheckCircle2 } from "lucide-react";
 
-export const FORFRAGAN_PRODUKTER = ["Business Central", "Finance & Supply Chain", "Sales", "Customer Service", "Field Service", "Contact Center", "Project Operations", "Commerce", "Human Resources", "Annat", "Vet inte ännu"];
+export const FORFRAGAN_PRODUKTER = ["Business Central", "Finance & Supply Chain", "Sales", "Customer Service", "Field Service", "Customer Insights (Marketing)", "Contact Center", "Project Operations", "Commerce", "Human Resources", "Annat", "Vet inte ännu"];
 const STORLEK = ["1-24", "25-99", "100-249", "250-999", "1000+"];
 const TID = ["Inom 3 mån", "3-6 mån", "6-12 mån", "Senare", "Oklart"];
 const PRODUKT_SLUG: Record<string, string> = {
   "business-central": "Business Central", "finance-supply-chain": "Finance & Supply Chain", "finance": "Finance & Supply Chain",
   "supply-chain": "Finance & Supply Chain", "sales": "Sales", "customer-service": "Customer Service", "field-service": "Field Service",
-  "contact-center": "Contact Center", "project-operations": "Project Operations", "commerce": "Commerce", "human-resources": "Human Resources",
+  "customer-insights": "Customer Insights (Marketing)", "marketing": "Customer Insights (Marketing)", "contact-center": "Contact Center", "project-operations": "Project Operations", "commerce": "Commerce", "human-resources": "Human Resources",
 };
 
 /** Tolkar ?produkt=, ?bransch=, ?partner= och ?kalla=; okända värden ignoreras. */

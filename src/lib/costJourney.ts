@@ -11,7 +11,11 @@ export const COST_SOLUTION_AREAS = [
   "Sales",
   "Customer Service",
   "Field Service",
+  "Contact Center",
+  "Customer Insights (Marketing)",
   "Project Operations",
+  "Commerce",
+  "Human Resources",
   "Flera lösningar",
   "Vet inte ännu",
 ] as const;
