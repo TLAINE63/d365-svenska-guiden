@@ -220,9 +220,9 @@ export const FUNNEL_PRODUCTS = [
   { key: "pp", label: "Power Platform och AI", fscm: false, valueKey: "successPp" },
 ];
 export const FUNNEL_DEAL_TYPES = [
-  { key: "dealSmall", band: "small", valueKey: "maxSmall", label: "Under 250 tkr" },
-  { key: "dealMedium", band: "medium", valueKey: "maxMedium", label: "250 tkr - 1 Mkr" },
-  { key: "dealLarge", band: "large", valueKey: "maxLarge", label: "Över 1 Mkr" },
+  { key: "dealSmall", band: "small", valueKey: "maxSmall", label: "Band 1: Business Central, Power Platform, Copilot" },
+  { key: "dealMedium", band: "medium", valueKey: "maxMedium", label: "Band 2: CRM" },
+  { key: "dealLarge", band: "large", valueKey: "maxLarge", label: "Band 3: Finance, SCM, Project Operations, Commerce, HR" },
 ] as const;
 export function funnelMaxValue(p: (typeof FUNNEL_DEAL_TYPES)[number], values: Record<string, number> = {}, pricing = budgetPricing()) {
   return values[p.valueKey] ?? (p.band === "small" ? pricing.smallLimit : p.band === "medium" ? pricing.largeLimit : 3000000);

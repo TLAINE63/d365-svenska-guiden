@@ -236,8 +236,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
         </div>
         <div className="overflow-x-auto"><table className="w-full min-w-[840px] text-sm">
-          <thead><tr><th className="text-left py-2">Typ av affär</th><th>Möte Premium, kr</th><th>Möte Basic, kr</th><th>Vid affär, %</th><th>Lägst, kr</th><th>Högst, kr (0 = inget tak)</th></tr></thead>
-          <tbody>{(["small", "medium", "large"] as const).map((band, i) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{i === 0 ? `Under ${fmt(pricing.smallLimit)} kr, inklusive startpaket` : i === 1 ? `${fmt(pricing.smallLimit)}–${fmt(pricing.largeLimit)} kr` : `Över ${fmt(pricing.largeLimit)} kr`}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum", "maximum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
+          <thead><tr><th className="text-left py-2">Produktområde</th><th>Möte Premium, kr</th><th>Möte Grundprofil, kr</th><th>Vid affär, %</th><th>Lägst, kr</th><th>Högst, kr (0 = inget tak)</th></tr></thead>
+          <tbody>{(["small", "medium", "large"] as const).map((band, i) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{i === 0 ? "Band 1: Business Central, Power Platform, Copilot" : i === 1 ? "Band 2: CRM" : "Band 3: Finance, SCM, Project Operations, Commerce, HR"}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum", "maximum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
         </table></div>
         <div className="space-y-2">
           <h4 className="text-sm font-semibold">Partnerbytesarvode, mötesavgift</h4>
@@ -245,7 +245,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="grid gap-4 sm:grid-cols-2">
             {([["std", "BC, CRM, Power Platform"], ["fscm", "Finance & SCM"]] as const).flatMap(([band, bandLabel]) =>
               (["premium", "basic"] as const).map((tier) => {
-                const label = `Partnerbyte ${bandLabel}, möte ${tier === "premium" ? "Premium" : "Basic"}, kr`;
+                const label = `Partnerbyte ${bandLabel}, möte ${tier === "premium" ? "Premium" : "Grundprofil"}, kr`;
                 return <label key={`${band}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.switchMeeting[band][tier]} onValueChange={(value) => setPricing({ switchMeeting: { ...pricing.switchMeeting, [band]: { ...pricing.switchMeeting[band], [tier]: value } } })} /></label>;
               }))}
           </div>
@@ -256,7 +256,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="grid gap-4 sm:grid-cols-2">
             {([["short", "Upp till 6 mån eller under halvtid"], ["long", "Längre eller minst halvtid"]] as const).flatMap(([scope, scopeLabel]) =>
               (["premium", "basic"] as const).map((tier) => {
-                const label = `Expert ${scopeLabel}, ${tier === "premium" ? "Premium" : "Basic"}, kr`;
+                const label = `Expert ${scopeLabel}, ${tier === "premium" ? "Premium" : "Grundprofil"}, kr`;
                 return <label key={`${scope}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.expertFee[scope][tier]} onValueChange={(value) => setPricing({ expertFee: { ...pricing.expertFee, [scope]: { ...pricing.expertFee[scope], [tier]: value } } })} /></label>;
               }))}
           </div>
@@ -569,12 +569,12 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
               <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Antal möten</th><th className={th}>Antal avtal</th><th className={th}>Antal affärer<br />(avgift vid affär)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{FUNNEL_DEAL_TYPES.map((p) => <Fragment key={p.key}>
-              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.band === "small" ? `Under ${fmt(pricing.smallLimit)} kr` : p.band === "medium" ? `${fmt(pricing.smallLimit)} - ${fmt(pricing.largeLimit)} kr` : `Över ${fmt(pricing.largeLimit)} kr`}
+              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.label}
                 <span className="ml-3 text-xs font-normal text-muted-foreground">Maxbelopp <BudgetNumberInput aria-label={`Maxbelopp: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={funnelMaxValue(p, values, pricing)} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
               </th><td className="border-l bg-muted" /></tr>
               {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = dealFunnelRow(p, tier, r, values, pricing); return (
                 <tr key={k} className="border-t">
-                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
+                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2">{field(`Möten ${p.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
                   <td className="px-2">{field(`Avtal ${p.label} ${tier}`, r.deals, (v) => set(k, { deals: v }))}<p className="mt-1 text-xs text-muted-foreground text-right">volym, ingen extra avgift</p></td>
                   <td className="px-2">{field(`Affärer ${p.label} ${tier}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
@@ -595,7 +595,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
               <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{e.label}</th><td className="border-l bg-muted" /></tr>
               {(["basic", "premium"] as const).map((tier) => { const k = `${e.key}_${tier}`; const r = f[k] ?? {}; const x = expertFunnelRow(e, tier, r, pricing); return (
                 <tr key={k} className="border-t">
-                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
+                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
                   <td className="px-2">{field(`Uppdrag ${e.label} ${tier}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
@@ -633,7 +633,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
               <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{s.label}</th><td className="border-l bg-muted" /></tr>
               {(["basic", "premium"] as const).map((tier) => { const k = `${s.key}_${tier}`; const r = f[k] ?? {}; const x = switchFunnelRow(s, tier, r, pricing); return (
                 <tr key={k} className="border-t">
-                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Basic" : "Premium"}</td>
+                  <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
                   <td className="px-2">{field(`Möten ${s.label} ${tier}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
