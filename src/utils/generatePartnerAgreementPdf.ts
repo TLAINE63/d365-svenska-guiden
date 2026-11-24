@@ -15,9 +15,9 @@ const today = () => new Date().toISOString().slice(0, 10);
 /** Prisbilaga från samma priser som Partnerprogram och Budget 2027. */
 export function agreementPriceRows(): [string, string][] {
   return [
-    ["Premium, 1 produktområde", `${kr(MONTH_PRICE[1])}/mån eller ${kr(YEAR_PRICE[1])}/år`],
-    ["Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
-    ["Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
+    ["Premium, 1 produktområde", `${kr(YEAR_PRICE[1])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[1] / 12))}/mån) eller ${kr(MONTH_PRICE[1])}/mån`],
+    ["Premium, 2 produktområden", `${kr(YEAR_PRICE[2])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[2] / 12))}/mån) eller ${kr(MONTH_PRICE[2])}/mån`],
+    ["Premium, 3 produktområden", `${kr(YEAR_PRICE[3])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[3] / 12))}/mån) eller ${kr(MONTH_PRICE[3])}/mån`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
     ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Affärsförmedling, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],

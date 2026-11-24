@@ -26,7 +26,7 @@ export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[
 export function termsPriceRows(area: TermsArea): [string, string][] {
   if (area === "partner") return [1, 2, 3].map((n) => [
     `Premium, ${n} produktområde${n > 1 ? "n" : ""}`,
-    `${kr(MONTH_PRICE[n])}/mån eller ${kr(YEAR_PRICE[n])}/år`,
+    `${kr(YEAR_PRICE[n])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[n] / 12))}/mån) eller ${kr(MONTH_PRICE[n])}/mån`,
   ]);
   if (area === "isv") return [
     ["ISV Presence, inklusive tre produkter", `${kr(ISV_FEES.introFirstYear)} första året (ordinarie ${kr(ISV_FEES.base)}/år)`],

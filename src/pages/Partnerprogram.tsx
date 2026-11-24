@@ -36,6 +36,9 @@ import BuyerJourneyStory from "@/components/partner/BuyerJourneyStory";
 import BuyerQuestionsSection from "@/components/partner/BuyerQuestionsSection";
 import TwoWaysSection from "@/components/partner/TwoWaysSection";
 import MarketPulseSection from "@/components/partner/MarketPulseSection";
+import PremiumValueStory from "@/components/partner/PremiumValueStory";
+import { PremiumInsights, PremiumInvestment } from "@/components/partner/PremiumInsightsAndInvestment";
+import heroScene from "@/assets/journey/scene5-partner.jpg";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
@@ -46,6 +49,10 @@ type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_ur
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
 
 const programSections = [
+  { id: "varfor-premium", label: "Varför Premium" },
+  { id: "narvaro-kopresan", label: "Närvaro i köpresan" },
+  { id: "marknadspuls", label: "Marknadspuls" },
+  { id: "marknadsinsikter", label: "Marknadsinsikter" },
   { id: "for-partners", label: "Översikt" },
   { id: "kopresan", label: "Den moderna köpresan" },
   { id: "kopares-fragor", label: "Köparens frågor" },
@@ -54,8 +61,8 @@ const programSections = [
   { id: "affarsmojligheter", label: "Affärsförmedling" },
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
+  { id: "premium-investering", label: "Investering" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
-  { id: "marknadspuls", label: "Marknadspuls" },
   { id: "kom-igang", label: "Kom igång" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
@@ -263,18 +270,24 @@ const Partnerprogram = () => {
                 {matchedPartner.name} finns redan på d365.se – se hur profilen kan utvecklas
               </Badge>
             )}
-            <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">
-              För partners och ISV-leverantörer inom Dynamics&nbsp;365
-            </p>
-            <h1 className="text-3xl md:text-4xl xl:text-5xl sm:whitespace-nowrap font-bold leading-tight text-foreground mb-5">
-              Var med när kunderna väljer Dynamics&nbsp;365
-            </h1>
-            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6 max-w-2xl lg:max-w-none">
-              d365.se hjälper företag genom olika delar av sin köpresa, från tidig orientering och utvärdering till val av lösning och partner. Genom vårt partnerprogram får Dynamics&nbsp;365-partners och ISV-leverantörer möjlighet att synas och vara relevanta när potentiella kunder söker information, jämför alternativ och planerar sina nästa steg.
-            </p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">d365.se partnerprogram</p>
+            <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold leading-tight text-foreground mb-5">När kunderna utvärderar sina alternativ – finns ni med?</h1>
+            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6">Syns under köparnas beslutsprocess. Förstå marknadens efterfrågan. Skapa nya affärsmöjligheter.</p>
+            <div className="grid gap-6 lg:grid-cols-2 items-start">
+              <div className="space-y-3 text-muted-foreground">
+                <p>Köpresan börjar långt innan en potentiell kund kontaktar en Microsoftpartner. Företag söker information, jämför lösningar, undersöker kostnader, identifierar krav och utvärderar vilka partners som har rätt kompetens. På d365.se möter vi företag under hela den processen.</p>
+                <p>Som Premiumpartner presenterar ni er kompetens, era kundreferenser och ert erbjudande i en relevant miljö utanför era egna marknadskanaler, samtidigt som ni får insikter i vad potentiella kunder faktiskt efterfrågar. Vi arbetar dessutom aktivt med att identifiera kundbehov och förmedla kvalificerade affärsmöjligheter till relevanta partners.</p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Button asChild size="lg"><a href="#varfor-premium">Utforska Premium<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
+                  <Button asChild size="lg" variant="outline"><a href="#priser-innehall">Priser och innehåll</a></Button>
+                </div>
+                <p className="text-sm font-medium text-foreground">Från 8&nbsp;000&nbsp;kr/år · Ingen mötesavgift för Premium</p>
+              </div>
+              <img src={heroScene} alt="Partner och kund i ett möte om Dynamics\u00a0365" width={960} height={540} className="w-full rounded-xl aspect-video object-cover border border-border" fetchPriority="high" />
+            </div>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
-              {["Bli hittad i köpresan", "Visa rätt kompetens och lösningar", "Möt företag med relevanta behov"].map((text) => (
-                <li key={text} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{text}</li>
+              {[["Synlighet", "Genom hela köpresan"], ["Marknadsinsikter", "Förstå kundernas intresse"], ["Affärsförmedling", "Betala vid vunnen affär"]].map(([t, d]) => (
+                <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong>{t}</strong> · {d}</span></li>
               ))}
             </ul>
           </div>
@@ -346,9 +359,13 @@ const Partnerprogram = () => {
         </div>
       </section>
 
+      <PremiumValueStory />
+      <MarketPulseSection />
+      <PremiumInsights />
       <BuyerJourneyStory />
       <BuyerQuestionsSection />
       <TwoWaysSection />
+      <PremiumInvestment />
       <PremiumBenefitsVisual />
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
@@ -476,7 +493,6 @@ const Partnerprogram = () => {
         </div>
       </section>
 
-      <MarketPulseSection />
       <section id="kom-igang" className="py-14 md:py-20 bg-secondary/30 border-y border-border scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">Enkelt att komma igång</h2>
