@@ -271,7 +271,7 @@ const Partnerprogram = () => {
               </Badge>
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">d365.se partnerprogram</p>
-            <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold leading-tight text-foreground mb-5">När kunderna utvärderar sina alternativ – finns ni med?</h1>
+            <h1 className="text-[1.3rem] [text-wrap:balance] sm:whitespace-nowrap sm:text-[min(3.5vw,1.85rem)] lg:text-[clamp(1.9rem,3.5vw,2.5rem)] font-bold leading-tight text-foreground mb-5">När kunderna utvärderar sina alternativ – finns ni med?</h1>
             <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6">Syns under köparnas beslutsprocess. Förstå marknadens efterfrågan. Skapa nya affärsmöjligheter.</p>
             <div className="grid gap-6 lg:grid-cols-2 items-start">
               <div className="space-y-3 text-muted-foreground">
