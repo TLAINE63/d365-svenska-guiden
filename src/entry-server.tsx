@@ -307,7 +307,7 @@ export const routes: PrerenderRoute[] = [
     changefreq: 'monthly',
     meta: {
       title: 'För ISV-leverantörer | ISV Presence på d365.se',
-      description: 'Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 6 000 kr/år inkl. en app, introduktionspris 3 000 kr första året.',
+      description: 'Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontaktuppgifter. ISV Presence 5 000 kr/år inkl. en app, introduktionspris 3 000 kr första året.',
     },
   },
   {

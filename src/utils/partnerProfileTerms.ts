@@ -1,5 +1,8 @@
+import { MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
+
 /** Shared profile terms for every generated partner agreement. */
 export const PARTNER_PROFILE_TERMS = [
+  { title: "Månadsabonnemang och mötesavgift", body: `${MONTHLY_BILLING_TERMS}\n\n${PREMIUM_MEETING_TERMS}` },
   { title: "Grundprofil", body: "Grundprofil är kostnadsfri och ger en grundläggande presentation av partnerns produktområden och kompetenser. Grundprofil innebär inte att uppgifterna har verifierats av d365.se-redaktionen." },
   { title: "Premium: gör er kompetens tydligare för köparen", body: "Premium ger köparen ett mer utförligt underlag för att bedöma er som partner. Redaktionell granskning, fördjupad presentation och löpande uppföljning ingår.\n\nPremium innehåller inga utlovade möten. Förmånen är lägre mötesavgift när en introduktion blir aktuell." },
   { title: "Granskade uppgifter och märket Verifierad partner", body: "Redaktionell granskning av partneruppgifterna inför verifiering ingår. Efter d365.se-redaktionens godkännande får profilen märket Verifierad partner.\n\nVerifieringen beslutas manuellt och sker aldrig automatiskt genom betalning." },

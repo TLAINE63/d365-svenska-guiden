@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { orderPrice, premiumPriceComparison, type OrderSelection } from "../partnerOrder";
+import { orderPrice, premiumPriceComparison, MONTHLY_NOTICE_MONTHS, type OrderSelection } from "../partnerOrder";
 import { MONTH_PRICE, YEAR_PRICE } from "../budget2027";
 import { DEFAULT_PRICING } from "../budgetPricing";
 
 describe("Premium-priser 2026-11-24", () => {
+  it("månadsabonnemang har en månads uppsägningstid", () => {
+    expect(MONTHLY_NOTICE_MONTHS).toBe(1);
+  });
   const cases = [
     { areas: ["bc"], monthly: 1000, monthlyTotal: 12000, annual: 8000, savings: 4000, savingsPercent: 33 },
     { areas: ["bc", "crm"], monthly: 1150, monthlyTotal: 13800, annual: 9000, savings: 4800, savingsPercent: 35 },

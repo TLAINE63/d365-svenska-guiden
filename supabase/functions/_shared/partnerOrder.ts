@@ -1,4 +1,7 @@
-export const ORDER_VERSION = '2026-11-17';
+export const ORDER_VERSION = '2026-11-24';
+export const MONTHLY_NOTICE_MONTHS = 1;
+export const MONTHLY_BILLING_TERMS = `Premium Månad faktureras i efterskott med ${MONTHLY_NOTICE_MONTHS === 1 ? 'en månads' : `${MONTHLY_NOTICE_MONTHS} månaders`} uppsägningstid. Uppsägning sker skriftligen via e-post.`;
+export const PREMIUM_MEETING_TERMS = 'Mötesavgifter för möten under en betald månad följer Premiumpriset endast om Premiumabonnemanget är aktivt när mötet genomförs. Om abonnemanget inte är aktivt gäller Grundprofilens mötesavgift.';
 export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Chain Management', crm: 'CRM (Sales, Customer Service, Field Service, Customer Insights och Contact Center)' };
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
@@ -18,7 +21,9 @@ export const SUBSCRIPTION_TERMS = `Grundprofil är kostnadsfri. Premium omfattar
 
 Märket Verifierad partner ges efter redaktionens godkännande, aldrig automatiskt genom betalning. INSIDE-produktion köps separat och gäller endast Premiumpartners.
 
-Premium Månad faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Premium År faktureras årsvis i förskott.
+${MONTHLY_BILLING_TERMS} Premium År faktureras årsvis i förskott.
+
+${PREMIUM_MEETING_TERMS}
 
 CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår.
 
@@ -30,6 +35,7 @@ Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rek
 export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
 Mötesavgift per genomfört kvalificerat möte, efter produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
+${PREMIUM_MEETING_TERMS}
 • Band 1: Business Central. Power Platform och Copilot som fristående projekt: 1 000 kr (Premium) / 3 000 kr (Grundprofil).
 • Band 2: CRM: Sales, Customer Service, Contact Center, Field Service, Customer Insights: 1 500 kr (Premium) / 4 000 kr (Grundprofil).
 • Band 3: Finance, Supply Chain Management, Project Operations, Commerce, Human Resources: 2 000 kr (Premium) / 5 000 kr (Grundprofil).

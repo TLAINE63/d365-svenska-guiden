@@ -8,7 +8,7 @@ describe('partnerbeställning via mejl', () => {
     const email = partnerOrderEmail(selection, 'Exempel AB', 'Anna');
     expect(email.href.startsWith('mailto:thomas.laine@dynamicfactory.se?')).toBe(true);
     expect(email.body).toContain('Premium samt förmedlingsavtal');
-    expect(email.body).toContain('7 990 kr/år');
+    expect(email.body).toContain('8 000 kr/år');
     expect(email.body).toContain('2027-01-01');
   });
   it('inkluderar inte förmedling när partnern väljer bort den', () => {

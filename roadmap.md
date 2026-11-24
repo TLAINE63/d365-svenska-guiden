@@ -1,3 +1,8 @@
+## Abonnemangsvillkor och ISV-pris (2026-11-24)
+- [x] Premium Månad: en månads uppsägningstid och Premium-mötespris endast vid aktivt abonnemang på mötesdagen; gemensamma villkor, mejlmallar och PDF uppdaterade, sparade avtal orörda.
+- [x] ISV Presence 5 000 kr/år inklusive en produkt; introduktion 3 000 kr och extra produkt 500 kr i sidor, beställningar och PDF:er. Beställningstjänsten driftsatt.
+- [x] 66 tester godkända; ett tidigare Finder’s fee-layouttest fallerar oförändrat. Offertnedladdningar och 1280/375/595 px verifierade utan sidöverbredd. Alla PDF-sidor visuellt kontrollerade.
+
 ## Premium-priser (2026-11-24)
 - [x] Uppdaterat prislistan, nya beställningar, avtals-/offert-PDF och redaktionens standardpriser utan att ändra sparade avtal. Beställningstjänsten driftsatt.
 - [x] 30 pristester godkända; offert för tre områden nedladdad och prisrutor i PDF visuellt granskade. Dator/375 px utan sidöverbredd efter rättning. Befintligt Finder’s fee-test fallerar fortfarande och har inte försvagats.

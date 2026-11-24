@@ -56,7 +56,7 @@ export function vendorExposure(vendorVerified: boolean): IsvExposure {
 }
 
 /** ISV Presence: årspris inkluderar en app, varje extra verifierad app kostar extra. */
-export const ISV_PRESENCE_BASE_SEK = 6000;
+export const ISV_PRESENCE_BASE_SEK = 5000;
 export const ISV_PRESENCE_EXTRA_APP_SEK = 500;
 export const ISV_PRESENCE_INCLUDED_APPS = 1;
 export function isvPresenceYearlyPrice(verifiedApps: number): number {

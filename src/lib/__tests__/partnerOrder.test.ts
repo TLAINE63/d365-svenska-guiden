@@ -59,7 +59,7 @@ describe('partnerbeställning', () => {
   });
   it('termsDisplayText ger läslig villkorstext med godkännanden', () => {
     const out = termsDisplayText({ ...orderSnapshot({ ...base, mediation: true }), accept: true, authority: true, mediation_accept: false });
-    expect(out.startsWith('Villkorsversion 2026-11-17')).toBe(true);
+    expect(out.startsWith('Villkorsversion 2026-11-24')).toBe(true);
     expect(out).toContain('Grundprofil är kostnadsfri.');
     expect(out).toContain('Förmedlingsvillkor accepterade: Nej');
     expect(termsDisplayText(null)).toBe('Abonnemangsvillkor accepterade: Nej\nBehörighet att företräda företaget: Nej');

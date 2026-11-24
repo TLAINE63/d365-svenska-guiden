@@ -8,7 +8,7 @@ import scene4 from "@/assets/journey/scene4-advice.jpg";
 import scene7 from "@/assets/journey/scene7-project.jpg";
 import { ORGANIZATION } from "@/data/organization";
 import { PREMIUM_BENEFITS, ISV_BENEFITS } from "./partnerProfileTerms";
-import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS } from "@/lib/partnerOrder";
+import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
 import { ISV_SUBSCRIPTION_TERMS, ISV_ORDER_FEES, ISV_ORDER_VERSION } from "@/lib/isvOrder";
 import { drawPremiumPriceTable } from "./pdfPremiumPricing";
 
@@ -147,7 +147,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
     : `Era potentiella kunder gör sin research utan er. d365.se finns där och hjälper dem att jämföra lösningar och partners. ${company} behöver se till att kompetensen är tydligt presenterad när kunden utvärderar alternativen.`, PDF_BRAND.primary);
   table(priceRows, { head: ["Prisöversikt", "Belopp"] });
   const scope: [string, string][] = input.kind === "partner"
-    ? [["Produktområden", input.areas.join(", ") || "Ej valda"], ["Önskad start", input.startDate], ["Avtalsperiod", input.premium ? (input.period === "year" ? "Tills vidare, årsvis betalning i förskott" : "Tills vidare, 3 månaders uppsägningstid") : "Tills vidare"]]
+    ? [["Produktområden", input.areas.join(", ") || "Ej valda"], ["Önskad start", input.startDate], ["Avtalsperiod", input.premium ? (input.period === "year" ? "Tills vidare, årsvis betalning i förskott" : "Tills vidare, en månads uppsägningstid") : "Tills vidare"]]
     : [["Appar", `1 ingår${input.extraApps ? ` + ${input.extraApps} extra` : ""}`], ["Önskad start", input.startDate], ["Avtalsperiod", "Tills vidare, årsvis betalning i förskott"]];
   table(scope, { head: ["Vald omfattning", ""] });
   text("Detta är ett offertförslag, inte en beställning. Nedladdningen är inte bindande.", { size: 8.5, color: PDF_BRAND.textMuted });
@@ -228,7 +228,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   if (input.kind === "partner") {
     heading("Prislista Premium 2027");
     y = drawPremiumPriceTable(doc, y);
-    text("Månad faktureras i efterskott med 3 månaders uppsägningstid. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Alla priser exklusive moms. Inga rabatter utöver årspriset.", { size: 8.5, color: PDF_BRAND.textMuted });
+    text(`${MONTHLY_BILLING_TERMS} ${PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Alla priser exklusive moms. Inga rabatter utöver årspriset.`, { size: 8.5, color: PDF_BRAND.textMuted });
   } else text("Faktureras årsvis i förskott. Introduktionspriset gäller de första 20 nya ISV-leverantörerna; d365.se bekräftar platsen vid granskning av beställningen. Alla priser exklusive moms.", { size: 8.5, color: PDF_BRAND.textMuted });
   text(`Avtalsperiod och förnyelse: ${AGREEMENT_DURATION_TERMS}`, { size: 8.5, color: PDF_BRAND.textMuted });
 

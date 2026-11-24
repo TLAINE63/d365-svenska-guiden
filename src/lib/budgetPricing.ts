@@ -16,7 +16,7 @@ export interface BudgetPricing {
 }
 export const DEFAULT_PRICING: BudgetPricing = {
   units: { year1: 8000, year2: 9000, year3: 10000, month1: 1000, month2: 1150, month3: 1300, isvPresence: 3000, isvExtra: 500 },
-  isvAnnual: 6000, isvLicensePercent: 0, isvConsultPercent: 0,
+  isvAnnual: 5000, isvLicensePercent: 0, isvConsultPercent: 0,
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
     small: { premiumMeeting: 1500, basicMeeting: 1500, percent: 2.5, minimum: 3000, maximum: 0 },

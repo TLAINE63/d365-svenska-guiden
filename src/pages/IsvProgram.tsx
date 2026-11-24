@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Vad kostar ISV Presence?",
     answer:
-      "6 000 kr per år och ISV, exklusive moms, inklusive en verifierad produkt. Varje ytterligare verifierad produkt kostar 500 kr per år. Introduktionserbjudande: 3 000 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
+      "5 000 kr per år och ISV, exklusive moms, inklusive en verifierad produkt. Varje ytterligare verifierad produkt kostar 500 kr per år. Introduktionserbjudande: 3 000 kr för första året för de första 20 nya ISV-leverantörerna. Avgiften faktureras årsvis i förskott.",
   },
   {
     question: "Påverkar ISV Presence ordningen i katalogen?",
@@ -54,10 +54,10 @@ const IsvProgram = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="För ISV-leverantörer | ISV Presence på d365.se"
-        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontakt. ISV Presence 6 000 kr/år inkl. en produkt, introduktionspris 3 000 kr första året."
+        description="Visa er Dynamics 365-tilläggslösning med logotyp, webblänk och kontakt. ISV Presence 5 000 kr/år inkl. en produkt, introduktionspris 3 000 kr första året."
         webPageSchema={false}
         canonicalPath="/isvprogram"
-        dateModified="2026-11-17"
+        dateModified="2026-11-24"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <WebPageSchema name="För ISV-leverantörer" description="ISV Presence för leverantörer av Dynamics 365-tilläggslösningar." url="https://d365.se/isvprogram/" />
@@ -79,7 +79,7 @@ const IsvProgram = () => {
                   Anmäl intresse <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </ContactFormDialog>
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" variant="secondary" className="h-auto min-h-11 max-w-full whitespace-normal text-left">
                 <a href={PARTNER_BOOKING_URL} target="_blank" rel="noopener noreferrer">
                   <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                   Boka kostnadsfritt rådgivningsmöte med Thomas (d365.se)
@@ -135,9 +135,9 @@ const IsvProgram = () => {
                 </ul>
                 <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Årspris exklusive moms</p>
                 <ul className="text-sm text-foreground space-y-1 mb-4">
-                  <li className="rounded-md bg-primary/10 px-3 py-2">Introduktionspris första året: <strong>2&nbsp;990&nbsp;kr</strong> <span className="text-muted-foreground">(de första 20 nya ISV-leverantörerna)</span></li>
-                  <li>Ordinarie pris per ISV inklusive en produkt: <strong>6&nbsp;000&nbsp;kr&nbsp;/&nbsp;år</strong></li>
-                  <li>Per extra produkt utöver de tre som ingår: <strong>499&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li className="rounded-md bg-primary/10 px-3 py-2">Introduktionspris första året: <strong>3&nbsp;000&nbsp;kr</strong> <span className="text-muted-foreground">(de första 20 nya ISV-leverantörerna)</span></li>
+                  <li>Ordinarie pris per ISV inklusive en produkt: <strong>5&nbsp;000&nbsp;kr&nbsp;/&nbsp;år</strong></li>
+                  <li>Per extra produkt utöver den som ingår: <strong>500&nbsp;kr&nbsp;/&nbsp;år</strong></li>
                   <li>Produktion av d365.se INSIDE-film: <strong>separat offert</strong></li>
                 </ul>
                 <p className="text-xs text-muted-foreground leading-relaxed mt-auto">Avgiften faktureras årsvis i förskott.</p>

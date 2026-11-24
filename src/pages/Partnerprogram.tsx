@@ -39,7 +39,7 @@ import MarketPulseSection from "@/components/partner/MarketPulseSection";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
-import { premiumPriceComparison } from "@/lib/partnerOrder";
+import { premiumPriceComparison, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
 
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
@@ -390,7 +390,7 @@ const Partnerprogram = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-24. Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
+              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-24. Alla priser exklusive moms. {MONTHLY_BILLING_TERMS} {PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
                 <li>Ni beställer Premium (och vid behov Finder’s fee-avtalet).</li>

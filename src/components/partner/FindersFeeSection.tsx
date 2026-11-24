@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { ArrowDown, Calculator, Check, ShieldCheck } from "lucide-react";
 import { TIDSGRANSER } from "@/utils/programTerms";
+import { PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
 import adviceImg from "@/assets/journey/scene4-advice.jpg";
 import discussionImg from "@/assets/journey/scene2-discussion.jpg";
 import partnerImg from "@/assets/journey/scene5-partner.jpg";
@@ -87,6 +88,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
           </table>
         </div>
         <ul className="mb-4 space-y-1 text-sm text-muted-foreground list-disc pl-5">
+          <li>{PREMIUM_MEETING_TERMS}</li>
           <li>Ingår Power Platform eller Copilot i ett CRM- eller ERP-projekt följer de det produktområdets band.</li>
           <li>Omfattar affären flera produktområden gäller det högsta bandet.</li>
           <li>Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.</li>

@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2, Eye } from "lucide-react";
+import { MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
 
 type SegmentKey = "published" | "not_published";
 
@@ -61,7 +62,8 @@ Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10
 
 Prislistan gäller för 2027
 
-3 månaders uppsägningstid
+${MONTHLY_BILLING_TERMS}
+${PREMIUM_MEETING_TERMS}
 
 Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 1 000 kr/mån (tidigare 1 990 kr).
 
@@ -109,7 +111,8 @@ Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10
 
 Prislistan gäller för 2027
 
-3 månaders uppsägningstid
+${MONTHLY_BILLING_TERMS}
+${PREMIUM_MEETING_TERMS}
 
 Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 1 000 kr/mån (tidigare 1 990 kr).
 
