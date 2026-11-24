@@ -1,3 +1,4 @@
+import { PartnerOfferDownload } from "@/components/partner/PartnerOfferDownload";
 import { useEffect, useMemo, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
@@ -416,7 +417,7 @@ const Partnerprogram = () => {
                 <li>Profilen publiceras med märket Verifierad partner.</li>
                 <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
               </ol>
-              <div className="flex flex-wrap gap-3"><PartnerOrderDialog /><Button asChild size="lg" variant="outline"><a href="/downloads/d365-partnererbjudande-2027.pdf" download="d365-partnererbjudande-2027.pdf">Ladda ner partnererbjudandet (PDF)</a></Button></div>
+              <div className="flex flex-wrap gap-3"><PartnerOrderDialog /><PartnerOfferDownload /></div>
             </div>
           </div>
           <p className="mt-8 max-w-3xl text-sm text-muted-foreground">Kommersiella avtal påverkar aldrig vilka lösningar eller partners som bedöms relevanta för köparen. Verifiering beslutas manuellt av d365.se-redaktionen, aldrig automatiskt genom betalning.</p>
@@ -436,7 +437,7 @@ const Partnerprogram = () => {
               Begär affärsförmedlingsavtal
             </Button>
           </ContactFormDialog>
-          <Button asChild size="lg" variant="outline"><a href="/downloads/d365-partnererbjudande-2027.pdf" download="d365-partnererbjudande-2027.pdf">Ladda ner partnererbjudandet (PDF)</a></Button>
+          <PartnerOfferDownload />
         </div>
       } />
 

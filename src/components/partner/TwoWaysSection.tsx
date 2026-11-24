@@ -61,7 +61,7 @@ export default function TwoWaysSection() {
               {FINDERS.map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
             </ul>
             <div className="rounded-lg bg-secondary/50 p-4 text-sm text-muted-foreground mb-6">
-              <p><strong className="font-semibold text-foreground">Premium ger lägre mötesavgift</strong> för affärer från 250&nbsp;tkr och vid partnerbyte, enligt prislistan. Exempel: 3&nbsp;000&nbsp;kr i stället för 5&nbsp;000&nbsp;kr för affärer mellan 250&nbsp;tkr och 1&nbsp;Mkr.</p>
+              <p><strong className="font-semibold text-foreground">Premium betalar ingen mötesavgift</strong> och 2,5&nbsp;% vid vunnen affär. Grundprofil betalar 3&nbsp;500&nbsp;kr per kvalificerat möte och 5&nbsp;%, med mötesavgiften avräknad vid affär.</p>
             </div>
             <Button asChild variant="outline" className="mt-auto self-start"><a href="#affarsmojligheter">Se hur kundförmedling fungerar<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
           </article>

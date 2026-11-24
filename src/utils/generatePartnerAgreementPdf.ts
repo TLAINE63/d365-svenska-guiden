@@ -46,6 +46,26 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   };
   const heading = (t: string) => { ensure(16); y = drawSectionHeading(doc, t, y + 2); };
 
+  // Inledande värderuta: vad samarbetet ger, innan de sakliga villkoren.
+  if (opts.benefits !== "none") {
+    const isv = opts.benefits === "isv";
+    const head = isv ? "Hjälp kunden att upptäcka era lösningar" : "När kunderna utvärderar sina alternativ – finns ni med?";
+    const body = isv
+      ? `ISV Presence gör era produkter tydliga när köpare undersöker kompletterande lösningar till Dynamics 365. Introduktionspris 2027: ${kr(ISV_FEES.introFirstYear)} första året (ordinarie ${kr(ISV_FEES.base)}/år), tre produkter ingår.`
+      : `Premium ger er närvaro i hela köparens beslutsprocess, marknadsinsikter om vad köparna efterfrågar och ingen mötesavgift vid affärsförmedling. Från ${kr(YEAR_PRICE[1])}/år, motsvarar ${kr(Math.round(YEAR_PRICE[1] / 12))}/mån.`;
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);
+    const lines = wrapPdfText(body, width - 14, (l) => doc.getTextWidth(l));
+    doc.setFont("helvetica", "bold"); doc.setFontSize(12.5);
+    const hl = wrapPdfText(head, width - 14, (l) => doc.getTextWidth(l));
+    const h = 10 + hl.length * 6 + lines.length * 4.8;
+    doc.setFillColor(...PDF_BRAND.dark); doc.roundedRect(PDF_MARGIN, y, width, h, 2, 2, "F");
+    doc.setFillColor(...PDF_BRAND.primary); doc.rect(PDF_MARGIN, y, 2.2, h, "F");
+    doc.setTextColor(255, 255, 255); let ty = y + 8;
+    hl.forEach((l) => { doc.text(l, PDF_MARGIN + 8, ty); ty += 6; });
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(225, 230, 235);
+    lines.forEach((l) => { doc.text(l, PDF_MARGIN + 8, ty); ty += 4.8; });
+    y += h + 7;
+  }
   if (opts.partnerName) para(`Avtalspart: ${opts.partnerName}`, 11);
   if (opts.intro) para(opts.intro);
   const isvBenefits = opts.benefits === "isv";

@@ -11,6 +11,8 @@ import { PREMIUM_BENEFITS, ISV_BENEFITS } from "./partnerProfileTerms";
 import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_AFFAR } from "@/lib/partnerOrder";
 import { ISV_SUBSCRIPTION_TERMS, ISV_ORDER_FEES, ISV_ORDER_VERSION } from "@/lib/isvOrder";
 import { drawPremiumPriceTable } from "./pdfPremiumPricing";
+import { PREMIUM_REASONS, JOURNEY_PRESENCE, VISIBILITY_QUESTIONS, INSIGHT_COLUMNS } from "@/data/premiumValueStory";
+import { effectiveMonthly, premiumBreakEvenDealValue } from "@/lib/premiumValue";
 
 export type OfferPdfInput =
   | { kind: "partner"; company: string; contact?: string; premium: boolean; period: "month" | "year"; areas: string[]; mediation: boolean; startDate: string; price: number }
@@ -132,11 +134,12 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(200, 200, 200);
   doc.text("Offertförslag · beslutsunderlag · inte ett undertecknat avtal", PDF_MARGIN, 30);
   doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.setTextColor(255, 255, 255);
-  doc.text("Förslag till partnersamarbete med d365.se", PDF_MARGIN, 50);
+  doc.text(isv ? "När kunderna letar lösningar – finns ni med?" : "När kunderna utvärderar sina alternativ", PDF_MARGIN, 48);
+  if (!isv) doc.text("– finns ni med?", PDF_MARGIN, 57);
   doc.setFont("helvetica", "normal"); doc.setFontSize(13); doc.setTextColor(240, 200, 185);
-  doc.text(isv ? "ISV Presence för ISV-leverantörer" : (input.premium ? "Premium för Dynamics-partners" : "Affärsförmedling för Dynamics-partners"), PDF_MARGIN, 60);
+  doc.text(isv ? "ISV Presence för ISV-leverantörer" : (input.premium ? "Premium för Dynamics-partners" : "Affärsförmedling för Dynamics-partners"), PDF_MARGIN, 66);
   doc.setTextColor(255, 255, 255); doc.setFontSize(12);
-  doc.text(wrapPdfText(`Till ${company}`, W, (l) => doc.getTextWidth(l)).slice(0, 2), PDF_MARGIN, 74);
+  doc.text(wrapPdfText(`Till ${company}`, W, (l) => doc.getTextWidth(l)).slice(0, 2), PDF_MARGIN, 76);
   doc.setFontSize(9.5); doc.setTextColor(200, 200, 200);
   doc.text(`Datum ${today()}${input.contact?.trim() ? ` · Kontaktperson ${input.contact.trim()}` : ""} · Villkorsversion ${isv ? ISV_ORDER_VERSION : ORDER_VERSION}`, PDF_MARGIN, 84);
   doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.setTextColor(255, 255, 255); doc.text(headline, PDF_MARGIN, 104);
@@ -148,10 +151,75 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   table(priceRows, { head: ["Prisöversikt", "Belopp"] });
   const scope: [string, string][] = input.kind === "partner"
     ? [["Produktområden", input.areas.join(", ") || "Ej valda"], ["Önskad start", input.startDate], ["Avtalsperiod", input.premium ? (input.period === "year" ? "Tills vidare, årsvis betalning i förskott" : "Tills vidare, en månads uppsägningstid") : "Tills vidare"]]
-    : [["Appar", `1 ingår${input.extraApps ? ` + ${input.extraApps} extra` : ""}`], ["Önskad start", input.startDate], ["Avtalsperiod", "Tills vidare, årsvis betalning i förskott"]];
+    : [["Produkter", `3 ingår${input.extraApps ? ` + ${input.extraApps} extra` : ""}`], ["Önskad start", input.startDate], ["Avtalsperiod", "Tills vidare, årsvis betalning i förskott"]];
   table(scope, { head: ["Vald omfattning", ""] });
   text("Detta är ett offertförslag, inte en beställning. Nedladdningen är inte bindande.", { size: 8.5, color: PDF_BRAND.textMuted });
 
+  // ---- Partner story: six reasons, presence in the buying journey, visibility questions
+  if (!isv) {
+    newPage("Varför Premium");
+    heading("Sex anledningar att välja Premium");
+    const reasonImgs = await Promise.all(PREMIUM_REASONS.map((r) => toDataUrl(r.image)));
+    const cw = (W - 6) / 2, imgH = 26;
+    for (let row = 0; row < 3; row++) {
+      const pair = PREMIUM_REASONS.slice(row * 2, row * 2 + 2);
+      doc.setFontSize(8.5); doc.setFont("helvetica", "normal");
+      const bodies = pair.map((r) => wrapPdfText(r.body, cw - 8, (l) => doc.getTextWidth(l)));
+      doc.setFontSize(10.5); doc.setFont("helvetica", "bold");
+      const titles = pair.map((r) => wrapPdfText(r.title, cw - 8, (l) => doc.getTextWidth(l)));
+      const h = imgH + 6 + Math.max(...titles.map((t) => t.length)) * 5 + Math.max(...bodies.map((b) => b.length)) * 4.1 + 6;
+      ensure(h + 3);
+      pair.forEach((r, i) => {
+        const x = PDF_MARGIN + i * (cw + 6);
+        doc.setFillColor(...PDF_BRAND.cardBg); doc.rect(x, y, cw, h, "F");
+        const d = reasonImgs[row * 2 + i];
+        if (d) { try { doc.addImage(d, "JPEG", x, y, cw, imgH); } catch { /* skip image */ } }
+        doc.setFillColor(...PDF_BRAND.primary); doc.circle(x + 7, y + imgH, 4, "F");
+        doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(255, 255, 255); doc.text(String(row * 2 + i + 1), x + 7, y + imgH + 1.2, { align: "center" });
+        let ty = y + imgH + 9;
+        doc.setFontSize(10.5); doc.setTextColor(...PDF_BRAND.dark); titles[i].forEach((t) => { doc.text(t, x + 4, ty); ty += 5; });
+        doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); bodies[i].forEach((b) => { doc.text(b, x + 4, ty); ty += 4.1; });
+      });
+      y += h + 4;
+    }
+
+    newPage("Er närvaro i köpresan");
+    heading("Er närvaro genom köparens beslutsprocess");
+    text("Köparen rör sig mellan sex steg, ofta inte i ordning. d365.se finns med i varje steg, och det gör ni också med Premium.");
+    JOURNEY_PRESENCE.forEach((st, i) => {
+      doc.setFontSize(9); doc.setFont("helvetica", "normal");
+      const body = wrapPdfText(`${st.body} Här möter ni köparen: ${st.where}.`, W - 22, (l) => doc.getTextWidth(l));
+      const h = 7 + body.length * 4.4 + 3;
+      ensure(h + 2);
+      doc.setFillColor(...(i % 2 ? [255, 255, 255] as RGB : PDF_BRAND.cardBg)); doc.rect(PDF_MARGIN, y - 4, W, h, "F");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(...PDF_BRAND.primary); doc.text(String(i + 1).padStart(2, "0"), PDF_MARGIN + 3, y + 2);
+      doc.setFontSize(10.5); doc.setTextColor(...PDF_BRAND.dark); doc.text(st.title, PDF_MARGIN + 16, y + 1);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.text(body, PDF_MARGIN + 16, y + 6);
+      y += h + 1;
+    });
+    y += 3;
+    heading("Hur synliga är ni när nästa kund börjar sin utvärdering?");
+    bullets(VISIBILITY_QUESTIONS, PDF_BRAND.primary);
+
+    ensure(85);
+    heading("Marknadsinsikter som partnerförmån");
+    text("Premiumpartners får löpande underlag om vad köparna efterfrågar och hur er egen närvaro utvecklas.");
+    const colW = (W - 6) / 2;
+    const rows = Math.max(INSIGHT_COLUMNS.market.length, INSIGHT_COLUMNS.own.length);
+    ensure(rows * 5 + 14);
+    [["Marknadsinsikter", INSIGHT_COLUMNS.market], ["Er egen närvaro", INSIGHT_COLUMNS.own]].forEach(([head, items], i) => {
+      const x = PDF_MARGIN + i * (colW + 6);
+      doc.setFillColor(...PDF_BRAND.dark); doc.rect(x, y - 4, colW, 8, "F");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(255, 255, 255); doc.text(head as string, x + 3, y + 1.2);
+      doc.setFillColor(...PDF_BRAND.cardBg); doc.rect(x, y + 4, colW, rows * 5 + 3, "F");
+      doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(...PDF_BRAND.dark);
+      (items as string[]).forEach((it, j) => { doc.setFillColor(...PDF_BRAND.accent); doc.circle(x + 4, y + 8.6 + j * 5, 0.8, "F"); doc.text(it, x + 7, y + 9.5 + j * 5); });
+    });
+    y += rows * 5 + 14;
+    callout("Aktivt arbete, inga garantier", "d365.se arbetar aktivt med efterfrågan men garanterar inte ett visst antal möten eller affärer. Betalning påverkar aldrig relevansordning, rekommendationer eller verifiering.", PDF_BRAND.accent);
+  }
+
+  if (isv) {
   // ---- Page 2: the modern buyer journey
   newPage("Den moderna köpresan");
   heading("Köparen gör allt mer själv");
@@ -204,6 +272,8 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   ], { head: ["Nivå", "Vad det betyder"] });
   callout("Aktivt arbete, inga garantier", "d365.se arbetar aktivt med efterfrågan men garanterar inte ett visst antal leads eller affärer. Betalning påverkar aldrig relevansordning, rekommendationer eller verifiering.", PDF_BRAND.primary);
 
+  }
+
   // ---- Page 4: chosen offer
   newPage(isv ? "ISV Presence" : "Premium");
   if (input.kind === "partner" && !input.premium) {
@@ -217,7 +287,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("Kräver separat godkännande eller avtal", { bold: true, gap: 1 });
   bullets(isv
     ? ["Märkena Verifierad ISV och Verifierad tilläggslösning beslutas av redaktionen, aldrig genom betalning.", "Eventuella produktrelaterade kundintroduktioner (för närvarande pausade)."]
-    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat affärsförmedlingsavtal, med lägre mötesavgifter för Premiumpartners."], PDF_BRAND.primary);
+    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat affärsförmedlingsavtal. Premiumpartners betalar ingen mötesavgift."], PDF_BRAND.primary);
 
   // ---- Page 5: prices and scope
   newPage("Priser och vald omfattning");
@@ -228,6 +298,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   if (input.kind === "partner") {
     heading("Prislista Premium 2027");
     y = drawPremiumPriceTable(doc, y);
+    callout("Premium kan betala sig redan vid er första större affär", `Med årsbetalning kostar Premium ${kr(effectiveMonthly(1))}/mån för ett produktområde. Vid en förmedlad affär betalar Premium 2,5 % i stället för 5 % och ingen mötesavgift. Redan vid ett fakturerat affärsvärde på ${kr(premiumBreakEvenDealValue(1))} täcker skillnaden hela årsavgiften.`, PDF_BRAND.primary);
     text(`${MONTHLY_BILLING_TERMS} ${PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Alla priser exklusive moms. Inga rabatter utöver årspriset.`, { size: 8.5, color: PDF_BRAND.textMuted });
   } else text("Faktureras årsvis i förskott. Introduktionspriset gäller de första 20 nya ISV-leverantörerna; d365.se bekräftar platsen vid granskning av beställningen. Alla priser exklusive moms.", { size: 8.5, color: PDF_BRAND.textMuted });
   text(`Avtalsperiod och förnyelse: ${AGREEMENT_DURATION_TERMS}`, { size: 8.5, color: PDF_BRAND.textMuted });
@@ -238,7 +309,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Affärsförmedling, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5 % för Premium, 5 % för Grundprofil) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift för alla produktområden. Villkoren regleras i ett separat förmedlingsavtal.");
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5 % för Premium, 5 % för Grundprofil) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners betalar ingen mötesavgift. Villkoren regleras i ett separat förmedlingsavtal.");
     table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % / 5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
     text(FINDERS_FEE_AFFAR);
     text(input.mediation ? "Affärsförmedlingsavtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Affärsförmedlingsavtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
