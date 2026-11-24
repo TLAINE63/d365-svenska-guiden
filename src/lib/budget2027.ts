@@ -1,4 +1,5 @@
 import { budgetPricing, dealPricing, dealBandPricing, type BudgetPricing } from "./budgetPricing";
+import { FINDERS_FEE_VARIANTS } from "./partnerOrder";
 // Budget 2027: pure calculation helpers, prices from the partner program (excl. VAT).
 export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
@@ -14,16 +15,16 @@ export interface PartnerForecast {
   deals?: Partial<Record<DealBandKey, { meetings?: number; wins?: number }>>;
 }
 export type DealBandKey = "small" | "medium" | "large";
-export const DEAL_BAND_KEYS: DealBandKey[] = ["small", "large"];
-/** Merge legacy CRM volumes into variant 1; F&SCM retains its saved large key. */
+export const DEAL_BAND_KEYS: DealBandKey[] = ["small"];
+/** Merge every legacy product band into one row without mutating saved data. */
 export function partnerDeals(r: PartnerForecast, pricing = budgetPricing()): Record<DealBandKey, { meetings: number; wins: number }> {
   const z = (v?: number) => Math.max(0, Number(v) || 0);
   if (r.deals) return {
-    small: { meetings: z(r.deals.small?.meetings) + z(r.deals.medium?.meetings), wins: z(r.deals.small?.wins) + z(r.deals.medium?.wins) },
+    small: { meetings: z(r.deals.small?.meetings) + z(r.deals.medium?.meetings) + z(r.deals.large?.meetings), wins: z(r.deals.small?.wins) + z(r.deals.medium?.wins) + z(r.deals.large?.wins) },
     medium: { meetings: 0, wins: 0 },
-    large: { meetings: z(r.deals.large?.meetings), wins: z(r.deals.large?.wins) },
+    large: { meetings: 0, wins: 0 },
   };
-  const out = { small: { meetings: z(r.meetingsStd), wins: z(r.dealsStd) }, medium: { meetings: 0, wins: 0 }, large: { meetings: z(r.meetingsFscm), wins: z(r.dealsFscm) } };
+  const out = { small: { meetings: z(r.meetingsStd) + z(r.meetingsFscm), wins: z(r.dealsStd) + z(r.dealsFscm) }, medium: { meetings: 0, wins: 0 }, large: { meetings: 0, wins: 0 } };
   const b = z(r.successBasis);
   if (b > 0 && out.small.wins + out.large.wins === 0) out.small.wins += 1;
   return out;
@@ -50,7 +51,7 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 /** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
 export const ISV_FEES = { base: 5000, introFirstYear: 3000, extraApp: 500, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage: flat fee per placed assignment (Thomas 2026-11-17). Short = up to 6 months or under half-time; long = longer or at least half-time. */
-export const EXPERT_FEES = { shortPremium: 1500, shortBasic: 4000, longPremium: 2000, longBasic: 5000 };
+export const EXPERT_FEES = { shortPremium: 1000, shortBasic: 3500, longPremium: 1000, longBasic: 3500 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 3 000 kr intro price first year; default true. */ introPrice?: boolean }
 export const isvBaseFee = (r: { introPrice?: boolean }, pricing = budgetPricing()) => (r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence);
 export function isvRevenue(r: IsvForecast, pricing = budgetPricing()) {
@@ -224,8 +225,7 @@ export const FUNNEL_PRODUCTS = [
   { key: "pp", label: "Power Platform och AI", fscm: false, valueKey: "successPp" },
 ];
 export const FUNNEL_DEAL_TYPES = [
-  { key: "dealSmall", band: "small", valueKey: "maxSmall", label: "Variant 1: Business\u00a0Central, CRM, Power Platform, Copilot" },
-  { key: "dealLarge", band: "large", valueKey: "maxLarge", label: "Variant 2: F&SCM, Project Operations, Commerce, Human Resources" },
+  { key: "dealSmall", band: "small", valueKey: "maxSmall", label: `Alla produktområden: ${FINDERS_FEE_VARIANTS[0].scope}` },
 ] as const;
 export function funnelMaxValue(p: (typeof FUNNEL_DEAL_TYPES)[number], values: Record<string, number> = {}, pricing = budgetPricing()) {
   return values[p.valueKey] ?? (p.band === "small" ? 400000 : 3000000);
@@ -237,16 +237,15 @@ export function migratePartnerFunnel(f: Funnel = {}, values: Record<string, numb
     const oldKey = `${p.key}_${tier}`;
     const row = out[oldKey];
     if (!row) continue;
-    const band = p.fscm ? "large" : "small";
-    const target = FUNNEL_DEAL_TYPES.find((d) => d.band === band);
+    const target = FUNNEL_DEAL_TYPES[0];
     if (!target) continue;
     const key = `${target.key}_${tier}`;
     const existing = out[key] ?? {};
     out[key] = { ...existing, meetings: n(existing.meetings) + n(row.meetings), deals: n(existing.deals) + n(row.deals), wins: n(existing.wins) + n(row.wins) };
     delete out[oldKey];
   }
-  for (const tier of ["basic", "premium"] as const) {
-    const oldKey = `dealMedium_${tier}`;
+  for (const tier of ["basic", "premium"] as const) for (const legacy of ["dealMedium", "dealLarge"]) {
+    const oldKey = `${legacy}_${tier}`;
     const row = out[oldKey];
     if (!row) continue;
     const key = `dealSmall_${tier}`;
@@ -282,7 +281,7 @@ const val = (key: string, values: Record<string, number>, fallback: number) => N
 
 /** Grundprofil pays meeting fee plus the rest at deal; Premium pays the full deal fee only. Success fee per won deal. */
 export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier: "basic" | "premium", r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
-  const fee = dealBandPricing(successValue(product.valueKey, values), tier, product.fscm ? pricing.bands.large : pricing.bands.small);
+  const fee = dealBandPricing(successValue(product.valueKey, values), tier, pricing.bands.small);
   const meetings = n(r.meetings) * fee.meeting;
   // Agreements are pipeline volume only; commission is counted once on won business.
   const deals = 0;

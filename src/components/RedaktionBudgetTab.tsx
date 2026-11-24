@@ -239,28 +239,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <thead><tr><th className="text-left py-2">Produktområde</th><th>Möte Premium, kr</th><th>Möte Grundprofil, kr</th><th>Vid affär, %</th><th>Lägst, kr</th></tr></thead>
           <tbody>{FUNNEL_DEAL_TYPES.map(({ band, label }) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{label}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
         </table></div>
-        <div className="space-y-2">
-          <h4 className="text-sm font-semibold">Partnerbytesarvode, mötesavgift</h4>
-          <p className="text-xs text-muted-foreground">Förvaltning och vidareutveckling, endast mötesavgift, ingen avgift vid affär.</p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {([["std", "BC, CRM, Power Platform"], ["fscm", "Finance & SCM"]] as const).flatMap(([band, bandLabel]) =>
-              (["premium", "basic"] as const).map((tier) => {
-                const label = `Partnerbyte ${bandLabel}, möte ${tier === "premium" ? "Premium" : "Grundprofil"}, kr`;
-                return <label key={`${band}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.switchMeeting[band][tier]} onValueChange={(value) => setPricing({ switchMeeting: { ...pricing.switchMeeting, [band]: { ...pricing.switchMeeting[band], [tier]: value } } })} /></label>;
-              }))}
-          </div>
-        </div>
-        <div className="space-y-2">
-          <h4 className="text-sm font-semibold">Expertförmedling, avgift per tillsatt uppdrag</h4>
-          <p className="text-xs text-muted-foreground">Kunden och konsultbolaget avtalar direkt. Förlängning ger ingen ny avgift. Ingen avgift om ingen tillsätts.</p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {([["short", "Upp till 6 mån eller under halvtid"], ["long", "Längre eller minst halvtid"]] as const).flatMap(([scope, scopeLabel]) =>
-              (["premium", "basic"] as const).map((tier) => {
-                const label = `Expert ${scopeLabel}, ${tier === "premium" ? "Premium" : "Grundprofil"}, kr`;
-                return <label key={`${scope}-${tier}`} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} value={pricing.expertFee[scope][tier]} onValueChange={(value) => setPricing({ expertFee: { ...pricing.expertFee, [scope]: { ...pricing.expertFee[scope], [tier]: value } } })} /></label>;
-              }))}
-          </div>
-        </div>
+        <p className="text-sm text-muted-foreground">Samma mötesavgift gäller för alla produktområden, även vid partnerbyte och expertförmedling.</p>
         <details className="text-sm"><summary className="cursor-pointer font-medium">Tidsgränser (utkast 2026-11-17)</summary>
           <ul className="mt-2 space-y-1 text-muted-foreground">
             <li>Reklamation av kvalificering efter mötet: 5 arbetsdagar</li>
@@ -397,7 +376,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th title="Möten variant 1">M 1</th><th title="Vunna variant 1">V 1</th><th title="Möten variant 2">M 2</th><th title="Vunna variant 2">V 2</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten</th><th>Vunna affärer</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {

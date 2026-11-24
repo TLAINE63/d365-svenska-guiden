@@ -24,7 +24,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Finder’s fee</p>
         <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Vi hittar och kvalificerar kunder. Ni väljer affärsmöjligheterna.</h2>
-        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni betalar för genomförda kundmöten. Mötesavgiften beror på produktområde. Blir det affär tillkommer 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, med mötesavgiften avräknad.</p>
+        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni betalar för genomförda kundmöten: 1 000 kr med Premium eller 3 500 kr med Grundprofil, oavsett produktområde. Blir det affär tillkommer 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, med mötesavgiften avräknad.</p>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-12">
           {STEPS.map((s, i) => (
@@ -64,7 +64,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ni väljer:</strong> ni tackar ja eller nej till varje möjlighet innan introduktionen sker.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift vid affär:</strong> betald mötesavgift räknas alltid av i sin helhet.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Neutralt:</strong> introduktioner påverkar aldrig relevansordningen i partnersökningen.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Premium sänker mötesavgiften</strong> i båda varianterna. Premium innehåller inga utlovade möten.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Premium sänker mötesavgiften</strong> för alla produktområden. Premium innehåller inga utlovade möten.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
             </ul>
           </div>
@@ -73,19 +73,19 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3"><ArrowDown className="w-4 h-4 text-accent" aria-hidden="true" />Priser för Finder’s fee</div>
         <div className="overflow-x-auto border border-border rounded-lg bg-card mb-4">
           <table className="w-full text-sm">
-            <caption className="text-left px-3 pt-3 font-semibold text-foreground">Mötesavgift efter produktområde (nya projekt, partnerbyte och expertförmedling)</caption>
+            <caption className="text-left px-3 pt-3 font-semibold text-foreground">Samma mötesavgift för alla produktområden (nya projekt, partnerbyte och expertförmedling)</caption>
             <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Produktområde</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Grundprofil</th></tr></thead>
             <tbody>
               {FINDERS_FEE_VARIANTS.map((b) => (
-                <tr key={b.name} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal"><strong className="font-semibold">{b.name}:</strong> {b.scope}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.premium.toLocaleString("sv-SE")} kr`)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.grund.toLocaleString("sv-SE")} kr`)}</td></tr>
+                <tr key={b.name} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">{b.name}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.premium.toLocaleString("sv-SE")} kr`)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.grund.toLocaleString("sv-SE")} kr`)}</td></tr>
               ))}
             </tbody>
           </table>
         </div>
+        <p className="mb-4 text-sm text-muted-foreground"><strong className="text-foreground">Produkter och produktområden:</strong> {FINDERS_FEE_VARIANTS[0].scope}</p>
         <ul className="mb-4 space-y-1 text-sm text-muted-foreground list-disc pl-5">
           <li>{PREMIUM_MEETING_TERMS}</li>
-          <li>Ingår Power Platform eller Copilot i ett CRM- eller affärssystemprojekt följer de det produktområdets variant.</li>
-          <li>Omfattar affären flera produktområden gäller den högre varianten.</li>
+          <li>Samma mötesavgift gäller även när affären omfattar flera produktområden.</li>
           <li>Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.</li>
         </ul>
         <p className="mb-4 text-sm text-foreground">{FINDERS_FEE_AFFAR}</p>

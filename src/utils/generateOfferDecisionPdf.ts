@@ -238,7 +238,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Finder’s fee, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift i båda varianterna. Villkoren regleras i ett separat förmedlingsavtal.");
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift för alla produktområden. Villkoren regleras i ett separat förmedlingsavtal.");
     table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
     text(FINDERS_FEE_AFFAR);
     text(input.mediation ? "Finder’s fee-avtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Finder’s fee-avtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });

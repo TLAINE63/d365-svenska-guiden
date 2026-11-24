@@ -48,16 +48,14 @@ describe('partnerbeställning', () => {
     expect(snapshot.mediation).toBeNull();
     expect(orderSnapshot({...base,mediation:true}).mediation).toBeTruthy();
   });
-  it('variant 1 includes BC and all CRM applications at the BC meeting price', () => {
+  it('all products have 1000 Premium and 3500 Grundprofil meeting prices', () => {
     expect(FINDERS_FEE_VARIANTS[0].premium).toBe(1000);
-    expect(FINDERS_FEE_VARIANTS[0].grund).toBe(3000);
+    expect(FINDERS_FEE_VARIANTS[0].grund).toBe(3500);
     for (const app of ['Business\u00a0Central', 'Sales', 'Customer Service', 'Contact Center', 'Field Service', 'Customer Insights']) expect(FINDERS_FEE_VARIANTS[0].scope).toContain(app);
   });
-  it('variant 2 retains F&SCM meeting prices and there is no third variant', () => {
-    expect(FINDERS_FEE_VARIANTS).toHaveLength(2);
-    expect(FINDERS_FEE_VARIANTS[1].premium).toBe(2000);
-    expect(FINDERS_FEE_VARIANTS[1].grund).toBe(5000);
-    expect(FINDERS_FEE_VARIANTS[1].scope).toContain('F&SCM');
+  it('one variant covers F&SCM and all additional products', () => {
+    expect(FINDERS_FEE_VARIANTS).toHaveLength(1);
+    for (const app of ['F&SCM', 'Project Operations', 'Commerce', 'Human Resources', 'Power Platform', 'Copilot']) expect(FINDERS_FEE_VARIANTS[0].scope).toContain(app);
   });
   it('commission is 2.5 percent with no cap', () => {
     expect(FINDERS_FEE_RATE).toBe(0.025);

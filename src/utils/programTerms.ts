@@ -20,7 +20,7 @@ export const TERMS_DATE = "2026-11-24";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla partners inom respektive nivå: mötesavgift efter produktområde, 2,5 % vid affär med avräkning, för nya projekt, partnerbyte och expertförmedling." },
+  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla produktområden: 1 000 kr per möte med Premium eller 3 500 kr med Grundprofil, 2,5 % vid affär med avräkning, för nya projekt, partnerbyte och expertförmedling." },
 ];
 
 export function termsPriceRows(area: TermsArea): [string, string][] {
@@ -57,11 +57,11 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     ...PARTNER_PROFILE_TERMS,
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
-    { title: "Mötesavgift efter produktområde", body: `Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
+    { title: "Mötesavgift för alla produktområden", body: `Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
 
 ${FINDERS_FEE_MEETINGS}
 
-Ingår Power Platform eller Copilot i ett CRM- eller affärssystemprojekt följer de det produktområdets variant. Omfattar affären flera produktområden gäller den högre varianten.
+Samma mötesavgift gäller även när affären omfattar flera produktområden.
 
 Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.` },
     { title: "Premiumpris vid mötet", body: PREMIUM_MEETING_TERMS },

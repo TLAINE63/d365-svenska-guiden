@@ -3,8 +3,7 @@ export const MONTHLY_NOTICE_MONTHS = 1;
 export const MONTHLY_BILLING_TERMS = `Premium Månad faktureras i efterskott med ${MONTHLY_NOTICE_MONTHS === 1 ? 'en månads' : `${MONTHLY_NOTICE_MONTHS} månaders`} uppsägningstid. Uppsägning sker skriftligen via e-post.`;
 export const PREMIUM_MEETING_TERMS = 'Mötesavgifter för möten under en betald månad följer Premiumpriset endast om Premiumabonnemanget är aktivt när mötet genomförs. Om abonnemanget inte är aktivt gäller Grundprofilens mötesavgift.';
 export const FINDERS_FEE_VARIANTS = [
- { name: 'Variant 1', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), Power Platform och Copilot', premium: 1000, grund: 3000 },
- { name: 'Variant 2', scope: 'F&SCM (Finance och Supply Chain Management), Project Operations, Commerce och Human Resources', premium: 2000, grund: 5000 },
+ { name: 'Alla produktområden', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), F&SCM (Finance och Supply Chain Management), Project Operations, Commerce, Human Resources, Power Platform och Copilot', premium: 1000, grund: 3500 },
 ] as const;
 export const FINDERS_FEE_RATE = 0.025;
 export const FINDERS_FEE_CAP = null;
@@ -42,10 +41,10 @@ ${AGREEMENT_DURATION_TERMS}
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
 export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
-Mötesavgift per genomfört kvalificerat möte, efter produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
+Mötesavgift per genomfört kvalificerat möte, oavsett produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
 ${PREMIUM_MEETING_TERMS}
 ${FINDERS_FEE_MEETINGS}
-Ingår Power Platform eller Copilot i ett CRM- eller affärssystemprojekt följer de det produktområdets variant. Omfattar affären flera produktområden gäller den högre varianten. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
+Samma mötesavgift gäller även när affären omfattar flera produktområden. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
 
 ${FINDERS_FEE_AFFAR}
 

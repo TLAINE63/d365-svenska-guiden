@@ -1,5 +1,5 @@
 ## Gemensam Finder’s fee (2026-11-24)
-- [ ] Förenkla budget, partnerprogram och avtals-/offert-PDF till en variant med tydlig produktlista. Blockerat: Thomas behöver välja gemensam mötesavgift för Premium och Grundprofil.
+- [x] Budget, partnerprogram och avtals-/offert-PDF har en variant med tydlig produktlista: 1 000 kr Premium och 3 500 kr Grundprofil. Sparade volymer slås ihop idempotent; 46 tester godkända. Inloggad budget och avtalsnedladdningar samt 375/595 px verifierade; inga testvolymer sparade. Beställningstjänsten driftsatt; sajten väntar på publicering.
 
 ## Finder’s fee i Budget 2027 (2026-11-24)
 - [x] Uppdatera partnerprogram och avtals-/offert-PDF till samma två varianter utan maxbelopp; verifiera nedladdningar.

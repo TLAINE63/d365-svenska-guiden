@@ -2,7 +2,7 @@
 export interface DealBand { premiumMeeting: number; basicMeeting: number; percent: number; minimum: number; maximum: number }
 export interface SwitchMeetingFee { premium: number; basic: number }
 /** Bumped when published prices change; older saved price assumptions are replaced by the defaults. */
-export const PRICING_VERSION = "2026-11-24";
+export const PRICING_VERSION = "2026-11-24-single";
 export interface BudgetPricing {
   version?: string;
   units: Record<string, number>;
@@ -23,14 +23,14 @@ export const DEFAULT_PRICING: BudgetPricing = {
   isvAnnual: 5000, isvLicensePercent: 0, isvConsultPercent: 0,
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
-    // Two product variants; medium is a compatibility alias for variant 1.
-    small: { premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, minimum: 0, maximum: 0 },
-    medium: { premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, minimum: 0, maximum: 0 },
-    large: { premiumMeeting: 2000, basicMeeting: 5000, percent: 2.5, minimum: 0, maximum: 0 },
+    // One product-independent rate; medium and large remain compatibility aliases.
+    small: { premiumMeeting: 1000, basicMeeting: 3500, percent: 2.5, minimum: 0, maximum: 0 },
+    medium: { premiumMeeting: 1000, basicMeeting: 3500, percent: 2.5, minimum: 0, maximum: 0 },
+    large: { premiumMeeting: 1000, basicMeeting: 3500, percent: 2.5, minimum: 0, maximum: 0 },
   },
   // Samma mötesavgift gäller för partnerbyte och expertförmedling som för nya projekt.
-  switchMeeting: { std: { premium: 1500, basic: 4000 }, fscm: { premium: 2000, basic: 5000 } },
-  expertFee: { short: { premium: 1500, basic: 4000 }, long: { premium: 2000, basic: 5000 } },
+  switchMeeting: { std: { premium: 1000, basic: 3500 }, fscm: { premium: 1000, basic: 3500 } },
+  expertFee: { short: { premium: 1000, basic: 3500 }, long: { premium: 1000, basic: 3500 } },
 };
 export function budgetPricing(input?: Partial<BudgetPricing>): BudgetPricing {
   // Price assumptions saved before the latest price change are dropped; limits stay.
@@ -38,20 +38,19 @@ export function budgetPricing(input?: Partial<BudgetPricing>): BudgetPricing {
   return { ...DEFAULT_PRICING, ...saved, units: { ...DEFAULT_PRICING.units, ...saved?.units }, bands: {
     small: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small, maximum: 0 },
     medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.small, maximum: 0 },
-    large: { ...DEFAULT_PRICING.bands.large, ...saved?.bands?.large, maximum: 0 },
+    large: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small, maximum: 0 },
   }, switchMeeting: {
-    std: { ...DEFAULT_PRICING.switchMeeting.std, ...(saved?.switchMeeting as any)?.std },
-    fscm: { ...DEFAULT_PRICING.switchMeeting.fscm, ...(saved?.switchMeeting as any)?.fscm },
+    std: { premium: saved?.bands?.small?.premiumMeeting ?? 1000, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
+    fscm: { premium: saved?.bands?.small?.premiumMeeting ?? 1000, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
   }, expertFee: {
-    short: { ...DEFAULT_PRICING.expertFee.short, ...saved?.expertFee?.short },
-    long: { ...DEFAULT_PRICING.expertFee.long, ...saved?.expertFee?.long },
+    short: { premium: saved?.bands?.small?.premiumMeeting ?? 1000, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
+    long: { premium: saved?.bands?.small?.premiumMeeting ?? 1000, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
   },
   // ISV Finder's fee is paused: always 0 % regardless of older saved budgets.
   isvLicensePercent: 0, isvConsultPercent: 0, version: PRICING_VERSION };
 }
 export function dealPricing(value: number, tier: "basic" | "premium", pricing: BudgetPricing) {
-  const band = value < pricing.smallLimit ? pricing.bands.small : value <= pricing.largeLimit ? pricing.bands.medium : pricing.bands.large;
-  return dealBandPricing(value, tier, band);
+  return dealBandPricing(value, tier, pricing.bands.small);
 }
 export function dealBandPricing(value: number, tier: "basic" | "premium", band: DealBand) {
   const raw = Math.max(0, value) * band.percent / 100;
