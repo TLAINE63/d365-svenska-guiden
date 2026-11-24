@@ -1546,8 +1546,46 @@ D365.se`;
         );
       }
 
+      if (partnerList.length > 300
+        || (typeof overrideSubject === "string" && overrideSubject.length > 200)
+        || (typeof overrideBody === "string" && overrideBody.length > 10000)) {
+        return new Response(
+          JSON.stringify({ error: "För stort utskick" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      // Bound recipients: only existing partners, exactly one address each, on the partner's own domain.
+      const requestedIds = [...new Set(partnerList.map((p: { id: string }) => String(p?.id || "")).filter(Boolean))];
+      const { data: partnerRows } = await supabase.from("partners")
+        .select("id, name, email, admin_contact_email, website").in("id", requestedIds);
+      const rowById = new Map((partnerRows || []).map((r: { id: string }) => [r.id, r]));
+      const bulkDomainOf = (v: string | null | undefined) => {
+        if (!v) return "";
+        const s = String(v).trim().toLowerCase();
+        if (s.includes("@")) return s.split("@").pop() || "";
+        try { return new URL(s.startsWith("http") ? s : `https://${s}`).hostname.replace(/^www\./, ""); } catch { return ""; }
+      };
+      const validList: { id: string; name: string; email: string }[] = [];
+      for (const p of partnerList as { id: string; email: string }[]) {
+        // deno-lint-ignore no-explicit-any
+        const row: any = rowById.get(String(p?.id || ""));
+        if (!row) continue;
+        const rec = parseRecipients(String(p?.email || ""));
+        if (rec.length !== 1 || String(p.email).length > 254) continue;
+        const allowed = new Set([bulkDomainOf(row.email), bulkDomainOf(row.admin_contact_email), bulkDomainOf(row.website)].filter(Boolean));
+        if (!allowed.has(bulkDomainOf(rec[0]))) continue;
+        if (validList.some((v) => v.id === row.id)) continue;
+        validList.push({ id: row.id, name: row.name, email: rec[0] });
+      }
+      if (validList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Inga giltiga mottagare med partnerns egen e-postdomän" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       // Remove existing pending invitations for these partners
-      const partnerIds = partnerList.map((p: { id: string }) => p.id).filter(Boolean);
+      const partnerIds = validList.map((p) => p.id);
       if (partnerIds.length > 0) {
         await supabase
           .from("partner_invitations")
@@ -1558,7 +1596,7 @@ D365.se`;
       }
 
       // Create invitations for all partners
-      const invitations = partnerList.map((p: { id: string; name: string; email: string }) => ({
+      const invitations = validList.map((p) => ({
         email: p.email,
         partner_name: p.name,
         partner_id: p.id,
