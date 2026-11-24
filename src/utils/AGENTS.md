@@ -1,4 +1,5 @@
 # Agreement PDFs
+- Finder’s fee rows and new terms reuse FINDERS_FEE_VARIANTS and FINDERS_FEE_AFFAR from the shared order model so PDFs and Partnerprogram agree; saved contract snapshots stay immutable.
 - Premium PDF comparisons use pdfPremiumPricing with premiumPriceComparison from the shared order model, so monthly totals and annual discounts match the public price table without touching saved contracts.
 - Keep profile explanations in partnerProfileTerms and reuse them in program terms and default agreement exports, so generated documents describe the same editorial process without changing stored verification or pricing data.
 - Binding partner orders use the versioned shared partnerOrder model for UI, PDF and server-calculated price/acceptance snapshots; only the dedicated order function can insert or list immutable orders, with no automatic partner changes.

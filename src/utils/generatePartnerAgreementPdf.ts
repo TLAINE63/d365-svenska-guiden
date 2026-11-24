@@ -1,3 +1,4 @@
+import { FINDERS_FEE_VARIANTS } from "@/lib/partnerOrder";
 import { createPdfDocument, wrapPdfText } from "@/utils/pdfDocument";
 import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "@/utils/pdfLayout";
 import { PDF_BRAND } from "@/utils/pdfBrand";
@@ -18,11 +19,9 @@ export function agreementPriceRows(): [string, string][] {
     ["Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
     ["Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ["Finder’s fee, band 1: Business Central, fristående Power Platform och Copilot", "Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)"],
-    ["Finder’s fee, band 2: CRM", "Mötesavgift 1 500 kr (Premium) / 4 000 kr (Grundprofil)"],
-    ["Finder’s fee, band 3: Finance, SCM, Project Operations, Commerce, Human Resources", "Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil)"],
+    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Finder’s fee, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
-    ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär"],
+    ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
   ];
 }
 

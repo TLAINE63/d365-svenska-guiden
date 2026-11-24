@@ -12,10 +12,11 @@ describe("områdesspecifika prisbilagor", () => {
   });
   it("förmedling följer prismodellen 2026-11-24 med band efter produktområde", () => {
     const v = Object.fromEntries(termsPriceRows("commission").map(([k, val]) => [k, val.replace(/\s/g, " ")]));
-    expect(v["Band 1: Business Central, fristående Power Platform och Copilot"]).toBe("Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)");
-    expect(v["Band 2: CRM"]).toBe("Mötesavgift 1 500 kr (Premium) / 4 000 kr (Grundprofil)");
-    expect(v["Band 3: Finance, SCM, Project Operations, Commerce, Human Resources"]).toBe("Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil)");
-    expect(v["Avgift vid affär"]).toContain("högst 100 000 kr per affär");
+    const variants = Object.entries(v).filter(([k]) => k.startsWith('Variant'));
+    expect(variants).toHaveLength(2);
+    expect(variants[0][1]).toBe("Mötesavgift 1 000 kr (Premium) / 3 000 kr (Grundprofil)");
+    expect(variants[1][1]).toBe("Mötesavgift 2 000 kr (Premium) / 5 000 kr (Grundprofil)");
+    expect(v["Avgift vid affär"]).toContain("utan maxbelopp");
     expect(v["ISV: Finder’s fee"]).toBe("Pausad tills vidare");
     expect(Object.keys(v).some((k) => k.includes("Business Referral"))).toBe(false);
   });

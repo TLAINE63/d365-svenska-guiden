@@ -1,4 +1,5 @@
 ## Finder’s fee i Budget 2027 (2026-11-24)
+- [ ] Uppdatera partnerprogram och avtals-/offert-PDF till samma två varianter utan maxbelopp; verifiera nedladdningar.
 - [x] Slå ihop BC och CRM till variant 1, visa F&SCM som variant 2 och ta bort maxbelopp utan att förlora sparade volymer. Provisionsunderlaget heter nu Snittintäkt per affär.
 - [x] 24 tester godkända; inloggad budget visar två varianter och räknar 198 000 kr i provision efter mötesavdrag utan tak. Inga testvärden sparade.
 

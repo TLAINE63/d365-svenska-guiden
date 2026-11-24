@@ -2,6 +2,14 @@ export const ORDER_VERSION = '2026-11-24';
 export const MONTHLY_NOTICE_MONTHS = 1;
 export const MONTHLY_BILLING_TERMS = `Premium Månad faktureras i efterskott med ${MONTHLY_NOTICE_MONTHS === 1 ? 'en månads' : `${MONTHLY_NOTICE_MONTHS} månaders`} uppsägningstid. Uppsägning sker skriftligen via e-post.`;
 export const PREMIUM_MEETING_TERMS = 'Mötesavgifter för möten under en betald månad följer Premiumpriset endast om Premiumabonnemanget är aktivt när mötet genomförs. Om abonnemanget inte är aktivt gäller Grundprofilens mötesavgift.';
+export const FINDERS_FEE_VARIANTS = [
+ { name: 'Variant 1', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), Power Platform och Copilot', premium: 1000, grund: 3000 },
+ { name: 'Variant 2', scope: 'F&SCM (Finance och Supply Chain Management), Project Operations, Commerce och Human Resources', premium: 2000, grund: 5000 },
+] as const;
+export const FINDERS_FEE_RATE = 0.025;
+export const FINDERS_FEE_CAP = null;
+export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Inget maxbelopp. Betald mötesavgift räknas av i sin helhet och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.';
+export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Mötesavgift ${v.premium.toLocaleString('sv-SE')} kr (Premium) / ${v.grund.toLocaleString('sv-SE')} kr (Grundprofil).`).join('\n\n');
 export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Chain Management', crm: 'CRM (Sales, Customer Service, Field Service, Customer Insights och Contact Center)' };
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
@@ -36,12 +44,10 @@ export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2
 
 Mötesavgift per genomfört kvalificerat möte, efter produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
 ${PREMIUM_MEETING_TERMS}
-• Band 1: Business Central. Power Platform och Copilot som fristående projekt: 1 000 kr (Premium) / 3 000 kr (Grundprofil).
-• Band 2: CRM: Sales, Customer Service, Contact Center, Field Service, Customer Insights: 1 500 kr (Premium) / 4 000 kr (Grundprofil).
-• Band 3: Finance, Supply Chain Management, Project Operations, Commerce, Human Resources: 2 000 kr (Premium) / 5 000 kr (Grundprofil).
-Ingår Power Platform eller Copilot i ett CRM- eller ERP-projekt följer de det produktområdets band. Omfattar affären flera produktområden gäller det högsta bandet. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
+${FINDERS_FEE_MEETINGS}
+Ingår Power Platform eller Copilot i ett CRM- eller affärssystemprojekt följer de det produktområdets variant. Omfattar affären flera produktområden gäller den högre varianten. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
 
-Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Högst 100 000 kr per affär. Betald mötesavgift räknas av i sin helhet, och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.
+${FINDERS_FEE_AFFAR}
 
 Vid expertförmedling tecknar partnern kundavtalet, debiterar kunden och har leveransansvaret.
 

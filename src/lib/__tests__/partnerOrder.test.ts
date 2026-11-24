@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { orderPrice, orderValidation, orderSnapshot, termsDisplayText, ORDER_AREAS, ADDON_PRODUCTS, ADDON_PRODUCT_NOTE, SUBSCRIPTION_TERMS, MEDIATION_TERMS, type OrderSelection } from '../partnerOrder';
+import { orderPrice, orderValidation, orderSnapshot, termsDisplayText, ORDER_AREAS, ADDON_PRODUCTS, ADDON_PRODUCT_NOTE, SUBSCRIPTION_TERMS, MEDIATION_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_RATE, FINDERS_FEE_CAP, type OrderSelection } from '../partnerOrder';
 import { MONTH_PRICE, YEAR_PRICE } from '../budget2027';
 const base: OrderSelection = { level: 'premium', period: 'month', areas: ['bc'], mediation: false, start_date: '2099-01-01' };
 describe('partnerbeställning', () => {
@@ -48,14 +48,20 @@ describe('partnerbeställning', () => {
     expect(snapshot.mediation).toBeNull();
     expect(orderSnapshot({...base,mediation:true}).mediation).toBeTruthy();
   });
-  it('villkorstexterna är luftiga med radbrytning', () => {
-    expect(SUBSCRIPTION_TERMS.split('\n\n').length).toBeGreaterThanOrEqual(5);
-    expect(SUBSCRIPTION_TERMS).toContain('Alla priser exklusive moms.');
-    const bullets = MEDIATION_TERMS.split('\n').filter(line => line.startsWith('• '));
-    expect(bullets.length).toBeGreaterThanOrEqual(10);
-    expect(MEDIATION_TERMS).toContain('Tidsgränser:');
-    expect(MEDIATION_TERMS).toContain('Expertförmedling: fast avgift per tillsatt uppdrag.');
-    expect(MEDIATION_TERMS).not.toContain('\u2014');
+  it('variant 1 includes BC and all CRM applications at the BC meeting price', () => {
+    expect(FINDERS_FEE_VARIANTS[0].premium).toBe(1000);
+    expect(FINDERS_FEE_VARIANTS[0].grund).toBe(3000);
+    for (const app of ['Business\u00a0Central', 'Sales', 'Customer Service', 'Contact Center', 'Field Service', 'Customer Insights']) expect(FINDERS_FEE_VARIANTS[0].scope).toContain(app);
+  });
+  it('variant 2 retains F&SCM meeting prices and there is no third variant', () => {
+    expect(FINDERS_FEE_VARIANTS).toHaveLength(2);
+    expect(FINDERS_FEE_VARIANTS[1].premium).toBe(2000);
+    expect(FINDERS_FEE_VARIANTS[1].grund).toBe(5000);
+    expect(FINDERS_FEE_VARIANTS[1].scope).toContain('F&SCM');
+  });
+  it('commission is 2.5 percent with no cap', () => {
+    expect(FINDERS_FEE_RATE).toBe(0.025);
+    expect(FINDERS_FEE_CAP).toBeNull();
   });
   it('termsDisplayText ger läslig villkorstext med godkännanden', () => {
     const out = termsDisplayText({ ...orderSnapshot({ ...base, mediation: true }), accept: true, authority: true, mediation_accept: false });

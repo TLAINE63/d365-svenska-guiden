@@ -8,7 +8,7 @@ import scene4 from "@/assets/journey/scene4-advice.jpg";
 import scene7 from "@/assets/journey/scene7-project.jpg";
 import { ORGANIZATION } from "@/data/organization";
 import { PREMIUM_BENEFITS, ISV_BENEFITS } from "./partnerProfileTerms";
-import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
+import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_AFFAR } from "@/lib/partnerOrder";
 import { ISV_SUBSCRIPTION_TERMS, ISV_ORDER_FEES, ISV_ORDER_VERSION } from "@/lib/isvOrder";
 import { drawPremiumPriceTable } from "./pdfPremiumPricing";
 
@@ -238,16 +238,9 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Finder’s fee, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte, och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift från 250 tkr och vid partnerbyte. Villkoren regleras i ett separat förmedlingsavtal.");
-    table([
-      ["Nya projekt under 250 tkr", "Möte 1 500 kr · 2,5 %, lägst 3 000 kr"],
-      ["Nya projekt 250 tkr – 1 Mkr", "Möte 3 000 / 5 000 kr · 2,5 %"],
-      ["Nya projekt över 1 Mkr", "Möte 6 000 / 9 000 kr · 2,5 %, högst 100 000 kr"],
-      ["Partnerbyte BC, CRM, Power Platform", "Mötesavgift 3 000 / 5 000 kr"],
-      ["Partnerbyte Finance & SCM", "Mötesavgift 6 000 / 9 000 kr"],
-      ["Expertkonsult, upp till 6 mån eller under halvtid", "7 500 / 12 500 kr per uppdrag"],
-      ["Expertkonsult, längre eller minst halvtid", "15 000 / 25 000 kr per uppdrag"],
-    ], { head: ["Typ (Premium / Grundprofil)", "Avgift"] });
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift i båda varianterna. Villkoren regleras i ett separat förmedlingsavtal.");
+    table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
+    text(FINDERS_FEE_AFFAR);
     text(input.mediation ? "Finder’s fee-avtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Finder’s fee-avtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
     text("Introduktioner påverkar aldrig relevansordningen och innebär inga garanterade möten eller affärer.", { size: 9, color: PDF_BRAND.textMuted });
   } else {

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ArrowDown, Calculator, Check, ShieldCheck } from "lucide-react";
 import { TIDSGRANSER } from "@/utils/programTerms";
-import { PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder";
+import { PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_AFFAR } from "@/lib/partnerOrder";
 import adviceImg from "@/assets/journey/scene4-advice.jpg";
 import discussionImg from "@/assets/journey/scene2-discussion.jpg";
 import partnerImg from "@/assets/journey/scene5-partner.jpg";
@@ -15,11 +15,6 @@ const STEPS = [
   { img: agreementImg, alt: "Kundmöte mellan köpare och partner runt ett mötesbord", who: "Köparen", title: "Kundmötet bokas", text: "Köparen väljer själv vilka partners som får kontakt och lämnar sitt samtycke.", filter: "Högst tre partners. Ni möter en köpare som redan vet vilka ni är." },
 ];
 
-const BANDS = [
-  { band: "Band 1", scope: "Business Central. Power Platform och Copilot som fristående projekt.", premium: "1 000 kr", grund: "3 000 kr" },
-  { band: "Band 2", scope: "CRM: Sales, Customer Service, Contact Center, Field Service, Customer Insights.", premium: "1 500 kr", grund: "4 000 kr" },
-  { band: "Band 3", scope: "Finance, Supply Chain Management, Project Operations, Commerce, Human Resources.", premium: "2 000 kr", grund: "5 000 kr" },
-];
 
 const nb = (s: string) => s.replace(/ /g, "\u00A0");
 
@@ -54,12 +49,12 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <h3 className="text-xl font-bold mb-1">Så ser kalkylen ut</h3>
             <p className="text-sm text-muted-foreground mb-4">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar {nb("600 000 kr")} i konsult- och projektvärde under de första 12 månaderna.</p>
             <dl className="text-sm divide-y divide-border">
-              <div className="flex justify-between py-2"><dt>Mötesavgift efter kundmötet</dt><dd className="font-semibold">{nb("1 500 kr")}</dd></div>
+              <div className="flex justify-between py-2"><dt>Mötesavgift efter kundmötet</dt><dd className="font-semibold">{nb("1 000 kr")}</dd></div>
               <div className="flex justify-between py-2"><dt>Avgift vid affär (2,5 %)</dt><dd className="font-semibold">{nb("15 000 kr")}</dd></div>
-              <div className="flex justify-between py-2"><dt>Avräkning av betald mötesavgift</dt><dd className="font-semibold text-accent">{nb("−1 500 kr")}</dd></div>
-              <div className="flex justify-between py-2 text-base"><dt className="font-semibold">Slutbetalning vid affär</dt><dd className="font-bold">{nb("13 500 kr")}</dd></div>
+              <div className="flex justify-between py-2"><dt>Avräkning av betald mötesavgift</dt><dd className="font-semibold text-accent">{nb("−1 000 kr")}</dd></div>
+              <div className="flex justify-between py-2 text-base"><dt className="font-semibold">Slutbetalning vid affär</dt><dd className="font-bold">{nb("14 000 kr")}</dd></div>
             </dl>
-            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Mötesavgiften är 1 500 kr och avgiften vid affär 15 000 kr. Efter avräkning blir slutbetalningen 13 500 kr. Totalkostnaden är <strong>15 000 kr</strong>.</p>
+            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Mötesavgiften är 1 000 kr och avgiften vid affär 15 000 kr. Efter avräkning blir slutbetalningen 14 000 kr. Totalkostnaden är <strong>15 000 kr</strong>.</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-6">
             <ShieldCheck className="w-7 h-7 text-accent mb-3" aria-hidden="true" />
@@ -69,7 +64,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ni väljer:</strong> ni tackar ja eller nej till varje möjlighet innan introduktionen sker.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift vid affär:</strong> betald mötesavgift räknas alltid av i sin helhet.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Neutralt:</strong> introduktioner påverkar aldrig relevansordningen i partnersökningen.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Premium sänker mötesavgiften</strong> i alla tre band. Premium innehåller inga utlovade möten.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Premium sänker mötesavgiften</strong> i båda varianterna. Premium innehåller inga utlovade möten.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
             </ul>
           </div>
@@ -81,19 +76,19 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <caption className="text-left px-3 pt-3 font-semibold text-foreground">Mötesavgift efter produktområde (nya projekt, partnerbyte och expertförmedling)</caption>
             <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Produktområde</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Grundprofil</th></tr></thead>
             <tbody>
-              {BANDS.map((b) => (
-                <tr key={b.band} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal"><strong className="font-semibold">{b.band}:</strong> {b.scope}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(b.premium)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(b.grund)}</td></tr>
+              {FINDERS_FEE_VARIANTS.map((b) => (
+                <tr key={b.name} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal"><strong className="font-semibold">{b.name}:</strong> {b.scope}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.premium.toLocaleString("sv-SE")} kr`)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.grund.toLocaleString("sv-SE")} kr`)}</td></tr>
               ))}
             </tbody>
           </table>
         </div>
         <ul className="mb-4 space-y-1 text-sm text-muted-foreground list-disc pl-5">
           <li>{PREMIUM_MEETING_TERMS}</li>
-          <li>Ingår Power Platform eller Copilot i ett CRM- eller ERP-projekt följer de det produktområdets band.</li>
-          <li>Omfattar affären flera produktområden gäller det högsta bandet.</li>
+          <li>Ingår Power Platform eller Copilot i ett CRM- eller affärssystemprojekt följer de det produktområdets variant.</li>
+          <li>Omfattar affären flera produktområden gäller den högre varianten.</li>
           <li>Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.</li>
         </ul>
-        <p className="mb-4 text-sm text-foreground">Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Högst 100 000 kr per affär. Betald mötesavgift räknas av i sin helhet, och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.</p>
+        <p className="mb-4 text-sm text-foreground">{FINDERS_FEE_AFFAR}</p>
         <details className="mb-6 text-xs text-muted-foreground">
           <summary className="cursor-pointer text-sm font-medium text-foreground py-2">Villkor och tidsgränser</summary>
           <div className="space-y-2 pt-2">
