@@ -1,6 +1,7 @@
 import { createPdfDocument, wrapPdfText } from "@/utils/pdfDocument";
 import { drawBrandHeader, drawSectionHeading, finalizePdfWithFooter, PDF_MARGIN } from "@/utils/pdfLayout";
 import { PDF_BRAND } from "@/utils/pdfBrand";
+import { drawPremiumPriceTable } from "./pdfPremiumPricing";
 import { MONTH_PRICE, YEAR_PRICE, ISV_FEES } from "@/lib/budget2027";
 import { ORGANIZATION } from "@/data/organization";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE, PREMIUM_BENEFITS, PREMIUM_BENEFITS_TITLE, ISV_BENEFITS, ISV_BENEFITS_TITLE } from "./partnerProfileTerms";
@@ -61,6 +62,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   for (const s of sections) { heading(s.title); para(s.body); }
 
   heading("Bilaga: priser och ersättningar");
+  if (opts.benefits !== "isv" && opts.benefits !== "none") y = drawPremiumPriceTable(doc, y);
   doc.setFontSize(9.5);
   for (const [label, value] of opts.priceRows ?? agreementPriceRows()) {
     doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);

@@ -10,6 +10,7 @@ import { ORGANIZATION } from "@/data/organization";
 import { PREMIUM_BENEFITS, ISV_BENEFITS } from "./partnerProfileTerms";
 import { SUBSCRIPTION_TERMS, MEDIATION_TERMS, ADDON_PRODUCT_NOTE, ORDER_VERSION, ORDER_PRICES, AGREEMENT_DURATION_TERMS } from "@/lib/partnerOrder";
 import { ISV_SUBSCRIPTION_TERMS, ISV_ORDER_FEES, ISV_ORDER_VERSION } from "@/lib/isvOrder";
+import { drawPremiumPriceTable } from "./pdfPremiumPricing";
 
 export type OfferPdfInput =
   | { kind: "partner"; company: string; contact?: string; premium: boolean; period: "month" | "year"; areas: string[]; mediation: boolean; startDate: string; price: number }
@@ -226,7 +227,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   table(priceRows);
   if (input.kind === "partner") {
     heading("Prislista Premium 2027");
-    table([1, 2, 3].map((n) => [`${n} produktområde${n > 1 ? "n" : ""}`, `${kr(ORDER_PRICES.month[n])}/mån eller ${kr(ORDER_PRICES.year[n])}/år`] as [string, string]), { head: ["Omfattning", "Pris"] });
+    y = drawPremiumPriceTable(doc, y);
     text("Månad faktureras i efterskott med 3 månaders uppsägningstid. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Alla priser exklusive moms. Inga rabatter utöver årspriset.", { size: 8.5, color: PDF_BRAND.textMuted });
   } else text("Faktureras årsvis i förskott. Introduktionspriset gäller de första 20 nya ISV-leverantörerna; d365.se bekräftar platsen vid granskning av beställningen. Alla priser exklusive moms.", { size: 8.5, color: PDF_BRAND.textMuted });
   text(`Avtalsperiod och förnyelse: ${AGREEMENT_DURATION_TERMS}`, { size: 8.5, color: PDF_BRAND.textMuted });

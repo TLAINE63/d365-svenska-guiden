@@ -47,7 +47,7 @@ export default function TwoWaysSection() {
               <p><strong className="font-semibold text-foreground">Verifiering:</strong> möjlig efter separat redaktionell granskning, aldrig automatiskt genom betalning.</p>
               <p><strong className="font-semibold text-foreground">INSIDE:</strong> videointervju som köps separat (4&nbsp;900&nbsp;kr), endast för Premiumpartners.</p>
             </div>
-            <p className="text-lg font-semibold text-foreground">Från <span className="whitespace-nowrap">995&nbsp;kr/mån</span> eller <span className="whitespace-nowrap">7&nbsp;990&nbsp;kr/år</span></p>
+            <p className="text-lg font-semibold text-foreground">Från <span className="whitespace-nowrap">1&nbsp;000&nbsp;kr/mån</span> eller <span className="whitespace-nowrap">8&nbsp;000&nbsp;kr/år</span></p>
             <p className="text-xs text-muted-foreground mb-6">Ett produktområde, exklusive moms. Grundprofilen är kostnadsfri.</p>
             <Button asChild className="mt-auto self-start"><a href="#priser-innehall">Se Premium och priser<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
           </article>

@@ -1,4 +1,5 @@
 # Agreement PDFs
+- Premium PDF comparisons use pdfPremiumPricing with premiumPriceComparison from the shared order model, so monthly totals and annual discounts match the public price table without touching saved contracts.
 - Keep profile explanations in partnerProfileTerms and reuse them in program terms and default agreement exports, so generated documents describe the same editorial process without changing stored verification or pricing data.
 - Binding partner orders use the versioned shared partnerOrder model for UI, PDF and server-calculated price/acceptance snapshots; only the dedicated order function can insert or list immutable orders, with no automatic partner changes.
 - ToolResultNextStep downloads use generateToolUnderlagPdf with the shared PDF factory, brand layout and wrapped, paginated rows; plan saving and inquiry summaries keep the same tool entry so no parallel result model exists.- Partner and ISV offer downloads use generateOfferDecisionPdf (cover, buyer journey, how d365.se works, included, prices, mediation, next steps, terms annex) from the shared order models and prices; downloading never creates an order and needs no registration.

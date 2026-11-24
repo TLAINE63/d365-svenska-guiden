@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { agreementPriceRows } from "@/utils/generatePartnerAgreementPdf";
 
 describe("partneravtalets prisbilaga", () => {
-  it("visar Premium 995 kr/mån eller 8 000 kr/år för ett produktområde", () => {
-    expect(agreementPriceRows()[0][1].replace(/\s/g, " ")).toBe("995 kr/mån eller 8 000 kr/år");
+  it("visar Premium 1 000 kr/mån eller 8 000 kr/år för ett produktområde", () => {
+    expect(agreementPriceRows()[0][1].replace(/\s/g, " ")).toBe("1 000 kr/mån eller 8 000 kr/år");
   });
   it("visar ISV Presence 6 000 kr/år", () => {
     expect(agreementPriceRows()[3][1].replace(/\s/g, " ")).toBe("6 000 kr/år");

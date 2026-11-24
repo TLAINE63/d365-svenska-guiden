@@ -4,7 +4,7 @@ import { termsPriceRows } from "../programTerms";
 describe("områdesspecifika prisbilagor", () => {
   it("partner innehåller tre prenumerationsnivåer utan förmedlingsavgifter", () => {
     expect(termsPriceRows("partner").map((row) => row[1].replace(/\s/g, " "))).toEqual([
-      "995 kr/mån eller 8 000 kr/år", "1 295 kr/mån eller 9 990 kr/år", "1 495 kr/mån eller 11 990 kr/år",
+      "1 000 kr/mån eller 8 000 kr/år", "1 150 kr/mån eller 9 000 kr/år", "1 300 kr/mån eller 10 000 kr/år",
     ]);
   });
   it("ISV inkluderar grundavgift och extra produkt", () => {

@@ -278,8 +278,8 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
  if (bcActive) activeProducts++;
  if (fscActive) activeProducts++;
  if (salesActive || serviceActive) activeProducts++;
- const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
- return priceTiers[Math.min(activeProducts, 3)] ?? 1495;
+ const priceTiers: Record<number, number> = { 0: 0, 1: 1000, 2: 1150, 3: 1300 };
+ return priceTiers[Math.min(activeProducts, 3)] ?? 1300;
 }
 
 // ==================== TAB GROUPS ====================
@@ -3206,7 +3206,7 @@ Thomas`,
                 {(() => {
                   if (partnerStatusFilter === 'unpublished') {
                     const unpublishedPartners = fullPartners.filter(p => !p.is_featured);
-                    const totalPotential = unpublishedPartners.reduce((sum, p) => sum + (calcMonthlyFee(p.product_filters) || 995), 0);
+                    const totalPotential = unpublishedPartners.reduce((sum, p) => sum + (calcMonthlyFee(p.product_filters) || 1000), 0);
                     if (totalPotential === 0) return null;
                     return (
                       <div className="flex items-center justify-between p-3 mb-2 rounded-lg border bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800">
@@ -4433,8 +4433,8 @@ Thomas`,
  if (fscActive) activeProducts++;
  if (salesActive || serviceActive) activeProducts++;
  
- const priceTiers: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
- const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 1495;
+ const priceTiers: Record<number, number> = { 0: 0, 1: 1000, 2: 1150, 3: 1300 };
+ const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 1300;
  const crmBundleBoth = salesActive && serviceActive;
  
  return (
@@ -4444,7 +4444,7 @@ Thomas`,
  </p>
  <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
  <p>{activeProducts} produkt(er) = {totalFee.toLocaleString('sv-SE')} kr/mån</p>
- <p className="text-muted-foreground/70">1 prod: 995 kr · 2 prod: 1 295 kr · 3 prod: 1 495 kr</p>
+ <p className="text-muted-foreground/70">1 prod: 1 000 kr · 2 prod: 1 150 kr · 3 prod: 1 300 kr</p>
  {crmBundleBoth && (
  <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
  )}
@@ -4471,7 +4471,7 @@ Thomas`,
  <>
  <div>
  <Label className="text-xs">Årsavgift (kr, exkl. moms)</Label>
- <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="8000 / 9990 / 11990" />
+ <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="8000 / 9000 / 10000" />
  </div>
  <div>
  <Label className="text-xs">Årsperiodens startdatum</Label>

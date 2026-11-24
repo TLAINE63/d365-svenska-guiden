@@ -3,8 +3,8 @@ import { budgetPricing, dealPricing, dealBandPricing, type BudgetPricing } from 
 export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
 
-export const MONTH_PRICE: Record<number, number> = { 1: 995, 2: 1295, 3: 1495 };
-export const YEAR_PRICE: Record<number, number> = { 1: 8000, 2: 9990, 3: 11990 };
+export const MONTH_PRICE: Record<number, number> = { 1: 1000, 2: 1150, 3: 1300 };
+export const YEAR_PRICE: Record<number, number> = { 1: 8000, 2: 9000, 3: 10000 };
 export const FEES = { meetingStd: 0, dealStd: 5000, meetingFscm: 0, dealFscm: 10000, successRate: 0.025 };
 
 export interface PartnerForecast {

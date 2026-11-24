@@ -20,7 +20,7 @@ describe('partnerbeställning', () => {
       expect(orderPrice({...base,areas})).toBe(MONTH_PRICE[areas.length]);
       expect(orderPrice({...base,areas,period:'year'})).toBe(YEAR_PRICE[areas.length]);
     }
-    expect(orderPrice(base)).toBe(995);
+    expect(orderPrice(base)).toBe(1000);
     expect(orderPrice({...base,period:'year'})).toBe(8000);
   });
   it('Grundprofil är kostnadsfri', () => { expect(orderPrice({...base,level:'basic'})).toBe(0); });
@@ -44,7 +44,7 @@ describe('partnerbeställning', () => {
   });
   it('serverunderlaget använder eget pris och inkluderar bara vald förmedling', () => {
     const snapshot=orderSnapshot({...base,...{price_ex_vat:1}});
-    expect(snapshot.price_ex_vat).toBe(995);
+    expect(snapshot.price_ex_vat).toBe(1000);
     expect(snapshot.mediation).toBeNull();
     expect(orderSnapshot({...base,mediation:true}).mediation).toBeTruthy();
   });

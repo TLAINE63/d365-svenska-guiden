@@ -39,6 +39,7 @@ import MarketPulseSection from "@/components/partner/MarketPulseSection";
 
 import partnerData from "@/data/partnerData.json";
 import { PARTNER_BOOKING_URL } from "@/data/organization";
+import { premiumPriceComparison } from "@/lib/partnerOrder";
 
 type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_url?: string | null };
 
@@ -98,7 +99,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 995 kr/månad för 1 produktområde, 1 295 kr för 2 och 1 495 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 8 000 kr per år för ett produktområde, 9 990 kr för två och 11 990 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
+      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 1 000 kr/månad för 1 produktområde, 1 150 kr för 2 och 1 300 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 8 000 kr per år för ett produktområde, 9 000 kr för två och 10 000 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
   },
 ];
 
@@ -356,7 +357,7 @@ const Partnerprogram = () => {
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Premium partner, er presentation och prislista</h2>
           <p className="text-muted-foreground mb-8 max-w-3xl lg:max-w-none">Premium kan tecknas med eller utan Finder’s fee, som beskrivs i nästa avsnitt. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 items-start">
-            <div className="rounded-xl border-2 border-primary bg-card p-6">
+            <div className="min-w-0 rounded-xl border-2 border-primary bg-card p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
               <p className="text-sm text-muted-foreground mb-4">Kan tecknas med eller utan Finder’s fee-avtal. Alla priser exklusive moms.</p>
               <div className="rounded-lg bg-secondary/40 p-4 mb-5 text-sm text-muted-foreground space-y-2">
@@ -374,18 +375,22 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Lägre mötesavgift vid förmedlade kundmöten, om ni även har Finder’s fee-avtal. Premium innehåller inga utlovade möten.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
-              <div className="overflow-x-auto border border-border rounded-lg mb-3">
+              <div className="max-w-full overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
                   <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
-                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Områden</th><th scope="col" className="text-right px-3 py-2">Månad</th><th scope="col" className="text-right px-3 py-2">År <span className="block text-xs text-primary">Populärast</span></th></tr></thead>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Per månad</th><th scope="col" className="text-right px-3 py-2">Månad × 12</th><th scope="col" className="text-right px-3 py-2">Per år <span className="block text-xs text-primary">Populärast</span></th><th scope="col" className="text-right px-3 py-2">Rabatt för årsavtal</th></tr></thead>
                   <tbody>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">1</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">995&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">8&nbsp;000&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">3&nbsp;950&nbsp;kr</span> (33&nbsp;%)</span></td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">2</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">1&nbsp;295&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">9&nbsp;990&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">5&nbsp;550&nbsp;kr</span> (36&nbsp;%)</span></td></tr>
-                    <tr className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">3</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">1&nbsp;495&nbsp;kr/mån</td><td className="text-right px-3 py-2 font-semibold"><span className="whitespace-nowrap">11&nbsp;990&nbsp;kr/år</span><span className="block text-xs font-normal text-muted-foreground">Spara <span className="whitespace-nowrap">5&nbsp;950&nbsp;kr</span> (33&nbsp;%)</span></td></tr>
+                    {[1, 2, 3].map(premiumPriceComparison).map((price) => (
+                      <tr key={price.areas} className="border-t border-border">
+                        <th scope="row" className="text-left px-3 py-2 font-normal">{price.areas} produktområde{price.areas > 1 ? "n" : ""}</th>
+                        {[price.monthly, price.monthlyTotal, price.annual].map((value, i) => <td key={i} className="text-right px-3 py-2 font-semibold whitespace-nowrap">{value.toLocaleString("sv-SE")}&nbsp;kr</td>)}
+                        <td className="text-right px-3 py-2 whitespace-nowrap">{price.savings.toLocaleString("sv-SE")}&nbsp;kr ({price.savingsPercent}&nbsp;%)</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, gäller från 2026-11-10. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
+              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-24. Alla priser exklusive moms. Månad faktureras i efterskott med 3 månaders uppsägningstid, meddelad i god tid före varje kvartals början. År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
                 <li>Ni beställer Premium (och vid behov Finder’s fee-avtalet).</li>

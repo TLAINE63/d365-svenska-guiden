@@ -51,19 +51,19 @@ I samband med detta inför vi ett enklare upplägg.
 
 Detta gäller:
 
-• 1 produktområde: 995 kr/mån
+• 1 produktområde: 1 000 kr/mån
 
-• 2 produktområden: 1 295 kr/mån
+• 2 produktområden: 1 150 kr/mån
 
-• 3 produktområden: 1 495 kr/mån
+• 3 produktområden: 1 300 kr/mån
 
-Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 990 kr/år (2) och 11 990 kr/år (3), en besparing på 3 940–5 950 kr per år.
+Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10 000 kr/år (3), en besparing på 4 000–5 600 kr per år.
 
 Prislistan gäller för 2027
 
 3 månaders uppsägningstid
 
-Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
+Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 1 000 kr/mån (tidigare 1 990 kr).
 
 Ni ligger redan bra till – och är en del av den grupp som sätter strukturen framåt.
 
@@ -99,19 +99,19 @@ Vi har därför kalibrerat om upplägget för att göra det enklare att haka på
 
 Detta gäller:
 
-• 1 produktområde: 995 kr/mån
+• 1 produktområde: 1 000 kr/mån
 
-• 2 produktområden: 1 295 kr/mån
+• 2 produktområden: 1 150 kr/mån
 
-• 3 produktområden: 1 495 kr/mån
+• 3 produktområden: 1 300 kr/mån
 
-Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 990 kr/år (2) och 11 990 kr/år (3), en besparing på 3 940–5 950 kr per år.
+Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10 000 kr/år (3), en besparing på 4 000–5 600 kr per år.
 
 Prislistan gäller för 2027
 
 3 månaders uppsägningstid
 
-Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
+Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 1 000 kr/mån (tidigare 1 990 kr).
 
 Vill ni vara med enligt detta upplägg, svara bara **OK** så lägger vi in er och skickar profileringslänken.
 

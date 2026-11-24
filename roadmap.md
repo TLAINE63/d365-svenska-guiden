@@ -1,3 +1,7 @@
+## Premium-priser (2026-11-24)
+- [x] Uppdaterat prislistan, nya beställningar, avtals-/offert-PDF och redaktionens standardpriser utan att ändra sparade avtal. Beställningstjänsten driftsatt.
+- [x] 30 pristester godkända; offert för tre områden nedladdad och prisrutor i PDF visuellt granskade. Dator/375 px utan sidöverbredd efter rättning. Befintligt Finder’s fee-test fallerar fortfarande och har inte försvagats.
+
 ## Nyhetsbrev (2026-11-23)
 - [x] Gemensamma tre listor, bekräftelse, avregistrering och permanent studs.
 - [x] Anmälan i sidfot, efter CRM-/affärssystemsguider och efter kravspecifikationsnedladdning.

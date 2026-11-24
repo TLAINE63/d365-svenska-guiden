@@ -45,7 +45,7 @@ interface Partner {
 }
 
 // Same pricing logic as the AdminDashboard partner form
-const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1295, 3: 1495 };
+const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 1000, 2: 1150, 3: 1300 };
 function computeMonthlyFee(p: Partner): number {
   const disc = 1 - Math.min(100, Math.max(0, Number(p.discount_percent) || 0)) / 100;
   if (p.billing_interval === "year" && Number(p.annual_fee) > 0) return (Number(p.annual_fee) / 12) * disc;
@@ -65,7 +65,7 @@ function computeListFee(p: Partner): number {
   if (bc) active++;
   if (fsc) active++;
   if (sales || service) active++; // Sales + Service bundle as 1
-  return PRICE_TIERS[Math.min(active, 3)] ?? 1495;
+  return PRICE_TIERS[Math.min(active, 3)] ?? 1300;
 }
 
 interface AdminAgreementTabProps {
@@ -88,13 +88,13 @@ Nu går vi vidare in i nästa fas, och när vi fortsätter att bygga trafik, inn
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 995 kr/månad**
+**1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1.295 kr/månad**
+**2 produktområden: 1 150 kr/månad**
 
-**3 produktområden: 1.495 kr/månad**
+**3 produktområden: 1 300 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 9.990 kr för 2 och 11.990 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
 
 Om ni vill fortsätta med er nuvarande profilering på d365.se, svara bara på detta mail med:
 
@@ -129,13 +129,13 @@ Vi har också sett ett tydligt intresse från marknaden. d365.se har hittills ha
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 995 kr/månad**
+**1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1.295 kr/månad**
+**2 produktområden: 1 150 kr/månad**
 
-**3 produktområden: 1.495 kr/månad**
+**3 produktområden: 1 300 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 9.990 kr för 2 och 11.990 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
 
 Fullständiga villkor finns i bifogat partneravtal.
 
@@ -174,13 +174,13 @@ För partner innebär det en möjlighet att vara synlig tidigt i kundens utvärd
 
 Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
 
-**1 produktområde: 995 kr/månad**
+**1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1.295 kr/månad**
+**2 produktområden: 1 150 kr/månad**
 
-**3 produktområden: 1.495 kr/månad**
+**3 produktområden: 1 300 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 7.990 kr per år för 1 produktområde, 9.990 kr för 2 och 11.990 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
 
 Med en partnerverifierad profil kan ni synas inom:
 

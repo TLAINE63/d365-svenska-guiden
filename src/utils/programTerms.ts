@@ -47,7 +47,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
   if (area === "partner") return [
     ...PARTNER_PROFILE_TERMS,
     { title: "Produktområden", body: "CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår i Premium." },
-    { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 gäller från 2026-11-10.\n\nMånadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post.\n\nÅrsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
+    { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 uppdaterad 2026-11-24.\n\nMånadsabonnemang faktureras i efterskott med tre månaders uppsägningstid, meddelad i god tid före varje kvartals början. Uppsägning sker skriftligen via e-post.\n\nÅrsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
   ];
   if (area === "isv") return [
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },

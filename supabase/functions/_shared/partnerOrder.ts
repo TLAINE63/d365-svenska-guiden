@@ -3,7 +3,16 @@ export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Cha
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
 export type OrderSelection = { level: 'basic' | 'premium'; period: 'month' | 'year'; areas: (keyof typeof ORDER_AREAS)[]; mediation: boolean; start_date: string };
-export const ORDER_PRICES = { month: [0, 995, 1295, 1495], year: [0, 8000, 9990, 11990] };
+export const ORDER_PRICES = { month: [0, 1000, 1150, 1300], year: [0, 8000, 9000, 10000] };
+/** Comparison uses monthly list price, not saved individual contract discounts. */
+export function premiumPriceComparison(areas: number) {
+ if (!Number.isInteger(areas) || areas < 1 || areas > 3) throw new RangeError('Välj ett till tre produktområden.');
+ const monthly = ORDER_PRICES.month[areas];
+ const annual = ORDER_PRICES.year[areas];
+ const monthlyTotal = monthly * 12;
+ const savings = monthlyTotal - annual;
+ return { areas, monthly, monthlyTotal, annual, savings, savingsPercent: Math.round(savings / monthlyTotal * 100) };
+}
 export const AGREEMENT_DURATION_TERMS = 'Avtalen gäller tills vidare. Priserna kan komma att indexregleras inför varje nytt kalenderår.';
 export const SUBSCRIPTION_TERMS = `Grundprofil är kostnadsfri. Premium omfattar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.
 
