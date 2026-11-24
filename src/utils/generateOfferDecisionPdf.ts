@@ -118,7 +118,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
     } else { priceRows.push(["Premiumabonnemang", "Ingår inte (Grundprofil 0 kr)"]); headline = "Ingen fast avgift"; }
     priceRows.push(["Finder’s fee-avtal", input.mediation ? "Ingår, avgift endast per möte, affär eller uppdrag" : "Ej valt"]);
   } else {
-    priceRows.push(["ISV Presence inkl. tre produkter, första året (introduktionspris)", kr(ISV_ORDER_FEES.introFirstYear)]);
+    priceRows.push(["ISV Presence inkl. en produkt, första året (introduktionspris)", kr(ISV_ORDER_FEES.introFirstYear)]);
     if (input.extraApps) priceRows.push([`Extra produkter (${input.extraApps} × ${kr(ISV_ORDER_FEES.extraApp)})`, `${kr(input.extraApps * ISV_ORDER_FEES.extraApp)} / år`]);
     priceRows.push(["Totalt första året", kr(input.price)], ["Ordinarie årspris från år två", `${kr(input.regular)} / år`]);
     headline = `${kr(input.price)} första året`;

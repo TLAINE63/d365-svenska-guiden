@@ -60,8 +60,8 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("partner and ISV group totals never double-count legacy estimates", () => {
     const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
-    expect(s.partner.estimate).toBe(15980 + 3000 + 22000);
-    expect(s.isv.estimate).toBe(2990);
+    expect(s.partner.estimate).toBe(16000 + 3000 + 22000);
+    expect(s.isv.estimate).toBe(3000);
   });
   it("expert fee per filled assignment: 7500/12500 short, 15000/25000 long", () => {
     expect(expertFunnelRow(EXPERT_FUNNEL[0], "premium", { assignments: 2 }).total).toBe(15000);

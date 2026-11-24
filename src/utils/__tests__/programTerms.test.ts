@@ -4,11 +4,11 @@ import { termsPriceRows } from "../programTerms";
 describe("områdesspecifika prisbilagor", () => {
   it("partner innehåller tre prenumerationsnivåer utan förmedlingsavgifter", () => {
     expect(termsPriceRows("partner").map((row) => row[1].replace(/\s/g, " "))).toEqual([
-      "995 kr/mån eller 7 990 kr/år", "1 295 kr/mån eller 9 990 kr/år", "1 495 kr/mån eller 11 990 kr/år",
+      "995 kr/mån eller 8 000 kr/år", "1 295 kr/mån eller 9 990 kr/år", "1 495 kr/mån eller 11 990 kr/år",
     ]);
   });
   it("ISV inkluderar grundavgift och extra produkt", () => {
-    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["4 990 kr/år", "499 kr/år", "2 990 kr"]);
+    expect(termsPriceRows("isv").map((row) => row[1].replace(/\s/g, " "))).toEqual(["6 000 kr/år", "500 kr/år", "3 000 kr"]);
   });
   it("förmedling följer prismodellen 2026-11-24 med band efter produktområde", () => {
     const v = Object.fromEntries(termsPriceRows("commission").map(([k, val]) => [k, val.replace(/\s/g, " ")]));

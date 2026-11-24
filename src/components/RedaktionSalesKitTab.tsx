@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 7 990 kr/år exkl. moms (spara 3 950 kr mot 12 × 995 kr/mån). Premium och Finder’s fee kan tecknas var för sig. Finder’s fee: mötesavgift per kvalificerat möte efter produktområde, Business Central 1 000 kr (Premium) / 3 000 kr (Grundprofil), CRM 1 500 / 4 000 kr, Finance, SCM, Project Operations, Commerce och Human Resources 2 000 / 5 000 kr. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr, med betald mötesavgift avräknad.",
+      "Premium: 8 000 kr/år exkl. moms (spara 3 940 kr mot 12 × 995 kr/mån). Premium och Finder’s fee kan tecknas var för sig. Finder’s fee: mötesavgift per kvalificerat möte efter produktområde, Business Central 1 000 kr (Premium) / 3 000 kr (Grundprofil), CRM 1 500 / 4 000 kr, Finance, SCM, Project Operations, Commerce och Human Resources 2 000 / 5 000 kr. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr, med betald mötesavgift avräknad.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -173,7 +173,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
           <div className="rounded-lg border-2 border-primary p-6">
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Premium Partner</p>
             <p className="mt-1 text-3xl font-bold whitespace-nowrap">7{NB}990 kr/år</p>
-            <p className="text-sm text-muted-foreground">exkl. moms, årsbetalning. Spara 3{NB}950 kr (33 %) mot 995 kr/mån.</p>
+            <p className="text-sm text-muted-foreground">exkl. moms, årsbetalning. Spara 3{NB}940 kr (33 %) mot 995 kr/mån.</p>
           </div>
           <div className="rounded-lg border p-6">
             <p className="font-semibold">Möte → Affär → Finder’s fee</p>

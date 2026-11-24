@@ -21,7 +21,7 @@ describe('partnerbeställning', () => {
       expect(orderPrice({...base,areas,period:'year'})).toBe(YEAR_PRICE[areas.length]);
     }
     expect(orderPrice(base)).toBe(995);
-    expect(orderPrice({...base,period:'year'})).toBe(7990);
+    expect(orderPrice({...base,period:'year'})).toBe(8000);
   });
   it('Grundprofil är kostnadsfri', () => { expect(orderPrice({...base,level:'basic'})).toBe(0); });
   it('abonnemangsaccept krävs', () => { expect(orderValidation(base,false,true,false)).not.toBeNull(); });

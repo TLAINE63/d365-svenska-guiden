@@ -4471,7 +4471,7 @@ Thomas`,
  <>
  <div>
  <Label className="text-xs">Årsavgift (kr, exkl. moms)</Label>
- <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="7990 / 9990 / 11990" />
+ <Input type="number" min={0} className="mt-1" value={partnerFormData.annual_fee ?? ""} onChange={(e) => setPartnerFormData({ ...partnerFormData, annual_fee: e.target.value === "" ? undefined : Number(e.target.value) })} placeholder="8000 / 9990 / 11990" />
  </div>
  <div>
  <Label className="text-xs">Årsperiodens startdatum</Label>
