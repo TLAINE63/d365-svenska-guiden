@@ -59,8 +59,14 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
   }
   y += 2;
   const sections = opts.priceRows ? opts.sections : [...PARTNER_PROFILE_TERMS, ...opts.sections];
+  const termsName = title.replace(/^Avtalsvillkor:\s*/i, "");
+  ensure(24);
+  doc.setFont("helvetica", "bold"); doc.setFontSize(14); doc.setTextColor(...PDF_BRAND.dark);
+  doc.text(`Avtalsvillkor för ${termsName}`, PDF_MARGIN, y + 4); y += 10;
   for (const s of sections) { heading(s.title); para(s.body); }
 
+  // Bilagan börjar alltid på en egen sida så att prisrutan inte bryts mitt i.
+  doc.addPage(); y = drawBrandHeader(doc, title);
   heading("Bilaga: priser och ersättningar");
   if (opts.benefits !== "isv" && opts.benefits !== "none") y = drawPremiumPriceTable(doc, y);
   doc.setFontSize(9.5);
