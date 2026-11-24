@@ -84,12 +84,14 @@ Deno.serve(async (req) => {
     }
 
     let { data: registration } = await db.from("webinar_registrations")
-      .select("id, email, cancel_token, cancelled_at")
+      .select("id, email, cancel_token, cancelled_at, created_at")
       .eq("webinar_id", webinar.id)
       .eq("email", input.email)
       .maybeSingle();
 
+    let isNew = false;
     if (!registration) {
+      isNew = true;
       const cancelToken = randomToken();
       const { data: inserted, error: insertError } = await db.from("webinar_registrations").insert({
         webinar_id: webinar.id,
@@ -110,14 +112,18 @@ Deno.serve(async (req) => {
         utm_campaign: input.utm_campaign || null,
         cancel_token: cancelToken,
         cancel_token_hash: await sha256(cancelToken),
-      }).select("id, email, cancel_token, cancelled_at").single();
+      }).select("id, email, cancel_token, cancelled_at, created_at").single();
       if (insertError) return json({ error: "Anmälan kunde inte sparas. Försök igen." }, 500);
       registration = inserted;
     }
 
     const { data: confirmation } = await db.from("webinar_email_log")
       .select("id").eq("registration_id", registration.id).eq("kind", "confirmation").maybeSingle();
-    if (!confirmation) {
+    // Existing registrations never trigger a new mail with private links, except a retry
+    // shortly after a failed first confirmation.
+    const recentRetry = !isNew && registration.created_at
+      && Date.now() - new Date(registration.created_at).getTime() < 15 * 60 * 1000;
+    if (!confirmation && (isNew || recentRetry)) {
       const mailWebinar = webinar as WebinarMailRecord;
       const { data: sentMessage, error: sendError } = await resend.emails.send({
         from: "Thomas Laine | D365.SE <info@d365.se>",

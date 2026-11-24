@@ -7,7 +7,8 @@ import { PROMPT_CONFIDENTIALITY_SV } from '../_shared/prompt-guard.ts';
 
 // Fetch internal AI matching knowledge (partner_ai_knowledge) for the given partner ids.
 // Data is internal-only and never returned to the client – used only to enrich the AI prompt.
-async function fetchPartnerAiKnowledge(partnerIds: string[]) {
+// deno-lint-ignore no-unused-vars
+async function _unusedFetchPartnerAiKnowledge(partnerIds: string[]) {
   const url = Deno.env.get('SUPABASE_URL');
   const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
   const map = new Map<string, { matching_profile: any; raw_content: string | null }>();
@@ -255,9 +256,10 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Fetch internal AI knowledge for published partners only (service-role, never returned to client).
+    // Internal partner knowledge (partner_ai_knowledge) is never used in this public, anonymous
+    // endpoint; ranking relies only on published partner data.
     const partnerIds = partners.map(p => p.id);
-    const knowledgeMap = await fetchPartnerAiKnowledge(partnerIds);
+    const knowledgeMap = new Map<string, { matching_profile: any; raw_content: string | null }>();
     const extendedMap = await fetchPartnerExtendedContent(partnerIds);
 
     // Build a concise representation of each partner for the AI

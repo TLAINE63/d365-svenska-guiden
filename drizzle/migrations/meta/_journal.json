@@ -393,6 +393,13 @@
       "when": 1795515156142,
       "tag": "0055_restrict_demand_is_partner_self",
       "breakpoints": true
+    },
+    {
+      "idx": 56,
+      "version": "7",
+      "when": 1795542030518,
+      "tag": "0056_inquiry_partners_server_only_insert",
+      "breakpoints": true
     }
   ]
 }

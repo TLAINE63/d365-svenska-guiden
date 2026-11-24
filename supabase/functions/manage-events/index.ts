@@ -1395,7 +1395,7 @@ D365.se`;
           let processedTemplate = rawTemplate
             .replace(/\{\{contact_name\}\}/g, contactName)
             .replace(/\{\{partner_name\}\}/g, partner.name)
-            .replace(/\{\{custom_message\}\}/g, custom_message || '');
+            .replace(/\{\{custom_message\}\}/g, escHtml(String(custom_message ?? '').slice(0, 5000)).replace(/\n/g, '<br>'));
 
           // Build HTML: split on {{PORTAL_LINK}}, convert paragraphs, insert button
           const portalButton = `<div style="text-align: center; margin: 30px 0;">

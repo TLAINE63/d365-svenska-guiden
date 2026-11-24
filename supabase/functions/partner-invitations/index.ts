@@ -109,6 +109,28 @@ function salesPitchSnitcherHtml(): string {
 }
 
 // JWT verification for admin operations
+
+// Recipients for outbound mail are bound to the partner's own domains, or the site's internal domains (previews).
+const INTERNAL_MAIL_DOMAINS = new Set(["d365.se", "dynamicfactory.se"]);
+const mailDomainOf = (v: string | null | undefined) => {
+  if (!v) return "";
+  const s = String(v).trim().toLowerCase();
+  if (s.includes("@")) return s.split("@").pop() || "";
+  try { return new URL(s.startsWith("http") ? s : `https://${s}`).hostname.replace(/^www\./, ""); } catch { return ""; }
+};
+async function boundPartnerRecipient(supabase: any, partnerId: unknown, email: unknown): Promise<{ email: string; name: string } | null> {
+  const addr = String(email ?? "").trim().toLowerCase();
+  if (!addr || addr.length > 254 || !/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(addr)) return null;
+  const dom = mailDomainOf(addr);
+  if (typeof partnerId !== "string" || !partnerId) return null;
+  const { data: pRow } = await supabase.from("partners")
+    .select("name, email, admin_contact_email, website").eq("id", partnerId).maybeSingle();
+  if (!pRow) return null;
+  const allowed = new Set([mailDomainOf(pRow.email), mailDomainOf(pRow.admin_contact_email), mailDomainOf(pRow.website)].filter(Boolean));
+  if (!allowed.has(dom) && !INTERNAL_MAIL_DOMAINS.has(dom)) return null;
+  return { email: addr, name: pRow.name };
+}
+
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
     const parts = token.split('.');
@@ -570,7 +592,7 @@ serve(async (req: Request): Promise<Response> => {
         industries: submissionData.industries || [],
         secondary_industries: submissionData.secondary_industries || [],
         geography: submissionData.geography || [],
-        product_filters: submissionData.product_filters || {},
+        product_filters: stripRankingFields(submissionData.product_filters),
         industry_apps: submissionData.industry_apps || [],
         office_cities: submissionData.office_cities || [],
         industry_pitches: submissionData.industry_pitches || [],
@@ -847,21 +869,17 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
       if (partner_id) {
-        const { data: pRow } = await supabase.from("partners")
-          .select("email, admin_contact_email, website").eq("id", partner_id).maybeSingle();
-        const domainOf = (v: string | null | undefined) => {
-          if (!v) return "";
-          const s = String(v).trim().toLowerCase();
-          if (s.includes("@")) return s.split("@").pop() || "";
-          try { return new URL(s.startsWith("http") ? s : `https://${s}`).hostname.replace(/^www\./, ""); } catch { return ""; }
-        };
-        const allowed = new Set([domainOf(pRow?.email), domainOf(pRow?.admin_contact_email), domainOf(pRow?.website)].filter(Boolean));
-        if (!pRow || !allowed.has(domainOf(recipients[0]))) {
+        if (!(await boundPartnerRecipient(supabase, partner_id, recipients[0]))) {
           return new Response(
             JSON.stringify({ error: "Mottagaren måste ha partnerns egen e-postdomän" }),
             { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
           );
         }
+      } else if (send_email && !INTERNAL_MAIL_DOMAINS.has(mailDomainOf(recipients[0]))) {
+        return new Response(
+          JSON.stringify({ error: "Välj en partner för att skicka inbjudan via e-post, eller kopiera länken" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
       }
       // Remove existing pending invitations for the same partner
       if (partner_id) {
@@ -1246,7 +1264,7 @@ D365.se`;
         industries: submission.industries,
         secondary_industries: submission.secondary_industries,
         geography: submission.geography,
-        product_filters: submission.product_filters,
+        product_filters: stripRankingFields(submission.product_filters),
         industry_apps: submission.industry_apps || [],
         office_cities: submission.office_cities || [],
         updated_at: new Date().toISOString(),
@@ -1781,12 +1799,14 @@ D365.se`;
 
       for (const partner of partnerList) {
         try {
-          const email = partner.email;
-          if (!email) {
-            errors.push(`${partner.name}: Ingen e-postadress`);
+          const bound = await boundPartnerRecipient(supabase, partner?.id, partner?.email);
+          if (!bound) {
+            errors.push(`${String(partner?.name ?? "").slice(0, 100)}: Mottagaren måste ha partnerns egen e-postdomän`);
             failed++;
             continue;
           }
+          const email = bound.email;
+          partner.name = bound.name;
 
           // Replace placeholders (also normalize legacy Swedish literals)
           let bodyText = normalizeEmailPlaceholders(emailBody)
@@ -1971,12 +1991,14 @@ D365.se`;
 
       for (const partner of partnerList) {
         try {
-          const email = partner.email;
-          if (!email) {
-            errors.push(`${partner.name}: Ingen e-postadress`);
+          const bound = await boundPartnerRecipient(supabase, partner?.id, partner?.email);
+          if (!bound) {
+            errors.push(`${String(partner?.name ?? "").slice(0, 100)}: Mottagaren måste ha partnerns egen e-postdomän`);
             failed++;
             continue;
           }
+          const email = bound.email;
+          partner.name = bound.name;
 
           // Find or create invitation for this partner
           let invitationLink = baseUrl;
@@ -2263,12 +2285,14 @@ D365.se`;
 
       for (const partner of partnerList) {
         try {
-          const email = partner.email;
-          if (!email) {
-            errors.push(`${partner.name}: Ingen e-postadress`);
+          const bound = await boundPartnerRecipient(supabase, partner?.id, partner?.email);
+          if (!bound) {
+            errors.push(`${String(partner?.name ?? "").slice(0, 100)}: Mottagaren måste ha partnerns egen e-postdomän`);
             failed++;
             continue;
           }
+          const email = bound.email;
+          partner.name = bound.name;
 
           // Create a fresh invitation valid indefinitely (tills vidare)
           const { data: invitation, error: invErr } = await supabase
@@ -2382,7 +2406,7 @@ D365.se`;
       const body = await req.json();
       const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml, siteStatsHtml, snitcherCompaniesHtml } = body;
 
-      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0 || partnerList.length > 300) {
         return new Response(
           JSON.stringify({ error: "Partnerlista krävs" }),
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -2472,12 +2496,14 @@ d365.se`;
 
       for (const partner of partnerList) {
         try {
-          const email = partner.email;
-          if (!email) {
-            errors.push(`${partner.name}: Ingen e-postadress`);
+          const bound = await boundPartnerRecipient(supabase, partner?.id, partner?.email);
+          if (!bound) {
+            errors.push(`${String(partner?.name ?? "").slice(0, 100)}: Mottagaren måste ha partnerns egen e-postdomän`);
             failed++;
             continue;
           }
+          const email = bound.email;
+          partner.name = bound.name;
 
           // Create invitation for this partner
           if (partner.id) {
@@ -2667,12 +2693,14 @@ d365.se`;
 
       for (const partner of partnerList) {
         try {
-          const email = partner.email;
-          if (!email) {
-            errors.push(`${partner.name}: Ingen e-postadress`);
+          const bound = await boundPartnerRecipient(supabase, partner?.id, partner?.email);
+          if (!bound) {
+            errors.push(`${String(partner?.name ?? "").slice(0, 100)}: Mottagaren måste ha partnerns egen e-postdomän`);
             failed++;
             continue;
           }
+          const email = bound.email;
+          partner.name = bound.name;
 
           const contactName = partner.contact_name || partner.name || "";
           const personalizedSubject = emailSubject

@@ -51,6 +51,17 @@ async function verifyEditor(token: string, secret: string): Promise<boolean> {
   } catch { return false; }
 }
 
+// Aktuellt only fetches primary sources from known publishers; anything else is pasted as text.
+const AKTUELLT_FETCH_HOSTS = ["microsoft.com", "dynamics.com", "azure.com", "office.com", "cloud.microsoft", "linkedin.com", "github.com", "youtube.com"];
+function isAllowedSourceUrl(u: string): boolean {
+  try {
+    const url = new URL(u);
+    if (url.protocol !== "https:" || url.username || url.password || (url.port && url.port !== "443")) return false;
+    const h = url.hostname.toLowerCase();
+    return AKTUELLT_FETCH_HOSTS.some((d) => h === d || h.endsWith("." + d));
+  } catch { return false; }
+}
+
 // ---------- HTML-extraktion (samma princip som Partnernytts länkimport) ----------
 function decodeEntities(s: string): string {
   return s
@@ -264,6 +275,7 @@ serve(async (req) => {
       const body = await req.json();
       const sourceUrl = clean(body.url, 2000);
       if (!/^https?:\/\//i.test(sourceUrl)) return json({ error: "Ange en giltig käll-URL" }, 400);
+      if (!isAllowedSourceUrl(sourceUrl)) return json({ error: "Automatisk hämtning stöds bara för Microsoft-källor, LinkedIn, GitHub och YouTube. Fyll i rubrik och ingress manuellt." }, 400);
       const response = await safeFetch(sourceUrl);
       if (!response.ok) return json({ error: `Källan svarade ${response.status}` }, 400);
       const reader = response.body?.getReader();
@@ -317,6 +329,9 @@ serve(async (req) => {
       let text = pasted;
       let pageDate: string | null = null;
       let image: string | null = null;
+      if (sourceUrl && !pasted && !isAllowedSourceUrl(sourceUrl)) {
+        return json({ error: "Automatisk hämtning stöds bara för Microsoft-källor, LinkedIn, GitHub och YouTube. Klistra in källans text i stället." }, 400);
+      }
       if (sourceUrl && !pasted) {
         try {
           const res = await safeFetch(sourceUrl, {
