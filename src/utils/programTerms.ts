@@ -23,19 +23,19 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["ISV Presence, introduktionspris första året (de första 20)", kr(2990)],
   ];
   return [
-    ["Nya projekt under 250 tkr: mötesavgift", "1 500 kr (Premium och Basic)"],
+    ["Nya projekt under 250 tkr: mötesavgift", "1 500 kr (Premium och Grundprofil)"],
     ["Nya projekt under 250 tkr: avgift vid affär", "2,5 %, lägst 3 000 kr"],
-    ["Nya projekt 250 tkr–1 Mkr: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Basic)"],
+    ["Nya projekt 250 tkr–1 Mkr: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Grundprofil)"],
     ["Nya projekt 250 tkr–1 Mkr: avgift vid affär", "2,5 %"],
-    ["Nya projekt över 1 Mkr: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Basic)"],
+    ["Nya projekt över 1 Mkr: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Grundprofil)"],
     ["Nya projekt över 1 Mkr: avgift vid affär", "2,5 %, högst 100 000 kr"],
-    ["Partnerbyte BC, CRM, Power Platform: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Basic)"],
-    ["Partnerbyte Finance & SCM: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Basic)"],
+    ["Partnerbyte BC, CRM, Power Platform: mötesavgift", "3 000 kr (Premium) / 5 000 kr (Grundprofil)"],
+    ["Partnerbyte Finance & SCM: mötesavgift", "6 000 kr (Premium) / 9 000 kr (Grundprofil)"],
     ["ISV: Finder’s fee", "Pausad tills vidare"],
     ["ISV Business Referral: licenser/abonnemang, första 12 månaderna", "5 %"],
     ["ISV Business Referral: förmedlat konsultuppdrag", "2,5 %"],
-    ["Expertförmedling, uppdrag upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Basic)`],
-    ["Expertförmedling, längre uppdrag eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Basic)`],
+    ["Expertförmedling, uppdrag upp till 6 månader eller under halvtid", `${kr(EXPERT_FEES.shortPremium)} (Premium) / ${kr(EXPERT_FEES.shortBasic)} (Grundprofil)`],
+    ["Expertförmedling, längre uppdrag eller minst halvtid", `${kr(EXPERT_FEES.longPremium)} (Premium) / ${kr(EXPERT_FEES.longBasic)} (Grundprofil)`],
   ];
 }
 
@@ -59,7 +59,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Partnerbyte", body: "Endast mötesavgift enligt prisbilagan, ingen avgift vid affär." },
     { title: "Tidsgränser", body: "Reklamation av kvalificering: 5 arbetsdagar efter mötet.\n\nOffert som flyttar mötet till lägre band: inom 60 dagar efter mötet.\n\nVunnen affär rapporteras inom 14 dagar efter avtal med kund.\n\nTidsfönster: 9 månader från mötet för nya projekt och partnerbyte, 6 månader från förfrågan för expertförmedling.\n\nBefintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar." },
     { title: "ISV Business Referral", body: "ISV:ernas Finder’s fee är pausad tills vidare och erbjuds inte just nu." },
-    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.\n\nErsättningen är en fast avgift per tillsatt uppdrag: 7 500 kr (Premium) respektive 12 500 kr (Basic) för uppdrag upp till sex månader eller under halvtid, och 15 000 kr (Premium) respektive 25 000 kr (Basic) för längre uppdrag eller minst halvtid.\n\nSamma expertuppdrag dubbelräknas inte med avgift vid affär." },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret.\n\nErsättningen är en fast avgift per tillsatt uppdrag: 7 500 kr (Premium) respektive 12 500 kr (Grundprofil) för uppdrag upp till sex månader eller under halvtid, och 15 000 kr (Premium) respektive 25 000 kr (Grundprofil) för längre uppdrag eller minst halvtid.\n\nSamma expertuppdrag dubbelräknas inte med avgift vid affär." },
   ];
 }
 

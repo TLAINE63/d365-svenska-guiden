@@ -246,7 +246,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
       ["Partnerbyte Finance & SCM", "Mötesavgift 6 000 / 9 000 kr"],
       ["Expertkonsult, upp till 6 mån eller under halvtid", "7 500 / 12 500 kr per uppdrag"],
       ["Expertkonsult, längre eller minst halvtid", "15 000 / 25 000 kr per uppdrag"],
-    ], { head: ["Typ (Premium / Basic)", "Avgift"] });
+    ], { head: ["Typ (Premium / Grundprofil)", "Avgift"] });
     text(input.mediation ? "Finder’s fee-avtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Finder’s fee-avtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
     text("Introduktioner påverkar aldrig relevansordningen och innebär inga garanterade möten eller affärer.", { size: 9, color: PDF_BRAND.textMuted });
   } else {

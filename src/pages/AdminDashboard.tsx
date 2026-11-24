@@ -2668,7 +2668,7 @@ Thomas`,
                   <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
                     <Mail className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
                   </span>
-                  Basic-teaser
+                  Grundprofil-teaser
                 </TabsTrigger>
                 <TabsTrigger value="utskick" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
                   <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
@@ -4507,7 +4507,7 @@ Thomas`,
  <details className="text-xs text-muted-foreground">
  <summary className="cursor-pointer">Villkor för ersättning</summary>
  <table className="mt-2 w-full text-left">
- <thead><tr><th className="py-1">Nya projekt</th><th>Mötesavgift Premium / Basic</th><th>Vid affär</th></tr></thead>
+ <thead><tr><th className="py-1">Nya projekt</th><th>Mötesavgift Premium / Grundprofil</th><th>Vid affär</th></tr></thead>
  <tbody>
  <tr><td className="py-1 pr-2">Under 250 tkr</td><td>1 500 / 1 500 kr</td><td>2,5 %, lägst 3 000 kr</td></tr>
  <tr><td className="py-1 pr-2">250 tkr – 1 Mkr</td><td>3 000 / 5 000 kr</td><td>2,5 %</td></tr>
