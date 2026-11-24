@@ -23,10 +23,10 @@ export const DEFAULT_PRICING: BudgetPricing = {
   isvAnnual: 5000, isvLicensePercent: 0, isvConsultPercent: 0,
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
-    // Finder's fee 2026-11-24: band 1 BC/Power Platform/Copilot, band 2 CRM, band 3 F&SCM m.fl.
-    small: { premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, minimum: 0, maximum: 100000 },
-    medium: { premiumMeeting: 1500, basicMeeting: 4000, percent: 2.5, minimum: 0, maximum: 100000 },
-    large: { premiumMeeting: 2000, basicMeeting: 5000, percent: 2.5, minimum: 0, maximum: 100000 },
+    // Two product variants; medium is a compatibility alias for variant 1.
+    small: { premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, minimum: 0, maximum: 0 },
+    medium: { premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, minimum: 0, maximum: 0 },
+    large: { premiumMeeting: 2000, basicMeeting: 5000, percent: 2.5, minimum: 0, maximum: 0 },
   },
   // Samma mötesavgift gäller för partnerbyte och expertförmedling som för nya projekt.
   switchMeeting: { std: { premium: 1500, basic: 4000 }, fscm: { premium: 2000, basic: 5000 } },
@@ -36,9 +36,9 @@ export function budgetPricing(input?: Partial<BudgetPricing>): BudgetPricing {
   // Price assumptions saved before the latest price change are dropped; limits stay.
   const saved: Partial<BudgetPricing> | undefined = input && input.version !== PRICING_VERSION ? { smallLimit: input.smallLimit, largeLimit: input.largeLimit } : input;
   return { ...DEFAULT_PRICING, ...saved, units: { ...DEFAULT_PRICING.units, ...saved?.units }, bands: {
-    small: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small },
-    medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.medium },
-    large: { ...DEFAULT_PRICING.bands.large, ...saved?.bands?.large },
+    small: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small, maximum: 0 },
+    medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.small, maximum: 0 },
+    large: { ...DEFAULT_PRICING.bands.large, ...saved?.bands?.large, maximum: 0 },
   }, switchMeeting: {
     std: { ...DEFAULT_PRICING.switchMeeting.std, ...(saved?.switchMeeting as any)?.std },
     fscm: { ...DEFAULT_PRICING.switchMeeting.fscm, ...(saved?.switchMeeting as any)?.fscm },
@@ -55,6 +55,6 @@ export function dealPricing(value: number, tier: "basic" | "premium", pricing: B
 }
 export function dealBandPricing(value: number, tier: "basic" | "premium", band: DealBand) {
   const raw = Math.max(0, value) * band.percent / 100;
-  const commission = value > 0 && band.percent > 0 ? Math.min(band.maximum > 0 ? band.maximum : Infinity, Math.max(band.minimum, raw)) : 0;
+  const commission = value > 0 && band.percent > 0 ? Math.max(band.minimum, raw) : 0;
   return { meeting: tier === "basic" ? band.basicMeeting : band.premiumMeeting, commission };
 }

@@ -233,11 +233,11 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <h3 className="text-lg font-semibold">Priser och provision, budgetantaganden</h3>
         <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär, aldrig negativt (ingen återbetalning).</p>
         <div className="grid gap-4 sm:grid-cols-3">
-          {[["isvAnnual", "ISV ordinarie årsavgift, kr"], ["smallLimit", "Gräns liten affär, kr"], ["largeLimit", "Gräns stor affär, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
+          {[["isvAnnual", "ISV ordinarie årsavgift, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
         </div>
         <div className="overflow-x-auto"><table className="w-full min-w-[840px] text-sm">
-          <thead><tr><th className="text-left py-2">Produktområde</th><th>Möte Premium, kr</th><th>Möte Grundprofil, kr</th><th>Vid affär, %</th><th>Lägst, kr</th><th>Högst, kr (0 = inget tak)</th></tr></thead>
-          <tbody>{(["small", "medium", "large"] as const).map((band, i) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{i === 0 ? "Band 1: Business Central, Power Platform, Copilot" : i === 1 ? "Band 2: CRM" : "Band 3: Finance, SCM, Project Operations, Commerce, HR"}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum", "maximum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
+          <thead><tr><th className="text-left py-2">Produktområde</th><th>Möte Premium, kr</th><th>Möte Grundprofil, kr</th><th>Vid affär, %</th><th>Lägst, kr</th></tr></thead>
+          <tbody>{FUNNEL_DEAL_TYPES.map(({ band, label }) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{label}</th>{(["premiumMeeting", "basicMeeting", "percent", "minimum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key === "percent" ? 100 : undefined} step={key === "percent" ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
         </table></div>
         <div className="space-y-2">
           <h4 className="text-sm font-semibold">Partnerbytesarvode, mötesavgift</h4>
@@ -319,8 +319,8 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                     <td className="py-3 pr-3"><p className="font-medium">{c.label}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{c.description}</p></td>
                     <td className="text-right whitespace-nowrap pr-2">{c.success ? (
                       <div className="flex flex-col items-end gap-1">
-                        <label className="text-xs text-muted-foreground">Maxbelopp</label>
-                        <BudgetNumberInput aria-label={`Maxbelopp: ${c.label}`} min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: value } }))} />
+                        <label className="text-xs text-muted-foreground">Snittintäkt per affär</label>
+                        <BudgetNumberInput aria-label={`Snittintäkt per affär: ${c.label}`} min={0} step={10000} className="h-8 w-28 text-right" value={successValue(c.key, budget.successValues) || ""} placeholder="0" onValueChange={(value) => setBudget((b) => ({ ...b, successValues: { ...(b.successValues ?? {}), [c.key]: value } }))} />
                         <span>= {fmt(unit)} kr</span>
                       </div>
                     ) : <div className="flex flex-col items-end gap-1"><BudgetNumberInput aria-label={`Pris: ${c.label}`} min={0} className="h-8 w-28" value={pricing.units[c.key] ?? c.unit} onValueChange={(value) => setUnit(c.key, value)} /><span className="text-xs text-muted-foreground">{c.key.startsWith("month") ? "kr/månad ×12" : "kr/år"}</span></div>}</td>
@@ -397,7 +397,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th title="Möten liten affär">M liten</th><th title="Vunna liten affär">V liten</th><th title="Möten medel affär">M medel</th><th title="Vunna medel affär">V medel</th><th title="Möten stor affär">M stor</th><th title="Vunna stor affär">V stor</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th title="Möten variant 1">M 1</th><th title="Vunna variant 1">V 1</th><th title="Möten variant 2">M 2</th><th title="Vunna variant 2">V 2</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -559,7 +559,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
     <Card>
       <CardHeader>
         <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
-        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Maxbeloppet används som provisionsunderlag per vunnen affär, minus redan betald mötesavgift. Summan ingår i resultatet. Mötesavgift, procent, minimum och provisionstak följer respektive affärstyp i tabellen ovan. Avtal är ett volymsteg utan extra avgift.</CardDescription>
+        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Snittintäkten används som provisionsunderlag per vunnen affär, minus redan betald mötesavgift. Summan ingår i resultatet. Mötesavgift, procent och minimum följer respektive variant i tabellen ovan. Provisionen har inget tak. Avtal är ett volymsteg utan extra avgift.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
@@ -570,7 +570,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
             </tr></thead>
             <tbody>{FUNNEL_DEAL_TYPES.map((p) => <Fragment key={p.key}>
               <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{p.label}
-                <span className="ml-3 text-xs font-normal text-muted-foreground">Maxbelopp <BudgetNumberInput aria-label={`Maxbelopp: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={funnelMaxValue(p, values, pricing)} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
+                <span className="ml-3 text-xs font-normal text-muted-foreground">Snittintäkt per affär <BudgetNumberInput aria-label={`Snittintäkt per affär: ${p.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={funnelMaxValue(p, values, pricing)} placeholder="0" onValueChange={(value) => setValue(p.valueKey, value)} /> kr</span>
               </th><td className="border-l bg-muted" /></tr>
               {(["basic", "premium"] as const).map((tier) => { const k = `${p.key}_${tier}`; const r = f[k] ?? {}; const x = dealFunnelRow(p, tier, r, values, pricing); return (
                 <tr key={k} className="border-t">

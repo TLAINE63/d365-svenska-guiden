@@ -1,3 +1,7 @@
+## Finder’s fee i Budget 2027 (2026-11-24)
+- [x] Slå ihop BC och CRM till variant 1, visa F&SCM som variant 2 och ta bort maxbelopp utan att förlora sparade volymer. Provisionsunderlaget heter nu Snittintäkt per affär.
+- [x] 24 tester godkända; inloggad budget visar två varianter och räknar 198 000 kr i provision efter mötesavdrag utan tak. Inga testvärden sparade.
+
 ## Abonnemangsvillkor och ISV-pris (2026-11-24)
 - [x] Premium Månad: en månads uppsägningstid och Premium-mötespris endast vid aktivt abonnemang på mötesdagen; gemensamma villkor, mejlmallar och PDF uppdaterade, sparade avtal orörda.
 - [x] ISV Presence 5 000 kr/år inklusive en produkt; introduktion 3 000 kr och extra produkt 500 kr i sidor, beställningar och PDF:er. Beställningstjänsten driftsatt.

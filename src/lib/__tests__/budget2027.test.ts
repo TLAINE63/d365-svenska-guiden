@@ -6,14 +6,14 @@ const isv = { presence: true, extraApps: 2, discount: 0, introsStd: 0, introsFsc
 
 describe("Budget 2027 editable assumptions", () => {
   it("band 1 (BC, Power Platform, Copilot): meeting 1000 Premium / 3000 Grundprofil, 2.5 percent", () => {
-    expect(budgetPricing().bands.small).toMatchObject({ premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, maximum: 100000 });
+    expect(budgetPricing().bands.small).toMatchObject({ premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, maximum: 0 });
   });
-  it("band 2 (CRM): meeting 1500 Premium / 4000 Grundprofil", () => {
-    expect(budgetPricing().bands.medium).toMatchObject({ premiumMeeting: 1500, basicMeeting: 4000, percent: 2.5, maximum: 100000 });
+  it("band 2 (CRM): meeting 1000 Premium / 3000 Grundprofil", () => {
+    expect(budgetPricing().bands.medium).toMatchObject({ premiumMeeting: 1000, basicMeeting: 3000, percent: 2.5, maximum: 0 });
   });
-  it("band 3 (F&SCM m.fl.): meeting 2000 Premium / 5000 Grundprofil, commission capped at 100000", () => {
+  it("band 3 (F&SCM m.fl.): meeting 2000 Premium / 5000 Grundprofil, commission has no cap", () => {
     expect(budgetPricing().bands.large).toMatchObject({ premiumMeeting: 2000, basicMeeting: 5000 });
-    expect(dealPricing(5000000, "premium", budgetPricing())).toEqual({ meeting: 2000, commission: 100000 });
+    expect(dealPricing(5000000, "premium", budgetPricing())).toEqual({ meeting: 2000, commission: 125000 });
   });
   it("price assumptions saved before the price change are replaced by the new defaults", () => {
     const p = budgetPricing({ units: { year1: 9990 }, bands: { small: { premiumMeeting: 1500 } } } as never);
@@ -21,13 +21,13 @@ describe("Budget 2027 editable assumptions", () => {
     expect(p.bands.small.premiumMeeting).toBe(1000);
     expect(p.isvAnnual).toBe(5000);
   });
-  it("editable meeting, percentage, minimum and maximum affect funnel", () => {
-    const p = budgetPricing(); p.bands.medium = { premiumMeeting: 2000, basicMeeting: 4000, percent: 1, minimum: 6000, maximum: 7000 };
+  it("editable meeting, percentage and minimum affect funnel without a cap", () => {
+    const p = budgetPricing(); p.bands.small = p.bands.medium = { premiumMeeting: 2000, basicMeeting: 4000, percent: 1, minimum: 6000, maximum: 7000 };
     expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "premium", { meetings: 2, deals: 10, wins: 1 }, {}, p)).toEqual({ meetings: 4000, deals: 0, wins: 6000, total: 10000 });
-    expect(dealPricing(900000, "basic", p).commission).toBe(7000);
+    expect(dealPricing(900000, "basic", p).commission).toBe(9000);
   });
   it("agreements are pipeline volume, not another fee", () => {
-    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1, wins: 1 }).total).toBe(14000);
+    expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { meetings: 1, deals: 1, wins: 1 }).total).toBe(13000);
     expect(partnerFunnelRow(FUNNEL_PRODUCTS[0], "basic", { deals: 20 }).total).toBe(0);
   });
   it("ISV defaults to zero in detail and funnel even with saved volumes", () => {
@@ -64,7 +64,7 @@ describe("Budget 2027 editable assumptions", () => {
   });
   it("partner and ISV group totals never double-count legacy estimates", () => {
     const s = categoryGroupSummary({ year1: 2, isvPresence: 1, premiumDealsStd: 9 }, {}, {}, { bc_premium: { meetings: 1, deals: 4, wins: 1 } });
-    expect(s.partner.estimate).toBe(16000 + 3000 + 22000);
+    expect(s.partner.estimate).toBe(16000 + 1000 + 9000);
     expect(s.isv.estimate).toBe(3000);
   });
   it("expert fee follows the meeting fee: 1500/4000 short, 2000/5000 long", () => {
@@ -86,23 +86,35 @@ describe("Budget 2027 editable assumptions", () => {
   it("catalog counts distinct products", () => {
     expect(budgetIsvVendors([{ id: "a", vendor: "Truvio", name: "A" }, { id: "a", vendor: "Truvio", name: "A" }, { id: "b", vendor: "Truvio", name: "B" }])[0].apps).toBe(2);
   });
-  it("funnel has three deal sizes instead of four products", () => {
-    expect(FUNNEL_DEAL_TYPES.map((p) => p.band)).toEqual(["small", "medium", "large"]);
-    expect(FUNNEL_DEAL_TYPES.map((p) => funnelMaxValue(p))).toEqual([250000, 1000000, 3000000]);
+  it("funnel has two product variants", () => {
+    expect(FUNNEL_DEAL_TYPES.map((p) => p.band)).toEqual(["small", "large"]);
+    expect(FUNNEL_DEAL_TYPES.map((p) => funnelMaxValue(p))).toEqual([400000, 3000000]);
   });
   it("band 1 Grundprofil: 3000 kr meeting, deal fee credited by the paid meeting", () => {
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "basic", { meetings: 3, wins: 1 })).toEqual({ meetings: 9000, deals: 0, wins: 3250, total: 12250 });
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "basic", { meetings: 3, wins: 1 })).toEqual({ meetings: 9000, deals: 0, wins: 7000, total: 16000 });
   });
-  it("editable maximum changes commission but keeps the selected band's meeting fee", () => {
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { meetings: 2, wins: 1 }, { maxMedium: 800000 }).total).toBe(21500);
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[2], "basic", { meetings: 1, wins: 1 }, { maxLarge: 5000000 }).total).toBe(100000);
-    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "premium", { wins: 1 }, { maxMedium: 0 }).total).toBe(0);
+  it("average revenue changes commission without a cap or product reclassification", () => {
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "premium", { meetings: 2, wins: 1 }, { maxSmall: 800000 }).total).toBe(21000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[1], "basic", { meetings: 1, wins: 1 }, { maxLarge: 5000000 }).total).toBe(125000);
+    expect(dealFunnelRow(FUNNEL_DEAL_TYPES[0], "premium", { wins: 1 }, { maxSmall: 0 }).total).toBe(0);
+  });
+  it("saved CRM volumes merge into variant 1 exactly once", () => {
+    const saved = { dealSmall_basic: { meetings: 2, wins: 1 }, dealMedium_basic: { meetings: 3, wins: 2 }, dealLarge_basic: { meetings: 4, wins: 3 } };
+    const migrated = migratePartnerFunnel(saved);
+    expect(migrated.dealSmall_basic).toEqual({ meetings: 5, deals: 0, wins: 3 });
+    expect(migrated.dealMedium_basic).toBeUndefined();
+    expect(migrated.dealLarge_basic).toEqual(saved.dealLarge_basic);
+    expect(migratePartnerFunnel(migrated)).toEqual(migrated);
+  });
+  it("saved commission caps cannot limit the new budget", () => {
+    const p = budgetPricing({ version: PRICING_VERSION, bands: { ...budgetPricing().bands, large: { ...budgetPricing().bands.large, maximum: 100000 } } });
+    expect(dealPricing(8000000, "premium", p).commission).toBe(200000);
   });
   it("legacy product volumes migrate once without loss or double counting", () => {
     const saved = { bc_basic: { meetings: 3, deals: 1, wins: 1 }, crm_basic: { meetings: 4, deals: 2, wins: 2 }, fscm_premium: { meetings: 6, wins: 2 }, pp_basic: { meetings: 1 } };
     const migrated = migratePartnerFunnel(saved);
-    expect(migrated.dealMedium_basic).toEqual({ meetings: 7, deals: 3, wins: 3 });
-    expect(migrated.dealSmall_basic.meetings).toBe(1);
+    expect(migrated.dealMedium_basic).toBeUndefined();
+    expect(migrated.dealSmall_basic).toEqual({ meetings: 8, deals: 3, wins: 3 });
     expect(migrated.dealLarge_premium.wins).toBe(2);
     expect(migratePartnerFunnel(migrated)).toEqual(migrated);
     expect(saved.bc_basic.meetings).toBe(3);
@@ -111,8 +123,8 @@ describe("Budget 2027 editable assumptions", () => {
 });
 
 describe("Partner detail uses deal bands", () => {
-  it("CRM Premium: 2 meetings × 1500 + 1 win (2.5% of 1 Mkr − 1500)", () => {
+  it("CRM Premium uses variant 1 including saved medium volumes", () => {
     const r = { ...base, forecast: "month" as const, deals: { medium: { meetings: 2, wins: 1 } } };
-    expect(forecastRevenue(r, DEFAULT_BUDGET).finders).toBe(3000 + 23500);
+    expect(forecastRevenue(r, DEFAULT_BUDGET).finders).toBe(2000 + 9000);
   });
 });
