@@ -23,7 +23,7 @@ function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get("origin") || "";
   return {
     "Access-Control-Allow-Origin": isAllowedOrigin(origin) ? origin : "https://d365.se",
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-staff-token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
   };
 }
