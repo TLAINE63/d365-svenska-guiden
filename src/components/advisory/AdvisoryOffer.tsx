@@ -3,6 +3,8 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
+import { ADVISOR_BOOKING_URL } from "@/data/organization";
+import { trackConsultationLead } from "@/lib/siteIntelligence";
 import advisorPhoto from "@/assets/thomas-laine-radgivning.jpg.asset.json";
 import type { AdvisoryPlacement, ContactSection } from "@/components/plan/PlanContactDialog";
 
@@ -82,12 +84,20 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           </p>
           {heading && <h3 className="mb-1.5 text-lg font-bold leading-snug text-foreground">{nowrapBrand(heading)}</h3>}
           <p className="mb-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(text)}</p>
-          <AdvisorContactButtons />
+          {placement === "question" ? (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <button type="button" onClick={start} className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
+                {cta}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </button>
+              <a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={() => { trackConsultationLead("bookings_20min_thomas"); trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", metadata: { placement, path: window.location.pathname } }); }} className="inline-flex min-h-10 items-center px-1 text-sm font-medium text-muted-foreground underline underline-offset-4 hover:text-primary">eller boka 20 min direkt</a>
+            </div>
+          ) : <AdvisorContactButtons />}
           {sections.length > 0 && <button type="button" onClick={start} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary">
             {sections.length ? "Eller skicka ert underlag via formulär" : "Eller beskriv behovet i ett formulär"}
             <ArrowRight className="h-3.5 w-3.5" aria-hidden />
           </button>}
-          <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</p>
+          <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">{placement === "question" ? "Thomas Laine svarar personligen via e-post. Inga partners kontaktar er utan ert uttryckliga godkännande." : <>Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</>}</p>
           </div>
         </aside>
       ) : variant === "hero" ? (
@@ -120,6 +130,8 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
               extras: sections,
               metadata: { variant, ...metadata },
               advisory: { placement, cta, pageType },
+              hideFocus: placement === "question",
+              ...(placement === "question" ? { doneTitle: "Tack, Thomas har tagit emot din fråga", doneNotes: ["Thomas svarar personligen via e-post.", "Ingen partner har kontaktats."] } : {}),
             }}
           />
         </Suspense>

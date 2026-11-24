@@ -26,6 +26,20 @@ export const MEETING_TOPIC: ContactTopic = {
   doneNotes: ["Thomas svarar personligen via e-post och föreslår en tid för mötet.", "Ingen partner har kontaktats."],
 };
 
+/** Fråga till Thomas: fokus på frågan, mötet erbjuds först efter inskick. */
+export const QUESTION_TOPIC: ContactTopic = {
+  title: "Ställ en fråga till Thomas Laine",
+  description: "Skriv din fråga så svarar Thomas personligen via e-post. Ingen partner kontaktas.",
+  helpWith: "Fråga till d365.se",
+  startEvent: "question_started",
+  submitEvent: "question_submitted",
+  advisory: { placement: "question", cta: "Skriv en fråga", pageType: "advisor_buttons" },
+  messageLabel: "Din fråga",
+  hideFocus: true,
+  doneTitle: "Tack, Thomas har tagit emot din fråga",
+  doneNotes: ["Thomas svarar personligen via e-post.", "Ingen partner har kontaktats."],
+};
+
 interface Props {
   /** compact = kort text för smala ytor. */
   compact?: boolean;
@@ -62,7 +76,7 @@ export default function AdvisorContactButtons({ compact = false, dark = false, c
       </div>
       {open && (
         <Suspense fallback={null}>
-          <PlanContactDialog mode="advisory" topic={MEETING_TOPIC} onClose={() => setOpen(false)} />
+          <PlanContactDialog mode="advisory" topic={QUESTION_TOPIC} onClose={() => setOpen(false)} />
         </Suspense>
       )}
     </div>
