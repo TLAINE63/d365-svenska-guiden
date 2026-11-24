@@ -30,7 +30,7 @@ function getCorsHeaders(req: Request): Record<string, string> {
 }
 
 // JWT verification for admin operations
-async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
+async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string; role?: string }> {
   try {
     const parts = token.split('.');
     if (parts.length !== 3) return { valid: false, error: "Invalid token format" };
@@ -57,7 +57,7 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired" };
     if (payload.role !== "admin" && payload.role !== "editor") return { valid: false, error: "Insufficient permissions" };
 
-    return { valid: true };
+    return { valid: true, role: payload.role };
   } catch (error) {
     console.error("JWT verification error:", error);
     return { valid: false, error: "Token verification failed" };
@@ -1301,6 +1301,12 @@ D365.se`;
 
     // Admin: Send event invitation email to ALL featured partners
     if (action === "bulk-send-event-email" && req.method === "POST") {
+      if (verification.role !== "admin") {
+        return new Response(
+          JSON.stringify({ error: "Endast administratörer kan skicka utskick" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
       const body = await req.json();
       const { custom_message, partner_ids } = body;
 
