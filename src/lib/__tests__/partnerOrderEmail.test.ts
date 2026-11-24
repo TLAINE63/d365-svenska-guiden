@@ -7,14 +7,14 @@ describe('partnerbeställning via mejl', () => {
   it('adresseras till Thomas och inkluderar båda valda delarna', () => {
     const email = partnerOrderEmail(selection, 'Exempel AB', 'Anna');
     expect(email.href.startsWith('mailto:thomas.laine@dynamicfactory.se?')).toBe(true);
-    expect(email.body).toContain('Premium samt förmedlingsavtal');
+    expect(email.body).toContain('Premium samt affärsförmedlingsavtal');
     expect(email.body).toContain('8 000 kr/år');
     expect(email.body).toContain('2027-01-01');
   });
   it('inkluderar inte förmedling när partnern väljer bort den', () => {
     expect(partnerOrderEmail({ ...selection, mediation: false }, 'Exempel AB', 'Anna').body).not.toContain('förmedlings');
   });
-  it('endast Finder’s fee innebär inget Premiumabonnemang', () => {
+  it('endast affärsförmedlingsavtal innebär inget Premiumabonnemang', () => {
     expect(partnerOrderParts({ ...selection, level: 'basic' })).toEqual({ subscription: false, mediation: true });
   });
   it('båda delarna kan beställas tillsammans', () => {

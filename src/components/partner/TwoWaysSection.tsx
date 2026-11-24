@@ -30,7 +30,7 @@ export default function TwoWaysSection() {
           <h2 id="samarbeta-rubrik" className="text-2xl md:text-4xl font-bold text-foreground mb-5 leading-tight">Två sätt att samarbeta med d365.se</h2>
           <div className="space-y-3 text-base md:text-lg lg:text-base xl:text-lg text-muted-foreground">
             <p>d365.se hjälper företag att undersöka Dynamics&nbsp;365, jämföra partners och komma vidare i sina projekt.</p>
-            <p>Som partner kan ni stärka er presentation med Premium och samarbeta kring kvalificerade kundintroduktioner via ett separat Finder’s fee-avtal.</p>
+            <p>Som partner kan ni stärka er presentation med Premium och samarbeta kring kvalificerade kundintroduktioner via ett separat affärsförmedlingsavtal.</p>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ export default function TwoWaysSection() {
           <article className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col">
             <Handshake className="w-7 h-7 text-accent mb-3" aria-hidden="true" />
             <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-1">Erbjudande 2 · Kundintroduktioner</p>
-            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">Finder’s fee, när vi hjälper er till en relevant kunddialog</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">Affärsförmedling, när vi hjälper er till en relevant kunddialog</h3>
             <p className="text-muted-foreground mb-5">d365.se arbetar aktivt med att identifiera och utveckla möjliga kundprojekt. När en kund uttryckligen vill gå vidare kan vi introducera lämpliga partners.</p>
             <ul className="space-y-2 text-sm text-muted-foreground mb-5">
               {FINDERS.map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}

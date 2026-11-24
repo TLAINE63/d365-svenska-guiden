@@ -30,8 +30,8 @@ async function toDataUrl(src: string): Promise<string | null> {
 /** Offer label shared with the on-page summary. */
 export function offerLabel(i: OfferPdfInput): string {
   if (i.kind === "isv") return "ISV Presence";
-  if (i.premium && i.mediation) return "Premium + Finder’s fee";
-  return i.premium ? "Premium" : "Finder’s fee (utan Premium)";
+  if (i.premium && i.mediation) return "Premium + Affärsförmedling";
+  return i.premium ? "Premium" : "Affärsförmedling (utan Premium)";
 }
 
 /**
@@ -117,7 +117,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
       if (input.period === "month") priceRows.push(["Motsvarar per år", kr(input.price * 12)]);
       headline = `${kr(input.price)} / ${per}`;
     } else { priceRows.push(["Premiumabonnemang", "Ingår inte (Grundprofil 0 kr)"]); headline = "Ingen fast avgift"; }
-    priceRows.push(["Finder’s fee-avtal", input.mediation ? "Ingår, avgift endast per möte, affär eller uppdrag" : "Ej valt"]);
+    priceRows.push(["Affärsförmedlingsavtal", input.mediation ? "Ingår, avgift endast per möte, affär eller uppdrag" : "Ej valt"]);
   } else {
     priceRows.push(["ISV Presence inkl. en produkt, första året (introduktionspris)", kr(ISV_ORDER_FEES.introFirstYear)]);
     if (input.extraApps) priceRows.push([`Extra produkter (${input.extraApps} × ${kr(ISV_ORDER_FEES.extraApp)})`, `${kr(input.extraApps * ISV_ORDER_FEES.extraApp)} / år`]);
@@ -134,7 +134,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   doc.setFont("helvetica", "bold"); doc.setFontSize(22); doc.setTextColor(255, 255, 255);
   doc.text("Förslag till partnersamarbete med d365.se", PDF_MARGIN, 50);
   doc.setFont("helvetica", "normal"); doc.setFontSize(13); doc.setTextColor(240, 200, 185);
-  doc.text(isv ? "ISV Presence för ISV-leverantörer" : (input.premium ? "Premium för Dynamics-partners" : "Finder’s fee för Dynamics-partners"), PDF_MARGIN, 60);
+  doc.text(isv ? "ISV Presence för ISV-leverantörer" : (input.premium ? "Premium för Dynamics-partners" : "Affärsförmedling för Dynamics-partners"), PDF_MARGIN, 60);
   doc.setTextColor(255, 255, 255); doc.setFontSize(12);
   doc.text(wrapPdfText(`Till ${company}`, W, (l) => doc.getTextWidth(l)).slice(0, 2), PDF_MARGIN, 74);
   doc.setFontSize(9.5); doc.setTextColor(200, 200, 200);
@@ -207,8 +207,8 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   // ---- Page 4: chosen offer
   newPage(isv ? "ISV Presence" : "Premium");
   if (input.kind === "partner" && !input.premium) {
-    heading("Grundprofil och Finder’s fee");
-    text("Ni behåller den kostnadsfria Grundprofilen och tecknar endast Finder’s fee-avtalet. Premium kan läggas till senare och innehåller:");
+    heading("Grundprofil och affärsförmedling");
+    text("Ni behåller den kostnadsfria Grundprofilen och tecknar endast affärsförmedlingsavtalet. Premium kan läggas till senare och innehåller:");
   } else heading(isv ? "ISV Presence – hjälp kunden att upptäcka era lösningar" : "Premium – visa varför ni är rätt Dynamics-partner");
   text("Ingår", { bold: true, gap: 1 });
   bullets(isv ? ISV_BENEFITS : PREMIUM_BENEFITS.filter((b) => !b.includes("INSIDE") && !b.startsWith("Märket")).concat("Möjlighet att visa video på profilen."));
@@ -217,7 +217,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("Kräver separat godkännande eller avtal", { bold: true, gap: 1 });
   bullets(isv
     ? ["Märkena Verifierad ISV och Verifierad tilläggslösning beslutas av redaktionen, aldrig genom betalning.", "Eventuella produktrelaterade kundintroduktioner (för närvarande pausade)."]
-    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat Finder’s fee-avtal, med lägre mötesavgifter för Premiumpartners."], PDF_BRAND.primary);
+    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat affärsförmedlingsavtal, med lägre mötesavgifter för Premiumpartners."], PDF_BRAND.primary);
 
   // ---- Page 5: prices and scope
   newPage("Priser och vald omfattning");
@@ -237,15 +237,15 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   heading("När kunden är redo hjälper vi till med nästa steg");
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
-    heading("Finder’s fee, separat från Premiumabonnemanget");
+    heading("Affärsförmedling, separat från Premiumabonnemanget");
     text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift för alla produktområden. Villkoren regleras i ett separat förmedlingsavtal.");
     table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
     text(FINDERS_FEE_AFFAR);
-    text(input.mediation ? "Finder’s fee-avtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Finder’s fee-avtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
+    text(input.mediation ? "Affärsförmedlingsavtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Affärsförmedlingsavtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
     text("Introduktioner påverkar aldrig relevansordningen och innebär inga garanterade möten eller affärer.", { size: 9, color: PDF_BRAND.textMuted });
   } else {
     heading("Produktrelaterade kundintroduktioner");
-    text("Finder’s fee för ISV-leverantörer är pausad tills vidare och ingår inte i detta erbjudande. Partnervillkoren gäller inte automatiskt för ISV-leverantörer.");
+    text("Affärsförmedling för ISV-leverantörer är pausad tills vidare och ingår inte i detta erbjudande. Partnervillkoren gäller inte automatiskt för ISV-leverantörer.");
     text("Om ett produktrelaterat samarbete blir aktuellt i framtiden diskuteras villkoren separat, innan någon introduktion sker. ISV Presence innebär inga garanterade leads.");
   }
 
@@ -279,7 +279,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   newPage("Bilaga: villkor");
   if (input.kind === "partner") {
     if (input.premium) { heading("Abonnemangsvillkor"); text(SUBSCRIPTION_TERMS, { size: 8.5, gap: 1 }); }
-    if (input.mediation) { heading("Förmedlingsvillkor (Finder’s fee)"); text(MEDIATION_TERMS, { size: 8.5, gap: 1 }); }
+    if (input.mediation) { heading("Villkor för affärsförmedling"); text(MEDIATION_TERMS, { size: 8.5, gap: 1 }); }
   } else { heading("Abonnemangsvillkor"); text(ISV_SUBSCRIPTION_TERMS, { size: 9 }); }
   text(`Avtalspart: ${ORGANIZATION.legalName}`, { size: 8.5, color: PDF_BRAND.textMuted });
 

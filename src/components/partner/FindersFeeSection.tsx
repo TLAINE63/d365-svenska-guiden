@@ -22,7 +22,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
   return (
     <section id="affarsmojligheter" aria-labelledby="ff-rubrik" className="py-12 md:py-16 bg-secondary/30 border-y border-border scroll-mt-64">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-        <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Finder’s fee</p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Affärsförmedling</p>
         <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Vi hittar och kvalificerar kunder. Ni väljer affärsmöjligheterna.</h2>
         <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni betalar för genomförda kundmöten: 1 000 kr med Premium eller 3 500 kr med Grundprofil, oavsett produktområde. Blir det affär tillkommer 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, med mötesavgiften avräknad.</p>
 
@@ -70,7 +70,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3"><ArrowDown className="w-4 h-4 text-accent" aria-hidden="true" />Priser för Finder’s fee</div>
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3"><ArrowDown className="w-4 h-4 text-accent" aria-hidden="true" />Priser för affärsförmedling</div>
         <div className="overflow-x-auto border border-border rounded-lg bg-card mb-4">
           <table className="w-full text-sm">
             <caption className="text-left px-3 pt-3 font-semibold text-foreground">Samma mötesavgift för alla produktområden (nya projekt, partnerbyte och expertförmedling)</caption>
@@ -93,7 +93,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
           <summary className="cursor-pointer text-sm font-medium text-foreground py-2">Villkor och tidsgränser</summary>
           <div className="space-y-2 pt-2">
             <p><strong className="text-foreground">Kvalificerat möte:</strong> ett genomfört möte där d365.se före introduktionen har identifierat ett konkret behov, bedömt att det är relevant för partnern, haft kontakt med en beslutsfattare eller projektansvarig, dokumenterat nuläge, behov, tidsram och uppskattad omfattning, fått kundens önskemål om att träffa partnern och partnerns accept av villkoren. Avbokade eller uteblivna möten debiteras inte.</p>
-            <p><strong className="text-foreground">Köparens fria val:</strong> Finder’s fee gäller endast när d365.se har genomfört behovsanalysen och introduktionen.</p>
+            <p><strong className="text-foreground">Köparens fria val:</strong> Affärsförmedling gäller endast när d365.se har genomfört behovsanalysen och introduktionen.</p>
             <p><strong className="text-foreground">Uppföljning:</strong> d365.se följer upp med köparen efter mötet. Partnern lämnar på begäran underlag för rapporterat konsult- och projektvärde.</p>
             <p><strong className="text-foreground">Tidsgränser:</strong> {TIDSGRANSER.join(" ")}</p>
             <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms. Samma villkor för alla partners inom respektive nivå. Fullständiga villkor regleras i förmedlingsavtalet.</p>

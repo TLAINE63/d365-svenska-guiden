@@ -7,7 +7,7 @@ export function partnerOrderParts(selection: OrderSelection) {
 
 export function partnerOrderLabel(selection: OrderSelection) {
   const parts = partnerOrderParts(selection);
-  return parts.subscription ? (parts.mediation ? 'Premium samt förmedlingsavtal (Finder’s fee)' : 'Endast Premiumabonnemang') : 'Endast förmedlingsavtal (Finder’s fee), inget Premiumabonnemang';
+  return parts.subscription ? (parts.mediation ? 'Premium samt affärsförmedlingsavtal' : 'Endast Premiumabonnemang') : 'Endast affärsförmedlingsavtal, inget Premiumabonnemang';
 }
 
 export function partnerOrderEmail(selection: OrderSelection, company: string, contact: string) {

@@ -51,7 +51,7 @@ const programSections = [
   { id: "kopares-fragor", label: "Köparens frågor" },
   { id: "samarbeta", label: "Två sätt att samarbeta" },
   { id: "priser-innehall", label: "Premium & pris" },
-  { id: "affarsmojligheter", label: "Finder’s fee" },
+  { id: "affarsmojligheter", label: "Affärsförmedling" },
   { id: "profilkoll", label: "Er partnerprofil" },
   { id: "profiljamforelse", label: "Jämförelser" },
   { id: "expertinnehall", label: "Synlighet & INSIDE" },
@@ -290,7 +290,7 @@ const Partnerprogram = () => {
                 <h3 className="text-xl font-bold text-foreground mb-2">Visa varför ni är rätt partner</h3>
                 <p className="text-sm text-muted-foreground mb-4">När kunden jämför implementationspartners hjälper en komplett profil köparen att förstå er kompetens, era branscher, kundcase och experter. Köparen får svar om projekt, kostnader, risker och genomförande.</p>
                 <ul className="space-y-1.5 text-sm text-muted-foreground mb-5">
-                  {["Fördjupad partnerprofil per produktområde med kundcase och namngivna experter", "Knappen till er webbplats och egen landningssida per produktområde, med mätbara klick", "Redaktionell granskning inför märket Verifierad partner", "Profilstatistik och kvartalsvis genomgång med namngiven kontakt hos d365.se", "Egen profileringslänk för att hålla kundcase, experter och branscher aktuella", "Kundintroduktioner enligt Finder’s fee-avtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+                  {["Fördjupad partnerprofil per produktområde med kundcase och namngivna experter", "Knappen till er webbplats och egen landningssida per produktområde, med mätbara klick", "Redaktionell granskning inför märket Verifierad partner", "Profilstatistik och kvartalsvis genomgång med namngiven kontakt hos d365.se", "Egen profileringslänk för att hålla kundcase, experter och branscher aktuella", "Kundintroduktioner enligt affärsförmedlingsavtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
                 </ul>
                 <div className="mt-auto flex flex-wrap gap-2">
                   <Button asChild><a href="#premium-formaner">Se vad Premium ger<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
@@ -355,11 +355,11 @@ const Partnerprogram = () => {
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 1 · Premium</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Premium partner, er presentation och prislista</h2>
-          <p className="text-muted-foreground mb-8 max-w-3xl lg:max-w-none">Premium kan tecknas med eller utan Finder’s fee, som beskrivs i nästa avsnitt. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
+          <p className="text-muted-foreground mb-8 max-w-3xl lg:max-w-none">Premium kan tecknas med eller utan affärsförmedlingsavtal, som beskrivs i nästa avsnitt. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 items-start">
             <div className="min-w-0 rounded-xl border-2 border-primary bg-card p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-3">Premium partner - Prislista</h3>
-              <p className="text-sm text-muted-foreground mb-4">Kan tecknas med eller utan Finder’s fee-avtal. Alla priser exklusive moms.</p>
+              <p className="text-sm text-muted-foreground mb-4">Kan tecknas med eller utan affärsförmedlingsavtal. Alla priser exklusive moms.</p>
               <div className="rounded-lg bg-secondary/40 p-4 mb-5 text-sm text-muted-foreground space-y-2">
                 <h4 className="font-semibold text-foreground">Vad innebär det att vara Premiumpartner?</h4>
                 <p>Som Premiumpartner får ni en fördjupad profil där köpare kan se vilka kunder, branscher och projekt ni har erfarenhet av, med kundcase, experter och möjlighet till video.</p>
@@ -372,7 +372,7 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Tillvalsprodukterna Commerce, Human Resources och Project Operations via profileringslänken, kostnadsfritt och utanför prislistan.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Lägre mötesavgift vid förmedlade kundmöten, om ni även har Finder’s fee-avtal. Premium innehåller inga utlovade möten.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Lägre mötesavgift vid förmedlade kundmöten, om ni även har affärsförmedlingsavtal. Premium innehåller inga utlovade möten.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
               <div className="max-w-full overflow-x-auto border border-border rounded-lg mb-3">
@@ -393,7 +393,7 @@ const Partnerprogram = () => {
               <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-24. Alla priser exklusive moms. {MONTHLY_BILLING_TERMS} {PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
-                <li>Ni beställer Premium (och vid behov Finder’s fee-avtalet).</li>
+                <li>Ni beställer Premium (och vid behov affärsförmedlingsavtalet).</li>
                 <li>Ni kompletterar profilen med produktområden, branscher, kundcase och experter.</li>
                 <li>Redaktionen granskar uppgifterna och beslutar om verifiering.</li>
                 <li>Profilen publiceras med märket Verifierad partner.</li>
@@ -410,13 +410,13 @@ const Partnerprogram = () => {
         <div className="flex flex-wrap gap-3">
           <ContactFormDialog
             buyerForm={false}
-            title="Begär Finder’s fee-avtal"
+            title="Begär affärsförmedlingsavtal"
             description="Fyll i era kontaktuppgifter så skickar vi partner- och förmedlingsavtalet."
-            subject="Ansökan: Finder’s fee-avtal"
+            subject="Ansökan: Affärsförmedlingsavtal"
           >
             <Button size="lg" onClick={() => bookClick("affarsmojligheter")}>
               <Mail className="w-4 h-4 mr-2" aria-hidden="true" />
-              Begär Finder’s fee-avtal
+              Begär affärsförmedlingsavtal
             </Button>
           </ContactFormDialog>
           <Button asChild size="lg" variant="outline"><a href="/downloads/d365-partnererbjudande-2027.pdf" download="d365-partnererbjudande-2027.pdf">Ladda ner partnererbjudandet (PDF)</a></Button>

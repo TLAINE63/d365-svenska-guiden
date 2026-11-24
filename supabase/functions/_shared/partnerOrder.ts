@@ -39,7 +39,7 @@ Commerce, Human Resources och Project Operations är tillvalsprodukter som ingå
 ${AGREEMENT_DURATION_TERMS}
 
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
-export const MEDIATION_TERMS = `Förmedlingsavtal (Finder’s fee), prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
+export const MEDIATION_TERMS = `Affärsförmedlingsavtal, prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
 Mötesavgift per genomfört kvalificerat möte, oavsett produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
 ${PREMIUM_MEETING_TERMS}

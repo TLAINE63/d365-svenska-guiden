@@ -33,7 +33,7 @@ export default function OfferPreview({ offer, scope, price, included, addons, fi
       </dl>
       {included.length > 0 && <div><p className="text-sm font-medium">Ingår</p><ul className="ml-5 list-disc text-sm">{included.map((i) => <li key={i}>{i}</li>)}</ul></div>}
       {addons.length > 0 && <div><p className="text-sm font-medium">Tillägg (ingår inte)</p><ul className="ml-5 list-disc text-sm text-muted-foreground">{addons.map((i) => <li key={i}>{i}</li>)}</ul></div>}
-      <p className="text-sm"><span className="font-medium">Finder’s fee, separat avtal: </span>{finders}</p>
+      <p className="text-sm"><span className="font-medium">Affärsförmedling, separat avtal: </span>{finders}</p>
       <div className="flex flex-wrap gap-3 pt-1">
         <Button type="button" onClick={onDownload}><Download className="mr-2 h-4 w-4" />Ladda ned ert offertförslag (PDF)</Button>
         <Button type="button" variant="outline" onClick={() => setShow(false)}><Pencil className="mr-2 h-4 w-4" />Ändra mina val</Button>

@@ -161,7 +161,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         <h3 className="text-lg font-semibold pb-1">Resultat budget 2027</h3>
         <p className="text-xs text-muted-foreground pb-1">Resultatet räknas på den grova budgeten per kategori (detaljintäkt från partner- och ISV-listorna: {fmt(detTotal)} kr).</p>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Prenumerationsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.subscription.estimate + groups.isv.subscription.estimate)} kr</span></div>
-        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Finder’s fee-intäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
+        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Affärsförmedlingsintäkter (partners + ISVs)</span><span>{fmt(groups.partner.finders.estimate + groups.isv.finders.estimate)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Övriga intäkter</span><span>{fmt(t.other)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap font-medium"><span>Intäkter totalt</span><span>{fmt(rev)} kr</span></div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap"><span>Externa kostnader</span><span>−{fmt(t.externalCosts)} kr</span></div>
@@ -172,7 +172,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
         {(() => { const rec = groups.partner.subscription.estimate + groups.isv.subscription.estimate; const c = opexCoverage(rec, t.externalCosts, pricing.units.month1); return (
         <div className="mt-3 rounded-md border bg-muted/40 p-3 space-y-1">
           <h4 className="font-semibold">Återkommande intäkter vs fasta kostnader</h4>
-          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV-leverantörer) sajtens externa kostnader utan Finder’s fee? Mål: täckningsgrad över 1,5.</p>
+          <p className="text-xs text-muted-foreground">Bär prenumerationerna (partners + ISV-leverantörer) sajtens externa kostnader utan affärsförmedling? Mål: täckningsgrad över 1,5.</p>
           <div className="flex justify-between gap-4"><span>Återkommande intäkter per månad</span><span className="whitespace-nowrap">{fmt(rec / 12)} kr</span></div>
           <div className="flex justify-between gap-4"><span>Fasta kostnader per månad</span><span className="whitespace-nowrap">{fmt(t.externalCosts / 12)} kr</span></div>
           <div className="flex justify-between gap-4 font-medium"><span>Täckningsgrad</span><span className="whitespace-nowrap">{t.externalCosts > 0 ? c.ratio.toLocaleString("sv-SE", { maximumFractionDigits: 2 }) : "–"}</span></div>
@@ -201,7 +201,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 <thead className="text-xs text-muted-foreground"><tr>
                   <th scope="col" className="py-3 pr-3 text-left">Intäktskälla</th>
                   <th scope="col" className="px-3 text-right">Prenumerationer</th>
-                  <th scope="col" className="px-3 text-right">Finder’s fee</th>
+                  <th scope="col" className="px-3 text-right">Affärsförmedling</th>
                   <th scope="col" className="px-3 text-right">Övrigt</th>
                   <th scope="col" className="border-l bg-muted px-3 text-right">Summa</th>
                 </tr></thead>
@@ -331,7 +331,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
                 const estFind = funnelTotals(budget.funnel, budget.successValues, pricing).total;
                 const detSub = CATEGORIES.filter((c) => c.income === "subscription").reduce((s, c) => s + det[c.key].revenue, 0);
                 const detFind = CATEGORIES.filter((c) => c.income === "finders").reduce((s, c) => s + det[c.key].revenue, 0);
-                const split = (sub: number, find: number) => (<span className="block leading-tight"><span className="block">Prenum. {fmt(sub)} kr</span><span className="block">Finder’s fee {fmt(find)} kr</span></span>);
+                const split = (sub: number, find: number) => (<span className="block leading-tight"><span className="block">Prenum. {fmt(sub)} kr</span><span className="block">Affärsförmedling {fmt(find)} kr</span></span>);
                 return (
                   <tr className="text-xs text-muted-foreground">
                     <td className="pb-2">varav</td><td /><td />
@@ -369,14 +369,14 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
               <option value="all">Alla produkter</option><option value="bc">Business Central</option><option value="fsc">Finance &amp; SCM</option><option value="sales">Sales</option><option value="service">Customer Service</option>
             </select>
             <select className={sel} value={fFinders} onChange={(e) => setFFinders(e.target.value)}>
-              <option value="all">Finder’s fee: alla</option><option value="yes">Med Finder’s fee-budget</option><option value="agreement">Har Finder’s fee-avtal</option>
+              <option value="all">Affärsförmedling: alla</option><option value="yes">Med affärsförmedlingsbudget</option><option value="agreement">Har affärsförmedlingsavtal</option>
             </select>
-            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · Prenumerationer: {fmt(ft.subscription)} kr · Finder’s fee: {fmt(ft.finders)} kr · Totalt: {fmt(ft.partnerRevenue)} kr i urvalet</span>
+            <span className="text-xs text-muted-foreground self-center">{filtered.length} partners · Prenumerationer: {fmt(ft.subscription)} kr · Affärsförmedling: {fmt(ft.finders)} kr · Totalt: {fmt(ft.partnerRevenue)} kr i urvalet</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-xs text-muted-foreground text-left">
-                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten</th><th>Vunna affärer</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Finder’s fee kr/år</th><th className="text-right">Totalt kr/år</th></tr>
+                <tr><th className="py-2 pr-2">Partner</th><th>Idag</th><th>Prognos 2027</th><th>Produkter</th><th>Rabatt %</th><th>Möten</th><th>Vunna affärer</th><th className="text-right px-2">Prenumerationer kr/år</th><th className="text-right px-2">Affärsförmedling kr/år</th><th className="text-right">Totalt kr/år</th></tr>
               </thead>
               <tbody>
                 {filtered.map((p) => {
@@ -410,7 +410,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">ISV-budget 2027</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowIsv((v) => !v)}>{showIsv ? "Dölj ISV-detaljer" : `Visa ISV-detaljer (${ISV_VENDORS.length})`}</Button>
           </div>
-          <CardDescription>ISV Presence följer budgetens redigerbara priser. ISV Finder’s fee är pausad tills vidare. Sparade volymer behålls.</CardDescription>
+          <CardDescription>ISV Presence följer budgetens redigerbara priser. ISV-affärsförmedling är pausad tills vidare. Sparade volymer behålls.</CardDescription>
         </CardHeader>
         {showIsv && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -537,7 +537,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Finder’s fee-budget som funnel</CardTitle>
+        <CardTitle className="text-base">Affärsförmedlingsbudget som funnel</CardTitle>
         <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Snittintäkten används som provisionsunderlag per vunnen affär, minus redan betald mötesavgift. Summan ingår i resultatet. Mötesavgift, procent och minimum följer respektive variant i tabellen ovan. Provisionen har inget tak. Avtal är ett volymsteg utan extra avgift.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
@@ -621,7 +621,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
             <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma partnerbyten</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.partnerSwitch)} kr</td></tr></tfoot>
           </table>
         </div>
-        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Finder’s fee totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
+        <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Affärsförmedling totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>
       </CardContent>
     </Card>
   );

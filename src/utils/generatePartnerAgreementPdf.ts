@@ -19,7 +19,7 @@ export function agreementPriceRows(): [string, string][] {
     ["Premium, 2 produktområden", `${kr(MONTH_PRICE[2])}/mån eller ${kr(YEAR_PRICE[2])}/år`],
     ["Premium, 3 produktområden", `${kr(MONTH_PRICE[3])}/mån eller ${kr(YEAR_PRICE[3])}/år`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Finder’s fee, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
+    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Affärsförmedling, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
     ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
   ];

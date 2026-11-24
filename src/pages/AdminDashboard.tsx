@@ -3316,7 +3316,7 @@ Thomas`,
                 <Badge variant="outline" className="text-xs">{Number((partner as any).discount_percent)} % rabatt</Badge>
               )}
               {(partner as any).has_finders_fee && (
-                <Badge variant="outline" className="text-xs">Finder’s fee</Badge>
+                <Badge variant="outline" className="text-xs">Affärsförmedling</Badge>
               )}
               {/* Invitation/agreement/email history intentionally hidden in list view */}
  </h3>
@@ -4490,7 +4490,7 @@ Thomas`,
  <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
  <div className="flex items-center gap-2">
  <Checkbox id="has_finders_fee" checked={!!partnerFormData.has_finders_fee} onCheckedChange={(c) => setPartnerFormData({ ...partnerFormData, has_finders_fee: !!c })} />
- <Label htmlFor="has_finders_fee" className="font-medium cursor-pointer">Avtal om Finder’s fee (förmedlingsavtal) tecknat</Label>
+ <Label htmlFor="has_finders_fee" className="font-medium cursor-pointer">Avtal om affärsförmedling (förmedlingsavtal) tecknat</Label>
  </div>
  {partnerFormData.has_finders_fee && (
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -4514,7 +4514,7 @@ Thomas`,
  <tr><td className="py-1 pr-2">Band 3: Finance, SCM, Project Operations, Commerce, Human Resources</td><td>2 000 / 5 000 kr</td></tr>
  </tbody>
  </table>
- <p className="mt-2">Prismodell 2026-11-24. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär, med betald mötesavgift avräknad. Premium och Finder’s fee tecknas var för sig. Alla belopp exkl. moms.</p>
+ <p className="mt-2">Prismodell 2026-11-24. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr per affär, med betald mötesavgift avräknad. Premium och affärsförmedling tecknas var för sig. Alla belopp exkl. moms.</p>
  </details>
  </div>
   <div>

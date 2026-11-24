@@ -52,9 +52,9 @@ export default function RedaktionTermsTab({ token }: { token: string | null }) {
           ) : (<>
           <p>{order.selection.level === "premium" ? "Premium" : "Grundprofil"} · {order.selection.period === "year" ? "Årsbetalning" : "Månadsbetalning"} · Start {order.selection.start_date}</p>
           <p>{order.selection.areas.map(a => ORDER_AREAS[a] ?? a).join(", ")}</p>
-          <p>Förmedlingsavtal (Finder’s fee): {order.selection.mediation ? "Ja" : "Nej"}</p>
+          <p>Affärsförmedlingsavtal: {order.selection.mediation ? "Ja" : "Nej"}</p>
           </>)}
-          {(order.selection as unknown as { kind?: string }).kind === "isv" && <p>Förmedlingsavtal (Finder’s fee): {order.selection.mediation ? "Ja" : "Nej"}</p>}
+          {(order.selection as unknown as { kind?: string }).kind === "isv" && <p>Affärsförmedlingsavtal: {order.selection.mediation ? "Ja" : "Nej"}</p>}
           <p>Faktura: {order.invoice_email} · {order.invoice_address}</p>
           <details><summary className="cursor-pointer">Accepterade villkor</summary><pre className="whitespace-pre-wrap break-words font-sans text-xs">{termsDisplayText(order.terms_snapshot) || JSON.stringify(order.terms_snapshot, null, 2)}</pre></details>
         </div>

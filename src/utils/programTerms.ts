@@ -4,7 +4,7 @@ import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 import { AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_MEETINGS, FINDERS_FEE_AFFAR } from '@/lib/partnerOrder';
 
 export const KVALIFICERAT_MOTE = "Ett kvalificerat möte är ett genomfört möte mellan partnern och en potentiell kund, där d365.se före introduktionen har:\n• identifierat ett konkret affärs-, system- eller förändringsbehov\n• bedömt att behovet är relevant för partnerns erbjudande\n• haft kontakt med en beslutsfattare eller projektansvarig hos kunden\n• dokumenterat kundens nuläge, behov och tidsram, samt en uppskattad omfattning\n• fått kundens önskemål om att träffa partnern\n• fått partnerns accept av de kommersiella villkoren.\n\nMötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. Ett kvalificerat möte innebär ingen garanti för att kunden genomför ett projekt eller väljer partnern.";
-export const KOPARENS_FRIA_VAL = "Köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut. Finder’s fee gäller endast när d365.se har genomfört behovsanalysen och introduktionen.";
+export const KOPARENS_FRIA_VAL = "Köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut. Affärsförmedling gäller endast när d365.se har genomfört behovsanalysen och introduktionen.";
 export const UPPFOLJNING = "d365.se följer upp med köparen efter mötet. Partnern lämnar på begäran underlag för rapporterat konsult- och projektvärde.";
 export const TIDSGRANSER = [
   "Reklamation av kvalificering: 5 arbetsdagar efter mötet.",
@@ -20,7 +20,7 @@ export const TERMS_DATE = "2026-11-24";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Förmedlingsavtal (Finder’s fee)", description: "Samma villkor för alla produktområden: 1 000 kr per möte med Premium eller 3 500 kr med Grundprofil, 2,5 % vid affär med avräkning, för nya projekt, partnerbyte och expertförmedling." },
+  { id: "commission", title: "Affärsförmedlingsavtal", description: "Samma villkor för alla produktområden: 1 000 kr per möte med Premium eller 3 500 kr med Grundprofil, 2,5 % vid affär med avräkning, för nya projekt, partnerbyte och expertförmedling." },
 ];
 
 export function termsPriceRows(area: TermsArea): [string, string][] {
@@ -37,7 +37,7 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
     ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
-    ["ISV: Finder’s fee", "Pausad tills vidare"],
+    ["ISV: Affärsförmedling", "Pausad tills vidare"],
   ];
 }
 
@@ -51,7 +51,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "ISV Presence", body: "Grundavgiften gäller per ISV-leverantör och inkluderar en produkt. Varje ytterligare produkt debiteras enligt prisbilagan. Avgiften faktureras årsvis i förskott. Startdatum och övriga individuella villkor fastställs i överenskommelsen." },
     { title: "Presentation och verifiering", body: "Verifiering och ISV Presence är separata. Logotyp, webblänk och kontakt kräver både verifiering och aktiv ISV Presence.\n\nUtökad leverantörspresentation kan innehålla bilder, video, fördjupade funktioner och högst tre kundcase när material finns.\n\nAbonnemang påverkar aldrig relevans eller rekommendationer. Integrationsbelägg och partnerrelationer kräver dokumentation och redaktionell granskning." },
-    { title: "Förmedling", body: "ISV Presence och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Förmedlingsavtal (Finder’s fee)." },
+    { title: "Förmedling", body: "ISV Presence och förmedlingsersättning är separata. Introduktionens kommersiella villkor ska accepteras innan introduktionen genomförs. Se dokumentet Affärsförmedlingsavtal." },
   ];
   return [
     ...PARTNER_PROFILE_TERMS,
@@ -73,7 +73,7 @@ Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartsko
     { title: "Uppföljning", body: UPPFOLJNING },
     { title: "Tidsgränser", body: TIDSGRANSER.join("\n\n") },
     { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret." },
-    { title: "ISV", body: "ISV: Finder’s fee: pausad tills vidare och erbjuds inte just nu." },
+    { title: "ISV", body: "ISV: Affärsförmedling: pausad tills vidare och erbjuds inte just nu." },
   ];
 }
 

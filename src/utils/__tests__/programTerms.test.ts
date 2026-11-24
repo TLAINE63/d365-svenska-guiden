@@ -16,7 +16,7 @@ describe("områdesspecifika prisbilagor", () => {
     expect(variants).toHaveLength(1);
     expect(variants[0][1]).toBe("Mötesavgift 1 000 kr (Premium) / 3 500 kr (Grundprofil)");
     expect(v["Avgift vid affär"]).toContain("utan maxbelopp");
-    expect(v["ISV: Finder’s fee"]).toBe("Pausad tills vidare");
+    expect(v["ISV: Affärsförmedling"]).toBe("Pausad tills vidare");
     expect(Object.keys(v).some((k) => k.includes("Business Referral"))).toBe(false);
   });
 });
