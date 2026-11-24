@@ -32,6 +32,19 @@ export const VISIBILITY_QUESTIONS = [
 ];
 
 export const INSIGHT_COLUMNS = {
-  market: ["Efterfrågade produkter", "Intresse per bransch", "Företagsstorlekar", "Intresse för partnerbyte", "Användning av köpguider", "Efterfrågad kompetens", "Utveckling över tid"],
-  own: ["Profilvisningar", "Produktområden", "Kundcasevisningar", "Videovisningar", "Klick till egen webbplats", "Kontaktinteraktioner", "Förmedlade affärsmöjligheter"],
+  market: [
+    { label: "Efterfrågade produktområden", detail: "Intresse och trender för Business\u00a0Central, Dynamics\u00a0365 Finance & Supply\u00a0Chain och CRM-apparna." },
+    { label: "AI- och Copilotfokus", detail: "Vilka frågor om AI-agenter, styrning och automatisering som engagerar köparna." },
+    { label: "Branscher i rörelse", detail: "Branscher med flest aktiva utvärderare och hur fokus förändras över tid." },
+    { label: "Köparens utgångsläge", detail: "Nyköp, byte från mindre system, migrering från NAV/AX eller partnerbyte." },
+    { label: "Företagsstorlek och investeringsramar", detail: "Typiska storlekar, användarantal och budgetramar från kalkylatorer och kravguider." },
+    { label: "Efterfrågade kompetenser", detail: "Branschlösningar, roller och certifieringar som köpare oftast väljer i sök och jämförelser." },
+  ],
+  own: [
+    { label: "Profil- och guidevisningar", detail: "Hur ofta er profil och era lösningar visas i köpguider och jämförelser." },
+    { label: "Engagemang i kundcase och experter", detail: "Visningar av era kundcase, specialistprofiler och INSIDE-videor." },
+    { label: "Klick till egen webbplats", detail: "Utgående klick via er direktlänk, med UTM-märkning för uppföljning i ert CRM." },
+    { label: "Kontaktförfrågningar och möten", detail: "Påbörjade och inskickade förfrågningar samt förmedlade kunddialoger." },
+    { label: "Jämförelse mot liknande partners", detail: "Er synlighet och ert engagemang mot medianen inom samma produktområde." },
+  ],
 };

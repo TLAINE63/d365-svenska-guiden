@@ -11,17 +11,17 @@ export function PremiumInsights() {
       <section id="marknadsinsikter" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">d365.se Marknadsinsikter</h2>
-          <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-6">Premium ger inte bara synlighet, utan också möjlighet att lära er mer om er marknad. Insikterna är sammanställda och visar aldrig namn på besökande företag.</p>
+          <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-6">Som Premiumpartner får ni inte bara räckvidd och synlighet, utan också löpande förståelse för den svenska köparmarknaden. Insikterna sammanställs anonymiserat, visar aldrig namn på besökande företag och visar hur efterfrågan rör sig över tid.</p>
           <div className="grid gap-4 md:grid-cols-2">
-            {([["Marknadsinsikter", "Vad intresserar köparna just nu?", INSIGHT_COLUMNS.market], ["Er egen närvaro", "Hur engagerar sig besökarna i ert erbjudande?", INSIGHT_COLUMNS.own]] as const).map(([title, lead, items]) => (
+            {([["Marknadens efterfrågan", "Vad potentiella kunder söker, jämför och räknar på just nu", INSIGHT_COLUMNS.market], ["Er egen närvaro", "Hur besökarna engagerar sig i ert erbjudande och era experter", INSIGHT_COLUMNS.own]] as const).map(([title, lead, items]) => (
               <div key={title} className="rounded-xl border border-border bg-card p-5">
                 <h3 className="text-lg font-semibold">{title}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{lead}</p>
-                <ul className="divide-y divide-border text-sm">{items.map((i) => <li key={i} className="py-2">{i}</li>)}</ul>
+                <ul className="divide-y divide-border text-sm">{items.map((i) => <li key={i.label} className="py-2"><span className="font-medium text-foreground">{i.label}</span><span className="block text-muted-foreground">{i.detail}</span></li>)}</ul>
               </div>
             ))}
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">Er egen statistik uppdateras löpande. En gemensam marknadsanalys skickas kvartalsvis.</p>
+          <p className="mt-3 text-sm text-muted-foreground">Er egen statistik sammanställs i en månatlig partnerrapport. En fördjupad marknadsanalys skickas kvartalsvis, med möjlighet till gemensam avstämning för Premiumpartners.</p>
         </div>
       </section>
       <section className="py-10 md:py-14 bg-secondary/30 border-y border-border">

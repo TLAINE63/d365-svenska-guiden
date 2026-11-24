@@ -207,13 +207,13 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
     const colW = (W - 6) / 2;
     const rows = Math.max(INSIGHT_COLUMNS.market.length, INSIGHT_COLUMNS.own.length);
     ensure(rows * 5 + 14);
-    [["Marknadsinsikter", INSIGHT_COLUMNS.market], ["Er egen närvaro", INSIGHT_COLUMNS.own]].forEach(([head, items], i) => {
+    [["Marknadens efterfrågan", INSIGHT_COLUMNS.market], ["Er egen närvaro", INSIGHT_COLUMNS.own]].forEach(([head, items], i) => {
       const x = PDF_MARGIN + i * (colW + 6);
       doc.setFillColor(...PDF_BRAND.dark); doc.rect(x, y - 4, colW, 8, "F");
       doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(255, 255, 255); doc.text(head as string, x + 3, y + 1.2);
       doc.setFillColor(...PDF_BRAND.cardBg); doc.rect(x, y + 4, colW, rows * 5 + 3, "F");
       doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(...PDF_BRAND.dark);
-      (items as string[]).forEach((it, j) => { doc.setFillColor(...PDF_BRAND.accent); doc.circle(x + 4, y + 8.6 + j * 5, 0.8, "F"); doc.text(it, x + 7, y + 9.5 + j * 5); });
+      (items as { label: string }[]).forEach(({ label: it }, j) => { doc.setFillColor(...PDF_BRAND.accent); doc.circle(x + 4, y + 8.6 + j * 5, 0.8, "F"); doc.text(it, x + 7, y + 9.5 + j * 5); });
     });
     y += rows * 5 + 14;
     callout("Aktivt arbete, inga garantier", "d365.se arbetar aktivt med efterfrågan men garanterar inte ett visst antal möten eller affärer. Betalning påverkar aldrig relevansordning, rekommendationer eller verifiering.", PDF_BRAND.accent);
