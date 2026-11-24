@@ -1,19 +1,21 @@
-export const ORDER_VERSION = '2026-11-24';
+export const ORDER_VERSION = '2027-01-01';
 export const MONTHLY_NOTICE_MONTHS = 1;
 export const MONTHLY_BILLING_TERMS = `Premium Månad faktureras i efterskott med ${MONTHLY_NOTICE_MONTHS === 1 ? 'en månads' : `${MONTHLY_NOTICE_MONTHS} månaders`} uppsägningstid. Uppsägning sker skriftligen via e-post.`;
 export const PREMIUM_MEETING_TERMS = 'Mötesavgifter för möten under en betald månad följer Premiumpriset endast om Premiumabonnemanget är aktivt när mötet genomförs. Om abonnemanget inte är aktivt gäller Grundprofilens mötesavgift.';
 export const FINDERS_FEE_VARIANTS = [
- { name: 'Alla produktområden', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), F&SCM (Finance och Supply Chain Management), Project Operations, Commerce, Human Resources, Power Platform och Copilot', premium: 1000, grund: 3500 },
+ { name: 'Alla produktområden', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), F&SCM (Finance och Supply Chain Management), Project Operations, Commerce, Human Resources, Power Platform och Copilot', premium: 0, grund: 3500 },
 ] as const;
+/** Ersättning vid vunnen affär: Premium 2,5 %, Grundprofil 5 % (prislista 2027). */
 export const FINDERS_FEE_RATE = 0.025;
+export const FINDERS_FEE_RATE_GRUND = 0.05;
 export const FINDERS_FEE_CAP = null;
-export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Inget maxbelopp. Betald mötesavgift räknas av i sin helhet och avräkningen blir aldrig negativ. Gäller nya projekt, partnerbyte och expertförmedling.';
-export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Mötesavgift ${v.premium.toLocaleString('sv-SE')} kr (Premium) / ${v.grund.toLocaleString('sv-SE')} kr (Grundprofil).`).join('\n\n');
+export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Inget maxbelopp. För Grundprofil räknas betald mötesavgift av till 100 % och avräkningen blir aldrig negativ; för Premium är mötet kostnadsfritt och avräkning är inte aktuell. Gäller nya projekt, partnerbyte och expertförmedling.';
+export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Mötesavgift ${(v.premium as number).toLocaleString('sv-SE')} kr (Premium) / ${v.grund.toLocaleString('sv-SE')} kr (Grundprofil).`).join('\n\n');
 export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Chain Management', crm: 'CRM (Sales, Customer Service, Field Service, Customer Insights och Contact Center)' };
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
 export type OrderSelection = { level: 'basic' | 'premium'; period: 'month' | 'year'; areas: (keyof typeof ORDER_AREAS)[]; mediation: boolean; start_date: string };
-export const ORDER_PRICES = { month: [0, 1000, 1150, 1300], year: [0, 8000, 9000, 10000] };
+export const ORDER_PRICES = { month: [0, 1000, 1300, 1500], year: [0, 8000, 10500, 12000] };
 /** Comparison uses monthly list price, not saved individual contract discounts. */
 export function premiumPriceComparison(areas: number) {
  if (!Number.isInteger(areas) || areas < 1 || areas > 3) throw new RangeError('Välj ett till tre produktområden.');
@@ -39,7 +41,7 @@ Commerce, Human Resources och Project Operations är tillvalsprodukter som ingå
 ${AGREEMENT_DURATION_TERMS}
 
 Alla priser exklusive moms. Betalning påverkar aldrig relevansordning eller rekommendationer.`;
-export const MEDIATION_TERMS = `Affärsförmedlingsavtal, prismodell 2026-11-24. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
+export const MEDIATION_TERMS = `Affärsförmedlingsavtal, prislista 2027. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
 Mötesavgift per genomfört kvalificerat möte, oavsett produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
 ${PREMIUM_MEETING_TERMS}

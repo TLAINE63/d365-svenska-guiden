@@ -99,7 +99,7 @@ const faqs = [
   {
     question: "Kostar det att publiceras på d365.se?",
     answer:
-      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 1 000 kr/månad för 1 produktområde, 1 150 kr för 2 och 1 300 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 8 000 kr per år för ett produktområde, 9 000 kr för två och 10 000 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
+      "Nej. En relevant Dynamics 365-partner kan finnas med med en kostnadsfri Grundprofil. Premium inkluderar fördjupad presentation, redaktionell granskning inför verifiering, kvartalsvis genomgång, profilstatistik och namngiven kontaktperson. Efter redaktionens godkännande får profilen märket Verifierad partner, verifierad av d365.se-redaktionen. Premium kostar 1 000 kr/månad för 1 produktområde, 1 300 kr för 2 och 1 500 kr för 3 (CE/CRM-applikationerna räknas som ett produktområde), exklusive moms. Premium År ger samma innehåll med årsvis betalning i förskott: 8 000 kr per år för ett produktområde, 10 500 kr för två och 12 000 kr för tre, exklusive moms. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte in i priset. Betalning ger varken automatisk verifiering eller högre relevansordning.",
   },
 ];
 
@@ -310,7 +310,7 @@ const Partnerprogram = () => {
                     {["Vilket problem löser produkten?", "När behöver vi den?", "Hur fungerar integrationen?", "Vad kostar lösningen?", "Vilka begränsningar finns?", "Hur skiljer den sig från alternativen?"].map((q) => <li key={q}>{q}</li>)}
                   </ul>
                 </details>
-                <p className="text-xs text-muted-foreground mb-4">5&nbsp;990&nbsp;kr/år inklusive en produkt, <span className="font-semibold text-destructive">introduktionspris 2&nbsp;990&nbsp;kr första året</span>, exklusive moms. Eventuell förmedling och kommersiella villkor diskuteras separat.</p>
+                <p className="text-xs text-muted-foreground mb-4">5&nbsp;000&nbsp;kr/år inklusive tre produkter, <span className="font-semibold text-destructive">introduktionspris 3&nbsp;500&nbsp;kr första året</span>, exklusive moms. Eventuell förmedling och kommersiella villkor diskuteras separat.</p>
                 <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
               </div>
             </div>

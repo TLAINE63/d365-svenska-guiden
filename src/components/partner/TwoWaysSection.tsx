@@ -18,7 +18,7 @@ const FINDERS = [
   "Kunden godkänner varje introduktion och väljer själv vilka partners (högst tre) som får kontakt.",
   "Flera partners kan vara relevanta för samma kund.",
   "Ni bedömer varje möjlighet och accepterar villkoren innan introduktionen sker.",
-  "Ersättningen regleras i ett separat förmedlingsavtal: mötesavgift och 2,5% vid affär, där betald mötesavgift räknas av.",
+  "Ersättningen regleras i ett separat förmedlingsavtal: kostnadsfria möten och 2,5 % vid affär med Premium, eller 3 500 kr per möte och 5 % vid affär med Grundprofil, där mötesavgiften räknas av.",
 ];
 
 export default function TwoWaysSection() {

@@ -119,7 +119,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
     } else { priceRows.push(["Premiumabonnemang", "Ingår inte (Grundprofil 0 kr)"]); headline = "Ingen fast avgift"; }
     priceRows.push(["Affärsförmedlingsavtal", input.mediation ? "Ingår, avgift endast per möte, affär eller uppdrag" : "Ej valt"]);
   } else {
-    priceRows.push(["ISV Presence inkl. en produkt, första året (introduktionspris)", kr(ISV_ORDER_FEES.introFirstYear)]);
+    priceRows.push(["ISV Presence inkl. tre produkter, första året (introduktionspris)", kr(ISV_ORDER_FEES.introFirstYear)]);
     if (input.extraApps) priceRows.push([`Extra produkter (${input.extraApps} × ${kr(ISV_ORDER_FEES.extraApp)})`, `${kr(input.extraApps * ISV_ORDER_FEES.extraApp)} / år`]);
     priceRows.push(["Totalt första året", kr(input.price)], ["Ordinarie årspris från år två", `${kr(input.regular)} / år`]);
     headline = `${kr(input.price)} första året`;
@@ -238,8 +238,8 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Affärsförmedling, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5%) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift för alla produktområden. Villkoren regleras i ett separat förmedlingsavtal.");
-    table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5 % för Premium, 5 % för Grundprofil) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners har lägre mötesavgift för alla produktområden. Villkoren regleras i ett separat förmedlingsavtal.");
+    table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % / 5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
     text(FINDERS_FEE_AFFAR);
     text(input.mediation ? "Affärsförmedlingsavtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Affärsförmedlingsavtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });
     text("Introduktioner påverkar aldrig relevansordningen och innebär inga garanterade möten eller affärer.", { size: 9, color: PDF_BRAND.textMuted });

@@ -4444,7 +4444,7 @@ Thomas`,
  </p>
  <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
  <p>{activeProducts} produkt(er) = {totalFee.toLocaleString('sv-SE')} kr/mån</p>
- <p className="text-muted-foreground/70">1 prod: 1 000 kr · 2 prod: 1 150 kr · 3 prod: 1 300 kr</p>
+ <p className="text-muted-foreground/70">1 prod: 1 000 kr · 2 prod: 1 300 kr · 3 prod: 1 500 kr</p>
  {crmBundleBoth && (
  <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
  )}

@@ -21,7 +21,7 @@ export function agreementPriceRows(): [string, string][] {
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
     ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Affärsförmedling, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
-    ["Avgift vid affär", "2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
+    ["Avgift vid affär", "2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
   ];
 }
 

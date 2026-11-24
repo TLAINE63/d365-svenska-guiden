@@ -90,11 +90,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1 150 kr/månad**
+**2 produktområden: 1 300 kr/månad**
 
-**3 produktområden: 1 300 kr/månad**
+**3 produktområden: 1 500 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 10 500 kr för 2 och 12 000 kr för 3.
 
 Om ni vill fortsätta med er nuvarande profilering på d365.se, svara bara på detta mail med:
 
@@ -131,11 +131,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1 150 kr/månad**
+**2 produktområden: 1 300 kr/månad**
 
-**3 produktområden: 1 300 kr/månad**
+**3 produktområden: 1 500 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 10 500 kr för 2 och 12 000 kr för 3.
 
 Fullständiga villkor finns i bifogat partneravtal.
 
@@ -176,11 +176,11 @@ Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilerin
 
 **1 produktområde: 1 000 kr/månad**
 
-**2 produktområden: 1 150 kr/månad**
+**2 produktområden: 1 300 kr/månad**
 
-**3 produktområden: 1 300 kr/månad**
+**3 produktområden: 1 500 kr/månad**
 
-Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 9 000 kr för 2 och 10 000 kr för 3.
+Det finns även möjlighet till årsvis betalning i förskott: 8 000 kr per år för 1 produktområde, 10 500 kr för 2 och 12 000 kr för 3.
 
 Med en partnerverifierad profil kan ni synas inom:
 

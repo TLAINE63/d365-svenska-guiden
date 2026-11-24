@@ -4,8 +4,8 @@ import { FINDERS_FEE_VARIANTS } from "./partnerOrder";
 export const BUDGET_KEY = "budget_2027";
 export type Forecast = "none" | "basic" | "month" | "year";
 
-export const MONTH_PRICE: Record<number, number> = { 1: 1000, 2: 1150, 3: 1300 };
-export const YEAR_PRICE: Record<number, number> = { 1: 8000, 2: 9000, 3: 10000 };
+export const MONTH_PRICE: Record<number, number> = { 1: 1000, 2: 1300, 3: 1500 };
+export const YEAR_PRICE: Record<number, number> = { 1: 8000, 2: 10500, 3: 12000 };
 export const FEES = { meetingStd: 0, dealStd: 5000, meetingFscm: 0, dealFscm: 10000, successRate: 0.025 };
 
 export interface PartnerForecast {
@@ -49,10 +49,10 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 
 // ISV Presence (per year) and finders fee for accepted partner introductions.
 /** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
-export const ISV_FEES = { base: 5000, introFirstYear: 3000, extraApp: 500, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
+export const ISV_FEES = { base: 5000, introFirstYear: 3500, includedApps: 3, extraApp: 500, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage: flat fee per placed assignment (Thomas 2026-11-17). Short = up to 6 months or under half-time; long = longer or at least half-time. */
 export const EXPERT_FEES = { shortPremium: 1000, shortBasic: 3500, longPremium: 1000, longBasic: 3500 };
-export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 3 000 kr intro price first year; default true. */ introPrice?: boolean }
+export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 3 500 kr intro price first year; default true. */ introPrice?: boolean }
 export const isvBaseFee = (r: { introPrice?: boolean }, pricing = budgetPricing()) => (r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence);
 export function isvRevenue(r: IsvForecast, pricing = budgetPricing()) {
   const disc = 1 - Math.min(100, Math.max(0, r.discount)) / 100;
@@ -146,8 +146,8 @@ export const CATEGORIES: Category[] = [
   { key: "premiumDealsFscm", label: "Premium: avtal F&SCM", description: "Antal tecknade avtal för Finance & Supply Chain Management. Hela avtalsersättningen 10 000 kr, utan mötesavdrag.", unit: FEES.dealFscm, group: "partner", income: "finders" },
   { key: "expertCvHours", label: "Expertförmedling: Premiumpartner", description: "Fast avgift per tillsatt uppdrag hos Premiumpartners: 1 500 kr upp till 6 månader eller under halvtid, 2 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortPremium, per: "tillsatt uppdrag", group: "partner", income: "finders" },
   { key: "expertAssignmentHours", label: "Expertförmedling: Grundprofil", description: "Fast avgift per tillsatt uppdrag hos partners med Grundprofil: 4 000 kr upp till 6 månader eller under halvtid, 5 000 kr vid längre uppdrag eller minst halvtid. Raden räknar korta uppdrag; längre uppdrag budgeteras i experttratten. Nyckeln finns kvar för sparade budgetar.", unit: EXPERT_FEES.shortBasic, per: "tillsatt uppdrag", group: "partner", income: "finders" },
-  { key: "isvPresence", label: "ISV Presence (inkl. en app)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Nya ISV:er räknas med introduktionspriset 3 000 kr första året inklusive en app, före rabatt.", unit: ISV_FEES.introFirstYear, group: "isv", income: "subscription" },
-  { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver den app som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
+  { key: "isvPresence", label: "ISV Presence (inkl. tre appar)", description: "Antal ISV-leverantörer med ISV Presence under ett helt år. Nya ISV:er räknas med introduktionspriset 3 500 kr första året inklusive tre appar, före rabatt.", unit: ISV_FEES.introFirstYear, group: "isv", income: "subscription" },
+  { key: "isvExtra", label: "ISV extra appar", description: "Totalt antal extra appar utöver de tre appar som ingår per ISV-leverantör med Presence. Årspris per extra app, före rabatt.", unit: ISV_FEES.extraApp, group: "isv", income: "subscription" },
   { key: "isvIntroStd", label: "ISV Business Referral: licenser (5 %)", description: "Business Referral räknas i ISV-tratten som 5 % av ISV:ns nettointäkter från licenser eller abonnemang under affärens första 12 månader. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introStd, group: "isv", income: "finders" },
   { key: "isvIntroFscm", label: "ISV Business Referral: konsult (2,5 %)", description: "Business Referral räknas i ISV-tratten som 2,5 % av nettointäkterna från ett förmedlat konsultuppdrag. Raden ger 0 kr och finns kvar för sparade budgetar.", unit: ISV_FEES.introFscm, group: "isv", income: "finders" },
   ...SUCCESS_AREAS.map((a) => ({ key: a.key, label: `Success fee: ${a.label}`, description: `Antal avslutade affärer där success fee 2,5 % tas ut. Ange ett antaget snittbelopp per affär; avgiften räknas bara när beloppet överstiger 100 000 kr.`, unit: 0, group: "partner" as const, income: "finders" as const, success: true })),

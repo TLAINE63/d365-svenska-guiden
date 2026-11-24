@@ -9,8 +9,8 @@ describe("Premium-priser 2026-11-24", () => {
   });
   const cases = [
     { areas: ["bc"], monthly: 1000, monthlyTotal: 12000, annual: 8000, savings: 4000, savingsPercent: 33 },
-    { areas: ["bc", "crm"], monthly: 1150, monthlyTotal: 13800, annual: 9000, savings: 4800, savingsPercent: 35 },
-    { areas: ["bc", "crm", "fscm"], monthly: 1300, monthlyTotal: 15600, annual: 10000, savings: 5600, savingsPercent: 36 },
+    { areas: ["bc", "crm"], monthly: 1300, monthlyTotal: 15600, annual: 10500, savings: 5100, savingsPercent: 33 },
+    { areas: ["bc", "crm", "fscm"], monthly: 1500, monthlyTotal: 18000, annual: 12000, savings: 6000, savingsPercent: 33 },
   ];
   for (const { areas, ...expected } of cases) {
     it(`${areas.length} produktområden: månad, årsavtal och rabatt`, () => {

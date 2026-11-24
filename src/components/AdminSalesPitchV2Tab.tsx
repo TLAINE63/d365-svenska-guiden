@@ -54,11 +54,11 @@ Detta gäller:
 
 • 1 produktområde: 1 000 kr/mån
 
-• 2 produktområden: 1 150 kr/mån
+• 2 produktområden: 1 300 kr/mån
 
-• 3 produktområden: 1 300 kr/mån
+• 3 produktområden: 1 500 kr/mån
 
-Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10 000 kr/år (3), en besparing på 4 000–5 600 kr per år.
+Vid årsbetalning i förskott: 8 000 kr/år (1 område), 10 500 kr/år (2) och 12 000 kr/år (3), en besparing på 4 000–6 000 kr per år.
 
 Prislistan gäller för 2027
 
@@ -103,11 +103,11 @@ Detta gäller:
 
 • 1 produktområde: 1 000 kr/mån
 
-• 2 produktområden: 1 150 kr/mån
+• 2 produktområden: 1 300 kr/mån
 
-• 3 produktområden: 1 300 kr/mån
+• 3 produktområden: 1 500 kr/mån
 
-Vid årsbetalning i förskott: 8 000 kr/år (1 område), 9 000 kr/år (2) och 10 000 kr/år (3), en besparing på 4 000–5 600 kr per år.
+Vid årsbetalning i förskott: 8 000 kr/år (1 område), 10 500 kr/år (2) och 12 000 kr/år (3), en besparing på 4 000–6 000 kr per år.
 
 Prislistan gäller för 2027
 

@@ -44,9 +44,9 @@ describe('ISV presentations', () => {
     expect([p.gallery.length, p.features.length, p.cases.length]).toEqual([0, 0, 0]);
     expect(p.video).toBeUndefined();
   });
-  it('Presence price is 5000 including one product plus 500 per extra', () => {
+  it('Presence price is 5000 including three products plus 500 per extra', () => {
     expect(isvPresenceYearlyPrice(1)).toBe(5000);
-    expect(isvPresenceYearlyPrice(3)).toBe(6000);
-    expect(isvPresenceYearlyPrice(5)).toBe(7000);
+    expect(isvPresenceYearlyPrice(3)).toBe(5000);
+    expect(isvPresenceYearlyPrice(5)).toBe(6000);
   });
 });

@@ -24,7 +24,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Affärsförmedling</p>
         <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Vi hittar och kvalificerar kunder. Ni väljer affärsmöjligheterna.</h2>
-        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni betalar för genomförda kundmöten: 1 000 kr med Premium eller 3 500 kr med Grundprofil, oavsett produktområde. Blir det affär tillkommer 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, med mötesavgiften avräknad.</p>
+        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Med Premium är kvalificerade kundmöten kostnadsfria och vid affär betalar ni 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna. Med Grundprofil kostar varje kvalificerat kundmöte 3 500 kr, oavsett produktområde, och vid affär betalar ni 5 %, med mötesavgiften avräknad till 100 %.</p>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-12">
           {STEPS.map((s, i) => (
@@ -49,12 +49,11 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <h3 className="text-xl font-bold mb-1">Så ser kalkylen ut</h3>
             <p className="text-sm text-muted-foreground mb-4">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar {nb("600 000 kr")} i konsult- och projektvärde under de första 12 månaderna.</p>
             <dl className="text-sm divide-y divide-border">
-              <div className="flex justify-between py-2"><dt>Mötesavgift efter kundmötet</dt><dd className="font-semibold">{nb("1 000 kr")}</dd></div>
+              <div className="flex justify-between py-2"><dt>Mötesavgift efter kundmötet</dt><dd className="font-semibold">{nb("0 kr")}</dd></div>
               <div className="flex justify-between py-2"><dt>Avgift vid affär (2,5 %)</dt><dd className="font-semibold">{nb("15 000 kr")}</dd></div>
-              <div className="flex justify-between py-2"><dt>Avräkning av betald mötesavgift</dt><dd className="font-semibold text-accent">{nb("−1 000 kr")}</dd></div>
-              <div className="flex justify-between py-2 text-base"><dt className="font-semibold">Slutbetalning vid affär</dt><dd className="font-bold">{nb("14 000 kr")}</dd></div>
+                            <div className="flex justify-between py-2 text-base"><dt className="font-semibold">Slutbetalning vid affär</dt><dd className="font-bold">{nb("15 000 kr")}</dd></div>
             </dl>
-            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Mötesavgiften är 1 000 kr och avgiften vid affär 15 000 kr. Efter avräkning blir slutbetalningen 14 000 kr. Totalkostnaden är <strong>15 000 kr</strong>.</p>
+            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Kundmötet är kostnadsfritt och avgiften vid affär 15 000 kr. Med Grundprofil hade mötet kostat 3 500 kr och avgiften vid affär blivit 30 000 kr, varav 26 500 kr efter avräkning. Totalkostnaden med Premium är <strong>15 000 kr</strong>.</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-6">
             <ShieldCheck className="w-7 h-7 text-accent mb-3" aria-hidden="true" />
