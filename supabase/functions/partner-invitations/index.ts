@@ -131,7 +131,7 @@ async function boundPartnerRecipient(supabase: any, partnerId: unknown, email: u
   return { email: addr, name: pRow.name };
 }
 
-async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
+async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string; role?: string }> {
   try {
     const parts = token.split('.');
     if (parts.length !== 3) return { valid: false, error: "Invalid token format" };
@@ -158,7 +158,7 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired" };
     if (payload.role !== "admin" && payload.role !== "editor") return { valid: false, error: "Insufficient permissions" };
 
-    return { valid: true };
+    return { valid: true, role: payload.role };
   } catch (error) {
     console.error("JWT verification error:", error);
     return { valid: false, error: "Token verification failed" };
@@ -1791,7 +1791,7 @@ D365.se`;
       }
 
       // Build CC list
-      const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
+      const ccList: string[] = ccParsed;
 
       let sent = 0;
       let failed = 0;
@@ -2135,6 +2135,34 @@ D365.se`;
       const body = await req.json();
       const { email, company_name, subject: customSubject, email_body: customBody, cc } = body;
 
+      if (verification.role !== "admin") {
+        return new Response(
+          JSON.stringify({ error: "Endast admin får skicka fria utskick" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      const toList = parseRecipients(typeof email === "string" ? email : "");
+      const rawCc: string[] = Array.isArray(cc) ? cc.map(String) : (typeof cc === "string" ? [cc] : []);
+      const ccParsed = rawCc.flatMap((c) => parseRecipients(c));
+      if (toList.length !== 1 || ccParsed.length > 3 || rawCc.join("").length > 500
+          || (typeof customSubject === "string" && customSubject.length > 200)
+          || (typeof customBody === "string" && customBody.length > 10000)) {
+        return new Response(
+          JSON.stringify({ error: "En mottagare, högst tre kopior och rimlig textlängd krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      const sinceDay = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      const { count: sentToday } = await supabase.from("email_send_log")
+        .select("id", { count: "exact", head: true })
+        .eq("template_name", "partner_cold_pitch").gte("created_at", sinceDay);
+      if ((sentToday ?? 0) >= 30) {
+        return new Response(
+          JSON.stringify({ error: "Dagsgränsen för fria utskick är nådd" }),
+          { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return new Response(
           JSON.stringify({ error: "Giltig e-postadress krävs" }),
@@ -2190,7 +2218,7 @@ D365.se`;
 
         const emailOptions: any = {
           from: "D365 Guiden <info@d365.se>",
-          to: parseRecipients(email),
+          to: toList,
           subject: emailSubject,
           html: fullHtml,
         };
