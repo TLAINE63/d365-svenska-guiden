@@ -121,11 +121,36 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
       <section>
         <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold"><BarChart3 className="h-5 w-5 text-accent" /> Era siffror</h3>
         {own ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-4">
+          <div className="rounded-2xl border border-accent/40 bg-accent/5 p-5 shadow-sm sm:p-6">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent"><ListFilter className="h-4 w-4" /> Er synlighet</div>
+            <p className="mt-1 text-sm font-medium">Med i partnerfiltreringar och jämförelser</p>
+            <div className="mt-3 flex flex-wrap items-end gap-x-8 gap-y-2">
+              <div><div className="text-4xl font-bold tabular-nums">{fmt(own.exposures30d ?? 0)}</div><div className="text-xs text-muted-foreground">senaste 30 dagar</div></div>
+              <div><div className="text-2xl font-semibold tabular-nums">{fmt(own.exposures90d ?? 0)}</div><div className="text-xs text-muted-foreground">senaste 90 dagar</div></div>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">Så många gånger ni har visats för köpare som filtrerar, jämför eller får matchningar på d365.se.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
             <Kpi icon={<Eye className="h-4 w-4" />} label="Profilbesök" v30={own.profileVisits30d} v90={own.profileVisits90d} />
             <Kpi icon={<MousePointerClick className="h-4 w-4" />} label="Klick på partnerkort" v30={own.cardClicks30d} v90={own.cardClicks90d} />
             <Kpi icon={<ExternalLink className="h-4 w-4" />} label="Klick till er webbplats" v30={own.websiteClicks30d} v90={own.websiteClicks90d} />
-            <Kpi icon={<ListFilter className="h-4 w-4" />} label="Med i partnerfiltrering och jämförelser" v30={own.exposures30d ?? 0} v90={own.exposures90d ?? 0} />
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-border bg-card p-5 text-sm">
+              <h4 className="font-semibold">Så fungerar köpresan</h4>
+              <p className="mt-2 text-muted-foreground">Investeringar i affärssystem och CRM utvärderas ofta under 6–18 månader. Köpare läser guider, gör kravspecifikationer och jämför partners långt innan de tar kontakt, och kontakten sker ofta direkt eller via upphandling. Att synas i filtreringarna gör att ni finns med när köparen väljer vilka partners de vill prata med.</p>
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-5 text-sm">
+              <h4 className="font-semibold">Så stärker ni er synlighet</h4>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-muted-foreground">
+                <li>Lägg till kundcase inom era fokusbranscher.</li>
+                <li>Koppla namngivna specialister till profilen.</li>
+                <li>Skicka in nyheter och event till Partnernytt.</li>
+                <li>Håll produkter och branscher aktuella i fliken Er profil.</li>
+              </ul>
+            </div>
+          </div>
           </div>
         ) : (
           <p className="rounded-2xl border border-border bg-card p-5 text-sm text-muted-foreground">
