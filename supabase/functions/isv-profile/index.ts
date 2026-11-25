@@ -41,6 +41,57 @@ serve(async (req) => {
     }
     const isVendor = invitation.scope === "vendor" && !!invitation.vendor_slug;
 
+    if (req.method === "GET" && reqUrl.searchParams.get("action") === "stats") {
+      // Leverantörens egna siffror (endast egna produkter) bredvid katalogens totaler. Inga personuppgifter.
+      let ids: string[] = [];
+      let names: Record<string, string> = {};
+      if (isVendor) {
+        const { data } = await supabase.from("isv_solutions").select("solution_id, name").eq("vendor_slug", invitation.vendor_slug);
+        (data || []).forEach((p) => { ids.push(p.solution_id); names[p.solution_id] = p.name; });
+      } else if (invitation.solution_id) {
+        ids = [invitation.solution_id]; names[invitation.solution_id] = invitation.solution_name;
+      }
+      const now = Date.now(), d30 = now - 30 * 864e5, d90 = now - 90 * 864e5;
+      const rows: { page_path: string; visited_at: string; ip_anonymized: string | null }[] = [];
+      for (let from = 0; from < 20000; from += 1000) {
+        const { data } = await supabase.from("visitor_analytics").select("page_path, visited_at, ip_anonymized")
+          .gte("visited_at", new Date(d90).toISOString())
+          .or("page_path.ilike./isv/produkt/%,page_path.ilike.%tillagg%")
+          .range(from, from + 999);
+        if (!data?.length) break;
+        rows.push(...data);
+        if (data.length < 1000) break;
+      }
+      const idOf = (p: string) => { const m = p.match(/^\/isv\/produkt\/([^/?#]+)/i); return m ? decodeURIComponent(m[1]).toLowerCase() : null; };
+      const own = new Set(ids.map((i) => i.toLowerCase()));
+      const perProduct: Record<string, { views30d: number; views90d: number }> = {};
+      ids.forEach((i) => (perProduct[i] = { views30d: 0, views90d: 0 }));
+      const weeks: { week: string; views: number }[] = [];
+      for (let w = 12; w >= 0; w--) weeks.push({ week: new Date(now - w * 7 * 864e5).toISOString().slice(0, 10), views: 0 });
+      let views30 = 0, views90 = 0, siteProduct90 = 0, siteCatalog90 = 0;
+      const visitors = new Set<string>(), siteVisitors = new Set<string>();
+      for (const r of rows) {
+        const t = new Date(r.visited_at).getTime();
+        const id = idOf(r.page_path);
+        if (!id) { siteCatalog90++; continue; }
+        siteProduct90++;
+        if (r.ip_anonymized) siteVisitors.add(r.ip_anonymized);
+        if (!own.has(id)) continue;
+        const key = ids.find((i) => i.toLowerCase() === id)!;
+        views90++; perProduct[key].views90d++;
+        if (t >= d30) { views30++; perProduct[key].views30d++; }
+        if (r.ip_anonymized) visitors.add(r.ip_anonymized);
+        const wi = Math.min(12, Math.max(0, 12 - Math.floor((now - t) / (7 * 864e5))));
+        weeks[wi].views++;
+      }
+      return json({
+        own: { views30d: views30, views90d: views90, visitors90d: visitors.size, productCount: ids.length },
+        products: ids.map((i) => ({ id: i, name: names[i], ...perProduct[i] })).sort((a, b) => b.views90d - a.views90d),
+        weeks,
+        site: { productViews90d: siteProduct90, productVisitors90d: siteVisitors.size, catalogViews90d: siteCatalog90 },
+      }, 200, corsHeaders);
+    }
+
     if (req.method === "GET") {
       const { data: submissions } = await supabase
         .from("isv_submissions")

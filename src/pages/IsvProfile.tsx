@@ -15,6 +15,7 @@ import { Loader2, CheckCircle2, AlertCircle, Plus, Pencil } from "lucide-react";
 import IsvProductForm, { emptyProductForm, productFormValid, toLines, type ProductFormState } from "@/components/isv/IsvProductForm";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import { CATEGORIES } from "@/data/bcIsvSolutions";
+import IsvStatsDashboard from "@/components/isv/IsvStatsDashboard";
 
 interface Invitation {
   solution_id: string;
@@ -99,6 +100,7 @@ export default function IsvProfile() {
   const baseUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/isv-profile`;
   const apikey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
   const isVendor = invitation?.scope === "vendor";
+  const [view, setView] = useState<"profile" | "stats">("profile");
 
   const load = async () => {
     if (!token) return;
@@ -266,7 +268,7 @@ export default function IsvProfile() {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <Navbar />
-      <main className="max-w-3xl mx-auto px-4 py-28">
+      <main className={`${view === "stats" ? "max-w-5xl" : "max-w-3xl"} mx-auto px-4 py-28`}>
         {loading && (
           <div className="flex items-center gap-2 text-muted-foreground">
             <Loader2 className="w-4 h-4 animate-spin" /> Hämtar uppgifterna…
@@ -295,6 +297,20 @@ export default function IsvProfile() {
           </Card>
         )}
 
+        {!loading && !error && !done && invitation && (
+          <div role="tablist" aria-label="Profilvy" className="mx-auto mb-8 flex w-full max-w-md rounded-full border border-border bg-card p-1 shadow-sm">
+            {([["profile", "Er profil"], ["stats", "Statistik & marknad"]] as const).map(([k, l]) => (
+              <button key={k} type="button" role="tab" aria-selected={view === k} onClick={() => setView(k)}
+                className={`flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${view === k ? "bg-primary text-primary-foreground shadow" : "text-muted-foreground hover:text-foreground"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {!loading && !error && !done && invitation && view === "stats" && token && <IsvStatsDashboard token={token} />}
+
+        <div hidden={view === "stats"}>
         {!loading && !error && !done && invitation && !isVendor && productEditor(false, `Beskriv ${invitation.solution_name}`)}
 
         {!loading && !error && !done && invitation && isVendor && editing && productEditor(editing.id === null, editing.id === null ? "Lägg till en produkt" : `Uppdatera ${editing.name}`)}
@@ -401,6 +417,7 @@ export default function IsvProfile() {
             </Card>
           </div>
         )}
+        </div>
       </main>
       <Footer />
     </div>
