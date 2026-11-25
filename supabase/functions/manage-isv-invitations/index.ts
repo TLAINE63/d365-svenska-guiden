@@ -71,17 +71,23 @@ serve(async (req) => {
 
       if (body?.send_email && !isAdmin) {
         emailError = "Endast admin kan skicka inbjudningsmejl";
+      } else if (body?.send_email && (await supabase.from("isv_invitations").select("id", { count: "exact", head: true })
+          .gte("created_at", new Date(Date.now() - 86400000).toISOString())).count! > 40) {
+        emailError = "Dygnsgränsen för inbjudningsmejl är nådd";
       } else if (body?.send_email) {
         const resendApiKey = Deno.env.get("RESEND_API_KEY");
         if (!resendApiKey) {
           emailError = "RESEND_API_KEY saknas";
         } else {
           try {
+            const esc = (v: string | null) => (v || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+            const subject = isVendor ? `Granska ${solution_name} och era produkter på d365.se` : `Beskriv ${solution_name} i ISV-katalogen på d365.se`;
+            solution_name = esc(solution_name); vendor_name = esc(vendor_name);
             const resend = new Resend(resendApiKey);
             await resend.emails.send({
               from: "d365.se <noreply@d365.se>",
               to: [email],
-              subject: isVendor ? `Granska ${solution_name} och era produkter på d365.se` : `Beskriv ${solution_name} i ISV-katalogen på d365.se`,
+              subject,
               html: `
                 <div style="font-family:Segoe UI,Arial,sans-serif;color:#1f2933;line-height:1.6">
                   <p>Hej${vendor_name ? ` ${vendor_name}` : ""},</p>
