@@ -1528,6 +1528,18 @@ D365.se`;
       const errors: string[] = [];
 
       for (const inv of pendingInvitations) {
+        // Only remind recipients bound to the partner's own domain or internal addresses
+        const invRecipients = parseRecipients(inv.email);
+        const recipientOk = invRecipients.length > 0 && (await Promise.all(invRecipients.map(async (r: string) =>
+          inv.partner_id
+            ? !!(await boundPartnerRecipient(supabase, inv.partner_id, r))
+            : INTERNAL_MAIL_DOMAINS.has(mailDomainOf(r))
+        ))).every(Boolean);
+        if (!recipientOk) {
+          failed++;
+          errors.push(`${inv.partner_name || inv.id}: mottagaren är inte kopplad till partnern`);
+          continue;
+        }
         try {
           const invitationLink = `${baseUrl}/partner-update/${inv.token}`;
 
