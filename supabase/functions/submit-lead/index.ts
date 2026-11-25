@@ -428,6 +428,19 @@ const handler = async (req: Request): Promise<Response> => {
         message: String(row.message || "").replace(/(https?:\/\/|www\.)\S+/gi, "[länk borttagen]").slice(0, 1000),
         assigned_partners: Array.isArray(row.assigned_partners) ? row.assigned_partners.slice(0, 3) : [],
       };
+      // Durable caps so confirmed requests cannot be used to flood partners.
+      const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+      const { data: recent } = await db.from("lead_partner_confirmations")
+        .select("lead_id").not("confirmed_at", "is", null).gte("confirmed_at", since).neq("id", conf.id);
+      const recentIds = (recent || []).map((r: { lead_id: string }) => r.lead_id);
+      if (recentIds.length) {
+        const { data: recentLeads } = await db.from("leads").select("email, assigned_partners").in("id", recentIds.slice(0, 500));
+        const sameSender = (recentLeads || []).filter((l: any) => String(l.email || "").toLowerCase() === stored.email.toLowerCase()).length;
+        if (sameSender >= 3) return json({ error: "Du har redan skickat flera förfrågningar i dag. Försök igen i morgon." }, 429);
+        const perPartner = new Map<string, number>();
+        for (const l of recentLeads || []) for (const sl of (Array.isArray(l.assigned_partners) ? l.assigned_partners : [])) perPartner.set(sl, (perPartner.get(sl) || 0) + 1);
+        stored.assigned_partners = stored.assigned_partners.filter((sl) => (perPartner.get(sl) || 0) < 10);
+      }
       const key = Deno.env.get("RESEND_API_KEY");
       if (!key || !isPartnerBound(stored)) return json({ error: "Förfrågan kan inte skickas." }, 400);
       const sent = await routeToPartners(db, new Resend(key), stored);
