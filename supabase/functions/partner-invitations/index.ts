@@ -1909,7 +1909,7 @@ D365.se`;
       }
 
       // Build CC list
-      const ccList: string[] = ccParsed;
+      const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
 
       let sent = 0;
       let failed = 0;
