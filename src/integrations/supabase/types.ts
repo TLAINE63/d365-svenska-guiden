@@ -7250,6 +7250,7 @@ export type Database = {
           technical_model: string
         }[]
       }
+      public_market_interest: { Args: never; Returns: Json }
       public_market_pulse: { Args: never; Returns: Json }
       public_verified_isv_contacts: {
         Args: never
