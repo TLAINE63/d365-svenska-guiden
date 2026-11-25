@@ -1923,7 +1923,7 @@ const ComparePartners = () => {
                   <span className="block text-sm text-[hsl(var(--muted-foreground))] mb-3 ml-1">
                     Endast partners med vald fokusbransch visas i nästa steg
                   </span>
-                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                     {/* Alla branscher */}
                     <button
                       type="button"
@@ -1935,12 +1935,12 @@ const ComparePartners = () => {
                       }`}
                       aria-pressed={!industryFilter}
                     >
-                      <div className="aspect-[16/5] overflow-hidden bg-muted flex items-center justify-center">
-                        <span className="text-[11px] font-medium text-muted-foreground">Alla branscher</span>
+                      <div className="aspect-[16/7] overflow-hidden bg-muted flex items-center justify-center">
+                        <span className="text-sm font-medium text-muted-foreground">Alla branscher</span>
                       </div>
-                      <div className="p-1">
-                        <span className="text-[10px] font-semibold block">Alla branscher</span>
-                        <span className="text-[9px] text-muted-foreground">
+                      <div className="px-2.5 py-2">
+                        <span className="text-sm font-semibold block">Alla branscher</span>
+                        <span className="text-xs text-muted-foreground">
                           {allIndustryEligibleCount} {allIndustryEligibleCount === 1 ? "partner" : "partners"}
                         </span>
                       </div>
@@ -1965,7 +1965,7 @@ const ComparePartners = () => {
                           aria-pressed={selected}
                         >
                           {img && (
-                            <div className="aspect-[16/5] overflow-hidden bg-muted">
+                            <div className="aspect-[16/7] overflow-hidden bg-muted">
                               <img
                                 src={img}
                                 alt={`Bransch ${ind.name}`}
@@ -1974,11 +1974,11 @@ const ComparePartners = () => {
                               />
                             </div>
                           )}
-                          <div className="p-1">
-                            <span className={`text-[10px] font-semibold block ${selected ? "text-[hsl(var(--primary))]" : "group-hover:text-[hsl(var(--primary))]"}`}>
+                          <div className="px-2.5 py-2">
+                            <span className={`text-sm font-semibold block ${selected ? "text-[hsl(var(--primary))]" : "group-hover:text-[hsl(var(--primary))]"}`}>
                               {ind.short}
                             </span>
-                            <span className="text-[9px] text-muted-foreground">
+                            <span className="text-xs text-muted-foreground">
                               {count} {count === 1 ? "partner" : "partners"}
                             </span>
                           </div>
