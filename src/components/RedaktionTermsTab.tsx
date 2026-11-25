@@ -29,7 +29,7 @@ export default function RedaktionTermsTab({ token }: { token: string | null }) {
       <h2 className="text-xl font-semibold">Avtalsvillkor</h2>
       <p className="mt-2 text-sm text-muted-foreground">Sammanställningar av publicerade villkor och aktuella priser. Uppdaterade {TERMS_DATE}. Individuella avtal, startdatum och rabatter regleras separat.</p>
     </div>
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {TERMS_AREAS.map((area) => <Card key={area.id} className="flex flex-col">
         <CardHeader><FileText className="h-6 w-6 text-accent" aria-hidden="true" /><CardTitle className="text-lg">{area.title}</CardTitle></CardHeader>
         <CardContent className="flex flex-1 flex-col gap-5">

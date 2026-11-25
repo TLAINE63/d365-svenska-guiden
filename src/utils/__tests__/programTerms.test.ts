@@ -20,4 +20,17 @@ describe("områdesspecifika prisbilagor", () => {
     expect(v["ISV: Affärsförmedling"]).toBe("Pausad tills vidare");
     expect(Object.keys(v).some((k) => k.includes("Business Referral"))).toBe(false);
   });
+  it("Premiumavtalet: kostnadsfria möten och 2,5 % utan avräkning", () => {
+    const v = Object.fromEntries(termsPriceRows("commission_premium").map(([k, val]) => [k, val.replace(/\s/g, " ")]));
+    expect(v["Kvalificerat möte"]).toBe("Kostnadsfritt");
+    expect(v["Avgift vid affär"]).toMatch(/^2,5 %/);
+    expect(v["Avräkning"]).toBeUndefined();
+  });
+  it("Grundprofilavtalet: 3 500 kr per möte, 5 % och full avräkning", () => {
+    const v = Object.fromEntries(termsPriceRows("commission_grund").map(([k, val]) => [k, val.replace(/\s/g, " ")]));
+    expect(v["Mötesavgift per kvalificerat möte"]).toBe("3 500 kr");
+    expect(v["Avgift vid affär"]).toMatch(/^5 %/);
+    expect(v["Tidsfönster"]).toContain("6 månader");
+    expect(v["Avräkning"]).toContain("100 %");
+  });
 });

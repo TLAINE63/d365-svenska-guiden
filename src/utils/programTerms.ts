@@ -14,16 +14,56 @@ export const TIDSGRANSER = [
   "Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar.",
 ];
 
-export type TermsArea = "partner" | "isv" | "commission";
+export type TermsArea = "partner" | "isv" | "commission" | "commission_premium" | "commission_grund";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
 export const TERMS_DATE = "2026-11-25";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
   { id: "commission", title: "Affärsförmedlingsavtal", description: "Samma villkor för alla produktområden: kostnadsfria möten och 2,5 % vid affär med Premium, eller 3 500 kr per möte och 5 % vid affär med full avräkning med Grundprofil, för nya projekt, partnerbyte och expertförmedling." },
+  { id: "commission_premium", title: "Förmedlingsavtal Premiumpartner", description: "Endast villkoren för Premium: kostnadsfria kvalificerade möten och 2,5\u00a0% vid affär under 12 månader från kundavtalet." },
+  { id: "commission_grund", title: "Förmedlingsavtal Grundprofil", description: "Endast villkoren för Grundprofil: 3\u00a0500 kr per kvalificerat möte och 5\u00a0% vid affär, där mötesavgiften räknas av till 100\u00a0%." },
 ];
 
+const isPremiumCommission = (area: TermsArea) => area === "commission_premium";
+const COMMISSION_EXCLUDED = "Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms.";
+
+function levelCommissionRows(area: TermsArea): [string, string][] {
+  const v = FINDERS_FEE_VARIANTS[0];
+  const premium = isPremiumCommission(area);
+  return [
+    ["Gäller för", premium ? "Partners med aktivt Premiumabonnemang" : "Partners med Grundprofil"],
+    ["Produktområden", v.scope],
+    [premium ? "Kvalificerat möte" : "Mötesavgift per kvalificerat möte", premium ? "Kostnadsfritt" : kr(v.grund)],
+    ["Avgift vid affär", `${premium ? "2,5" : "5"} % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, utan maxbelopp`],
+    ["Tidsfönster", "Kundavtal tecknat inom 6 månader från mötet (expertförmedling: från intervjun)"],
+    ...(premium ? [] : [["Avräkning", "Betald mötesavgift räknas av till 100 % mot avgiften vid affär, aldrig negativt"] as [string, string]]),
+  ];
+}
+
+function levelCommissionSections(area: TermsArea): AgreementPdfSection[] {
+  const premium = isPremiumCommission(area);
+  return [
+    { title: "Avtalets omfattning", body: premium
+      ? "Detta förmedlingsavtal gäller för partners med aktivt Premiumabonnemang hos d365.se. Om Premiumabonnemanget upphör gäller villkoren för Grundprofil för introduktioner som görs därefter."
+      : "Detta förmedlingsavtal gäller för partners med Grundprofil hos d365.se. Partnern kan när som helst uppgradera till Premium; villkoren för Premium gäller då för introduktioner som görs efter uppgraderingen." },
+    { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
+    { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
+    { title: "Accept före introduktion", body: "Partnern får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs." },
+    { title: premium ? "Kvalificerade möten" : "Mötesavgift", body: premium
+      ? "Kvalificerade möten ingår kostnadsfritt för alla produktområden, både för nya projekt, partnerbyte och expertförmedling. Det gäller även när affären omfattar flera produktområden."
+      : `Mötesavgiften är ${kr(FINDERS_FEE_VARIANTS[0].grund)} per genomfört kvalificerat möte, oavsett produktområde, för nya projekt, partnerbyte och expertförmedling. Samma avgift gäller när affären omfattar flera produktområden.\n\nVid expertförmedling tas avgiften ut per expert när kunden har haft intervju med experten, inte när ett CV skickas.` },
+    { title: "Avgift vid affär", body: `${premium ? "2,5" : "5"} % av fakturerat konsult- och projektvärde under de första 12 månaderna från tecknat kundavtal, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp.${premium ? "" : "\n\nBetald mötesavgift räknas av till 100 % mot avgiften vid affär. Avräkningen blir aldrig negativ."}\n\n${COMMISSION_EXCLUDED}` },
+    { title: "Kvalificerat möte", body: premium ? KVALIFICERAT_MOTE.replace("Mötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. ", "") : KVALIFICERAT_MOTE },
+    { title: "Köparens fria val", body: KOPARENS_FRIA_VAL },
+    { title: "Uppföljning", body: UPPFOLJNING },
+    { title: "Tidsgränser", body: TIDSGRANSER.join("\n\n") },
+    { title: "Förmedling av expertkonsulter", body: "Dynamic Factory förmedlar en eller flera experter. Partnern tecknar kundavtalet, debiterar kunden och har leveransansvaret." },
+  ];
+}
+
 export function termsPriceRows(area: TermsArea): [string, string][] {
+  if (area === "commission_premium" || area === "commission_grund") return levelCommissionRows(area);
   if (area === "partner") return [1, 2, 3].map((n) => [
     `Premium, ${n} produktområde${n > 1 ? "n" : ""}`,
     `${kr(YEAR_PRICE[n])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[n] / 12))}/mån) eller ${kr(MONTH_PRICE[n])}/mån`,
@@ -42,6 +82,7 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
 }
 
 export function termsSections(area: TermsArea): AgreementPdfSection[] {
+  if (area === "commission_premium" || area === "commission_grund") return levelCommissionSections(area);
   if (area === "partner") return [
     ...PARTNER_PROFILE_TERMS,
     { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
@@ -98,8 +139,8 @@ export async function downloadProgramTerms(area: TermsArea) {
   const blob = await generatePartnerAgreementPdf({
     heading: `Avtalsvillkor: ${title}`,
     intro: `Sammanställning av publicerade kommersiella villkor, uppdaterad ${TERMS_DATE}. Dokumentet ersätter inte ett individuellt undertecknat avtal. Startdatum, eventuella rabatter och kompletterande villkor fastställs separat.`,
-    sections: termsSections(area), benefits: area === "isv" ? "isv" : area === "commission" ? "none" : "partner", priceRows: termsPriceRows(area),
-    priceNote: area === "isv" ? "Alla belopp anges exklusive moms. Individuella rabatter och överenskommelser framgår av respektive avtal." : PARTNER_FEE_NOTE,
+    sections: termsSections(area), benefits: area === "isv" ? "isv" : area === "partner" ? "partner" : "none", priceRows: termsPriceRows(area),
+    priceNote: area === "isv" || area === "commission_premium" || area === "commission_grund" ? "Alla belopp anges exklusive moms. Individuella rabatter och överenskommelser framgår av respektive avtal." : PARTNER_FEE_NOTE,
     acceptance: "Bekräfta de individuella villkoren skriftligen innan samarbetet startar. Vid frågor, kontakta oss:",
   });
   const url = URL.createObjectURL(blob);
