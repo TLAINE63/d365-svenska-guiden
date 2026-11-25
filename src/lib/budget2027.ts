@@ -51,7 +51,7 @@ export const annual = (l: { amount: number; period?: Period }) => (Number(l.amou
 /** ISV Business Referral (Thomas 2026-11-13): 5 % of ISV net licence/subscription revenue first 12 months, 2,5 % of a referred consulting assignment; no fixed fees. Old intro keys kept at 0 so saved budgets survive. */
 export const ISV_FEES = { base: 5000, introFirstYear: 3500, includedApps: 3, extraApp: 500, introStd: 0, introFscm: 0, licenseRate: 0.05, consultRate: 0.025, successRate: 0.05 };
 /** Expert brokerage: flat fee per placed assignment (Thomas 2026-11-17). Short = up to 6 months or under half-time; long = longer or at least half-time. */
-export const EXPERT_FEES = { shortPremium: 1000, shortBasic: 3500, longPremium: 1000, longBasic: 3500 };
+export const EXPERT_FEES = { shortPremium: 0, shortBasic: 3500, longPremium: 0, longBasic: 3500 };
 export interface IsvForecast { presence: boolean; extraApps: number; discount: number; introsStd: number; introsFscm: number; successBasis: number; consultBasis?: number; /** New ISV pays the 3 500 kr intro price first year; default true. */ introPrice?: boolean }
 export const isvBaseFee = (r: { introPrice?: boolean }, pricing = budgetPricing()) => (r.introPrice === false ? pricing.isvAnnual : pricing.units.isvPresence);
 export function isvRevenue(r: IsvForecast, pricing = budgetPricing()) {

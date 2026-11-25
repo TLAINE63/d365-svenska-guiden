@@ -566,7 +566,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
 
         <div id="budget-expert-funnel" className="scroll-mt-32 overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
-            <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
+            <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning<span className="ml-3 text-xs font-normal text-muted-foreground">Snittvärde per uppdrag (12 mån) <BudgetNumberInput aria-label="Snittvärde per expertuppdrag" min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={successValue("successExpert", values)} placeholder="0" onValueChange={(value) => setValue("successExpert", value)} /> kr</span></caption>
             <thead className="text-xs text-muted-foreground"><tr>
               <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Intervjuavgift<br />kr</th><th className={th}>Vid affär<br />kr per uppdrag</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
