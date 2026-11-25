@@ -28,9 +28,9 @@ export function webinarEndsAt(webinar: Pick<PublicWebinar, "starts_at" | "durati
 export function formatWebinarDate(webinar: Pick<PublicWebinar, "starts_at" | "duration_min">): string {
   const start = new Date(webinar.starts_at);
   const end = webinarEndsAt(webinar);
-  const date = new Intl.DateTimeFormat("sv-SE", {
-    timeZone: "Europe/Stockholm", weekday: "long", day: "numeric", month: "long",
-  }).format(start);
+  const weekday = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", weekday: "long" }).format(start);
+  const ymd = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit" }).format(start);
+  const date = `${weekday} ${ymd}`;
   const time = (value: Date) => new Intl.DateTimeFormat("sv-SE", {
     timeZone: "Europe/Stockholm", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
   }).format(value).replace(":", ".");

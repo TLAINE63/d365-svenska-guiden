@@ -319,7 +319,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
                     <ChartTooltipContent
                       labelFormatter={(val) => {
                         try {
-                          return format(parseISO(val as string), "EEEE d MMMM", { locale: sv });
+                          return format(parseISO(val as string), "EEEE yyyy-MM-dd", { locale: sv });
                         } catch { return String(val); }
                       }}
                     />

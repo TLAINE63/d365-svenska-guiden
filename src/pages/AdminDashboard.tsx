@@ -6325,7 +6325,7 @@ Thomas`,
  Källa: <span className="font-medium">{partnerFormData.source_document_filename}</span>
  {partnerFormData.source_document_updated_at && (
   <span className="ml-2">
-   (extraherad {format(new Date(partnerFormData.source_document_updated_at), "yyyy/MM/dd HH:mm", { locale: sv })})
+   (extraherad {format(new Date(partnerFormData.source_document_updated_at), "yyyy-MM-dd HH:mm", { locale: sv })})
   </span>
  )}
  </p>

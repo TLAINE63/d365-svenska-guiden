@@ -84,7 +84,7 @@ export function resolveContentInvite(theme: ContentTheme, data: ContentInviteDat
     return {
       kind: "webinar",
       title: webinar.title,
-      sentence: `${new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(webinar.starts_at))}. Webinar, ${webinar.duration_min} minuter, kostnadsfritt.`,
+      sentence: `${new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Stockholm", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(webinar.starts_at))}. Webinar, ${webinar.duration_min} minuter, kostnadsfritt.`,
       href: `/webinar/${webinar.slug}/`,
       cta: "Anmäl dig",
     };

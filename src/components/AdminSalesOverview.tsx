@@ -268,7 +268,7 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
                   content={
                     <ChartTooltipContent
                       labelFormatter={(val) => {
-                        try { return format(parseISO(val as string), "EEEE d MMMM", { locale: sv }); }
+                        try { return format(parseISO(val as string), "EEEE yyyy-MM-dd", { locale: sv }); }
                         catch { return String(val); }
                       }}
                     />
