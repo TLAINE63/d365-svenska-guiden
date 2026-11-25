@@ -70,12 +70,7 @@ export default function PartnerStats() {
       body: accessCode ? { accessCode } : { token: adminToken },
     });
     if (err || !res || res.error) {
-      if (!accessCode) {
-        setNeedsCode(true);
-      } else {
-        setNeedsCode(true);
-        setError("Koden stämmer inte. Kontrollera koden du fått från d365.se.");
-      }
+      setError("Statistiken kunde inte hämtas just nu. Försök igen om en stund.");
       setLoading(false);
       return;
     }
@@ -88,11 +83,6 @@ export default function PartnerStats() {
     if (typeof window === "undefined") return;
     const accessCode = new URLSearchParams(window.location.search).get("kod") || "";
     const adminToken = window.sessionStorage.getItem("admin_token") || "";
-    if (!accessCode && !adminToken) {
-      setNeedsCode(true);
-      setLoading(false);
-      return;
-    }
     load(accessCode, adminToken);
   }, []);
 
@@ -124,8 +114,8 @@ export default function PartnerStats() {
           <header className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tight">Partnerstatistik – d365.se</h1>
             <p className="text-muted-foreground">
-              Övergripande trafikstatistik för d365.se. Sidan är endast avsedd för partners
-              och är inte länkad från sajten.
+              Övergripande trafikstatistik för d365.se. Sidan visar sajtens
+              totala räckvidd och efterfrågan.
             </p>
           </header>
 
@@ -138,7 +128,7 @@ export default function PartnerStats() {
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground space-y-1">
               <p>Statistiken baseras på besök loggade i d365.se:s besöksmätning.</p>
-              <p>Bottar, intern trafik och partners egen trafik filtreras automatiskt bort.</p>
+              <p>Botar filtreras bort. Alla övriga besök räknas.</p>
             </CardContent>
           </Card>
 
@@ -197,7 +187,7 @@ export default function PartnerStats() {
           )}
 
           {loading && <p className="text-sm text-muted-foreground">Laddar statistik…</p>}
-          {needsCode && !loading && (
+          {false && needsCode && !loading && (
             <Card>
               <CardContent className="pt-6">
                 <form onSubmit={submitCode} className="flex flex-col sm:flex-row gap-3 sm:items-end">

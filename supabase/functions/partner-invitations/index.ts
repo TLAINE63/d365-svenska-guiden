@@ -424,6 +424,67 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Partner's own exposure stats, authorised only by the partner's profile link token.
+    if (action === "get-partner-stats" && req.method === "GET") {
+      const h = { "Content-Type": "application/json", "Cache-Control": "no-store", ...corsHeaders };
+      const token = url.searchParams.get("token") || "";
+      if (!token || token.length > 200) {
+        return new Response(JSON.stringify({ error: "Token krävs" }), { status: 400, headers: h });
+      }
+      const { data: inv } = await supabase
+        .from("partner_invitations").select("partner_id").eq("token", token).maybeSingle();
+      if (!inv?.partner_id) {
+        return new Response(JSON.stringify({ error: "Ingen partnerprofil kopplad" }), { status: 404, headers: h });
+      }
+      const { data: partner } = await supabase
+        .from("partners").select("slug, name").eq("id", inv.partner_id).maybeSingle();
+      if (!partner?.slug) {
+        return new Response(JSON.stringify({ error: "Partner saknas" }), { status: 404, headers: h });
+      }
+      const now = Date.now();
+      const since90 = new Date(now - 90 * 86400000).toISOString();
+      const since30 = new Date(now - 30 * 86400000).toISOString();
+      const fetchAll = async (q: () => any) => {
+        const rows: any[] = [];
+        for (let from = 0; from < 20000; from += 1000) {
+          const { data } = await q().range(from, from + 999);
+          if (!data?.length) break;
+          rows.push(...data);
+          if (data.length < 1000) break;
+        }
+        return rows;
+      };
+      const views = await fetchAll(() => supabase.from("partner_profile_views")
+        .select("view_type, viewed_at").eq("partner_slug", partner.slug).gte("viewed_at", since90));
+      const clicks = partner.name ? await fetchAll(() => supabase.from("partner_clicks")
+        .select("clicked_at").eq("partner_name", partner.name).gte("clicked_at", since90)) : [];
+      const weeks: { week: string; profileVisits: number; cardClicks: number; websiteClicks: number }[] = [];
+      for (let i = 12; i >= 0; i--) {
+        const d = new Date(now - i * 7 * 86400000);
+        weeks.push({ week: d.toISOString().slice(0, 10), profileVisits: 0, cardClicks: 0, websiteClicks: 0 });
+      }
+      const bucket = (iso: string) => {
+        const idx = 12 - Math.floor((now - new Date(iso).getTime()) / (7 * 86400000));
+        return weeks[Math.max(0, Math.min(12, idx))];
+      };
+      let pv30 = 0, pv90 = 0, cc30 = 0, cc90 = 0, wc30 = 0;
+      for (const v of views) {
+        const recent = v.viewed_at >= since30;
+        if (v.view_type === "profile_visit") { pv90++; if (recent) pv30++; bucket(v.viewed_at).profileVisits++; }
+        else if (v.view_type === "card_click") { cc90++; if (recent) cc30++; bucket(v.viewed_at).cardClicks++; }
+      }
+      for (const c of clicks) { if (c.clicked_at >= since30) wc30++; bucket(c.clicked_at).websiteClicks++; }
+      return new Response(JSON.stringify({
+        partnerName: partner.name,
+        own: {
+          profileVisits30d: pv30, profileVisits90d: pv90,
+          cardClicks30d: cc30, cardClicks90d: cc90,
+          websiteClicks30d: wc30, websiteClicks90d: clicks.length,
+        },
+        weeks,
+      }), { status: 200, headers: h });
+    }
+
     if (action === "submit") {
       const body = await req.json();
       const { token, submissionData } = body;

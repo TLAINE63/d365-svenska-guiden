@@ -1,6 +1,5 @@
 // Site-traffic stats for partners.
-// Access requires either an admin JWT or the shared partner access code
-// (PARTNER_STATS_ACCESS_CODE) – never just knowledge of the URL.
+// Open page: returns aggregated site totals only (no PII, no single-partner figures).
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 
@@ -79,17 +78,8 @@ Deno.serve(async (req) => {
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
     const expectedCode = Deno.env.get("PARTNER_STATS_ACCESS_CODE") ?? "";
 
-    const codeOk = expectedCode.length > 0 && accessCode === expectedCode;
-    const adminOk = !codeOk && adminToken.length > 0 && serviceRoleKey.length > 0
-      && await verifyAdminJWT(adminToken, serviceRoleKey);
-
-    if (!codeOk && !adminOk) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        headers: { ...cors, "Content-Type": "application/json" },
-      });
-    }
-
+    // Open by design (Thomas 2026-11-25): aggregated site totals only, no PII or per-partner data.
+    void accessCode; void adminToken; void serviceRoleKey; void expectedCode;
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
