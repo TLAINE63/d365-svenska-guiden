@@ -97,8 +97,8 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-80">Er synlighet på d365.se</p>
         <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Hur köparna möter er</h2>
         <p className="mt-3 max-w-2xl text-sm opacity-90 sm:text-base">
-          Era egna siffror bredvid sajtens totala räckvidd, så att ni ser er andel och vad köparna letar efter just nu.
-          Siffrorna uppdateras löpande.
+          Överst ser ni sajtens totala räckvidd. Nedanför följer era egna siffror, er andel av totalen och vad köparna
+          letar efter just nu. Siffrorna uppdateras löpande.
         </p>
         {site && (
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
