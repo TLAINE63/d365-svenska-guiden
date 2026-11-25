@@ -1,5 +1,8 @@
 import type { ReactNode } from "react";
-import { ArrowDown, Calculator, Check, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { ArrowDown, Calculator, Check, Clock, FileDown, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { downloadProgramTerms, type TermsArea } from "@/utils/programTerms";
 import { TIDSGRANSER } from "@/utils/programTerms";
 import { PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_AFFAR } from "@/lib/partnerOrder";
 import adviceImg from "@/assets/journey/scene4-advice.jpg";
@@ -63,10 +66,15 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ni väljer:</strong> ni tackar ja eller nej till varje möjlighet innan introduktionen sker.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift vid affär:</strong> betald mötesavgift räknas alltid av i sin helhet.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Neutralt:</strong> introduktioner påverkar aldrig relevansordningen i partnersökningen.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Premium sänker mötesavgiften</strong> för alla produktområden. Premium innehåller inga utlovade möten.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Kostnadsfria kundmöten med Premium:</strong> ni betalar 0 kr i mötesavgift (mot 3 500 kr för Grundprofil). Premium innehåller inga utlovade möten.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
             </ul>
           </div>
+        </div>
+
+        <div className="mb-12 flex gap-3 rounded-xl border-2 border-accent/40 bg-card p-5">
+          <Clock className="w-6 h-6 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+          <div><h3 className="font-semibold text-foreground mb-1">Tydligt tidsfönster</h3><p className="text-sm text-muted-foreground">Avtalet gäller affärer där kundavtalet tecknas inom <strong className="text-foreground">6 månader</strong> från genomfört kundmöte (vid expertförmedling inom 6 månader från intervjun). Ersättningen beräknas på fakturerat värde under <strong className="text-foreground">12 månader</strong> från tecknat kundavtal.</p></div>
         </div>
 
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3"><ArrowDown className="w-4 h-4 text-accent" aria-hidden="true" />Priser för affärsförmedling</div>
@@ -98,8 +106,25 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <p>Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms. Samma villkor för alla partners inom respektive nivå. Fullständiga villkor regleras i förmedlingsavtalet.</p>
           </div>
         </details>
+        <div className="mb-6 rounded-xl border border-border bg-card p-5">
+          <h3 className="font-semibold text-foreground mb-1">Läs hela förmedlingsavtalet för er nivå</h3>
+          <p className="text-sm text-muted-foreground mb-3">Fullständiga villkor som PDF, utan formulär.</p>
+          <div className="flex flex-wrap gap-3">
+            <TermsButton area="commission_premium" label="Förmedlingsavtal Premiumpartner (PDF)" />
+            <TermsButton area="commission_grund" label="Förmedlingsavtal Grundprofil (PDF)" />
+          </div>
+        </div>
         {cta}
       </div>
     </section>
+  );
+}
+
+function TermsButton({ area, label }: { area: TermsArea; label: string }) {
+  const [busy, setBusy] = useState(false);
+  return (
+    <Button variant="outline" disabled={busy} onClick={async () => { setBusy(true); try { await downloadProgramTerms(area); } catch { /* modul laddas om */ } finally { setBusy(false); } }}>
+      <FileDown className="w-4 h-4 mr-2" aria-hidden="true" />{busy ? "Skapar PDF…" : label}
+    </Button>
   );
 }

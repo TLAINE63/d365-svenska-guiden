@@ -389,7 +389,7 @@ const Partnerprogram = () => {
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Fördjupad profil med kundcase, experter och möjlighet till video.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kvartalsvis genomgång, profilstatistik och namngiven kontaktperson.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Tillvalsprodukterna Commerce, Human Resources och Project Operations via profileringslänken, kostnadsfritt och utanför prislistan.</li>
-                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Lägre mötesavgift vid förmedlade kundmöten, om ni även har affärsförmedlingsavtal. Premium innehåller inga utlovade möten.</li>
+                <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />Kostnadsfria kvalificerade kundmöten (0&nbsp;kr mot 3&nbsp;500&nbsp;kr för Grundprofil) och 2,5&nbsp;% vid affär (mot 5&nbsp;%), om ni även har affärsförmedlingsavtal. Premium innehåller inga utlovade möten.</li>
                 <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />INSIDE är endast för Premiumpartners och köps separat (4&nbsp;900&nbsp;kr, exklusive moms).</li>
               </ul>
               <div className="max-w-full overflow-x-auto border border-border rounded-lg mb-3">

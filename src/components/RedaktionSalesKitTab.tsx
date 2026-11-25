@@ -35,7 +35,7 @@ const INCLUDED = [
   ["Direktlänk till er webbplats", "Knappen \"Till partnerns webbplats\" med UTM-mätning, så ni ser varje besök från d365.se i er egen statistik."],
   ["Månadsrapport", "Varje månad: visningar i listan, profilvisningar, jämförelser och klick till er webbplats."],
   ["INSIDE-intervju, endast Premium", `Redaktionell videointervju för 4${"\u00A0"}900 kr (exkl. moms), publicerad på d365.se och YouTube. INSIDE gäller endast partners med Premium.`],
-  ["Resultatbaserad förmedling", "Lägre mötesavgift för Premium. Premium innehåller inga utlovade möten."],
+  ["Resultatbaserad förmedling", "Premium: kostnadsfria kvalificerade möten och 2,5 % vid affär. Grundprofil: 3 500 kr per möte och 5 % vid affär. Premium innehåller inga utlovade möten."],
 ];
 
 export default function RedaktionSalesKitTab({ token }: { token: string | null }) {
