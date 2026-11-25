@@ -13,5 +13,5 @@ export const MARKET_PULSE = {
     { label: "51–500 anställda", count: 97 },
     { label: "Över 500 anställda", count: 91 },
   ],
-  industries: ["IT och tjänster", "Finans", "Bygg och entreprenad", "Utbildning", "Offentlig sektor"],
+  industries: ["Bygg och entreprenad", "Finans", "Offentlig sektor", "Handel och konsumentvaror"],
 };

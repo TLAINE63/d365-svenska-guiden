@@ -51,7 +51,6 @@ const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_fe
 
 const programSections = [
   { id: "varfor-premium", label: "Varför Premium" },
-  { id: "narvaro-kopresan", label: "Närvaro i köpresan" },
   { id: "marknadspuls", label: "Marknadspuls" },
   { id: "marknadsinsikter", label: "Marknadsinsikter" },
   { id: "for-partners", label: "Översikt" },
@@ -273,7 +272,7 @@ const Partnerprogram = () => {
             )}
             <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-3">d365.se partnerprogram</p>
             <h1 className="text-[1.3rem] [text-wrap:balance] sm:whitespace-nowrap sm:text-[min(3.5vw,1.85rem)] lg:text-[clamp(1.9rem,3.5vw,2.5rem)] font-bold leading-tight text-foreground mb-5">När kunderna utvärderar sina alternativ – finns ni med?</h1>
-            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6">Syns under köparnas beslutsprocess. Förstå marknadens efterfrågan. Skapa nya affärsmöjligheter.</p>
+            <p className="text-lg sm:text-xl font-medium leading-snug text-foreground border-l-4 border-primary pl-5 mb-6">Var med i köparnas beslutsprocess. Förstå marknadens efterfrågan. Skapa nya affärsmöjligheter.</p>
             <div className="grid gap-6 lg:grid-cols-2 items-start">
               <div className="space-y-3 text-muted-foreground">
                 <p>Köpresan börjar långt innan en potentiell kund kontaktar en Microsoftpartner. Företag söker information, jämför lösningar, undersöker kostnader, identifierar krav och utvärderar vilka partners som har rätt kompetens. På d365.se möter vi företag under hela den processen.</p>
@@ -314,7 +313,7 @@ const Partnerprogram = () => {
               <div className="rounded-xl border-2 border-accent/40 bg-card p-6 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-2">ISV Presence · Jag är ISV-leverantör</p>
                 <h3 className="text-xl font-bold text-foreground mb-2">Hjälp kunden att upptäcka och förstå era lösningar</h3>
-                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central, Finance &amp; Supply Chain, Sales, Customer Service eller någon annan Dynamics&nbsp;365-produkt kan samtidigt behöva lagerhantering, budgetering, e-handel, dokumenthantering eller branschtillägg. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
+                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central, Finance &amp; Supply Chain, Sales, Customer Service eller någon annan Dynamics&nbsp;365-produkt kan även behöva extra funktionalitet i form av tilläggsapplikationer eller mer avancerade branschlösningar. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
                 <ul className="space-y-1.5 text-sm text-muted-foreground mb-3">
                   {["Leverantörspresentation och egna produktsidor per produkt", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
                 </ul>
@@ -417,7 +416,7 @@ const Partnerprogram = () => {
                 <li>Profilen publiceras med märket Verifierad partner.</li>
                 <li>Löpande profilstatistik och kvartalsvis genomgång.</li>
               </ol>
-              <div className="flex flex-wrap gap-3"><PartnerOrderDialog /><PartnerOfferDownload /></div>
+              <div className="flex flex-wrap items-center gap-3"><PartnerOrderDialog /><PartnerOfferDownload /></div>
             </div>
           </div>
           <p className="mt-8 max-w-3xl text-sm text-muted-foreground">Kommersiella avtal påverkar aldrig vilka lösningar eller partners som bedöms relevanta för köparen. Verifiering beslutas manuellt av d365.se-redaktionen, aldrig automatiskt genom betalning.</p>

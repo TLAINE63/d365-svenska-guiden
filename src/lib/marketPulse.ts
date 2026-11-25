@@ -27,9 +27,12 @@ const INDUSTRY_SV: Record<string, string> = {
   "Food & Beverages": "Livsmedel",
 };
 
+// Branscher som inte visas publikt (Thomas 2026-11-25): IT, marknadsföring och utbildning är sällan Dynamics-köpare.
+export const HIDDEN_INDUSTRIES = new Set(["IT och tjänster", "Marknadsföring", "Utbildning"]);
+
 export function mapMarketPulse(raw: any): MarketPulse | null {
   if (!raw || typeof raw.companies !== "number") return null;
-  const industries = Array.from(new Set(((raw.industries || []) as string[]).map((i) => INDUSTRY_SV[i]).filter(Boolean))).slice(0, 5);
+  const industries = Array.from(new Set(((raw.industries || []) as string[]).map((i) => INDUSTRY_SV[i]).filter((i) => i && !HIDDEN_INDUSTRIES.has(i)))).slice(0, 5);
   return {
     periodStart: String(raw.period_start),
     periodEnd: String(raw.period_end),

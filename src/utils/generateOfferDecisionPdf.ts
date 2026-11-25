@@ -158,7 +158,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   // ---- Partner story: six reasons, presence in the buying journey, visibility questions
   if (!isv) {
     newPage("Varför Premium");
-    heading("Sex anledningar att välja Premium");
+    heading("6 anledningar att välja Premium");
     const reasonImgs = await Promise.all(PREMIUM_REASONS.map((r) => toDataUrl(r.image)));
     const cw = (W - 6) / 2, imgH = 26;
     for (let row = 0; row < 3; row++) {
