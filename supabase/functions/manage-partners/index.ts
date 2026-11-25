@@ -248,6 +248,27 @@ serve(async (req: Request): Promise<Response> => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Re-check the user's current role on every request so revoked editors
+    // lose access immediately instead of when their session expires.
+    const tokenSub = verification.payload?.sub;
+    const tokenRole = verification.payload?.role;
+    if (typeof tokenSub === "string" && tokenSub) {
+      const { data: liveRoles, error: liveRolesError } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", tokenSub);
+      const names = (liveRoles ?? []).map((r: { role: string }) => r.role);
+      const stillAllowed = !liveRolesError && (
+        tokenRole === "admin" ? names.includes("admin") : (names.includes("editor") || names.includes("admin"))
+      );
+      if (!stillAllowed) {
+        return new Response(
+          JSON.stringify({ error: "Behörigheten har tagits bort. Logga in igen." }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    }
+
     switch (action) {
       case "get-one": {
         // Get a single partner by ID
