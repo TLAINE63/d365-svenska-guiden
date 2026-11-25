@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { Eye, MousePointerClick, ExternalLink, Globe, Users, BarChart3, Loader2 } from "lucide-react";
+import { Eye, MousePointerClick, ExternalLink, Globe, Users, ListFilter, BarChart3, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import MarketInterestCharts from "@/components/partner/MarketInterestCharts";
 
@@ -8,6 +8,7 @@ interface Own {
   profileVisits30d: number; profileVisits90d: number;
   cardClicks30d: number; cardClicks90d: number;
   websiteClicks30d: number; websiteClicks90d: number;
+  exposures30d?: number; exposures90d?: number;
 }
 interface Week { week: string; profileVisits: number; cardClicks: number; websiteClicks: number }
 interface SiteWin { pageViews: number; uniqueVisitors: number }
@@ -113,10 +114,11 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
       <section>
         <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold"><BarChart3 className="h-5 w-5 text-accent" /> Era siffror</h3>
         {own ? (
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Kpi icon={<Eye className="h-4 w-4" />} label="Profilbesök" v30={own.profileVisits30d} v90={own.profileVisits90d} />
             <Kpi icon={<MousePointerClick className="h-4 w-4" />} label="Klick på partnerkort" v30={own.cardClicks30d} v90={own.cardClicks90d} />
             <Kpi icon={<ExternalLink className="h-4 w-4" />} label="Klick till er webbplats" v30={own.websiteClicks30d} v90={own.websiteClicks90d} />
+            <Kpi icon={<ListFilter className="h-4 w-4" />} label="Med i partnerfiltrering och jämförelser" v30={own.exposures30d ?? 0} v90={own.exposures90d ?? 0} />
           </div>
         ) : (
           <p className="rounded-2xl border border-border bg-card p-5 text-sm text-muted-foreground">

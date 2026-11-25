@@ -458,6 +458,9 @@ serve(async (req: Request): Promise<Response> => {
         .select("view_type, viewed_at").eq("partner_slug", partner.slug).gte("viewed_at", since90));
       const clicks = partner.name ? await fetchAll(() => supabase.from("partner_clicks")
         .select("clicked_at").eq("partner_name", partner.name).gte("clicked_at", since90)) : [];
+      const exposures = await fetchAll(() => supabase.from("partner_filter_exposures")
+        .select("viewed_at").eq("partner_slug", partner.slug).gte("viewed_at", since90));
+      const ex30 = exposures.filter((e) => e.viewed_at >= since30).length;
       const weeks: { week: string; profileVisits: number; cardClicks: number; websiteClicks: number }[] = [];
       for (let i = 12; i >= 0; i--) {
         const d = new Date(now - i * 7 * 86400000);
@@ -480,6 +483,7 @@ serve(async (req: Request): Promise<Response> => {
           profileVisits30d: pv30, profileVisits90d: pv90,
           cardClicks30d: cc30, cardClicks90d: cc90,
           websiteClicks30d: wc30, websiteClicks90d: clicks.length,
+          exposures30d: ex30, exposures90d: exposures.length,
         },
         weeks,
       }), { status: 200, headers: h });
