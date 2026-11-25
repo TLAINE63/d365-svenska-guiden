@@ -9,7 +9,7 @@ export const FINDERS_FEE_VARIANTS = [
 export const FINDERS_FEE_RATE = 0.025;
 export const FINDERS_FEE_RATE_GRUND = 0.05;
 export const FINDERS_FEE_CAP = null;
-export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för avtal som tecknas inom 12 månader från mötet. Inget maxbelopp. För Grundprofil räknas betald mötesavgift av till 100 % och avräkningen blir aldrig negativ; för Premium är mötet kostnadsfritt och avräkning är inte aktuell. Gäller nya projekt, partnerbyte och expertförmedling.';
+export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp. För Grundprofil räknas betald mötesavgift av till 100 % och avräkningen blir aldrig negativ; för Premium är mötet kostnadsfritt och avräkning är inte aktuell. Gäller nya projekt, partnerbyte och expertförmedling.';
 export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Mötesavgift ${(v.premium as number).toLocaleString('sv-SE')} kr (Premium) / ${v.grund.toLocaleString('sv-SE')} kr (Grundprofil).`).join('\n\n');
 export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Chain Management', crm: 'CRM (Sales, Customer Service, Field Service, Customer Insights och Contact Center)' };
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
@@ -65,7 +65,7 @@ Tidsgränser:
 • Reklamation av kvalificering: 5 arbetsdagar efter mötet.
 • Vunnen affär rapporteras inom 14 dagar efter avtal med kund.
 • Fakturerat konsult- och projektvärde rapporteras kvartalsvis under de första 12 månaderna.
-• Tidsfönster: 12 månader från mötet. För expertförmedling: 12 månader från intervjun.
+• Tidsfönster: kundavtal ska tecknas inom 6 månader från mötet. För expertförmedling: inom 6 månader från intervjun.
 • Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar.
 
 ${AGREEMENT_DURATION_TERMS}

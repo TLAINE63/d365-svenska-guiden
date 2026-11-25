@@ -71,3 +71,14 @@ describe('partnerbeställning', () => {
     expect(termsDisplayText(null)).toBe('Abonnemangsvillkor accepterade: Nej\nBehörighet att företräda företaget: Nej');
   });
 });
+
+import { FINDERS_FEE_AFFAR as AFFAR6, MEDIATION_TERMS as MED6 } from "@/lib/partnerOrder";
+import { describe as d6, it as i6, expect as e6 } from "vitest";
+d6("tidsfönster affärsförmedling", () => {
+  i6("kundavtal inom 6 månader från möte, ersättning 12 månader från kundavtal", () => {
+    e6(AFFAR6).toContain("inom 6 månader från mötet");
+    e6(AFFAR6).toContain("12 månaderna från kundavtalet");
+    e6(MED6).toContain("inom 6 månader från intervjun");
+    e6(MED6).not.toContain("12 månader från mötet");
+  });
+});

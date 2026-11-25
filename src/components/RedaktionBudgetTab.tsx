@@ -245,9 +245,9 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <li>Reklamation av kvalificering efter mötet: 5 arbetsdagar</li>
             <li>Offertregeln, offert som flyttar mötet till lägre band: 60 dagar efter mötet</li>
             <li>Partnern rapporterar vunnen affär: 14 dagar efter avtal med kund</li>
-            <li>Tidsfönster, nya projekt: 9 månader från mötet</li>
-            <li>Tidsfönster, partnerbyte: 9 månader från mötet</li>
-            <li>Tidsfönster, expertförmedling: 6 månader från förfrågan</li>
+            <li>Tidsfönster, nya projekt: 6 månader från mötet till kundavtal</li>
+            <li>Tidsfönster, partnerbyte: 6 månader från mötet till kundavtal</li>
+            <li>Tidsfönster, expertförmedling: 6 månader från intervjun till kundavtal</li>
             <li>Befintlig kundrelation, partnern visar aktiv dialog inom: 5 arbetsdagar</li>
           </ul>
         </details>

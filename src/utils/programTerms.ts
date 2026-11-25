@@ -10,13 +10,13 @@ export const TIDSGRANSER = [
   "Reklamation av kvalificering: 5 arbetsdagar efter mötet.",
   "Vunnen affär rapporteras inom 14 dagar efter avtal med kund.",
   "Fakturerat konsult- och projektvärde rapporteras kvartalsvis under de första 12 månaderna.",
-  "Tidsfönster: 12 månader från mötet. För expertförmedling: 12 månader från intervjun.",
+  "Tidsfönster: kundavtal ska tecknas inom 6 månader från mötet. För expertförmedling: inom 6 månader från intervjun.",
   "Befintlig kundrelation: partnern visar aktiv dialog inom 5 arbetsdagar.",
 ];
 
 export type TermsArea = "partner" | "isv" | "commission";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
-export const TERMS_DATE = "2026-11-24";
+export const TERMS_DATE = "2026-11-25";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
