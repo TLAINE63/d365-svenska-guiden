@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MARKET_PULSE } from "@/data/marketPulse";
 import { mapMarketPulse } from "@/lib/marketPulse";
 import { supabase } from "@/integrations/supabase/client";
+import MarketInterestCharts from "@/components/partner/MarketInterestCharts";
 
 const fmt = (n: number) => n.toLocaleString("sv-SE");
 
@@ -51,11 +52,12 @@ export default function MarketPulseSection() {
             <p className="text-sm">{m.industries.join(", ")}</p>
           </div>
         </div>
+        <div className="mb-6"><MarketInterestCharts /></div>
         <p className="max-w-3xl lg:max-w-none font-medium">
           Era grunduppgifter kan redan visas när köpare filtrerar. Med en verifierad profil ser köparen även referenser, expertområden och kontaktvägar.
         </p>
         <p className="mt-3 text-xs text-muted-foreground">
-          Period {m.periodStart} till {m.periodEnd}. Källor: d365.se besöksstatistik, Snitcher (företag identifierade på organisationsnivå) och Google Search Console. Vi säljer inga besöksuppgifter och visar aldrig enskilda företag.
+          Period {m.periodStart} till {m.periodEnd}. Källor: d365.se besöksstatistik (andelar av sidvisningar per område, verktyg räknas i sidvisningar), Snitcher (företag identifierade på organisationsnivå) och Google Search Console. Vi säljer inga besöksuppgifter och visar aldrig enskilda företag.
         </p>
       </div>
     </section>

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Globe, Users, Eye, Info, TrendingUp, Award, ClipboardCheck, FileText, Building2, MousePointerClick, BarChart3 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import MarketInterestCharts from "@/components/partner/MarketInterestCharts";
 
 interface Section { id: string; title: string; body: string; }
 interface Config {
@@ -187,6 +188,13 @@ export default function PartnerStats() {
               </Card>
             );
           })()}
+
+          {data && (
+            <section className="space-y-3">
+              <h2 className="text-xl font-semibold">Vad intresserar köparna? Senaste 90 dagarna</h2>
+              <MarketInterestCharts />
+            </section>
+          )}
 
           {loading && <p className="text-sm text-muted-foreground">Laddar statistik…</p>}
           {needsCode && !loading && (
