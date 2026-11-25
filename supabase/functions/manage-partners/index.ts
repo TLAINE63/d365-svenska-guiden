@@ -252,6 +252,12 @@ serve(async (req: Request): Promise<Response> => {
     // lose access immediately instead of when their session expires.
     const tokenSub = verification.payload?.sub;
     const tokenRole = verification.payload?.role;
+    if (tokenRole !== "admin" && !(typeof tokenSub === "string" && tokenSub)) {
+      return new Response(
+        JSON.stringify({ error: "Logga in igen." }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
     if (typeof tokenSub === "string" && tokenSub) {
       const { data: liveRoles, error: liveRolesError } = await supabase
         .from("user_roles")

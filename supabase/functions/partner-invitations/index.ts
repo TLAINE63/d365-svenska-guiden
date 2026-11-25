@@ -2432,7 +2432,24 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml, siteStatsHtml, snitcherCompaniesHtml } = body;
+      // Only admins may send sales pitches; caller-supplied HTML fragments are never trusted.
+      if (verification.role !== "admin") {
+        return new Response(
+          JSON.stringify({ error: "Endast admin kan skicka säljmejl" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody } = body;
+      const previewSuffixHtml: string | undefined = undefined;
+      const siteStatsHtml: unknown = undefined;
+      const snitcherCompaniesHtml: unknown = undefined;
+      if ((overrideSubject !== undefined && (typeof overrideSubject !== "string" || overrideSubject.length > 200)) ||
+          (overrideBody !== undefined && (typeof overrideBody !== "string" || overrideBody.length > 10000))) {
+        return new Response(
+          JSON.stringify({ error: "Ämne eller meddelande är för långt" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0 || partnerList.length > 300) {
         return new Response(
