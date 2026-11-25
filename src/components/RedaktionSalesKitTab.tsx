@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 8 000 kr/år exkl. moms (spara 4 000 kr mot 12 × 1 000 kr/mån). Premium och affärsförmedling kan tecknas var för sig. Affärsförmedling: mötesavgift per kvalificerat möte efter produktområde, Business Central 1 000 kr (Premium) / 3 000 kr (Grundprofil), CRM 1 500 / 4 000 kr, Finance, SCM, Project Operations, Commerce och Human Resources 2 000 / 5 000 kr. Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100 000 kr, med betald mötesavgift avräknad.",
+      "Premium: 1 000 kr/mån eller 8 000 kr/år för ett produktområde, 1 300 kr/mån eller 10 500 kr/år för två och 1 500 kr/mån eller 12 000 kr/år för tre, exkl. moms (årspris sparar 33 %). Premium och affärsförmedling kan tecknas var för sig. Affärsförmedling, samma för alla produktområden, nya projekt, partnerbyte och expertförmedling: kvalificerat kundmöte 0 kr för Premium och 3 500 kr för Grundprofil. Vid vunnen affär 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde, utan maxbelopp; Grundprofilens mötesavgift avräknas till 100 %.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
