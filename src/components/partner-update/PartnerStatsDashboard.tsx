@@ -11,6 +11,12 @@ interface Own {
   exposures30d?: number; exposures90d?: number;
 }
 interface Week { week: string; profileVisits: number; cardClicks: number; websiteClicks: number }
+interface Bc {
+  ownExposures30d: number; ownExposures90d: number;
+  ownVisits30d: number; ownVisits90d: number;
+  siteExposures90d: number; siteCardClicks90d: number;
+  sitePageViews90d: number; siteUniqueVisitors90d: number;
+}
 interface SiteWin { pageViews: number; uniqueVisitors: number }
 interface Site {
   totals: { d30: SiteWin; d90: SiteWin };
@@ -56,6 +62,7 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
   const [own, setOwn] = useState<Own | null>(null);
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [site, setSite] = useState<Site | null>(null);
+  const [bc, setBc] = useState<Bc | null>(null);
   const [loading, setLoading] = useState(true);
   const [ownError, setOwnError] = useState(false);
 
@@ -68,7 +75,7 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
     const siteReq = supabase.functions.invoke("partner-public-stats", { body: {} }).then(({ data }) => data).catch(() => null);
     Promise.all([ownReq, siteReq]).then(([o, s]) => {
       if (!alive) return;
-      if (o?.own) { setOwn(o.own); setWeeks(o.weeks || []); } else setOwnError(true);
+      if (o?.own) { setOwn(o.own); setWeeks(o.weeks || []); setBc(o.bc || null); } else setOwnError(true);
       if (s?.totals) setSite(s);
       setLoading(false);
     });
@@ -171,6 +178,45 @@ export default function PartnerStatsDashboard({ token }: { token: string }) {
             {site.salesSummary.partnerClicks > 0 && (
               <ShareBar label="Klick till partnerwebbplatser" own={own.websiteClicks90d} total={site.salesSummary.partnerClicks} />
             )}
+          </div>
+        </section>
+      )}
+
+      {/* Business Central */}
+      {bc && (
+        <section className="space-y-5">
+          <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+            <div className="bg-gradient-to-r from-accent to-primary p-6 text-primary-foreground sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] opacity-80"><span className="whitespace-nowrap">Business Central</span></p>
+              <h3 className="mt-1 text-xl font-bold sm:text-2xl">Er synlighet inom <span className="whitespace-nowrap">Business Central</span></h3>
+              <p className="mt-2 max-w-2xl text-sm opacity-90">
+                Så många köpare som söker <span className="whitespace-nowrap">Business Central</span> just nu, och hur ofta ni syns i just de filtreringarna.
+              </p>
+              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                {[
+                  ["Sidvisningar BC-sidor 90 d", bc.sitePageViews90d],
+                  ["Besökare BC-sidor 90 d", bc.siteUniqueVisitors90d],
+                  ["BC-filtreringar 90 d", bc.siteExposures90d],
+                  ["Kortklick från BC-sidor 90 d", bc.siteCardClicks90d],
+                ].map(([l, v]) => (
+                  <div key={l as string} className="rounded-2xl bg-background/10 p-4 backdrop-blur">
+                    <div className="text-2xl font-bold tabular-nums">{fmt(v as number)}</div>
+                    <div className="mt-1 text-xs opacity-80">{l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="p-6 sm:p-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Kpi icon={<ListFilter className="h-4 w-4" />} label="Med i BC-filtreringar" v30={bc.ownExposures30d} v90={bc.ownExposures90d} />
+                <Kpi icon={<Eye className="h-4 w-4" />} label="Klick till er profil från BC-sidor" v30={bc.ownVisits30d} v90={bc.ownVisits90d} />
+              </div>
+              {bc.siteExposures90d > 0 && (
+                <div className="mt-6">
+                  <ShareBar label="Er andel av alla BC-filtreringar (90 d)" own={bc.ownExposures90d} total={bc.siteExposures90d} />
+                </div>
+              )}
+            </div>
           </div>
         </section>
       )}

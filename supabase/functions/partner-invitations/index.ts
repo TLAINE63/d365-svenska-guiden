@@ -437,7 +437,7 @@ serve(async (req: Request): Promise<Response> => {
         return new Response(JSON.stringify({ error: "Ingen partnerprofil kopplad" }), { status: 404, headers: h });
       }
       const { data: partner } = await supabase
-        .from("partners").select("slug, name").eq("id", inv.partner_id).maybeSingle();
+        .from("partners").select("slug, name, product_filters").eq("id", inv.partner_id).maybeSingle();
       if (!partner?.slug) {
         return new Response(JSON.stringify({ error: "Partner saknas" }), { status: 404, headers: h });
       }
@@ -477,6 +477,46 @@ serve(async (req: Request): Promise<Response> => {
         else if (v.view_type === "card_click") { cc90++; if (recent) cc30++; bucket(v.viewed_at).cardClicks++; }
       }
       for (const c of clicks) { if (c.clicked_at >= since30) wc30++; bucket(c.clicked_at).websiteClicks++; }
+
+      // Business Central-specific stats, only for partners with a BC profile.
+      const isBcPartner = !!(partner.product_filters && (partner.product_filters as any).bc);
+      let bc: any = null;
+      if (isBcPartner) {
+        const isBcProduct = (p: unknown) => {
+          const v = String(p || "").toLowerCase();
+          return v === "bc" || v.includes("business central");
+        };
+        const bcExposuresAll = await fetchAll(() => supabase.from("partner_filter_exposures")
+          .select("partner_slug, filter_context, viewed_at").gte("viewed_at", since90));
+        const bcExposures = bcExposuresAll.filter((e) => isBcProduct(e.filter_context?.product));
+        const ownBcExposures = bcExposures.filter((e) => e.partner_slug === partner.slug);
+        const bcVisitsAll = await fetchAll(() => supabase.from("partner_profile_views")
+          .select("partner_slug, page_source, viewed_at")
+          .eq("view_type", "card_click").gte("viewed_at", since90));
+        const isBcSource = (s: unknown) => String(s || "").toLowerCase().includes("business-central")
+          || String(s || "").toLowerCase().includes("businesscentral");
+        const bcVisits = bcVisitsAll.filter((v) => isBcSource(v.page_source));
+        const ownBcVisits = bcVisits.filter((v) => v.partner_slug === partner.slug);
+        const bcPageViews = await fetchAll(() => supabase.from("visitor_analytics")
+          .select("page_path, session_id, visited_at").gte("visited_at", since90));
+        const bcPages = bcPageViews.filter((v) => {
+          const p = String(v.page_path || "").toLowerCase();
+          return p.includes("business-central") || p.includes("businesscentral") || p.includes("nav-till-business-central");
+        });
+        const bcUnique = new Set(bcPages.map((v) => v.session_id).filter(Boolean)).size;
+        const in30 = (iso: string) => iso >= since30;
+        bc = {
+          ownExposures30d: ownBcExposures.filter((e) => in30(e.viewed_at)).length,
+          ownExposures90d: ownBcExposures.length,
+          ownVisits30d: ownBcVisits.filter((v) => in30(v.viewed_at)).length,
+          ownVisits90d: ownBcVisits.length,
+          siteExposures90d: bcExposures.length,
+          siteCardClicks90d: bcVisits.length,
+          sitePageViews90d: bcPages.length,
+          siteUniqueVisitors90d: bcUnique,
+        };
+      }
+
       return new Response(JSON.stringify({
         partnerName: partner.name,
         own: {
@@ -486,6 +526,7 @@ serve(async (req: Request): Promise<Response> => {
           exposures30d: ex30, exposures90d: exposures.length,
         },
         weeks,
+        bc,
       }), { status: 200, headers: h });
     }
 
