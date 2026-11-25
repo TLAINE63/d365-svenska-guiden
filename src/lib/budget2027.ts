@@ -267,10 +267,10 @@ export const EXPERT_FUNNEL = [
   { key: "expertShort", scope: "short", label: "Upp till 6 månader eller under halvtid" },
   { key: "expertLong", scope: "long", label: "Längre eller minst halvtid" },
 ] as const;
-// Partnerbytesarvode (Thomas 2026-11-17): mötesavgift per affärsstorlek och nivå, ingen provision.
+// Partnerbyte följer förmedlingsavtalet: mötesavgift (Grundprofil) plus 2,5 % / 5 % vid affär, mötesavgiften avräknas.
 export const SWITCH_FUNNEL = [
-  { key: "switchStd", label: "Partnerbyte: BC, CRM, Power Platform", band: "std" },
-  { key: "switchFscm", label: "Partnerbyte: Finance & SCM", band: "fscm" },
+  { key: "switchStd", label: "Partnerbyte: BC, CRM, Power Platform", band: "std", value: 400000 },
+  { key: "switchFscm", label: "Partnerbyte: Finance & SCM", band: "fscm", value: 3000000 },
 ] as const;
 export const ISV_FUNNEL = [
   { key: "isvStd", label: "ISV: licenser och abonnemang, första 12 mån", rate: ISV_FEES.licenseRate, value: 200000 },
@@ -305,11 +305,16 @@ export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, 
   const deals = n(r.deals) * fee;
   return { fee, deals, wins: 0, total: deals };
 }
-/** Partnerbyte debiteras bara per bokat möte; affären ger ingen provision i budgeten. */
-export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing()) {
+/** Partnerbyte: mötesavgift plus 2,5 % (Premium) / 5 % (Grundprofil) av snittvärdet per vunnen affär, betald mötesavgift avräknas. */
+export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing(), values: Record<string, number> = {}) {
   const fee = pricing.switchMeeting[s.band][tier];
+  const value = values[s.key] ?? s.value;
+  const rate = (tier === "premium" ? pricing.bands.small.percent : pricing.bands.small.basicPercent) / 100;
+  const commission = Math.round(value * rate);
+  const perWin = Math.max(0, commission - fee);
   const meetings = n(r.meetings) * fee;
-  return { fee, meetings, total: meetings };
+  const wins = n(r.wins) * perWin;
+  return { fee, value, commission, perWin, meetings, wins, total: meetings + wins };
 }
 export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   let partner = 0, expert = 0, isv = 0, partnerSwitch = 0;
@@ -317,7 +322,7 @@ export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}
   for (const p of FUNNEL_DEAL_TYPES) for (const t of ["basic", "premium"] as const) partner += dealFunnelRow(p, t, partnerRows[`${p.key}_${t}`], values, pricing).total;
   for (const e of EXPERT_FUNNEL) for (const t of ["basic", "premium"] as const) expert += expertFunnelRow(e, t, f[`${e.key}_${t}`], pricing, values).total;
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
-  for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing).total;
+  for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing, values).total;
   return { partner, expert, isv, partnerSwitch, total: partner + expert + isv + partnerSwitch };
 }
 

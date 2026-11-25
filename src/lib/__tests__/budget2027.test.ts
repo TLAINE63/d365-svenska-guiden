@@ -139,3 +139,12 @@ describe("expertförmedling i budget", () => {
     expect(efr(EF[0], "basic", { assignments: 2 }, undefined, { successExpert: 300000 }).total).toBe(30000);
   });
 });
+
+describe("partnerbyte i budget", () => {
+  it("Premium: 0 kr möte + 2,5 % av 400 000 kr per affär", () => {
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2, wins: 1 }).total).toBe(10000);
+  });
+  it("Grundprofil: 3 500 kr möte, 5 % med full avräkning", () => {
+    expect(switchFunnelRow(SWITCH_FUNNEL[0], "basic", { meetings: 1, wins: 1 }).total).toBe(20000);
+  });
+});

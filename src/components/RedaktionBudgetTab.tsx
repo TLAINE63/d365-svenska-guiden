@@ -607,19 +607,21 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">Partnerbyten</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Mötesavgift<br />kr per möte</th><th className={th}>Antal möten</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Typ av affär</th><th className={th}>Mötesavgift<br />kr per möte</th><th className={th}>Antal möten</th><th className={th}>Antal affärer<br />(avgift vid affär)</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{SWITCH_FUNNEL.map((s) => <Fragment key={s.key}>
-              <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{s.label}</th><td className="border-l bg-muted" /></tr>
-              {(["basic", "premium"] as const).map((tier) => { const k = `${s.key}_${tier}`; const r = f[k] ?? {}; const x = switchFunnelRow(s, tier, r, pricing); return (
+              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{s.label}
+                <span className="ml-3 text-xs font-normal text-muted-foreground">Snittvärde per affär (12 mån) <BudgetNumberInput aria-label={`Snittvärde per affär: ${s.label}`} min={0} step={10000} className="inline-flex h-7 w-28 text-right" value={values[s.key] ?? s.value} placeholder="0" onValueChange={(value) => setValue(s.key, value)} /> kr</span></th><td className="border-l bg-muted" /></tr>
+              {(["basic", "premium"] as const).map((tier) => { const k = `${s.key}_${tier}`; const r = f[k] ?? {}; const x = switchFunnelRow(s, tier, r, pricing, values); return (
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
                   <td className="px-2">{field(`Möten ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
+                  <td className="px-2" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr, mötesavgiften avräknas`}>{field(`Affärer ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma partnerbyten</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.partnerSwitch)} kr</td></tr></tfoot>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma partnerbyten</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.partnerSwitch)} kr</td></tr></tfoot>
           </table>
         </div>
         <div className="flex justify-between gap-4 [&>span:last-child]:whitespace-nowrap border-t pt-3 text-base font-semibold"><span>Affärsförmedling totalt (funnel)</span><span>{fmt(ft.total)} kr</span></div>

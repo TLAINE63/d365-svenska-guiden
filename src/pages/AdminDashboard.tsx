@@ -4514,7 +4514,7 @@ Thomas`,
  <tr><td className="py-1 pr-2">Avräkning av mötesavgift</td><td>Ej aktuellt / 100 %</td></tr>
  </tbody>
  </table>
- <p className="mt-2">Prislista 2027. En variant för alla produktområden, nya projekt, partnerbyte och expertförmedling. Inget maxbelopp. Förmedlingen gäller 12 månader och ersättningsperioden för löpande uppdrag är 12 månader. Premium och affärsförmedling tecknas var för sig. Alla belopp exkl. moms.</p>
+ <p className="mt-2">Prislista 2027. En variant för alla produktområden, nya projekt, partnerbyte och expertförmedling. Inget maxbelopp. Kundavtalet ska tecknas inom 6 månader från mötet (vid expertförmedling från intervjun) och avgiften beräknas under 12 månader från kundavtalet. Premium och affärsförmedling tecknas var för sig. Alla belopp exkl. moms.</p>
  </details>
  </div>
   <div>

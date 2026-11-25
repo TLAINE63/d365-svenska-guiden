@@ -177,16 +177,16 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
           </div>
           <div className="rounded-lg border p-6">
             <p className="font-semibold">Möte → Affär → Affärsförmedling</p>
-            <p className="mt-1 text-sm text-muted-foreground">Tecknas separat från Premium. Mötesavgift per kvalificerat möte, 2,5 % vid affär där betald mötesavgift räknas av (exkl. moms):</p>
+            <p className="mt-1 text-sm text-muted-foreground">Tecknas separat från Premium. Samma villkor för alla produktområden (exkl. moms):</p>
             <table className="mt-2 w-full text-xs">
-              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1">Produktområde</th><th className="text-right font-normal">Möte Premium / Grundprofil</th></tr></thead>
+              <thead><tr className="text-muted-foreground"><th className="text-left font-normal py-1">Villkor</th><th className="text-right font-normal">Premium / Grundprofil</th></tr></thead>
               <tbody>
-                <tr className="border-t"><td className="py-1">Band 1: Business Central, fristående Power Platform och Copilot</td><td className="text-right whitespace-nowrap">1{NB}000 / 3{NB}000 kr</td></tr>
-                <tr className="border-t"><td className="py-1">Band 2: CRM</td><td className="text-right whitespace-nowrap">1{NB}500 / 4{NB}000 kr</td></tr>
-                <tr className="border-t"><td className="py-1">Band 3: Finance, SCM, Project Operations, Commerce, Human Resources</td><td className="text-right whitespace-nowrap">2{NB}000 / 5{NB}000 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Kvalificerat kundmöte</td><td className="text-right whitespace-nowrap">0 / 3{NB}500 kr</td></tr>
+                <tr className="border-t"><td className="py-1">Vid vunnen affär</td><td className="text-right whitespace-nowrap">2,5 % / 5 %</td></tr>
+                <tr className="border-t"><td className="py-1">Avräkning av mötesavgift</td><td className="text-right whitespace-nowrap">Ej aktuellt / 100 %</td></tr>
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-muted-foreground">Samma belopp för nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Vid affär 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna, högst 100{NB}000 kr per affär.</p>
+            <p className="mt-2 text-xs text-muted-foreground">Gäller nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Kundavtalet ska tecknas inom 6 månader från mötet; avgiften beräknas på fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, utan maxbelopp.</p>
           </div>
           <p className="md:col-span-2 text-xs text-muted-foreground">Verifierad är en kontroll, Premium är ett erbjudande. Matchning styrs av kundens behov, inte betalnivå. Vi lovar inte ett visst antal leads.</p>
         </section>

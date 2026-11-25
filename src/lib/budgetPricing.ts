@@ -12,7 +12,7 @@ export interface BudgetPricing {
   smallLimit: number;
   largeLimit: number;
   bands: { small: DealBand; medium: DealBand; large: DealBand };
-  /** Partnerbytesarvode: mötesavgift per affärsstorlek och nivå, ingen provision. */
+  /** Partnerbyte: mötesavgift per nivå; avgiften vid affär följer bands.small. */
   switchMeeting: { std: SwitchMeetingFee; fscm: SwitchMeetingFee };
   /** Expertförmedling: fast avgift per tillsatt uppdrag (utkast 2026-11-17). */
   expertFee: { short: SwitchMeetingFee; long: SwitchMeetingFee };
