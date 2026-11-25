@@ -568,19 +568,20 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
           <table className="w-full min-w-[860px] text-sm">
             <caption className="pb-2 text-left font-semibold text-foreground">CV- och expertförsäljning</caption>
             <thead className="text-xs text-muted-foreground"><tr>
-              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Avgift<br />kr per uppdrag</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
+              <th className="py-2 pr-3 text-left font-normal">Uppdragstyp</th><th className={th}>Intervjuavgift<br />kr</th><th className={th}>Vid affär<br />kr per uppdrag</th><th className={th}>Antal tillsatta<br />uppdrag</th><th className="border-l bg-muted px-3 text-right font-normal">Totalt kr/år</th>
             </tr></thead>
             <tbody>{EXPERT_FUNNEL.map((e) => <Fragment key={e.key}>
-              <tr className="border-t bg-muted/50"><th colSpan={3} className="py-2 pr-3 text-left font-semibold">{e.label}</th><td className="border-l bg-muted" /></tr>
-              {(["basic", "premium"] as const).map((tier) => { const k = `${e.key}_${tier}`; const r = f[k] ?? {}; const x = expertFunnelRow(e, tier, r, pricing); return (
+              <tr className="border-t bg-muted/50"><th colSpan={4} className="py-2 pr-3 text-left font-semibold">{e.label}</th><td className="border-l bg-muted" /></tr>
+              {(["basic", "premium"] as const).map((tier) => { const k = `${e.key}_${tier}`; const r = f[k] ?? {}; const x = expertFunnelRow(e, tier, r, pricing, values); return (
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
+                  <td className="px-2 text-right whitespace-nowrap" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr, intervjuavgiften avräknas`}>{fmt(x.perAssignment - x.fee)} kr</td>
                   <td className="px-2">{field(`Uppdrag ${e.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>
-            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={3} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
+            <tfoot className="border-t-2 font-semibold"><tr><th colSpan={4} className="py-2 text-left">Delsumma expertförsäljning</th><td className="border-l bg-muted px-3 text-right">{fmt(ft.expert)} kr</td></tr></tfoot>
           </table>
         </div>
 

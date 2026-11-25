@@ -290,9 +290,14 @@ export function partnerFunnelRow(product: (typeof FUNNEL_PRODUCTS)[number], tier
 }
 /** Billable hours per full-time month. */
 export const HOURS_PER_MONTH = 165;
-export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing()) {
+export function expertFunnelRow(e: (typeof EXPERT_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing(), values: Record<string, number> = {}) {
+  // Same terms as other brokerage: interview fee (Grundprofil) plus 2,5 % / 5 % of assignment value, fee credited in full.
   const fee = pricing.expertFee[e.scope][tier];
-  return { fee, total: n(r.assignments) * fee };
+  const value = successValue("successExpert", values);
+  const rate = (tier === "premium" ? pricing.bands.small.percent : pricing.bands.small.basicPercent) / 100;
+  const commission = Math.round(value * rate);
+  const perAssignment = fee + Math.max(0, commission - fee);
+  return { fee, commission, value, perAssignment, total: n(r.assignments) * perAssignment };
 }
 export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, values: Record<string, number> = {}, pricing = budgetPricing()) {
   const rate = i.key === "isvStd" ? pricing.isvLicensePercent : pricing.isvConsultPercent;
@@ -310,7 +315,7 @@ export function funnelTotals(f: Funnel = {}, values: Record<string, number> = {}
   let partner = 0, expert = 0, isv = 0, partnerSwitch = 0;
   const partnerRows = migratePartnerFunnel(f, values, pricing);
   for (const p of FUNNEL_DEAL_TYPES) for (const t of ["basic", "premium"] as const) partner += dealFunnelRow(p, t, partnerRows[`${p.key}_${t}`], values, pricing).total;
-  for (const e of EXPERT_FUNNEL) for (const t of ["basic", "premium"] as const) expert += expertFunnelRow(e, t, f[`${e.key}_${t}`], pricing).total;
+  for (const e of EXPERT_FUNNEL) for (const t of ["basic", "premium"] as const) expert += expertFunnelRow(e, t, f[`${e.key}_${t}`], pricing, values).total;
   for (const i of ISV_FUNNEL) isv += isvFunnelRow(i, f[i.key], values, pricing).total;
   for (const s of SWITCH_FUNNEL) for (const t of ["basic", "premium"] as const) partnerSwitch += switchFunnelRow(s, t, f[`${s.key}_${t}`], pricing).total;
   return { partner, expert, isv, partnerSwitch, total: partner + expert + isv + partnerSwitch };

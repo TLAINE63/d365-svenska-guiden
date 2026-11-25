@@ -69,10 +69,10 @@ describe("Budget 2027 editable assumptions", () => {
     expect(s.isv.estimate).toBe(3500);
   });
   it("expert fee follows the single meeting fee regardless of scope", () => {
-    expect(expertFunnelRow(EXPERT_FUNNEL[0], "premium", { assignments: 2 }).total).toBe(0);
-    expect(expertFunnelRow(EXPERT_FUNNEL[0], "basic", { assignments: 1 }).total).toBe(3500);
-    expect(expertFunnelRow(EXPERT_FUNNEL[1], "premium", { assignments: 1 }).total).toBe(0);
-    expect(expertFunnelRow(EXPERT_FUNNEL[1], "basic", { assignments: 1 }).total).toBe(3500);
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], "premium", { assignments: 2 }).total).toBe(15000);
+    expect(expertFunnelRow(EXPERT_FUNNEL[0], "basic", { assignments: 1 }).total).toBe(15000);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], "premium", { assignments: 1 }).total).toBe(7500);
+    expect(expertFunnelRow(EXPERT_FUNNEL[1], "basic", { assignments: 1 }).total).toBe(15000);
   });
   it("partner switch has the same meeting fee regardless of product", () => {
     expect(switchFunnelRow(SWITCH_FUNNEL[0], "premium", { meetings: 2 }).total).toBe(0);
@@ -127,5 +127,15 @@ describe("Partner detail uses deal bands", () => {
   it("CRM Premium uses variant 1 including saved medium volumes", () => {
     const r = { ...base, forecast: "month" as const, deals: { medium: { meetings: 2, wins: 1 } } };
     expect(forecastRevenue(r, DEFAULT_BUDGET).finders).toBe(0 + 10000);
+  });
+});
+
+import { expertFunnelRow as efr, EXPERT_FUNNEL as EF } from "../budget2027";
+describe("expertförmedling i budget", () => {
+  it("Premium: 0 kr intervju + 2,5 % av uppdragsvärdet", () => {
+    expect(efr(EF[0], "premium", { assignments: 1 }, undefined, { successExpert: 300000 }).total).toBe(7500);
+  });
+  it("Grundprofil: 3 500 kr intervju, 5 % med full avräkning", () => {
+    expect(efr(EF[0], "basic", { assignments: 2 }, undefined, { successExpert: 300000 }).total).toBe(30000);
   });
 });
