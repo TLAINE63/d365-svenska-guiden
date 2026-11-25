@@ -11,7 +11,7 @@ type Insights = {
   bestFitFor: { partner: string; text: string }[];
 };
 
-const CACHE_PREFIX = "compare-ai-insights:v3:";
+const CACHE_PREFIX = "compare-ai-insights:v4:";
 
 const buildKey = (
   slugs: string[],
@@ -172,7 +172,10 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
 
   const matchFor = <T extends { partner: string }>(list: T[], slot: ColumnSlot) =>
     list.find(
-      (d) => (d.partner || "").trim().toLowerCase() === slot.name.trim().toLowerCase(),
+      (d) => {
+        const n = (d.partner || "").trim().toLowerCase();
+        return n === slot.name.trim().toLowerCase() || n === slot.slug.toLowerCase();
+      },
     );
 
   return (
@@ -229,7 +232,9 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                           </ul>
                         ) : (
                           <p className="text-sm text-muted-foreground">
-                            Grundprofil – ej partnerverifierad. Underlag saknas för AI-jämförelse.
+                            {slot.basic
+                              ? "Grundprofil – ej partnerverifierad. Underlag saknas för AI-jämförelse."
+                              : "AI-sammanfattningen tog inte med den här partnern. Se jämförelsen nedan och partnerns profil."}
                           </p>
                         )}
                       </div>
@@ -260,7 +265,9 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                         <p className="text-sm text-foreground/85">
                           {d ? d.text : (
                           <span className="text-muted-foreground">
-                            Grundprofil – ej partnerverifierad. Ingen partnerbekräftad information.
+                            {slot.basic
+                              ? "Grundprofil – ej partnerverifierad. Ingen partnerbekräftad information."
+                              : "AI-sammanfattningen tog inte med den här partnern. Se partnerns profil."}
                           </span>
                           )}
                         </p>
