@@ -59,34 +59,51 @@ export default function PartnerStats() {
   const [error, setError] = useState<string | null>(null);
   const [range, setRange] = useState<"d7" | "d30" | "d90">("d30");
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      setLoading(true);
-      const accessCode =
-        typeof window !== "undefined"
-          ? new URLSearchParams(window.location.search).get("kod") || ""
-          : "";
+  const [codeInput, setCodeInput] = useState("");
+  const [needsCode, setNeedsCode] = useState(false);
+
+  const load = async (accessCode: string, adminToken: string) => {
+    setLoading(true);
+    setError(null);
+    const { data: res, error: err } = await supabase.functions.invoke("partner-public-stats", {
+      body: accessCode ? { accessCode } : { token: adminToken },
+    });
+    if (err || !res || res.error) {
       if (!accessCode) {
-        setError("Åtkomstkod saknas. Använd länken du fått från d365.se.");
-        setLoading(false);
-        return;
+        setNeedsCode(true);
+      } else {
+        setNeedsCode(true);
+        setError("Koden stämmer inte. Kontrollera koden du fått från d365.se.");
       }
-      const { data: res, error: err } = await supabase.functions.invoke("partner-public-stats", {
-        body: { accessCode },
-      });
-      if (cancelled) return;
-      if (err || !res || res.error) {
-        setError(err?.message || res?.error || "Kunde inte ladda statistik");
-        setLoading(false);
-        return;
-      }
-      setData(res);
       setLoading(false);
-    })();
-    return () => { cancelled = true; };
+      return;
+    }
+    setNeedsCode(false);
+    setData(res);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const accessCode = new URLSearchParams(window.location.search).get("kod") || "";
+    const adminToken = window.sessionStorage.getItem("admin_token") || "";
+    if (!accessCode && !adminToken) {
+      setNeedsCode(true);
+      setLoading(false);
+      return;
+    }
+    load(accessCode, adminToken);
   }, []);
 
+  const submitCode = (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = codeInput.trim();
+    if (!code) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("kod", code);
+    window.history.replaceState(null, "", url.toString());
+    load(code, "");
+  };
 
   const config = data?.config || DEFAULT_CONFIG;
   const totals = data?.totals?.[range];
@@ -172,7 +189,20 @@ export default function PartnerStats() {
           })()}
 
           {loading && <p className="text-sm text-muted-foreground">Laddar statistik…</p>}
-          {error && <p className="text-sm text-destructive">Fel: {error}</p>}
+          {needsCode && !loading && (
+            <Card>
+              <CardContent className="pt-6">
+                <form onSubmit={submitCode} className="flex flex-col sm:flex-row gap-3 sm:items-end">
+                  <div className="flex-1 space-y-1">
+                    <label htmlFor="partner-stats-code" className="text-sm font-medium">Åtkomstkod</label>
+                    <input id="partner-stats-code" value={codeInput} onChange={(e) => setCodeInput(e.target.value)} autoComplete="off" className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="Ange koden du fått från d365.se" />
+                  </div>
+                  <button type="submit" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Visa statistik</button>
+                </form>
+              </CardContent>
+            </Card>
+          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           {/* Admin-redigerbara fritextsektioner */}
           {config.sections?.map((s) => (

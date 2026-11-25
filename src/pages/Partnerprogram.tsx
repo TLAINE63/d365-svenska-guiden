@@ -395,7 +395,7 @@ const Partnerprogram = () => {
               <div className="max-w-full overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
                   <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
-                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Per månad</th><th scope="col" className="text-right px-3 py-2">Månad × 12</th><th scope="col" className="text-right px-3 py-2">Per år <span className="block text-xs text-primary">Populärast</span></th><th scope="col" className="text-right px-3 py-2">Rabatt för årsavtal</th></tr></thead>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Per månad</th><th scope="col" className="text-right px-3 py-2">Månad × 12</th><th scope="col" className="text-right px-3 py-2">Per år <span className="mt-1 inline-block rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-semibold text-destructive whitespace-nowrap">Spara 33&nbsp;%</span></th><th scope="col" className="text-right px-3 py-2">Rabatt för årsavtal</th></tr></thead>
                   <tbody>
                     {[1, 2, 3].map(premiumPriceComparison).map((price) => (
                       <tr key={price.areas} className="border-t border-border">
