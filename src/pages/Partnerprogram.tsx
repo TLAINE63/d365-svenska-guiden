@@ -286,7 +286,7 @@ const Partnerprogram = () => {
               <img src={heroScene} alt="Partner och kund i ett möte om Dynamics\u00a0365" width={960} height={540} className="w-full rounded-xl aspect-video object-cover border border-border" fetchPriority="high" />
             </div>
             <ul className="mt-7 grid gap-3 sm:grid-cols-3 text-sm text-foreground">
-              {[["Synlighet", "Genom hela köpresan"], ["Marknadsinsikter", "Förstå kundernas intresse"], ["Affärsförmedling", "Betala vid vunnen affär"]].map(([t, d]) => (
+              {[["Synlighet", "Genom hela köpresan"], ["Marknadsinsikter", "Förstå kundernas intresse"], ["Affärsförmedling", "Kvalificerade affärsmöjligheter"]].map(([t, d]) => (
                 <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong>{t}</strong> · {d}</span></li>
               ))}
             </ul>
