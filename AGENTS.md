@@ -58,3 +58,4 @@
 - PartnerRequestDialog submits all selected partners in one submit-lead call, so the existing double-opt-in token releases the complete request with one buyer confirmation while partner emails stay separate.
 - Solution Partner and ISV programs use their existing separate URLs with shared ProgramNavigation audience links and native section anchors; reuse profile checks, benchmarks and contact dialogs to avoid parallel lead flows.
 - Newsletter rules: supabase/functions/_shared.
+- Snitcher sync selects its workspace server-side to prevent request-driven credential use.

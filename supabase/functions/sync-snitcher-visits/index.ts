@@ -122,8 +122,9 @@ serve(async (req) => {
     const wsResp = await snitcherFetch("/workspaces", SNITCHER_API_KEY);
     const workspaces: any[] = wsResp.data || [];
     if (workspaces.length === 0) throw new Error("Ingen Snitcher-workspace hittad");
-    let workspace = workspaces.find(w => (w.url || "").includes("d365")) || workspaces[0];
-    const workspaceUuid: string = body.workspaceUuid || workspace.uuid;
+    const workspace = workspaces.find(w => (w.url || "").includes("d365")) || workspaces[0];
+    // Select only from Snitcher's authenticated response, never from request input.
+    const workspaceUuid: string = workspace.uuid;
 
     let upserted = 0;
     let orgsScanned = 0;
