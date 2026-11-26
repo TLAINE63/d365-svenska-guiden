@@ -395,19 +395,19 @@ const Partnerprogram = () => {
               <div className="max-w-full overflow-x-auto border border-border rounded-lg mb-3">
                 <table className="w-full text-sm">
                   <caption className="sr-only">Premiumpriser per produktområde, exklusive moms</caption>
-                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Per månad</th><th scope="col" className="text-right px-3 py-2">Månad × 12</th><th scope="col" className="text-right px-3 py-2">Per år <span className="mt-1 inline-block rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-semibold text-destructive whitespace-nowrap">Spara 33&nbsp;%</span></th><th scope="col" className="text-right px-3 py-2">Rabatt för årsavtal</th></tr></thead>
+                  <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Per år <span className="mt-1 inline-block rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-semibold text-destructive whitespace-nowrap">Spara 33&nbsp;%</span></th><th scope="col" className="text-right px-3 py-2">Motsvarar per månad</th><th scope="col" className="text-right px-3 py-2 font-normal text-muted-foreground">Alternativ: per månad</th><th scope="col" className="text-right px-3 py-2">Ni sparar per år</th></tr></thead>
                   <tbody>
                     {[1, 2, 3].map(premiumPriceComparison).map((price) => (
                       <tr key={price.areas} className="border-t border-border">
                         <th scope="row" className="text-left px-3 py-2 font-normal">{price.areas} produktområde{price.areas > 1 ? "n" : ""}</th>
-                        {[price.monthly, price.monthlyTotal, price.annual].map((value, i) => <td key={i} className="text-right px-3 py-2 font-semibold whitespace-nowrap">{value.toLocaleString("sv-SE")}&nbsp;kr</td>)}
+                        <td className="text-right px-3 py-2 font-bold text-base text-foreground whitespace-nowrap">{price.annual.toLocaleString("sv-SE")}&nbsp;kr</td><td className="text-right px-3 py-2 whitespace-nowrap">{Math.round(price.annual / 12).toLocaleString("sv-SE")}&nbsp;kr</td><td className="text-right px-3 py-2 text-muted-foreground whitespace-nowrap">{price.monthly.toLocaleString("sv-SE")}&nbsp;kr</td>
                         <td className="text-right px-3 py-2 whitespace-nowrap">{price.savings.toLocaleString("sv-SE")}&nbsp;kr ({price.savingsPercent}&nbsp;%)</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-24. Alla priser exklusive moms. {MONTHLY_BILLING_TERMS} {PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
+              <p className="text-xs text-muted-foreground mb-5">Prislista 2027, uppdaterad 2026-11-26. Årsavtal rekommenderas, månadsbetalning finns som alternativ. Alla priser exklusive moms. {MONTHLY_BILLING_TERMS} {PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Commerce, Human Resources och Project Operations är kostnadsfria tillvalsprodukter via profileringslänken och räknas inte som produktområden.</p>
               <h4 className="font-semibold mb-2">Processen</h4>
               <ol className="list-decimal pl-5 space-y-1 text-sm text-muted-foreground mb-5">
                 <li>Ni beställer Premium (och vid behov affärsförmedlingsavtalet).</li>
