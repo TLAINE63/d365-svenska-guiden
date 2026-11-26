@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import PartnerPublicationControls, { type PartnerStatusFields } from "@/components/PartnerPublicationControls";
-import { partnerLevel, hasDatedVerification } from "@/lib/publicationLevel";
+import { partnerLevel, partnerLevelFields, hasDatedVerification } from "@/lib/publicationLevel";
 import { BadgeCheck, Copy, ExternalLink, FileText, Loader2, PenLine, Search, Sparkles } from "lucide-react";
 import { BadgeTools } from "@/components/partner/VerifiedPartnerBadgeEmbed";
 import { toast } from "sonner";
@@ -57,6 +58,8 @@ export default function RedaktionPartnerLinksTab({
   onSessionExpired,
   onOpenTeaser,
 }: Props) {
+  const [details, setDetails] = useState(false);
+  const previousLevels = useRef(new Map<string, "premium" | "basic">());
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -299,6 +302,7 @@ export default function RedaktionPartnerLinksTab({
               {label}
             </Button>
           ))}
+          <Button size="sm" variant="outline" onClick={() => setDetails(!details)}>{details ? "Enkel lista" : "Visa alla inställningar"}</Button>
           <span className="text-sm text-muted-foreground ml-auto">{rows.length} partners</span>
           {bulk ? (
             <div className="flex items-center gap-2">
@@ -330,9 +334,10 @@ export default function RedaktionPartnerLinksTab({
                 <TableRow>
                   <TableHead>Partner</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Publicering och verifiering</TableHead>
-                  <TableHead>Publika källor</TableHead>
-                  <TableHead className="text-right">Profileringslänk</TableHead>
+                  <TableHead>Publicerad</TableHead>
+                  {details && <TableHead>Publicering och verifiering</TableHead>}
+                  {details && <TableHead>Publika källor</TableHead>}
+                  {details && <TableHead className="text-right">Profileringslänk</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -342,6 +347,14 @@ export default function RedaktionPartnerLinksTab({
                     <TableCell>
                       <Badge variant="outline">{partnerLevel(p) === 'premium' ? 'Premium' : partnerLevel(p) === 'basic' ? 'Grundprofil' : 'Ej publicerad'}</Badge>
                     </TableCell>
+                    <TableCell>
+                      <Switch aria-label={`Publicera ${p.name}`} checked={partnerLevel(p) !== 'hidden'} disabled={togglingId === p.id} onCheckedChange={checked => {
+                        const level = partnerLevel(p);
+                        if (level !== 'hidden') previousLevels.current.set(p.id, level);
+                        handleStatusChange(p, partnerLevelFields(checked ? previousLevels.current.get(p.id) || 'basic' : 'hidden'));
+                      }} />
+                    </TableCell>
+                    {details && <>
                     <TableCell>
                       <PartnerPublicationControls partner={p} disabled={togglingId === p.id} onChange={fields => handleStatusChange(p, fields)} />
                     </TableCell>
@@ -365,7 +378,8 @@ export default function RedaktionPartnerLinksTab({
                         )}
                       </button>
                     </TableCell>
-                    <TableCell className="text-right">
+                    </>}
+                    {details && <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         {onOpenTeaser && (
                           <Button size="sm" variant="outline" className="gap-1" onClick={() => onOpenTeaser(p.slug)}>
@@ -430,7 +444,7 @@ export default function RedaktionPartnerLinksTab({
                           </Button>
                         )}
                       </div>
-                    </TableCell>
+                    </TableCell>}
                   </TableRow>
                 ))}
               </TableBody>

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -68,6 +69,8 @@ function Select({ value, options, onChange, label }: { value: string; options: [
  */
 export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMode = false }: Props) {
   const { toast } = useToast();
+  const [details, setDetails] = useState(false);
+  const [savingKey, setSavingKey] = useState<string | null>(null);
   const [vendors, setVendors] = useState<Row[]>([]);
   const [products, setProducts] = useState<Row[]>([]);
   const [tab, setTab] = useState<"vendors" | "products">("vendors");
@@ -100,6 +103,8 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [token]);
 
   const save = async (kind: "vendor" | "product", key: string, fields: Record<string, unknown>) => {
+    setSavingKey(key);
+    try {
     const action = kind === "vendor" ? "set_vendor_status" : "set_product_status";
     const body = kind === "vendor" ? { slug: key, ...fields } : { solution_id: key, ...fields };
     const res = await fetch(`${baseUrl}?action=${action}`, { method: "POST", headers: headers(), body: JSON.stringify(body) });
@@ -110,6 +115,9 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
       return;
     }
     await load();
+    } catch {
+      toast({ title: "Kunde inte spara", variant: "destructive" });
+    } finally { setSavingKey(null); }
   };
 
   const saveBc = async () => {
@@ -157,6 +165,13 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
       </div>
     </TableCell>
   );
+
+  const quickPublish = (r: Row, kind: "vendor" | "product", key: string) => <>
+    <TableCell><Switch aria-label={`Publicera ${r.name}`} checked={isvLevel(r, kind) !== 'hidden'} disabled={savingKey === key} onCheckedChange={checked => save(kind, key, checked
+      ? { publish_d365: true, ...(kind === 'vendor' ? { publication_status: 'published' } : { is_published: true }) }
+      : { publish_d365: false })} /></TableCell>
+    {!details && <TableCell>{(kind === 'vendor' ? r.premium_vendor : r.premium_product) ? 'Premium' : 'Grundprofil'}</TableCell>}
+  </>;
 
   const statusCells = (r: Row, kind: "vendor" | "product", key: string) => (
     <>
@@ -208,6 +223,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
               <button type="button" className="text-primary hover:underline" onClick={() => setVendorFilter(null)}>Visa alla</button>
             </span>
           )}
+          <Button size="sm" variant="outline" onClick={() => setDetails(!details)}>{details ? "Enkel lista" : "Visa alla inställningar"}</Button>
           {loading && <span className="text-xs text-muted-foreground">Laddar…</span>}
         </div>
         <div className="rounded-md border overflow-x-auto max-h-[70vh]">
@@ -215,6 +231,9 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
             <TableHeader>
               <TableRow>
                 <TableHead>{tab === "vendors" ? "Leverantör" : "Produkt"}</TableHead>
+                <TableHead>Publicerad på d365.se</TableHead>
+                {!details && <TableHead>Profilnivå</TableHead>}
+                {details && <>
                 <TableHead>Publik status</TableHead>
                 <TableHead>Källa</TableHead>
                 <TableHead>Bekräftelse</TableHead>
@@ -222,6 +241,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                 <TableHead>Publiceringsnivå</TableHead>
                 {tab === "vendors" && <TableHead>Publicering / avtal</TableHead>}
                 <TableHead>Visas på</TableHead>
+                </>}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -230,13 +250,15 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                     <TableRow key={v.slug}>
                       <TableCell>
                         <p className="font-medium">{v.name}</p>
-                        <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "vendor", key: v.slug, name: v.name, logo_url: v.logo_url, contact: v.contact, verified: v.information_status === "verified" })}>
+                        {details && <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "vendor", key: v.slug, name: v.name, logo_url: v.logo_url, contact: v.contact, verified: v.information_status === "verified" })}>
                           Logotyp och kontakt{v.logo_url ? " ✓" : ""}
-                        </button>
+                        </button>}
                         <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => showVendorProducts(v)}>
                           Visa produkter ({countFor(v)})
                         </button>
                       </TableCell>
+                      {quickPublish(v, "vendor", v.slug)}
+                      {details && <>
                       {statusCells(v, "vendor", v.slug)}
                       <TableCell>
                         <div className="flex flex-col gap-1">
@@ -249,6 +271,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                         </div>
                       </TableCell>
                       {publishCells(v, "vendor", v.slug)}
+                      </>}
                     </TableRow>
                   ))
                 : pList.map((p) => (
@@ -256,6 +279,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                       <TableCell>
                         <p className="font-medium">{p.name}</p>
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
+                        {details && <>
                         <Button variant="link" size="sm" className="px-0 block" onClick={() => setPresentation(p)}>Produktpresentation och belägg</Button>
                         {p.premium_product && <p className="text-xs text-muted-foreground mt-1">Visningar: {p.statistics?.views ?? 0} · Vidareklick: {p.statistics?.clicks ?? 0} (senaste 30 dagar)</p>}
                         <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "product", key: p.solution_id, name: p.name, logo_url: p.logo_url, contact: p.contact, inherited: p.vendor_contact, verified: p.information_status === "verified" })}>
@@ -287,9 +311,13 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                         >
                           Demo och kundcase{p.demo_video_url || (p.customer_cases?.length ?? 0) > 0 ? " ✓" : ""}
                         </button>
+                        </>}
                       </TableCell>
+                      {quickPublish(p, "product", p.solution_id)}
+                      {details && <>
                       {statusCells(p, "product", p.solution_id)}
                       {publishCells(p, "product", p.solution_id)}
+                      </>}
                     </TableRow>
                   ))}
             </TableBody>

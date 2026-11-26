@@ -1,4 +1,5 @@
 ## Publiceringsnivå och verifiering (2026-11-26)
+- [x] Kompakta listor i Redaktion med publicering av/på för partner, ISV och produkt; sparande och återläsning verifierade med återställda teständringar.
 - [x] Gemensamma nivåväljare i Admin och Redaktion för partners och ISV.
 - [x] Separat daterad verifiering och publika badges utan Premium-antaganden.
 - [x] Dold ISV döljer produkter på d365.se; tre inkluderade och fler köpta Premiumprodukter.
