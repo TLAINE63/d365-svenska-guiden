@@ -258,6 +258,13 @@ const FinanceSupplyChain = () => {
        <li>Koncernkonsolidering, internfakturering och elimineringar</li>
        <li>Budgetering, kostnadsredovisning och lokal skatte- och rapporteringsanpassning per land</li>
       </ul>
+      <p className="mt-4 text-sm text-muted-foreground">
+       Rullar ni ut lösningen i flera nordiska bolag? Läs den engelskspråkiga fördjupningen{" "}
+       <a href="https://d365guide.com/finance-supply-chain/" className="text-primary underline underline-offset-2 hover:no-underline" hrefLang="en" lang="en">
+        <span className="whitespace-nowrap">Finance&nbsp;&amp;&nbsp;SCM</span> för nordiska verksamheter
+       </a>{" "}
+       på d365guide.com.
+      </p>
      </article>
      <article className="rounded-lg border border-border bg-card p-6">
       <h2 className="text-xl sm:text-2xl font-bold text-card-foreground mb-2">Dynamics&nbsp;365 Supply Chain Management</h2>
