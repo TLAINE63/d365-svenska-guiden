@@ -388,3 +388,7 @@ Verifierat: passformsankare, BC-testets första fråga, jämförelse direkt till
 
 - [x] Paket 3: Copilot/CRM-beslutsunderlag på /crm/ och Ignite-artikeln (byggt och testat 2026-11-19)
 - [ ] Paket 3: publicering väntar på Thomas godkännande
+
+## businesscentral.se-vyer (2026-11-26)
+- [x] bc_isv_products_v1 släpper igenom alla publicerade BC-produkter (83), ny kolumn is_verified
+- [x] bc_partners_v1 utesluter dolda partners och har information_status/information_verified_at

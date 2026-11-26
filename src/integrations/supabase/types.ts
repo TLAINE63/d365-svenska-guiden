@@ -6419,6 +6419,7 @@ export type Database = {
           industries: string[] | null
           information_status: string | null
           integration_type: string | null
+          is_verified: boolean | null
           last_verified_date: string | null
           partner_slugs: string[] | null
           premium_product: boolean | null
@@ -6468,6 +6469,8 @@ export type Database = {
           industry_solution_industries: string[] | null
           industry_solution_name: string | null
           industry_solution_type: string | null
+          information_status: string | null
+          information_verified_at: string | null
           migration_sources: Json | null
           partner_id: string | null
           partner_name: string | null

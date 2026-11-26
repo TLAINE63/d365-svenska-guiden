@@ -414,6 +414,13 @@
       "when": 1795687707546,
       "tag": "0058_scope_isv_contacts_to_d365_publication",
       "breakpoints": true
+    },
+    {
+      "idx": 59,
+      "version": "7",
+      "when": 1795688590183,
+      "tag": "0059_bc_views_publication_and_verification",
+      "breakpoints": true
     }
   ]
 }
