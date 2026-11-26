@@ -16,10 +16,10 @@ const OPTION_LABELS: Record<Locale, string> = {
   no: "Norge | NO",
   fi: "Suomi | FI",
   dk: "Danmark | DA",
-  en: "Global | EN",
+  en: "Nordics | EN",
 };
 
-const OPTION_ORDER: Locale[] = ["sv", "no", "en"];
+const OPTION_ORDER: Locale[] = ["sv", "no", "dk", "fi", "en"];
 
 const FLAG_CC: Record<Locale, string | null> = {
   sv: "se",
