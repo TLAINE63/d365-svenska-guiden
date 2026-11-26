@@ -192,8 +192,19 @@ serve(async (req: Request): Promise<Response> => {
     const { data: indPage } = await supabase
       .from("industry_pages")
       .select("intro")
-      .ilike("name", industry)
+      .ilike("name", industry.replace(/[%_\\]/g, (c) => `\\${c}`))
       .maybeSingle();
+
+    // Invitation holders may only generate texts for their registered or known industries
+    if (!isAdmin) {
+      const own = Array.isArray((partner as any).industries) ? (partner as any).industries : [];
+      const wanted = industry.trim().toLowerCase();
+      if (!indPage && !own.some((i: unknown) => typeof i === "string" && i.trim().toLowerCase() === wanted)) {
+        return new Response(JSON.stringify({ error: "Branschen är inte registrerad för partnern" }), {
+          status: 403, headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
+    }
 
     // Rate limit (per partner-day, 30/day)
     const today = new Date().toISOString().slice(0, 10);
@@ -221,12 +232,14 @@ serve(async (req: Request): Promise<Response> => {
       industryIntro: indPage?.intro || null,
     });
 
-    const text = await callAI(prompt, LOVABLE_API_KEY);
-
-    await supabase.from("ai_usage_log").insert({
+    // Reserve the usage slot before the paid call so parallel requests cannot bypass the limit
+    const { error: logErr } = await supabase.from("ai_usage_log").insert({
       endpoint: "generate-partner-industry-pitch",
       ip_hash: `partner:${effectivePartnerId}`,
     });
+    if (logErr) throw new Error("USAGE_LOG_FAILED");
+
+    const text = await callAI(prompt, LOVABLE_API_KEY);
 
     return new Response(JSON.stringify({ text }), {
       headers: { "Content-Type": "application/json", ...corsHeaders },
