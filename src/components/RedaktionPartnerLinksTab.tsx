@@ -1,3 +1,4 @@
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -345,7 +346,10 @@ export default function RedaktionPartnerLinksTab({
                   <TableRow key={p.id}>
                     <TableCell className="font-medium">{p.name}</TableCell>
                     <TableCell>
-                      <Badge variant="outline">{partnerLevel(p) === 'premium' ? 'Premium' : partnerLevel(p) === 'basic' ? 'Grundprofil' : 'Ej publicerad'}</Badge>
+                      <Select value={partnerLevel(p)} disabled={togglingId === p.id} onValueChange={v => handleStatusChange(p, partnerLevelFields(v as "premium" | "basic" | "hidden"))}>
+                        <SelectTrigger aria-label={`Nivå för ${p.name}`} className="h-8 w-[150px]"><SelectValue /></SelectTrigger>
+                        <SelectContent><SelectItem value="premium">Premium</SelectItem><SelectItem value="basic">Grundprofil</SelectItem><SelectItem value="hidden">Ej publicerad</SelectItem></SelectContent>
+                      </Select>
                     </TableCell>
                     <TableCell>
                       <Switch aria-label={`Publicera ${p.name}`} checked={partnerLevel(p) !== 'hidden'} disabled={togglingId === p.id} onCheckedChange={checked => {
