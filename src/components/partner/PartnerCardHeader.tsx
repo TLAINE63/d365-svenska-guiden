@@ -1,10 +1,11 @@
+import { hasDatedVerification } from "@/lib/publicationLevel";
 import type { MouseEventHandler, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { optimizedLogo } from "@/lib/optimizedLogo";
 import VerifiedPartnerBadge from "@/components/VerifiedPartnerBadge";
 
 interface Props {
-  partner: { name: string; logo_url?: string | null; logo_dark_bg?: boolean | null; is_featured?: boolean | null };
+  partner: { name: string; logo_url?: string | null; logo_dark_bg?: boolean | null; is_featured?: boolean | null; information_status?: string | null; information_verified_at?: string | null };
   to: string;
   verified?: boolean;
   compact?: boolean;
@@ -14,14 +15,14 @@ interface Props {
 }
 
 /** One native link covers the name, badge, logo and space between them. */
-export default function PartnerCardHeader({ partner, to, verified = partner.is_featured === true, compact = false, onClick, className = "", children }: Props) {
+export default function PartnerCardHeader({ partner, to, verified = true, compact = false, onClick, className = "", children }: Props) {
   return (
     <Link to={to} onClick={onClick} aria-label={`Visa ${partner.name}s partnerprofil`}
       data-partner-card-header
       className={`group/header flex w-full items-start justify-between gap-4 text-foreground transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${className}`}>
       <div className="min-w-0 flex-1">
         <h3 className={`${compact ? "text-base" : "text-xl"} break-words font-bold leading-tight group-hover/header:text-primary`}>{partner.name}</h3>
-        {verified && <div className="mt-3"><VerifiedPartnerBadge logoDarkBg={partner.logo_dark_bg} /></div>}
+        {verified && hasDatedVerification(partner) && <div className="mt-3"><VerifiedPartnerBadge logoDarkBg={partner.logo_dark_bg} /></div>}
         {children}
       </div>
       <div className={`${compact ? "h-12 w-16" : "h-20 w-24"} flex shrink-0 items-center justify-center rounded-md border border-border p-2 ${partner.logo_dark_bg ? "bg-foreground" : "bg-background"}`}>

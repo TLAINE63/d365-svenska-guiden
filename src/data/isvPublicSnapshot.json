@@ -11282,7 +11282,8 @@
       "description": "XMReality erbjuder lösningar inom visuell fjärrsupport. Profilen är under uppbyggnad. Information om företagets produkter och eventuell koppling till Microsoft Dynamics 365 kompletteras och granskas innan den visas som produktinformation på d365.se.",
       "logo_url": null,
       "information_status": "verified",
-      "last_verified_date": "2026-11-03"
+      "last_verified_date": "2026-11-03",
+      "premium_vendor": true
     },
     {
       "slug": "annata",
@@ -11291,7 +11292,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "avalara",
@@ -11300,7 +11302,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "avanade",
@@ -11309,7 +11312,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "bluefort",
@@ -11318,7 +11322,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "bluestar-plm",
@@ -11327,7 +11332,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "truvio",
@@ -11336,7 +11342,8 @@
       "description": "Truvio: Built From Proven D365 Expertise\nTruvio combines the category-leading intelligence of SK Global, SignUp Software (ExFlow & Axtension), and DynamicWeb into one unified ecosystem.",
       "logo_url": null,
       "information_status": "verified",
-      "last_verified_date": "2026-11-03"
+      "last_verified_date": "2026-11-03",
+      "premium_vendor": true
     },
     {
       "slug": "corpay",
@@ -11345,7 +11352,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "delinea-fastpath",
@@ -11354,7 +11362,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "docentric",
@@ -11363,7 +11372,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dooap",
@@ -11372,7 +11382,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dynamic-netsoft",
@@ -11381,7 +11392,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dynaway",
@@ -11390,7 +11402,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "e-con-solutions",
@@ -11399,7 +11412,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "folio3",
@@ -11408,7 +11422,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "fourvision",
@@ -11417,7 +11432,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "gws",
@@ -11426,7 +11442,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "planautomate",
@@ -11435,7 +11452,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "rf-smart",
@@ -11444,7 +11462,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "samadhan",
@@ -11453,7 +11472,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "sovos",
@@ -11462,7 +11482,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "staedean",
@@ -11471,7 +11492,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "stampli",
@@ -11480,7 +11502,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "thomson-reuters",
@@ -11489,7 +11512,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "xapt",
@@ -11498,7 +11522,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "pros",
@@ -11507,7 +11532,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "pandadoc",
@@ -11516,7 +11542,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "docusign",
@@ -11525,7 +11552,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "adobe",
@@ -11534,7 +11562,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "mscrm-addons-com",
@@ -11543,7 +11572,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "paperflite",
@@ -11552,7 +11582,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "solver",
@@ -11561,7 +11592,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "click",
@@ -11570,7 +11602,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "demandbase",
@@ -11579,7 +11612,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "inogic",
@@ -11588,7 +11622,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "appjetty",
@@ -11597,7 +11632,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "iotap",
@@ -11606,7 +11642,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "alphavima",
@@ -11615,7 +11652,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "sinch",
@@ -11624,7 +11662,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "live-assist",
@@ -11633,7 +11672,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "medallia",
@@ -11642,7 +11682,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "solgari",
@@ -11651,7 +11692,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "five9",
@@ -11660,7 +11702,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "nice",
@@ -11669,7 +11712,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "vonage",
@@ -11678,7 +11722,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "cisco",
@@ -11687,7 +11732,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "ttec-digital",
@@ -11696,7 +11742,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "8x8",
@@ -11705,7 +11752,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "zoom",
@@ -11714,7 +11762,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dynamics-telephony",
@@ -11723,7 +11772,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "ingenius",
@@ -11732,7 +11782,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "resco",
@@ -11741,7 +11792,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "hso",
@@ -11750,7 +11802,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "maptaskr",
@@ -11759,7 +11812,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "easyterritory",
@@ -11768,7 +11822,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "hcl-powerobjects",
@@ -11777,7 +11832,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "data8",
@@ -11786,7 +11842,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "walkme",
@@ -11795,7 +11852,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "continia",
@@ -11804,7 +11862,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "equisys",
@@ -11813,7 +11872,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "binary-stream",
@@ -11822,7 +11882,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "tasklet-factory",
@@ -11831,7 +11892,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "insight-works",
@@ -11840,7 +11902,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "ongoing-warehouse",
@@ -11849,7 +11912,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "bitlog",
@@ -11858,7 +11922,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "logtrade",
@@ -11867,7 +11932,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "nshift",
@@ -11876,7 +11942,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "shipmondo",
@@ -11885,7 +11952,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "cargoson",
@@ -11894,7 +11962,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "sendcloud-shipit-365",
@@ -11903,7 +11972,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "anveo",
@@ -11912,7 +11982,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "golden-edi",
@@ -11921,7 +11992,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "on720-com",
@@ -11930,7 +12002,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "eone-solutions",
@@ -11939,7 +12012,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "celigo",
@@ -11948,7 +12022,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "sana-commerce",
@@ -11957,7 +12032,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "truecommerce",
@@ -11966,7 +12042,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "lasernet",
@@ -11975,7 +12052,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dynamicweb-truvio",
@@ -11984,7 +12062,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "boyum-it-solutions-perfion",
@@ -11993,7 +12072,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "ls-retail",
@@ -12002,7 +12082,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "insightsoftware",
@@ -12011,7 +12092,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "bizview",
@@ -12020,7 +12102,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "aimplan",
@@ -12029,7 +12112,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "fornav",
@@ -12038,7 +12122,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "eazystock",
@@ -12047,7 +12132,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "netstock",
@@ -12056,7 +12142,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "dime-scheduler",
@@ -12065,7 +12152,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "netronic",
@@ -12074,7 +12162,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "expandit",
@@ -12083,7 +12172,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "experlogix",
@@ -12092,7 +12182,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "tacton",
@@ -12101,7 +12192,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "aptean",
@@ -12110,7 +12202,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "trimit",
@@ -12119,7 +12212,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "printvis",
@@ -12128,7 +12222,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "merit-solutions",
@@ -12137,7 +12232,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "foodcloud",
@@ -12146,7 +12242,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "pebblestone",
@@ -12155,7 +12252,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "staedean-to-increase",
@@ -12164,7 +12262,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "cosmo-consult",
@@ -12173,7 +12272,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "progressus-software",
@@ -12182,7 +12282,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "programekonomi",
@@ -12191,7 +12292,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "smartapps",
@@ -12200,7 +12302,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "aritma",
@@ -12209,7 +12312,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "pryme-global",
@@ -12218,7 +12322,8 @@
       "description": "Tillägg för projektredovisning, projekt- och resursstyrning samt ekonomiprocesser i Dynamics 365 Business Central.",
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "slimstock",
@@ -12227,7 +12332,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "caridea-it",
@@ -12236,7 +12342,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "compiled",
-      "last_verified_date": null
+      "last_verified_date": null,
+      "premium_vendor": false
     },
     {
       "slug": "4ps",
@@ -12245,7 +12352,8 @@
       "description": null,
       "logo_url": null,
       "information_status": "verified",
-      "last_verified_date": "2026-11-03"
+      "last_verified_date": "2026-11-03",
+      "premium_vendor": true
     }
   ],
   "overrides": [

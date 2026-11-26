@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import PartnerCardHeader from "../PartnerCardHeader";
 import { PROFILE_LABEL_VERIFIED } from "@/data/profileModel";
 
-const partner = { name: "Testpartner", logo_url: "/test-logo.svg", is_featured: true, logo_dark_bg: false };
+const partner = { name: "Testpartner", logo_url: "/test-logo.svg", is_featured: true, information_status: "verified", information_verified_at: "2026-11-26", logo_dark_bg: false };
 
 describe("PartnerCardHeader", () => {
   it("links the complete name, badge and logo area to the contextual profile", () => {
@@ -26,8 +26,8 @@ describe("PartnerCardHeader", () => {
     expect(screen.getByAltText("Testpartner logotyp").parentElement).toHaveClass("bg-foreground");
   });
 
-  it("does not give a basic profile a verified badge", () => {
-    render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, is_featured: false }} to="/basic/testpartner/" /></MemoryRouter>);
+  it("does not give Premium an automatic verified badge", () => {
+    render(<MemoryRouter><PartnerCardHeader partner={{ ...partner, information_status: "compiled" }} to="/basic/testpartner/" /></MemoryRouter>);
     expect(screen.queryByLabelText(PROFILE_LABEL_VERIFIED)).toBeNull();
   });
 });

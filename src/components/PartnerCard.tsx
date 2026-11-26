@@ -1,3 +1,4 @@
+import { hasDatedVerification } from '@/lib/publicationLevel';
 import PartnerSelectionFacts from "@/components/partner/PartnerSelectionFacts";
 import { useEffect, useMemo, useState } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -424,8 +425,8 @@ const PartnerCard = ({
  {/* Card Content */}
  <div className="relative flex flex-1 flex-col p-6">
  <PartnerCardHeader
-   partner={{ name: partner.name || "Partner", logo_url: isDatabasePartner(partner) ? partner.logo_url : null, logo_dark_bg: isDatabasePartner(partner) ? partner.logo_dark_bg : false }}
-   verified={isDatabasePartner(partner) && partner.is_featured === true}
+   partner={{ information_status: isDatabasePartner(partner) ? partner.information_status : null, information_verified_at: isDatabasePartner(partner) ? partner.information_verified_at : null, name: partner.name || "Partner", logo_url: isDatabasePartner(partner) ? partner.logo_url : null, logo_dark_bg: isDatabasePartner(partner) ? partner.logo_dark_bg : false }}
+   verified={isDatabasePartner(partner) && hasDatedVerification(partner)}
    to={cleanProfileUrl}
    onClick={handleCardClick}
    className="-mx-6 -mt-6 mb-4 w-auto px-6 py-5 border-b border-border"

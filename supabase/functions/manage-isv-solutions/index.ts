@@ -295,7 +295,7 @@ serve(async (req) => {
 
     if (action === "list_status" && req.method === "GET") {
       const [{ data: vendors, error: vErr }, { data: internal }, { data: products, error: pErr }] = await Promise.all([
-        supabase.from("isv_vendors").select("slug, name, website, logo_url, office_scope, office_city, office_country, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
+        supabase.from("isv_vendors").select("slug, name, website, logo_url, office_scope, office_city, office_country, publication_status, profile_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_vendor, extra_premium_products, gtm_model, publish_d365, publish_businesscentral, publish_d365guide").order("name"),
         supabase.from("isv_vendor_internal").select("vendor_slug, buyer_opportunity_agreement_status, contact_name, contact_email, contact_phone"),
         supabase.from("isv_solutions").select("solution_id, name, vendor, vendor_slug, logo_url, is_published, product_source, confirmation_status, verification_status, last_verified_date, vendor_updated_at, information_status, premium_product, demo_video_url, customer_cases, product_gallery, product_features, integration_evidence, partner_evidence, publish_d365, publish_businesscentral, publish_d365guide").order("vendor").order("name"),
       ]);
@@ -327,6 +327,11 @@ serve(async (req) => {
       const slug = clean(body?.slug, 120);
       if (!slug) return json({ error: "slug krävs" }, 400, corsHeaders);
       const fields = statusFields(body || {}, "profile_source", "premium_vendor");
+      if (body && 'extra_premium_products' in body) {
+        const n = body.extra_premium_products;
+        if (!Number.isInteger(n) || n < 0) return json({ error: "Antalet extra Premiumprodukter måste vara ett heltal från 0" }, 400, corsHeaders);
+        fields.extra_premium_products = n;
+      }
       const pub = pickV(body?.publication_status, ["draft", "submitted", "published", "hidden"]);
       if (pub) fields.publication_status = pub;
       // Försäljningsmodell: kommersiellt fält, bara admin. Tom sträng = okänt.
@@ -403,6 +408,7 @@ serve(async (req) => {
       const id = clean(body?.solution_id, 100);
       if (!id) return json({ error: "solution_id krävs" }, 400, corsHeaders);
       const fields = statusFields(body || {}, "product_source", "premium_product");
+      if (typeof body?.is_published === "boolean") fields.is_published = body.is_published;
       try { Object.assign(fields, presentationFields(body, true)); } catch { return json({ error: 'Ogiltigt produktinnehåll' }, 400, corsHeaders); }
       // Demo/video och kundcase: redaktionellt innehåll, sparas bara när fälten skickas.
       if (body && "demo_video_url" in body) {

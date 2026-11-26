@@ -12,10 +12,11 @@ describe("isv visibility", () => {
     expect(productExposure("verified", true)).toEqual({ showLogo: true, showWebsite: true, showContact: true });
     expect(productExposure("compiled", true)).toEqual({ showLogo: false, showWebsite: false, showContact: false });
   });
-  it("vendor that is a verified partner (4PS) is verified automatically", () => {
+  it("a partner link never verifies an ISV vendor", () => {
     const m = matchVerifiedPartner("4PS", "4ps", partners);
     expect(m?.slug).toBe("4ps-sweden");
-    expect(isVendorVerified("compiled", m)).toBe(true);
+    expect(isVendorVerified("compiled", m)).toBe(false);
+    expect(isVendorVerified("verified", m)).toBe(true);
   });
   it("unknown vendor without verification is not verified", () => {
     expect(isVendorVerified("compiled", matchVerifiedPartner("Okänd", "okand", partners))).toBe(false);

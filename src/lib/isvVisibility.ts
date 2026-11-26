@@ -8,6 +8,8 @@ export interface FeaturedPartnerLite {
   slug: string;
   name: string;
   is_featured: boolean;
+  information_status?: string | null;
+  information_verified_at?: string | null;
   logo_url?: string | null;
   website?: string | null;
   contact_person?: string | null;
@@ -33,8 +35,8 @@ export function matchVerifiedPartner(
   });
 }
 
-export function isVendorVerified(vendorStatus: string | null | undefined, partnerMatch?: FeaturedPartnerLite): boolean {
-  return vendorStatus === "verified" || !!partnerMatch;
+export function isVendorVerified(vendorStatus: string | null | undefined, _partnerMatch?: FeaturedPartnerLite): boolean {
+  return vendorStatus === "verified";
 }
 
 export interface IsvExposure {

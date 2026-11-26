@@ -381,6 +381,7 @@ serve(async (req: Request): Promise<Response> => {
             product_filters: partner.product_filters || {},
             industry_apps: partner.industry_apps || [],
             is_featured: partner.is_featured || false,
+            hide_basic_card: (partner as PartnerData & { hide_basic_card?: boolean }).hide_basic_card === true,
             activation_date: partner.activation_date || null,
             monthly_fee: partner.monthly_fee || null,
             cancellation_date: partner.cancellation_date || null,

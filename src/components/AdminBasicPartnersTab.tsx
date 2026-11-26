@@ -696,9 +696,9 @@ export default function AdminBasicPartnersTab() {
                     className="mt-0.5"
                   />
                   <span className="text-sm">
-                    <span className="font-medium">Dölj Basickort publikt</span>
+                    <span className="font-medium">Ej publicerad</span>
                     <span className="block text-xs text-muted-foreground">
-                      Partnern har bett att inte synas alls på d365.se. Ingen publik listning,
+                      Partnern visas inte på d365.se. Ingen publik listning,
                       ingen standalone-sida, ingen matchning. Data bevaras för admin.
                     </span>
                   </span>

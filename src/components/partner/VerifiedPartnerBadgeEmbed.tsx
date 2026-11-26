@@ -1,11 +1,12 @@
+import { hasDatedVerification } from "@/lib/publicationLevel";
 import { useState } from "react";
 import { Copy, Download } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import partnerData from "@/data/partnerData.json";
 
-type P = { slug: string; name: string; is_featured: boolean; logo_dark_bg?: boolean };
-const VERIFIED = (partnerData as P[]).filter((p) => p.is_featured).sort((a, b) => a.name.localeCompare(b.name, "sv"));
+type P = { slug: string; name: string; is_featured: boolean; information_status?: string; information_verified_at?: string; logo_dark_bg?: boolean };
+const VERIFIED = (partnerData as P[]).filter((p) => hasDatedVerification(p)).sort((a, b) => a.name.localeCompare(b.name, "sv"));
 
 /** Logotyper gjorda för mörk bakgrund paras med ljus badge och tvärtom. */
 export const defaultBadgeVariant = (s: string): "dark" | "light" =>

@@ -1,0 +1,5 @@
+CREATE FUNCTION public.public_isv_contacts_d365() RETURNS TABLE(kind text,key text,contact_name text,contact_email text,contact_phone text) LANGUAGE sql STABLE SECURITY DEFINER SET search_path=public AS $$
+SELECT c.kind,c.key,c.contact_name,c.contact_email,c.contact_phone FROM public.public_verified_isv_contacts() c WHERE (c.kind='vendor' AND EXISTS (SELECT 1 FROM public.isv_vendors_d365_public v WHERE v.slug=c.key AND v.premium_vendor AND v.last_verified_date IS NOT NULL)) OR (c.kind='product' AND EXISTS (SELECT 1 FROM public.isv_products_d365_public p WHERE p.solution_id=c.key AND p.premium_product AND p.last_verified_date IS NOT NULL));
+$$;
+REVOKE ALL ON FUNCTION public.public_isv_contacts_d365() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.public_isv_contacts_d365() TO anon,authenticated,service_role;

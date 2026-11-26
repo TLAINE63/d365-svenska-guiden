@@ -33,7 +33,7 @@ export default function PartnerBasicProfile({
   // samma sätt som i listor och filter.
   const { data: allBasic } = useBasicPartners();
   const ranked = allBasic?.find((p) => p.slug === slug);
-  const partner = ranked ?? data ?? initialData;
+  const partner = queryLoading ? ranked ?? initialData : data ? ranked ?? data : null;
   const isLoading = queryLoading && !initialData;
 
   const observedApps = partner

@@ -1,3 +1,9 @@
+## Publiceringsnivå och verifiering (2026-11-26)
+- [x] Gemensamma nivåväljare i Admin och Redaktion för partners och ISV.
+- [x] Separat daterad verifiering och publika badges utan Premium-antaganden.
+- [x] Dold ISV döljer produkter på d365.se; tre inkluderade och fler köpta Premiumprodukter.
+- [x] Tester och inloggad kontroll utan bestående ändring av partneruppgifter.
+
 ## Gemensam Finder’s fee (2026-11-24)
 - [x] Budget, partnerprogram och avtals-/offert-PDF har en variant med tydlig produktlista: 1 000 kr Premium och 3 500 kr Grundprofil. Sparade volymer slås ihop idempotent; 46 tester godkända. Inloggad budget och avtalsnedladdningar samt 375/595 px verifierade; inga testvolymer sparade. Beställningstjänsten driftsatt; sajten väntar på publicering.
 

@@ -1,3 +1,5 @@
+import PartnerPublicationControls from "@/components/PartnerPublicationControls";
+import RedaktionPartnerLinksTab from "@/components/RedaktionPartnerLinksTab";
 import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { optimizedLogo } from "@/lib/optimizedLogo";
@@ -842,6 +844,7 @@ const AdminDashboard = ({ embedded = false }: { embedded?: boolean } = {}) => {
     partner_size_tier_needs_review?: boolean;
     information_status?: "verified" | "compiled";
     information_verified_at?: string;
+    hide_basic_card?: boolean;
   }>({
   slug: "",
   name: "",
@@ -1542,6 +1545,7 @@ Thomas`,
  geography: ["Sverige"],
  product_filters: {},
  is_featured: false,
+ hide_basic_card: false,
  office_cities: [],
  map_url: "",
  activation_date: "",
@@ -1646,6 +1650,7 @@ Thomas`,
  geography: partner.geography || ["Sverige"],
  product_filters: partner.product_filters || {},
  is_featured: partner.is_featured || false,
+ hide_basic_card: (partner as FullPartner & { hide_basic_card?: boolean }).hide_basic_card ?? false,
  office_cities: (partner as any).office_cities || [],
  map_url: (partner as any).map_url || "",
  activation_date: partner.activation_date || "",
@@ -2949,6 +2954,10 @@ Thomas`,
  {/* ==================== PARTNERS TAB (Publicerade / Ej publicerade) ==================== */}
  {(["partners", "unprofiled-partners"] as const).map((tabValue) => (
   <TabsContent key={tabValue} value={tabValue}>
+ {tabValue === "partners" && <details className="mb-4 border border-border rounded-md">
+   <summary className="cursor-pointer px-4 py-3 font-semibold">Publiceringsnivå och verifiering för alla partners</summary>
+   <RedaktionPartnerLinksTab token={token} partners={fullPartners} onSessionExpired={logout} />
+ </details>}
  {tabValue === "partners" && (
   <details className="mb-4 rounded-lg border border-border">
    <summary className="cursor-pointer px-4 py-3 text-sm font-semibold">Informationsstatus och aktualitet (partnerns egna uppdateringar)</summary>
@@ -4559,46 +4568,10 @@ Thomas`,
  </div>
  </div>
 
- <div className="flex items-center gap-2">
- <Checkbox
- id="is_featured"
- checked={partnerFormData.is_featured}
- onCheckedChange={(checked) =>
- setPartnerFormData({ ...partnerFormData, is_featured: !!checked })
- }
- />
- <Label htmlFor="is_featured">Publicerad partner</Label>
-  </div>
-
-  {/* Sprint 1.1: informationsstatus, sätts bara manuellt av redaktionen. Oberoende av avtal/premium. */}
-  <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-4 space-y-3">
-    <div>
-      <Label htmlFor="information_status" className="text-sm font-medium">Informationsstatus (visas publikt)</Label>
-      <p className="text-xs text-muted-foreground mt-0.5">
-        Verifierad = redaktionen har granskat centrala uppgifter. Bekräftad = partnern har själv granskat uppgifterna. Automatiskt sammanställd = AI-profilerad från publika källor, ej granskad av d365.se och ej bekräftad av partnern. Avtal, Premium eller betalning ger aldrig verifieringsstatus.
-      </p>
-      <select
-        id="information_status"
-        className="mt-2 h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
-        value={partnerFormData.information_status ?? "compiled"}
-        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_status: e.target.value as "verified" | "compiled" })}
-      >
-        <option value="verified">D365 Verifierad</option>
-        <option value="compiled">Automatiskt sammanställd</option>
-      </select>
-    </div>
-    <div>
-      <Label htmlFor="information_verified_at" className="text-sm font-medium">Senast verifierad (ÅÅÅÅ-MM-DD)</Label>
-      <Input
-        id="information_verified_at"
-        type="date"
-        className="mt-1"
-        value={partnerFormData.information_verified_at || ""}
-        onChange={(e) => setPartnerFormData({ ...partnerFormData, information_verified_at: e.target.value })}
-      />
-      <p className="text-xs text-muted-foreground mt-1">Lämnas tom sätts dagens datum när status blir Verifierad.</p>
-    </div>
-  </div>
+ <div className="space-y-3 border-t border-border pt-4">
+   <Label>Publiceringsnivå och verifiering</Label>
+   <PartnerPublicationControls partner={partnerFormData} onChange={fields => setPartnerFormData(prev => ({ ...prev, ...fields }))} />
+ </div>
 
   {/* Leverantörsstorlek – intern signal för AI-ranking (ingen publik filter-UI) */}
   <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/30 p-4 space-y-3">

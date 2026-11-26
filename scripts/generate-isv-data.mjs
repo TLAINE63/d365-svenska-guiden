@@ -21,11 +21,11 @@ const read = async (path) => {
   return response.json();
 };
 const [products, vendors, overrides, facts] = await Promise.all([
-  read(`isv_solutions?select=${fields}&is_published=eq.true&order=name.asc&limit=10000`),
-  read('isv_vendors?select=slug,name,website,description,logo_url,information_status,last_verified_date&publication_status=eq.published'),
+  read(`isv_products_d365_public?select=${fields}&order=name.asc&limit=10000`),
+  read('isv_vendors_d365_public?select=slug,name,website,description,logo_url,information_status,last_verified_date,premium_vendor'),
   read('isv_solution_overrides_public?select=solution_id,short_description,what,when_fits,use_cases,combos,products,industries,partner_slugs,vendor_name,vendor_website,vendor_updated_at'),
   read('rpc/public_isv_product_facts'),
 ]);
-if (!Array.isArray(products) || !products.length) throw new Error('Refusing empty ISV snapshot');
+if (!Array.isArray(products)) throw new Error('Invalid ISV snapshot');
 writeFileSync(resolve('src/data/isvPublicSnapshot.json'), JSON.stringify({ products, vendors, overrides, facts }, null, 2) + '\n');
 console.log(`ISV public snapshot: ${products.length} products, ${vendors.length} vendors`);

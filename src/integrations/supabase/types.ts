@@ -1361,6 +1361,13 @@ export type Database = {
             foreignKeyName: "isv_bc_presentation_solution_id_fkey"
             columns: ["solution_id"]
             isOneToOne: true
+            referencedRelation: "isv_products_d365_public"
+            referencedColumns: ["solution_id"]
+          },
+          {
+            foreignKeyName: "isv_bc_presentation_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
             referencedRelation: "isv_solutions"
             referencedColumns: ["solution_id"]
           },
@@ -1526,6 +1533,13 @@ export type Database = {
             foreignKeyName: "isv_solution_analysis_solution_id_fkey"
             columns: ["solution_id"]
             isOneToOne: true
+            referencedRelation: "isv_products_d365_public"
+            referencedColumns: ["solution_id"]
+          },
+          {
+            foreignKeyName: "isv_solution_analysis_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: true
             referencedRelation: "isv_solutions"
             referencedColumns: ["solution_id"]
           },
@@ -1605,6 +1619,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "bc_isv_products_v1"
             referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "isv_solution_markets_solution_id_fkey"
+            columns: ["solution_id"]
+            isOneToOne: false
+            referencedRelation: "isv_products_d365_public"
+            referencedColumns: ["solution_id"]
           },
           {
             foreignKeyName: "isv_solution_markets_solution_id_fkey"
@@ -1900,6 +1921,13 @@ export type Database = {
             referencedRelation: "isv_vendors"
             referencedColumns: ["slug"]
           },
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_slug"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors_d365_public"
+            referencedColumns: ["slug"]
+          },
         ]
       }
       isv_submissions: {
@@ -2020,6 +2048,7 @@ export type Database = {
           confirmation_status: string
           created_at: string
           description: string | null
+          extra_premium_products: number
           gtm_model: string | null
           id: string
           information_status: string
@@ -2046,6 +2075,7 @@ export type Database = {
           confirmation_status?: string
           created_at?: string
           description?: string | null
+          extra_premium_products?: number
           gtm_model?: string | null
           id?: string
           information_status?: string
@@ -2072,6 +2102,7 @@ export type Database = {
           confirmation_status?: string
           created_at?: string
           description?: string | null
+          extra_premium_products?: number
           gtm_model?: string | null
           id?: string
           information_status?: string
@@ -6420,6 +6451,13 @@ export type Database = {
             referencedRelation: "isv_vendors"
             referencedColumns: ["slug"]
           },
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors_d365_public"
+            referencedColumns: ["slug"]
+          },
         ]
       }
       bc_partners_v1: {
@@ -6464,6 +6502,82 @@ export type Database = {
         }
         Relationships: []
       }
+      isv_products_d365_public: {
+        Row: {
+          appsource_rating: number | null
+          appsource_rating_count: number | null
+          appsource_url: string | null
+          best_for: string | null
+          category: string | null
+          combos: string[] | null
+          considerations: string | null
+          contact_center_relevance: string | null
+          customer_cases: Json | null
+          customer_insights_relevance: string | null
+          customer_service_relevance: string | null
+          delivery_model: string | null
+          demo_video_url: string | null
+          editorial_tier: string | null
+          field_service_relevance: string | null
+          finance_relevance: string | null
+          geo: string[] | null
+          industries: string[] | null
+          industry_focus: string[] | null
+          information_status: string | null
+          integration_evidence: Json | null
+          is_published: boolean | null
+          last_verified_date: string | null
+          lifecycle_note: string | null
+          lifecycle_status: string | null
+          logo_url: string | null
+          name: string | null
+          nordic_relevance: string | null
+          partner_evidence: Json | null
+          partner_slugs: string[] | null
+          premium_product: boolean | null
+          product_features: Json | null
+          product_gallery: Json | null
+          products: string[] | null
+          publication_wave: string | null
+          sales_relevance: string | null
+          short_description: string | null
+          solution_id: string | null
+          solution_kind: string | null
+          sort_order: number | null
+          source_status: string | null
+          source_url: string | null
+          subcategory: string | null
+          successor_solution_id: string | null
+          supply_chain_relevance: string | null
+          tags: string[] | null
+          tier: string | null
+          type: string | null
+          updated_at: string | null
+          use_cases: string[] | null
+          vendor: string | null
+          vendor_slug: string | null
+          vendor_website: string | null
+          verified_at: string | null
+          what: string | null
+          when_fits: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_slug"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "isv_solutions_vendor_slug_fkey"
+            columns: ["vendor_slug"]
+            isOneToOne: false
+            referencedRelation: "isv_vendors_d365_public"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       isv_solution_overrides_public: {
         Row: {
           combos: string[] | null
@@ -6506,6 +6620,48 @@ export type Database = {
           vendor_website?: string | null
           what?: string | null
           when_fits?: string | null
+        }
+        Relationships: []
+      }
+      isv_vendors_d365_public: {
+        Row: {
+          description: string | null
+          information_status: string | null
+          last_verified_date: string | null
+          logo_url: string | null
+          name: string | null
+          office_city: string | null
+          office_country: string | null
+          office_scope: string | null
+          premium_vendor: boolean | null
+          slug: string | null
+          website: string | null
+        }
+        Insert: {
+          description?: string | null
+          information_status?: string | null
+          last_verified_date?: string | null
+          logo_url?: string | null
+          name?: string | null
+          office_city?: string | null
+          office_country?: string | null
+          office_scope?: string | null
+          premium_vendor?: boolean | null
+          slug?: string | null
+          website?: string | null
+        }
+        Update: {
+          description?: string | null
+          information_status?: string | null
+          last_verified_date?: string | null
+          logo_url?: string | null
+          name?: string | null
+          office_city?: string | null
+          office_country?: string | null
+          office_scope?: string | null
+          premium_vendor?: boolean | null
+          slug?: string | null
+          website?: string | null
         }
         Relationships: []
       }
@@ -6830,6 +6986,8 @@ export type Database = {
           extended_content_updated_at: string | null
           extended_summary: string | null
           id: string | null
+          information_status: string | null
+          information_verified_at: string | null
           name: string | null
           observed_company_sizes: Json | null
           observed_delivery_geo: Json | null
@@ -6849,6 +7007,8 @@ export type Database = {
           extended_content_updated_at?: string | null
           extended_summary?: string | null
           id?: string | null
+          information_status?: string | null
+          information_verified_at?: string | null
           name?: string | null
           observed_company_sizes?: Json | null
           observed_delivery_geo?: Json | null
@@ -6868,6 +7028,8 @@ export type Database = {
           extended_content_updated_at?: string | null
           extended_summary?: string | null
           id?: string | null
+          information_status?: string | null
+          information_verified_at?: string | null
           name?: string | null
           observed_company_sizes?: Json | null
           observed_delivery_geo?: Json | null
@@ -7239,6 +7401,16 @@ export type Database = {
       partner_report_monthly_dispatch: {
         Args: { target_month?: string }
         Returns: undefined
+      }
+      public_isv_contacts_d365: {
+        Args: never
+        Returns: {
+          contact_email: string
+          contact_name: string
+          contact_phone: string
+          key: string
+          kind: string
+        }[]
       }
       public_isv_product_facts: {
         Args: never

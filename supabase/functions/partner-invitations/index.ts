@@ -394,7 +394,7 @@ serve(async (req: Request): Promise<Response> => {
             website, email, phone, contact_person, address,
             applications, industries, secondary_industries,
             geography, product_filters, industry_apps,
-            is_featured, office_cities, map_url, customer_examples,
+            is_featured, information_status, information_verified_at, office_cities, map_url, customer_examples,
             industry_pitches,
             positioning_statement, delivery_profile, team_size_sweden,
             implementations_done, implementations_per_app, team_size_per_app, not_a_fit, key_differentiators, key_differentiators_source, ai_profile, product_profiles,

@@ -22,6 +22,8 @@ export interface BasicPartner {
   name: string;
   /** Only used for the standalone Basic-card outlink. Never surfaced in compare/list. */
   website: string | null;
+  information_status?: string | null;
+  information_verified_at?: string | null;
   observed_products: Partial<Record<ProductKey, boolean>>;
   observed_industries: Partial<Record<ProductKey, string[]>>;
   observed_company_sizes: Partial<Record<ProductKey, string[]>>;

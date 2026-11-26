@@ -105,7 +105,7 @@ export function PartnerBasicCard({
         <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">
           {BASIC_PROFILE_LABEL}
         </p>
-        <div className="mt-2"><InformationStatusBadge partner={{ information_status: "compiled" }} /></div>
+        <div className="mt-2"><InformationStatusBadge partner={partner} showDate /></div>
 
         <div className="mt-3 flex-1">
           {additional.length > 0 ? (

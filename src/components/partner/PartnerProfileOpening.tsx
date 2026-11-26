@@ -1,3 +1,4 @@
+import { hasDatedVerification } from "@/lib/publicationLevel";
 import { Link } from "react-router-dom";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import ProtectedContact from "@/components/partner/ProtectedContact";
@@ -63,7 +64,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
       <div className="partner-opening-content w-full mx-auto max-w-6xl px-5 sm:px-8 pt-8 sm:pt-12 lg:pt-12 pb-10 sm:pb-14 lg:pb-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5 lg:pb-3 mb-8 sm:mb-12 lg:mb-6">
           <Button asChild variant="ghost" size="sm" className="px-0 text-muted-foreground"><Link to="/alla-d365-partners/"><ArrowLeft className="h-4 w-4" />Alla partners</Link></Button>
-          {partner.is_featured === true && (
+          {hasDatedVerification(partner) && (
             <img
               src={`/badges/verifierad-partner-dark.svg`}
               alt="Verifierad Dynamics 365-partner på d365.se"
@@ -107,7 +108,7 @@ export default function PartnerProfileOpening({ partner, product, industry, onIn
             <span className="inline-flex min-h-12 items-center gap-2 rounded-md border border-border px-4 text-sm font-medium"><BookmarkCheck className="h-4 w-4" />Tillagd i kortlistan<Link to="/kortlista/" className="underline underline-offset-4">Visa kortlistan</Link></span>
           ) : (
             <Button variant="outline" onClick={() => {
-              shortlist.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: true });
+              shortlist.toggle({ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}/`, verified: hasDatedVerification(partner) });
               trackPartnerCardEvent("spara_shortlist", partner, "verifierad", product);
               trackEvent("shortlist_add", null, partner.slug);
             }} className="min-h-12"><Bookmark className="h-4 w-4" />Lägg till i kortlista</Button>

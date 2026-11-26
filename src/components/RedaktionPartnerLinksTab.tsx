@@ -20,7 +20,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Switch } from "@/components/ui/switch";
+import PartnerPublicationControls, { type PartnerStatusFields } from "@/components/PartnerPublicationControls";
+import { partnerLevel, hasDatedVerification } from "@/lib/publicationLevel";
 import { BadgeCheck, Copy, ExternalLink, FileText, Loader2, PenLine, Search, Sparkles } from "lucide-react";
 import { BadgeTools } from "@/components/partner/VerifiedPartnerBadgeEmbed";
 import { toast } from "sonner";
@@ -28,7 +29,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
 
-interface PartnerRow {
+interface PartnerRow extends PartnerStatusFields {
   id: string;
   name: string;
   slug: string;
@@ -39,7 +40,7 @@ interface PartnerRow {
   public_profile_updated_at?: string | null;
 }
 
-type Filter = "all" | "published" | "unpublished";
+type Filter = "all" | "premium" | "basic" | "hidden" | "verified";
 
 interface Props {
   token: string | null;
@@ -186,11 +187,11 @@ export default function RedaktionPartnerLinksTab({
     );
   }
 
-  async function handleTogglePublished(partner: PartnerRow, next: boolean) {
+  async function handleStatusChange(partner: PartnerRow, fields: Record<string, unknown>) {
     if (!token) return;
     setTogglingId(partner.id);
     const { data, error } = await supabase.functions.invoke("manage-partners", {
-      body: { action: "update", id: partner.id, partner: { is_featured: next }, token },
+      body: { action: "update", id: partner.id, partner: fields, token },
     });
     setTogglingId(null);
     if (error || (data as { error?: string } | null)?.error) {
@@ -204,13 +205,14 @@ export default function RedaktionPartnerLinksTab({
       return;
     }
     await queryClient.invalidateQueries({ queryKey: ["admin-partners"] });
-    toast.success(next ? `${partner.name} är publicerad` : `${partner.name} är avpublicerad`);
+    await Promise.all([queryClient.invalidateQueries({ queryKey: ["partners"] }), queryClient.invalidateQueries({ queryKey: ["basic-partners"] })]);
+    toast.success(`Status för ${partner.name} sparad`);
   }
 
   const rows = useMemo(() => {
     const q = search.trim().toLowerCase();
     return partners
-      .filter((p) => (filter === "published" ? p.is_featured : filter === "unpublished" ? !p.is_featured : true))
+      .filter((p) => (filter === "all" || (filter === "verified" ? hasDatedVerification(p) : partnerLevel(p) === filter)))
       .filter((p) => !q || p.name.toLowerCase().includes(q) || (p.slug || "").toLowerCase().includes(q))
       .sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [partners, search, filter]);
@@ -283,8 +285,10 @@ export default function RedaktionPartnerLinksTab({
           />
           {([
             ["all", "Alla"],
-            ["published", "Publicerade"],
-            ["unpublished", "Ej publicerade"],
+            ["premium", "Premium"],
+            ["basic", "Grundprofil"],
+            ["hidden", "Ej publicerade"],
+            ["verified", "Verifierade"],
           ] as const).map(([value, label]) => (
             <Button
               key={value}
@@ -326,7 +330,7 @@ export default function RedaktionPartnerLinksTab({
                 <TableRow>
                   <TableHead>Partner</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Publicerad</TableHead>
+                  <TableHead>Publicering och verifiering</TableHead>
                   <TableHead>Publika källor</TableHead>
                   <TableHead className="text-right">Profileringslänk</TableHead>
                 </TableRow>
@@ -336,22 +340,10 @@ export default function RedaktionPartnerLinksTab({
                   <TableRow key={p.id}>
                     <TableCell className="font-medium">{p.name}</TableCell>
                     <TableCell>
-                      {p.is_featured ? (
-                        <Badge className="bg-emerald-600">Publicerad</Badge>
-                      ) : (
-                        <Badge variant="outline">Ej publicerad</Badge>
-                      )}
+                      <Badge variant="outline">{partnerLevel(p) === 'premium' ? 'Premium' : partnerLevel(p) === 'basic' ? 'Grundprofil' : 'Ej publicerad'}</Badge>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Switch
-                          checked={p.is_featured}
-                          disabled={togglingId === p.id}
-                          onCheckedChange={(v) => handleTogglePublished(p, v)}
-                          aria-label={`Publicera ${p.name}`}
-                        />
-                        {togglingId === p.id && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
-                      </div>
+                      <PartnerPublicationControls partner={p} disabled={togglingId === p.id} onChange={fields => handleStatusChange(p, fields)} />
                     </TableCell>
                     <TableCell>
                       <button
@@ -414,7 +406,7 @@ export default function RedaktionPartnerLinksTab({
                           <PenLine className="h-3.5 w-3.5" />
                           Redigera profil
                         </Button>
-                        {p.is_featured && (
+                        {hasDatedVerification(p) && (
                           <Button size="sm" variant="outline" onClick={() => setBadgeFor(p)} className="gap-1">
                             <BadgeCheck className="h-3.5 w-3.5" />
                             Badge

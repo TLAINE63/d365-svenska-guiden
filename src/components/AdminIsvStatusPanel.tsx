@@ -1,3 +1,4 @@
+import { SwedishDatePicker } from '@/components/ui/swedish-date-picker';
 import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
+import { isvLevel, isvLevelFields, premiumProductAllowance, type PublicationLevel } from "@/lib/publicationLevel";
 import { ShieldCheck } from "lucide-react";
 import InformationStatusBadge from "@/components/partner/InformationStatusBadge";
 import AdminIsvLogoContactDialog, { type LogoContactTarget } from "@/components/AdminIsvLogoContactDialog";
@@ -70,6 +72,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
   const [products, setProducts] = useState<Row[]>([]);
   const [tab, setTab] = useState<"vendors" | "products">("vendors");
   const [q, setQ] = useState("");
+  const [levelFilter, setLevelFilter] = useState("all");
   const [loading, setLoading] = useState(false);
   const [lc, setLc] = useState<LogoContactTarget | null>(null);
   const [presentation, setPresentation] = useState<Row | null>(null);
@@ -128,14 +131,14 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
   const belongsTo = (p: Row, v: { slug: string; name: string }) =>
     p.vendor_slug === v.slug || (p.vendor || "").toLowerCase() === v.name.toLowerCase();
   const countFor = (v: Row) => products.filter((p) => belongsTo(p, { slug: v.slug, name: v.name })).length;
-  const vList = useMemo(() => vendors.filter((v) => !term || `${v.name} ${v.slug}`.toLowerCase().includes(term)), [vendors, term]);
+  const vList = useMemo(() => vendors.filter((v) => (levelFilter === "all" || (levelFilter === "verified" ? v.information_status === "verified" && !!v.last_verified_date : isvLevel(v, "vendor") === levelFilter)) && (!term || `${v.name} ${v.slug}`.toLowerCase().includes(term))), [vendors, term, levelFilter]);
   const pList = useMemo(
     () =>
       products.filter(
-        (p) => (!vendorFilter || belongsTo(p, vendorFilter)) && (!term || `${p.name} ${p.vendor}`.toLowerCase().includes(term))
+        (p) => (levelFilter === "all" || (levelFilter === "verified" ? p.information_status === "verified" && !!p.last_verified_date : isvLevel(p, "product") === levelFilter)) && (!vendorFilter || belongsTo(p, vendorFilter)) && (!term || `${p.name} ${p.vendor}`.toLowerCase().includes(term))
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products, term, vendorFilter]
+    [products, term, vendorFilter, levelFilter]
   );
   const showVendorProducts = (v: Row) => {
     setVendorFilter({ slug: v.slug, name: v.name });
@@ -157,25 +160,27 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
 
   const statusCells = (r: Row, kind: "vendor" | "product", key: string) => (
     <>
-      <TableCell><InformationStatusBadge kind="isv" showDate partner={{ information_status: r.information_status, information_verified_at: r.last_verified_date }} /></TableCell>
+      <TableCell><InformationStatusBadge kind="isv" isvProduct={kind === "product"} showDate partner={{ information_status: r.information_status, information_verified_at: r.last_verified_date }} /></TableCell>
       <TableCell><Select label="Källa" value={r[kind === "vendor" ? "profile_source" : "product_source"]} options={SOURCES} onChange={(v) => save(kind, key, { [kind === "vendor" ? "profile_source" : "product_source"]: v })} /></TableCell>
       <TableCell><Select label="Bekräftelse" value={r.confirmation_status} options={CONFIRM} onChange={(v) => save(kind, key, { confirmation_status: v })} /></TableCell>
       <TableCell>
         <div className="flex flex-col gap-1">
-          <Select label="Verifiering" value={r.verification_status} options={VERIFY} onChange={(v) => save(kind, key, { verification_status: v })} />
-          <input
-            type="date"
-            aria-label="Senast verifierad"
-            className={sel}
-            value={r.last_verified_date || ""}
-            onChange={(e) => save(kind, key, { last_verified_date: e.target.value || null })}
-          />
+          <Select label="Verifiering" value={r.verification_status === 'verified' ? 'verified' : 'not_reviewed'} options={[["not_reviewed", "Ej verifierad"], ["verified", "Verifierad"]]} onChange={(v) => save(kind, key, { verification_status: v, ...(v === 'verified' ? { last_verified_date: new Date().toISOString().slice(0, 10) } : {}) })} />
+          <Button variant="outline" size="sm" onClick={() => save(kind, key, { verification_status: 'verified', last_verified_date: new Date().toISOString().slice(0, 10) })}>Verifiera idag</Button>
+          <SwedishDatePicker value={r.last_verified_date} placeholder="Verifieringsdatum" onChange={(value) => save(kind, key, { last_verified_date: value })} />
         </div>
       </TableCell>
       <TableCell>
-        <label className="flex items-center gap-1.5 text-xs">
-          <Checkbox disabled={editorMode} checked={!!r[kind === "vendor" ? "premium_vendor" : "premium_product"]} onCheckedChange={(v) => save(kind, key, { [kind === "vendor" ? "premium_vendor" : "premium_product"]: !!v })} /> ISV Presence aktiv
-        </label>
+        <div className="flex flex-col gap-2 min-w-[180px]">
+          <Select label="Publiceringsnivå" value={isvLevel(r, kind)} options={[["premium", kind === 'vendor' ? "ISV Presence (Premium)" : "Premiumprodukt"], ["basic", "Grundprofil"], ["hidden", "Ej publicerad"]]} onChange={v => save(kind, key, isvLevelFields(v as PublicationLevel, kind))} />
+          {kind === 'vendor' && <>
+            <label className="text-xs">Köpta extra Premiumprodukter
+              <Input type="number" min={0} key={`${key}-${r.extra_premium_products}`} defaultValue={r.extra_premium_products || 0} onBlur={e => { const n = Number(e.target.value); if (Number.isInteger(n) && n >= 0 && n !== (r.extra_premium_products || 0)) save(kind, key, { extra_premium_products: n }); }} />
+            </label>
+            <p className="text-xs text-muted-foreground">{products.filter(p => p.vendor_slug === key && p.premium_product).length} valda av {premiumProductAllowance(r.extra_premium_products || 0)} möjliga (3 ingår)</p>
+          </>}
+          {kind === 'product' && vendors.some(v => v.slug === r.vendor_slug && isvLevel(v, 'vendor') === 'hidden') && <p className="text-xs text-muted-foreground">Dold på d365.se eftersom leverantören är ej publicerad.</p>}
+        </div>
       </TableCell>
     </>
   );
@@ -184,7 +189,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <ShieldCheck className="h-5 w-5 text-accent" /> Informationsstatus för leverantörer och produkter
+          <ShieldCheck className="h-5 w-5 text-accent" /> Publicering och verifiering för leverantörer och produkter
         </CardTitle>
         <CardDescription>
           Publik status härleds automatiskt: D365 Verifierad kräver verifieringen Verifierad, annars Automatiskt sammanställd. Leverantörens bekräftelse sparas men ger ingen egen nivå.
@@ -195,6 +200,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
         <div className="flex flex-wrap items-center gap-2">
           <Button size="sm" variant={tab === "vendors" ? "default" : "outline"} onClick={() => setTab("vendors")}>Leverantörer ({vendors.length})</Button>
           <Button size="sm" variant={tab === "products" ? "default" : "outline"} onClick={() => setTab("products")}>Produkter ({vendorFilter ? pList.length : products.length})</Button>
+          <Select label="Filtrera status" value={levelFilter} options={[["all", "Alla"], ["premium", "Premium"], ["basic", "Grundprofil"], ["hidden", "Ej publicerade"], ["verified", "Verifierade"]]} onChange={setLevelFilter} />
           <Input className="max-w-xs h-9" placeholder="Sök…" value={q} onChange={(e) => setQ(e.target.value)} />
           {tab === "products" && vendorFilter && (
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs">
@@ -213,7 +219,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                 <TableHead>Källa</TableHead>
                 <TableHead>Bekräftelse</TableHead>
                 <TableHead>Verifiering</TableHead>
-                <TableHead>Kommersiellt</TableHead>
+                <TableHead>Publiceringsnivå</TableHead>
                 {tab === "vendors" && <TableHead>Publicering / avtal</TableHead>}
                 <TableHead>Visas på</TableHead>
               </TableRow>
@@ -234,7 +240,7 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                       {statusCells(v, "vendor", v.slug)}
                       <TableCell>
                         <div className="flex flex-col gap-1">
-                          <Select label="Publicering" value={v.publication_status} options={PUBLICATION} onChange={(x) => save("vendor", v.slug, { publication_status: x })} />
+                          
  {!editorMode && <Select label="Buyer Opportunity Agreement" value={v.buyer_opportunity_agreement_status} options={BOA} onChange={(x) => save("vendor", v.slug, { buyer_opportunity_agreement_status: x })} />}
                           {!editorMode && <Select label="Försäljningsmodell" value={v.gtm_model || ""} options={GTM} onChange={(x) => save("vendor", v.slug, { gtm_model: x })} />}
                           <Select label="Kontor" value={v.office_scope || ""} options={OFFICE} onChange={(x) => save("vendor", v.slug, { office_scope: x })} />
@@ -252,21 +258,6 @@ export default function AdminIsvStatusPanel({ token, onSessionExpired, editorMod
                         <p className="text-xs text-muted-foreground">{p.vendor}{!p.is_published && " · ej publicerad"}</p>
                         <Button variant="link" size="sm" className="px-0 block" onClick={() => setPresentation(p)}>Produktpresentation och belägg</Button>
                         {p.premium_product && <p className="text-xs text-muted-foreground mt-1">Visningar: {p.statistics?.views ?? 0} · Vidareklick: {p.statistics?.clicks ?? 0} (senaste 30 dagar)</p>}
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant={p.is_published ? "outline" : "default"}
-                          className="h-7 mt-1 text-xs"
-                          onClick={async () => {
-                            const res = await fetch(`${baseUrl}?action=toggle_solution`, { method: "POST", headers: headers(), body: JSON.stringify({ solution_id: p.solution_id, is_published: !p.is_published }) });
-                            if (res.status === 401) return onSessionExpired();
-                            if (!res.ok) { toast({ title: "Kunde inte spara", variant: "destructive" }); return; }
-                            toast({ title: p.is_published ? "Produkten är dold" : "Produkten är publicerad" });
-                            await load();
-                          }}
-                        >
-                          {p.is_published ? "Dölj" : "Publicera"}
-                        </Button>
                         <button type="button" className="block text-xs text-primary hover:underline mt-1" onClick={() => setLc({ kind: "product", key: p.solution_id, name: p.name, logo_url: p.logo_url, contact: p.contact, inherited: p.vendor_contact, verified: p.information_status === "verified" })}>
                           Produktlogotyp och kontakt{p.logo_url ? " ✓" : ""}
                         </button>

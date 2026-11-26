@@ -233,7 +233,7 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                         ) : (
                           <p className="text-sm text-muted-foreground">
                             {slot.basic
-                              ? "Grundprofil – ej partnerverifierad. Underlag saknas för AI-jämförelse."
+                              ? "Grundprofil. Underlag saknas för AI-jämförelse."
                               : "AI-sammanfattningen tog inte med den här partnern. Se jämförelsen nedan och partnerns profil."}
                           </p>
                         )}
@@ -266,7 +266,7 @@ const AiCompareInsights = ({ partners, productFilters, industry, columnSlots }: 
                           {d ? d.text : (
                           <span className="text-muted-foreground">
                             {slot.basic
-                              ? "Grundprofil – ej partnerverifierad. Ingen partnerbekräftad information."
+                              ? "Grundprofil. Se produktuppgifterna i partnerns profil."
                               : "AI-sammanfattningen tog inte med den här partnern. Se partnerns profil."}
                           </span>
                           )}

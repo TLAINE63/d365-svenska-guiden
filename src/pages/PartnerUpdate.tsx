@@ -191,6 +191,7 @@ const PartnerUpdate = () => {
  const [error, setError] = useState<string | null>(null);
   const [invitation, setInvitation] = useState<Invitation | null>(null);
   const [existingSlug, setExistingSlug] = useState<string | null>(null);
+  const [verifiedProfile, setVerifiedProfile] = useState(false);
  
  // Logo upload state
  const [uploadingLogo, setUploadingLogo] = useState(false);
@@ -509,6 +510,7 @@ const PartnerUpdate = () => {
   // Pre-fill form with existing data if available
   if (result.existingData) {
   if (result.existingData.slug) setExistingSlug(result.existingData.slug);
+  setVerifiedProfile(result.existingData.information_status === "verified" && !!result.existingData.information_verified_at);
  setFormData({
  name: result.existingData.name || result.invitation.partner_name,
  description: result.existingData.description || "",
@@ -1632,11 +1634,11 @@ const PartnerUpdate = () => {
   Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
   </p>
   </div>
-  {existingSlug && (
+  {existingSlug && verifiedProfile && (
   <div className="space-y-3 border-t pt-6">
   <Label>Badge: Verifierad partner på d365.se</Label>
   <p className="text-sm text-muted-foreground">
-  Lägg badgen på er webbplats, länkad till er profil. Den visar att profilen är verifierad när profilen är publicerad.
+  Lägg badgen på er webbplats, länkad till er profil. Den visar att redaktionen har granskat och verifierat profilen.
   </p>
   <BadgeTools slug={existingSlug} />
   </div>

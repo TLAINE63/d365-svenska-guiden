@@ -192,49 +192,20 @@ const SolutionCard = ({ s, onOpen, vendor }: { s: IsvSolution; onOpen: () => voi
   const useCases = (s.useCases || []).slice(0, 3);
   const initials = s.vendor.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="text-left group relative bg-card border border-border rounded-xl hover:border-primary/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
-    >
-      {/* Premium header – mörk gradient med glaseffekt */}
-      <div className="relative px-7 pt-7 pb-6 bg-[linear-gradient(135deg,hsl(30_14%_9%)_0%,hsl(24_20%_13%)_55%,hsl(14_60%_18%)_100%)]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.25),transparent_60%)]" />
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-[linear-gradient(90deg,hsl(var(--primary)),hsl(var(--primary-glow)))]" />
-        <div className="relative flex items-start gap-4">
-          {logo ? (
-            <div className="w-12 h-12 shrink-0 rounded-lg bg-card border border-white/20 shadow-lg flex items-center justify-center p-1.5">
-              <img src={logo} alt={`${s.vendor} logotyp`} loading="lazy" className="max-w-full max-h-full object-contain" />
-            </div>
-          ) : (
-          <div className="w-12 h-12 shrink-0 rounded-lg bg-white/10 border border-white/20 backdrop-blur-sm shadow-lg flex items-center justify-center font-['Playfair_Display'] text-lg font-semibold text-white">
-            {initials}
-          </div>
-          )}
-          <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60 truncate">
-              {s.vendor}
-            </p>
-            <h3 className="font-['Playfair_Display'] text-2xl font-semibold text-white leading-tight group-hover:text-[hsl(var(--primary-glow))] transition-colors">
-              {s.name}
-            </h3>
-          </div>
+    <Button variant="ghost" onClick={onOpen} className="text-left group relative bg-card border border-border rounded-lg hover:border-primary/40 transition-colors flex flex-col overflow-hidden h-auto p-0 whitespace-normal items-stretch font-normal">
+      <div className={`${s.hasPresence ? 'isv-product-opening bg-background text-foreground' : 'bg-muted/40'} px-6 pt-6 pb-5 border-b border-border`}>
+        <div className="flex items-start gap-4">
+          {logo ? <div className="w-12 h-12 shrink-0 rounded border border-border bg-card flex items-center justify-center p-2"><img src={logo} alt={`${s.vendor} logotyp`} loading="lazy" className="max-w-full max-h-full object-contain" /></div> : <div className="w-12 h-12 shrink-0 rounded border border-border bg-muted flex items-center justify-center font-semibold text-foreground">{initials}</div>}
+          <div className="min-w-0"><p className="text-xs text-muted-foreground mb-2">{s.vendor}</p><h3 className="text-xl font-semibold text-foreground leading-tight break-words">{s.name}</h3></div>
         </div>
-        <div className="relative flex flex-wrap gap-1.5 mt-4">
-          <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/25 bg-white/10 text-white backdrop-blur-sm">
-            {deliveryText(s)}
-          </span>
-          <span className="px-2 py-0.5 text-[11px] font-semibold rounded border border-white/30 bg-white/15 text-white">
-            {ISV_SOLUTION_KIND_LABEL[solutionKindOf(s)]}
-          </span>
-          <span className="px-2 py-0.5 text-[11px] font-medium rounded border border-white/15 bg-white/5 text-white/80">
-            {categoryLabelSv(s.category)}
-          </span>
+        <div className="flex flex-wrap gap-2 mt-4 text-xs text-foreground">
+          <span className="border border-border rounded px-2 py-1">{deliveryText(s)}</span>
+          <span className="border border-border rounded px-2 py-1">{ISV_SOLUTION_KIND_LABEL[solutionKindOf(s)]}</span>
         </div>
       </div>
 
       <div className="px-7 py-5 flex flex-col flex-1 gap-4">
-        <InformationStatusBadge kind="isv" isvProduct partner={{ information_status: s.informationStatus }} className="self-start" />
+        <InformationStatusBadge kind="isv" isvProduct partner={{ information_status: s.informationStatus, information_verified_at: s.lastVerifiedDate }} className="self-start" />
         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{s.shortDescription}</p>
 
         {useCases.length > 0 && (
@@ -301,7 +272,7 @@ const SolutionCard = ({ s, onOpen, vendor }: { s: IsvSolution; onOpen: () => voi
           )}
         </div>
       </div>
-    </button>
+    </Button>
   );
 };
 
@@ -552,8 +523,8 @@ const SolutionDetail = ({
                 />
                 {vendorInfo(s, vendor).partner && (
                   <p className="text-xs text-muted-foreground">
-                    Leverantören är även verifierad partner på d365.se.{" "}
-                    <Link to={`/partner/${vendorInfo(s, vendor).partner!.slug}/`} className="text-primary underline underline-offset-2">Se partnerprofilen</Link>
+                    Leverantören har även en partnerprofil på d365.se.{" "}
+                    <Link to={`/partner/${vendorInfo(s, vendor).partner?.slug}/`} className="text-primary underline underline-offset-2">Se partnerprofilen</Link>
                   </p>
                 )}
                 {vendorInfo(s, vendor).vendorVerified && (() => {

@@ -1,3 +1,4 @@
+import { hasDatedVerification } from '@/lib/publicationLevel';
 import BookingOffer from "@/components/advisory/BookingOffer";
 import { trackJourney } from "@/lib/siJourney";
 import EmptyResultsNextSteps from "@/components/nextsteps/EmptyResultsNextSteps";
@@ -242,7 +243,7 @@ const PartnerColumnHeader = ({ partner, partners, slug, onChange, onClear, onReq
   <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
     {partner ? (
       <div className="relative flex flex-col items-center justify-center text-center">
-        <PartnerCardHeader partner={partner} to={`/partner/${partner.slug}/`} verified={!basic && partner.is_featured === true} compact className="text-left py-3 pr-6" />
+        <PartnerCardHeader partner={partner} to={`/partner/${partner.slug}/`} verified={hasDatedVerification(partner)} compact className="text-left py-3 pr-6" />
         <ShortlistButton
           entry={{ slug: partner.slug, name: partner.name, url: `/partner/${partner.slug}` }}
           variant="full"

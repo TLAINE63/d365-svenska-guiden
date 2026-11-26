@@ -190,6 +190,7 @@ export interface IsvVendorPublic {
   logo_url: string | null;
   information_status: string | null;
   last_verified_date: string | null;
+  premium_vendor?: boolean | null;
   office_scope?: string | null;
   office_city?: string | null;
   office_country?: string | null;
@@ -202,9 +203,8 @@ export function useIsvVendors(): Record<string, IsvVendorPublic> {
     let cancelled = false;
     (async () => {
       const { data, error } = await supabase
-        .from("isv_vendors")
-        .select("slug, name, website, description, logo_url, information_status, last_verified_date, office_scope, office_city, office_country")
-        .eq("publication_status", "published");
+        .from("isv_vendors_d365_public")
+        .select("*");
       if (error || cancelled || !data) return;
       const map: Record<string, IsvVendorPublic> = {};
       for (const v of data as unknown as IsvVendorPublic[]) map[v.slug] = v;
@@ -229,7 +229,7 @@ export function useVerifiedIsvContacts() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const { data, error } = await supabase.rpc("public_verified_isv_contacts");
+      const { data, error } = await supabase.rpc("public_isv_contacts_d365");
       if (error || cancelled || !data) return;
       const next = { vendor: {} as Record<string, IsvPublicContact>, product: {} as Record<string, IsvPublicContact> };
       for (const r of data as Array<IsvPublicContact & { kind: string; key: string }>) {
@@ -275,9 +275,8 @@ export function useIsvSolutions(): IsvSolution[] {
 
     (async () => {
       const { data, error } = await supabase
-        .from("isv_solutions")
+        .from("isv_products_d365_public")
         .select("*")
-        .eq("is_published", true)
         .order("sort_order", { ascending: true })
         .order("name", { ascending: true });
       if (error || cancelled || !data) return;
@@ -293,15 +292,8 @@ export function useIsvSolutions(): IsvSolution[] {
     // Kodkatalogen är en statisk ögonblicksbild (används vid SSG/prerender).
     // Databasen är källa till sanning: när en post finns i båda vinner databasen,
     // så att redaktionella ändringar i admin slår igenom direkt.
-    const staticWithModel = BC_ISV_SOLUTIONS.map((s) => ({
-      ...s,
-      slug: s.slug || s.id,
-      deliveryModel: s.deliveryModel || deliveryModelFromType(s.type),
-    }));
-    const dbIds = new Set(dbSolutions.map((s) => s.id));
-    const merged = dbSolutions.length
-      ? [...dbSolutions, ...staticWithModel.filter((s) => !dbIds.has(s.id))]
-      : staticWithModel;
+    // A successful empty public list is authoritative: never resurrect hidden products.
+    const merged = dbSolutions;
     // Power BI och Microsoft Fabric är Microsofts plattformsprodukter, inte
     // ISV-tillägg – de ska inte synas i eller räknas in i ISV-katalogen.
     return applyIsvOverrides(
