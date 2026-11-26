@@ -29,6 +29,20 @@ async function toDataUrl(src: string): Promise<string | null> {
   } catch { return null; }
 }
 
+/** Center-crops an image to the given width/height ratio so jsPDF never stretches it. */
+async function toCroppedDataUrl(src: string, ratio: number): Promise<string | null> {
+  try {
+    const img = new Image(); img.crossOrigin = "anonymous"; img.src = src; await img.decode();
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    let sw = iw, sh = iw / ratio;
+    if (sh > ih) { sh = ih; sw = ih * ratio; }
+    const c = document.createElement("canvas");
+    c.width = Math.round(Math.min(sw, 1400)); c.height = Math.round(c.width / ratio);
+    c.getContext("2d")!.drawImage(img, (iw - sw) / 2, (ih - sh) / 2, sw, sh, 0, 0, c.width, c.height);
+    return c.toDataURL("image/jpeg", 0.88);
+  } catch { return toDataUrl(src); }
+}
+
 /** Offer label shared with the on-page summary. */
 export function offerLabel(i: OfferPdfInput): string {
   if (i.kind === "isv") return "ISV Presence";
@@ -159,8 +173,8 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   if (!isv) {
     newPage("Varför Premium");
     heading("6 anledningar att välja Premium");
-    const reasonImgs = await Promise.all(PREMIUM_REASONS.map((r) => toDataUrl(r.image)));
     const cw = (W - 6) / 2, imgH = 26;
+    const reasonImgs = await Promise.all(PREMIUM_REASONS.map((r) => toCroppedDataUrl(r.image, cw / imgH)));
     for (let row = 0; row < 3; row++) {
       const pair = PREMIUM_REASONS.slice(row * 2, row * 2 + 2);
       doc.setFontSize(8.5); doc.setFont("helvetica", "normal");
@@ -225,7 +239,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   heading("Köparen gör allt mer själv");
   text("Organisationer som undersöker Dynamics 365 vill ofta förstå sina behov, undersöka lösningar, jämföra kostnader, utvärdera leverantörer och diskutera alternativen internt, och bilda sig en uppfattning innan det första säljsamtalet.");
   text("d365.se är byggt för att besvara de frågor köpare faktiskt ställer, öppet och konkret, även om pris, risker, nackdelar och situationer där Dynamics 365 inte är rätt val. Det hjälper företag att fatta mer välgrundade beslut och gör att de litar på underlaget.");
-  const imgs = await Promise.all([scene1, scene2, scene4, scene7].map(toDataUrl));
+  const imgs = await Promise.all([scene1, scene2, scene4, scene7].map((src) => toCroppedDataUrl(src, 1 / 0.7)));
   const captions = ["Research", "Intern diskussion", "Rådgivning", "Projekt"];
   const iw = (W - 9) / 4, ih = iw * 0.7;
   ensure(ih + 12);
