@@ -27,4 +27,17 @@ describe('Publicering är skild från verifiering', () => {
     expect(premiumProductAllowance(0)).toBe(3);
     expect(premiumProductAllowance(2)).toBe(5);
   });
+  it('Av/på-knappen står på från start för okänd uppgift', () => {
+    expect(isvLevel({}, 'vendor')).toBe('basic');
+    expect(isvLevel({}, 'product')).toBe('basic');
+    expect(isvLevel({ premium_vendor: true }, 'vendor')).toBe('premium');
+    expect(partnerLevel({})).toBe('basic');
+  });
+  it('Uttryckligt av stänger av, även vid saknad uppgift', () => {
+    expect(isvLevel({ publish_d365: false }, 'vendor')).toBe('hidden');
+    expect(isvLevel({ publish_d365: false }, 'product')).toBe('hidden');
+    expect(isvLevel({ is_published: false }, 'product')).toBe('hidden');
+    expect(isvLevel({ publication_status: 'draft' }, 'vendor')).toBe('hidden');
+    expect(partnerLevel({ hide_basic_card: true })).toBe('hidden');
+  });
 });

@@ -1,4 +1,8 @@
 ## Publiceringsnivå och verifiering (2026-11-26)
+- [x] Publiceringsknappen i Redaktionens listor står på från start: okänd eller ny partner/ISV räknas som publicerad tills den stängs av uttryckligen.
+- [x] Instruktioner till businesscentral.se om publiceringsnivå och daterad verifiering skrivna (Files: instruktioner-businesscentral-se-publiceringsniva.md).
+- [ ] Beslut av Thomas: ska `bc_isv_products_v1` öppnas för Grundprofiler och enkla produktkort (idag krävs verifierad + premium, vilket ger 2 produkter)?
+- [ ] Beslut av Thomas: ska dolda partners stängas ute från `bc_partners_v1` och ska vyn få äkta verifieringsfält?
 - [x] Kompakta listor i Redaktion med publicering av/på för partner, ISV och produkt; sparande och återläsning verifierade med återställda teständringar.
 - [x] Gemensamma nivåväljare i Admin och Redaktion för partners och ISV.
 - [x] Separat daterad verifiering och publika badges utan Premium-antaganden.

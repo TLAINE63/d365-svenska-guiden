@@ -10,8 +10,15 @@ export function hasDatedVerification(p: { information_status?: string | null; in
   return p.information_status === 'verified' && !!p.information_verified_at;
 }
 export interface IsvPublication { publish_d365?: boolean | null; publication_status?: string | null; is_published?: boolean | null; premium_vendor?: boolean | null; premium_product?: boolean | null }
+// Okänd uppgift räknas som publicerad: av/på-knappen står på från start och
+// stängs av först genom ett uttryckligt val.
 export function isvLevel(p: IsvPublication, kind: 'vendor' | 'product'): PublicationLevel {
-  if (!p.publish_d365 || (kind === 'vendor' ? p.publication_status !== 'published' : !p.is_published)) return 'hidden';
+  if (p.publish_d365 === false) return 'hidden';
+  if (kind === 'vendor') {
+    if (p.publication_status != null && p.publication_status !== 'published') return 'hidden';
+  } else if (p.is_published === false) {
+    return 'hidden';
+  }
   return (kind === 'vendor' ? p.premium_vendor : p.premium_product) ? 'premium' : 'basic';
 }
 export function isvLevelFields(level: PublicationLevel, kind: 'vendor' | 'product') {
