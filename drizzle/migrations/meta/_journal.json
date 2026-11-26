@@ -421,6 +421,13 @@
       "when": 1795688590183,
       "tag": "0059_bc_views_publication_and_verification",
       "breakpoints": true
+    },
+    {
+      "idx": 60,
+      "version": "7",
+      "when": 1795689104460,
+      "tag": "0060_guide_isv_solutions_v1",
+      "breakpoints": true
     }
   ]
 }
