@@ -16,5 +16,12 @@ export function PartnerOfferDownload() {
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 30000);
     } catch { toast.error("PDF kunde inte skapas."); } finally { setBusy(false); }
   }
-  return <Button size="lg" variant="outline" onClick={download} disabled={busy}>{busy ? "Skapar PDF …" : "Ladda ner partnererbjudandet (PDF)"}</Button>;
+  return (
+    <>
+      <Button size="lg" variant="outline" asChild>
+        <a href="/downloads/d365-partnererbjudande-2027-kort.pdf" download="d365-partnererbjudande-2027-kort.pdf">Ladda ner erbjudandet i korthet (2 sidor, PDF)</a>
+      </Button>
+      <Button size="lg" variant="outline" onClick={download} disabled={busy}>{busy ? "Skapar PDF …" : "Ladda ner partnererbjudandet (PDF)"}</Button>
+    </>
+  );
 }
