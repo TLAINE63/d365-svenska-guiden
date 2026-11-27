@@ -144,6 +144,7 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
       if (!sErr && !data?.error) files["snitcher-besokare.csv"] = strToU8("\uFEFF" + snitcherCsv(data.companies || []));
       await get("partnersegment.csv", "admin-partner-segments");
       await get("isv-produkter.csv", "export-isv-products");
+      await get("isv-statistik.csv", "export-isv-stats?days=90");
       await get("partnerstatistik.csv", `export-partner-stats?month=${encodeURIComponent(previousMonth())}`);
       await get("prenumeranter.csv", "newsletter-subscription?action=csv");
       if (!files["prenumeranter.csv"]) throw new Error("Prenumerantlistan kunde inte hämtas. CRM-paketet avbröts för att inte missa avregistreringar.");
@@ -213,6 +214,10 @@ export default function DemandExportsPanel({ token, onUnauthorized }: Props) {
           <Button variant="secondary" disabled={!!busy} onClick={() => download("isv", "export-isv-products", "d365se-isv-produkter")}>
             <Download className="w-4 h-4 mr-2" aria-hidden="true" />
             {busy === "isv" ? "Hämtar…" : "ISV-produkter"}
+          </Button>
+          <Button variant="secondary" disabled={!!busy} onClick={() => download("isvstats", "export-isv-stats?days=90", `d365se-isv-statistik-${stockholmToday()}`)}>
+            <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+            {busy === "isvstats" ? "Hämtar…" : "ISV-statistik (90 dagar)"}
           </Button>
         </div>
       </details>

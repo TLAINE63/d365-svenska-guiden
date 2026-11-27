@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { presentationFields } from '../_shared/isvPresentation.ts';
+import { isvStats, periodFromDays } from '../_shared/isvStats.ts';
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -282,6 +283,13 @@ serve(async (req) => {
       for (const k of Object.keys(out)) if (out[k] === undefined) delete out[k];
       return out;
     };
+
+    // Besök per produkt och tilläggsområde (endast aggregat), admin och redaktion.
+    if (action === "product_stats" && req.method === "GET") {
+      const period = periodFromDays(url.searchParams.get("days"));
+      if (!period) return json({ error: "Ogiltigt antal dagar" }, 400, corsHeaders);
+      return json(await isvStats(supabase, period.from, period.to), 200, corsHeaders);
+    }
 
     // Aktualitet: när leverantören själv uppdaterade och när d365.se senast verifierade.
     if (action === "list_freshness" && req.method === "GET") {
