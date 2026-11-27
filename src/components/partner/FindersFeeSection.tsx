@@ -15,7 +15,7 @@ const STEPS = [
   { img: adviceImg, alt: "Köpare i rådgivningssamtal om sitt Dynamics 365-projekt", who: "Köparen", title: "Verklig efterfrågan", text: "Ett företag använder guider, kalkyler och rådgivning på d365.se för att förstå sitt behov.", filter: "Inga kalla listor. Ett sajtbesök är aldrig ett lead." },
   { img: discussionImg, alt: "Rådgivare går igenom behov, tidplan och budget med ett företag", who: "d365.se", title: "Vi kvalificerar", text: "Vi går igenom behov, omfattning, tidplan och budget tillsammans med köparen.", filter: "Bara konkreta projekt med tydlig avsikt att välja partner går vidare." },
   { img: partnerImg, alt: "Partner bedömer en beskriven affärsmöjlighet", who: "Ni", title: "Ni avgör om ni vill gå vidare", text: "Vi presenterar affärsmöjligheten för partners med rätt kompetens.", filter: "Ni bedömer projektet och accepterar villkoren innan vi går vidare med introduktionen." },
-  { img: agreementImg, alt: "Kundmöte mellan köpare och partner runt ett mötesbord", who: "Köparen", title: "Kundmötet bokas", text: "Köparen väljer själv vilka partners som får kontakt och lämnar sitt samtycke.", filter: "Högst tre partners. Ni möter en köpare som redan vet vilka ni är." },
+  { img: agreementImg, alt: "Kundmöte mellan köpare och partner runt ett mötesbord", who: "Köparen", title: "Kundmötet bokas", text: "Köparen väljer själv vilka partners som får kontakt och lämnar sitt samtycke.", filter: "Ni möter en köpare som redan vet vilka ni är." },
 ];
 
 
@@ -67,7 +67,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift:</strong> mötena är alltid kostnadsfria.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Neutralt:</strong> introduktioner påverkar aldrig relevansordningen i partnersökningen.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Halverad provision med Premium:</strong> 2,5 % i stället för 5 %. Premium innehåller inga utlovade möten.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen väljer själv vilka partners som introduceras och godkänner varje introduktion. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
             </ul>
           </div>
         </div>

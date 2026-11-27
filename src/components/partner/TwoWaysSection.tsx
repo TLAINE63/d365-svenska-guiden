@@ -15,7 +15,7 @@ const PREMIUM = [
 const FINDERS = [
   "Företagssignaler, till exempel besök på sajten, är inte automatiskt leads.",
   "En kvalificerad affärsmöjlighet kräver tillräcklig projektkontext och en uttrycklig avsikt att gå vidare.",
-  "Kunden godkänner varje introduktion och väljer själv vilka partners (högst tre) som får kontakt.",
+  "Kunden godkänner varje introduktion och väljer själv vilka partners som får kontakt.",
   "Flera partners kan vara relevanta för samma kund.",
   "Ni bedömer varje möjlighet och accepterar villkoren innan introduktionen sker.",
   "Ersättningen regleras i ett separat förmedlingsavtal: mötena kostar ingenting, och provisionen vid vunnen affär är 2,5 % med Premium eller 5 % med Grundprofil.",
