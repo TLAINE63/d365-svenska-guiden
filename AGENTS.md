@@ -60,4 +60,3 @@
 - Newsletter rules: supabase/functions/_shared.
 - Snitcher sync selects its workspace server-side to prevent request-driven credential use.
 
-- Partnerprogram: three agreements (Premium, Affärsförmedling, ISV) and a five-item nav, so the page stays scannable.
