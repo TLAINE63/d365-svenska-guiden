@@ -428,6 +428,13 @@
       "when": 1795689104460,
       "tag": "0060_guide_isv_solutions_v1",
       "breakpoints": true
+    },
+    {
+      "idx": 61,
+      "version": "7",
+      "when": 1795779897439,
+      "tag": "0061_newsletter_contact_optout",
+      "breakpoints": true
     }
   ]
 }

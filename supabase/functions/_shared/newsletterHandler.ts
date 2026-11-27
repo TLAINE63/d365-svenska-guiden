@@ -73,11 +73,16 @@ export async function newsletterHandler(req: Request, forced?: "subscribe" | "co
         if (error) throw error;
         return data ? json({ ok: true }) : json({ error: "Länken är ogiltig eller har gått ut." }, 400);
       }
-      const { data: row, error: readError } = await db.from("newsletter_subscribers").select("id,unsubscribed_at").eq("unsubscribe_token_hash", hash).maybeSingle();
+      const { data: row, error: readError } = await db.from("newsletter_subscribers").select("id,email,unsubscribed_at").eq("unsubscribe_token_hash", hash).maybeSingle();
       if (readError) throw readError;
       if (!row) return json({ error: "Länken är ogiltig." }, 400);
       const { error } = await db.from("newsletter_subscribers").update({ status: "avregistrerad", unsubscribed_at: row.unsubscribed_at || new Date().toISOString(), confirmation_expires_at: null, pending_details: null }).eq("id", row.id);
       if (error) throw error;
+      // Frivilligt "kontakta mig inte": gäller alla listor med samma adress och exporteras till CRM.
+      if (raw.optout === true) {
+        const { error: optError } = await db.from("newsletter_subscribers").update({ contact_optout: true, contact_optout_at: new Date().toISOString() }).eq("email", row.email);
+        if (optError) throw optError;
+      }
       return json({ ok: true });
     }
     if (mode !== "subscribe") return json({ error: "Ogiltig förfrågan." }, 400);

@@ -1,0 +1,1 @@
+ALTER TABLE public.newsletter_subscribers ADD COLUMN IF NOT EXISTS contact_optout boolean NOT NULL DEFAULT false, ADD COLUMN IF NOT EXISTS contact_optout_at timestamptz;

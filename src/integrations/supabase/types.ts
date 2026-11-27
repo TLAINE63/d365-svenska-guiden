@@ -2568,6 +2568,8 @@ export type Database = {
           confirmation_token_hash: string
           confirmed_at: string | null
           consent_text_version: string
+          contact_optout: boolean
+          contact_optout_at: string | null
           created_at: string
           email: string
           first_name: string | null
@@ -2596,6 +2598,8 @@ export type Database = {
           confirmation_token_hash?: string
           confirmed_at?: string | null
           consent_text_version: string
+          contact_optout?: boolean
+          contact_optout_at?: string | null
           created_at?: string
           email: string
           first_name?: string | null
@@ -2624,6 +2628,8 @@ export type Database = {
           confirmation_token_hash?: string
           confirmed_at?: string | null
           consent_text_version?: string
+          contact_optout?: boolean
+          contact_optout_at?: string | null
           created_at?: string
           email?: string
           first_name?: string | null

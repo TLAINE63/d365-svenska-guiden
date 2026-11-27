@@ -13,7 +13,9 @@ describe("Nyhetsbrev: tre separata listor och CRM-export", () => {
   });
   it("exports opted-out recipients without tokens in the exact CRM order", () => {
     const exported = newsletterExportRow({ ...row, status: "avregistrerad", unsubscribed_at: "2026-11-23T14:07:00Z", token: "secret", unsubscribe_token: "secret" } as Subscriber);
-    expect(Object.keys(exported).join(",")).toBe("email,first_name,last_name,company,title,list,status,subscribed_at,confirmed_at,unsubscribed_at,source_page,partner_slug,isv_slug,site,consent_text_version");
+    expect(Object.keys(exported).join(",")).toBe("email,first_name,last_name,company,title,list,status,subscribed_at,confirmed_at,unsubscribed_at,source_page,partner_slug,isv_slug,site,consent_text_version,contact_optout");
+    expect(exported.contact_optout).toBe("false");
+    expect(newsletterExportRow({ ...row, contact_optout: true } as Subscriber).contact_optout).toBe("true");
     expect(exported.status).toBe("avregistrerad"); expect(exported.site).toBe("d365.se"); expect(exported.unsubscribed_at).toBe("2026-11-23T14:07:00Z");
     expect(NEWSLETTER_COLUMNS).not.toContain("token"); expect(Object.values(exported)).not.toContain("secret");
   });
