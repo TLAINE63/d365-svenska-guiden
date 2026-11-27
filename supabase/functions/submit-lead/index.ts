@@ -242,8 +242,8 @@ async function routeToPartners(supabase: any, resend: any, sanitizedData: Saniti
               JSON.stringify({
                 source_type: sanitizedData.source_type,
                 partner_slug: p.slug,
-                to: toEmail,
-                cc: ADMIN_EMAILS,
+                has_recipient: Boolean(toEmail),
+                cc_count: ADMIN_EMAILS.length,
                 // Visitor email is personal data and is never written to logs.
                 has_reply_to: Boolean(sanitizedData.email),
                 provider_message_id: providerMessageId,

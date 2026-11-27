@@ -102,9 +102,23 @@ function toISODate(input?: string): string {
   return d.toISOString().slice(0, 10);
 }
 
+
+const MS_FEED_HOSTS = /(^|\.)(microsoft\.com|dynamics\.com|azure\.com|office\.com|powerplatform\.com|cloudblogs\.microsoft\.com)$/i;
+function isAllowedFeedUrl(raw: string, sourceOrg?: string | null): boolean {
+  let u: URL;
+  try { u = new URL(raw); } catch { return false; }
+  if (u.protocol !== "https:") return false;
+  const h = u.hostname.toLowerCase();
+  if (h === "localhost" || h.endsWith(".local") || h.endsWith(".internal") || /^\d+\.\d+\.\d+\.\d+$/.test(h) || h.includes(":") || h.startsWith("[")) return false;
+  if ((sourceOrg ?? "partner") === "microsoft" && !MS_FEED_HOSTS.test(h)) return false;
+  return true;
+}
+
 async function processFeed(supabase: ReturnType<typeof createClient>, feed: FeedRow): Promise<{ imported: number; skipped: number; error?: string }> {
   try {
+    if (!isAllowedFeedUrl(feed.feed_url, feed.source_org)) return { imported: 0, skipped: 0, error: "feed_url not allowed" };
     const res = await fetch(feed.feed_url, {
+      redirect: "error",
       headers: { "User-Agent": "d365.se-feed-ingest/1.0", Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml, */*" },
       signal: AbortSignal.timeout(20000),
     });

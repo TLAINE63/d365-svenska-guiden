@@ -198,7 +198,9 @@ Deno.serve(async (req) => {
     // Use the /24-zeroed IP for the geo lookup (preserves country/region/city accuracy
     // for IPv4 in practice while never sending the full visitor IP off our infrastructure).
     const anonymizedIp = clientIp !== "unknown" ? anonymizeIp(clientIp) : "unknown";
-    const geoLookupIp = clientIp !== "unknown" && /^(\d{1,3}\.){3}\d{1,3}$/.test(clientIp) &&
+    // Geo lookup only for the edge-set connecting IP; caller-controlled headers never trigger outbound requests.
+    const edgeIp = req.headers.get("cf-connecting-ip")?.trim() || "";
+    const geoLookupIp = edgeIp === clientIp && clientIp !== "unknown" && /^(\d{1,3}\.){3}\d{1,3}$/.test(clientIp) &&
       !/^(10\.|127\.|0\.|169\.254\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(clientIp)
       ? clientIp.split(".").slice(0, 3).join(".") + ".0"
       : null;

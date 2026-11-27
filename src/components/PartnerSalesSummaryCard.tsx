@@ -62,7 +62,9 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
     if (!summary) return;
     const esc = (v: any) => {
       if (v === null || v === undefined) return "";
-      const s = String(v).replace(/"/g, '""');
+      let s = String(v);
+      if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; // neutralize spreadsheet formulas
+      s = s.replace(/"/g, '""');
       return /[",;\n]/.test(s) ? `"${s}"` : s;
     };
     const rows: string[][] = [];

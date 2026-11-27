@@ -42,6 +42,18 @@ async function verifyJWT(token: string, secret: string): Promise<boolean> {
   } catch { return false; }
 }
 
+
+const MS_FEED_HOSTS = /(^|\.)(microsoft\.com|dynamics\.com|azure\.com|office\.com|powerplatform\.com|cloudblogs\.microsoft\.com)$/i;
+function isAllowedFeedUrl(raw: string, sourceOrg?: string | null): boolean {
+  let u: URL;
+  try { u = new URL(raw); } catch { return false; }
+  if (u.protocol !== "https:") return false;
+  const h = u.hostname.toLowerCase();
+  if (h === "localhost" || h.endsWith(".local") || h.endsWith(".internal") || /^\d+\.\d+\.\d+\.\d+$/.test(h) || h.includes(":") || h.startsWith("[")) return false;
+  if ((sourceOrg ?? "partner") === "microsoft" && !MS_FEED_HOSTS.test(h)) return false;
+  return true;
+}
+
 const PRODUCT_AREA = z.enum(["business-central","finance-scm","crm-sales","crm-service","crm","power-platform","microsoft-ai","ovrigt"]);
 const FeedSchema = z.object({
   id: z.string().uuid().optional(),
@@ -53,6 +65,9 @@ const FeedSchema = z.object({
   default_news_type: z.enum(["kundcase","event","webinar","erbjudande","artikel","rapport","branschlosning","produktnyhet","partnernyhet","analys"]).default("partnernyhet"),
   default_product_areas: z.array(PRODUCT_AREA).min(1).max(8).default(["ovrigt"]),
   is_active: z.boolean().default(true),
+}).refine((v) => isAllowedFeedUrl(v.feed_url, v.source_org), {
+  message: "Ogiltig flödesadress (https krävs; Microsoft-flöden måste ligga på Microsofts domäner)",
+  path: ["feed_url"],
 }).refine((v) => v.source_org === "microsoft" || !!v.partner_id, {
   message: "Partner krävs för partnerflöden",
   path: ["partner_id"],
