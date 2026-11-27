@@ -3,9 +3,10 @@ import type { AgreementPdfSection } from "./generatePartnerAgreementPdf";
 import { PARTNER_PROFILE_TERMS, PARTNER_FEE_NOTE } from "./partnerProfileTerms";
 import { AGREEMENT_DURATION_TERMS, MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS, FINDERS_FEE_VARIANTS, FINDERS_FEE_MEETINGS, FINDERS_FEE_AFFAR, COMMERCIAL_PRINCIPLES } from '@/lib/partnerOrder';
 
-export const KVALIFICERAT_MOTE = "Ett kvalificerat möte är ett genomfört möte mellan partnern och en potentiell kund, där d365.se före introduktionen har:\n• identifierat ett konkret affärs-, system- eller förändringsbehov\n• bedömt att behovet är relevant för partnerns erbjudande\n• haft kontakt med en beslutsfattare eller projektansvarig hos kunden\n• dokumenterat kundens nuläge, behov och tidsram, samt en uppskattad omfattning\n• fått kundens önskemål om att träffa partnern\n• fått partnerns accept av de kommersiella villkoren.\n\nMötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. Ett kvalificerat möte innebär ingen garanti för att kunden genomför ett projekt eller väljer partnern.";
+export const KVALIFICERAT_MOTE = "Ett kvalificerat möte är ett genomfört möte mellan partnern och en potentiell kund, där d365.se före introduktionen har:\n• identifierat ett konkret affärs-, system- eller förändringsbehov\n• bedömt att behovet är relevant för partnerns erbjudande\n• haft kontakt med en beslutsfattare eller projektansvarig hos kunden\n• dokumenterat kundens nuläge, behov och tidsram, samt en uppskattad omfattning\n• fått kundens önskemål om att träffa partnern\n• fått partnerns accept av de kommersiella villkoren.\n\nEtt kvalificerat möte innebär ingen garanti för att kunden genomför ett projekt eller väljer partnern.";
 export const KOPARENS_FRIA_VAL = "Köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut. Affärsförmedling gäller endast när d365.se har genomfört behovsanalysen och introduktionen.";
-export const UPPFOLJNING = "d365.se följer upp med köparen efter mötet. Partnern lämnar på begäran underlag för rapporterat konsult- och projektvärde.";
+export const UPPFOLJNING = "d365.se följer upp med köparen efter mötet. Partnern lämnar på begäran underlag som styrker rapporterat konsult- och projektvärde.";
+export const REGISTRERING = "När partnern accepterar en förfrågan registreras introduktionen hos d365.se med datum, kund och kontaktperson. Registreringen ligger till grund för provisionen.";
 export const TIDSGRANSER = [
   "Reklamation av kvalificering: 5 arbetsdagar efter mötet.",
   "Vunnen affär rapporteras inom 14 dagar efter avtal med kund.",
@@ -16,13 +17,13 @@ export const TIDSGRANSER = [
 
 export type TermsArea = "partner" | "isv" | "commission" | "commission_premium" | "commission_grund";
 const kr = (value: number) => `${value.toLocaleString("sv-SE")} kr`;
-export const TERMS_DATE = "2026-11-25";
+export const TERMS_DATE = "2026-11-27";
 export const TERMS_AREAS: { id: TermsArea; title: string; description: string }[] = [
   { id: "partner", title: "Partner", description: "Grundprofil och Premium, redaktionell granskning inför verifiering, priser och abonnemangsvillkor." },
   { id: "isv", title: "ISV", description: "ISV Presence, extra produkter och villkor för presentation och verifiering." },
-  { id: "commission", title: "Affärsförmedlingsavtal", description: "Samma villkor för alla produktområden: kostnadsfria möten och 2,5 % vid affär med Premium, eller 3 500 kr per möte och 5 % vid affär med full avräkning med Grundprofil, för nya projekt, partnerbyte och expertförmedling." },
+  { id: "commission", title: "Affärsförmedlingsavtal", description: "Samma villkor för alla produktområden: kostnadsfria möten och 2,5 % vid affär med Premium eller 5 % vid affär med Grundprofil, för nya projekt, partnerbyte och expertförmedling." },
   { id: "commission_premium", title: "Förmedlingsavtal Premiumpartner", description: "Endast villkoren för Premium: kostnadsfria kvalificerade möten och 2,5\u00a0% vid affär under 12 månader från kundavtalet." },
-  { id: "commission_grund", title: "Förmedlingsavtal Grundprofil", description: "Endast villkoren för Grundprofil: 3\u00a0500 kr per kvalificerat möte och 5\u00a0% vid affär, där mötesavgiften räknas av till 100\u00a0%." },
+  { id: "commission_grund", title: "Förmedlingsavtal Grundprofil", description: "Endast villkoren för Grundprofil: kostnadsfria kvalificerade möten och 5\u00a0% vid affär under 12 månader från kundavtalet." },
 ];
 
 const isPremiumCommission = (area: TermsArea) => area === "commission_premium";
@@ -34,10 +35,10 @@ function levelCommissionRows(area: TermsArea): [string, string][] {
   return [
     ["Gäller för", premium ? "Partners med aktivt Premiumabonnemang" : "Partners med Grundprofil"],
     ["Produktområden", v.scope],
-    [premium ? "Kvalificerat möte" : "Mötesavgift per kvalificerat möte", premium ? "Kostnadsfritt" : kr(v.grund)],
+    ["Kvalificerat möte", "Kostnadsfritt"],
     ["Avgift vid affär", `${premium ? "2,5" : "5"} % av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, utan maxbelopp`],
     ["Tidsfönster", "Kundavtal tecknat inom 6 månader från mötet (expertförmedling: från intervjun)"],
-    ...(premium ? [] : [["Avräkning", "Betald mötesavgift räknas av till 100 % mot avgiften vid affär, aldrig negativt"] as [string, string]]),
+    ["Rapportering", "Vunnen affär inom 14 dagar, fakturerat värde kvartalsvis"],
   ];
 }
 
@@ -50,11 +51,10 @@ function levelCommissionSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs." },
-    { title: premium ? "Kvalificerade möten" : "Mötesavgift", body: premium
-      ? "Kvalificerade möten ingår kostnadsfritt för alla produktområden, både för nya projekt, partnerbyte och expertförmedling. Det gäller även när affären omfattar flera produktområden."
-      : `Mötesavgiften är ${kr(FINDERS_FEE_VARIANTS[0].grund)} per genomfört kvalificerat möte, oavsett produktområde, för nya projekt, partnerbyte och expertförmedling. Samma avgift gäller när affären omfattar flera produktområden.\n\nVid expertförmedling tas avgiften ut per expert när kunden har haft intervju med experten, inte när ett CV skickas.` },
-    { title: "Avgift vid affär", body: `${premium ? "2,5" : "5"} % av fakturerat konsult- och projektvärde under de första 12 månaderna från tecknat kundavtal, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp.${premium ? "" : "\n\nBetald mötesavgift räknas av till 100 % mot avgiften vid affär. Avräkningen blir aldrig negativ."}\n\n${COMMISSION_EXCLUDED}` },
-    { title: "Kvalificerat möte", body: premium ? KVALIFICERAT_MOTE.replace("Mötesavgift debiteras först efter genomfört möte. Avbokade eller uteblivna möten debiteras inte. ", "") : KVALIFICERAT_MOTE },
+    { title: "Registrering", body: REGISTRERING },
+    { title: "Kostnadsfria möten", body: "Kvalificerade möten är kostnadsfria för partnern, för nya projekt, partnerbyte och expertförmedling. Det gäller även när affären omfattar flera produktområden." },
+    { title: "Avgift vid affär", body: `${premium ? "2,5" : "5"} % av fakturerat konsult- och projektvärde under de första 12 månaderna från tecknat kundavtal, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp.\n\n${COMMISSION_EXCLUDED}` },
+    { title: "Kvalificerat möte", body: KVALIFICERAT_MOTE },
     { title: "Köparens fria val", body: KOPARENS_FRIA_VAL },
     { title: "Uppföljning", body: UPPFOLJNING },
     { title: "Tidsgränser", body: TIDSGRANSER.join("\n\n") },
@@ -74,7 +74,7 @@ export function termsPriceRows(area: TermsArea): [string, string][] {
     ["Introduktionspriset gäller", "De första 20 ISV-leverantörerna, första avtalsåret"],
   ];
   return [
-    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
+    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`${v.name}: ${v.scope}`, "Mötesavgift 0 kr (Premium och Grundprofil)"]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
     ["Avgift vid affär", "2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
     ["ISV: Affärsförmedling", "Pausad tills vidare"],
@@ -87,7 +87,7 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     ...PARTNER_PROFILE_TERMS,
     { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Produktområden", body: "CRM-applikationerna räknas som ett produktområde. Upp till tre branscher per produktområde ingår i Premium." },
-    { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 uppdaterad 2026-11-24.\n\n${MONTHLY_BILLING_TERMS}\n\n${PREMIUM_MEETING_TERMS}\n\nÅrsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
+    { title: "Fakturering och avtalstid", body: `${AGREEMENT_DURATION_TERMS}\n\nPrislista 2027 uppdaterad 2026-11-24.\n\n${MONTHLY_BILLING_TERMS}\n\nÅrsabonnemang faktureras i förskott. Startdatum och individuella villkor anges i överenskommelsen.` },
   ];
   if (area === "isv") return [
     { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
@@ -101,14 +101,9 @@ export function termsSections(area: TermsArea): AgreementPdfSection[] {
     { title: "Generella kommersiella principer", body: COMMERCIAL_PRINCIPLES.map((p) => `• ${p}`).join("\n") },
     { title: "Avtalstid och prisjustering", body: AGREEMENT_DURATION_TERMS },
     { title: "Accept före introduktion", body: "Partnern eller ISV-leverantören får bedöma affärsmöjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs. Förmedlingen regleras i en separat skriftlig överenskommelse." },
-    { title: "Mötesavgift för alla produktområden", body: `Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
-
-${FINDERS_FEE_MEETINGS}
-
-Samma mötesavgift gäller även när affären omfattar flera produktområden.
-
-Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.` },
-    { title: "Premiumpris vid mötet", body: PREMIUM_MEETING_TERMS },
+    { title: "Registrering", body: REGISTRERING },
+    { title: "Kostnadsfria möten", body: "Kvalificerade möten är kostnadsfria för partnern, för nya projekt, partnerbyte och expertförmedling, även när affären omfattar flera produktområden." },
+    { title: "Provisionsnivå", body: PREMIUM_MEETING_TERMS },
     { title: "Avgift vid affär", body: `${FINDERS_FEE_AFFAR}
 
 Licenser, molnförbrukning, hårdvara, resor och vidarefakturerade tredjepartskostnader ingår inte. Alla belopp är exklusive moms.` },

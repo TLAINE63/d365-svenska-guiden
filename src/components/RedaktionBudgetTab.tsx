@@ -231,7 +231,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
 
       <section id="budget-pricing" className="scroll-mt-32 space-y-4">
         <h3 className="text-lg font-semibold">Priser och provision, budgetantaganden</h3>
-        <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Betald mötesavgift räknas av i sin helhet mot avgiften vid affär, aldrig negativt (ingen återbetalning).</p>
+        <p className="text-sm text-muted-foreground">Endast Budget 2027. Publika priser och avtal ändras inte. Inga mötesavgifter tas ut. Ersättning är provision vid vunnen affär.</p>
         <div className="grid gap-4 sm:grid-cols-3">
           {[["isvAnnual", "ISV ordinarie årsavgift, kr"]].map(([key, label]) => <label key={key} className="space-y-1 text-sm"><span>{label}</span><BudgetNumberInput aria-label={label} min={0} max={key.includes("Percent") ? 100 : undefined} step={key.includes("Percent") ? 0.1 : 1} value={pricing[key as "isvAnnual"]} onValueChange={(value) => setPricing({ [key]: value })} /></label>)}
         </div>
@@ -239,7 +239,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
           <thead><tr><th className="text-left py-2">Produktområde</th><th>Möte Premium, kr</th><th>Möte Grundprofil, kr</th><th>Vid affär Premium, %</th><th>Vid affär Grundprofil, %</th><th>Lägst, kr</th></tr></thead>
           <tbody>{FUNNEL_DEAL_TYPES.map(({ band, label }) => <tr key={band} className="border-t"><th className="text-left py-3 font-medium">{label}</th>{(["premiumMeeting", "basicMeeting", "percent", "basicPercent", "minimum"] as const).map((key) => <td key={key} className="px-2"><BudgetNumberInput aria-label={`${band} ${key}`} min={0} max={key.endsWith("ercent") ? 100 : undefined} step={key.endsWith("ercent") ? 0.1 : 1} className="h-8 w-24" value={pricing.bands[band][key]} onValueChange={(value) => setPricing({ bands: { ...pricing.bands, [band]: { ...pricing.bands[band], [key]: value } } })} /></td>)}</tr>)}</tbody>
         </table></div>
-        <p className="text-sm text-muted-foreground">Samma mötesavgift gäller för alla produktområden, även vid partnerbyte och expertförmedling.</p>
+        <p className="text-sm text-muted-foreground">Inga mötesavgifter för något produktområde, även vid partnerbyte och expertförmedling.</p>
         <details className="text-sm"><summary className="cursor-pointer font-medium">Tidsgränser (utkast 2026-11-17)</summary>
           <ul className="mt-2 space-y-1 text-muted-foreground">
             <li>Reklamation av kvalificering efter mötet: 5 arbetsdagar</li>
@@ -354,7 +354,7 @@ export default function RedaktionBudgetTab({ token, partners }: { token: string 
             <CardTitle className="text-base">Intäktsbudget per partner</CardTitle>
             <Button variant="outline" size="sm" onClick={() => setShowPartners((v) => !v)}>{showPartners ? "Dölj partnerdetaljer" : `Visa partnerdetaljer (${partners.length})`}</Button>
           </div>
-          <CardDescription>Priser följer budgetantagandena. Mötesavgift beräknas på snittaffären för BC respektive F&amp;SCM. Avtal är volymuppgifter utan separat avgift; provision tas en gång på success-underlaget.</CardDescription>
+          <CardDescription>Priser följer budgetantagandena. Provision beräknas på snittaffären för BC respektive F&amp;SCM. Avtal är volymuppgifter utan separat avgift; provision tas en gång på success-underlaget.</CardDescription>
         </CardHeader>
         {showPartners && <CardContent className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -538,7 +538,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
     <Card>
       <CardHeader>
         <CardTitle className="text-base">Affärsförmedlingsbudget som funnel</CardTitle>
-        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Snittintäkten används som provisionsunderlag per vunnen affär, minus redan betald mötesavgift. Summan ingår i resultatet. Mötesavgift, procent och minimum följer respektive variant i tabellen ovan. Provisionen har inget tak. Avtal är ett volymsteg utan extra avgift.</CardDescription>
+        <CardDescription>Fyll i möten, avtal och affärer per typ av affär. Snittintäkten används som provisionsunderlag per vunnen affär. Summan ingår i resultatet. Procent och minimum följer respektive variant i tabellen ovan. Provisionen har inget tak. Avtal är ett volymsteg utan extra avgift.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
         <div id="budget-partner-funnel" className="scroll-mt-32 overflow-x-auto">
@@ -576,7 +576,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
                 <tr key={k} className="border-t">
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
-                  <td className="px-2 text-right whitespace-nowrap" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr, intervjuavgiften avräknas`}>{fmt(x.perAssignment - x.fee)} kr</td>
+                  <td className="px-2 text-right whitespace-nowrap" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr`}>{fmt(x.perAssignment - x.fee)} kr</td>
                   <td className="px-2">{field(`Uppdrag ${e.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.assignments, (v) => set(k, { assignments: v }))}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
@@ -617,7 +617,7 @@ function FunnelBudget({ budget, setBudget }: { budget: Budget; setBudget: React.
                   <td className="py-2 pr-3 pl-4">{tier === "basic" ? "Grundprofil" : "Premium"}</td>
                   <td className="px-2 text-right whitespace-nowrap">{fmt(x.fee)} kr</td>
                   <td className="px-2">{field(`Möten ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.meetings, (v) => set(k, { meetings: v }))}{sub(x.meetings)}</td>
-                  <td className="px-2" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr, mötesavgiften avräknas`}>{field(`Affärer ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
+                  <td className="px-2" title={`${tier === "basic" ? "5" : "2,5"} % av ${fmt(x.value)} kr`}>{field(`Affärer ${s.label} ${tier === "basic" ? "Grundprofil" : "Premium"}`, r.wins, (v) => set(k, { wins: v }))}{sub(x.wins)}</td>
                   <td className="border-l bg-muted px-3 text-right font-semibold whitespace-nowrap">{fmt(x.total)} kr</td>
                 </tr>); })}
             </Fragment>)}</tbody>

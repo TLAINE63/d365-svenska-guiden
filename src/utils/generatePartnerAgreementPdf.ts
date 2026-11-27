@@ -19,7 +19,7 @@ export function agreementPriceRows(): [string, string][] {
     ["Premium, 2 produktområden", `${kr(YEAR_PRICE[2])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[2] / 12))}/mån) eller ${kr(MONTH_PRICE[2])}/mån`],
     ["Premium, 3 produktområden", `${kr(YEAR_PRICE[3])}/år (motsvarar ${kr(Math.round(YEAR_PRICE[3] / 12))}/mån) eller ${kr(MONTH_PRICE[3])}/mån`],
     ["ISV Presence, grundavgift", `${kr(ISV_FEES.base)}/år`],
-    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Affärsförmedling, ${v.name}: ${v.scope}`, `Mötesavgift ${kr(v.premium)} (Premium) / ${kr(v.grund)} (Grundprofil)`]),
+    ...FINDERS_FEE_VARIANTS.map((v): [string, string] => [`Affärsförmedling, ${v.name}: ${v.scope}`, "Mötesavgift 0 kr (Premium och Grundprofil)"]),
     ["Gäller", "Nya projekt, partnerbyte och expertförmedling (per expert, efter intervju)"],
     ["Avgift vid affär", "2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna, utan maxbelopp"],
   ];
@@ -52,7 +52,7 @@ export async function generatePartnerAgreementPdf(opts: { heading: string; intro
     const head = isv ? "Hjälp kunden att upptäcka era lösningar" : "När kunderna utvärderar sina alternativ – finns ni med?";
     const body = isv
       ? `ISV Presence gör era produkter tydliga när köpare undersöker kompletterande lösningar till Dynamics 365. Introduktionspris 2027: ${kr(ISV_FEES.introFirstYear)} första året (ordinarie ${kr(ISV_FEES.base)}/år), tre produkter ingår.`
-      : `Premium ger er närvaro i hela köparens beslutsprocess, marknadsinsikter om vad köparna efterfrågar och ingen mötesavgift vid affärsförmedling. Från ${kr(YEAR_PRICE[1])}/år, motsvarar ${kr(Math.round(YEAR_PRICE[1] / 12))}/mån.`;
+      : `Premium ger er närvaro i hela köparens beslutsprocess, marknadsinsikter om vad köparna efterfrågar och halverad provision vid affärsförmedling. Från ${kr(YEAR_PRICE[1])}/år, motsvarar ${kr(Math.round(YEAR_PRICE[1] / 12))}/mån.`;
     doc.setFont("helvetica", "normal"); doc.setFontSize(9.5);
     const lines = wrapPdfText(body, width - 14, (l) => doc.getTextWidth(l));
     doc.setFont("helvetica", "bold"); doc.setFontSize(12.5);

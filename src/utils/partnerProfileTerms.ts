@@ -2,18 +2,18 @@ import { MONTHLY_BILLING_TERMS, PREMIUM_MEETING_TERMS } from "@/lib/partnerOrder
 
 /** Shared profile terms for every generated partner agreement. */
 export const PARTNER_PROFILE_TERMS = [
-  { title: "Månadsabonnemang och mötesavgift", body: `${MONTHLY_BILLING_TERMS}\n\n${PREMIUM_MEETING_TERMS}` },
+  { title: "Månadsabonnemang", body: `${MONTHLY_BILLING_TERMS}\n\n${PREMIUM_MEETING_TERMS}` },
   { title: "Grundprofil", body: "Grundprofil är kostnadsfri och ger en grundläggande presentation av partnerns produktområden och kompetenser. Grundprofil innebär inte att uppgifterna har verifierats av d365.se-redaktionen." },
   { title: "Vad Premium ger", body: "Premium ger närvaro i köparens beslutsprocess, insikt i marknadens efterfrågan och förmånliga villkor vid affärsförmedling. Partnern syns när företag söker information, jämför lösningar och utvärderar partners, och får sammanställd statistik över vad potentiella kunder efterfrågar och hur besökarna engagerar sig i partnerns erbjudande. Inga namn på besökande företag lämnas ut och ingen volym av kundmöten garanteras." },
-  { title: "Premium: gör er kompetens tydligare för köparen", body: "Premium ger köparen ett mer utförligt underlag för att bedöma er som partner. Redaktionell granskning, fördjupad presentation och löpande uppföljning ingår.\n\nPremium innehåller inga utlovade möten. Förmånen är att ingen mötesavgift tas ut när en introduktion blir aktuell." },
+  { title: "Premium: gör er kompetens tydligare för köparen", body: "Premium ger köparen ett mer utförligt underlag för att bedöma er som partner. Redaktionell granskning, fördjupad presentation och löpande uppföljning ingår.\n\nPremium innehåller inga utlovade möten. Förmånen vid affärsförmedling är halverad provision: 2,5 % i stället för 5 %." },
   { title: "Granskade uppgifter och märket Verifierad partner", body: "Redaktionell granskning av partneruppgifterna inför verifiering ingår. Efter d365.se-redaktionens godkännande får profilen märket Verifierad partner.\n\nVerifieringen beslutas manuellt och sker aldrig automatiskt genom betalning." },
   { title: "Visa vad ni kan med kundcase, experter och video", body: "En fördjupad presentation med kundcase och experter hjälper köparen att förstå er erfarenhet och kompetens. Möjlighet att visa video på profilen ingår." },
   { title: "Följ upp profilen med statistik och personlig kontakt", body: "Kvartalsvis genomgång, profilstatistik och en namngiven kontaktperson ingår. Det ger er underlag för att följa profilens utveckling och hålla presentationen aktuell." },
   { title: "INSIDE-produktion: separat tillval", body: "INSIDE-produktion ingår inte i Premiumabonnemanget. Den köps separat och erbjuds endast Premiumpartners." },
-  { title: "Förmedling och neutral relevans", body: "Affärsförmedlingsavtalet har samma villkor för alla partners inom respektive nivå. För Premium är kvalificerade kundmöten kostnadsfria och avgiften vid affär är 2,5 %. För Grundprofil är mötesavgiften 3 500 kr per kvalificerat möte, oavsett produktområde, och den räknas av i sin helhet mot avgiften vid affär (5 %).\n\nNya projekt, partnerbyte och expertförmedling regleras i förmedlingsavtalet. Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.\n\nBetalning påverkar aldrig relevansordning eller rekommendationer." },
+  { title: "Förmedling och neutral relevans", body: "Affärsförmedlingsavtalet har samma villkor för alla partners inom respektive nivå. Inga mötesavgifter tas ut. Avgiften vid vunnen affär är 2,5 % för Premium och 5 % för Grundprofil.\n\nNya projekt, partnerbyte och expertförmedling regleras i förmedlingsavtalet. Partnern får bedöma möjligheten och acceptera de kommersiella villkoren innan introduktionen genomförs.\n\nBetalning påverkar aldrig relevansordning eller rekommendationer." },
 ];
 
-export const PARTNER_FEE_NOTE = "Samma villkor för alla partners inom respektive nivå. Betald mötesavgift räknas av mot avgiften vid affär och avräkningen blir aldrig negativ. Alla priser exklusive moms.";
+export const PARTNER_FEE_NOTE = "Samma villkor för alla partners inom respektive nivå. Inga mötesavgifter vid affärsförmedling. Alla priser exklusive moms.";
 
 /** Every Premium benefit, printed in every agreement PDF so it stands alone when forwarded internally. */
 export const PREMIUM_BENEFITS_TITLE = "Detta ingår i Premiumavtalet";

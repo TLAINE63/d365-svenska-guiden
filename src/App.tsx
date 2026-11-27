@@ -331,6 +331,7 @@ const AppShell = () => {
           <Route path="/kom-igang/snabbguide/resultat" element={<KomIgang />} />
           <Route path="/partnerprogram" element={<Partnerprogram />} />
           <Route path="/isvprogram" element={<IsvProgram />} />
+          <Route path="/isv-program" element={<RedirectTo to="/isvprogram/" />} />
           <Route path="/isv/produkt/:id" element={<IsvProduct />} />
           
           <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />

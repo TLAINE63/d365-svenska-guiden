@@ -1,16 +1,16 @@
 export const ORDER_VERSION = '2027-01-01';
 export const MONTHLY_NOTICE_MONTHS = 1;
 export const MONTHLY_BILLING_TERMS = `Premium Månad faktureras i efterskott med ${MONTHLY_NOTICE_MONTHS === 1 ? 'en månads' : `${MONTHLY_NOTICE_MONTHS} månaders`} uppsägningstid. Uppsägning sker skriftligen via e-post.`;
-export const PREMIUM_MEETING_TERMS = 'Mötesavgifter för möten under en betald månad följer Premiumpriset endast om Premiumabonnemanget är aktivt när mötet genomförs. Om abonnemanget inte är aktivt gäller Grundprofilens mötesavgift.';
+export const PREMIUM_MEETING_TERMS = 'Provisionsnivån vid affärsförmedling följer det abonnemang som är aktivt när mötet genomförs: 2,5 % med aktivt Premium, annars 5 %.';
 export const FINDERS_FEE_VARIANTS = [
- { name: 'Alla produktområden', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), F&SCM (Finance och Supply Chain Management), Project Operations, Commerce, Human Resources, Power Platform och Copilot', premium: 0, grund: 3500 },
+ { name: 'Alla produktområden', scope: 'Business\u00a0Central, CRM (Sales, Customer Service, Contact Center, Field Service, Customer Insights), F&SCM (Finance och Supply Chain Management), Project Operations, Commerce, Human Resources, Power Platform och Copilot', premium: 0, grund: 0 },
 ] as const;
 /** Ersättning vid vunnen affär: Premium 2,5 %, Grundprofil 5 % (prislista 2027). */
 export const FINDERS_FEE_RATE = 0.025;
 export const FINDERS_FEE_RATE_GRUND = 0.05;
 export const FINDERS_FEE_CAP = null;
-export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp. För Grundprofil räknas betald mötesavgift av till 100 % och avräkningen blir aldrig negativ; för Premium är mötet kostnadsfritt och avräkning är inte aktuell. Gäller nya projekt, partnerbyte och expertförmedling.';
-export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Mötesavgift ${(v.premium as number).toLocaleString('sv-SE')} kr (Premium) / ${v.grund.toLocaleString('sv-SE')} kr (Grundprofil).`).join('\n\n');
+export const FINDERS_FEE_AFFAR = 'Vid affär: 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för kundavtal som tecknas inom 6 månader från mötet (vid expertförmedling från intervjun). Inget maxbelopp. Inga mötesavgifter tas ut; mötena är kostnadsfria för både Premium och Grundprofil. Gäller nya projekt, partnerbyte och expertförmedling.';
+export const FINDERS_FEE_MEETINGS = FINDERS_FEE_VARIANTS.map(v => `${v.name}: ${v.scope}. Kvalificerade möten är kostnadsfria (Premium och Grundprofil).`).join('\n\n');
 export const ORDER_AREAS = { bc: 'Business Central', fscm: 'Finance & Supply Chain Management', crm: 'CRM (Sales, Customer Service, Field Service, Customer Insights och Contact Center)' };
 export const ADDON_PRODUCTS = ['Commerce', 'Human Resources', 'Project Operations'];
 export const ADDON_PRODUCT_NOTE = 'Commerce, Human Resources och Project Operations är tillvalsprodukter som ni för in via profileringslänken. De ingår kostnadsfritt för partners med profil och räknas därför inte som produktområden i prislistan.';
@@ -52,10 +52,11 @@ ${AGREEMENT_DURATION_TERMS}
 ${COMMERCIAL_PRINCIPLES_TEXT}`;
 export const MEDIATION_TERMS = `Affärsförmedlingsavtal, prislista 2027. Samma villkor för alla partners inom respektive nivå; Premium och Grundprofil avser partnerns profilnivå. Partnern bedömer varje affärsmöjlighet och accepterar villkoren före introduktion.
 
-Mötesavgift per genomfört kvalificerat möte, oavsett produktområde. Samma belopp gäller för nya projekt, partnerbyte och expertförmedling.
+Kostnadsfria möten: kvalificerade möten är kostnadsfria för partnern, för nya projekt, partnerbyte och expertförmedling, även när affären omfattar flera produktområden.
 ${PREMIUM_MEETING_TERMS}
 ${FINDERS_FEE_MEETINGS}
-Samma mötesavgift gäller även när affären omfattar flera produktområden. Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.
+
+Registrering: när partnern accepterar en förfrågan registreras introduktionen hos d365.se med datum, kund och kontaktperson. Registreringen ligger till grund för provisionen.
 
 ${FINDERS_FEE_AFFAR}
 

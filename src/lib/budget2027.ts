@@ -267,7 +267,7 @@ export const EXPERT_FUNNEL = [
   { key: "expertShort", scope: "short", label: "Upp till 6 månader eller under halvtid" },
   { key: "expertLong", scope: "long", label: "Längre eller minst halvtid" },
 ] as const;
-// Partnerbyte följer förmedlingsavtalet: mötesavgift (Grundprofil) plus 2,5 % / 5 % vid affär, mötesavgiften avräknas.
+// Partnerbyte följer förmedlingsavtalet: kostnadsfritt möte plus 2,5 % / 5 % vid affär.
 export const SWITCH_FUNNEL = [
   { key: "switchStd", label: "Partnerbyte: BC, CRM, Power Platform", band: "std", value: 400000 },
   { key: "switchFscm", label: "Partnerbyte: Finance & SCM", band: "fscm", value: 3000000 },
@@ -305,7 +305,7 @@ export function isvFunnelRow(i: (typeof ISV_FUNNEL)[number], r: FunnelRow = {}, 
   const deals = n(r.deals) * fee;
   return { fee, deals, wins: 0, total: deals };
 }
-/** Partnerbyte: mötesavgift plus 2,5 % (Premium) / 5 % (Grundprofil) av snittvärdet per vunnen affär, betald mötesavgift avräknas. */
+/** Partnerbyte: 2,5 % (Premium) / 5 % (Grundprofil) av snittvärdet per vunnen affär; möten är kostnadsfria. */
 export function switchFunnelRow(s: (typeof SWITCH_FUNNEL)[number], tier: "basic" | "premium", r: FunnelRow = {}, pricing = budgetPricing(), values: Record<string, number> = {}) {
   const fee = pricing.switchMeeting[s.band][tier];
   const value = values[s.key] ?? s.value;

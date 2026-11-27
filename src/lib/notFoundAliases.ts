@@ -11,6 +11,7 @@ const EXACT: Record<string, string> = {
   "businesscentral/kostnad": "/kostnad/",
   "vivicta": "/partner/vivicta/",
   "4ps": "/partner/4ps-sweden/",
+  "isv-program": "/isvprogram/",
 };
 
 function distance(a: string, b: string): number {

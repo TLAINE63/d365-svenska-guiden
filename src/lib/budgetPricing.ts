@@ -2,7 +2,7 @@
 export interface DealBand { premiumMeeting: number; basicMeeting: number; percent: number; /** Grundprofilens procent vid affär. */ basicPercent?: number; minimum: number; maximum: number }
 export interface SwitchMeetingFee { premium: number; basic: number }
 /** Bumped when published prices change; older saved price assumptions are replaced by the defaults. */
-export const PRICING_VERSION = "2027-prislista";
+export const PRICING_VERSION = "2027-prislista-utan-motesavgift";
 export interface BudgetPricing {
   version?: string;
   units: Record<string, number>;
@@ -12,7 +12,7 @@ export interface BudgetPricing {
   smallLimit: number;
   largeLimit: number;
   bands: { small: DealBand; medium: DealBand; large: DealBand };
-  /** Partnerbyte: mötesavgift per nivå; avgiften vid affär följer bands.small. */
+  /** Partnerbyte: mötesavgift per nivå (0 kr sedan 2026-11-27); avgiften vid affär följer bands.small. */
   switchMeeting: { std: SwitchMeetingFee; fscm: SwitchMeetingFee };
   /** Expertförmedling: fast avgift per tillsatt uppdrag (utkast 2026-11-17). */
   expertFee: { short: SwitchMeetingFee; long: SwitchMeetingFee };
@@ -24,13 +24,13 @@ export const DEFAULT_PRICING: BudgetPricing = {
   smallLimit: 250000, largeLimit: 1000000,
   bands: {
     // One product-independent rate; medium and large remain compatibility aliases.
-    small: { premiumMeeting: 0, basicMeeting: 3500, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
-    medium: { premiumMeeting: 0, basicMeeting: 3500, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
-    large: { premiumMeeting: 0, basicMeeting: 3500, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
+    small: { premiumMeeting: 0, basicMeeting: 0, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
+    medium: { premiumMeeting: 0, basicMeeting: 0, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
+    large: { premiumMeeting: 0, basicMeeting: 0, percent: 2.5, basicPercent: 5, minimum: 0, maximum: 0 },
   },
-  // Samma mötesavgift gäller för partnerbyte och expertförmedling som för nya projekt.
-  switchMeeting: { std: { premium: 0, basic: 3500 }, fscm: { premium: 0, basic: 3500 } },
-  expertFee: { short: { premium: 0, basic: 3500 }, long: { premium: 0, basic: 3500 } },
+  // Inga mötesavgifter: möten är kostnadsfria för båda nivåerna.
+  switchMeeting: { std: { premium: 0, basic: 0 }, fscm: { premium: 0, basic: 0 } },
+  expertFee: { short: { premium: 0, basic: 0 }, long: { premium: 0, basic: 0 } },
 };
 export function budgetPricing(input?: Partial<BudgetPricing>): BudgetPricing {
   // Price assumptions saved before the latest price change are dropped; limits stay.
@@ -40,11 +40,11 @@ export function budgetPricing(input?: Partial<BudgetPricing>): BudgetPricing {
     medium: { ...DEFAULT_PRICING.bands.medium, ...saved?.bands?.small, maximum: 0 },
     large: { ...DEFAULT_PRICING.bands.small, ...saved?.bands?.small, maximum: 0 },
   }, switchMeeting: {
-    std: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
-    fscm: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
+    std: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 0 },
+    fscm: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 0 },
   }, expertFee: {
-    short: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
-    long: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 3500 },
+    short: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 0 },
+    long: { premium: saved?.bands?.small?.premiumMeeting ?? 0, basic: saved?.bands?.small?.basicMeeting ?? 0 },
   },
   // ISV Finder's fee is paused: always 0 % regardless of older saved budgets.
   isvLicensePercent: 0, isvConsultPercent: 0, version: PRICING_VERSION };

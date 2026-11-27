@@ -4518,10 +4518,9 @@ Thomas`,
  <table className="mt-2 w-full text-left">
  <thead><tr><th className="py-1">Villkor</th><th>Premium / Grundprofil</th></tr></thead>
  <tbody>
- <tr><td className="py-1 pr-2">Kvalificerat kundmöte</td><td>0 kr / 3 500 kr</td></tr>
+ <tr><td className="py-1 pr-2">Kvalificerat kundmöte</td><td>0 kr / 0 kr</td></tr>
  <tr><td className="py-1 pr-2">Vid vunnen affär (fakturerat konsult- och projektvärde)</td><td>2,5 % / 5 %</td></tr>
- <tr><td className="py-1 pr-2">Avräkning av mötesavgift</td><td>Ej aktuellt / 100 %</td></tr>
- </tbody>
+  </tbody>
  </table>
  <p className="mt-2">Prislista 2027. En variant för alla produktområden, nya projekt, partnerbyte och expertförmedling. Inget maxbelopp. Kundavtalet ska tecknas inom 6 månader från mötet (vid expertförmedling från intervjun) och avgiften beräknas under 12 månader från kundavtalet. Premium och affärsförmedling tecknas var för sig. Alla belopp exkl. moms.</p>
  </details>
@@ -4624,7 +4623,7 @@ Thomas`,
  <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
  <h4 className="font-semibold text-sm mb-2">Pris- och betalningsvillkor</h4>
  <p className="text-sm text-muted-foreground">
- Månadsavgiften faktureras löpande i efterskott med en månads uppsägningstid. Uppsägning sker skriftligen via e-post. Mötesavgifter under en betald månad följer Premiumpriset endast om abonnemanget är aktivt när mötet genomförs. Annars gäller Grundprofilens mötesavgift.
+ Månadsavgiften faktureras löpande i efterskott med en månads uppsägningstid. Uppsägning sker skriftligen via e-post. Provisionsnivån vid affärsförmedling följer det abonnemang som är aktivt när mötet genomförs: 2,5 % med aktivt Premium, annars 5 %.
  </p>
  </div>
  </PremiumCollapsibleSection>

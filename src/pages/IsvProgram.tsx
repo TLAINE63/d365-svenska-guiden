@@ -85,6 +85,9 @@ const IsvProgram = () => {
                   Boka kostnadsfritt rådgivningsmöte med Thomas (d365.se)
                 </a>
               </Button>
+              <Button asChild size="lg" variant="secondary">
+                <a href="/downloads/d365_isv_erbjudande_2027_v3.pdf" download="d365_isv_erbjudande_2027.pdf">Ladda ner ISV-erbjudandet (PDF)</a>
+              </Button>
             </div>
           </div>
         </section>

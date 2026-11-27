@@ -59,18 +59,18 @@ export function PremiumInvestment() {
           ))}
         </div>
         <h3 className="text-xl font-bold mb-3">Premium kan betala sig redan vid er första större affär</h3>
-        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-4">Utöver synlighet och marknadsinsikter får Premiumpartners förmånliga villkor vid affärsförmedling. Ni betalar ingen mötesavgift för kvalificerade kundintroduktioner. Först när en förmedlad kontakt leder till affär utgår en ersättning på 2,5 procent, jämfört med 5 procent för partners med Grundprofil. En vunnen affär på {kr(breakEven)} kan därmed täcka hela årsavgiften för Premium genom enbart den lägre ersättningen vid affär.</p>
+        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-4">Utöver synlighet och marknadsinsikter får Premiumpartners förmånliga villkor vid affärsförmedling. Mötena är kostnadsfria för alla partners. Först när en förmedlad kontakt leder till affär utgår en ersättning på 2,5 procent, jämfört med 5 procent för partners med Grundprofil. En vunnen affär på {kr(breakEven)} kan därmed täcka hela årsavgiften för Premium genom enbart den lägre ersättningen vid affär.</p>
         <div className="overflow-x-auto border border-border rounded-lg bg-card max-w-2xl">
           <table className="w-full text-sm">
             <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2"><span className="sr-only">Villkor</span></th><th scope="col" className="text-right px-3 py-2">Grundprofil</th><th scope="col" className="text-right px-3 py-2">Premium</th></tr></thead>
             <tbody>
-              {[["Årsavgift, ett produktområde", kr(0), kr(ORDER_PRICES.year[1])], ["Mötesavgift", kr(3500), kr(0)], ["Ersättning vid affär", "5 %", "2,5 %"]].map(([a, b, c]) => (
+              {[["Årsavgift, ett produktområde", kr(0), kr(ORDER_PRICES.year[1])], ["Mötesavgift", kr(0), kr(0)], ["Ersättning vid affär", "5 %", "2,5 %"]].map(([a, b, c]) => (
                 <tr key={a} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">{a}</th><td className="text-right px-3 py-2 whitespace-nowrap">{b}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{c}</td></tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs text-muted-foreground">Grundprofilens mötesavgift räknas av till 100 % vid affär. Ingen garanterad volym av kundmöten. Priser exklusive moms; ordinarie priser kan indexregleras årligen.</p>
+        <p className="mt-2 text-xs text-muted-foreground">Inga mötesavgifter tas ut. Ingen garanterad volym av kundmöten. Priser exklusive moms; ordinarie priser kan indexregleras årligen.</p>
       </div>
     </section>
   );

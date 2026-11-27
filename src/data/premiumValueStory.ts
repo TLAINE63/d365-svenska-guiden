@@ -10,7 +10,7 @@ export const PREMIUM_REASONS = [
   { title: "Syns även utanför era egna marknadskanaler", image: scene2, body: "Den egna webbplatsen når framför allt företag som redan har hittat till er. d365.se ger er ytterligare en kontaktyta mot en relevant publik som aktivt söker information om Microsofts affärslösningar." },
   { title: "Förstå vad potentiella kunder efterfrågar", image: scene3, body: "Få insikter i vilka produktområden, branscher, köpguider och frågeställningar som engagerar besökarna. Använd informationen för att utveckla er marknadsföring, ert erbjudande och era försäljningsprioriteringar." },
   { title: "Gör er kompetens synlig och trovärdig", image: scene4, body: "Visa vad som särskiljer er genom kundcase, branschkompetens, experter, lösningar och videor. Hjälp köparen att förstå varför just ni kan vara rätt partner för deras verksamhet." },
-  { title: "Få tillgång till nya affärsmöjligheter", image: scene5, body: "d365.se arbetar aktivt med att identifiera, kvalificera och matcha kundbehov med relevanta partners. Som Premiumpartner betalar ni ingen mötesavgift och får förmånliga villkor vid vunnen affär." },
+  { title: "Få tillgång till nya affärsmöjligheter", image: scene5, body: "d365.se arbetar aktivt med att identifiera, kvalificera och matcha kundbehov med relevanta partners. Mötena är kostnadsfria och som Premiumpartner betalar ni halverad provision vid vunnen affär." },
   { title: "Dra nytta av d365.se:s växande räckvidd", image: scene7, body: "Era relevanta nyheter, kundberättelser och kompetenser kan uppmärksammas genom redaktionell bevakning, kunskapscenter, nyhetsbrev, LinkedIn och d365.se INSIDE." },
 ];
 

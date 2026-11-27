@@ -79,7 +79,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
       "",
       "57 % av köpresan har passerat när första leverantörskontakten sker, och 84 % väljer sin förstahandsleverantör före första kontakten (6sense 2026, europeiskt urval).",
       "",
-      "Premium: 1 000 kr/mån eller 8 000 kr/år för ett produktområde, 1 300 kr/mån eller 10 500 kr/år för två och 1 500 kr/mån eller 12 000 kr/år för tre, exkl. moms (årspris sparar 33 %). Premium och affärsförmedling kan tecknas var för sig. Affärsförmedling, samma för alla produktområden, nya projekt, partnerbyte och expertförmedling: kvalificerat kundmöte 0 kr för Premium och 3 500 kr för Grundprofil. Vid vunnen affär 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde, utan maxbelopp; Grundprofilens mötesavgift avräknas till 100 %.",
+      "Premium: 1 000 kr/mån eller 8 000 kr/år för ett produktområde, 1 300 kr/mån eller 10 500 kr/år för två och 1 500 kr/mån eller 12 000 kr/år för tre, exkl. moms (årspris sparar 33 %). Premium och affärsförmedling kan tecknas var för sig. Affärsförmedling, samma för alla produktområden, nya projekt, partnerbyte och expertförmedling: kvalificerade kundmöten är kostnadsfria för alla. Vid vunnen affär 2,5 % (Premium) eller 5 % (Grundprofil) av fakturerat konsult- och projektvärde, utan maxbelopp.",
       "Ingår även: direktlänk till er webbplats med UTM-mätning, månadsrapport med visningar, jämförelser och klick, samt INSIDE-intervju som endast kan bokas av Premiumpartners (4 900 kr, exklusive moms).",
       "Vi lovar inte ett visst antal leads, vi arbetar löpande för att hitta relevanta möjligheter.",
       "",
@@ -183,7 +183,7 @@ export default function RedaktionSalesKitTab({ token }: { token: string | null }
               <tbody>
                 <tr className="border-t"><td className="py-1">Kvalificerat kundmöte</td><td className="text-right whitespace-nowrap">0 / 3{NB}500 kr</td></tr>
                 <tr className="border-t"><td className="py-1">Vid vunnen affär</td><td className="text-right whitespace-nowrap">2,5 % / 5 %</td></tr>
-                <tr className="border-t"><td className="py-1">Avräkning av mötesavgift</td><td className="text-right whitespace-nowrap">Ej aktuellt / 100 %</td></tr>
+                
               </tbody>
             </table>
             <p className="mt-2 text-xs text-muted-foreground">Gäller nya projekt, partnerbyte och expertförmedling (per expert, efter intervju). Kundavtalet ska tecknas inom 6 månader från mötet; avgiften beräknas på fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, utan maxbelopp.</p>

@@ -10,7 +10,7 @@ describe("partneravtalets prisbilaga", () => {
   });
   it("visar gemensam mötesavgift och inga fasta expertavgifter", () => {
     const rows = agreementPriceRows().map((r) => r[1].replace(/\s/g, " "));
-    expect(rows).toContain("Mötesavgift 0 kr (Premium) / 3 500 kr (Grundprofil)");
+    expect(rows).toContain("Mötesavgift 0 kr (Premium och Grundprofil)");
     expect(rows.some((r) => r.includes("7 500"))).toBe(false);
   });
 });

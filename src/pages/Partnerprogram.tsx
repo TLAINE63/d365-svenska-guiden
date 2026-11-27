@@ -74,6 +74,20 @@ const breadcrumbs = [
 
 const faqs = [
   {
+    question: "Vad kostar ett möte?",
+    answer:
+      "Ingenting. Mötena är kostnadsfria för både Premium och Grundprofil. Ni betalar bara en provision om ni vinner affären: 2,5 % med Premium och 5 % med Grundprofil, på fakturerat konsult- och projektvärde under de första 12 månaderna.",
+  },
+  {
+    question: "Måste vi tacka ja till alla förfrågningar?",
+    answer: "Nej. Ni får se behovsanalysen först och tackar ja eller nej till varje förfrågan.",
+  },
+  {
+    question: "Hur vet ni vad vi har fakturerat?",
+    answer:
+      "När ni tackar ja registreras introduktionen. Vunnen affär rapporteras inom 14 dagar och fakturerat värde kvartalsvis under de första 12 månaderna. Vi kan be om underlag som styrker det rapporterade värdet.",
+  },
+  {
     question: "Finns vi på d365.se även om vi inte profilerar oss?",
     answer:
       "Ja. Ambitionen är att kartlägga den relevanta svenska Dynamics 365-partnermarknaden. Skillnaden är hur mycket information som finns tillgänglig om respektive partner.",
@@ -281,7 +295,7 @@ const Partnerprogram = () => {
                   <Button asChild size="lg"><a href="#varfor-premium">Utforska Premium<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
                   <Button asChild size="lg" variant="outline"><a href="#priser-innehall">Priser och innehåll</a></Button>
                 </div>
-                <p className="text-sm font-medium text-foreground">Från 8&nbsp;000&nbsp;kr/år · Ingen mötesavgift för Premium</p>
+                <p className="text-sm font-medium text-foreground">Från 8&nbsp;000&nbsp;kr/år · Mötena kostar ingenting</p>
               </div>
               <img src={heroScene} alt="Partner och kund i ett möte om Dynamics\u00a0365" width={960} height={540} className="w-full rounded-xl aspect-video object-cover border border-border" fetchPriority="high" />
             </div>

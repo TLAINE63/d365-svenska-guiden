@@ -27,7 +27,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 2 · Affärsförmedling</p>
         <h2 id="ff-rubrik" className="text-2xl md:text-3xl font-bold mb-4">Vi hittar och kvalificerar kunder. Ni väljer affärsmöjligheterna.</h2>
-        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Med Premium är kvalificerade kundmöten kostnadsfria och vid affär betalar ni 2,5 % av fakturerat konsult- och projektvärde under de första 12 månaderna. Med Grundprofil kostar varje kvalificerat kundmöte 3 500 kr, oavsett produktområde, och vid affär betalar ni 5 %, med mötesavgiften avräknad till 100 %.</p>
+        <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-10">Vi identifierar företag med konkreta behov, kvalificerar deras projekt och hjälper dem att hitta rätt partner. Ni ser varje förfrågan först och tackar ja eller nej. Mötena kostar ingenting. Ni betalar en provision bara när ni vinner en affär: 2,5 % med Premium och 5 % med Grundprofil, på fakturerat konsult- och projektvärde under de första 12 månaderna.</p>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-12">
           {STEPS.map((s, i) => (
@@ -52,11 +52,11 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <h3 className="text-xl font-bold mb-1">Så ser kalkylen ut</h3>
             <p className="text-sm text-muted-foreground mb-4">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar {nb("600 000 kr")} i konsult- och projektvärde under de första 12 månaderna.</p>
             <dl className="text-sm divide-y divide-border">
-              <div className="flex justify-between py-2"><dt>Mötesavgift efter kundmötet</dt><dd className="font-semibold">{nb("0 kr")}</dd></div>
+              <div className="flex justify-between py-2"><dt>Kundmötet</dt><dd className="font-semibold">{nb("0 kr")}</dd></div>
               <div className="flex justify-between py-2"><dt>Avgift vid affär (2,5 %)</dt><dd className="font-semibold">{nb("15 000 kr")}</dd></div>
                             <div className="flex justify-between py-2 text-base"><dt className="font-semibold">Slutbetalning vid affär</dt><dd className="font-bold">{nb("15 000 kr")}</dd></div>
             </dl>
-            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Kundmötet är kostnadsfritt och avgiften vid affär 15 000 kr. Med Grundprofil hade mötet kostat 3 500 kr och avgiften vid affär blivit 30 000 kr, varav 26 500 kr efter avräkning. Totalkostnaden med Premium är <strong>15 000 kr</strong>.</p>
+            <p className="mt-4 rounded-md bg-secondary/60 p-3 text-sm text-foreground">Exempel (Premium, CRM): en vunnen affär där partnern fakturerar 600 000 kr i konsult- och projektvärde under de första 12 månaderna. Kundmötet är kostnadsfritt och avgiften vid affär 15 000 kr. Med Grundprofil hade mötet också varit kostnadsfritt och avgiften vid affär blivit 30 000 kr. Totalkostnaden med Premium är <strong>15 000 kr</strong>.</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-6">
             <ShieldCheck className="w-7 h-7 text-accent mb-3" aria-hidden="true" />
@@ -64,9 +64,9 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Kvalitetsgaranti:</strong> håller mötet inte den avtalade nivån kan ni reklamera kvalificeringen inom 5 arbetsdagar.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ni väljer:</strong> ni tackar ja eller nej till varje möjlighet innan introduktionen sker.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift vid affär:</strong> betald mötesavgift räknas alltid av i sin helhet.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Ingen affär, ingen avgift:</strong> mötena är alltid kostnadsfria.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Neutralt:</strong> introduktioner påverkar aldrig relevansordningen i partnersökningen.</span></li>
-              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Kostnadsfria kundmöten med Premium:</strong> ni betalar 0 kr i mötesavgift (mot 3 500 kr för Grundprofil). Premium innehåller inga utlovade möten.</span></li>
+              <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Halverad provision med Premium:</strong> 2,5 % i stället för 5 %. Premium innehåller inga utlovade möten.</span></li>
               <li className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">Köparens fria val:</strong> köparen träffar högst tre partners per förfrågan och väljer själv vilka. Köparen kan alltid kontakta vilken partner som helst i katalogen direkt, utan att någon avgift tas ut.</span></li>
             </ul>
           </div>
@@ -80,11 +80,11 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground mb-3"><ArrowDown className="w-4 h-4 text-accent" aria-hidden="true" />Priser för affärsförmedling</div>
         <div className="overflow-x-auto border border-border rounded-lg bg-card mb-4">
           <table className="w-full text-sm">
-            <caption className="text-left px-3 pt-3 font-semibold text-foreground">Samma mötesavgift för alla produktområden (nya projekt, partnerbyte och expertförmedling)</caption>
-            <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Produktområde</th><th scope="col" className="text-right px-3 py-2">Premium</th><th scope="col" className="text-right px-3 py-2">Grundprofil</th></tr></thead>
+            <caption className="text-left px-3 pt-3 font-semibold text-foreground">Samma villkor för alla produktområden (nya projekt, partnerbyte och expertförmedling)</caption>
+            <thead className="bg-muted/50"><tr><th scope="col" className="text-left px-3 py-2">Ersättning</th><th scope="col" className="text-right px-3 py-2">Med Premium</th><th scope="col" className="text-right px-3 py-2">Med Grundprofil</th></tr></thead>
             <tbody>
-              {FINDERS_FEE_VARIANTS.map((b) => (
-                <tr key={b.name} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">{b.name}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.premium.toLocaleString("sv-SE")} kr`)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(`${b.grund.toLocaleString("sv-SE")} kr`)}</td></tr>
+              {[["Mötesavgift", "0 kr", "0 kr"], ["Provision vid vunnen affär", "2,5 %", "5 %"], ["Period för provisionen", "12 månader", "12 månader"]].map(([a, b, c]) => (
+                <tr key={a} className="border-t border-border"><th scope="row" className="text-left px-3 py-2 font-normal">{a}</th><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(b)}</td><td className="text-right px-3 py-2 font-semibold whitespace-nowrap">{nb(c)}</td></tr>
               ))}
             </tbody>
           </table>
@@ -92,8 +92,7 @@ export default function FindersFeeSection({ cta }: { cta: ReactNode }) {
         <p className="mb-4 text-sm text-muted-foreground"><strong className="text-foreground">Produkter och produktområden:</strong> {FINDERS_FEE_VARIANTS[0].scope}</p>
         <ul className="mb-4 space-y-1 text-sm text-muted-foreground list-disc pl-5">
           <li>{PREMIUM_MEETING_TERMS}</li>
-          <li>Samma mötesavgift gäller även när affären omfattar flera produktområden.</li>
-          <li>Vid expertförmedling tas mötesavgiften ut när kunden har haft intervju med experten, inte när ett CV skickas. Avgiften gäller per expert.</li>
+          <li>Provisionen räknas på fakturerat konsult- och projektvärde under de första 12 månaderna från kundavtalet, för kundavtal som tecknas inom 6 månader från mötet. Licenser och tredjepartskostnader ingår inte. Betalning påverkar aldrig vilka partners köparen föreslås.</li>
         </ul>
         <p className="mb-4 text-sm text-foreground">{FINDERS_FEE_AFFAR}</p>
         <details className="mb-6 text-xs text-muted-foreground">

@@ -301,7 +301,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("Kräver separat godkännande eller avtal", { bold: true, gap: 1 });
   bullets(isv
     ? ["Märkena Verifierad ISV och Verifierad tilläggslösning beslutas av redaktionen, aldrig genom betalning.", "Eventuella produktrelaterade kundintroduktioner (för närvarande pausade)."]
-    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat affärsförmedlingsavtal. Premiumpartners betalar ingen mötesavgift."], PDF_BRAND.primary);
+    : ["Märket Verifierad partner beslutas av redaktionen, aldrig genom betalning.", "Kundförmedling kräver ett separat affärsförmedlingsavtal. Mötena är kostnadsfria och Premium ger halverad provision."], PDF_BRAND.primary);
 
   // ---- Page 5: prices and scope
   newPage("Priser och vald omfattning");
@@ -312,7 +312,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   if (input.kind === "partner") {
     heading("Prislista Premium 2027");
     y = drawPremiumPriceTable(doc, y);
-    callout("Premium kan betala sig redan vid er första större affär", `Med årsbetalning kostar Premium ${kr(effectiveMonthly(1))}/mån för ett produktområde. Vid en förmedlad affär betalar Premium 2,5 % i stället för 5 % och ingen mötesavgift. Redan vid ett fakturerat affärsvärde på ${kr(premiumBreakEvenDealValue(1))} täcker skillnaden hela årsavgiften.`, PDF_BRAND.primary);
+    callout("Premium kan betala sig redan vid er första större affär", `Med årsbetalning kostar Premium ${kr(effectiveMonthly(1))}/mån för ett produktområde. Vid en förmedlad affär betalar Premium 2,5 % i stället för 5 %. Redan vid ett fakturerat affärsvärde på ${kr(premiumBreakEvenDealValue(1))} täcker skillnaden hela årsavgiften.`, PDF_BRAND.primary);
     text(`${MONTHLY_BILLING_TERMS} ${PREMIUM_MEETING_TERMS} År faktureras i förskott. CE/CRM-applikationerna räknas som ett produktområde; upp till tre branscher per område. Alla priser exklusive moms. Inga rabatter utöver årspriset.`, { size: 8.5, color: PDF_BRAND.textMuted });
   } else text("Faktureras årsvis i förskott. Introduktionspriset gäller de första 20 nya ISV-leverantörerna; d365.se bekräftar platsen vid granskning av beställningen. Alla priser exklusive moms.", { size: 8.5, color: PDF_BRAND.textMuted });
   text(`Avtalsperiod och förnyelse: ${AGREEMENT_DURATION_TERMS}`, { size: 8.5, color: PDF_BRAND.textMuted });
@@ -323,7 +323,7 @@ export async function generateOfferDecisionPdf(input: OfferPdfInput): Promise<Bl
   text("d365.se identifierar relevanta kundbehov, erbjuder rådgivning, kvalificerar konkreta projekt, bedömer vilka leverantörer som är relevanta och hjälper kunden i kontakt med rätt kompetens.");
   if (input.kind === "partner") {
     heading("Affärsförmedling, separat från Premiumabonnemanget");
-    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: en fast mötesavgift per kvalificerat möte och en rörlig avgift (2,5 % för Premium, 5 % för Grundprofil) om det blir affär. Mötesavgiften räknas av i sin helhet mot avgiften vid affär. Premiumpartners betalar ingen mötesavgift. Villkoren regleras i ett separat förmedlingsavtal.");
+    text("Ersättning utlöses först när ni har accepterat en introduktion och köparen har godkänt kontakt: mötena är kostnadsfria och ni betalar en provision (2,5 % för Premium, 5 % för Grundprofil) bara om det blir affär. Villkoren regleras i ett separat förmedlingsavtal.");
     table(FINDERS_FEE_VARIANTS.map(v => [`${v.name}: ${v.scope}`, `Möte ${kr(v.premium)} / ${kr(v.grund)} · 2,5 % / 5 % utan maxbelopp`]), { head: ["Produktområde (Premium / Grundprofil)", "Avgift"] });
     text(FINDERS_FEE_AFFAR);
     text(input.mediation ? "Affärsförmedlingsavtalet ingår i ert val. Fullständiga villkor finns i bilagan." : "Affärsförmedlingsavtalet ingår inte i ert val men kan tecknas separat när som helst.", { bold: true });

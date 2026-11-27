@@ -18,7 +18,7 @@ const FINDERS = [
   "Kunden godkänner varje introduktion och väljer själv vilka partners (högst tre) som får kontakt.",
   "Flera partners kan vara relevanta för samma kund.",
   "Ni bedömer varje möjlighet och accepterar villkoren innan introduktionen sker.",
-  "Ersättningen regleras i ett separat förmedlingsavtal: kostnadsfria möten och 2,5 % vid affär med Premium, eller 3 500 kr per möte och 5 % vid affär med Grundprofil, där mötesavgiften räknas av.",
+  "Ersättningen regleras i ett separat förmedlingsavtal: mötena kostar ingenting, och provisionen vid vunnen affär är 2,5 % med Premium eller 5 % med Grundprofil.",
 ];
 
 export default function TwoWaysSection() {
@@ -61,7 +61,7 @@ export default function TwoWaysSection() {
               {FINDERS.map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
             </ul>
             <div className="rounded-lg bg-secondary/50 p-4 text-sm text-muted-foreground mb-6">
-              <p><strong className="font-semibold text-foreground">Premium betalar ingen mötesavgift</strong> och 2,5&nbsp;% vid vunnen affär. Grundprofil betalar 3&nbsp;500&nbsp;kr per kvalificerat möte och 5&nbsp;%, med mötesavgiften avräknad vid affär.</p>
+              <p><strong className="font-semibold text-foreground">Mötena kostar ingenting.</strong> Vid vunnen affär betalar Premium 2,5&nbsp;% och Grundprofil 5&nbsp;%.</p>
             </div>
             <Button asChild variant="outline" className="mt-auto self-start"><a href="#affarsmojligheter">Se hur kundförmedling fungerar<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
           </article>
