@@ -59,3 +59,5 @@
 - Solution Partner and ISV programs use their existing separate URLs with shared ProgramNavigation audience links and native section anchors; reuse profile checks, benchmarks and contact dialogs to avoid parallel lead flows.
 - Newsletter rules: supabase/functions/_shared.
 - Snitcher sync selects its workspace server-side to prevent request-driven credential use.
+
+- Partnerprogram is organised around three agreements (Premiumavtal, Affärsförmedling, ISV-avtal) with a five-item program nav; new sections attach to one of these so the page stays scannable.

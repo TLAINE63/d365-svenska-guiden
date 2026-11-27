@@ -50,20 +50,10 @@ type SimplePartner = { slug: string; name: string; is_featured: boolean; logo_ur
 const VERIFIED_PARTNERS = (partnerData as SimplePartner[]).filter((p) => p.is_featured);
 
 const programSections = [
-  { id: "varfor-premium", label: "Varför Premium" },
-  { id: "marknadspuls", label: "Marknadspuls" },
-  { id: "marknadsinsikter", label: "Marknadsinsikter" },
-  { id: "for-partners", label: "Översikt" },
-  { id: "kopresan", label: "Den moderna köpresan" },
-  { id: "kopares-fragor", label: "Köparens frågor" },
-  { id: "samarbeta", label: "Två sätt att samarbeta" },
-  { id: "priser-innehall", label: "Premium & pris" },
+  { id: "priser-innehall", label: "Premiumavtal" },
   { id: "affarsmojligheter", label: "Affärsförmedling" },
-  { id: "profilkoll", label: "Er partnerprofil" },
-  { id: "profiljamforelse", label: "Jämförelser" },
-  { id: "premium-investering", label: "Investering" },
-  { id: "expertinnehall", label: "Synlighet & INSIDE" },
-  { id: "kom-igang", label: "Kom igång" },
+  { id: "isv-avtal", label: "ISV-avtal" },
+  { id: "marknadspuls", label: "Marknad & köpresa" },
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
@@ -305,43 +295,33 @@ const Partnerprogram = () => {
               ))}
             </ul>
           </div>
-          <section aria-labelledby="tva-program-rubrik" className="mt-10">
-            <h2 id="tva-program-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">För Dynamics-partners och ISV-leverantörer</h2>
-            <div className="max-w-3xl lg:max-w-none space-y-2 text-muted-foreground mb-6">
-              <p>d365.se hjälper företag att hitta både rätt Dynamics-partner och kompletterande lösningar.</p>
-              <p>Vi erbjuder därför två olika presentationsprogram, anpassade efter vad ni erbjuder och hur köparen utvärderar sina alternativ.</p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-xl border-2 border-primary bg-card p-6 flex flex-col">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-2">Premium · Jag är Dynamics-partner</p>
-                <h3 className="text-xl font-bold text-foreground mb-2">Visa varför ni är rätt partner</h3>
-                <p className="text-sm text-muted-foreground mb-4">När kunden jämför implementationspartners hjälper en komplett profil köparen att förstå er kompetens, era branscher, kundcase och experter. Köparen får svar om projekt, kostnader, risker och genomförande.</p>
-                <ul className="space-y-1.5 text-sm text-muted-foreground mb-5">
-                  {["Fördjupad partnerprofil per produktområde med kundcase och namngivna experter", "Knappen till er webbplats och egen landningssida per produktområde, med mätbara klick", "Redaktionell granskning inför märket Verifierad partner", "Profilstatistik och kvartalsvis genomgång med namngiven kontakt hos d365.se", "Egen profileringslänk för att hålla kundcase, experter och branscher aktuella", "Kundintroduktioner enligt affärsförmedlingsavtal, om ni vill"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
-                </ul>
-                <div className="mt-auto flex flex-wrap gap-2">
-                  <Button asChild><a href="#premium-formaner">Se vad Premium ger<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
-                  <Button asChild variant="outline"><a href="#priser-innehall">Prislista</a></Button>
+          <section id="tre-avtal" aria-labelledby="tre-avtal-rubrik" className="mt-10 scroll-mt-64">
+            <h2 id="tre-avtal-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">Tre sätt att samarbeta med d365.se</h2>
+            <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-6">Välj det som passar er. Premium och Affärsförmedling kan tecknas var för sig eller tillsammans. ISV-avtalet är för er som säljer egna tilläggslösningar.</p>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                { n: "1", tag: "Premiumavtal", title: "Visa varför ni är rätt partner", text: "Fördjupad partnerprofil per produktområde med kundcase, experter, länk till er webbplats, redaktionell verifiering och profilstatistik.", price: "8 000 kr/år, eller månadspris", href: "#priser-innehall", cta: "Läs om Premium", border: "border-primary" },
+                { n: "2", tag: "Affärsförmedling", title: "Kvalificerade kundmöten", text: "Ni ser behovsanalysen först och godkänner varje förfrågan. Mötena kostar ingenting, ersättning bara vid vunnen affär.", price: "0 kr fast · 2,5 % med Premium, 5 % med Grundprofil", href: "#affarsmojligheter", cta: "Läs om Affärsförmedling", border: "border-accent/60" },
+                { n: "3", tag: "ISV-avtal", title: "Visa era tilläggslösningar", text: "ISV Presence ger leverantörspresentation och egna produktsidor i ISV-katalogen och på relevanta produktsidor, med logotyp, länk och kontakt efter verifiering.", price: "5 000 kr/år inkl. tre produkter (3 500 kr första året)", href: "#isv-avtal", cta: "Läs om ISV-avtal", border: "border-border" },
+              ].map((c) => (
+                <div key={c.n} className={`rounded-xl border-2 ${c.border} bg-card p-6 flex flex-col`}>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-2">{c.n} · {c.tag}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{c.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{c.text}</p>
+                  <p className="text-sm font-semibold text-foreground mb-4">{c.price}</p>
+                  <Button asChild variant="outline" className="mt-auto self-start"><a href={c.href}>{c.cta}<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></a></Button>
                 </div>
-              </div>
-              <div className="rounded-xl border-2 border-accent/40 bg-card p-6 flex flex-col">
-                <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-2">ISV Presence · Jag är ISV-leverantör</p>
-                <h3 className="text-xl font-bold text-foreground mb-2">Hjälp kunden att upptäcka och förstå era lösningar</h3>
-                <p className="text-sm text-muted-foreground mb-3">En kund som utvärderar Business Central, Finance &amp; Supply Chain, Sales, Customer Service eller någon annan Dynamics&nbsp;365-produkt kan även behöva extra funktionalitet i form av tilläggsapplikationer eller mer avancerade branschlösningar. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
-                <ul className="space-y-1.5 text-sm text-muted-foreground mb-3">
-                  {["Leverantörspresentation och egna produktsidor per produkt", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics 365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
-                </ul>
-                <details className="mb-4 text-sm text-muted-foreground">
-                  <summary className="cursor-pointer font-medium text-foreground">Frågor köpare vill ha svar på innan de kontaktar en säljare</summary>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    {["Vilket problem löser produkten?", "När behöver vi den?", "Hur fungerar integrationen?", "Vad kostar lösningen?", "Vilka begränsningar finns?", "Hur skiljer den sig från alternativen?"].map((q) => <li key={q}>{q}</li>)}
-                  </ul>
-                </details>
-                <p className="text-xs text-muted-foreground mb-4">5&nbsp;000&nbsp;kr/år inklusive tre produkter, <span className="font-semibold text-destructive">introduktionspris 3&nbsp;500&nbsp;kr första året</span>, exklusive moms. Eventuell förmedling och kommersiella villkor diskuteras separat.</p>
-                <Button asChild variant="outline" className="mt-auto self-start"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
-              </div>
+              ))}
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">Premium och ISV Presence är två separata erbjudanden. Betalning påverkar aldrig relevansordningen och inget av dem innebär garanterade leads.</p>
+            <div className="mt-6 rounded-xl border border-border bg-secondary/30 p-5">
+              <h3 className="text-lg font-semibold text-foreground mb-3">Så kan avtalen kombineras</h3>
+              <ul className="grid gap-2 sm:grid-cols-2 text-sm text-muted-foreground">
+                {[["Bara Affärsförmedling", "Grundprofil 0 kr, 5 % vid vunnen affär."], ["Bara Premium", "Full presentation och verifiering."], ["Premium + Affärsförmedling", "Full presentation och halverad ersättning, 2,5 %."], ["Partner med egen lösning", "Partnerprofil plus ISV Presence för era tillägg."]].map(([t, d]) => (
+                  <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" /><span><strong className="text-foreground">{t}:</strong> {d}</span></li>
+                ))}
+              </ul>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">Alla priser exklusive moms. Betalning påverkar aldrig relevansordningen och inget avtal innebär garanterade leads.</p>
           </section>
         </div>
       </header>
@@ -384,7 +364,7 @@ const Partnerprogram = () => {
 
       <section id="priser-innehall" className="py-10 md:py-14 scroll-mt-64">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Erbjudande 1 · Premium</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Avtal 1 · Premiumavtal</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Premium partner, er presentation och prislista</h2>
           <p className="text-muted-foreground mb-8 max-w-3xl lg:max-w-none">Premium kan tecknas med eller utan affärsförmedlingsavtal, som beskrivs i nästa avsnitt. Betalning ger aldrig högre placering eller automatisk verifiering.</p>
           <div className="grid gap-6 items-start">
@@ -504,6 +484,19 @@ const Partnerprogram = () => {
               </div></AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
+      </section>
+
+      <section id="isv-avtal" className="py-10 md:py-14 scroll-mt-64">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-accent mb-2">Avtal 3 · ISV-avtal</p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">ISV Presence för leverantörer av tilläggslösningar</h2>
+          <p className="max-w-3xl lg:max-w-none text-muted-foreground mb-5">En kund som utvärderar Business{"\u00a0"}Central, Finance &amp; Supply Chain, Sales eller Customer{"\u00a0"}Service kan behöva tilläggsapplikationer eller branschlösningar. ISV Presence presenterar era produkter i de köpsituationerna, före, under eller efter valet av partner.</p>
+          <ul className="grid gap-2 sm:grid-cols-2 text-sm text-muted-foreground mb-5">
+            {["Leverantörspresentation och egna produktsidor per produkt", "Funktioner, användningsområden och kundnytta", "Koppling till Dynamics\u00a0365-produkter och teknisk modell (inbyggd eller ansluten)", "Logotyp, webblänk, kontakt och demofilmer (kräver verifiering)"].map((t) => <li key={t} className="flex gap-2"><Check className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />{t}</li>)}
+          </ul>
+          <p className="text-sm text-muted-foreground mb-5">5{"\u00a0"}000{"\u00a0"}kr/år inklusive tre produkter, <span className="font-semibold text-destructive">introduktionspris 3{"\u00a0"}500{"\u00a0"}kr första året</span>, 500{"\u00a0"}kr per extra produkt, exklusive moms.</p>
+          <Button asChild variant="outline"><Link to="/isvprogram/">Utforska ISV Presence<ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" /></Link></Button>
         </div>
       </section>
 
