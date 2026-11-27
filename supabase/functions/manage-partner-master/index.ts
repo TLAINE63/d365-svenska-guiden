@@ -279,6 +279,53 @@ serve(async (req) => {
       return json(await decideChange(sb, String(body.id || ""), String(body.decision || ""), typeof body.note === "string" ? body.note : null));
     }
 
+    // ---- Snabbverifiering: allt overifierat per partner på ett ställe ----
+    if (action === "verify-queue") {
+      const [{ data: ps }, { data: profs }, { data: subs }, { data: pend }] = await Promise.all([
+        sb.from("partners").select("id, name, slug, is_featured, information_status, information_verified_at").order("name"),
+        sb.from("partner_product_profiles").select("id, partner_id, status, verification_status, product:product_catalog(name), attrs:partner_product_attributes(verification_status), caps:partner_product_capabilities(verification_status)"),
+        sb.from("partner_submissions").select("partner_id, submitted_at").order("submitted_at", { ascending: false }).limit(1000),
+        sb.from("partner_review_changes").select("partner_id").in("status", ["pending", "clarification"]),
+      ]);
+      const ok = (v: string) => ["partner_verified", "editorial_verified", "public_source"].includes(v);
+      const rows = (ps || []).map((p: any) => {
+        const mine = (profs || []).filter((x: any) => x.partner_id === p.id);
+        const products = mine.map((x: any) => ({
+          name: x.product?.name || "Produkt", status: x.status, verified: ok(x.verification_status),
+          open: [...(x.attrs || []), ...(x.caps || [])].filter((a: any) => !ok(a.verification_status)).length,
+          total: (x.attrs || []).length + (x.caps || []).length,
+        }));
+        const last = (subs || []).find((s: any) => s.partner_id === p.id)?.submitted_at || null;
+        const pending = (pend || []).filter((c: any) => c.partner_id === p.id).length;
+        const open = products.reduce((n: number, x: any) => n + x.open + (x.verified ? 0 : 1), 0) + pending
+          + (p.information_status === "verified" ? 0 : 1);
+        const stale = !!(last && (!p.information_verified_at || last.slice(0, 10) > p.information_verified_at));
+        return { ...p, products, last_submission: last, pending_changes: pending, open, stale };
+      });
+      return json({ rows });
+    }
+    if (action === "verify-all") {
+      const pid = String(body.partner_id || "");
+      if (!pid) return json({ error: "partner_id krävs" }, 400);
+      const today = new Date().toISOString().slice(0, 10);
+      const v = { verification_status: "editorial_verified", verified_by: "redaktion", verified_at: today };
+      const { data: profs } = await sb.from("partner_product_profiles").select("id").eq("partner_id", pid).neq("status", "archived");
+      const ids = (profs || []).map((x: any) => x.id);
+      if (ids.length) {
+        const r1 = await sb.from("partner_product_profiles").update({ ...v, status: "active", is_published: true }).in("id", ids);
+        if (r1.error) return json({ error: r1.error.message }, 400);
+        const r2 = await sb.from("partner_product_attributes").update({ ...v, is_published: true }).in("partner_product_profile_id", ids).not("verification_status", "in", "(partner_verified,editorial_verified,public_source)");
+        if (r2.error) return json({ error: r2.error.message }, 400);
+        const r3 = await sb.from("partner_product_capabilities").update({ ...v, is_published: true }).in("partner_product_profile_id", ids).not("verification_status", "in", "(partner_verified,editorial_verified,public_source)");
+        if (r3.error) return json({ error: r3.error.message }, 400);
+      }
+      const { data: pend } = await sb.from("partner_review_changes").select("id").eq("partner_id", pid).in("status", ["pending", "clarification"]);
+      for (const c of pend || []) await decideChange(sb, c.id, "approve", "Snabbverifiering");
+      const r4 = await sb.from("partners").update({ information_status: "verified", information_verified_at: today }).eq("id", pid);
+      if (r4.error) return json({ error: r4.error.message }, 400);
+      return json({ ok: true, profiles: ids.length, changes: (pend || []).length, verified_at: today });
+    }
+
     if (action === "export-bc") {
       const { data, error } = await sb.from("export_bc_partner_v1").select("*");
       if (error) return json({ error: error.message }, 400);

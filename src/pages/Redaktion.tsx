@@ -1,5 +1,6 @@
 import PartnerFreshnessCard from "@/components/PartnerFreshnessCard";
 import RedaktionOperations from "@/components/RedaktionOperations";
+import RedaktionQuickVerify from "@/components/RedaktionQuickVerify";
 import IsvFreshnessCard from "@/components/IsvFreshnessCard";
 import ContentReadsCard from "@/components/ContentReadsCard";
 import RedaktionSiteTextsTab from "@/components/RedaktionSiteTextsTab";
@@ -41,7 +42,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useEditorAuth } from "@/hooks/useEditorAuth";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
@@ -81,7 +81,7 @@ export default function Redaktion() {
   const [submitting, setSubmitting] = useState(false);
   const [remember, setRemember] = useState(false);
   const { pathname } = useLocation();
-  const [tab, setTab] = useState(pathname.includes("nyhetsbrev") ? "subscribers" : pathname.includes("export") ? "exports" : "events");
+  const [tab, setTab] = useState(pathname.includes("nyhetsbrev") ? "subscribers" : pathname.includes("export") ? "exports" : "help-requests");
   const [teaserSlug, setTeaserSlug] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [showSetup, setShowSetup] = useState(false);
@@ -262,34 +262,58 @@ export default function Redaktion() {
 
         <RedaktionOperations token={token} isAdmin={isAdmin} />
         <Tabs value={tab} onValueChange={setTab}>
-          <div className="mb-5 md:hidden"><Label>Redaktionens sidor</Label><Select value={tab} onValueChange={setTab}><SelectTrigger aria-label="Redaktionens sidor" className="min-h-11"><SelectValue /></SelectTrigger><SelectContent>
-            {[["events", "Event"], ["webinar", "Webinar"], ["subscribers", "Nyhetsbrev"], ["partner-news", "Partnernytt"], ["articles", "Artiklar"], ["videos", "Videor"], ["aktuellt", "Aktuellt"], ["help-requests", "Hjälpärenden"], ["advisory", "Rådgivning"], ["partners", "Partnerprofiler"], ["isv", "ISV-katalog"], ["assignment-profiles", "Uppdragsprofiler"], ["newsletter", "Månadsbrev"], ["texts", "Textbank"], ["stats", "Statistik"], ["partner-teaser", "Partnerunderlag"], ["sales-kit", "Säljunderlag"], ["ai", "AI-synlighet"], ["backlinks", "Backlänkar"], ["exports", "Export till CRM"], ["terms", "Avtalsvillkor"], ...(isAdmin ? [["partner-admin", "Verifiera & profilera partners"], ["budget", "Budget 2027"]] : [])].map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}
-          </SelectContent></Select></div>
-          <TabsList className="mb-6 hidden md:flex h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-11 [&>button]:whitespace-normal [&>button]:text-left">
-            <TabsTrigger value="events">Event</TabsTrigger>
-            <TabsTrigger value="webinar">Webinar</TabsTrigger>
-            <TabsTrigger value="subscribers">Nyhetsbrev</TabsTrigger>
-            <TabsTrigger value="partner-news">Partnernytt</TabsTrigger>
-            <TabsTrigger value="articles">Artiklar</TabsTrigger>
-            <TabsTrigger value="videos">Videor</TabsTrigger>
-            <TabsTrigger value="aktuellt">Aktuellt</TabsTrigger>
-            <TabsTrigger value="help-requests">Hjälpärenden</TabsTrigger>
-            <TabsTrigger value="advisory">Rådgivning</TabsTrigger>
-            {isAdmin && <TabsTrigger value="partner-admin">Verifiera &amp; profilera partners</TabsTrigger>}
-            <TabsTrigger value="partners">Partnerprofiler</TabsTrigger>
-            <TabsTrigger value="isv">ISV-katalog</TabsTrigger>
-            <TabsTrigger value="assignment-profiles">Uppdragsprofiler</TabsTrigger>
-            <TabsTrigger value="newsletter">Månadsbrev</TabsTrigger>
-            <TabsTrigger value="texts">Textbank</TabsTrigger>
-            <TabsTrigger value="stats">Statistik</TabsTrigger>
-            <TabsTrigger value="partner-teaser">Partnerunderlag</TabsTrigger>
-            <TabsTrigger value="sales-kit">Säljunderlag</TabsTrigger>
-            <TabsTrigger value="ai">AI-synlighet</TabsTrigger>
-            <TabsTrigger value="backlinks">Backlänkar</TabsTrigger>
-            <TabsTrigger value="exports">Export till CRM</TabsTrigger>
-            <TabsTrigger value="terms">Avtalsvillkor</TabsTrigger>
-            {isAdmin && <TabsTrigger value="budget">Budget 2027</TabsTrigger>}
-          </TabsList>
+          {(() => {
+            const groups: { id: string; label: string; hint: string; tabs: [string, string, string][] }[] = [
+              { id: "arenden", label: "1. Köpare & ärenden", hint: "Frågor, rådgivning och export av leads", tabs: [
+                ["help-requests", "Hjälpärenden", "Inkomna frågor från köpare"],
+                ["advisory", "Rådgivning", "Bokade rådgivningssamtal och introduktioner"],
+                ["exports", "Export till CRM", "Ladda ned leads och signaler som CSV"]] },
+              { id: "partners", label: "2. Partners & ISV", hint: "Verifiera, publicera och profilera leverantörer", tabs: [
+                ...(isAdmin ? [["verify", "Snabbverifiering", "Verifiera allt en partner skickat in, med ett klick"] as [string, string, string]] : []),
+                ["partners", "Partnerprofiler", "Publicering, profileringslänkar och aktualitet"],
+                ...(isAdmin ? [["partner-admin", "Detaljredigering", "Öppna en partner och ändra enskilda uppgifter"] as [string, string, string]] : []),
+                ["isv", "ISV-katalog", "Tilläggslösningar och leverantörer"],
+                ["assignment-profiles", "Uppdragsprofiler", "Konsulter och roller"],
+                ["newsletter", "Månadsbrev", "Utskick till partners"]] },
+              { id: "innehall", label: "3. Innehåll", hint: "Det besökarna läser och ser", tabs: [
+                ["aktuellt", "Aktuellt", "Egna förändringsanalyser"],
+                ["articles", "Artiklar", "Kunskapsartiklar och Word-import"],
+                ["videos", "Videor", "YouTube och INSIDE"],
+                ["partner-news", "Partnernytt", "Partners egna nyheter"],
+                ["events", "Event", "Partners event"],
+                ["webinar", "Webinar", "Egna webinar och anmälningar"],
+                ["subscribers", "Nyhetsbrev", "Prenumeranter och listor"],
+                ["texts", "Textbank", "Centrala texter på sajten"]] },
+              { id: "salj", label: "4. Sälj & avtal", hint: "Underlag, villkor och budget", tabs: [
+                ["partner-teaser", "Partnerunderlag", "Personligt underlag per partner"],
+                ["sales-kit", "Säljunderlag", "PDF:er och erbjudanden"],
+                ["terms", "Avtalsvillkor", "Gällande villkor"],
+                ...(isAdmin ? [["budget", "Budget 2027", "Prognos och utfall"] as [string, string, string]] : [])] },
+              { id: "insikter", label: "5. Statistik & synlighet", hint: "Hur sajten och partners presterar", tabs: [
+                ["stats", "Statistik", "Besök, köpresor och rapporter"],
+                ["ai", "AI-synlighet", "Hur AI-tjänster nämner sajten"],
+                ["backlinks", "Backlänkar", "Länkar från andra sajter"]] },
+            ];
+            const current = groups.find((g) => g.tabs.some(([v]) => v === tab)) ?? groups[0];
+            const active = current.tabs.find(([v]) => v === tab);
+            return (
+              <div className="mb-6 space-y-3">
+                <nav aria-label="Redaktionens områden" className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-5">
+                  {groups.map((g) => (
+                    <button key={g.id} type="button" onClick={() => setTab(g.tabs[0][0])}
+                      className={`rounded-md border p-3 text-left transition-colors ${g.id === current.id ? "border-primary bg-primary/10" : "border-border bg-card hover:bg-muted"}`}>
+                      <span className="block text-sm font-semibold">{g.label}</span>
+                      <span className="block text-xs text-muted-foreground">{g.hint}</span>
+                    </button>
+                  ))}
+                </nav>
+                <TabsList className="h-auto w-full justify-start flex-wrap gap-1 [&>button]:min-h-10">
+                  {current.tabs.map(([v, l]) => <TabsTrigger key={v} value={v}>{l}</TabsTrigger>)}
+                </TabsList>
+                {active && <p className="text-sm text-muted-foreground">{active[2]}</p>}
+              </div>
+            );
+          })()}
 
           <TabsContent value="assignment-profiles">
             <RedaktionAssignmentProfilesTab
@@ -365,6 +389,12 @@ export default function Redaktion() {
           <TabsContent value="ai">
             <AdminAiVisibilityTab token={token} onSessionExpired={logout} />
           </TabsContent>
+
+          {isAdmin && (
+            <TabsContent value="verify">
+              <RedaktionQuickVerify token={token} onSessionExpired={logout} />
+            </TabsContent>
+          )}
 
           {isAdmin && (
             <TabsContent value="partner-admin">
