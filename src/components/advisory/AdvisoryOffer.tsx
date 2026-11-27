@@ -1,5 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
+import { useBuyerAction } from "@/lib/useBuyerAction";
 import AdvisorContactButtons from "@/components/advisory/AdvisorContactButtons";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
@@ -42,9 +45,13 @@ interface Props {
  */
 export default function AdvisoryOffer({ variant, placement, cta, pageType, heading, text, sections = [], dialogTitle, dialogDescription, metadata = {}, className = "", submitEvent = "advisory_booking_completed", messageLabel, startEvent = "advisory_form_opened", eyebrow = "Prata med d365.se" }: Props) {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { action } = useBuyerAction(pathname);
+  const adaptive = ["next_step_help", "cost_help", "tool_result", "solution_assessment"].includes(placement);
+  const resolvedCta = adaptive ? action.help : cta;
   const ref = useRef<HTMLDivElement>(null);
   const seen = useRef(false);
-  const meta = { placement, cta, page_type: pageType, variant, context_sections: sections.length, ...metadata };
+  const meta = { placement, cta: resolvedCta, page_type: pageType, variant, context_sections: sections.length, ...(adaptive ? { buyer_state: action.state, evidence_level: action.basis } : {}), ...metadata };
 
   useEffect(() => {
     const el = ref.current;
@@ -86,17 +93,13 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
           <p className="mb-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">{nowrapBrand(text)}</p>
           {placement === "question" ? (
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <button type="button" onClick={start} className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
-                {cta}
+              <Button type="button" onClick={start} className="h-auto min-h-10 whitespace-normal text-left">
+                {resolvedCta}
                 <ArrowRight className="h-4 w-4" aria-hidden />
-              </button>
+              </Button>
               <a href={ADVISOR_BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={() => { trackConsultationLead("bookings_20min_thomas"); trackFunnelEvent({ event_type: "cta_click", event_name: "booking_click", metadata: { placement, path: window.location.pathname } }); }} className="inline-flex min-h-10 items-center px-1 text-sm font-medium text-muted-foreground underline underline-offset-4 hover:text-primary">eller boka 20 min direkt</a>
             </div>
-          ) : <AdvisorContactButtons />}
-          {sections.length > 0 && <button type="button" onClick={start} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary">
-            {sections.length ? "Eller skicka ert underlag via formulär" : "Eller beskriv behovet i ett formulär"}
-            <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-          </button>}
+          ) : <Button variant="outline" onClick={start} className="h-auto min-h-10 whitespace-normal text-left">{resolvedCta}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden /></Button>}
           <p className="mt-3 pr-16 text-xs text-muted-foreground sm:pr-0">{placement === "question" ? "Thomas Laine svarar personligen via e-post. Inga partners kontaktar er utan ert uttryckliga godkännande." : <>Kostnadsfritt, ca 20 minuter med Thomas Laine, inga säljare inblandade. {carriedNote} Inga partners kontaktar er utan ert uttryckliga godkännande.</>}</p>
           </div>
         </aside>
@@ -109,9 +112,9 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
       ) : (
         <div className="text-sm text-muted-foreground">
           <p className="mb-2">{nowrapBrand(text)}</p>
-          <AdvisorContactButtons compact />
+          {placement === "home" ? <AdvisorContactButtons compact /> : <Button variant="outline" onClick={start} className="h-auto min-h-10 whitespace-normal text-left">{resolvedCta}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden /></Button>}
           <span className="block mt-1 text-xs">Kostnadsfritt, ca 20 minuter med Thomas Laine, ingen partner deltar.{" "}
-            <button type="button" onClick={start} className="underline underline-offset-2 hover:text-primary">Eller använd formuläret</button>
+            {placement === "home" && <Button type="button" variant="link" onClick={start} className="h-auto p-0 text-xs">Eller använd formuläret</Button>}
           </span>
         </div>
       )}
@@ -121,15 +124,16 @@ export default function AdvisoryOffer({ variant, placement, cta, pageType, headi
             mode="advisory"
             onClose={() => setOpen(false)}
             topic={{
-              title: dialogTitle || cta,
+              title: dialogTitle || resolvedCta,
               description: dialogDescription || "Resonera med oss om lösning, partner eller kompetens utifrån er situation. Kostnadsfritt och utan förpliktelser. Ingen partner deltar och ingen kontaktas utan ert godkännande.",
-              helpWith: cta,
+              helpWith: resolvedCta,
               startEvent,
               submitEvent,
               messageLabel,
+              onlyOwnContext: sections.length > 0,
               extras: sections,
               metadata: { variant, ...metadata },
-              advisory: { placement, cta, pageType },
+              advisory: { placement, cta: resolvedCta, pageType },
               hideFocus: placement === "question",
               ...(placement === "question" ? { doneTitle: "Tack, Thomas har tagit emot din fråga", doneNotes: ["Thomas svarar personligen via e-post.", "Ingen partner har kontaktats."] } : {}),
             }}

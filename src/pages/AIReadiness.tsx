@@ -1,4 +1,4 @@
-import BookingOffer from "@/components/advisory/BookingOffer";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
 import { createPdfDocument } from "@/utils/pdfDocument";
 import DownloadContactOptIn from "@/components/DownloadContactOptIn";
 import { EMPTY_DOWNLOAD_CONSENT, downloadConsentBody, type DownloadConsent } from "@/lib/downloadConsent";
@@ -2194,7 +2194,10 @@ const AIReadiness = () => {
             </Card>
           )}
 
-          <BookingOffer placement="ai-readiness" className="mt-8" />
+          <AdvisoryOffer variant="inline" placement="solution_advice" pageType="ai_readiness" className="mt-8"
+            cta="Diskutera ert AI-case i 20 minuter" text="Vilket arbetsmoment vill ni förbättra? Thomas hjälper er att avgränsa nyttan och kontrollera process, data och ansvar innan ni går vidare. Kostnadsfritt."
+            sections={[{ key: "ai_readiness", label: "Era förutsättningar", lines: [`System: ${systemDisplayString(foundationAnswers.system)}`, `Bransch: ${foundationAnswers.industry || "Ej angiven"}`, `Storlek: ${foundationAnswers.headcount || "Ej angiven"}`] }]}
+            metadata={{ topic: "ai_improvement", case_type: "ImprovementProject" }} submitEvent="ai_case_requested" />
           <div className="text-center mt-8">
             <Button variant="ghost" onClick={resetAll}>Gör om analysen</Button>
           </div>

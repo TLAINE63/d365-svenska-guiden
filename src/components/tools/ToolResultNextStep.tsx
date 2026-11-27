@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { trackLeadStep } from "@/lib/leadSteps";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowRight, Check, Mail } from "lucide-react";
+import { Download, ArrowRight, Check, Mail, MessageCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,6 +13,9 @@ import { inquiryHref } from "@/lib/inquirySelection";
 import { findTool } from "@/lib/toolUnderlag";
 import { recordTool, type ToolEntry } from "@/lib/toolContext";
 import type { ToolPdfOptions } from "@/utils/generateToolUnderlagPdf";
+import type { ContactSection } from "@/components/plan/PlanContactDialog";
+
+const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
 interface Props { tool: string; product?: string; className?: string; entry?: Omit<ToolEntry, "at" | "tool">; pdf?: ToolPdfOptions; onDownloaded?: () => void }
 
@@ -23,6 +26,7 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
   const [missing, setMissing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [helpSections, setHelpSections] = useState<ContactSection[] | null>(null);
 
   useEffect(() => { trackLeadStep("verktyg_resultat", tool, { once: true }); }, [tool]);
 
@@ -118,6 +122,23 @@ export default function ToolResultNextStep({ tool, product, className = "", entr
           </form>
         )}
       </div>
+      <div className="mt-5 border-t border-border pt-4">
+        <h3 className="text-base font-semibold">Vilka frågor återstår inför ert nästa steg?</h3>
+        <p className="mt-1 text-sm text-muted-foreground">Thomas kan hjälpa er att bedöma antaganden, avgränsa behovet eller jämföra alternativ. Kostnadsfritt. Ni väljer vad som skickas.</p>
+        <Button variant="outline" className="mt-3 h-auto min-h-10 whitespace-normal" onClick={() => {
+          const t = resolve();
+          setHelpSections(t ? [{ key: `tool:${tool}`, label: t.label, lines: [...(t.industry ? [`Bransch: ${t.industry}`] : []), ...Object.entries(t.values).map(([k, v]) => `${k}: ${v}`)] }] : []);
+          trackLeadStep("nasta_steg_klick", tool);
+        }}><MessageCircle className="h-4 w-4 shrink-0" />{tool.includes("copilot") || tool.includes("agent") ? "Diskutera ert AI-case i 20 minuter" : "Ställ en fråga om resultatet"}</Button>
+      </div>
+      {helpSections && <Suspense fallback={null}><PlanContactDialog mode="advisory" onClose={() => setHelpSections(null)} topic={{
+        title: "Ställ en fråga om ert underlag", description: "Skriv vad ni vill kontrollera. Thomas svarar personligen, ingen partner kontaktas.",
+        helpWith: "Fråga om verktygsresultat", startEvent: "tool_result_help_started", submitEvent: "tool_result_help_requested", hideFocus: true,
+        messageLabel: "Vad vill ni få hjälp att bedöma?", extras: helpSections, metadata: { tool }, onlyOwnContext: true,
+        advisory: { placement: "tool_result", cta: "Ställ en fråga om resultatet", pageType: "tool_result" },
+        doneTitle: "Tack, Thomas har fått er fråga", showDoneSummary: true,
+        doneNotes: ["Thomas går igenom er fråga och det underlag ni valt att dela.", "Ingen partner har kontaktats."],
+      }} /></Suspense>}
     </section>
   );
 }

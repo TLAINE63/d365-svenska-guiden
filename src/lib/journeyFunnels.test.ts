@@ -31,4 +31,9 @@ describe("Funnelmätning", () => {
   it("ignorerar händelser utanför funnelmodellen", () => {
     expect(canonicalJourneyEvent("next_step_view", {}, "/")).toBeNull();
   });
+  it("paket A håller rådgivning separat från partnerkontakt och AI i förbättringsresan", () => {
+    expect(canonicalJourneyEvent("tool_result_help_requested", {}, "/")?.metadata.recipient).toBe("d365");
+    expect(canonicalJourneyEvent("ai_case_requested", {}, "/")?.metadata.journey_type).toBe("existing");
+    expect(canonicalJourneyEvent("buyer_next_action_clicked", {}, "/")?.name).toBe("journey_progressed");
+  });
 });

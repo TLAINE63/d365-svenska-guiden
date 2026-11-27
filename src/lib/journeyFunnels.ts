@@ -76,6 +76,10 @@ export const JOURNEY_EVENT_MAP: Record<string, { canonical: CanonicalEvent; jour
   second_opinion_submit: { canonical: "contact_d365_submitted", journey: "existing" },
   isv_product_help_requested: { canonical: "contact_d365_submitted", journey: "isv" },
   question_submitted: { canonical: "contact_d365_submitted", journey: "solution" },
+  tool_result_help_requested: { canonical: "contact_d365_submitted", journey: "solution" },
+  next_step_help_requested: { canonical: "contact_d365_submitted", journey: "solution" },
+  ai_case_requested: { canonical: "contact_d365_submitted", journey: "existing" },
+  buyer_next_action_clicked: { canonical: "journey_progressed", journey: "solution" },
   // Självservice till leverantör (ingen kontaktdata följer med)
   partner_selfservice_clicked: { canonical: "supplier_selfservice_clicked", journey: "partner" },
   isv_product_selfservice_clicked: { canonical: "supplier_selfservice_clicked", journey: "isv" },

@@ -1,3 +1,11 @@
+## Generalplan 2027 v2.0, paket A (2026-11-27)
+- [x] Situationsanpassad rådgivning och delbart verktygsunderlag via befintliga formulär.
+- [x] Regelbaserat nästa steg med lokal kontext, utan automatisk projektbekräftelse.
+- [x] AI-case som väg till rådgivning och befintlig kompetens-/ISV-sökning.
+- [x] Testa neutral relevans för Grundprofil och Premium samt dator/mobil och formulärflöde. Verkligt inskick HTTP 200, underlag sparat, status ny, noll introduktioner; testärendet rensat. Admin-UI kräver separat lösenord och kunde inte verifieras med sajt-kontot.
+- [x] Föreslå 25 pilotföretag från Snitcher i internt läsunderlag + CSV, signaler är inte bekräftade projekt.
+- [ ] Publicering väntar på Thomas.
+
 ## Publiceringsnivå och verifiering (2026-11-26)
 - [x] Publiceringsknappen i Redaktionens listor står på från start: okänd eller ny partner/ISV räknas som publicerad tills den stängs av uttryckligen.
 - [x] Instruktioner till businesscentral.se om publiceringsnivå och daterad verifiering skrivna (Files: instruktioner-businesscentral-se-publiceringsniva.md).

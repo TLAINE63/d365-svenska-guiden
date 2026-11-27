@@ -205,14 +205,6 @@ export const filterAndSortPartners = (
   // bonus go after. Partners with empty target audience get 0 bonus = neutral position.
   const hasSizeSignal = !!selectedCompanySize || !!selectedRevenue;
 
-  // Helper: split list into [signedAgreement, others] preserving inner order
-  const splitByAgreement = (arr: DatabasePartner[]): [DatabasePartner[], DatabasePartner[]] => {
-    const signed: DatabasePartner[] = [];
-    const unsigned: DatabasePartner[] = [];
-    arr.forEach(p => (p.agreement_signed ? signed : unsigned).push(p));
-    return [signed, unsigned];
-  };
-
   if (randomize) {
     if (hasSizeSignal) {
       const withBonus: DatabasePartner[] = [];
@@ -223,30 +215,18 @@ export const filterAndSortPartners = (
         else withoutBonus.push(p);
       });
       const seed = getSessionSeed();
-      const [bonusSigned, bonusUnsigned] = splitByAgreement(withBonus);
-      const [otherSigned, otherUnsigned] = splitByAgreement(withoutBonus);
-      // Agreement signed alltid först inom respektive bonus-grupp
       return [
-        ...seededShuffle(bonusSigned, seed),
-        ...seededShuffle(bonusUnsigned, seed + 1),
-        ...seededShuffle(otherSigned, seed + 2),
-        ...seededShuffle(otherUnsigned, seed + 3),
+        ...seededShuffle(withBonus, seed),
+        ...seededShuffle(withoutBonus, seed + 1),
       ];
     }
-    // Shuffle with session-stable seed but signed-agreement partners first
+    // Session-stable neutral order, independent of commercial presentation.
     const seed = getSessionSeed();
-    const [signed, unsigned] = splitByAgreement(result);
-    return [
-      ...seededShuffle(signed, seed),
-      ...seededShuffle(unsigned, seed + 1),
-    ];
+    return seededShuffle(result, seed);
   }
   
-  // Fallback: Agreement signed first, then size-bonus DESC, ranking, alphabetically
+  // Fallback: relevant size signal, registered product ranking, then name.
   return result.sort((a, b) => {
-    const agA = a.agreement_signed ? 1 : 0;
-    const agB = b.agreement_signed ? 1 : 0;
-    if (agA !== agB) return agB - agA;
     const bonusA = getSizeMatchBonus(a, product, selectedCompanySize, selectedRevenue);
     const bonusB = getSizeMatchBonus(b, product, selectedCompanySize, selectedRevenue);
     if (bonusA !== bonusB) return bonusB - bonusA;

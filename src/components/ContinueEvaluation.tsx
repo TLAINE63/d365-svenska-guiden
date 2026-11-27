@@ -5,6 +5,10 @@ import CompetenceChoiceDialog from "@/components/kompetens/CompetenceChoiceDialo
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { HELP_STEP, deadEndMeta, nextStepOptions, nextStepPage, STAGE_CLASS, type NextStepKind, type NextStepOption, type SourceTemplate } from "@/lib/nextSteps";
+import { Button } from "@/components/ui/button";
+import { useBuyerAction } from "@/lib/useBuyerAction";
+import { readToolContext } from "@/lib/toolContext";
+import { relevantBuyerTools, type BuyerState } from "@/lib/buyerNextAction";
 
 const PlanContactDialog = lazy(() => import("@/components/plan/PlanContactDialog"));
 
@@ -28,6 +32,7 @@ interface Props {
 export default function ContinueEvaluation({ path: pathProp, template, heading = "Fortsätt er utvärdering", className = "" }: Props) {
   const { pathname } = useLocation();
   const path = pathProp ?? pathname;
+  const { action, choose } = useBuyerAction(path, template);
   const page = nextStepPage(path, template);
   const sourceTemplate: SourceTemplate = template ?? "other";
   const ref = useRef<HTMLElement>(null);
@@ -37,6 +42,8 @@ export default function ContinueEvaluation({ path: pathProp, template, heading =
 
   const base = (o?: NextStepOption) => ({
     source_page: path,
+    buyer_state: action.state,
+    evidence_level: action.basis,
     buyer_stage: page?.buyerStage,
     intent_type: page?.intentType,
     stage_class: page ? STAGE_CLASS[page.buyerStage] : undefined,
@@ -58,12 +65,16 @@ export default function ContinueEvaluation({ path: pathProp, template, heading =
   }, [path]);
 
   if (!page) return null;
-  const options = nextStepOptions(page);
+  const options = nextStepOptions(page).map(o => o.kind === "help" ? { ...o, label: action.help, text: "Thomas går igenom er fråga och ert underlag. Ingen partner kontaktas utan ert godkännande." } : o);
+  const choices: { state: BuyerState; label: string }[] = [
+    { state: "EXPLORE", label: "Utforska" }, { state: "FRAME", label: "Avgränsa behovet" },
+    { state: "DECIDE", label: "Jämföra inför beslut" }, { state: "ACT", label: "Planera nästa aktivitet" }, { state: "EVOLVE", label: "Utveckla befintlig lösning" },
+  ];
 
   const clicked = (o: NextStepOption) => {
     trackFunnelEvent({ event_type: "cta_click", event_name: "next_step_clicked", page_path: path, metadata: base(o) });
     const destination = o.to ?? (o.opensCompetenceChoice ? "competence_choice" : "help_d365");
-    trackFunnelEvent({ event_type: "cta_click", event_name: "dead_end_next_step_clicked", page_path: path, metadata: { ...deadEndMeta(sourceTemplate, path, o.kind, destination), stage_class: STAGE_CLASS[page!.buyerStage] } });
+    trackFunnelEvent({ event_type: "cta_click", event_name: "dead_end_next_step_clicked", page_path: path, metadata: { ...deadEndMeta(sourceTemplate, path, o.kind, destination), stage_class: STAGE_CLASS[page.buyerStage] } });
   };
 
   const cardCls = "group flex h-full w-full flex-col items-start gap-2 rounded-lg border border-border bg-card p-4 text-left transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
@@ -83,15 +94,23 @@ export default function ContinueEvaluation({ path: pathProp, template, heading =
       <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-accent">Nästa steg</p>
         <h2 id="fortsatt-utvardering-h" className="mb-5 text-2xl font-bold text-foreground">{heading}</h2>
+        <div className="mb-6 border-l-2 border-accent pl-4">
+          <p className="text-sm text-muted-foreground">{action.reason}</p>
+          {action.to && <Button asChild variant="link" className="mt-2 h-auto justify-start whitespace-normal p-0 text-left"><Link to={action.to} onClick={() => trackFunnelEvent({ event_type: "cta_click", event_name: "buyer_next_action_clicked", metadata: { ...base(), destination: action.to } })}>{action.label}<ArrowRight className="h-4 w-4 shrink-0" /></Link></Button>}
+          <fieldset className="mt-4">
+            <legend className="mb-2 text-sm font-medium">Vad vill ni göra nu?</legend>
+            <div className="flex flex-wrap gap-2">{choices.map(c => <Button key={c.state} variant={action.state === c.state && action.basis === "confirmed" ? "secondary" : "outline"} size="sm" aria-pressed={action.state === c.state && action.basis === "confirmed"} className="h-auto min-h-9 whitespace-normal" onClick={() => { choose(c.state); trackFunnelEvent({ event_type: "engagement", event_name: "buyer_next_step_preference", metadata: { source_page: path, buyer_state: c.state } }); }}>{c.label}</Button>)}</div>
+          </fieldset>
+        </div>
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {options.map((o) => (
             <li key={o.kind}>
               {o.kind === "help" ? (
-                <button type="button" className={cardCls} onClick={() => { clicked(o); setHelpOpen(true); }}>{body(o)}</button>
+                <Button type="button" variant="ghost" className={`${cardCls} h-auto whitespace-normal`} onClick={() => { clicked(o); setHelpOpen(true); }}>{body(o)}</Button>
               ) : o.opensCompetenceChoice ? (
-                <button type="button" className={cardCls} onClick={() => { clicked(o); setCompetenceOpen(true); }}>{body(o)}</button>
+                <Button type="button" variant="ghost" className={`${cardCls} h-auto whitespace-normal`} onClick={() => { clicked(o); setCompetenceOpen(true); }}>{body(o)}</Button>
               ) : (
-                <Link to={o.to!} className={cardCls} onClick={() => clicked(o)}>{body(o)}</Link>
+                <Link to={o.to ?? "/kom-igang/"} className={cardCls} onClick={() => clicked(o)}>{body(o)}</Link>
               )}
             </li>
           ))}
@@ -106,16 +125,17 @@ export default function ContinueEvaluation({ path: pathProp, template, heading =
             mode="advisory"
             onClose={() => setHelpOpen(false)}
             topic={{
-              title: "Få hjälp att bedöma nästa steg",
+              title: action.help,
               description: "Beskriv kort var ni står. d365.se går igenom det manuellt och hör av sig. Inget skickas till någon partner.",
               helpWith: `Nästa steg: ${page.context}`,
               startEvent: "next_step_help_started",
               submitEvent: "next_step_help_requested",
               messageLabel: "Kort meddelande",
+              onlyOwnContext: true,
               hideFocus: true,
-              extras: [{ key: "sammanhang", label: "Sammanhang", lines: [`Sida: ${page.context} (${path})`] }],
+              extras: [{ key: "sammanhang", label: "Sammanhang", lines: [`Sida: ${page.context} (${path})`] }, ...relevantBuyerTools(path, readToolContext()).map(t => ({ key: `tool:${t.tool}`, label: t.label, lines: Object.entries(t.values).map(([k,v]) => `${k}: ${v}`) }))],
               metadata: { ...base(HELP_STEP), intent_context: page.context },
-              advisory: { placement: "next_step_help", cta: "Få hjälp att bedöma nästa steg", pageType: page.buyerStage },
+              advisory: { placement: "next_step_help", cta: action.help, pageType: page.buyerStage },
               doneTitle: "Tack, vi hör av oss",
               showDoneSummary: true,
               doneNotes: [

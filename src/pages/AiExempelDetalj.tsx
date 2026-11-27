@@ -9,6 +9,8 @@ import NotFound from "@/pages/NotFound";
 import BeforeAfterWorkflow from "@/components/ai-examples/BeforeAfterWorkflow";
 import AiExampleCard from "@/components/ai-examples/AiExampleCard";
 import AiTypeBadge from "@/components/ai-examples/AiTypeBadge";
+import AdvisoryOffer from "@/components/advisory/AdvisoryOffer";
+import { nowrapBrand } from "@/lib/nowrapBrand";
 import { BC_TEST_URL } from "@/lib/underlag";
 import { AI_CATEGORIES, AI_TYPES, getApplication, getCategory, getExampleBySlug, getRelatedExamples, productCtaLabel } from "@/data/aiExamples";
 
@@ -184,7 +186,18 @@ const AiExempelDetalj = () => {
             <p className="mt-1 text-sm text-muted-foreground">Hitta en Dynamics&nbsp;365-partner med rätt kompetens för din applikation och ditt behov.</p>
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               <Link to={partnerTo} onClick={t("ai_partner_cta_click", partnerTo)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Hitta rätt partner</Link>
-              {ex.application === "bc" && <a href={BC_TEST_URL} target="_blank" rel="noopener" onClick={t("ai_product_content_click", BC_TEST_URL)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>Utvärderar du Business Central?</a>}
+              {ex.application === "bc" && <a href={BC_TEST_URL} target="_blank" rel="noopener" onClick={t("ai_product_content_click", BC_TEST_URL)} className={`rounded-sm font-medium text-primary hover:underline ${focus}`}>{nowrapBrand("Utvärderar du Business Central?")}</a>}
+            </div>
+          </section>
+          <section className="mt-8 border-t border-border pt-6" aria-labelledby="ai-case-title">
+            <h2 id="ai-case-title" className="mb-3 text-xl font-semibold">Vilket arbetsmoment vill ni förbättra?</h2>
+            <AdvisoryOffer variant="inline" placement="solution_advice" pageType="ai_example" cta="Diskutera ert AI-case i 20 minuter"
+              text="Utgå från det ni vill få gjort. Thomas hjälper er att stämma av nyttan, datan och vad som behöver kontrolleras innan ni väljer standardfunktion, tillägg eller agent."
+              sections={[{ key: "ai_case", label: "AI-exemplet ni vill diskutera", lines: [ex.title, `Applikation: ${app.label}`, `Arbetsmoment: ${ex.userGoal}`] }]}
+              metadata={{ topic: "ai_improvement", case_type: "ImprovementProject", product: ex.application }} submitEvent="ai_case_requested" />
+            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+              <Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-primary underline">Jämför tilläggslösningar</Link>
+              <Link to="/kompetens/" className="text-primary underline">Hitta specialistkompetens</Link>
             </div>
           </section>
         </article>

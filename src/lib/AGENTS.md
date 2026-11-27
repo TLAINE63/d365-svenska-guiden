@@ -29,3 +29,4 @@
 - Buyer journeys (Generalplan 2027 paket 1): HelpRequestsCard classifies cases into the five buyer journeys via src/lib/buyerJourneys.ts (primary, secondary, basis); explicit selection and shared context win and origin_placement is only a fallback hint (needs_guide never implies a new system), admin-only, never affecting qualification or ranking. Expert requests carry ordered_by and assignment_role in journey_selection.
 
 - Publication controls share publicationLevel.ts over existing fields; d365-specific ISV views own visibility and snapshots, so hidden rows cannot return through static catalogue merging or affect other publication destinations.
+- Buyer suggestions are topic-scoped, never QBP; onlyOwnContext excludes unrelated/deselected data. Product lists ignore commercial status and marketing richness.

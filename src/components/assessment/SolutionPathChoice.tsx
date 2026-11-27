@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { nowrapBrand } from "@/lib/nowrapBrand";
 import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import type { BusinessNeedKey } from "@/lib/solutionNeeds";
-import { MEETING_TOPIC } from "@/components/advisory/AdvisorContactButtons";
 import {
   APPROVAL, CRITICALITY, OWNERSHIP, PATH_LABELS, PROCESS_TYPES, SYSTEMS, TASK_TYPES,
   assessSolutionPath, type PathInput, type PathResult,
@@ -139,7 +138,8 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
           <div className="border-t border-border pt-4">
             <p className="text-sm font-medium text-foreground">Vill ni ha en personlig bedömning?</p>
             <p className="text-sm text-muted-foreground">Ett kostnadsfritt samtal på 20 minuter med d365.se. Inget skickas till någon partner.</p>
-            <Button variant="outline" className="mt-3" onClick={() => setOpen(true)}>Boka 20 min rådgivning <ArrowRight className="h-4 w-4" aria-hidden="true" /></Button>
+            <Button variant="outline" className="mt-3 h-auto whitespace-normal" onClick={() => setOpen(true)}>{readiness ? "Diskutera ert AI-case i 20 minuter" : "Få hjälp att avgränsa alternativen"} <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Button>
+            {readiness && <div className="mt-3 flex flex-wrap gap-4 text-sm"><Link to="/kunskapscenter/dynamics-365-tillagg/" className="text-primary underline">Jämför tilläggslösningar</Link><Link to="/kompetens/" className="text-primary underline">Hitta specialistkompetens</Link></div>}
           </div>
         </div>
       )}
@@ -150,14 +150,22 @@ export default function SolutionPathChoice({ sourcePage, areas = [] }: Props) {
             mode="advisory"
             onClose={() => setOpen(false)}
             topic={{
-              ...MEETING_TOPIC,
+              title: readiness ? "Diskutera ert AI-case i 20 minuter" : "Få hjälp att avgränsa alternativen",
+              description: "Thomas går igenom ert arbetsmoment, förutsättningar och öppna frågor. Kostnadsfritt. Inget skickas till någon partner.",
+              helpWith: readiness ? "Bedöma ett AI-förbättringscase" : "Bedöma lösningsvägval",
+              startEvent: "solution_assessment_started", submitEvent: "solution_assessment_requested", hideFocus: true,
+              advisory: { placement: "solution_assessment", cta: "Diskutera ert AI-case", pageType: "solution_path" },
+              sourcePage,
+              onlyOwnContext: true,
               extras: [{ key: "vagval", label: "Lösningsvägval", lines: [
                 ...(input.need?.trim() ? [`Behov: ${input.need.trim()}`] : []),
                 `Första vägval: ${result.primary ? PATH_LABELS[result.primary] : "underlaget räcker inte"}`,
                 ...result.alternatives.map((a) => `Alternativ: ${PATH_LABELS[a]}`),
                 ...(readiness ? [`Förutsättningar för agent: ${readiness.title}`] : []),
+                ...(readiness ? readiness.basis : []),
+                ...result.verify.map(v => `Behöver verifieras: ${v}`),
               ] }],
-              metadata: { tool: "solution_path", source_page: sourcePage, primary: result.primary ?? "insufficient" },
+              metadata: { tool: "solution_path", source_page: sourcePage, primary: result.primary ?? "insufficient", ...(readiness ? { case_type: "ImprovementProject", topic: "ai_improvement" } : {}) },
             }}
           />
         </Suspense>

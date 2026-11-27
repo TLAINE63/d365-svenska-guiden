@@ -19,6 +19,11 @@ export interface ToolEntry {
   values: Record<string, string>;
 }
 
+/** A deselected summary must not be sent again through hidden form context. */
+export function toolsForSharedSections(tools: ToolEntry[], keys: string[]): ToolEntry[] {
+  return tools.filter(t => keys.includes(`tool:${t.tool}`));
+}
+
 const s = (v: unknown, n = 120) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 
 /** Ren funktion: ersätter verktygets tidigare post och håller de senaste MAX_TOOLS. */
@@ -44,6 +49,7 @@ export function recordTool(entry: Omit<ToolEntry, "at">): void {
   try {
     const next = upsertTool(readToolContext(), { ...entry, at: new Date().toISOString() });
     window.sessionStorage.setItem(TOOL_CONTEXT_KEY, JSON.stringify(next));
+    window.dispatchEvent(new Event("d365-tool-context"));
   } catch { /* formuläret skickas utan verktygskontext */ }
 }
 
