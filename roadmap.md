@@ -1,3 +1,7 @@
+## Partnersidan, enhetlig bredd (2026-11-27)
+- [x] Samma 72rem-behållare och sidmarginaler för avsnitt, filter och partnerlistor; läsbredd begränsas bara för text.
+- [x] Partnerfiltrering med Business Central och namnsökning på Columbus verifierad på 1440, 595 och 375 px; jämna sidmarginaler, ingen sidöverbredd eller körfel.
+
 ## Generalplan 2027 v2.0, paket A (2026-11-27)
 - [x] Situationsanpassad rådgivning och delbart verktygsunderlag via befintliga formulär.
 - [x] Regelbaserat nästa steg med lokal kontext, utan automatisk projektbekräftelse.

@@ -743,14 +743,14 @@ const ValjPartner = () => {
   tertiary={{ label: "Gå till partnerlistan", onClick: () => document.getElementById("hitta-partners")?.scrollIntoView({ behavior: "smooth", block: "start" }), icon: List }}
   />
 
-  <ShortAnswer title={"Vad är en Dynamics\u00A0365-partner"}>
+  <ShortAnswer className="[&_.max-w-4xl]:max-w-3xl" title={"Vad är en Dynamics\u00A0365-partner"}>
  Rätt Dynamics{"\u00A0"}365-partner har bevisad erfarenhet av respektive produktområde (Business Central, Finance & Supply Chain Management (F&O), Sales, Customer Service m.fl.), din bransch och en storlek som matchar dig. På d365.se kan du jämföra svenska ERP-partners, CRM-partners och andra återförsäljare av Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 (ofta kallade resellers) utifrån bransch, geografi och AI-mognad, och få rekommendationer utifrån era behov via vår partnerguide.
  </ShortAnswer>
 
   {/* Rådgivning med Thomas, högt upp innan partnerlistan */}
   <section className="py-6 sm:py-8" aria-labelledby="radgivning-thomas">
    <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-    <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-5 items-start rounded-xl border-2 border-primary/30 bg-primary/5 p-5 sm:p-6">
+    <div className="w-full flex flex-col sm:flex-row gap-5 items-start rounded-xl border-2 border-primary/30 bg-primary/5 p-5 sm:p-6">
      <img
       src={thomasLainePhoto}
       alt="Thomas Laine, rådgivare på d365.se"
@@ -774,11 +774,11 @@ const ValjPartner = () => {
 
  <section className="py-8 sm:py-10" aria-labelledby="krav-pa-partner">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
+ <div className="w-full">
  <h2 id="krav-pa-partner" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Vad ska du kräva av en certifierad Dynamics partner?
  </h2>
- <p className="text-muted-foreground mb-5">
+ <p className="max-w-3xl text-muted-foreground mb-5">
  En certifiering visar att partnern uppfyller Microsofts krav, men säger inte allt om hur projektet och förvaltningen kommer att fungera för just er. Be om belägg för de här fyra punkterna innan ni går vidare.
  </p>
  <ul className="grid gap-4 sm:grid-cols-2">
@@ -828,11 +828,11 @@ const ValjPartner = () => {
 
  <section className="py-8 sm:py-10" aria-labelledby="kundcase-referenser">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-4xl mx-auto rounded-lg border border-border bg-card p-6">
+ <div className="w-full rounded-lg border border-border bg-card p-6">
  <h2 id="kundcase-referenser" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Kundcase och referenstagning: vad ska du kräva av din Microsoft{"\u00A0"}Dynamics{"\u00A0"}365-partner?
  </h2>
- <div className="space-y-3 text-muted-foreground">
+ <div className="max-w-3xl space-y-3 text-muted-foreground">
  <p>När du ska välja partner för Microsoft{"\u00A0"}Dynamics{"\u00A0"}365 är relevanta kundcase ett av de viktigaste beslutsunderlagen. Nöj dig inte med generiska logotyper på en webbplats. Be alltid om att få tala direkt med 2–3 referenskunder som har en liknande verksamhet, bransch och komplexitet som ert företag.</p>
  <p className="font-semibold text-foreground">Viktiga frågor att ställa till partnerns referenser:</p>
  <ol className="list-decimal pl-5 space-y-1">
@@ -849,11 +849,11 @@ const ValjPartner = () => {
 
  <section className="py-8 sm:py-10">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-4xl mx-auto rounded-lg border border-border bg-card p-6">
+ <div className="w-full rounded-lg border border-border bg-card p-6">
  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Dynamics{"\u00A0"}365 konsult eller Microsoft-partner, vad är skillnaden?
  </h2>
- <div className="space-y-3 text-muted-foreground">
+ <div className="max-w-3xl space-y-3 text-muted-foreground">
  <p>Många söker en Dynamics{"\u00A0"}365 konsult när de egentligen behöver ett helt leveransteam. En Microsoft Dynamics-partner är ett bolag med avtal och kompetens hos Microsoft, och ansvarar ofta för hela införandet: projektledning, lösningsdesign, utveckling, migrering, utbildning och förvaltning. En fristående konsult bidrar oftast med en specifik roll eller expertis.</p>
  <p>För ett nytt införande eller ett partnerbyte är en partner normalt rätt startpunkt. En enskild konsult kan passa när ni redan har en fungerande lösning och behöver förstärkning inom ett avgränsat område. Fråga alltid vem som bär ansvaret om något går fel och vem som äger dokumentation, kod och administratörsåtkomst.</p>
  <p>
@@ -869,11 +869,11 @@ const ValjPartner = () => {
 
  <section className="py-8 sm:py-10" aria-labelledby="helhetsleverans">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
+ <div className="w-full">
  <h2 id="helhetsleverans" className="text-xl sm:text-2xl font-bold text-foreground mb-3">
  Vem kan implementera Dynamics{"\u00A0"}365 som helhetsleverans?
  </h2>
- <p className="text-muted-foreground mb-5">
+ <p className="max-w-3xl text-muted-foreground mb-5">
  Tre saker avgör om en partner klarar hela införandet och inte bara levererar enskilda konsulter.
  </p>
  <div className="grid gap-4 md:grid-cols-3">
@@ -910,16 +910,16 @@ const ValjPartner = () => {
  {/* Fem viktiga frågor Section */}
  <section className="py-8 sm:py-12 md:py-16 bg-secondary/50">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-4xl mx-auto">
+ <div className="w-full">
  <div className="text-center mb-8 sm:mb-10 md:mb-12">
  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
  Fem viktiga frågor vid val av implementationspartner
  </h2>
- <p className="text-base sm:text-lg text-muted-foreground px-2 mb-4">
+ <p className="max-w-3xl mx-auto text-base sm:text-lg text-muted-foreground mb-4">
  Valet av implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
  En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
  </p>
- <p className="text-base sm:text-lg text-muted-foreground px-2">
+ <p className="max-w-3xl mx-auto text-base sm:text-lg text-muted-foreground">
  Här är fem viktiga frågor du (eller din organisation) bör ställa din själva inför valet av implementationspartner för Dynamics 365
  </p>
  </div>
@@ -1016,8 +1016,8 @@ const ValjPartner = () => {
 
  {/* Lead Magnet Banner after Fem viktiga frågor */}
  {showLeadMagnet && (
- <section id="guide" className="px-4 py-8 bg-muted/30">
- <div className="container mx-auto max-w-6xl">
+ <section id="guide" className="py-8 bg-muted/30">
+ <div className="container mx-auto max-w-6xl px-4 sm:px-6">
  <LeadMagnetBanner 
  sourcePage="/valjdynamics365partner" 
  onClose={() => setShowLeadMagnet(false)}
@@ -1048,7 +1048,7 @@ const ValjPartner = () => {
 
 
  {/* Steg 1: behov */}
- <div className="mx-auto max-w-4xl">
+ <div className="w-full">
   <FilterButtons
    title="Vad behöver ni hjälp med?"
    icon="need"
@@ -1065,7 +1065,7 @@ const ValjPartner = () => {
  </div>
 
  {/* Fritextsökning på partnernamn */}
- <div className="mx-auto mb-8 max-w-xl">
+ <div className="mb-8 w-full">
   <label htmlFor="partner-name-search" className="sr-only">Sök partner på namn</label>
   <div className="relative">
    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -1081,7 +1081,7 @@ const ValjPartner = () => {
  </div>
 
  {underlagMode && (
-  <p className="mx-auto mb-6 max-w-3xl rounded-lg border border-primary/30 bg-primary/5 px-4 py-2 text-center text-sm text-foreground">
+  <p className="mb-6 w-full rounded-lg border border-primary/30 bg-primary/5 px-4 py-2 text-center text-sm text-foreground">
    Filtren är förifyllda från ert underlag.{" "}
    <Link to="/underlag/" className="text-primary underline">ändra</Link>
   </p>
@@ -1201,7 +1201,7 @@ const ValjPartner = () => {
   Verifierad betyder att d365.se har granskat partnerns uppgifter. Det påverkar inte vilka partners som passar er, och avtal eller betald presentation ger aldrig verifieringsstatus.
  </p>
 
- <NastaSteg typ="partnerlista" product={selectedApplications.length === 1 ? selectedApplications[0] : undefined} industry={selectedIndustry} />
+ <NastaSteg className="[&>.container]:px-0" typ="partnerlista" product={selectedApplications.length === 1 ? selectedApplications[0] : undefined} industry={selectedIndustry} />
 
  {/* Ankare för startsidans sökruta: landa precis ovanför resultatlistan. */}
  <div id="partner-resultat" className="relative -top-10 scroll-mt-28" aria-hidden="true" />
@@ -1283,9 +1283,9 @@ const ValjPartner = () => {
  </div>
   ) : (
    <>
-    {searchParams.get("source") === "min-d365-plan" && (selectedApplications.length > 0 || selectedIndustry) && <p className="mb-4 max-w-4xl mx-auto rounded-md border border-border bg-card p-3 text-sm text-foreground">Utifrån er D365-plan visar vi partners inom {[...selectedApplications.map(applicationFilterLabel), selectedIndustry?.toLocaleLowerCase("sv")].filter(Boolean).join(" och ").replace(/Dynamics 365/g, "Dynamics\u00a0365")}. Ordningen påverkas inte av planen och ni kan ändra filtren fritt.</p>}
-    <WhyTheseResults className="mb-6 max-w-4xl mx-auto" criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
-    <div className="mb-6 max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 p-4">
+    {searchParams.get("source") === "min-d365-plan" && (selectedApplications.length > 0 || selectedIndustry) && <p className="mb-4 w-full rounded-md border border-border bg-card p-3 text-sm text-foreground">Utifrån er D365-plan visar vi partners inom {[...selectedApplications.map(applicationFilterLabel), selectedIndustry?.toLocaleLowerCase("sv")].filter(Boolean).join(" och ").replace(/Dynamics 365/g, "Dynamics\u00a0365")}. Ordningen påverkas inte av planen och ni kan ändra filtren fritt.</p>}
+    <WhyTheseResults className="mb-6 w-full" criteria={[...selectedApplications.map(applicationFilterLabel), selectedIndustry, selectedGeography]} />
+    <div className="mb-6 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-md border border-primary/40 bg-primary/5 p-4">
       <div className="text-sm text-foreground">
        <p><span className="font-semibold">Nästa steg:</span> spara 1–3 partners i kortlistan och jämför dem. Kontakta sedan en partner själva eller be d365.se om hjälp med urvalet.</p>
        <p className="mt-1 text-xs text-muted-foreground">"Besök partnern" öppnar partnerns egen webbplats. d365.se skickar inga uppgifter om er till partnern.</p>
@@ -1401,7 +1401,7 @@ const ValjPartner = () => {
 
  {/* Sprint 1.1 Conversion Exit B: hjälp från d365.se (internt granskningsärende, inget skickas till partner) */}
  <BookingOffer
-  className="max-w-4xl mx-auto mt-12"
+  className="w-full mt-12"
   placement="partnerlista" advisoryPlacement="partner_search"
   submitEvent="partner_selection_help_requested"
   sections={[
@@ -1413,7 +1413,7 @@ const ValjPartner = () => {
   ]}
   metadata={{ need: need ?? null, intent_type: intentForNeed(need), products: selectedApplications.length, shortlist: shortlistItems.length }}
  />
- <p className="max-w-4xl mx-auto mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+ <p className="w-full mt-4 rounded-lg border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
   <span className="font-semibold text-foreground">Har ni redan ett förslag från en partner?</span>{" "}
   Låt d365.se göra en rimlighetsbedömning av upplägg, timmar och licenser innan ni skriver på.{" "}
   <Link to="/second-opinion/" className="font-semibold text-foreground underline underline-offset-4 hover:text-accent">Få en second opinion</Link>
@@ -1424,11 +1424,11 @@ const ValjPartner = () => {
   {/* Fördjupning: F&SCM-specialister och tillverkande industri */}
   <section className="py-10 sm:py-12 border-t border-border" aria-labelledby="fscm-partners">
    <div className="container mx-auto max-w-6xl px-4 sm:px-6">
-    <div className="max-w-4xl mx-auto">
+    <div className="w-full">
      <h2 id="fscm-partners" className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
       Vilka partners är specialiserade på Finance & Operations (F&SCM)?
      </h2>
-     <p className="text-muted-foreground leading-relaxed mb-5">
+     <p className="max-w-3xl text-muted-foreground leading-relaxed mb-5">
       Implementering av Finance & Supply Chain Management (F&SCM) ställer helt andra krav på projektmetodik, lösningsarkitektur och certifieringar än mindre system. Betydligt färre partners i Sverige arbetar med F&SCM än med Business Central, och erfarenheten av storskaliga projekt varierar mycket. Be därför om referenser i er egen skala. Osäker på vilka som har rätt kompetens för er? Boka en kort avstämning så går vi igenom era krav.
      </p>
      {fscmProfilePartners.length > 0 && (
@@ -1468,7 +1468,7 @@ const ValjPartner = () => {
      <h2 id="partner-tillverkande-industri" className="text-2xl sm:text-3xl font-bold text-foreground mt-12 mb-3">
       Att tänka på vid val av Microsoft{"\u00A0"}Dynamics{"\u00A0"}365-partner för tillverkande industri
      </h2>
-     <p className="text-muted-foreground leading-relaxed mb-5">
+     <p className="max-w-3xl text-muted-foreground leading-relaxed mb-5">
       För industriföretag handlar valet sällan bara om ekonomi – det avgörs av partnerns förmåga inom avancerad produktionsplanering, lageroptimering, spårbarhet och maskinintegrationer. Välj en partner som förstår verkstadsgolvet och tillverkande processer, inte bara standardkonfigurationer.
      </p>
      <div className="flex flex-wrap gap-3">
@@ -1491,7 +1491,7 @@ const ValjPartner = () => {
      <h2 id="crm-partners" className="text-2xl sm:text-3xl font-bold text-foreground mt-12 mb-3">
       Partners för Dynamics{"\u00A0"}365 CRM (Sales & Customer Service)
      </h2>
-     <p className="text-muted-foreground leading-relaxed mb-5">
+     <p className="max-w-3xl text-muted-foreground leading-relaxed mb-5">
       Söker ni en partner som kan bygga sömlösa säljprocesser, kundservice eller fältservice i Microsoft{"\u00A0"}Dynamics{"\u00A0"}365? Flera svenska konsulthus är specialiserade på just Customer Engagement-plattformen (CRM), medan andra främst arbetar med affärssystem (ERP). Kontrollera därför att partnern har CRM-referenser, inte bara ERP-projekt.
      </p>
      {crmProfilePartners.length > 0 && (
@@ -1537,7 +1537,7 @@ const ValjPartner = () => {
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-60" />
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent opacity-40" />
     <div className="relative container mx-auto max-w-6xl px-4 sm:px-6">
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="w-full text-center">
         <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-medium mb-5">
           <ArrowLeftRight className="h-4 w-4" />
           Sida vid sida
@@ -1567,11 +1567,11 @@ const ValjPartner = () => {
   {/* Statisk partnerlista för SEO/AI – renderas i HTML även utan JS */}
  <section className="py-12 bg-background border-t border-border" aria-labelledby="alla-partners-rubrik">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-5xl mx-auto">
+ <div className="w-full">
  <h2 id="alla-partners-rubrik" className="text-2xl md:text-3xl font-bold text-foreground mb-3">
  Alla verifierade partnerprofiler
  </h2>
- <p className="text-muted-foreground mb-5">
+ <p className="max-w-3xl text-muted-foreground mb-5">
  Komplett lista i bokstavsordning över partners som har en profil på d365.se. Taggarna visar vilka områden partnern själv anger. Välj ett område för att visa bara de partnerna.
  </p>
  <div className="flex flex-wrap gap-2 mb-6" role="group" aria-label="Visa partners per område">
@@ -1668,7 +1668,7 @@ className="text-[10px] px-1.5 py-0 border-primary/30 text-primary bg-primary/5"
  {/* CTA Section */}
  <section className="py-10 bg-secondary/50">
  <div className="container mx-auto max-w-6xl px-4 sm:px-6">
- <div className="max-w-3xl mx-auto">
+ <div className="w-full">
  <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
  <div className="flex-shrink-0">
  <img 
