@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -187,14 +187,6 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const publishedPerPartner = useMemo(() => {
-    const map: Record<string, number> = {};
-    profiles.filter((p) => p.status === "published").forEach((p) => {
-      map[p.partner_id] = (map[p.partner_id] || 0) + 1;
-    });
-    return map;
-  }, [profiles]);
-
   const openEdit = (p?: ProfileRow) => {
     if (!p) return setEditing(emptyProfile());
     setEditing({
@@ -264,7 +256,7 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
         <div>
           <CardTitle>Uppdragsprofiler</CardTitle>
           <CardDescription>
-            Partnerns erfarenhet per kompetensguide. Högst tre publicerade profiler per partner.
+            Partnerns erfarenhet per kompetensguide.
             Publicering kräver datum för redaktionell kontroll och visas publikt i tolv månader.
           </CardDescription>
         </div>
@@ -289,9 +281,6 @@ export default function RedaktionAssignmentProfilesTab({ token, partners, onSess
             <span className="text-xs text-muted-foreground">
               Kontrollerad: {p.last_reviewed_at || "saknas"}
             </span>
-            {p.status === "published" && (publishedPerPartner[p.partner_id] || 0) >= 3 && (
-              <span className="text-xs text-muted-foreground">3 av 3 publicerade</span>
-            )}
             <Button size="sm" variant="outline" onClick={() => openEdit(p)}>
               Redigera
             </Button>

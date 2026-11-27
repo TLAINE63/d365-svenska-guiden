@@ -83,7 +83,7 @@ Vi har lanserat d365guide.com, en ny nordisk sajt som hjälper köpare att hitta
 - **Förenklad profilering.** Vi har tagit bort frågor som alla kryssade i och slagit ihop Power Platform till ett val.
 - **Nya köparunderlag (oktober).** Besökare skapar anonyma behovsanalyser som matchas mot era profiler. Varje tomt fält i er profil visas som "saknas" för köparen, så en komplett profil syns bättre.
 - **Shortlist och "Be om introduktion".** Köpare kan stjärnmarkera upp till tre partners och be om introduktion direkt.
-- **Expertkompetensprofiler.** Max tre per partner, med konsultroller och uppdrag. Håll "senast kontrollerat"-datumet aktuellt.
+- **Expertkompetensprofiler.** Obegränsat antal per partner, med konsultroller och uppdrag. Håll "senast kontrollerat"-datumet aktuellt.
 - **ISV-katalogen** har 192 publicerade lösningar, och vår nya **rollguide** hjälper VD, CFO, COO och IT-chefer att hitta rätt innehåll.
 
 ## Det här kan du göra nu

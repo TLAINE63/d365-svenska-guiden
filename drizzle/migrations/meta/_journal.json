@@ -435,6 +435,13 @@
       "when": 1795779897439,
       "tag": "0061_newsletter_contact_optout",
       "breakpoints": true
+    },
+    {
+      "idx": 62,
+      "version": "7",
+      "when": 1795780104198,
+      "tag": "0062_remove_assignment_profile_limit",
+      "breakpoints": true
     }
   ]
 }
